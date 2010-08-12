@@ -469,6 +469,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     }
 
     // GS-10375
+    // TODO-10375 write a unit test in DiscussionSubmissionControllerTest.java to test logic for whether or not to send email
     public void notifyAboutReply(HttpServletRequest request, SessionContext sessionContext, CmsDiscussionBoard board, Discussion discussion, DiscussionReply reply, User replyAuthor) {
         User author = _userDao.findUserFromId(discussion.getAuthorId());
 

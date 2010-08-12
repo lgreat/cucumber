@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: DiscussionTagHandler.java,v 1.9 2009/12/04 22:27:02 chriskimm Exp $
+ * $Id: DiscussionTagHandler.java,v 1.10 2010/08/12 23:36:23 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -19,7 +19,9 @@ public class DiscussionTagHandler extends LinkTagHandler {
     private String _fullUri;
     private Integer _discussionReplyId; // optionally specify the discussion reply to link to
 
-    protected UrlBuilder createUrlBuilder() {
+    // made this public to allow for reuse in Java code as well as link tag from jsp/tagx;
+    // maybe this logic should be moved entirely into UrlBuilder
+    public UrlBuilder createUrlBuilder() {
         UrlBuilder builder;
         if (_discussion != null) {
             builder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, _fullUri, Long.valueOf(_discussion.getId()));

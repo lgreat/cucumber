@@ -42,6 +42,15 @@ public class ManagementController extends SimpleFormController implements ReadWr
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
+    private IUserContentDao _userContentDao;
+
+    public IUserContentDao getUserContentDao() {
+        return _userContentDao;
+    }
+
+    public void setUserContentDao(IUserContentDao userContentDao) {
+        _userContentDao = userContentDao;
+    }
 
     public ISubscriptionDao getSubscriptionDao() {
         return _subscriptionDao;
@@ -290,7 +299,13 @@ public class ManagementController extends SimpleFormController implements ReadWr
         user.setFirstName(command.getFirstName());
 
         // replies to community posts
-        user.setNotifyAboutReplies(command.isRepliesToCommunityPosts());
+        boolean newNotifyAboutReplies = command.isRepliesToCommunityPosts();
+        boolean oldNotifyAboutReplies = user.getNotifyAboutReplies();
+        user.setNotifyAboutReplies(newNotifyAboutReplies);
+        if (!oldNotifyAboutReplies && newNotifyAboutReplies) {
+            // turn notifications back on for all discussions authored by this user
+            _userContentDao.resetNotifyAuthorAboutReplies(user.getId());
+        }
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
         State state = user.getState();

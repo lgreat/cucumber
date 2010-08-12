@@ -1,5 +1,6 @@
 package gs.web.community;
 
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.context.SessionContext;
@@ -42,7 +43,10 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     private SolrService _solrService;
     private IAlertWordDao _alertWordDao;
     private IReportContentService _reportContentService;
+    private IUserDao _userDao;
+    private ExactTargetAPI _exactTargetAPI;
     private User _user;
+    private User _author;
     private DiscussionSubmissionCommand _command;
 
     @Override
@@ -60,6 +64,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _solrService = createStrictMock(SolrService.class);
         _alertWordDao = createStrictMock(IAlertWordDao.class);
         _reportContentService = createStrictMock(IReportContentService.class);
+        _userDao = createStrictMock(IUserDao.class);
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
 
         _controller.setDiscussionDao(_discussionDao);
         _controller.setDiscussionReplyDao(_discussionReplyDao);
@@ -68,10 +74,16 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _controller.setSolrService(_solrService);
         _controller.setAlertWordDao(_alertWordDao);
         _controller.setReportContentService(_reportContentService);
+        _controller.setUserDao(_userDao);
+        _controller.setExactTargetAPI(_exactTargetAPI);
 
         _user = new User();
         _user.setId(5);
         _user.setPlaintextPassword("password");
+
+        _author = new User();
+        _author.setId(5);
+        _author.setPlaintextPassword("password");
 
         _command = new DiscussionSubmissionCommand();
 
@@ -98,11 +110,11 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     }
 
     private void replayAllMocks() {
-        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService, _alertWordDao, _reportContentService);
+        replayMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService, _alertWordDao, _reportContentService, _userDao, _exactTargetAPI);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService, _alertWordDao, _reportContentService);
+        verifyMocks(_discussionDao, _discussionReplyDao, _cmsDiscussionBoardDao, _publicationDao, _solrService, _alertWordDao, _reportContentService, _userDao, _exactTargetAPI);
     }
 
 //    private void resetAllMocks() {
@@ -114,6 +126,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         assertSame(_discussionReplyDao, _controller.getDiscussionReplyDao());
         assertSame(_alertWordDao, _controller.getAlertWordDao());
         assertSame(_reportContentService, _controller.getReportContentService());
+        assertSame(_userDao, _controller.getUserDao());
+        assertSame(_exactTargetAPI, _controller.getExactTargetAPI());
     }
 
     private void insertUserIntoRequest() {
@@ -685,6 +699,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setId(1);
         discussion.setBoardId(2L);
         discussion.setNumReplies(5);
+        discussion.setAuthorId(_author.getId());
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
@@ -705,6 +720,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao.save(eqDiscussionReply(reply));
         expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
         _discussionDao.saveKeepDates(discussion);
+        expect(_userDao.findUserFromId(_author.getId())).andReturn(_author);
 
         replayAllMocks();
         try {
@@ -765,6 +781,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setId(1);
         discussion.setBoardId(2L);
         discussion.setNumReplies(5);
+        discussion.setAuthorId(_author.getId());
         _command.setBody("Hi there.\n\nSup?");
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
@@ -785,6 +802,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao.save(eqDiscussionReply(reply));
         expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
         _discussionDao.saveKeepDates(discussion);
+        expect(_userDao.findUserFromId(_author.getId())).andReturn(_author);
 
         replayAllMocks();
         try {
@@ -806,6 +824,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setId(1);
         discussion.setBoardId(2L);
         discussion.setNumReplies(5);
+        discussion.setAuthorId(_author.getId());
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect(null);
@@ -826,6 +845,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao.save(eqDiscussionReply(reply));
         expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
         _discussionDao.saveKeepDates(discussion);
+        expect(_userDao.findUserFromId(_author.getId())).andReturn(_author);
 
         replayAllMocks();
         try {
@@ -919,6 +939,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setId(1);
         discussion.setBoardId(2L);
         discussion.setNumReplies(5);
+        discussion.setAuthorId(_author.getId());
         _command.setBody(longBody.toString());
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
@@ -942,6 +963,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _discussionReplyDao.save(eqDiscussionReply(reply));
         expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
         _discussionDao.saveKeepDates(discussion);
+        expect(_userDao.findUserFromId(_author.getId())).andReturn(_author);
 
         replayAllMocks();
         try {
