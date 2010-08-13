@@ -82,19 +82,21 @@
                         <div class="ratingSummaryContent">
                             <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:12px;"/>
 
-                            <h2>About GreatSchools Ratings:</h2>
-                            <p>
+                            <p class="text1bold">About GreatSchools Ratings:</p>
+                            <p class="text3">
                                 Our ratings give an overview of this<br/>
                                 school's test results. They are based<br/>
                                 on a comparison of test results for all<br/>
                                 schools in the state.
                             </p>
-                            <p><link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings">What our ratings tell you &gt;</link:cmsContent></p>
+                            <p class="text3"><link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings">What our ratings tell you &gt;</link:cmsContent></p>
                             <c:if test="${hasRating == 'true'}">
-                                <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
+                                <p class="text3"><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
                             </c:if>
                         </div>
                     </div>
+                    <div class="spacer_20 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
+                    <div class="spacer_20"><!-- do not collapse --></div>
 
                     <c:if test="${hasRating == 'true'}">
                         <ratings:table ratingsDisplay="${ratingsDisplay}"/>
