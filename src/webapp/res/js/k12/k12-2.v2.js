@@ -1,5 +1,5 @@
 function setOverlayCookie() {
-    subCookie.setObjectProperty('k12Overlay', 'k12Overlay', 1, 365);
+    subCookie.setObjectProperty('k12Overlay', 'k12Overlay', 1, 1);
 }
 
 function hasK12Cookie() {

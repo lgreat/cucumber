@@ -47,6 +47,15 @@ public class K12OverlayHelper {
         k12DateRange.add("2010-08-24"); // 8/24 *GS-10386*
         k12DateRange.add("2010-08-25"); // 8/25 *GS-10386*
         k12DateRange.add("2010-08-30"); // 8/30
+
+        k12DateRange.add("2010-08-19"); // 8/19 *GS-10487*
+        k12DateRange.add("2010-08-20"); // 8/20 *GS-10487*
+        k12DateRange.add("2010-08-21"); // 8/21 *GS-10487*
+        k12DateRange.add("2010-08-22"); // 8/22 *GS-10487*
+        k12DateRange.add("2010-08-26"); // 8/26 *GS-10487*
+        k12DateRange.add("2010-08-27"); // 8/27 *GS-10487*
+        k12DateRange.add("2010-08-28"); // 8/28 *GS-10487*
+        k12DateRange.add("2010-08-29"); // 8/29 *GS-10487*
     }
 
     // The overlay should only be active on the following dates:
