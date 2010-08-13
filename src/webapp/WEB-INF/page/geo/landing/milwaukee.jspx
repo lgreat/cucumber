@@ -54,7 +54,7 @@
 <gsml:body adPageName="research" pageLayout="nocol">
 
     <div id="left-content">
-        <div class="mainLeft">
+        <!--<div class="mainLeft">
             <div id="outreachManager">
                 <div id="managerPhotoBorder">
                     <div id="managerPhoto">Photo of Outreach Manager</div>
@@ -74,7 +74,25 @@
                     </link:schoolChoiceCenter>
                 </li>
             </ul>
-        </div>
+        </div>-->
+        <div class="module"><span class="m_title treb15 tint5bc">Meet Our Team</span>
+
+                <div class="m_content">
+                    <img class="m_img" name="team" src="/res/img/geo/landing/wi_mot.jpg" width="174" height="103"
+                         alt="Nadia, Natanya, Pamela, Hasaani"/>
+
+                    <div class="m_list treb12B tint5bc">Vanna Lovan<br/>
+                        <span class="treb12 tint666">Community Organizer</span></div>
+                    <div class="m_list treb12B tint5bc">Nzinga Khalid<br/>
+                        <span class="treb12 tint666">Community Organizer</span></div>
+                    <div class="m_list treb12B tint5bc">Jodi Goldberg<br/>
+                        <span class="treb12 tint666">Director</span></div>
+                    <div class="m_list treb12B tint5bc">Nelly Hernandez<br/>
+                        <span class="treb12 tint666">Community Organizer</span></div>
+                </div>
+                <!--end module content -->
+            </div>
+            <!--end module -->
         <hr />
         <div class="mainLeft" id="partners">
             <h3><span>Our Partners</span></h3>

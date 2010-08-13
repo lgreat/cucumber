@@ -55,3 +55,122 @@ div#promoRulesLink a:active {
     margin: -8px 0 8px 0;
     float:left;
 }
+
+/* ------------------- */
+/* LEFT COLUMN MODULES */
+/* ------------------- */
+
+#left-content .module{
+	width:195px;
+	background:#dee;
+	padding:6px;
+}
+
+#left-content .m_title{
+	display:block;
+    padding:4px 0 0 5px;
+}
+
+#left-content .m_content{
+	width:175px;
+	background:#fff;
+	margin-top:7px;
+	padding:10px;
+}
+
+#left-content .m_list{
+	padding:2px 0 5px 0;
+}
+
+#left-content .m_img{
+	padding:0 0 10px 0;
+}
+
+/* -------------- */
+/* GRAPHIC SYTLES */
+/* -------------- */
+
+.italic{
+	font-style:italic;
+}
+
+.rule{
+	background-color: #dee;
+ 	color: #dee;
+	height: 1px;
+	border:0;
+	width:205px;
+}
+
+.forms{
+	margin-top:10px;
+}
+
+.inputs{
+    border:1px solid #bbb;
+}
+
+form input.button{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+#left-content .cent17{
+	font:17px "Century Gothic", Arial, Helvetica, sans-serif;
+}
+
+#left-content .cent17B{
+	font:bold 17px "Century Gothic", Arial, Helvetica, sans-serif;
+}
+
+#left-content .treb19{
+	font:19px Arial, Arial, Helvetica, sans-serif;
+}
+
+#left-content .treb17{
+	font:17px Arial, Arial, Helvetica, sans-serif;
+}
+
+#left-content .treb15{
+	font:15px Arial, Arial, Helvetica, sans-serif;
+}
+
+#left-content .treb13{
+	font:13px Arial, Arial, Helvetica, sans-serif;
+}
+
+#left-content .treb13B{
+	font:bold 13px Arial, Arial, Helvetica, sans-serif;
+}
+
+#left-content .treb12, #promoRulesLink .treb12{
+	font:12px Arial, Arial, Helvetica, sans-serif;
+}
+
+#left-content .treb12B{
+	font:bold 12px Arial, Arial, Helvetica, sans-serif;
+}
+
+#promoRulesLink .tint888{
+	color:#888;
+}
+
+#left-content .tint777{
+	color:#777;
+}
+
+#left-content .tint666{
+	color:#666;
+}
+
+#left-content .tint5bc{
+	color:#5bc;
+}
+
+#left-content .tint39a{
+	color:#39a;
+}
+
+#left-content .tintfff{
+	color:#fff;
+}
