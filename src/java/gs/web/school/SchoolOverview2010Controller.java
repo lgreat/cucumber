@@ -80,6 +80,10 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
 
+            // GS-10484
+            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+            model.put("relCanonical", urlBuilder.asFullUrl(request));
+
             // page only needs up to three, but we need the total number as well
             // should probably add a method _reviewDao.getTotalPublishedReviewsBySchool(school)
             // and limit the following query to 3
