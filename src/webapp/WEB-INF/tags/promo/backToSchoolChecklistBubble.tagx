@@ -32,7 +32,7 @@
         var sitePreferences = subCookie.getObject("btsChecklist");
 
         if (sitePreferences == undefined || sitePreferences.hideBtsChecklist != "true") {
-            jQuery('#btsChecklistBubble').show();
+            //jQuery('#btsChecklistBubble').show();
         }
 
 
