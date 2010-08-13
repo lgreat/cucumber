@@ -1,9 +1,9 @@
 function setOverlayCookie() {
-    subCookie.setObjectProperty('k12Overlay', 'k12Overlay', 1, 1);
+    subCookie.setObjectProperty('k12Overlay2', 'k12Overlay', 1, 1);
 }
 
 function hasK12Cookie() {
-    return (subCookie.getObject('k12Overlay') != null);
+    return (subCookie.getObject('k12Overlay2') != null);
 }
 
 function preKillOverlay() {
