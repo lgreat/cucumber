@@ -79,7 +79,7 @@
 
                 <div class="m_content">
                     <img class="m_img" name="team" src="/res/img/geo/landing/wi_mot.jpg" width="174" height="103"
-                         alt="Nadia, Natanya, Pamela, Hasaani"/>
+                         alt="Vanna, Nzinga, Jodi, Nelly"/>
 
                     <div class="m_list treb12B tint5bc">Vanna Lovan<br/>
                         <span class="treb12 tint666">Community Organizer</span></div>
@@ -178,9 +178,11 @@
                     <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
                 </h3>
                 <ul>
-                    <li><link:article articleId="1141">Find Milwaukee School Information Workshops</link:article></li>
+                    <li><gsml:a href="/find-a-school/defining-your-ideal/choosing-a-school.gs?content=33" target="_blank">Choosing a school: An overview</gsml:a></li>
+                    <li><gsml:a href="/find-a-school/school-visit/the-school-visit-what-to-look-for-what-to-ask.gs?content=24 " target="_blank">The school visit: What to look for, what to ask</gsml:a></li>
+                    <li><gsml:a href="/school-choice/" target="_blank">More tips for choosing a school</gsml:a></li>
 
-                    <!--li><link:article articleId="1142">What's new with GreatSchools Milwaukee</link:article></li-->
+                    <li><link:article articleId="1141">Find Milwaukee School Information Workshops</link:article></li>
                     <li>
                         <a href="mailto:milwaukee@greatschools.org?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
                     </li>
@@ -227,8 +229,7 @@
         </div>
     </div>
 
-
-<div id="landingEditorialFooter"><footer:editorialFooter/></div>
+<div id="landingEditorialFooter" class="clearBoth"><footer:editorialFooter/></div>
 <div id="promoRulesLink">
     <gsml:a href="/cgi-bin/static/Milwaukee-Contest-Rules.html">
         Click here for official rules for Milwaukee School Chooser drawings

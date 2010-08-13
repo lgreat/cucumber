@@ -17,8 +17,9 @@ div#left-content {
     font-family:Arial,Arial,sans-serif;
     font-size:12px;
     letter-spacing:0;
-    margin-left: 52px;
-    margin-top:20px;
+    padding-left: 52px;
+    padding-top:20px;
+    float:left;
 }
 
     div#left-content hr {
@@ -120,10 +121,12 @@ div#left-content {
         }
 
 div#right-content {
-    position:absolute;
-    top:0;
-    left:267px;
+    /*position:absolute;*/
+    /*top:0;*/
+    /*left:267px;*/
     margin-top:20px;
+    padding-left:10px;
+    float:left;
 }
 
     div#right-content h1 {
@@ -160,14 +163,14 @@ div#right-content {
 div#grid {
    position:relative;
    width: 648px;
-   height: 430px;
+   height: 510px;
 }
 
 div#grid div.gridbox {
     position:absolute;
     border:3px solid #66CCCC;
     width:315px;
-    height:205px;
+    height:245px;
     font-family:Arial,Arial,sans-serif;
 }
 
@@ -375,8 +378,13 @@ div#donate,div#daytondonate {
     }
 
       div#landingEditorialFooter{
-          margin-left:30px;
+          margin-left:52px;
       }
 #promoRulesLink {
     margin: 0 0 0 20px;
+}
+#editorialFooter .content {
+    border-bottom: 1px solid #fb0;
+    overflow: hidden;
+    width: 855px;
 }

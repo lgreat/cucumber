@@ -6409,7 +6409,7 @@ additional icons on the sprite.
 
 #editorialFooter {
     width:863px;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
 }
 
 .blueDot #editorialFooter .content {
@@ -6421,7 +6421,7 @@ additional icons on the sprite.
 #editorialFooter .content {
     border-bottom: 1px solid #fb0;
     overflow: hidden;
-    width: 651px;
+    /*width: 651px;*/
 }
 
 #editorialFooter .content li {
