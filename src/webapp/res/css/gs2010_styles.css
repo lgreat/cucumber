@@ -508,6 +508,21 @@ h4.subhead2 a {
 /* =2 ads
 -------------------------------------------------------------------------------------------*/
 
+.adBox {
+}
+
+.adBox .wrapper-outer {
+	padding: 0;
+}
+
+.adBox .wrapper-inner {
+	padding: 0;
+}
+
+.adBox .wrapper-content {
+	padding: 1px 13px 10px;
+}
+
 .gsAd, #adLeaderboard {
     margin: 0 auto;
     width: 968px;
@@ -4884,6 +4899,10 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 #scpp h4 {
     padding-bottom:5px;
+}
+
+*+html #scpp h4, *+html #scpp p {
+    zoom:1;
 }
 
 #scpp #cemail{

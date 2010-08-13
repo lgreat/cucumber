@@ -130,9 +130,9 @@
 </head>
 
 <gsml:body adPageName="splash">
-<pageHelper:externalCss file="/res/css/home/module_base.css"/>
+<!--<pageHelper:externalCss file="/res/css/home/module_base.css"/>-->
 <pageHelper:externalCss file="/res/css/home/blue_module.css"/>
-<pageHelper:externalCss file="/res/css/home/adbox.css"/>
+<!--<pageHelper:externalCss file="/res/css/home/adbox.css"/>-->
 <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
