@@ -68,6 +68,20 @@
 
 <div id="topicMainGS" class="col">
 <div id="manageNewsletters">
+
+<c:choose>
+    <c:when test="${not empty emailCmd.unsubPostTitle}">
+        <div class="alertBox">
+            You will no longer receive emails about your post, <span class="postTitle">${emailCmd.unsubPostTitle}</span>.
+        </div>
+    </c:when>
+    <c:when test="${emailCmd.unsubCommunityNotificationsForAllPosts}">
+        <div class="alertBox">
+            You will no longer receive emails about your posts on GreatSchools.
+        </div>
+    </c:when>
+</c:choose>
+
 <h3 class="title2-d61">Emails &amp;amp; free newsletters</h3>
 
 <div class="spacer_5"><!-- do not collapse --></div>
@@ -114,7 +128,6 @@
                         <fieldset>
                             <ol>
                                 <li>
-                                    <!-- TODO-10375 -->
                                     <form:checkbox path="repliesToCommunityPosts" cssClass="newsletterCheckbox"
                                            id="repliesToCommunityPosts"/>
                                     <label for="repliesToCommunityPosts">Send me emails when someone replies to my post</label></li>

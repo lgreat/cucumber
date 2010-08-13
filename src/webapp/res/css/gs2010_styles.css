@@ -4341,6 +4341,16 @@ margin:10px 0 14px 20px;
 
 }
 
+#manageNewsletters .alertBox {
+    background-color: #f9eccd;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+#manageNewsletters .alertBox .postTitle {
+    font-weight: bold;
+}
+
 #manageNewsletters .formContentGS {
     width: 423px;
 }

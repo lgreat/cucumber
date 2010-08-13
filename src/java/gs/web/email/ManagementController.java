@@ -1,6 +1,7 @@
 package gs.web.email;
 
 import gs.web.community.registration.AccountInformationCommand;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,6 +44,15 @@ public class ManagementController extends SimpleFormController implements ReadWr
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
     private IUserContentDao _userContentDao;
+    private IDiscussionDao _discussionDao;
+
+    public IDiscussionDao getDiscussionDao() {
+        return _discussionDao;
+    }
+
+    public void setDiscussionDao(IDiscussionDao discussionDao) {
+        _discussionDao = discussionDao;
+    }
 
     public IUserContentDao getUserContentDao() {
         return _userContentDao;
@@ -116,10 +126,35 @@ public class ManagementController extends SimpleFormController implements ReadWr
         if(user == null){
             return;
         }
+
         ManagementCommand command = (ManagementCommand) o;
         command.setUserId(user.getId());
         command.setEmail(user.getEmail());
         command.setFirstName(user.getFirstName());
+
+        if ("unsubscribe".equals(request.getParameter("action"))) {
+            String ei = request.getParameter("ei");
+            if (ei == null && user.getNotifyAboutReplies()) {
+                _log.info("User " + user.getId() + " unsubscribed from all replies to community posts");
+                user.setNotifyAboutReplies(false);
+                _userDao.saveUser(user);
+                command.setUnsubCommunityNotificationsForAllPosts(true);
+            } else if (ei != null && StringUtils.isNumeric(ei)) {
+                try {
+                    int entityId = Integer.parseInt(ei);
+                    Discussion discussion = _discussionDao.findById(entityId);
+                    if (discussion != null && discussion.isNotifyAuthorAboutReplies() && discussion.getAuthorId().equals(user.getId())) {
+                        _log.info("User " + user.getId() + " unsubscribed from replies to community posts about user content id " + discussion.getId());
+                        _userContentDao.doNotNotifyAuthorAboutReplies(user.getId(), discussion.getId());
+                        command.setUnsubPostTitle(discussion.getTitle());
+                    }
+                } catch (Exception e) {
+                    // no need to do anything, not important
+                }
+            }
+        }
+
+        command.setRepliesToCommunityPosts(user.getNotifyAboutReplies());
 
         // your location
         State userState;
@@ -265,8 +300,6 @@ public class ManagementController extends SimpleFormController implements ReadWr
         cities.add(0, city);
         command.setCityList(cities);
         command.setStateAdd(command.getUserState());
-
-        command.setRepliesToCommunityPosts(user.getNotifyAboutReplies());
     }
 
     @Override
@@ -306,6 +339,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
             // turn notifications back on for all discussions authored by this user
             _userContentDao.resetNotifyAuthorAboutReplies(user.getId());
         }
+
+        // save first name and notifyAboutReplies for user
+        _userDao.saveUser(user);
 
         List<Subscription> subscriptions = new ArrayList<Subscription>();
         State state = user.getState();

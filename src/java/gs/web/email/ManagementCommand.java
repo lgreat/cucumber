@@ -17,6 +17,9 @@ import java.util.List;
 public class ManagementCommand {
     protected final Log _log = LogFactory.getLog(getClass());
 
+    private String _unsubPostTitle;
+    private boolean _unsubCommunityNotificationsForAllPosts = false;
+
     private StateManager stateManager;
     private int userId;
     private String email;
@@ -780,5 +783,21 @@ public class ManagementCommand {
 
     public void setBtsTip_hId(int btsTip_hId) {
         this.btsTip_hId = btsTip_hId;
+    }
+
+    public String getUnsubPostTitle() {
+        return _unsubPostTitle;
+    }
+
+    public void setUnsubPostTitle(String unsubPostTitle) {
+        _unsubPostTitle = unsubPostTitle;
+    }
+
+    public boolean isUnsubCommunityNotificationsForAllPosts() {
+        return _unsubCommunityNotificationsForAllPosts;
+    }
+
+    public void setUnsubCommunityNotificationsForAllPosts(boolean unsubCommunityNotificationsForAllPosts) {
+        _unsubCommunityNotificationsForAllPosts = unsubCommunityNotificationsForAllPosts;
     }
 }
