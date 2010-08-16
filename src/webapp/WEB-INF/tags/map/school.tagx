@@ -96,30 +96,28 @@
             });
 
             jQuery('#schoolInfoWindow').remove();
-        }
+        };
 
         this.getMap = function() {
             return map;
-        }
+        };
 
         this.addMarker = function(marker, state, id) {
             markers[state + id] = marker;
-        }
+        };
 
         this.createAndAddMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, type) {
             if (id == undefined || databaseState == undefined || lat == undefined || lon == undefined) {
                 return;
             }
 
-            var location = new google.maps.LatLng(lat,lon);
-
             var marker = null;
             if (type == "private") {
-                marker = this.createPrivateSchoolMarker(location, name);
+                marker = this.createPrivateSchoolMarker(lat, lon, name);
             } else if (type == "preschool") {
-                marker = this.createPreschoolMarker(location, name);
+                marker = this.createPreschoolMarker(lat, lon, name);
             } else {
-                marker = this.createSchoolMarker(location, name, rating);
+                marker = this.createSchoolMarker(lat, lon, name, rating);
             }
 
             marker.infoWindowMarkup = infoWindowMarkup;
@@ -131,15 +129,49 @@
                 infoWindow.open(map, marker);
                 markerClickedCallback(databaseState, id);
             });
-        }
+        };
+
+        this.createAndAddCenterMarker = function(id, databaseState, name, lat, lon, infoWindowMarkup, markerClickedCallback) {
+            if (id == undefined || databaseState == undefined || lat == undefined || lon == undefined) {
+                return;
+            }
+
+            var position = new google.maps.LatLng(lat,lon);
+
+            var icon = new google.maps.MarkerImage('/res/img/map/green_arrow.png',
+                new google.maps.Size(39, 34),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(11, 34));
+            var shadow = new google.maps.MarkerImage('/res/img/map/green_arrow_shadow.png',
+                new google.maps.Size(39, 34),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(11, 34));
+
+            var marker = new google.maps.Marker({
+                position: position,
+                title: name,
+                icon: icon,
+                shadow: shadow
+            });
+
+            marker.infoWindowMarkup = infoWindowMarkup;
+
+            this.addMarker(marker, databaseState, id);
+
+            google.maps.event.addListener(marker, "click", function() {
+                infoWindow.setContent(marker.infoWindowMarkup);
+                infoWindow.open(map, marker);
+                markerClickedCallback(databaseState, id);
+            });
+        };
 
         this.createAndAddPrivateSchoolMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback) {
             this.createAndAddMarker(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, "private");
-        }
+        };
 
         this.createAndAddPreschoolMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback) {
             this.createAndAddMarker(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, "preschool");
-        }
+        };
 
         this.showMarkerBubble = function(state, id) {
             var marker = markers[state + id];
@@ -163,52 +195,33 @@
                 }
             }
             return bounds;
-        }
+        };
 
         this.expandMapToFitMarkers = function() {
             var bounds = this.getBoundsToFitMarkers();
             map.fitBounds(bounds);
-        }
+        };
 
         this.drawMarkers = function() {
             for (var marker in markers) {
                 markers[marker].setMap(map);
             }
-        }
+        };
 
         this.removeMarker = function(state, id) {
             delete markers[state + id];
-        }
+        };
 
-        this.createPrivateSchoolMarker = function(position, tooltip) {
-                var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_private_forground.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
-                var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
-
-            var marker = new google.maps.Marker({
-                position: position,
-                title: tooltip,
-                icon: icon,
-                shadow: shadow
-            });
-
-            return marker;
-        }
-
-        this.createPreschoolMarker = function(position, tooltip) {
-                var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_preschool_forground.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
-                var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
+        this.createPrivateSchoolMarker = function(lat, lon, tooltip) {
+            var position = new google.maps.LatLng(lat, lon);
+            var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_private_forground.png',
+                new google.maps.Size(40, 40),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(11, 34));
+            var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                new google.maps.Size(40, 40),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(11, 34));
 
             var marker = new google.maps.Marker({
                 position: position,
@@ -218,30 +231,49 @@
             });
 
             return marker;
-        }
+        };
 
-        this.createSchoolMarker = function(position, tooltip, rating) {
+        this.createPreschoolMarker = function(lat, lon, tooltip) {
+            var position = new google.maps.LatLng(lat, lon);
+            var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_preschool_forground.png',
+                new google.maps.Size(40,40),
+                new google.maps.Point(0,0),
+                new google.maps.Point(11,34));
+            var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                new google.maps.Size(40,40),
+                new google.maps.Point(0,0),
+                new google.maps.Point(11,34));
 
+            var marker = new google.maps.Marker({
+                position: position,
+                title: tooltip,
+                icon: icon,
+                shadow: shadow
+            });
+
+            return marker;
+        };
+
+        this.createSchoolMarker = function(lat, lon, tooltip, rating) {
+            var position = new google.maps.LatLng(lat, lon);
             if (rating != '') {
                 var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_' + rating + '_forground.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
+                    new google.maps.Size(40,40),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(11,34));
                 var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
-                //pushpinIcon.transparent = '/res/img/map/GS_gsr_' + rating + '_forground_trans.png';
+                    new google.maps.Size(40,40),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(11,34));
             } else {
                 var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_na_forground.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
+                    new google.maps.Size(40,40),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(11,34));
                 var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
-                        new google.maps.Size(40,40),
-                        new google.maps.Point(0,0),
-                        new google.maps.Point(11,34));
-                //pushpinIcon.transparent = '/res/img/map/GS_gsr_na_forground_trans.png';
+                    new google.maps.Size(40,40),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(11,34));
             }
 
             var marker = new google.maps.Marker({
@@ -251,12 +283,8 @@
                 shadow: shadow
             });
 
-            //pushpinIcon.iconAnchor = new GPoint(11, 34);
-            //pushpinIcon.infoWindowAnchor = new GPoint(13, 2);
-            //pushpinIcon.infoShadowAnchor = new GPoint(13, 2);
-            //pushpinIcon.shadowSize = new GSize(39, 34);
             return marker;
-        }
+        };
 
         //var displayTooltips = ${not empty tooltips};
 
@@ -296,7 +324,11 @@
         jQuery(function(){
             mapHelper = new GS.GSMapHelper('${id}','${school.lat}','${school.lon}');
             mapHelper.setup();
-            mapHelper.createAndAddMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}','${gsRating}', '${(infoWindowMarkup)}', markerClickedCallback, '${schoolType}');
+            mapHelper.createAndAddCenterMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}', '${(infoWindowMarkup)}', markerClickedCallback);
+
+            jQuery('#nearby-schools-link-' + '${school.databaseState}' + '${school.id}').mouseover(function() {
+                mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
+            });
 
             <c:forEach var ="nearbySchool" items = "${schools}" begin="${start}" end="${start+count-1}">
                 <c:set var="curSchool" value="${nearbySchool.neighbor}"/>

@@ -81,7 +81,7 @@ height += heightMultiplier * 13;-->
             encodeURIComponent(school.address) +
             '" target="_blank" onclick="s.tl(this, \'o\', \'School Map - Get Directions\');">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>-->
                 <!-- TODO: Get directions from the Google Maps API -->
-                <a href="#">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>
+                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.physicalAddress.street}%20${school.physicalAddress.city},%20${school.physicalAddress.state}%20${school.physicalAddress.zip}" onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>
             </div>
 
             <!--<div>

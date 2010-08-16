@@ -103,9 +103,11 @@
                         <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
                     </td>
                     <td class="bg-color-f9eccd brdbtm_dotted">
-                        <p class="text2bold"><link:schoolProfileOverview school="${school}">
+                        <p class="text2bold nearby-schools-link" id="nearby-schools-link-${school.databaseState}${school.id}">
+                            <link:schoolProfileOverview school="${school}">
                             ${school.name}
-                        </link:schoolProfileOverview></p>
+                            </link:schoolProfileOverview>
+                        </p>
 
                         <p class="text3"><!-- not empty --></p>
                     </td>
@@ -244,9 +246,11 @@
                 <tr>
                     <td class="bg-color-f9eccd brdbtm_dotted"><!-- do not collapse --></td>
                     <td class="bg-color-f9eccd brdbtm_dotted">
-                        <p class="text2bold"><link:schoolProfileOverview school="${school}">
+                        <p class="text2bold nearby-schools-link" id="nearby-schools-link-${school.databaseState}${school.id}">
+                            <link:schoolProfileOverview school="${school}">
                             ${school.name}
-                        </link:schoolProfileOverview></p>
+                            </link:schoolProfileOverview>
+                        </p>
 
                         <p class="text3"><!-- not empty --></p>
                     </td>
