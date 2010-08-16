@@ -137,9 +137,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <div class="spacer_5"><!-- do not collapse --></div>
 
         <c:choose>
-            <c:when test="${fn:length(reviews) gt 0}">
+            <c:when test="${numberOfReviews gt 0}">
                 <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
-                    Read all <span class="count">${fn:length(reviews)}</span> reviews
+                    Read all <span class="count">${numberOfReviews}</span> reviews
                 </link:schoolProfileParentReview>
 
                 <div class="spacer_5"><!-- do not collapse --></div>
@@ -372,7 +372,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
 <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="3" ratings="${ratings}" validUser="${validUser}"/>
-<c:if test="${fn:length(reviews) gt 0}">
+<c:if test="${numberOfReviews gt 0}">
     <div class="alertBox4 smallAlertTextBold">
         <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
                 class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview>
