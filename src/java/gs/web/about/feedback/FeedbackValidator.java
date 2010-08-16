@@ -98,13 +98,15 @@ public class FeedbackValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", null, FIELD_REQUIRED_MSG);
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "espFields.comment", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "espFields.title", null, FIELD_REQUIRED_MSG);
-        String phone = command.getEspFields().getPhone();
-        if (!StringUtils.isBlank(phone) && !phone.replaceAll("\\D", "").matches("\\d{10}")) {
-            errors.rejectValue("espFields.phone", null, "Please enter a valid phone number.");
-        }
 
         if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "espFields.phone", null, FIELD_REQUIRED_MSG);
+        String phone = command.getEspFields().getPhone();
+        if (!StringUtils.isBlank(phone) && !phone.replaceAll("\\D", "").matches("\\d{10}")) {
+            errors.rejectValue("espFields.phone", null, "Please enter a valid phone number.");
         }
     }
 
