@@ -4694,6 +4694,7 @@ margin:10px 0 14px 20px;
 }
 
 #schoolProfileTabsWrapper .active a {
+    font-weight:bold;
     text-decoration: none;
     color: black;
     background: url(/res/img/gradeByGrade/gbg-tab-left.png) no-repeat left top;
