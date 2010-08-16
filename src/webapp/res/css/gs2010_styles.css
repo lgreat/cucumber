@@ -4593,6 +4593,10 @@ margin:10px 0 14px 20px;
     text-decoration: none;
 }
 
+#schoolTypeInfo{
+    float:left;
+}
+
 #schoolToolLinks ul li {
     list-style: none outside none;
     display: inline;

@@ -113,7 +113,7 @@
             </c:if>
 
             <variant:b>
-                | <promo:facebookLikeButton showLongText="false" />
+                |&amp;nbsp; <promo:facebookLikeButton showLongText="false" />
             </variant:b>
         </p>
 
