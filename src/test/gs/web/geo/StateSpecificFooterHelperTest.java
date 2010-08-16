@@ -97,6 +97,22 @@ public class StateSpecificFooterHelperTest extends BaseTestCase {
         assertNull(_model.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
     }
 
+    public void testPlacePopularCitiesInModelNullState() {
+        replayMocks(_geoDao, _searcher);
+        _helper.placePopularCitiesInModel(null, _model);
+        verifyMocks(_geoDao, _searcher);
+
+        assertNull(_model.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
+    }
+
+    public void testPlacePopularCitiesInModelNullModel() {
+        replayMocks(_geoDao, _searcher);
+        _helper.placePopularCitiesInModel(State.CA, null);
+        verifyMocks(_geoDao, _searcher);
+
+        assertNull(_model.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
+    }
+
     public void testPlacePopularCitiesInModel() {
         List<City> cities = new ArrayList<City>(StateSpecificFooterHelper.NUM_CITIES);
         for (int x=0; x < StateSpecificFooterHelper.NUM_CITIES; x++) {

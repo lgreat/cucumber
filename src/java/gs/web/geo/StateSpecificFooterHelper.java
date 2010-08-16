@@ -9,10 +9,9 @@ import gs.data.state.State;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.Hits;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -36,6 +35,10 @@ public class StateSpecificFooterHelper {
     }
 
     public void placePopularCitiesInModel(State s, Map model) {
+        if (s == null || model == null) {
+            _log.warn("Call to StateSpecificFooterHelper without a state or model");
+            return;
+        }
         try {
             List<City> cities = _geoDao.findTopCitiesByPopulationInState(s, NUM_CITIES);
             if (cities != null && cities.size() == NUM_CITIES) {
@@ -60,7 +63,10 @@ public class StateSpecificFooterHelper {
      * @throws Exception if there is a parsing or searching error.
      */
     protected Hits getHits(State state) throws Exception {
-        Query query = _queryParser.parse("type:city AND state:" + state.getAbbreviationLowerCase());
+        BooleanQuery query = new BooleanQuery();
+        query.add(new TermQuery(new Term("type", "city")), BooleanClause.Occur.MUST);
+        query.add(new TermQuery(new Term("state", state.getAbbreviationLowerCase())), BooleanClause.Occur.MUST);
+
         return _searcher.search(query, new Sort(Indexer.SORTABLE_NAME), null, null);
     }
 
