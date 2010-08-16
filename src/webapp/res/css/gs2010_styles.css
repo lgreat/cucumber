@@ -7184,7 +7184,7 @@ button {
 
 .formlist2 {
     list-style: none outside none;
-    padding: 0 15px;
+    padding: 0;
     zoom: 1; /* for ie7 & ie6 */
 }
 
@@ -7228,7 +7228,7 @@ button {
 
 /* captcha */
 .captcha{
-    padding-left:265px;
+    padding-left:280px;
 }
 
 /* textarea and fatselect */
@@ -7243,7 +7243,7 @@ button {
     margin-right: 1em;
     position: relative;
     text-align: right;
-    width: 255px;
+    width: 270px;
 }
 
 .label2 {

@@ -184,7 +184,7 @@
         <select id="mainFeedbackTopicSelect" disabled="disabled">
             <option value="defaultOption">- Select an option -</option>
             <option value="incorrectSchoolDistrictInfo">Incorrect or missing school/district information</option>
-            <option value="gsRatings">GreatSchools ratings &amp;amp; test scores</option>
+            <option value="gsRatings">GreatSchools Ratings &amp;amp; test scores</option>
             <option value="schoolRatingsReviews">School ratings &amp;amp; reviews</option>
             <option value="articlesCommunity">Articles &amp;amp; community</option>
             <option value="newsletters">Newsletters</option>
@@ -921,7 +921,7 @@
 <div id="espFeedback" class="jqFeedback" style="display: none;">
     <p class="text2">
         If you are a principal or school official and need help with an existing Enhanced School
-        Profile (ESP) or signing up for a new one, please use the form below. You can learn more about
+        Profile (ESP) or would like to sign up for a new one, please use the form below. You can learn more about
         ESPs in our <gsml:a href="/cgi-bin/static/ed_extra.inc">FAQ</gsml:a> here.
     </p>
 
@@ -1007,7 +1007,7 @@
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
                                 class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
+                            </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
@@ -1021,7 +1021,7 @@
                         <c:forEach items="${messages}" var="message">
                              <strong class="errorMessage1 formErrorText"><span
                                 class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
+                            </strong>
                         </c:forEach>
                     </form:errors>
                 </li>
@@ -1044,7 +1044,7 @@
                 <li class="fl1-item">
                     <form:label cssClass="label1 text2bold" path="espFields.phone">
                         Your phone
-                        <!--<em class="sprite i-required requiredIndicator1">&lt;!&ndash; do not collapse &ndash;&gt;</em>-->
+                        <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
                     </form:label>
                     <form:input cssClass="text1-fff" path="espFields.phone"/>
                     <!--<form:errors path="espFields.phone"/>-->
@@ -1117,7 +1117,7 @@
     <div class="spacer_15"><!-- do not collapse --></div>
     <p class="text2bold">For advertising sales, please contact:</p>
     <ul class="unordered-list1 text2-d61">
-        <li class="list-item"><span class="text2">Marisa Procter: Midwest and New York Sales Director, <a href="mailto:mprocter@greatschools.org">mprocter@greatschools.org</a>, 415.983.3813</span></li>
+        <!--<li class="list-item"><span class="text2">Marisa Procter: Midwest and New York Sales Director, <a href="mailto:mprocter@greatschools.org">mprocter@greatschools.org</a>, 415.983.3813</span></li>-->
         <li class="list-item"><span class="text2">Lauren Guetz: West and East Coast Sales Manager, <a href="mailto:lguetz@greatschools.org">lguetz@greatschools.org</a>, 415.983.3815</span></li>
     </ul>
     <div class="spacer_15"><!-- do not collapse --></div>
