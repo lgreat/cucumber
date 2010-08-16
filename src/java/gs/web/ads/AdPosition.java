@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.71 2010/08/09 18:25:07 rcox Exp $
+ * $Id: AdPosition.java,v 1.72 2010/08/16 19:54:31 yfan Exp $
  */
 package gs.web.ads;
 
@@ -107,6 +107,7 @@ public class AdPosition extends Enum {
     public static final AdPosition Interstitial_City = new AdPosition("Interstitial_City", true); // GS-6114
     public static final AdPosition Interstitial_Search = new AdPosition("Interstitial_Search", true); // GS-6114
     public static final AdPosition Interstitial_School = new AdPosition("Interstitial_School", true); // GS-7589
+    public static final AdPosition Interstitial_ContentSearch = new AdPosition("Interstitial_ContentSearch", true); // GS-10345
     public static final AdPosition PageSponsor_99x40 = new AdPosition("PageSponsor_99x40", true);
     public static final AdPosition ModuleBoxLeft_166x45 = new AdPosition("ModuleBoxLeft_166x45", true);
     public static final AdPosition ModuleBoxMiddle_166x45 = new AdPosition("ModuleBoxMiddle_166x45", true);
