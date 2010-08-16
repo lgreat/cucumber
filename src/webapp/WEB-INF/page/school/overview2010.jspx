@@ -223,8 +223,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:if test="${not empty schoolHighlights}">
     <p class="text2bold">School highlights:</p>
 
-    <div class="text2">
-        ${schoolHighlights}
+    <div>
+        <div class="text2 fltlft">${schoolHighlights}</div>
         <span class="iblock fltrt smallAlertText">
             <c:if test="${hasSurveyData}">
                 <link:surveyResults school="${school}" level="${surveyLevelCode}">
@@ -276,12 +276,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <!-- begin map -->
 
-<div class="title2-d61">Compare to nearby schools
-    <span class="smallAlertText fltrt iblock padtop_7">
-        <link:mapSchool school="${school}">Larger map </link:mapSchool>
-        <span class="alertDoubleArrow">&amp;#187;</span>
-    </span>
-</div>
+    <div>
+        <div class="title2-d61 fltlft">Compare to nearby schools</div>
+        <span class="smallAlertText fltrt iblock padtop_7">
+            <link:mapSchool school="${school}">Larger map </link:mapSchool>
+            <span class="alertDoubleArrow">&amp;#187;</span>
+        </span>
+    </div>
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
