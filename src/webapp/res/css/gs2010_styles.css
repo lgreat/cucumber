@@ -129,11 +129,10 @@ table {
     border-spacing: 0;
 }
 
-/* GS-10239 moved html background to bodyBg.css as body background (html selector broke javascript in gs-overlay-ad.js */
-
 body {
     font: 13px / 1.3 Arial, sans-serif;
     color: #333;
+    background: #68aaf1 url(/res/img/gs_gradient_bg.jpg) 50% 0 repeat-y;
 }
 
 body.cobranded {

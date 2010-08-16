@@ -228,27 +228,7 @@
                 ]]>
             </script>
 
-            <!-- WARNING: this logic is repeated in standardDecorator2010.jspx, equalizeColumns.tagx, and customizeSchoolSearchWidget.jspx; keep consistent! -->
-            <!-- use request scope so that home page index.jspx and ad tags can check this variable showK12Overlay -->
-            <c:set var="showK12Overlay"
-                   value="${!gsweb:isExcludeFromK12Overlay(requestScope.pageHelper) and gsweb:isShowK12Overlay(pageContext.request,pageContext.response) and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}"
-                   scope="request"/>
-            <c:choose>
-                <c:when test="${showK12Overlay}">
-                    <script type="text/javascript">
-                        <![CDATA[
-                        // <!--
-                        function k12Callback() {
-                            initSlider();
-                        }
-                        // -->
-                        ]]>
-                    </script>
-                </c:when>
-                <c:otherwise>
-                    <pageHelper:addOnLoadHandler handler="initSlider()" />
-                </c:otherwise>
-            </c:choose>
+            <pageHelper:addOnLoadHandler handler="initSlider()"/>
         </div>
 
         <div class="section widgetColors">

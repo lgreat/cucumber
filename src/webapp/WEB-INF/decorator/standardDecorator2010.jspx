@@ -42,10 +42,6 @@
     request.setAttribute("tabs", PageHelper.pageIds);
 </jsp:scriptlet>
 <c:set var="isHomePage" value="${requestScope.context.pathway == tabs.HOME}"/>
-<!-- WARNING: this logic is repeated in standardDecorator2010.jspx, equalizeColumns.tagx, and customizeSchoolSearchWidget.jspx; keep consistent! -->
-<!-- use request scope so that home page index.jspx and ad tags can check this variable showK12Overlay -->
-<c:set var="showK12Overlay" value="${!gsweb:isExcludeFromK12Overlay(requestScope.pageHelper) and gsweb:isShowK12Overlay(pageContext.request,pageContext.response) and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}" scope="request"/>
-
 
 <head profile="${profile}">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -72,7 +68,6 @@
             <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js"/>
-            <gsml:url var="swfobject" value="/res/js/swfobject-2.2.js"/>
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
@@ -82,7 +77,6 @@
             <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${swfobject}"></script>]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER"/>
@@ -90,24 +84,6 @@
 
             <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER"/>
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
-        </c:otherwise>
-    </c:choose>
-
-    <c:choose>
-        <c:when test="${showK12Overlay}">
-            <c:choose>
-                <c:when test="${isHomePage}">
-                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12.v2.js"/>
-                </c:when>
-                <c:otherwise>
-                    <gsml:url var="gsoverlayad" value="/res/js/k12/k12-2.v2.js"/>
-                </c:otherwise>
-            </c:choose>
-            <![CDATA[<script type="text/javascript" src="${gsoverlayad}"></script>]]>
-        </c:when>
-        <c:otherwise>
-            <gsml:url var="bodybgcss" value="/res/css/bodyBg.css?v=$RELEASE_NUMBER"/>
-            <![CDATA[<link rel="stylesheet" href="${bodybgcss}" type="text/css" />]]>
         </c:otherwise>
     </c:choose>
 
@@ -160,32 +136,9 @@
 <school:principalConfirmHover/>
 <school:principalReviewSubmitted/>
 
-<c:if test="${showK12Overlay}">
-    <c:choose>
-        <c:when test="${isHomePage}">
-            <div id="overlay-adslot" style="z-index:99999;"><!-- don't collapse --></div>
-        </c:when>
-        <c:otherwise>
-            <div id="overlay-728-adslot" style="z-index:99999;"><!-- don't collapse --></div> 
-        </c:otherwise>
-    </c:choose>
-    <a href="http://ad.doubleclick.net/jump/N2942.114495.5898853556421/B4641383;sz=1x1;ord=[timestamp]?"><img
-            src="/res/img/pixel.gif" id="k12Tracker"
-            border="0" width="1" height="1" alt="Click Here"/></a>
-</c:if>
-
-<c:choose>
-    <c:when test="${showK12Overlay}">
-        <c:set var="marginGSStyle" value="display:none"/>
-    </c:when>
-    <c:otherwise>
-        <c:set var="marginGSStyle" value=""/>
-    </c:otherwise>
-</c:choose>
-
-<div id="marginGS" style="${pageScope.marginGSStyle}">
+<div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-        <ad:x22 position="Header_728x90" showK12Overlay="${showK12Overlay}"/>
+        <ad:x22 position="Header_728x90"/>
     </c:if>
     <cobrand:header/>
 

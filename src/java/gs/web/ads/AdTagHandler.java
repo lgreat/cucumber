@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.32 2010/07/08 05:12:24 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.33 2010/08/16 18:52:23 yfan Exp $
  */
 package gs.web.ads;
 
@@ -29,7 +29,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     private String _position;
     private AdPosition _adPosition;
     private boolean _alwaysShow = false;
-    private boolean _showK12Overlay = false;
 
     private static final Log _log = LogFactory.getLog(AdTagManager.class);
     private static final String JS_METHOD_NAME_24_7 = "OAS_AD";
@@ -102,21 +101,18 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             String adCode = "<script type=\"text/javascript\">"+ jsMethodName +"('" + slotName + "');</script>";
             JspFragment body = getJspBody();
 
-            // only render the ad if the K12 site overlay ad is not being shown
-            if (!isShowK12Overlay()) {
-                if (null != body) {
-                    StringWriter bodyWriter = new StringWriter();
-                    body.invoke(bodyWriter);
-                    StringBuffer adBuffer = bodyWriter.getBuffer();
+            if (null != body) {
+                StringWriter bodyWriter = new StringWriter();
+                body.invoke(bodyWriter);
+                StringBuffer adBuffer = bodyWriter.getBuffer();
 
-                    if (adBuffer.indexOf("$AD") == -1) {
-                        throw new IllegalStateException("Missing variable $AD in body content.");
-                    } else {
-                        buffer.append(adBuffer.toString().replaceAll("\\$AD", adCode));
-                    }
+                if (adBuffer.indexOf("$AD") == -1) {
+                    throw new IllegalStateException("Missing variable $AD in body content.");
                 } else {
-                    buffer.append(adCode);
+                    buffer.append(adBuffer.toString().replaceAll("\\$AD", adCode));
                 }
+            } else {
+                buffer.append(adCode);
             }
         }
         buffer.append("</div>");
@@ -146,13 +142,5 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     public void setAlwaysShow(boolean alwaysShow) {
         this._alwaysShow = alwaysShow;
-    }
-
-    public boolean isShowK12Overlay() {
-        return _showK12Overlay;
-    }
-
-    public void setShowK12Overlay(boolean showK12Overlay) {
-        _showK12Overlay = showK12Overlay;
     }
 }

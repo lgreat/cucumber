@@ -290,7 +290,6 @@
                         <param>hover.js</param>
                         <param>deferredcontent.js</param>
                         <param>externalTracking.js</param>
-                        <param>swfobject-2.2.js</param>
                     </jsSourceFiles>
                     <jsFinalFile>combined.js</jsFinalFile>
                     <!--<verbose>true</verbose>-->

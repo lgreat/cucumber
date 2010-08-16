@@ -8,8 +8,6 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
-    <jsp:directive.attribute name="showK12Overlay" required="false" description="Whether to show the K12 site overlay ad" type="java.lang.Boolean"/>
-    <c:set var="showK12Overlay" value="${not empty pageScope.showK12Overlay ? pageScope.showK12Overlay : false}" />
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
         <div class="gsAd">
             <div id="adLeaderboard">
@@ -20,7 +18,7 @@
                             <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="20" height="96"/>
                         </td>
                         <td style="text-align:left;width:728px;height:90px;padding-right: 7px;" class="ad">
-                            <ad:Header_728x90 position="${position}" showK12Overlay="${pageScope.showK12Overlay}"/>
+                            <ad:Header_728x90 position="${position}"/>
                         </td>
                         <td class="ad">
                             <ad:Header_212x96 />

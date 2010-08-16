@@ -232,18 +232,6 @@
         <function-signature>int getDcNclbLeaCode(int)</function-signature>
     </function>
 
-    <function>
-        <name>isShowK12Overlay</name>
-        <function-class>gs.web.ads.K12OverlayHelper</function-class>
-        <function-signature>boolean isShowK12Overlay(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)</function-signature>
-    </function>
-
-    <function>
-        <name>isExcludeFromK12Overlay</name>
-        <function-class>gs.web.ads.K12OverlayHelper</function-class>
-        <function-signature>boolean isExcludeFromK12Overlay(gs.web.util.PageHelper)</function-signature>
-    </function>
-
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
@@ -860,12 +848,6 @@
         <attribute>
             <name>alwaysShow</name>
             <description>If true, will always display ad regardless of setting/cobrand</description>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>showK12Overlay</name>
-            <description>If true, will render ad slot as needed for the K12 site overlay</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
