@@ -4759,6 +4759,7 @@ margin:10px 0 14px 20px;
     width: 407px;
     float: left;
     padding-left: 15px;
+    _zoom:1;
 }
 
 #bestKnownFor {
