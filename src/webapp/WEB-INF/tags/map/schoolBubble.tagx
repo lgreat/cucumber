@@ -57,8 +57,9 @@ height += heightMultiplier * 13;-->
                     </c:choose>
                 </link:schoolProfileParentReview>
             </div>
+            <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
             <div>
-                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;" target="_blank" rel="nofollow">Homes for sale <span class="alertDoubleArrow">&amp;raquo;</span></a>
+                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank" rel="nofollow">Homes for sale <span class="alertDoubleArrow">&amp;raquo;</span></a>
             </div>
         </div>
         <!--<div class="schoolInfo text3 unit size3of5 lastUnit">-->
