@@ -4762,6 +4762,10 @@ margin:10px 0 14px 20px;
     _zoom:1;
 }
 
+#overviewColumn2 #submitCompare{
+    _zoom:1;
+}
+
 #bestKnownFor {
     position: relative;
     text-align: center;
