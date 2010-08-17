@@ -1,7 +1,6 @@
 package gs.web.community;
 
 import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Review;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import gs.data.community.*;
@@ -33,7 +32,6 @@ public class ReportContentService extends SimpleFormController
     private IReviewDao _reviewDao;
     private JavaMailSender _mailSender;
     private String _moderationEmail;
-    private static final String SCHOOL_REVIEW_DISABLED_STATUS = "d";
 
     public void reportContent(User reporter, User reportee, HttpServletRequest request, int contentId, 
                               ReportedEntity.ReportedEntityType type, String reason) {
@@ -85,14 +83,8 @@ public class ReportContentService extends SimpleFormController
                     }
                     break;
                 case schoolReview:
-                    Review review = _reviewDao.getReview(contentId);
-                    int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
                     _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
-                    if (numTimesReported >= 1 && numTimesReported % 2 == 1) {
-                        // if this is the second (or subsequent even) time this review is reported, disable it
-                        review.setStatus(SCHOOL_REVIEW_DISABLED_STATUS);
-                        _reviewDao.saveReview(review);
-                    }
+                    // Per GS-10420, do not disable school reviews based on # of reports
                     break;
             }
             if (type != ReportedEntity.ReportedEntityType.schoolReview) {
