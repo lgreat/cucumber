@@ -215,9 +215,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     Learn more about this school's <link:schoolProfileCensus school="${school}"
                                                              anchor="teachers">teachers</link:schoolProfileCensus> and
     <link:schoolProfileCensus school="${school}" anchor="students">students</link:schoolProfileCensus>.
-</c:if>
-
-<br/><br/>
+    <div class="spacer_15"><!-- do not collapse --></div>
+</c:if>  
 
 <!-- School highlights -->
 <c:if test="${not empty schoolHighlights}">
@@ -233,13 +232,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </c:if>
         </span>
     </div>
-    <div class="spacer_15"><!-- do not collapse --></div>
 </c:if>
 
 
 <!-- end school highlights -->
 
-<c:if test="${(school.type.schoolTypeName != 'private') and (school.levelCode != 'p')}">
+<c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
+    <div class="spacer_15"><!-- do not collapse --></div>
     <link:newsletterManagement styleClass="email toolsTxt text3-06b" schoolId="${school.id}" schoolState="${school.databaseState}" onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
         <span class="sprite emailIt"><!-- do not collapse --></span> Get email updates about this school
     </link:newsletterManagement>
