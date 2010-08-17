@@ -588,7 +588,7 @@ body.cobranded #pageGS {
 }
 
 #schoolChoicePackPromo-wide #Chooser_Sponsor_162x50 { /* GS-10321 */
-    width:162px; height:50px;
+    width:162px;
     position:relative;
     float:right;
 }
@@ -5071,6 +5071,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 #schoolChoicePackPromo-wide .privacy_terms {
     clear:both;
+    float:left;
 }
 /* helper messaging */
 

@@ -204,20 +204,13 @@
                         <input id="privacy_terms_checkbox" type="checkbox" checked="checked"/>
                         <label for="privacy_terms_checkbox"
                                class="smallText1">I accept the GreatSchools
+                            <c:if test="${(school.levelCode eq 'p')}"><br/></c:if>
                             <link:privacyPolicy>Privacy Policy</link:privacyPolicy> &amp;amp;
                             <link:termsOfUse>Terms of Use</link:termsOfUse>.</label>
                     </div>
                 </form>
 
-                <div class="adBox">
-                    <div class="wrapper-outer">
-                        <div class="wrapper-inner">
-                            <div class="wrapper-content">
-                                <gsweb:adTagGenerator position="Chooser_Sponsor_162x50"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <gsweb:adTagGenerator position="Chooser_Sponsor_162x50"/>
 
                 <div class="clearBoth"><!-- do not collapse --></div>
             </div>
