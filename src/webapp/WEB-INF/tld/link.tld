@@ -504,6 +504,13 @@
             <type>java.lang.String</type>
             <description>Javascript onclick value</description>
         </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Link title</description>
+        </attribute>
     </tag>
 
     <tag>

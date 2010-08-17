@@ -43,8 +43,17 @@
                         <li><link:research state="${state}"
                                            title="District of Columbia">District of Columbia</link:research> &amp;gt;
                         </li>
-                        <li><link:city city="${city}" state="${school.physicalAddress.state}"
-                                       title="${city} schools">Washington, D.C. <c:choose><c:when test="${school.levelCode eq 'p'}">Preschools</c:when><c:otherwise>Schools</c:otherwise></c:choose></link:city>&amp;#160;
+                        <li>
+                            <c:choose>
+                                <c:when test="${school.levelCode eq 'p'}">
+                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
+                                                  title="Washington, D.C. preschools">Washington, D.C. Preschools</link:schools>&amp;#160;
+                                </c:when>
+                                <c:otherwise>
+                                    <link:city city="${city}" state="${school.physicalAddress.state}"
+                                               title="${city} schools">Washington, D.C. Schools</link:city>&amp;#160;
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                         <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                             <li>&amp;gt; <link:districtHome district="${school.district}"
@@ -56,8 +65,17 @@
                         <li><link:research state="${state}"
                                            title="${state.longName} schools">${state.longName} Schools</link:research> &amp;gt;
                         </li>
-                        <li><link:city city="${city}" state="${school.physicalAddress.state}"
-                                       title="${city} schools">${city} <c:choose><c:when test="${school.levelCode eq 'p'}">Preschools</c:when><c:otherwise>Schools</c:otherwise></c:choose></link:city>&amp;#160;
+                        <li>
+                            <c:choose>
+                                <c:when test="${school.levelCode eq 'p'}">
+                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
+                                                  title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
+                                </c:when>
+                                <c:otherwise>
+                                    <link:city city="${city}" state="${school.physicalAddress.state}"
+                                               title="${city} schools">${city} Schools</link:city>&amp;#160;
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                         <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                             <li>&amp;gt; <link:districtHome district="${school.district}"
