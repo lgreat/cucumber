@@ -208,16 +208,7 @@
                 </c:if>
                 </tbody>
             </table>
-            <div class="spacer_10"><!-- do not collapse --></div>
 
-            <div id="submitCompare" class="fltlft">
-                <button class="btn25-inactive fltlft" type="submit" name="compareBtn" id="compareBtn"
-                        disabled="disabled">
-                    <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
-                    <br class="clearfloat"/>
-                </button>
-                <span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
-            </div>
         </c:when>
         <c:otherwise>
             <table id="nearby-schools-table-header">
@@ -319,32 +310,49 @@
                 </c:if>
                 </tbody>
             </table>
-            <div class="spacer_10"><!-- do not collapse --></div>
+
         </c:otherwise>
         </c:choose>
 
-        <div class="pagination">
-            <c:if test="${totalPages gt 1}">
-                <c:forEach begin="0" end="${rowsToDisplay - 1}" step="${pageSize}" var="i" varStatus="status">
-                    <c:set var="pagerTabClass" value="pager-tab"/>
-                    <c:set var="loopPageNumber" value="${i/pageSize+1}"/>
-                    <c:if test="${loopPageNumber == thisPage}">
-                        <c:set var="pagerTabClass" value="pager-tab active"/>
-                    </c:if>
-                    <c:if test="${status.first}">
+        <div class="spacer_10"><!-- do not collapse --></div>
+
+        <div id="nearby-schools-table-nav">
+
+            <c:if test="${school.levelCode ne 'p'}">
+                <div id="submitCompare" class="fltlft">
+                    <button class="btn25-inactive fltlft" type="submit" name="compareBtn" id="compareBtn"
+                            disabled="disabled">
+                        <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
+                        <br class="clearfloat"/>
+                    </button>
+                    <span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
+                </div>
+            </c:if>
+
+            <div class="pagination">
+                <c:if test="${totalPages gt 1}">
+                    <c:forEach begin="0" end="${rowsToDisplay - 1}" step="${pageSize}" var="i" varStatus="status">
+                        <c:set var="pagerTabClass" value="pager-tab"/>
+                        <c:set var="loopPageNumber" value="${i/pageSize+1}"/>
+                        <c:if test="${loopPageNumber == thisPage}">
+                            <c:set var="pagerTabClass" value="pager-tab active"/>
+                        </c:if>
+                        <c:if test="${status.first}">
                                 <span class="${pagerTabClass}" onclick="page(${i});">
                                     <fmt:formatNumber value="${loopPageNumber}" maxFractionDigits="0"/>
                                 </span>
-                    </c:if>
-                    <c:if test="${not status.first}">
+                        </c:if>
+                        <c:if test="${not status.first}">
                                 <span class="${pagerTabClass}" onclick="page(${i})">
                                     <fmt:formatNumber value="${loopPageNumber}" maxFractionDigits="0"/>
                                 </span>
-                    </c:if>
-                </c:forEach>
+                        </c:if>
+                    </c:forEach>
 
-                <span class="prv_nxt">Next &amp;raquo;</span>
-            </c:if>
+                    <span class="prv_nxt">Next &amp;raquo;</span>
+                </c:if>
+            </div>
+
         </div>
 
         <script type="text/javascript">

@@ -4762,10 +4762,6 @@ margin:10px 0 14px 20px;
     _zoom:1;
 }
 
-#overviewColumn2 #submitCompare{
-    _zoom:1;
-}
-
 #bestKnownFor {
     position: relative;
     text-align: center;
@@ -4892,6 +4888,14 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 #nearby-schools-table-body tr{
     /*padding: 10px 0;*/
     height:69px;
+}
+
+#nearby-schools-table-nav{
+    _zoom:1;
+}
+
+#nearby-schools-table-nav #submitCompare{
+    _zoom:1;
 }
 
 .nearby-school{
