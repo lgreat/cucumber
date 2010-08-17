@@ -130,9 +130,9 @@
                 | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
             </c:if>
 
-            <variant:b>
-                |&amp;nbsp; <promo:facebookLikeButton showLongText="false" />
-            </variant:b>
+            <!--<variant:b>
+                | <promo:facebookLikeButton showLongText="false" />
+            </variant:b>-->
         </p>
 
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
@@ -223,9 +223,9 @@
                 <!--<p>Like <span class="sprite facebook">&lt;!&ndash; do not collapse &ndash;&gt;</span> 12.932 people like Lowell High School</p>-->
             <!--</div>-->
 
-            <variant:a>
+            <!--<variant:a>
                <promo:facebookLikeButton showLongText="true"/>
-            </variant:a>
+            </variant:a>-->
 
         </div>
     </div>
