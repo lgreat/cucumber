@@ -743,6 +743,8 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setId(1);
         discussion.setBoardId(2L);
         discussion.setNumReplies(5);
+        //the author of the discussion and the reply are same
+        discussion.setAuthorId(_user.getId());
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
@@ -763,12 +765,17 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
         _discussionDao.saveKeepDates(discussion);
 
+        User user = new User();
+        user.setId(5);
+        expect(_userDao.findUserFromId(5)).andReturn(user);
         replayAllMocks();
         try {
             _controller.handleCBIReplySubmission(getRequest(), getResponse(), _command);
+
         } catch (IllegalStateException ise) {
             fail("Should not receive exception on valid submission: " + ise);
         }
+
         verifyAllMocks();
 
         assertEquals("redirect", _command.getRedirect());
