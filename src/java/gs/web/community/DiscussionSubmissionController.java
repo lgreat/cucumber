@@ -57,6 +57,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     private IAlertWordDao _alertWordDao;
     private IReportContentService _reportContentService;
     private ExactTargetAPI _exactTargetAPI;
+    private ISubscriptionDao _subscriptionDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object commandObj, BindException errors) throws Exception {
@@ -187,10 +188,12 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setUser(user);
             // needed for indexing
             discussion.setDiscussionBoard(board);
-            try {
-                _solrService.indexDocument(discussion);
-            } catch (Exception e) {
-                _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
+            if (!StringUtils.equals("cbiDiscussion", command.getType())) {
+                try {
+                    _solrService.indexDocument(discussion);
+                } catch (Exception e) {
+                    _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
+                }
             }
 
             if (doWordFilter) {
@@ -343,13 +346,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     protected void handleCBIReplySubmission
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
-        handleDiscussionReplySubmissionHelper(request, response, command, false, false);
+        handleDiscussionReplySubmissionHelper(request, response, command, false, false,true);
     }
 
     protected void handleDiscussionReplySubmission
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
-        handleDiscussionReplySubmissionHelper(request, response, command, true, true);
+        handleDiscussionReplySubmissionHelper(request, response, command, true, true,false);
 
         // omniture success event only if new discussion reply
         if (command.getDiscussionReplyId() == null) {
@@ -362,34 +365,14 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
      * @throws IllegalStateException if this method is called with invalid parameters in the request
      */
     protected DiscussionReply handleDiscussionReplySubmissionHelper
-            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command, boolean doWordFilter, boolean sendNotification)
+            (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command,
+             boolean doWordFilter, boolean sendGSNotification,boolean sendCBNotification)
             throws IllegalStateException {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        // error checking
-        if (sessionContext == null) {
-            _log.warn("Attempt to submit with no SessionContext rejected");
-            throw new IllegalStateException("No SessionContext found in request");
-        }
-        if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
-            _log.warn("Attempt to submit with no valid user rejected");
-            throw new IllegalStateException("Discussion reply submission occurred but no valid user is cookied!");
-        }
+        validateUser(sessionContext,request);
         User user = sessionContext.getUser();
-        Discussion discussion = _discussionDao.findById(command.getDiscussionId());
-        if (discussion == null) {
-            _log.warn("Attempt to submit with unknown discussion id (" + command.getDiscussionId() + ") rejected");
-            throw new IllegalStateException("Discussion reply submission with unknown discussion id! id=" +
-                    command.getDiscussionId());
-        }
-
-        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
-
-        if (board == null) {
-            _log.warn("Attempt to submit with unknown discussion board id (" +
-                    discussion.getBoardId() + ") rejected");
-            throw new IllegalStateException("Discussion submission with unknown discussion board id! id=" +
-                    discussion.getBoardId());
-        }
+        Discussion discussion = validateDiscussion(command);
+        CmsDiscussionBoard board = validateBoard(discussion);
 
         // validation
         if (StringUtils.length(command.getBody()) < REPLY_BODY_MINIMUM_LENGTH) {
@@ -419,48 +402,19 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             }
 
             if (canSave) {
-                reply.setDiscussion(discussion);
-                reply.setBody(cleanUpText(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
-                if (newReply) {
-                    reply.setAuthorId(user.getId());
-                    _discussionReplyDao.save(reply);
-                } else {
-                    reply.setDateUpdated(new Date());
-                    _discussionReplyDao.saveKeepDates(reply);
-                }
-
-                // update number of replies for discussion
-                int numReplies = _discussionReplyDao.getTotalReplies(discussion);
-                discussion.setNumReplies(numReplies);
-                _discussionDao.saveKeepDates(discussion);
+                replyHelper(command,discussion,reply,newReply,user);
             }
 
             if (doWordFilter) {
-                String bodyWord = _alertWordDao.hasAlertWord(reply.getBody());
-                if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) &&
-                        bodyWord != null) {
-                    // profanity filter
-                    // Moderators are always allowed to post profanity
-                    String reason = "Contains the alert word \"";
-                    reason += bodyWord;
-                    reason += "\"";
-                    _reportContentService.reportContent(getAlertWordFilterUser(), user, request, reply.getId(),
-                            ReportedEntity.ReportedEntityType.reply, reason);
-                    _log.warn("Reply triggers profanity filter.");
-                }
+                filterWords(reply,user,request);
             }
+            doRedirect(command,board,discussion,reply,request);
 
-            if (StringUtils.isEmpty(command.getRedirect())) {
-                // default to forwarding to the discussion detail page
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
-                        Long.valueOf(discussion.getId()));
-                urlBuilder.setParameter("discussionReplyId", String.valueOf(reply.getId()));
-                command.setRedirect(urlBuilder.asSiteRelative(request) + "#reply_" + reply.getId());
-                _log.info("Setting redirect to " + command.getRedirect());
+            if (newReply && sendGSNotification) {
+                notifyAboutGSReply(request, sessionContext, board, discussion, reply, user);
             }
-
-            if (newReply && sendNotification) {
-                notifyAboutReply(request, sessionContext, board, discussion, reply, user);
+            if (newReply && sendCBNotification) {
+                notifyAboutCBReply(request, sessionContext, board, discussion, reply, user);
             }
 
             return reply;
@@ -468,24 +422,127 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         return null;
     }
 
+    public void validateUser(SessionContext sessionContext, HttpServletRequest request){
+        if (sessionContext == null) {
+            _log.warn("Attempt to submit with no SessionContext rejected");
+            throw new IllegalStateException("No SessionContext found in request");
+        }
+        if (!PageHelper.isMemberAuthorized(request) || sessionContext.getUser() == null) {
+            _log.warn("Attempt to submit with no valid user rejected");
+            throw new IllegalStateException("Discussion reply submission occurred but no valid user is cookied!");
+        }
+    }
+
+    public Discussion validateDiscussion(DiscussionSubmissionCommand command){
+        Discussion discussion = _discussionDao.findById(command.getDiscussionId());
+        if (discussion == null) {
+            _log.warn("Attempt to submit with unknown discussion id (" + command.getDiscussionId() + ") rejected");
+            throw new IllegalStateException("Discussion reply submission with unknown discussion id! id=" +
+                    command.getDiscussionId());
+        }    
+        return discussion;
+    }
+
+    public CmsDiscussionBoard validateBoard(Discussion discussion){
+        CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(discussion.getBoardId());
+        if (board == null) {
+            _log.warn("Attempt to submit with unknown discussion board id (" +
+                    discussion.getBoardId() + ") rejected");
+            throw new IllegalStateException("Discussion submission with unknown discussion board id! id=" +
+                    discussion.getBoardId());
+        }
+        return board;
+    }
+    
+    public void replyHelper(DiscussionSubmissionCommand command, Discussion discussion, DiscussionReply reply,
+                            boolean isNewReply, User user){
+        reply.setDiscussion(discussion);
+        reply.setBody(cleanUpText(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
+        if (isNewReply) {
+            reply.setAuthorId(user.getId());
+            _discussionReplyDao.save(reply);
+        } else {
+            reply.setDateUpdated(new Date());
+            _discussionReplyDao.saveKeepDates(reply);
+        }
+
+        // update number of replies for discussion
+        int numReplies = _discussionReplyDao.getTotalReplies(discussion);
+        discussion.setNumReplies(numReplies);
+        _discussionDao.saveKeepDates(discussion);
+
+    }
+
+    public void filterWords(DiscussionReply reply, User user, HttpServletRequest request){
+        String bodyWord = _alertWordDao.hasAlertWord(reply.getBody());
+        if (!user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) && bodyWord != null) {
+            // profanity filter
+            // Moderators are always allowed to post profanity
+            String reason = "Contains the alert word \"";
+            reason += bodyWord;
+            reason += "\"";
+            _reportContentService.reportContent(getAlertWordFilterUser(), user, request, reply.getId(),
+                    ReportedEntity.ReportedEntityType.reply, reason);
+            _log.warn("Reply triggers profanity filter.");
+        }
+    }
+
+    public void doRedirect(DiscussionSubmissionCommand command, CmsDiscussionBoard board, Discussion discussion,
+                           DiscussionReply reply,HttpServletRequest request){
+        if (StringUtils.isEmpty(command.getRedirect())) {
+            // default to forwarding to the discussion detail page
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMMUNITY_DISCUSSION, board.getFullUri(),
+            Long.valueOf(discussion.getId()));
+            urlBuilder.setParameter("discussionReplyId", String.valueOf(reply.getId()));
+            command.setRedirect(urlBuilder.asSiteRelative(request) + "#reply_" + reply.getId());
+            _log.info("Setting redirect to " + command.getRedirect());
+        }
+    }
+
+    public void notifyAboutCBReply(HttpServletRequest request, SessionContext sessionContext, CmsDiscussionBoard board,
+                                   Discussion discussion, DiscussionReply reply, User replyAuthor) {
+        User author = _userDao.findUserFromId(discussion.getAuthorId());
+        boolean sendEmail = checkEmailSend(author,sessionContext);
+        String language = request.getParameter("language");
+        Subscription sub = author.findSubscription(SubscriptionProduct.CB_COMMUNITY_NOTIFICATIONS);
+        if(sub != null && discussion.isNotifyAuthorAboutReplies() && author.getId() != replyAuthor.getId() && // don't receive notification if commenting on own discussion
+        (sendEmail)){
+            _log.info("Community email notification sent to " + author.getEmail() + " (" + author.getId() +
+            ") for reply " + reply.getId() + " from replyAuthor " + replyAuthor.getId());
+
+            Map<String,String> emailAttributes = new HashMap<String,String>();
+            if (replyAuthor.getUserProfile() != null && replyAuthor.getUserProfile().getScreenName() != null) {
+                emailAttributes.put("commenter_username", replyAuthor.getUserProfile().getScreenName());
+            }
+            if (author.getUserProfile() != null && author.getUserProfile().getScreenName() != null) {
+                emailAttributes.put("author_username", author.getUserProfile().getScreenName());
+            }
+            emailAttributes.put("post_snippet", Util.abbreviate(reply.getBody(),20));
+//            DiscussionTagHandler discussionTagHandler = new DiscussionTagHandler();
+//            discussionTagHandler.setDiscussion(discussion);
+//            discussionTagHandler.setFullUri(board.getFullUri());
+//            discussionTagHandler.setDiscussionReplyId(reply.getId());
+//            UrlBuilder postUrlBuilder = discussionTagHandler.createUrlBuilder();
+//            emailAttributes.put("post_url", postUrlBuilder.asSiteRelative(request));
+//            emailAttributes.put("post_url", "/collegebound.greatschools.org/");
+//            emailAttributes.put("entity_id", String.valueOf(discussion.getId()));
+            if("es".equalsIgnoreCase(language)){
+                _exactTargetAPI.sendTriggeredEmail("CB_Community_Notification_es", author, emailAttributes);
+            }else{
+                _exactTargetAPI.sendTriggeredEmail("CB_Community_Notification", author, emailAttributes);
+            }
+        }
+    }
+
     // GS-10375
     // TODO-10375 write a unit test in DiscussionSubmissionControllerTest.java to test logic for whether or not to send email
-    public void notifyAboutReply(HttpServletRequest request, SessionContext sessionContext, CmsDiscussionBoard board, Discussion discussion, DiscussionReply reply, User replyAuthor) {
+    public void notifyAboutGSReply(HttpServletRequest request, SessionContext sessionContext, CmsDiscussionBoard board, Discussion discussion, DiscussionReply reply, User replyAuthor) {
         User author = _userDao.findUserFromId(discussion.getAuthorId());
-
-        boolean isInternalServer =
-            UrlUtil.isDevEnvironment(sessionContext.getHostName()) ||
-            UrlUtil.isQAServer(sessionContext.getHostName()) ||
-            UrlUtil.isPreReleaseServer(sessionContext.getHostName());
-
-        boolean authorHasGsEmailAddress =
-            author.getEmail() != null &&
-            (author.getEmail().toLowerCase().endsWith("@greatschools.org") ||
-             author.getEmail().toLowerCase().endsWith("@greatschools.net"));
+        boolean sendEmail = checkEmailSend(author,sessionContext);
 
         if (author.getNotifyAboutReplies() && discussion.isNotifyAuthorAboutReplies() &&
             author.getId() != replyAuthor.getId() && // don't receive notification if commenting on own discussion
-            (!isInternalServer || authorHasGsEmailAddress)) {
+            (sendEmail)) {
             _log.info("Community email notification sent to " + author.getEmail() + " (" + author.getId() +
                     ") for reply " + reply.getId() + " from replyAuthor " + replyAuthor.getId());
 
@@ -507,6 +564,19 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             _exactTargetAPI.sendTriggeredEmail("gs_community_notification", author, emailAttributes);
         }
+    }
+
+    public boolean checkEmailSend(User author,SessionContext sessionContext){
+        boolean isInternalServer =
+            UrlUtil.isDevEnvironment(sessionContext.getHostName()) ||
+            UrlUtil.isQAServer(sessionContext.getHostName()) ||
+            UrlUtil.isPreReleaseServer(sessionContext.getHostName());
+
+        boolean authorHasGsEmailAddress =
+            author.getEmail() != null &&
+            (author.getEmail().toLowerCase().endsWith("@greatschools.org") ||
+            author.getEmail().toLowerCase().endsWith("@greatschools.net"));
+        return (!isInternalServer || authorHasGsEmailAddress);
     }
 
     public IDiscussionReplyDao getDiscussionReplyDao() {
@@ -579,5 +649,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
     public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
         _exactTargetAPI = exactTargetAPI;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }

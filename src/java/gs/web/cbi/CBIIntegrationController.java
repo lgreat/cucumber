@@ -24,13 +24,18 @@ public class CBIIntegrationController implements ReadWriteController {
     private static final String SECRET_KEY = "cbounder";
     /** Keys to the actions supported by this controller */
     public static final String SEND_TRIGGERED_EMAIL = "send_triggered_email";
+    public static final String MANAGE_SUBSCRIPTIONS = "manageSubscriptions";
+    public static final String NL_SUB_PARAM = "nl_sub";
+    public static final String CC_SUB_PARAM = "cc_sub";
+    public static final String COMM_SUB_PARAM = "comm_sub";
     public static final String SUBSCRIBE_CB_NL = "subscribe_cb_nl";
     public static final String UNSUBSCRIBE_CB_NL = "unsubscribe_cb_nl";
     public static final String SUBSCRIBE_CB_COURSE_COMPLETE = "subscribe_cb_coursecomplete";
     public static final String UNSUBSCRIBE_CB_COURSE_COMPLETE = "unsubscribe_cb_coursecomplete";
+    public static final String SUBSCRIBE_CB_COMMUNITY_NOTIFICATION = "subscribe_cb_communityNotification";
+    public static final String UNSUBSCRIBE_CB_COMMUNITY_NOTIFICATION = "unsubscribe_cb_communityNotification";
     private ExactTargetAPI _exactTargetAPI;
     protected IUserDao _userDao;
-
 
     private ISubscriptionDao _subscriptionDao;
 
@@ -43,15 +48,40 @@ public class CBIIntegrationController implements ReadWriteController {
             String action = request.getParameter(ACTION_PARAM);
             if (SEND_TRIGGERED_EMAIL.equals(action)) {
                 out.print(sendExactTargetTriggeredEmail(request));
-            }else if(UNSUBSCRIBE_CB_NL.equals(action)){
-                out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_NEWSLETTER));
-            }else if(UNSUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
-                out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_COURSE_COMPLETE));
-            }else if(SUBSCRIBE_CB_NL.equals(action)){
-                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_NEWSLETTER));
-            }else if(SUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
-                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_COURSE_COMPLETE));
+            }else if(MANAGE_SUBSCRIPTIONS.equals(action)){
+                if(SUBSCRIBE_CB_NL.equals(request.getParameter(NL_SUB_PARAM))){
+                    out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_NEWSLETTER));
+                }
+                if(UNSUBSCRIBE_CB_NL.equals(request.getParameter(NL_SUB_PARAM))){
+                    out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_NEWSLETTER));
+                }
+                if(SUBSCRIBE_CB_COURSE_COMPLETE.equals(request.getParameter(CC_SUB_PARAM))){
+                    out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_COURSE_COMPLETE));
+                }
+                if(UNSUBSCRIBE_CB_COURSE_COMPLETE.equals(request.getParameter(CC_SUB_PARAM))){
+                    out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_COURSE_COMPLETE));
+                }
+                if(SUBSCRIBE_CB_COMMUNITY_NOTIFICATION.equals(request.getParameter(COMM_SUB_PARAM))){
+                    out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_COMMUNITY_NOTIFICATIONS));
+                }
+                if(UNSUBSCRIBE_CB_COMMUNITY_NOTIFICATION.equals(request.getParameter(COMM_SUB_PARAM))){
+                    out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_COMMUNITY_NOTIFICATIONS));
+                }
+
             }
+//            else if(UNSUBSCRIBE_CB_NL.equals(action)){
+//                out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_NEWSLETTER));
+//            }else if(UNSUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
+//                out.print(unsubscribeUser(request.getParameter("email"),SubscriptionProduct.CB_COURSE_COMPLETE));
+//            }else if(UNSUBSCRIBE_CB_COMMUNITY_NOTIFICATION.equals(action)){
+//                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_COMMUNITY_NOTIFICATIONS));
+//            }else if(SUBSCRIBE_CB_NL.equals(action)){
+//                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_NEWSLETTER));
+//            }else if(SUBSCRIBE_CB_COURSE_COMPLETE.equals(action)){
+//                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_COURSE_COMPLETE));
+//            }else if(SUBSCRIBE_CB_COMMUNITY_NOTIFICATION.equals(action)){
+//                out.print(subscribeUser(request.getParameter("email"),request.getParameter("state"),SubscriptionProduct.CB_COMMUNITY_NOTIFICATIONS));
+//            }
         }
         response.setContentType("text/plain");
         out.flush();
