@@ -526,7 +526,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             jQuery('#compareBtn').removeClass('btn25');
             jQuery('#compareBtn').addClass('btn25-inactive');
         }
-        jQuery('.submitCompareError').text(n == 1 ? "Select two or more to compare" : "");
+        var errorMsg = "Select two or more to compare";
+        jQuery('.submitCompareError').text(n == 1 ? errorMsg : '');
     }
 
     countChecked();

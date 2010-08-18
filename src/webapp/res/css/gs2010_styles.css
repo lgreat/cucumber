@@ -4898,6 +4898,12 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     _zoom:1;
 }
 
+#submitCompare .submitCompareError{
+    width:97px;
+    line-height:1.1;
+    padding-left:3px;
+}
+
 .nearby-school{
     height:69px;
 }

@@ -325,7 +325,7 @@
                         <span class="lftDoor25"><span class="rtDoor25">Compare</span></span>
                         <br class="clearfloat"/>
                     </button>
-                    <span class="submitCompareError smallAlertText"><!-- do not collapse --></span>
+                    <div class="submitCompareError smallAlertText fltlft"><!-- do not collapse --></div>
                 </div>
             </c:if>
 
