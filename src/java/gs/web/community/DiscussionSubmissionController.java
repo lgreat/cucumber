@@ -76,9 +76,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         }
         */
 
-        if (StringUtils.equals("cbiReply", command.getType())) {
+        if (StringUtils.equals("cbiAdviceReply", command.getType())
+                || StringUtils.equals("cbiTipReply", command.getType())) {
             handleCBIReplySubmission(request, response, command);
-        } else if (StringUtils.equals("cbiDiscussion", command.getType())) {
+        } else if (StringUtils.equals("cbiAdviceDiscussion", command.getType())
+                || StringUtils.equals("cbiTipDiscussion", command.getType())) {
             handleDiscussionSubmission(request, response, command, false);
         } else if (StringUtils.equals("editDiscussion", command.getType())) {
             handleEditDiscussionSubmission(request, response, command);
@@ -219,7 +221,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             }
 
             OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-            ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionPost);
+            if (StringUtils.equals("cbiTipDiscussion", command.getType())) {
+                ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBTipDiscussionPost);
+            } else if (StringUtils.equals("cbiAdviceDiscussion", command.getType())) {
+                ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBAdviceDiscussionPost);
+            } else {
+                ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionPost);
+            }
 
             if (StringUtils.isEmpty(command.getRedirect())) {
                 // default to forwarding to the discussion detail page
@@ -353,12 +361,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             (HttpServletRequest request, HttpServletResponse response, DiscussionSubmissionCommand command)
             throws IllegalStateException {
         handleDiscussionReplySubmissionHelper(request, response, command, true, true,false);
-
-        // omniture success event only if new discussion reply
-        if (command.getDiscussionReplyId() == null) {
-            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-            ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
-        }
     }
 
     /**
@@ -403,6 +405,18 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             if (canSave) {
                 replyHelper(command,discussion,reply,newReply,user);
+            }
+
+            // omniture success event only if new discussion reply
+            if (command.getDiscussionReplyId() == null) {
+                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                if (StringUtils.equals("cbiTipReply", command.getType())) {
+                    ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBTipReplyPost);
+                } else if (StringUtils.equals("cbiAdviceReply", command.getType())) {
+                    ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBAdviceReplyPost);
+                } else {
+                    ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
+                }
             }
 
             if (doWordFilter) {

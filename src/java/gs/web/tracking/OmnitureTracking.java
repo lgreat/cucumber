@@ -81,7 +81,11 @@ public abstract class  OmnitureTracking {
         TellAFriend(21),
         MSLAddSchool(27),
         MSLDeleteSchool(28),
-        EmailVerified(29);
+        EmailVerified(29),
+        CBTipDiscussionPost(30),
+        CBTipReplyPost(31),
+        CBAdviceDiscussionPost(32),
+        CBAdviceReplyPost(33);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

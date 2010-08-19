@@ -585,9 +585,9 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmissionByTopicCenter(getRequest(), getResponse(), _command);
-        } catch (IllegalStateException ise) {
-            fail("Should not receive exception on valid submission: " + ise);
+            _controller.onSubmit(getRequest(), getResponse(), _command, null);
+        } catch (Exception e) {
+            fail("Should not receive exception on valid submission: " + e);
         }
         verifyAllMocks();
 
@@ -597,13 +597,14 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     }
 
     // Expect alert word to be skipped for CBI
-    public void testHandleCBIDiscussionSubmissionWithAlertWord() {
+    public void testHandleCBIAdviceDiscussionSubmissionWithAlertWord() {
         insertUserIntoRequest();
 
         _command.setBody(VALID_LENGTH_DISCUSSION_POST);
         _command.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
         _command.setDiscussionBoardId(2L);
         _command.setRedirect("redirect");
+        _command.setType("cbiAdviceDiscussion");
 
         CmsDiscussionBoard board = new CmsDiscussionBoard();
         board.setContentKey(new ContentKey("DiscussionBoard", 2L));
@@ -634,18 +635,67 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
 
         replayAllMocks();
         try {
-            _controller.handleDiscussionSubmission(getRequest(), getResponse(), _command, false);
-        } catch (IllegalStateException ise) {
-            fail("Should not receive exception on valid submission: " + ise);
+            _controller.onSubmit(getRequest(), getResponse(), _command, null);
+        } catch (Exception e) {
+            fail("Should not receive exception on valid submission: " + e);
         }
         verifyAllMocks();
 
         assertEquals("redirect", _command.getRedirect());
         assertNotNull(getResponse().getCookie("omniture"));
-        assertEquals("events%24%24%3A%24%24event16%3B", getResponse().getCookie("omniture").getValue());
+        assertEquals("events%24%24%3A%24%24event32%3B", getResponse().getCookie("omniture").getValue());
     }
 
     // Expect alert word to be skipped for CBI
+    public void testHandleCBITipDiscussionSubmissionWithAlertWord() {
+        insertUserIntoRequest();
+
+        _command.setBody(VALID_LENGTH_DISCUSSION_POST);
+        _command.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        _command.setDiscussionBoardId(2L);
+        _command.setRedirect("redirect");
+        _command.setType("cbiTipDiscussion");
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+
+        Discussion discussion = new Discussion();
+        discussion.setBoardId(2L);
+        discussion.setBody(VALID_LENGTH_DISCUSSION_POST);
+        discussion.setTitle(VALID_LENGTH_DISCUSSION_TITLE);
+        discussion.setAuthorId(_user.getId());
+
+        _discussionDao.save(eqDiscussion(discussion));
+        discussion.setUser(_user);
+        discussion.setDiscussionBoard(board);
+        discussion.setId(1234);
+        try {
+            _solrService.indexDocument(eqDiscussion(discussion));
+        } catch (Exception e) {
+            // error is logged
+        }
+
+        User reporter = new User();
+                reporter.setId(-1);
+                reporter.setEmail("moderator@greatschools.org");
+                reporter.setUserProfile(new UserProfile());
+                reporter.getUserProfile().setScreenName("gs_alert_word_filter");
+
+        replayAllMocks();
+        try {
+            _controller.onSubmit(getRequest(), getResponse(), _command, null);
+        } catch (Exception e) {
+            fail("Should not receive exception on valid submission: " + e);
+        }
+        verifyAllMocks();
+
+        assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event30%3B", getResponse().getCookie("omniture").getValue());
+    }
+
     public void testHandleDiscussionSubmissionWithIdReplacement() {
         insertUserIntoRequest();
 
@@ -736,7 +786,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
     }
 
     // expect no alert word dao activity for CBI
-    public void testHandleCBIReplySubmission() {
+    public void testHandleCBITipReplySubmission() {
         insertUserIntoRequest();
 
         Discussion discussion = new Discussion();
@@ -748,6 +798,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _command.setBody(VALID_LENGTH_REPLY_POST);
         _command.setDiscussionId(1);
         _command.setRedirect("redirect");
+        _command.setType("cbiTipReply");
 
         expect(_discussionDao.findById(1)).andReturn(discussion);
 
@@ -770,15 +821,66 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromId(5)).andReturn(user);
         replayAllMocks();
         try {
-            _controller.handleCBIReplySubmission(getRequest(), getResponse(), _command);
+            _controller.onSubmit(getRequest(), getResponse(), _command, null);
 
-        } catch (IllegalStateException ise) {
-            fail("Should not receive exception on valid submission: " + ise);
+        } catch (Exception e) {
+            fail("Should not receive exception on valid submission: " + e);
         }
 
         verifyAllMocks();
 
         assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event31%3B", getResponse().getCookie("omniture").getValue());
+    }
+
+    // expect no alert word dao activity for CBI
+    public void testHandleCBIAdviceReplySubmission() {
+        insertUserIntoRequest();
+
+        Discussion discussion = new Discussion();
+        discussion.setId(1);
+        discussion.setBoardId(2L);
+        discussion.setNumReplies(5);
+        //the author of the discussion and the reply are same
+        discussion.setAuthorId(_user.getId());
+        _command.setBody(VALID_LENGTH_REPLY_POST);
+        _command.setDiscussionId(1);
+        _command.setRedirect("redirect");
+        _command.setType("cbiAdviceReply");
+
+        expect(_discussionDao.findById(1)).andReturn(discussion);
+
+        CmsDiscussionBoard board = new CmsDiscussionBoard();
+        board.setContentKey(new ContentKey("DiscussionBoard", 2L));
+        board.setFullUri("/uri");
+
+        expect(_cmsDiscussionBoardDao.get(2L)).andReturn(board);
+
+        DiscussionReply reply = new DiscussionReply();
+        reply.setAuthorId(_user.getId());
+        reply.setBody(VALID_LENGTH_REPLY_POST);
+        reply.setDiscussion(discussion);
+        _discussionReplyDao.save(eqDiscussionReply(reply));
+        expect(_discussionReplyDao.getTotalReplies(discussion)).andReturn(5);
+        _discussionDao.saveKeepDates(discussion);
+
+        User user = new User();
+        user.setId(5);
+        expect(_userDao.findUserFromId(5)).andReturn(user);
+        replayAllMocks();
+        try {
+            _controller.onSubmit(getRequest(), getResponse(), _command, null);
+
+        } catch (Exception e) {
+            fail("Should not receive exception on valid submission: " + e);
+        }
+
+        verifyAllMocks();
+
+        assertEquals("redirect", _command.getRedirect());
+        assertNotNull(getResponse().getCookie("omniture"));
+        assertEquals("events%24%24%3A%24%24event33%3B", getResponse().getCookie("omniture").getValue());
     }
 
     public void testHandleDiscussionReplySubmissionWithLineFeeds() {
