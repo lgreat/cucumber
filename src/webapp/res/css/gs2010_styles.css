@@ -4300,7 +4300,7 @@ margin:10px 0 14px 20px;
 }
 
 #changeEmail form li, #changePassword form li {
-    height: 24px;
+    height: auto;
     padding: 5px 0;
 }
 
