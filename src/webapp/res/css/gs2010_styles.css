@@ -202,14 +202,14 @@ h5 {
 h2.title1white, .mod_hd h3 {
     background: url(/res/img/discussion_boards/db_bg_header.png) repeat-x;
     color: #fff;
-    font: 400 20px Georgia, serif;
-    padding: 6px;
+    font: normal 20px Georgia, serif;
+    padding: 6px 15px;
 }
 
 h3.title1white, h3.srchCat {
     background: url(/res/img/discussion_boards/db_bg_header.png) repeat-x;
     color: #fff;
-    font: 700 14px Arial, sans-serif;
+    font: bold 14px Arial, sans-serif;
     padding: 6px 9px;
 }
 
@@ -1130,18 +1130,18 @@ body.cobranded #pageGS {
     position:relative;
 }
 
-.mod_hd h3 {
+/*.mod_hd h3 {
     padding: 0 15px;
     background: #149 url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     color: #fff;
     font: 20px / 1.7 Georgia, "Times New Roman", Times, serif;
-}
+}*/
 
 .mod_hd_1 h3 {
-    padding: 0 15px;
+    padding: 6px 0 6px 10px;
     background: #149 url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     color: #fff;
-    font: 19px / 1.7 Georgia, "Times New Roman", Times, serif;
+    font: normal 20px Georgia, "Times New Roman", Times, serif;
 }
 
 .mod_hd_alt h3 {
