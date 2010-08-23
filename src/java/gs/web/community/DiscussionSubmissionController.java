@@ -190,7 +190,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setUser(user);
             // needed for indexing
             discussion.setDiscussionBoard(board);
-            if (!StringUtils.equals("cbiDiscussion", command.getType())) {
+            if (!StringUtils.equals("cbiAdviceDiscussion", command.getType()) && !StringUtils.equals("cbiTipDiscussion", command.getType())) {
                 try {
                     _solrService.indexDocument(discussion);
                 } catch (Exception e) {
@@ -526,20 +526,16 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
             Map<String,String> emailAttributes = new HashMap<String,String>();
             if (replyAuthor.getUserProfile() != null && replyAuthor.getUserProfile().getScreenName() != null) {
-                emailAttributes.put("commenter_username", replyAuthor.getUserProfile().getScreenName());
+                emailAttributes.put("CB_commenter_username", replyAuthor.getUserProfile().getScreenName());
             }
             if (author.getUserProfile() != null && author.getUserProfile().getScreenName() != null) {
-                emailAttributes.put("author_username", author.getUserProfile().getScreenName());
+                emailAttributes.put("CB_author_username", author.getUserProfile().getScreenName());
             }
-            emailAttributes.put("post_snippet", Util.abbreviate(reply.getBody(),20));
-//            DiscussionTagHandler discussionTagHandler = new DiscussionTagHandler();
-//            discussionTagHandler.setDiscussion(discussion);
-//            discussionTagHandler.setFullUri(board.getFullUri());
-//            discussionTagHandler.setDiscussionReplyId(reply.getId());
-//            UrlBuilder postUrlBuilder = discussionTagHandler.createUrlBuilder();
-//            emailAttributes.put("post_url", postUrlBuilder.asSiteRelative(request));
-//            emailAttributes.put("post_url", "/collegebound.greatschools.org/");
-//            emailAttributes.put("entity_id", String.valueOf(discussion.getId()));
+            emailAttributes.put("CB_post_snippet", Util.abbreviate(reply.getBody(),20));
+            String postUrl = request.getParameter("ETPostUrl");
+            System.out.println("ETPostUrl-------------"+postUrl);
+            emailAttributes.put("CB_post_url ", postUrl);
+            emailAttributes.put("CB_entity_id", String.valueOf(discussion.getId()));
             if("es".equalsIgnoreCase(language)){
                 _exactTargetAPI.sendTriggeredEmail("CB_Community_Notification_es", author, emailAttributes);
             }else{
