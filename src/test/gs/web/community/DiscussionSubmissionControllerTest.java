@@ -621,11 +621,6 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setUser(_user);
         discussion.setDiscussionBoard(board);
         discussion.setId(1234);
-        try {
-            _solrService.indexDocument(eqDiscussion(discussion));
-        } catch (Exception e) {
-            // error is logged
-        }
 
         User reporter = new User();
                 reporter.setId(-1);
@@ -671,11 +666,6 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         discussion.setUser(_user);
         discussion.setDiscussionBoard(board);
         discussion.setId(1234);
-        try {
-            _solrService.indexDocument(eqDiscussion(discussion));
-        } catch (Exception e) {
-            // error is logged
-        }
 
         User reporter = new User();
                 reporter.setId(-1);
