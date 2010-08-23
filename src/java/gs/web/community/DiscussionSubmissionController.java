@@ -48,6 +48,12 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     public final static Long GENERAL_PARENTING_DISCUSSION_BOARD_ID = 2420L;
     public final static String COOKIE_REPLY_BODY_PROPERTY = "replyBody";
 
+    public final static String CBI_TIP_DISCUSSION = "cbiTipDiscussion";
+    public final static String CBI_ADVICE_DISCUSSION = "cbiAdviceDiscussion";
+    public final static String CBI_TIP_REPLY = "cbiTipReply";
+    public final static String CBI_ADVICE_REPLY = "cbiAdviceReply";
+
+
     private IDiscussionReplyDao _discussionReplyDao;
     private IDiscussionDao _discussionDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
@@ -76,11 +82,11 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         }
         */
 
-        if (StringUtils.equals("cbiAdviceReply", command.getType())
-                || StringUtils.equals("cbiTipReply", command.getType())) {
+        if (StringUtils.equals(CBI_ADVICE_REPLY, command.getType())
+                || StringUtils.equals(CBI_TIP_REPLY, command.getType())) {
             handleCBIReplySubmission(request, response, command);
-        } else if (StringUtils.equals("cbiAdviceDiscussion", command.getType())
-                || StringUtils.equals("cbiTipDiscussion", command.getType())) {
+        } else if (StringUtils.equals(CBI_ADVICE_DISCUSSION, command.getType())
+                || StringUtils.equals(CBI_TIP_DISCUSSION, command.getType())) {
             handleDiscussionSubmission(request, response, command, false);
         } else if (StringUtils.equals("editDiscussion", command.getType())) {
             handleEditDiscussionSubmission(request, response, command);
@@ -190,7 +196,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setUser(user);
             // needed for indexing
             discussion.setDiscussionBoard(board);
-            if (!StringUtils.equals("cbiAdviceDiscussion", command.getType()) && !StringUtils.equals("cbiTipDiscussion", command.getType())) {
+            if (!StringUtils.equals(CBI_ADVICE_DISCUSSION, command.getType()) && !StringUtils.equals(CBI_TIP_DISCUSSION, command.getType())) {
                 try {
                     _solrService.indexDocument(discussion);
                 } catch (Exception e) {
@@ -221,9 +227,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             }
 
             OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-            if (StringUtils.equals("cbiTipDiscussion", command.getType())) {
+            if (StringUtils.equals(CBI_TIP_DISCUSSION, command.getType())) {
                 ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBTipDiscussionPost);
-            } else if (StringUtils.equals("cbiAdviceDiscussion", command.getType())) {
+            } else if (StringUtils.equals(CBI_ADVICE_DISCUSSION, command.getType())) {
                 ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBAdviceDiscussionPost);
             } else {
                 ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionPost);
@@ -410,9 +416,9 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             // omniture success event only if new discussion reply
             if (command.getDiscussionReplyId() == null) {
                 OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                if (StringUtils.equals("cbiTipReply", command.getType())) {
+                if (StringUtils.equals(CBI_TIP_REPLY, command.getType())) {
                     ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBTipReplyPost);
-                } else if (StringUtils.equals("cbiAdviceReply", command.getType())) {
+                } else if (StringUtils.equals(CBI_ADVICE_REPLY, command.getType())) {
                     ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CBAdviceReplyPost);
                 } else {
                     ot.addSuccessEvent(CookieBasedOmnitureTracking.SuccessEvent.CommunityDiscussionReplyPost);
@@ -533,7 +539,6 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             }
             emailAttributes.put("CB_post_snippet", Util.abbreviate(reply.getBody(),20));
             String postUrl = request.getParameter("ETPostUrl");
-            System.out.println("ETPostUrl-------------"+postUrl);
             emailAttributes.put("CB_post_url ", postUrl);
             emailAttributes.put("CB_entity_id", String.valueOf(discussion.getId()));
             if("es".equalsIgnoreCase(language)){
