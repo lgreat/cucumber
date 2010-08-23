@@ -1351,6 +1351,10 @@ body.cobranded #pageGS {
     padding-left: 10px;
 }
 
+.padlft_20 {
+    padding-left: 20px;
+}
+
 .hidden {
     display: none;
 }
@@ -4629,7 +4633,7 @@ margin:10px 0 14px 20px;
     width:150px;
 }
 
-#schoolInfoLeftColumn span{
+#schoolInfoLeftColumn .infoLabel{
     display:inline-block;
     width:50px;
     margin-right: 5px;
@@ -5625,7 +5629,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-08-11.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-08-23.png);
 }
 
 .reportIt-nbg {
@@ -5887,6 +5891,12 @@ additional icons on the sprite.
     background-position: -60px -120px;
 }
 
+.i-dollarsign {
+    width: 11px;
+    height: 18px;
+    background-position: -60px -140px;
+}
+
 .info {
     width: 18px;
     height: 18px;
@@ -5897,6 +5907,12 @@ additional icons on the sprite.
     width: 16px;
     height: 18px;
     background-position: -60px -180px;
+}
+
+.i-sharethis-2 {
+    width: 16px;
+    height: 16px;
+    background-position: -60px -200px;
 }
 
 /* column 80 */

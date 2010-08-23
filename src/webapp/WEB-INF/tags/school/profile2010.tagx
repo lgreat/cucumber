@@ -147,20 +147,29 @@
                 <span class="sprite rate2"><!-- do not collapse --></span>
                 <link:schoolProfileParentReview school="${school}" anchor="schoolReviewSubmitForm">Rate &amp;amp; review</link:schoolProfileParentReview>
             </li>
-            <li>
-                <span class="sprite print2"><!-- do not collapse --></span>
+            <!--<li>
+                <span class="sprite print2">&lt;!&ndash; do not collapse &ndash;&gt;</span>
                 <a href="javascript:window.print();">Print</a>
-            </li>
-            <li>
+            </li>-->
+            <!--<li>
                 <gsml:url var="mailToFriendUrl"
                           value="/community/mailToFriend.page?schoolId=${school.id}&amp;amp;refer=${tab}"/>
-                <span class="sprite emailIt"><!-- do not collapse --></span>
+                <span class="sprite emailIt">&lt;!&ndash; do not collapse &ndash;&gt;</span>
                 <a href="${mailToFriendUrl}"
                         onclick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</a>
-            </li>
-            <li>
+            </li>-->
+            <!--<li>
                 <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>
+            </li>-->
+            <li>
+                <a href="javascript:void(0);"><span class="sprite i-sharethis-2"><!-- do not collapse --></span><span class="st_sharethis_custom"> Share</span></a>
             </li>
+                <!-- TODO: Young this IF statement also needs to be date aware. It should only appear from 9/20/10 to 11/12/10. -->
+                <c:if test="${school.levelCode ne 'p'}">
+                    <li>
+                        <span class="sprite i-dollarsign"><!-- do not collapse --></span><a href="${url}" target="_blank"> Help this school win $20,000!</a>
+                    </li>
+                </c:if>
             </ul>
         </div>
         </div>
@@ -169,13 +178,13 @@
             <c:if test="${not empty school.phone or not empty school.fax or not empty school.webSite}">
                 <div id="schoolInfoLeftColumn" class="text3">
                     <c:if test="${not empty school.phone}">
-                        <p class="tel"><span>PHONE: </span>${school.phone}</p>
+                        <p class="tel"><span class="infoLabel">PHONE: </span>${school.phone}</p>
                     </c:if>
                     <c:if test="${not empty school.fax}">
-                        <p class="fax"><span>FAX: </span>${school.fax}</p>
+                        <p class="fax"><span class="infoLabel">FAX: </span>${school.fax}</p>
                     </c:if>
                     <c:if test="${not empty requestScope.pq_hours}">
-                        <p><span>HOURS: </span>${requestScope.pq_hours}</p>
+                        <p><span class="infoLabel">HOURS: </span>${requestScope.pq_hours}</p>
                     </c:if>
                     <c:if test="${not empty school.webSite}">
                         <p>
@@ -189,6 +198,9 @@
                             </c:choose>
                         </p>
                     </c:if>
+                    <p>
+                        <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>
+                    </p>
                 </div>
             </c:if>
             <div id="schoolInfoRightColumn" class="text3 adr">
