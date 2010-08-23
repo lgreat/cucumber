@@ -1423,6 +1423,14 @@ button {
 }
 
 /* skin */
+.btn25-inactive .lftDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left bottom;
+}
+
+.btn25-inactive .rtDoor25 {
+    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right bottom;
+}
+
 .lftDoor25 {
     background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
 }
@@ -1431,12 +1439,12 @@ button {
     background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
 }
 
-.btn25:active .lftDoor25, .btn25:hover .lftDoor25{
-    background-position: left bottom;
+.btn25:active .lftDoor25, .btn25:hover .lftDoor25 {
+    background-position: left -25px;
 }
 
 .btn25:active .rtDoor25, .btn25:hover .rtDoor25 {
-    background-position: right bottom;
+    background-position: right -25px;
     outline: none; /* hide dotted outline in Firefox */
 }
 
