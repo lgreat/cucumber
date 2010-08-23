@@ -194,7 +194,7 @@ body.ie6 .module {
 .module .header{
     height:36px;
     background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
-    padding:0 15px;
+    padding:0 15px 0 0;
 }
 .module .header div{
     padding:5px 0;
