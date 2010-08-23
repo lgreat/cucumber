@@ -61,21 +61,6 @@
         </property>
     </bean>
 
-    <bean name="schoolChoiceCenterPollFactory" class="gs.web.util.google.GoogleSpreadsheetDaoFactory">
-        <property name="googleKey" value="pHIaC-TrslBgZZG5PEEC-cA"/>
-        <property name="visibility" value="public"/>
-        <property name="projection" value="values"/>
-        <property name="worksheetName" value="od6"/>
-    </bean>
-
-    <bean name="/content/schoolChoiceCenterPoll.module"
-          class="gs.web.util.google.GoogleSpreadsheetController" lazy-init="true">
-        <property name="viewName" value="/poll"/>
-        <property name="tableDao">
-            <bean factory-bean="schoolChoiceCenterPollFactory" factory-method="getTableDao"/>
-        </property>
-    </bean>
-
     <bean name="/community/localQuestions.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           lazy-init="true">

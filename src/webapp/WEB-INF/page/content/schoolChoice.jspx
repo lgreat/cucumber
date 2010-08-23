@@ -338,18 +338,6 @@
 
                 <ad:AboveFold_300x600/>
 
-                <div id="poll" class="box">
-                    <div class="outer">
-                        <div class="inner">
-                            <h3 id="quotable">What do you think?</h3>
-
-                            <div id="pollWrapper">
-                                <jsp:include page="/content/schoolChoiceCenterPoll.module"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div id="moving" class="box">
                     <div class="inner">
                         <h3>Moving with kids</h3>
