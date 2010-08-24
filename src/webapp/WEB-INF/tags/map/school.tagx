@@ -329,7 +329,6 @@
             jQuery('#nearby-schools-link-' + '${school.databaseState}' + '${school.id}').mouseover(function() {
                 mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
             });
-
             <c:forEach var ="nearbySchool" items = "${schools}" begin="${start}" end="${start+count-1}">
                 <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
                 <c:set var="schoolName" value="${fn:replace(curSchool.name, '\'', '\\\'')}"/>
@@ -362,6 +361,7 @@
             google.maps.event.addListenerOnce(mapHelper.getMap(), 'tilesloaded', function() {
                 mapHelper.drawMarkers();
                 mapHelper.expandMapToFitMarkers();
+                mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
             });
         });
 
