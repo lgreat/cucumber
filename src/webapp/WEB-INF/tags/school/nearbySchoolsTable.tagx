@@ -175,7 +175,7 @@
                             </c:choose>
                         </td>
                         <td class="brdbtm_dotted" align="center">
-                            <link:schoolProfileParentReview school="${school}">
+                            <link:schoolProfileParentReview school="${s.neighbor}">
                                 <c:choose>
                                     <c:when test="${not empty s.parentRatings.overall}">
                                         <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
@@ -278,7 +278,7 @@
                                                                value="${s.distance}"/> miles</p>
                         </td>
                         <td class="brdbtm_dotted" align="center">
-                            <link:schoolProfileParentReview school="${school}">
+                            <link:schoolProfileParentReview school="${s.neighbor}">
                                 <c:choose>
                                     <c:when test="${not empty s.parentRatings.overall}">
                                         <span class="sprite stars_sm_${s.parentRatings.overall}"><!-- do not collapse --></span>
