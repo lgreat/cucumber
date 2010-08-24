@@ -1,5 +1,6 @@
 package gs.web.jsp;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
@@ -484,5 +485,11 @@ public class Util {
             throw new IllegalArgumentException("Set cannot be null");
         }
         return set.contains(o);
+    }
+
+    public static boolean separatedListContains(String stringToSearch, String stringToFind, String separaterChars) {
+        String[] tokens = StringUtils.split(stringToSearch, separaterChars);
+
+        return ArrayUtils.contains(tokens, stringToFind);
     }
 }
