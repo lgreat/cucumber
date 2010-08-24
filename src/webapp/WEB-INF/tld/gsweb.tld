@@ -232,6 +232,12 @@
         <function-signature>int getDcNclbLeaCode(int)</function-signature>
     </function>
 
+    <function>
+        <name>isInCare2DateRange</name>
+        <function-class>gs.web.school.Care2PromoHelper</function-class>
+        <function-signature>boolean isInCare2DateRange()</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

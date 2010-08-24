@@ -164,8 +164,7 @@
             <li>
                 <a href="javascript:void(0);"><span class="sprite i-sharethis-2"><!-- do not collapse --></span><span class="st_sharethis_custom"> Share</span></a>
             </li>
-                <!-- TODO: Young this IF statement also needs to be date aware. It should only appear from 9/20/10 to 11/12/10. -->
-                <c:if test="${school.levelCode ne 'p'}">
+                <c:if test="${school.levelCode ne 'p' and gsweb:isInCare2DateRange()}">
                     <li>
                         <span class="sprite i-dollarsign"><!-- do not collapse --></span><a href="${url}" target="_blank"> Help this school win $20,000!</a>
                     </li>
