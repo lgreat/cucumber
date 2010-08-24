@@ -101,18 +101,20 @@
                     <form:checkboxes path="premiumOptions" items="${account.premiumOptionTypes}"
                                      cssClass="accountConfig"/>
                 </div>
-                <div class="info">
-                    <label class="main">Account added:</label>
-                    ${account.accountAddedDetailedDisplayString}
-                </div>
-                <div class="info">
-                    <label class="main">Account updated:</label>
-                    ${account.accountUpdatedDetailedDisplayString}
-                </div>
-                <div class="info">
-                    <label class="main">Key generated:</label>
-                    ${account.keyGeneratedDetailedDisplayString}
-                </div>
+                <c:if test="${not empty account.id}">
+                    <div class="info">
+                        <label class="main">Account added:</label>
+                        ${account.accountAddedDetailedDisplayString}
+                    </div>
+                    <div class="info">
+                        <label class="main">Account updated:</label>
+                        ${account.accountUpdatedDetailedDisplayString}
+                    </div>
+                    <div class="info">
+                        <label class="main">Key generated:</label>
+                        ${account.keyGeneratedDetailedDisplayString}
+                    </div>
+                </c:if>
                 <div class="actions">
                     <input id="cancel" type="button" value="&amp;lt; Back"/>
                     <c:choose>
