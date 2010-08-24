@@ -277,4 +277,22 @@ public class UtilTest extends TestCase {
         assertEquals(expectedLong, Util.boldifyFirstXWords(input, 8));
         assertEquals(expectedLong, Util.boldifyFirstXWords(input, 10));
     }
+
+    public void testSeparatedListContains() {
+        String test = "one,two,three";
+        String token = "one";
+        String token2 = "two";
+        String token3 = "three";
+        String token4 = "four";
+        String separater = ",";
+
+        assertTrue("Expect to find token", Util.separatedListContains(test, token, separater));
+        assertTrue("Expect to find token", Util.separatedListContains(test, token2, separater));
+        assertTrue("Expect to find token", Util.separatedListContains(test, token3, separater));
+        assertFalse("Shouldn't find nonexistent token", Util.separatedListContains(test, token4, separater));
+
+        assertFalse("Shouldn't find token", Util.separatedListContains(test, token, null));
+        assertFalse("Should be null safe and return false", Util.separatedListContains(test, null, separater));
+        assertFalse("Should be null safe and return false", Util.separatedListContains(null, token, separater));
+    }
 }
