@@ -21,6 +21,7 @@ import gs.web.util.ReadWriteAnnotationController;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.ArrayList;
@@ -69,10 +70,12 @@ public class AccountController implements ReadWriteAnnotationController {
         ApiAccount account = getApiAccountDao().getAccountById(id);
         if (StringUtils.isBlank(account.getApiKey())) {
             account.setApiKey(ApiAccountUtils.generateAccountKey(account.getName()));
+            account.setKeyGenerated(new Date());
             sendKeyEmail(request, account);
             setMessageInModel(model, "Api Key Email sent.");
         } else {
             account.setApiKey(null);
+            account.setKeyGenerated(null);
         }
         getApiAccountDao().save(account);
         model.addAttribute(MODEL_ACCOUNT, account);
@@ -125,8 +128,10 @@ public class AccountController implements ReadWriteAnnotationController {
         } else {
             if (account.getId() != null) {
                 setMessageInModel(model, "Account settings updated.");
+                account.setAccountUpdated(new Date());
             } else {
                 setMessageInModel(model, "Account created.");
+                account.setAccountAdded(new Date());
             }
             getApiAccountDao().save(account);
         }

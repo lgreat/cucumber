@@ -35,6 +35,7 @@
         <th>Organization</th>
         <th>Email</th>
         <th>Active</th>
+        <th>Added</th>
     </tr>
     <c:forEach items="${accounts}" var="account">
         <tr>
@@ -46,6 +47,7 @@
         <td>
             ${(not empty account.apiKey) ? 'yes' : 'no'}
         </td>
+        <td>${account.accountAddedDisplayString}</td>
         </tr>
     </c:forEach>
 </table>
