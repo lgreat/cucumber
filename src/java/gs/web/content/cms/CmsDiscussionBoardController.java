@@ -163,7 +163,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         }
 
         List<Discussion> discussions;
-        List<Integer> excludeBoardIds = null;
+        List<Long> excludeBoardIds = null;
         if (recentConversations) {
             excludeBoardIds = _localBoardDao.getLocalBoardIds();
             discussions = _discussionDao.getDiscussionsForPage(page, pageSize, sort, includeInactive, isRaiseYourHand(), excludeBoardIds);
@@ -354,7 +354,7 @@ public class CmsDiscussionBoardController extends AbstractController {
     /**
      * Get the total number of discussions in the provided board.
      */
-    protected long getTotalDiscussions(CmsDiscussionBoard board, boolean includeInactive, boolean raiseYourHand, Collection<Integer> excludeBoardIds) {
+    protected long getTotalDiscussions(CmsDiscussionBoard board, boolean includeInactive, boolean raiseYourHand, Collection<Long> excludeBoardIds) {
         long totalDiscussions;
 
         totalDiscussions = _discussionDao.getTotalDiscussions(board, includeInactive, raiseYourHand, excludeBoardIds);

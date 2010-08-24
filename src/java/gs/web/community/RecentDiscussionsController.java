@@ -84,7 +84,7 @@ public class RecentDiscussionsController extends AbstractController {
                 model.put(MODEL_DISCUSSION_BOARD, board);
                 discussions = _discussionDao.getDiscussionsForPage(board, 1, limit, IDiscussionDao.DiscussionSort.RECENT_ACTIVITY, false);
             } else {
-                List<Integer> excludeBoardIds = _localBoardDao.getLocalBoardIds();
+                List<Long> excludeBoardIds = _localBoardDao.getLocalBoardIds();
                 discussions = _discussionDao.getDiscussionsForPage(1, limit, IDiscussionDao.DiscussionSort.NEWEST_FIRST, false, excludeBoardIds);
                 CmsDiscussionBoard board = _cmsDiscussionBoardDao.get(CmsConstants.GENERAL_PARENTING_DISCUSSION_BOARD_ID);
                 model.put(MODEL_DISCUSSION_BOARD, board);
