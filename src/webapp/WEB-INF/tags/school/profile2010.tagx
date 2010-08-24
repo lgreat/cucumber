@@ -162,11 +162,11 @@
                 <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>
             </li>-->
             <li>
-                <a href="javascript:void(0);"><span class="sprite i-sharethis-2"><!-- do not collapse --></span><span class="st_sharethis_custom"> Share</span></a>
+                <a href="javascript:void(0);"><span class="st_sharethis_custom sprite i-sharethis-2"><!-- do not collapse --></span><span class="st_sharethis_custom"> Share</span></a>
             </li>
                 <c:if test="${school.levelCode ne 'p' and gsweb:isInCare2DateRange()}">
                     <li>
-                        <span class="sprite i-dollarsign"><!-- do not collapse --></span><a href="${url}" target="_blank"> Help this school win $20,000!</a>
+                        <span class="sprite i-dollarsign"><!-- do not collapse --></span><a href="${url}" target="_blank" onclick=""> Help this school win $20,000!</a>
                     </li>
                 </c:if>
             </ul>
@@ -198,7 +198,7 @@
                         </p>
                     </c:if>
                     <p>
-                        <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>
+                        <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
                     </p>
                 </div>
             </c:if>

@@ -88,7 +88,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <pageHelper:addOnLoadHandler handler="doInterstitial('pkSchool')"/>
         </c:if>
     </c:if>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"><!-- do not collapse --></script>
     <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script> 
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
