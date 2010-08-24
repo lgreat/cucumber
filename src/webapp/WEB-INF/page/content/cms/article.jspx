@@ -18,6 +18,15 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
+<c:choose>
+    <c:when test="${type eq 'articleSlideshow'}">
+        <ad:setSlotPrefix slotPrefix="Article_Slideshow"/>
+    </c:when>
+    <c:otherwise>
+        <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
+    </c:otherwise>
+</c:choose>
+
 <head>
     <c:choose>
         <c:when test="${feature.contentKey.type eq 'ArticleSlideshow'}">
@@ -160,6 +169,10 @@
             </div>
         </c:when>
     </c:choose>
+
+
+    <!-- TODO-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
+    <!-- ad:adTag position="Sponsor_610x16"/ -->
 
 </div> <!-- end .bodyHeader -->
 <c:if test="${type eq 'askTheExperts' or type eq 'article'}">
@@ -644,14 +657,6 @@
             </div>
         </c:when>
         <c:otherwise>
-            <c:choose>
-                <c:when test="${type eq 'articleSlideshow'}">
-                    <ad:setSlotPrefix slotPrefix="Article_Slideshow"/>
-                </c:when>
-                <c:otherwise>
-                    <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
-                </c:otherwise>
-            </c:choose>
             <div id="squareadvert">
                 <ad:AboveFold_300x250/>
             </div>
