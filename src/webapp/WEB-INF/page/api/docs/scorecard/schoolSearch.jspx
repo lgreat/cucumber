@@ -40,12 +40,38 @@
 
             <div class="callfirst">
                 <h2>School Search</h2>
-                Returns a list of schools based on a search string. The various calls for School Search are in these formats:
-                <div class="sample_url">http://${apiHost}/search/schools/[state]/[schoolName]?key=[apiKey]</div>
-                <div class="sample_url">http://${apiHost}/search/city/[state]/[city]?key=[apiKey]</div>
-                <div class="sample_url">http://${apiHost}/search/city/[state]/[city]/[schoolName]?key=[apiKey]</div>
-                <div class="sample_url">http://${apiHost}/search/zip/[state]/[zip]?key=[apiKey]</div>
-                <div class="sample_url">http://${apiHost}/search/zip/[state]/[zip]/[schoolName]?key=[apiKey]</div>
+                Returns a list of schools based on a search by state, city, zip code, and/or school name.
+                The following formats are supported:<br/>
+                <br/>
+
+                <div>
+                    Search by school name and state:
+                    <div class="sample_url">http://${apiHost}/scorecard/search/schools/[state]/[schoolName]?key=[apiKey]</div>
+                </div>
+                <br/>
+
+                <div>
+                    Search by city and state:
+                    <div class="sample_url">http://${apiHost}/scorecard/search/city/[state]/[city]?key=[apiKey]</div>
+                </div>
+                <br/>
+
+                <div>
+                    Search by city, state, and school name:
+                    <div class="sample_url">http://${apiHost}/scorecard/search/city/[state]/[city]/[schoolName]?key=[apiKey]</div>
+                </div>
+                <br/>
+
+                <div>
+                    Search by state and zip code:
+                    <div class="sample_url">http://${apiHost}/scorecard/search/zip/[state]/[zip]?key=[apiKey]</div>
+                </div>
+                <br/>
+
+                <div>
+                    Search by state, zip code, and school name:
+                    <div class="sample_url">http://${apiHost}/scorecard/search/zip/[state]/[zip]/[schoolName]?key=[apiKey]</div>
+                </div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -62,7 +88,7 @@
                     <tbody>
                     <tr class="required">
                         <td>state*</td>
-                        <td>Two letter state abbreviation</td>
+                        <td>Case-insensitive two-letter state abbreviation</td>
                         <td>ak<br/>CA</td>
                     </tr>
                     <tr class="required">
@@ -114,13 +140,13 @@
                 <div class="footnote">*required</div>
                 <!-- examples of usage -->
                 Examples of usage:
-                <div class="example_url">http://${apiHost}/search/schools/ca/Alameda?key=[yourAPIKey]</div>
+                <div class="example_url">http://${apiHost}/scorecard/search/schools/ca/Alameda?key=[apiKey]</div>
                 Searches for schools in California whose names contain the word Alameda
-                <div class="example_url">http://${apiHost}/search/schools/ca/Childtime-Children's-Center-%23201?key=[yourAPIKey]</div>
+                <div class="example_url">http://${apiHost}/scorecard/search/schools/ca/Childtime-Children's-Center-%23201?key=[apiKey]</div>
                 Searches for schools in California whose names match Childtime Children's Center #201. The search is a fuzzy match and depends on the number of occurences of certain terms.
-                <div class="example_url">http://${apiHost}/search/city/ca/San-Francisco?key=[yourAPIKey]</div>
+                <div class="example_url">http://${apiHost}/scorecard/search/city/ca/San-Francisco?key=[apiKey]</div>
                 Search for all schools in San Francisco, CA.
-                <div class="example_url">http://${apiHost}/search/city/zip/80202/Alameda-High?key=[yourAPIKey]</div>
+                <div class="example_url">http://${apiHost}/scorecard/search/city/zip/80202/Alameda-High?key=[apiKey]</div>
                 Search for schools in the zip code 80202 which match the school name Alameda High.
             </div>
 
@@ -131,7 +157,7 @@
                     results we find, either a single school or multiple school records might be returned.</div><br/>
 
                 <div> Single results are returned with detailed information for the school, including address, phone, latitude,
-                    longitude, etc. However, multiple results are returned only with the neccessary information for a user
+                    longitude, other school details, and district information. However, multiple results are returned only with the neccessary information for a user
                     to identify the school. Currently this information includes state, school ID, school name, and city.</div><br/>
 
                 <div>If only one school can be found which matches the input criteria (even if there is not an exact match)
@@ -144,7 +170,7 @@
 
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/search/schools/ca/Lowell-Elementary?key=[yourAPIKey]</div>
+                <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/Lowell-Elementary?key=[apiKey]</div>
                 Returns six search results for "Lowell Elementary" in California
             </div>
             <div class="call">
@@ -194,8 +220,9 @@
 
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/search/schools/ca/Lowell-Elementary?key=[yourAPIKey]</div>
-                Returns one search result for "Lowell Elementary" in California.
+                <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/Lowell-Elementary?key=[apiKey]</div>
+                Returns one search result for "Lowell Elementary" in California. This response is equivalent to
+                the School Profile response for this school, with an additional "schools" root tag to wrap around the result.
             </div>
 
             <div class="call">
@@ -209,6 +236,7 @@
         &amp;lt;type&amp;gt;public&amp;lt;/type&amp;gt;
         &amp;lt;levelCodes&amp;gt;h&amp;lt;/levelCodes&amp;gt;
         &amp;lt;gradeRange&amp;gt;9-12&amp;lt;/gradeRange&amp;gt;
+        &amp;lt;totalEnrollment&amp;gt;782&amp;lt;/totalEnrollment&amp;gt;
         &amp;lt;city&amp;gt;Alameda&amp;lt;/city&amp;gt;
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
         &amp;lt;address&amp;gt;2201 Encinal Ave.,
@@ -217,9 +245,9 @@
         &amp;lt;phone&amp;gt;(510) 337-7022&amp;lt;/phone&amp;gt;
         &amp;lt;fax&amp;gt;(510) 521-4740&amp;lt;/fax&amp;gt;
         &amp;lt;website&amp;gt;http://ahs.alameda.k12.ca.us/&amp;lt;/website&amp;gt;
-        &amp;lt;ncesId&amp;gt;060177000041&amp;lt;/ncesId&amp;gt;
         &amp;lt;lat&amp;gt;37.764267&amp;lt;/lat&amp;gt;
         &amp;lt;lon&amp;gt;-122.24818&amp;lt;/lon&amp;gt;
+        &amp;lt;graduationRate&amp;gt;0.52&amp;lt;/graduationRate&amp;gt;
         &amp;lt;proficiencies&amp;gt;
             &amp;lt;proficiency&amp;gt;
                 &amp;lt;subject&amp;gt;
@@ -229,7 +257,7 @@
                     4
                 &amp;lt;/grade&amp;gt;
                 &amp;lt;rate&amp;gt;
-                    .95
+                    0.95
                 &amp;lt;/rate&amp;gt;
             &amp;lt;/proficiency&amp;gt;
             &amp;lt;proficiency&amp;gt;
@@ -240,13 +268,13 @@
                     4
                 &amp;lt;/grade&amp;gt;
                 &amp;lt;rate&amp;gt;
-                    .95
+                    0.95
                 &amp;lt;/rate&amp;gt;
             &amp;lt;/proficiency&amp;gt;
         &amp;lt;/proficiencies&amp;gt;
         &amp;lt;district&amp;gt;
-            &amp;lt;totalSchools&amp;gt;0&amp;lt;/totalSchools&amp;gt;
-            &amp;lt;graduationRate&amp;gt;0.0&amp;lt;/graduationRate&amp;gt;
+            &amp;lt;name&amp;gt;Alameda Public Schools&amp;lt;/name&amp;gt;
+            &amp;lt;totalEnrollment&amp;gt;0&amp;lt;/totalEnrollment&amp;gt;
             &amp;lt;proficiencies&amp;gt;
                 &amp;lt;proficiency&amp;gt;
                     &amp;lt;subject&amp;gt;
@@ -256,7 +284,7 @@
                         12
                     &amp;lt;/grade&amp;gt;
                     &amp;lt;rate&amp;gt;
-                        .90
+                        0.90
                     &amp;lt;/rate&amp;gt;
                 &amp;lt;/proficiency&amp;gt;
                 &amp;lt;proficiency&amp;gt;
@@ -267,7 +295,7 @@
                         12
                     &amp;lt;/grade&amp;gt;
                     &amp;lt;rate&amp;gt;
-                        .95
+                        0.95
                     &amp;lt;/rate&amp;gt;
                 &amp;lt;/proficiency&amp;gt;
             &amp;lt;/proficiencies&amp;gt;
@@ -277,7 +305,14 @@
                 </textarea>
             </div>
 
-            
+            <div class="call">
+                <h2>Have Questions?</h2>
+                <div class="questions">To ask questions or to report bugs please email
+                api-support@greatschools.org. Please do not abuse our API. Review the
+                    <a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
+                       onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a>.
+                </div>
+            </div>
         </div>
     </div>
     </gsml:body>

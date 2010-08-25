@@ -41,7 +41,7 @@
             <div class="callfirst">
                 <h2>State Profile</h2>
                 Returns detailed data for a specific state. All calls for State Profiles are in this format:
-                <div class="sample_url">http://${apiHost}/state/[state]?[parameters]</div>
+                <div class="sample_url">http://${apiHost}/scorecard/state/[state]?key=[apiKey]</div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -59,7 +59,7 @@
                     <tbody>
                     <tr class="required">
                         <td>state*</td>
-                        <td>Two letter state abbreviation</td>
+                        <td>Case-insensitive two-letter state abbreviation</td>
                         <td>ak<br/>CA</td>
                     </tr>
                     </tbody>
@@ -69,8 +69,7 @@
             </div>
             <div class="call">
                 <h2>Parameters</h2>
-                The "key" parameter is what you use to send us your API key.
-                Other parameters are optional and used to describe how you would like to receive the data.
+                The "apiKey" parameter is your API key, which should have been provided to you.
                 <table class="call_params">
                     <thead>
                     <tr class="fields">
@@ -80,123 +79,50 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="required">
-                        <td>key*</td>
-                        <td>Your API key</td>
-                        <td>myAPIkey</td>
-                    </tr>
+                        <tr class="required">
+                            <td>apiKey*</td>
+                            <td>Your API key</td>
+                            <td>as09309sdfa21</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="footnote">*required</div>
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/schools/CA/1?key=[yourkey]</div>
-                Returns school profile for school in California with GreatSchools ID of 1
+                <div class="sample_url">http://${apiHost}/scorecard/state/CA?key=[apiKey]</div>
+                Returns state profile for California
             </div>
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
 &amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
-&lt;school&gt;
-    &lt;gsId&gt;1&lt;/gsId&gt;
-    &lt;name&gt;Alameda High School&lt;/name&gt;
-    &lt;type&gt;public&lt;/type&gt;
-    &lt;gradeRange&gt;9-12&lt;/gradeRange&gt;
-    &lt;enrollment&gt;1938&lt;/enrollment&gt;
-    &lt;city&gt;Alameda&lt;/city&gt;
-    &lt;state&gt;CA&lt;/state&gt;
-    &lt;district&gt;Alameda City Unified School District&lt;/district&gt;
-    &lt;districtNCESId&gt;0601770&lt;/districtNCESId&gt;
-    &lt;address&gt;2201 Encinal Ave.,
-    Alameda, CA  94501&lt;/address&gt;
-    &lt;phone&gt;(510) 337-7022&lt;/phone&gt;
-    &lt;fax&gt;(510) 521-4740&lt;/fax&gt;
-    &lt;website&gt;http://ahs.alameda.k12.ca.us/&lt;/website&gt;
-    &lt;ncesId&gt;060177000041&lt;/ncesId&gt;
-    &lt;lat&gt;37.764267&lt;/lat&gt;
-    &lt;lon&gt;-122.24818&lt;/lon&gt;
-    &lt;overviewLink&gt;
-    http://www.greatschools.org/modperl/browse_school/ca/1?s_cid=gsapi
-    &lt;/overviewLink&gt;
-    &lt;ratingsLink&gt;
-    http://www.greatschools.org/school/rating.page?state=CA&amp;id=1&amp;s_cid=gsapi
-    &lt;/ratingsLink&gt;
-    &lt;reviewsLink&gt;
-    http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi
-    &lt;/reviewsLink&gt;
-    &lt;parentReviews&gt;
-        &lt;review&gt;
-            &lt;schoolName&gt;Alameda High School&lt;/schoolName&gt;
-            &lt;schoolAddress&gt;2201 Encinal Ave.,
-            Alameda, CA  94501&lt;/schoolAddress&gt;
-            &lt;reviewLink&gt;
-            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps398220
-            &lt;/reviewLink&gt;
-            &lt;rating&gt;3&lt;/rating&gt;
-            &lt;submitter&gt;former student&lt;/submitter&gt;
-            &lt;postedDate&gt;2006/06/06&lt;/postedDate&gt;
-            &lt;comments&gt;
-            The staff gets on the level of the students and everything is kaotic.
-            &lt;/comments&gt;
-        &lt;/review&gt;
-        &lt;review&gt;
-            &lt;schoolName&gt;Alameda High School&lt;/schoolName&gt;
-            &lt;schoolAddress&gt;2201 Encinal Ave.,
-            Alameda, CA  94501&lt;/schoolAddress&gt;
-            &lt;reviewLink&gt;
-            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps354422
-            &lt;/reviewLink&gt;
-            &lt;rating&gt;3&lt;/rating&gt;
-            &lt;submitter&gt;parent&lt;/submitter&gt;
-            &lt;postedDate&gt;2006/03/12&lt;/postedDate&gt;
-            &lt;comments&gt;
-            I have hasd 2 children at Alameda High and I find the school to be &apos;okay. As a large public high school, with a huge variation of academic abilities, it is extremely important for parents to stay in touch with course choices and expectations of teachers to ensure their child&apos;s basic education. Their music and drama programs are excellent - don&apos;t know about sports. Easy to lose your way in such a large environment - stay in touch with counselors and teachers.
-                   &lt;/comments&gt;
-               &lt;/review&gt;
-               &lt;review&gt;
-            &lt;schoolName&gt;Alameda High School&lt;/schoolName&gt;
-                   &lt;schoolAddress&gt;2201 Encinal Ave.,
-                   Alameda, CA  94501&lt;/schoolAddress&gt;
-                   &lt;reviewLink&gt;
-            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps214510
-            &lt;/reviewLink&gt;
-            &lt;rating&gt;4&lt;/rating&gt;
-            &lt;submitter&gt;parent&lt;/submitter&gt;
-            &lt;postedDate&gt;2005/05/06&lt;/postedDate&gt;
-            &lt;comments&gt;
-            We just went to Open House at Alameda High, and found the teachers very dedicated.  They know their students and were ready to give individual feedback to parents.  There is a range of academic levels offered including some very challenging AP classes. Some classes are rather large, but the EXP and AP classes may be smaller. There is a range of students, from those who are not interested in studying, to those who are highly motivated and hard working, with GPA&apos;s over 4.0. There is a lot of student involvement in extracurricular activities, such as a poetry anthology they were selling to raise money for the English Dept., a book sale to benefit the media center, a blood drive sponsored by one of the clubs.  They have after school sports, an active music dept (the jazz band just performed at Yoshi&apos;s), extraodinary drama dept. that puts on several plays each year.
-            &lt;/comments&gt;
-        &lt;/review&gt;
-        &lt;review&gt;
-            &lt;schoolName&gt;Alameda High School&lt;/schoolName&gt;
-            &lt;schoolAddress&gt;2201 Encinal Ave.,
-            Alameda, CA  94501&lt;/schoolAddress&gt;
-            &lt;reviewLink&gt;
-            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps154770
-            &lt;/reviewLink&gt;
-            &lt;rating&gt;4&lt;/rating&gt;
-            &lt;submitter&gt;parent&lt;/submitter&gt;
-            &lt;postedDate&gt;2005/01/04&lt;/postedDate&gt;
-            &lt;comments&gt;
-            Excellent teachers for AP and HP English and History programs. Good music/choir program. Excellent drama program. Sports-- won league in many sports in 2003-2004.
-            &lt;/comments&gt;
-        &lt;/review&gt;
-        &lt;review&gt;
-            &lt;schoolName&gt;Alameda High School&lt;/schoolName&gt;
-            &lt;schoolAddress&gt;2201 Encinal Ave.,
-            Alameda, CA  94501&lt;/schoolAddress&gt;
-            &lt;reviewLink&gt;
-            http://www.greatschools.org/school/parentReviews.page?state=CA&amp;id=1&amp;s_cid=gsapi&amp;lr=true#ps105868
-            &lt;/reviewLink&gt;
-            &lt;rating&gt;3&lt;/rating&gt;
-            &lt;submitter&gt;former student&lt;/submitter&gt;
-            &lt;postedDate&gt;2004/07/29&lt;/postedDate&gt;
-            &lt;comments&gt;
-            Good school.  Lots of AP classes.  But mixed economics makes learning tougher for the non-CP students.
-            &lt;/comments&gt;
-        &lt;/review&gt;
-    &lt;/parentReviews&gt;
+&lt;state&gt;
+    &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+    &amp;lt;proficiencies&amp;gt;
+        &amp;lt;proficiency&amp;gt;
+            &amp;lt;subject&amp;gt;
+                MATH
+            &amp;lt;/subject&amp;gt;
+            &amp;lt;grade&amp;gt;
+                4
+            &amp;lt;/grade&amp;gt;
+            &amp;lt;rate&amp;gt;
+                0.95
+            &amp;lt;/rate&amp;gt;
+        &amp;lt;/proficiency&amp;gt;
+        &amp;lt;proficiency&amp;gt;
+            &amp;lt;subject&amp;gt;
+                READING
+            &amp;lt;/subject&amp;gt;
+            &amp;lt;grade&amp;gt;
+                4
+            &amp;lt;/grade&amp;gt;
+            &amp;lt;rate&amp;gt;
+                0.95
+            &amp;lt;/rate&amp;gt;
+        &amp;lt;/proficiency&amp;gt;
+    &amp;lt;/proficiencies&amp;gt;
 &lt;/school&gt;
 
                 </textarea>
