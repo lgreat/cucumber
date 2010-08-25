@@ -916,13 +916,11 @@ body.cobranded #pageGS {
     background: none;
     float: right;
     font-size: 11px;
+    line-height:17px;
 }
 
 #topnav_menusubnav  #topnav_sm .socialMedia {
-    position: relative;
-    margin: 0;
-    vertical-align: middle;
-    top: -4px;
+    line-height:24px;
 }
 
 #topnav_menusubnav  #topnav_sm .socialMedia img {
@@ -933,9 +931,10 @@ body.cobranded #pageGS {
 
 #topnav_menusubnav  #topnav_sm a {
     background: none;
-    padding: 0;
+    padding: 0 0 0 7px;
     margin: 0;
-    display: inline;
+    display: inline-block;
+    line-height:34px;
 }
 
 #topnav_menusubnav li.over {
