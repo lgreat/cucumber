@@ -297,6 +297,13 @@
         </property>
     </bean>
 
+    <bean name="/api/scorecard/leftNav.module"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/api/scorecard/leftNav</value>
+        </property>
+    </bean>
+
     <bean name="/header/moveChoose.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

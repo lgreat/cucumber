@@ -2379,6 +2379,11 @@
         <property name="projection" value="values"/>
     </bean>
 
+    <bean name="/api/docs/scorecard/*"
+          class="gs.web.mvc.WildcardViewController" lazy-init="true">
+        <property name="basePath" value="api/docs/scorecard"/>
+    </bean>
+
     <bean name="/api/docs/*"
           class="gs.web.mvc.WildcardViewController" lazy-init="true">
         <property name="basePath" value="api/docs"/>
