@@ -1,5 +1,6 @@
 package gs.web.community;
 
+import gs.data.content.cms.CmsConstants;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.jsp.link.DiscussionTagHandler;
 import gs.web.util.UrlUtil;
@@ -347,12 +348,14 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 User author = _userDao.findUserFromId(discussion.getAuthorId());
                 discussion.setUser(author);
             }
-            // needed for indexing
-            discussion.setDiscussionBoard(board);
-            try {
-                _solrService.updateDocument(discussion);
-            } catch (Exception e) {
-                _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
+            if (!CmsConstants.isCollegeBoundDiscussionBoard(board.getContentKey().getIdentifier())) {
+                // needed for indexing
+                discussion.setDiscussionBoard(board);
+                try {
+                    _solrService.updateDocument(discussion);
+                } catch (Exception e) {
+                    _log.error("Could not index discussion " + discussion.getId() + " using solr", e);
+                }
             }
         }
     }
