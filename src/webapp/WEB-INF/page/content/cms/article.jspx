@@ -170,9 +170,8 @@
         </c:when>
     </c:choose>
 
-
-    <!-- TODO-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
-    <!-- ad:adTag position="Sponsor_610x16"/ -->
+    <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
+    <ad:adTag position="Sponsor_610x16"/>
 
 </div> <!-- end .bodyHeader -->
 <c:if test="${type eq 'askTheExperts' or type eq 'article'}">
