@@ -57,14 +57,14 @@
                 <br/>
 
                 <div>
-                    Search by city, state, and school name:
-                    <div class="sample_url">http://${apiHost}/scorecard/search/city/[state]/[city]/[schoolName]?key=[apiKey]</div>
+                    Search by state and zip code:
+                    <div class="sample_url">http://${apiHost}/scorecard/search/zip/[state]/[zip]?key=[apiKey]</div>
                 </div>
                 <br/>
 
                 <div>
-                    Search by state and zip code:
-                    <div class="sample_url">http://${apiHost}/scorecard/search/zip/[state]/[zip]?key=[apiKey]</div>
+                    Search by city, state, and school name:
+                    <div class="sample_url">http://${apiHost}/scorecard/search/city/[state]/[city]/[schoolName]?key=[apiKey]</div>
                 </div>
                 <br/>
 

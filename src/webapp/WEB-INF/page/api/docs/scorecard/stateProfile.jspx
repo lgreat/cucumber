@@ -98,7 +98,7 @@
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
 &amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
 &lt;state&gt;
-    &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+    &amp;lt;abbreviation&amp;gt;CA&amp;lt;/abbreviation&amp;gt;
     &amp;lt;proficiencies&amp;gt;
         &amp;lt;proficiency&amp;gt;
             &amp;lt;subject&amp;gt;
