@@ -29,68 +29,67 @@ height += heightMultiplier * 13;-->
         <!--<p>School level is: <c:out value="${school.levelCode}" default="not set"/></p>-->
         <!--<p>Parent rating is: <c:out value="${parentRating}" default="not set"/></p>-->
 
-        <p class="text2"><link:schoolProfileOverview school="${school}" styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview></p>
+        <p class="text2"><link:schoolProfileOverview school="${school}"
+                                                     styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview>
+        </p>
+
         <div class="spacer_5"><!-- do not collapse --></div>
         <div class="line">
 
-        <div class="schoolRatings smallText1-333 unit size2of5">
-            <c:if test="${not(school.type.schoolTypeName eq 'private' or school.levelCode eq 'p')}">
-                <div class="schoolRating">
-                    <div class="fltlft">GreatSchools<br/>Rating</div>
-                    <link:schoolProfileRating school="${school}" styleClass="fltrt"
-                                              title="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best.">
-                        <!--<gsml:img src="/res/img/map/ratings_gs_map_${greatSchoolsRating}.gif" alt="GreatSchools Rating: ${greatSchoolsRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>-->
-                        <span class="sprite badge_sm_${greatSchoolsRating}"><!-- do not collapse --></span>
-                    </link:schoolProfileRating>
+            <div class="unit size1of2">
+                <div class="schoolInfo smallText1-333">
+                    <p>${school.physicalAddress.street}</p>
+
+                    <p>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}</p>
+                    <c:if test="${not empty school.phone}">
+                        <p class="schoolPhone">${school.phone}</p>
+                    </c:if>
                 </div>
-                <div class="spacer_5"><!-- do not collapse --></div>
-            </c:if>
-            <div class="parentRating">
-                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
-                    <c:choose>
-                        <c:when test="${not empty parentRating}">
-                            <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                        </c:otherwise>
-                    </c:choose>
-                </link:schoolProfileParentReview>
             </div>
-            <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
-            <div>
-                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank" rel="nofollow">Homes for sale <span class="alertDoubleArrow">&amp;raquo;</span></a>
+
+            <div class="unit size1of2 lastUnit">
+                <div class="schoolRatings">
+                    <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                        <c:choose>
+                            <c:when test="${not empty parentRating}">
+                                <div class="smallText1-333">Overall Parent Rating</div>
+                                <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="spacer_5"><!-- do not collapse --></div>
+                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </link:schoolProfileParentReview>
+                </div>
             </div>
         </div>
-        <!--<div class="schoolInfo text3 unit size3of5 lastUnit">-->
-        <div class="schoolInfo smallText1-333 unit size3of5 lastUnit">
-            <div class="typeGrade">
+        <div class="spacer_5"><!-- do not collapse --></div>
+        
+        <div class="line smallText1-333">
+            <div class="unit size1of3">
+                <div class="typeGrade">
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
                     <c:otherwise>${gsweb:capitalize(school.type.schoolTypeName)}, ${school.gradeLevels}</c:otherwise>
                 </c:choose>
+                    </div>
             </div>
-
-            <div>${school.physicalAddress.street}<br/>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}<br/></div>
-
-            <c:if test="${empty school.phone}"><br/></c:if>
-
-            <p class="schoolPhone">${school.phone}</p>
-
-            <div>
-                <!--<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
-            encodeURIComponent(school.address) +
-            '" target="_blank" onclick="s.tl(this, \'o\', \'School Map - Get Directions\');">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>-->
-                <!-- TODO: Get directions from the Google Maps API -->
-                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.physicalAddress.street}%20${school.physicalAddress.city},%20${school.physicalAddress.state}%20${school.physicalAddress.zip}" onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions <span class="alertDoubleArrow">&amp;raquo;</span></a>
+            <div class="unit size1of3">
+                <div class="brdlft-solid getDirections brdrt-solid">
+                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.physicalAddress.street}%20${school.physicalAddress.city},%20${school.physicalAddress.state}%20${school.physicalAddress.zip}"
+                   onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions</a>
+                    </div>
             </div>
-
-            <!--<div>
-                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">Homes for sale <span class="alertDoubleArrow">&amp;raquo;</span></a>
-            </div>-->
-
+            <div class="unit size1of3 lastUnit">
+                <div class="homesForSale">
+                <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
+                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
+                   onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
+                   rel="nofollow">Homes for sale</a>
+                </div>
+            </div>
         </div>
-            </div>
     </div>
 
 

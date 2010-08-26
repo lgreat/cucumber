@@ -1298,6 +1298,14 @@ body.cobranded #pageGS {
     border-left: 1px dotted #999;
 }
 
+.brdrt-solid {
+    border-right: 1px solid #999;
+}
+
+.brdlft-solid {
+    border-left: 1px solid #999;
+}
+
 .mrgtop_2 {
     margin-top: 2px;
 }
@@ -4860,14 +4868,27 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     /*overflow:hidden;*/
 }
 
+.schoolInfo{
+    padding-right:5px;
+    /*border-left:1px solid #999;*/
+}
+
 .schoolRatings{
-    padding-right:10px;
+    padding-left:5px;
+    text-align:center;
     /*border-right:1px solid #999;*/
 }
 
-.schoolInfo{
-    padding-left:10px;
-    border-left:1px solid #999;
+.schoolInfoWindow .schoolInfo{
+    text-align:left;
+}
+
+.schoolInfoWindow .getDirections{
+    text-align:center;
+}
+
+.schoolInfoWindow .homesForSale{
+    text-align:center;
 }
 
 /* =4k-1.1.1 nearby schools table
@@ -6878,6 +6899,126 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 
 /* =9 buttons
 -------------------------------------------------------------------------------------------*/
+
+/* ----------------- */
+/* IMAGE-LESS BUTTON */
+/* ----------------- */
+
+.button-1 {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 15px;
+    height: 25px;
+    color: white;
+    text-decoration: none;
+    font: bold 14px/25px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+
+/* Background Gradients */
+    background: #258fb6; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#57b8d5', EndColorStr='#269acb')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#57b8d5', endColorStr = '#269acb'); /* IE6,IE7 */
+
+/* Border Radius */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+
+    border: 1px solid #327aa0;
+    border-top: 1px solid #3cd6df; /* highlight */
+
+/* Text Shadow */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+
+/* Box Shadow */
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.button-1:hover {
+
+/* Background Gradients */
+    background: #ff9000; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ff9000', EndColorStr='#dd6611')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
+
+    border: 1px solid #c4591b;
+    border-top: 1px solid #c4591b;
+}
+
+.button-1:active {
+
+/* Background Gradients */
+    background: #ff9000; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ff9000', EndColorStr='#dd6611')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
+
+    border: 1px solid #c4591b;
+    border-top: 1px solid #c4591b;
+}
+
+.button-1-inactive {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 15px;
+    height: 25px;
+    color: white;
+    text-decoration: none;
+    font: bold 14px/25px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: default;
+    outline: none;
+
+/* Background Gradients */
+    background: #b2bdc9; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #e5e9ec, #b2bdc9 50%, #b2bdc9 51%, #f0f2f5); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e5e9ec), color-stop(.5, #b2bdc9), color-stop(.5, #b2bdc9), color-stop(1, #f0f2f5)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#e5e9ec', EndColorStr='#b2bdc9')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#e5e9ec', endColorStr = '#b2bdc9'); /* IE6,IE7 */
+
+/* Border Radius */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+
+    border: 1px solid #b6c1cc;
+    border-top: 1px solid #b6c1cc;
+
+/* Text Shadow */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+
+/* Box Shadow */
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* IE7 bug: vertical centering */
+*+html button.button-1, *+html button.button-1-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-1::-moz-focus-inner, .button-1-inactive::-moz-focus-inner {
+    border: none;
+}
 
 /* ------------------- */
 /* SLIDING DOOR BUTTON */
