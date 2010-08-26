@@ -571,6 +571,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             if (author.getUserProfile() != null && author.getUserProfile().getScreenName() != null) {
                 emailAttributes.put("author_username", author.getUserProfile().getScreenName());
             }
+            emailAttributes.put("gs_member_id", String.valueOf(author.getId()));
             emailAttributes.put("post_snippet", Util.abbreviate(reply.getBody(),20));
             DiscussionTagHandler discussionTagHandler = new DiscussionTagHandler();
             discussionTagHandler.setDiscussion(discussion);
