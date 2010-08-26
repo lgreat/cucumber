@@ -146,7 +146,7 @@
                 Searches for schools in California whose names match Childtime Children's Center #201. The search is a fuzzy match and depends on the number of occurences of certain terms.
                 <div class="example_url">http://${apiHost}/scorecard/search/city/ca/San-Francisco?key=[apiKey]</div>
                 Search for all schools in San Francisco, CA.
-                <div class="example_url">http://${apiHost}/scorecard/search/city/zip/80202/Alameda-High?key=[apiKey]</div>
+                <div class="example_url">http://${apiHost}/scorecard/search/zip/80202/Alameda-High?key=[apiKey]</div>
                 Search for schools in the zip code 80202 which match the school name Alameda High.
             </div>
 
@@ -281,7 +281,7 @@
                         MATH
                     &amp;lt;/subject&amp;gt;
                     &amp;lt;grade&amp;gt;
-                        12
+                        4
                     &amp;lt;/grade&amp;gt;
                     &amp;lt;rate&amp;gt;
                         0.90
@@ -292,7 +292,7 @@
                         READING
                     &amp;lt;/subject&amp;gt;
                     &amp;lt;grade&amp;gt;
-                        12
+                        8
                     &amp;lt;/grade&amp;gt;
                     &amp;lt;rate&amp;gt;
                         0.95
