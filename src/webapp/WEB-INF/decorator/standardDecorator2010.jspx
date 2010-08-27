@@ -66,6 +66,7 @@
             <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="gs_jquery_extensionsjs" value="/res/js/gs_jquery_extensions.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js"/>
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
@@ -75,6 +76,7 @@
             <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${gs_jquery_extensionsjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
         </c:when>

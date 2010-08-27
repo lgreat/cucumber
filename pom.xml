@@ -287,6 +287,7 @@
                         <param>global.js</param>
                         <param>topnavpromo.js</param>
                         <param>topnav.js</param>
+                        <param>gs_jquery_extensions.js</param>
                         <param>hover.js</param>
                         <param>deferredcontent.js</param>
                         <param>externalTracking.js</param>

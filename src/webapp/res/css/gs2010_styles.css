@@ -6904,6 +6904,9 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 /* IMAGE-LESS BUTTON */
 /* ----------------- */
 
+/* NOTE: If you add additional classes to IMAGE-LESS BUTTON, you may need to modify        */
+/* gs_jquery_extensions.js to incorporate the disableSelection function.                   */
+
 .button-1 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -6932,7 +6935,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     border-radius: 4px;
 
     border: 1px solid #327aa0;
-    border-top: 1px solid #3cd6df; /* highlight */
+    border-top-color: #3cd6df; /* highlight */
 
 /* Text Shadow */
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
@@ -6954,7 +6957,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
 
     border: 1px solid #c4591b;
-    border-top: 1px solid #c4591b;
+    border-top-color: #c4591b;
 }
 
 .button-1:active {
@@ -6968,7 +6971,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
 
     border: 1px solid #c4591b;
-    border-top: 1px solid #c4591b;
+    border-top-color: #c4591b;
 }
 
 .button-1-inactive {
@@ -6999,7 +7002,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
     border-radius: 4px;
 
     border: 1px solid #b6c1cc;
-    border-top: 1px solid #b6c1cc;
+    border-top-color: #b6c1cc;
 
 /* Text Shadow */
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
