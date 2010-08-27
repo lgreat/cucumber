@@ -132,9 +132,7 @@
                                          state="${requestScope.context.state}"
                                          styleClass="stateSelect"
                                          style="${searchStateStyle}" />
-                    <button type="submit" class="btn25">
-                        <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
-                    </button>
+                    <button type="submit" class="button-1">Search</button>
                 </fieldset>
                 <fieldset id="radBtns">
                     <gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
