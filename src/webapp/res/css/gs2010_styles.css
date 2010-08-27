@@ -7224,6 +7224,30 @@ button {
     width: 80%;
 }
 
+.size1of7 {
+    width: 14.28571%;
+}
+
+.size2of7 {
+    width: 28.57142%;
+}
+
+.size3of7 {
+    width: 42.85714%;
+}
+
+.size4of7 {
+    width: 57.14285%;
+}
+
+.size5of7 {
+    width: 71.42857%;
+}
+
+.size6of7 {
+    width: 85.71428%;
+}
+
 .size37of100 {
     width: 37%;
 }

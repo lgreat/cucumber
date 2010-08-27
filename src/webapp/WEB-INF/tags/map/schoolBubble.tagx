@@ -36,7 +36,7 @@ height += heightMultiplier * 13;-->
         <div class="spacer_5"><!-- do not collapse --></div>
         <div class="line">
 
-            <div class="unit size1of2">
+            <div class="unit size4of7">
                 <div class="schoolInfo smallText1-333">
                     <p>${school.physicalAddress.street}</p>
 
@@ -47,7 +47,7 @@ height += heightMultiplier * 13;-->
                 </div>
             </div>
 
-            <div class="unit size1of2 lastUnit">
+            <div class="unit size3of7 lastUnit">
                 <div class="schoolRatings">
                     <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
                         <c:choose>
