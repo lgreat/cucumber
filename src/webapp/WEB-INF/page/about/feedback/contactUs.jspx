@@ -439,11 +439,7 @@
         </fieldset>
         <!--<input type="submit" name="Submit" value="submit"/>-->
         <fieldset class="fs1-submit">
-            <button class="btn25 fltlft" type="submit" name="Submit" value="submit" onclick="">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">Submit</span>
-                    </span>
-            </button>
+            <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit</button>
         </fieldset>
         <br class="clearfloat"/>
     </form:form>
@@ -621,11 +617,7 @@
             </fieldset>
             <!--<input type="submit" name="Submit" value="submit"/>-->
             <fieldset class="fs1-submit">
-                <button class="btn25 fltlft" type="submit" name="Submit" value="submit" onclick="">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">Submit</span>
-                    </span>
-                </button>
+                <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit</button>
             </fieldset>
             <br class="clearfloat"/>
         </form:form>
@@ -836,11 +828,7 @@
         </fieldset>
         <!--<input type="submit" name="Submit" value="submit"/>-->
         <fieldset class="fs1-submit">
-            <button class="btn25 fltlft" type="submit" name="Submit" value="submit" onclick="">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">Submit</span>
-                    </span>
-            </button>
+            <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit</button>
         </fieldset>
         <br class="clearfloat"/>
     </form:form>
@@ -1088,11 +1076,7 @@
         </fieldset>
         <!--<input type="submit" name="Submit" value="submit"/>-->
         <fieldset class="fs1-submit">
-            <button class="btn25 fltlft" type="submit" name="Submit" value="submit" onclick="">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">Submit</span>
-                    </span>
-            </button>
+            <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit</button>
         </fieldset>
         <br class="clearfloat"/>
     </form:form>
@@ -1214,11 +1198,7 @@
         </fieldset>
         <!--<input type="submit" name="Submit" value="submit"/>-->
         <fieldset class="fs1-submit">
-            <button class="btn25 fltlft" type="submit" name="Submit" value="submit" onclick="">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">Submit</span>
-                    </span>
-            </button>
+            <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit</button>
         </fieldset>
         <br class="clearfloat"/>
     </form:form>
