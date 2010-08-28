@@ -74,6 +74,7 @@
             }, 250);
         }
     </script>
+    <school:profile2010ShareThisJavaScript/>
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="nocol">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>

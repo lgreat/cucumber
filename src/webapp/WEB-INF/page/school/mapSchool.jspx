@@ -41,6 +41,7 @@
               content="A map of ${school.name} located in ${city}, ${stateName} - ${stateAbbrev}, including a map of the nearby schools"/>
         <pageHelper:externalCss file="/res/css/ads.css"/>
         <pageHelper:externalCss file="/res/css/school/mapSchool.css"/>
+        <school:profile2010ShareThisJavaScript/>
     </head>
 
     <gsml:body adPageName="schoolMap" pageLayout="nocol">

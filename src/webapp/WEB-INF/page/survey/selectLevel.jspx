@@ -50,6 +50,7 @@
                 margin:0 0 0 8px;
             }
         </style>
+        <school:profile2010ShareThisJavaScript/>
     </head>
     <gsml:body adPageName="survey" pageLayout="nocol">
     <school:profile2010 omniturePageName="${pagename}" school="${school}" tab="survey">

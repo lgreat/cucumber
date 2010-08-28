@@ -115,6 +115,7 @@
     <c:if test="${param.level eq 'p'}">
         <pageHelper:externalCss file="/res/css/survey/surveyResultsPreschool.css"/>        
     </c:if>
+    <school:profile2010ShareThisJavaScript/>
 </head>
 <gsml:body adPageName="surveyResult" pageLayout="nocol">
 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Survey"/>

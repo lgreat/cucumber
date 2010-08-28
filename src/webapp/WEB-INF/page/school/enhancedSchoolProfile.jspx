@@ -16,6 +16,7 @@
     <c:set var="pageName" value="Principal Questionnaire"/>
     <pageHelper:externalCss file="/css/gs.css"/>
     <pageHelper:externalCss file="/css/spp2.css"/>
+    <school:profile2010ShareThisJavaScript/>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Academic_Performance"/>

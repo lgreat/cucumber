@@ -51,6 +51,7 @@
            }
        }
     </script>
+    <school:profile2010ShareThisJavaScript/>
 </head>
 <gsml:body adPageName="parentSurvey" pageLayout="nocol">
 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Survey"/>
