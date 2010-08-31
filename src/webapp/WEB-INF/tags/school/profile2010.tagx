@@ -166,9 +166,10 @@
             </li>
                 <c:set var="customLinkValue" value="Care2_SPP_Promo"/>
                 <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
+                <c:set var="care2Url" value="${gsweb:getCare2PromoUrl(school)}"/>
                 <c:if test="${school.levelCode ne 'p' and gsweb:isInCare2DateRange()}">
                     <li>
-                        <span class="sprite i-dollarsign"><!-- do not collapse --></span><a href="${url}" target="_blank" onclick="${onclick}" rel="nofollow"> Help this school win $20,000!</a>
+                        <span class="sprite i-dollarsign"><!-- do not collapse --></span><a href="${care2Url}" target="_blank" onclick="${onclick}" rel="nofollow"> Help this school win $20,000!</a>
                     </li>
                 </c:if>
             </ul>

@@ -237,6 +237,12 @@
         <function-class>gs.web.school.Care2PromoHelper</function-class>
         <function-signature>boolean isInCare2DateRange()</function-signature>
     </function>
+
+    <function>
+        <name>getCare2PromoUrl</name>
+        <function-class>gs.web.school.Care2PromoHelper</function-class>
+        <function-signature>String getCare2PromoUrl(School)</function-signature>
+    </function>
     
     <function>
         <name>separatedListContains</name>

@@ -1,5 +1,9 @@
 package gs.web.school;
 
+import gs.data.school.School;
+import gs.data.school.SchoolHelper;
+import gs.data.state.StateManager;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +17,7 @@ import java.util.Date;
  */
 public class Care2PromoHelper {
 
+    final private static SchoolHelper SCHOOL_HELPER = new SchoolHelper(new StateManager());    
     final private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     // TODO-10517 - revert to 9/20 start date after Magnus/QA done testing
     final private static String START_DATE = "2010-08-27";
@@ -31,5 +36,27 @@ public class Care2PromoHelper {
 
         return (START_DATE.compareTo(dateToCheckStr) <= 0 &&
                 dateToCheckStr.compareTo(END_DATE) <= 0);
+    }
+
+    public static String getCare2PromoUrl(School school) {
+        if (school != null && school.getId() != null && school.getStateAbbreviation() != null) {
+            String universalId = SCHOOL_HELPER.generateUniqueId(school.getStateAbbreviation(), school.getId());
+            StringBuilder s = new StringBuilder("http://www.care2.com/schoolcontest/");
+
+            // strip leading zeroes
+            // http://forums.sun.com/thread.jspa?threadID=5391406
+            universalId = universalId.replaceAll("^0+(?!$)", "");
+
+            // insert a slash after 4 characters
+            s.append(universalId.substring(0, 4));
+            s.append("/");
+            // remaining string must be 2 or 3 characters because universal ID is always 7 characters long
+            s.append(universalId.substring(4));
+            // insert a trailing slash
+            s.append("/");
+
+            return s.toString();
+        }
+        return null;
     }
 }
