@@ -241,7 +241,7 @@
     <function>
         <name>getCare2PromoUrl</name>
         <function-class>gs.web.school.Care2PromoHelper</function-class>
-        <function-signature>String getCare2PromoUrl(School)</function-signature>
+        <function-signature>java.lang.String getCare2PromoUrl(gs.data.school.School)</function-signature>
     </function>
     
     <function>
