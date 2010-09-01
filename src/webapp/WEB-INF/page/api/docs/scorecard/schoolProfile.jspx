@@ -99,6 +99,13 @@
                 <h2>Sample Request</h2>
                 <div class="sample_url">http://${apiHost}/scorecard/school/CA/1?key=[apiKey]</div>
                 Returns school profile for school in California with GreatSchools ID of 1
+                <br/><br/>  
+
+                <div>We are able to provide latitude and longitude for most but not all schools. When latitude and longitude
+                    are not available for a school, the lat and lon tags are omitted from the API response XML.
+                    Similarly, any other information that is not available for a particular school will have the
+                    associated tag omitted (e.g. fax, website, etc.).
+                </div><br/>
             </div>
             <div class="call">
                 <h2>Sample Response</h2>

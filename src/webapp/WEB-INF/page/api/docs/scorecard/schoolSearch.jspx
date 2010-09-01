@@ -158,7 +158,13 @@
 
                 <div> Single results are returned with detailed information for the school, including address, phone, latitude,
                     longitude, other school details, and district information. However, multiple results are returned only with the neccessary information for a user
-                    to identify the school. Currently this information includes state, school ID, school name, and city.</div><br/>
+                    to identify the school. Currently this information includes state, school ID, school name, city, latitude, and longitude.</div><br/>
+
+                <div>We are able to provide latitude and longitude for most but not all schools. When latitude and longitude
+                    are not available for a school, the lat and lon tags are omitted from the API response XML.
+                    Similarly, any other information that is not available for a particular school will have the
+                    associated tag omitted (e.g. fax, website, etc.).
+                </div><br/>
 
                 <div>If only one school can be found which matches the input criteria (even if there is not an exact match)
                     then this single school's data will be returned. Also, if an exact match for a school is found, that
@@ -183,6 +189,8 @@
         &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
         &amp;lt;city&amp;gt;Fresno&amp;lt;/city&amp;gt;
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
+        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
     &amp;lt;/school&amp;gt;
     &amp;lt;school&amp;gt;
         &amp;lt;gsId&amp;gt;2584&amp;lt;/gsId&amp;gt;
@@ -201,18 +209,24 @@
         &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
         &amp;lt;city&amp;gt;San Jose&amp;lt;/city&amp;gt;
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
+        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
     &amp;lt;/school&amp;gt;
     &amp;lt;school&amp;gt;
         &amp;lt;gsId&amp;gt;6397&amp;lt;/gsId&amp;gt;
         &amp;lt;name&amp;gt;Lowell High School&amp;lt;/name&amp;gt;
         &amp;lt;city&amp;gt;San Francisco&amp;lt;/city&amp;gt;
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
+        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
     &amp;lt;/school&amp;gt;
     &amp;lt;school&amp;gt;
         &amp;lt;gsId&amp;gt;19134&amp;lt;/gsId&amp;gt;
         &amp;lt;name&amp;gt;Lowell Pre-School&amp;lt;/name&amp;gt;
         &amp;lt;city&amp;gt;Fresno&amp;lt;/city&amp;gt;
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
+        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
     &amp;lt;/school&amp;gt;
 &amp;lt;/schools&amp;gt;
                 </textarea>
