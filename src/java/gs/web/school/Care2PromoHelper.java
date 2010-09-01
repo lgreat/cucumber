@@ -19,9 +19,8 @@ public class Care2PromoHelper {
 
     final private static SchoolHelper SCHOOL_HELPER = new SchoolHelper(new StateManager());    
     final private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    // TODO-10517 - revert to 9/20 start date after Magnus/QA done testing
-    final private static String START_DATE = "2010-08-27";
-    //final private static String START_DATE = "2010-09-20";
+
+    final private static String START_DATE = "2010-09-20";
     final private static String END_DATE = "2010-11-12";
 
     public static boolean isInCare2DateRange() {
