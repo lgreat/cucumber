@@ -16,25 +16,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.easymock.EasyMock.*;
+
 /**
  * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
 public class ParentReviewControllerTest extends BaseControllerTestCase {
     private ParentReviewController _controller;
 
+    private IReviewDao reviewDao = createMock(IReviewDao.class);
+    
     public void setUp() throws Exception {
-        super.setUp();
-        _controller = (ParentReviewController)getApplicationContext().getBean(ParentReviewController.BEAN_ID);
-        MockControl mockControl = MockControl.createControl(IReviewDao.class);
-        IReviewDao reviewDao = (IReviewDao) mockControl.getMock();
-
-        Ratings ratings = new Ratings();
-        ratings.setCount(10);
-
-        reviewDao.findRatingsBySchool(null);
-        mockControl.setDefaultReturnValue(ratings);
-
-        reviewDao.getPublishedReviewsBySchool(null);
+        
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         List<Review> reviews = new ArrayList<Review>();
         Review r1 = new Review();
@@ -77,8 +70,17 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         reviews.add(r2);
         reviews.add(r1);
 
-        mockControl.setDefaultReturnValue(reviews);
-        mockControl.replay();
+        super.setUp();
+        _controller = (ParentReviewController)getApplicationContext().getBean(ParentReviewController.BEAN_ID);
+
+        Ratings ratings = new Ratings();
+        ratings.setCount(10);
+
+        expect(reviewDao.getPublishedReviewsBySchool(isA(School.class))).andReturn(reviews).times(1,3);
+        
+        expect(reviewDao.findRatingsBySchool(isA(School.class))).andReturn(ratings).times(1,3);
+
+        expect(reviewDao.countPublishedNonPrincipalReviewsBySchool(isA(School.class))).andReturn(new Long(4l)).times(1,3);
 
         _controller.setReviewDao(reviewDao);
         School school = new School();
@@ -86,6 +88,8 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         school.setId(1);
         school.setName("Alameda High School");
         _request.setAttribute("school", school);
+
+        replay(reviewDao);
     }
 
     public void testHandleRequestSortPrincipalDateDescDefaultCase() throws Exception {

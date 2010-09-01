@@ -118,10 +118,12 @@ public class ParentReviewController extends AbstractController {
                 //is user passes in junk, set this as default
                 paramSortBy = "dd";
             }
+
+            Long numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
             cmd.setSortBy(paramSortBy);
             cmd.setSchool(school);
             cmd.setReviews(reviews);
-            cmd.setTotalReviews(reviews.size());
+            cmd.setTotalReviews(numberOfNonPrincipalReviews.intValue());
             cmd.setCurrentDate(new Date());
 
             if(user != null && PageHelper.isMemberAuthorized(request)){
