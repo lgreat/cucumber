@@ -191,6 +191,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             discussion.setBoardId(board.getContentKey().getIdentifier());
             discussion.setBody(cleanUpText(command.getBody(), DISCUSSION_BODY_MAXIMUM_LENGTH));
             discussion.setTitle(cleanUpText(command.getTitle(), DISCUSSION_TITLE_MAXIMUM_LENGTH));
+            discussion.setCollegeBound(isCollegeBound(command));
 
             _discussionDao.save(discussion);
             // needed for indexing
@@ -482,6 +483,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         reply.setDiscussion(discussion);
         reply.setBody(cleanUpText(command.getBody(), REPLY_BODY_MAXIMUM_LENGTH));
         if (isNewReply) {
+            reply.setCollegeBound(isCollegeBound(command));
             reply.setAuthorId(user.getId());
             _discussionReplyDao.save(reply);
         } else {
@@ -494,6 +496,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         discussion.setNumReplies(numReplies);
         _discussionDao.saveKeepDates(discussion);
 
+    }
+
+    protected boolean isCollegeBound(DiscussionSubmissionCommand command) {
+        return StringUtils.equals(CBI_ADVICE_REPLY, command.getType())
+                    || StringUtils.equals(CBI_TIP_REPLY, command.getType())
+                    || StringUtils.equals(CBI_ADVICE_DISCUSSION, command.getType())
+                    || StringUtils.equals(CBI_TIP_DISCUSSION, command.getType());
     }
 
     public void filterWords(DiscussionReply reply, User user, HttpServletRequest request){
