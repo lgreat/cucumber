@@ -77,6 +77,24 @@
     <div class="spacer_10"><!--do not collapse--></div>
     <div><h1 class="fltlft">${topicCenter.title}</h1></div>
 
+    <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+    <div class="logoAd fltrt mrgtop_5">
+        <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
+            <c:set var="licensorLogo">
+                <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
+            </c:set>
+        </c:if>
+        <c:choose>
+            <c:when test="${not empty licensorLogo}">
+                ${licensorLogo}
+            </c:when>
+            <c:otherwise>
+                <ad:adTag position="HeaderLogo_88x33"/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <!-- end logoAd -->
+
     <div class="spacer_5"><!-- don't collapse --></div>
     <!--<gsweb:adTagGenerator position="Inline_598x50"/>-->
     <!-- Subtopics -->
