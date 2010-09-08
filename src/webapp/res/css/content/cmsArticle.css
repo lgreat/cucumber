@@ -764,3 +764,7 @@ ul.horizontal li {
     background: #6cd;
     color: #fff;
 }
+
+#google_ads_div_Article_Slideshow_Sponsor_610x16, #google_ads_div_Library_Article_Page_Sponsor_610x16 {
+    padding-top: 10px;
+}
