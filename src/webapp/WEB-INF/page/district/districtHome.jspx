@@ -27,7 +27,16 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <head>
-    <title>${empty model.acronym ? "" :acronymWithHyphen} ${district.name} Overview | GreatSchools</title>
+    <title>
+        <c:choose>
+            <c:when test="${empty model.acronym}">
+                ${district.name} in ${model.city}, ${requestScope.context.stateOrDefault.abbreviation} | GreatSchools
+            </c:when>
+            <c:otherwise>
+                ${district.name} (${model.acronym}) in ${model.city}, ${requestScope.context.stateOrDefault.abbreviation} | GreatSchools
+            </c:otherwise>
+        </c:choose>
+    </title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="description"
           content="Information to help parents choose the right public school for their children in the ${district.name}."/>
