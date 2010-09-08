@@ -41,6 +41,7 @@
                 request.setAttribute("mills_school", _schoolDao.getSchoolById(State.CA, 6979));
                 request.setAttribute("lowell_school", _schoolDao.getSchoolById(State.CA, 6397));
                 request.setAttribute("coronado_school", _schoolDao.getSchoolById(State.TX, 2376));
+                request.setAttribute("nicolet_school", _schoolDao.getSchoolById(State.WI, 531));
             } catch (Exception e) {
                 // ignore
             }
@@ -98,50 +99,28 @@
                     </td>
                 </tr>
                 <tr>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_matthew.jpg" alt="Matthew Nelson"/></td>
                     <td valign="top">
-                        <img src="/res/img/about/seniormanagement_dana.jpg" alt="Dana Meade" class="top"/>
-                        <img src="/res/img/about/seniormanagement_paula.jpg" alt="Paula Rivers"/>
-                    </td>
-                    <td valign="top">
-                        <div class="text3boldOrange">Dana Meade and Paula Rivers, Co-Chief Operating Officers</div>
+                        <div class="text3boldOrange">Matthew Nelson, Chief Operating Officer </div>
                         <div class="text3">
-                            Dana and Paula are a job-sharing duo with a seven-year history of running
-                            the day-to-day operations of Bay Area companies like Zoomerang.com and
-                            Portera Systems Inc. Before joining together, Dana held positions at
-                            Arthur Andersen and Andersen Consulting. Paula worked for Cambridge
-                            Technology Partners and consulted with the MBA Enterprise Corps in Krakow,
-                            Poland. Dana earned her BS in mechanical engineering from the University
-                            of Illinois at Urbana-Champaign, her MS in environmental engineering and
-                            science from Stanford University, and her MBA from the University of
-                            California at Berkeley. Paula holds a BA in political science from the
-                            University of Michigan and an MBA from Columbia University. She's still
-                            grateful to her English teacher at 
+                            Prior to joining GreatSchools, Matthew cut his online teeth as a founding member of Wired
+                            Digital, where he launched one of the first ad-supported websites, HotWired. Later he
+                            co-founded Organic, an interactive communications and advertising agency, where he helped
+                            develop first generation websites for brands like Levi's, Nike and Saturn. Organic IPO'd
+                            in early 2000, reaching a market cap of $6B. Matthew then brought his digital expertise to
+                            improve operations and management systems at several non-profits, including Tides and, most
+                            recently, Aspire Public Schools, a charter management organization of top performing schools
+                            serving mostly low-income students. Matthew earned his MBA from the Wharton School,
+                            University of Pennsylvania. Matthew's freshmen debut in Battle of the Bands at
                             <c:choose>
-                                <c:when test="${rochester_school ne null}">
-                                    <link:schoolProfileOverview school="${rochester_school}">Rochester High School</link:schoolProfileOverview>
+                                <c:when test="${nicolet_school ne null}">
+                                    <link:schoolProfileOverview school="${nicolet_school}">Nicolet High School</link:schoolProfileOverview>
                                 </c:when>
                                 <c:otherwise>
-                                    Rochester High School
+                                    Nicolet High School
                                 </c:otherwise>
                             </c:choose>
-                            for teaching her how to construct a solid persuasive argument &amp;mdash;
-                            lately it's come in handy when negotiating with her two children.
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_david.jpg" alt="David Buxton"/></td>
-                    <td valign="top">
-                        <div class="text3boldOrange">David Buxton, Vice President of Technology</div>
-                        <div class="text3">
-                            With 20 years of software development and 10 years of management under his
-                            belt, David most recently worked at Adobe Systems as Director of Web Services.
-                            David graduated from the University of Bristol with a degree in computer
-                            science. In his final year there, he designed a computer system to help
-                            children learn to read which was commissioned by a local elementary school.
-                            David credits his years at the Royal Grammar School in Newcastle-upon-Tyne
-                            for exposing him to a wide range of musical, practical and sporting
-                            experiences, and for his deep-seated dislike of cricket.
+                            was a formative step in his ongoing obsession with playing guitar in a rock band.
                         </div>
                     </td>
                 </tr>
