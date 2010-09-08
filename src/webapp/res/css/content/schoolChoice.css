@@ -202,6 +202,7 @@
 #AboveFold_300x600 {
     border-top: none;
     margin-top: 0;
+    padding-top: 15px;
 }
 
 #supplement {
@@ -224,7 +225,6 @@
 }
 
 #houseAd {
-    padding-top: 15px;
     padding-bottom: 10px;
 }
 

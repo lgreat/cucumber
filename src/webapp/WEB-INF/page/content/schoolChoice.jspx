@@ -332,11 +332,11 @@
                     </div>
                 </div>
 
+                <ad:AboveFold_300x600/>
+
                 <div id="houseAd">
                     <ad:adTag position="House_Ad_300x137"/>
                 </div>
-
-                <ad:AboveFold_300x600/>
 
                 <div id="moving" class="box">
                     <div class="inner">
