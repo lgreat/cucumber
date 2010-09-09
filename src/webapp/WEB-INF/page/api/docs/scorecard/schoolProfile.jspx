@@ -97,8 +97,8 @@
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/scorecard/school/CA/1?key=[apiKey]</div>
-                Returns school profile for school in California with GreatSchools ID of 1
+                <div class="sample_url">http://${apiHost}/scorecard/school/CA/5?key=[apiKey]</div>
+                Returns school profile for school in California with GreatSchools ID of 5
                 <br/><br/>  
 
                 <div>We are able to provide latitude and longitude for most but not all schools. When latitude and longitude
@@ -110,78 +110,53 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
-&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-&amp;lt;school&amp;gt;
-    &amp;lt;gsId&amp;gt;1&amp;lt;/gsId&amp;gt;
-    &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
-    &amp;lt;type&amp;gt;public&amp;lt;/type&amp;gt;
-    &amp;lt;levelCodes&amp;gt;h&amp;lt;/levelCodes&amp;gt;
-    &amp;lt;gradeRange&amp;gt;9-12&amp;lt;/gradeRange&amp;gt;
-    &amp;lt;totalEnrollment&amp;gt;782&amp;lt;/totalEnrollment&amp;gt;
-    &amp;lt;city&amp;gt;Alameda&amp;lt;/city&amp;gt;
-    &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-    &amp;lt;address&amp;gt;2201 Encinal Ave.,
-        Alameda, CA 94501
-    &amp;lt;/address&amp;gt;
-    &amp;lt;phone&amp;gt;(510) 337-7022&amp;lt;/phone&amp;gt;
-    &amp;lt;fax&amp;gt;(510) 521-4740&amp;lt;/fax&amp;gt;
-    &amp;lt;website&amp;gt;http://ahs.alameda.k12.ca.us/&amp;lt;/website&amp;gt;
-    &amp;lt;lat&amp;gt;37.764267&amp;lt;/lat&amp;gt;
-    &amp;lt;lon&amp;gt;-122.24818&amp;lt;/lon&amp;gt;
-    &amp;lt;graduationRate&amp;gt;0.52&amp;lt;/graduationRate&amp;gt;
-    &amp;lt;proficiencies&amp;gt;
-        &amp;lt;proficiency&amp;gt;
-            &amp;lt;subject&amp;gt;
-                MATH
-            &amp;lt;/subject&amp;gt;
-            &amp;lt;grade&amp;gt;
-                4
-            &amp;lt;/grade&amp;gt;
-            &amp;lt;rate&amp;gt;
-                0.95
-            &amp;lt;/rate&amp;gt;
-        &amp;lt;/proficiency&amp;gt;
-        &amp;lt;proficiency&amp;gt;
-            &amp;lt;subject&amp;gt;
-                READING
-            &amp;lt;/subject&amp;gt;
-            &amp;lt;grade&amp;gt;
-                4
-            &amp;lt;/grade&amp;gt;
-            &amp;lt;rate&amp;gt;
-                0.95
-            &amp;lt;/rate&amp;gt;
-        &amp;lt;/proficiency&amp;gt;
-    &amp;lt;/proficiencies&amp;gt;
-    &amp;lt;district&amp;gt;
-        &amp;lt;name&amp;gt;Alameda Public Schools&amp;lt;/name&amp;gt;
-        &amp;lt;totalEnrollment&amp;gt;0&amp;lt;/totalEnrollment&amp;gt;
-        &amp;lt;proficiencies&amp;gt;
-            &amp;lt;proficiency&amp;gt;
-                &amp;lt;subject&amp;gt;
-                    MATH
-                &amp;lt;/subject&amp;gt;
-                &amp;lt;grade&amp;gt;
-                    4
-                &amp;lt;/grade&amp;gt;
-                &amp;lt;rate&amp;gt;
-                    0.90
-                &amp;lt;/rate&amp;gt;
-            &amp;lt;/proficiency&amp;gt;
-            &amp;lt;proficiency&amp;gt;
-                &amp;lt;subject&amp;gt;
-                    READING
-                &amp;lt;/subject&amp;gt;
-                &amp;lt;grade&amp;gt;
-                    8
-                &amp;lt;/grade&amp;gt;
-                &amp;lt;rate&amp;gt;
-                    0.95
-                &amp;lt;/rate&amp;gt;
-            &amp;lt;/proficiency&amp;gt;
-        &amp;lt;/proficiencies&amp;gt;
-    &amp;lt;/district&amp;gt;
-&amp;lt;/school&amp;gt;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;school&gt;
+    &lt;gsId&gt;5&lt;/gsId&gt;
+    &lt;gsState&gt;CA&lt;/gsState&gt;
+    &lt;name&gt;Edison Elementary School&lt;/name&gt;
+    &lt;type&gt;public&lt;/type&gt;
+    &lt;levelCodes&gt;e&lt;/levelCodes&gt;
+    &lt;gradeRange&gt;K-5&lt;/gradeRange&gt;
+    &lt;totalEnrollment&gt;389&lt;/totalEnrollment&gt;
+    &lt;city&gt;Alameda&lt;/city&gt;
+    &lt;state&gt;CA&lt;/state&gt;
+    &lt;zip&gt;94501&lt;/zip&gt;
+    &lt;address&gt;2700 Buena Vista Ave.&lt;/address&gt;
+    &lt;phone&gt;(510) 748-4002&lt;/phone&gt;
+    &lt;fax&gt;(510) 523-6131&lt;/fax&gt;
+    &lt;website&gt;www.schoolsrock.com&lt;/website&gt;
+    &lt;lat&gt;37.7654&lt;/lat&gt;
+    &lt;lon&gt;-122.2348&lt;/lon&gt;
+    &lt;proficiency&gt;
+        &lt;elementaryReadingRate&gt;99.0&lt;/elementaryReadingRate&gt;
+        &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
+        &lt;elementaryReadingGrade&gt;4&lt;/elementaryReadingGrade&gt;
+        &lt;elementaryMathRate&gt;93.0&lt;/elementaryMathRate&gt;
+        &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
+        &lt;elementaryMathGrade&gt;4&lt;/elementaryMathGrade&gt;
+    &lt;/proficiency&gt;
+    &lt;district&gt;
+        &lt;name&gt;Alameda City Unified School District&lt;/name&gt;
+        &lt;ncesCode&gt;0601770&lt;/ncesCode&gt;
+        &lt;universalId&gt;10600001&lt;/universalId&gt;
+        &lt;totalEnrollment&gt;10542&lt;/totalEnrollment&gt;
+        &lt;proficiency&gt;
+            &lt;elementaryReadingRate&gt;78.0&lt;/elementaryReadingRate&gt;
+            &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
+            &lt;elementaryReadingGrade&gt;4&lt;/elementaryReadingGrade&gt;
+            &lt;middleReadingRate&gt;57.0&lt;/middleReadingRate&gt;
+            &lt;middleReadingTitle&gt;English Language Arts&lt;/middleReadingTitle&gt;
+            &lt;middleReadingGrade&gt;8&lt;/middleReadingGrade&gt;
+            &lt;elementaryMathRate&gt;77.0&lt;/elementaryMathRate&gt;
+            &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
+            &lt;elementaryMathGrade&gt;4&lt;/elementaryMathGrade&gt;
+            &lt;middleMathRate&gt;10.0&lt;/middleMathRate&gt;
+            &lt;middleMathTitle&gt;General Math&lt;/middleMathTitle&gt;
+            &lt;middleMathGrade&gt;8&lt;/middleMathGrade&gt;
+        &lt;/proficiency&gt;
+    &lt;/district&gt;
+&lt;/school&gt;
                 </textarea>
             </div>
 

@@ -182,59 +182,65 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
-&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-&amp;lt;schools&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;842&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
-        &amp;lt;city&amp;gt;Fresno&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
-        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
-    &amp;lt;/school&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;2584&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
-        &amp;lt;city&amp;gt;Long Beach&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-    &amp;lt;/school&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;4035&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
-        &amp;lt;city&amp;gt;Santa Ana&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-    &amp;lt;/school&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;5677&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
-        &amp;lt;city&amp;gt;San Jose&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
-        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
-    &amp;lt;/school&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;6397&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Lowell High School&amp;lt;/name&amp;gt;
-        &amp;lt;city&amp;gt;San Francisco&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
-        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
-    &amp;lt;/school&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;19134&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Lowell Pre-School&amp;lt;/name&amp;gt;
-        &amp;lt;city&amp;gt;Fresno&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-        &amp;lt;lat&amp;gt;36.149002&amp;lt;/lat&amp;gt;
-        &amp;lt;lon&amp;gt;-115.0585&amp;lt;/lon&amp;gt;
-    &amp;lt;/school&amp;gt;
-&amp;lt;/schools&amp;gt;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;schools&gt;
+    &lt;school&gt;
+        &lt;gsId&gt;842&lt;/gsId&gt;
+        &lt;gsState&gt;CA&lt;/gsState&gt;
+        &lt;name&gt;Lowell Elementary School&lt;/name&gt;
+        &lt;city&gt;Fresno&lt;/city&gt;
+        &lt;state&gt;CA&lt;/state&gt;
+        &lt;zip&gt;93701&lt;/zip&gt;
+        &lt;lat&gt;36.7451&lt;/lat&gt;
+        &lt;lon&gt;-119.7958&lt;/lon&gt;
+    &lt;/school&gt;
+    &lt;school&gt;
+        &lt;gsId&gt;2584&lt;/gsId&gt;
+        &lt;gsState&gt;CA&lt;/gsState&gt;
+        &lt;name&gt;Lowell Elementary School&lt;/name&gt;
+        &lt;city&gt;Long Beach&lt;/city&gt;
+        &lt;state&gt;CA&lt;/state&gt;
+        &lt;zip&gt;90803&lt;/zip&gt;
+        &lt;lat&gt;33.7642&lt;/lat&gt;
+        &lt;lon&gt;-118.1321&lt;/lon&gt;
+    &lt;/school&gt;
+    &lt;school&gt;
+        &lt;gsId&gt;4035&lt;/gsId&gt;
+        &lt;gsState&gt;CA&lt;/gsState&gt;
+        &lt;name&gt;Lowell Elementary School&lt;/name&gt;
+        &lt;city&gt;Santa Ana&lt;/city&gt;
+        &lt;state&gt;CA&lt;/state&gt;
+        &lt;zip&gt;92703&lt;/zip&gt;
+        &lt;lat&gt;33.7383&lt;/lat&gt;
+        &lt;lon&gt;-117.8764&lt;/lon&gt;
+    &lt;/school&gt;
+    &lt;school&gt;
+        &lt;gsId&gt;5677&lt;/gsId&gt;
+        &lt;gsState&gt;CA&lt;/gsState&gt;
+        &lt;name&gt;Lowell Elementary School&lt;/name&gt;
+        &lt;city&gt;San Jose&lt;/city&gt;
+        &lt;state&gt;CA&lt;/state&gt;
+        &lt;zip&gt;95112&lt;/zip&gt;
+        &lt;lat&gt;37.3297&lt;/lat&gt;
+        &lt;lon&gt;-121.8771&lt;/lon&gt;
+    &lt;/school&gt;
+    &lt;school&gt;
+        &lt;gsId&gt;6397&lt;/gsId&gt;
+        &lt;gsState&gt;CA&lt;/gsState&gt;
+        &lt;name&gt;Lowell High School&lt;/name&gt;
+        &lt;city&gt;San Francisco&lt;/city&gt;
+        &lt;state&gt;CA&lt;/state&gt;
+        &lt;zip&gt;94132&lt;/zip&gt;
+        &lt;lat&gt;37.7311&lt;/lat&gt;
+        &lt;lon&gt;-122.4836&lt;/lon&gt;
+    &lt;/school&gt;
+&lt;/schools&gt;
                 </textarea>
             </div>
 
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/Lowell-Elementary?key=[apiKey]</div>
+                <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/frank-mccoppin-elementary-school?key=[apiKey]</div>
                 Returns one search result for "Lowell Elementary" in California. This response is equivalent to
                 the School Profile response for this school, with an additional "schools" root tag to wrap around the result.
             </div>
@@ -242,80 +248,54 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
-&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-&amp;lt;schools&amp;gt;
-    &amp;lt;school&amp;gt;
-        &amp;lt;gsId&amp;gt;1&amp;lt;/gsId&amp;gt;
-        &amp;lt;name&amp;gt;Lowell Elementary School&amp;lt;/name&amp;gt;
-        &amp;lt;type&amp;gt;public&amp;lt;/type&amp;gt;
-        &amp;lt;levelCodes&amp;gt;h&amp;lt;/levelCodes&amp;gt;
-        &amp;lt;gradeRange&amp;gt;9-12&amp;lt;/gradeRange&amp;gt;
-        &amp;lt;totalEnrollment&amp;gt;782&amp;lt;/totalEnrollment&amp;gt;
-        &amp;lt;city&amp;gt;Alameda&amp;lt;/city&amp;gt;
-        &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
-        &amp;lt;address&amp;gt;2201 Encinal Ave.,
-            Alameda, CA 94501
-        &amp;lt;/address&amp;gt;
-        &amp;lt;phone&amp;gt;(510) 337-7022&amp;lt;/phone&amp;gt;
-        &amp;lt;fax&amp;gt;(510) 521-4740&amp;lt;/fax&amp;gt;
-        &amp;lt;website&amp;gt;http://ahs.alameda.k12.ca.us/&amp;lt;/website&amp;gt;
-        &amp;lt;lat&amp;gt;37.764267&amp;lt;/lat&amp;gt;
-        &amp;lt;lon&amp;gt;-122.24818&amp;lt;/lon&amp;gt;
-        &amp;lt;graduationRate&amp;gt;0.52&amp;lt;/graduationRate&amp;gt;
-        &amp;lt;proficiencies&amp;gt;
-            &amp;lt;proficiency&amp;gt;
-                &amp;lt;subject&amp;gt;
-                    MATH
-                &amp;lt;/subject&amp;gt;
-                &amp;lt;grade&amp;gt;
-                    4
-                &amp;lt;/grade&amp;gt;
-                &amp;lt;rate&amp;gt;
-                    0.95
-                &amp;lt;/rate&amp;gt;
-            &amp;lt;/proficiency&amp;gt;
-            &amp;lt;proficiency&amp;gt;
-                &amp;lt;subject&amp;gt;
-                    READING
-                &amp;lt;/subject&amp;gt;
-                &amp;lt;grade&amp;gt;
-                    4
-                &amp;lt;/grade&amp;gt;
-                &amp;lt;rate&amp;gt;
-                    0.95
-                &amp;lt;/rate&amp;gt;
-            &amp;lt;/proficiency&amp;gt;
-        &amp;lt;/proficiencies&amp;gt;
-        &amp;lt;district&amp;gt;
-            &amp;lt;name&amp;gt;Alameda Public Schools&amp;lt;/name&amp;gt;
-            &amp;lt;totalEnrollment&amp;gt;0&amp;lt;/totalEnrollment&amp;gt;
-            &amp;lt;proficiencies&amp;gt;
-                &amp;lt;proficiency&amp;gt;
-                    &amp;lt;subject&amp;gt;
-                        MATH
-                    &amp;lt;/subject&amp;gt;
-                    &amp;lt;grade&amp;gt;
-                        4
-                    &amp;lt;/grade&amp;gt;
-                    &amp;lt;rate&amp;gt;
-                        0.90
-                    &amp;lt;/rate&amp;gt;
-                &amp;lt;/proficiency&amp;gt;
-                &amp;lt;proficiency&amp;gt;
-                    &amp;lt;subject&amp;gt;
-                        READING
-                    &amp;lt;/subject&amp;gt;
-                    &amp;lt;grade&amp;gt;
-                        8
-                    &amp;lt;/grade&amp;gt;
-                    &amp;lt;rate&amp;gt;
-                        0.95
-                    &amp;lt;/rate&amp;gt;
-                &amp;lt;/proficiency&amp;gt;
-            &amp;lt;/proficiencies&amp;gt;
-        &amp;lt;/district&amp;gt;
-    &amp;lt;/school&amp;gt;
-&amp;lt;/schools&amp;gt;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;schools&gt;
+    &lt;school&gt;
+        &lt;gsId&gt;6406&lt;/gsId&gt;
+        &lt;gsState&gt;CA&lt;/gsState&gt;
+        &lt;name&gt;Frank McCoppin Elementary School&lt;/name&gt;
+        &lt;type&gt;public&lt;/type&gt;
+        &lt;levelCodes&gt;e&lt;/levelCodes&gt;
+        &lt;gradeRange&gt;K-5&lt;/gradeRange&gt;
+        &lt;totalEnrollment&gt;214&lt;/totalEnrollment&gt;
+        &lt;city&gt;San Francisco&lt;/city&gt;
+        &lt;state&gt;CA&lt;/state&gt;
+        &lt;zip&gt;94118&lt;/zip&gt;
+        &lt;address&gt;651 Sixth Ave.&lt;/address&gt;
+        &lt;phone&gt;(415) 750-8475&lt;/phone&gt;
+        &lt;fax&gt;(415) 750-8474&lt;/fax&gt;
+        &lt;lat&gt;37.7763&lt;/lat&gt;
+        &lt;lon&gt;-122.464&lt;/lon&gt;
+        &lt;proficiency&gt;
+            &lt;elementaryReadingRate&gt;54.0&lt;/elementaryReadingRate&gt;
+            &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
+            &lt;elementaryReadingGrade&gt;4&lt;/elementaryReadingGrade&gt;
+            &lt;elementaryMathRate&gt;49.0&lt;/elementaryMathRate&gt;
+            &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
+            &lt;elementaryMathGrade&gt;4&lt;/elementaryMathGrade&gt;
+        &lt;/proficiency&gt;
+        &lt;district&gt;
+            &lt;name&gt;San Francisco Unified School District&lt;/name&gt;
+            &lt;ncesCode&gt;0634410&lt;/ncesCode&gt;
+            &lt;universalId&gt;10600717&lt;/universalId&gt;
+            &lt;totalEnrollment&gt;57472&lt;/totalEnrollment&gt;
+            &lt;proficiency&gt;
+                &lt;elementaryReadingRate&gt;66.0&lt;/elementaryReadingRate&gt;
+                &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
+                &lt;elementaryReadingGrade&gt;4&lt;/elementaryReadingGrade&gt;
+                &lt;middleReadingRate&gt;53.0&lt;/middleReadingRate&gt;
+                &lt;middleReadingTitle&gt;English Language Arts&lt;/middleReadingTitle&gt;
+                &lt;middleReadingGrade&gt;8&lt;/middleReadingGrade&gt;
+                &lt;elementaryMathRate&gt;68.0&lt;/elementaryMathRate&gt;
+                &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
+                &lt;elementaryMathGrade&gt;4&lt;/elementaryMathGrade&gt;
+                &lt;middleMathRate&gt;37.0&lt;/middleMathRate&gt;
+                &lt;middleMathTitle&gt;General Math&lt;/middleMathTitle&gt;
+                &lt;middleMathGrade&gt;8&lt;/middleMathGrade&gt;
+            &lt;/proficiency&gt;
+        &lt;/district&gt;
+    &lt;/school&gt;
+&lt;/schools&gt;
                 </textarea>
             </div>
 

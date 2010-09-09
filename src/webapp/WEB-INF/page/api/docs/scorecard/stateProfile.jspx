@@ -96,35 +96,24 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
-&amp;lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&amp;gt;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;state&gt;
-    &amp;lt;abbreviation&amp;gt;CA&amp;lt;/abbreviation&amp;gt;
-    &amp;lt;proficiencies&amp;gt;
-        &amp;lt;proficiency&amp;gt;
-            &amp;lt;subject&amp;gt;
-                MATH
-            &amp;lt;/subject&amp;gt;
-            &amp;lt;grade&amp;gt;
-                4
-            &amp;lt;/grade&amp;gt;
-            &amp;lt;rate&amp;gt;
-                0.95
-            &amp;lt;/rate&amp;gt;
-        &amp;lt;/proficiency&amp;gt;
-        &amp;lt;proficiency&amp;gt;
-            &amp;lt;subject&amp;gt;
-                READING
-            &amp;lt;/subject&amp;gt;
-            &amp;lt;grade&amp;gt;
-                4
-            &amp;lt;/grade&amp;gt;
-            &amp;lt;rate&amp;gt;
-                0.95
-            &amp;lt;/rate&amp;gt;
-        &amp;lt;/proficiency&amp;gt;
-    &amp;lt;/proficiencies&amp;gt;
-&lt;/school&gt;
-
+    &lt;abbreviation&gt;CA&lt;/abbreviation&gt;
+    &lt;proficiency&gt;
+        &lt;elementaryReadingRate&gt;61.0&lt;/elementaryReadingRate&gt;
+        &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
+        &lt;elementaryReadingGrade&gt;4&lt;/elementaryReadingGrade&gt;
+        &lt;middleReadingRate&gt;48.0&lt;/middleReadingRate&gt;
+        &lt;middleReadingTitle&gt;English Language Arts&lt;/middleReadingTitle&gt;
+        &lt;middleReadingGrade&gt;8&lt;/middleReadingGrade&gt;
+        &lt;elementaryMathRate&gt;66.0&lt;/elementaryMathRate&gt;
+        &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
+        &lt;elementaryMathGrade&gt;4&lt;/elementaryMathGrade&gt;
+        &lt;middleMathRate&gt;30.0&lt;/middleMathRate&gt;
+        &lt;middleMathTitle&gt;General Math&lt;/middleMathTitle&gt;
+        &lt;middleMathGrade&gt;8&lt;/middleMathGrade&gt;
+    &lt;/proficiency&gt;
+&lt;/state&gt;
                 </textarea>
             </div>
 
