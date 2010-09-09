@@ -96,9 +96,11 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;state&gt;
     &lt;abbreviation&gt;CA&lt;/abbreviation&gt;
+    &lt;graduationRate&gt;80.0&lt;/graduationRate&gt;
     &lt;proficiency&gt;
         &lt;elementaryReadingRate&gt;61.0&lt;/elementaryReadingRate&gt;
         &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
@@ -113,7 +115,7 @@
         &lt;middleMathTitle&gt;General Math&lt;/middleMathTitle&gt;
         &lt;middleMathGrade&gt;8&lt;/middleMathGrade&gt;
     &lt;/proficiency&gt;
-&lt;/state&gt;
+&lt;/state&gt;]]>
                 </textarea>
             </div>
 

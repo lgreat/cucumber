@@ -248,6 +248,7 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;schools&gt;
     &lt;school&gt;
@@ -257,7 +258,6 @@
         &lt;type&gt;public&lt;/type&gt;
         &lt;levelCodes&gt;e&lt;/levelCodes&gt;
         &lt;gradeRange&gt;K-5&lt;/gradeRange&gt;
-        &lt;totalEnrollment&gt;214&lt;/totalEnrollment&gt;
         &lt;city&gt;San Francisco&lt;/city&gt;
         &lt;state&gt;CA&lt;/state&gt;
         &lt;zip&gt;94118&lt;/zip&gt;
@@ -266,6 +266,7 @@
         &lt;fax&gt;(415) 750-8474&lt;/fax&gt;
         &lt;lat&gt;37.7763&lt;/lat&gt;
         &lt;lon&gt;-122.464&lt;/lon&gt;
+        &lt;totalEnrollment&gt;214&lt;/totalEnrollment&gt;
         &lt;proficiency&gt;
             &lt;elementaryReadingRate&gt;54.0&lt;/elementaryReadingRate&gt;
             &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
@@ -279,6 +280,7 @@
             &lt;ncesCode&gt;0634410&lt;/ncesCode&gt;
             &lt;universalId&gt;10600717&lt;/universalId&gt;
             &lt;totalEnrollment&gt;57472&lt;/totalEnrollment&gt;
+            &lt;graduationRate&gt;85.0&lt;/graduationRate&gt;
             &lt;proficiency&gt;
                 &lt;elementaryReadingRate&gt;66.0&lt;/elementaryReadingRate&gt;
                 &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
@@ -295,7 +297,7 @@
             &lt;/proficiency&gt;
         &lt;/district&gt;
     &lt;/school&gt;
-&lt;/schools&gt;
+&lt;/schools&gt;]]>
                 </textarea>
             </div>
 

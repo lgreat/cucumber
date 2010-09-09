@@ -97,8 +97,8 @@
             </div>
             <div class="call">
                 <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/scorecard/school/CA/5?key=[apiKey]</div>
-                Returns school profile for school in California with GreatSchools ID of 5
+                <div class="sample_url">http://${apiHost}/scorecard/school/CA/2423?key=[apiKey]</div>
+                Returns school profile for school in California with GreatSchools ID of 2423
                 <br/><br/>  
 
                 <div>We are able to provide latitude and longitude for most but not all schools. When latitude and longitude
@@ -110,53 +110,61 @@
             <div class="call">
                 <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;school&gt;
-    &lt;gsId&gt;5&lt;/gsId&gt;
+    &lt;gsId&gt;2423&lt;/gsId&gt;
     &lt;gsState&gt;CA&lt;/gsState&gt;
-    &lt;name&gt;Edison Elementary School&lt;/name&gt;
+    &lt;name&gt;Thirty-Second Street USC Performing Arts School&lt;/name&gt;
     &lt;type&gt;public&lt;/type&gt;
-    &lt;levelCodes&gt;e&lt;/levelCodes&gt;
-    &lt;gradeRange&gt;K-5&lt;/gradeRange&gt;
-    &lt;totalEnrollment&gt;389&lt;/totalEnrollment&gt;
-    &lt;city&gt;Alameda&lt;/city&gt;
+    &lt;levelCodes&gt;e,m,h&lt;/levelCodes&gt;
+    &lt;gradeRange&gt;K-12&lt;/gradeRange&gt;
+    &lt;city&gt;Los Angeles&lt;/city&gt;
     &lt;state&gt;CA&lt;/state&gt;
-    &lt;zip&gt;94501&lt;/zip&gt;
-    &lt;address&gt;2700 Buena Vista Ave.&lt;/address&gt;
-    &lt;phone&gt;(510) 748-4002&lt;/phone&gt;
-    &lt;fax&gt;(510) 523-6131&lt;/fax&gt;
-    &lt;website&gt;www.schoolsrock.com&lt;/website&gt;
-    &lt;lat&gt;37.7654&lt;/lat&gt;
-    &lt;lon&gt;-122.2348&lt;/lon&gt;
+    &lt;zip&gt;90007&lt;/zip&gt;
+    &lt;address&gt;822 West 32nd St.&lt;/address&gt;
+    &lt;phone&gt;(213) 748-0126&lt;/phone&gt;
+    &lt;fax&gt;(213) 744-1608&lt;/fax&gt;
+    &lt;lat&gt;34.0252&lt;/lat&gt;
+    &lt;lon&gt;-118.2829&lt;/lon&gt;
+    &lt;totalEnrollment&gt;950&lt;/totalEnrollment&gt;
+    &lt;graduationRate&gt;&amp;gt;=90&lt;/graduationRate&gt;
     &lt;proficiency&gt;
-        &lt;elementaryReadingRate&gt;99.0&lt;/elementaryReadingRate&gt;
+        &lt;elementaryReadingRate&gt;81.0&lt;/elementaryReadingRate&gt;
         &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
         &lt;elementaryReadingGrade&gt;4&lt;/elementaryReadingGrade&gt;
-        &lt;elementaryMathRate&gt;93.0&lt;/elementaryMathRate&gt;
+        &lt;middleReadingRate&gt;34.0&lt;/middleReadingRate&gt;
+        &lt;middleReadingTitle&gt;English Language Arts&lt;/middleReadingTitle&gt;
+        &lt;middleReadingGrade&gt;8&lt;/middleReadingGrade&gt;
+        &lt;elementaryMathRate&gt;85.0&lt;/elementaryMathRate&gt;
         &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
         &lt;elementaryMathGrade&gt;4&lt;/elementaryMathGrade&gt;
+        &lt;middleMathRate&gt;0.0&lt;/middleMathRate&gt;
+        &lt;middleMathTitle&gt;General Math&lt;/middleMathTitle&gt;
+        &lt;middleMathGrade&gt;8&lt;/middleMathGrade&gt;
     &lt;/proficiency&gt;
     &lt;district&gt;
-        &lt;name&gt;Alameda City Unified School District&lt;/name&gt;
-        &lt;ncesCode&gt;0601770&lt;/ncesCode&gt;
-        &lt;universalId&gt;10600001&lt;/universalId&gt;
-        &lt;totalEnrollment&gt;10542&lt;/totalEnrollment&gt;
+        &lt;name&gt;Los Angeles Unified School District&lt;/name&gt;
+        &lt;ncesCode&gt;0622710&lt;/ncesCode&gt;
+        &lt;universalId&gt;10600286&lt;/universalId&gt;
+        &lt;totalEnrollment&gt;694819&lt;/totalEnrollment&gt;
+        &lt;graduationRate&gt;73.0&lt;/graduationRate&gt;
         &lt;proficiency&gt;
-            &lt;elementaryReadingRate&gt;78.0&lt;/elementaryReadingRate&gt;
+            &lt;elementaryReadingRate&gt;52.0&lt;/elementaryReadingRate&gt;
             &lt;elementaryReadingTitle&gt;English Language Arts&lt;/elementaryReadingTitle&gt;
             &lt;elementaryReadingGrade&gt;4&lt;/elementaryReadingGrade&gt;
-            &lt;middleReadingRate&gt;57.0&lt;/middleReadingRate&gt;
+            &lt;middleReadingRate&gt;31.0&lt;/middleReadingRate&gt;
             &lt;middleReadingTitle&gt;English Language Arts&lt;/middleReadingTitle&gt;
             &lt;middleReadingGrade&gt;8&lt;/middleReadingGrade&gt;
-            &lt;elementaryMathRate&gt;77.0&lt;/elementaryMathRate&gt;
+            &lt;elementaryMathRate&gt;60.0&lt;/elementaryMathRate&gt;
             &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
             &lt;elementaryMathGrade&gt;4&lt;/elementaryMathGrade&gt;
-            &lt;middleMathRate&gt;10.0&lt;/middleMathRate&gt;
+            &lt;middleMathRate&gt;18.0&lt;/middleMathRate&gt;
             &lt;middleMathTitle&gt;General Math&lt;/middleMathTitle&gt;
             &lt;middleMathGrade&gt;8&lt;/middleMathGrade&gt;
         &lt;/proficiency&gt;
     &lt;/district&gt;
-&lt;/school&gt;
+&lt;/school&gt;]]>
                 </textarea>
             </div>
 
