@@ -108,10 +108,11 @@
                             co-founded Organic, an interactive communications and advertising agency, where he helped
                             develop first generation websites for brands like Levi's, Nike and Saturn. Organic IPO'd
                             in early 2000, reaching a market cap of $6B. Matthew then brought his digital expertise to
-                            improve operations and management systems at several non-profits, including Tides and, most
-                            recently, Aspire Public Schools, a charter management organization of top performing schools
-                            serving mostly low-income students. Matthew earned his MBA from the Wharton School,
-                            University of Pennsylvania. Matthew's freshmen debut in Battle of the Bands at
+                            improve operations and management systems at several non-profits, including Tides and,
+                            most recently, Aspire Public Schools, a charter management organization of top performing
+                            public schools serving underserved communities throughout California. Matthew earned his
+                            MBA from the Wharton School, University of Pennsylvania. Matthew's freshman debut in Battle
+                            of the Bands at
                             <c:choose>
                                 <c:when test="${nicolet_school ne null}">
                                     <link:schoolProfileOverview school="${nicolet_school}">Nicolet High School</link:schoolProfileOverview>
@@ -120,7 +121,7 @@
                                     Nicolet High School
                                 </c:otherwise>
                             </c:choose>
-                            was a formative step in his ongoing obsession with playing guitar in a rock band.
+                            was a formative step in his ongoing obsession with playing live music.
                         </div>
                     </td>
                 </tr>
