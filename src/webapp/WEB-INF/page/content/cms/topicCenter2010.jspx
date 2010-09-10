@@ -194,29 +194,33 @@
             </c:set>
             ${raiseYourHand}
 
-            <!-- Community links -->
-            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-            <c:set var="recentDiscussions">
-                <c:import
-                        url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
-            </c:set>
-            <c:if test="${!empty recentDiscussions}">
-                <div class="spacer_10"><!-- don't collapse --></div>
-                <div id="recentDiscussions" class="mod">
-                    ${recentDiscussions}
-                </div>
-            </c:if>
+            <c:if test="${!topicCenter.stateOfEducationTopicCenter}">
 
-            <!-- GS-10042 only show Start a Conversation module if not a K12 topic center -->
-            <c:if test="${!fn:startsWith(requestScope.topicCenter.fullUri, '/online-education')}">
-                <div class="startAConversationModule rnd8">
-                    <div id="sac-downArrow-fc6"><!--do not collapse--></div>
-                    <c:set var="startAConversationModule">
-                        <c:import
-                                url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
-                    </c:set>
-                    ${pageScope.startAConversationModule}
-                </div>
+                <!-- Community links -->
+                <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                <c:set var="recentDiscussions">
+                    <c:import
+                            url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
+                </c:set>
+                <c:if test="${!empty recentDiscussions}">
+                    <div class="spacer_10"><!-- don't collapse --></div>
+                    <div id="recentDiscussions" class="mod">
+                        ${recentDiscussions}
+                    </div>
+                </c:if>
+
+                <!-- GS-10042 only show Start a Conversation module if not a K12 topic center -->
+                <c:if test="${!fn:startsWith(requestScope.topicCenter.fullUri, '/online-education')}">
+                    <div class="startAConversationModule rnd8">
+                        <div id="sac-downArrow-fc6"><!--do not collapse--></div>
+                        <c:set var="startAConversationModule">
+                            <c:import
+                                    url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
+                        </c:set>
+                        ${pageScope.startAConversationModule}
+                    </div>
+                </c:if>
+
             </c:if>
         </div>
         <!-- end #topicMainGS -->
@@ -293,6 +297,9 @@
                     levelCode="${levelCode}"
                     />
         </c:when>
+        <c:when test="${topicCenter.stateOfEducationTopicCenter}">
+            <div class="spacer_10"><!-- don't collapse --></div>
+        </c:when>
         <c:otherwise>
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:otherwise>
@@ -360,8 +367,16 @@
         </c:when>
         <c:otherwise><!-- do not display either module if not p, e, m, or h --></c:otherwise>
     </c:choose>
-
-    <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+    
+    <c:choose>
+        <c:when test="${topicCenter.stateOfEducationTopicCenter}">
+            <ad:adTag position="Promo_300x250"/>
+            <ad:House_Ad_300x137 referredBy="${pageName}"/>
+        </c:when>
+        <c:otherwise>
+            <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+        </c:otherwise>
+    </c:choose>
 
     <!-- DONE-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
     <c:if test="${topicCenter.gradeLevelTopicCenter}">

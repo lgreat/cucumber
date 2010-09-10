@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.73 2010/08/24 22:00:51 yfan Exp $
+ * $Id: AdPosition.java,v 1.74 2010/09/10 23:22:42 yfan Exp $
  */
 package gs.web.ads;
 
@@ -130,6 +130,7 @@ public class AdPosition extends Enum {
     public static final AdPosition Global_Nav_Promo_865x24 = new AdPosition("Global_Nav_Promo_865x24", true);
     public static final AdPosition Global_Nav_Promo_952x24 = new AdPosition("Global_Nav_Promo_952x24", true);
     public static final AdPosition Facebook_Promo_300x250 = new AdPosition("Facebook_Promo_300x250", true); // GS-9137
+    public static final AdPosition Promo_300x250 = new AdPosition("Promo_300x250", true); // GS-10582
     public static final AdPosition HeaderLogo_88x33 = new AdPosition("HeaderLogo_88x33", true);
     public static final AdPosition Inline_423x60 = new AdPosition("Inline_423x60", true);
     public static final AdPosition SponsoredSearch_Top_542x60 = new AdPosition("SponsoredSearch_Top_542x60", true); // GS-9967
