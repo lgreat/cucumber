@@ -93,6 +93,8 @@ public class CmsTopicCenterController2010 extends AbstractController {
                     contentId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
                 } else if (uri.startsWith("/high-school/")) {
                     contentId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
+                } else if (uri.startsWith("/stateofeducation/")) {
+                    contentId = CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID;
                 } else if (getTopicCenterContentID() == null) {
                     try {
                         contentId = new Long(request.getParameter("content"));
@@ -102,6 +104,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
                             if (!builder.asSiteRelative(request).startsWith("/LD.topic")) {
                                 return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
                             }
+                        } else if (contentId == CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID) {
+                            UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID));
+                            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
                         }
                     } catch (Exception e) {
                         _log.warn("contentId \"" + request.getParameter("content") + "\" is not a Long");

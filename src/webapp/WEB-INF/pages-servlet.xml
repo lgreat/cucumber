@@ -89,6 +89,7 @@
                 <entry key="/badges/**" value="/school/topHighSchoolsBadges.page"/>
                 <entry key="/pledge/**" value="/backToSchool/pledgeLanding.page"/>
                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
+                <entry key="/stateofeducation/**" value="/content/cms/topicCenter.page"/>
             </map>
         </property>
     </bean>
