@@ -93,7 +93,11 @@
                     </tr>
                     <tr class="required">
                         <td>city</td>
-                        <td>Case-insensitive city name. Spaces within the city name must be replaced with hyphens. If there are pre-existing hyphens within the city name, those should be replaced with underscores. After substitutions are made, the city name must be URL encoded. </td>
+                        <td>Case-insensitive city name.<br/>
+                            First, hyphens in the name must be replaced with underscores.<br/>
+                            Next, spaces must then be replaced with hyphens.<br/>
+                            Finally, after substitutions are made, the name must be URL encoded.
+                        </td>
                         <td>
                             San-Francisco<br/>
                         </td>
@@ -107,7 +111,12 @@
                     </tr>
                     <tr>
                         <td>schoolName</td>
-                        <td>Case-insensitive name of the school. Partial school names can be used to search if an entire word or token is provided. Spaces within the school name must be replaced with hyphens. If there are pre-existing hyphens within the school name, those should be replaced with underscores. After substitutions are made, the school name must be URL encoded.
+                        <td>Case-insensitive name of the school.<br/>
+                            Partial school names can be used but partial words or tokens will not be used for
+                            matching results.<br/>
+                            First, hyphens in the name must be replaced with underscores.<br/>
+                            Next, spaces must then be replaced with hyphens.<br/>
+                            Finally, after substitutions are made, the name must be URL encoded.
                         </td>
                         <td>
                             Alameda-high-school<br/>
@@ -151,37 +160,129 @@
             </div>
 
             <div class="call">
-                <h2>Sample Requests</h2>
-                <div>
-                    The following are some sample search requests and responses. Please note that depending on the school
-                    results we find, either a single school or multiple school records might be returned.</div><br/>
+                <h2>Response</h2>
 
-                <div> Single results are returned with detailed information for the school, including address, phone, latitude,
-                    longitude, other school details, and district information. However, multiple results are returned only with the neccessary information for a user
-                    to identify the school. Currently this information includes state, school ID, school name, city, latitude, and longitude.</div><br/>
+                <p>Three formats of school search responses may be returned, depending on the school results we find.</p>
 
-                <div>We are able to provide latitude and longitude for most but not all schools. When latitude and longitude
-                    are not available for a school, the lat and lon tags are omitted from the API response XML.
-                    Similarly, any other information that is not available for a particular school will have the
-                    associated tag omitted (e.g. fax, website, etc.).
-                </div><br/>
+                <div class="subhead">No results</div>
 
-                <div>If only one school can be found which matches the input criteria (even if there is not an exact match)
-                    then this single school's data will be returned. Also, if an exact match for a school is found, that
-                    result will automatically be returned. The final possibility is if multiple schools within a state all
-                    match the input criteria perfectly - in this case all of these results will be returned.
+                <p>If no schools matching the search criteria are found, the response consists of a single empty root
+                tag named &amp;quot;schools&amp;quot;.</p>
 
-                </div><br/>
+                <div class="subhead">Single school result</div>
+
+                <p>If a school search returns only one exact match by school name, or only one school can be found that
+                    matches the search criteria, the detailed school profile is returned for this school, as described
+                    in the <a href="/api/docs/scorecard/schoolProfile.page#response">school profile</a> documentation.</p>
+
+                <p>The school profile response is embedded as the only child element of the root tag, which is named
+                    &amp;quot;schools&amp;quot;.
+                </p>
+
+                <p class="last">The single school search response includes the following fields:</p>
+
+                <table class="call_params">
+                    <thead>
+                    <tr class="fields">
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="required">
+                            <td>school*</td>
+                            <td>Detailed <a href="/api/docs/scorecard/schoolProfile.page#response">school profile</a></td>
+                            <td><a href="/api/docs/scorecard/schoolProfile.page#response">See detailed description</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footnote">* always provided</div>
+
+                <br/>
+
+                <div class="subhead">Multiple school results</div>
+
+                <p class="last">
+                    When multiple schools match the search criteria, each result is listed in
+                    child elements named &amp;quot;school&amp;quot;, one per result. Each of these
+                    &amp;quot;school&amp;quot; tags includes the following fields:</p>
+
+                <table class="call_params">
+                    <thead>
+                    <tr class="fields">
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="required">
+                            <td>gsId*</td>
+                            <td>GreatSchools school ID</td>
+                            <td>2423</td>
+                        </tr>
+                        <tr class="required">
+                            <td>gsState*</td>
+                            <td>GreatSchools <a href="/api/docs/scorecard/responseFields.page#stateFields">database state</a> for this school</td>
+                            <td>CA</td>
+                        </tr>
+                        <tr class="required">
+                            <td>name*</td>
+                            <td>School name</td>
+                            <td>Thirty-Second Street USC Performing Arts School</td>
+                        </tr>
+                        <tr class="required">
+                            <td>city*</td>
+                            <td>City in which the school is physically located</td>
+                            <td>Los Angeles</td>
+                        </tr>
+                        <tr class="required">
+                            <td>state*</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#stateFields">State</a> in which the school is physically located</td>
+                            <td>CA</td>
+                        </tr>
+                        <tr class="required">
+                            <td>zip*</td>
+                            <td>Zip code in which the school is physically located</td>
+                            <td>822 West 32nd St.</td>
+                        </tr>
+                        <tr>
+                            <td>lat</td>
+                            <td>Latitude</td>
+                            <td>34.0252</td>
+                        </tr>
+                        <tr>
+                            <td>lon</td>
+                            <td>Longitude</td>
+                            <td>-118.2829</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footnote">* always provided</div>
+
+                <p>Please see explanations of <a href="/api/docs/scorecard/responseFields.page">response fields</a> common to the various API calls.</p>
             </div>
 
             <div class="call">
-                <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/Lowell-Elementary?key=[apiKey]</div>
-                Returns six search results for "Lowell Elementary" in California
-            </div>
-            <div class="call">
-                <h2>Sample Response</h2>
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/asdfadfasdfasdasdf?key=[apiKey]</div>
+                <p>Returns no search results for &amp;quot;asdfadfasdfasdasdf&amp;quot; in California</p>
+
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;schools/&gt;]]>
+                </textarea>
+            </div>
+
+            <div class="call">
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/Lowell-Elementary?key=[apiKey]</div>
+                <p>Returns six search results for "Lowell Elementary" in California</p>
+
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;schools&gt;
     &lt;school&gt;
@@ -234,19 +335,16 @@
         &lt;lat&gt;37.7311&lt;/lat&gt;
         &lt;lon&gt;-122.4836&lt;/lon&gt;
     &lt;/school&gt;
-&lt;/schools&gt;
+&lt;/schools&gt;]]>
                 </textarea>
             </div>
 
             <div class="call">
-                <h2>Sample Request</h2>
+                <h2>Sample request &amp;amp; response</h2>
                 <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/frank-mccoppin-elementary-school?key=[apiKey]</div>
-                Returns one search result for "Lowell Elementary" in California. This response is equivalent to
-                the School Profile response for this school, with an additional "schools" root tag to wrap around the result.
-            </div>
+                <p>Returns one search result for "Lowell Elementary" in California. This response is equivalent to
+                the School Profile response for this school, with an additional "schools" root tag to wrap around the result.</p>
 
-            <div class="call">
-                <h2>Sample Response</h2>
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
 <![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;

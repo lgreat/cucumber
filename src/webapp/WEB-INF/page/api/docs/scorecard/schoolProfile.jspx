@@ -95,20 +95,189 @@
                 </table>
                 <div class="footnote">*required</div>
             </div>
-            <div class="call">
-                <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/scorecard/school/CA/2423?key=[apiKey]</div>
-                Returns school profile for school in California with GreatSchools ID of 2423
-                <br/><br/>  
 
-                <div>We are able to provide latitude and longitude for most but not all schools. When latitude and longitude
-                    are not available for a school, the lat and lon tags are omitted from the API response XML.
-                    Similarly, any other information that is not available for a particular school will have the
-                    associated tag omitted (e.g. fax, website, etc.).
-                </div><br/>
+            <div class="call" id="response">
+                <h2>Response</h2>
+
+                <div class="subhead">School profile</div>
+
+                <p class="last">Each school profile response includes the following fields:</p>
+
+                <table class="call_params">
+                    <thead>
+                    <tr class="fields">
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="required">
+                            <td>gsId*</td>
+                            <td>GreatSchools school ID</td>
+                            <td>2423</td>
+                        </tr>
+                        <tr class="required">
+                            <td>gsState*</td>
+                            <td>GreatSchools <a href="/api/docs/scorecard/responseFields.page#stateFields">database state</a> for this school</td>
+                            <td>CA</td>
+                        </tr>
+                        <tr class="required">
+                            <td>name*</td>
+                            <td>School name</td>
+                            <td>Thirty-Second Street USC Performing Arts School</td>
+                        </tr>
+                        <tr class="required">
+                            <td>type*</td>
+                            <td>School type</td>
+                            <td>public<br/>private<br/>charter</td>
+                        </tr>
+                        <tr class="required">
+                            <td>levelCodes*</td>
+                            <td>Levels (preschool, elementary, middle, and/or high) taught</td>
+                            <td>e,m,h</td>
+                        </tr>
+                        <tr class="required">
+                            <td>gradeRanges*</td>
+                            <td>Grades taught</td>
+                            <td>K-12</td>
+                        </tr>
+                        <tr class="required">
+                            <td>city*</td>
+                            <td>City in which the school is physically located</td>
+                            <td>Los Angeles</td>
+                        </tr>
+                        <tr class="required">
+                            <td>state*</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#stateFields">State</a> in which the school is physically located</td>
+                            <td>CA</td>
+                        </tr>
+                        <tr class="required">
+                            <td>zip*</td>
+                            <td>Zip code in which the school is physically located</td>
+                            <td>822 West 32nd St.</td>
+                        </tr>
+                        <tr>
+                            <td>phone</td>
+                            <td>Phone number</td>
+                            <td>(213) 748-0126</td>
+                        </tr>
+                        <tr>
+                            <td>fax</td>
+                            <td>Fax number</td>
+                            <td>(213) 744-1608</td>
+                        </tr>
+                        <tr>
+                            <td>website</td>
+                            <td>Website address</td>
+                            <td>http://ahs.alameda.k12.ca.us/<br/>
+                                www.schoolsrock.com
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>lat</td>
+                            <td>Latitude</td>
+                            <td>34.0252</td>
+                        </tr>
+                        <tr>
+                            <td>lon</td>
+                            <td>Longitude</td>
+                            <td>-118.2829</td>
+                        </tr>
+                        <tr>
+                            <td>totalEnrollment</td>
+                            <td>Total enrollment</td>
+                            <td>950</td>
+                        </tr>
+                        <tr>
+                            <td>graduationRate</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#graduationRates">Graduation rate</a></td>
+                            <td>&amp;gt;=90<br/>
+                                &amp;lt;=10<br/>
+                                80.0
+                            </td>
+                        </tr>
+                        <tr class="required">
+                            <td>proficiency</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#proficiencyRates">Proficiency rates</a>.
+                                If no proficiency data is available, an empty tag will be used, i.e. &amp;lt;proficiency/&amp;gt;.
+                            </td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#proficiencyRates">See detailed description</a></td>
+                        </tr>
+                        <tr>
+                            <td>district</td>
+                            <td><a href="#districtProfile">District profile</a>.
+                                If no district information is available, the district tag will be omitted altogether.
+                                Private schools never have district information.
+                            </td>
+                            <td><a href="#districtProfile">See detailed description</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footnote">* always provided</div>
+
+                <br/>
+
+                <div class="subhead" id="districtProfile">District profile</div>
+
+                <p class="last">Each district profile response is embedded within the school profile response and includes the following fields:</p>
+
+                <table class="call_params">
+                    <thead>
+                    <tr class="fields">
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="required">
+                            <td>name*</td>
+                            <td>District name</td>
+                            <td>Los Angeles Unified School District</td>
+                        </tr>
+                        <tr>
+                            <td>ncesCode</td>
+                            <td>NCES code</td>
+                            <td>0622710</td>
+                        </tr>
+                        <tr>
+                            <td>universalId</td>
+                            <td>Universal ID</td>
+                            <td>10600286</td>
+                        </tr>
+                        <tr>
+                            <td>totalEnrollment</td>
+                            <td>Total enrollment</td>
+                            <td>694819</td>
+                        </tr>
+                        <tr>
+                            <td>graduationRate</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#graduationRates">Graduation rate</a></td>
+                            <td>&amp;gt;=90<br/>
+                                &amp;lt;=10<br/>
+                                73.0
+                            </td>
+                        </tr>
+                        <tr class="required">
+                            <td>proficiency</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#proficiencyRates">Proficiency rates</a>.
+                                If no proficiency data is available, an empty tag will be used, i.e. &amp;lt;proficiency/&amp;gt;.
+                            </td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#proficiencyRates">See detailed description</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footnote">* always provided</div>
+
+                <p>Please see explanations of <a href="/api/docs/scorecard/responseFields.page">response fields</a> common to the various API calls.</p>
             </div>
+
             <div class="call">
-                <h2>Sample Response</h2>
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/school/CA/2423?key=[apiKey]</div>
+                <p>Returns school profile for school in California with GreatSchools ID of 2423</p>
+
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
 <![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
@@ -162,6 +331,112 @@
             &lt;middleMathRate&gt;18.0&lt;/middleMathRate&gt;
             &lt;middleMathTitle&gt;General Math&lt;/middleMathTitle&gt;
             &lt;middleMathGrade&gt;8&lt;/middleMathGrade&gt;
+        &lt;/proficiency&gt;
+    &lt;/district&gt;
+&lt;/school&gt;]]>
+                </textarea>
+            </div>
+
+            <div class="call">
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/school/KY/102?key=[apiKey]</div>
+                <p>Returns school profile for school in Kentucky with GreatSchools ID of 102</p>
+
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;school&gt;
+    &lt;gsId&gt;102&lt;/gsId&gt;
+    &lt;gsState&gt;KY&lt;/gsState&gt;
+    &lt;name&gt;Florence Elementary School&lt;/name&gt;
+    &lt;type&gt;public&lt;/type&gt;
+    &lt;levelCodes&gt;p,e&lt;/levelCodes&gt;
+    &lt;gradeRange&gt;PK-5&lt;/gradeRange&gt;
+    &lt;city&gt;Florence&lt;/city&gt;
+    &lt;state&gt;KY&lt;/state&gt;
+    &lt;zip&gt;41042&lt;/zip&gt;
+    &lt;address&gt;103 Center St&lt;/address&gt;
+    &lt;phone&gt;(859) 282-2610&lt;/phone&gt;
+    &lt;lat&gt;39.0015&lt;/lat&gt;
+    &lt;lon&gt;-84.6301&lt;/lon&gt;
+    &lt;totalEnrollment&gt;513&lt;/totalEnrollment&gt;
+    &lt;proficiency&gt;
+        &lt;elementaryReadingRate&gt;73.0&lt;/elementaryReadingRate&gt;
+        &lt;elementaryReadingTitle&gt;Reading&lt;/elementaryReadingTitle&gt;
+        &lt;elementaryReadingGrade&gt;Elementary&lt;/elementaryReadingGrade&gt;
+        &lt;elementaryMathRate&gt;66.66&lt;/elementaryMathRate&gt;
+        &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
+        &lt;elementaryMathGrade&gt;Elementary&lt;/elementaryMathGrade&gt;
+    &lt;/proficiency&gt;
+    &lt;district&gt;
+        &lt;name&gt;Boone County School District&lt;/name&gt;
+        &lt;ncesCode&gt;2100510&lt;/ncesCode&gt;
+        &lt;universalId&gt;12100099&lt;/universalId&gt;
+        &lt;totalEnrollment&gt;18174&lt;/totalEnrollment&gt;
+        &lt;graduationRate&gt;89.0&lt;/graduationRate&gt;
+        &lt;proficiency&gt;
+            &lt;elementaryReadingRate&gt;79.54&lt;/elementaryReadingRate&gt;
+            &lt;elementaryReadingTitle&gt;Reading&lt;/elementaryReadingTitle&gt;
+            &lt;elementaryReadingGrade&gt;Elementary&lt;/elementaryReadingGrade&gt;
+            &lt;middleReadingRate&gt;74.49&lt;/middleReadingRate&gt;
+            &lt;middleReadingTitle&gt;Reading&lt;/middleReadingTitle&gt;
+            &lt;middleReadingGrade&gt;Middle&lt;/middleReadingGrade&gt;
+            &lt;elementaryMathRate&gt;78.05&lt;/elementaryMathRate&gt;
+            &lt;elementaryMathTitle&gt;Math&lt;/elementaryMathTitle&gt;
+            &lt;elementaryMathGrade&gt;Elementary&lt;/elementaryMathGrade&gt;
+            &lt;middleMathRate&gt;73.84&lt;/middleMathRate&gt;
+            &lt;middleMathTitle&gt;Math&lt;/middleMathTitle&gt;
+            &lt;middleMathGrade&gt;Middle&lt;/middleMathGrade&gt;
+        &lt;/proficiency&gt;
+    &lt;/district&gt;
+&lt;/school&gt;]]>
+                </textarea>
+            </div>
+
+            <div class="call">
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/school/UT/300?key=[apiKey]</div>
+                <p>Returns school profile for school in Utah with GreatSchools ID of 300</p>
+
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;school&gt;
+    &lt;gsId&gt;300&lt;/gsId&gt;
+    &lt;gsState&gt;UT&lt;/gsState&gt;
+    &lt;name&gt;Upland Terrace School&lt;/name&gt;
+    &lt;type&gt;public&lt;/type&gt;
+    &lt;levelCodes&gt;p,e&lt;/levelCodes&gt;
+    &lt;gradeRange&gt;PK-6&lt;/gradeRange&gt;
+    &lt;city&gt;Salt Lake City&lt;/city&gt;
+    &lt;state&gt;UT&lt;/state&gt;
+    &lt;zip&gt;84109&lt;/zip&gt;
+    &lt;address&gt;3700 South 2860 East&lt;/address&gt;
+    &lt;phone&gt;(801) 646-5055&lt;/phone&gt;
+    &lt;lat&gt;40.690926&lt;/lat&gt;
+    &lt;lon&gt;-111.81116&lt;/lon&gt;
+    &lt;totalEnrollment&gt;619&lt;/totalEnrollment&gt;
+    &lt;proficiency&gt;
+        &lt;schoolReadingRate&gt;87.0&lt;/schoolReadingRate&gt;
+        &lt;schoolReadingTitle&gt;English Language Arts&lt;/schoolReadingTitle&gt;
+        &lt;schoolReadingGrade&gt;All&lt;/schoolReadingGrade&gt;
+        &lt;schoolMathRate&gt;84.0&lt;/schoolMathRate&gt;
+        &lt;schoolMathTitle&gt;Math&lt;/schoolMathTitle&gt;
+        &lt;schoolMathGrade&gt;All&lt;/schoolMathGrade&gt;
+    &lt;/proficiency&gt;
+    &lt;district&gt;
+        &lt;name&gt;Granite School District&lt;/name&gt;
+        &lt;ncesCode&gt;4900360&lt;/ncesCode&gt;
+        &lt;universalId&gt;14900016&lt;/universalId&gt;
+        &lt;totalEnrollment&gt;69900&lt;/totalEnrollment&gt;
+        &lt;graduationRate&gt;83.0&lt;/graduationRate&gt;
+        &lt;proficiency&gt;
+            &lt;schoolReadingRate&gt;73.0&lt;/schoolReadingRate&gt;
+            &lt;schoolReadingTitle&gt;English Language Arts&lt;/schoolReadingTitle&gt;
+            &lt;schoolReadingGrade&gt;All&lt;/schoolReadingGrade&gt;
+            &lt;schoolMathRate&gt;63.0&lt;/schoolMathRate&gt;
+            &lt;schoolMathTitle&gt;Math&lt;/schoolMathTitle&gt;
+            &lt;schoolMathGrade&gt;All&lt;/schoolMathGrade&gt;
         &lt;/proficiency&gt;
     &lt;/district&gt;
 &lt;/school&gt;]]>

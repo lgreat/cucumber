@@ -88,13 +88,51 @@
                 </table>
                 <div class="footnote">*required</div>
             </div>
+
             <div class="call">
-                <h2>Sample Request</h2>
-                <div class="sample_url">http://${apiHost}/scorecard/state/CA?key=[apiKey]</div>
-                Returns state profile for California
+                <h2>Response</h2>
+
+                <p class="last">Each state profile response includes the following fields:</p>
+
+                <table class="call_params">
+                    <thead>
+                    <tr class="fields">
+                        <td class="fieldname">Name</td>
+                        <td class="fielddescription">Description</td>
+                        <td class="fieldsample">Sample Values</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="required">
+                            <td>abbreviation*</td>
+                            <td>Uppercase, two-letter <a href="/api/docs/scorecard/responseFields.page#stateFields">state abbreviation</a></td>
+                            <td>CA</td>
+                        </tr>
+                        <tr class="required">
+                            <td>graduationRate*</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#graduationRates">Graduation rate</a></td>
+                            <td>&amp;gt;=90<br/>
+                                &amp;lt;=10<br/>
+                                80.0
+                            </td>
+                        </tr>
+                        <tr class="required">
+                            <td>proficiency*</td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#proficiencyRates">Proficiency rates</a></td>
+                            <td><a href="/api/docs/scorecard/responseFields.page#proficiencyRates">See detailed description</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footnote">* always provided</div>
+
+                <p>Please see explanations of <a href="/api/docs/scorecard/responseFields.page">response fields</a> common to the various API calls.</p>
             </div>
+
             <div class="call">
-                <h2>Sample Response</h2>
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/state/CA?key=[apiKey]</div>
+                <p>Returns state profile for California</p>
+
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
 <![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;

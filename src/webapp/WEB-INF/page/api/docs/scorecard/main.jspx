@@ -51,6 +51,8 @@
             </div>
             <div class="call">
                 <h2>Requests</h2>
+                <div class="mainRequest"><a href="/api/docs/scorecard/responseFields.page">Response Fields</a></div>
+                Response fields common to the various API calls.
                 <div class="mainRequest"><a href="/api/docs/scorecard/schoolSearch.page">School Search</a></div>
                 Returns a list of schools based on a search string.
                 <div class="mainRequest"><a href="/api/docs/scorecard/schoolProfile.page">School Profile</a></div>

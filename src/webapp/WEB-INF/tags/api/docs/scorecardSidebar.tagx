@@ -34,6 +34,7 @@
                         <div class="toggle">
                             <ul id="topic-tips">
                                 <li><a href="/api/docs/scorecard/main.page">Technical Overview</a></li>
+                                <li><a href="/api/docs/scorecard/responseFields.page">Response Fields</a></li>
                                 <li><a href="/api/docs/scorecard/schoolSearch.page">School Search</a></li>
                                 <li><a href="/api/docs/scorecard/schoolProfile.page">School Profile</a></li>
                                 <li><a href="/api/docs/scorecard/stateProfile.page">State Profile</a></li>

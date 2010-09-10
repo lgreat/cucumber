@@ -1,0 +1,136 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:apidoc="urn:jsptagdir:/WEB-INF/tags/api/docs"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0" xmlns:form="http://www.springframework.org/tags/form">
+<jsp:directive.page import="gs.web.util.UrlUtil"/>
+
+<c:set var="pageName" value="API Documentation"/>
+    <html>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>GreatSchools.org API School Profile Documentation</title>
+        <meta content="todo" name="description"/>
+        <meta content="todo" name="keywords"/>
+        <pageHelper:externalCss file="/res/css/api/api_doc.css"/>
+
+        <jsp:scriptlet>
+            request.setAttribute("apiHost", UrlUtil.getApiHostname(request.getServerName()));
+        </jsp:scriptlet>
+    </head>
+
+    <gsml:body adPageName="schoolProfile" pageLayout="nocol">
+    <div id="api_docs">
+        <jsp:include page="/api/scorecard/leftNav.module" />
+
+        <div class="content">
+
+
+            <div class="callfirst">
+                <h2>Response Fields</h2>
+                The following information pertains to response fields that may be common to school search results,
+                school profile responses, and state profile responses.
+            </div>
+
+            <div class="call">
+                <h2>Optional fields</h2>
+
+                <p>We are able to provide latitude and longitude for most but not all schools. When latitude and longitude
+                    are not available for a school, the lat and lon tags are omitted from the API response XML.
+                    Similarly, any other information that is not available for a particular school, district, or state
+                    will have the associated tag omitted (e.g. fax, website, etc.).
+                </p>
+            </div>
+
+             <div class="call" id="stateFields">
+
+                <h2>State fields</h2>
+
+                <p>School search results and school profile responses list two different state elements: gsState and state.
+                   The &amp;quot;state&amp;quot; element refers to the physical address state of the school; the &amp;quot;gsState&amp;quot;
+                   refers to the GreatSchools state database in which the data is stored. The gsState and state values
+                    may be different when a school is located near the border of two state. For example, if a school is
+                    part of a California school district but is physically located across the border in Oregon, the
+                    gsState would be CA and the state would be OR.
+                </p>
+
+                 <p>State profile abbreviations refer to the gsState GreatSchools state database.</p>
+
+                 <p>Both gsState and state have values that are the uppercase, two-letter abbreviation for each state.</p>
+
+                <p>
+                    The state abbreviation used in API calls should always refer to the gsState, not the physical address state.
+                </p>
+             </div>
+
+             <div class="call" id="graduationRates">
+
+                <h2>Graduation rates</h2>
+
+                <p>
+                    The graduation rate is a number between 0 and 100, inclusive. In some cases, the graduation rate
+                    is shown as &amp;lt;= 10 (less than or equal to 10) or &amp;gt;= 90 (greater than or equal to 90).
+                </p>
+
+                <p>Graduation rates are available for schools that include high school. For example, schools with
+                 only elementary and middle school grades will not have a graduation rate.</p>
+            </div>
+
+            <div class="call" id="proficiencyRates">
+
+                <h2>Proficiency rates</h2>
+
+                <p>Proficiency rates are provided only for public and charter schools.
+                   Private schools have no proficiency data.
+                </p>
+
+                <p>In Kentucky, the only possible proficiency elements are
+                    elementaryReadingRate, elementaryReadingTitle, elementaryReadingGrade,
+                    middleReadingRate, middleReadingTitle, middleReadingGrade,
+                    elementaryMathRate, elementaryMathTitle, elementaryMathGrade,
+                    middleMathRate, middleMathTitle, and middleMathGrade.
+                    The values for elementaryReadingGrade and elementaryReadingMath will be &amp;quot;Elementary&amp;quot;,
+                    and the values for middleReadingGrade and middleReadingMath will be &amp;quot;Middle&amp;quot;.
+                </p>
+
+                <p>In North Dakota, Tennessee, Utah, and Vermont, proficiency rates are as one score per subject per
+                    school instead of as separate values for elementary and middle levels.
+                    As a result, the only possible proficiency elements are schoolReadingRate, schoolReadingTitle,
+                    schoolReadingGrade, schoolMathRate, schoolMathTitle, and schoolMathGrade. The values for schoolReadingGrade
+                    and schoolMathGrade will always be &amp;quot;All&amp;quot;.
+                </p>
+
+                <p>For all other states,
+                    the only possible proficiency elements are the same as for Kentucky.
+                    The values for elementaryReadingGrade and elementaryReadingMath will be &amp;quot;4&amp;quot;,
+                    and the values for middleReadingGrade and middleReadingMath will be &amp;quot;8&amp;quot;.
+                </p>
+             </div>
+
+            <div class="call">
+                <h2>Have Questions?</h2>
+                <div class="questions">To ask questions or to report bugs please email
+                api-support@greatschools.org. Please do not abuse our API. Review the
+                    <a href="/api/docs/terms.page" style="" title="GreatSchools Terms of Use"
+                       onclick="Popup=window.open('/api/docs/terms.page','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;">Terms of Use</a>.
+                </div>
+            </div>
+        </div>
+
+        <!-- <apidoc:sidebar current="schools"/> -->
+    </div>
+    </gsml:body>
+    </html>
+</jsp:root>
