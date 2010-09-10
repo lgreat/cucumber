@@ -61,7 +61,7 @@
                 <p>School search results and school profile responses list two different state elements: gsState and state.
                    The &amp;quot;state&amp;quot; element refers to the physical address state of the school; the &amp;quot;gsState&amp;quot;
                    refers to the GreatSchools state database in which the data is stored. The gsState and state values
-                    may be different when a school is located near the border of two state. For example, if a school is
+                    may be different when a school is located near the border of two states. For example, if a school is
                     part of a California school district but is physically located across the border in Oregon, the
                     gsState would be CA and the state would be OR.
                 </p>
