@@ -188,11 +188,11 @@
     </ul>
 
         <ul id="topnav_menusubnav">
-           <!-- <li id="topnav_bts" class="nav_menu firstHeading ${(pw == tabs.BACK_TO_SCHOOL ? 'topnav_subnav_active' : '')}"><a href="/back-to-school"
-                    id="GlobalNav_BackToSchoolButton"
+            <li id="topnav_bts" class="nav_menu firstHeading ${(pw == tabs.STATE_OF_EDUCATION ? 'topnav_subnav_active' : '')}"><a href="/stateofeducation/"
+                    id="GlobalNav_StateOfEducationButton"
                     class="nav_group_heading GS_CI9_ "
-                    >Back-to-School Shopping</a>
-            </li>-->
+                    >State of Education</a>
+            </li>
             <li id="topnav_hd" class="nav_menu ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')}"><a href="/parenting.topic?content=1539"
                     id="GlobalNav_HealthAndDevelopmentButton"
                     class="arrow nav_group_heading GS_CI9_ "
@@ -279,13 +279,13 @@
                 <link:communityLanding styleClass="nav_group_heading GS_CI9_ " id="GlobalNav_CommunityButton"><span
                 class="sprite community-sm"><!-- community icon --></span>&amp;nbsp;Community</link:communityLanding>
             </li>
-            <li id="topnav_sm" class="nav_menu">
-                <p class="socialMedia fltlft">
-                    <span>Find us on:</span>
-                </p>
-                    <a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;"><span class="sprite facebook-x19"><!-- do not collapse --></span></a>
-                    <a href="http://twitter.com/greatschools" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><span class="sprite twitter-x19"><!-- do not collapse --></span></a>
-            </li>
+            <!--<li id="topnav_sm" class="nav_menu">-->
+                <!--<p class="socialMedia fltlft">-->
+                    <!--<span>Find us on:</span>-->
+                <!--</p>-->
+                    <!--<a href="http://www.facebook.com/greatschools" title="Facebook" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Facebook');} return true;"><span class="sprite facebook-x19">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+                    <!--<a href="http://twitter.com/greatschools" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><span class="sprite twitter-x19">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
+            <!--</li>-->
         </ul>
         <c:choose>
             <c:when test="${fn:contains(pageContext.request.requestURI,'index')
