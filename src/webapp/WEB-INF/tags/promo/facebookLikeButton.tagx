@@ -20,6 +20,7 @@
 
         var getNumberOfLikes = function() {
             var url = "${pageUrlOnFacebook}";
+            url = "http://www.greatschools.org/california/1-Alameda-High-School";
             var facebookService = "https://api.facebook.com/method/fql.query";
             var query = "select like_count from link_stat where url=\"" + url + "\"";
 
@@ -54,18 +55,15 @@
 
         window.fbAsyncInit = function() {
             FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true});
-            getNumberOfLikes();
+            //getNumberOfLikes();
 
             FB.Event.subscribe('edge.create', function(href, widget) {
                 var abVersion = '${requestScope.context.ABVersion}';
                 if (s.tl) {
-                    if (abVersion == 'a') {
-                        s.tl(this, 'o', 'FBLike_SPP_A');
-                    } else if (abVersion == 'b') {
-                        s.tl(this, 'o', 'FBLike_SPP_B');
-                    }
+                    s.tl(this, 'o', 'FBLike_SPP_B');
                 }
             });
+
         };
 
         (function() {
@@ -73,23 +71,12 @@
             e.async = true;
             e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
             document.getElementById('fb-root').appendChild(e);
-            var codes = "jQuery('.connect_widget_like_button').click(function() {alert('clicked');});";
-
-            document.getElementById('fb-root').appendChild(codes);
         }());
     </script>
 
-    <variant:a>
-        <![CDATA[
-        <fb:like layout="button" show_faces="false" width="300" font="arial" action="like" colorscheme="light"></fb:like>
-        ]]>
-    </variant:a>
-    <variant:b>
-        <![CDATA[
-        <fb:like layout="button_count" show_faces="false" width="90" font="arial" action="like" colorscheme="light"></fb:like>
-        ]]>
-    </variant:b>
-
+    <![CDATA[
+    <fb:like layout="button_count" href="${pageUrlOnFacebook}" show_faces="false" width="90" font="arial" action="like" colorscheme="light"></fb:like>
+    ]]>
 
 </jsp:root>
 

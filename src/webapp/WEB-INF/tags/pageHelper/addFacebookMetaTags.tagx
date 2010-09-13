@@ -21,7 +21,7 @@
             if (vpageObj != null) {
                 UrlBuilder builder = new UrlBuilder(school, vpageObj);
                 if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-                    baseUrl = "dev.greatschools.org";
+                    baseUrl = "http://www.greatschools.org";
                 } else {
                     baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
                 }

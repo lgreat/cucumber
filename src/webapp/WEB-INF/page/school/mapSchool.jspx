@@ -42,6 +42,7 @@
         <pageHelper:externalCss file="/res/css/ads.css"/>
         <pageHelper:externalCss file="/res/css/school/mapSchool.css"/>
         <school:profile2010ShareThisJavaScript/>
+        <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_MAP" />
     </head>
 
     <gsml:body adPageName="schoolMap" pageLayout="nocol">

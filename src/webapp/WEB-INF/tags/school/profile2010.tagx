@@ -68,8 +68,7 @@
                         <li>
                             <c:choose>
                                 <c:when test="${school.levelCode eq 'p'}">
-                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
-                                                  title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
+                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
                                 </c:when>
                                 <c:otherwise>
                                     <link:city city="${city}" state="${school.physicalAddress.state}"
@@ -130,9 +129,8 @@
                 | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
             </c:if>
 
-            <!--<variant:b>
-                | <promo:facebookLikeButton showLongText="false" />
-            </variant:b>-->
+            | &amp;nbsp; <promo:facebookLikeButton showLongText="false" />
+
         </p>
 
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
@@ -236,10 +234,6 @@
             <!--<div id="schoolInfoFooter" class="smallAlertText">-->
                 <!--<p>Like <span class="sprite facebook">&lt;!&ndash; do not collapse &ndash;&gt;</span> 12.932 people like Lowell High School</p>-->
             <!--</div>-->
-
-            <!--<variant:a>
-               <promo:facebookLikeButton showLongText="true"/>
-            </variant:a>-->
 
         </div>
     </div>
