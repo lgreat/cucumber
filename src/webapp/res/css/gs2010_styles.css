@@ -6759,15 +6759,10 @@ ul.srchSuggest li span {
     color: #d61;
 }
 
-#sidebarGS #AboveFold_300x250, #sidebarGS #House_Ad_300x137 {
+#sidebarGS #AboveFold_300x250, #sidebarGS #House_Ad_300x137, #sidebarGS #Promo_300x250 {
     text-align: center;
     margin: 0 0 1em;
 }
-
-#sidebarGS #Promo_300x250 {
-    margin: 0 0 1em 15px;
-}
-
 
 /* =7a- recentLocalDiscussions
 -------------------------------------------------------------------------------------------*/
