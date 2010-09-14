@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
                 this.unselectable = "on";
                 jQuery(this).css('-moz-user-select', 'none');
                 jQuery(this).css('-webkit-user-select', 'none');
+                jQuery(this).css('-khtml-user-select', 'none');
             });
         }
     });
