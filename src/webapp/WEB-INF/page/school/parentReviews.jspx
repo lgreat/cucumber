@@ -106,6 +106,15 @@
 <c:when test="${cmd.ratings.displayOverallRating eq true and (hasPreschoolCategoryRatings or hasGradeschoolCategoryRatings)}">
     <div id="showParentRatings">
         <div id="rating_parent" class="hreview-aggregate">
+            <span style="position:absolute; left:-9999px;">
+                <span class="fn">${school.name}</span>
+                <span class="rating">
+                    <span class="average">${cmd.ratings.overall}</span> out of
+                    <span class="best">5</span>
+                </span>
+                <span class="votes">${cmd.ratings.count}</span> ratings.
+                <span class="count">${cmd.totalReviews}</span> user reviews.
+            </span>
             <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif"
                       alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating"
                       styleClass="parentTitle"/>

@@ -111,6 +111,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <!-- overall school rating box -->
     <div id="overallRating" class="hreview-aggregate">
         <span style="position:absolute; left:-9999px;">
+            <span class="fn">${school.name}</span>
             <span class="rating">
                 <span class="average">${overallRating}</span> out of
                 <span class="best">5</span>
