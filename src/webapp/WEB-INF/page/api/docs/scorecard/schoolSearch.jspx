@@ -162,12 +162,19 @@
             <div class="call">
                 <h2>Response</h2>
 
-                <p>Three formats of school search responses may be returned, depending on the school results we find.</p>
+                <p>Four formats of school search responses may be returned, depending on the school results we find.</p>
 
                 <div class="subhead">No results</div>
 
                 <p>If no schools matching the search criteria are found, the response consists of a single empty root
                 tag named &amp;quot;schools&amp;quot;.</p>
+
+                <div class="subhead">Too many results</div>
+
+                <p>If more than 100 schools matching the search criteria are found <b>for searches by school name and state only</b>,
+                   an XML response will be given to indicate that too many results were found, rather than returning the
+                   full list of results. The response consists of a root tag named &amp;quot;error&amp;quot; containing
+                   child elements with more detailed information. See sample request and response below.</p>
 
                 <div class="subhead">Single school result</div>
 
@@ -273,6 +280,23 @@
 <![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;schools/&gt;]]>
+                </textarea>
+            </div>
+
+            <div class="call">
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/search/schools/CA/elementary-school?key=[apiKey]</div>
+                <p>Returns too many results for &amp;quot;elementary school&amp;quot; in California</p>
+
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+<![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;error&gt;
+    &lt;errorCode&gt;8&lt;/errorCode&gt;
+    &lt;faultString&gt;Too many search results.&lt;/faultString&gt;
+    &lt;date&gt;2010/09/14&lt;/date&gt;
+    &lt;call&gt;/scorecard/search/schools/CA/elementary-school&lt;/call&gt;
+&lt;/error&gt;]]>
                 </textarea>
             </div>
 
