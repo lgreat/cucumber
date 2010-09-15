@@ -1266,6 +1266,10 @@ body.cobranded #pageGS {
     line-height: 60px;
 }
 
+.lineheight-25{
+    line-height:25px;
+}
+
 .dotted {
     border: 1px dotted #333;
 }
@@ -5649,7 +5653,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-08-23.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-09-15.png);
 }
 
 .reportIt-nbg {
@@ -5738,6 +5742,12 @@ additional icons on the sprite.
     width: 17px;
     height: 17px;
     background-position: 0 -260px;
+}
+
+.i-downloadarrow {
+    width: 16px;
+    height: 12px;
+    background-position: 0 -280px;
 }
 
 /* column 20 */
@@ -6947,6 +6957,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 }
 
 .button-1:hover {
+    text-decoration: none;
 
 /* Background Gradients */
     background: #ff9000; /* for non-css3 browsers */
