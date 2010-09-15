@@ -62,13 +62,26 @@
                         </c:if>
                     </c:when>
                     <c:otherwise>
-                        <li><link:research state="${state}"
-                                           title="${state.longName} schools">${state.longName} Schools</link:research> &amp;gt;
+                        <li>
+                            <c:choose>
+                                <c:when test="${state eq 'NY' and city eq 'New York'}">
+                                    <link:research state="${state}"
+                                           title="${state.longName}">${state.longName}</link:research> &amp;gt;
+                                </c:when>
+                                <c:otherwise>
+                                    <link:research state="${state}"
+                                                   title="${state.longName} schools">${state.longName} Schools</link:research> &amp;gt;
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                         <li>
                             <c:choose>
                                 <c:when test="${school.levelCode eq 'p'}">
                                     <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
+                                </c:when>
+                                <c:when test="${state eq 'NY' and city eq 'New York'}">
+                                    <link:city city="${city}" state="${school.physicalAddress.state}"
+                                               title="NYC schools">NYC Schools</link:city>&amp;#160;
                                 </c:when>
                                 <c:otherwise>
                                     <link:city city="${city}" state="${school.physicalAddress.state}"
