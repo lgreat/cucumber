@@ -40,6 +40,7 @@
         <input type="submit" name="ak" value="Index Alaska Only"/>
         <input type="submit" name="ca" value="Index California Only"/>
         <input type="submit" name="wy" value="Index Wyoming Only"/>
+        <input type="submit" name="la" value="Index Wyoming Only"/>
         <input type="submit" name="logout" value="logout"/>
         <input type="hidden" name="index" value="true" />
     </gsweb:form>
