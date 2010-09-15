@@ -35,15 +35,23 @@
 
     Reindex data. This deletes any existing indexes!
     <gsweb:form action="/status/searchmanager.page" method="post">
-        <input type="submit" name="all" value="Index All States"/>
-        <input type="submit" name="test" value="Index Test States"/>
+        <input type="submit" name="all" value="Index All States"/><br/><br/>
+        <input type="submit" name="test" value="Index Test States"/> (AK, CA, NY, WY)<br/><br/>
         <input type="submit" name="ak" value="Index Alaska Only"/>
         <input type="submit" name="ca" value="Index California Only"/>
         <input type="submit" name="wy" value="Index Wyoming Only"/>
-        <input type="submit" name="la" value="Index Louisiana Only"/>
+        <input type="submit" name="la" value="Index Louisiana Only"/><br/><br/>
+
+        Enter comma-separated list of state abbreviations:<br/>
+        <input type="text" name="stateList" value="" maxlength="30"/>
+        <input type="submit" name="specifiedStates" value="Index Selected States Only"/><br/><br/>
+
         <input type="submit" name="logout" value="logout"/>
         <input type="hidden" name="index" value="true" />
     </gsweb:form>
+    <c:if test="${!empty stateList}">
+        <c:out value="Indexed states ${stateList}"/><br/> 
+    </c:if>
     <c:if test="${!empty time}">
         <c:out value="Indexing time ${time}"/> 
     </c:if>

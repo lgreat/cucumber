@@ -17,8 +17,10 @@ import gs.data.state.StateManager;
 import gs.data.state.State;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Controls re-indexing of Lucene indexes.  User may select to index all states
@@ -47,6 +49,7 @@ public class SearchManagerController extends AbstractController {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
+        Map<String,Object> model = new HashMap<String,Object>();
 
         if (session != null) {
 
@@ -62,32 +65,56 @@ public class SearchManagerController extends AbstractController {
                     return new ModelAndView(new RedirectView("login.page"));
                 } else if (request.getParameter("index") != null) {
                     long start = System.currentTimeMillis();
-                    List states = null;
+                    List<State> states = null;
 
                     if (request.getParameter("all") != null) {
                         states = StateManager.getList();
                     } else if (request.getParameter("test") != null) {
-                        states = new ArrayList();
+                        states = new ArrayList<State>();
                         states.add(State.AK);
                         states.add(State.CA);
                         states.add(State.NY);
                         states.add(State.WY);
                     } else if (request.getParameter("ak") != null) {
-                        states = new ArrayList();
+                        states = new ArrayList<State>();
                         states.add(State.AK);
                     } else if (request.getParameter("ca") != null) {
-                        states = new ArrayList();
+                        states = new ArrayList<State>();
                         states.add(State.CA);
                     } else if (request.getParameter("wy") != null) {
-                        states = new ArrayList();
+                        states = new ArrayList<State>();
                         states.add(State.WY);
                     } else if (request.getParameter("la") != null) {
-                        states = new ArrayList();
+                        states = new ArrayList<State>();
                         states.add(State.LA);
+                    } else if (request.getParameter("specifiedStates") != null) {
+                        states = new ArrayList<State>();
+                        String stateList = request.getParameter("stateList");
+                        if (stateList != null) {
+                            String[] stateAbbrevs = stateList.trim().split(",");
+                            for (int i = 0; i < stateAbbrevs.length; i++) {
+                                try {
+                                    State state = State.fromString(stateAbbrevs[i].trim());
+                                    states.add(state);
+                                } catch (IllegalArgumentException e) {
+                                    // ignoring unrecognized state
+                                }
+                            }
+                        }
+
                     }
 
                     _indexer.index(states,
                             _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
+
+                    StringBuilder s = new StringBuilder();
+                    for (State state : states) {
+                        if (s.length() > 0) {
+                            s.append(", ");
+                        }
+                        s.append(state.getAbbreviation());
+                    }
+                    model.put("stateList", s.toString());
 
                     if (start > 0) {
                         long end = System.currentTimeMillis();
@@ -99,10 +126,11 @@ public class SearchManagerController extends AbstractController {
                         buf.append(":");
                         buf.append(String.valueOf(seconds));
                         time = buf.toString();
+                        model.put("time", time);
+
                     }
                 }
-                return new ModelAndView("status/searchmanager", "time", time);
-
+                return new ModelAndView("status/searchmanager", model);
 
             } else {
                 log.info("SearchManager login identity is null!");
