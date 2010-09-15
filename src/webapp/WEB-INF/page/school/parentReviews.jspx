@@ -107,7 +107,9 @@
     <div id="showParentRatings">
         <div id="rating_parent" class="hreview-aggregate">
             <span style="position:absolute; left:-9999px;">
-                <span class="fn">${school.name}</span>
+                <span class="item">
+                    <span class="fn">${school.name}</span>
+                </span>
                 <span class="rating">
                     <span class="average">${cmd.ratings.overall}</span> out of
                     <span class="best">5</span>
