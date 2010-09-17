@@ -72,6 +72,12 @@
                     Search by state, zip code, and school name:
                     <div class="sample_url">http://${apiHost}/scorecard/search/zip/[state]/[zip]/[schoolName]?key=[apiKey]</div>
                 </div>
+                <br/>
+
+                <div>
+                    Search by school name, city, state, or zip
+                    <div class="sample_url">http://${apiHost}/scorecard/search/[query]?key=[apiKey]</div>
+                </div>
             </div>
             <div class="call">
                 <h2>Components</h2>
@@ -169,12 +175,11 @@
                 <p>If no schools matching the search criteria are found, the response consists of a single empty root
                 tag named &amp;quot;schools&amp;quot;.</p>
 
-                <div class="subhead">Too many results</div>
+                <div class="subhead">Excessive results</div>
 
-                <p>If more than 100 schools matching the search criteria are found <b>for searches by school name and state only</b>,
-                   an XML response will be given to indicate that too many results were found, rather than returning the
-                   full list of results. The response consists of a root tag named &amp;quot;error&amp;quot; containing
-                   child elements with more detailed information. See sample request and response below.</p>
+                <p>If more than 200 schools matching the search criteria are found the API will return the
+                    top 200 results only. The resultsFound and resultsReturned fields will indicate the number of total
+                    matching results found by GreatSchools, and the total number of results returned, respectively.</p>
 
                 <div class="subhead">Single school result</div>
 
@@ -264,6 +269,16 @@
                             <td>Longitude</td>
                             <td>-118.2829</td>
                         </tr>
+                        <tr class="required">
+                            <td>resultsFound</td>
+                            <td>Number of matching search results</td>
+                            <td>832</td>
+                        </tr>
+                        <tr class="required">
+                            <td>resultsReturned</td>
+                            <td>Number of search results returned by the API</td>
+                            <td>200</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="footnote">* always provided</div>
@@ -285,23 +300,6 @@
 
             <div class="call">
                 <h2>Sample request &amp;amp; response</h2>
-                <div class="sample_url">http://${apiHost}/scorecard/search/schools/CA/elementary-school?key=[apiKey]</div>
-                <p>Returns too many results for &amp;quot;elementary school&amp;quot; in California</p>
-
-                <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
-<![CDATA[
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-&lt;error&gt;
-    &lt;errorCode&gt;8&lt;/errorCode&gt;
-    &lt;faultString&gt;Too many search results.&lt;/faultString&gt;
-    &lt;date&gt;2010/09/14&lt;/date&gt;
-    &lt;call&gt;/scorecard/search/schools/CA/elementary-school&lt;/call&gt;
-&lt;/error&gt;]]>
-                </textarea>
-            </div>
-
-            <div class="call">
-                <h2>Sample request &amp;amp; response</h2>
                 <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/Lowell-Elementary?key=[apiKey]</div>
                 <p>Returns six search results for "Lowell Elementary" in California</p>
 
@@ -309,6 +307,8 @@
 <![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;schools&gt;
+    <resultsReturned>6</resultsReturned>
+    <resultsFound>6</resultsFound>
     &lt;school&gt;
         &lt;gsId&gt;842&lt;/gsId&gt;
         &lt;gsState&gt;CA&lt;/gsState&gt;
@@ -366,13 +366,15 @@
             <div class="call">
                 <h2>Sample request &amp;amp; response</h2>
                 <div class="sample_url">http://${apiHost}/scorecard/search/schools/ca/frank-mccoppin-elementary-school?key=[apiKey]</div>
-                <p>Returns one search result for "Lowell Elementary" in California. This response is equivalent to
+                <p>Returns one search result for "Frank McCoppin Elementary School" in California. This response is equivalent to
                 the School Profile response for this school, with an additional "schools" root tag to wrap around the result.</p>
 
                 <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
 <![CDATA[
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
 &lt;schools&gt;
+    <resultsReturned>1</resultsReturned>
+    <resultsFound>2</resultsFound>
     &lt;school&gt;
         &lt;gsId&gt;6406&lt;/gsId&gt;
         &lt;gsState&gt;CA&lt;/gsState&gt;
@@ -420,6 +422,303 @@
         &lt;/district&gt;
     &lt;/school&gt;
 &lt;/schools&gt;]]>
+                </textarea>
+            </div>
+
+            <div class="call">
+                <h2>Sample request &amp;amp; response</h2>
+                <div class="sample_url">http://${apiHost}/scorecard/search/Alameda-High-School-Alameda-CO-94501?key=[apiKey]</div>
+                <p>Returns returns which match schools containing Alameda, schools in Alameda, and schools in the zip code 94501.</p>
+
+                <textarea class="sampleTextArea" wrap="off" readonly="readonly" rows="" cols="">
+
+<![CDATA[
+<schools>
+    <resultsReturned>28</resultsReturned>
+    <resultsFound>28</resultsFound>
+    <school>
+        <gsId>1</gsId>
+        <gsState>CA</gsState>
+        <name>Alameda High School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.764267</lat>
+        <lon>-122.24818</lon>
+    </school>
+    <school>
+        <gsId>8485</gsId>
+        <gsState>CA</gsState>
+        <name>Alameda Christian School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.768623</lat>
+        <lon>-122.243965</lon>
+    </school>
+    <school>
+        <gsId>11902</gsId>
+        <gsState>CA</gsState>
+        <name>Alameda Community Learning Center</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7734</lat>
+        <lon>-122.2901</lon>
+    </school>
+    <school>
+        <gsId>14052</gsId>
+        <gsState>CA</gsState>
+        <name>Alameda Science and Technology Institute</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7798</lat>
+        <lon>-122.2806</lon>
+    </school>
+    <school>
+        <gsId>10045</gsId>
+        <gsState>CA</gsState>
+        <name>Children's Learning Center</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.768692</lat>
+        <lon>-122.253136</lon>
+    </school>
+    <school>
+        <gsId>15173</gsId>
+        <gsState>CA</gsState>
+        <name>Children's Learning Center</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.768692</lat>
+        <lon>-122.253136</lon>
+    </school>
+    <school>
+        <gsId>25151</gsId>
+        <gsState>CA</gsState>
+        <name>Nea Community Learning Center</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.77592</lat>
+        <lon>-122.28174</lon>
+    </school>
+    <school>
+        <gsId>8235</gsId>
+        <gsState>CA</gsState>
+        <name>St. Joseph Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.76627</lat>
+        <lon>-122.2553</lon>
+    </school>
+    <school>
+        <gsId>8247</gsId>
+        <gsState>CA</gsState>
+        <name>St. Barnabas School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.77154</lat>
+        <lon>-122.2795</lon>
+    </school>
+    <school>
+        <gsId>8253</gsId>
+        <gsState>CA</gsState>
+        <name>St. Philip Neri School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.757202</lat>
+        <lon>-122.23308</lon>
+    </school>
+    <school>
+        <gsId>6</gsId>
+        <gsState>CA</gsState>
+        <name>Encinal High School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7737</lat>
+        <lon>-122.2903</lon>
+    </school>
+    <school>
+        <gsId>9</gsId>
+        <gsState>CA</gsState>
+        <name>Island High (Continuation) School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.78692</lat>
+        <lon>-122.28587</lon>
+    </school>
+    <school>
+        <gsId>8234</gsId>
+        <gsState>CA</gsState>
+        <name>St. Joseph Notre Dame High School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.765896</lat>
+        <lon>-122.255135</lon>
+    </school>
+    <school>
+        <gsId>3</gsId>
+        <gsState>CA</gsState>
+        <name>Chipman Middle School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7764</lat>
+        <lon>-122.2858</lon>
+    </school>
+    <school>
+        <gsId>10</gsId>
+        <gsState>CA</gsState>
+        <name>Lincoln Middle School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7519</lat>
+        <lon>-122.2332</lon>
+    </school>
+    <school>
+        <gsId>17</gsId>
+        <gsState>CA</gsState>
+        <name>Will C. Wood Middle School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7631</lat>
+        <lon>-122.262</lon>
+    </school>
+    <school>
+        <gsId>11903</gsId>
+        <gsState>CA</gsState>
+        <name>Bay Area School of Enterprise</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.779613</lat>
+        <lon>-122.28786</lon>
+    </school>
+    <school>
+        <gsId>9315</gsId>
+        <gsState>CA</gsState>
+        <name>Rising Star Montessori School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7584</lat>
+        <lon>-122.2318</lon>
+    </school>
+    <school>
+        <gsId>5</gsId>
+        <gsState>CA</gsState>
+        <name>Edison Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7654</lat>
+        <lon>-122.2348</lon>
+    </school>
+    <school>
+        <gsId>7</gsId>
+        <gsState>CA</gsState>
+        <name>Franklin Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.769</lat>
+        <lon>-122.2616</lon>
+    </school>
+    <school>
+        <gsId>8</gsId>
+        <gsState>CA</gsState>
+        <name>Henry Haight Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7694</lat>
+        <lon>-122.2512</lon>
+    </school>
+    <school>
+        <gsId>14</gsId>
+        <gsState>CA</gsState>
+        <name>Frank Otis Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7541</lat>
+        <lon>-122.238</lon>
+    </school>
+    <school>
+        <gsId>16</gsId>
+        <gsState>CA</gsState>
+        <name>Washington Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7723</lat>
+        <lon>-122.2722</lon>
+    </school>
+    <school>
+        <gsId>15815</gsId>
+        <gsState>CA</gsState>
+        <name>Central Christian School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.76671</lat>
+        <lon>-122.2486</lon>
+    </school>
+    <school>
+        <gsId>16978</gsId>
+        <gsState>CA</gsState>
+        <name>Ruby Bridges Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7818</lat>
+        <lon>-122.2862</lon>
+    </school>
+    <school>
+        <gsId>12</gsId>
+        <gsState>CA</gsState>
+        <name>Donald D. Lum Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7622</lat>
+        <lon>-122.2591</lon>
+    </school>
+    <school>
+        <gsId>15</gsId>
+        <gsState>CA</gsState>
+        <name>William G. Paden Elementary School</name>
+        <city>Alameda</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.7716</lat>
+        <lon>-122.2844</lon>
+    </school>
+    <school>
+        <gsId>17140</gsId>
+        <gsState>CA</gsState>
+        <name>Golden Gate Apple School</name>
+        <city>Kensington</city>
+        <state>CA</state>
+        <zip>94501</zip>
+        <lat>37.91048</lat>
+        <lon>-122.28025</lon>
+    </school>
+</schools>
+]]>
+
                 </textarea>
             </div>
 
