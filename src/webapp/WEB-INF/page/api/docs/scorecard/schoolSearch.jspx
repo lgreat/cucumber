@@ -163,6 +163,8 @@
                 Search for all schools in San Francisco, CA.
                 <div class="example_url">http://${apiHost}/scorecard/search/zip/80202/Alameda-High?key=[apiKey]</div>
                 Search for schools in the zip code 80202 which match the school name Alameda High.
+                <div class="example_url">http://${apiHost}/scorecard/search/Alameda-Elementary-School?key=[apiKey]</div>
+                Search for schools that have either a name or address containing combinations of the terms Alameda, Elementary, and School
             </div>
 
             <div class="call">
@@ -172,8 +174,9 @@
 
                 <div class="subhead">No results</div>
 
-                <p>If no schools matching the search criteria are found, the response consists of a single empty root
-                tag named &amp;quot;schools&amp;quot;.</p>
+                <p>If no schools matching the search criteria are found, the response consists of a root
+                tag named &amp;quot;schools&amp;quot;, and the tags &amp;quot;resultsReturned&amp;quot; and
+                    &amp;quot;resultsFound&amp;quot; with the value 0.</p>
 
                 <div class="subhead">Excessive results</div>
 
