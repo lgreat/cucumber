@@ -4787,6 +4787,11 @@ margin:10px 0 14px 20px;
     padding-bottom: 15px;
 }
 
+#js-esp-info-trigger {
+    position:absolute;
+    top:0; right:0;
+}
+
 #js-esp-info-content {
     background: #FFF;
     border: 1px solid #999;

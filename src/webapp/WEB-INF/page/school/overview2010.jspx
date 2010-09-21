@@ -196,8 +196,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <div id="bestKnownFor" class="brdbtm_dotted">
         <div class="spacer_10"><!-- do not collapse --></div>
 
-        <p class="introText">"We're known for our ${bestKnownFor}" <span id="js-esp-info-trigger"
-                                                     class="sprite info"><!-- do not collapse --></span></p>
+        <p class="introText">"We're known for our ${bestKnownFor}"</p>
 
         <!-- TODO: info icon + hover -->
         <div class="text3">
@@ -205,6 +204,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
         </div>
 
+        <span id="js-esp-info-trigger" class="sprite info"><!-- do not collapse --></span>
         <div id="js-esp-info-popup">
             <b class="esp-popup-arrow">&amp;nbsp;</b>
             <b class="esp-popup-arrow-outline">&amp;nbsp;</b>
@@ -468,8 +468,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
                     // reset position of popup box
                     popup.css({
-                        top: -8,
-                        left: 360,
+                        top: -18,
+                        left: 395,
                         display: 'block' // brings the popup back in to view
                     })
 
