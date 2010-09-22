@@ -87,8 +87,9 @@
             <td>
                 <div id="searchForm">
                     <gsweb:form action="/search/raw.page" method="get">
-                        <input id="qfield" type="text" name="q" size="70"
-                               value="${param.q}"/>
+                        <textarea id="qfield" name="q" rows="5" cols="70">${param.q}</textarea>
+                        <!--<input id="qfield" type="text" name="q" size="70"-->
+                               <!--value="${param.q}"/>-->
                         <c:out value=" " escapeXml="true"/>
                         <input type="submit" value="search"/>
                     </gsweb:form>
