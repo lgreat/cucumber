@@ -383,9 +383,10 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
     request.setAttribute("priCheckbox", priCheckbox);
 
     if (request.getAttribute("districtObject") != null) {
+        LevelCode levelCode = (LevelCode) request.getAttribute("lc");
         UrlBuilder myCanonical = new UrlBuilder((District) request.getAttribute("districtObject"),
                                                 UrlBuilder.SCHOOLS_IN_DISTRICT);
-        request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request));
+        request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request) + (levelCode != null ? "?lc=" + levelCode : ""));
     } else if (request.getAttribute("cityName") != null) {
         HashSet&lt;SchoolType> schoolTypeSet = new HashSet&lt;SchoolType>(1);
         if (request.getAttribute("publicChecked") != null
