@@ -76,6 +76,9 @@
                         </li>
                         <li>
                             <c:choose>
+                                <c:when test="${school.levelCode eq 'p' and state eq 'NY' and city eq 'New York'}">
+                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">NYC Preschools</link:schools>&amp;#160;
+                                </c:when>
                                 <c:when test="${school.levelCode eq 'p'}">
                                     <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
                                 </c:when>
