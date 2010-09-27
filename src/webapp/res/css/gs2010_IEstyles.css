@@ -268,7 +268,7 @@ body.ie6 #topnav_search ul #srch2,
 body.ie6 #topnav_search ul #srch1 label,
 body.ie6 #topnav_search ul #srch2 label,
 body.ie6 #topnav_menusubnav li a.arrow {
-    background-image: url(/res/img/nav/topnavSprite_bg_v1_2.gif);
+    background-image: url(/res/img/nav/topnavSprite_bg.gif);
 }
 body.ie6 #topnav_menusubnav #topnav_bts a, body.ie6 #topnav_menusubnav #topnav_comm a {background: none;}
 

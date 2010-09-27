@@ -704,16 +704,16 @@ body.cobranded #pageGS {
     position: absolute;
     bottom: 16px;
     right: 0;
-    width: 386px;
+    width: 416px;
     height: 59px;
     z-index: 1;
 }
 
 #topnav_search fieldset {
     position: absolute;
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 0 20px no-repeat;
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;
     height: 59px;
-    width: 386px;
+    width: 416px;
 }
 
 #topnav_search ul {
@@ -734,11 +734,11 @@ body.cobranded #pageGS {
 }
 
 #topnav_search ul #srch1 {
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 0 30px no-repeat;
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
 }
 
 #topnav_search ul #srch2 {
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 0 30px no-repeat;
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
 }
 
 #topnav_search ul #srch1.active {
@@ -759,11 +759,11 @@ body.cobranded #pageGS {
 }
 
 #topnav_search ul #srch1 label {
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 100% 30px no-repeat;
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
 }
 
 #topnav_search ul #srch2 label {
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 100% 30px no-repeat;
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
 }
 
 #topnav_search ul #srch1.active .radLabel {
@@ -777,7 +777,7 @@ body.cobranded #pageGS {
 }
 
 #topnav_search fieldset input {
-    width: 210px;
+    width: 242px;
     height: 18px;
     margin: 28px 9px 0 10px;
     outline: 0;
@@ -949,7 +949,7 @@ body.cobranded #pageGS {
     padding: 3px 15px 3px 10px;
 }
 #topnav_menusubnav a.arrow {
-    background: url(/res/img/nav/topnavSprite_bg_v1_2.png) 100% -198px no-repeat;
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% -198px no-repeat;
 }
 #topnav_comm .community-sm {
     margin-bottom: -5px;
@@ -8253,12 +8253,4 @@ p#btsBubbleOpts {
 #bts2010ChkLst a {
     color: #fff;
     font-size: 10px;
-}
-/* BTS Header Ad */
-#SiteHeader_Promo_220x100 {
-    width: 220px;
-    height: 100px;
-    position: absolute;
-    bottom: 6px;
-    left: 332px;
 }

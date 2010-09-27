@@ -52,7 +52,6 @@
                 adNames.add(AdPosition.Global_Nav_Promo_865x24.getName());
                 adNames.add(AdPosition.Global_Nav_Promo_952x24.getName());
                 adNames.add(AdPosition.Global_NavPromo_968x30.getName());
-                adNames.add(AdPosition.SiteHeader_Promo_220x100.getName());
             }
 
             for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
