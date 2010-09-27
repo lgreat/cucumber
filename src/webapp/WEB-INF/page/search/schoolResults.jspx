@@ -56,13 +56,13 @@
                 reloadUrl += '&lc=' + levelCode;
             }
 
-            if (publicBox.checked) {
+            if (publicBox != null && publicBox.checked) {
                 reloadUrl += '&st=public';
             }
-            if (charterBox.checked) {
+            if (charterBox != null && charterBox.checked) {
                 reloadUrl += '&st=charter';
             }
-            if (privateBox.checked) {
+            if (privateBox != null && privateBox.checked) {
                 reloadUrl += '&st=private';
             }
 
