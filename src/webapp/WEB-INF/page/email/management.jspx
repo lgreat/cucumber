@@ -497,6 +497,8 @@
     </div>
 </fieldset>
 
+<!-- GS-10514 2010 BTS Tip of the Day -->
+<!--
 <fieldset id="btsTips">
     <div class="formContentGS clearfix">
 
@@ -540,9 +542,11 @@
         </div>
     </div>
 </fieldset>
+-->
 
 
 <!-- GS-8784 -->
+<!-- 2009 BTS newsletter? -->
 <c:set var="showBrainDrain" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }"/>
 
 <div class="${showBrainDrain}">
