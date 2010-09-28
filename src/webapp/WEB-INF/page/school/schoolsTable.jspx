@@ -659,24 +659,10 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
 </div>
 
 <div id="col_right" class="${(isCityBrowse)?'city':'district'}">
-    <c:choose>
-        <c:when test="${isCityBrowse}">
-            <c:choose>
-                <c:when test="${lc eq 'p' }">
-                    <!-- show ad -->
-                    <ad:House_Ad_300x137 referredBy="${pageName}" slotPrefix="${slotPrefix}"/>
-                </c:when>
-                <c:otherwise>
-                    <school:compareInCity city="${cityName}" state="${state}"
+    <c:if test="${!isCityBrowse}">
+        <school:compareInDistrict district="${district}" state="${state}"
                                   levelCode="${requestScope.allLevelCodes}"/>
-                </c:otherwise>
-            </c:choose>
-        </c:when>
-        <c:otherwise>
-            <school:compareInDistrict district="${district}" state="${state}"
-                                      levelCode="${requestScope.allLevelCodes}"/>
-        </c:otherwise>
-    </c:choose>
+    </c:if>
 
     <!--<ad:Top_300x137/>-->
     <ad:AboveFold_300x600/>
@@ -718,6 +704,10 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
             <jsp:param name="cityDisplayName" value="${cityDisplayName}"/>
             <jsp:param name="callerPagename" value="${callerPagename}"/>
         </jsp:include>
+    </c:if>
+
+    <c:if test="${isCityBrowse}">
+        <ad:House_Ad_300x137 referredBy="${pageName}" slotPrefix="${slotPrefix}"/>
     </c:if>
 </div>
 
