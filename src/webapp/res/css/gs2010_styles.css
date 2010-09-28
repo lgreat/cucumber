@@ -5658,7 +5658,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-09-15.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-09-27.png);
 }
 
 .reportIt-nbg {
@@ -5963,6 +5963,42 @@ additional icons on the sprite.
     background-position: -80px -50px;
 }
 
+.stars_s_0_b {
+    width: 49px;
+    height: 10px;
+    background-position: -80px -80px;
+}
+
+.stars_s_1_b {
+    width: 49px;
+    height: 10px;
+    background-position: -80px -90px;
+}
+
+.stars_s_2_b {
+    width: 49px;
+    height: 10px;
+    background-position: -80px -100px;
+}
+
+.stars_s_3_b {
+    width: 49px;
+    height: 10px;
+    background-position: -80px -110px;
+}
+
+.stars_s_4_b {
+    width: 49px;
+    height: 10px;
+    background-position: -80px -120px;
+}
+
+.stars_s_5_b {
+    width: 49px;
+    height: 10px;
+    background-position: -80px -130px;
+}
+
 /* column 130 */
 .stars_sm_rate_it {
     width: 69px;
@@ -6164,364 +6200,438 @@ additional icons on the sprite.
 }
 
 /* column 310 */
+
+.stars_xl_0 {
+    width: 124px;
+    height: 25px;
+    background-position: -310px 0;
+}
+
+.stars_xl_1 {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -30px;
+}
+
+.stars_xl_2 {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -60px;
+}
+
+.stars_xl_3 {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -90px;
+}
+
+.stars_xl_4 {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -120px;
+}
+
+.stars_xl_5 {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -150px;
+}
+
+.stars_xl_0_b {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -180px;
+}
+
+.stars_xl_1_b {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -210px;
+}
+
+.stars_xl_2_b {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -240px;
+}
+
+.stars_xl_3_b {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -270px;
+}
+
+.stars_xl_4_b {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -300px;
+}
+
+.stars_xl_5_b {
+    width: 124px;
+    height: 25px;
+    background-position: -310px -330px;
+}
+
+/* column 440 */
 .badge_sm_na {
     width: 22px;
     height: 22px;
-    background-position: -310px 0;
+    background-position: -440px 0;
 }
 
 .badge_sm_1 {
     width: 22px;
     height: 22px;
-    background-position: -310px -30px;
+    background-position: -440px -30px;
 }
 
 .badge_sm_2 {
     width: 22px;
     height: 22px;
-    background-position: -310px -60px;
+    background-position: -440px -60px;
 }
 
 .badge_sm_3 {
     width: 22px;
     height: 22px;
-    background-position: -310px -90px;
+    background-position: -440px -90px;
 }
 
 .badge_sm_4 {
     width: 22px;
     height: 22px;
-    background-position: -310px -120px;
+    background-position: -440px -120px;
 }
 
 .badge_sm_5 {
     width: 22px;
     height: 22px;
-    background-position: -310px -150px;
+    background-position: -440px -150px;
 }
 
 .badge_sm_6 {
     width: 22px;
     height: 22px;
-    background-position: -310px -180px;
+    background-position: -440px -180px;
 }
 
 .badge_sm_7 {
     width: 22px;
     height: 22px;
-    background-position: -310px -210px;
+    background-position: -440px -210px;
 }
 
 .badge_sm_8 {
     width: 22px;
     height: 22px;
-    background-position: -310px -240px;
+    background-position: -440px -240px;
 }
 
 .badge_sm_9 {
     width: 22px;
     height: 22px;
-    background-position: -310px -270px;
+    background-position: -440px -270px;
 }
 
 .badge_sm_10 {
     width: 22px;
     height: 22px;
-    background-position: -310px -300px;
+    background-position: -440px -300px;
 }
 
 .badge_sm_ps {
     width: 22px;
     height: 22px;
-    background-position: -310px -330px;
+    background-position: -440px -330px;
 }
 
 .badge_sm_pr {
     width: 22px;
     height: 22px;
-    background-position: -310px -360px;
+    background-position: -440px -360px;
 }
 
-/* column 340 */
+/* column 470 */
 .badge_sm_na_b {
     width: 22px;
     height: 22px;
-    background-position: -340px 0;
+    background-position: -470px 0;
 }
 
 .badge_sm_1_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -30px;
+    background-position: -470px -30px;
 }
 
 .badge_sm_2_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -60px;
+    background-position: -470px -60px;
 }
 
 .badge_sm_3_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -90px;
+    background-position: -470px -90px;
 }
 
 .badge_sm_4_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -120px;
+    background-position: -470px -120px;
 }
 
 .badge_sm_5_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -150px;
+    background-position: -470px -150px;
 }
 
 .badge_sm_6_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -180px;
+    background-position: -470px -180px;
 }
 
 .badge_sm_7_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -210px;
+    background-position: -470px -210px;
 }
 
 .badge_sm_8_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -240px;
+    background-position: -470px -240px;
 }
 
 .badge_sm_9_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -270px;
+    background-position: -470px -270px;
 }
 
 .badge_sm_10_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -300px;
+    background-position: -470px -300px;
 }
 
 .badge_sm_ps_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -330px;
+    background-position: -470px -330px;
 }
 
 .badge_sm_pr_b {
     width: 22px;
     height: 22px;
-    background-position: -340px -360px;
+    background-position: -470px -360px;
 }
 
-/* column 370 */
+/* column 500 */
 .badge_sm_na_y {
     width: 22px;
     height: 22px;
-    background-position: -370px 0;
+    background-position: -500px 0;
 }
 
 .badge_sm_1_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -30px;
+    background-position: -500px -30px;
 }
 
 .badge_sm_2_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -60px;
+    background-position: -500px -60px;
 }
 
 .badge_sm_3_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -90px;
+    background-position: -500px -90px;
 }
 
 .badge_sm_4_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -120px;
+    background-position: -500px -120px;
 }
 
 .badge_sm_5_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -150px;
+    background-position: -500px -150px;
 }
 
 .badge_sm_6_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -180px;
+    background-position: -500px -180px;
 }
 
 .badge_sm_7_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -210px;
+    background-position: -500px -210px;
 }
 
 .badge_sm_8_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -240px;
+    background-position: -500px -240px;
 }
 
 .badge_sm_9_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -270px;
+    background-position: -500px -270px;
 }
 
 .badge_sm_10_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -300px;
+    background-position: -500px -300px;
 }
 
 .badge_sm_ps_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -330px;
+    background-position: -500px -330px;
 }
 
 .badge_sm_pr_y {
     width: 22px;
     height: 22px;
-    background-position: -370px -360px;
+    background-position: -500px -360px;
 }
 
-/* column 400 */
+/* column 530 */
 .badge_lg_1 {
     width: 93px;
     height: 93px;
-    background-position: -400px 0;
+    background-position: -530px 0;
 }
 
 .badge_lg_2 {
     width: 93px;
     height: 93px;
-    background-position: -400px -100px;
+    background-position: -530px -100px;
 }
 
 .badge_lg_3 {
     width: 93px;
     height: 93px;
-    background-position: -400px -200px;
+    background-position: -530px -200px;
 }
 
 .badge_lg_4 {
     width: 93px;
     height: 93px;
-    background-position: -400px -300px;
+    background-position: -530px -300px;
 }
 
 .badge_lg_5 {
     width: 93px;
     height: 93px;
-    background-position: -400px -400px;
+    background-position: -530px -400px;
 }
 
-/* column 500 */
+/* column 630 */
 .badge_lg_6 {
     width: 93px;
     height: 93px;
-    background-position: -500px 0;
+    background-position: -630px 0;
 }
 
 .badge_lg_7 {
     width: 93px;
     height: 93px;
-    background-position: -500px -100px;
+    background-position: -630px -100px;
 }
 
 .badge_lg_8 {
     width: 93px;
     height: 93px;
-    background-position: -500px -200px;
+    background-position: -630px -200px;
 }
 
 .badge_lg_9 {
     width: 93px;
     height: 93px;
-    background-position: -500px -300px;
+    background-position: -630px -300px;
 }
 
 .badge_lg_10 {
     width: 93px;
     height: 93px;
-    background-position: -500px -400px;
+    background-position: -630px -400px;
 }
 
-/* column 600 */
+/* column 730 */
 .badge_lg_1_b {
     width: 93px;
     height: 93px;
-    background-position: -600px 0;
+    background-position: -730px 0;
 }
 
 .badge_lg_2_b {
     width: 93px;
     height: 93px;
-    background-position: -600px -100px;
+    background-position: -730px -100px;
 }
 
 .badge_lg_3_b {
     width: 93px;
     height: 93px;
-    background-position: -600px -200px;
+    background-position: -730px -200px;
 }
 
 .badge_lg_4_b {
     width: 93px;
     height: 93px;
-    background-position: -600px -300px;
+    background-position: -730px -300px;
 }
 
 .badge_lg_5_b {
     width: 93px;
     height: 93px;
-    background-position: -600px -400px;
+    background-position: -730px -400px;
 }
 
-/* column 700 */
+/* column 830 */
 .badge_lg_6_b {
     width: 93px;
     height: 93px;
-    background-position: -700px 0;
+    background-position: -830px 0;
 }
 
 .badge_lg_7_b {
     width: 93px;
     height: 93px;
-    background-position: -700px -100px;
+    background-position: -830px -100px;
 }
 
 .badge_lg_8_b {
     width: 93px;
     height: 93px;
-    background-position: -700px -200px;
+    background-position: -830px -200px;
 }
 
 .badge_lg_9_b {
     width: 93px;
     height: 93px;
-    background-position: -700px -300px;
+    background-position: -8300px -300px;
 }
 
 .badge_lg_10_b {
     width: 93px;
     height: 93px;
-    background-position: -700px -400px;
+    background-position: -830px -400px;
 }
 
 /* =6 editorialFooter
