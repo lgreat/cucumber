@@ -81,10 +81,10 @@ public class SubmitSchoolController extends SimpleFormController {
 
         try {
 
-            // send submission to data team queue
-            sendEmail(_fromEmail, _fromEmail, subject, createSubmissionBodyText(command), false, false);
+            // send submission to data team queue, ostensibly from submitter to gs
+            sendEmail(_fromEmail, command.getSubmitterEmail(), subject, createSubmissionBodyText(command), false, false);
 
-            // send thank you email to submitter
+            // send thank you email to submitter, ostensibly from gs to submitter
             sendEmail(command.getSubmitterEmail(), _fromEmail, THANK_YOU_EMAIL_SUBJECT, thankYouEmailPath, true, true);
             
         } catch (IOException e) {
@@ -122,45 +122,45 @@ public class SubmitSchoolController extends SimpleFormController {
         StringBuilder sb = new StringBuilder();
         sb.append("SUBMITTER INFORMATION:\n");
         sb.append("\n");
-        sb.append("<b>Your name</b>: ").append(command.getSubmitterName()).append("\n");
-        sb.append("<b>Your email address</b>: ").append(command.getSubmitterEmail()).append("\n");
-        sb.append("<b>Your connection to the school</b>: ").append(command.getSubmitterConnectionToSchool()).append("\n");
+        sb.append("Your name: ").append(command.getSubmitterName()).append("\n");
+        sb.append("Your email address: ").append(command.getSubmitterEmail()).append("\n");
+        sb.append("Your connection to the school: ").append(command.getSubmitterConnectionToSchool()).append("\n");
         sb.append("\n");
         sb.append("SCHOOL INFORMATION:\n");
         sb.append("\n");
-        sb.append("<b>School name</b>: ").append(command.getSchoolName()).append("\n");
-        sb.append("<b>Physical street address</b>: ").append(command.getStreetAddress()).append("\n");
-        sb.append("<b>City</b>: ").append(command.getCity()).append("\n");
-        sb.append("<b>State</b>: ").append(command.getState().getAbbreviation()).append("\n");
-        sb.append("<b>Zip code</b>: ").append(command.getZipCode()).append("\n");
-        sb.append("<b>County</b>: ").append(command.getCounty()).append("\n");
-        sb.append("<b>Number of students enrolled</b>: ").append(command.getNumStudentsEnrolled()).append("\n");
-        sb.append("<b>Phone number</b>: ").append(command.getPhoneNumber()).append("\n");
-        sb.append("<b>Fax number</b>: ").append(!StringUtils.isBlank(command.getFaxNumber()) ? command.getFaxNumber() : "").append("\n");
-        sb.append("<b>School web site</b>: ").append(!StringUtils.isBlank(command.getSchoolWebSite()) ? command.getSchoolWebSite() : "").append("\n");
-        sb.append("<b>Religious affiliation or denomination</b>: ").append(!StringUtils.isBlank(command.getReligion()) ? command.getReligion() : "").append("\n");
-        sb.append("<b>Association memberships</b>: ").append(!StringUtils.isBlank(command.getAssociationMemberships()) ? command.getAssociationMemberships() : "").append("\n");
+        sb.append("School name: ").append(command.getSchoolName()).append("\n");
+        sb.append("Physical street address: ").append(command.getStreetAddress()).append("\n");
+        sb.append("City: ").append(command.getCity()).append("\n");
+        sb.append("State: ").append(command.getState().getAbbreviation()).append("\n");
+        sb.append("Zip code: ").append(command.getZipCode()).append("\n");
+        sb.append("County: ").append(command.getCounty()).append("\n");
+        sb.append("Number of students enrolled: ").append(command.getNumStudentsEnrolled()).append("\n");
+        sb.append("Phone number: ").append(command.getPhoneNumber()).append("\n");
+        sb.append("Fax number: ").append(!StringUtils.isBlank(command.getFaxNumber()) ? command.getFaxNumber() : "").append("\n");
+        sb.append("School web site: ").append(!StringUtils.isBlank(command.getSchoolWebSite()) ? command.getSchoolWebSite() : "").append("\n");
+        sb.append("Religious affiliation or denomination: ").append(!StringUtils.isBlank(command.getReligion()) ? command.getReligion() : "").append("\n");
+        sb.append("Association memberships: ").append(!StringUtils.isBlank(command.getAssociationMemberships()) ? command.getAssociationMemberships() : "").append("\n");
 
         if (TYPE_PRESCHOOL.equals(_type)) {
             SubmitPreschoolCommand cmd = (SubmitPreschoolCommand)command;
             sb.append("\n");
             sb.append("PRESCHOOL-SPECIFIC INFORMATION:\n");
             sb.append("\n");
-            sb.append("<b>Lowest age served</b>: ").append(cmd.getLowestAge()).append("\n");
-            sb.append("<b>Highest age served</b>: ").append(cmd.getHighestAge()).append("\n");
-            sb.append("<b>Bilingual education offered</b>: ").append(cmd.getBilingualEd()).append("\n");
-            sb.append("<b>Special education programs offered</b>: ").append(cmd.getSpecialEd()).append("\n");
-            sb.append("<b>Computers present in the classroom</b>: ").append(cmd.getComputersPresent()).append("\n");
-            sb.append("<b>Extended care available</b>: ").append(cmd.getExtendedCare()).append("\n");
-            sb.append("<b>Type of preschool</b>: ").append(cmd.getPreschoolSubtype()).append("\n");
+            sb.append("Lowest age served: ").append(cmd.getLowestAge()).append("\n");
+            sb.append("Highest age served: ").append(cmd.getHighestAge()).append("\n");
+            sb.append("Bilingual education offered: ").append(cmd.getBilingualEd()).append("\n");
+            sb.append("Special education programs offered: ").append(cmd.getSpecialEd()).append("\n");
+            sb.append("Computers present in the classroom: ").append(cmd.getComputersPresent()).append("\n");
+            sb.append("Extended care available: ").append(cmd.getExtendedCare()).append("\n");
+            sb.append("Type of preschool: ").append(cmd.getPreschoolSubtype()).append("\n");
         } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
             SubmitPrivateSchoolCommand cmd = (SubmitPrivateSchoolCommand)command;
             sb.append("\n");
             sb.append("PRIVATE-SCHOOL-SPECIFIC INFORMATION:\n");
             sb.append("\n");
-            sb.append("<b>Lowest grade offered</b>: ").append(cmd.getLowestGrade()).append("\n");
-            sb.append("<b>Highest grade offered</b>: ").append(cmd.getHighestGrade()).append("\n");
-            sb.append("<b>Gender(s)</b>: ").append(cmd.getGender()).append("\n");
+            sb.append("Lowest grade offered: ").append(cmd.getLowestGrade()).append("\n");
+            sb.append("Highest grade offered: ").append(cmd.getHighestGrade()).append("\n");
+            sb.append("Gender(s): ").append(cmd.getGender()).append("\n");
         }
 
         sb.append("\n");
