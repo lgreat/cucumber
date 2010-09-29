@@ -12,11 +12,27 @@
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
-<page:apply-decorator name="cobrandHeaderGsFooter">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <c:choose>
+        <c:when test="${gsweb:showBasicError404Page(pageContext.errorData.requestURI)}">
+            <jsp:directive.page contentType="text/html"/>
+            <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-<jsp:directive.page contentType="text/html"/>
- <pageHelper:hideFooterAd/>
+            <head>
+                <title>404 Not Found</title>
+            </head>
+            <body>
+            <h1>Not Found</h1>
+            The requested URL ${pageContext.errorData.requestURI} was not found on this server.
+            <hr/>
+            </body>
+            </html>
+        </c:when>
+        <c:otherwise>
+    <page:apply-decorator name="cobrandHeaderGsFooter">
+        <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+        <jsp:directive.page contentType="text/html"/>
+        <pageHelper:hideFooterAd/>
 
 <jsp:scriptlet>
     gs.web.util.PageHelper.setPageName(request, "error404");
@@ -51,4 +67,7 @@
     </gsml:body>
 </html>
 </page:apply-decorator>
+
+</c:otherwise>
+</c:choose>
 </jsp:root>

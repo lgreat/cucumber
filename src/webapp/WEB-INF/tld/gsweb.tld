@@ -250,6 +250,12 @@
         <function-signature>boolean separatedListContains(java.lang.String, java.lang.String, java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>showBasicError404Page</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>boolean showBasicError404Page(java.lang.String)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

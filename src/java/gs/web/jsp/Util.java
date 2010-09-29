@@ -21,6 +21,7 @@ import java.util.Random;
 import java.io.StringReader;
 import java.io.IOException;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
@@ -491,5 +492,14 @@ public class Util {
         String[] tokens = StringUtils.split(stringToSearch, separaterChars);
 
         return ArrayUtils.contains(tokens, stringToFind);
+    }
+
+    private final static Pattern IMAGE_PATTERN = Pattern.compile("^.*\\.(png|jpg|gif|js|css)$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean showBasicError404Page(String requestUri) {
+        if (requestUri != null) {
+            return IMAGE_PATTERN.matcher(requestUri).matches();
+        }
+        return false;
     }
 }

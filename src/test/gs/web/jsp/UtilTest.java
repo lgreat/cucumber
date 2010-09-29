@@ -295,4 +295,16 @@ public class UtilTest extends TestCase {
         assertFalse("Should be null safe and return false", Util.separatedListContains(test, null, separater));
         assertFalse("Should be null safe and return false", Util.separatedListContains(null, token, separater));
     }
+
+    public void testShowBasicError404Page() throws Exception {
+        assertTrue(Util.showBasicError404Page("/somepath.png"));
+        assertTrue(Util.showBasicError404Page("/somepath.jpg"));
+        assertTrue(Util.showBasicError404Page("/somepath.gif"));
+        assertTrue(Util.showBasicError404Page("/somepath.pNg"));
+        assertTrue(Util.showBasicError404Page("/somepath.JPg"));
+        assertTrue(Util.showBasicError404Page("/somepath.GIF"));
+        assertFalse(Util.showBasicError404Page("/somepath.page"));
+        assertFalse(Util.showBasicError404Page("/somejpg.page"));
+        assertFalse(Util.showBasicError404Page("/somepng.page"));
+    }
 }
