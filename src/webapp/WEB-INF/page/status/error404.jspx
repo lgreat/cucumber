@@ -13,6 +13,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <c:choose>
+        <!-- http://stackoverflow.com/questions/1018295/display-different-tomcat-error-pages-depending-on-url-of-original-request -->
         <c:when test="${gsweb:showBasicError404Page(pageContext.errorData.requestURI)}">
             <jsp:directive.page contentType="text/html"/>
             <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -28,46 +29,59 @@
             </html>
         </c:when>
         <c:otherwise>
-    <page:apply-decorator name="cobrandHeaderGsFooter">
-        <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+            <ad:setSlotPrefix slotPrefix="404_Error_Page"/>
+            <page:apply-decorator name="cobrandHeaderGsFooter">
+                <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-        <jsp:directive.page contentType="text/html"/>
-        <pageHelper:hideFooterAd/>
+                <jsp:directive.page contentType="text/html"/>
+                <pageHelper:hideFooterAd/>
 
-<jsp:scriptlet>
-    gs.web.util.PageHelper.setPageName(request, "error404");
-</jsp:scriptlet>
+                <jsp:scriptlet>
+                    gs.web.util.PageHelper.setPageName(request, "error404");
+                </jsp:scriptlet>
 
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>Page Not Found</title>
-    </head>
+                <head>
+                    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+                    <title>Page Not Found</title>
+                </head>
 
-    <gsml:body adPageName="www" pageLayout="nocol">
+                <gsml:body adPageName="www" pageLayout="nocol">
 
-    <mod:tracking pageType="errorPage" pageName="" hier1="Error,404"/>
+                    <mod:tracking pageType="errorPage" pageName="" hier1="Error,404"/>
 
-<div id="mainGS">
-    <div class="mod" style="margin: 1em 20px 0;">
-    <h3>Page Not Found</h3>
+                    <div id="mainGS" class="col" style="margin-top: 1em">
+                        <!--<div class="col">-->
+                            <h3>Page Not Found</h3>
 
-    <p>For some reason, the link you clicked or the URL you typed into your browser did not work.
-        The page might have been renamed, moved, or is just temporarily unavailable.
-    </p>
-    <h3>What now?</h3>
-    <p>1) If you followed a link, you can <a href="javascript:history.back()">go back</a> and try again. </p>
-    <p>2) If you typed the address yourself, please make sure it is spelled correctly.</p>
-    <p>3) Have an idea what you are looking for? Try a search at the top of the page.</p>
-    <p>4) Try visiting <gsml:a href="/">our homepage</gsml:a> and see if you can find what you are looking for from there.</p>
-    <p>5) If those options don't help, <link:contactUs>Contact Us</link:contactUs> and let us know. Be sure to tell us
-          the address that didn't work and how you got here.</p>
-        </div>
-    </div>
-    </gsml:body>
-</html>
-</page:apply-decorator>
+                            <p>For some reason, the link you clicked or the URL you typed into your browser did not work.
+                                The page might have been renamed, moved, or is just temporarily unavailable.
+                            </p>
 
-</c:otherwise>
-</c:choose>
+                            <h3>What now?</h3>
+
+                            <p>1) If you followed a link, you can <a
+                                    href="javascript:history.back()">go back</a> and try again. </p>
+
+                            <p>2) If you typed the address yourself, please make sure it is spelled correctly.</p>
+
+                            <p>3) Have an idea what you are looking for? Try a search at the top of the page.</p>
+
+                            <p>4) Try visiting <gsml:a
+                                    href="/">our homepage</gsml:a> and see if you can find what you are looking for from there.
+                            </p>
+
+                            <p>5) If those options don't help,
+                                <link:contactUs>Contact Us</link:contactUs> and let us know. Be sure to tell us
+                                the address that didn't work and how you got here.</p>
+                        </div>
+                <div id="sidebarGS" class="col">
+                    <ad:AboveFold_300x250/>
+                    </div>
+                </gsml:body>
+                </html>
+            </page:apply-decorator>
+
+        </c:otherwise>
+    </c:choose>
 </jsp:root>
