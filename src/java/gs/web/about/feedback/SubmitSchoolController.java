@@ -65,7 +65,12 @@ public class SubmitSchoolController extends SimpleFormController {
     protected ModelAndView onSubmit(Object o) throws ServletException {
         SubmitSchoolCommand command = (SubmitSchoolCommand)o;
 
-        String subject = command.getState().getAbbreviation() + " New " + _type;
+        String subject = null;
+        if (TYPE_PRESCHOOL.equals(_type)) {
+            subject = "Add a preschool";
+        } else if (TYPE_PRIVATE_SCHOOL.equals(_type)) {
+            subject = "Add a private school";
+        }
 
         String thankYouEmailPath = null;
         if (TYPE_PRESCHOOL.equals(_type)) {

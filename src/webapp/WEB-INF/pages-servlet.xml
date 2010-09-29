@@ -2205,7 +2205,7 @@
         <property name="commandClass" value="gs.web.about.feedback.SubmitPreschoolCommand"/>
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
-        <property name="fromEmail" value="preschools@greatschools.org"/>
+        <property name="fromEmail" value="gs_support@greatschools.org"/>
         <property name="type" value="preschool"/>
     </bean>
 
@@ -2217,7 +2217,7 @@
         <property name="commandClass" value="gs.web.about.feedback.SubmitPrivateSchoolCommand"/>
         <property name="formView" value="/about/feedback/submitSchool"/>
         <property name="successView" value="/about/feedback/submitSchoolConfirm"/>
-        <property name="fromEmail" value="pvtschools@greatschools.org"/>
+        <property name="fromEmail" value="gs_support@greatschools.org"/>
         <property name="type" value="private school"/>
     </bean>
 
