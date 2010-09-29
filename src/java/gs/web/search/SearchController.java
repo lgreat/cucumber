@@ -276,6 +276,9 @@ public class SearchController extends AbstractFormController {
             resultsToShow = true;
         }
 
+        // set these attributes even if there are no hits
+        setQueryGAMAttributes(request, queryString);
+
         model.put(MODEL_TITLE, "Greatschools.org Search: " + queryString);
         State state = sessionContext.getStateOrDefault();
         if (StringUtils.isNotEmpty(queryString)) {
@@ -415,6 +418,28 @@ public class SearchController extends AbstractFormController {
 
             for (String cityName : cityNames) {
                 pageHelper.addAdKeywordMulti("city", cityName);
+            }
+        }
+    }
+
+    // GS-10642
+    private void setQueryGAMAttributes(HttpServletRequest request, String queryString) {
+        queryString = StringUtils.trimToNull(queryString);
+        if (StringUtils.isBlank(queryString)) {
+            return;
+        }
+
+        // also consider hyphens to be token separators
+        queryString = queryString.replaceAll("-"," ");
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            String[] tokens = StringUtils.split(queryString);
+            List<String> tokenList = Arrays.asList(tokens);
+
+            Set<String> terms = new HashSet<String>(tokenList);
+            for (String term : terms) {
+                pageHelper.addAdKeywordMulti("query", term);
             }
         }
     }
