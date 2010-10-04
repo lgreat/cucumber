@@ -76,7 +76,12 @@
 
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <span class="smallAlertText"><link:schoolProfileParentReview
-                        school="${school}">Read all ${numberOfReviews} reviews</link:schoolProfileParentReview></span>
+                        school="${school}">
+                    <c:choose>
+                        <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
+                        <c:otherwise>Read all <span class="count">${numberOfReviews}</span> reviews</c:otherwise>
+                    </c:choose>
+                </link:schoolProfileParentReview></span>
             </div>
         </div>
         <!-- end: rating_parent -->
