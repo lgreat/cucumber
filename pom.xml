@@ -86,6 +86,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>tomcat-maven-plugin</artifactId>
+                <version>1.0</version>
                 <configuration>
                     <update>true</update>
                     <path>/</path>
@@ -181,6 +182,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.5</version>
                 <configuration>
                     <linkXRef>true</linkXRef>
                     <sourceEncoding>utf-8</sourceEncoding>
