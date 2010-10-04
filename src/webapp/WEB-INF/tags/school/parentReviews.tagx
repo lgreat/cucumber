@@ -69,19 +69,19 @@
             <div id="overallRating2">
                 <c:if test="${not empty ratings.overall}">
                     <p class="text2bold">Overall Parent Rating</p>
+
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
+
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <span class="smallAlertText"><link:schoolProfileParentReview
+                            school="${school}">
+                        <c:choose>
+                            <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
+                            <c:otherwise>Read all <span class="count">${numberOfReviews}</span> reviews</c:otherwise>
+                        </c:choose>
+                    </link:schoolProfileParentReview></span>
                 </c:if>
-
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>
-
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <span class="smallAlertText"><link:schoolProfileParentReview
-                        school="${school}">
-                    <c:choose>
-                        <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
-                        <c:otherwise>Read all <span class="count">${numberOfReviews}</span> reviews</c:otherwise>
-                    </c:choose>
-                </link:schoolProfileParentReview></span>
             </div>
         </div>
         <!-- end: rating_parent -->
