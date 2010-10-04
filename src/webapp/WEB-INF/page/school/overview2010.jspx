@@ -155,7 +155,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <c:choose>
             <c:when test="${numberOfReviews gt 0}">
                 <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
-                    Read all <span class="count">${numberOfReviews}</span> reviews
+                    <c:choose>
+                        <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
+                        <c:otherwise>Read all <span class="count">${numberOfReviews}</span> reviews</c:otherwise>
+                    </c:choose>
                 </link:schoolProfileParentReview>
 
                 <div class="spacer_5"><!-- do not collapse --></div>

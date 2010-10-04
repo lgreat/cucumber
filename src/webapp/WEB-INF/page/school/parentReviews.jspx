@@ -114,8 +114,8 @@
                     <span class="average">${cmd.ratings.overall}</span> out of
                     <span class="best">5</span>
                 </span>
-                <span class="votes">${cmd.ratings.count}</span> ratings.
-                <span class="count">${cmd.totalReviews}</span> user reviews.
+                <span class="votes">${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}.
+                <span class="count">${cmd.totalReviews}</span> user ${cmd.totalReviews eq 1 ? 'review' : 'reviews'}.
             </span>
             <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif"
                       alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating"
@@ -129,7 +129,7 @@
                                                  alt="Rate it"
                                                  styleClass="rateIt"/></link:schoolProfileParentReview>
 
-            <p class="ratingsNumber">Based on <span class="count">${cmd.ratings.count}</span> ratings</p>
+            <p class="ratingsNumber">Based on <span class="count">${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
         </div>
         <!-- end: rating_parent -->
 
