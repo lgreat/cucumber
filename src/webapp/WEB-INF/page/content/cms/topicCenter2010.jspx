@@ -321,7 +321,14 @@
     <c:if test="${topicCenter.preschoolTopicCenter}">
         <c:set var="levelCode" value="p"/>
         <c:set var="levelCodePhrase" value="preschools"/>
-        <c:set var="ratingHeading" value="Parent rating"/>
+        <c:choose>
+            <c:when test="${requestScope.context.showReviewsPageRedesign}">
+                <c:set var="ratingHeading" value="Community rating"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="ratingHeading" value="Parent rating"/>
+            </c:otherwise>
+        </c:choose>
         <c:set var="cityHeadingPrefix" value="Preschools in"/>
     </c:if>
     <c:if test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter}">

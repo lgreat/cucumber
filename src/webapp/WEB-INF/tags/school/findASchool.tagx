@@ -156,10 +156,17 @@
                                                         <c:set var="ratingValueAltText" value="Rate this school!"/>
                                                         <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                                         <c:if test="${s.parentRatings.displayOverallRating}">
-                                                            <c:set var="ratingValue"
-                                                                   value="${s.parentRatings.overall}"/>
-                                                            <c:set var="ratingValueAltText"
-                                                                   value="Parent Rating: ${ratingValue} out of 5 stars"/>
+                                                            <c:set var="ratingValue">${s.parentRatings.overall}</c:set>
+                                                            <c:set var="ratingValueAltText">
+                                                                <c:choose>
+                                                                    <c:when test="${requestScope.context.showReviewsPageRedesign}">
+                                                                        Community Rating:
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        Parent Rating:
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                ${ratingValue} out of 5 stars</c:set>
                                                         </c:if>
                                                         <link:schoolProfileOverview school="${s.school}"
                                                                                     title="${s.school.name}"><gsml:img

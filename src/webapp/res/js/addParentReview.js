@@ -140,10 +140,12 @@ function showResponse(x) {
     }
 
     if (parentRating != "" && parentRating > 0) {
+        // TODO-10623 - Parent Rating in alt text cannot check db property
+        // TODO-10623 - Parent Rating word in image must be changed in image
         jQuery('#overallParentRating').html('<img class="sm_stars" alt="Parent Rating: ' + parentRating + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + parentRating + '.gif"/>');
         jQuery('#overallParentRating').show();
         if (reviewCount != "" && reviewCount > 0) {
-            jQuery('#parentRatingCount').html('Based on ' + reviewCount + ' ratings');
+            jQuery('#parentRatingCount').html('Based on ' + reviewCount + ' rating' + (reviewCount > 1 ? 's' : ''));
             jQuery('#parentRatingCount').show();
         } else {
             jQuery('#parentRatingCount').hide();

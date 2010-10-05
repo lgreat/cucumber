@@ -143,7 +143,16 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
         <div class="spacer_10"><!-- do not collapse --></div>
-        <p class="text3">Overall Parent Rating</p>
+        <p class="text3">
+            <c:choose>
+                <c:when test="${requestScope.context.showReviewsPageRedesign}">
+                    Overall Community Rating
+                </c:when>
+                <c:otherwise>
+                    Overall Parent Rating
+                </c:otherwise>
+            </c:choose>
+        </p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
         <link:schoolProfileParentReview school="${school}">

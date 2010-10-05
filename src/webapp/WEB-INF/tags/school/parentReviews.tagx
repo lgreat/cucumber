@@ -68,7 +68,16 @@
         <div class="unit size1of3">
             <div id="overallRating2">
                 <c:if test="${not empty ratings.overall}">
-                    <p class="text2bold">Overall Parent Rating</p>
+                    <p class="text2bold">
+                        <c:choose>
+                            <c:when test="${requestScope.context.showReviewsPageRedesign}">
+                                Overall Community Rating
+                            </c:when>
+                            <c:otherwise>
+                                Overall Parent Rating
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
 
                     <div class="spacer_5"><!-- do not collapse --></div>
                     <span class="sprite stars_lg_${ratings.overall}"><!-- do not collapse --></span>

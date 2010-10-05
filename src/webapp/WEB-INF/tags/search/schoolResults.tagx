@@ -91,7 +91,14 @@
              onmouseover="SchoolTableTag.mouseOver(this)"
              onmouseout="SchoolTableTag.mouseOut(this)"
              onclick="reloadPageWithFilters('reviewsHeader')">
-            Parent Rating
+            <c:choose>
+                <c:when test="${requestScope.context.showReviewsPageRedesign}">
+                    Community Rating
+                </c:when>
+                <c:otherwise>
+                    Parent Rating
+                </c:otherwise>
+            </c:choose>
             <gsml:img styleClass="sort${activeColumn eq 'reviewsHeader' ? 'Active': 'InActive'}"
                                   src="/res/img/search/${sortDirection eq 'desc' ? 'arrow_down.gif' : 'arrow_up.gif'}"
                                   alt="sort ${sortDirection}" />

@@ -52,7 +52,16 @@ height += heightMultiplier * 13;-->
                     <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
                         <c:choose>
                             <c:when test="${not empty parentRating}">
-                                <div class="smallText1-333">Overall Parent Rating</div>
+                                <div class="smallText1-333">
+                                    <c:choose>
+                                        <c:when test="${requestScope.context.showReviewsPageRedesign}">
+                                            Overall Community Rating
+                                        </c:when>
+                                        <c:otherwise>
+                                            Overall Parent Rating
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
                                 <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
                             </c:when>
                             <c:otherwise>
