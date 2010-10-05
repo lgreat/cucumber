@@ -87,6 +87,55 @@
 <!-- End report it dialog -->
 
 <school:profile2010 school="${school}" tab="parentReviews" omniturePageName="${pageName}">
+<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>
+<c:choose>
+    <c:when test="${requestScope.context.showReviewsPageRedesign}">
+        <p>"the new redesign code goes here</p>
+        <p>Overall rating is: <c:out value="${overallRating}" default="not set"/></p>
+        <p>Number of reviews is: <c:out value="${numberOfReviews}" default="not set"/></p>
+        <div id="reviewContainer" class="clearfix">
+            <div id="reviewColumn1">
+                <div id="overallRating">
+                    <p class="text3">Overall Community Rating</p>
+
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <link:schoolProfileParentReview school="${school}">
+                        <span class="sprite stars_lg_${overallRating}_b stars_${overallRating}"
+                              title="${overallRating} star rating"><!-- do not collapse --></span>
+                    </link:schoolProfileParentReview>
+
+                    <div class="spacer_5"><!-- do not collapse --></div>
+
+                    <c:choose>
+                        <c:when test="${numberOfReviews gt 0}">
+                            <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
+                                <c:choose>
+                                    <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
+                                    <c:otherwise>Read all <span
+                                            class="count">${numberOfReviews}</span> reviews</c:otherwise>
+                                </c:choose>
+                            </link:schoolProfileParentReview>
+
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolProfileParentReview
+                                    school="${school}">Be the first to review</link:schoolProfileParentReview>
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+            </div>
+            <!-- end reviewColumn1 -->
+            <div id="reviewColumn2">
+                <!-- do not collapse -->
+            </div>
+            <!-- end reviewColumn2 -->
+        </div>
+        <!-- end reviewContainer -->
+    </c:when>
+    <c:otherwise>
+        <p>the old code goes here</p>
 
 <div id="parentReview">
 <school:parentReviewThankYou schoolName="${school.name}"/>
@@ -510,6 +559,10 @@
 
 </div>
 <!-- end: parentReview -->
+
+    </c:otherwise>
+</c:choose>
+
 </school:profile2010>
 <mod:tracking pageName="${pageName}"
               hier1="School,Parent Reviews,Read Reviews"

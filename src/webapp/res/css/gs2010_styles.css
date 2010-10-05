@@ -70,8 +70,9 @@ General comments:
 =4k-1.4 profile recent discussions
 =4k-1.5 kindercare
 =4k-1.6 Washington D.C.: No Child Left Behind
-=4k-2 test scores and stats
-=4k-2.1 test scores and stats - gs ratings
+=4l-1 reviews
+=4m-2 test scores and stats
+=4m-2.1 test scores and stats - gs ratings
 =5 icons
 =6 editorialFooter
 =7 communitySidebar
@@ -5602,7 +5603,23 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     right: 10px;
 }
 
-/*=4k-2 test scores and stats
+/*=4l-1 reviews
+-------------------------------------------------------------------------------------------*/
+
+#reviewColumn1 {
+    width: 160px;
+    float: left;
+}
+
+#reviewColumn2 {
+    width: 407px;
+    float: left;
+    padding-left: 15px;
+    _zoom:1;
+}
+
+
+/*=4m-2 test scores and stats
 -------------------------------------------------------------------------------------------*/
 
 #schoolProfileSubTabsWrapper{
@@ -5629,7 +5646,7 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     padding:0 15px;
 }
 
-/* =4k-2.1 test scores and stats - gs ratings
+/* =4m-2.1 test scores and stats - gs ratings
 -------------------------------------------------------------------------------------------*/
 
 #ratingContent .ratingSummaryContent p{
