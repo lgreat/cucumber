@@ -1,5 +1,6 @@
 package gs.web.school.review;
 
+import gs.data.school.review.Ratings;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,8 +46,9 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
                 } else {
                     str.append("noRatingInfo" + ";");
                 }
-                str.append((_reviewDao.findRatingsBySchool(school).getAvgParents() == null ? "" : _reviewDao.findRatingsBySchool(school).getAvgParents()) + ";");
-                str.append((_reviewDao.findRatingsBySchool(school).getCount() == null ? "" : _reviewDao.findRatingsBySchool(school).getCount()) + ";");
+                Ratings ratings = _reviewDao.findRatingsBySchool(school);
+                str.append((ratings.getOverall() == null ? "" : ratings.getOverall()) + ";");
+                str.append((ratings.getCount() == null ? "" : ratings.getCount()) + ";");
                 str.append(school.getStreet() + ";");
                 str.append((school.getStreetLine2() == "" ? "" : school.getStreetLine2()) + ";");
                 str.append(school.getCity() + ";");
