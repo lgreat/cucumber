@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -190,9 +191,11 @@ public class RegistrationConfirmController extends AbstractController implements
             ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailVerified);
             _log.info("Email confirmed, forwarding user to " + target);
             return new ModelAndView(target);
+        } else {
+            // already confirmed email, so just sign them in and redirect to /account/
+            PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
+            return new ModelAndView(new RedirectView("/account/"));
         }
-
-        return redirectToRegistration(request, user.getEmail());
     }
 
     public IUserDao getUserDao() {
