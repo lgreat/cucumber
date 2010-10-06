@@ -114,6 +114,7 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         School dadSchool = new School();
         dadSchool.setId(99);
         dadSchool.setLevelCode(LevelCode.HIGH);
+        Ratings dadRatings = new Ratings();
         _request.setAttribute(MapSchoolController.SCHOOL_ATTRIBUTE, dadSchool);
 
         List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
@@ -142,6 +143,7 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         _schoolControl.replay();
         _reviewControl.expectAndReturn(_reviewDao.findRatingsBySchool(school1), ratings1);
         _reviewControl.expectAndReturn(_reviewDao.findRatingsBySchool(school2), ratings2);
+        _reviewControl.expectAndReturn(_reviewDao.findRatingsBySchool(dadSchool), dadRatings);
         _reviewControl.replay();
 
         // call controller
