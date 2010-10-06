@@ -204,7 +204,7 @@
 
     <c:if test="${school.levelCode != 'p'}">
         <div id="espLink">
-            PRINCIPALS AND SCHOOL OFFICIALS: <a href="#">Share your point of view<span class="go">&amp;#187;</span></a>
+            PRINCIPALS AND SCHOOL OFFICIALS: <a href="#" class="no_interrupt">Share your point of view<span class="go">&amp;#187;</span></a>
         </div>
     </c:if>
 

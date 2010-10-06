@@ -280,7 +280,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <div class="spacer_10"><!-- do not collapse --></div>
                 <div id="js-esp-principal-link" class="alertBox2 text2">
                     <p><span class="sprite pencil_med"><!-- do not collapse --></span>Are you the principal? <a
-                            href="#">Complete your school's profile</a></p>
+                            href="#" class="no_interrupt">Complete your school's profile</a></p>
                 </div>
             </c:if>
             <!-- end profile link box-->
