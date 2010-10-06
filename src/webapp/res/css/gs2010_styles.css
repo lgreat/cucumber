@@ -348,6 +348,11 @@ h3.title1white, h3.srchCat {
     color: #180;
 }
 
+.text2bold-06b {
+    font: bold 13px Arial, Helvetica, sans-serif;
+    color: #06b;
+}
+
 .text3 {
     font: 12px Arial, sans-serif;
     color: #333;
@@ -5617,6 +5622,15 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     float: left;
 }
 
+#reviewOverallRating {
+    padding: 10px 7px;
+    display: block;
+    background-color: #F4FAFD;
+    width: 144px;
+    border: 1px solid #A2D0E4;
+    text-align: center;
+}
+
 #reviewColumn2 {
     width: 407px;
     float: left;
@@ -7428,11 +7442,19 @@ button {
     line-height:26px;
 }
 
+.alertBox2 .sprite{
+    vertical-align:middle;
+}
+
 .alertBox3 {
     display: block;
     padding: 0 10px;
     background-color: #f9eccd;
     line-height:30px;
+}
+
+.alertBox3 .sprite{
+    vertical-align:middle;
 }
 
 .alertBox4 {
