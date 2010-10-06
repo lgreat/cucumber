@@ -6,6 +6,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link">
     <jsp:directive.attribute name="title" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="subtopics" required="false" type="java.util.List"/>
+    <jsp:directive.attribute name="currentUri" required="false" type="java.lang.String"/>
 
     <c:if test="${not empty pageScope.subtopics}">
         <c:set var="hasNestedItems" value="${false}"/>
@@ -34,7 +35,11 @@
                         <c:choose>
                             <c:when test="${empty subtopic.subSubtopics}">
                                 <!-- no nested items, so don't show triangle, and clicking subtopic title link should send user to browse page -->
+
                                 <c:choose>
+                                    <c:when test="${not empty currentUri and currentUri eq subtopic.moreLink.url}">
+                                        ${subtopic.title}
+                                    </c:when>
                                     <c:when test="${not empty subtopic.moreLink}">
                                         <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
                                     </c:when>

@@ -65,6 +65,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public static final String MODEL_CAROUSEL_ITEMS = "carouselItems";
     public static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
     public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
+    public static final String MODEL_URI = "uri";
     public static final String LOCAL_DISCUSSION_BOARD_ID = "localDiscussionBoardId";
     public static final String LOCAL_DISCUSSION_TOPIC = "localDiscussionTopic";
     public static final String LOCAL_DISCUSSION_TOPIC_FULL = "localDiscussionTopicFull";
@@ -200,6 +201,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
             }
 
+            UrlBuilder builder = new UrlBuilder(new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, topicCenter.getContentKey().getIdentifier()));
+            model.put(MODEL_URI, builder.asSiteRelative(request));
+
         }
 
 
@@ -326,17 +330,22 @@ public class CmsTopicCenterController2010 extends AbstractController {
             return TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP.get(topicCenterID);
         }
 
+        CmsTopicCenter topicCenter = new CmsTopicCenter();
+        topicCenter.setContentKey(new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, topicCenterID));
+
         CmsCategory cat = new CmsCategory();
         cat.setType(CmsCategory.TYPE_TOPIC);
-        if (topicCenterID == CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID) {
+
+        if (topicCenter.isElementarySchoolTopicCenter() ||
+            topicCenter.isElementaryGradeTopicCenter()) {
             subtopics = getBrowseByGradeForElementary();
-        } else if (topicCenterID == CmsConstants.ACADEMICS_AND_ACTIVITIES_TOPIC_CENTER_ID) {
+        } else if (topicCenter.isAcademicsAndActivitiesTopicCenter()) {
             cat.setId(CmsConstants.ACADEMICS_AND_ACTIVITIES_CATEGORY_ID);
             subtopics = getBrowseByGradeHelper(cat);
-        } else if (topicCenterID == CmsConstants.HEALTH_AND_DEVELOPMENT_TOPIC_CENTER_ID) {
+        } else if (topicCenter.isHealthAndDevelopmentTopicCenter()) {
             cat.setId(CmsConstants.HEALTH_AND_DEVELOPMENT_CATEGORY_ID);
             subtopics = getBrowseByGradeHelper(cat);
-        } else if (topicCenterID == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID) {
+        } else if (topicCenter.isSpecialEducationTopicCenter()) {
             cat.setId(CmsConstants.SPECIAL_EDUCATION_CATEGORY_ID);
             subtopics = getBrowseByGradeHelper(cat);
         } else {

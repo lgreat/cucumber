@@ -2391,6 +2391,12 @@ body.ie6 .clearfix {
     padding-top: 15px;
 }
 
+#topicContentBreadcrumbs {
+    color: #666666;
+    font: 11px Arial, Arial, Helvetica, sans-serif;
+    padding-top: 10px;
+}
+
 #findASchool .mod_bd {
     padding: 0;
     background: #fc6;

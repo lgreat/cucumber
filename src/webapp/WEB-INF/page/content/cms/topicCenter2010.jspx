@@ -77,7 +77,17 @@
 
 
     <div id="mainGS" class="col">
-    <div class="spacer_10"><!--do not collapse--></div>
+    <c:choose>
+        <c:when test="${topicCenter.elementaryGradeTopicCenter}">
+            <div id="topicContentBreadcrumbs">
+                <link:home>Home</link:home> &amp;gt;
+                <link:elementary-school>Elementary School</link:elementary-school>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="spacer_10"><!--do not collapse--></div>
+        </c:otherwise>
+    </c:choose>
     <div><h1 class="fltlft">${topicCenter.title}</h1></div>
 
     <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
@@ -113,8 +123,9 @@
                 <c:if test="${topicCenter.elementarySchoolTopicCenter or
                                   topicCenter.academicsAndActivitiesTopicCenter or
                                   topicCenter.healthAndDevelopmentTopicCenter or
-                                  topicCenter.specialEducationTopicCenter}">
-                    <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}"/>
+                                  topicCenter.specialEducationTopicCenter or
+                                  topicCenter.elementaryGradeTopicCenter}">
+                    <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}" currentUri="${uri}"/>
                 </c:if>
             </c:set>
 
@@ -125,7 +136,8 @@
                 </c:when>
                 <c:when test="${topicCenter.academicsAndActivitiesTopicCenter or
                                     topicCenter.healthAndDevelopmentTopicCenter or
-                                    topicCenter.specialEducationTopicCenter}">
+                                    topicCenter.specialEducationTopicCenter or
+                                    topicCenter.elementaryGradeTopicCenter}">
                     ${moreOnThisTopic}
                     ${browseByGrade}
                 </c:when>
