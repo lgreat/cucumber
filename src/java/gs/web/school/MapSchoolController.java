@@ -49,7 +49,13 @@ public class MapSchoolController extends AbstractSchoolController {
 
         // if there are nearby schools, obtain parent rating information on them for the map
         if (nearbySchools.size() > 0) {
+            // get the ratings for the nearby schools
             loadRatings(request, nearbySchools);
+
+            // get the ratings for the current school
+            // oldSchool.tagx expects the school's ratings to be stored in the variable "parent_ratings"
+            Ratings ratings = _reviewDao.findRatingsBySchool(school);
+            model.put("parent_ratings", ratings);
         }
 
         _schoolProfileHeaderHelper.updateModel(request, response, school, model);
