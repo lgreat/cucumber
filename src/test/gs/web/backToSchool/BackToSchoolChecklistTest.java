@@ -68,8 +68,9 @@ public class BackToSchoolChecklistTest extends BaseTestCase {
 
         assertFalse(BackToSchoolChecklist.hasCompletedChecklist(user));
 
-        BackToSchoolChecklist checklist = (BackToSchoolChecklist) getApplicationContext().getBean("backToSchoolChecklist");
+        BackToSchoolChecklist checklist = new BackToSchoolChecklist();
         checklist.setUserDao(_userDao);
+        checklist.setExactTargetAPI(_exactTargetAPI);
 
         _userDao.updateUser(isA(User.class));
         _userDao.updateUser(isA(User.class));
