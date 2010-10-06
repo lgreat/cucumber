@@ -201,7 +201,7 @@
                     <li class="first nav-group-item"><link:cmsCategoryBrowse topicIDs="149" language="EN" styleId="GlobalNav_HD_Bullying" styleClass="GS_CI9_">Bullying</link:cmsCategoryBrowse></li>
                     <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="124" language="EN" styleId="GlobalNav_HD_BehaviorAndDiscipline" styleClass="GS_CI9_">Behavior &amp;amp; Discipline</link:cmsCategoryBrowse></li>
                     <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="157" language="EN" styleId="GlobalNav_HD_SocialSkills" styleClass="GS_CI9_">Social Skills</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:healthyKids styleId="GlobalNav_HD_HealthyKids" styleClass="GS_CI9_">Healthy Kids</link:healthyKids></li>
+                    <li class="nav-group-item"><link:healthyKids styleId="GlobalNav_HD_HealthAndNutrition" styleClass="GS_CI9_">Health &amp;amp; Nutrition</link:healthyKids></li>
                     <li class="nav-group-item"><link:mediaChoices id="GlobalNav_HD_MediaMatters" styleClass="GS_CI9_">Media Matters</link:mediaChoices></li>
                     <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="136" language="EN" styleId="GlobalNav_HD_EmotionalWellBeing" styleClass="GS_CI9_">Emotional Well-Being</link:cmsCategoryBrowse></li>
                     <li class="nav-group-item"><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting" styleId="GlobalNav_HD_Community" styleClass="GS_CI9_"><span class="sprite community-sm fltlft"><!-- small community icon --></span>&amp;nbsp;Talk About It</link:cmsContent></li>
