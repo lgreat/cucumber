@@ -118,7 +118,7 @@
                             <c:choose>
                                 <c:when test="${cmd.ratings.preschool}">
                                     <c:if test="${hasPreschoolCategoryRatings}">
-                                        <ul>
+                                        <ul class="smallText2-777">
                                             <c:set var="curCatValue"
                                                    value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
                                             <c:set var="curCatName" value="Teacher quality"/>
@@ -150,7 +150,7 @@
                                 </c:when>
                                 <c:when test="${cmd.ratings.gradeschool}">
                                     <c:if test="${hasGradeschoolCategoryRatings}">
-                                        <ul>
+                                        <ul class="smallText2-777">
                                             <c:if test="${not empty cmd.ratings.avgTeachers}">
                                                 <li><span class="sprite stars_s_${cmd.ratings.avgTeachers}_b"
                               title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>Teacher quality</li>
