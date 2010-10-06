@@ -91,30 +91,93 @@
 <c:choose>
     <c:when test="${requestScope.context.showReviewsPageRedesign}">
         <p>the new redesign code goes here</p>
-        <p>Overall rating is: <c:out value="${overallRating}" default="not set"/></p>
-        <p>Number of reviews is: <c:out value="${numberOfReviews}" default="not set"/></p>
+        <p>Overall rating is: <c:out value="${cmd.ratings.overall}" default="not set"/></p>
+        <p>Number of ratings is: <c:out value="${cmd.ratings.count}" default="not set"/></p>
+        <p>Number of reviews is: <c:out value="${cmd.totalReviews}" default="not set"/></p>
         <div id="reviewContainer" class="clearfix">
             <div id="reviewColumn1">
                 <div id="reviewOverallRating">
                     <p class="text3">Overall Community Rating</p>
 
                     <div class="spacer_5"><!-- do not collapse --></div>
-                    <link:schoolProfileParentReview school="${school}">
-                        <span class="sprite stars_lg_${overallRating}_b stars_${overallRating}"
-                              title="${overallRating} star rating"><!-- do not collapse --></span>
-                    </link:schoolProfileParentReview>
+
+                        <span class="sprite stars_xl_${cmd.ratings.overall}_b"
+                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>
+
 
                     <div class="spacer_5"><!-- do not collapse --></div>
 
+                    <p class="smallText1">Based on
+                        <span>${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
+
+                    <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+                    <div class="spacer_10"><!-- do not collapse --></div>
+
                     <c:choose>
-                        <c:when test="${numberOfReviews gt 0}">
-                            <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
-                                <c:choose>
-                                    <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
-                                    <c:otherwise>Read all <span
-                                            class="count">${numberOfReviews}</span> reviews</c:otherwise>
-                                </c:choose>
-                            </link:schoolProfileParentReview>
+                        <c:when test="${cmd.totalReviews gt 0}">
+                            <c:choose>
+                                <c:when test="${cmd.ratings.preschool}">
+                                    <c:if test="${hasPreschoolCategoryRatings}">
+                                        <ul>
+                                            <c:set var="curCatValue"
+                                                   value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
+                                            <c:set var="curCatName" value="Teacher quality"/>
+                                            <c:if test="${not empty curCatValue}">
+                                                <li><span class="sprite stars_s_${cmd.ratings.avgTeachers}_b"
+                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>${curCatName}<gsml:img
+                                                        src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                        alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                        styleClass="sm_stars"/></li>
+                                            </c:if>
+                                            <c:set var="curCatValue"
+                                                   value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
+                                            <c:set var="curCatName" value="Facilities &amp; equipment"/>
+                                            <c:if test="${not empty curCatValue}">
+                                                <li>${curCatName}<gsml:img
+                                                        src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                        alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                        styleClass="sm_stars"/></li>
+                                            </c:if>
+                                            <c:set var="curCatValue"
+                                                   value="${cmd.ratings.averageRatingMap[catParents]}"/>
+                                            <c:set var="curCatName" value="Parent involvement"/>
+                                            <c:if test="${not empty curCatValue}">
+                                                <li>${curCatName}<gsml:img
+                                                        src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                        alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                        styleClass="sm_stars"/></li>
+                                            </c:if>
+                                        </ul>
+                                    </c:if>
+
+                                    <p class="categoriesMore"><link:parentRatingsExplained preschool="true"
+                                                                                           target="_blank"
+                                                                                           onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
+                                    </p>
+                                </c:when>
+                                <c:when test="${cmd.ratings.gradeschool}">
+                                    <c:if test="${hasGradeschoolCategoryRatings}">
+                                        <ul>
+                                            <c:if test="${not empty cmd.ratings.avgTeachers}">
+                                                <li><span class="sprite stars_s_${cmd.ratings.avgTeachers}_b"
+                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>Teacher quality</li>
+                                            </c:if>
+                                            <c:if test="${not empty cmd.ratings.avgPrincipal}">
+                                                <li><span class="sprite stars_s_${cmd.ratings.avgPrincipal}_b"
+                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>Principal leadership</li>
+                                            </c:if>
+                                            <c:if test="${not empty cmd.ratings.avgParents}">
+                                                <li><span class="sprite stars_s_${cmd.ratings.avgParents}_b"
+                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>Parent involvement</li>
+                                            </c:if>
+                                        </ul>
+                                    </c:if>
+
+                                    <p class="categoriesMore"><link:parentRatingsExplained target="_blank"
+                                                                                           onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
+                                    </p>
+                                </c:when>
+                            </c:choose>
 
                             <div class="spacer_5"><!-- do not collapse --></div>
                         </c:when>
@@ -139,6 +202,30 @@
                     <p><span class="sprite pencil_med"><!-- do not collapse --></span> PRINCIPAL'S &amp;amp; SCHOOL OFFICIALS: <a class="text3-06b" href="#">Share your point of view <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
                 </div>
             <div class="spacer_15"><!-- do not collapse --></div>
+            <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
+            <div class="spacer_15"><!-- do not collapse --></div>
+            <div class="line">
+                <div id="rankSort" class="unit size2of5">
+                    <span class="smallText1">Sort by: </span>
+                    <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort" onchange="go(this);">
+                        <form:option value="dd">Date: newest to oldest</form:option>
+                        <form:option value="da">Date: oldest to newest</form:option>
+                        <form:option value="rd">Rating: highest to lowest</form:option>
+                        <form:option value="ra">Rating: lowest to highest</form:option>
+                    </form:select>
+                </div>
+                <div id="typeSort" class="unit size3of5 lastUnit">
+                    <form id="showReviews" class="smallText1" onclick="go(this);">
+                        <span>Show reviews by: </span>
+                        <input type="checkbox" id="showParents" checked="cheched"/>
+                        <label for="showParents">Parents</label>
+                        <input type="checkbox" id="showStudents" checked="cheched"/>
+                        <label for="showStudents">Students</label>
+                        <input type="checkbox" id="showTeachers" checked="cheched"/>
+                        <label for="showTeachers">Teachers/Staff</label>
+                    </form>
+                </div>
+            </div>
             <div class="spacer_10"><!-- do not collapse --></div>
                 <div class="alertBox3 text1">
                     <p>What are your school's special characteristics? <a href="#">Tell us here <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
