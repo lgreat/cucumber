@@ -16,6 +16,7 @@
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         >
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
@@ -213,7 +214,9 @@
             </div>
             <!-- end reviewColumn1 -->
             <div id="reviewColumn2">
-                <!-- do not collapse -->
+                <c:if test="${cmd.showParentReviewForm}">
+                    <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
+                </c:if>
             </div>
             <!-- end reviewColumn2 -->
             <div class="spacer_15"><!-- do not collapse --></div>
@@ -225,7 +228,24 @@
                     <p><span class="sprite pencil_med"><!-- do not collapse --></span> PRINCIPAL'S &amp;amp; SCHOOL OFFICIALS: <a class="text3-06b" href="#">Share your point of view <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
                 </div>
             <div class="spacer_15"><!-- do not collapse --></div>
-            <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
+
+            <div class="line">
+                <div class="unit size1of2">
+                    <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
+                </div>
+
+                <div class="unit size1of2 lastUnit">
+                    <div class="pagination">
+                        <span class="prv_nxt">&amp;laquo; Prev</span>
+                        <span onclick="page(0);" class="pager-tab active">1</span>
+                        <span onclick="page(4)" class="pager-tab">2</span>
+                        <span onclick="page(8)" class="pager-tab">3</span>
+                        <span onclick="page(12)" class="pager-tab">4</span>
+                        <span class="prv_nxt">Next &amp;raquo;</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="spacer_15"><!-- do not collapse --></div>
             <div class="line">
                 <div id="rankSort" class="unit size2of5">
@@ -395,6 +415,18 @@
                 </c:forEach>
 
             </pg:pager>
+
+            <div class="spacer_10"><!-- do not collapse --></div>
+            <div>
+                <div class="pagination">
+                    <span class="prv_nxt">&amp;laquo; Prev</span>
+                    <span onclick="page(0);" class="pager-tab active">1</span>
+                    <span onclick="page(4)" class="pager-tab">2</span>
+                    <span onclick="page(8)" class="pager-tab">3</span>
+                    <span onclick="page(12)" class="pager-tab">4</span>
+                    <span class="prv_nxt">Next &amp;raquo;</span>
+                </div>
+            </div>
 
             <div class="spacer_10"><!-- do not collapse --></div>
                 <div class="alertBox3 text1">
