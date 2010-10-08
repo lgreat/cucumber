@@ -235,6 +235,30 @@
         <noscript>
         <a href="http://www.quantcast.com/p-93S1TiA81rkd-" target="_blank"><img src="http://pixel.quantserve.com/pixel/p-93S1TiA81rkd-.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/></a>
         </noscript>
+
+        <!-- GS-10641 param.noComscore check used for page speed comparison, can be removed after testing, if desired -->
+        <c:if test="${empty param.noComscore or param.noComscore ne 'true'}">
+        <!-- Begin comScore Tag -->
+        <![CDATA[
+        <script>
+            document.write(unescape("%3Cscript src='" + (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js' %3E%3C/script%3E"));
+        </script>
+        <script>
+          COMSCORE.beacon({
+            c1:2,
+            c2:6035246,
+            c3:"",
+            c4:"",
+            c5:"",
+            c6:"",
+            c15:""
+          });
+        </script>
+        <noscript>
+          <img src="http://b.scorecardresearch.com/p?c1=2&amp;c2=6035246&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c15=&amp;cj=1" />
+        </noscript> 
+        ]]>
+        <!-- End comScore Tag -->
+        </c:if>
     </c:if>
-    <!--/c:set-->
 </jsp:root>
