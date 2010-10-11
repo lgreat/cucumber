@@ -64,6 +64,7 @@
         }
         return csv;
     }
+    ]]>
     function go(box) {
         option = box.options[box.selectedIndex].value;
         if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option${reviewsByParam};
@@ -71,7 +72,6 @@
     function filter() {
         location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=' + getReviewsByCsv();
     }
-    ]]>
     </c:when>
     <c:otherwise>
         function go(box) {
@@ -261,110 +261,87 @@
                 </div>
             <div class="spacer_15"><!-- do not collapse --></div>
 
-            <div class="line">
-                <div class="unit size1of2">
-                    <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
-                </div>
-
-                <div class="unit size1of2 lastUnit">
-                    <div class="pagination">
-                        <span class="prv_nxt">&amp;laquo; Prev</span>
-                        <span onclick="page(0);" class="pager-tab active">1</span>
-                        <span onclick="page(4)" class="pager-tab">2</span>
-                        <span onclick="page(8)" class="pager-tab">3</span>
-                        <span onclick="page(12)" class="pager-tab">4</span>
-                        <span class="prv_nxt">Next &amp;raquo;</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="spacer_15"><!-- do not collapse --></div>
-            <div class="line">
-                <div id="rankSort" class="unit size2of5">
-                    <span class="smallText1">Sort by: </span>
-                    <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort" onchange="go(this);">
-                        <form:option value="dd">Date: newest to oldest</form:option>
-                        <form:option value="da">Date: oldest to newest</form:option>
-                        <form:option value="rd">Rating: highest to lowest</form:option>
-                        <form:option value="ra">Rating: lowest to highest</form:option>
-                    </form:select>
-                </div>
-                <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
-                    <div id="typeSort" class="unit size3of5 lastUnit">
-                        <form id="showReviews" class="smallText1" onclick="go(this);" action="">
-                            <span>Show reviews by: </span>
-                            <c:if test="${numParentReviews gt 0}">
-                                <c:choose>
-                                    <c:when test="${fn:contains(reviewsByCsv,'p')}">
-                                        <input type="checkbox" id="showParents" checked="checked" onclick="filter()"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input type="checkbox" id="showParents" onclick="filter()"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <label for="showParents">Parents</label>
-                            </c:if>
-                            <c:if test="${numStudentReviews gt 0}">
-                                <c:choose>
-                                    <c:when test="${fn:contains(reviewsByCsv,'s')}">
-                                        <input type="checkbox" id="showStudents" checked="checked" onclick="filter()"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input type="checkbox" id="showStudents" onclick="filter()"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <label for="showStudents">Students</label>
-                            </c:if>
-                            <c:if test="${numTeacherStaffReviews gt 0}">
-                                <c:choose>
-                                    <c:when test="${fn:contains(reviewsByCsv,'t')}">
-                                        <input type="checkbox" id="showTeachers" checked="checked" onclick="filter()"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <input type="checkbox" id="showTeachers" onclick="filter()"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <label for="showTeachers">Teachers/Staff</label>
-                            </c:if>
-                        </form>
-                    </div>
-                </c:if>
-            </div>
-
-            <pg:pager
-                    maxPageItems="${cmd.maxReviewsPerPage}"
-                    items="${cmd.totalReviews}"
-                    maxItems="${cmd.totalReviews}"
-                    url="/school/parentReviews.page"
-                    export="currentPage=pageNumber"
-                    >
-                <pg:param name="id" value="${cmd.school.id}"/>
-                <pg:param name="state" value="${stateAbbrev}"/>
-                <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
-                <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
-
-                <c:set var="pageControls">
-                    <div class="pageControls">
-                        <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
-                        <pg:next>
-                            <div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img
-                                    src="/res/img/school/parentReviews/nextPage.gif"
-                                    alt="Next page of ${school.name} Parent Reviews"/></gsml:a></div>
-                        </pg:next>
-                        <pg:prev>
-                            <div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img
-                                    src="/res/img/school/parentReviews/previousPage.gif"
-                                    alt="Previous page of ${school.name} Parent Reviews"/></gsml:a></div>
-                        </pg:prev>
-                    </div>
+                <c:set var="reviewsPagination">
+                    <community:pagination page="${page}"
+                                      totalPages="${reviewsTotalPages}"
+                                      url="${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=${reviewsByCsv}"
+                                      styleClass="pagination"
+                                      pageNumberStyleClass="pager-tab"
+                            />
                 </c:set>
+
+                <div class="line">
+                    <div class="unit size1of2">
+                        <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
+                    </div>
+
+                    <div class="unit size1of2 lastUnit">
+                        ${reviewsPagination}
+                    </div>
+                </div>
+
+                <div class="spacer_15"><!-- do not collapse --></div>
+                <div class="line">
+                    <div id="rankSort" class="unit size2of5">
+                        <span class="smallText1">Sort by: </span>
+                        <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
+                                     onchange="go(this);">
+                            <form:option value="dd">Date: newest to oldest</form:option>
+                            <form:option value="da">Date: oldest to newest</form:option>
+                            <form:option value="rd">Rating: highest to lowest</form:option>
+                            <form:option value="ra">Rating: lowest to highest</form:option>
+                        </form:select>
+                    </div>
+                    <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
+                        <div id="typeSort" class="unit size3of5 lastUnit">
+                            <form id="showReviews" class="smallText1" onclick="go(this);" action="">
+                                <span>Show reviews by: </span>
+                                <c:if test="${numParentReviews gt 0}">
+                                    <c:choose>
+                                        <c:when test="${fn:contains(reviewsByCsv,'p')}">
+                                            <input type="checkbox" id="showParents" checked="checked"
+                                                   onclick="filter()"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="checkbox" id="showParents" onclick="filter()"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <label for="showParents">Parents</label>
+                                </c:if>
+                                <c:if test="${numStudentReviews gt 0}">
+                                    <c:choose>
+                                        <c:when test="${fn:contains(reviewsByCsv,'s')}">
+                                            <input type="checkbox" id="showStudents" checked="checked"
+                                                   onclick="filter()"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="checkbox" id="showStudents" onclick="filter()"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <label for="showStudents">Students</label>
+                                </c:if>
+                                <c:if test="${numTeacherStaffReviews gt 0}">
+                                    <c:choose>
+                                        <c:when test="${fn:contains(reviewsByCsv,'t')}">
+                                            <input type="checkbox" id="showTeachers" checked="checked"
+                                                   onclick="filter()"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="checkbox" id="showTeachers" onclick="filter()"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <label for="showTeachers">Teachers/Staff</label>
+                                </c:if>
+                            </form>
+                        </div>
+                    </c:if>
+                </div>
 
                 <c:set var="parentReviewsStart" value="0"/>
                 <c:if test="${cmd.reviews[0].who eq 'principal'}">
                     <c:set var="parentReviewsStart" value="1"/>
                 </c:if>
-                <c:forEach var="review" items="${cmd.reviews}" begin="${parentReviewsStart}">
-                    <pg:item>
+                <c:forEach var="review" items="${reviewsToShow}" begin="${parentReviewsStart}">
                         <c:set var="who" value=""/>
                         <c:if test="${!(empty(review.who) or review.who eq 'other')}">
                             <c:set var="who" value="${review.who}"/>
@@ -472,21 +449,12 @@
 
                         </div>
                         <!-- end: review -->
-                    </pg:item>
                 </c:forEach>
 
-            </pg:pager>
-
             <div class="spacer_10"><!-- do not collapse --></div>
+
             <div>
-                <div class="pagination">
-                    <span class="prv_nxt">&amp;laquo; Prev</span>
-                    <span onclick="page(0);" class="pager-tab active">1</span>
-                    <span onclick="page(4)" class="pager-tab">2</span>
-                    <span onclick="page(8)" class="pager-tab">3</span>
-                    <span onclick="page(12)" class="pager-tab">4</span>
-                    <span class="prv_nxt">Next &amp;raquo;</span>
-                </div>
+                ${reviewsPagination}
             </div>
 
             <div class="spacer_10"><!-- do not collapse --></div>

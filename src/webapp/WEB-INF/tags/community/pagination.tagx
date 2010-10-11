@@ -14,6 +14,8 @@
     <!-- Optional attributes for CSS class names -->
     <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"
                              description="Class for the div that wraps the pagination."/>
+    <jsp:directive.attribute name="pageNumberStyleClass" required="false" type="java.lang.String"
+                             description="Class for the span that wraps an individual page number."/>
 
     <c:if test="${pageScope.totalPages gt 1}">
         <div class="${pageScope.styleClass}">
@@ -51,10 +53,10 @@
             <c:forEach begin="${pageScope.firstPageInSeries}" end="${pageScope.lastPageInSeries}" var="pageNum" varStatus="status">
                 <c:choose>
                     <c:when test="${pageScope.pageNum == pageScope.page}">
-                        <span class="active">${pageScope.pageNum}</span>
+                        <span class="active ${pageNumberStyleClass}">${pageScope.pageNum}</span>
                     </c:when>
                     <c:otherwise>
-                        <span><a
+                        <span class="${pageNumberStyleClass}"><a
                                 href="${pageScope.url}&amp;amp;page=${pageScope.pageNum}">${pageScope.pageNum}</a></span>
                     </c:otherwise>
                 </c:choose>
@@ -62,7 +64,7 @@
 
             <c:if test="${pageScope.totalPages gt 5 and (page lt 5 or page le pageScope.totalPages - 4)}">
                 <span class="ellipsis">...</span> 
-                <span> <a
+                <span class="${pageNumberStyleClass}"> <a
                         href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}">${pageScope.totalPages}</a></span>
             </c:if>
 

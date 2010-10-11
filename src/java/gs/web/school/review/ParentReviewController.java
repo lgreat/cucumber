@@ -40,10 +40,12 @@ public class ParentReviewController extends AbstractController {
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
+    protected static final String PARAM_PAGE = "page";
     protected static final String PARAM_SORT_BY = "sortBy";
     protected static final String PARAM_PAGER_OFFSET = "pager.offset";
     protected static final String PARAM_VIEW_ALL = "lr";
     protected static final String PARAM_REVIEWS_BY = "reviewsBy";
+    protected static final String MODEL_URI = "uri";
 
     //Compare on who, then overall rating descending, then date posted descending
     private static final Comparator<Review> PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
@@ -126,6 +128,7 @@ public class ParentReviewController extends AbstractController {
                 model.put("numTeacherStaffReviews", numTeacherStaffReviews);
             }
             model.put("reviewsByCsv", reviewsByCsv);
+            model.put(MODEL_URI, request.getRequestURI());
 
             ParentReviewCommand cmd = new ParentReviewCommand();
 
@@ -157,6 +160,8 @@ public class ParentReviewController extends AbstractController {
             cmd.setReviews(reviews);
             cmd.setTotalReviews(numberOfNonPrincipalReviews.intValue());
             cmd.setCurrentDate(new Date());
+
+            model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
 
             if(user != null && PageHelper.isMemberAuthorized(request)){
                 model.put("reviewReports", getReportsForReviews(user, reviews));
@@ -190,9 +195,51 @@ public class ParentReviewController extends AbstractController {
             model.put("param_sortby", PARAM_SORT_BY);
             model.put("param_reviewsby", PARAM_REVIEWS_BY);
 
+            // reviews to show
+            List<Review> reviewsToShow;
+            int page = 1;
+            if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
+                reviewsToShow = reviews;
+            } else {
+                String pageParam = request.getParameter(PARAM_PAGE);
+                if (pageParam != null) {
+                    try {
+                        page = Integer.parseInt(pageParam);
+                    } catch (Exception e) {
+                        // do nothing
+                    }
+                }
+                int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
+                int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
+
+                if ("principal".equals(reviews.get(0).getWho())) {
+                    fromIndex++;
+                    toIndex++;
+                }
+
+                toIndex = Math.min(toIndex,reviews.size()-1);
+
+                reviewsToShow = reviews.subList(fromIndex, toIndex);
+            }
+            model.put("reviewsToShow", reviewsToShow);
+            model.put("page", page);
+
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    protected static int getReviewsTotalPages(int numReviews) {
+        int totalPages;
+        if (numReviews > 0) {
+            totalPages = numReviews / MAX_REVIEWS_PER_PAGE;
+            if (numReviews % MAX_REVIEWS_PER_PAGE > 0) {
+                totalPages++;
+            }
+        } else {
+            totalPages = 1;
+        }
+        return totalPages;
     }
 
     private static String getReviewsByCsv(Set<Poster> reviewsBy) {
