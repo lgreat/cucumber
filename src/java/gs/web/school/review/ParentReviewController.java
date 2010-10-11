@@ -105,9 +105,26 @@ public class ParentReviewController extends AbstractController {
                 numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
             }
 
-            model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
-            model.put("numStudentReviews", numReviewsBy.get(Poster.STUDENT));
-            model.put("numTeacherStaffReviews", numReviewsBy.get(Poster.TEACHER) + numReviewsBy.get(Poster.STAFF) + numReviewsBy.get(Poster.ADMINISTRATOR));
+            if (numReviewsBy != null) {
+                model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
+                model.put("numStudentReviews", numReviewsBy.get(Poster.STUDENT));
+
+                int numTeacherStaffReviews = 0;
+                Integer numTeacherReviews = numReviewsBy.get(Poster.TEACHER);
+                if (numTeacherReviews != null) {
+                    numTeacherStaffReviews += numTeacherReviews;
+                }
+                Integer numStaffReviews = numReviewsBy.get(Poster.STAFF);
+                if (numStaffReviews != null) {
+                    numTeacherStaffReviews += numStaffReviews;
+                }
+                Integer numAdminReviews = numReviewsBy.get(Poster.ADMINISTRATOR);
+                if (numAdminReviews != null) {
+                    numTeacherStaffReviews += numAdminReviews;
+                }
+
+                model.put("numTeacherStaffReviews", numTeacherStaffReviews);
+            }
             model.put("reviewsByCsv", reviewsByCsv);
 
             ParentReviewCommand cmd = new ParentReviewCommand();

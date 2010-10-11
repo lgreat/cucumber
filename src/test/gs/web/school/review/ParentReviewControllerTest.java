@@ -13,8 +13,7 @@ import org.easymock.MockControl;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.easymock.EasyMock.*;
 
@@ -70,17 +69,21 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         reviews.add(r2);
         reviews.add(r1);
 
+        Map numReviewsBy = new HashMap<Poster,Integer>();
+
         super.setUp();
         _controller = (ParentReviewController)getApplicationContext().getBean(ParentReviewController.BEAN_ID);
 
         Ratings ratings = new Ratings();
         ratings.setCount(10);
 
-        expect(reviewDao.getPublishedReviewsBySchool(isA(School.class))).andReturn(reviews).times(1,3);
+        expect(reviewDao.getPublishedReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(reviews).times(1,3);
+
+        expect(reviewDao.getNumPublishedReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(numReviewsBy).times(1,3);
         
         expect(reviewDao.findRatingsBySchool(isA(School.class))).andReturn(ratings).times(1,3);
 
-        expect(reviewDao.countPublishedNonPrincipalReviewsBySchool(isA(School.class))).andReturn(new Long(4l)).times(1,3);
+        expect(reviewDao.countPublishedNonPrincipalReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(new Long(4l)).times(1,3);
 
         _controller.setReviewDao(reviewDao);
         School school = new School();
