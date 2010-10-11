@@ -136,13 +136,13 @@
                             not empty cmd.ratings.avgPrincipal
                          or not empty cmd.ratings.avgTeachers
                          or not empty cmd.ratings.avgParents}"/>
-<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>
+<!--<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>-->
 <c:choose>
     <c:when test="${requestScope.context.showReviewsPageRedesign}">
-        <p>the new redesign code goes here</p>
-        <p>Overall rating is: <c:out value="${cmd.ratings.overall}" default="not set"/></p>
-        <p>Number of ratings is: <c:out value="${cmd.ratings.count}" default="not set"/></p>
-        <p>Number of reviews is: <c:out value="${cmd.totalReviews}" default="not set"/></p>
+        <!--<p>the new redesign code goes here</p>-->
+        <!--<p>Overall rating is: <c:out value="${cmd.ratings.overall}" default="not set"/></p>-->
+        <!--<p>Number of ratings is: <c:out value="${cmd.ratings.count}" default="not set"/></p>-->
+        <!--<p>Number of reviews is: <c:out value="${cmd.totalReviews}" default="not set"/></p>-->
         <div id="reviewContainer" class="clearfix">
             <div id="reviewColumn1">
                 <div id="reviewOverallRating">
@@ -499,7 +499,7 @@
         <!-- end reviewContainer -->
     </c:when>
     <c:otherwise>
-        <p>the old code goes here</p>
+        <!--<p>the old code goes here</p>-->
 
 <div id="parentReview">
 <school:parentReviewThankYou schoolName="${school.name}"/>

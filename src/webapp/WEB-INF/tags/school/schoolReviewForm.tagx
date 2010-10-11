@@ -6,7 +6,8 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:gsweb="gstaglib">
+          xmlns:gsweb="gstaglib"
+        >
     <jsp:directive.tag import="gs.data.school.Grades"/>
     <jsp:directive.tag import="gs.data.school.Grade"/>
 
@@ -28,121 +29,87 @@
     request.setAttribute("schoolReviewShowStudent", showStudent);
 </jsp:scriptlet>
 
-<c:set var="mainColumnId" value="col_center"/>
-<c:set var="divClass" value=""/>
-<c:choose>
-    <c:when test="${pageName eq 'parentReviews'}">
-        <c:set var="mainColumnId" value="col_left"/>
-        <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true" value="Rate &amp; Review ${school.name}"/>
-        </h2>
-    </c:when>
-    <c:when test="${pageName eq 'overview'}">
-        <c:set var="divClass" value="overview"/>
-    </c:when>
-</c:choose>
+<!--<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>-->
 
-<!-- Force recalculation of column heights -->
-<script type="text/javascript">
-    function GS_resizeColumns() {
-        //document.getElementById('${mainColumnId}').style.height = null;
-        //document.getElementById('col_right').style.height = null;
-        //BoxHeights.equalize('${mainColumnId}','col_right');
-    }
+    <c:choose>
+    <c:when test="${requestScope.context.showReviewsPageRedesign}">
+        <!--<p>the new redesign code goes here</p>-->
 
-    jQuery(function () {
-        jQuery('#espLink').click(function() {
-            var schoolId = '${school.id}';
-            var schoolState = '${school.databaseState}';
-
-            if (s.tl) {s.tl(this,'o', 'PrincipalUpdate_Parent_Reviews');}
-            
-            pageTracking.pageName =  "School Officials Pre Signup Hover";
-            pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
-            pageTracking.server = "www.greatschools.org";
-            pageTracking.send();
-
-            GSType.hover.principalConfirmation.show(schoolId, schoolState);
-
-            return false;
-         });
-    });
-</script>
-
-<div id="rateReview" class="noprint ${divClass}">
-    <div id="ratingTitle">Rate this school</div>
-    <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
-        <!--Begin star ratings.
-            Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
-            But because this page may load slowly, that's not an option.
-        -->
-        <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
-        <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
-        <ul class="star-rating large-star">
-            <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
-            <li><a href="#"
-                   title="1 star out of 5"
-                   class="one-star"
-                   onclick="this.hideFocus=true;setStars(1);return false;"
-                   onmouseover="showStars(1);"
-                   onmouseout="resetStars();"
-                    >1</a></li>
-            <li><a href="#" title="2 stars out of 5" class="two-stars"
-                   onclick="this.hideFocus=true;setStars(2);return false;"
-                   onmouseover="showStars(2);"
-                   onmouseout="resetStars();"
-                    >2</a></li>
-            <li><a href="#" title="3 stars out of 5" class="three-stars"
-                   onclick="this.hideFocus=true;setStars(3);return false;"
-                   onmouseover="showStars(3);"
-                   onmouseout="resetStars();"
-                    >3</a></li>
-            <li><a href="#" title="4 stars out of 5" class="four-stars"
-                   onclick="this.hideFocus=true;setStars(4);return false;"
-                   onmouseover="showStars(4);"
-                   onmouseout="resetStars();"
-                    >4</a></li>
-            <li><a href="#" title="5 stars out of 5" class="five-stars"
-                   onclick="this.hideFocus=true;setStars(5);return false;"
-                   onmouseover="showStars(5);"
-                   onmouseout="resetStars();"
-                    >5</a></li>
-        </ul>
-        <!-- end star ratings -->
-        <div class="errors overallError" style="display:none;">
-            <span class="error">Please select a star rating for this school.</span>
-        </div>
-
-        <input type="hidden" name="id" value="${schoolId}"/>
-        <input type="hidden" name="state" value="${state}"/>
-        <input type="hidden" name="source" value="${pageName}"/>
-        <input type="hidden" name="email" value="${requestScope.context.email}"/>
-
-        <div id="userInput">
-            <textarea id="reviewText"
-                      name="comments"
-                      onkeyup="countWords(this)"
-                      onkeydown="countWords(this)"
-                      onfocus="if(this.value=='Enter your review here'){this.value='';}"
-                      rows="" cols="">Enter your review here</textarea>
-
-            <c:if test="${pageName eq 'parentReviews'}">
-                <div class="greatSchoolNotes">
-                    <div>A great school has...</div>
-                    <ul>
-                        <li><span>Excellent teachers</span></li>
-                        <li><span>Strong principal/school leadership</span></li>
-                        <li><span>Challenging academic programs</span></li>
+        <div class="spacer_10"><!-- do not collapse --></div>
+        <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
+            <fieldset class="fieldset2 bg-fff"><!-- do not collapse --></fieldset>
+            <ol class="formlist2">
+                <!--Begin star ratings.
+                        Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
+                        But because this page may load slowly, that's not an option.
+                    -->
+                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+                <li class="fl2-item">
+                    <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+                    <h4 class="subhead6 label3">Rate this school <em
+                            class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></h4>
+                    <ul class="star-rating large-star">
+                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                        <li><a href="#"
+                               title="1 star out of 5"
+                               class="one-star"
+                               onclick="this.hideFocus=true;setStars(1);return false;"
+                               onmouseover="showStars(1);"
+                               onmouseout="resetStars();"
+                                >1</a></li>
+                        <li><a href="#" title="2 stars out of 5" class="two-stars"
+                               onclick="this.hideFocus=true;setStars(2);return false;"
+                               onmouseover="showStars(2);"
+                               onmouseout="resetStars();"
+                                >2</a></li>
+                        <li><a href="#" title="3 stars out of 5" class="three-stars"
+                               onclick="this.hideFocus=true;setStars(3);return false;"
+                               onmouseover="showStars(3);"
+                               onmouseout="resetStars();"
+                                >3</a></li>
+                        <li><a href="#" title="4 stars out of 5" class="four-stars"
+                               onclick="this.hideFocus=true;setStars(4);return false;"
+                               onmouseover="showStars(4);"
+                               onmouseout="resetStars();"
+                                >4</a></li>
+                        <li><a href="#" title="5 stars out of 5" class="five-stars"
+                               onclick="this.hideFocus=true;setStars(5);return false;"
+                               onmouseover="showStars(5);"
+                               onmouseout="resetStars();"
+                                >5</a></li>
                     </ul>
-                </div>
-            </c:if>
+                    <!-- end star ratings -->
+                    <strong class="errorMessage1 formErrorText">
+                        <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;Please select a star rating for this school.
+                    </strong>
+                </li>
 
-            <div class="errors whoError" style="display:none;">
-                <span class="error">Please identify how you are affiliated with this school.</span>
-            </div>
-            <ul id="nonCommentInput">
-                <li>
-                    <label>I am a:</label>
-                    <select name="posterAsString">
+                <input type="hidden" name="id" value="${schoolId}"/>
+                <input type="hidden" name="state" value="${state}"/>
+                <input type="hidden" name="source" value="${pageName}"/>
+                <input type="hidden" name="email" value="${requestScope.context.email}"/>
+
+                <li class="fl2-item">
+                    <textarea id="reviewText"
+                              class="text1-ededed text3"
+                              name="comments"
+                              onkeyup="countWords(this)"
+                              onkeydown="countWords(this)"
+                              onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                              rows="" cols="">[Enter your review here]</textarea>
+                </li>
+                <li class="fl2-item">
+                    <label for="email" class="label3">Email<em
+                            class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></label>
+                    <input id="email" name="email" class="text1-ededed text3" type="text"/>
+                    <strong class="errorMessage1 formErrorText">
+                        <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;Please enter your email.
+                    </strong>
+                </li>
+                <li class="fl2-item">
+                    <label for="affiliation" class="label3">I am a:<em
+                            class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></label>
+                    <select id="affiliation" name="posterAsString">
                         <option value="" selected="selected">- Select one -</option>
                         <option value="parent">parent</option>
                         <c:if test="${schoolReviewShowStudent}">
@@ -151,27 +118,32 @@
                         <option value="teacher">teacher/staff member</option>
                         <option value="other">other</option>
                     </select>
+                    <strong class="errorMessage1 formErrorText">
+                        <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;Please let us know how you are affiliated with this school.
+                    </strong>
                 </li>
-
-                <li>
+                <li class="fl2-item">
                     <ul class="subStarRatings" style="display:none;">
                         <li>
                             <div class="ratingCategoryPrompt">How do you rate this school in these additional areas?</div>
                         </li>
                         <li class="student_only">
                             <div class="catRatingLabel">Teacher quality</div>
-                            <div class="catRating"><gsml:starRating id="teacherAsString" additionalClass="med-star"/></div>
+                            <div class="catRating"><gsml:starRating id="teacherAsString"
+                                                                    additionalClass="med-star"/></div>
                         </li>
                         <c:if test="${school.levelCode ne 'p'}">
                             <li>
                                 <div class="catRatingLabel">Principal leadership</div>
-                                <div class="catRating"><gsml:starRating id="principalAsString" additionalClass="med-star"/>
+                                <div class="catRating"><gsml:starRating id="principalAsString"
+                                                                        additionalClass="med-star"/>
                                 </div>
                             </li>
                         </c:if>
                         <li>
                             <div class="catRatingLabel">Parent involvement</div>
-                            <div class="catRating"><gsml:starRating id="parentAsString" additionalClass="med-star"/></div>
+                            <div class="catRating"><gsml:starRating id="parentAsString"
+                                                                    additionalClass="med-star"/></div>
                         </li>
                         <c:if test="${school.levelCode eq 'p'}">
                             <li>
@@ -183,37 +155,234 @@
                         </c:if>
                     </ul>
                 </li>
+                <li class="fl2-item">
+                    <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
+                    <label for="terms" class="smallText1">I agree to the <a href="#">GreatSchools Terms of Use</a> and <a href="#">School Review Guidelines</a>.<em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></label>
+                    <strong class="errorMessage1 formErrorText">
+                        <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;Please read and accept our Terms of Use to join GreatSchools.
+                    </strong>
+                </li>
+                <li class="fl2-item">
+                    <input id="updates" name="updates" class="checkbox" type="checkbox" value="1" checked="checked"/>
+                    <label for="updates" class="smallText1">Send me periodic updates about ${school.name}</label>
+                </li>
+            </ol>
+            <br class="clearfloat"/>
+            <fieldset>
+                <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
+                </button>
+            </fieldset>
+            <br class="clearfloat"/>
+        </gsweb:form>
 
-                <li>
-                    <button class="btn25 continueButton" type="submit">
+        <div class="helperMessage3 formText1">
+            <span class="sprite i-required"><!-- do not collapse --></span>&amp;nbsp;Indicates a required field
+        </div>
+    </c:when>
+
+        <c:otherwise>
+            <!--<p>the old code goes here</p>-->
+
+            <c:set var="mainColumnId" value="col_center"/>
+            <c:set var="divClass" value=""/>
+            <c:choose>
+                <c:when test="${pageName eq 'parentReviews'}">
+                    <c:set var="mainColumnId" value="col_left"/>
+
+                    <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true"
+                                                                 value="Rate &amp; Review ${school.name}"/>
+                    </h2>
+                </c:when>
+                <c:when test="${pageName eq 'overview'}">
+                    <c:set var="divClass" value="overview"/>
+                </c:when>
+            </c:choose>
+
+            <!-- Force recalculation of column heights -->
+            <script type="text/javascript">
+                function GS_resizeColumns() {
+                    //document.getElementById('${mainColumnId}').style.height = null;
+                    //document.getElementById('col_right').style.height = null;
+                    //BoxHeights.equalize('${mainColumnId}','col_right');
+                }
+
+                jQuery(function () {
+                    jQuery('#espLink').click(function() {
+                        var schoolId = '${school.id}';
+                        var schoolState = '${school.databaseState}';
+
+                        if (s.tl) {
+                            s.tl(this, 'o', 'PrincipalUpdate_Parent_Reviews');
+                        }
+
+                        pageTracking.pageName = "School Officials Pre Signup Hover";
+                        pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
+                        pageTracking.server = "www.greatschools.org";
+                        pageTracking.send();
+
+                        GSType.hover.principalConfirmation.show(schoolId, schoolState);
+
+                        return false;
+                    });
+                });
+            </script>
+
+            <div id="rateReview" class="noprint ${divClass}">
+                <div id="ratingTitle">Rate this school</div>
+                <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
+                    <!--Begin star ratings.
+                        Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
+                        But because this page may load slowly, that's not an option.
+                    -->
+                    <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+                    <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+                    <ul class="star-rating large-star">
+                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                        <li><a href="#"
+                               title="1 star out of 5"
+                               class="one-star"
+                               onclick="this.hideFocus=true;setStars(1);return false;"
+                               onmouseover="showStars(1);"
+                               onmouseout="resetStars();"
+                                >1</a></li>
+                        <li><a href="#" title="2 stars out of 5" class="two-stars"
+                               onclick="this.hideFocus=true;setStars(2);return false;"
+                               onmouseover="showStars(2);"
+                               onmouseout="resetStars();"
+                                >2</a></li>
+                        <li><a href="#" title="3 stars out of 5" class="three-stars"
+                               onclick="this.hideFocus=true;setStars(3);return false;"
+                               onmouseover="showStars(3);"
+                               onmouseout="resetStars();"
+                                >3</a></li>
+                        <li><a href="#" title="4 stars out of 5" class="four-stars"
+                               onclick="this.hideFocus=true;setStars(4);return false;"
+                               onmouseover="showStars(4);"
+                               onmouseout="resetStars();"
+                                >4</a></li>
+                        <li><a href="#" title="5 stars out of 5" class="five-stars"
+                               onclick="this.hideFocus=true;setStars(5);return false;"
+                               onmouseover="showStars(5);"
+                               onmouseout="resetStars();"
+                                >5</a></li>
+                    </ul>
+                    <!-- end star ratings -->
+                    <div class="errors overallError" style="display:none;">
+                        <span class="error">Please select a star rating for this school.</span>
+                    </div>
+
+                    <input type="hidden" name="id" value="${schoolId}"/>
+                    <input type="hidden" name="state" value="${state}"/>
+                    <input type="hidden" name="source" value="${pageName}"/>
+                    <input type="hidden" name="email" value="${requestScope.context.email}"/>
+
+                    <div id="userInput">
+                        <textarea id="reviewText"
+                                  name="comments"
+                                  onkeyup="countWords(this)"
+                                  onkeydown="countWords(this)"
+                                  onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                                  rows="" cols="">Enter your review here</textarea>
+
+                        <c:if test="${pageName eq 'parentReviews'}">
+                            <div class="greatSchoolNotes">
+                                <div>A great school has...</div>
+                                <ul>
+                                    <li><span>Excellent teachers</span></li>
+                                    <li><span>Strong principal/school leadership</span></li>
+                                    <li><span>Challenging academic programs</span></li>
+                                </ul>
+                            </div>
+                        </c:if>
+
+                        <div class="errors whoError" style="display:none;">
+                            <span class="error">Please identify how you are affiliated with this school.</span>
+                        </div>
+                        <ul id="nonCommentInput">
+                            <li>
+                                <label>I am a:</label>
+                                <select name="posterAsString">
+                                    <option value="" selected="selected">- Select one -</option>
+                                    <option value="parent">parent</option>
+                                    <c:if test="${schoolReviewShowStudent}">
+                                        <option value="student">student</option>
+                                    </c:if>
+                                    <option value="teacher">teacher/staff member</option>
+                                    <option value="other">other</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <ul class="subStarRatings" style="display:none;">
+                                    <li>
+                                        <div class="ratingCategoryPrompt">How do you rate this school in these additional areas?</div>
+                                    </li>
+                                    <li class="student_only">
+                                        <div class="catRatingLabel">Teacher quality</div>
+                                        <div class="catRating"><gsml:starRating id="teacherAsString"
+                                                                                additionalClass="med-star"/></div>
+                                    </li>
+                                    <c:if test="${school.levelCode ne 'p'}">
+                                        <li>
+                                            <div class="catRatingLabel">Principal leadership</div>
+                                            <div class="catRating"><gsml:starRating id="principalAsString"
+                                                                                    additionalClass="med-star"/>
+                                            </div>
+                                        </li>
+                                    </c:if>
+                                    <li>
+                                        <div class="catRatingLabel">Parent involvement</div>
+                                        <div class="catRating"><gsml:starRating id="parentAsString"
+                                                                                additionalClass="med-star"/></div>
+                                    </li>
+                                    <c:if test="${school.levelCode eq 'p'}">
+                                        <li>
+                                            <div class="catRatingLabel">Facilities &amp;amp; equipment</div>
+                                            <div class="catRating"><gsml:starRating id="pFacilitiesAsString"
+                                                                                    additionalClass="med-star"/>
+                                            </div>
+                                        </li>
+                                    </c:if>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <button class="btn25 continueButton" type="submit">
                             <span class="lftDoor25">
                                 <span class="rtDoor25">Continue</span>
                             </span>
-                    </button>
-                    <link:parentRatingsExplained
-                            preschool="${school.levelCode eq 'p'}" styleClass="moreAboutRatings hidden"
-                            onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;"
-                            target="_blank">More about these categories</link:parentRatingsExplained>
-                </li>
-            </ul>
-        </div>
-    </gsweb:form>
+                                </button>
+                                <link:parentRatingsExplained
+                                        preschool="${school.levelCode eq 'p'}" styleClass="moreAboutRatings hidden"
+                                        onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;"
+                                        target="_blank">More about these categories</link:parentRatingsExplained>
+                            </li>
+                        </ul>
+                    </div>
+                </gsweb:form>
 
-    <link:parentReviewGuidelines onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
-                                 styleClass="linkGuidelines">School review guidelines <span class="go">&amp;#187;</span></link:parentReviewGuidelines>
+                <link:parentReviewGuidelines
+                        onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
+                        styleClass="linkGuidelines">School review guidelines <span
+                        class="go">&amp;#187;</span></link:parentReviewGuidelines>
 
-    <c:if test="${school.levelCode != 'p'}">
-        <div id="espLink">
-            PRINCIPALS AND SCHOOL OFFICIALS: <a href="#" class="no_interrupt">Share your point of view<span class="go">&amp;#187;</span></a>
-        </div>
-    </c:if>
+                <c:if test="${school.levelCode != 'p'}">
+                    <div id="espLink">
+                        PRINCIPALS AND SCHOOL OFFICIALS: <a href="#" class="no_interrupt">Share your point of view<span
+                            class="go">&amp;#187;</span></a>
+                    </div>
+                </c:if>
 
-    <div class="commentsPopup">
-        <div class="commentsPopupHeader">Don't forget</div>
-        <div class="">GreatSchools discourages reviews that contain inappropriate language,
-            allegations of criminal conduct, or identify students, teachers,
-            or staff by name.
-        </div>
-    </div>
-</div>
+                <div class="commentsPopup">
+                    <div class="commentsPopupHeader">Don't forget</div>
+                    <div class="">GreatSchools discourages reviews that contain inappropriate language,
+                        allegations of criminal conduct, or identify students, teachers,
+                        or staff by name.
+                    </div>
+                </div>
+            </div>
+
+        </c:otherwise>
+    </c:choose>
+
 </jsp:root>

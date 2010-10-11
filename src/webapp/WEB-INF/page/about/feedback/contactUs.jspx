@@ -10,7 +10,8 @@
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
-          xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:form="http://www.springframework.org/tags/form"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"

@@ -15,11 +15,11 @@ Parent Review Page
     text-decoration: underline;
 }
 
-input, form, textarea, select{
+/*input, form, textarea, select{
     font-size:12px;
     font-family: Arial, sans-serif;
     color:#666;
-}
+}*/
 
 
 
@@ -161,9 +161,9 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
     color: #333;
 }
 
-.large-star{
+/*.large-star{
     left: 148px;
-}
+}*/
 
 #parentReview #userInput {
     margin-top:10px;
