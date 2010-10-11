@@ -5,6 +5,7 @@ import gs.data.community.ReportedEntity;
 import gs.data.community.User;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Poster;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.security.Permission;
@@ -42,6 +43,7 @@ public class ParentReviewController extends AbstractController {
     protected static final String PARAM_SORT_BY = "sortBy";
     protected static final String PARAM_PAGER_OFFSET = "pager.offset";
     protected static final String PARAM_VIEW_ALL = "lr";
+    protected static final String PARAM_REVIEWS_BY = "reviewsBy";
 
     //Compare on who, then overall rating descending, then date posted descending
     private static final Comparator<Review> PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
@@ -89,12 +91,25 @@ public class ParentReviewController extends AbstractController {
                     }
                 }
             }
+
+            Set<Poster> reviewsBy = getReviewsBy(request);
+            String reviewsByCsv = getReviewsByCsv(reviewsBy);
+            Map<Poster,Integer> numReviewsBy;
+
             List<Review> reviews;
             if (!includeInactive) {
-                reviews = _reviewDao.getPublishedReviewsBySchool(school);
+                reviews = _reviewDao.getPublishedReviewsBySchool(school, reviewsBy);
+                numReviewsBy = _reviewDao.getNumPublishedReviewsBySchool(school, reviewsBy);
             } else {
-                reviews = _reviewDao.getPublishedDisabledReviewsBySchool(school);
+                reviews = _reviewDao.getPublishedDisabledReviewsBySchool(school, reviewsBy);
+                numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
             }
+
+            model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
+            model.put("numStudentReviews", numReviewsBy.get(Poster.STUDENT));
+            model.put("numTeacherStaffReviews", numReviewsBy.get(Poster.TEACHER) + numReviewsBy.get(Poster.STAFF) + numReviewsBy.get(Poster.ADMINISTRATOR));
+            model.put("reviewsByCsv", reviewsByCsv);
+
             ParentReviewCommand cmd = new ParentReviewCommand();
 
             Ratings ratings = _reviewDao.findRatingsBySchool(school);            
@@ -119,7 +134,7 @@ public class ParentReviewController extends AbstractController {
                 paramSortBy = "dd";
             }
 
-            Long numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
+            Long numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school, reviewsBy);
             cmd.setSortBy(paramSortBy);
             cmd.setSchool(school);
             cmd.setReviews(reviews);
@@ -156,10 +171,75 @@ public class ParentReviewController extends AbstractController {
                         
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);
+            model.put("param_reviewsby", PARAM_REVIEWS_BY);
 
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    private static String getReviewsByCsv(Set<Poster> reviewsBy) {
+        int numMatched = 0;
+        StringBuilder s = new StringBuilder();
+        if (reviewsBy.contains(Poster.PARENT)) {
+            s.append("p");
+            numMatched++;
+        }
+        if (reviewsBy.contains(Poster.STUDENT)) {
+            if (s.length() > 0) {
+                s.append(",");
+            }
+            s.append("s");
+            numMatched++;
+        }
+        if (reviewsBy.contains(Poster.TEACHER) || reviewsBy.contains(Poster.STAFF) ||
+            reviewsBy.contains(Poster.ADMINISTRATOR)) {
+            if (s.length() > 0) {
+                s.append(",");
+            }
+            s.append("t");
+            numMatched++;
+        }
+
+        if (numMatched == 0) {
+            return null;
+        }
+
+        return s.toString();
+    }
+
+    private static Set<Poster> getReviewsBy(HttpServletRequest request) {
+        Set<Poster> reviewsBy = new HashSet<Poster>();
+        /**
+         * p - parents
+         * s - students
+         * t - teachers/staff
+         * a - all
+         */
+        String paramReviewsBy = request.getParameter(PARAM_REVIEWS_BY);
+        if (StringUtils.isBlank(paramReviewsBy)) {
+            paramReviewsBy = "a";
+        }
+        String[] reviewsByArr = StringUtils.split(paramReviewsBy, ",");
+        Set<String> reviewsBySet = new HashSet<String>(Arrays.asList(reviewsByArr));
+
+        if (reviewsBySet.contains("a")) {
+            return reviewsBy;
+        }
+
+        if (reviewsBySet.contains("p")) {
+            reviewsBy.add(Poster.PARENT);
+        }
+        if (reviewsBySet.contains("s")) {
+            reviewsBy.add(Poster.STUDENT);
+        }
+        if (reviewsBySet.contains("t")) {
+            reviewsBy.add(Poster.TEACHER);
+            reviewsBy.add(Poster.STAFF);
+            reviewsBy.add(Poster.ADMINISTRATOR);
+        }
+
+        return reviewsBy;
     }
 
     private Map<Integer, Boolean> getReportsForReviews(User user, List<Review> reviews) {

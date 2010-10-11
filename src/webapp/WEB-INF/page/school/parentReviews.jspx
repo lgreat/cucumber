@@ -17,6 +17,7 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
@@ -36,18 +37,49 @@
 
     <title>Parent Reviews of ${school.name} - ${addr}</title>
     <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
+    <c:set var="reviewsByParam"><c:if test="${fn:length(reviewsByCsv) gt 0}"> + '&amp;${param_reviewsby}=${reviewsByCsv}'</c:if></c:set>
     <![CDATA[<script type="text/javascript"><!--]]>
-    function getReviewsBy() {
+    <c:choose>
+    <c:when test="${requestScope.context.showReviewsPageRedesign}">
+    <![CDATA[
+    function getReviewsByCsv() {
+        var p = document.getElementById('showParents');
+        var s = document.getElementById('showStudents');
+        var t = document.getElementById('showTeachers');
+        var csv = '';
+        if (p != null && p.checked) {
+            csv += 'p';
+        }
+        if (s != null && s.checked) {
+            if (csv != '') {
+                csv += ',';
+            }
+            csv += 's';
+        }
+        if (t != null && t.checked) {
+            if (csv != '') {
+                csv += ',';
+            }
+            csv += 't';
+        }
+        return csv;
     }
     function go(box) {
-    option = box.options[box.selectedIndex].value;
-    if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
-    //if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option + '&amp;{param_reviewsby}=';
+        option = box.options[box.selectedIndex].value;
+        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option${reviewsByParam};
     }
-    function filter(box) {
-    option = box.options[box.selectedIndex].value;
-    if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;{param_reviewsby}=' + option;
+    function filter() {
+        location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=' + getReviewsByCsv();
     }
+    ]]>
+    </c:when>
+    <c:otherwise>
+        function go(box) {
+        option = box.options[box.selectedIndex].value;
+        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
+        }        
+    </c:otherwise>
+    </c:choose>
     <![CDATA[--></script>]]>
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -257,17 +289,46 @@
                         <form:option value="ra">Rating: lowest to highest</form:option>
                     </form:select>
                 </div>
-                <div id="typeSort" class="unit size3of5 lastUnit">
-                    <form id="showReviews" class="smallText1" onclick="go(this);">
-                        <span>Show reviews by: </span>
-                        <input type="checkbox" id="showParents" checked="cheched"/>
-                        <label for="showParents">Parents</label>
-                        <input type="checkbox" id="showStudents" checked="cheched"/>
-                        <label for="showStudents">Students</label>
-                        <input type="checkbox" id="showTeachers" checked="cheched"/>
-                        <label for="showTeachers">Teachers/Staff</label>
-                    </form>
-                </div>
+                <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
+                    <div id="typeSort" class="unit size3of5 lastUnit">
+                        <form id="showReviews" class="smallText1" onclick="go(this);" action="">
+                            <span>Show reviews by: </span>
+                            <c:if test="${numParentReviews gt 0}">
+                                <c:choose>
+                                    <c:when test="${fn:contains(reviewsByCsv,'p')}">
+                                        <input type="checkbox" id="showParents" checked="checked" onclick="filter()"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" id="showParents" onclick="filter()"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <label for="showParents">Parents</label>
+                            </c:if>
+                            <c:if test="${numStudentReviews gt 0}">
+                                <c:choose>
+                                    <c:when test="${fn:contains(reviewsByCsv,'s')}">
+                                        <input type="checkbox" id="showStudents" checked="checked" onclick="filter()"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" id="showStudents" onclick="filter()"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <label for="showStudents">Students</label>
+                            </c:if>
+                            <c:if test="${numTeacherStaffReviews gt 0}">
+                                <c:choose>
+                                    <c:when test="${fn:contains(reviewsByCsv,'t')}">
+                                        <input type="checkbox" id="showTeachers" checked="checked" onclick="filter()"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="checkbox" id="showTeachers" onclick="filter()"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <label for="showTeachers">Teachers/Staff</label>
+                            </c:if>
+                        </form>
+                    </div>
+                </c:if>
             </div>
 
             <pg:pager
