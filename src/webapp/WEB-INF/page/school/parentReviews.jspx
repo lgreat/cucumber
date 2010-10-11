@@ -262,9 +262,13 @@
             <div class="spacer_15"><!-- do not collapse --></div>
 
                 <c:set var="reviewsPagination">
+                    <c:set var="paginationUrl"><c:choose>
+                        <c:when test="${empty reviewsByCsv}">${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}</c:when>
+                        <c:otherwise>${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=${reviewsByCsv}</c:otherwise>
+                    </c:choose></c:set>
                     <community:pagination page="${page}"
                                       totalPages="${reviewsTotalPages}"
-                                      url="${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=${reviewsByCsv}"
+                                      url="${paginationUrl}"
                                       styleClass="pagination"
                                       pageNumberStyleClass="pager-tab"
                             />
