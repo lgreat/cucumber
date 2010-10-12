@@ -10,6 +10,8 @@ import gs.data.content.IArticleDao;
 import gs.data.util.CmsUtil;
 
 import static org.easymock.EasyMock.*;
+
+import gs.web.util.RedirectView301;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -93,7 +95,12 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         verify(_cmsFeatureDao);
         verify(_legacyArticleDao);
     }
-    
+
+    public void resetAll() {
+        reset(_cmsFeatureDao);
+        reset(_legacyArticleDao);
+    }
+
     public void testOmnitureTracking() {
         CmsUtil.enableCms();
 
@@ -185,6 +192,132 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         Object currentPage = mAndV.getModel().get("currentPage");
         assertNotNull("Expect current article page to be injected into model", currentPage);
         assertEquals("<p>first</p><p>second</p><p>third</p>", currentPage);
+    }
+
+
+    public void testPagination() {
+        CmsFeature feature = getSampleFeature();
+        feature.setBody("First page<hr class=\"page-break\"/>Second page");
+        feature.setTitle("The title");
+
+        getRequest().setRequestURI("/blah/blah/blah.gs");
+        getRequest().setParameter("content", "23");
+
+        // Test fetching the 1st page (the default)
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        CmsUtil.enableCms();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        CmsUtil.disableCms();
+        verifyAll();
+
+        Object currentPage = mAndV.getModel().get("currentPage");
+        assertNotNull("Expect current article page to be injected into model", currentPage);
+        assertEquals("First page", currentPage);
+
+        // Test fetching the 1st page explicitly  
+        resetAll();
+        getRequest().setParameter("page", "1");
+
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        CmsUtil.enableCms();
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        CmsUtil.disableCms();
+        verifyAll();
+
+        currentPage = mAndV.getModel().get("currentPage");
+        assertNotNull("Expect current article page to be injected into model", currentPage);
+        assertEquals("First page", currentPage);
+
+        // Now test fetching the 2nd page
+        resetAll();
+        getRequest().setParameter("page", "2");
+
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        CmsUtil.enableCms();
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        CmsUtil.disableCms();
+        verifyAll();
+
+        currentPage = mAndV.getModel().get("currentPage");
+        assertNotNull("Expect current article page to be injected into model", currentPage);
+        assertEquals("Second page", currentPage);
+
+        // Now test fetching a page that doesn't exist.
+        resetAll();
+        getRequest().setParameter("page", "3");
+
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+
+        replayAll();
+        CmsUtil.enableCms();
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        CmsUtil.disableCms();
+        verifyAll();
+
+        assertNotNull("ModelAndView should not be null", mAndV);
+        assertTrue("ModelAndView should be a 301 redirect", mAndV.getView() instanceof RedirectView301);
+        assertEquals("Redirect view should be canonical url", "/blah/blah/blah.gs?content=23", ((RedirectView301) mAndV.getView()).getUrl());
+
+        // Now test fetching all pages
+        resetAll();
+        getRequest().setParameter("page", "all");
+
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        CmsUtil.enableCms();
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        CmsUtil.disableCms();
+        verifyAll();
+
+        currentPage = mAndV.getModel().get("currentPage");
+        assertNotNull("Expect current article page to be injected into model", currentPage);
+        assertEquals("First pageSecond page", currentPage);
+
+        // Now test fetching all pages a different way
+        resetAll();
+        getRequest().setParameter("print", "true");
+
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        CmsUtil.enableCms();
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        CmsUtil.disableCms();
+        verifyAll();
+
+        currentPage = mAndV.getModel().get("currentPage");
+        assertNotNull("Expect current article page to be injected into model", currentPage);
+        assertEquals("First pageSecond page", currentPage);
+
+        // Now test fetching all pages a different way
+        resetAll();
+        getRequest().setParameter("page", "-1");
+
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        CmsUtil.enableCms();
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        CmsUtil.disableCms();
+        verifyAll();
+
+        currentPage = mAndV.getModel().get("currentPage");
+        assertNotNull("Expect current article page to be injected into model", currentPage);
+        assertEquals("First pageSecond page", currentPage);
+
     }
 
     public void testInsertSidebarIntoPageSinglePageThreeParagraphBody() {

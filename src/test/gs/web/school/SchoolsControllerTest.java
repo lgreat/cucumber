@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.57 2010/05/25 01:17:14 aroy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.58 2010/10/12 20:47:13 droy Exp $
  */
 
 package gs.web.school;
@@ -527,8 +527,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
     }
 
     public void testPaging() throws Exception {
+        String testPageUrl = "/alaska/anchorage/schools/";
         GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/alaska/anchorage/schools/");
+        request.setRequestURI(testPageUrl);
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
         _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
@@ -538,9 +539,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         Map model = mav.getModel();
         Map modelResults = (Map) model.get("results");
 
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p1schools) {
             School s = schoolResult.getSchool();
@@ -560,9 +561,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         model = mav.getModel();
         modelResults = (Map) model.get("results");
 
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p2schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p2schools) {
             School s = schoolResult.getSchool();
@@ -577,9 +578,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         model = mav.getModel();
         modelResults = (Map) model.get("results");
 
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p10schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         for (SchoolSearchResult schoolResult : p10schools) {
             School s = schoolResult.getSchool();
@@ -595,9 +596,9 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         model = mav.getModel();
         modelResults = (Map) model.get("results");
 
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
-        assertEquals(new Integer(25), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
-        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p11schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         assertEquals(2, p11schools.size());
         for (SchoolSearchResult schoolResult : p11schools) {
@@ -608,7 +609,31 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
             assertTrue("Found the same school on two pages", p10schools.indexOf(s) == -1);
         }
 
+        // Check page #6 redirects
+        request.setParameter("p", "6");
+        mav = _controller.handleRequestInternal(request, getResponse());
 
+        assertNotNull("ModelAndView should not be null", mav);
+        assertTrue("ModelAndView should be a 301 redirect", mav.getView() instanceof RedirectView301);
+        assertEquals("Redirect view should be canonical url", testPageUrl, ((RedirectView301) mav.getView()).getUrl());
+
+    }
+    public void testEmptyResultSet() throws Exception {
+        String testPageUrl = "/california/oakland/elementary-schools/";
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI(testPageUrl);
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
+        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        Map model = mav.getModel();
+        Map modelResults = (Map) model.get("results");
+
+        assertEquals("Expected no results", 0, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals("Expected no results", 0, modelResults.get(SchoolsController.MODEL_TOTAL));
     }
 
     public void testFilteringLevelCode() throws Exception {

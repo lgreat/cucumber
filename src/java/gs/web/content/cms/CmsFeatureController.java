@@ -125,6 +125,8 @@ public class CmsFeatureController extends AbstractController {
                     feature.setCurrentPageNum(Integer.parseInt(pageNum));
                 } catch (NumberFormatException e) {
                     _log.warn("Invalid page number " + pageNum + " for feature uri " + uri);
+                } catch(IllegalArgumentException iae) {
+                    return new ModelAndView(new RedirectView301(uri + "?content=" + feature.getContentKey().getIdentifier()));
                 }
             }
         }

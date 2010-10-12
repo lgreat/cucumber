@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.95 2010/08/06 03:17:10 ssprouse Exp $
+ * $Id: SchoolsController.java,v 1.96 2010/10/12 20:47:13 droy Exp $
  */
 
 package gs.web.school;
@@ -445,6 +445,9 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
             Map<String, Object> resultsModel = new HashMap<String, Object>();
             List schoolResults = _resultsPager.getResults(page, pageSize);
+            if (schoolResults == null) {
+                return new ModelAndView(new RedirectView301(request.getRequestURI()));
+            }
 
             List<School> checkedSchools = getCheckedSchools(request);
 
@@ -462,6 +465,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
             resultsModel.put(PARAM_SORT_COLUMN, sortColumn);
             resultsModel.put(PARAM_SORT_DIRECTION, sortDirection);
+
             model.put("results", resultsModel);
         } else {
             BadRequestLogger.logBadRequest(_log, request, "Hits object is null for SearchCommand: " + searchCommand);
