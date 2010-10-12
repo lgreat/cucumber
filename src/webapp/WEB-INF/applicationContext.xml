@@ -56,6 +56,13 @@
         <property name="verificationEmailChangedEmailSubject" value="Please verify your new email for GreatSchools"/>
     </bean>
 
+    <bean id="emailVerificationReviewOnlyEmail" class="gs.web.community.registration.EmailVerificationReviewOnlyEmail">
+        <property name="fromEmail" value="gs-batch@greatschools.org"/>
+        <property name="fromName" value="GreatSchools"/>
+        <property name="verificationEmailSubject" value="Verify your email to complete your review"/>
+        <property name="verificationEmailPartTwoSubject" value="Don't forget to complete your school review!"/>
+    </bean>
+
     <bean id="forgotPasswordEmail" class="gs.web.community.registration.ForgotPasswordEmail">
         <property name="subject" value="GreatSchools reset password link"/>
         <property name="fromEmail" value="gs-batch@greatschools.org"/>
@@ -206,6 +213,12 @@
     <bean id="backToSchoolChecklist" class="gs.web.backToSchool.BackToSchoolChecklist"
           scope="prototype">
         <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="reviewHelper" class="gs.web.school.review.ReviewHelper"/>
+    
+    <bean id="reviewService" class="gs.web.school.review.ReviewService">
+        <property name="reviewDao" ref="reviewDao"/>
     </bean>
 
 </beans>

@@ -13,11 +13,14 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
 import gs.data.state.State;
+import gs.data.util.DigestUtil;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.community.IReportContentService;
+import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteController;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -70,6 +73,10 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     private Boolean _xmlPage = Boolean.FALSE;
 
+    private ReviewHelper _reviewHelper;
+
+    private EmailVerificationReviewOnlyEmail _emailVerificationReviewOnlyEmail;
+
     public ModelAndView handle(HttpServletRequest request,
                                HttpServletResponse response,
                                Object command,
@@ -79,63 +86,54 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             return errorJSON(response, errors);
         }
 
+        Map<Object, Object> responseValues = new HashMap<Object, Object>();
+
         ReviewCommand reviewCommand = (ReviewCommand) command;
 
-        School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
-        String check = request.getParameter("isAddNewParentReview");
-        if (!StringUtils.isBlank(check)) {
-            if (request.getParameter("schoolId") != null && request.getParameter("schoolState") != null) {
-                school = _schoolDao.getSchoolById(State.fromString(request.getParameter("schoolState")), Integer.parseInt(request.getParameter("schoolId")));
-            }
-        }
+        SitePrefCookie cookie = new SitePrefCookie(request, response);
+        String verifiedEmailHash = cookie.getProperty("emailVerified");
+        String thisEmailHash = DigestUtil.hashString(reviewCommand.getEmail());
+        boolean emailVerifiedRecently = thisEmailHash.equals(verifiedEmailHash);
+
+        School school = getSchool(request);
 
         User user = getUserDao().findUserFromEmailIfExists(reviewCommand.getEmail());
         boolean isNewUser = false;
 
-        //new user - create user, add entry to list_active table,
+        //boolean userAuthorizedWithPassword = PageHelper.isMemberAuthorized(request);
+        //TODO: Use interceptor to ensure that full user account with password cannot get here unless logged in.
+        boolean userAuthorizedWithPassword = user!=null && !user.isPasswordEmpty() && !user.isEmailProvisional();
+
+        Review review;
+        //The user submitting the review might not exist yet.
         if (user == null) {
-            user = new User();
-            user.setEmail(reviewCommand.getEmail());
-            getUserDao().saveUser(user);
-            // Because of hibernate caching, it's possible for a list_active record
-            // (with list_member id) to be commited before the list_member record is
-            // committed. Adding this commitOrRollback prevents this.
-            ThreadLocalTransactionManager.commitOrRollback();
-            //this is for unit test purposes.  so I can return any user.
-            user = getUserDao().findUserFromEmailIfExists(reviewCommand.getEmail());
-
-            Subscription sub = new Subscription(user, SubscriptionProduct.RATING, school.getDatabaseState());
-            sub.setSchoolId(school.getId());
-            getSubscriptionDao().saveSubscription(sub);
-
-            //Must perform omniture tracking since we're creating this user here.
-            // aroy: This doesn't work since cookies aren't set by an ajax response
-            // So for now I'm commenting it out. It appears that
-            // RegistrationHoverController.updateUserProfile handles this case anyway
-//            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-//            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.CommunityRegistration);
-
             isNewUser = true;
+            user = createUserForReview(reviewCommand, school);
+            review = getReviewHelper().createReview(user, school, reviewCommand);
+        } else {
+
+            /*
+            //I don't like this here, but I couldn't come up with a more elegant solution
+            //If review_only user already exists and has no password, and their email has never been verified,
+            //then show them a special hover
+            if (user.isPasswordEmpty() && (user.isEmailVerified() == null || !user.isEmailVerified()) && "review_only".equals(user.getHow())) {
+                responseValues.put("showHover", "emailNotValidated");
+                successJSON(response, responseValues);
+                return null; // E A R L Y    E X I T
+            }
+            */
+
+            //look for existing review
+            review = getReviewDao().findReview(user, school);
+            if (review != null) {
+                getReviewHelper().updateReview(review, school, reviewCommand);
+            } else {
+                review = getReviewHelper().createReview(user, school, reviewCommand);
+            }
         }
 
-        Review review = createOrUpdateReview(user, school, reviewCommand, isNewUser, check);
-        if (StringUtils.length(review.getComments()) < 15) {
-            // error out early
-            Map<Object, Object> values = new HashMap<Object, Object>();
-            values.put("reviewPosted", "false");
-            String jsonString = new JSONObject(values).toString();
-
-            response.setContentType("text/x-json");
-            _log.info("Writing JSON response -" + jsonString);
-            response.getWriter().write(jsonString);
-            response.getWriter().flush();
-            return null;
-        }
-
-        boolean newUser = user.isPasswordEmpty() || user.isEmailProvisional();
         Poster poster = reviewCommand.getPoster();
 
-        boolean reviewPosted = true;
         boolean reviewHasReallyBadWords = false;
         boolean reviewShouldBeReported = false;
         StringBuffer reason = null;
@@ -160,14 +158,15 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
                         reason.append(" and ");
                     }
                     reason.append("really bad words (").append(StringUtils.join(reallyBadWords, ",")).append(")");
-                    reviewPosted = false;
                 }
 
                 reviewShouldBeReported = true;
             }
         }
 
-        if (newUser) {
+        boolean reviewProvisional = (isNewUser || (!userAuthorizedWithPassword && !emailVerifiedRecently));
+
+        if (reviewProvisional) {
             if (Poster.STUDENT.equals(poster)) {
                 review.setStatus("pu");
             } else {
@@ -190,13 +189,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
         }
 
-        checkHoldList(school, review);
+        boolean schoolOnHoldList = checkHoldList(school, review);
 
 
-        Integer existingId = review.getId();
+        Integer existingReviewId = review.getId();
 
         //if review posted automatically, set the process date now
-        if (reviewPosted) {
+        if (!reviewProvisional) {
             review.setProcessDate((Calendar.getInstance()).getTime());
         }
 
@@ -207,59 +206,95 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         // if this review existed before (if the user is overwriting an existing review)
         // then we need to delete any reports on it
         // otherwise the auto filter will fail, and anyway they could be totally irrelevant
-        if (existingId != null) {
-            _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, review.getId());
+        if (existingReviewId != null) {
+            _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, existingReviewId);
         }
 
         if (reviewShouldBeReported) {
             getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId(), ReportedEntity.ReportedEntityType.schoolReview, reason.toString());
         }
 
-        if (Poster.STUDENT.equals(reviewCommand.getPoster())
-                || StringUtils.equals("h", review.getStatus())
-                || StringUtils.equals("ph", review.getStatus())) {
-            reviewPosted = false;
+        boolean reviewPosted = !(reviewProvisional || reviewHasReallyBadWords || schoolOnHoldList || Poster.STUDENT.equals(reviewCommand.getPoster()));
+        
+        if (reviewPosted) {
+            sendReviewPostedEmail(request, review);
         }
 
+        responseValues.put("userId", user.getId().toString());
 
-
-        if (reviewPosted && (!isNewUser)) {
-            Map<String,String> emailAttributes = new HashMap<String,String>();
-            emailAttributes.put("schoolName", school.getName());
-            emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
-
-            StringBuffer reviewLink = new StringBuffer("<a href=\"");
-            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
-            urlBuilder.addParameter("lr", "true");
-            reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
-            reviewLink.append("\">your review</a>");
-            emailAttributes.put("HTML__reviewLink", reviewLink.toString());
-
-            _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",user, emailAttributes);
+        if (reviewProvisional) {
+            responseValues.put("showHover", "validateEmailSchoolReview");
+            String redirectUrl = request.getRequestURI();
+            getEmailVerificationReviewOnlyEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl);
         }
 
-
-        Map<Object, Object> values = new HashMap<Object, Object>();
-        values.put("status", "true");
-        values.put("userId", user.getId().toString());
         //trigger the success events
         if (StringUtils.isNotBlank(reviewCommand.getComments())) {
-            values.put("reviewEvent", OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString());
+            responseValues.put("reviewEvent", OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString());
         }
-        values.put("reviewPosted", String.valueOf(reviewPosted));
-        values.put("redirectUrl", new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
-        String jsonString = new JSONObject(values).toString();
+        responseValues.put("reviewPosted", String.valueOf(reviewPosted));
+        responseValues.put("redirectUrl", new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
 
-        response.setContentType("text/x-json");
-        _log.info("Writing JSON response -" + jsonString);
-        response.getWriter().write(jsonString);
-        response.getWriter().flush();
+        successJSON(response, responseValues);
+
+        
         return null;
     }
 
-    protected void checkHoldList(School school, Review review) {
+    private User createUserForReview(ReviewCommand reviewCommand, School school) {
+        User user;
+        user = new User();
+        user.setEmail(reviewCommand.getEmail());
+        user.setHow("review_only");
+        getUserDao().saveUser(user);
+        // Because of hibernate caching, it's possible for a list_active record
+        // (with list_member id) to be commited before the list_member record is
+        // committed. Adding this commitOrRollback prevents this.
+        ThreadLocalTransactionManager.commitOrRollback();
+        //this is for unit test purposes.  so I can return any user.
+        user = getUserDao().findUserFromEmailIfExists(reviewCommand.getEmail());
+
+        Subscription sub = new Subscription(user, SubscriptionProduct.RATING, school.getDatabaseState());
+        sub.setSchoolId(school.getId());
+        getSubscriptionDao().saveSubscription(sub);
+        return user;
+    }
+
+    private boolean isValid(Review review) {
+        return StringUtils.length(review.getComments()) >= 15;
+    }
+
+    private School getSchool(HttpServletRequest request) {
+        School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
+        String check = request.getParameter("isAddNewParentReview");
+        if (!StringUtils.isBlank(check)) {
+            if (request.getParameter("schoolId") != null && request.getParameter("schoolState") != null) {
+                school = _schoolDao.getSchoolById(State.fromString(request.getParameter("schoolState")), Integer.parseInt(request.getParameter("schoolId")));
+            }
+        }
+        return school;
+    }
+
+    private void sendReviewPostedEmail(HttpServletRequest request, Review review) {
+        Map<String,String> emailAttributes = new HashMap<String,String>();
+        emailAttributes.put("schoolName", review.getSchool().getName());
+        emailAttributes.put("HTML__review", "<p>" + review.getComments() + "</p>");
+
+        StringBuffer reviewLink = new StringBuffer("<a href=\"");
+        UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        urlBuilder.addParameter("lr", "true");
+        reviewLink.append(urlBuilder.asFullUrl(request)).append("#ps").append(review.getId());
+        reviewLink.append("\">your review</a>");
+        emailAttributes.put("HTML__reviewLink", reviewLink.toString());
+
+        _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
+    }
+
+    protected boolean checkHoldList(School school, Review review) {
+        boolean onHoldList = false;
         try {
-            if (_heldSchoolDao.isSchoolOnHoldList(school)) {
+            onHoldList = _heldSchoolDao.isSchoolOnHoldList(school);
+            if (onHoldList) {
                 if (StringUtils.length(review.getStatus()) == 2) {
                     review.setStatus("ph");
                 } else {
@@ -269,68 +304,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         } catch (Exception e) {
             _log.warn("Error checking hold list: " + e, e);
         }
-    }
-
-    protected Review createOrUpdateReview(final User user, final School school,
-                                          final ReviewCommand command, final boolean isNewUser, String check) {
-
-        Review review = null;
-
-        Poster poster = command.getPoster();
-
-        //existing user, check if they have previously left a review for this school
-        if (!isNewUser) {
-            review = getReviewDao().findReview(user, school);
-
-            if (review != null) {
-                //old review is not blank and current review is blank
-                if (StringUtils.isNotBlank(review.getComments()) && StringUtils.isBlank(command.getComments())) {
-                    //only update the overall quality rating and who they are
-                    if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                        review.setPOverall(command.getOverall());
-                    } else {
-                        review.setQuality(command.getOverall());
-                    }
-                    review.setPoster(command.getPoster());
-                    return review;
-                } else {
-
-                    review.setPosted(new Date());
-                    review.setProcessDate(null);
-                    //new review submitted, so set the processor to null
-                    review.setSubmitter(null);
-                    review.setNote(null);
-                    _log.warn("updating a non empty review with a new comment.\nOld Comment: "
-                            + review.getComments() +
-                            "\nNew Comment: " + command.getComments() + "\nOld processor: " + review.getSubmitter()
-                            + "\nOld Note: " + review.getNote());
-                }
-
-                setRatingsOnReview(school.getLevelCode(), command, review, poster);
-            }
-        }
-
-        if (null == review) {
-            review = new Review();
-
-            review.setUser(user);
-            review.setSchool(school);
-
-            setRatingsOnReview(school.getLevelCode(), command, review, poster);
-
-
-        }
-        review.setHow(command.getClient());
-        review.setPoster(command.getPoster());
-        review.setComments(StringUtils.abbreviate(command.getComments(), 1200));
-        review.setOriginal(command.getComments());
-        review.setAllowContact(command.isAllowContact());
-
-        if (StringUtils.isNotEmpty(command.getFirstName()) || StringUtils.isNotEmpty(command.getLastName())) {
-            review.setAllowName(true);
-        }
-
-        return review;
+        return onHoldList;
     }
 
     public void setRatingsOnReview(LevelCode schoolLevelCode, ReviewCommand command, Review review, Poster poster) {
@@ -409,6 +383,17 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
     protected ModelAndView successJSON(HttpServletResponse response) throws IOException {
         response.setContentType("text/x-json");
         response.getWriter().print("{\"status\":true}");
+        response.getWriter().flush();
+        return null;
+    }
+
+    protected ModelAndView successJSON(HttpServletResponse response, Map<Object,Object> responseValues) throws IOException {
+        responseValues.put("status", "true");
+        response.setContentType("text/x-json");
+        if (responseValues != null && responseValues.size() > 0) {
+            String jsonString = new JSONObject(responseValues).toString();
+            response.getWriter().print(jsonString);
+        }
         response.getWriter().flush();
         return null;
     }
@@ -532,5 +517,21 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     public void setHeldSchoolDao(IHeldSchoolDao heldSchoolDao) {
         _heldSchoolDao = heldSchoolDao;
+    }
+
+    public EmailVerificationReviewOnlyEmail getEmailVerificationReviewOnlyEmail() {
+        return _emailVerificationReviewOnlyEmail;
+    }
+
+    public void setEmailVerificationReviewOnlyEmail(EmailVerificationReviewOnlyEmail emailVerificationReviewOnlyEmail) {
+        _emailVerificationReviewOnlyEmail = emailVerificationReviewOnlyEmail;
+    }
+
+    public ReviewHelper getReviewHelper() {
+        return _reviewHelper;
+    }
+
+    public void setReviewHelper(ReviewHelper reviewHelper) {
+        _reviewHelper = reviewHelper;
     }
 }

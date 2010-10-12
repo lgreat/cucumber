@@ -1,0 +1,11 @@
+<p>Thanks for submitting your review on GreatSchools! In order to complete your submission, you'll need to verify your email address by clicking on the link below:</p>
+
+<p>$VERIFICATION_LINK</p>
+
+<p>If that doesn't work, copy and paste the URL into your browser's address bar.
+If you didn't submit a review with this email address, please ignore this message.</p>
+
+<p>See you soon,<br/>
+GreatSchools</p>
+
+<br/>

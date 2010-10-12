@@ -34,6 +34,11 @@ function parseSchools(data) {
 
 
 jQuery(function() {
+    jQuery('#addParentReviewForm-email').click(function() {
+       if (jQuery('#addParentReviewForm-email').val() == "Enter your email address*") {
+           jQuery('#addParentReviewForm-email').val('');
+       }
+    });
     jQuery('#userState').change(loadCities);
     jQuery('#citySelect').change(loadSchools);
     jQuery('#schoolSelect').change(schoolChange);
@@ -251,49 +256,56 @@ function validateReview() {
         jQuery('#reviewRatingError').hide();
     }
 
-    /*
-     if (jQuery('reviewEmail').value == '' || (jQuery('reviewEmail').value == 'Enter your email address') || (validateEmail(jQuery('reviewEmail').value) == false)) {
-     jQuery('emailError').style.display = '';
-     jQuery('parentRating').style.height = height + 28 + 'px';
-     jQuery('categoryRatings').style.height = height + 28 + 'px';
-     height = height + 29;
-     noError = false;
-     } else {
-     jQuery('emailError').style.display = 'none';
-     }
-     */
-
-    /*
-     if (!jQuery('permission').checked) {
-     jQuery('termsError').style.display = '';
-     jQuery('parentRating').style.height = height + 28 + 'px';
-     jQuery('categoryRatings').style.height = height + 28 + 'px';
-     height = height + 29;
-     noError = false;
-     } else {
-     jQuery('termsError').style.display = 'none';
-     }
-     */
-    if (!noError) {
-        jQuery('#reviewAndGuidlines').css('marginTop','8px');
-    } else {
-        if (jQuery('#reviewText').val() == 'Enter your review here') {
-            jQuery('#reviewText').val("");
-        }
-    }
-
     if (jQuery('#addParentReviewForm #reviewText').val().length > 1200) {
         noError = false;
         alert("Please keep your comments to 1200 characters or less.")
     }
-    
+
     if (GS_countWords(document.getElementById('reviewText')) < 15) {
         noError = false;
         alert("Please use at least 15 words in your comment.")
     }
 
-    if (noError) {
-        if (GS.showSchoolReviewHover('/school/parentReviews.page?id=' + jQuery('#schoolId').val() + '&state=' + jQuery('#schoolState').val())) {
+    if (!GS.isSignedIn()) {
+        var email = jQuery('#addParentReviewForm-email').val();
+        if (email == '') {
+            jQuery('#emailError').show();
+            jQuery('#emailError .emailErrorText').show();
+        } else {
+            jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'}, function(data) {
+                if (data && data['email']) {
+                    jQuery('#emailError .emailErrorText').html(data['email']);
+                    jQuery('#emailError').show();
+                    jQuery('#emailError .emailErrorText a.launchSignInHover').click(function() {
+                        GSType.hover.joinHover.showSignin();
+                        return false;
+                    });
+                    noError = false;
+
+                } else {
+                    jQuery('#emailError').hide();
+
+                    if (noError) {
+                        GS_postSchoolReview();
+                    }
+                }
+
+                if (!noError) {
+                    jQuery('#reviewAndGuidlines').css('marginTop','8px');
+                } else {
+                    if (jQuery('#reviewText').val() == 'Enter your review here') {
+                        jQuery('#reviewText').val("");
+                    }
+                }
+            });
+        }
+    } else {
+        if (!noError) {
+            jQuery('#reviewAndGuidlines').css('marginTop','8px');
+        } else {
+            if (jQuery('#reviewText').val() == 'Enter your review here') {
+                jQuery('#reviewText').val("");
+            }
             GS_postSchoolReview();
         }
     }
@@ -356,13 +368,17 @@ function GS_postSchoolReview(email, callerFormId) {
 
     // then post the review
     jQuery.post('/school/review/postReview.page', jQuery('#addParentReviewForm').serialize(), function(data) {
-        if (data.reviewPosted != undefined) {
-            if (data.reviewPosted == "true") {
-                // cookie to show schoolReviewPostedThankYou hover
-                subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
-            } else {
-                // cookie to show schoolReviewNotPostedThankYou hover
-                subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+        if (data.showHover != undefined && data.showHover == "validateEmailSchoolReview") {
+            subCookie.setObjectProperty("site_pref", "showHover", "validateEmailSchoolReview", 3);
+        } else {
+            if (data.reviewPosted != undefined) {
+                if (data.reviewPosted == "true") {
+                    // cookie to show schoolReviewPostedThankYou hover
+                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
+                } else {
+                    // cookie to show schoolReviewNotPostedThankYou hover
+                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+                }
             }
         }
         var successEvents = "";

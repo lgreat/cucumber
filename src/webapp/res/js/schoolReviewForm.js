@@ -36,22 +36,26 @@ function clearSubmitFields() {
 var countWords = makeCountWords(150);
 
 function GS_postSchoolReview(email, callerFormId) {
-    // first, grab the email from the join/signIn form and use that with the review
-    if (email) {
-        jQuery('#frmPRModule [name="email"]').val(email);
-    }
     clearSubmitFields();
     // then post the review
     jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function(data) {
-        if (data.reviewPosted != undefined) {
-            if (data.reviewPosted == "true") {
+        if (data.showHover != undefined && data.showHover == "emailNotValidated") {
+            GSType.hover.emailNotValidated.show();
+            return false;
+        } else if (data.showHover != undefined && data.showHover == "validateEmailSchoolReview") {
+            subCookie.setObjectProperty("site_pref", "showHover", "validateEmailSchoolReview", 3);
+        } else {
+            if (data.reviewPosted != undefined) {
+                if (data.reviewPosted == "true") {
                 // cookie to show schoolReviewPostedThankYou hover
                 subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
-            } else {
-                // cookie to show schoolReviewNotPostedThankYou hover
-                subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+                } else {
+                    // cookie to show schoolReviewNotPostedThankYou hover
+                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+                }
             }
         }
+        
         var successEvents = "";
         if (data.ratingEvent != undefined) {
             successEvents += data.ratingEvent;
@@ -123,6 +127,8 @@ jQuery(function() {
     });
 
     jQuery('#frmPRModule .continueButton').click(function() {
+        //TODO: validate email
+        //TODO: check for existing email
         jQuery('#frmPRModule .errors').hide();
         var hasError = false;
         if (jQuery('#frmPRModule #overallStarRating').val() == 0) {
@@ -143,13 +149,47 @@ jQuery(function() {
             hasError = true;
             alert("Please use at least 15 words in your comment.")
         }
-        if (!hasError) {
-            if (GS.showSchoolReviewHover(window.location.href)) {
-                GS_postSchoolReview();
+
+        // If the user is signed in, dont validate their email. Instead, check for existing errors and act accordingly.
+        // If user is not signed in, validate the provided email. Email validation should fail with "email exists" error
+        // if email exists and the associated account has a password. Otherwise as long as provided email is not
+        // malformed, validation should succeed and a new account is created.
+        if (!GS.isSignedIn()) {
+            alert("user is not signed in");
+            var email = jQuery('#frmPRModule [name="email"]').val();
+            if (email == '') {
+                jQuery('#frmPRModule .emailError').show();
+                jQuery('#frmPRModule .emailError .error').show();
+            } else {
+                jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'},
+                function(data) {
+                    alert(data['email']);
+                    if (data && data['email']) {
+                        alert('email error: ' + data['email']);
+                        jQuery('#frmPRModule .emailError').html(data['email']);
+                        jQuery('#frmPRModule .emailError').show();
+                        jQuery('#frmPRModule .emailError a.launchSignInHover').click(function() {
+                            GSType.hover.joinHover.showSignin();
+                            return false;
+                        });
+                        hasError = true;
+                    } else {
+                        if (!hasError) {
+                            GS_postSchoolReview(email);
+                        } else {
+                            GS_resizeColumns();
+                        }
+                    }
+                });
             }
         } else {
-            GS_resizeColumns();
+            if (!hasError) {
+                GS_postSchoolReview(email);
+            } else {
+                GS_resizeColumns();
+            }
         }
+
         return false;
     });
 });

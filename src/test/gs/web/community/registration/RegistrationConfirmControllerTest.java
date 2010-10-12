@@ -10,13 +10,14 @@ import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
+import gs.web.school.review.ReviewService;
 import org.easymock.IArgumentMatcher;
 import org.easymock.classextension.EasyMock;
+import org.springframework.validation.MapBindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import org.springframework.validation.BindException;
+import java.util.*;
 
 import static org.easymock.EasyMock.*;
 import static org.easymock.classextension.EasyMock.createStrictMock;
@@ -35,9 +36,14 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
     private ExactTargetAPI _exactTargetAPI;
 
+    private BindException _errors;
+
+    private ReviewService _reviewService;
+
     protected void setUp() throws Exception {
         super.setUp();
         _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
+        _reviewService = createStrictMock(ReviewService.class);
         _controller = new RegistrationConfirmController();
 
         _userDao = createStrictMock(IUserDao.class);
@@ -46,6 +52,11 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         _controller.setReviewDao(_reviewDao);
         _controller.setViewName("/room/with/a/view");
         _controller.setExactTargetAPI(_exactTargetAPI);
+        _controller.setReviewService(_reviewService);
+
+        Map<String,String> map = new HashMap<String,String>();
+        MapBindingResult mapBindingResult = new MapBindingResult(map, "emailVerificationLink");
+        _errors = new BindException(mapBindingResult);
     }
 
     public void testBasics() {
@@ -71,13 +82,14 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         String actualHash = DigestUtil.hashStringInt(user.getEmail(), 234);
         actualHash = DigestUtil.hashString(actualHash + String.valueOf(dateSent));
 
-        getRequest().setParameter("id", actualHash + "234");
+        EmailVerificationLinkCommand emailVerificationLinkCommand = new EmailVerificationLinkCommand();
+        emailVerificationLinkCommand.setHashPlusUserId(actualHash + "234");
+        emailVerificationLinkCommand.setUser(user);
 
-        expect(_userDao.findUserFromId(234)).andReturn(user);
         _userDao.saveUser(user);
 
         replayMocks(_userDao);
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
         verifyMocks(_userDao);
 
         assertNotNull(mAndV);
@@ -94,38 +106,38 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         user.setPlaintextPassword("foobar");
         user.setEmailProvisional("foobar");
 
-        List<Review> reviews = new ArrayList<Review>();
+        School school = new School();
+        school.setDatabaseState(State.CA);
+        school.setId(1);
+
         Review review1 = new Review();
-        review1.setStatus("pp");
+        review1.setStatus("p");
+        review1.setSchool(school);
 
         Review review2 = new Review();
-        review2.setStatus("pu");
+        review2.setStatus("u");
+        review2.setSchool(school);
 
-        Review review3 = new Review();
-        review3.setStatus("p");
-
-        reviews.add(review1);
-        reviews.add(review2);
-        reviews.add(review3);
+        List<Review> updatedReviews = new ArrayList<Review>();
+        updatedReviews.add(review1);
+        updatedReviews.add(review2);
 
         Date now = new Date();
         long dateSent = now.getTime() - 5000; // sent 5 seconds ago
-        getRequest().setParameter("date", String.valueOf(dateSent));
 
         String actualHash = DigestUtil.hashStringInt(user.getEmail(), 234);
         actualHash = DigestUtil.hashString(actualHash + String.valueOf(dateSent));
 
-        getRequest().setParameter("id", actualHash + "234");
+        EmailVerificationLinkCommand emailVerificationLinkCommand = new EmailVerificationLinkCommand();
+        emailVerificationLinkCommand.setHashPlusUserId(actualHash + "234");
+        emailVerificationLinkCommand.setUser(user);
+        emailVerificationLinkCommand.setDate(String.valueOf(dateSent));
 
-        expect(_userDao.findUserFromId(234)).andReturn(user);
+        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(updatedReviews);
         _userDao.saveUser(user);
-        expect(_reviewDao.findUserReviews(user)).andReturn(reviews);
-
-        _reviewDao.saveReview(review1);
-        _reviewDao.saveReview(review2);
 
         replayAllMocks();
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
         verifyAllMocks();
 
         assertNotNull(mAndV);
@@ -143,46 +155,32 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         school.setId(1);
         school.setDatabaseState(State.CA);
 
-        List<Review> reviews = new ArrayList<Review>();
+        List<Review> updatedReviews = new ArrayList<Review>();
         Review review1 = new Review();
-        review1.setStatus("pp");
+        review1.setStatus("p");
         review1.setSchool(school);
 
-
-        Review review2 = new Review();
-        review2.setStatus("pu");
-        review2.setSchool(school);
-
-        Review review3 = new Review();
-        review3.setStatus("p");
-        review3.setSchool(school);
-
-        reviews.add(review1);
-        reviews.add(review2);
-        reviews.add(review3);
+        updatedReviews.add(review1);
 
         Date now = new Date();
         long dateSent = now.getTime() - 5000; // sent 5 seconds ago
-        getRequest().setParameter("date", String.valueOf(dateSent));
-
 
         String actualHash = DigestUtil.hashStringInt(user.getEmail(), 234);
         actualHash = DigestUtil.hashString(actualHash + String.valueOf(dateSent));
 
-        getRequest().setParameter("id", actualHash + "234");
+        EmailVerificationLinkCommand emailVerificationLinkCommand = new EmailVerificationLinkCommand();
+        emailVerificationLinkCommand.setHashPlusUserId(actualHash + "234");
+        emailVerificationLinkCommand.setUser(user);
+        emailVerificationLinkCommand.setDate(String.valueOf(dateSent));
 
-        expect(_userDao.findUserFromId(234)).andReturn(user);
-        expect(_reviewDao.findUserReviews(user)).andReturn(reviews);
+        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(updatedReviews);
 
         User user2 = new User();
         user2.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
         _userDao.saveUser(UserWelcomeMessageStatusMatcher.eqUser(user2));
 
-        _reviewDao.saveReview(review1);
-        _reviewDao.saveReview(review2);
-
         replayAllMocks();
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
         verifyAllMocks();
 
         assertNotNull(mAndV);
@@ -190,7 +188,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
     private void setupForRedirect(User user) {
         user.setEmailProvisional("foobar");
-        expect(_userDao.findUserFromId(234)).andReturn(user);
+        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(null);
         _userDao.saveUser(user);
     }
 
@@ -201,17 +199,19 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         user.setPlaintextPassword("foobar");
         Date now = new Date();
         long dateSent = now.getTime() - 5000; // sent 5 seconds ago
-        getRequest().setParameter("date", String.valueOf(dateSent));
         String actualHash = DigestUtil.hashStringInt(user.getEmail(), 234);
         actualHash = DigestUtil.hashString(actualHash + String.valueOf(dateSent));
-        getRequest().setParameter("id", actualHash + "234");
+
+        EmailVerificationLinkCommand emailVerificationLinkCommand = new EmailVerificationLinkCommand();
+        emailVerificationLinkCommand.setHashPlusUserId(actualHash + "234");
+        emailVerificationLinkCommand.setUser(user);
+        emailVerificationLinkCommand.setDate(String.valueOf(dateSent));
         ModelAndView mAndV;
 
         getRequest().setParameter("redirect", "/path");
         setupForRedirect(user);
-        expect(_reviewDao.findUserReviews(user)).andReturn(null);
         replayAllMocks();
-        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
         verifyAllMocks();
         assertEquals("redirect:/path", mAndV.getViewName());
 
@@ -219,9 +219,8 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         getRequest().setParameter("redirect", "/path?foo=bar");
         setupForRedirect(user);
-        expect(_reviewDao.findUserReviews(user)).andReturn(null);
         replayAllMocks();
-        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
         verifyAllMocks();
         assertEquals("redirect:/path?foo=bar", mAndV.getViewName());
 
@@ -229,23 +228,65 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         getRequest().setParameter("redirect", "/path?foo=bar#anchor");
         setupForRedirect(user);
-        expect(_reviewDao.findUserReviews(user)).andReturn(null);
         replayAllMocks();
-        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
         verifyAllMocks();
         assertEquals("redirect:/path?foo=bar#anchor", mAndV.getViewName());
     }
 
+    public void testFindCorrectUpgradedReview() throws Exception {
+        Review review = new Review();
+        review.setStatus("u");
+
+        Review review2 = new Review();
+        review2.setStatus("p");
+
+        Review review3 = new Review();
+        review3.setStatus("d");
+
+        List<Review> reviews = new ArrayList<Review>();
+
+        reviews.add(review);
+        reviews.add(review2);
+        reviews.add(review3);
+
+        Review upgradedReview = _controller.findCorrectUpgradedReview(reviews);
+
+        assertTrue(upgradedReview == review2);
+    }
+
+    public void testFindPostedReviews() {
+        Review review = new Review();
+        review.setStatus("u");
+
+        Review review2 = new Review();
+        review2.setStatus("p");
+
+        Review review3 = new Review();
+        review3.setStatus("d");
+
+        List<Review> reviews = new ArrayList<Review>();
+
+        reviews.add(review);
+        reviews.add(review2);
+        reviews.add(review3);
+
+        List<Review> postedReviews = _controller.findPostedReviews(reviews);
+
+        assertTrue(postedReviews.size() == 1);
+        assertTrue(postedReviews.contains(review2));
+    }
+
     public void replayAllMocks() {
-        replayMocks(_userDao, _reviewDao);
+        replayMocks(_userDao, _reviewDao, _reviewService);
     }
 
     public void resetAllMocks() {
-        resetMocks(_userDao, _reviewDao);
+        resetMocks(_userDao, _reviewDao, _reviewService);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_userDao, _reviewDao);
+        verifyMocks(_userDao, _reviewDao, _reviewService);
     }
 }
 

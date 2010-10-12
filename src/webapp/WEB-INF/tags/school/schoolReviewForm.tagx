@@ -295,7 +295,6 @@
                     <input type="hidden" name="id" value="${schoolId}"/>
                     <input type="hidden" name="state" value="${state}"/>
                     <input type="hidden" name="source" value="${pageName}"/>
-                    <input type="hidden" name="email" value="${requestScope.context.email}"/>
 
                     <div id="userInput">
                         <textarea id="reviewText"
@@ -316,10 +315,25 @@
                             </div>
                         </c:if>
 
+
+            <ul id="nonCommentInput">
+
+                <label>Email: </label>
+                <c:choose>
+                    <c:when test="${requestScope.context.email eq null}">
+                        <input id="frmPRModule-email" type="text" name="email" value="[Enter your email address]"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input id="frmPRModule-email" type="text" name="email" value="${requestScope.context.email}"/>
+                    </c:otherwise>
+                </c:choose>
+
+                <div class="errors emailError" style="display:none;">
+                    <span class="error">Please enter your email.</span>
+                </div>
                         <div class="errors whoError" style="display:none;">
                             <span class="error">Please identify how you are affiliated with this school.</span>
                         </div>
-                        <ul id="nonCommentInput">
                             <li>
                                 <label>I am a:</label>
                                 <select name="posterAsString">

@@ -14,9 +14,10 @@ import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.IReportContentService;
+import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
 import org.apache.commons.lang.time.DateUtils;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Validator;
+import org.springframework.validation.*;
 
 import java.util.*;
 
@@ -41,6 +42,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     private IReportedEntityDao _reportedEntityDao;
     private ExactTargetAPI _exactTargetAPI;
     private IHeldSchoolDao _heldSchoolDao;
+    private EmailVerificationReviewOnlyEmail _emailVerificationEmail;
+    ReviewHelper _reviewHelper;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -80,6 +83,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _sender = new MockJavaMailSender();
         _sender.setHost("mail.greatschools.org");
 
+        _emailVerificationEmail = createStrictMock(EmailVerificationReviewOnlyEmail.class);
+
         _controller.setEmailHelperFactory((EmailHelperFactory) getApplicationContext().getBean(EmailHelperFactory.BEAN_ID));
         _controller.getEmailHelperFactory().setMailSender(_sender);
         _controller.setAlertWordDao(_alertWordDao);
@@ -87,17 +92,28 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setReportedEntityDao(_reportedEntityDao);
         _controller.setExactTargetAPI(_exactTargetAPI);
         _controller.setHeldSchoolDao(_heldSchoolDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setEmailVerificationReviewOnlyEmail(_emailVerificationEmail);
 
+        _reviewHelper = new ReviewHelper();
+        _controller.setReviewHelper(_reviewHelper);
     }
 
-    public void testSubmitExistingUserNoExistingReview() throws Exception {
+    public void testSubmitExistingUserNoPasswordNoExistingReview() throws Exception {
+        User user = new User();
+        user.setEmail("ssprouse@greatschools.org");
+        user.setId(1);
+
         _command.setComments("safe safe safe safe safe safe safe safe safe safe safe safe.");
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
-        _exactTargetAPI.sendTriggeredEmail(eq("review_posted_trigger"), isA(User.class), isA(Map.class));
+
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(getRequest(), user, getRequest().getRequestURI());
+
+        //should not send "review posted email" if user not logged in with password
 
         replay(_reviewDao);
         replay(_exactTargetAPI);
@@ -105,6 +121,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         replay(_subscriptionDao);
         expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
         replay(_heldSchoolDao);
+        replay(_emailVerificationEmail);
         _controller.setUserDao(_userDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setSubscriptionDao(_subscriptionDao);
@@ -114,6 +131,74 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_subscriptionDao);
         verify(_exactTargetAPI);
         verify(_heldSchoolDao);
+        verify(_emailVerificationEmail);
+    }
+
+    public void testSubmitExistingUserWithPasswordNoExistingReview() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("ssprouse@greatschools.org");
+        user.setPlaintextPassword("abcdefg");
+
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe safe safe.");
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
+        replay(_userDao);
+
+        expect(_reviewDao.findReview(user, _school)).andReturn(null);
+        _reviewDao.saveReview((Review) anyObject());
+
+        _exactTargetAPI.sendTriggeredEmail(eq("review_posted_trigger"), isA(User.class), isA(Map.class));
+
+        replay(_reviewDao);
+        replay(_exactTargetAPI);
+
+        replay(_subscriptionDao);
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+        replay(_heldSchoolDao);
+        replay(_emailVerificationEmail);
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.handle(_request, _response, _command, _errors);
+        verify(_userDao);
+        verify(_reviewDao);
+        verify(_subscriptionDao);
+        verify(_exactTargetAPI);
+        verify(_heldSchoolDao);
+        verify(_emailVerificationEmail);
+    }
+
+    public void testSubmitExistingUserNoVerifiedEmailNoPasswordNoExistingReview() throws Exception {
+
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe safe safe.");
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        replay(_userDao);
+
+        expect(_reviewDao.findReview(_user, _school)).andReturn(null);
+        _reviewDao.saveReview((Review) anyObject());
+
+        //no longer send "review posted" email unless user is logged in with a password
+        //_exactTargetAPI.sendTriggeredEmail(eq("review_posted_trigger"), isA(User.class), isA(Map.class));
+
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(getRequest(), _user, getRequest().getRequestURI());
+
+        replay(_reviewDao);
+        replay(_exactTargetAPI);
+
+        replay(_subscriptionDao);
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+        replay(_heldSchoolDao);
+        replay(_emailVerificationEmail);
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.handle(_request, _response, _command, _errors);
+        verify(_userDao);
+        verify(_reviewDao);
+        verify(_subscriptionDao);
+        verify(_exactTargetAPI);
+        verify(_heldSchoolDao);
+        verify(_emailVerificationEmail);
     }
 
     private void checkHoldListGeneric(String initialStatus, String expectedStatus) {
@@ -175,6 +260,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         review.setId(1);
         review.setComments("this school sucks");
 
+        _command.setComments("this school sucks"); //review comments can no longer be empty
+
         Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = new HashMap<IAlertWordDao.alertWordTypes, Set<String>>();
         Set<String> warningWords = new HashSet<String>();
         warningWords.add("sucks");
@@ -207,33 +294,6 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_subscriptionDao);
         verify(_reportContentService);
         verify(_reportedEntityDao);
-    }
-
-    public void testCreateReview() throws Exception {
-
-        _command.setPrincipalAsString("1");
-        _command.setTeacherAsString("2");
-        _command.setParentAsString("4");
-        _command.setOverallAsString("3");
-
-        _command.setComments("this school rocks");
-        _command.setPosterAsString("parent");
-        _command.setAllowContact(false);
-        _command.setFirstName("dave");
-
-        Review r = _controller.createOrUpdateReview(_user, _school, _command, true,"");
-
-        assertEquals(CategoryRating.RATING_1, r.getPrincipal());
-        assertEquals(CategoryRating.RATING_2, r.getTeachers());
-        assertEquals(CategoryRating.RATING_4, r.getParents());
-        assertEquals(CategoryRating.RATING_3, r.getQuality());
-
-        assertEquals(_command.getComments(), r.getComments());
-        assertEquals(_command.getComments(), r.getOriginal());
-
-        assertEquals(_command.getPoster(), r.getPoster());
-        assertEquals(_command.isAllowContact(), r.isAllowContact());
-        assertTrue(r.isAllowName());
     }
 
     public void testErrorJson() throws Exception {
@@ -277,12 +337,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         r.setComments("this review has comments");
         _command.setComments("");
         _command.setOverall(CategoryRating.RATING_2);
-        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
         replay(_reviewDao);
         _controller.setReviewDao(_reviewDao);
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
-        assertEquals(r, review2);
-        assertEquals(CategoryRating.RATING_2, review2.getQuality());
+        _reviewHelper.updateReview(r, _school, _command);
+        assertEquals(CategoryRating.RATING_2, r.getQuality());
         verify(_reviewDao);
     }
 
@@ -298,22 +356,18 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         _command.setComments("new comments");
         _command.setOverall(null);
-        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
-        replay(_reviewDao);
 
         _controller.setReviewDao(_reviewDao);
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
-        assertEquals(_command.getComments(), review2.getComments());
-        assertEquals(CategoryRating.RATING_4, review2.getQuality());
-        assertEquals(CategoryRating.RATING_1, review2.getTeachers());
-        assertEquals(CategoryRating.RATING_2, review2.getParents());
-        assertEquals(CategoryRating.RATING_3, review2.getPrincipal());
-        assertNull(review2.getProcessDate());
-        assertNull(review2.getSubmitter());
-        assertNull(review2.getNote());
-        assertTrue(DateUtils.isSameDay(new Date(), review2.getPosted()));
-
-        verify(_reviewDao);
+        _reviewHelper.updateReview(r, _school, _command);
+        assertEquals(_command.getComments(), r.getComments());
+        assertEquals(CategoryRating.RATING_4, r.getQuality());
+        assertEquals(CategoryRating.RATING_1, r.getTeachers());
+        assertEquals(CategoryRating.RATING_2, r.getParents());
+        assertEquals(CategoryRating.RATING_3, r.getPrincipal());
+        assertNull(r.getProcessDate());
+        assertNull(r.getSubmitter());
+        assertNull(r.getNote());
+        assertTrue(DateUtils.isSameDay(new Date(), r.getPosted()));
     }
     
     public void testSubmitNewUser() throws Exception {
@@ -403,18 +457,17 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setPrincipal(CategoryRating.DECLINE_TO_STATE);
         _command.setPoster(Poster.PARENT);
 
-        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
         replay(_reviewDao);
 
         _controller.setReviewDao(_reviewDao);
 
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
+        _reviewHelper.updateReview(r, _school, _command);
 
-        assertEquals(_command.getComments(), review2.getComments());
-        assertEquals(CategoryRating.RATING_1, review2.getQuality());
-        assertEquals(CategoryRating.RATING_1, review2.getParents());
-        assertEquals(CategoryRating.RATING_1, review2.getTeachers());
-        assertEquals(CategoryRating.DECLINE_TO_STATE, review2.getPrincipal());
+        assertEquals(_command.getComments(), r.getComments());
+        assertEquals(CategoryRating.RATING_1, r.getQuality());
+        assertEquals(CategoryRating.RATING_1, r.getParents());
+        assertEquals(CategoryRating.RATING_1, r.getTeachers());
+        assertEquals(CategoryRating.DECLINE_TO_STATE, r.getPrincipal());
 
         verify(_reviewDao);
     }
@@ -429,16 +482,11 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setTeacher(CategoryRating.RATING_1);
         _command.setPoster(Poster.STUDENT);
 
-        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
-        replay(_reviewDao);
-
         _controller.setReviewDao(_reviewDao);
 
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
+        _reviewHelper.updateReview(r, _school, _command);
 
-        assertEquals(CategoryRating.RATING_1, review2.getTeachers());
-
-        verify(_reviewDao);
+        assertEquals(CategoryRating.RATING_1, r.getTeachers());
     }
 
     public void testPFacilitiesSet() throws Exception {
@@ -450,16 +498,11 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setPFacilitiesAsString(CategoryRating.RATING_1.getName());
         _command.setPoster(Poster.PARENT);
 
-        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
-        replay(_reviewDao);
-
         _controller.setReviewDao(_reviewDao);
 
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
+        _reviewHelper.updateReview(r, _school, _command);
 
-        assertEquals(CategoryRating.RATING_1, review2.getPFacilities());
-
-        verify(_reviewDao);
+        assertEquals(CategoryRating.RATING_1, r.getPFacilities());
     }
 
 
@@ -470,17 +513,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setPrincipalAsString("0");
         _command.setPoster(Poster.PARENT);
 
-        expect(_reviewDao.findReview(_user, _school)).andReturn(r);
-        replay(_reviewDao);
+        _reviewHelper.updateReview(r, _school, _command);
 
-        _controller.setReviewDao(_reviewDao);
-
-        Review review2 = _controller.createOrUpdateReview(_user, _school, _command, false,"");
-
-        assertEquals(_command.getComments(), review2.getComments());
-        assertEquals(CategoryRating.DECLINE_TO_STATE, review2.getPrincipal());
-
-        verify(_reviewDao);
+        assertEquals(_command.getComments(), r.getComments());
+        assertEquals(CategoryRating.DECLINE_TO_STATE, r.getPrincipal());
     }
 
     public void testUserNotCreatedWithoutRequiredFields() throws Exception {

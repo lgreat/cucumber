@@ -113,7 +113,7 @@
         <div id="parentReviewForm">
             <!--<div id="parentReviewForm">-->
             <input type="hidden" name="source" value="${pageName}" />
-        <input type="hidden" name="email" value="${requestScope.context.email}"/>
+
             <input type="hidden" name="id" id="schoolId" value=""/>
             <input type="hidden" name="state" id="schoolState" value=""/>
             <input type="hidden" name="isAddNewParentReview" value="true"/>
@@ -173,9 +173,7 @@
                 <div id="reviewRatingError" style="display:none" class="reviewError"><img
                         src="/res/img/bullet/exclamation.gif" alt="error"></img>Please enter a review and overall rating.
                 </div>
-                <div id="emailError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif"
-                                                                                   alt="error"></img>Please enter a valid email address.
-                </div>
+
                 <div id="termsError" style="display:none" class="reviewError"><img src="/res/img/bullet/exclamation.gif"
                                                                                    alt="error"></img>Please accept our terms of use.
                 </div>
@@ -195,6 +193,20 @@
 
                 </div>
                 -->
+                <div id="emailError" class="reviewError" style="display:none;">
+                    <img src="/res/img/bullet/exclamation.gif" alt="error"></img>
+                    <span class="emailErrorText">Please enter a valid email address.</span>
+                </div>
+                
+                <c:choose>
+                    <c:when test="${requestScope.context.email eq null}">
+                        <input id="addParentReviewForm-email" type="text" name="email" value="Enter your email address*"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input id="addParentReviewForm-email" type="text" name="email" value="${requestScope.context.email}"/>
+                    </c:otherwise>
+                </c:choose>
+
                 <fieldset class="btns">
                     <button class="btn25" type="submit" name="parentReviewFormSubmit" id="parentReviewFormSubmit">
                         <span class="lftDoor25"><span class="rtDoor25">Continue</span></span>
