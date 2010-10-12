@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: MockSessionContext.java,v 1.8 2009/12/04 20:54:14 npatury Exp $
+ * $Id: MockSessionContext.java,v 1.9 2010/10/12 21:07:03 yfan Exp $
  */
 
 package gs.web.util;
@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
  */
 public class MockSessionContext extends SessionContext {
     private boolean _advertisingOnline = true;
+    private boolean _showReviewsPageRedesign = false;
 
     public boolean isAdvertisingOnline() {
         return _advertisingOnline;
@@ -26,6 +27,15 @@ public class MockSessionContext extends SessionContext {
 
     public ApplicationContext getApplicationContext() {
         return SpringUtil.getApplicationContext();
+    }
+
+    public void setShowReviewsPageRedesign(boolean show) {
+        _showReviewsPageRedesign = show;
+    }
+
+    @Override
+    public boolean isShowReviewsPageRedesign() {
+        return _showReviewsPageRedesign;
     }
 
 }
