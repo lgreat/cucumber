@@ -155,7 +155,6 @@ jQuery(function() {
         // if email exists and the associated account has a password. Otherwise as long as provided email is not
         // malformed, validation should succeed and a new account is created.
         if (!GS.isSignedIn()) {
-            alert("user is not signed in");
             var email = jQuery('#frmPRModule [name="email"]').val();
             if (email == '') {
                 jQuery('#frmPRModule .emailError').show();
@@ -163,9 +162,7 @@ jQuery(function() {
             } else {
                 jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'},
                 function(data) {
-                    alert(data['email']);
                     if (data && data['email']) {
-                        alert('email error: ' + data['email']);
                         jQuery('#frmPRModule .emailError').html(data['email']);
                         jQuery('#frmPRModule .emailError').show();
                         jQuery('#frmPRModule .emailError a.launchSignInHover').click(function() {
