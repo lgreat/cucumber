@@ -45,6 +45,8 @@ public class ParentReviewController extends AbstractController {
     protected static final String PARAM_PAGER_OFFSET = "pager.offset";
     protected static final String PARAM_VIEW_ALL = "lr";
     protected static final String PARAM_REVIEWS_BY = "reviewsBy";
+    protected static final String PARAM_PREV_REVIEWS_BY = "prb";
+    protected static final String PARAM_PREV_SORT_BY = "psb";
     protected static final String MODEL_URI = "uri";
 
     //Compare on who, then overall rating descending, then date posted descending
@@ -94,8 +96,7 @@ public class ParentReviewController extends AbstractController {
                 }
             }
 
-            Set<Poster> reviewsBy = getReviewsBy(request);
-            String reviewsByCsv = getReviewsByCsv(reviewsBy);
+            Set<Poster> reviewsBy = getReviewsBy(request.getParameter(PARAM_REVIEWS_BY));
             Map<Poster,Integer> numReviewsBy;
 
             List<Review> reviews;
@@ -106,29 +107,6 @@ public class ParentReviewController extends AbstractController {
                 reviews = _reviewDao.getPublishedDisabledReviewsBySchool(school, reviewsBy);
                 numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
             }
-
-            if (numReviewsBy != null) {
-                model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
-                model.put("numStudentReviews", numReviewsBy.get(Poster.STUDENT));
-
-                int numTeacherStaffReviews = 0;
-                Integer numTeacherReviews = numReviewsBy.get(Poster.TEACHER);
-                if (numTeacherReviews != null) {
-                    numTeacherStaffReviews += numTeacherReviews;
-                }
-                Integer numStaffReviews = numReviewsBy.get(Poster.STAFF);
-                if (numStaffReviews != null) {
-                    numTeacherStaffReviews += numStaffReviews;
-                }
-                Integer numAdminReviews = numReviewsBy.get(Poster.ADMINISTRATOR);
-                if (numAdminReviews != null) {
-                    numTeacherStaffReviews += numAdminReviews;
-                }
-
-                model.put("numTeacherStaffReviews", numTeacherStaffReviews);
-            }
-            model.put("reviewsByCsv", reviewsByCsv);
-            model.put(MODEL_URI, request.getRequestURI());
 
             ParentReviewCommand cmd = new ParentReviewCommand();
 
@@ -161,8 +139,6 @@ public class ParentReviewController extends AbstractController {
             cmd.setTotalReviews(numberOfNonPrincipalReviews.intValue());
             cmd.setCurrentDate(new Date());
 
-            model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
-
             if(user != null && PageHelper.isMemberAuthorized(request)){
                 model.put("reviewReports", getReportsForReviews(user, reviews));
             }
@@ -177,56 +153,118 @@ public class ParentReviewController extends AbstractController {
                 model.put("loginRedirectUrl", "#");                
             }
 
+            if (sessionContext.isShowReviewsPageRedesign()) {
+                if (numReviewsBy != null) {
+                    model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
+                    model.put("numStudentReviews", numReviewsBy.get(Poster.STUDENT));
 
-            if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
-                cmd.setMaxReviewsPerPage(reviews.size());
+                    int numTeacherStaffReviews = 0;
+                    Integer numTeacherReviews = numReviewsBy.get(Poster.TEACHER);
+                    if (numTeacherReviews != null) {
+                        numTeacherStaffReviews += numTeacherReviews;
+                    }
+                    Integer numStaffReviews = numReviewsBy.get(Poster.STAFF);
+                    if (numStaffReviews != null) {
+                        numTeacherStaffReviews += numStaffReviews;
+                    }
+                    Integer numAdminReviews = numReviewsBy.get(Poster.ADMINISTRATOR);
+                    if (numAdminReviews != null) {
+                        numTeacherStaffReviews += numAdminReviews;
+                    }
+
+                    model.put("numTeacherStaffReviews", numTeacherStaffReviews);
+                }
+                model.put("reviewsByCsv", getReviewsByCsv(reviewsBy));
+                model.put(MODEL_URI, request.getRequestURI());
+
+                model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
+                model.put("param_reviewsby", PARAM_REVIEWS_BY);
+
+                // reviews to show
+                List<Review> reviewsToShow;
+                int page = 1;
+                if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
+                    reviewsToShow = reviews;
+                } else {
+                    String pageParam = request.getParameter(PARAM_PAGE);
+                    if (pageParam != null) {
+                        try {
+                            page = Integer.parseInt(pageParam);
+                        } catch (Exception e) {
+                            // do nothing
+                        }
+                    }
+                    int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
+                    int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
+
+                    if ("principal".equals(reviews.get(0).getWho())) {
+                        fromIndex++;
+                        toIndex++;
+                    }
+
+                    toIndex = Math.min(toIndex, reviews.size() - 1);
+
+                    reviewsToShow = reviews.subList(fromIndex, toIndex);
+                }
+                model.put("reviewsToShow", reviewsToShow);
+                model.put("page", page);
+
+                if (page == 1) {
+                    cmd.setShowParentReviewForm(true);
+                } else {
+                    cmd.setShowParentReviewForm(false);
+                }
+
+                String prevSortBy = request.getParameter(PARAM_PREV_SORT_BY);
+                Set<Poster> prevReviewsBy = getReviewsBy(request.getParameter(PARAM_PREV_REVIEWS_BY));
+
+                model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(reviewsBy, prevReviewsBy, paramSortBy, prevSortBy));
             } else {
-                cmd.setMaxReviewsPerPage(MAX_REVIEWS_PER_PAGE);
+                if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
+                    cmd.setMaxReviewsPerPage(reviews.size());
+                } else {
+                    cmd.setMaxReviewsPerPage(MAX_REVIEWS_PER_PAGE);
+                }
+
+                String pagerOffset = request.getParameter(PARAM_PAGER_OFFSET);
+                if (StringUtils.isBlank(pagerOffset) || "0".equals(pagerOffset)) {
+                    cmd.setShowParentReviewForm(true);
+                } else {
+                    cmd.setShowParentReviewForm(false);
+                }
             }
 
-            String pagerOffset = request.getParameter(PARAM_PAGER_OFFSET);
-            if (StringUtils.isBlank(pagerOffset) || "0".equals(pagerOffset)) {
-                cmd.setShowParentReviewForm(true);
-            } else {
-                cmd.setShowParentReviewForm(false);
-            }
-                        
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);
-            model.put("param_reviewsby", PARAM_REVIEWS_BY);
-
-            // reviews to show
-            List<Review> reviewsToShow;
-            int page = 1;
-            if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
-                reviewsToShow = reviews;
-            } else {
-                String pageParam = request.getParameter(PARAM_PAGE);
-                if (pageParam != null) {
-                    try {
-                        page = Integer.parseInt(pageParam);
-                    } catch (Exception e) {
-                        // do nothing
-                    }
-                }
-                int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
-                int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
-
-                if ("principal".equals(reviews.get(0).getWho())) {
-                    fromIndex++;
-                    toIndex++;
-                }
-
-                toIndex = Math.min(toIndex,reviews.size()-1);
-
-                reviewsToShow = reviews.subList(fromIndex, toIndex);
-            }
-            model.put("reviewsToShow", reviewsToShow);
-            model.put("page", page);
 
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    private String getReviewsFilterSortTracking(Set<Poster> reviewsBy, Set<Poster> prevReviewsBy, String paramSortBy, String prevSortBy) {
+        String reviewsFilterSortTracking = "";
+        if (StringUtils.isNotBlank(prevSortBy)) {
+            if ("da".equals(paramSortBy) && !"da".equals(prevSortBy)) {
+                reviewsFilterSortTracking = "Oldest first";
+            } else if ("rd".equals(paramSortBy) && !"rd".equals(prevSortBy)) {
+                reviewsFilterSortTracking = "Highest rating first";
+            } else if ("ra".equals(paramSortBy) && !"ra".equals(prevSortBy)) {
+                reviewsFilterSortTracking = "Lowest rating first";
+            } else if ("dd".equals(paramSortBy) && !"dd".equals(prevSortBy)) {
+                reviewsFilterSortTracking = "Newest first";
+            }
+        } else if (prevReviewsBy != null) {
+            if (reviewsBy.contains(Poster.PARENT) && !prevReviewsBy.contains(Poster.PARENT)) {
+                reviewsFilterSortTracking = "Parent review";
+            } else if (reviewsBy.contains(Poster.STUDENT) && !prevReviewsBy.contains(Poster.STUDENT)) {
+                reviewsFilterSortTracking = "Student review";
+            } else if (reviewsBy.contains(Poster.TEACHER) && !prevReviewsBy.contains(Poster.TEACHER)) {
+                // not checking staff and admin, for simplicity; it would be redundant
+                reviewsFilterSortTracking = "Teacher review";
+            }
+        }
+        return reviewsFilterSortTracking;
     }
 
     protected static int getReviewsTotalPages(int numReviews) {
@@ -272,7 +310,7 @@ public class ParentReviewController extends AbstractController {
         return s.toString();
     }
 
-    private static Set<Poster> getReviewsBy(HttpServletRequest request) {
+    private static Set<Poster> getReviewsBy(String paramReviewsBy) {
         Set<Poster> reviewsBy = new HashSet<Poster>();
         /**
          * p - parents
@@ -280,7 +318,6 @@ public class ParentReviewController extends AbstractController {
          * t - teachers/staff
          * a - all
          */
-        String paramReviewsBy = request.getParameter(PARAM_REVIEWS_BY);
         if (StringUtils.isBlank(paramReviewsBy)) {
             paramReviewsBy = "a";
         }

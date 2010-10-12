@@ -67,10 +67,10 @@
     ]]>
     function go(box) {
         option = box.options[box.selectedIndex].value;
-        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option${reviewsByParam};
+        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;psb=${cmd.sortBy}&amp;${param_sortby}=' + option${reviewsByParam};
     }
     function filter() {
-        location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=' + getReviewsByCsv();
+        location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;prb=${reviewsByCsv}&amp;${param_reviewsby}=' + getReviewsByCsv();
     }
     </c:when>
     <c:otherwise>
@@ -298,7 +298,7 @@
                     </div>
                     <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
                         <div id="typeSort" class="unit size3of5 lastUnit">
-                            <form id="showReviews" class="smallText1" onclick="go(this);" action="">
+                            <form id="showReviews" class="smallText1" action="">
                                 <span>Show reviews by: </span>
                                 <c:if test="${numParentReviews gt 0}">
                                     <c:choose>
