@@ -79,8 +79,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
             return redirectToRegistration(request, user.getEmail());
         }
         */
-
-        HoverHelper hoverHelper = new HoverHelper(request, response);
+        SitePrefCookie cookie = new SitePrefCookie(request, response);
+        HoverHelper hoverHelper = new HoverHelper(cookie); // :(  I'd prefer to provide the request and response rather than cookie
 
         // sorry, to reduce risk this release, I did not modify existing behavior of User setEmailValidated.
         // Instead, a new db field now tracks this, and emailVerified is the new associated bean method. That is why
@@ -88,7 +88,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         user.setEmailVerified(true);
         // authenticate user
         if (!user.isEmailValidated()) {
-            SitePrefCookie cookie = new SitePrefCookie(request, response);
+
 
             // any school reviews in the provisional state need to be upgraded
             List<Review> upgradedReviews = getReviewService().upgradeProvisionalReviews(user);
