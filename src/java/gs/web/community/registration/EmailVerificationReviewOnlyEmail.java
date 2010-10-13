@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
+import gs.data.util.email.EmailHelper;
 import gs.web.util.UrlBuilder;
 
 import javax.mail.MessagingException;
@@ -28,6 +29,21 @@ public class EmailVerificationReviewOnlyEmail extends EmailVerificationEmail {
         String verificationLink = builder.asAbsoluteAnchor(request, builder.asFullUrl(request)).asATag();
 
         sendEmail(getVerificationEmailSubject(), EMAIL_LOCATION, user, verificationLink);
+    }
+
+    protected void sendEmail(String subject,
+                             String emailLocation,
+                             User user,
+                             String verificationLink) throws IOException, MessagingException {
+        EmailHelper emailHelper = getEmailHelper();
+        emailHelper.setSubject(subject);
+        emailHelper.setToEmail(user.getEmail());
+        emailHelper.readHtmlFromResource(emailLocation);
+
+        emailHelper.addInlineReplacement("VERIFICATION_LINK", verificationLink);
+        emailHelper.addInlineReplacement("NEW_EMAIL", user.getEmail());
+
+        emailHelper.send();
     }
 
 }
