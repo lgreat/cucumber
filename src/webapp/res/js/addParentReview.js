@@ -34,11 +34,12 @@ function parseSchools(data) {
 
 
 jQuery(function() {
-    jQuery('#addParentReviewForm-email').click(function() {
-       if (jQuery('#addParentReviewForm-email').val() == "Enter your email address*") {
-           jQuery('#addParentReviewForm-email').val('');
+    jQuery('#frmPRModule-email').click(function() {
+       if (jQuery('#frmPRModule-email').val() == "Enter your email address*") {
+           jQuery('#frmPRModule-email').val('');
        }
     });
+    jQuery('#frmPRModule-email').blur(validateEmail);
     jQuery('#userState').change(loadCities);
     jQuery('#citySelect').change(loadSchools);
     jQuery('#schoolSelect').change(schoolChange);
@@ -76,6 +77,14 @@ jQuery(function() {
             jQuery('#categoryRatings p').hide();
             jQuery('#principalsLink').show();
         }
+    });
+
+    jQuery("#terms").click(function() {
+       if (jQuery("#terms").attr("checked")) {
+           jQuery("#terms-error").hide();
+       } else {
+           jQuery("#terms-error").show();
+       }
     });
 });
 
@@ -242,6 +251,21 @@ function GS_countWords(textField) {
     return count + 1; // # of words is # of spaces + 1
 }
 
+function validateEmail() {
+    jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'}, function(data) {
+        if (data && data['email']) {
+            jQuery('#frmPRModule-email-error .bd').html(data['email']);
+            jQuery('#frmPRModule-email-error').show();
+            jQuery('#frmPRModule-email-error .bd a.launchSignInHover').click(function() {
+                GSType.hover.joinHover.showSignin();
+                return false;
+            });
+        } else {
+            jQuery('#frmPRModule-email-error').hide();
+        }
+    });
+}
+
 function validateReview() {
     var noError = true;
     var height = 360;
@@ -267,23 +291,22 @@ function validateReview() {
     }
 
     if (!GS.isSignedIn()) {
-        var email = jQuery('#addParentReviewForm-email').val();
+        var email = jQuery('#frmPRModule-email').val();
         if (email == '') {
-            jQuery('#emailError').show();
-            jQuery('#emailError .emailErrorText').show();
+            jQuery('#frmPRModule-email-error').show();
         } else {
             jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'}, function(data) {
                 if (data && data['email']) {
-                    jQuery('#emailError .emailErrorText').html(data['email']);
-                    jQuery('#emailError').show();
-                    jQuery('#emailError .emailErrorText a.launchSignInHover').click(function() {
+                    jQuery('#frmPRModule-email-error .bd').html(data['email']);
+                    jQuery('#frmPRModule-email-error').show();
+                    jQuery('#frmPRModule-email-error .bd a.launchSignInHover').click(function() {
                         GSType.hover.joinHover.showSignin();
                         return false;
                     });
                     noError = false;
 
                 } else {
-                    jQuery('#emailError').hide();
+                    jQuery('#frmPRModule-email-error').hide();
 
                     if (noError) {
                         GS_postSchoolReview();
@@ -361,7 +384,7 @@ function reviewThisSchool() {
 function GS_postSchoolReview(email, callerFormId) {
     // first, grab the email from the join/signIn form and use that with the review
     if (email) {
-        jQuery('#addParentReviewForm [name="email"]').val(email);
+        jQuery('#frmPRModule [name="email"]').val(email);
     }
 
     //clear submit fields
