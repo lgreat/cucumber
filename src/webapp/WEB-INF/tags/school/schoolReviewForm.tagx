@@ -38,18 +38,26 @@
         <div class="spacer_10"><!-- do not collapse --></div>
         <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
             <fieldset>
-                <ol>
-                    <!--Begin star ratings.
-                        Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
-                        But because this page may load slowly, that's not an option.
-                    -->
-                    <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
-                    <li class="frmPRListItem">
-                        <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+
+                <!--Begin star ratings.
+                    Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
+                    But because this page may load slowly, that's not an option.
+                -->
+                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+
+                <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+
+                <div class="line">
+                    <div class="unit size2of5">
                         <h4 class="subhead6 label3">Rate this school <em
-                                class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></h4>
+                                class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+                        </h4>
+                    </div>
+                    <div class="unit size3of5 lastUnit">
                         <ul class="star-rating large-star">
-                            <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                            <li id="currentStarDisplay" class="current-rating"
+                                style="width:0;">Currently unrated.
+                            </li>
                             <li><a href="#"
                                    title="1 star out of 5"
                                    class="one-star"
@@ -79,122 +87,150 @@
                                     >5</a></li>
                         </ul>
                         <!-- end star ratings -->
-                        <strong class="errorMessage1 formErrorText media">
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="unit size1of1 lastUnit">
+                        <div class="formErrorText media">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                             <div class="bd">Please select a star rating for this school.</div>
-                        </strong>
-                    </li>
+                        </div>
+                    </div>
+                </div>
 
-                    <input type="hidden" name="id" value="${schoolId}"/>
-                    <input type="hidden" name="state" value="${state}"/>
-                    <input type="hidden" name="source" value="${pageName}"/>
-                    <input type="hidden" name="email" value="${requestScope.context.email}"/>
 
-                    <li class="frmPRListItem">
+                <input type="hidden" name="id" value="${schoolId}"/>
+                <input type="hidden" name="state" value="${state}"/>
+                <input type="hidden" name="source" value="${pageName}"/>
+                <input type="hidden" name="email" value="${requestScope.context.email}"/>
+
+
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="line">
+                    <div class="unit size1of1 lastUnit">
                         <textarea id="reviewText"
                                   class="text1-ededed text3"
                                   name="comments"
                                   onkeyup="countWords(this)"
                                   onkeydown="countWords(this)"
-                                  onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                                  onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
+                                  onblur="if(this.value==''){this.value='[Enter your review here]';}"
                                   rows="" cols="">[Enter your review here]</textarea>
-                    </li>
-                    <li class="frmPRListItem">
-                        <label for="email" class="frmPRLabel-1">Email
-                            <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
-                            <strong class="errorMessage1 formErrorText media">
-                                <span class="sprite i-alert img"><!-- do not collapse --></span>
+                    </div>
+                </div>
 
-                                <div class="bd">Please enter your email.</div>
-                            </strong>
-                        </label>
-                        <input id="email" name="email" class="text1-ededed text3" type="text"/>
-                    </li>
-                    <li class="frmPRListItem">
-                        <label for="affiliation" class="frmPRLabel-1">I am a:
-                            <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
-                            <strong class="errorMessage1 formErrorText media">
-                                <span class="sprite i-alert img"><!-- do not collapse --></span>
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="line">
 
-                                <div class="bd">Please let us know how you are affiliated with this school.</div>
-                            </strong>
-                        </label>
-                        <select id="affiliation" name="posterAsString">
-                            <option value="" selected="selected">- Select one -</option>
-                            <option value="parent">parent</option>
-                            <c:if test="${schoolReviewShowStudent}">
-                                <option value="student">student</option>
-                            </c:if>
-                            <option value="teacher">teacher/staff member</option>
-                            <option value="other">other</option>
-                        </select>
-                    </li>
-                    <li class="frmPRListItem">
-                        <div class="subStarRatings" style="display:none;">
-                            <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
-                            <div class="spacer_10"><!-- do not collapse --></div>
-                            <div class="student_only line">
-                                <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
-                                <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
-                                                                                               additionalClass="med-star"/>
-                                </div>
-                            </div>
+                    <label for="email" class="unit size1of7">Email
+                        <em class="sprite i-required"><!-- do not collapse --></em>
+                    </label>
 
-                            <c:if test="${school.levelCode ne 'p'}">
-                                <div class="spacer_5"><!-- do not collapse --></div>
-                                <div class="line">
-                                    <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
-                                    <div class="catRating unit size5of7 lastUnit"><gsml:starRating
-                                            id="principalAsString"
-                                            additionalClass="med-star"/>
-                                    </div>
-                                </div>
-                            </c:if>
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                            <div class="line">
-                                <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
-                                <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
-                                                                                               additionalClass="med-star"/>
-                                </div>
-                            </div>
-                            <c:if test="${school.levelCode eq 'p'}">
-                                <div class="spacer_5"><!-- do not collapse --></div>
-                                <div class="line">
-                                    <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
-                                    <div class="catRating unit size5of7 lastUnit"><gsml:starRating
-                                            id="pFacilitiesAsString"
-                                            additionalClass="med-star"/>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </div>
-                    </li>
-                    <li class="frmPRListItem">
-                        <strong class="errorMessage1 formErrorText media">
+                    <input id="email" name="email" class="text1-ededed text3 unit size3of7" type="text"
+                           value="[Enter email address]"
+                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                           onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+
+                    <div class="unit size3of7 lastUnit">
+                        <div class="formErrorText media padlft_10">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                            <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
-                        </strong>
-                        <br class="clearfloat"/>
-                        <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <a
-                                href="#">GreatSchools Terms of Use</a> and <a href="#">School Review Guidelines</a>.<em
-                                class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></label>
-                    </li>
-                    <li class="frmPRListItem">
-                        <input id="updates" name="updates" class="checkbox" type="checkbox" value="1"
-                               checked="checked"/>
-                        <label for="updates" class="smallText1">Send me periodic updates about ${school.name}</label>
-                    </li>
-                </ol>
+                            <div class="bd">Please enter your email.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="line">
+                    <label for="affiliation" class="unit size1of7">I am a:
+                        <em class="sprite i-required"><!-- do not collapse --></em>
+
+                    </label>
+                    <select id="affiliation" name="posterAsString" class="unit size3of7">
+                        <option value="" selected="selected">- Select one -</option>
+                        <option value="parent">parent</option>
+                        <c:if test="${schoolReviewShowStudent}">
+                            <option value="student">student</option>
+                        </c:if>
+                        <option value="teacher">teacher/staff member</option>
+                        <option value="other">other</option>
+                    </select>
+
+                    <div class="unit size3of7 lastUnit">
+                        <div class="formErrorText media padlft_10">
+                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+                            <div class="bd">Please let us know how you are affiliated with this school.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subStarRatings" style="display:none;">
+                    <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
+                    <div class="spacer_10"><!-- do not collapse --></div>
+                    <div class="student_only line">
+                        <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
+                        <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
+                                                                                       additionalClass="med-star"/>
+                        </div>
+                    </div>
+
+                    <c:if test="${school.levelCode ne 'p'}">
+                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <div class="line">
+                            <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
+                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating
+                                    id="principalAsString"
+                                    additionalClass="med-star"/>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="line">
+                        <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
+                        <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
+                                                                                       additionalClass="med-star"/>
+                        </div>
+                    </div>
+                    <c:if test="${school.levelCode eq 'p'}">
+                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <div class="line">
+                            <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
+                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating
+                                    id="pFacilitiesAsString"
+                                    additionalClass="med-star"/>
+                            </div>
+                        </div>
+                    </c:if>
+                </div>
+
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="formErrorText media padlft_5">
+                    <span class="sprite i-alert img"><!-- do not collapse --></span>
+                    <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
+                </div>
+
+                <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
+                <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <a
+                        href="#">GreatSchools Terms of Use</a> and <a href="#">School Review Guidelines</a>.
+                    <em class="sprite i-required"><!-- do not collapse --></em>
+
+
+                </label>
+
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <input id="updates" name="updates" class="checkbox" type="checkbox" value="1"
+                       checked="checked"/>
+                <label for="updates" class="smallText1">Send me periodic updates about ${school.name}</label>
+
+
             </fieldset>
-            <fieldset class="frmPRSubmit">
+            <fieldset>
                 <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
                 </button>
                 <div class="helperMessage formText1 media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
-
                     <div class="bd">Indicates a required field</div>
                 </div>
             </fieldset>

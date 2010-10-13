@@ -226,10 +226,9 @@
                                         </c:if>
 
                                         <div class="spacer_5"><!-- do not collapse --></div>
-                                        <div class="infoBox1 smallText1">
-                                        <p>
-                                            <span id="js-k12-info-trigger" class="sprite info"><!-- do not collapse --></span> About these ratings
-                                        </p>
+                                        <div class="media smallText1">
+                                            <span id="js-k12-info-trigger" class="sprite info img"><!-- do not collapse --></span>
+                                            <div class="bd">About these ratings</div>
                                         </div>
                                     </c:when>
                                 </c:choose>
