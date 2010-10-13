@@ -356,49 +356,77 @@
                             <c:set var="reviewClass" value="review principalReview"/>
                         </c:if>
 
-                        <div class="${reviewClass}">
+                    <div class="spacer_15"><!-- do not collapse --></div>    
+                    <div class="${reviewClass}">
                             <![CDATA[ <a name="ps${review.id}"></a> ]]>
 
-                            <c:set var="curStarRating" value="${review.quality.name}"/>
-                            <c:if test="${school.levelCode eq 'p'}">
-                                <c:set var="curStarRating" value="${review.POverall.name}"/>
-                            </c:if>
-                            <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
-                                <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
-                                          styleClass="stars" alt="${curStarRating} out of 5 stars"/>
-                            </c:if>
-                            <c:if test="${who eq 'principal'}">
-                                <h4>The schools's point of view</h4>
-                            </c:if>
-
-                            <p class="author">
-                                <c:choose>
-                                    <c:when test="${who eq 'principal' and not empty(review.user)}">
-                                        <c:set var="principalName" value="${review.user.firstName}"/>
-                                        <c:if test="${not empty (review.user.lastName)}">
-                                            <c:set var="principalName"
-                                                   value="${principalName} ${review.user.lastName}"/>
+                            <div class="line">
+                                <div class="unit size3of5">
+                                    <div class="media">
+                                        <c:set var="curStarRating" value="${review.quality.name}"/>
+                                        <c:if test="${school.levelCode eq 'p'}">
+                                            <c:set var="curStarRating" value="${review.POverall.name}"/>
                                         </c:if>
-                                        <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                    </c:when>
-                                    <c:otherwise>
-                                        Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                    </c:otherwise>
-                                </c:choose>
-                                <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                                        <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+                                <span class="sprite stars_lg_${curStarRating} img"
+                                      title="${curStarRating} star rating"><!-- do not collapse --></span>
+                                        </c:if>
+                                        <c:if test="${who eq 'principal'}">
+                                            <h4>The schools's point of view</h4>
+                                        </c:if>
+
+                                        <div class="bd">
+                                            <p class="author">
+                                                <c:choose>
+                                                    <c:when test="${who eq 'principal' and not empty(review.user)}">
+                                                        <c:set var="principalName" value="${review.user.firstName}"/>
+                                                        <c:if test="${not empty (review.user.lastName)}">
+                                                            <c:set var="principalName"
+                                                                   value="${principalName} ${review.user.lastName}"/>
+                                                        </c:if>
+                                                        <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                                                    <c:choose>
+                                                        <c:when test="${review.status eq 'd'}">
+                                                            (deleted)
+                                                            | <a href="#" class="enableLink link"
+                                                                 onclick="enableReview(${review.id}); return false;">Enable</a>
+                                                        </c:when>
+                                                        <c:when test="${review.status eq 'p'}">
+                                                            | <a href="#" class="disableLink link"
+                                                                 onclick="disableReview(${review.id}); return false;">Disable</a>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </gsml:ifUserCanDeleteContent>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="unit size2of5 lastUnit">
                                     <c:choose>
-                                        <c:when test="${review.status eq 'd'}">
-                                            (deleted)
-                                            | <a href="#" class="enableLink link"
-                                                 onclick="enableReview(${review.id}); return false;">Enable</a>
+                                        <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                                            <p class="reported smallAlertTextBold">You've reported this review.</p>
                                         </c:when>
-                                        <c:when test="${review.status eq 'p'}">
-                                            | <a href="#" class="disableLink link"
-                                                 onclick="disableReview(${review.id}); return false;">Disable</a>
-                                        </c:when>
+                                        
+                                        <c:otherwise>
+                                            <div class="reportReview media smallText1">
+                                                <span class="sprite reportIt-nbg img"><!-- do not collapse --></span>
+                                                <div class="bd">
+                                                    <a class="reportIt" href="${loginRedirectUrl}"
+                                                       onclick="return false;"
+                                                       id="report_schoolReview_${review.id}">Report it</a>
+                                                </div>
+                                            </div>
+                                        </c:otherwise>
                                     </c:choose>
-                                </gsml:ifUserCanDeleteContent>
-                            </p>
+                                </div>
+                            </div>
 
                             <c:set var="postedByDisplay" value=""/>
                             <c:choose>
@@ -415,42 +443,30 @@
                                 </c:when>
                             </c:choose>
 
-                            <p>
+                            <p class="text3">
                                 <c:set var="escapedComments"><c:out value="${review.comments}"
                                                                     escapeXml="true"/></c:set>
                                 ${gsweb:boldifyFirstXWords(escapedComments, 10)}
                                 <c:choose>
                                     <c:when test="${who eq 'principal'}">
                                         <c:if test="${not empty postedByDisplay}"><br/><span
-                                                class="principal author">Submitted by ${postedByDisplay}</span></c:if>
+                                                class="principal author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
                                     </c:when>
                                     <c:otherwise>
                                         <c:if test="${not empty postedByDisplay}"><br/><span
-                                                class="author">Submitted by ${postedByDisplay}</span></c:if>
+                                                class="author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
                                     </c:otherwise>
                                 </c:choose>
                             </p>
 
 
-                            <p class="respond"><link:schoolProfileParentReview
+                            <p class="respond text3italic"><link:schoolProfileParentReview
                                     school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
                                     >Write your own review</link:schoolProfileParentReview></p>
 
-                            <c:choose>
-                                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
-                                    <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="reportReview">
-                                        <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
-                                        <a class="smallText1 reportIt" href="${loginRedirectUrl}"
-                                           onclick="return false;"
-                                           id="report_schoolReview_${review.id}">Report it</a>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-
                         </div>
+                    <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+
                         <!-- end: review -->
                 </c:forEach>
 
@@ -794,9 +810,12 @@
                         </p>
 
 
-                            <p class="respond"><link:schoolProfileParentReview
-                                school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
-                                >Write your own review</link:schoolProfileParentReview></p>
+                            <p class="respond">
+                                <link:schoolProfileParentReview
+                                        school="${school}"
+                                        anchor="schoolReviewSubmitForm"
+                                        styleClass="no_interrupt">Write your own review</link:schoolProfileParentReview>
+                            </p>
 
                             <c:choose>
                                 <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">

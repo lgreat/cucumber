@@ -5630,6 +5630,23 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
 /*=4l-1 reviews
 -------------------------------------------------------------------------------------------*/
 
+#reviewContainer .review{
+    width:100%;
+    display:block;
+    position:relative;
+}
+
+#reviewContainer .reportReview{
+    position:absolute;
+    top:0; right:0;
+    width:66px;
+    _width:67px;
+}
+
+#reviewContainer .reported{
+    text-align:right;
+}
+
 #reviewColumn1 {
     width: 160px;
     float: left;
