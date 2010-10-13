@@ -116,6 +116,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
             } else {
                 //remember that user has verified their email so that they dont have to do it again as long as they have the cookie
                 String emailHash = DigestUtil.hashString(user.getEmail());
+                _log.debug("Hashed email " + user.getEmail() + " to hash " + emailHash + " - writing cookie property");
                 cookie.setProperty("emailVerified", emailHash);
             }
 
