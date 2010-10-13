@@ -93,6 +93,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         SitePrefCookie cookie = new SitePrefCookie(request, response);
         String verifiedEmailHash = cookie.getProperty("emailVerified");
         String thisEmailHash = DigestUtil.hashString(reviewCommand.getEmail());
+        _log.debug("Hashed email " + reviewCommand.getEmail() + " to hash " + thisEmailHash);
         boolean emailVerifiedRecently = thisEmailHash.equals(verifiedEmailHash);
 
         School school = getSchool(request);
@@ -305,46 +306,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             _log.warn("Error checking hold list: " + e, e);
         }
         return onHoldList;
-    }
-
-    public void setRatingsOnReview(LevelCode schoolLevelCode, ReviewCommand command, Review review, Poster poster) {
-        if (LevelCode.PRESCHOOL.equals(schoolLevelCode)) {
-            if (command.getOverallAsString() != null) {
-                review.setPOverall(CategoryRating.getCategoryRating(command.getOverallAsString()));
-            }
-
-            if (Poster.PARENT.equals(poster)) {
-                if (command.getTeacherAsString() != null) {
-                    review.setPTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
-                }
-                if (command.getParentAsString() != null) {
-                    review.setPParents(CategoryRating.getCategoryRating(command.getParentAsString()));
-                }
-                if (command.getPFacilitiesAsString() != null) {
-                    review.setPFacilities(CategoryRating.getCategoryRating(command.getPFacilitiesAsString()));
-                }
-            }
-        } else {
-            if (command.getOverallAsString() != null) {
-                review.setQuality(CategoryRating.getCategoryRating(command.getOverallAsString()));
-            }
-
-            if (Poster.PARENT.equals(poster)) {
-                if (command.getTeacherAsString() != null) {
-                    review.setTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
-                }
-                if (command.getParentAsString() != null) {
-                    review.setParents(CategoryRating.getCategoryRating(command.getParentAsString()));
-                }
-                if (command.getPrincipalAsString() != null) {
-                    review.setPrincipal(CategoryRating.getCategoryRating(command.getPrincipalAsString()));
-                }
-            } else if (Poster.STUDENT.equals(poster)) {
-                if (command.getTeacherAsString() != null) {
-                    review.setTeachers(CategoryRating.getCategoryRating(command.getTeacherAsString()));
-                }
-            }
-        }
     }
 
     protected ModelAndView errorJSON(HttpServletResponse response, BindException errors) throws IOException {

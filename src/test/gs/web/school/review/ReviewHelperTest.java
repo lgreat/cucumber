@@ -211,5 +211,50 @@ public class ReviewHelperTest extends TestCase {
     }
 
 
+    public void testSetRatingsOnReviewPreschoolParent() throws Exception {
+        LevelCode levelCode = LevelCode.PRESCHOOL;
+        Review review = new Review();
+        ReviewCommand reviewCommand = new ReviewCommand();
+
+        reviewCommand.setTeacherAsString("1");
+        reviewCommand.setParentAsString("1");
+        reviewCommand.setPrincipalAsString("1");
+        reviewCommand.setPFacilitiesAsString("1");
+        reviewCommand.setOverallAsString("1");
+
+        _reviewHelper.setRatingsOnReview(levelCode, reviewCommand, review, Poster.PARENT);
+
+        assertEquals(CategoryRating.RATING_1, review.getPTeachers());
+        assertEquals(CategoryRating.RATING_1, review.getPParents());
+        assertEquals(CategoryRating.RATING_1, review.getPFacilities());
+        assertEquals(CategoryRating.RATING_1, review.getPOverall());
+
+        assertNull(review.getPrincipal());
+        assertNull(review.getQuality());
+
+    }
+
+    public void testSetRatingsOnReviewParent() throws Exception {
+        LevelCode levelCode = LevelCode.ELEMENTARY_HIGH;
+        Review review = new Review();
+        ReviewCommand reviewCommand = new ReviewCommand();
+
+        reviewCommand.setTeacherAsString("1");
+        reviewCommand.setParentAsString("1");
+        reviewCommand.setPrincipalAsString("1");
+        reviewCommand.setPFacilitiesAsString("1");
+        reviewCommand.setOverallAsString("1");
+
+        _reviewHelper.setRatingsOnReview(levelCode, reviewCommand, review, Poster.PARENT);
+
+        assertEquals(CategoryRating.RATING_1, review.getTeachers());
+        assertEquals(CategoryRating.RATING_1, review.getParents());
+        assertEquals(CategoryRating.RATING_1, review.getPrincipal());
+        assertEquals(CategoryRating.RATING_1, review.getQuality());
+
+        assertNull(review.getPFacilities());
+        assertNull(review.getPOverall());
+
+    }
 
 }
