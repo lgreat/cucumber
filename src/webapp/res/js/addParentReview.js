@@ -39,7 +39,7 @@ jQuery(function() {
            jQuery('#frmPRModule-email').val('');
        }
     });
-    jQuery('#frmPRModule-email').blur(validateEmail);
+    jQuery('#frmPRModule-email').blur(validateEmailAjax);
     jQuery('#userState').change(loadCities);
     jQuery('#citySelect').change(loadSchools);
     jQuery('#schoolSelect').change(schoolChange);
@@ -251,7 +251,8 @@ function GS_countWords(textField) {
     return count + 1; // # of words is # of spaces + 1
 }
 
-function validateEmail() {
+var validateEmailAjax = function() {
+    var email = jQuery('#frmPRModule-email').val();
     jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'}, function(data) {
         if (data && data['email']) {
             jQuery('#frmPRModule-email-error .bd').html(data['email']);
