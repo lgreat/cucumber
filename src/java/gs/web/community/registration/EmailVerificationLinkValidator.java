@@ -72,9 +72,11 @@ public class EmailVerificationLinkValidator implements Validator {
         boolean validHash = false;
         String actualHash = null;
         try {
-            actualHash = DigestUtil.hashStringInt(user.getEmail(), id);
-            actualHash = DigestUtil.hashString(actualHash + dateSentAsString);
-            validHash = hash.equals(actualHash);
+            if (id != null) {
+                actualHash = DigestUtil.hashStringInt(user.getEmail(), id);
+                actualHash = DigestUtil.hashString(actualHash + dateSentAsString);
+            }
+            validHash = (id != null && hash != null && hash.equals(actualHash));
             if (!validHash) {
                 _log.warn("Community registration request has invalid hash: " + hash + " for user " + user.getEmail());
             }

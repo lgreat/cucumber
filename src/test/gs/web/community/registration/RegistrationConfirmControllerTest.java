@@ -10,13 +10,17 @@ import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
+import gs.web.community.HoverHelper;
 import gs.web.school.review.ReviewService;
+import gs.web.util.SitePrefCookie;
 import org.easymock.IArgumentMatcher;
 import org.easymock.classextension.EasyMock;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.validation.BindException;
+
+import javax.servlet.http.Cookie;
 import java.util.*;
 
 import static org.easymock.EasyMock.*;
@@ -40,11 +44,14 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
     private ReviewService _reviewService;
 
-    protected void setUp() throws Exception {
+    private SitePrefCookie _sitePrefCookie;
+
+    public void setUp() throws Exception {
         super.setUp();
         _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
         _reviewService = createStrictMock(ReviewService.class);
         _controller = new RegistrationConfirmController();
+        _sitePrefCookie = createStrictMock(SitePrefCookie.class);
 
         _userDao = createStrictMock(IUserDao.class);
         _reviewDao = createStrictMock(IReviewDao.class);
@@ -254,6 +261,23 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         assertTrue(upgradedReview == review2);
     }
+    
+    public void testFindCorrectUpgradedReview2() throws Exception {
+        Review review = new Review();
+        review.setStatus("u");
+
+        Review review3 = new Review();
+        review3.setStatus("d");
+
+        List<Review> reviews = new ArrayList<Review>();
+
+        reviews.add(review);
+        reviews.add(review3);
+
+        Review upgradedReview = _controller.findCorrectUpgradedReview(reviews);
+
+        assertTrue(upgradedReview == review);
+    }
 
     public void testFindPostedReviews() {
         Review review = new Review();
@@ -276,6 +300,154 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         assertTrue(postedReviews.size() == 1);
         assertTrue(postedReviews.contains(review2));
     }
+
+    public void testDateSentAsStringError() throws Exception {
+        EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
+
+        BindException bindException = new BindException(command, "");
+
+        bindException.rejectValue("dateSentAsString", "dateSentAsString", "verification link expired");
+
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
+
+        mAndV.getViewName().startsWith("redirect");
+    }
+
+    public void testOtherValidationError() throws Exception {
+        EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
+
+        BindException bindException = new BindException(command, "");
+
+        bindException.rejectValue("hashPlusUserId", "hashPlusUserId", "email verification hash is malformed");
+
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
+
+        mAndV.getViewName().startsWith("redirect");
+    }
+
+    public void testExpiredLink() throws Exception {
+        User user = new User();
+        user.setEmail("test@greatschools.org");
+        EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
+
+        BindException bindException = new BindException(command, "");
+
+        bindException.rejectValue("hashPlusUserId", "hashPlusUserId", "email verification hash is malformed");
+
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
+
+        mAndV.getViewName().startsWith("redirect");
+    }
+
+    public void testHandleExpiredLink() throws Exception {
+        User user = new User();
+        user.setEmail("test@greatschools.org");
+
+        EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
+
+        BindException bindException = new BindException(command, "");
+
+        bindException.rejectValue("dateSentAsString", "dateSentAsString", "verification link expired");
+
+        ModelAndView mAndV = _controller.handleExpiredLink(getRequest(), getResponse(), user);
+
+        mAndV.getViewName().startsWith("redirect");
+        Cookie cookie = getResponse().getCookie("site_pref");
+        assertNotNull(cookie);
+        assertTrue("site pref cooke should contain proper hover property", cookie.getValue().contains("validationLinkExpired"));
+
+    }
+
+    public void testEmailVerifiedCookieSet() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("test@greatschools.org");
+
+        EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
+        command.setDate(String.valueOf(new Date().getTime()));
+        command.setId("1");
+        command.setUser(user);
+        String hash = DigestUtil.hashString(user.getEmail());
+        command.setHashPlusUserId(hash+command.getUserId());
+
+        BindException bindException = new BindException(command, "");
+
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
+
+        Cookie cookie = getResponse().getCookie("site_pref");
+        assertNotNull(cookie);
+        assertTrue("site pref cooke should contain email verified property", cookie.getValue().contains("emailVerified"));
+    }
+
+    public void testHoverWhenReviewUpgradedAndPasswordNull() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("test@greatschools.org");
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+
+        Review review = new Review();
+        review.setStatus("p");
+        review.setSchool(school);
+        review.setUser(user);
+        List<Review> reviews = new ArrayList<Review>();
+        reviews.add(review);
+
+        EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
+        command.setDate(String.valueOf(new Date().getTime()));
+        command.setId("1");
+        command.setUser(user);
+        String hash = DigestUtil.hashString(user.getEmail());
+        command.setHashPlusUserId(hash+command.getUserId());
+
+        BindException bindException = new BindException(command, "");
+
+        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(reviews);
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
+        verifyAllMocks();
+
+        Cookie cookie = getResponse().getCookie("site_pref");
+        assertNotNull(cookie);
+        assertTrue("cookie should contain hover property", cookie.getValue().contains(HoverHelper.Hover.SCHOOL_REVIEW_POSTED_THANK_YOU.toString()));
+    }
+
+    public void testHoverWhenReviewQueuedAndPasswordNull() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setEmail("test@greatschools.org");
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+
+        Review review = new Review();
+        review.setStatus("pp");
+        review.setSchool(school);
+        review.setUser(user);
+        List<Review> reviews = new ArrayList<Review>();
+        reviews.add(review);
+
+        EmailVerificationLinkCommand command = new EmailVerificationLinkCommand();
+        command.setDate(String.valueOf(new Date().getTime()));
+        command.setId("1");
+        command.setUser(user);
+        String hash = DigestUtil.hashString(user.getEmail());
+        command.setHashPlusUserId(hash + command.getUserId());
+
+        BindException bindException = new BindException(command, "");
+
+        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(reviews);
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
+        verifyAllMocks();
+        Cookie cookie = getResponse().getCookie("site_pref");
+        assertNotNull(cookie);
+        assertTrue("cookie should contain hover property", cookie.getValue().contains(HoverHelper.Hover.SCHOOL_REVIEW_NOT_POSTED_THANK_YOU.toString()));
+    }
+
 
     public void replayAllMocks() {
         replayMocks(_userDao, _reviewDao, _reviewService);

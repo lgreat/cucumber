@@ -267,8 +267,8 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     private School getSchool(HttpServletRequest request) {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
-        String check = request.getParameter("isAddNewParentReview");
-        if (!StringUtils.isBlank(check)) {
+        String isAddNewParentReview = request.getParameter("isAddNewParentReview");
+        if (!StringUtils.isBlank(isAddNewParentReview)) {
             if (request.getParameter("schoolId") != null && request.getParameter("schoolState") != null) {
                 school = _schoolDao.getSchoolById(State.fromString(request.getParameter("schoolState")), Integer.parseInt(request.getParameter("schoolId")));
             }

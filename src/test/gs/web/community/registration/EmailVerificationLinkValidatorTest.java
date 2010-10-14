@@ -95,4 +95,22 @@ public class EmailVerificationLinkValidatorTest extends BaseTestCase {
         assertTrue("user's hash should match input hash",  _emailVerificationLinkValidator.verificationHashMatchesUser(emailVerificationLinkCommand));
     }
 
+    public void testVerificationHashInvalid() throws Exception {
+        EmailVerificationLinkCommand emailVerificationLinkCommand = new EmailVerificationLinkCommand();
+
+        Date now = new Date();
+
+        User user = new User();
+        user.setId(1);
+        user.setEmail("test@greatschools.org");
+
+        String hash = "invalid";
+
+        emailVerificationLinkCommand.setUser(user);
+        emailVerificationLinkCommand.setHashPlusUserId(hash + user.getId());
+        emailVerificationLinkCommand.setDate(String.valueOf(now.getTime()));
+
+        assertFalse("user's hash should not match input hash",  _emailVerificationLinkValidator.verificationHashMatchesUser(emailVerificationLinkCommand));
+    }
+
 }

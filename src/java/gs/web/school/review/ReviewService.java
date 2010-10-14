@@ -20,7 +20,7 @@ public class ReviewService {
      */
     public List<Review> upgradeProvisionalReviews(User user) {
 
-        List<Review> userReviews = _reviewDao.findUserReviews(user);
+        List<Review> userReviews = getReviewDao().findUserReviews(user);
 
         List<Review> upgradedReviews = new ArrayList<Review>();
 

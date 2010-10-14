@@ -35,6 +35,10 @@ public class HoverHelper {
         public void setId(String id) {
             _id = id;
         }
+
+        public String toString() {
+            return _id;
+        }
     }
 
     public HoverHelper(SubCookie cookie) {
