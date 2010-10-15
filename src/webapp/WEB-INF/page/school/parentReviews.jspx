@@ -138,355 +138,420 @@
                          or not empty cmd.ratings.avgParents}"/>
 <!--<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>-->
 <c:choose>
-    <c:when test="${requestScope.context.showReviewsPageRedesign}">
-        <!--<p>the new redesign code goes here</p>-->
-        <!--<p>Overall rating is: <c:out value="${cmd.ratings.overall}" default="not set"/></p>-->
-        <!--<p>Number of ratings is: <c:out value="${cmd.ratings.count}" default="not set"/></p>-->
-        <!--<p>Number of reviews is: <c:out value="${cmd.totalReviews}" default="not set"/></p>-->
-        <div id="reviewContainer" class="clearfix">
-            <div id="reviewColumn1">
-                <div id="reviewOverallRating">
-                    <p class="text3">Overall Community Rating</p>
+<c:when test="${requestScope.context.showReviewsPageRedesign}">
+<!--<p>the new redesign code goes here</p>-->
+<!--<p>Overall rating is: <c:out value="${cmd.ratings.overall}" default="not set"/></p>-->
+<!--<p>Number of ratings is: <c:out value="${cmd.ratings.count}" default="not set"/></p>-->
+<!--<p>Number of reviews is: <c:out value="${cmd.totalReviews}" default="not set"/></p>-->
+<div id="reviewContainer" class="clearfix">
+<div id="reviewColumn1">
+    <div id="reviewOverallRating">
+        <p class="text3">Overall Community Rating</p>
 
-                    <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="spacer_5"><!-- do not collapse --></div>
 
                         <span class="sprite stars_xl_${cmd.ratings.overall}_b"
                               title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>
 
 
-                    <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="spacer_5"><!-- do not collapse --></div>
 
-                    <p class="smallText1">Based on
-                        <span>${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
+        <p class="smallText1">Based on
+            <span>${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
 
-                    <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
-                    <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+        <div class="spacer_10"><!-- do not collapse --></div>
 
 
+        <c:choose>
+            <c:when test="${cmd.totalReviews gt 0}">
+                <div class="reviewSubRatings">
                     <c:choose>
-                        <c:when test="${cmd.totalReviews gt 0}">
-                            <div class="reviewSubRatings">
-                                <c:choose>
-                                    <c:when test="${cmd.ratings.preschool}">
-                                        <c:if test="${hasPreschoolCategoryRatings}">
-                                            <ul class="smallText2-777">
-                                                <c:set var="curCatValue"
-                                                       value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
-                                                <c:set var="curCatName" value="Teacher quality"/>
-                                                <c:if test="${not empty curCatValue}">
-                                                    <li><span class="sprite stars_s_${curCatValue}_b"
-                                                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
-                                                    </li>
-                                                </c:if>
-                                                <c:set var="curCatValue"
-                                                       value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
-                                                <c:set var="curCatName" value="Facilities &amp; equipment"/>
-                                                <c:if test="${not empty curCatValue}">
-                                                    <li><span class="sprite stars_s_${curCatValue}_b"
-                                                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
-                                                    </li>
-                                                </c:if>
-                                                <c:set var="curCatValue"
-                                                       value="${cmd.ratings.averageRatingMap[catParents]}"/>
-                                                <c:set var="curCatName" value="Parent involvement"/>
-                                                <c:if test="${not empty curCatValue}">
-                                                    <li><span class="sprite stars_s_${curCatValue}_b"
-                                                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
-                                                    </li>
-                                                </c:if>
-                                            </ul>
-                                        </c:if>
+                        <c:when test="${cmd.ratings.preschool}">
+                            <c:if test="${hasPreschoolCategoryRatings}">
+                                <ul class="smallText2-777">
+                                    <c:set var="curCatValue"
+                                           value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
+                                    <c:set var="curCatName" value="Teacher quality"/>
+                                    <c:if test="${not empty curCatValue}">
+                                        <li><span class="sprite stars_s_${curCatValue}_b"
+                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
+                                        </li>
+                                    </c:if>
+                                    <c:set var="curCatValue"
+                                           value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
+                                    <c:set var="curCatName" value="Facilities &amp; equipment"/>
+                                    <c:if test="${not empty curCatValue}">
+                                        <li><span class="sprite stars_s_${curCatValue}_b"
+                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
+                                        </li>
+                                    </c:if>
+                                    <c:set var="curCatValue"
+                                           value="${cmd.ratings.averageRatingMap[catParents]}"/>
+                                    <c:set var="curCatName" value="Parent involvement"/>
+                                    <c:if test="${not empty curCatValue}">
+                                        <li><span class="sprite stars_s_${curCatValue}_b"
+                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
+                                        </li>
+                                    </c:if>
+                                </ul>
+                            </c:if>
 
-                                        <div class="spacer_5"><!-- do not collapse --></div>
-                                        <div class="infoBox1 smallText1">
-                                        <p>
-                                            <span id="js-p-info-trigger" class="sprite info"><!-- do not collapse --></span> About these ratings
-                                        </p>
-                                        </div>
-                                    </c:when>
-                                    <c:when test="${cmd.ratings.gradeschool}">
-                                        <c:if test="${hasGradeschoolCategoryRatings}">
-                                            <ul class="smallText2-777">
-                                                <c:if test="${not empty cmd.ratings.avgTeachers}">
-                                                    <li><span class="sprite stars_s_${cmd.ratings.avgTeachers}_b"
-                                                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Teacher quality
-                                                    </li>
-                                                </c:if>
-                                                <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                                                    <li><span class="sprite stars_s_${cmd.ratings.avgPrincipal}_b"
-                                                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Principal leadership
-                                                    </li>
-                                                </c:if>
-                                                <c:if test="${not empty cmd.ratings.avgParents}">
-                                                    <li><span class="sprite stars_s_${cmd.ratings.avgParents}_b"
-                                                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Parent involvement
-                                                    </li>
-                                                </c:if>
-                                            </ul>
-                                        </c:if>
-
-                                        <div class="spacer_5"><!-- do not collapse --></div>
-                                        <div class="media smallText1">
-                                            <span id="js-k12-info-trigger" class="sprite info img"><!-- do not collapse --></span>
-                                            <div class="bd">About these ratings</div>
-                                        </div>
-                                    </c:when>
-                                </c:choose>
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                            <div class="infoBox1 smallText1">
+                                <p>
+                                    <span id="js-p-info-trigger"
+                                          class="sprite info"><!-- do not collapse --></span> About these ratings
+                                </p>
                             </div>
+                        </c:when>
+                        <c:when test="${cmd.ratings.gradeschool}">
+                            <c:if test="${hasGradeschoolCategoryRatings}">
+                                <ul class="smallText2-777">
+                                    <c:if test="${not empty cmd.ratings.avgTeachers}">
+                                        <li><span class="sprite stars_s_${cmd.ratings.avgTeachers}_b"
+                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Teacher quality
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${not empty cmd.ratings.avgPrincipal}">
+                                        <li><span class="sprite stars_s_${cmd.ratings.avgPrincipal}_b"
+                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Principal leadership
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${not empty cmd.ratings.avgParents}">
+                                        <li><span class="sprite stars_s_${cmd.ratings.avgParents}_b"
+                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Parent involvement
+                                        </li>
+                                    </c:if>
+                                </ul>
+                            </c:if>
 
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                            <div class="media smallText1">
+                                <span id="js-k12-info-trigger" class="sprite info img"><!-- do not collapse --></span>
+
+                                <div class="bd">About these ratings</div>
+                            </div>
+                        </c:when>
+                    </c:choose>
+                </div>
+
+            </c:when>
+            <c:otherwise>
+                <div class="spacer_5"><!-- do not collapse --></div>
+                <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+</div>
+<!-- end reviewColumn1 -->
+<div id="reviewColumn2">
+    <c:if test="${cmd.showParentReviewForm}">
+        <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
+    </c:if>
+</div>
+<!-- end reviewColumn2 -->
+<div class="clearfloat"><!-- do not collapse --></div>
+
+<c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
+<c:if test="${not empty principalReview}">
+    <div id="principalsPOV">
+        <h4 class="text1bold">The Principal's point of view</h4>
+
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="principalsIMG">
+                <c:if test="${principalReview.user.userProfile.active}">
+                    <link:userProfile user="${principalReview.user}">
+                        <community:avatar user="${principalReview.user}" width="46" height="46"/>
+                    </link:userProfile>
+                </c:if>
+        </div>
+        <c:choose>
+            <c:when test="${principalReview.who eq 'principal' and not empty(principalReview.user)}">
+                <c:set var="principalName" value="${principalReview.user.firstName}"/>
+                <c:if test="${not empty (principalReview.user.lastName)}">
+                    <c:set var="principalName" value="${principalName} ${principalReview.user.lastName}"/>
+                </c:if>
+
+                <p class="principalName text3">
+                    <link:userProfile user="${principalReview.user}">${principalName}</link:userProfile>
+                    <span class="smallText1">, ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</span>
+                </p>
+            </c:when>
+            <c:otherwise>
+                <p class="smallText1">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
+            </c:otherwise>
+        </c:choose>
+        <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+            <c:choose>
+                <c:when test="${principalReview.status eq 'd'}">
+                    (deleted)
+                    | <a href="#" class="enableLink link"
+                         onclick="enableReview(${review.id}); return false;">Enable</a>
+                </c:when>
+                <c:when test="${principalReview.status eq 'p'}">
+                    | <a href="#" class="disableLink link"
+                         onclick="disableReview(${review.id}); return false;">Disable</a>
+                </c:when>
+            </c:choose>
+        </gsml:ifUserCanDeleteContent>
+
+        <p class="text3">
+            <c:set var="escapedComments">
+                <c:out value="${principalReview.comments}" escapeXml="true"/>
+            </c:set>
+            ${escapedComments}
+        </p>
+
+        <div class="clearfloat"><!-- do not collapse --></div>
+    </div>
+</c:if>
+
+<div class="alertBox3 text2">
+    <p><span class="sprite emailIt"><!-- do not collapse --></span> Get email updates about this school. <a
+            class="text2bold-06b" href="#">Sign up now <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
+</div>
+
+<c:if test="${empty principalReview}">
+
+<div class="spacer_15"><!-- do not collapse --></div>
+<div class="alertBox3 smallText1">
+    <p><span class="sprite pencil_med"><!-- do not collapse --></span> PRINCIPALS &amp;amp; SCHOOL OFFICIALS: <a
+            class="text3-06b" href="#">Share your point of view <span class="alertDoubleArrow">&amp;raquo;</span></a>
+    </p>
+</div>
+
+</c:if>
+
+<div class="spacer_15"><!-- do not collapse --></div>
+
+<c:set var="reviewsPagination">
+    <c:set var="paginationUrl"><c:choose>
+        <c:when test="${empty reviewsByCsv}">${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}</c:when>
+        <c:otherwise>${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=${reviewsByCsv}</c:otherwise>
+    </c:choose></c:set>
+    <community:pagination page="${page}"
+                          totalPages="${reviewsTotalPages}"
+                          url="${paginationUrl}"
+                          styleClass="pagination"
+                          pageNumberStyleClass="pager-tab"
+            />
+</c:set>
+
+<div class="line">
+    <div class="unit size1of2">
+        <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
+    </div>
+
+    <div class="unit size1of2 lastUnit">
+        ${reviewsPagination}
+    </div>
+</div>
+
+<div class="spacer_15"><!-- do not collapse --></div>
+<div class="line">
+    <div id="rankSort" class="unit size2of5">
+        <span class="smallText1">Sort by: </span>
+        <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
+                     onchange="go(this);">
+            <form:option value="dd">Date: newest to oldest</form:option>
+            <form:option value="da">Date: oldest to newest</form:option>
+            <form:option value="rd">Rating: highest to lowest</form:option>
+            <form:option value="ra">Rating: lowest to highest</form:option>
+        </form:select>
+    </div>
+    <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
+        <div id="typeSort" class="unit size3of5 lastUnit">
+            <form id="showReviews" class="smallText1" action="">
+                <span>Show reviews by: </span>
+                <c:if test="${numParentReviews gt 0}">
+                    <c:choose>
+                        <c:when test="${fn:contains(reviewsByCsv,'p')}">
+                            <input type="checkbox" id="showParents" checked="checked"
+                                   onclick="filter()"/>
                         </c:when>
                         <c:otherwise>
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                            <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
+                            <input type="checkbox" id="showParents" onclick="filter()"/>
                         </c:otherwise>
                     </c:choose>
-
-                </div>
-            </div>
-            <!-- end reviewColumn1 -->
-            <div id="reviewColumn2">
-                <c:if test="${cmd.showParentReviewForm}">
-                    <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
+                    <label for="showParents">Parents</label>
                 </c:if>
-            </div>
-            <!-- end reviewColumn2 -->
-            <div class="spacer_15"><!-- do not collapse --></div>
-                <div class="alertBox3 text2">
-                    <p><span class="sprite emailIt"><!-- do not collapse --></span> Receive email updates on this school. <a class="text2bold-06b" href="#">Sign up now <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
-                </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
-                <div class="alertBox3 smallText1">
-                    <p><span class="sprite pencil_med"><!-- do not collapse --></span> PRINCIPAL'S &amp;amp; SCHOOL OFFICIALS: <a class="text3-06b" href="#">Share your point of view <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
-                </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
+                <c:if test="${numStudentReviews gt 0}">
+                    <c:choose>
+                        <c:when test="${fn:contains(reviewsByCsv,'s')}">
+                            <input type="checkbox" id="showStudents" checked="checked"
+                                   onclick="filter()"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" id="showStudents" onclick="filter()"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <label for="showStudents">Students</label>
+                </c:if>
+                <c:if test="${numTeacherStaffReviews gt 0}">
+                    <c:choose>
+                        <c:when test="${fn:contains(reviewsByCsv,'t')}">
+                            <input type="checkbox" id="showTeachers" checked="checked"
+                                   onclick="filter()"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" id="showTeachers" onclick="filter()"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <label for="showTeachers">Teachers/Staff</label>
+                </c:if>
+            </form>
+        </div>
+    </c:if>
+</div>
 
-                <c:set var="reviewsPagination">
-                    <c:set var="paginationUrl"><c:choose>
-                        <c:when test="${empty reviewsByCsv}">${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}</c:when>
-                        <c:otherwise>${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=${reviewsByCsv}</c:otherwise>
-                    </c:choose></c:set>
-                    <community:pagination page="${page}"
-                                      totalPages="${reviewsTotalPages}"
-                                      url="${paginationUrl}"
-                                      styleClass="pagination"
-                                      pageNumberStyleClass="pager-tab"
-                            />
-                </c:set>
+<c:set var="parentReviewsStart" value="0"/>
+<c:if test="${cmd.reviews[0].who eq 'principal'}">
+    <c:set var="parentReviewsStart" value="1"/>
+</c:if>
+<c:forEach var="review" items="${reviewsToShow}">
+    <c:set var="who" value=""/>
+    <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+        <c:set var="who" value="${review.who}"/>
+    </c:if>
 
-                <div class="line">
-                    <div class="unit size1of2">
-                        <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
-                    </div>
+    <!-- does user permit name to display-->
+    <c:set var="reviewClass" value="review"/>
+    <c:if test="${who eq 'principal'}">
+        <c:set var="reviewClass" value="review principalReview"/>
+    </c:if>
 
-                    <div class="unit size1of2 lastUnit">
-                        ${reviewsPagination}
-                    </div>
-                </div>
+    <div class="spacer_15"><!-- do not collapse --></div>
+    <div class="${reviewClass}">
+        <![CDATA[ <a name="ps${review.id}"></a> ]]>
 
-                <div class="spacer_15"><!-- do not collapse --></div>
-                <div class="line">
-                    <div id="rankSort" class="unit size2of5">
-                        <span class="smallText1">Sort by: </span>
-                        <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
-                                     onchange="go(this);">
-                            <form:option value="dd">Date: newest to oldest</form:option>
-                            <form:option value="da">Date: oldest to newest</form:option>
-                            <form:option value="rd">Rating: highest to lowest</form:option>
-                            <form:option value="ra">Rating: lowest to highest</form:option>
-                        </form:select>
-                    </div>
-                    <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
-                        <div id="typeSort" class="unit size3of5 lastUnit">
-                            <form id="showReviews" class="smallText1" action="">
-                                <span>Show reviews by: </span>
-                                <c:if test="${numParentReviews gt 0}">
-                                    <c:choose>
-                                        <c:when test="${fn:contains(reviewsByCsv,'p')}">
-                                            <input type="checkbox" id="showParents" checked="checked"
-                                                   onclick="filter()"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <input type="checkbox" id="showParents" onclick="filter()"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <label for="showParents">Parents</label>
-                                </c:if>
-                                <c:if test="${numStudentReviews gt 0}">
-                                    <c:choose>
-                                        <c:when test="${fn:contains(reviewsByCsv,'s')}">
-                                            <input type="checkbox" id="showStudents" checked="checked"
-                                                   onclick="filter()"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <input type="checkbox" id="showStudents" onclick="filter()"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <label for="showStudents">Students</label>
-                                </c:if>
-                                <c:if test="${numTeacherStaffReviews gt 0}">
-                                    <c:choose>
-                                        <c:when test="${fn:contains(reviewsByCsv,'t')}">
-                                            <input type="checkbox" id="showTeachers" checked="checked"
-                                                   onclick="filter()"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <input type="checkbox" id="showTeachers" onclick="filter()"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <label for="showTeachers">Teachers/Staff</label>
-                                </c:if>
-                            </form>
-                        </div>
+        <div class="line">
+            <div class="unit size3of5">
+                <div class="media">
+                    <c:set var="curStarRating" value="${review.quality.name}"/>
+                    <c:if test="${school.levelCode eq 'p'}">
+                        <c:set var="curStarRating" value="${review.POverall.name}"/>
                     </c:if>
-                </div>
-
-                <c:set var="parentReviewsStart" value="0"/>
-                <c:if test="${cmd.reviews[0].who eq 'principal'}">
-                    <c:set var="parentReviewsStart" value="1"/>
-                </c:if>
-                <c:forEach var="review" items="${reviewsToShow}" begin="${parentReviewsStart}">
-                        <c:set var="who" value=""/>
-                        <c:if test="${!(empty(review.who) or review.who eq 'other')}">
-                            <c:set var="who" value="${review.who}"/>
-                        </c:if>
-
-                        <!-- does user permit name to display-->
-                        <c:set var="reviewClass" value="review"/>
-                        <c:if test="${who eq 'principal'}">
-                            <c:set var="reviewClass" value="review principalReview"/>
-                        </c:if>
-
-                    <div class="spacer_15"><!-- do not collapse --></div>    
-                    <div class="${reviewClass}">
-                            <![CDATA[ <a name="ps${review.id}"></a> ]]>
-
-                            <div class="line">
-                                <div class="unit size3of5">
-                                    <div class="media">
-                                        <c:set var="curStarRating" value="${review.quality.name}"/>
-                                        <c:if test="${school.levelCode eq 'p'}">
-                                            <c:set var="curStarRating" value="${review.POverall.name}"/>
-                                        </c:if>
-                                        <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+                    <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
                                 <span class="sprite stars_lg_${curStarRating} img"
                                       title="${curStarRating} star rating"><!-- do not collapse --></span>
-                                        </c:if>
-                                        <c:if test="${who eq 'principal'}">
-                                            <h4>The schools's point of view</h4>
-                                        </c:if>
+                    </c:if>
 
-                                        <div class="bd">
-                                            <p class="author">
-                                                <c:choose>
-                                                    <c:when test="${who eq 'principal' and not empty(review.user)}">
-                                                        <c:set var="principalName" value="${review.user.firstName}"/>
-                                                        <c:if test="${not empty (review.user.lastName)}">
-                                                            <c:set var="principalName"
-                                                                   value="${principalName} ${review.user.lastName}"/>
-                                                        </c:if>
-                                                        <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                                    <c:choose>
-                                                        <c:when test="${review.status eq 'd'}">
-                                                            (deleted)
-                                                            | <a href="#" class="enableLink link"
-                                                                 onclick="enableReview(${review.id}); return false;">Enable</a>
-                                                        </c:when>
-                                                        <c:when test="${review.status eq 'p'}">
-                                                            | <a href="#" class="disableLink link"
-                                                                 onclick="disableReview(${review.id}); return false;">Disable</a>
-                                                        </c:when>
-                                                    </c:choose>
-                                                </gsml:ifUserCanDeleteContent>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="unit size2of5 lastUnit">
-                                    <c:choose>
-                                        <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
-                                            <p class="reported smallAlertTextBold">You've reported this review.</p>
-                                        </c:when>
-                                        
-                                        <c:otherwise>
-                                            <div class="reportReview media smallText1">
-                                                <span class="sprite reportIt-nbg img"><!-- do not collapse --></span>
-                                                <div class="bd">
-                                                    <a class="reportIt" href="${loginRedirectUrl}"
-                                                       onclick="return false;"
-                                                       id="report_schoolReview_${review.id}">Report it</a>
-                                                </div>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                            </div>
-
-                            <c:set var="postedByDisplay" value=""/>
+                    <div class="bd">
+                        <p class="author">
                             <c:choose>
                                 <c:when test="${who eq 'principal' and not empty(review.user)}">
-                                    <c:set var="postedByDisplay" value="an administrator at this school"/>
+                                    <c:set var="principalName" value="${review.user.firstName}"/>
+                                    <c:if test="${not empty (review.user.lastName)}">
+                                        <c:set var="principalName"
+                                               value="${principalName} ${review.user.lastName}"/>
+                                    </c:if>
+                                    <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                                 </c:when>
-                                <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
-                                    <c:set var="postedByDisplay"
-                                           value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
-                                </c:when>
-                                <c:when test="${review.who ne ''}">
-                                    <c:set var="postedByDisplay"
-                                           value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
-                                </c:when>
+                                <c:otherwise>
+                                    Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                                </c:otherwise>
                             </c:choose>
-
-                            <p class="text3">
-                                <c:set var="escapedComments"><c:out value="${review.comments}"
-                                                                    escapeXml="true"/></c:set>
-                                ${gsweb:boldifyFirstXWords(escapedComments, 10)}
+                            <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                 <c:choose>
-                                    <c:when test="${who eq 'principal'}">
-                                        <c:if test="${not empty postedByDisplay}"><br/><span
-                                                class="principal author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
+                                    <c:when test="${review.status eq 'd'}">
+                                        (deleted)
+                                        | <a href="#" class="enableLink link"
+                                             onclick="enableReview(${review.id}); return false;">Enable</a>
                                     </c:when>
-                                    <c:otherwise>
-                                        <c:if test="${not empty postedByDisplay}"><br/><span
-                                                class="author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
-                                    </c:otherwise>
+                                    <c:when test="${review.status eq 'p'}">
+                                        | <a href="#" class="disableLink link"
+                                             onclick="disableReview(${review.id}); return false;">Disable</a>
+                                    </c:when>
                                 </c:choose>
-                            </p>
-
-
-                            <p class="respond text3italic"><link:schoolProfileParentReview
-                                    school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
-                                    >Write your own review</link:schoolProfileParentReview></p>
-
-                        </div>
-                    <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
-
-                        <!-- end: review -->
-                </c:forEach>
-
-            <div class="spacer_10"><!-- do not collapse --></div>
-
-            <div>
-                ${reviewsPagination}
+                            </gsml:ifUserCanDeleteContent>
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="alertBox3 text1">
-                    <p>What are your school's special characteristics? <a href="#">Tell us here <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
-                </div>
-            <div class="spacer_10"><!-- do not collapse --></div>
-            <p class="smallText1">Community ratings and reviews do not represent the views of GreatSchools.org nor does GreatSchools.org check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
+            <div class="unit size2of5 lastUnit">
+                <c:choose>
+                    <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                        <p class="reported smallAlertTextBold">You've reported this review.</p>
+                    </c:when>
+
+                    <c:otherwise>
+                        <div class="reportReview media smallText1">
+                            <span class="sprite reportIt-nbg img"><!-- do not collapse --></span>
+
+                            <div class="bd">
+                                <a class="reportIt" href="${loginRedirectUrl}"
+                                   onclick="return false;"
+                                   id="report_schoolReview_${review.id}">Report it</a>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </div>
-        <!-- end reviewContainer -->
-    </c:when>
-    <c:otherwise>
-        <!--<p>the old code goes here</p>-->
+
+        <c:set var="postedByDisplay" value=""/>
+        <c:choose>
+            <c:when test="${who eq 'principal' and not empty(review.user)}">
+                <c:set var="postedByDisplay" value="an administrator at this school"/>
+            </c:when>
+            <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
+                <c:set var="postedByDisplay"
+                       value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
+            </c:when>
+            <c:when test="${review.who ne ''}">
+                <c:set var="postedByDisplay"
+                       value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+            </c:when>
+        </c:choose>
+
+        <p class="text3">
+            <c:set var="escapedComments"><c:out value="${review.comments}"
+                                                escapeXml="true"/></c:set>
+            ${gsweb:boldifyFirstXWords(escapedComments, 10)}
+            <c:choose>
+                <c:when test="${who eq 'principal'}">
+                    <c:if test="${not empty postedByDisplay}"><br/><span
+                            class="principal author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${not empty postedByDisplay}"><br/><span
+                            class="author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
+                </c:otherwise>
+            </c:choose>
+        </p>
+
+
+        <p class="respond text3italic"><link:schoolProfileParentReview
+                school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
+                >Write your own review</link:schoolProfileParentReview></p>
+
+    </div>
+    <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+
+    <!-- end: review -->
+</c:forEach>
+
+<div class="spacer_10"><!-- do not collapse --></div>
+
+<div>
+    ${reviewsPagination}
+</div>
+
+<div class="spacer_10"><!-- do not collapse --></div>
+<div class="alertBox3 text1">
+    <p>What are your school's special characteristics? <a href="#">Tell us here <span
+            class="alertDoubleArrow">&amp;raquo;</span></a></p>
+</div>
+<div class="spacer_10"><!-- do not collapse --></div>
+<p class="smallText1">Community ratings and reviews do not represent the views of GreatSchools nor does GreatSchools check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
+</div>
+<!-- end reviewContainer -->
+</c:when>
+<c:otherwise>
+<!--<p>the old code goes here</p>-->
 
 <div id="parentReview">
 <school:parentReviewThankYou schoolName="${school.name}"/>
@@ -503,9 +568,9 @@
                          or not empty cmd.ratings.avgParents}"/>
 
 <c:choose>
-<c:when test="${cmd.ratings.displayOverallRating eq true and (hasPreschoolCategoryRatings or hasGradeschoolCategoryRatings)}">
-    <div id="showParentRatings">
-        <div id="rating_parent" class="hreview-aggregate">
+    <c:when test="${cmd.ratings.displayOverallRating eq true and (hasPreschoolCategoryRatings or hasGradeschoolCategoryRatings)}">
+        <div id="showParentRatings">
+            <div id="rating_parent" class="hreview-aggregate">
             <span style="position:absolute; left:-9999px;">
                 <span class="item">
                     <span class="fn">${school.name}</span>
@@ -517,89 +582,92 @@
                 <span class="votes">${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}.
                 <span class="count">${cmd.totalReviews}</span> user ${cmd.totalReviews eq 1 ? 'review' : 'reviews'}.
             </span>
-            <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif"
-                      alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating"
-                      styleClass="parentTitle"/>
+                <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif"
+                          alt="Overall Parent Rating - ${school.name} Parent Reviews and Overall Parent Rating"
+                          styleClass="parentTitle"/>
             <span class="rating average">
-                <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.overall}.gif" alt="Overall rating: ${cmd.ratings.overall} out of 5 stars" styleClass="stars rating average"/>
+                <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.overall}.gif"
+                          alt="Overall rating: ${cmd.ratings.overall} out of 5 stars"
+                          styleClass="stars rating average"/>
             </span>
-            <link:schoolProfileParentReview
-                    anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
-                    school="${school}"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif"
-                                                 alt="Rate it"
-                                                 styleClass="rateIt"/></link:schoolProfileParentReview>
+                <link:schoolProfileParentReview
+                        anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
+                        school="${school}"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif"
+                                                     alt="Rate it"
+                                                     styleClass="rateIt"/></link:schoolProfileParentReview>
 
-            <p class="ratingsNumber">Based on <span class="count">${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
+                <p class="ratingsNumber">Based on <span
+                        class="count">${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
+            </div>
+            <!-- end: rating_parent -->
+
+            <c:choose>
+                <c:when test="${cmd.ratings.preschool}">
+                    <c:if test="${hasPreschoolCategoryRatings}">
+                        <ul>
+                            <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
+                            <c:set var="curCatName" value="Facilities &amp; equipment"/>
+                            <c:if test="${not empty curCatValue}">
+                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                           styleClass="sm_stars"/></li>
+                            </c:if>
+                            <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
+                            <c:set var="curCatName" value="Teacher quality"/>
+                            <c:if test="${not empty curCatValue}">
+                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                           styleClass="sm_stars"/></li>
+                            </c:if>
+                            <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catParents]}"/>
+                            <c:set var="curCatName" value="Parent involvement"/>
+                            <c:if test="${not empty curCatValue}">
+                                <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
+                                                           alt="${curCatName}: ${curCatValue} out of 5 stars"
+                                                           styleClass="sm_stars"/></li>
+                            </c:if>
+                        </ul>
+                    </c:if>
+
+                    <p class="categoriesMore"><link:parentRatingsExplained preschool="true" target="_blank"
+                                                                           onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
+                    </p>
+                </c:when>
+                <c:when test="${cmd.ratings.gradeschool}">
+                    <c:if test="${hasGradeschoolCategoryRatings}">
+                        <ul>
+                            <c:if test="${not empty cmd.ratings.avgPrincipal}">
+                                <li>Principal leadership<gsml:img
+                                        src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif"
+                                        alt="Principal leadership: ${cmd.ratings.avgPrincipal} out of 5 stars"
+                                        styleClass="sm_stars"/></li>
+                            </c:if>
+                            <c:if test="${not empty cmd.ratings.avgTeachers}">
+                                <li>Teacher quality<gsml:img
+                                        src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif"
+                                        alt="Teacher quality: ${cmd.ratings.avgTeachers} out of 5 stars"
+                                        styleClass="sm_stars"/></li>
+                            </c:if>
+                            <c:if test="${not empty cmd.ratings.avgParents}">
+                                <li>Parent involvement<gsml:img
+                                        src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif"
+                                        alt="Parent involvement: ${cmd.ratings.avgParents} out of 5 stars"
+                                        styleClass="sm_stars"/></li>
+                            </c:if>
+                        </ul>
+                    </c:if>
+
+                    <p class="categoriesMore"><link:parentRatingsExplained target="_blank"
+                                                                           onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
+                    </p>
+                </c:when>
+            </c:choose>
         </div>
-        <!-- end: rating_parent -->
-
-        <c:choose>
-            <c:when test="${cmd.ratings.preschool}">
-                <c:if test="${hasPreschoolCategoryRatings}">
-                    <ul>
-                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
-                        <c:set var="curCatName" value="Facilities &amp; equipment"/>
-                        <c:if test="${not empty curCatValue}">
-                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                       styleClass="sm_stars"/></li>
-                        </c:if>
-                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
-                        <c:set var="curCatName" value="Teacher quality"/>
-                        <c:if test="${not empty curCatValue}">
-                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                       styleClass="sm_stars"/></li>
-                        </c:if>
-                        <c:set var="curCatValue" value="${cmd.ratings.averageRatingMap[catParents]}"/>
-                        <c:set var="curCatName" value="Parent involvement"/>
-                        <c:if test="${not empty curCatValue}">
-                            <li>${curCatName}<gsml:img src="/res/img/map/ratings_parent_city_${curCatValue}.gif"
-                                                       alt="${curCatName}: ${curCatValue} out of 5 stars"
-                                                       styleClass="sm_stars"/></li>
-                        </c:if>
-                    </ul>
-                </c:if>
-
-                <p class="categoriesMore"><link:parentRatingsExplained preschool="true" target="_blank"
-                                                                       onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
-                </p>
-            </c:when>
-            <c:when test="${cmd.ratings.gradeschool}">
-                <c:if test="${hasGradeschoolCategoryRatings}">
-                    <ul>
-                        <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                            <li>Principal leadership<gsml:img
-                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgPrincipal}.gif"
-                                    alt="Principal leadership: ${cmd.ratings.avgPrincipal} out of 5 stars"
-                                    styleClass="sm_stars"/></li>
-                        </c:if>
-                        <c:if test="${not empty cmd.ratings.avgTeachers}">
-                            <li>Teacher quality<gsml:img
-                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgTeachers}.gif"
-                                    alt="Teacher quality: ${cmd.ratings.avgTeachers} out of 5 stars"
-                                    styleClass="sm_stars"/></li>
-                        </c:if>
-                        <c:if test="${not empty cmd.ratings.avgParents}">
-                            <li>Parent involvement<gsml:img
-                                    src="/res/img/map/ratings_parent_city_${cmd.ratings.avgParents}.gif"
-                                    alt="Parent involvement: ${cmd.ratings.avgParents} out of 5 stars"
-                                    styleClass="sm_stars"/></li>
-                        </c:if>
-                    </ul>
-                </c:if>
-
-                <p class="categoriesMore"><link:parentRatingsExplained target="_blank"
-                                                                       onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;">More about these categories &#62;</link:parentRatingsExplained>
-                </p>
-            </c:when>
-        </c:choose>
-    </div>
-    <!-- end: showParentRatings -->
-</c:when>
-<c:otherwise>
-    <div id="noRatingsSpacer"><!-- don't collapse --></div>
-</c:otherwise>
+        <!-- end: showParentRatings -->
+    </c:when>
+    <c:otherwise>
+        <div id="noRatingsSpacer"><!-- don't collapse --></div>
+    </c:otherwise>
 </c:choose>
 
 <c:if test="${cmd.showParentReviewForm}">
@@ -610,10 +678,10 @@
 <c:if test="${cmd.totalReviews gt 0}">
 
 
-    <div id="showParentReviews" class="showall">
+<div id="showParentReviews" class="showall">
 
-        <!-- start principal review -->
-    <c:if test="${cmd.reviews[0].who eq 'principal'}">
+<!-- start principal review -->
+<c:if test="${cmd.reviews[0].who eq 'principal'}">
     <c:set var="review" value="${cmd.reviews[0]}"/>
 
     <c:set var="who" value=""/>
@@ -621,7 +689,7 @@
         <c:set var="who" value="${review.who}"/>
     </c:if>
 
-    <div class="review principalReview" >
+    <div class="review principalReview">
         <![CDATA[ <a name="ps${review.id}"></a> ]]>
 
         <c:set var="curStarRating" value="${review.quality.name}"/>
@@ -632,212 +700,221 @@
             <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
                       styleClass="stars" alt="${curStarRating} out of 5 stars"/>
         </c:if>-->
-            <h4>The school's point of view</h4>
+        <h4>The school's point of view</h4>
+
         <p class="author">
-                    <c:set var="principalName" value="${review.user.firstName}" />
-                        <c:if test="${not empty (review.user.lastName)}">
-                            <c:set var="principalName" value="${principalName} ${review.user.lastName}" />
-                        </c:if>
-                    <span class="principalName">${principalName}</span>
+            <c:set var="principalName" value="${review.user.firstName}"/>
+            <c:if test="${not empty (review.user.lastName)}">
+                <c:set var="principalName" value="${principalName} ${review.user.lastName}"/>
+            </c:if>
+            <span class="principalName">${principalName}</span>
             <c:if test="${not empty principalName}">
-            , 
+                ,
             </c:if>
             ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                 <c:choose>
                     <c:when test="${review.status eq 'd'}">
                         (deleted)
-                        | <a href="#" class="enableLink link" onclick="enableReview(${review.id}); return false;">Enable</a>
+                        | <a href="#" class="enableLink link"
+                             onclick="enableReview(${review.id}); return false;">Enable</a>
                     </c:when>
                     <c:when test="${review.status eq 'p'}">
-                            | <a href="#" class="disableLink link" onclick="disableReview(${review.id}); return false;">Disable</a>
+                        | <a href="#" class="disableLink link"
+                             onclick="disableReview(${review.id}); return false;">Disable</a>
                     </c:when>
                 </c:choose>
             </gsml:ifUserCanDeleteContent>
         </p>
 
         <c:set var="postedByDisplay" value=""/>
-                <c:set var="postedByDisplay" value="an administrator at this school" />
+        <c:set var="postedByDisplay" value="an administrator at this school"/>
+
         <p>
             <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
             ${gsweb:boldifyFirstXWords(escapedComments, 10)}
-        </p><p class="principal author">Submitted by ${postedByDisplay}</p>
+        </p>
 
-            <c:choose>
-                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
-                    <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
-                </c:when>
-                <c:otherwise>
-                    <div class="reportReview">
-                        <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
-                        <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
-                           id="report_schoolReview_${review.id}">Report it</a>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+        <p class="principal author">Submitted by ${postedByDisplay}</p>
+
+        <c:choose>
+            <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
+            </c:when>
+            <c:otherwise>
+                <div class="reportReview">
+                    <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
+                    <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
+                       id="report_schoolReview_${review.id}">Report it</a>
+                </div>
+            </c:otherwise>
+        </c:choose>
 
     </div>
 
-        <br clear="all"/>
+    <br clear="all"/>
 
-        </c:if>
-    <!-- end principal review -->
+</c:if>
+<!-- end principal review -->
 
-        <h2>Parent Reviews <span
-                class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')})</span></h2>
+<h2>Parent Reviews <span
+        class="reviewTotal">(${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')})</span></h2>
 
-        <form:select path="cmd.sortBy" cssClass="sortReviews" id="sltRatingSort" onchange="go(this);">
-            <form:option value="">Sort by</form:option>
-            <form:option value="dd">Date: newest to oldest</form:option>
-            <form:option value="da">Date: oldest to newest</form:option>
-            <form:option value="rd">Rating: highest to lowest</form:option>
-            <form:option value="ra">Rating: lowest to highest</form:option>
-        </form:select>
+<form:select path="cmd.sortBy" cssClass="sortReviews" id="sltRatingSort" onchange="go(this);">
+    <form:option value="">Sort by</form:option>
+    <form:option value="dd">Date: newest to oldest</form:option>
+    <form:option value="da">Date: oldest to newest</form:option>
+    <form:option value="rd">Rating: highest to lowest</form:option>
+    <form:option value="ra">Rating: lowest to highest</form:option>
+</form:select>
 
-        <pg:pager
-                maxPageItems="${cmd.maxReviewsPerPage}"
-                items="${cmd.totalReviews}"
-                maxItems="${cmd.totalReviews}"
-                url="/school/parentReviews.page"
-                export="currentPage=pageNumber"
-                >
-            <pg:param name="id" value="${cmd.school.id}"/>
-            <pg:param name="state" value="${stateAbbrev}"/>
-            <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
+<pg:pager
+        maxPageItems="${cmd.maxReviewsPerPage}"
+        items="${cmd.totalReviews}"
+        maxItems="${cmd.totalReviews}"
+        url="/school/parentReviews.page"
+        export="currentPage=pageNumber"
+        >
+    <pg:param name="id" value="${cmd.school.id}"/>
+    <pg:param name="state" value="${stateAbbrev}"/>
+    <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
 
-            <c:set var="pageControls">
-                <div class="pageControls">
-                    <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
-                    <pg:next>
-                        <div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img
-                                src="/res/img/school/parentReviews/nextPage.gif"
-                                alt="Next page of ${school.name} Parent Reviews"/></gsml:a></div>
-                    </pg:next>
-                    <pg:prev>
-                        <div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img
-                                src="/res/img/school/parentReviews/previousPage.gif"
-                                alt="Previous page of ${school.name} Parent Reviews"/></gsml:a></div>
-                    </pg:prev>
-                </div>
-            </c:set>
+    <c:set var="pageControls">
+        <div class="pageControls">
+            <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
+            <pg:next>
+                <div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img
+                        src="/res/img/school/parentReviews/nextPage.gif"
+                        alt="Next page of ${school.name} Parent Reviews"/></gsml:a></div>
+            </pg:next>
+            <pg:prev>
+                <div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img
+                        src="/res/img/school/parentReviews/previousPage.gif"
+                        alt="Previous page of ${school.name} Parent Reviews"/></gsml:a></div>
+            </pg:prev>
+        </div>
+    </c:set>
 
-            ${pageControls}
-            <c:set var="parentReviewsStart" value="0"/>
-            <c:if test="${cmd.reviews[0].who eq 'principal'}">
-                <c:set var="parentReviewsStart" value="1"/>
+    ${pageControls}
+    <c:set var="parentReviewsStart" value="0"/>
+    <c:if test="${cmd.reviews[0].who eq 'principal'}">
+        <c:set var="parentReviewsStart" value="1"/>
+    </c:if>
+    <c:forEach var="review" items="${cmd.reviews}" begin="${parentReviewsStart}">
+        <pg:item>
+            <c:set var="who" value=""/>
+            <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+                <c:set var="who" value="${review.who}"/>
             </c:if>
-            <c:forEach var="review" items="${cmd.reviews}" begin="${parentReviewsStart}">
-                <pg:item>
-                    <c:set var="who" value=""/>
-                    <c:if test="${!(empty(review.who) or review.who eq 'other')}">
-                        <c:set var="who" value="${review.who}"/>
-                    </c:if>
 
-                    <!-- does user permit name to display-->
-                    <c:set var="reviewClass" value="review" />
-                    <c:if test="${who eq 'principal'}">
-                        <c:set var="reviewClass" value="review principalReview" />
-                    </c:if>
+            <!-- does user permit name to display-->
+            <c:set var="reviewClass" value="review"/>
+            <c:if test="${who eq 'principal'}">
+                <c:set var="reviewClass" value="review principalReview"/>
+            </c:if>
 
-                    <div class="${reviewClass}" >
-                        <![CDATA[ <a name="ps${review.id}"></a> ]]>
+            <div class="${reviewClass}">
+                <![CDATA[ <a name="ps${review.id}"></a> ]]>
 
-                        <c:set var="curStarRating" value="${review.quality.name}"/>
-                        <c:if test="${school.levelCode eq 'p'}">
-                            <c:set var="curStarRating" value="${review.POverall.name}"/>
-                        </c:if>
-                        <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
-                            <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
-                                      styleClass="stars" alt="${curStarRating} out of 5 stars"/>
-                        </c:if>
-                        <c:if test="${who eq 'principal'}">
-                            <h4>The schools's point of view</h4>
-                        </c:if>
-                        <p class="author">
-                            <c:choose>
-                                <c:when test="${who eq 'principal' and not empty(review.user)}">
-                                    <c:set var="principalName" value="${review.user.firstName}" />
-                                    <c:if test="${not empty (review.user.lastName)}">
-                                        <c:set var="principalName" value="${principalName} ${review.user.lastName}" />
-                                    </c:if>
-                                    <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                </c:when>
-                                <c:otherwise>
-                                    Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                </c:otherwise>
-                            </c:choose>
-                            <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                <c:choose>
-                                    <c:when test="${review.status eq 'd'}">
-                                        (deleted)
-                                        | <a href="#" class="enableLink link" onclick="enableReview(${review.id}); return false;">Enable</a>
-                                    </c:when>
-                                    <c:when test="${review.status eq 'p'}">
-                                            | <a href="#" class="disableLink link" onclick="disableReview(${review.id}); return false;">Disable</a>
-                                    </c:when>
-                                </c:choose>
-                            </gsml:ifUserCanDeleteContent>
-                        </p>
+                <c:set var="curStarRating" value="${review.quality.name}"/>
+                <c:if test="${school.levelCode eq 'p'}">
+                    <c:set var="curStarRating" value="${review.POverall.name}"/>
+                </c:if>
+                <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+                    <gsml:img src="/res/img/school/parentReviews/stars_med_${curStarRating}.gif"
+                              styleClass="stars" alt="${curStarRating} out of 5 stars"/>
+                </c:if>
+                <c:if test="${who eq 'principal'}">
+                    <h4>The schools's point of view</h4>
+                </c:if>
 
-                        <c:set var="postedByDisplay" value=""/>
+                <p class="author">
+                    <c:choose>
+                        <c:when test="${who eq 'principal' and not empty(review.user)}">
+                            <c:set var="principalName" value="${review.user.firstName}"/>
+                            <c:if test="${not empty (review.user.lastName)}">
+                                <c:set var="principalName" value="${principalName} ${review.user.lastName}"/>
+                            </c:if>
+                            <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                        </c:when>
+                        <c:otherwise>
+                            Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                        </c:otherwise>
+                    </c:choose>
+                    <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                         <c:choose>
-                            <c:when test="${who eq 'principal' and not empty(review.user)}">
-                                <c:set var="postedByDisplay" value="an administrator at this school" />
+                            <c:when test="${review.status eq 'd'}">
+                                (deleted)
+                                | <a href="#" class="enableLink link"
+                                     onclick="enableReview(${review.id}); return false;">Enable</a>
                             </c:when>
-                            <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
-                                <c:set var="postedByDisplay"
-                                       value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
-                            </c:when>
-                            <c:when test="${review.who ne ''}">
-                                <c:set var="postedByDisplay"
-                                       value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                            <c:when test="${review.status eq 'p'}">
+                                | <a href="#" class="disableLink link"
+                                     onclick="disableReview(${review.id}); return false;">Disable</a>
                             </c:when>
                         </c:choose>
+                    </gsml:ifUserCanDeleteContent>
+                </p>
 
-                        <p>
-                            <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
-                            ${gsweb:boldifyFirstXWords(escapedComments, 10)}
-                            <c:choose>
-                                <c:when test="${who eq 'principal'}">
-                                    <c:if test="${not empty postedByDisplay}"><br/><span
-                                            class="principal author">Submitted by ${postedByDisplay}</span></c:if>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:if test="${not empty postedByDisplay}"><br/><span
-                                            class="author">Submitted by ${postedByDisplay}</span></c:if>
-                                </c:otherwise>
-                            </c:choose>
-                        </p>
+                <c:set var="postedByDisplay" value=""/>
+                <c:choose>
+                    <c:when test="${who eq 'principal' and not empty(review.user)}">
+                        <c:set var="postedByDisplay" value="an administrator at this school"/>
+                    </c:when>
+                    <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
+                        <c:set var="postedByDisplay"
+                               value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
+                    </c:when>
+                    <c:when test="${review.who ne ''}">
+                        <c:set var="postedByDisplay"
+                               value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                    </c:when>
+                </c:choose>
+
+                <p>
+                    <c:set var="escapedComments"><c:out value="${review.comments}" escapeXml="true"/></c:set>
+                    ${gsweb:boldifyFirstXWords(escapedComments, 10)}
+                    <c:choose>
+                        <c:when test="${who eq 'principal'}">
+                            <c:if test="${not empty postedByDisplay}"><br/><span
+                                    class="principal author">Submitted by ${postedByDisplay}</span></c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="${not empty postedByDisplay}"><br/><span
+                                    class="author">Submitted by ${postedByDisplay}</span></c:if>
+                        </c:otherwise>
+                    </c:choose>
+                </p>
 
 
-                            <p class="respond">
-                                <link:schoolProfileParentReview
-                                        school="${school}"
-                                        anchor="schoolReviewSubmitForm"
-                                        styleClass="no_interrupt">Write your own review</link:schoolProfileParentReview>
-                            </p>
+                <p class="respond">
+                    <link:schoolProfileParentReview
+                            school="${school}"
+                            anchor="schoolReviewSubmitForm"
+                            styleClass="no_interrupt">Write your own review</link:schoolProfileParentReview>
+                </p>
 
-                            <c:choose>
-                                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
-                                    <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="reportReview">
-                                        <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
-                                        <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
-                                           id="report_schoolReview_${review.id}">Report it</a>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        
-                    </div>
-                    <!-- end: review -->
-                </pg:item>
-            </c:forEach>
-            ${pageControls}
-        </pg:pager>
-    </div>
-    <!-- end: showParentReviews -->
+                <c:choose>
+                    <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                        <p class="fltrt reported smallAlertTextBold">You've reported this review.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="reportReview">
+                            <img src="/res/img/community/report_it_13x17.gif" alt="Report it"/>
+                            <a class="smallText1 reportIt" href="${loginRedirectUrl}" onclick="return false;"
+                               id="report_schoolReview_${review.id}">Report it</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
+            </div>
+            <!-- end: review -->
+        </pg:item>
+    </c:forEach>
+    ${pageControls}
+</pg:pager>
+</div>
+<!-- end: showParentReviews -->
 </c:if>
 
 <c:if test="${school.levelCode != 'p'}">
@@ -858,7 +935,9 @@
         <c:choose>
             <c:when test="${cmd.totalReviews gt 0}">
                 <p>Were these ratings and reviews helpful to you?
-                   <link:schoolRatingsReviewsFeedback schoolId="${school.id}" cityName="${school.city}">Give us feedback &#62;</link:schoolRatingsReviewsFeedback></p>
+                    <link:schoolRatingsReviewsFeedback schoolId="${school.id}"
+                                                       cityName="${school.city}">Give us feedback &#62;</link:schoolRatingsReviewsFeedback>
+                </p>
             </c:when>
             <c:otherwise>
                 <p>
@@ -914,7 +993,7 @@
 </div>
 <!-- end: parentReview -->
 
-    </c:otherwise>
+</c:otherwise>
 </c:choose>
 
 </school:profile2010>

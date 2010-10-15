@@ -5711,6 +5711,21 @@ body.ie8 #frmPRModule .helperMessage, body.ie7 #frmPRModule .helperMessage{
     display:none;
 }
 
+#principalsPOV {
+    padding: 10px;
+    display: block;
+    background-color: #F4FAFD;
+    border: 1px solid #a5cfe6;
+    margin-bottom:15px;
+}
+
+.principalsIMG{
+    float:left;
+    border: 1px solid #ccc;
+    margin:0 7px 7px 0;
+    padding:0;
+}
+
 /*=4m-2 test scores and stats
 -------------------------------------------------------------------------------------------*/
 
