@@ -144,7 +144,7 @@ body.cobranded {
 -------------------------------------------------------------------------------------------*/
 
 a {
-    color: #0066B8;
+    color: #0066BB;
     text-decoration: none;
 }
 
@@ -1045,11 +1045,23 @@ body.cobranded #pageGS {
 -------------------------------------------------------------------------------------------*/
 
 /* ====== media block ====== */
-.media {padding:3px 0;}
+/* implementation pattern eg */
+/*
+<div class="media attribution">
+  <a href="http://website.com/" class="img">
+    <img src="http://website.com/profile_image.jpg" alt="me" />
+  </a>
+  <div class="bd">
+    Suspendisse aliquam, lacus at tristique tempus, justo neque pulvinar magna, a consequat urna felis in odio.
+  </div>
+</div>
+*/
+.media {margin:10px;}
 .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
 .media .img {float:left; margin-right: 10px;}
 .media .img img{display:block;}
 .media .imgExt{float:right; margin-left: 10px;}
+/* ==== end media block ==== */
 
 #mainWrap {
     position: relative;

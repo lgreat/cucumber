@@ -13,6 +13,7 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"          
         >
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
@@ -382,6 +383,8 @@
         <!-- end schoolProfileLeftColumn -->
 
         <div id="schoolProfileRightColumn" class="col">
+            <!--<p>tab is: <c:out value="${tab}" default="not set"/></p>-->
+            <!--<p>caller is: <c:out value="${caller}" default="not set"/></p>-->
             <c:choose>
                 <c:when test="${tab eq 'overview'}">
                     <ad:AboveFold_300x250/>
@@ -402,9 +405,90 @@
 
                     <ad:BelowFold_300x250/>
                 </c:when>
+                <c:when test="${tab eq 'parentReviews'}">
+                    <ad:AboveFold_300x250/>
+
+                    <promo:schoolChoicePackPromo
+                            schoolName="${school.name}"
+                            showBorder="${false}"
+                            showSchoolChoiceLink="${true}"
+                            schoolObjectForRedirect="${school}"
+                            showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                            format=""
+                            school="${school}"
+                            caller="${caller}"
+                            />
+
+                    <p>map goes here</p>
+                    <c:set var="pageSize" value="${4}"/>
+
+                    <div id="nearbySchoolsMap" class="border-c6">
+                        &#160;
+                        <noscript>JavaScript is required in order to view a map of the city and its
+                            schools.
+                        </noscript>
+                    </div>
+                    <div class="mod">
+                        <div class="navmod_hd">
+                            <h5>Nearby Schools</h5>
+                        </div>
+                        <div class="mod_bd"><!-- do not collapse --></div>
+                        </div>
+                    <map:school
+                            id="nearbySchoolsMap"
+                            tooltips="true"
+                            schools="${mapSchools}"
+                            school="${school}"
+                            start="${start}"
+                            count="${pageSize}"
+                            gsRating="${gs_rating}"
+                            ratings="${ratings}"
+                            />
+                    <!-- end map -->
+
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="text3">
+                        <c:choose>
+                            <c:when test="${school.city eq 'Washington' and school.databaseState eq 'DC'}">
+                                <link:city city="${school.city}" state="${school.physicalAddress.state}"
+                                           title="${school.city} schools">Top-rated Washington, D.C. schools</link:city> |
+                                <link:nearbyCities state="${school.physicalAddress.state}"
+                                                   city="${school.city}">Cities near Washington, D.C.</link:nearbyCities>
+                            </c:when>
+                            <c:otherwise>
+                                <link:city city="${school.city}" state="${school.physicalAddress.state}"
+                                           title="${school.city} schools">Top-rated ${school.city} schools</link:city> |
+                                <link:nearbyCities state="${school.physicalAddress.state}"
+                                                   city="${school.city}">Cities near ${school.city}</link:nearbyCities>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="smallAlertText">
+                        <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
+                    </div>
+
+                    <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+                    <div class="spacer_10"><!-- do not collapse --></div>
+
+                    <school:nearbySchoolsTable
+                            school="${school}"
+                            gsRating="${gs_rating}"
+                            ratings="${ratings}"
+                            mapSchools="${mapSchools}"
+                            pageSize="4"
+                            maxPages="5"
+                            />
+
+                    <ad:BelowFold_300x250/>
+
+                    <ad:BelowFold_Top_300x125/>
+
+                </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
                     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
-                                               defaultCity="${school.city}" defaultState="${school.databaseState.abbreviation}"/>
+                                               defaultCity="${school.city}"
+                                               defaultState="${school.databaseState.abbreviation}"/>
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
                     <div class="ad_middle">
                         <ad:AboveFold_300x250/>

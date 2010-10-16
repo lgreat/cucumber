@@ -219,10 +219,10 @@
 
                 </label>
 
-                <div class="spacer_10"><!-- do not collapse --></div>
+                <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>
                 <input id="updates" name="updates" class="checkbox" type="checkbox" value="1"
                        checked="checked"/>
-                <label for="updates" class="smallText1">Send me periodic updates about ${school.name}</label>
+                <label for="updates" class="smallText1">Send me periodic updates about ${school.name}</label>-->
 
 
             </fieldset>

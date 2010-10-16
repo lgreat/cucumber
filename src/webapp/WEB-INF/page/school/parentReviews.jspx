@@ -117,7 +117,7 @@
     <school:profile2010ShareThisJavaScript/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PARENT_REVIEWS" />
 </head>
-<gsml:body adPageName="parentReviews" pageLayout="nocol">
+<gsml:body adPageName="parentReviews" pageLayout="overview">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
 <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
 
