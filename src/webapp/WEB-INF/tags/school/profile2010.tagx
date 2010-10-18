@@ -406,9 +406,9 @@
 
                     <ad:BelowFold_300x250/>
                 </c:when>
-                <c:if test="${requestScope.context.showReviewsPageRedesign}">
+                <c:when test="${requestScope.context.showReviewsPageRedesign}">
                     <!--<p>the new redesign code goes here</p>-->
-                    <c:when test="${tab eq 'parentReviews'}">
+                    <c:if test="${tab eq 'parentReviews'}">
                         <ad:AboveFold_300x250/>
 
                         <promo:schoolChoicePackPromo
@@ -487,8 +487,8 @@
 
                         <ad:BelowFold_Top_300x125/>
 
-                    </c:when>
-                </c:if>
+                    </c:if>
+                </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
                     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
                                                defaultCity="${school.city}"
