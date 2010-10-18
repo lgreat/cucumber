@@ -98,7 +98,11 @@
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER"/>
-        <![CDATA[<script type="text/javascript" src="${minmaxjs}"></script>]]>
+        <![CDATA[
+        <!--[if lte IE 6]>
+            <script type="text/javascript" src="${minmaxjs}"></script>
+        <![endif]-->
+        ]]>
     </c:if>
 
     <gsml:url var="ieShimHoverfix" value="/res/js/ieShimHoverfix.js?v=$RELEASE_NUMBER"/>
