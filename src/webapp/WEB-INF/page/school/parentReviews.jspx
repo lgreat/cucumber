@@ -146,7 +146,7 @@
 <div id="reviewContainer" class="clearfix">
 <div id="reviewColumn1">
     <div id="reviewOverallRating">
-        <p class="text3">Overall Community Rating</p>
+        <p class="text3">Community Rating</p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
 
