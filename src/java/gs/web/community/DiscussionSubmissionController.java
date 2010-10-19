@@ -2,6 +2,7 @@ package gs.web.community;
 
 import gs.data.content.cms.CmsConstants;
 import gs.data.integration.exacttarget.ExactTargetAPI;
+import gs.data.security.Role;
 import gs.web.jsp.link.DiscussionTagHandler;
 import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -53,7 +54,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
     public final static String CBI_ADVICE_DISCUSSION = "cbiAdviceDiscussion";
     public final static String CBI_TIP_REPLY = "cbiTipReply";
     public final static String CBI_ADVICE_REPLY = "cbiAdviceReply";
-
+    public final static String CBI_EDIT_DISCUSSION = "editCBDiscussion";
 
     private IDiscussionReplyDao _discussionReplyDao;
     private IDiscussionDao _discussionDao;
@@ -85,11 +86,13 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
 
         if (StringUtils.equals(CBI_ADVICE_REPLY, command.getType())
                 || StringUtils.equals(CBI_TIP_REPLY, command.getType())) {
+            System.out.println(command.getBody());
             handleCBIReplySubmission(request, response, command);
         } else if (StringUtils.equals(CBI_ADVICE_DISCUSSION, command.getType())
                 || StringUtils.equals(CBI_TIP_DISCUSSION, command.getType())) {
             handleDiscussionSubmission(request, response, command, false);
-        } else if (StringUtils.equals("editDiscussion", command.getType())) {
+        } else if (StringUtils.equals("editDiscussion", command.getType())
+                || StringUtils.equals(CBI_EDIT_DISCUSSION, command.getType())) {
             handleEditDiscussionSubmission(request, response, command);
         } else if (command.getDiscussionId() != null) {
             handleDiscussionReplySubmission(request, response, command);
@@ -306,7 +309,10 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
         User user = sessionContext.getUser();
 
         // validation
-        boolean canEdit = user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS);
+        boolean isCB = StringUtils.equals(CBI_EDIT_DISCUSSION, command.getType());
+        // moderators can edit posts, and coaches can edit CB posts
+        boolean canEdit = user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) ||
+                (isCB && user.hasRole(Role.CB_COACH));
 
         if (StringUtils.length(command.getBody()) < DISCUSSION_BODY_MINIMUM_LENGTH) {
             _log.warn("Attempt to edit with body length < " + DISCUSSION_BODY_MINIMUM_LENGTH + " ignored");
@@ -405,8 +411,12 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
                 canSave = true;
             } else {
                 reply = _discussionReplyDao.findById(command.getDiscussionReplyId());
+                boolean isCB = StringUtils.equals(CBI_ADVICE_REPLY, command.getType())
+                        || StringUtils.equals(CBI_TIP_REPLY, command.getType());
+                // moderators can edit posts, and coaches can edit CB posts
+                boolean canEdit = user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS) ||
+                        (isCB && user.hasRole(Role.CB_COACH));
                 // choosing 150 minutes instead of 120 to give people time to compose their changes
-                boolean canEdit = user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS);
                 if (canEdit || (Util.dateWithinXMinutes(reply.getDateCreated(), 150) &&
                     reply.getAuthorId().equals(user.getId()))) {
                     canSave = true;
