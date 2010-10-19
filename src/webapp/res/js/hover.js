@@ -36,7 +36,8 @@ GSType.hover.HoverDialog = function(id) {
     };
     //template dialog to display based on variable width
     this.dialogByWidth = function (width) {
-        jQuery('#' + this.hoverId).dialog({
+        var thisHover = jQuery('#' + this.hoverId);
+        thisHover.dialog({
             bgiframe: true,
             modal: true,
             draggable: false,
@@ -45,8 +46,8 @@ GSType.hover.HoverDialog = function(id) {
             width: width,
             zIndex: 15000
         });
-        jQuery('.' + this.hoverId + '_showHover').click(this.show.gs_bind(this));
-        jQuery('.' + this.hoverId + '_hideHover').click(this.hide.gs_bind(this));
+        thisHover.find('.' + this.hoverId + '_showHover').click(this.show.gs_bind(this));
+        thisHover.find('.' + this.hoverId + '_hideHover').click(this.hide.gs_bind(this));
     };
 };
 
