@@ -16,11 +16,12 @@ public class HoverHelper {
     public enum Hover {
         //TODO: add comments describing each hover
 
-        SCHOOL_REVIEW_POSTED_THANK_YOU("schoolReviewPostedThankYou"),
-        SCHOOL_REVIEW_NOT_POSTED_THANK_YOU("schoolReviewNotPostedThankYou"),
-        EMAIL_VALIDATED_SCHOOL_REVIEW_POSTED("emailValidatedSchoolReviewPosted"),
-        EMAIL_VALIDATED_SCHOOL_REVIEW_QUEUED("emailValidatedSchoolReviewQueued"),
-        EMAIL_VALIDATED("emailValidated");
+        SCHOOL_REVIEW_POSTED("schoolReviewPostedThankYou"),
+        SCHOOL_REVIEW_QUEUED("schoolReviewNotPostedThankYou"),
+        EMAIL_VERIFIED_SCHOOL_REVIEW_POSTED("emailValidatedSchoolReviewPosted"),
+        EMAIL_VERIFIED_SCHOOL_REVIEW_QUEUED("emailValidatedSchoolReviewQueued"),
+        EMAIL_VERIFIED("emailValidated"),
+        NEW_EMAIL_VERIFIED("editEmailValidated");
 
         private String _id;
 

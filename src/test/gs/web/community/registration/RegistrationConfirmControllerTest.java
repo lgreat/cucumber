@@ -93,11 +93,14 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         emailVerificationLinkCommand.setHashPlusUserId(actualHash + "234");
         emailVerificationLinkCommand.setUser(user);
 
+        ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
+
+        expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
         _userDao.saveUser(user);
 
-        replayMocks(_userDao);
+        replayMocks(_userDao, _reviewService);
         ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
-        verifyMocks(_userDao);
+        verifyMocks(_userDao, _reviewService);
 
         assertNotNull(mAndV);
         assertEquals("redirect:/account/", mAndV.getViewName());
@@ -140,7 +143,12 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         emailVerificationLinkCommand.setUser(user);
         emailVerificationLinkCommand.setDate(String.valueOf(dateSent));
 
-        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(updatedReviews);
+        ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
+        summary.setUpgradedReviews(updatedReviews);
+        summary.setFirstPublishedReview(review1);
+        summary.setStatus(ReviewService.ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED);
+
+        expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
         _userDao.saveUser(user);
 
         replayAllMocks();
@@ -180,11 +188,15 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         emailVerificationLinkCommand.setUser(user);
         emailVerificationLinkCommand.setDate(String.valueOf(dateSent));
 
-        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(updatedReviews);
+        ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
+
+        expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
 
         User user2 = new User();
+        user2.setId(user.getId());
+        user2.setEmail(user.getEmail());
         user2.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-        _userDao.saveUser(UserWelcomeMessageStatusMatcher.eqUser(user2));
+        _userDao.saveUser(UserWelcomeMessageStatusMatcher.eqUser(user));
 
         replayAllMocks();
         ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), emailVerificationLinkCommand, _errors);
@@ -195,7 +207,8 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
     private void setupForRedirect(User user) {
         user.setEmailProvisional("foobar");
-        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(null);
+        ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
+        expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
         _userDao.saveUser(user);
     }
 
@@ -257,9 +270,9 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         reviews.add(review2);
         reviews.add(review3);
 
-        Review upgradedReview = _controller.findCorrectUpgradedReview(reviews);
+        //Review upgradedReview = _controller.findCorrectUpgradedReview(reviews);
 
-        assertTrue(upgradedReview == review2);
+        //assertTrue(upgradedReview == review2);
     }
     
     public void testFindCorrectUpgradedReview2() throws Exception {
@@ -274,9 +287,9 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         reviews.add(review);
         reviews.add(review3);
 
-        Review upgradedReview = _controller.findCorrectUpgradedReview(reviews);
+        //Review upgradedReview = _controller.findCorrectUpgradedReview(reviews);
 
-        assertTrue(upgradedReview == review);
+        //assertTrue(upgradedReview == review);
     }
 
     public void testFindPostedReviews() {
@@ -295,10 +308,10 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         reviews.add(review2);
         reviews.add(review3);
 
-        List<Review> postedReviews = _controller.findPostedReviews(reviews);
+        //List<Review> postedReviews = _controller.findPostedReviews(reviews);
 
-        assertTrue(postedReviews.size() == 1);
-        assertTrue(postedReviews.contains(review2));
+        //assertTrue(postedReviews.size() == 1);
+        //assertTrue(postedReviews.contains(review2));
     }
 
     public void testDateSentAsStringError() throws Exception {
@@ -372,9 +385,16 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         BindException bindException = new BindException(command, "");
 
+        ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
+
+        expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
+        replayAllMocks();
+
         ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
 
         Cookie cookie = getResponse().getCookie("site_pref");
+
+        verifyAllMocks();
         assertNotNull(cookie);
         assertTrue("site pref cooke should contain email verified property", cookie.getValue().contains("emailVerified"));
     }
@@ -404,14 +424,18 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         BindException bindException = new BindException(command, "");
 
-        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(reviews);
+        ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
+        summary.setUpgradedReviews(reviews);
+        summary.setFirstPublishedReview(review);
+        summary.setStatus(ReviewService.ReviewUpgradeStatus.REVIEW_UPGRADED_PUBLISHED);
+        expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
         replayAllMocks();
         ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
         verifyAllMocks();
 
         Cookie cookie = getResponse().getCookie("site_pref");
         assertNotNull(cookie);
-        assertTrue("cookie should contain hover property", cookie.getValue().contains(HoverHelper.Hover.SCHOOL_REVIEW_POSTED_THANK_YOU.toString()));
+        assertTrue("cookie should contain hover property", cookie.getValue().contains(HoverHelper.Hover.SCHOOL_REVIEW_POSTED.toString()));
     }
 
     public void testHoverWhenReviewQueuedAndPasswordNull() throws Exception {
@@ -439,13 +463,16 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         BindException bindException = new BindException(command, "");
 
-        expect(_reviewService.upgradeProvisionalReviews(user)).andReturn(reviews);
+        ReviewService.ReviewUpgradeSummary summary = new ReviewService.ReviewUpgradeSummary();
+        summary.setUpgradedReviews(reviews);
+        summary.setStatus(ReviewService.ReviewUpgradeStatus.REVIEW_UPGRADED_NOT_PUBLISHED);
+        expect(_reviewService.upgradeProvisionalReviewsAndSummarize(user)).andReturn(summary);
         replayAllMocks();
         ModelAndView mAndV = _controller.handle(getRequest(), getResponse(), command, bindException);
         verifyAllMocks();
         Cookie cookie = getResponse().getCookie("site_pref");
         assertNotNull(cookie);
-        assertTrue("cookie should contain hover property", cookie.getValue().contains(HoverHelper.Hover.SCHOOL_REVIEW_NOT_POSTED_THANK_YOU.toString()));
+        assertTrue("cookie should contain hover property", cookie.getValue().contains(HoverHelper.Hover.SCHOOL_REVIEW_QUEUED.toString()));
     }
 
 

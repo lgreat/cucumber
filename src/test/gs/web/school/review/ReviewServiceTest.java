@@ -58,7 +58,7 @@ public class ReviewServiceTest extends BaseTestCase {
 
         replay(_reviewDao);
 
-        _reviewService.upgradeProvisionalReviews(user);
+        List<Review> upgradedReviews = _reviewService.upgradeProvisionalReviews(user);
         
         verify(_reviewDao);
 
@@ -67,6 +67,10 @@ public class ReviewServiceTest extends BaseTestCase {
         assertEquals("Review status should have been upgraded.", "p", review3.getStatus());
         assertEquals("Review status should not have changed.", "u", review4.getStatus());
         assertEquals("Review status should not have changed.", "p", review5.getStatus());
-        
+
+        assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(review1));
+        assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(review2));
+        assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(review3));
+        assertTrue(upgradedReviews.size() == 3);
     }
 }

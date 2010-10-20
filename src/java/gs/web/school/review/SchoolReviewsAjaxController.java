@@ -288,7 +288,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         reviewLink.append("\">your review</a>");
         emailAttributes.put("HTML__reviewLink", reviewLink.toString());
 
-        _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
+        getExactTargetAPI().sendTriggeredEmail("review_posted_trigger",review.getUser(), emailAttributes);
     }
 
     protected boolean checkHoldList(School school, Review review) {

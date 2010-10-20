@@ -270,6 +270,7 @@ var validateEmailAjax = function() {
 function validateReview() {
     var noError = true;
     var height = 360;
+    var terms = jQuery('#terms');
 
     if (!starSelected || ((jQuery('#reviewText').val() == '') || (jQuery('#reviewText').val() == 'Enter your review here'))) {
         jQuery('#reviewRatingError').show();
@@ -289,6 +290,11 @@ function validateReview() {
     if (GS_countWords(document.getElementById('reviewText')) < 15) {
         noError = false;
         alert("Please use at least 15 words in your comment.")
+    }
+
+    if (!terms.attr("checked")) {
+        alert("Please accept our Terms of User to join GreatSchools.");
+        return false;
     }
 
     if (!GS.isSignedIn()) {
