@@ -7,6 +7,8 @@ import gs.data.search.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -24,9 +26,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Hashtable;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * @author Andrew Peterson <apeterson@greatschools.org>
@@ -268,6 +269,48 @@ public class SearchControllerTest extends BaseControllerTestCase {
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
         assertEquals("/wyoming/", view.getUrl());
+    }
+
+    public void testPagination() throws Exception {
+
+        final GsMockHttpServletRequest request = getRequest();
+        PageHelper pageHelper = new PageHelper(_sessionContext, request);
+        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        request.setParameter(SearchController.PARAM_QUERY, "High School");
+        request.setParameter("state", "CA");
+        request.setParameter("pageSize", "6");
+
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        SearchCommand command = new SearchCommand();
+        command.setQ("High School");
+        command.setState(State.CA);
+        command.setC("school");
+        Map<String, Object> model = _controller.createModel(request, command, SessionContextUtil.getSessionContext(request), true);
+        assertNotNull(model);
+        assertEquals(6, model.get(SearchController.MODEL_PAGE_SIZE));
+        // The rest of this test assumes that page 3, with pageSize 6 will be off the end, so let's
+        // check that that will be true
+        assertTrue(((Integer)model.get(SearchController.MODEL_TOTAL_HITS)) < 12);
+        assertEquals(6, ((List)model.get(SearchController.MODEL_RESULTS)).size());
+
+        request.setParameter("p", "3");
+        command.setPage(3);
+        try {
+            _controller.createModel(request, command, SessionContextUtil.getSessionContext(request), true);
+            fail("Expected createModel to throw an exception");
+        } catch (RuntimeException re) {
+            assertEquals("Exception message should be 'InvalidPage'.", "InvalidPage", re.getMessage());
+        }
+
+        ModelAndView mAndV = _controller.processFormSubmission(request, getResponse(), command, null);
+
+        assertNotNull("ModelAndView should not be null", mAndV);
+        assertTrue("ModelAndView should be a 301 redirect", mAndV.getView() instanceof RedirectView301);
+        assertEquals("Redirect view should be canonical url",
+                "/search/search.page?c=school&q=High+School&search_type=0&state=CA",
+                ((RedirectView301) mAndV.getView()).getUrl());
     }
 
     public void testSendEmptyGeneralQueriesToStateHome() throws Exception {

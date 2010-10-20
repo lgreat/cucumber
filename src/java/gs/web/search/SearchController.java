@@ -9,6 +9,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.school.SearchResultsCookie;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -68,9 +69,9 @@ public class SearchController extends AbstractFormController {
     public static final String PARAM_SORT_COLUMN = "sortColumn";
     public static final String PARAM_SORT_DIRECTION = "sortDirection";
 
-    private static final String MODEL_PAGE_SIZE = "pageSize";
+    public static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
-    private static final String MODEL_TOTAL_HITS = "total";
+    public static final String MODEL_TOTAL_HITS = "total";
     public static final String MODEL_SEARCH_TYPE = "type";
 
     private static final String MODEL_QUERY = "q";
@@ -154,8 +155,30 @@ public class SearchController extends AbstractFormController {
         }
 
         // ok, this seems like a valid search, set the "hasSearched" cookie
-        if (!searchCommand.isTopicsOnly()) PageHelper.setHasSearchedCookie(request, response);
-        Map<String, Object> model = createModel(request, searchCommand, sessionContext, debug);
+        if (!searchCommand.isTopicsOnly()) {
+            PageHelper.setHasSearchedCookie(request, response);
+        }
+        Map<String, Object> model;
+        try {
+            model = createModel(request, searchCommand, sessionContext, debug);
+        } catch (RuntimeException e) {
+            if (e.getMessage().equals("InvalidPage")) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_SEARCH, sessionContext.getState(), request.getParameter(PARAM_QUERY));
+                String lcParam = request.getParameter(PARAM_LEVEL_CODE);
+                if (StringUtils.isNotBlank(lcParam)) {
+                    urlBuilder.setParameter("lc", lcParam);
+                }
+                String[] schoolTypes = request.getParameterValues(PARAM_SCHOOL_TYPE);
+                if (schoolTypes != null && schoolTypes.length > 0) {
+                    for (String schoolType : schoolTypes) {
+                        urlBuilder.addParameter("st", schoolType);
+                    }
+                }
+                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
+            } else {
+                throw e;
+            }
+        }
 
         String viewname;
         if (searchCommand.isTopicsOnly()) {
@@ -269,6 +292,10 @@ public class SearchController extends AbstractFormController {
             model.put(MODEL_PAGE_SIZE, pageSize);
 
             List<Object> results = _resultsPager.getResults(page, pageSize);
+            if (results == null) {
+                // redirect to canonical page
+                throw new RuntimeException("InvalidPage");
+            }
             setCityGAMAttributes(request, results);
             model.put(MODEL_RESULTS, results);
 
