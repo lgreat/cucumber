@@ -220,5 +220,14 @@
     <bean id="reviewService" class="gs.web.school.review.ReviewService">
         <property name="reviewDao" ref="reviewDao"/>
     </bean>
+    
+    <bean id="ratingHelper" class="gs.web.school.RatingHelper">
+        <property name="ratingsConfigDao" ref="ratingsConfigDao"/>
+        <property name="testManager" ref="testManager"/>
+    </bean>
+
+    <bean id="nearbySchoolsHelper" class="gs.web.school.NearbySchoolsHelper">
+        <property name="reviewDao" ref="reviewDao"/>
+    </bean>
 
 </beans>
