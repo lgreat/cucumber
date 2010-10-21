@@ -408,6 +408,7 @@
                 </c:when>
                 <c:when test="${requestScope.context.showReviewsPageRedesign}">
                     <!--<p>the new redesign code goes here</p>-->
+
                     <c:if test="${tab eq 'parentReviews'}">
                         <ad:AboveFold_300x250/>
 
@@ -422,7 +423,12 @@
                                 caller="${caller}"
                                 />
 
-                        <p>map goes here</p>
+                        <div class="mod">
+                            <div class="navmod_hd">
+                                <h5>Nearby Schools</h5>
+                            </div>
+                            <div class="mod_bd"><!-- do not collapse --></div>
+                        </div>
                         <c:set var="pageSize" value="${4}"/>
 
                         <div id="nearbySchoolsMap" class="border-c6">
@@ -431,12 +437,7 @@
                                 schools.
                             </noscript>
                         </div>
-                        <div class="mod">
-                            <div class="navmod_hd">
-                                <h5>Nearby Schools</h5>
-                            </div>
-                            <div class="mod_bd"><!-- do not collapse --></div>
-                        </div>
+
                         <map:school
                                 id="nearbySchoolsMap"
                                 tooltips="true"
@@ -473,6 +474,7 @@
 
                         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
                         <div class="spacer_10"><!-- do not collapse --></div>
+                        <p>The page tab is: <c:out value="${tab}" default="not set"/></p>
 
                         <school:nearbySchoolsTable
                                 school="${school}"
@@ -481,6 +483,7 @@
                                 mapSchools="${mapSchools}"
                                 pageSize="4"
                                 maxPages="5"
+                                tab="${tab}"
                                 />
 
                         <ad:BelowFold_300x250/>

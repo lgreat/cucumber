@@ -354,6 +354,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
 
+<c:set var="tab" value="overview"/>
 <school:nearbySchoolsTable
         school="${school}"
         gsRating="${gs_rating}"
@@ -361,6 +362,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         mapSchools="${mapSchools}"
         pageSize="4"
         maxPages="5"
+        tab="${tab}"
         />
     
 </div>

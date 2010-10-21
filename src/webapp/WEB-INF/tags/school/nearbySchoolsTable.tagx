@@ -24,8 +24,11 @@
                          description="list of MapSchool objects"/>
 <jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true"
                          description="An instance of Ratings"/>
-
+<jsp:directive.attribute name="tab" required="true" description="The Selected Tab" type="java.lang.String"/>
 <!-- begin nearby schools list -->
+
+<p>The page tab is: <c:out value="${tab}" default="not set"/></p>
+
 <c:set var="TOTAL_SCHOOL_LIMIT" value="${pageSize * maxPages}"/>
 
 <c:set var="start" value="${param.start}"/>
@@ -35,6 +38,7 @@
 <c:set var="thisPage" value="${(start + pageSize) / pageSize}"/>
 
 <c:set var="numberOfSchools" value="${fn:length(mapSchools)}"/>
+<p>The page numberOfSchools is: <c:out value="${numberOfSchools}" default="not set"/></p>
 <c:set var="stragglers" value="${numberOfSchools % pageSize}"/>
 <c:choose>
     <c:when test="${stragglers ne 0}">
@@ -71,8 +75,11 @@
 </c:choose>
 
 <c:set var="pageSize" value="4"/>
-
+<p>The page mapSchools is: <c:out value="${mapSchools}" default="not set"/></p>
 <c:if test="${not empty mapSchools}">
+
+<p>The page tab is: <c:out value="${tab}" default="not set"/></p>
+<c:if test="${tab eq 'overview'}">
 <c:choose>
 <c:when test="${school.levelCode ne 'p'}">
     <table id="nearby-schools-table-header">
@@ -397,6 +404,12 @@
     </div>
 
 </div>
+</c:if>
+
+<p>The page tab is: <c:out value="${tab}" default="not set"/></p>
+<c:if test="${tab eq 'parentReviews'}">
+    <div>My sidebar map table goes here.</div>
+</c:if>
 
 <script type="text/javascript">
     var compareSchoolsArray = new Array();

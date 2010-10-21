@@ -1056,11 +1056,24 @@ body.cobranded #pageGS {
   </div>
 </div>
 */
+/* original version with 10px margin on all sides */
 .media {margin:10px;}
 .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
 .media .img {float:left; margin-right: 10px;}
 .media .img img{display:block;}
 .media .imgExt{float:right; margin-left: 10px;}
+/* extends the original version with no margin on all sides */
+.mediaExt1 {margin:0;}
+.mediaExt1, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.mediaExt1 .img {float:left; margin-right: 10px;}
+.mediaExt1 .img img{display:block;}
+.mediaExt1 .imgExt{float:right; margin-left: 10px;}
+/* extends the original version with 10px margin on top/bottom and no margin left/right */
+.mediaExt2 {margin:10px 0;}
+.mediaExt2, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.mediaExt2 .img {float:left; margin-right: 10px;}
+.mediaExt2 .img img{display:block;}
+.mediaExt2 .imgExt{float:right; margin-left: 10px;}
 /* ==== end media block ==== */
 
 #mainWrap {
