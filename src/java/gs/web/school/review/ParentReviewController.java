@@ -3,26 +3,33 @@ package gs.web.school.review;
 import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
+import gs.data.school.ISchoolDao;
+import gs.data.school.NearbySchool;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.security.Permission;
-import gs.web.school.AbstractSchoolController;
-import gs.web.school.KindercareLeadGenHelper;
-import gs.web.school.SchoolProfileHeaderHelper;
+import gs.data.test.SchoolTestValue;
+import gs.data.test.TestManager;
+import gs.data.test.rating.IRatingsConfig;
+import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.school.*;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -38,6 +45,9 @@ public class ParentReviewController extends AbstractController {
     private String _viewName;
     private IReportedEntityDao _reportedEntityDao;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
+    private ISchoolDao _schoolDao;
+    private NearbySchoolsHelper _nearbySchoolsHelper;
+    private RatingHelper _ratingHelper;
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_PAGE = "page";
@@ -48,6 +58,7 @@ public class ParentReviewController extends AbstractController {
     protected static final String PARAM_PREV_REVIEWS_BY = "prb";
     protected static final String PARAM_PREV_SORT_BY = "psb";
     protected static final String MODEL_URI = "uri";
+    protected static final Log _log = LogFactory.getLog(ParentReviewController.class.getName());
 
     //Compare on who, then overall rating descending, then date posted descending
     private static final Comparator<Review> PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
@@ -79,6 +90,7 @@ public class ParentReviewController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String,Object> model = new HashMap<String,Object>();
         School school = (School) request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
         KindercareLeadGenHelper.checkForKindercare(request,response,school,model);
 
@@ -236,6 +248,15 @@ public class ParentReviewController extends AbstractController {
 
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);
+
+            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 20);
+            request.setAttribute("mapSchools", getNearbySchoolsHelper().getRatingsForNearbySchools(nearbySchools));
+
+            boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
+
+            Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
+
+            model.put("gs_rating", gsRating);
 
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
@@ -462,5 +483,29 @@ public class ParentReviewController extends AbstractController {
 
     public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
         _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public NearbySchoolsHelper getNearbySchoolsHelper() {
+        return _nearbySchoolsHelper;
+    }
+
+    public void setNearbySchoolsHelper(NearbySchoolsHelper nearbySchoolsHelper) {
+        _nearbySchoolsHelper = nearbySchoolsHelper;
+    }
+
+    public RatingHelper getRatingHelper() {
+        return _ratingHelper;
+    }
+
+    public void setRatingHelper(RatingHelper ratingHelper) {
+        _ratingHelper = ratingHelper;
     }
 }

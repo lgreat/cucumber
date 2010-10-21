@@ -43,6 +43,8 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private IRatingsConfigDao _ratingsConfigDao;
     private TestManager _testManager;
     private ISurveyDao _surveyDao;
+    private NearbySchoolsHelper _nearbySchoolsHelper;
+    private RatingHelper _ratingHelper;
 
     private IPQDao _PQDao;
 
@@ -113,16 +115,22 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
                 model.put("espLink", "principal");
             }
 
+            boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
+
             /*
              * obtain nearby schools and place into model
              */
             //TODO: use findNearbySchoolsWithRatings but add distance field to SchoolWithRatings...and/or write new map tagx
             //List<SchoolWithRatings> nearbySchools = getSchoolDao().findNearbySchoolsWithRatings(school.getDatabaseState(), school.getLat(), school.getLon(), 50f, 25, null);
             List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 20);
-            request.setAttribute("mapSchools", getRatingsForNearbySchools(nearbySchools));
+            request.setAttribute("mapSchools", getNearbySchoolsHelper().getRatingsForNearbySchools(nearbySchools));
             //request.setAttribute("mapSchools", nearbySchools);
 
-            Integer gsRating = getGSRatingFromDao(pageHelper, school);
+            Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
+
+            if (gsRating > 0 && gsRating < 11) {
+                pageHelper.addAdKeyword("gs_rating", String.valueOf(gsRating));
+            }
 
             model.put("gs_rating", gsRating);
 
@@ -236,51 +244,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         return item;
     }
 
-
-    /**
-     * Obtain GS rating from Ratings DAO. Use caching unless is a dev environment
-     *
-     * @param pageHelper
-     * @param school
-     * @return
-     * @throws IOException
-     */
-    public Integer getGSRatingFromDao(PageHelper pageHelper, School school) throws IOException {
-        boolean isFromCache = true;
-        if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
-            isFromCache = false;
-        }
-
-        return getGSRatingFromDao(pageHelper, school, isFromCache);
-    }
-
-    public Integer getGSRatingFromDao(PageHelper pageHelper, School school, boolean useCache) {
-        Integer greatSchoolsRating = null;
-        IRatingsConfig ratingsConfig = null;
-
-        try {
-            ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), useCache);
-        } catch (IOException e) {
-            _log.debug("Failed to get ratings config from ratings config dao", e);
-        }
-
-        if (null != ratingsConfig) {
-            SchoolTestValue schoolTestValue = _testManager.getOverallRating(school, ratingsConfig.getYear());
-
-            if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-
-                greatSchoolsRating = schoolTestValue.getValueInteger();
-
-                if (schoolTestValue.getValueInteger() > 0 && schoolTestValue.getValueInteger() < 11) {
-                    //TODO: do we need this?
-                    pageHelper.addAdKeyword("gs_rating", String.valueOf(schoolTestValue.getValueInteger()));
-                }
-            }
-        }
-
-        return greatSchoolsRating;
-    }
-
     // Checks to see if the user has any "School Chooser Pack" subscription
     // products.  Returns false if they do.
 
@@ -347,43 +310,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         return false;
     }
 
-    //TODO: DANGER!!! method below was copied from MapSchoolController but distance copy was added. Move into helper class
-
-    /**
-     * Returns a list of MapSchools for a given list of NearbySchools
-     *
-     * @param schools list of nearby schools
-     * @return MapSchools
-     */
-    public List<MapSchool> getRatingsForNearbySchools(List<NearbySchool> schools) {
-        // this is our data structure -- contains basically a school, a GS rating, and a parent rating
-        List<MapSchool> mapSchools = new ArrayList<MapSchool>();
-        // for each school
-        for (NearbySchool nearbySchool : schools) {
-            School school = nearbySchool.getNeighbor();
-            // MapSchool is a subclass of NearbySchool
-            MapSchool mapSchool = new MapSchool();
-            // now we copy over the fields we want: school and gs rating
-            // School. I don't like that it is called neighbor, but that's from the superclass NearbySchool
-            mapSchool.setNeighbor(school);
-            // GS rating
-            mapSchool.setRating(nearbySchool.getRating());
-
-            // Retrieve parent ratings
-            Ratings ratings = _reviewDao.findRatingsBySchool(school);
-            // Parent ratings
-            mapSchool.setParentRatings(ratings);
-
-            //Add distance
-            mapSchool.setDistance(nearbySchool.getDistance());
-
-            // Add data structure to list
-            mapSchools.add(mapSchool);
-        }
-
-        return mapSchools;
-    }
-
     public String getViewName() {
         return _viewName;
     }
@@ -438,5 +364,21 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setSurveyDao(ISurveyDao surveyDao) {
         _surveyDao = surveyDao;
+    }
+
+    public NearbySchoolsHelper getNearbySchoolsHelper() {
+        return _nearbySchoolsHelper;
+    }
+
+    public void setNearbySchoolsHelper(NearbySchoolsHelper nearbySchoolsHelper) {
+        _nearbySchoolsHelper = nearbySchoolsHelper;
+    }
+
+    public RatingHelper getRatingHelper() {
+        return _ratingHelper;
+    }
+
+    public void setRatingHelper(RatingHelper ratingHelper) {
+        _ratingHelper = ratingHelper;
     }
 }
