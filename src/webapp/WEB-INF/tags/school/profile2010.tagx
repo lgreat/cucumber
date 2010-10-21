@@ -474,7 +474,7 @@
 
                         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
                         <div class="spacer_10"><!-- do not collapse --></div>
-                        <p>The page tab is: <c:out value="${tab}" default="not set"/></p>
+                        <!--<p>The page tab is: <c:out value="${tab}" default="not set"/></p>-->
 
                         <school:nearbySchoolsTable
                                 school="${school}"
