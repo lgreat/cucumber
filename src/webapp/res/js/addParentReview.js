@@ -391,7 +391,7 @@ function reviewThisSchool() {
 function GS_postSchoolReview(email, callerFormId) {
     // first, grab the email from the join/signIn form and use that with the review
     if (email) {
-        jQuery('#frmPRModule [name="email"]').val(email);
+        jQuery('#frmPRModule-email').val(email);
     }
 
     //clear submit fields

@@ -204,7 +204,7 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 
 #parentReview ul#nonCommentInput {
     list-style-type:none;
-    width:270px;
+    width:490px;
 }
 
 #parentReview .ratingCategoryPrompt {
@@ -232,9 +232,10 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 }
 
 #parentReview #rateReview .linkGuidelines {
-    position: absolute;
+/*    position: absolute;
     left: 304px;
-    top: 170px;
+    top: 270px;*/
+    padding-right:12px;
 }
 
 /* Parent Reviews

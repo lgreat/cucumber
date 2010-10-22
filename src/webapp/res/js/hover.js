@@ -952,7 +952,8 @@ GS.showSchoolReviewHover = function(redirect) {
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover("", redirect, GSType.hover.joinHover.showSchoolReviewJoin, GS_postSchoolReview);
         } else {
-            GSType.hover.joinHover.showSchoolReviewJoin(GS_postSchoolReview);
+            //GSType.hover.joinHover.showSchoolReviewJoin(GS_postSchoolReview); no longer require join
+            return true;
         }
     }
     return false;
