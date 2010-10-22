@@ -67,10 +67,14 @@ GS.form.SchoolReviewForm = function(id) {
                             valid = false;
                         }
                     } else {
-                        valid = true;
-                        this.fields.email.alert.find('.bd').html("You will need to validate your email <br/>address when you submit your review.");
                         this.fields.email.error.hide();
-                        this.fields.email.alert.show();
+                        valid = true;
+                        if (GS.isCookieSet('emailVerified')) {
+                            this.fields.email.alert.hide();
+                        } else {
+                            this.fields.email.alert.find('.bd').html("You will need to validate your email <br/>address when you submit your review.");
+                            this.fields.email.alert.show();
+                        }
                     }
                     GS_resizeColumns();
                     this.emailValidated = valid;
