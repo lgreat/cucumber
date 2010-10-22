@@ -210,7 +210,7 @@
                     </c:choose>
 
                     <div class="unit size3of7 lastUnit">
-                        <div id="frmPRModule-email-error" class="formErrorText media padlft_10">
+                        <div id="frmPRModule-email-error" class="formErrorText media padlft_10" style="display:none;">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                             <div class="bd">Please enter your email.</div>
@@ -220,7 +220,7 @@
 
 
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div id="terms-error" class="formErrorText media padlft_5">
+                <div id="terms-error" class="formErrorText media padlft_5" style="display:none;">
                     <span class="sprite i-alert img"><!-- do not collapse --></span>
                     <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
                 </div>
