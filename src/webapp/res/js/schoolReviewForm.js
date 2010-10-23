@@ -25,7 +25,7 @@ if (GS.form == undefined) {
 
 //id is the dom id of the form but should not contain the pound sign
 GS.form.SchoolReviewForm = function(id) {
-    this.emailTaken = false;
+    this.isEmailTaken = false;
     this.emailValidated = false;
     this.overallRatingValidated = false;
     this.reviewTextValidated = false;
@@ -41,7 +41,7 @@ GS.form.SchoolReviewForm = function(id) {
     this.fields.poster = this.formObject.find('[name="posterAsString"]');
     this.fields.poster.error = this.formObject.find('.poster-error');
     this.fields.review = this.formObject.find('#reviewText');
-    this.fields.overallRating = this.formObject.find('#overallStarRating');
+    this.fields.overallRating = jQuery('#overallStarRating');
     this.fields.termsOfUse = this.formObject.find('#terms');
     this.fields.termsOfUse.error = this.formObject.find('.termsError');
 
@@ -59,7 +59,7 @@ GS.form.SchoolReviewForm = function(id) {
                             this.fields.email.error.hide();
                             this.fields.email.alert.show();
                             valid = true;
-                            this.emailTaken = true;
+                            this.isEmailTaken = true;
                         } else {
                             this.fields.email.alert.hide();
                             this.fields.email.error.find('.bd').html(data['email']);
@@ -76,14 +76,13 @@ GS.form.SchoolReviewForm = function(id) {
                             this.fields.email.alert.show();
                         }
                     }
-                    GS_resizeColumns();
                     this.emailValidated = valid;
                 }.gs_bind(this)
             );
         } else {
             this.fields.email.error.show();
             this.emailValidated = false;
-            GS_resizeColumns();
+
         }
     };
 
@@ -97,7 +96,6 @@ GS.form.SchoolReviewForm = function(id) {
             valid = true;
         }
         this.posterValidated = valid;
-        GS_resizeColumns();
     };
     
     this.validateReviewText = function() {
@@ -111,7 +109,6 @@ GS.form.SchoolReviewForm = function(id) {
             alert("Please use at least 15 words in your comment.");
         }
         this.reviewTextValidated = valid;
-        GS_resizeColumns();
     };
 
     this.validateOverallRating = function() {
@@ -124,7 +121,6 @@ GS.form.SchoolReviewForm = function(id) {
             valid = true;
         }
         this.overallRatingValidated = valid;
-        GS_resizeColumns();
     };
 
     this.validateTermsOfUse = function() {
@@ -137,7 +133,6 @@ GS.form.SchoolReviewForm = function(id) {
             valid = false;
         }
         this.termsOfUseValidated = valid;
-        GS_resizeColumns();
     };
 
     this.validateAll = function() {
@@ -146,22 +141,38 @@ GS.form.SchoolReviewForm = function(id) {
         this.validateReviewText();
         this.validateOverallRating();
         this.validateTermsOfUse();
-        GS_resizeColumns();
     };
+
+    this.validated = function() {
+        var validatedString = "email: " + this.emailValidated;
+        validatedString+= " poster:" + this.posterValidated;
+        validatedString+= " reviewText:" + this.reviewTextValidated;
+        validatedString+= " overallRating:" + this.overallRatingValidated;
+        validatedString+= " termsOfUse:" + this.termsOfUseValidated;
+        return validatedString;
+    }
 
     this.submitHandler = function() {
         if (this.emailValidated && this.posterValidated && this.reviewTextValidated
                 && this.overallRatingValidated && this.emailValidated && this.termsOfUseValidated) {
-            if (GS.showSchoolReviewHover(window.location.href)) {
+            if (GS.isSignedIn() || !this.isEmailTaken) {
                 GS_postSchoolReview();
+            } else {
+                GSType.hover.signInHover.showHover("", window.location.href, GSType.hover.joinHover.showSchoolReviewJoin, GS_postSchoolReview);
             }
         } else {
             this.validateAll();
             if (this.reviewTextValidated) {
                 alert("Please complete your review to submit.");
             }
-            return false;
         }
+        return false;
+    };
+
+    this.setStars = function(numStars) {
+        jQuery('#overallStarRating').val(numStars);
+        document.getElementById('currentStarDisplay').style.width = 20*numStars + '%';
+        this.validateOverallRating();
     };
 
     /////////// form setup - register event handlers /////////
@@ -186,7 +197,6 @@ GS.form.SchoolReviewForm = function(id) {
             jQuery('#frmPRModule .subStarRatings .principal').hide();
             jQuery('#frmPRModule .subStarRatings .parents').hide();
         }
-        GS_resizeColumns();
     });
 
     jQuery('#frmPRModule [name="comments"]').focus(function() {
@@ -202,53 +212,15 @@ GS.form.SchoolReviewForm = function(id) {
 
     this.fields.review.blur(this.validateReviewText.gs_bind(this));
 
-    this.fields.overallRating.blur(this.validateOverallRating.gs_bind(this));
-
     this.fields.termsOfUse.change(this.validateTermsOfUse.gs_bind(this));
 
 };
 
 
 
-function showStars(numStars) {
-    setDisplay(numStars);
-}
-
-function setStars(numStars) {
-    document.getElementById('overallStarRating').value = numStars;
-    setDisplay(numStars);
-    return false;
-}
-
-function resetStars() {
-    setDisplay(document.getElementById('overallStarRating').value);
-}
-
-function setDisplay(numStars) {
-    document.getElementById('currentStarDisplay').style.width = 20*numStars + '%';
-    var title = '';
-
-    switch (parseInt(numStars)) {
-        case 1: title = 'Unsatisfactory'; break;
-        case 2: title = 'Below Average'; break;
-        case 3: title = 'Average'; break;
-        case 4: title = 'Above Average'; break;
-        case 5: title = 'Excellent'; break;
-        default: title = document.getElementById('hdnSchoolName').value; break;
-    }
-    document.getElementById('ratingTitle').innerHTML = title;
-}
-
-function clearSubmitFields() {
-    if (document.getElementById('reviewText').value == 'Enter your review here') {
-        document.getElementById('reviewText').value = "";
-    }
-}
-
 var countWords = makeCountWords(150);
 
 function GS_postSchoolReview(email, callerFormId) {
-    clearSubmitFields();
     // then post the review
     jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function(data) {
         if (data.showHover != undefined && data.showHover == "emailNotValidated") {
@@ -300,20 +272,6 @@ function GS_postSchoolReview(email, callerFormId) {
     }, "json");
 }
 
-
-
-
-
-
-
-
-
-
-
 jQuery(function() {
-
-
-    GS.form.schoolReviewForm = new GS.form.SchoolReviewForm("frmPRModule");
-
-
+   GS.form.schoolReviewForm = new GS.form.SchoolReviewForm("frmPRModule"); 
 });
