@@ -4,6 +4,7 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.NearbySchool;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
@@ -15,6 +16,7 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.data.util.NameValuePair;
 import gs.web.school.*;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -192,10 +194,14 @@ public class ParentReviewController extends AbstractController {
                 model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
                 model.put("param_reviewsby", PARAM_REVIEWS_BY);
 
+
+                // TODO-10495
+                processSubcategoryRatings(model, school, ratings);
+
                 // reviews to show
                 List<Review> reviewsToShow;
                 int page = 1;
-                if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
+                if (reviews.size() == 0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                     reviewsToShow = reviews;
                 } else {
                     String pageParam = request.getParameter(PARAM_PAGE);
@@ -261,6 +267,53 @@ public class ParentReviewController extends AbstractController {
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    // TODO-10495
+    private void processSubcategoryRatings(Map<String, Object> model, School school, Ratings ratings) {
+        // blue box subcategory ratings
+        List<NameValuePair<String, Integer>> communityRatings = new ArrayList<NameValuePair<String, Integer>>();
+        List<NameValuePair<String, Integer>> parentRatings = new ArrayList<NameValuePair<String, Integer>>();
+        List<NameValuePair<String, Integer>> studentRatings = new ArrayList<NameValuePair<String, Integer>>();
+
+        NameValuePair<String, Integer> pair;
+
+        // State 1 (p-only) There is no "Parent ratings | Student ratings" toggle.
+        if (ratings.hasPreschool()) {
+            addNameValueToRatingsList("Teacher quality", ratings.getAvgP_Teachers(), communityRatings);
+            addNameValueToRatingsList("Parent involvement", ratings.getAvgP_Parents(), communityRatings);
+            addNameValueToRatingsList("Facilities & equipment", ratings.getAvgP_Facilities(), communityRatings);
+        } else if (ratings.hasGradeschool()) {
+            Ratings parentRatingsObj = _reviewDao.findRatingsBySchool(school,"parent");
+            Ratings studentRatingsObj = _reviewDao.findRatingsBySchool(school,"student");
+
+            if (school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL) &&
+                parentRatingsObj.hasGradeschool() && studentRatingsObj.hasGradeschool()) {
+                addNameValueToRatingsList("Overall rating", parentRatingsObj.getOverall(), parentRatings);
+                addNameValueToRatingsList("Teacher quality", parentRatingsObj.getAvgTeachers(), parentRatings);
+                addNameValueToRatingsList("Principal leadership", parentRatingsObj.getAvgPrincipal(), parentRatings);
+                addNameValueToRatingsList("Parent involvement", parentRatingsObj.getAvgParents(), parentRatings);
+
+                addNameValueToRatingsList("Overall rating", studentRatingsObj.getOverall(), studentRatings);
+                addNameValueToRatingsList("Teacher quality", studentRatingsObj.getAvgTeachers(), studentRatings);
+            } else {
+                addNameValueToRatingsList("Teacher quality", ratings.getAvgTeachers(), communityRatings);
+                addNameValueToRatingsList("Principal leadership", ratings.getAvgPrincipal(), communityRatings);
+                addNameValueToRatingsList("Parent involvement", ratings.getAvgParents(), communityRatings);
+            }
+        }
+
+        model.put("communityRatings", communityRatings);
+        model.put("parentRatings", parentRatings);
+        model.put("studentRatings", studentRatings);
+    }
+
+    private void addNameValueToRatingsList(String displayString, Integer numStars, List<NameValuePair<String, Integer>> communityRatings) {
+        NameValuePair<String, Integer> pair;
+        if (numStars != null) {
+            pair = new NameValuePair(displayString, numStars);
+            communityRatings.add(pair);
+        }
     }
 
     private String getReviewsFilterSortTracking(Set<Poster> reviewsBy, Set<Poster> prevReviewsBy, String paramSortBy, String prevSortBy) {

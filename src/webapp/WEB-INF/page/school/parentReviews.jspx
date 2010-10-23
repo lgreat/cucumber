@@ -113,6 +113,22 @@
                 window.location.reload();
             }, 250);
         }
+        // TODO-10495 - Randall - START subcategory ratings toggle
+        jQuery(document).ready(function() {
+            jQuery('#parentRatingsToggle').click(function() {
+                jQuery('#studentRatingsToggle').css('color','#999');
+                jQuery('#studentRatings').hide();
+                jQuery('#parentRatings').show();
+                jQuery('#parentRatingsToggle').css('color','blue');
+            });
+            jQuery('#studentRatingsToggle').click(function() {
+                jQuery('#parentRatingsToggle').css('color','#999');
+                jQuery('#parentRatings').hide();
+                jQuery('#studentRatings').show();
+                jQuery('#studentRatingsToggle').css('color','blue');
+            });
+        });
+        // TODO-10495 - Randall - END subcategory ratings toggle
     </script>
     <school:profile2010ShareThisJavaScript/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PARENT_REVIEWS" />
@@ -162,86 +178,46 @@
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
         <div class="spacer_10"><!-- do not collapse --></div>
 
+        <!-- TODO-10495 - Randall - START subcategory ratings -->
+        <c:set var="aboutTheseRatings">
+            <div class="spacer_5"><!-- do not collapse --></div>
+            <div class="infoBox1 smallText1">
+                <p>
+                <span id="js-${cmd.ratings.preschool ? 'p' : 'k12'}-info-trigger"
+                      class="sprite info"><!-- do not collapse --></span> About these ratings
+                </p>
+            </div>
+        </c:set>
 
         <c:choose>
-            <c:when test="${cmd.totalReviews gt 0}">
+            <c:when test="${not empty parentRatings and not empty studentRatings}">
+                <span id="parentRatingsToggle" class="selected">Parent ratings</span> |
+                <span id="studentRatingsToggle">Student ratings</span>
+
                 <div class="reviewSubRatings">
-                    <c:choose>
-                        <c:when test="${cmd.ratings.preschool}">
-                            <c:if test="${hasPreschoolCategoryRatings}">
-                                <ul class="smallText2-777">
-                                    <c:set var="curCatValue"
-                                           value="${cmd.ratings.averageRatingMap[catTeachers]}"/>
-                                    <c:set var="curCatName" value="Teacher quality"/>
-                                    <c:if test="${not empty curCatValue}">
-                                        <li><span class="sprite stars_s_${curCatValue}_b"
-                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
-                                        </li>
-                                    </c:if>
-                                    <c:set var="curCatValue"
-                                           value="${cmd.ratings.averageRatingMap[catFacilities]}"/>
-                                    <c:set var="curCatName" value="Facilities &amp; equipment"/>
-                                    <c:if test="${not empty curCatValue}">
-                                        <li><span class="sprite stars_s_${curCatValue}_b"
-                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
-                                        </li>
-                                    </c:if>
-                                    <c:set var="curCatValue"
-                                           value="${cmd.ratings.averageRatingMap[catParents]}"/>
-                                    <c:set var="curCatName" value="Parent involvement"/>
-                                    <c:if test="${not empty curCatValue}">
-                                        <li><span class="sprite stars_s_${curCatValue}_b"
-                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> ${curCatName}
-                                        </li>
-                                    </c:if>
-                                </ul>
-                            </c:if>
-
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                            <div class="infoBox1 smallText1">
-                                <p>
-                                    <span id="js-p-info-trigger"
-                                          class="sprite info"><!-- do not collapse --></span> About these ratings
-                                </p>
-                            </div>
-                        </c:when>
-                        <c:when test="${cmd.ratings.gradeschool}">
-                            <c:if test="${hasGradeschoolCategoryRatings}">
-                                <ul class="smallText2-777">
-                                    <c:if test="${not empty cmd.ratings.avgTeachers}">
-                                        <li><span class="sprite stars_s_${cmd.ratings.avgTeachers}_b"
-                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Teacher quality
-                                        </li>
-                                    </c:if>
-                                    <c:if test="${not empty cmd.ratings.avgPrincipal}">
-                                        <li><span class="sprite stars_s_${cmd.ratings.avgPrincipal}_b"
-                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Principal leadership
-                                        </li>
-                                    </c:if>
-                                    <c:if test="${not empty cmd.ratings.avgParents}">
-                                        <li><span class="sprite stars_s_${cmd.ratings.avgParents}_b"
-                                                  title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span> Parent involvement
-                                        </li>
-                                    </c:if>
-                                </ul>
-                            </c:if>
-
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                            <div class="mediaExt1 smallText1">
-                                <span id="js-k12-info-trigger" class="sprite info img"><!-- do not collapse --></span>
-
-                                <div class="bd">About these ratings</div>
-                            </div>
-                        </c:when>
-                    </c:choose>
+                    <div id="parentRatings">
+                        <school:parentReviewsSubcategoryRatings ratings="${parentRatings}"/>
+                    </div>
+                    <div id="studentRatings" class="hidden">
+                        <school:parentReviewsSubcategoryRatings ratings="${studentRatings}"/>
+                    </div>
+                    ${aboutTheseRatings}
                 </div>
-
+            </c:when>
+            <c:when test="${not empty communityRatings}">
+                <div class="reviewSubRatings">
+                    <div id="communityRatings">
+                        <school:parentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                    </div>
+                    ${aboutTheseRatings}
+                </div>
             </c:when>
             <c:otherwise>
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
             </c:otherwise>
         </c:choose>
+        <!-- TODO-10495 - Randall - END subcategory ratings -->
 
     </div>
 </div>
