@@ -132,6 +132,9 @@
     </script>
     <school:profile2010ShareThisJavaScript/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PARENT_REVIEWS" />
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="overview">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>

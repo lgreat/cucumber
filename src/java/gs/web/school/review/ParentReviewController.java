@@ -237,6 +237,10 @@ public class ParentReviewController extends AbstractController {
                 Set<Poster> prevReviewsBy = getReviewsBy(request.getParameter(PARAM_PREV_REVIEWS_BY));
 
                 model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(reviewsBy, prevReviewsBy, paramSortBy, prevSortBy));
+
+                // GS-10709
+                UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                model.put("relCanonical", builder.asFullUrlXml(request));
             } else {
                 if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                     cmd.setMaxReviewsPerPage(reviews.size());
