@@ -103,6 +103,7 @@ public class ReviewService {
         ReviewUpgradeStatus status;
 
         if (upgradedReviews.size() > 0) {
+            summary.setUpgradedReviews(upgradedReviews);
             List<Review> publishedReviews = findPublishedReviews(upgradedReviews);
 
             if (publishedReviews.size() > 0) {
