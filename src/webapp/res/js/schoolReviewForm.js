@@ -136,7 +136,9 @@ GS.form.SchoolReviewForm = function(id) {
     };
 
     this.validateAll = function() {
-        this.validateEmail();
+        if (!GS.isMember() || !this.fields.email.attr("disabled")) {
+            this.validateEmail();
+        }
         this.validatePoster();
         this.validateReviewText();
         this.validateOverallRating();
@@ -153,8 +155,8 @@ GS.form.SchoolReviewForm = function(id) {
     }
 
     this.submitHandler = function() {
-        if (this.emailValidated && this.posterValidated && this.reviewTextValidated
-                && this.overallRatingValidated && this.emailValidated && this.termsOfUseValidated) {
+        if ((this.emailValidated || this.fields.email.attr("disabled")) && this.posterValidated && this.reviewTextValidated
+                && this.overallRatingValidated && this.termsOfUseValidated) {
             if (GS.isSignedIn() || !this.isEmailTaken) {
                 GS_postSchoolReview();
             } else {
@@ -206,7 +208,9 @@ GS.form.SchoolReviewForm = function(id) {
         jQuery('#rateReview .commentsPopup').hide();
     });
 
-    this.fields.email.blur(this.validateEmail.gs_bind(this));
+    if (!GS.isMember() || !this.fields.email.attr("disabled")) {
+        this.fields.email.blur(this.validateEmail.gs_bind(this));
+    }
 
     this.fields.poster.blur(this.validatePoster.gs_bind(this));
 
@@ -221,8 +225,8 @@ GS.form.SchoolReviewForm = function(id) {
 var countWords = makeCountWords(150);
 
 function GS_postSchoolReview(email, callerFormId) {
-    // then post the review
-    jQuery.post('/school/review/postReview.page', jQuery('#frmPRModule').serialize(), function(data) {
+    var formData = jQuery('#frmPRModule').serialize();
+    jQuery.post('/school/review/postReview.page', formData, function(data) {
         if (data.showHover != undefined && data.showHover == "emailNotValidated") {
             GSType.hover.emailNotValidated.show();
             return false;
