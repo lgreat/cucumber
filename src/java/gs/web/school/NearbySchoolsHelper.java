@@ -23,17 +23,17 @@ public class NearbySchoolsHelper {
         List<MapSchool> mapSchools = new ArrayList<MapSchool>();
         // for each school
         for (NearbySchool nearbySchool : schools) {
-            School school = nearbySchool.getNeighbor();
+            School neighbor = nearbySchool.getNeighbor();
             // MapSchool is a subclass of NearbySchool
             MapSchool mapSchool = new MapSchool();
             // now we copy over the fields we want: school and gs rating
             // School. I don't like that it is called neighbor, but that's from the superclass NearbySchool
-            mapSchool.setNeighbor(school);
+            mapSchool.setNeighbor(neighbor);
             // GS rating
             mapSchool.setRating(nearbySchool.getRating());
 
             // Retrieve parent ratings
-            Ratings ratings = _reviewDao.findRatingsBySchool(school);
+            Ratings ratings = getReviewDao().findRatingsBySchool(neighbor);
             // Parent ratings
             mapSchool.setParentRatings(ratings);
 
