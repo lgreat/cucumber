@@ -52,6 +52,7 @@ GS.form.SchoolReviewForm = function(id) {
             jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'},
                 function(data) {
                     var valid = false;
+                    this.isEmailTaken = false;
                     if (data && data['email']) {
                         var emailErrorMessage = data['email'];
                         if (emailErrorMessage.indexOf("This email address is already registered") != -1) {
@@ -72,7 +73,7 @@ GS.form.SchoolReviewForm = function(id) {
                         if (GS.isCookieSet('emailVerified')) {
                             this.fields.email.alert.hide();
                         } else {
-                            this.fields.email.alert.find('.bd').html("You will need to validate your email <br/>address when you submit your review.");
+                            this.fields.email.alert.find('.bd').html("You will need to verify your email <br/>address when you submit your review.");
                             this.fields.email.alert.show();
                         }
                     }
@@ -82,7 +83,6 @@ GS.form.SchoolReviewForm = function(id) {
         } else {
             this.fields.email.error.show();
             this.emailValidated = false;
-
         }
     };
 
@@ -152,7 +152,7 @@ GS.form.SchoolReviewForm = function(id) {
         validatedString+= " overallRating:" + this.overallRatingValidated;
         validatedString+= " termsOfUse:" + this.termsOfUseValidated;
         return validatedString;
-    }
+    };
 
     this.submitHandler = function() {
         if ((this.emailValidated || this.fields.email.attr("disabled")) && this.posterValidated && this.reviewTextValidated
@@ -186,8 +186,6 @@ GS.form.SchoolReviewForm = function(id) {
             jQuery('#frmPRModule .subStarRatings .teachers').show();
             jQuery('#frmPRModule .subStarRatings .principal').show();
             jQuery('#frmPRModule .subStarRatings .parents').show();
-
-            //jQuery('#frmPRModule .moreAboutRatings').show();
         } else if (this.value == 'student') {
             jQuery('#frmPRModule .subStarRatings').show();
             jQuery('#frmPRModule .subStarRatings .teachers').show();

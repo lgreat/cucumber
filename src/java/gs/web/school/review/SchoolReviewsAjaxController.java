@@ -22,6 +22,7 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteController;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -92,7 +93,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         SitePrefCookie cookie = new SitePrefCookie(request, response);
         String verifiedEmailHash = cookie.getProperty("emailVerified");
-        String thisEmailHash = DigestUtil.hashString(reviewCommand.getEmail());
+        String thisEmailHash = UrlUtil.urlEncode(DigestUtil.hashString(reviewCommand.getEmail()));
         _log.debug("Hashed email " + reviewCommand.getEmail() + " to hash " + thisEmailHash);
         boolean emailVerifiedRecently = thisEmailHash.equals(verifiedEmailHash);
 
