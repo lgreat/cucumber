@@ -456,7 +456,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         });
 
         // esp popup
-        $('#bestKnownFor').each(function () {
+        jQuery('#bestKnownFor').each(function () {
             // options
             var distance = 10;
             var time = 250;
@@ -472,7 +472,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             var popup = jQuery('#js-esp-info-popup', this).css({'opacity':0});
 
             // set the mouseover and mouseout on both element
-            $([trigger.get(0), popup.get(0)]).mouseover(function () {
+            jQuery([trigger.get(0), popup.get(0)]).mouseover(function () {
                 // stops the hide event if we move from the trigger to the popup element
                 if (hideDelayTimer) clearTimeout(hideDelayTimer);
 
@@ -519,28 +519,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             });
         });
 
-    });
-
-    function countChecked() {
-        var n = jQuery('#nearby-schools-table-body input:checked').length;
-        if (n >= 2) {
-            jQuery('#compareBtn').attr('disabled', '');
-            jQuery('#compareBtn').removeClass('btn25-inactive');
-            jQuery('#compareBtn').addClass('btn25');
-        } else {
-            jQuery('#compareBtn').attr('disabled', 'disabled');
-            jQuery('#compareBtn').removeClass('btn25');
-            jQuery('#compareBtn').addClass('btn25-inactive');
-        }
-        var errorMsg = "Select two or more to compare";
-        jQuery('.submitCompareError').text(n == 1 ? errorMsg : '');
-    }
-
-    countChecked();
-    jQuery(":checkbox").click(countChecked);
-
-    jQuery('#reviewBtn').click(function() {
-       window.location.href = '/school/parentReviews.page?id=${school.id}&amp;state=${fn:toLowerCase(school.databaseState)}';
     });
 
 </script>
