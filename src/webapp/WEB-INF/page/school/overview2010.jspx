@@ -146,7 +146,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <p class="text3">
             <c:choose>
                 <c:when test="${requestScope.context.showReviewsPageRedesign}">
-                    Overall Community Rating
+                    Community Rating
                 </c:when>
                 <c:otherwise>
                     Overall Parent Rating

@@ -4,7 +4,7 @@ import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlBuilder;
 
 import gs.data.school.*;
-import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContext;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -23,7 +23,10 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         SchoolSummaryHelper helper = new SchoolSummaryHelper();
         RatingsSummaryCommand command = helper.buildRatingsSummaryCommand(_school, this.getSchoolDao(), this.getReviewDao()) ;
-        SchoolMessageBuilder builder = helper.getMessageBuilder(_school);
+
+        SchoolMessageBuilder builder;
+        SessionContext sessionContext = getSessionContext();
+        builder = helper.getMessageBuilder(_school, (sessionContext != null && sessionContext.isShowReviewsPageRedesign()));
 
         writeOpeningDiv();
 

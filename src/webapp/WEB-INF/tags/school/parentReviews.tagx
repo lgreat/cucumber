@@ -71,7 +71,7 @@
                     <p class="text2bold">
                         <c:choose>
                             <c:when test="${requestScope.context.showReviewsPageRedesign}">
-                                Overall Community Rating
+                                Community Rating
                             </c:when>
                             <c:otherwise>
                                 Overall Parent Rating
