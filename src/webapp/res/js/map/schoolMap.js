@@ -1,4 +1,8 @@
-GS.GSMapHelper = function(id, centerLatitude, centerLongitude, useBubbles) {
+if (GS.map == undefined) {
+    GS.map = {};
+}
+
+GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     var self = this;
     var map = null;
@@ -26,6 +30,13 @@ GS.GSMapHelper = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.getMap = function() {
         return map;
+    };
+
+    this.centerOnSchool = function(state, id) {
+        var marker = markers[state + id];
+        if (marker != undefined) {
+            map.panTo(marker.getPosition());
+        }
     };
 
     this.addMarker = function(marker, databaseState, id, markerClickedCallback) {

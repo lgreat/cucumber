@@ -107,10 +107,10 @@
 
         <c:set var="javascript">
             ${javascript}
-            mapHelper.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','${schoolName}','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback, '${schoolType}');
+            GS.map.schoolMap.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','${schoolName}','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback, '${schoolType}');
 
             jQuery('#nearby-schools-link-' + '${curSchool.databaseState}' + '${curSchool.id}').mouseover(function() {
-                mapHelper.showMarkerBubble('${curSchool.databaseState}', '${curSchool.id}');
+                GS.map.schoolMap.showMarkerBubble('${curSchool.databaseState}', '${curSchool.id}');
             });
         </c:set>
     </c:forEach>
@@ -119,12 +119,12 @@
     <script type="text/javascript">
 
         jQuery(function(){
-            mapHelper = new GS.GSMapHelper('${id}','${school.lat}','${school.lon}', true);
-            mapHelper.setup();
-            mapHelper.createAndAddCenterMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}', '${(centerInfoWindowMarkup)}', markerClickedCallback);
+            GS.map.schoolMap = new GS.map.SchoolMap('${id}','${school.lat}','${school.lon}', true);
+            GS.map.schoolMap.setup();
+            GS.map.schoolMap.createAndAddCenterMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}', '${(centerInfoWindowMarkup)}', markerClickedCallback);
 
             jQuery('#nearby-schools-link-' + '${school.databaseState}' + '${school.id}').mouseover(function() {
-                mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
+                GS.map.schoolMap.showMarkerBubble('${school.databaseState}', '${school.id}');
             });
 
             <![CDATA[
@@ -133,10 +133,10 @@
             ${javascript}
             -->
 
-            google.maps.event.addListenerOnce(mapHelper.getMap(), 'tilesloaded', function() {
-                mapHelper.drawMarkers();
-                mapHelper.expandMapToFitMarkers();
-                mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
+            google.maps.event.addListenerOnce(GS.map.schoolMap.getMap(), 'tilesloaded', function() {
+                GS.map.schoolMap.drawMarkers();
+                GS.map.schoolMap.expandMapToFitMarkers();
+                GS.map.schoolMap.showMarkerBubble('${school.databaseState}', '${school.id}');
             });
         });
 
