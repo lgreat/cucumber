@@ -111,7 +111,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
 
-        _emailVerificationEmail.sendSchoolReviewVerificationEmail(getRequest(), user, getRequest().getRequestURI());
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(eq(getRequest()), eq(user), isA(String.class));
 
         //should not send "review posted email" if user not logged in with password
 
@@ -180,7 +180,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         //no longer send "review posted" email unless user is logged in with a password
         //_exactTargetAPI.sendTriggeredEmail(eq("review_posted_trigger"), isA(User.class), isA(Map.class));
 
-        _emailVerificationEmail.sendSchoolReviewVerificationEmail(getRequest(), _user, getRequest().getRequestURI());
+        _emailVerificationEmail.sendSchoolReviewVerificationEmail(eq(getRequest()), eq(_user), isA(String.class));
 
         replay(_reviewDao);
         replay(_exactTargetAPI);
