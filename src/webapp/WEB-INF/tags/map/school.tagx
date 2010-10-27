@@ -123,12 +123,10 @@
             mapHelper.setup();
             mapHelper.createAndAddCenterMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}', '${(centerInfoWindowMarkup)}', markerClickedCallback);
 
-            if (useBubbles) {
-                jQuery('#nearby-schools-link-' + '${school.databaseState}' + '${school.id}').mouseover(function() {
-                    mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
-                });
-            }
-            
+            jQuery('#nearby-schools-link-' + '${school.databaseState}' + '${school.id}').mouseover(function() {
+                mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
+            });
+
             <![CDATA[
             <!--
             ]]>
