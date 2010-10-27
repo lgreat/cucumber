@@ -128,7 +128,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
 
-            if (gsRating > 0 && gsRating < 11) {
+            if (gsRating != null && gsRating > 0 && gsRating < 11) {
                 pageHelper.addAdKeyword("gs_rating", String.valueOf(gsRating));
             }
 
