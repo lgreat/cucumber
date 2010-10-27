@@ -57,8 +57,6 @@ public class ParentReviewController extends AbstractController {
     protected static final String PARAM_PAGER_OFFSET = "pager.offset";
     protected static final String PARAM_VIEW_ALL = "lr";
     protected static final String PARAM_REVIEWS_BY = "reviewsBy";
-    protected static final String PARAM_PREV_REVIEWS_BY = "prb";
-    protected static final String PARAM_PREV_SORT_BY = "psb";
     protected static final String MODEL_URI = "uri";
     protected static final Log _log = LogFactory.getLog(ParentReviewController.class.getName());
 
