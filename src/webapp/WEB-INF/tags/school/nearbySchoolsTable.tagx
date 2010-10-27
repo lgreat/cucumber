@@ -626,8 +626,16 @@
         </div>
     </div>
     <c:if test="${school.levelCode ne 'p'}">
+        <div id="submitCompareError">
         <div class="line">
-            <div class="submitCompareError smallAlertText fltlft unit size1of1 lastUnit"><!-- do not collapse --></div>
+            <div class="unit size1of1 lastUnit">
+                <div class="smallAlertText mediaExt2">
+                    <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                    <div class="bd">Select two or more to compare</div>
+                </div>
+            </div>
+        </div>
         </div>
     </c:if>
 
@@ -673,6 +681,7 @@
 
     jQuery(function() {
 
+
         jQuery('.compare-school-checkbox').click(function(item) {
             // to highlight table row
             var theTD = jQuery(this).parent();
@@ -680,42 +689,48 @@
 
             // change GS Rating badge and parent rating stars backgrounds from white to blue
             jQuery('#nearby-schools-table-body').find(':checked').each(function () {
-                var pattern2=/_y|_b/gi;
-                var badge = jQuery(this).parent().parent().find('> td > span');
-                var badgeClass = badge.attr('class');
+                var isWhite = null;
+                var pattern2 = /_y|_b/gi;
                 var stars = jQuery(this).parent().parent().find('> td > a > span');
                 var starsClass = stars.attr('class');
-                var isWhite = null;
-                //console.log(badgeClass.match(pattern1));
-                (badgeClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
-                //console.log(isWhite);
-                //console.log(badgeClass);
+                (starsClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
+                var badge = jQuery(this).parent().parent().find('> td > span');
+                if (badge.length != 0) {
+                    var badgeClass = badge.attr('class');
+                    if (isWhite) {
+                        var blueBadgeClass = badgeClass + '_b';
+                        badge.removeClass(badgeClass).addClass(blueBadgeClass);
+                    }
+                }
                 if (isWhite) {
-                    var blueBadgeClass = badgeClass + '_b';
                     var blueStarsClass = starsClass + '_b';
-                    badge.removeClass(badgeClass).addClass(blueBadgeClass);
                     stars.removeClass(starsClass).addClass(blueStarsClass);
                 }
             });
 
             // change GS Rating badge and parent rating stars backgrounds from blue to white
             jQuery('#nearby-schools-table-body').find(':checkbox').not(':checked').each(function () {
-                var pattern1=/_b/gi;
-                var pattern3=/sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
-                var pattern4=/sprite stars_sm_(\d|[a-z_]{7})/gi;
-                var badge = jQuery(this).parent().parent().find('> td > span');
-                var badgeClass = badge.attr('class');
-                var whiteBadgeClass = badgeClass.match(pattern3)[0];
+                var isBlue = null;
+                var pattern1 = /_b/gi;
+                var pattern3 = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
+                var pattern4 = /sprite stars_sm_(\d|[a-z_]{7})/gi;
                 var stars = jQuery(this).parent().parent().find('> td > a > span');
                 var starsClass = stars.attr('class');
+//                console.log(starsClass.match(pattern1));
+                (starsClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
+//                console.log(isBlue);
+//                console.log(starsClass);
                 var whiteStarsClass = starsClass.match(pattern4)[0];
-                //console.log(whiteBadgeClass);
-                var isBlue = null;
-                (badgeClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
-                //console.log(isBlue);
-                //console.log(badgeClass);
+//                console.log(whiteStarsClass);
+                var badge = jQuery(this).parent().parent().find('> td > span');
+                if (badge.length != 0) {
+                    var badgeClass = badge.attr('class');
+                    var whiteBadgeClass = badgeClass.match(pattern3)[0];
+                    if (isBlue) {
+                        badge.removeClass(badgeClass).addClass(whiteBadgeClass);
+                    }
+                }
                 if (isBlue) {
-                    badge.removeClass(badgeClass).addClass(whiteBadgeClass);
                     stars.removeClass(starsClass).addClass(whiteStarsClass);
                 }
             });
@@ -771,8 +786,11 @@
             jQuery('#compareBtn').removeClass('button-1');
             jQuery('#compareBtn').addClass('button-1-inactive');
         }
-        var errorMsg = "Select two or more to compare";
-        jQuery('.submitCompareError').text(n == 1 ? errorMsg : '');
+        if (n == 1) {
+            jQuery('#submitCompareError').show();
+        } else {
+            jQuery('#submitCompareError').hide();
+        }
     }
 
     countChecked();

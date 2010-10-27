@@ -4972,8 +4972,11 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     _border-bottom:1px dotted #999;
 }
 
-#nearby-schools-table-body tr{
-    /*padding: 10px 0;*/
+#nearby-schools-table-body thead tr{
+    height:auto;
+}
+
+#nearby-schools-table-body tbody tr{
     height:69px;
 }
 
@@ -5693,6 +5696,10 @@ body.ie8 #reviewOverallRating {
 
 #reviewOverallRating .reviewSubRatings{
     text-align:left;
+}
+
+#reviewOverallRating {
+    
 }
 
 #reviewColumn2 {
