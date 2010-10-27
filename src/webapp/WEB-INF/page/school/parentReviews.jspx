@@ -322,6 +322,7 @@
             />
 </c:set>
 
+<c:if test="${cmd.totalReviews gt 0}">
 <div class="line">
     <div class="unit size1of2">
         <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
@@ -524,6 +525,9 @@
 </div>
 
 <div class="spacer_10"><!-- do not collapse --></div>
+
+</c:if>
+
 <div class="alertBox3 text1">
     <p>What are your school's special characteristics? <a href="#">Tell us here <span
             class="alertDoubleArrow">&amp;raquo;</span></a></p>
