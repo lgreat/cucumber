@@ -388,24 +388,16 @@
     </c:if>
 </div>
 
-<c:set var="parentReviewsStart" value="0"/>
-<c:if test="${cmd.reviews[0].who eq 'principal'}">
-    <c:set var="parentReviewsStart" value="1"/>
-</c:if>
 <c:forEach var="review" items="${reviewsToShow}">
     <c:set var="who" value=""/>
     <c:if test="${!(empty(review.who) or review.who eq 'other')}">
         <c:set var="who" value="${review.who}"/>
     </c:if>
 
-    <!-- does user permit name to display-->
-    <c:set var="reviewClass" value="review"/>
-    <c:if test="${who eq 'principal'}">
-        <c:set var="reviewClass" value="review principalReview"/>
-    </c:if>
+    <c:if test="${who ne 'principal'}">
 
     <div class="spacer_15"><!-- do not collapse --></div>
-    <div class="${reviewClass}">
+    <div class="review">
         <![CDATA[ <a name="ps${review.id}"></a> ]]>
 
         <div class="line">
@@ -415,26 +407,14 @@
                     <c:if test="${school.levelCode eq 'p'}">
                         <c:set var="curStarRating" value="${review.POverall.name}"/>
                     </c:if>
-                    <c:if test="${(curStarRating ne 'decline') and (who ne 'principal')}">
+                    <c:if test="${curStarRating ne 'decline'}">
                                 <span class="sprite stars_lg_${curStarRating} img"
                                       title="${curStarRating} star rating"><!-- do not collapse --></span>
                     </c:if>
 
                     <div class="bd">
                         <p class="author">
-                            <c:choose>
-                                <c:when test="${who eq 'principal' and not empty(review.user)}">
-                                    <c:set var="principalName" value="${review.user.firstName}"/>
-                                    <c:if test="${not empty (review.user.lastName)}">
-                                        <c:set var="principalName"
-                                               value="${principalName} ${review.user.lastName}"/>
-                                    </c:if>
-                                    <span class="principalName">${principalName}</span>, ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                </c:when>
-                                <c:otherwise>
-                                    Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
-                                </c:otherwise>
-                            </c:choose>
+                            Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                 <c:choose>
                                     <c:when test="${review.status eq 'd'}">
@@ -476,9 +456,6 @@
 
         <c:set var="postedByDisplay" value=""/>
         <c:choose>
-            <c:when test="${who eq 'principal' and not empty(review.user)}">
-                <c:set var="postedByDisplay" value="an administrator at this school"/>
-            </c:when>
             <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
                 <c:set var="postedByDisplay"
                        value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
@@ -493,16 +470,8 @@
             <c:set var="escapedComments"><c:out value="${review.comments}"
                                                 escapeXml="true"/></c:set>
             ${gsweb:boldifyFirstXWords(escapedComments, 10)}
-            <c:choose>
-                <c:when test="${who eq 'principal'}">
-                    <c:if test="${not empty postedByDisplay}"><br/><span
-                            class="principal author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
-                </c:when>
-                <c:otherwise>
-                    <c:if test="${not empty postedByDisplay}"><br/><span
-                            class="author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
-                </c:otherwise>
-            </c:choose>
+            <c:if test="${not empty postedByDisplay}"><br/><span
+                        class="author smallText1-333">&amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
         </p>
 
 
@@ -513,6 +482,7 @@
     </div>
     <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
 
+    </c:if>
     <!-- end: review -->
 </c:forEach>
 

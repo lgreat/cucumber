@@ -220,7 +220,7 @@ public class ParentReviewController extends AbstractController {
                         toIndex++;
                     }
 
-                    toIndex = Math.min(toIndex, reviews.size() - 1);
+                    toIndex = Math.min(toIndex, reviews.size());
 
                     reviewsToShow = reviews.subList(fromIndex, toIndex);
                 }
