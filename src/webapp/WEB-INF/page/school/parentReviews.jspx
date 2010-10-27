@@ -228,9 +228,7 @@
 </div>
 <!-- end reviewColumn1 -->
 <div id="reviewColumn2">
-    <c:if test="${cmd.showParentReviewForm}">
-        <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
-    </c:if>
+    <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
 </div>
 <!-- end reviewColumn2 -->
 <div class="clearfloat"><!-- do not collapse --></div>
