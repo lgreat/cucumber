@@ -30,12 +30,22 @@ public class IsValidEmailController implements Controller {
         if(StringUtils.isNotBlank(request.getParameter("emails"))){
             String[] emails = request.getParameter("emails").split("[,\\s]+");
             boolean isValid = true;
-            for(int i=0;i<emails.length;i++){
-                if(!EmailUtils.isValidEmail(emails[i])){
+
+            StringBuffer badEmails = new StringBuffer();
+            for (String email : emails) {
+                if (!EmailUtils.isValidEmail(email)) {
                     isValid = false;
+                    if (badEmails.length() > 0) {
+                        badEmails.append(", ");
+                    }
+                    badEmails.append(email);
                 }
             }
-            out.print(isValid);
+            if (StringUtils.equals("1", request.getParameter("details"))) {
+                out.print(badEmails.toString());
+            } else {
+                out.print(isValid);
+            }
             out.flush();
         }else{
             out.print(EmailUtils.isValidEmail(request.getParameter("email")));
