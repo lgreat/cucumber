@@ -226,7 +226,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         if (reviewProvisional) {
             responseValues.put("showHover", "validateEmailSchoolReview");
-            UrlBuilder urlBuilder = new UrlBuilder(review.getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
             String redirectUrl = urlBuilder.asFullUrl(request);
             getEmailVerificationReviewOnlyEmail().sendSchoolReviewVerificationEmail(request, user, redirectUrl);
         }
