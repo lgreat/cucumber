@@ -224,13 +224,6 @@ public class ParentReviewController extends AbstractController {
                 }
                 model.put("reviewsToShow", reviewsToShow);
                 model.put("page", page);
-
-                if (page == 1) {
-                    cmd.setShowParentReviewForm(true);
-                } else {
-                    cmd.setShowParentReviewForm(false);
-                }
-
                 model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(cmd.getTotalReviews(), reviewsBy, paramSortBy));
 
                 // GS-10709
