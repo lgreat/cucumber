@@ -438,7 +438,7 @@
                             </noscript>
                         </div>
 
-                        <map:school
+                        <map:mapSchoolsWithoutBubbles
                                 id="nearbySchoolsMap"
                                 tooltips="true"
                                 schools="${mapSchools}"

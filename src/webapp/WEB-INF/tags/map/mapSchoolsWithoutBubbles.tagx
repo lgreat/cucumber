@@ -71,16 +71,8 @@
 
     <c:set var="schoolName" value="${fn:replace(school.name, '\'', '\\\'')}"/>
 
-    <!-- generate the markup that renders the content within the bubble (infoWindow) of the center marker -->
-    <c:set var="centerInfoWindowMarkup">
-        <map:schoolBubble school="${school}" greatSchoolsRating="${gsRating}" parentRating="${ratings.overall}" />
-    </c:set>
-    <c:set var="centerInfoWindowMarkup">
-        ${fn:replace(infoWindowMarkup, "'", "\\'")}
-    </c:set>
-
     <!-- Iterate over all the center school's nearby schools and generate a javascript block that will add the markers
-         and infowindow bubbles for each nearby school -->
+         for each nearby school -->
     <c:set var="javascript" value=""/>
     <c:forEach var ="nearbySchool" items = "${schools}" begin="${start}" end="${start+count-1}">
         <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
@@ -98,20 +90,9 @@
             </c:otherwise>
         </c:choose>
 
-        <c:set var="infoWindowMarkup">
-            <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.parentRatings.overall}" />
-        </c:set>
-        <c:set var="infoWindowMarkup">
-            ${fn:replace(infoWindowMarkup, "'", "\\'")}
-        </c:set>
-
         <c:set var="javascript">
             ${javascript}
-            mapHelper.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','${schoolName}','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback, '${schoolType}');
-
-            jQuery('#nearby-schools-link-' + '${curSchool.databaseState}' + '${curSchool.id}').mouseover(function() {
-                mapHelper.showMarkerBubble('${curSchool.databaseState}', '${curSchool.id}');
-            });
+            mapHelper.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','${schoolName}','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '', markerClickedCallback, '${schoolType}');
         </c:set>
     </c:forEach>
 
@@ -119,16 +100,10 @@
     <script type="text/javascript">
 
         jQuery(function(){
-            mapHelper = new GS.GSMapHelper('${id}','${school.lat}','${school.lon}', true);
+            mapHelper = new GS.GSMapHelper('${id}','${school.lat}','${school.lon}', false);
             mapHelper.setup();
-            mapHelper.createAndAddCenterMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}', '${(centerInfoWindowMarkup)}', markerClickedCallback);
+            mapHelper.createAndAddCenterMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','', markerClickedCallback);
 
-            if (useBubbles) {
-                jQuery('#nearby-schools-link-' + '${school.databaseState}' + '${school.id}').mouseover(function() {
-                    mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
-                });
-            }
-            
             <![CDATA[
             <!--
             ]]>
@@ -138,7 +113,6 @@
             google.maps.event.addListenerOnce(mapHelper.getMap(), 'tilesloaded', function() {
                 mapHelper.drawMarkers();
                 mapHelper.expandMapToFitMarkers();
-                mapHelper.showMarkerBubble('${school.databaseState}', '${school.id}');
             });
         });
 
