@@ -275,4 +275,19 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         assertNotNull("ParentReviewController should add kindercare attribute", mAndV.getModelMap().get("leadGenModule"));
 
     }
+
+    public void testGetReviewsFilterSortTracking() throws Exception {
+        Set<Poster> reviewsBy = new HashSet<Poster>();
+        int numReviews = 0;
+        assertEquals("", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "dd"));
+        numReviews = 1;
+        assertEquals("Default", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "dd"));
+        reviewsBy.add(Poster.PARENT);
+        assertEquals("Parent review", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "dd"));
+        reviewsBy.add(Poster.STUDENT);
+        assertEquals("Parent review,Student review", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "dd"));
+        reviewsBy.add(Poster.TEACHER);
+        assertEquals("Parent review,Student review,Teacher review", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "dd"));
+        assertEquals("Lowest rating first,Parent review,Student review,Teacher review", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "ra"));
+    }
 }

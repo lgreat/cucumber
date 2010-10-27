@@ -233,10 +233,7 @@ public class ParentReviewController extends AbstractController {
                     cmd.setShowParentReviewForm(false);
                 }
 
-                String prevSortBy = request.getParameter(PARAM_PREV_SORT_BY);
-                Set<Poster> prevReviewsBy = getReviewsBy(request.getParameter(PARAM_PREV_REVIEWS_BY));
-
-                model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(reviewsBy, prevReviewsBy, paramSortBy, prevSortBy));
+                model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(cmd.getTotalReviews(), reviewsBy, paramSortBy));
 
                 // GS-10709
                 UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
@@ -320,29 +317,48 @@ public class ParentReviewController extends AbstractController {
         }
     }
 
-    private String getReviewsFilterSortTracking(Set<Poster> reviewsBy, Set<Poster> prevReviewsBy, String paramSortBy, String prevSortBy) {
-        String reviewsFilterSortTracking = "";
-        if (StringUtils.isNotBlank(prevSortBy)) {
-            if ("da".equals(paramSortBy) && !"da".equals(prevSortBy)) {
-                reviewsFilterSortTracking = "Oldest first";
-            } else if ("rd".equals(paramSortBy) && !"rd".equals(prevSortBy)) {
-                reviewsFilterSortTracking = "Highest rating first";
-            } else if ("ra".equals(paramSortBy) && !"ra".equals(prevSortBy)) {
-                reviewsFilterSortTracking = "Lowest rating first";
-            } else if ("dd".equals(paramSortBy) && !"dd".equals(prevSortBy)) {
-                reviewsFilterSortTracking = "Newest first";
+    protected static String getReviewsFilterSortTracking(int numReviews, Set<Poster> reviewsBy, String paramSortBy) {
+        if (numReviews == 0) {
+            return "";
+        }
+
+        StringBuilder reviewsFilterSortTracking = new StringBuilder();
+
+        if ("da".equals(paramSortBy)) {
+            reviewsFilterSortTracking.append("Oldest first");
+        } else if ("rd".equals(paramSortBy)) {
+            reviewsFilterSortTracking.append("Highest rating first");
+        } else if ("ra".equals(paramSortBy)) {
+            reviewsFilterSortTracking.append("Lowest rating first");
+        }
+
+        if (reviewsBy != null) {
+            if (reviewsBy.contains(Poster.PARENT)) {
+                if (reviewsFilterSortTracking.length() > 0) {
+                    reviewsFilterSortTracking.append(",");
+                }
+                reviewsFilterSortTracking.append("Parent review");
             }
-        } else if (prevReviewsBy != null) {
-            if (reviewsBy.contains(Poster.PARENT) && !prevReviewsBy.contains(Poster.PARENT)) {
-                reviewsFilterSortTracking = "Parent review";
-            } else if (reviewsBy.contains(Poster.STUDENT) && !prevReviewsBy.contains(Poster.STUDENT)) {
-                reviewsFilterSortTracking = "Student review";
-            } else if (reviewsBy.contains(Poster.TEACHER) && !prevReviewsBy.contains(Poster.TEACHER)) {
+            if (reviewsBy.contains(Poster.STUDENT)) {
+                if (reviewsFilterSortTracking.length() > 0) {
+                    reviewsFilterSortTracking.append(",");
+                }
+                reviewsFilterSortTracking.append("Student review");
+            }
+            if (reviewsBy.contains(Poster.TEACHER)) {
                 // not checking staff and admin, for simplicity; it would be redundant
-                reviewsFilterSortTracking = "Teacher review";
+                if (reviewsFilterSortTracking.length() > 0) {
+                    reviewsFilterSortTracking.append(",");
+                }
+                reviewsFilterSortTracking.append("Teacher review");
             }
         }
-        return reviewsFilterSortTracking;
+
+        if (reviewsFilterSortTracking.length() == 0) {
+            return "Default";
+        }
+
+        return reviewsFilterSortTracking.toString();
     }
 
     protected static int getReviewsTotalPages(int numReviews) {

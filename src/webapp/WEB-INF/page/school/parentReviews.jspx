@@ -65,12 +65,10 @@
         return csv;
     }
     ]]>
-    function go(box) {
-        option = box.options[box.selectedIndex].value;
-        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;psb=${cmd.sortBy}&amp;${param_sortby}=' + option${reviewsByParam};
-    }
-    function filter() {
-        location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;prb=${reviewsByCsv}&amp;${param_reviewsby}=' + getReviewsByCsv();
+    function go() {
+        var sort = document.getElementById('sltRatingSort');
+        var option = sort.options[sort.selectedIndex].value;
+        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option + '&amp;${param_reviewsby}=' + getReviewsByCsv();
     }
     </c:when>
     <c:otherwise>
@@ -338,7 +336,7 @@
     <div id="rankSort" class="unit size2of5">
         <span class="smallText1">Sort by: </span>
         <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
-                     onchange="go(this);">
+                     onchange="go();">
             <form:option value="dd">Date: newest to oldest</form:option>
             <form:option value="da">Date: oldest to newest</form:option>
             <form:option value="rd">Rating: highest to lowest</form:option>
@@ -353,10 +351,10 @@
                     <c:choose>
                         <c:when test="${fn:contains(reviewsByCsv,'p')}">
                             <input type="checkbox" id="showParents" checked="checked"
-                                   onclick="filter()"/>
+                                   onclick="go()"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" id="showParents" onclick="filter()"/>
+                            <input type="checkbox" id="showParents" onclick="go()"/>
                         </c:otherwise>
                     </c:choose>
                     <label for="showParents">Parents</label>
@@ -365,10 +363,10 @@
                     <c:choose>
                         <c:when test="${fn:contains(reviewsByCsv,'s')}">
                             <input type="checkbox" id="showStudents" checked="checked"
-                                   onclick="filter()"/>
+                                   onclick="go()"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" id="showStudents" onclick="filter()"/>
+                            <input type="checkbox" id="showStudents" onclick="go()"/>
                         </c:otherwise>
                     </c:choose>
                     <label for="showStudents">Students</label>
@@ -377,10 +375,10 @@
                     <c:choose>
                         <c:when test="${fn:contains(reviewsByCsv,'t')}">
                             <input type="checkbox" id="showTeachers" checked="checked"
-                                   onclick="filter()"/>
+                                   onclick="go()"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" id="showTeachers" onclick="filter()"/>
+                            <input type="checkbox" id="showTeachers" onclick="go()"/>
                         </c:otherwise>
                     </c:choose>
                     <label for="showTeachers">Teachers/Staff</label>
