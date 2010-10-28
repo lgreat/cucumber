@@ -1,33 +1,60 @@
+if (GS == undefined) {
+    var GS = {};
+}
+
 if (GS.map == undefined) {
     GS.map = {};
 }
 
+
+GS.map.MapSchool = function(id, databaseState, name, latitude, longitude) {
+    //decided to break encapsulation since this is mostly a
+    //transfer object
+    this.id = id;
+    this.databaseState = databaseState;
+    this.name = name;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.type = null;
+    this.gsRating = null;
+    this.parentRating = null;
+    this.infoWindowMarkup = null; //I don't know if this should be here, but it was convenient
+};
+
+GS.map.greenArrowMarker = new google.maps.MarkerImage('/res/img/map/green_arrow.png',
+            new google.maps.Size(39, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(11, 34));
+
+GS.map.greenArrowShadow = new google.maps.MarkerImage('/res/img/map/green_arrow_shadow.png',
+            new google.maps.Size(39, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(11, 34));
+
+GS.map.standardShadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+            new google.maps.Size(40,40),
+            new google.maps.Point(0,0),
+            new google.maps.Point(11,34));
+
 GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
-    var self = this;
-    var map = null;
-    var minZoom = 9;
-    var maxZoom = 12;
     var markers = {};
     var infoWindow = new google.maps.InfoWindow();
-
-    this.setup = function() {
-        var center = new google.maps.LatLng(centerLatitude, centerLongitude);
-        var mapOptions = {
-            zoom: 15,
-            center: center,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        map = new google.maps.Map(document.getElementById(id), mapOptions);
-
-        if (useBubbles) {
-            google.maps.event.addListener(map, 'click', function() {
-                infowindow.close();
-            });
-        }
+    var center = new google.maps.LatLng(centerLatitude, centerLongitude);
+    var mapOptions = {
+        zoom: 15,
+        center: center,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+    map = new google.maps.Map(document.getElementById(id), mapOptions);
+
+    if (useBubbles) {
+        google.maps.event.addListener(map, 'click', function() {
+            infowindow.close();
+        });
+    }
+    
     this.getMap = function() {
         return map;
     };
@@ -94,20 +121,11 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
         var position = new google.maps.LatLng(lat,lon);
 
-        var icon = new google.maps.MarkerImage('/res/img/map/green_arrow.png',
-            new google.maps.Size(39, 34),
-            new google.maps.Point(0, 0),
-            new google.maps.Point(11, 34));
-        var shadow = new google.maps.MarkerImage('/res/img/map/green_arrow_shadow.png',
-            new google.maps.Size(39, 34),
-            new google.maps.Point(0, 0),
-            new google.maps.Point(11, 34));
-
         var marker = new google.maps.Marker({
             position: position,
             title: name,
-            icon: icon,
-            shadow: shadow
+            icon: GS.map.greenArrowMarker,
+            shadow: GS.map.greenArrowShadow
         });
 
         return marker;
@@ -166,16 +184,12 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
             new google.maps.Size(40, 40),
             new google.maps.Point(0, 0),
             new google.maps.Point(11, 34));
-        var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
-            new google.maps.Size(40, 40),
-            new google.maps.Point(0, 0),
-            new google.maps.Point(11, 34));
 
         var marker = new google.maps.Marker({
             position: position,
             title: tooltip,
             icon: icon,
-            shadow: shadow
+            shadow: GS.map.standardShadow
         });
 
         return marker;
@@ -187,16 +201,12 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
             new google.maps.Size(40,40),
             new google.maps.Point(0,0),
             new google.maps.Point(11,34));
-        var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
-            new google.maps.Size(40,40),
-            new google.maps.Point(0,0),
-            new google.maps.Point(11,34));
 
         var marker = new google.maps.Marker({
             position: position,
             title: tooltip,
             icon: icon,
-            shadow: shadow
+            shadow: GS.map.standardShadow
         });
 
         return marker;
@@ -204,21 +214,13 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.createSchoolMarker = function(lat, lon, tooltip, rating) {
         var position = new google.maps.LatLng(lat, lon);
-        if (rating != '') {
+        if (rating != '' && rating != undefined) {
             var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_' + rating + '_forground.png',
-                new google.maps.Size(40,40),
-                new google.maps.Point(0,0),
-                new google.maps.Point(11,34));
-            var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
                 new google.maps.Size(40,40),
                 new google.maps.Point(0,0),
                 new google.maps.Point(11,34));
         } else {
             var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_na_forground.png',
-                new google.maps.Size(40,40),
-                new google.maps.Point(0,0),
-                new google.maps.Point(11,34));
-            var shadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
                 new google.maps.Size(40,40),
                 new google.maps.Point(0,0),
                 new google.maps.Point(11,34));
@@ -228,10 +230,24 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
             position: position,
             title: tooltip,
             icon: icon,
-            shadow: shadow
+            shadow: GS.map.standardShadow
         });
 
         return marker;
+    };
+
+    this.addCenterSchool = function(school, infoWindowMarkup, markerClickedCallback) {
+      this.createAndAddCenterMarker(school.id, school.databaseState, school.name, school.latitude, school.longitude, infoWindowMarkup, markerClickedCallback);
+    };
+
+    this.addSchool = function(school, markerClickedCallback) {
+      this.createAndAddMarker(school.id, school.databaseState, school.name, school.latitude, school.longitude, school.gsRating, school.infoWindowMarkup, markerClickedCallback, school.type);
+    };
+
+    this.addSchools = function(schools, markerClickedCallback) {
+        schools.forEach(function (school) {
+            this.addSchool(school, markerClickedCallback);
+        }.gs_bind(this));
     };
 
     //var displayTooltips = ${not empty tooltips};

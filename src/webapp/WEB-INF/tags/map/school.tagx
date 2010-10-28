@@ -20,56 +20,9 @@
     <jsp:directive.attribute name="count" required="false" type="java.lang.Integer" description="AKA page size. Number of pinpoints to display on map. Default all." />
     <jsp:directive.attribute name="gsRating" required="true" type="java.lang.Integer" description="The GreatSchools rating of the school the map is centered on." />
     <jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
-    <jsp:directive.tag import="gs.data.admin.cobrand.Cobrand"/>
-    <jsp:directive.tag import="gs.data.admin.cobrand.ICobrandDao"/>
-    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
-    <jsp:directive.tag import="org.apache.commons.logging.LogFactory"/>
-    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
-    <jsp:directive.tag import="org.springframework.web.context.support.WebApplicationContextUtils"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 
-<jsp:scriptlet>
-            ApplicationContext ac =
-                    WebApplicationContextUtils.getWebApplicationContext(application);
-            ICobrandDao dao = (ICobrandDao) ac.getBean(ICobrandDao.BEAN_ID);
-            String serverName = request.getServerName();
-
-            // GS-6354 remove typo-ed trailing dot from server name before looking up
-            if (serverName.endsWith(".")) {
-                SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-                serverName = StringUtils.chomp(serverName, ".");
-                // http://cpickslay.office.greatschools.org./city/Alameda/CA?cpn=123
-                String uri = "http://" + serverName + context.getOriginalRequestURI();
-                if (StringUtils.isNotEmpty(request.getQueryString())) {
-                    uri = uri + "?" + request.getQueryString();
-                }
-                response.sendRedirect(uri);
-            }
-
-            Cobrand c = dao.getCobrandByHostname(serverName);
-            if (c == null) {
-                LogFactory.getLog("GoogleMappingApi").error("Unable to find key for server name " +
-                        serverName);
-            } else {
-                request.setAttribute("key", c.getGoogleMapsKey());
-            }
-    </jsp:scriptlet>
-    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;key=${requestScope.key}"/>
+    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
     <pageHelper:externalJavascript file="/res/js/map/schoolMap.js" />
-
-    <c:choose>
-        <c:when test="${school.levelCode == 'p'}">
-            <c:set var="schoolType" value="$preschool"/>
-        </c:when>
-        <c:when test="${school.type.schoolTypeName == 'private'}">
-            <c:set var="schoolType" value="private" />
-        </c:when>
-        <c:otherwise>
-            <c:set var="schoolType" value="" />
-        </c:otherwise>
-    </c:choose>
-
-    <c:set var="schoolName" value="${fn:replace(school.name, '\'', '\\\'')}"/>
 
     <!-- generate the markup that renders the content within the bubble (infoWindow) of the center marker -->
     <c:set var="centerInfoWindowMarkup">
@@ -79,67 +32,27 @@
         ${fn:replace(infoWindowMarkup, "'", "\\'")}
     </c:set>
 
-    <!-- Iterate over all the center school's nearby schools and generate a javascript block that will add the markers
-         and infowindow bubbles for each nearby school -->
-    <c:set var="javascript" value=""/>
-    <c:forEach var ="nearbySchool" items = "${schools}" begin="${start}" end="${start+count-1}">
-        <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
-        <c:set var="schoolName" value="${fn:replace(curSchool.name, '\'', '\\\'')}"/>
-
-        <c:choose>
-            <c:when test="${curSchool.levelCode == 'p'}">
-                <c:set var="schoolType" value="preschool"/>
-            </c:when>
-            <c:when test="${curSchool.type.schoolTypeName == 'private'}">
-                <c:set var="schoolType" value="private" />
-            </c:when>
-            <c:otherwise>
-                <c:set var="schoolType" value="" />
-            </c:otherwise>
-        </c:choose>
-
-        <c:set var="infoWindowMarkup">
-            <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.parentRatings.overall}" />
-        </c:set>
-        <c:set var="infoWindowMarkup">
-            ${fn:replace(infoWindowMarkup, "'", "\\'")}
-        </c:set>
-
-        <c:set var="javascript">
-            ${javascript}
-            GS.map.schoolMap.createAndAddMarker('${curSchool.id}','${curSchool.databaseState}','${schoolName}','${curSchool.lat}','${curSchool.lon}','${nearbySchool.rating}', '${(infoWindowMarkup)}', markerClickedCallback, '${schoolType}');
-
-            jQuery('#nearby-schools-link-' + '${curSchool.databaseState}' + '${curSchool.id}').mouseover(function() {
-                GS.map.schoolMap.showMarkerBubble('${curSchool.databaseState}', '${curSchool.id}');
-            });
-        </c:set>
-    </c:forEach>
-
+    <c:set var="js">
+        <map:schoolToJsMapSchool school="${school}" jsVariableName="jsCenterMapSchool"/>
+        <map:mapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" start="${start}" count="${count}" useBubbles="${true}"/>
+    </c:set>
 
     <script type="text/javascript">
-
         jQuery(function(){
             GS.map.schoolMap = new GS.map.SchoolMap('${id}','${school.lat}','${school.lon}', true);
-            GS.map.schoolMap.setup();
-            GS.map.schoolMap.createAndAddCenterMarker('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}', '${(centerInfoWindowMarkup)}', markerClickedCallback);
 
-            jQuery('#nearby-schools-link-' + '${school.databaseState}' + '${school.id}').mouseover(function() {
-                GS.map.schoolMap.showMarkerBubble('${school.databaseState}', '${school.id}');
-            });
+            //execute the JS generated above
+            ${js}
 
-            <![CDATA[
-            <!--
-            ]]>
-            ${javascript}
-            -->
+            GS.map.schoolMap.addCenterSchool(jsCenterMapSchool,'${centerInfoWindowMarkup}', markerClickedCallback);
+            GS.map.schoolMap.addSchools(jsMapSchools);
 
+            //when the map finishes loading, draw the markers and zoom out to see all markers
             google.maps.event.addListenerOnce(GS.map.schoolMap.getMap(), 'tilesloaded', function() {
                 GS.map.schoolMap.drawMarkers();
                 GS.map.schoolMap.expandMapToFitMarkers();
-                GS.map.schoolMap.showMarkerBubble('${school.databaseState}', '${school.id}');
             });
         });
-
     </script>
 
 

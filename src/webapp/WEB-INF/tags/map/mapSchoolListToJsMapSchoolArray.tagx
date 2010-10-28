@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+
+    <jsp:directive.attribute name="schools" required="true" description="Collection of MapSchools to convert" type="java.util.Collection"/>
+    <jsp:directive.attribute name="jsArrayName" required="true" description="Variable name of the MapSchool array that will get instantiated" />
+
+    <jsp:directive.attribute name="start" required="false" type="java.lang.Integer" description="Used for paging. Which neighbor in list to start with."/>
+    <jsp:directive.attribute name="count" required="false" type="java.lang.Integer" description="AKA page size. Number of pinpoints to display on map. Default all." />
+
+    <jsp:directive.attribute name="useBubbles" required="false" type="java.lang.Boolean" description="Whether or not to show bubbles when clicking map marker"/>
+    <!-- this tag shouldn't really need to exist, but the NearbySchool / MapSchool foo needs
+    to be refactored so that it's easier to create a js GS.map.MapSchool from a School + rating -->
+
+    <c:set var="jsMapSchools">
+        var ${jsArrayName} = new Array(${fn:length(schools)});
+    </c:set>
+
+    <c:set var="counter" value="${0}"/>
+    <c:forEach var ="nearbySchool" items = "${schools}" begin="${start}" end="${start+count-1}">
+        <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
+        <c:set var="schoolName" value="${fn:replace(curSchool.name, '\'', '\\\'')}"/>
+
+        <c:choose>
+            <c:when test="${curSchool.levelCode == 'p'}">
+                <c:set var="schoolType" value="preschool"/>
+            </c:when>
+            <c:when test="${curSchool.type.schoolTypeName == 'private'}">
+                <c:set var="schoolType" value="private" />
+            </c:when>
+            <c:otherwise>
+                <c:set var="schoolType" value="" />
+            </c:otherwise>
+        </c:choose>
+
+        <c:if test="${useBubbles}">
+            <c:set var="infoWindowMarkup">
+                <map:schoolBubble school="${curSchool}" greatSchoolsRating="${nearbySchool.rating}" parentRating="${nearbySchool.parentRatings.overall}" />
+            </c:set>
+            <c:set var="infoWindowMarkup">
+                ${fn:replace(infoWindowMarkup, "'", "\\'")}
+            </c:set>
+        </c:if>
+
+        <c:set var="jsMapSchools">
+            ${jsMapSchools}
+            var jsMapSchool = new GS.map.MapSchool(${curSchool.id}, '${curSchool.databaseState}', '${schoolName}', '${curSchool.lat}','${curSchool.lon}');
+            jsMapSchool.gsRating = '${nearbySchool.rating}';
+            jsMapSchool.type = '${schoolType}';
+            if (${useBubbles}) {
+                jsMapSchool.infoWindowMarkup = '${infoWindowMarkup}';
+            }
+            ${jsArrayName}[${counter}] = jsMapSchool;
+        </c:set>
+        <c:set var="counter" value="${counter+1}"/>
+    </c:forEach>
+
+    ${jsMapSchools}
+
+</jsp:root>
