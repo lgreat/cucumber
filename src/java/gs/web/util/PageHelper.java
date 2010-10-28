@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.96 2010/09/11 01:04:11 yfan Exp $
+ * $Id: PageHelper.java,v 1.97 2010/10/28 01:09:23 yfan Exp $
  */
 
 package gs.web.util;
@@ -75,7 +75,7 @@ public class PageHelper {
         put("LEARNING_DISABILITIES", "25");
         put("IMPROVE_YOUR_SCHOOL", "26");
 
-        put("STATE_OF_EDUCATION", "28");
+        put("HOLIDAY_SHOPPING", "28");
     }};
 
     private final SessionContext _sessionContext;
