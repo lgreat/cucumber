@@ -195,9 +195,7 @@
                             <span class="arrow-outline-top"><!-- do not collapse --></span>
                             <span class="arrow-top"><!-- do not collapse --></span>
 
-                            <p>The Community Rating is the average rating for the school from members of its community (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star. For some high schools, ratings by parents and students are compared side by side.</p>
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                            <p>Some people may also rate the school on teacher quality, principal leadership, and parental involvement. For these ratings, reviewers are asked to consider their experiences at the school with the teachers and principal. To assess parents’ involvement, reviewers are asked to take into account how much the school encourages volunteering and what opportunities are open to parents.</p>
+                            <p>The Community Rating is the school’s average rating from its community members (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star.</p>
                         </div>
                     </div>
                 </div>
@@ -517,6 +515,10 @@
 <script type="text/javascript">
     jQuery(function () {
         jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
+        jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-165,topPosition:-105});
+        jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-165,topPosition:-105});
+        jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-165,topPosition:-105});
+        jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-165,topPosition:-105});
     });
 </script>
 

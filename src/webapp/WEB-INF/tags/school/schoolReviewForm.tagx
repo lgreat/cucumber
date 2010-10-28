@@ -141,7 +141,7 @@
                     </c:choose>
 
                     <div class="unit size3of7 lastUnit">
-                        <div id="frmPRModule-email-error" class="formErrorText media padlft_10">
+                        <div id="frmPRModule-email-error" class="formErrorText mediaExt3 padlft_10">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                             <div class="bd">Please enter your email.</div>
@@ -166,7 +166,7 @@
                     </select>
 
                     <div class="unit size3of7 lastUnit">
-                        <div class="formErrorText media padlft_10">
+                        <div class="formErrorText mediaExt3 padlft_10">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
                             <div class="bd">Please let us know how you are affiliated with this school.</div>
                         </div>
@@ -174,31 +174,83 @@
                 </div>
 
                 <div class="subStarRatings" style="display:none;">
+                    <div class="spacer_10"><!-- do not collapse --></div>
                     <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
                     <div class="spacer_10"><!-- do not collapse --></div>
-                    <div class="student_only line">
-                        <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
-                        <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
-                                                                                       additionalClass="med-star"/>
+                    <div id="js-bubbleInfo-2" class="text3">
+                        <div class="js-trigger student_only line">
+                            <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
+                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
+                                                                                           additionalClass="med-star"/>
+                            </div>
+                        </div>
+                        <div class="js-popup">
+                            <div id="popup-contents-2">
+                                <span class="arrow-outline-right"><!-- do not collapse --></span>
+                                <span class="arrow-right"><!-- do not collapse --></span>
+
+                                <ul class="unordered-list2"><span class="text3bold">Teacher quality</span> <br/>ratings assess parents’ overall experience with the school’s teachers. Among other things, great teachers:
+                                    <li class="list-item"><span class="text3">Talk to parents regularly about their children's progress.</span></li>
+                                    <li class="list-item"><span class="text3">Challenge students to learn.</span></li>
+                                    <li class="list-item"><span class="text3">Give students the attention they need to thrive in class.</span></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
                     <c:if test="${school.levelCode ne 'p'}">
                         <div class="spacer_5"><!-- do not collapse --></div>
-                        <div class="line">
-                            <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating
-                                    id="principalAsString"
-                                    additionalClass="med-star"/>
+                        <div id="js-bubbleInfo-3" class="text3">
+                            <div class="js-trigger line">
+                                <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
+                                <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="principalAsString"
+                                                                                               additionalClass="med-star"/>
+                                </div>
+                            </div>
+                            <div class="js-popup">
+                                <div id="popup-contents-3">
+                                    <span class="arrow-outline-right"><!-- do not collapse --></span>
+                                    <span class="arrow-right"><!-- do not collapse --></span>
+
+                                    <ul class="unordered-list2">This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
+                                        <li class="list-item"><span
+                                                class="text3">Reach out to parents.</span>
+                                        </li>
+                                        <li class="list-item"><span class="text3">Listen to and answer questions from parents and students.</span>
+                                        </li>
+                                        <li class="list-item"><span
+                                                class="text3">Make efforts to improve the quality of the school.</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </c:if>
 
                     <div class="spacer_5"><!-- do not collapse --></div>
-                    <div class="line">
-                        <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
-                        <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
-                                                                                       additionalClass="med-star"/>
+                    <div id="js-bubbleInfo-4" class="text3">
+                        <div class="js-trigger line">
+                            <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
+                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
+                                                                                           additionalClass="med-star"/>
+                            </div>
+                        </div>
+                        <div class="js-popup">
+                            <div id="popup-contents-4">
+                                <span class="arrow-outline-right"><!-- do not collapse --></span>
+                                <span class="arrow-right"><!-- do not collapse --></span>
+
+                                <ul class="unordered-list2">A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
+                                    <li class="list-item"><span
+                                            class="text3">Offers opportunities for parent involvement.</span>
+                                    </li>
+                                    <li class="list-item"><span class="text3">Encourages all parents to volunteer.</span>
+                                    </li>
+                                    <li class="list-item"><span
+                                            class="text3">Treats parents like partners, not outsiders.</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <c:if test="${school.levelCode eq 'p'}">

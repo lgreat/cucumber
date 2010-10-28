@@ -1075,6 +1075,12 @@ body.cobranded #pageGS {
 .mediaExt2 .img {float:left; margin-right: 10px;}
 .mediaExt2 .img img{display:block;}
 .mediaExt2 .imgExt{float:right; margin-left: 10px;}
+/* extends the original version with 10px margin on left/right and no margin top/bottom */
+.mediaExt3 {margin:0 10px;}
+.mediaExt3, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.mediaExt3 .img {float:left; margin-right: 10px;}
+.mediaExt3 .img img{display:block;}
+.mediaExt3 .imgExt{float:right; margin-left: 10px;}
 /* ==== end media block ==== */
 
 #mainWrap {
@@ -7937,6 +7943,13 @@ button {
     padding: 0.25em 0;
 }
 
+.unordered-list2 .list-item{
+    list-style: disc outside none;
+    margin: 0 1.0em;
+    padding: 0.25em 0;
+    color:#d61;
+}
+
 /* =13 popup info
 -------------------------------------------------------------------------------------------*/
 
@@ -7945,7 +7958,7 @@ button {
     position: absolute;
 }
 
-#js-bubbleInfo-1{
+#js-bubbleInfo-1, #js-bubbleInfo-2, #js-bubbleInfo-3, #js-bubbleInfo-4{
     position:relative;
 }
 
@@ -7968,6 +7981,27 @@ button {
     position: absolute;
     left: 5px;
     top: 3px;
+}
+
+#popup-contents-2, #popup-contents-3, #popup-contents-4 {
+    background: #FFF;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 138px;
+    text-align: left;
+    margin-right: 15px;
+}
+
+#popup-contents-2 span.arrow-outline-right, #popup-contents-3 span.arrow-outline-right, #popup-contents-4 span.arrow-outline-right {
+    position: absolute;
+    left: 159px;
+    top: 100px;
+}
+
+#popup-contents-2 span.arrow-right, #popup-contents-3 span.arrow-right, #popup-contents-4 span.arrow-right {
+    position: absolute;
+    left: 157px;
+    top: 100px;
 }
 
 /* skin top arrow */
@@ -8005,6 +8039,43 @@ body.ie6  span.arrow-outline-top, body.ie7  span.arrow-outline-top, body.ie8  sp
     border-left: 11px dashed black;
     border-bottom: 15px solid white;
     border-right: 11px dashed black;
+}
+
+/* skin right arrow */
+ span.arrow-outline-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-left: 15px solid #ccc;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
+}
+
+ span.arrow-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-left: 15px solid white;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
+}
+
+body.ie6  span.arrow-outline-right, body.ie7  span.arrow-outline-right, body.ie8  span.arrow-outline-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px solid white;
+    border-left: 15px solid #ccc;
+    border-bottom: 11px solid white;
+}
+
+.ie6  span.arrow-right, .ie7  span.arrow-right, .ie8  span.arrow-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px dashed black;
+    border-left: 15px solid white;
+    border-bottom: 11px dashed black;
 }
 
 /* =debugging styles
