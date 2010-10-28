@@ -188,10 +188,10 @@
     </ul>
 
         <ul id="topnav_menusubnav">
-            <li id="topnav_bts" class="nav_menu firstHeading ${(pw == tabs.HOLIDAY_SHOPPING ? 'topnav_subnav_active' : '')}"><a href="/holiday-shopping.topic?content=1633"
-                    id="GlobalNav_HolidayShoppingButton"
+            <li id="topnav_bts" class="nav_menu firstHeading ${(pw == tabs.GREAT_GIFTS ? 'topnav_subnav_active' : '')}"><a href="/great-gifts.topic?content=1633"
+                    id="GlobalNav_GreatGiftsButton"
                     class="nav_group_heading GS_CI9_ "
-                    >Holiday Shopping</a>
+                    >Great Gifts</a>
             </li>
             <li id="topnav_hd" class="nav_menu ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')}"><a href="/parenting.topic?content=1539"
                     id="GlobalNav_HealthAndDevelopmentButton"

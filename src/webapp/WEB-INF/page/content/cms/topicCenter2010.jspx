@@ -62,8 +62,8 @@
         <c:when test="${topicCenter.highSchoolTopicCenter}">
             <pageHelper:setPathway pathway="HIGH_SCHOOL"/>
         </c:when>
-        <c:when test="${topicCenter.holidayShoppingTopicCenter}">
-            <pageHelper:setPathway pathway="HOLIDAY_SHOPPING"/>
+        <c:when test="${topicCenter.greatGiftsTopicCenter}">
+            <pageHelper:setPathway pathway="GREAT_GIFTS"/>
         </c:when>
     </c:choose>
 
