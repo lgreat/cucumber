@@ -50,9 +50,6 @@
         <c:when test="${topicCenter.contentKey.identifier eq 1543}">
             <pageHelper:setPathway pathway="IMPROVE_YOUR_SCHOOL"/>
         </c:when>
-        <c:when test="${topicCenter.contentKey.identifier eq 1633}">
-            <pageHelper:setPathway pathway="TOP_NAV_PROMO"/>
-        </c:when>
         <c:when test="${topicCenter.preschoolTopicCenter}">
             <pageHelper:setPathway pathway="PRESCHOOL"/>
         </c:when>
