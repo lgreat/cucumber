@@ -65,7 +65,9 @@ jQuery(document).ready(function() {
         distance: 10,
         time: 250,
         hideDelay: 500,
-        appear: 'left'// left=on the left, right=on the right, top=above, bottom=below
+        appear: 'left',// left=appears on the left, right=appears on the right, above=appears above, below=appears below
+        leftPosition: 0,
+        topPosition: 0
       };
 
       var options = jQuery.extend(defaults, options);
@@ -103,27 +105,27 @@ jQuery(document).ready(function() {
         jQuery([trigger.get(0), popup.get(0)]).mouseover(function () {
           // get the location of the popup and set its horizonal and vertical directions
           switch (true) {
-            case (o.appear==='top'):
-              topPos = popupHeight*-1+10;
-              leftPos = (((popupWidth/2)*-1)+(triggerWidth/2));
+            case (o.appear==='above'):
+              leftPos = o.leftPosition;
+              topPos = o.topPosition;
               hDir = 0;
               vDir = -1;
               break;
             case (o.appear==='right'):
-              topPos = -18;
-              leftPos = popupOffsetLeft+8;
+              leftPos = o.leftPosition;
+              topPos = o.topPosition;
               hDir = 1;
               vDir = 0;
               break;
-            case (o.appear==='bottom'):
-              topPos = 8;
-              leftPos = (((popupWidth/2)*-1)+(triggerWidth/2));
+            case (o.appear==='below'):
+              leftPos = o.leftPosition;
+              topPos = o.topPosition;
               hDir = 0;
               vDir = 1;
               break;
             case (o.appear==='left'):
-              topPos = -18;
-              leftPos = popupOffsetLeft - popupWidth + 10;
+              leftPos = o.leftPosition;
+              topPos = o.topPosition;
               hDir = -1;
               vDir = 0;
               break;

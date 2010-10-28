@@ -184,10 +184,23 @@
         <c:set var="aboutTheseRatings">
             <div class="spacer_5"><!-- do not collapse --></div>
             <div class="infoBox1 smallText1">
-                <p>
-                <span id="js-${cmd.ratings.preschool ? 'p' : 'k12'}-info-trigger"
-                      class="sprite info"><!-- do not collapse --></span> About these ratings
-                </p>
+                <div id="js-bubbleInfo-1">
+                    <div class="mediaExt1">
+                    <span class="js-trigger sprite info img"><!-- do not collapse --></span>
+
+                    <div class="bd">About these ratings</div>
+                    </div>
+                    <div class="js-popup">
+                        <div id="popup-contents-1" class="text3">
+                            <span class="arrow-outline-top"><!-- do not collapse --></span>
+                            <span class="arrow-top"><!-- do not collapse --></span>
+
+                            <p>The Community Rating is the average rating for the school from members of its community (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star. For some high schools, ratings by parents and students are compared side by side.</p>
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                            <p>Some people may also rate the school on teacher quality, principal leadership, and parental involvement. For these ratings, reviewers are asked to consider their experiences at the school with the teachers and principal. To assess parents’ involvement, reviewers are asked to take into account how much the school encourages volunteering and what opportunities are open to parents.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </c:set>
 
@@ -501,6 +514,11 @@
 
 </c:if>
 </div>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
+    });
+</script>
 
 <!-- end reviewContainer -->
 </c:when>

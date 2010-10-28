@@ -82,6 +82,7 @@ General comments:
 =10 grids
 =11 forms
 =12 lists
+=13 popup info
 =debugging styles
 =temporary modules
 */
@@ -7934,6 +7935,76 @@ button {
     list-style: disc outside none;
     margin: 0 1.0em;
     padding: 0.25em 0;
+}
+
+/* =13 popup info
+-------------------------------------------------------------------------------------------*/
+
+.js-popup {
+    display: none;
+    position: absolute;
+}
+
+#js-bubbleInfo-1{
+    position:relative;
+}
+
+#popup-contents-1 {
+    background: #FFF;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 138px;
+    text-align: left;
+    margin-top: 15px;
+}
+
+#popup-contents-1 span.arrow-outline-top {
+    position: absolute;
+    left: 5px;
+    top: 1px;
+}
+
+#popup-contents-1 span.arrow-top {
+    position: absolute;
+    left: 5px;
+    top: 3px;
+}
+
+/* skin top arrow */
+ span.arrow-outline-top {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-left: 11px solid rgba(255, 255, 255, 0.0);
+    border-bottom: 15px solid #ccc;
+    border-right: 11px solid rgba(255, 255, 255, 0.0);
+}
+
+ span.arrow-top {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-left: 11px solid rgba(255, 255, 255, 0.0);
+    border-bottom: 15px solid white;
+    border-right: 11px solid rgba(255, 255, 255, 0.0);
+}
+
+body.ie6  span.arrow-outline-top, body.ie7  span.arrow-outline-top, body.ie8  span.arrow-outline-top {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-left: 11px solid white;
+    border-bottom: 15px solid #ccc;
+    border-right: 11px solid white;
+}
+
+.ie6  span.arrow-top, .ie7  span.arrow-top, .ie8  span.arrow-top {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-left: 11px dashed black;
+    border-bottom: 15px solid white;
+    border-right: 11px dashed black;
 }
 
 /* =debugging styles
