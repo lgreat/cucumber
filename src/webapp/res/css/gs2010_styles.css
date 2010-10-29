@@ -83,6 +83,7 @@ General comments:
 =11 forms
 =12 lists
 =13 popup info
+=14 opacity / shadow
 =debugging styles
 =temporary modules
 */
@@ -1075,6 +1076,12 @@ body.cobranded #pageGS {
 .mediaExt2 .img {float:left; margin-right: 10px;}
 .mediaExt2 .img img{display:block;}
 .mediaExt2 .imgExt{float:right; margin-left: 10px;}
+/* extends the Ext2 version with 5px margin on top/bottom and no margin left/right */
+.mediaExt2-1 {margin:5px 0;}
+.mediaExt2-1, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.mediaExt2-1 .img {float:left; margin-right: 10px;}
+.mediaExt2-1 .img img{display:block;}
+.mediaExt2-1 .imgExt{float:right; margin-left: 10px;}
 /* extends the original version with 10px margin on left/right and no margin top/bottom */
 .mediaExt3 {margin:0 10px;}
 .mediaExt3, .bd {overflow:hidden; _overflow:visible; zoom:1;}
@@ -1253,6 +1260,13 @@ body.cobranded #pageGS {
     height: 5px;
     font-size: 1px;
     line-height: 5px;
+}
+
+.spacer_7 {
+    clear: both;
+    height: 7px;
+    font-size: 1px;
+    line-height: 7px;
 }
 
 .spacer_10 {
@@ -7958,7 +7972,12 @@ button {
     position: absolute;
 }
 
-#js-bubbleInfo-1, #js-bubbleInfo-2, #js-bubbleInfo-3, #js-bubbleInfo-4{
+#js-bubbleInfo-1,
+#js-bubbleInfo-2,
+#js-bubbleInfo-3,
+#js-bubbleInfo-4,
+#js-bubbleInfo-5,
+#js-bubbleInfo-6{
     position:relative;
 }
 
@@ -7983,25 +8002,62 @@ button {
     top: 3px;
 }
 
-#popup-contents-2, #popup-contents-3, #popup-contents-4 {
+#popup-contents-2,
+#popup-contents-3,
+#popup-contents-4,
+#popup-contents-5,
+#popup-contents-6 {
     background: #FFF;
     border: 1px solid #ccc;
     padding: 10px;
-    width: 138px;
+    width: 173px;
     text-align: left;
     margin-right: 15px;
 }
 
-#popup-contents-2 span.arrow-outline-right, #popup-contents-3 span.arrow-outline-right, #popup-contents-4 span.arrow-outline-right {
+#popup-contents-2 span.arrow-outline-shadow-right,
+#popup-contents-3 span.arrow-outline-shadow-right,
+#popup-contents-4 span.arrow-outline-shadow-right,
+#popup-contents-5 span.arrow-outline-shadow-right {
     position: absolute;
-    left: 159px;
-    top: 100px;
+    left: 195px;
+    top: 93px;
 }
 
-#popup-contents-2 span.arrow-right, #popup-contents-3 span.arrow-right, #popup-contents-4 span.arrow-right {
+#popup-contents-2 span.arrow-outline-right,
+#popup-contents-3 span.arrow-outline-right,
+#popup-contents-4 span.arrow-outline-right,
+#popup-contents-5 span.arrow-outline-right {
     position: absolute;
-    left: 157px;
-    top: 100px;
+    left: 194px;
+    top: 90px;
+}
+
+#popup-contents-2 span.arrow-right,
+#popup-contents-3 span.arrow-right,
+#popup-contents-4 span.arrow-right,
+#popup-contents-5 span.arrow-right {
+    position: absolute;
+    left: 192px;
+    top: 90px;
+}
+
+#popup-contents-6 span.arrow-outline-shadow-right {
+    position: absolute;
+    left: 195px;
+    top: 23px;
+}
+
+#popup-contents-6 span.arrow-outline-right {
+    position: absolute;
+    left: 194px;
+    top: 20px;
+}
+
+#popup-contents-6 span.arrow-right {
+    position: absolute;
+    left: 192px;
+    top: 20px;
 }
 
 /* skin top arrow */
@@ -8023,7 +8079,9 @@ button {
     border-right: 11px solid rgba(255, 255, 255, 0.0);
 }
 
-body.ie6  span.arrow-outline-top, body.ie7  span.arrow-outline-top, body.ie8  span.arrow-outline-top {
+body.ie6  span.arrow-outline-top,
+body.ie7  span.arrow-outline-top,
+body.ie8  span.arrow-outline-top {
     font-size: 0px;
     line-height: 0%;
     width: 0px;
@@ -8032,7 +8090,9 @@ body.ie6  span.arrow-outline-top, body.ie7  span.arrow-outline-top, body.ie8  sp
     border-right: 11px solid white;
 }
 
-.ie6  span.arrow-top, .ie7  span.arrow-top, .ie8  span.arrow-top {
+.ie6  span.arrow-top,
+.ie7  span.arrow-top,
+.ie8  span.arrow-top {
     font-size: 0px;
     line-height: 0%;
     width: 0px;
@@ -8042,7 +8102,17 @@ body.ie6  span.arrow-outline-top, body.ie7  span.arrow-outline-top, body.ie8  sp
 }
 
 /* skin right arrow */
- span.arrow-outline-right {
+span.arrow-outline-shadow-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-left: 15px solid #333;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
+    background: none;
+}
+
+span.arrow-outline-right {
     font-size: 0px;
     line-height: 0%;
     width: 0px;
@@ -8051,7 +8121,7 @@ body.ie6  span.arrow-outline-top, body.ie7  span.arrow-outline-top, body.ie8  sp
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
 }
 
- span.arrow-right {
+span.arrow-right {
     font-size: 0px;
     line-height: 0%;
     width: 0px;
@@ -8060,7 +8130,21 @@ body.ie6  span.arrow-outline-top, body.ie7  span.arrow-outline-top, body.ie8  sp
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
 }
 
-body.ie6  span.arrow-outline-right, body.ie7  span.arrow-outline-right, body.ie8  span.arrow-outline-right {
+body.ie6 span.arrow-outline-shadow-right,
+body.ie7 span.arrow-outline-shadow-right,
+body.ie8 span.arrow-outline-shadow-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 11px dashed white;
+    border-left: 15px solid #333;
+    border-bottom: 11px dashed white;
+    zoom: 1;
+}
+
+body.ie6  span.arrow-outline-right,
+body.ie7  span.arrow-outline-right,
+body.ie8  span.arrow-outline-right {
     font-size: 0px;
     line-height: 0%;
     width: 0px;
@@ -8069,13 +8153,54 @@ body.ie6  span.arrow-outline-right, body.ie7  span.arrow-outline-right, body.ie8
     border-bottom: 11px solid white;
 }
 
-.ie6  span.arrow-right, .ie7  span.arrow-right, .ie8  span.arrow-right {
+.ie6  span.arrow-right,
+.ie7  span.arrow-right,
+.ie8  span.arrow-right {
     font-size: 0px;
     line-height: 0%;
     width: 0px;
     border-top: 11px dashed black;
     border-left: 15px solid white;
     border-bottom: 11px dashed black;
+}
+
+/* =14 opacity / shadow
+-------------------------------------------------------------------------------------------*/
+
+.opacity25 { /* 25% opaque */
+    opacity: 0.25; /* firefox, opera, safari, chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=25)"; /* IE8 */
+    filter: alpha(opacity = 25); /* IE 4, 5, 6 and 7 */
+    zoom: 1
+}
+
+.opacity50 { /* 50% opaque */
+    opacity: 0.50;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=50)";
+    filter: alpha(opacity = 50);
+    zoom: 1
+}
+
+.opacity75 { /* 75% opaque */
+    opacity: 0.75;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=75)";
+    filter: alpha(opacity = 75);
+    zoom: 1
+}
+
+.opacity100 { /* fully opaque */
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=100)";
+    filter: alpha(opacity = 100);
+    zoom: 1
+}
+
+.box-shadow {
+    -moz-box-shadow: 3px 3px 3px #999;
+    -webkit-box-shadow: 3px 3px 3px #999;
+    box-shadow: 3px 3px 3px #999; /* x-offset y-offset radius */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=4)"; /* For IE 8 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(color = '#999999', Direction = 135, Strength = 4); /* For IE 5.5 - 7 */
 }
 
 /* =debugging styles

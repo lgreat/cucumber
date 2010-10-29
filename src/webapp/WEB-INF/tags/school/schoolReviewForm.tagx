@@ -107,7 +107,8 @@
 
 
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="line">
+                <div id="js-bubbleInfo-6" class="text3">
+                <div class="js-trigger line">
                     <div class="unit size1of1 lastUnit">
                         <textarea id="reviewText"
                                   class="text1-ededed text3"
@@ -118,6 +119,25 @@
                                   onblur="if(this.value==''){this.value='[Enter your review here]';}"
                                   rows="" cols="">[Enter your review here]</textarea>
                     </div>
+                </div>
+                    <div class="js-popup">
+                            <div id="popup-contents-6" class="box-shadow">
+                                <span class="arrow-outline-shadow-right opacity25"><!-- do not collapse --></span>
+                                <span class="arrow-outline-right"><!-- do not collapse --></span>
+                                <span class="arrow-right"><!-- do not collapse --></span>
+
+                                <ul class="unordered-list2"><span class="text3bold">A great school has:</span>
+                                    <li class="list-item"><span class="text3">Excellent teachers</span></li>
+                                    <li class="list-item"><span class="text3">Strong principal/school leadership</span></li>
+                                    <li class="list-item"><span class="text3">Challenging academic programs</span></li>
+                                </ul>
+                                <div class="spacer_7 brdbtm_dotted"><!-- do not collapse --></div>
+                                <div class="spacer_7"><!-- do not collapse --></div>
+                                <p class="text3"><span class="text3bold">Don't forget</span>
+                                    <br/>GreatSchools won’t post reviews that contain inappropriate language or allegations of criminal conduct or that identify students, teachers, or staff by name.
+                                </p>
+                            </div>
+                        </div>
                 </div>
 
                 <div class="spacer_10"><!-- do not collapse --></div>
@@ -185,11 +205,12 @@
                             </div>
                         </div>
                         <div class="js-popup">
-                            <div id="popup-contents-2">
+                            <div id="popup-contents-2" class="box-shadow">
+                                <span class="arrow-outline-shadow-right opacity25"><!-- do not collapse --></span>
                                 <span class="arrow-outline-right"><!-- do not collapse --></span>
                                 <span class="arrow-right"><!-- do not collapse --></span>
 
-                                <ul class="unordered-list2"><span class="text3bold">Teacher quality</span> <br/>ratings assess parents’ overall experience with the school’s teachers. Among other things, great teachers:
+                                <ul class="unordered-list2"><span class="text3bold">Teacher quality</span> <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
                                     <li class="list-item"><span class="text3">Talk to parents regularly about their children's progress.</span></li>
                                     <li class="list-item"><span class="text3">Challenge students to learn.</span></li>
                                     <li class="list-item"><span class="text3">Give students the attention they need to thrive in class.</span></li>
@@ -208,11 +229,12 @@
                                 </div>
                             </div>
                             <div class="js-popup">
-                                <div id="popup-contents-3">
+                                <div id="popup-contents-3" class="box-shadow">
+                                    <span class="arrow-outline-shadow-right opacity25"><!-- do not collapse --></span>
                                     <span class="arrow-outline-right"><!-- do not collapse --></span>
                                     <span class="arrow-right"><!-- do not collapse --></span>
 
-                                    <ul class="unordered-list2">This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
+                                    <ul class="unordered-list2"><span class="text3bold">Principal leadership</span> <br/>This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
                                         <li class="list-item"><span
                                                 class="text3">Reach out to parents.</span>
                                         </li>
@@ -236,11 +258,12 @@
                             </div>
                         </div>
                         <div class="js-popup">
-                            <div id="popup-contents-4">
+                            <div id="popup-contents-4" class="box-shadow">
+                                <span class="arrow-outline-shadow-right opacity25"><!-- do not collapse --></span>
                                 <span class="arrow-outline-right"><!-- do not collapse --></span>
                                 <span class="arrow-right"><!-- do not collapse --></span>
 
-                                <ul class="unordered-list2">A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
+                                <ul class="unordered-list2"><span class="text3bold">Parent involvement</span> <br/>A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
                                     <li class="list-item"><span
                                             class="text3">Offers opportunities for parent involvement.</span>
                                     </li>
@@ -255,11 +278,33 @@
                     </div>
                     <c:if test="${school.levelCode eq 'p'}">
                         <div class="spacer_5"><!-- do not collapse --></div>
-                        <div class="line">
-                            <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating
-                                    id="pFacilitiesAsString"
-                                    additionalClass="med-star"/>
+                        <div id="js-bubbleInfo-5" class="text3">
+                            <div class="js-trigger line">
+                                <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
+                                <div class="catRating unit size5of7 lastUnit"><gsml:starRating
+                                        id="pFacilitiesAsString"
+                                        additionalClass="med-star"/>
+                                </div>
+                            </div>
+                            <div class="js-popup">
+                                <div id="popup-contents-5" class="box-shadow">
+                                    <span class="arrow-outline-shadow-right opacity25"><!-- do not collapse --></span>
+                                    <span class="arrow-outline-right"><!-- do not collapse --></span>
+                                    <span class="arrow-right"><!-- do not collapse --></span>
+
+                                    <ul class="unordered-list2"><span class="text3bold">Facilities &amp;amp; equipment</span>
+                                        <br/>This is an assessment of the physical environment of the preschool. The rating reflects to what degree the preschool:
+                                        <li class="list-item"><span
+                                                class="text3">Maintains a clean, safe, inviting environment.</span>
+                                        </li>
+                                        <li class="list-item"><span
+                                                class="text3">Has ample indoor and outdoor play space.</span>
+                                        </li>
+                                        <li class="list-item"><span
+                                                class="text3">Provides diverse, age-appropriate learning materials and toys.</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </c:if>
@@ -293,6 +338,15 @@
                 </div>
             </fieldset>
         </gsweb:form>
+        <script type="text/javascript">
+            jQuery(function () {
+                jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
+                jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-200,topPosition:-95});
+                jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
+                jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
+                jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
+            });
+        </script>
     </c:when>
 
         <c:otherwise>

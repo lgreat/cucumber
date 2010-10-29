@@ -191,7 +191,7 @@
                     <div class="bd">About these ratings</div>
                     </div>
                     <div class="js-popup">
-                        <div id="popup-contents-1" class="text3">
+                        <div id="popup-contents-1" class="box-shadow text3">
                             <span class="arrow-outline-top"><!-- do not collapse --></span>
                             <span class="arrow-top"><!-- do not collapse --></span>
 
@@ -411,7 +411,7 @@
 
         <div class="line">
             <div class="unit size3of5">
-                <div class="mediaExt2">
+                <div class="mediaExt2-1">
                     <c:set var="curStarRating" value="${review.quality.name}"/>
                     <c:if test="${school.levelCode eq 'p'}">
                         <c:set var="curStarRating" value="${review.POverall.name}"/>
@@ -422,7 +422,7 @@
                     </c:if>
 
                     <div class="bd">
-                        <p class="author">
+                        <p class="author smallText1">
                             Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                 <c:choose>
@@ -515,10 +515,6 @@
 <script type="text/javascript">
     jQuery(function () {
         jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
-        jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-165,topPosition:-105});
-        jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-165,topPosition:-105});
-        jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-165,topPosition:-105});
-        jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-165,topPosition:-105});
     });
 </script>
 
