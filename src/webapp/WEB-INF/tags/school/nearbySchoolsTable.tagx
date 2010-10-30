@@ -793,6 +793,19 @@
         }
     }
 
+    jQuery('#nearby-schools-table-body .nearby-schools-link').mouseover(function() {
+        var showBubbles = ${tab eq 'overview'};
+        var id = jQuery(this).attr('id');
+        var statePlusSchoolId = id.replace('nearby-schools-link-','');
+        var state = statePlusSchoolId.substring(0,2);
+        var schoolId = statePlusSchoolId.substring(2,statePlusSchoolId.length);
+        if (showBubbles) {
+            GS.map.schoolMap.showMarkerBubble(state, schoolId);
+        } else {
+            GS.map.schoolMap.centerOnSchool(state, schoolId);
+        }
+    });
+
     countChecked();
     jQuery(":checkbox").click(countChecked);
 

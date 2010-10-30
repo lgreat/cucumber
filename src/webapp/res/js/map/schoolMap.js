@@ -76,7 +76,7 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         });
 
         if (!useBubbles) {
-           marker.setClickable(false);
+           marker.setClickable(true);
         }
         markers[databaseState + id] = marker;
     };
