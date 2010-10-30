@@ -25,7 +25,7 @@
     <pageHelper:externalJavascript file="/res/js/map/schoolMap.js" />
 
     <c:set var="js">
-        <map:schoolToJsMapSchool school="${school}" jsVariableName="jsCenterMapSchool"/>
+        <map:schoolToJsMapSchool school="${school}" jsVariableName="jsCenterMapSchool" useBubbles="${false}"/>
         <map:mapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" start="${start}" count="${count}" useBubbles="${false}"/>
     </c:set>
     
@@ -36,14 +36,9 @@
             //execute the JS generated above
             ${js}
             
-            GS.map.schoolMap.addCenterSchool(jsCenterMapSchool,'', markerClickedCallback);
+            GS.map.schoolMap.addCenterSchool(jsCenterMapSchool, markerClickedCallback);
             GS.map.schoolMap.addSchools(jsMapSchools);
-
-            //when the map finishes loading, draw the markers and zoom out to see all markers
-            google.maps.event.addListenerOnce(GS.map.schoolMap.getMap(), 'tilesloaded', function() {
-                GS.map.schoolMap.drawMarkers();
-                GS.map.schoolMap.expandMapToFitMarkers();
-            });
+            GS.map.schoolMap.centerOnSchool(jsCenterMapSchool.databaseState, jsCenterMapSchool.id);
         });
     </script>
 

@@ -51,10 +51,18 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     if (useBubbles) {
         google.maps.event.addListener(map, 'click', function() {
-            infowindow.close();
+            infoWindow.close();
         });
     }
+
+    //when the map finishes loading, draw the markers and zoom out to see all markers
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+        this.drawMarkers();
+        this.expandMapToFitMarkers();
+    }.gs_bind(this));
+
     
+    //////////////////////////////////////////////////////////////////////////////////
     this.getMap = function() {
         return map;
     };
@@ -72,7 +80,9 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
                 infoWindow.setContent(marker.infoWindowMarkup);
                 infoWindow.open(map, marker);
             }
-            markerClickedCallback(databaseState, id);
+            if (markerClickedCallback != undefined) {
+                markerClickedCallback(databaseState, id);
+            }
         });
 
         if (!useBubbles) {
@@ -236,8 +246,8 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         return marker;
     };
 
-    this.addCenterSchool = function(school, infoWindowMarkup, markerClickedCallback) {
-      this.createAndAddCenterMarker(school.id, school.databaseState, school.name, school.latitude, school.longitude, infoWindowMarkup, markerClickedCallback);
+    this.addCenterSchool = function(school, markerClickedCallback) {
+      this.createAndAddCenterMarker(school.id, school.databaseState, school.name, school.latitude, school.longitude, school.infoWindowMarkup, markerClickedCallback);
     };
 
     this.addSchool = function(school, markerClickedCallback) {
@@ -262,6 +272,7 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 };
 
     var markerClickedCallback = function(state, id) {
+        return;
         jQuery('.bg-color-f4fafd input:not(:checked').each(function(item) {
             jQuery(this).parent().parent().removeClass('bg-color-f4fafd');
         });

@@ -12,7 +12,7 @@
     <jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school this map is centered on"/>
     <jsp:directive.attribute name="jsVariableName" required="true" description="Variable name of the MapSchool that will get instantiated" />
     <jsp:directive.attribute name="gsRating" required="false" description="GreatSchools rating for this school" />
-
+    <jsp:directive.attribute name="useBubbles" required="false" type="java.lang.Boolean" description="Whether or not to show bubbles when clicking map marker"/>
 
         <!-- this tag shouldn't really need to exist, but the NearbySchool / MapSchool foo needs
     to be refactored so that it's easier to create a js GS.map.MapSchool from a School + rating -->
@@ -29,12 +29,25 @@
         </c:otherwise>
     </c:choose>
 
+    <!-- generate the markup that renders the content within the bubble (infoWindow) of the center marker -->
+    <c:if test="${useBubbles}">
+        <c:set var="centerInfoWindowMarkup">
+            <map:schoolBubble school="${school}" greatSchoolsRating="${gsRating}" parentRating="${ratings.overall}" />
+        </c:set>
+        <c:set var="centerInfoWindowMarkup">
+            ${fn:replace(centerInfoWindowMarkup, "'", "\\'")}
+        </c:set>
+    </c:if>
+
     <c:set var="schoolName" value="${fn:replace(school.name, '\'', '\\\'')}"/>
 
     <c:set var="jsCenterSchool">
         var ${jsVariableName} = new GS.map.MapSchool('${school.id}','${school.databaseState}','${schoolName}','${school.lat}','${school.lon}');
             ${jsVariableName}.gsRating = '${gsRating}';
             ${jsVariableName}.type = '${schoolType}';
+        if (${useBubbles}) {
+            ${jsVariableName}.infoWindowMarkup = '${centerInfoWindowMarkup}';
+        }
     </c:set>
 
     ${jsCenterSchool}

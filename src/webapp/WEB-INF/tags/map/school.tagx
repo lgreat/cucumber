@@ -24,16 +24,8 @@
     <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
     <pageHelper:externalJavascript file="/res/js/map/schoolMap.js" />
 
-    <!-- generate the markup that renders the content within the bubble (infoWindow) of the center marker -->
-    <c:set var="centerInfoWindowMarkup">
-        <map:schoolBubble school="${school}" greatSchoolsRating="${gsRating}" parentRating="${ratings.overall}" />
-    </c:set>
-    <c:set var="centerInfoWindowMarkup">
-        ${fn:replace(infoWindowMarkup, "'", "\\'")}
-    </c:set>
-
     <c:set var="js">
-        <map:schoolToJsMapSchool school="${school}" jsVariableName="jsCenterMapSchool"/>
+        <map:schoolToJsMapSchool school="${school}" jsVariableName="jsCenterMapSchool" useBubbles="${true}"/>
         <map:mapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" start="${start}" count="${count}" useBubbles="${true}"/>
     </c:set>
 
@@ -44,14 +36,9 @@
             //execute the JS generated above
             ${js}
 
-            GS.map.schoolMap.addCenterSchool(jsCenterMapSchool,'${centerInfoWindowMarkup}', markerClickedCallback);
+            GS.map.schoolMap.addCenterSchool(jsCenterMapSchool,markerClickedCallback);
             GS.map.schoolMap.addSchools(jsMapSchools);
-
-            //when the map finishes loading, draw the markers and zoom out to see all markers
-            google.maps.event.addListenerOnce(GS.map.schoolMap.getMap(), 'tilesloaded', function() {
-                GS.map.schoolMap.drawMarkers();
-                GS.map.schoolMap.expandMapToFitMarkers();
-            });
+            GS.map.schoolMap.showMarkerBubble(jsCenterMapSchool.databaseState, jsCenterMapSchool.id);
         });
     </script>
 
