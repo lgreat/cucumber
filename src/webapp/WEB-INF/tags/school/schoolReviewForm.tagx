@@ -334,7 +334,7 @@
                 </button>
                 <div class="helperMessage formText1 media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
-                    <div class="bd">Indicates a required field</div>
+                    <div class="bd iblock">Indicates a required field</div>
                 </div>
             </fieldset>
         </gsweb:form>
