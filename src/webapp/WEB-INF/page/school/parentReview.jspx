@@ -227,8 +227,7 @@
                 </div>
 
                 <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <a
-                        href="#">GreatSchools Terms of Use</a> and <a href="#">School Review Guidelines</a>.
+                <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
                     <em class="sprite i-required"><!-- do not collapse --></em>
                 </label>
 

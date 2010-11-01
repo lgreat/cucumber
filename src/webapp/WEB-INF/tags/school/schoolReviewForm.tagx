@@ -113,8 +113,8 @@
                         <textarea id="reviewText"
                                   class="text1-ededed text3"
                                   name="comments"
-                                  onkeyup="countWords(this)"
-                                  onkeydown="countWords(this)"
+                                  onkeyup="GS_countWords(this)"
+                                  onkeydown="GS_countWords(this)"
                                   onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
                                   onblur="if(this.value==''){this.value='[Enter your review here]';}"
                                   rows="" cols="">[Enter your review here]</textarea>
@@ -320,8 +320,7 @@
                 </div>
 
                 <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <a
-                        href="#">GreatSchools Terms of Use</a> and <a href="#">School Review Guidelines</a>.
+                <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
                     <em class="sprite i-required"><!-- do not collapse --></em>
                 </label>
 
@@ -466,8 +465,8 @@
                     <div id="userInput">
                         <textarea id="reviewText"
                                   name="comments"
-                                  onkeyup="countWords(this)"
-                                  onkeydown="countWords(this)"
+                                  onkeyup="GS_countWords(this)"
+                                  onkeydown="GS_countWords(this)"
                                   onfocus="if(this.value=='Enter your review here'){this.value='';}"
                                   rows="" cols="">Enter your review here</textarea>
 
@@ -598,8 +597,7 @@
                         </div>
 
                         <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <a
-                                href="#">GreatSchools Terms of Use</a> and <a href="#">School Review Guidelines</a>.
+                        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
                             <em class="sprite i-required"><!-- do not collapse --></em>
                         </label>
 
