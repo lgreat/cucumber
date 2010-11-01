@@ -1070,6 +1070,12 @@ body.cobranded #pageGS {
 .mediaExt1 .img {float:left; margin-right: 10px;}
 .mediaExt1 .img img{display:block;}
 .mediaExt1 .imgExt{float:right; margin-left: 10px;}
+/* extends the Ext1 version with a reduced margin on .img and .imgExt */
+.mediaExt1-1 {margin:0;}
+.mediaExt1-1, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.mediaExt1-1 .img {float:left; margin-right: 5px;}
+.mediaExt1-1 .img img{display:block;}
+.mediaExt1-1 .imgExt{float:right; margin-left: 5px;}
 /* extends the original version with 10px margin on top/bottom and no margin left/right */
 .mediaExt2 {margin:10px 0;}
 .mediaExt2, .bd {overflow:hidden; _overflow:visible; zoom:1;}
