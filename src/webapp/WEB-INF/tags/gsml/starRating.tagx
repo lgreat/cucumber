@@ -12,7 +12,7 @@
     <pageHelper:externalJavascript file="/res/js/starRating.js"/>
     <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
     <pageHelper:addOnLoadHandler handler="startRatingInit('${id}')"/>
-    <ul class="star-rating ${additionalClass}" id="starRating_${id}">
+    <ul class="star-rating ${additionalClass} fltlft" id="starRating_${id}">
         <li class="current-rating" style="width:0;">Currently unrated.</li>
         <li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
         <li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
@@ -20,5 +20,8 @@
         <li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
         <li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
     </ul>
+    <span class="js-starRater">
+        <div class="js-starHint"><!-- do not collapse --></div>
+    </span>
     <input type="hidden" id="${id}" value="0" name="${id}"/>
 </jsp:root>

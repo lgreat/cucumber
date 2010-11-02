@@ -361,7 +361,7 @@ body.ie6 #showParentRatings .sm_stars, body.ie7 #showParentRatings .sm_stars {
 }
 
 .principal {
-    font-weight: bold;
+    /*font-weight: bold;*/
     font-size: 12px;
 }
 

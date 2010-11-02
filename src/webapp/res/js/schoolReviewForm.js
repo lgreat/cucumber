@@ -275,5 +275,16 @@ function GS_postSchoolReview(email, callerFormId) {
 }
 
 jQuery(function() {
-   GS.form.schoolReviewForm = new GS.form.SchoolReviewForm("frmPRModule"); 
+   GS.form.schoolReviewForm = new GS.form.SchoolReviewForm("frmPRModule");
+
+    var starHintArray = new Array('Unsatisfactory','Below average','Average','Above average','Excellent');
+
+    jQuery('.star-rating li').mouseover(function () {
+        var starHint = jQuery(this).parent().next('.js-starRater').children('.js-starHint');
+        var starHintIndex = parseInt(jQuery(this).text())-1;
+        //console.log('starHintIndex: '+starHintIndex);
+        starHint.text(starHintArray[starHintIndex]).show();
+    }).mouseout(function () {
+        jQuery('.js-starRater .js-starHint').hide();
+    });
 });
