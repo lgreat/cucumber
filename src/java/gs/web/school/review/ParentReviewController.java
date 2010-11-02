@@ -255,7 +255,7 @@ public class ParentReviewController extends AbstractController {
             Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
 
             model.put("gs_rating", gsRating);
-
+            model.put("ratings", ratings);
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
         return new ModelAndView(getViewName(), model);
