@@ -16,11 +16,17 @@ Function.prototype.gs_bind = function(obj) {
 };
 
 //HoverDialog requires the ID of the element to display as a hover dialog
-GSType.hover.HoverDialog = function(id) {
+GSType.hover.HoverDialog = function(id,width) {
     this.hoverId = id;
     this.pageName = '';
     this.hier1 = '';
+    this.width = width;
+    this.initialized = false;
     this.show = function() {
+        if (!this.initialized) {
+            this.dialogByWidth();
+            this.initialized = true;
+        }
         jQuery('#' + this.hoverId).dialog('open');
         if (this.pageName != '') {
             pageTracking.clear();
@@ -35,7 +41,7 @@ GSType.hover.HoverDialog = function(id) {
         return false;
     };
     //template dialog to display based on variable width
-    this.dialogByWidth = function (width) {
+    this.dialogByWidth = function () {
         var thisHover = jQuery('#' + this.hoverId);
         thisHover.dialog({
             bgiframe: true,
@@ -43,7 +49,7 @@ GSType.hover.HoverDialog = function(id) {
             draggable: false,
             autoOpen: false,
             resizable: false,
-            width: width,
+            width: this.width,
             zIndex: 15000
         });
         thisHover.find('.' + this.hoverId + '_showHover').click(this.show.gs_bind(this));
@@ -56,20 +62,20 @@ GSType.hover.EditEmailValidated = function() {
     this.loadDialog = function () {
         this.pageName='Email Change Verified Hover';
         this.hier1='Hovers,Verification,Email Change Verified Hover';
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     }
 };
-GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('valNewEmailDone');
+GSType.hover.EditEmailValidated.prototype = new GSType.hover.HoverDialog('valNewEmailDone',640);
 
 //EmailValidated hover
 GSType.hover.EmailValidated = function() {
     this.loadDialog = function () {
         this.pageName='Account Verified Hover';
         this.hier1='Hovers,Verification,Account Verified Hover';
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     }
 };
-GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone');
+GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone',640);
 
 //ForgotPasswordHover hover
 GSType.hover.ForgotPasswordHover = function() {
@@ -77,14 +83,17 @@ GSType.hover.ForgotPasswordHover = function() {
     this.loadDialog = function() {
         this.pageName='Forgot Password Hover';
         this.hier1='Hovers,Sign In,Forgot Password Hover';
-        this.dialogByWidth(590);
+        //this.dialogByWidth();
     };
     this.addMessage = function(text) {
-        jQuery('#hover_forgotPassword .messages').html('<p>' + text + '</p>').show();
+        var hoverForgotPassword = jQuery('#hover_forgotPassword');
+        hoverForgotPassword.find('.messages').html('<p>' + text + '</p>').show();
     };
     this.clearMessages = function() {
-        jQuery('#hover_forgotPassword .messages').empty();
-        jQuery('#hover_forgotPassword .messages').hide();
+        var hoverForgotPassword = jQuery('#hover_forgotPassword');
+        var hoverForgotPasswordMessages = hoverForgotPassword.find('.messages');
+        hoverForgotPasswordMessages.empty();
+        hoverForgotPasswordMessages.hide();
     };
     this.loadOnExit = function(url) {
         GSType.hover.forgotPassword.loadOnExitUrl = url;
@@ -113,7 +122,7 @@ GSType.hover.ForgotPasswordHover = function() {
         GSType.hover.signInHover.show();
     };
 };
-GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover_forgotPassword');
+GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover_forgotPassword',590);
 
 //Join hover
 GSType.hover.JoinHover = function() {
@@ -208,13 +217,16 @@ GSType.hover.JoinHover = function() {
         jQuery.getJSON(url, {state:state, format:'json', type:'city'}, GSType.hover.joinHover.parseCities);
     };
     this.loadDialog = function() {
-        GSType.hover.joinHover.dialogByWidth(680);
-        jQuery('#joinHover .redirect_field').val(window.location.href);
+        // TODO-10568
+        //GSType.hover.joinHover.dialogByWidth();
+        var joinHover = jQuery('#joinHover');
+        joinHover.find('.redirect_field').val(window.location.href);
     };
     this.loadOnExit = function(url) {
         GSType.hover.joinHover.loadOnExitUrl = url;
-        jQuery('#joinHover .redirect_field').val(url);
-        jQuery('#joinHover').bind('dialogclose', function() {
+        var joinHover = jQuery('#joinHover');
+        joinHover.find('.redirect_field').val(url);
+        joinHover.bind('dialogclose', function() {
             window.location = GSType.hover.joinHover.loadOnExitUrl;
         });
     };
@@ -556,7 +568,7 @@ GSType.hover.JoinHover = function() {
         return false;
     };
 };
-GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover');
+GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover',680);
 
 //SignInHover hover
 GSType.hover.SignInHover = function() {
@@ -566,21 +578,24 @@ GSType.hover.SignInHover = function() {
     this.loadDialog = function() {
         this.pageName='Sign In Hover';
         this.hier1='Hovers,Sign In,Sign In Hover';
-        this.dialogByWidth(590);
-        jQuery('#signInHover .redirect_field').val(window.location.href);
+        //this.dialogByWidth();
+        var signInHover = jQuery('#signInHover');
+        signInHover.find('.redirect_field').val(window.location.href);
     };
     this.addMessage = function(text) {
         jQuery('#signInHover .messages').append('<p><span>\u00BB</span> ' + text + '</p>');
     };
     this.clearMessages = function() {
-        jQuery('#signInHover .messages').empty();
-        jQuery('#signInHover .errors .error').hide();
+        var signInHover = jQuery('#signInHover');
+        signInHover.find('.messages').empty();
+        signInHover.find('.errors .error').hide();
     };
     this.setEmail = function(email) {
         jQuery('#signInHover #semail').val(email);
     };
     this.setRedirect = function(redirect) {
-        jQuery('#signInHover .redirect_field').val(redirect);
+        var signInHover = jQuery('#signInHover');
+        signInHover.find('.redirect_field').val(redirect);
     };
     this.loadOnExit = function(url) {
         GSType.hover.signInHover.loadOnExitUrl = url;
@@ -673,37 +688,37 @@ GSType.hover.SignInHover = function() {
         return false;
     }
 };
-GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('signInHover');
+GSType.hover.SignInHover.prototype = new GSType.hover.HoverDialog('signInHover',590);
 
 //ValidateEditEmail Hover
 GSType.hover.ValidateEditEmail = function() {
     this.loadDialog = function() {
         this.pageName='Verify Change Email Hover';
         this.hier1='Hovers,Verification,Verify Change Email Hover';
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     }
 };
-GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail');
+GSType.hover.ValidateEditEmail.prototype = new GSType.hover.HoverDialog('valEditEmail',640);
 
 //ValidateEmailHover Hover
 GSType.hover.ValidateEmailHover = function() {
     this.loadDialog = function() {
         this.pageName='Verify Email Hover';
         this.hier1='Hovers,Verification,Verify Email Hover';
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     }
 };
-GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('valEmail');
+GSType.hover.ValidateEmailHover.prototype = new GSType.hover.HoverDialog('valEmail',640);
 
 //ValidateEmailSchoolReviewHover Hover
 GSType.hover.ValidateEmailSchoolReviewHover = function() {
     this.loadDialog = function() {
         this.pageName='School Reviews Verify Email Hover';
         this.hier1='Hovers,Verification,School Reviews Verify Email Hover';
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     }
 };
-GSType.hover.ValidateEmailSchoolReviewHover.prototype = new GSType.hover.HoverDialog('valEmailSchoolReview');
+GSType.hover.ValidateEmailSchoolReviewHover.prototype = new GSType.hover.HoverDialog('valEmailSchoolReview',640);
 
 
 //ValidateLinkExpired hover
@@ -712,13 +727,13 @@ GSType.hover.ValidateLinkExpired = function() {
     this.loadDialog = function() {
         this.pageName='Email Verification Link Expired Hover';
         this.hier1='Hovers,Verification,Email Verification Link Expired Hover';
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     };
     this.setEmail = function(email) {
         GSType.hover.validateLinkExpired.email = email;
     }
 };
-GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVer');
+GSType.hover.ValidateLinkExpired.prototype = new GSType.hover.HoverDialog('expVer',640);
 
 //EmailNotValidated hover
 GSType.hover.EmailNotValidated = function() {
@@ -726,13 +741,13 @@ GSType.hover.EmailNotValidated = function() {
     this.loadDialog = function() {
         this.pageName='Email Not Verified Hover';
         this.hier1='Hovers,Verification,Email Not Verified Hover';
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     };
     this.setEmail = function(email) {
         GSType.hover.emailNotValidated.email = email;
     };
 };
-GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail');
+GSType.hover.EmailNotValidated.prototype = new GSType.hover.HoverDialog('valNewEmail',640);
 
 //Base School Review Thank You Hover
 GSType.hover.SchoolReviewThankYou = function() {
@@ -740,7 +755,7 @@ GSType.hover.SchoolReviewThankYou = function() {
     this.hierarchy = "";
     
     this.loadDialog = function() {
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     };
     this.showHover = function() {
         this.setTitle("Thank you for submitting a review");
@@ -768,7 +783,7 @@ GSType.hover.SchoolReviewThankYou = function() {
         jQuery('#schoolReviewThankYou p strong').html(body);
     };
 };
-GSType.hover.SchoolReviewThankYou.prototype = new GSType.hover.HoverDialog("schoolReviewThankYou");
+GSType.hover.SchoolReviewThankYou.prototype = new GSType.hover.HoverDialog("schoolReviewThankYou",640);
 
 //School Review Posted Thank You
 GSType.hover.SchoolReviewPostedThankYou = function() {
@@ -804,7 +819,7 @@ GSType.hover.SchoolReviewNotPostedThankYou.prototype = new GSType.hover.SchoolRe
 // Email Validated Review Hover
 GSType.hover.EmailValidatedSchoolReview = function() {
     this.loadDialog = function() {
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     };
     this.showHover = function(body) {
         GSType.hover.emailValidatedSchoolReview.setBody(body);
@@ -828,20 +843,20 @@ GSType.hover.EmailValidatedSchoolReview = function() {
         jQuery('#emailValidatedSchoolReviewHover span.fillMeIn').html(body);
     };
 };
-GSType.hover.EmailValidatedSchoolReview.prototype = new GSType.hover.HoverDialog("emailValidatedSchoolReviewHover");
+GSType.hover.EmailValidatedSchoolReview.prototype = new GSType.hover.HoverDialog("emailValidatedSchoolReviewHover",640);
 
 //Email to a friend hover
 GSType.hover.EmailToFriend = function() {
     this.loadDialog = function() {
-        this.dialogByWidth(640);
+        //this.dialogByWidth();
     };
 };
-GSType.hover.EmailToFriend.prototype = new GSType.hover.HoverDialog("emailToFriendHover");
+GSType.hover.EmailToFriend.prototype = new GSType.hover.HoverDialog("emailToFriendHover",640);
 
 
 GSType.hover.PrincipalConfirmation = function() {
     this.loadDialog = function() {
-      this.dialogByWidth(640);
+      //this.dialogByWidth();
     };
 
     this.show = function(id, state) {
@@ -852,19 +867,19 @@ GSType.hover.PrincipalConfirmation = function() {
         return false;
     };
 }
-GSType.hover.PrincipalConfirmation.prototype = new GSType.hover.HoverDialog("principalConfirmationHover");
+GSType.hover.PrincipalConfirmation.prototype = new GSType.hover.HoverDialog("principalConfirmationHover",640);
 
 GSType.hover.PrincipalReviewSubmitted = function() {
     this.loadDialog = function() {
       jQuery('#principalReviewSubmittedHover').bind('dialogclose', this.onClose.gs_bind(this));
-      this.dialogByWidth(640);
+      //this.dialogByWidth();
     };
 
     this.onClose = function() {
         window.location.reload();
     };
 };
-GSType.hover.PrincipalReviewSubmitted.prototype = new GSType.hover.HoverDialog("principalReviewSubmittedHover");
+GSType.hover.PrincipalReviewSubmitted.prototype = new GSType.hover.HoverDialog("principalReviewSubmittedHover",640);
 
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
@@ -952,8 +967,7 @@ GS.showSchoolReviewHover = function(redirect) {
         if (GS.isMember()) {
             GSType.hover.signInHover.showHover("", redirect, GSType.hover.joinHover.showSchoolReviewJoin, GS_postSchoolReview);
         } else {
-            //GSType.hover.joinHover.showSchoolReviewJoin(GS_postSchoolReview); no longer require join
-            return true;
+            GSType.hover.joinHover.showSchoolReviewJoin(GS_postSchoolReview);
         }
     }
     return false;
@@ -1194,9 +1208,12 @@ jQuery(function() {
 
     GSType.hover.forgotPassword.clearMessages();
 
+    // TODO-10568
+    /*
     jQuery('.signInHoverLink').click(function() {
         GSType.hover.signInHover.show();
     });
+    */
 
 
     jQuery('#signInHover').bind('dialogclose', GSType.hover.signInHover.clearMessages);
@@ -1205,7 +1222,8 @@ jQuery(function() {
     jQuery('#signInHover_launchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page");
-
+// TODO-10568
+/*
     jQuery('.joinAutoHover_showHover').click(function() {
         GSType.hover.joinHover.showJoinAuto('Alameda High School', 1, 'CA');
         return false;
@@ -1235,6 +1253,7 @@ jQuery(function() {
         GSType.hover.emailToFriend.show();
         return false;
     });
+*/
 
     jQuery('#grdShow').click(function() {
         if (jQuery('#grdShow').hasClass('active')) {
