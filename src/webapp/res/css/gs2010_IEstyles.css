@@ -88,7 +88,7 @@ body.ie7 #topnav_search fieldset select, *+html #topnav_search fieldset select {
 }
 
 body.ie7 #topnav_search button, *+html #topnav_search button {
-    bottom: 4px;
+    bottom: 7px;
 }
 
 body.ie7 #navbar, *+html #navbar {
