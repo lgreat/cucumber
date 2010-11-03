@@ -758,17 +758,19 @@
         jQuery('#jsNearbySchoolsTablePagination .prv_nxt').click(function() {
 
             var activeIndex = null;
-            var maxIndex = jQuery('.pager-tab').get().length;
-            jQuery('#jsNearbySchoolsTablePagination .pager-tab').each(function(index) {
+            var pagerTabs = jQuery('#jsNearbySchoolsTablePagination .pager-tab');
+            var maxIndex = pagerTabs.get().length;
+            pagerTabs.each(function(index) {
                 if (jQuery(this).hasClass('active')) {
                     activeIndex = index;
                     activeIndex++;
-                    if (activeIndex == maxIndex) {
-                        activeIndex = 0;
-                    }
-                    currentStartPoint = activeIndex * PAGESIZE;
+                }
+                if (activeIndex == maxIndex) {
+                    activeIndex = 0;
                 }
             });
+
+            currentStartPoint = activeIndex * PAGESIZE;
 
             page(currentStartPoint);
         });
