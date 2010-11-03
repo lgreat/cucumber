@@ -83,7 +83,7 @@ public class ForgotPasswordController extends SimpleFormController {
             _log.info("Forgot password: user " + forgotPasswordCommand.getEmail() + " is not in database");
         } else if (ForgotPasswordValidatorHelper.userNoPassword(user)) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, forgotPasswordCommand.getEmail());
-            String joinLink = builder.asAHref(request, "Join now &gt;");
+            String joinLink = builder.asAHref(request, "Join now <span class=\"alertDoubleArrow\">&raquo;</span>");
             errors.rejectValue("email", null, "Hi, " + user.getEmail().split("@")[0] +
                     "! You have an email address on file, " +
                     "but still need to create a free account with GreatSchools. " + joinLink);

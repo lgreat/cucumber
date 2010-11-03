@@ -44,12 +44,11 @@ public class ForgotPasswordValidatorAjaxController implements Controller {
         } else if (ForgotPasswordValidatorHelper.userNoPassword(user)) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, email);
             String href = builder.asSiteRelative(request);
-            String joinLink = builder.asAHref(request, "Join now &gt;");
+            String joinLink = builder.asAHref(request, "Join now <span class=\"alertDoubleArrow\">&raquo;</span>");
             String errorMsg = "Hi, " + email.split("@")[0] +
                     "! You have an email address on file, " +
                     "but still need to create a free account with GreatSchools. <a href=\"" + href +
-                    "\" onclick=\"GSType.hover.forgotPassword.showJoin();return false;\">join GreatSchools</a>" +
-                    joinLink;
+                    "\" onclick=\"GSType.hover.forgotPassword.showJoin();return false;\"></a>" + joinLink;
             rval.put("errorMsg", errorMsg);
         } else if (ForgotPasswordValidatorHelper.userDeactivated(user)) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.CONTACT_US, State.CA, null);
