@@ -92,11 +92,12 @@
                    size="10"
                    onfocus="textSwitch(this, '', 'ZIP code');"
                    onblur="textSwitch(this, 'ZIP code', '');"/>
-                <button class="btn25 fltlft" type="submit">
+                <!--<button class="btn25 fltlft" type="submit">
                     <span class="lftDoor25">
                         <span class="rtDoor25">GO</span>
                     </span>
-                </button>
+                </button>-->
+            <button class="button-1 fltlft" type="submit">GO</button>
         </div>
 
         <!-- DONE-10165-RANDALL -->

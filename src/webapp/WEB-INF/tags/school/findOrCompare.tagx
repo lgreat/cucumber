@@ -52,11 +52,12 @@
                                      styleId="splashStateSelector"
                                      styleClass="text2 fltlft"
                                      noStateLabel="--"/>
-                <button class="btn25 fltlft" type="submit" onclick="s_objectID='splash_schools_go';">
+                <!--<button class="btn25 fltlft" type="submit" onclick="s_objectID='splash_schools_go';">
                     <span class="lftDoor25">
                         <span class="rtDoor25">GO</span>
                     </span>
-                </button>
+                </button>-->
+                <button class="button-1 fltlft" type="submit" onclick="s_objectID='splash_schools_go';">GO</button>
             </gsweb:form>
             <br class="clearfloat"/>
 
