@@ -32,7 +32,7 @@ GS.form.SchoolReviewForm = function(id) {
     this.posterValidated = false;
     this.termsOfUseValidated = false;
     this.formObject = jQuery('#' + id);
-    this.submitButton = this.formObject.find('.continueButton');
+    this.submitButton = jQuery('#frmPRModule-submit');
 
     this.fields = {};
     this.fields.email = jQuery('#frmPRModule-email');
@@ -155,6 +155,7 @@ GS.form.SchoolReviewForm = function(id) {
     };
 
     this.submitHandler = function() {
+        console.log("submit handler");
         if ((this.emailValidated || this.fields.email.attr("disabled")) && this.posterValidated && this.reviewTextValidated
                 && this.overallRatingValidated && this.termsOfUseValidated) {
             if (GS.isSignedIn() || !this.isEmailTaken) {

@@ -143,13 +143,13 @@
 
                     <c:choose>
                         <c:when test="${requestScope.context.email eq null}">
-                            <input id="frmPRModule-email" name="frmPRModule-email" class="text1-ededed text3 unit size3of7" type="text"
+                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
                                value="[Enter email address]"
                                onfocus="if(this.value=='[Enter email address]'){this.value='';}"
                                onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                         </c:when>
                         <c:otherwise>
-                            <input id="frmPRModule-email" name="frmPRModule-email" class="text1-ededed text3 unit size3of7" type="text"
+                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
                                value="${requestScope.context.email}" disabled="disabled"/>
                         </c:otherwise>
                     </c:choose>
@@ -159,6 +159,11 @@
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                             <div class="bd">Please enter your email.</div>
+                        </div>
+                        <div id="frmPRModule-email-alert" class="formErrorText media padlft_10">
+                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                            <div class="bd">You will need to verify your email <br/>address when you submit your review.</div>
                         </div>
                     </div>
                 </div>
@@ -326,7 +331,7 @@
 
             </fieldset>
             <fieldset>
-                <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
+                <button id="frmPRModule-submit" class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
                 </button>
                 <div class="helperMessage formText1 media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
