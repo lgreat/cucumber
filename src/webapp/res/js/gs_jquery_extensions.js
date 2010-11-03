@@ -6,37 +6,68 @@ Author: Randall Cox
 Version: 1.0
 .
 General comments:
+http://docs.jquery.com/Plugins/Authoring
+http://docs.jquery.com/Tutorials#Plugin_Development
 .
 
 [Table Of Contents]
 
-=0 disableSelection - for disabling text selection
-=0a disableSelection - CSS class list of website wide items with text selection disabled
-=1 popup - for informational popup bubbles
+=0 template
+=1 disableSelection - for disabling text selection
+=1a disableSelection - CSS class list of website wide items with text selection disabled
+=2 popup - for informational popup bubbles
 */
 
-/* =0 disableSelection
+/* =0 template
 -------------------------------------------------------------------------------------------*/
 
-(function() {
-    //
+/*
+// create closure
+(function($){
+
+    //Attach this new method to jQuery
+    $.fn.extend({
+
+        //This is where you write your plugin's name
+        pluginname: function() {
+
+            //Iterate over the current set of matched elements
+            return this.each(function() {
+
+                //code to be inserted here
+
+            });
+        }
+    });
+
+// end of closure
+})(jQuery);
+*/
+
+/* =1 disableSelection
+-------------------------------------------------------------------------------------------*/
+
+(function($) {
     // extend the core jQuery with disableSelection
-    jQuery.fn.extend({
+    $.fn.extend({
         disableSelection : function() {
-            this.each(function() {
+            return this.each(function() {
+                // for IE
                 this.onselectstart = function() {
                     return false;
                 };
                 this.unselectable = "on";
-                jQuery(this).css('-moz-user-select', 'none');
-                jQuery(this).css('-webkit-user-select', 'none');
-                jQuery(this).css('-khtml-user-select', 'none');
+                // for normal browsers
+                var obj = $(this);
+                obj.css('-moz-user-select', 'none');
+                obj.css('-webkit-user-select', 'none');
+                obj.css('-khtml-user-select', 'none');
             });
         }
     });
 })(jQuery);
 
-/* =0a disableSelection
+/* =1a disableSelection
 -------------------------------------------------------------------------------------------*/
 
 jQuery(document).ready(function() {
@@ -46,14 +77,14 @@ jQuery(document).ready(function() {
     jQuery('.button-1-inactive').disableSelection();
 });
 
-/* =1 popup
+/* =2 popup
 -------------------------------------------------------------------------------------------*/
 
 //You need an anonymous function to wrap around your function to avoid conflict
-(function () {
+(function ($) {
 
   //Attach this new method to jQuery
-  jQuery.fn.extend({
+  $.fn.extend({
 
     //This is where you write your plugin's name
     //plugin name - popup
@@ -70,13 +101,13 @@ jQuery(document).ready(function() {
         topPosition: 0
       };
 
-      var options = jQuery.extend(defaults, options);
+      var options = $.extend(defaults, options);
 
       return this.each(function() {
         // options
         var o = options;
         //console.log(o.appear);
-        var obj = jQuery(this);
+        var obj = $(this);
 
         var hideDelayTimer = null;
         var hDir = null;
@@ -86,8 +117,8 @@ jQuery(document).ready(function() {
         var beingShown = false;
         var shown = false;
 
-        var trigger = jQuery('.js-trigger', obj);
-        var popup = jQuery('.js-popup', obj).css({
+        var trigger = $('.js-trigger', obj);
+        var popup = $('.js-popup', obj).css({
           'opacity': 0
         });
         var popupWidth = popup.outerWidth();
@@ -102,7 +133,7 @@ jQuery(document).ready(function() {
         var leftPos = null;
 
         // set the mouseover and mouseout on both element
-        jQuery([trigger.get(0), popup.get(0)]).mouseover(function () {
+        $([trigger.get(0), popup.get(0)]).mouseover(function () {
           //Add a higher z-index value so this image stays on top
           obj.css({'z-index' : '10'});
           // get the location of the popup and set its horizonal and vertical directions
@@ -189,7 +220,5 @@ jQuery(document).ready(function() {
 
   });
 
-//pass jQuery to the function,
-//So that we will able to use any valid Javascript variable name
-
+//pass jQuery to the function for closure,
 })(jQuery);
