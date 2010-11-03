@@ -210,7 +210,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
             <p class="introText">"We're known for our ${bestKnownFor}"</p>
 
-            <!-- TODO: info icon + hover -->
+            <!-- DONE: info icon + hover -->
             <div class="text3">
                 <link:enhancedSchoolProfile school="${school}">Read more from the school principal <span
                         class="alertDoubleArrow">&amp;#187;</span></link:enhancedSchoolProfile>
