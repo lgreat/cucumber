@@ -241,11 +241,12 @@
                             <c:when test="${discussionId gt 0}">
                             </c:when>
                             <c:otherwise>
-                                <button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
+                                <!--<button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
                                     <span class="lftDoor25">
                                         <span class="rtDoor25">Preview</span>
                                     </span>
-                                </button>
+                                </button>-->
+                                <button class="button-1 previewButton fltlft" type="submit" name="preview" value="Preview">Preview</button>
                             </c:otherwise>
                         </c:choose>
 
@@ -302,11 +303,12 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <button class="btn25 fltlft dialogCancelButton" type="button" value="Cancel">
+                        <!--<button class="btn25 fltlft dialogCancelButton" type="button" value="Cancel">
                             <span class="lftDoor25">
                                 <span class="rtDoor25">Cancel</span>
                             </span>
-                        </button>
+                        </button>-->
+                        <button class="button-1 fltlft dialogCancelButton" type="button" value="Cancel">Cancel</button>
                     </li>
                 </ul>
             </fieldset>

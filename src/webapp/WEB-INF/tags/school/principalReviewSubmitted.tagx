@@ -25,9 +25,10 @@
         <br/>
 
         <fieldset class="btns">
-                <button class="btn25" type="submit" name="continueToSurvey" id="continueToSurvey">
+                <!--<button class="btn25" type="submit" name="continueToSurvey" id="continueToSurvey">
                     <span class="lftDoor25"><span class="rtDoor25">Continue to survey</span></span>
-                </button>
+                </button>-->
+            <button class="button-1" type="submit" name="continueToSurvey" id="continueToSurvey">Continue to survey</button>
                 <a href="#" id="principalReviewSubmittedHover_cancel" class="principalReviewSubmittedHover_hideHover">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
             </fieldset>
 

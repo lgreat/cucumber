@@ -603,11 +603,12 @@
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <div class="line">
                             <div class="unit size1of2">
-                                <button class="btn25 continueButton" type="submit">
+                                <!--<button class="btn25 continueButton" type="submit">
                                 <span class="lftDoor25">
                                     <span class="rtDoor25">Continue</span>
                                 </span>
-                                </button>
+                                </button>-->
+                                <button class="button-1 continueButton" type="submit">Continue</button>
                             </div>
                             <div class="unit size1of2 lastUnit">
                                 <div style="float:right;">

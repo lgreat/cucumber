@@ -213,9 +213,10 @@
                 <input type="hidden" name="searchtext" value="" disabled="disabled"/>
             </form>
             <p>
-                <button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
+                <!--<button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
                     <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
-                </button>
+                </button>-->
+                <button class="button-1" type="submit" onclick="rdcSearchSubmit(); return false;">Search</button>
             </p>
             <a href="http://www.realtor.com/?gate=gs&amp;amp;source=a28957"
                onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_searchLogo');} return true;"
@@ -243,9 +244,10 @@
                 </c:if>
                 <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}${defaultState}"/>
 
-                <button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
+                <!--<button class="btn25" type="submit" onclick="rdcSearchSubmit(); return false;">
                     <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
-                </button>
+                </button>-->
+                <button class="button-1" type="submit" onclick="rdcSearchSubmit(); return false;">Search</button>
             </p>
 
             <p>

@@ -107,16 +107,18 @@
                 </div>
                 <!-- end db_discussTopic -->
             </div>
-            <button class="btn25 fltlft previewEditButton sd-btn-layout" type="submit">
+            <!--<button class="btn25 fltlft previewEditButton sd-btn-layout" type="submit">
                 <span class="lftDoor25">
                     <span class="rtDoor25">Edit&amp;nbsp;conversation</span>
                 </span>
-            </button>
-            <button class="btn25 fltlft previewPostButton" type="submit">
+            </button>-->
+            <button class="button-1 fltlft previewEditButton sd-btn-layout" type="submit">Edit conversation</button>
+            <!--<button class="btn25 fltlft previewPostButton" type="submit">
                 <span class="lftDoor25">
                     <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;conversation</span>
                 </span>
-            </button>
+            </button>-->
+            <button class="button-1 fltlft previewPostButton" type="submit">Post your conversation</button>
         </div>
     </c:if>
 

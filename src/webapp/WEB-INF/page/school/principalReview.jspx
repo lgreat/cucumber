@@ -110,10 +110,10 @@
                 <link:termsOfUse title="GreatSchools Terms of Service"
                                  target="_blank">GreatSchools Terms of Use.</link:termsOfUse></label>
 
-                <button class="btn25" type="submit" name="submitPrincipalReview"
-                        id="submitPrincipalReview">
+                <!--<button class="btn25" type="submit" name="submitPrincipalReview" id="submitPrincipalReview">
                     <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
-                </button>
+                </button>-->
+                <button class="button-1" type="submit" name="submitPrincipalReview" id="submitPrincipalReview">Submit</button>
 
                 <p>
                     Thank you for your help!

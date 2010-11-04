@@ -53,11 +53,12 @@
                                                  usingLongNames="false"
                                                  state="${requestScope.context.state}"/>
 
-                            <button class="btn25 fltlt" type="submit">
+                            <!--<button class="btn25 fltlt" type="submit">
                         <span class="lftDoor25">
                             <span class="rtDoor25">GO</span>
                         </span>
-                            </button>
+                            </button>-->
+                            <button class="button-1 fltlt" type="submit">GO</button>
 
                             <!-- DONE-10167-RANDALL -->
                             <!-- Randall, please style this ad slot so that the module will look fine

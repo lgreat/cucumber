@@ -42,10 +42,14 @@
 
             <br class="clearfloat" />
             
-            <button class="btn25" type="button" id="submitPrincipalConfirmation"><span class="lftDoor25"><span
-                    class="rtDoor25">Continue</span></span></button>
-            <button class="btn25" type="button" onclick="GSType.hover.principalConfirmation.hide();"><span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
-            </button>
+            <!--<button class="btn25" type="button" id="submitPrincipalConfirmation">
+                <span class="lftDoor25"><span class="rtDoor25">Continue</span></span>
+            </button>-->
+            <button class="button-1" type="button" id="submitPrincipalConfirmation">Continue</button>
+            <!--<button class="btn25" type="button" onclick="GSType.hover.principalConfirmation.hide();">
+                <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
+            </button>-->
+            <button class="button-1" type="button" onclick="GSType.hover.principalConfirmation.hide();">Cancel</button>
         </form>
     </div>
 

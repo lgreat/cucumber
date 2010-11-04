@@ -122,8 +122,10 @@
                                         <li><input type="checkbox" value="myhs" id="gH" name="grades"/><label
                                                 for="gH">High School</label></li>
                                     </ul>
-                                    <button class="btn25" id="gradeDone" type="button">
-                                        <span class="lftDoor25"><span class="rtDoor25">Done</span></span></button>
+                                    <!--<button class="btn25" id="gradeDone" type="button">
+                                        <span class="lftDoor25"><span class="rtDoor25">Done</span></span>
+                                    </button>-->
+                                    <button class="button-1" id="gradeDone" type="button">Done</button>
                                 </div>
                             </li>
                         </ul>
@@ -173,9 +175,10 @@
                 </div>
             </fieldset>
             <fieldset class="btns">
-                <button class="btn25" type="submit" name="joinBtn" id="joinBtn">
+                <!--<button class="btn25" type="submit" name="joinBtn" id="joinBtn">
                     <span class="lftDoor25"><span class="rtDoor25">Join now</span></span>
-                </button>
+                </button>-->
+                <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
                 <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
             </fieldset>
             <input type="hidden" name="joinHoverType" id="joinHoverType" value="JoinChooser" />

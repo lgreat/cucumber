@@ -151,11 +151,12 @@
             <div class="spacer_5"><!-- do not collapse --></div>
         </fieldset>
         <fieldset class="btnholder">
-        <button class="btn25 fltlft uploadButton" type="submit">
+        <!--<button class="btn25 fltlft uploadButton" type="submit">
             <span class="lftDoor25">
                 <span class="rtDoor25">Upload</span>
             </span>
-        </button>
+        </button>-->
+            <button class="button-1 fltlft uploadButton" type="submit">Upload</button>
         </fieldset>
     </form>
     <div class="spacer_10"><!--do not collapse--></div>
@@ -211,11 +212,12 @@
             <div class="spacer_10"><!-- do not collapse --></div>
         </fieldset>
         <fieldset>
-        <button class="btn25 fltlft saveButton" type="submit">
+        <!--<button class="btn25 fltlft saveButton" type="submit">
             <span class="lftDoor25">
                 <span class="rtDoor25">Save</span>
             </span>
-        </button>
+        </button>-->
+            <button class="button-1 fltlft saveButton" type="submit">Save</button>
             <div class="spacer_60"><!-- do not collapse --></div>
         </fieldset>
     </form>

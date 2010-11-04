@@ -96,9 +96,10 @@
                 </select>
             </div>
 
-            <button class="btn25" type="button" id="reviewThisSchoolButton" onclick="return reviewThisSchool();">
+            <!--<button class="btn25" type="button" id="reviewThisSchoolButton" onclick="return reviewThisSchool();">
                 <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
-            </button>
+            </button>-->
+            <button class="button-1" type="button" id="reviewThisSchoolButton" onclick="return reviewThisSchool();">Review this school</button>
 
         </div>
     </div>
@@ -232,9 +233,10 @@
                 </label>
 
                 <fieldset class="btns">
-                    <button class="btn25" type="submit" name="parentReviewFormSubmit" id="parentReviewFormSubmit">
+                    <!--<button class="btn25" type="submit" name="parentReviewFormSubmit" id="parentReviewFormSubmit">
                         <span class="lftDoor25"><span class="rtDoor25">Continue</span></span>
-                    </button>
+                    </button>-->
+                    <button class="button-1" type="submit" name="parentReviewFormSubmit" id="parentReviewFormSubmit">Continue</button>
                 </fieldset>
 
             </div>

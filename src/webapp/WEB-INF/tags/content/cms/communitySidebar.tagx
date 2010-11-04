@@ -49,11 +49,12 @@
                     <input class="fltlft db_search_input formText2 tint_777"
                            type="text" name="q"
                            value="${pageScope.xmlEscapedSearchQuery}"/>
-                    <button class="btn25 fltlt" type="submit">
+                    <!--<button class="btn25 fltlt" type="submit">
                         <span class="lftDoor25">
                             <span class="rtDoor25">Search</span>
                         </span>
-                    </button>
+                    </button>-->
+                    <button class="button-1 fltlt" type="submit">Search</button>
                 </form>
             </div>
             <div class="mod_bd brwse">

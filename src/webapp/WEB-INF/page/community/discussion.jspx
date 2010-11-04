@@ -344,16 +344,18 @@
             </div>
             <br class="clearfloat"/>
         </div>
-        <button class="btn25 previewEditButton fltlft sd-btn-layout" type="submit">
+        <!--<button class="btn25 previewEditButton fltlft sd-btn-layout" type="submit">
         <span class="lftDoor25">
             <span class="rtDoor25">Edit&amp;nbsp;reply</span>
         </span>
-        </button>
-        <button class="btn25 previewPostButton fltlft" type="submit">
+        </button>-->
+        <button class="button-1 previewEditButton fltlft sd-btn-layout" type="submit">Edit reply</button>
+        <!--<button class="btn25 previewPostButton fltlft" type="submit">
         <span class="lftDoor25">
             <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span>
         </span>
-        </button>
+        </button>-->
+        <button class="button-1 previewPostButton fltlft" type="submit">Post your reply</button>
 
     </div>
 </c:if>
@@ -431,18 +433,20 @@
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
 
-                            <button class="btn25 fltlft btn_preview" type="submit">
+                            <!--<button class="btn25 fltlft btn_preview" type="submit">
                                 <span class="lftDoor25">
                                     <span class="rtDoor25">Preview</span>
                                 </span>
-                            </button>
+                            </button>-->
+                            <button class="button-1 fltlft btn_preview" type="submit">Preview</button>
 
 
-                            <button class="btn25 fltlft btn_postReply" type="submit">
+                            <!--<button class="btn25 fltlft btn_postReply" type="submit">
                                 <span class="lftDoor25">
                                     <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span>
                                 </span>
-                            </button>
+                            </button>-->
+                            <button class="button-1 fltlft btn_postReply" type="submit">Post your reply</button>
                             <div class="smallText2 fltlft guidelines">
                                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                            title="GreatSchools Community Standards"

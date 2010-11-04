@@ -15,11 +15,12 @@
                     Great work! Only one more step.
                     <strong>Now we just need you to verify your email address</strong>. Please click on the link in the email we just sent you to complete your registration.
                 </p>
-                <button class="btn25 valEmail_hideHover" type="button">
+                <!--<button class="btn25 valEmail_hideHover" type="button">
                 <span class="lftDoor25">
                     <span class="rtDoor25">OK</span>
                 </span>
-                </button>
+                </button>-->
+                <button class="button-1 valEmail_hideHover" type="button">OK</button>
             </div>
         </div>
     </div>
