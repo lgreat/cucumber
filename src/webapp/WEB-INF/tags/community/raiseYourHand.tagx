@@ -295,9 +295,10 @@
                 <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
                 <br class="clearfloat"/>
 
-                <button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft ${ryhSubmitClass}">
+                <!--<button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft ${ryhSubmitClass}">
                     <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
-                </button>
+                </button>-->
+                <button class="button-1 fltlft ${ryhSubmitClass}" type="button" id="ryhSubmit" name="Submit" value="Submit">Submit</button>
 
                 <!-- DONE-10166-RANDALL 15.2 HOTFIX -->
                 <!-- Randall, please style this ad slot so that the module will look fine both with and without the ad slot,

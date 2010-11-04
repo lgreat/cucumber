@@ -261,10 +261,10 @@
 
                         <c:choose>
                             <c:when test="${discussionId gt 0}">
-                                <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_SaveLayout"/>
+                                <c:set var="submitButtonStyle" value="button-1 fltlft submitButton sd_SaveLayout"/>
                             </c:when>
                             <c:otherwise>
-                                <c:set var="submitButtonStyle" value="btn25 fltlft submitButton sd_InnerLayout"/>
+                                <c:set var="submitButtonStyle" value="button-1 fltlft submitButton sd_InnerLayout"/>
                             </c:otherwise>
                         </c:choose>
 

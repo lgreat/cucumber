@@ -169,10 +169,10 @@
                                 </li>
                                 <li>
 
-                                    <button type="submit" id="goButton" name="Submit" value="Submit"
-                                            class="btn25 fltlft">
+                                    <!--<button type="submit" id="goButton" name="Submit" value="Submit" class="btn25 fltlft">
                                         <span class="lftDoor25"><span class="rtDoor25">Sign&amp;nbsp;in</span></span>
-                                    </button>
+                                    </button>-->
+                                    <button class="button-1 fltlft" type="submit" id="goButton" name="Submit" value="Submit">Sign in</button>
                                     <br class="clearfloat"/>
                                 </li>
                                 <li id="forgotPassword">

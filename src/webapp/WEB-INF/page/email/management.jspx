@@ -480,10 +480,10 @@
                         </li>
                     </ol>
                     <div class="spacer_10"><!-- do not collapse --></div>
-                    <button type="add" id="add" name="Add" value="Add"
-                            onclick="try {addMssSchool();} catch (e) {} return false;" class="btn25 fltlft">
+                    <!--<button type="add" id="add" name="Add" value="Add" onclick="try {addMssSchool();} catch (e) {} return false;" class="btn25 fltlft">
                         <span class="lftDoor25"><span class="rtDoor25">Add</span></span>
-                    </button>
+                    </button>-->
+                    <button class="button-1 fltlft" type="add" id="add" name="Add" value="Add" onclick="try {addMssSchool();} catch (e) {} return false;">Add</button>
 
                     <!--<input type="image" id="add" value="Add" src="/res/img/button/button_add.gif"
               onclick="try {addMssSchool();} catch (e) {} return false;"/>-->
@@ -669,9 +669,10 @@
 
 <fieldset class="submit">
 
-    <button type="submit" id="submitButton" name="Submit" value="Submit" class="btn25 fltlft">
+    <!--<button type="submit" id="submitButton" name="Submit" value="Submit" class="btn25 fltlft">
         <span class="lftDoor25"><span class="rtDoor25">Save&amp;nbsp;settings</span></span>
-    </button>
+    </button>-->
+    <button class="button-1 fltlft" type="submit" id="submitButton" name="Submit" value="Submit">Save settings</button>
     <link:userAccount styleClass="btn25 fltlft" styleId="cancelButton">
         <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
     </link:userAccount>

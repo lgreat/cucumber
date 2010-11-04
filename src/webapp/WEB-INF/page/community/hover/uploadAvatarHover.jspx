@@ -141,12 +141,12 @@
                 <input id="fake_avatarFileInput" type="text" name="fakeAvatar"
                        onkeypress="return (event.keyCode == 9);"/>
                 <input id="avatarFileInput" type="file" name="avatar"/>
-                <button id="fake_avatarFileBrowse" class="btn25 fltlft browseButton" type="submit"
-                        onclick="return false;">
+                <!--<button id="fake_avatarFileBrowse" class="btn25 fltlft browseButton" type="submit" onclick="return false;">
                     <span class="lftDoor25">
                         <span class="rtDoor25">Browse</span>
                     </span>
-                </button>
+                </button>-->
+                <button class="button-1 fltlft browseButton" id="fake_avatarFileBrowse" type="submit" onclick="return false;">Browse</button>
             </div>
             <div class="spacer_5"><!-- do not collapse --></div>
         </fieldset>
