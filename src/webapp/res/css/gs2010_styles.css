@@ -5151,7 +5151,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 #schoolChoicePackPromo-wide {
     background-color: #F9E9CE;
-    width:582px;
+    /*width:582px;*/
 }
 
 #schoolChoicePackPromo-wide .mod_hd h3 {
@@ -5162,10 +5162,10 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 }
 
 #schoolChoicePackPromo-wide div.mod_bd {
-    padding: 0 15px
+    padding: 0 15px 10px 15px;
 }
 
-#schoolChoicePackPromo-wide .form_image{
+/*#schoolChoicePackPromo-wide .form_image{
     width:97px;
     padding-right:10px;
 }
@@ -5177,7 +5177,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 *+html #schoolChoicePackPromo-wide .form_panel{
     width:455px
-}
+}*/
 
 #gradeSelect {
     overflow: visible;
@@ -6155,36 +6155,42 @@ additional icons on the sprite.
     width: 49px;
     height: 10px;
     background-position: -80px -80px;
+    _font-size:8px;
 }
 
 .stars_s_1_b {
     width: 49px;
     height: 10px;
     background-position: -80px -90px;
+    _font-size:8px;
 }
 
 .stars_s_2_b {
     width: 49px;
     height: 10px;
     background-position: -80px -100px;
+    _font-size:8px;
 }
 
 .stars_s_3_b {
     width: 49px;
     height: 10px;
     background-position: -80px -110px;
+    _font-size:8px;
 }
 
 .stars_s_4_b {
     width: 49px;
     height: 10px;
     background-position: -80px -120px;
+    _font-size:8px;
 }
 
 .stars_s_5_b {
     width: 49px;
     height: 10px;
     background-position: -80px -130px;
+    _font-size:8px;
 }
 
 /* column 130 */
