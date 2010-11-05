@@ -182,13 +182,13 @@
             <div>
                 Community Rating by Year
 
-                <c:forEach var="ratingByYear" items="${ratingsByYear}">
+                <c:forEach var="ratingsForYear" items="${ratingsByYear}">
                     <div>
-                        year = <span class="year">${ratingByYear.year}</span>:
+                        year = <span class="year">${ratingsForYear.year}</span>:
                         <c:choose>
-                            <c:when test="${ratingByYear.numRatings gt 0}">
-                                numStars = <span class="numStars">${ratingByYear.numStars}</span>,
-                                numRatings = <span class="numRatings">${ratingByYear.numRatings}</span>
+                            <c:when test="${ratingsForYear.numRatings gt 0}">
+                                numStars = <span class="numStars">${ratingsForYear.numStars}</span>,
+                                numRatings = <span class="numRatings">${ratingsForYear.numRatings}</span>
                             </c:when>
                             <c:otherwise>
                                 No new ratings
