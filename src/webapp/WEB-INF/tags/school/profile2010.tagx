@@ -379,6 +379,24 @@
                     <jsp:doBody/>
                 </div>
             </div>
+
+            <c:if test="${(tab eq 'parentReviews')}">
+                <div id="schoolReviewsContentsWrapper">
+                    <c:if test="${cmd.totalReviews eq 0}">
+                        <div class="spacer_20"><!-- do not collapse --></div>
+                        <promo:schoolChoicePackPromo
+                                schoolName="${school.name}"
+                                showBorder="${false}"
+                                showSchoolChoiceLink="${true}"
+                                schoolObjectForRedirect="${school}"
+                                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                format="wide"
+                                school="${school}"
+                                caller="${caller}"
+                                />
+                    </c:if>
+                </div>
+            </c:if>
         </div>
         <!-- end schoolProfileLeftColumn -->
 
@@ -412,16 +430,18 @@
                     <c:if test="${tab eq 'parentReviews'}">
                         <ad:AboveFold_300x250/>
 
-                        <promo:schoolChoicePackPromo
-                                schoolName="${school.name}"
-                                showBorder="${false}"
-                                showSchoolChoiceLink="${true}"
-                                schoolObjectForRedirect="${school}"
-                                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                format=""
-                                school="${school}"
-                                caller="${caller}"
-                                />
+                        <c:if test="${cmd.totalReviews gt 0}">
+                            <promo:schoolChoicePackPromo
+                                    schoolName="${school.name}"
+                                    showBorder="${false}"
+                                    showSchoolChoiceLink="${true}"
+                                    schoolObjectForRedirect="${school}"
+                                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                                    format=""
+                                    school="${school}"
+                                    caller="${caller}"
+                                    />
+                        </c:if>
 
                         <div class="mod">
                             <div class="navmod_hd">

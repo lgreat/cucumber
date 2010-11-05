@@ -5151,7 +5151,8 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 #schoolChoicePackPromo-wide {
     background-color: #F9E9CE;
-    /*width:582px;*/
+    width:100%;
+    zoom:1;
 }
 
 #schoolChoicePackPromo-wide .mod_hd h3 {
@@ -5165,19 +5166,19 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     padding: 0 15px 10px 15px;
 }
 
-/*#schoolChoicePackPromo-wide .form_image{
+#schoolChoicePackPromo-wide .form_image{
     width:97px;
     padding-right:10px;
 }
 
 #schoolChoicePackPromo-wide .form_panel{
-    width:445px;
+    width:80%;
     padding-bottom:10px;
 }
 
 *+html #schoolChoicePackPromo-wide .form_panel{
-    width:455px
-}*/
+    width:80%;
+}
 
 #gradeSelect {
     overflow: visible;
@@ -5199,7 +5200,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 #schoolChoicePackPromo-wide #cemail {
     margin:2px 5px 0 5px;
-    width:114px;
+    width:110px;
     color:#888888;
     font-family: Arial,Arial,sans-serif;
     font-size: 13px;
@@ -5209,6 +5210,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 #schoolChoicePackPromo-wide .privacy_terms {
     clear:both;
     float:left;
+    width:60%;
 }
 /* helper messaging */
 
@@ -5256,6 +5258,15 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 
 #schoolChoicePackPromo-wide #send{
     _width:57px;
+}
+
+#schoolChoicePackPromo-wide .privacy_terms_label{
+    
+}
+
+#privacy_terms_checkbox{
+    margin:0 10px 10px 0;
+    float:left;
 }
 
 #schoolChoicePackPromo-wide .privacy_terms_checkbox{

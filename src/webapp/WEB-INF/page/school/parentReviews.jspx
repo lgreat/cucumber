@@ -337,8 +337,6 @@
 
 </c:if>
 
-<div class="spacer_15"><!-- do not collapse --></div>
-
 <c:set var="reviewsPagination">
     <c:set var="paginationUrl"><c:choose>
         <c:when test="${empty reviewsByCsv}">${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}</c:when>
@@ -353,6 +351,7 @@
 </c:set>
 
 <c:if test="${cmd.totalReviews gt 0}">
+    <div class="spacer_15"><!-- do not collapse --></div>
 <div class="line">
     <div class="unit size1of2">
         <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
@@ -534,7 +533,9 @@
 <p class="smallText1">Community ratings and reviews do not represent the views of GreatSchools nor does GreatSchools check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
 
 </c:if>
+
 </div>
+
 <script type="text/javascript">
     jQuery(function () {
         jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
