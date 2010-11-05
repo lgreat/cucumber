@@ -255,9 +255,10 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
     };
 
     this.addSchools = function(schools, markerClickedCallback) {
-        schools.forEach(function (school) {
-            this.addSchool(school, markerClickedCallback);
-        }.gs_bind(this));
+        var len = schools.length;
+        for (var i = 0; i < len; i++) {
+            this.addSchool(schools[i], markerClickedCallback);
+        }
     };
 
     //var displayTooltips = ${not empty tooltips};
