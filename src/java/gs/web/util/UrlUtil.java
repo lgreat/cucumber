@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.97 2010/07/15 23:24:50 aroy Exp $
+ * $Id: UrlUtil.java,v 1.98 2010/11/05 00:07:11 droy Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
+import gs.data.util.CdnUtil;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -162,7 +163,7 @@ public final class UrlUtil {
      * @param srcUri       the current location. Should be a Java page.
      * @see javax.servlet.http.HttpServletRequest#getRequestURI()
      */
-    public String buildHref(String destHost, String destPath, boolean isDestSecure, String srcUri) {
+    public String buildHref(String destHost, String destPath, boolean isDestSecure, String srcUri, boolean allowCdn) {
 
 
         if (srcUri == null) {
@@ -171,9 +172,8 @@ public final class UrlUtil {
             return destPath; // no logic to do, but not a good case
         }
 
-        _log.debug("dest=" + destPath + " isDestSecure?" + isDestSecure + " src=" + srcUri);
+//        _log.debug("dest=" + destPath + " isDestSecure?" + isDestSecure + " src=" + srcUri);
 
-        boolean destIsPerl = smellsLikePerl(destPath);
         try {
             URL sourceUrl = new URL(srcUri);
             if (isDeveloperWorkstation(sourceUrl.getHost())) {
@@ -189,6 +189,7 @@ public final class UrlUtil {
                     if (destHost != null) {
                         host = destHost;
                     }
+                    boolean destIsPerl = smellsLikePerl(destPath);
                     if (destIsPerl) {
                         // With Perl pulling modperl/promos is an exception because it's
                         // used for pulling images for tracking
@@ -207,6 +208,9 @@ public final class UrlUtil {
                 }
                 // Anywhere but a developer workstation and we should be able to use the relative
                 // link.
+                if (allowCdn && CdnUtil.isCdnEnabled() && destPath.startsWith("/")) {
+                    destPath = CdnUtil.getCdnPrefix() + destPath;
+                }
                 return destPath;
             }
 
@@ -216,6 +220,9 @@ public final class UrlUtil {
         }
     }
 
+    public String buildUrl(final String ref, HttpServletRequest request) {
+        return buildUrl(ref, request, false);
+    }
 
     /**
      * Generates a url from the given requested resource. Common bottleneck for URL
@@ -236,7 +243,7 @@ public final class UrlUtil {
      * It does not guarantee to build the smallest possible URL, but it attempts
      * to do so.
      */
-    public String buildUrl(final String ref, HttpServletRequest request) {
+    public String buildUrl(final String ref, HttpServletRequest request, boolean allowCdn) {
         String href = ref;
 
         // Fully qualified URLs don't get any treatment here escape white space
@@ -301,7 +308,7 @@ public final class UrlUtil {
 
         href = href.replaceAll("\\s+", "+");
 
-        return buildHref(context != null ? context.getHostName() : null, href, secureDest, src);
+        return buildHref(context != null ? context.getHostName() : null, href, secureDest, src, allowCdn);
     }
 
 

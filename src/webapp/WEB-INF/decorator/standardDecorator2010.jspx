@@ -50,25 +50,25 @@
     </title>
     
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER"/>
+        <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
     </c:if>
 
     <c:choose>
         <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.209' or pageContext.request.serverName eq '172.18.1.163' or pageContext.request.serverName eq '172.18.1.129' or pageContext.request.serverName eq '127.0.0.1') and empty param.compressedScripts}">
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER"/>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
 
-            <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER"/>
-            <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.3.2.min.js"/>
-            <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.7.2.min.js"/>
-            <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js"/>
-            <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER"/>
-            <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER"/>
-            <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/>
-            <gsml:url var="gs_jquery_extensionsjs" value="/res/js/gs_jquery_extensions.js?v=$RELEASE_NUMBER"/>
-            <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER"/>
-            <gsml:url var="externalTracking" value="/res/js/externalTracking.js"/>
+            <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.3.2.min.js" allowCdn="true"/>
+            <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.7.2.min.js" allowCdn="true"/>
+            <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js" allowCdn="true"/>
+            <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gs_jquery_extensionsjs" value="/res/js/gs_jquery_extensions.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
@@ -81,15 +81,15 @@
             <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER"/>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
 
-            <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER"/>
+            <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
         </c:otherwise>
     </c:choose>
 
-    <gsml:url var="gs2010_IEstyles" value="/res/css/gs2010_IEstyles.css?v=$RELEASE_NUMBER"/>
+    <gsml:url var="gs2010_IEstyles" value="/res/css/gs2010_IEstyles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
     <![CDATA[
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="${gs2010_IEstyles}" type="text/css" />
@@ -97,7 +97,7 @@
     ]]>
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
-        <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER"/>
+        <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <![CDATA[
         <!--[if lte IE 6]>
             <script type="text/javascript" src="${minmaxjs}"></script>
@@ -105,7 +105,7 @@
         ]]>
     </c:if>
 
-    <gsml:url var="ieShimHoverfix" value="/res/js/ieShimHoverfix.js?v=$RELEASE_NUMBER"/>
+    <gsml:url var="ieShimHoverfix" value="/res/js/ieShimHoverfix.js?v=$RELEASE_NUMBER" allowCdn="true"/>
     <![CDATA[
     <!--[if lte IE 6]>
         <script type="text/javascript" src="${ieShimHoverfix}"></script>

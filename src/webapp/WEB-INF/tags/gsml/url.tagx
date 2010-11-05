@@ -15,6 +15,7 @@
     <jsp:directive.attribute name="value" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="release_number" required="false" description="Optional release number"/>
+    <jsp:directive.attribute name="allowCdn" required="false" description="Optional release number" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="absolute" required="false" description="true for absolute url"/>
     <jsp:scriptlet><![CDATA[
 
@@ -28,8 +29,11 @@
             String releaseNumber = versionProperties.getProperty("gsweb.version");
             request.setAttribute("RELEASE_NUMBER", releaseNumber);
         }
+        if (allowCdn == null) {
+            allowCdn = false;
+        }
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
-        value = urlUtil.buildUrl(value, request);
+        value = urlUtil.buildUrl(value, request, allowCdn);
         if (StringUtils.isNotBlank(absolute) && "true".equalsIgnoreCase(absolute) && value.startsWith("/")) {
             value = "http://" + request.getServerName() + value;
         }

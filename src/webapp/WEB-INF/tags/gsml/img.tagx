@@ -21,7 +21,7 @@
     <jsp:directive.attribute name="absolute" required="false" description="true for absolute url"/>
     <jsp:scriptlet><![CDATA[
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
-        src = urlUtil.buildUrl(src, request);
+        src = urlUtil.buildUrl(src, request, true);
         if (StringUtils.isNotBlank(absolute) && "true".equalsIgnoreCase(absolute) && src.startsWith("/")) {
             src = "http://" + request.getServerName() + src;
         }
