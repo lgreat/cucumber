@@ -12,10 +12,6 @@ import gs.data.school.review.Poster;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.security.Permission;
-import gs.data.test.SchoolTestValue;
-import gs.data.test.TestManager;
-import gs.data.test.rating.IRatingsConfig;
-import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.NameValuePair;
 import gs.web.school.*;
 import gs.web.util.PageHelper;
@@ -31,7 +27,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -231,7 +226,7 @@ public class ParentReviewController extends AbstractController {
                 model.put("relCanonical", builder.asFullUrlXml(request));
 
                 // GS-10633
-                processCommunityRatingsByYear(model, school, ratings);
+                processOverallRatingsByYear(model, school, ratings);
             } else {
                 if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                     cmd.setMaxReviewsPerPage(reviews.size());
@@ -308,7 +303,7 @@ public class ParentReviewController extends AbstractController {
     //
     // ** If there is enough data to show the hover, but no ratings were posted one year, say 2009,
     //    instead of showing stars the row should say: "2009 No new ratings" -- mock will be attached for this case.
-    private void processCommunityRatingsByYear(Map<String, Object> model, School school, Ratings ratings) {
+    private void processOverallRatingsByYear(Map<String, Object> model, School school, Ratings ratings) {
         // The hover should NOT appear if there are 4 or fewer ratings published for the school,
         // regardless of the year posted.
         if (ratings != null && ratings.getCount() != null && ratings.getCount() < 5) {
