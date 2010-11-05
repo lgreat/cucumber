@@ -403,6 +403,21 @@ h3.title1white, h3.srchCat {
     color: #333;
 }
 
+.smallText1 {
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #777;
+}
+
+.smallText1-999 {
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #999;
+}
+
+.smallText1-06b {
+    font: 11px Arial, Helvetica, sans-serif;
+    color: #06b;
+}
+
 .smallText2 {
     font: 10px Arial, Helvetica, sans-serif;
     color: black;
@@ -2773,7 +2788,7 @@ body.ie6 .clearfix {
 
 .startAConversationModule {
     background: #fc6;
-    padding: 10px 20px 15px 15px;
+    padding: 10px 15px 15px 15px;
     position: relative;
     margin-bottom: 40px;
 }
