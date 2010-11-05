@@ -563,10 +563,12 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             String postUrl = request.getParameter("ETPostUrl");
             emailAttributes.put("CB_post_url ", postUrl);
             emailAttributes.put("CB_entity_id", String.valueOf(discussion.getId()));
+            emailAttributes.put("CB_post_title", discussion.getTitle());
+
             if("es".equalsIgnoreCase(language)){
                 _exactTargetAPI.sendTriggeredEmail("CB_Community_Notification_es", author, emailAttributes);
             }else{
-                _exactTargetAPI.sendTriggeredEmail("CB_Community_Notification", author, emailAttributes);
+                _exactTargetAPI.sendTriggeredEmail("CB_triggered_test_send", author, emailAttributes);
             }
         }
     }
