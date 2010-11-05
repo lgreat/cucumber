@@ -20,7 +20,7 @@
     to be refactored so that it's easier to create a js GS.map.MapSchool from a School + rating -->
 
     <c:set var="jsMapSchools">
-        var ${jsArrayName} = new Array(${fn:length(schools)});
+        var ${jsArrayName} = [];
     </c:set>
 
     <c:set var="counter" value="${0}"/>
