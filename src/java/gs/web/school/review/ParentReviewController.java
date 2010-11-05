@@ -231,7 +231,7 @@ public class ParentReviewController extends AbstractController {
                 model.put("relCanonical", builder.asFullUrlXml(request));
 
                 // GS-10633
-                processCommunityRatingsByYear(model, school);
+                processCommunityRatingsByYear(model, school, ratings);
             } else {
                 if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                     cmd.setMaxReviewsPerPage(reviews.size());
@@ -305,17 +305,24 @@ public class ParentReviewController extends AbstractController {
     //    regardless of the year posted.
     //
     // ** The average shown for each year should factor in only the OVERALL community ratings submitted in that year.
-    //    Ratings older than 4 years will still be rolled up into the Community Rating shown on the
-    //    Overview and Review pages, but we will not display them in this hover.
     //
     // ** If there is enough data to show the hover, but no ratings were posted one year, say 2009,
     //    instead of showing stars the row should say: "2009 No new ratings" -- mock will be attached for this case.
-    private void processCommunityRatingsByYear(Map<String, Object> model, School school) {
+    private void processCommunityRatingsByYear(Map<String, Object> model, School school, Ratings ratings) {
+        // The hover should NOT appear if there are 4 or fewer ratings published for the school,
+        // regardless of the year posted.
+        if (ratings != null && ratings.getCount() != null && ratings.getCount() < 5) {
+            return;
+        }
+
+        // current year
+        int currentYear = 2010;
+
         SortedSet<RatingsByYear> ratingsByYear = new TreeSet<RatingsByYear>(Collections.reverseOrder());
-        ratingsByYear.add(new RatingsByYear(2010,4,12));
-        ratingsByYear.add(new RatingsByYear(2009,5,18));
-        ratingsByYear.add(new RatingsByYear(2008,3,7));
-        ratingsByYear.add(new RatingsByYear(2007,0,0));
+        ratingsByYear.add(new RatingsByYear(currentYear,4,12));
+        ratingsByYear.add(new RatingsByYear(currentYear - 1,5,18));
+        ratingsByYear.add(new RatingsByYear(currentYear - 2,3,7));
+        ratingsByYear.add(new RatingsByYear(currentYear - 3,0,0));
 
         model.put("ratingsByYear", ratingsByYear);
     }

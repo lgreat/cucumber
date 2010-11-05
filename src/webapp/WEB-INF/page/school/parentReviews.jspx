@@ -177,6 +177,29 @@
         <p class="smallText1">Based on
             <span>${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
 
+        <!-- TODO-10633 -->
+        <c:if test="${not empty ratingsByYear}">
+            <div>
+                Community Rating by Year
+
+                <c:forEach var="ratingByYear" items="${ratingsByYear}">
+                    <div>
+                        year = <span class="year">${ratingByYear.year}</span>:
+                        <c:choose>
+                            <c:when test="${ratingByYear.numRatings gt 0}">
+                                numStars = <span class="numStars">${ratingByYear.numStars}</span>,
+                                numRatings = <span class="numRatings">${ratingByYear.numRatings}</span>
+                            </c:when>
+                            <c:otherwise>
+                                No new ratings
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
+
+
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
         <div class="spacer_10"><!-- do not collapse --></div>
 
