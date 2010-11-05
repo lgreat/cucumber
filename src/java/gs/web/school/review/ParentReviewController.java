@@ -229,6 +229,9 @@ public class ParentReviewController extends AbstractController {
                 // GS-10709
                 UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
                 model.put("relCanonical", builder.asFullUrlXml(request));
+
+                // GS-10633
+                processCommunityRatingsByYear(model, school);
             } else {
                 if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                     cmd.setMaxReviewsPerPage(reviews.size());
@@ -259,6 +262,62 @@ public class ParentReviewController extends AbstractController {
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    public class RatingsByYear implements Comparable {
+        private int _year;
+        private int _numStars;
+        private int _numRatings;
+
+        public RatingsByYear(int year, int numStars, int numRatings) {
+            this._year = year;
+            this._numStars = numStars;
+            this._numRatings = numRatings;
+        }
+
+        public int getYear() {
+            return _year;
+        }
+
+        public int getNumStars() {
+            return _numStars;
+        }
+
+        public int getNumRatings() {
+            return _numRatings;
+        }
+
+        public int compareTo(Object o) {
+            return ((Integer)this._year).compareTo(((RatingsByYear)o)._year);
+        }
+    }
+
+    // TODO-10633
+    // ** The hover includes the average overall Community rating for the past for years 4 years.
+    //    The hover should show the year (e.g. 2008) and the average Community rating for that year.
+    //    It should also say the number of ratings that that average is based on.
+    //
+    // Data requirements for the hover to show:
+    //
+    // ** The hover should NOT appear if there are no ratings older than 2 years old.
+    //
+    // ** The hover should NOT appear if there are 4 or fewer ratings published for the school,
+    //    regardless of the year posted.
+    //
+    // ** The average shown for each year should factor in only the OVERALL community ratings submitted in that year.
+    //    Ratings older than 4 years will still be rolled up into the Community Rating shown on the
+    //    Overview and Review pages, but we will not display them in this hover.
+    //
+    // ** If there is enough data to show the hover, but no ratings were posted one year, say 2009,
+    //    instead of showing stars the row should say: "2009 No new ratings" -- mock will be attached for this case.
+    private void processCommunityRatingsByYear(Map<String, Object> model, School school) {
+        SortedSet<RatingsByYear> ratingsByYear = new TreeSet<RatingsByYear>(Collections.reverseOrder());
+        ratingsByYear.add(new RatingsByYear(2010,4,12));
+        ratingsByYear.add(new RatingsByYear(2009,5,18));
+        ratingsByYear.add(new RatingsByYear(2008,3,7));
+        ratingsByYear.add(new RatingsByYear(2007,0,0));
+
+        model.put("ratingsByYear", ratingsByYear);
     }
 
     // TODO-10495
