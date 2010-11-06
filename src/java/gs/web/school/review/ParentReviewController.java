@@ -7,10 +7,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.NearbySchool;
 import gs.data.school.School;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Poster;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
+import gs.data.school.review.*;
 import gs.data.security.Permission;
 import gs.data.util.NameValuePair;
 import gs.web.school.*;
@@ -27,6 +24,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -226,7 +225,7 @@ public class ParentReviewController extends AbstractController {
                 model.put("relCanonical", builder.asFullUrlXml(request));
 
                 // GS-10633
-                processOverallRatingsByYear(model, school, ratings);
+                processOverallRatingsByYear(model, school);
             } else {
                 if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
                     cmd.setMaxReviewsPerPage(reviews.size());
@@ -259,67 +258,43 @@ public class ParentReviewController extends AbstractController {
         return new ModelAndView(getViewName(), model);
     }
 
-    public class RatingsByYear implements Comparable {
-        private int _year;
-        private int _numStars;
-        private int _numRatings;
+    // TODO-10633
+    private void processOverallRatingsByYear(Map<String, Object> model, School school) {
+        // ** The hover includes the average overall Community rating for
+        // the current calendar year and the previous 3 calendar years.
+        Calendar cal = Calendar.getInstance();
+        int currentYear = cal.get(Calendar.YEAR);
 
-        public RatingsByYear(int year, int numStars, int numRatings) {
-            this._year = year;
-            this._numStars = numStars;
-            this._numRatings = numRatings;
+        SortedSet<RatingsForYear> ratingsByYear = _reviewDao.findOverallRatingsByYear(school, currentYear, 4);
+
+        int numRatings = 0;
+        for (RatingsForYear ratingsForYear : ratingsByYear) {
+            numRatings += ratingsForYear.getNumRatings();
         }
 
-        public int getYear() {
-            return _year;
-        }
-
-        public int getNumStars() {
-            return _numStars;
-        }
-
-        public int getNumRatings() {
-            return _numRatings;
-        }
-
-        public int compareTo(Object o) {
-            return ((Integer)this._year).compareTo(((RatingsByYear)o)._year);
+        // The hover should NOT appear if there are no ratings published for the school in
+        // the current calendar year or the previous 3 calendar years
+        if (numRatings > 0) {
+            model.put("ratingsByYear", ratingsByYear);
         }
     }
 
-    // TODO-10633
-    // ** The hover includes the average overall Community rating for the past for years 4 years.
-    //    The hover should show the year (e.g. 2008) and the average Community rating for that year.
-    //    It should also say the number of ratings that that average is based on.
-    //
-    // Data requirements for the hover to show:
-    //
-    // ** The hover should NOT appear if there are no ratings older than 2 years old.
-    //
-    // ** The hover should NOT appear if there are 4 or fewer ratings published for the school,
-    //    regardless of the year posted.
-    //
-    // ** The average shown for each year should factor in only the OVERALL community ratings submitted in that year.
-    //
-    // ** If there is enough data to show the hover, but no ratings were posted one year, say 2009,
-    //    instead of showing stars the row should say: "2009 No new ratings" -- mock will be attached for this case.
-    private void processOverallRatingsByYear(Map<String, Object> model, School school, Ratings ratings) {
-        // The hover should NOT appear if there are 4 or fewer ratings published for the school,
-        // regardless of the year posted.
-        if (ratings != null && ratings.getCount() != null && ratings.getCount() < 5) {
-            return;
+    final private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private static int getRatingsByYearCurrentYear(Date date) {
+        if (date == null) {
+            throw new IllegalArgumentException("Date cannot be null");
         }
 
-        // current year
-        int currentYear = 2010;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
 
-        SortedSet<RatingsByYear> ratingsByYear = new TreeSet<RatingsByYear>(Collections.reverseOrder());
-        ratingsByYear.add(new RatingsByYear(currentYear,4,12));
-        ratingsByYear.add(new RatingsByYear(currentYear - 1,5,18));
-        ratingsByYear.add(new RatingsByYear(currentYear - 2,3,7));
-        ratingsByYear.add(new RatingsByYear(currentYear - 3,0,0));
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
 
-        model.put("ratingsByYear", ratingsByYear);
+        if (month < Calendar.MARCH) {
+            return year;
+        }
+        return year - 1;
     }
 
     // TODO-10495
