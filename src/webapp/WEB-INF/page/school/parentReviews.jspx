@@ -252,8 +252,9 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
+                <div class="reviewSubRatings">
+                    ${aboutTheseRatings}
+                </div>
             </c:otherwise>
         </c:choose>
         <!-- TODO-10495 - Randall - END subcategory ratings -->
