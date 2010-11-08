@@ -197,19 +197,12 @@
                         <em class="sprite i-required"><!-- do not collapse --></em>
                     </label>
 
-                    <c:choose>
-                        <c:when test="${requestScope.context.email eq null}">
-                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
-                               value="[Enter email address]"
-                               onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                               onblur="if(this.value==''){this.value='[Enter email address]';}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
-                               value="${requestScope.context.email}" disabled="disabled"/>
-                            <input type="hidden" name="email" value="${requestScope.context.email}" />
-                        </c:otherwise>
-                    </c:choose>
+
+                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
+                       value="[Enter email address]"
+                       onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                       onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+
 
                     <div class="unit size3of7 lastUnit">
                         <div id="frmPRModule-email-error" class="formErrorText media padlft_10" style="display:none;">
