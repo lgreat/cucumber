@@ -186,8 +186,6 @@ public class ParentReviewController extends AbstractController {
                 model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
                 model.put("param_reviewsby", PARAM_REVIEWS_BY);
 
-
-                // TODO-10495
                 processSubcategoryRatings(model, school, ratings);
 
                 // reviews to show
@@ -258,7 +256,7 @@ public class ParentReviewController extends AbstractController {
         return new ModelAndView(getViewName(), model);
     }
 
-    // TODO-10633
+    // GS-10633
     private void processOverallRatingsByYear(Map<String, Object> model, School school) {
         // ** The hover includes the average overall Community rating for
         // the current calendar year and the previous 3 calendar years.
@@ -297,7 +295,7 @@ public class ParentReviewController extends AbstractController {
         return year - 1;
     }
 
-    // TODO-10495
+    // GS-10495
     private void processSubcategoryRatings(Map<String, Object> model, School school, Ratings ratings) {
         // blue box subcategory ratings
         List<NameValuePair<String, Integer>> communityRatings = new ArrayList<NameValuePair<String, Integer>>();
