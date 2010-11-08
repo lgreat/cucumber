@@ -1,0 +1,30 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          version="2.0">
+<html>
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <style type="text/css">
+        div#error {
+            text-align: left;
+            padding: 90px;
+            color: #777777;
+            font-weight: bold;
+        }
+    </style>
+    <title>Compare Error | GreatSchools</title>
+</head>
+<gsml:body adPageName="error" pageLayout="nocol">
+<div id="error">
+<span class="errorMessage">
+    Sorry, there was an error comparing schools.
+    <br/><br/>
+    Please use the search box at the top of the page to <br/>
+    find schools by school name, district or city.
+</span>
+</div>
+</gsml:body>
+</html>
+</jsp:root>

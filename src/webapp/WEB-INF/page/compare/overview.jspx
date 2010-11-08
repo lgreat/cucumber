@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>School Comparison Overview | GreatSchools</title>
+
+        <!-- TODO: Remove temporary styles -->
+        <style type="text/css">
+            div.schoolThumbnailMap {
+                width: 130px;
+                height: 100px;
+            }
+            div.schoolThumbnailMap .terms-of-use-link {
+                display:block;
+            }
+        </style>
+    </head>
+
+    <c:set var="omniturePageName" value="Compare_overview" scope="request"/>
+    <!-- TODO -->
+    <ad:setSlotPrefix slotPrefix="Compare"/>
+    <map:setup/>
+
+    <gsml:body adPageName="compare" pageLayout="leftside">
+
+        <table border="1">
+            <!-- row header column -->
+            <col class="rowHeader"/>
+            <!-- School columns -->
+            <c:forEach items="${schools}" varStatus="loopStatus">
+                <col class="schoolColumn${loopStatus.index+1}"/>
+            </c:forEach>
+
+            <tr>
+                <th>School</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        <div>
+                            <link:schoolProfileOverview school="${school.school}">${school.name}</link:schoolProfileOverview>
+                        </div>
+                        <div>${school.street}</div>
+                        <div>${school.cityStateZip}</div>
+                        <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
+                        <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"/>
+                        <div>
+                            <gslink:realtorDotComLink school="${school.school}"
+                                                      customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
+                        </div>
+                        <div>
+                            <span class="sprite add2"><!-- do not collapse --></span>
+                            <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
+                        </div>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>GreatSchools Rating</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        <c:choose>
+                            <c:when test="${school.private}">
+                                <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                                <span class="privateRating">GreatSchools Ratings not available for private schools.</span>
+                            </c:when>
+                            <c:when test="${empty school.gsRating}">
+                                <span class="ratingNotApplicable">n/a</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
+                                <span class="gsRating">GreatSchools Rating out of 10</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>School type</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        ${school.type} ${school.gradeLevels}
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Total enrollment</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        ${school.enrollment}
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>District name</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        <c:if test="${not empty school.district}">
+                            <link:districtHome district="${school.district}" title="District information"
+                                    ><c:out value="${school.district.name}"
+                                            escapeXml="true"/></link:districtHome>
+                        </c:if>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        ${school.gender}
+                    </td>
+                </c:forEach>
+            </tr>
+        </table>
+        <div id="tracking">
+            <mod:tracking pageName="Compare_overview" hier1="Compare,CompareOverview"/>
+        </div>
+    </gsml:body>
+    </html>
+</jsp:root>
+
