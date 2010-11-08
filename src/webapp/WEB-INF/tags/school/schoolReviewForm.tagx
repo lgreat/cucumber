@@ -94,7 +94,6 @@
                 <input type="hidden" name="id" value="${schoolId}"/>
                 <input type="hidden" name="state" value="${state}"/>
                 <input type="hidden" name="source" value="${pageName}"/>
-                <input type="hidden" name="email" value="${requestScope.context.email}"/>
 
 
                 <div class="spacer_10"><!-- do not collapse --></div>
