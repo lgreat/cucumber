@@ -251,10 +251,14 @@
                     ${aboutTheseRatings}
                 </div>
             </c:when>
-            <c:otherwise>
+            <c:when test="${cmd.ratings.count gt 0}">
                 <div class="reviewSubRatings">
                     ${aboutTheseRatings}
                 </div>
+            </c:when>
+            <c:otherwise>
+                <div class="spacer_5"><!-- do not collapse --></div>
+                <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
             </c:otherwise>
         </c:choose>
         <!-- TODO-10495 - Randall - END subcategory ratings -->
