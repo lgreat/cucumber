@@ -2260,9 +2260,14 @@
           autowire="byType" scope="request" lazy-init="true">
         <property name="controllers">
             <list>
-                <!-- ref bean="directoryStructureUrlNoSchoolTypesController"/ -->
-                <!--ref bean="/search/schoolSearch.page"/-->
+                <!-- TODO-10701 uncomment the following to use OLD search -->
+                <!-- TODO-10701 comment out the following to use NEW search -->
+                <ref bean="directoryStructureUrlNoSchoolTypesController"/>
                 <ref bean="/schools.page"/>
+                <!-- TODO-10701 uncomment the following to use NEW search -->
+                <!-- TODO-10701 comment the following to use OLD search -->
+                <!--ref bean="/search/schoolSearch.page"/-->
+
                 <ref bean="/school/overview.page"/>
                 <!--<ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>-->
