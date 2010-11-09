@@ -49,7 +49,7 @@ Schools without lat/lon are skipped.
         LatLonRect r = new LatLonRect(schools);
         if (r.isCentered()) {
             request.setAttribute("center", r.getCenter());
-        } else {
+        } else if (lat != null && lon != null) {
             request.setAttribute("center", new LatLon(lat, lon));
         }
     }
