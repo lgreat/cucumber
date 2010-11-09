@@ -2261,8 +2261,8 @@
         <property name="controllers">
             <list>
                 <!-- ref bean="directoryStructureUrlNoSchoolTypesController"/ -->
-                <ref bean="/search/schoolSearch.page"/>
-                <!--<ref bean="/schools.page"/>-->
+                <!--ref bean="/search/schoolSearch.page"/-->
+                <ref bean="/schools.page"/>
                 <ref bean="/school/overview.page"/>
                 <!--<ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>-->
