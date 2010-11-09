@@ -568,7 +568,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             if("es".equalsIgnoreCase(language)){
                 _exactTargetAPI.sendTriggeredEmail("CB_Community_Notification_es", author, emailAttributes);
             }else{
-                _exactTargetAPI.sendTriggeredEmail("CB_triggered_test_send", author, emailAttributes);
+                _exactTargetAPI.sendTriggeredEmail("CB_Community_Notification", author, emailAttributes);
             }
         }
     }
