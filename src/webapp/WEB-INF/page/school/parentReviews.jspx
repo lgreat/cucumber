@@ -171,39 +171,59 @@
                         <span class="sprite stars_xl_${cmd.ratings.overall}_b"
                               title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>
 
-
-        <div class="spacer_5"><!-- do not collapse --></div>
-
-        <p class="smallText1">Based on
-            <span>${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}</p>
-
         <!-- TODO-10633 -->
         <c:if test="${not empty ratingsByYear}">
-            <div>
-                Community Rating by Year
+            <div class="spacer_5"><!-- do not collapse --></div>
+            <div id="js-bubbleInfo-7">
+                <div class="js-trigger">
+                    <p class="smallText1-06b">
+                        Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
+                    </p>
+                </div>
 
-                <c:forEach var="ratingsForYear" items="${ratingsByYear}">
-                    <div>
-                        year = <span class="year">${ratingsForYear.year}</span>:
-                        <c:choose>
-                            <c:when test="${ratingsForYear.numRatings gt 0}">
-                                numStars = <span class="numStars">${ratingsForYear.numStars}</span>,
-                                numRatings = <span class="numRatings">${ratingsForYear.numRatings}</span>
-                            </c:when>
-                            <c:otherwise>
-                                No new ratings
-                            </c:otherwise>
-                        </c:choose>
+                <div class="js-popup">
+                    <!--<div id="popup-contents-7" class="box-shadow text3">-->
+                    <div id="popup-contents-7" class="text3">
+                        <span class="arrow-outline-bottom"><!-- do not collapse --></span>
+                        <span class="arrow-bottom"><!-- do not collapse --></span>
+                        <h5 class="text3bold">Community Rating by Year</h5>
+                        <div class="spacer_5"><!-- do not collapse --></div>
+
+                        <c:forEach var="ratingByYear" items="${ratingsByYear}">
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                            <div class="line">
+                                <div class="unit size3of19">
+                                    <!-- year = -->
+                                    <span class="year smallText1-999">${ratingByYear.year}</span>:
+                                </div>
+                                <c:choose>
+                                    <c:when test="${ratingByYear.numRatings gt 0}">
+                                        <div class="unit size7of19">
+                                            <!-- numStars = -->
+                                            <span class="sprite stars_sm_${ratingByYear.numStars}"><!-- do not collapse --></span>
+                                        </div>
+                                        <div class="unit size9of19 lastUnit">
+                                            <!-- numRatings = -->
+                                            <span class="numRatings smallText1-06b">Based on ${ratingByYear.numRatings} ratings</span>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="unit size16of19 lastUnit">
+                                            <span class="smallText1-italic">No new ratings</span>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </c:forEach>
                     </div>
-                </c:forEach>
+                </div>
             </div>
         </c:if>
-
 
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
         <div class="spacer_10"><!-- do not collapse --></div>
 
-        <!-- TODO-10495 - Randall - START subcategory ratings -->
+        <!-- DONE-10495 - Randall - START subcategory ratings -->
         <c:set var="aboutTheseRatings">
             <div class="spacer_5"><!-- do not collapse --></div>
             <div class="infoBox1 smallText1">
@@ -214,7 +234,8 @@
                     <div class="bd">About these ratings</div>
                     </div>
                     <div class="js-popup">
-                        <div id="popup-contents-1" class="box-shadow text3">
+                        <!--<div id="popup-contents-1" class="box-shadow text3">-->
+                        <div id="popup-contents-1" class="text3">
                             <span class="arrow-outline-top"><!-- do not collapse --></span>
                             <span class="arrow-top"><!-- do not collapse --></span>
 
@@ -261,7 +282,7 @@
                 <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
             </c:otherwise>
         </c:choose>
-        <!-- TODO-10495 - Randall - END subcategory ratings -->
+        <!-- DONE-10495 - Randall - END subcategory ratings -->
 
     </div>
 </div>
@@ -326,10 +347,17 @@
     </div>
 </c:if>
 
-<div class="alertBox3 text2">
-    <p><span class="sprite emailIt"><!-- do not collapse --></span> Get email updates about this school. <a
-            class="text2bold-06b" href="#">Sign up now <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
-</div>
+<c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
+    <div class="alertBox3 text2">
+        <p><span class="sprite emailIt"><!-- do not collapse --></span> Get email updates about this school.
+            <link:newsletterManagement styleClass="text2bold-06b" schoolId="${school.id}"
+                                       schoolState="${school.databaseState}"
+                                       onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
+                Sign up now <span class="alertDoubleArrow">&amp;raquo;</span>
+            </link:newsletterManagement>
+        </p>
+    </div>
+</c:if>
 
 <c:if test="${empty principalReview}">
 
@@ -544,6 +572,7 @@
 <script type="text/javascript">
     jQuery(function () {
         jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
+        jQuery('#js-bubbleInfo-7').popup({appear:'above',leftPosition:-38,topPosition:-138});
     });
 </script>
 
