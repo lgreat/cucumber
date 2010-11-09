@@ -102,11 +102,11 @@ GS.form.SchoolReviewForm = function(id) {
         var valid = true;
         if (jQuery('#frmPRModule #reviewText').val().length > 1200) {
             valid = false;
-            alert("Please keep your comments to 1200 characters or less.");
+            //alert("Please keep your comments to 1200 characters or less.");
         }
         if (GS_countWords(document.getElementById('reviewText')) < 15) {
             valid = false;
-            alert("Please use at least 15 words in your comment.");
+            //alert("Please use at least 15 words in your comment.");
         }
         this.reviewTextValidated = valid;
     };
@@ -164,8 +164,15 @@ GS.form.SchoolReviewForm = function(id) {
             }
         } else {
             this.validateAll();
+            //handle review text field differently than the others - dont display validation errors until now.
             if (this.reviewTextValidated) {
                 alert("Please complete your review to submit.");
+            } else {
+                if (jQuery('#frmPRModule #reviewText').val().length > 1200) {
+                   alert("Please keep your comments to 1200 characters or less.");
+                } else if (GS_countWords(document.getElementById('reviewText')) < 15) {
+                   alert("Please use at least 15 words in your comment.");
+                }
             }
         }
         return false;
@@ -217,7 +224,6 @@ GS.form.SchoolReviewForm = function(id) {
     this.fields.termsOfUse.change(this.validateTermsOfUse.gs_bind(this));
 
 };
-
 
 
 var countWords = makeCountWords(150);
