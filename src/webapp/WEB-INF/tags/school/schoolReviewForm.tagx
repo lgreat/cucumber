@@ -625,7 +625,6 @@
 
         jQuery(function () {
             jQuery('#espLink').click(function() {
-                alert('booooo');
                 var schoolId = '${school.id}';
                 var schoolState = '${school.databaseState}';
 
