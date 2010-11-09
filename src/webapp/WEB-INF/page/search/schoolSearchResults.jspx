@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+    xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+    xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+    xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+    xmlns:link="urn:www.greatschools.org/taglib/link"
+    xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+    xmlns:gsweb="gstaglib">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>REPLACE ME</title>
+    </head>
+
+    <table id="school-search-results-table-header">
+        <colgroup>
+            <col align="center" width="62"/>
+            <col align="left" width="179"/>
+            <col align="right" width="90"/>
+            <col align="center" width="69"/>
+            <col align="center" width="7"/>
+        </colgroup>
+        <thead>
+            <tr class="smallText2bold">
+                <th align="center">COMPARE</th>
+                <th class="text-align-lft">SCHOOL</th>
+                <th align="center">GREATSCHOOLS RATING</th>
+                <th align="center">COMMUNITY RATING</th>
+                <th><!-- do not collapse --></th>
+            </tr>
+        </thead>
+    </table>
+    <table id="school-search-results-table-body">
+        <colgroup>
+            <col align="center" width="62"/>
+            <col align="left" width="212"/>
+            <col align="left" width="57"/>
+            <col align="center" width="76"/>
+        </colgroup>
+        <tbody>
+            <c:set var="count" value="0"/>
+
+            <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
+                <search:schoolSearchResult school="${s}"/>
+            </c:forEach>
+
+            <c:choose>
+                <c:when test="${totalPages gt 1}">
+                    <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="nearbySchoolClass" value="nearby-school"/>
+                </c:otherwise>
+            </c:choose>
+            <c:if test="${blankRows gt 0}">
+                <c:forEach begin="0" end="${blankRows - 1}">
+                    <tr class="${nearbySchoolClass}">
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+        </tbody>
+    </table>
+
+</jsp:root>

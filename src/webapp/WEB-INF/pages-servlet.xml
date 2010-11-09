@@ -442,6 +442,25 @@
         </property>
     </bean>
 
+    <bean name="/search/schoolSearch.page"
+          class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
+        <property name="commandName">
+            <value>schoolSearchCommand</value>
+        </property>
+        <property name="commandClass">
+            <value>gs.web.search.SchoolSearchCommand</value>
+        </property>
+        <property name="schoolSearchService">
+            <ref bean="luceneSchoolSearchService"/>
+        </property>
+        <property name="citySearchService">
+            <ref bean="luceneCitySearchService"/>
+        </property>
+        <property name="districtSearchService">
+            <ref bean="luceneDistrictSearchService"/>
+        </property>
+    </bean>
+
     <!-- Search end -->
 
     <!-- Content search begin -->
@@ -2242,10 +2261,11 @@
         <property name="controllers">
             <list>
                 <!-- ref bean="directoryStructureUrlNoSchoolTypesController"/ -->
-                <ref bean="/schools.page"/>
+                <ref bean="/search/schoolSearch.page"/>
+                <!--<ref bean="/schools.page"/>-->
                 <ref bean="/school/overview.page"/>
-                <ref bean="/district/districtHome.page"/>
-                <ref bean="/city.page"/>
+                <!--<ref bean="/district/districtHome.page"/>
+                <ref bean="/city.page"/>-->
                 <ref bean="/school/research.page"/>
             </list>
         </property>
