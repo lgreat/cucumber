@@ -22,6 +22,22 @@
 
         <!-- TODO: Remove temporary styles -->
         <style type="text/css">
+            div.leftSide {
+                width: 760px;
+                float: left;
+            }
+            div.rightSide {
+                width: 160px;
+                float: right;
+            }
+            div.compareNavigation {
+                background-color: #EBEBEB;
+                border: 1px solid #ccc;
+                border-bottom: 0;
+            }
+            table#compareTable {
+                border: 1px solid #ccc;
+            }
             div.schoolThumbnailMap {
                 width: 130px;
                 height: 100px;
@@ -34,98 +50,151 @@
 
     <c:set var="omniturePageName" value="Compare_overview" scope="request"/>
     <!-- TODO -->
-    <ad:setSlotPrefix slotPrefix="Compare"/>
+    <ad:setSlotPrefix slotPrefix="Compare_Page"/>
     <map:setup/>
 
     <gsml:body adPageName="compare" pageLayout="leftside">
 
-        <table border="1">
-            <!-- row header column -->
-            <col class="rowHeader"/>
-            <!-- School columns -->
-            <c:forEach items="${schools}" varStatus="loopStatus">
-                <col class="schoolColumn${loopStatus.index+1}"/>
-            </c:forEach>
-
-            <tr>
-                <th>School</th>
-                <c:forEach items="${schools}" var="school">
-                    <td>
-                        <div>
-                            <link:schoolProfileOverview school="${school.school}">${school.name}</link:schoolProfileOverview>
-                        </div>
-                        <div>${school.street}</div>
-                        <div>${school.cityStateZip}</div>
-                        <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
-                        <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"/>
-                        <div>
-                            <gslink:realtorDotComLink school="${school.school}"
-                                                      customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
-                        </div>
-                        <div>
-                            <span class="sprite add2"><!-- do not collapse --></span>
-                            <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
-                        </div>
-                    </td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <th>GreatSchools Rating</th>
-                <c:forEach items="${schools}" var="school">
-                    <td>
-                        <c:choose>
-                            <c:when test="${school.private}">
-                                <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                                <span class="privateRating">GreatSchools Ratings not available for private schools.</span>
-                            </c:when>
-                            <c:when test="${empty school.gsRating}">
-                                <span class="ratingNotApplicable">n/a</span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
-                                <span class="gsRating">GreatSchools Rating out of 10</span>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <th>School type</th>
-                <c:forEach items="${schools}" var="school">
-                    <td>
-                        ${school.type} ${school.gradeLevels}
-                    </td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <th>Total enrollment</th>
-                <c:forEach items="${schools}" var="school">
-                    <td>
-                        ${school.enrollment}
-                    </td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <th>District name</th>
-                <c:forEach items="${schools}" var="school">
-                    <td>
-                        <c:if test="${not empty school.district}">
-                            <link:districtHome district="${school.district}" title="District information"
-                                    ><c:out value="${school.district.name}"
-                                            escapeXml="true"/></link:districtHome>
+        <div class="leftSide">
+            <div class="compareHeader">
+                <div class="pagination">
+                    (${startIndex}-${endIndex} of ${totalSchools} schools)
+                    <c:if test="${totalSchools gt pageSize}">
+                        <c:set var="nextPage" value="2"/>
+                        <c:if test="${page eq 2}">
+                            <c:set var="nextPage" value="1"/>
                         </c:if>
-                    </td>
+                        <link:compareSchools tab="${tab}" schools="${schoolsString}"
+                                             page="${nextPage}">More schools (${totalSchools-pageSize})</link:compareSchools>
+                    </c:if>
+                </div>
+                <h2>Compare</h2>
+            </div>
+            <div class="compareNavigation">
+                <c:choose>
+                    <c:when test="${tab eq 'overview'}">Overview</c:when>
+                    <c:otherwise><link:compareSchools tab="overview" schools="${schoolsString}" page="${page}">Overview</link:compareSchools></c:otherwise>
+                </c:choose>
+                |
+                <c:choose>
+                    <c:when test="${tab eq 'ratings'}">Ratings &amp;amp; Reviews</c:when>
+                    <c:otherwise><a href="#" onclick="return false;">Ratings &amp;amp; Reviews</a></c:otherwise>
+                </c:choose>
+                |
+                <c:choose>
+                    <c:when test="${tab eq 'tests'}">Test Scores</c:when>
+                    <c:otherwise><a href="#" onclick="return false;">Test Scores</a></c:otherwise>
+                </c:choose>
+                |
+                <c:choose>
+                    <c:when test="${tab eq 'other'}">Teachers &amp;amp; Students</c:when>
+                    <c:otherwise><a href="#" onclick="return false;">Teachers &amp;amp; Students</a></c:otherwise>
+                </c:choose>
+                |
+                <c:choose>
+                    <c:when test="${tab eq 'programs'}">Programs &amp;amp; Extracurriculars</c:when>
+                    <c:otherwise><a href="#" onclick="return false;">Programs &amp;amp; Extracurriculars</a></c:otherwise>
+                </c:choose>
+                |
+                <c:choose>
+                    <c:when test="${tab eq 'map'}">Map</c:when>
+                    <c:otherwise><a href="#" onclick="return false;">Map</a></c:otherwise>
+                </c:choose>
+            </div>
+
+            <table id="compareTable" border="1">
+                <!-- row header column -->
+                <col class="rowHeader"/>
+                <!-- School columns -->
+                <c:forEach items="${schools}" varStatus="loopStatus">
+                    <col class="schoolColumn${loopStatus.index+1}"/>
                 </c:forEach>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <c:forEach items="${schools}" var="school">
-                    <td>
-                        ${school.gender}
-                    </td>
-                </c:forEach>
-            </tr>
-        </table>
+
+                <tr>
+                    <th>School</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td>
+                            <div>
+                                <link:schoolProfileOverview school="${school.school}">${school.name}</link:schoolProfileOverview>
+                            </div>
+                            <div>${school.street}</div>
+                            <div>${school.cityStateZip}</div>
+                            <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
+                            <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"/>
+                            <div>
+                                <gslink:realtorDotComLink school="${school.school}"
+                                                          customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
+                            </div>
+                            <div>
+                                <span class="sprite add2"><!-- do not collapse --></span>
+                                <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
+                            </div>
+                        </td>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <th>GreatSchools Rating</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td>
+                            <c:choose>
+                                <c:when test="${school.private}">
+                                    <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                                    <span class="privateRating">GreatSchools Ratings not available for private schools.</span>
+                                </c:when>
+                                <c:when test="${empty school.gsRating}">
+                                    <span class="ratingNotApplicable">n/a</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
+                                    <span class="gsRating">GreatSchools Rating out of 10</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <th>School type</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td>
+                            ${school.type} ${school.gradeLevels}
+                        </td>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <th>Total enrollment</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td>
+                            ${school.enrollment}
+                        </td>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <th>District name</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td>
+                            <c:if test="${not empty school.district}">
+                                <link:districtHome district="${school.district}" title="District information"
+                                        ><c:out value="${school.district.name}"
+                                                escapeXml="true"/></link:districtHome>
+                            </c:if>
+                        </td>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td>
+                            ${school.gender}
+                        </td>
+                    </c:forEach>
+                </tr>
+            </table>
+        </div>
+        <div class="rightSide">
+            <ad:AboveFold_Right_120x600 showAdWord="true"/>
+        </div>
+        <br class="clear"/>
+
         <div id="tracking">
             <mod:tracking pageName="Compare_overview" hier1="Compare,CompareOverview"/>
         </div>

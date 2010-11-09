@@ -24,7 +24,12 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final String PARAM_PAGE = "p";
     public static final String MODEL_SCHOOLS_STRING = "schoolsString";
     public static final String MODEL_SCHOOLS = "schools";
-//    public static final String MODEL_PAGE_NUMBER = "page";
+    public static final String MODEL_START_INDEX = "startIndex";
+    public static final String MODEL_END_INDEX = "endIndex";
+    public static final String MODEL_TOTAL_SCHOOLS = "totalSchools";
+    public static final String MODEL_TAB = "tab";
+    public static final String MODEL_PAGE_NUMBER = "page";
+    public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final int PAGE_SIZE = 4;
     public static final int MIN_SCHOOLS = 2;
     public static final int MAX_SCHOOLS = 8;
@@ -35,11 +40,11 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     @Override
     protected final ModelAndView handleRequestInternal(HttpServletRequest request,
                                                        HttpServletResponse response) {
-        List<ComparedSchoolBaseStruct> schools = getSchools(request);
+        Map<String, Object> model = new HashMap<String, Object>();
+        List<ComparedSchoolBaseStruct> schools = getSchools(request, model);
         if (schools == null) {
             return getErrorResponse("invalid school string");
         }
-        Map<String, Object> model = new HashMap<String, Object>();
         model.put(MODEL_SCHOOLS_STRING, request.getParameter(PARAM_SCHOOLS));
         try {
             handleCompareRequest(request, response, schools, model);
@@ -67,8 +72,15 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return new ModelAndView(_errorView, errorModel);
     }
 
-    protected String[] paginateSchools(HttpServletRequest request, String[] schoolsArray) {
+    protected String[] paginateSchools(HttpServletRequest request, String[] schoolsArray,
+                                       Map<String, Object> model) {
+        model.put(MODEL_TOTAL_SCHOOLS, schoolsArray.length);
+        model.put(MODEL_START_INDEX, 1);
+        model.put(MODEL_END_INDEX, PAGE_SIZE);
+        model.put(MODEL_PAGE_NUMBER, 1);
+        model.put(MODEL_PAGE_SIZE, PAGE_SIZE);
         if (schoolsArray.length <= PAGE_SIZE) {
+            model.put(MODEL_END_INDEX, schoolsArray.length);
             return schoolsArray;
         }
         String pageNumber = request.getParameter(PARAM_PAGE);
@@ -79,11 +91,14 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         int startIndex, endIndex;
         try {
             int nPageNumber = Integer.parseInt(pageNumber);
+            model.put(MODEL_PAGE_NUMBER, nPageNumber);
             endIndex = PAGE_SIZE * nPageNumber;
             if (endIndex > schoolsArray.length) {
                 endIndex = schoolsArray.length;
             }
             startIndex = endIndex - PAGE_SIZE;
+            model.put(MODEL_START_INDEX, startIndex+1);
+            model.put(MODEL_END_INDEX, endIndex);
             return (String[]) ArrayUtils.subarray(schoolsArray, startIndex, endIndex);
         } catch (NumberFormatException nfe) {
             _log.warn("Invalid page number: " + pageNumber);
@@ -132,7 +147,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return true;
     }
 
-    protected List<ComparedSchoolBaseStruct> getSchools(HttpServletRequest request) {
+    protected List<ComparedSchoolBaseStruct> getSchools(HttpServletRequest request, Map<String, Object> model) {
         String schoolsParamValue = request.getParameter(PARAM_SCHOOLS);
         if (StringUtils.isBlank(schoolsParamValue)) {
             _log.error("Compare schools string empty");
@@ -143,7 +158,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             return null;
         }
 
-        splitSchools = paginateSchools(request, splitSchools);
+        splitSchools = paginateSchools(request, splitSchools, model);
         List<ComparedSchoolBaseStruct> rval = new ArrayList<ComparedSchoolBaseStruct>(splitSchools.length);
         for (String splitSchool: splitSchools) {
             try {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.79 2010/07/14 23:38:25 yfan Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.80 2010/11/09 00:50:30 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -744,5 +744,28 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.setUsername("screenie");
         builder = handler.createUrlBuilder();
         assertEquals("/members/screenie/", builder.asSiteRelative(null));
+    }
+
+    public void testCompareSchoolsTagHandler() {
+        CompareSchoolsTagHandler handler = new CompareSchoolsTagHandler();
+        handler.setPageContext(new MockPageContext());
+
+        try {
+            handler.createUrlBuilder();
+            fail("Shouldn't be able to generate a compare link when tab is null");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
+
+        handler.setTab("overview");
+        handler.setSchools("ca1,ca2");
+        UrlBuilder builder;
+
+        builder = handler.createUrlBuilder();
+        assertEquals("/school-comparison-tool/results.page?schools=ca1%2Cca2", builder.asSiteRelative(null));
+
+        handler.setPage(2);
+        builder = handler.createUrlBuilder();
+        assertEquals("/school-comparison-tool/results.page?p=2&schools=ca1%2Cca2", builder.asSiteRelative(null));
     }
 }

@@ -17,7 +17,7 @@
 <jsp:directive.attribute name="zoomLevel" required="false" type="java.lang.Integer" description="Zoom level"/>
 
 <map:setup/>
-<pageHelper:addOnLoadHandler handler="doMiniMap()"/>
+<pageHelper:addOnLoadHandler handler="doMiniMap_${school.id}()"/>
 
 <gsml:url var="mapLink"
           value="/school/mapSchool.page?state=${school.databaseState.abbreviation}&amp;id=${school.id}"/>
@@ -35,13 +35,12 @@
 <!--
 ]]>
 
-var zoomLevel = ${not empty zoomLevel?zoomLevel:12};
-var displayTooltips = ${not empty tooltips};
-var centerPoint = new GLatLng(${center.lat}, ${center.lon});
-var schoolName = "${school.name}";
-var mapLink = '${mapLink}';
-
-function initMiniMap() {
+function initMiniMap_${school.id}() {
+    var zoomLevel = ${not empty zoomLevel?zoomLevel:12};
+    var displayTooltips = ${not empty tooltips};
+    var centerPoint = new GLatLng(${center.lat}, ${center.lon});
+    var schoolName = "${school.name}";
+    var mapLink = '${mapLink}';
     var i = 0;
     var tooltip = null;
     var map = new GMap2(document.getElementById("${id}"));
@@ -74,9 +73,9 @@ function addClickListener(marker, link) {
   GEvent.addListener(marker, "click", function() { location = link; });
 }
 
-function doMiniMap() {
+function doMiniMap_${school.id}() {
   if (GBrowserIsCompatible()) {
-      initMiniMap();
+      initMiniMap_${school.id}();
   }
 }
 -->

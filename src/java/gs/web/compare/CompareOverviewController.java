@@ -26,7 +26,7 @@ public class CompareOverviewController extends AbstractCompareSchoolController {
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
                                         List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) throws
                                                                                                        IOException {
-        // TODO
+        model.put(MODEL_TAB, "overview");
         handleGSRating(request, schools);
     }
 
@@ -42,13 +42,16 @@ public class CompareOverviewController extends AbstractCompareSchoolController {
 
         if (null != ratingsConfig) {
             for (ComparedSchoolBaseStruct baseStruct: schools) {
-                ComparedSchoolOverviewStruct struct = (ComparedSchoolOverviewStruct) baseStruct;
-                SchoolTestValue schoolTestValue =
-                        _testManager.getOverallRating(struct.getSchool(), ratingsConfig.getYear());
-                if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-                    struct.setGsRating(schoolTestValue.getValueInteger());
-                }
+                handleGSRating((ComparedSchoolOverviewStruct)baseStruct, ratingsConfig);
             }
+        }
+    }
+
+    protected void handleGSRating(ComparedSchoolOverviewStruct struct, IRatingsConfig ratingsConfig) {
+        SchoolTestValue schoolTestValue =
+                _testManager.getOverallRating(struct.getSchool(), ratingsConfig.getYear());
+        if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+            struct.setGsRating(schoolTestValue.getValueInteger());
         }
     }
 
@@ -57,6 +60,7 @@ public class CompareOverviewController extends AbstractCompareSchoolController {
         return new ComparedSchoolOverviewStruct();
     }
 
+    @Override
     public String getSuccessView() {
         return _successView;
     }

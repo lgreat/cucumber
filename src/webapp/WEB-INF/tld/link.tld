@@ -3934,5 +3934,35 @@
             <description>target window to open link in</description>
         </attribute>
     </tag>
+    <tag>
+        <name>compareSchools</name>
+        <tag-class>gs.web.jsp.link.CompareSchoolsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Compare schools</display-name>
+        <description>
+            <![CDATA[Compare a list of schools]]>
+        </description>
+        <attribute>
+            <name>tab</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>What tab on the compare page to highlight</description>
+        </attribute>
+        <attribute>
+            <name>schools</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated list of schools, as "ca1,ca2"</description>
+        </attribute>
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Page number</description>
+        </attribute>
+    </tag>
 
 </taglib>
