@@ -67,7 +67,10 @@ public class ResultsPagerTest extends TestCase {
         assertEquals("Expected (page size) results on last page", 10, results.size());
 
         results = pager.getResults(6, 10);
-        assertEquals("No hits should be returned if pages * page size > # of hits", 0, results.size());
+        assertNull("No hits should be returned if page * page size > # of hits", results);
+
+        results = pager.getResults(7, 10);
+        assertNull("No hits should be returned if page * page size > # of hits", results);
 
         results = pager.getResults(6, 9);
         assertEquals("Expected total hits - (page * page size)", 5, results.size());

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.58 2010/10/12 20:47:13 droy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.59 2010/11/09 03:27:25 droy Exp $
  */
 
 package gs.web.school;
@@ -543,6 +543,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
         List<SchoolSearchResult> p1schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        assertEquals(25, p1schools.size());
         for (SchoolSearchResult schoolResult : p1schools) {
             School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
@@ -564,11 +565,12 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(102, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
-        List<SchoolSearchResult> p2schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        List<SchoolSearchResult> p2schools = (List<SchoolSearchResult>) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        assertEquals(25, p2schools.size());
         for (SchoolSearchResult schoolResult : p2schools) {
             School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
-            assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
+            assertTrue("Found the same school on two pages", p1schools.indexOf(schoolResult) == -1);
         }
 
         // OK, jump to page #4
@@ -581,12 +583,13 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(102, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
-        List<SchoolSearchResult> p10schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (SchoolSearchResult schoolResult : p10schools) {
+        List<SchoolSearchResult> p4schools = (List<SchoolSearchResult>) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        assertEquals(25, p4schools.size());
+        for (SchoolSearchResult schoolResult : p4schools) {
             School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
-            assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
-            assertTrue("Found the same school on two pages", p2schools.indexOf(s) == -1);
+            assertTrue("Found the same school on two pages", p1schools.indexOf(schoolResult) == -1);
+            assertTrue("Found the same school on two pages", p2schools.indexOf(schoolResult) == -1);
         }
 
         // Check page #5
@@ -599,18 +602,27 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(102, modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
         assertEquals(25, modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(102, modelResults.get(SchoolsController.MODEL_TOTAL));
-        List<SchoolSearchResult> p11schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        assertEquals(2, p11schools.size());
-        for (SchoolSearchResult schoolResult : p11schools) {
+        List<SchoolSearchResult> p5schools = (List<SchoolSearchResult>) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        assertEquals(2, p5schools.size());
+        for (SchoolSearchResult schoolResult : p5schools) {
             School s = schoolResult.getSchool();
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
-            assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
-            assertTrue("Found the same school on two pages", p2schools.indexOf(s) == -1);
-            assertTrue("Found the same school on two pages", p10schools.indexOf(s) == -1);
+            assertTrue("Found the same school on two pages", p1schools.indexOf(schoolResult) == -1);
+            assertTrue("Found the same school on two pages", p2schools.indexOf(schoolResult) == -1);
+            assertTrue("Found the same school on two pages", p4schools.indexOf(schoolResult) == -1);
         }
 
         // Check page #6 redirects
         request.setParameter("p", "6");
+        mav = _controller.handleRequestInternal(request, getResponse());
+
+        assertNotNull("ModelAndView should not be null", mav);
+        assertTrue("ModelAndView should be a 301 redirect", mav.getView() instanceof RedirectView301);
+        assertEquals("Redirect view should be canonical url", testPageUrl, ((RedirectView301) mav.getView()).getUrl());
+
+        // Check page after the last exact multiple of pageSize redirects (GS-10794)
+        request.setParameter("p", "3");
+        request.setParameter("pageSize", "51");
         mav = _controller.handleRequestInternal(request, getResponse());
 
         assertNotNull("ModelAndView should not be null", mav);

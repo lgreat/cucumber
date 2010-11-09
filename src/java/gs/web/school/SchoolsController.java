@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.96 2010/10/12 20:47:13 droy Exp $
+ * $Id: SchoolsController.java,v 1.97 2010/11/09 03:27:26 droy Exp $
  */
 
 package gs.web.school;
@@ -445,7 +445,8 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
             Map<String, Object> resultsModel = new HashMap<String, Object>();
             List schoolResults = _resultsPager.getResults(page, pageSize);
-            if (schoolResults == null) {
+            if (schoolResults == null && page != 1) {
+                // GS-10408, GS-10794 -- redirect to canonical page when paging past end of results
                 return new ModelAndView(new RedirectView301(request.getRequestURI()));
             }
 

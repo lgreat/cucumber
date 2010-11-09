@@ -109,7 +109,7 @@ public class ResultsPager {
             int startIndex = pageSize > 0 ? (page - 1) * pageSize : 0;
             int endIndex = pageSize > 0 ? startIndex + pageSize : _hits.length();
 
-            if (startIndex > _hits.length()) {
+            if (startIndex >= _hits.length()) {
                 return null;
             }
 
@@ -122,7 +122,7 @@ public class ResultsPager {
                 for (int i = startIndex; i < endIndex; i++){
                     Document d;
 
-                    // if the _docList, the results aren't specially sorted.  So acceess _hits to get the document
+                    // if the _docList, the results aren't specially sorted.  So access _hits to get the document
                     if (_docList != null){
                         d = _docList.get(i);
                     } else {
