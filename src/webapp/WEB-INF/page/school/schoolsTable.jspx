@@ -63,16 +63,16 @@
 
 <c:choose>
     <c:when test="${isCityBrowse}">
-        <c:set var="pageName" value="schools:city:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}" />
-        <c:set var="hier1" value="Search,Schools,City,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"/>
+        <c:set var="pageName" value="schools:city:${(empty results.showAll) ? ((empty p ? '1' : p)) : 'all'}${param.map eq 1 ? ':map':''}" />
+        <c:set var="hier1" value="Search,Schools,City,${(results.total gt 0 ? ((empty results.showAll) ? ((empty p ? '1' : p)) : 'all') : 'noresults') }"/>
     </c:when>
     <c:when test="${isDistrictBrowse}">
-        <c:set var="pageName" value="schools:district:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}" />
-        <c:set var="hier1" value="Search,Schools,District,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"/>
+        <c:set var="pageName" value="schools:district:${(empty results.showAll) ? ((empty p ? '1' : p)) : 'all'}${param.map eq 1 ? ':map':''}" />
+        <c:set var="hier1" value="Search,Schools,District,${(results.total gt 0 ? ((empty results.showAll) ? ((empty p ? '1' : p)) : 'all') : 'noresults') }"/>
     </c:when>
     <c:otherwise>
         <c:set var="pageName" value="schools${param.map eq 1 ? ':map':''}" />
-        <c:set var="hier1" value="Search,Schools,Page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
+        <c:set var="hier1" value="Search,Schools,Page${results.total gt 0 ? (empty p ? '1' : p) : 'noresults'}"/>
     </c:otherwise>
 </c:choose>
 <c:set var="omniturePageName" value="${pageName}" scope="request"/>
@@ -428,7 +428,7 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
         <span class="query">${heading1}</span>
         <c:if test="${results.total gt 0}">
             <div id="resultspagination">
-                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                <c:set var="page" value="${(p > 0) ? (p-1) : 0}"/>
                 <c:set var="pageSize"
                        value="${ (not empty results.showAll) ? results.total : ((results.pageSize > 0) ? (results.pageSize) : 10)}"/>
                 <c:choose>
@@ -624,7 +624,7 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
         </div>
     </c:if>
 
-    <search:schoolsPagination currentPage="${(empty param.p) ? 1 : param.p}"
+    <search:schoolsPagination currentPage="${(empty p) ? 1 : p}"
                               resultCount="${results.total}" pageSize="${pageSize}" showAllThreshold="${showAllThreshold}"
                               schoolTypes="${st}" levelCode="${lc}" district="${districtObject}" cityName="${cityName}"
                               pageLinkOnClick="appendCompareSchools(this);"/>
