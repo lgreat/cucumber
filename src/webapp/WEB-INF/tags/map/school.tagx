@@ -36,8 +36,8 @@
             //execute the JS generated above
             ${js}
 
-            GS.map.schoolMap.addCenterSchool(jsCenterMapSchool,markerClickedCallback);
-            GS.map.schoolMap.addSchools(jsMapSchools);
+            GS.map.schoolMap.addCenterSchool(jsCenterMapSchool, markerClickedCallback);
+            GS.map.schoolMap.addSchools(jsMapSchools, markerClickedCallback);
             GS.map.schoolMap.showMarkerBubble(jsCenterMapSchool.databaseState, jsCenterMapSchool.id);
         });
     </script>

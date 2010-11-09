@@ -37,7 +37,7 @@
             ${js}
             
             GS.map.schoolMap.addCenterSchool(jsCenterMapSchool, markerClickedCallback);
-            GS.map.schoolMap.addSchools(jsMapSchools);
+            GS.map.schoolMap.addSchools(jsMapSchools, markerClickedCallback);
             GS.map.schoolMap.centerOnSchool(jsCenterMapSchool.databaseState, jsCenterMapSchool.id);
         });
     </script>

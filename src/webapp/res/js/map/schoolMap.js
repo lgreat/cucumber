@@ -273,7 +273,6 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 };
 
     var markerClickedCallback = function(state, id) {
-        return;
         jQuery('.bg-color-f4fafd input:not(:checked').each(function(item) {
             jQuery(this).parent().parent().removeClass('bg-color-f4fafd');
         });
