@@ -2589,6 +2589,10 @@
           class="gs.web.cbi.CBIIntegrationController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/cbi/GraduationCertificate.page"
+          class="gs.web.cbi.GraduationCertificateController"
+          autowire="byName" lazy-init="true"/>
+
     <!-- TODO-8998 remove this - for testing only -->
     <bean name="/contest/baseballBashForm.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
