@@ -224,6 +224,10 @@ GS.form.SchoolReviewForm = function(id) {
 var countWords = makeCountWords(150);
 
 function GS_postSchoolReview(email, callerFormId) {
+    //When this method is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
+    if (email != undefined && email != '') {
+        GS.form.schoolReviewForm.fields.email.val(email);
+    }
     var formData = jQuery('#frmPRModule').serialize();
     jQuery.post('/school/review/postReview.page', formData, function(data) {
         if (data.showHover != undefined && data.showHover == "emailNotValidated") {
