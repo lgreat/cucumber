@@ -860,6 +860,10 @@ GSType.hover.PrincipalConfirmation = function() {
     };
 
     this.show = function(id, state) {
+        if (!this.initialized) {
+            this.dialogByWidth();
+            this.initialized = true;
+        }
         jQuery('#principalConfirmationForm #hdnSchoolId').val(id);
         jQuery('#principalConfirmationForm #hdnSchoolState').val(state);
         jQuery('#principalConfirmationForm').attr("action", "/school/principalComments.page");

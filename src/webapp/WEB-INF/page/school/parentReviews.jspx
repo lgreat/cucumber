@@ -364,7 +364,7 @@
 <div class="spacer_15"><!-- do not collapse --></div>
 <div class="alertBox3 smallText1">
     <p><span class="sprite pencil_med"><!-- do not collapse --></span> PRINCIPALS &amp;amp; SCHOOL OFFICIALS: <a
-            class="text3-06b" href="#">Share your point of view <span class="alertDoubleArrow">&amp;raquo;</span></a>
+            class="text3-06b" href="#" id="espLink">Share your point of view <span class="alertDoubleArrow">&amp;raquo;</span></a>
     </p>
 </div>
 

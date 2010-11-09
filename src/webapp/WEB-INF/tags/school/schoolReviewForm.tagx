@@ -375,35 +375,6 @@
                 </c:when>
             </c:choose>
 
-            <!-- Force recalculation of column heights -->
-            <script type="text/javascript">
-                function GS_resizeColumns() {
-                    //document.getElementById('${mainColumnId}').style.height = null;
-                    //document.getElementById('col_right').style.height = null;
-                    //BoxHeights.equalize('${mainColumnId}','col_right');
-                }
-
-                jQuery(function () {
-                    jQuery('#espLink').click(function() {
-                        var schoolId = '${school.id}';
-                        var schoolState = '${school.databaseState}';
-
-                        if (s.tl) {
-                            s.tl(this, 'o', 'PrincipalUpdate_Parent_Reviews');
-                        }
-
-                        pageTracking.pageName = "School Officials Pre Signup Hover";
-                        pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
-                        pageTracking.server = "www.greatschools.org";
-                        pageTracking.send();
-
-                        GSType.hover.principalConfirmation.show(schoolId, schoolState);
-
-                        return false;
-                    });
-                });
-            </script>
-
             <div id="rateReview" class="noprint ${divClass}">
                 <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
                     <!--Begin star ratings.
@@ -644,4 +615,33 @@
         </c:otherwise>
     </c:choose>
 
+    <!-- Force recalculation of column heights -->
+    <script type="text/javascript">
+        function GS_resizeColumns() {
+            //document.getElementById('${mainColumnId}').style.height = null;
+            //document.getElementById('col_right').style.height = null;
+            //BoxHeights.equalize('${mainColumnId}','col_right');
+        }
+
+        jQuery(function () {
+            jQuery('#espLink').click(function() {
+                alert('booooo');
+                var schoolId = '${school.id}';
+                var schoolState = '${school.databaseState}';
+
+                if (s.tl) {
+                    s.tl(this, 'o', 'PrincipalUpdate_Parent_Reviews');
+                }
+
+                pageTracking.pageName = "School Officials Pre Signup Hover";
+                pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
+                pageTracking.server = "www.greatschools.org";
+                pageTracking.send();
+
+                GSType.hover.principalConfirmation.show(schoolId, schoolState);
+
+                return false;
+            });
+        });
+    </script>
 </jsp:root>
