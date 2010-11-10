@@ -48,6 +48,92 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_USE_PAGING = "usePaging";
 
     // TODO: GAM attributes
+    // SchoolsController:
+    // same value as MODEL_SCHOOL_TYPE
+    //            for (String schoolType : paramSchoolType) {
+    //                if (pageHelper != null) {
+    //                    pageHelper.addAdKeywordMulti("type", schoolType);
+    //                }
+    //            }
+    // district browse only:
+    // pageHelper.addAdKeyword("district_name", district.getName());
+    // pageHelper.addAdKeyword("district_id", district.getId().toString());
+    //
+    // SearchController:
+    //    // GS-10448
+    //    private void setCityGAMAttributes(HttpServletRequest request, List<Object> results) {
+    //        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+    //        if (pageHelper != null) {
+    //            Set<String> cityNames = new HashSet<String>();
+    //            for (Object result : results) {
+    //                if (result instanceof SchoolSearchResult) {
+    //                    SchoolSearchResult res = (SchoolSearchResult) result;
+    //                    cityNames.add(res.getSchool().getCity());
+    //                }
+    //            }
+    //
+    //            for (String cityName : cityNames) {
+    //                pageHelper.addAdKeywordMulti("city", cityName);
+    //            }
+    //        }
+    //    }
+    //
+    //    // GS-10642
+    //    private void setQueryGAMAttributes(HttpServletRequest request, String queryString) {
+    //        queryString = StringUtils.trimToNull(queryString);
+    //        if (StringUtils.isBlank(queryString)) {
+    //            return;
+    //        }
+    //
+    //        // also consider hyphens to be token separators
+    //        queryString = queryString.replaceAll("-"," ");
+    //
+    //        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+    //        if (pageHelper != null) {
+    //            String[] tokens = StringUtils.split(queryString);
+    //            List<String> tokenList = Arrays.asList(tokens);
+    //
+    //            Set<String> terms = new HashSet<String>(tokenList);
+    //            for (String term : terms) {
+    //                pageHelper.addAdKeywordMulti("query", term);
+    //            }
+    //        }
+    //    }
+    // 
+    // schoolResults.jspx: (view for SearchController)
+    //        gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+    //        LevelCode levelCode = (LevelCode) request.getAttribute("levelCode");
+    //        if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
+    //        for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
+    //            pageHelper.addAdKeywordMulti("level", level.getName());
+    //
+    //        String q = request.getParameter("q");
+    //        if (q != null &amp;&amp; q.trim().matches("^\\d{5}$")) {
+    //            pageHelper.addAdKeyword("zipcode", q);
+    //        }
+    // schoolsTable.jspx: (view for SchoolsController)
+    //
+    //    gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+    //    if (null != pageHelper) {
+    //        String city = (String) request.getAttribute("cityName");
+    //        if (city != null) {
+    //            pageHelper.addAdKeyword("city", city);
+    //
+    //            StringBuilder adSenseHint = new StringBuilder();
+    //            adSenseHint.append(city.toLowerCase());
+    //            adSenseHint.append(" ");
+    //            adSenseHint.append(SessionContextUtil.getSessionContext(request).getStateOrDefault().getLongName().toLowerCase());
+    //            adSenseHint.append(" real estate house homes for sale");
+    //            pageHelper.addAdSenseHint(adSenseHint.toString());
+    //        }
+    //        LevelCode levelCode = (LevelCode) request.getAttribute("lc");
+    //        if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
+    //        for (LevelCode.Level level : levelCode.getIndividualLevelCodes()) {
+    //            pageHelper.addAdKeywordMulti("level", level.getName());
+    //        }
+    //    }
+
+
     // TODO: Omniture tracking
     // TODO: rel="canonical"
 
