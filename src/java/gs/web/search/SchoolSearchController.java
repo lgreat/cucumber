@@ -12,6 +12,9 @@ import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.AnnotationIntrospector;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
@@ -144,8 +147,6 @@ public class SchoolSearchController extends AbstractCommandController implements
             //TODO: handle errors
         }
 
-        String format = String.valueOf(request.getParameter("format"));
-        
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
 
         State state = getStateManager().getState(schoolSearchCommand.getState());
@@ -179,18 +180,22 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         addPagingDataToModel(schoolSearchCommand, searchResults, model);
 
-        if ("json".equals(format)) {
-            //TODO: find better way to generate JSON
-            List<Map<String,Object>> searchResultsJson = new ArrayList<Map<String,Object>>();
-            for (ISchoolSearchResult result : searchResults) {
-                searchResultsJson.add(result.toMap());
-            }
-            model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsJson);
-            return successJSON(response, model);
+        model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResults);
+
+        if (schoolSearchCommand.isJsonFormat()) {
+            response.setContentType("application/json");
+            ObjectMapper mapper = new ObjectMapper();
+            AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
+            // make deserializer use JAXB annotations (only)
+            mapper.getDeserializationConfig().setAnnotationIntrospector(introspector);
+            // make serializer use JAXB annotations (only)
+            mapper.getSerializationConfig().setAnnotationIntrospector(introspector);
+            mapper.writeValue(response.getWriter(), model);
+            return null;
         } else {
-            model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResults);
+            return new ModelAndView("/search/schoolSearchResults", model);
         }
-        return new ModelAndView("/search/schoolSearchResults", model);
+
     }
 
     protected void addPagingDataToModel(SchoolSearchCommand schoolSearchCommand, List<ISchoolSearchResult> searchResults, Map<String,Object> model) {
@@ -307,24 +312,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         FieldFilter filter = FieldFilter.GradeLevelFilter.valueOf(StringUtils.upperCase(level.getLongName()));
         return filter;
-    }
-
-    protected ModelAndView successJSON(HttpServletResponse response, Map<String,Object> model) throws IOException {
-        HashMap<Object,Object> responseValues = new HashMap<Object,Object>();
-        
-        Set<Map.Entry<String,Object>> entries = model.entrySet();
-        for (Map.Entry<String,Object> entry : entries) {
-            responseValues.put(entry.getKey(), entry.getValue());
-        }
-
-        responseValues.put("status", "true");
-        response.setContentType("text/x-json");
-        if (responseValues != null && responseValues.size() > 0) {
-            String jsonString = new JSONObject(responseValues).toString();
-            response.getWriter().print(jsonString);
-        }
-        response.getWriter().flush();
-        return null;
     }
 
     public ISchoolDao getSchoolDao() {

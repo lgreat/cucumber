@@ -112,7 +112,7 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
             mixedQuery.add(query, BooleanClause.Occur.MUST);
         }
 
-        mixedQuery.add(new TermQuery(new Term("type", "school")), BooleanClause.Occur.SHOULD);
+        mixedQuery.add(new TermQuery(new Term("type", "school")), BooleanClause.Occur.MUST);
 
         Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
         for (Map.Entry<FieldConstraint, String> entry : entrySet) {

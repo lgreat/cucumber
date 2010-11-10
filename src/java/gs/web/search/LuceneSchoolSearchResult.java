@@ -10,20 +10,27 @@ import gs.data.state.StateManager;
 import gs.data.util.Address;
 import org.apache.lucene.document.Document;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.xml.bind.annotation.*;
 
+/* http://jackson-users.ning.com/forum/topics/jaxb-xmlelement-replacement */
+@XmlType(propOrder={"id","databaseState","name","address","phone","latLon","levelCode","schoolType","greatSchoolsRating","parentRating"})
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class LuceneSchoolSearchResult implements ISchoolSearchResult {
 
-    Document _document;
+    private Document _document;
 
-    StateManager _stateManager;
+    private StateManager _stateManager;
+
+    public LuceneSchoolSearchResult() {
+        // empty constructor required by JAXB
+    }
 
     public LuceneSchoolSearchResult(Document document) {
         _document = document;
         _stateManager = new StateManager();
     }
 
+    @XmlTransient
     public Document getDocument() {
         return _document;
     }
@@ -32,6 +39,7 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         _document = document;
     }
 
+    @XmlElement
     public Integer getId() {
         String indexedSchoolId = _document.get(Indexer.ID);
         Integer returnId = null;
@@ -41,14 +49,17 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         return null;
     }
 
+    @XmlElement
     public State getDatabaseState() {
         return getStateManager().getState(_document.get(IndexField.STATE));
     }
 
+    @XmlElement
     public String getName() {
         return _document.get(Indexer.SORTABLE_NAME);
     }
 
+    @XmlElement
     public Address getAddress() {
         Address address = new Address(
                 _document.get(Indexer.STREET),
@@ -59,10 +70,12 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         return address;
     }
 
+    @XmlElement
     public String getPhone() {
         return null; //TODO: index phone
     }
 
+    @XmlElement
     public LatLon getLatLon() {
         String latitude = _document.get(Indexer.LATITUDE);
         String longitude = _document.get(Indexer.LONGITUDE);
@@ -76,7 +89,8 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         return latLon;
     }
 
-    public LevelCode getLevelCode() {
+    @XmlElement
+    public String getLevelCode() {
         String[] levelCodeArray = _document.getValues(IndexField.GRADE_LEVEL);
         LevelCode levelCode = null;
 
@@ -84,18 +98,24 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
             levelCode = LevelCode.createLevelCode(_document.getValues(IndexField.GRADE_LEVEL));
         }
         
-        return levelCode;
+        if (levelCode != null) {
+            return levelCode.getCommaSeparatedString();
+        }
+        return null;
     }
 
-    public SchoolType getSchoolType() {
+    @XmlElement
+    public String getSchoolType() {
         SchoolType type = null;
         String t = _document.get(IndexField.SCHOOL_TYPE);
         if (t != null) {
             type = SchoolType.getSchoolType(t);
+            return type.getName();
         }
-        return type;
+        return null;
     }
 
+    @XmlElement
     public Integer getGreatSchoolsRating() {
         String rating = _document.get(Indexer.OVERALL_RATING);
         Integer iRating = null;
@@ -105,6 +125,7 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         return iRating;
     }
 
+    @XmlElement
     public Integer getParentRating() {
         //some of below logic copied from SchoolSearchResult.java
         Integer rating = null;
@@ -120,46 +141,12 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         return rating;
     }
 
+    @XmlTransient
     public StateManager getStateManager() {
         return _stateManager;
     }
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
-    }
-
-    public Map<String,Object> toMap() {
-        Map<String,Object> result = new HashMap<String,Object>();
-        result.put("id",getId());
-        result.put("databaseState", getDatabaseState());
-        result.put("name", getName());
-        Address address = getAddress();
-        if (address != null) {
-            Map<String,Object> addressMap = new HashMap<String,Object>();
-            addressMap.put("street", address.getStreet());
-            addressMap.put("streetLine2", address.getStreetLine2());
-            addressMap.put("cityStateZip", address.getCityStateZip());
-            result.put("address", addressMap);
-        }
-        if (getPhone() != null) {
-            result.put("phone", getPhone());
-        }
-        if (this.getLatLon() != null) {
-            result.put("latitude", getLatLon().getLat());
-            result.put("longitude", getLatLon().getLon());
-        }
-        if (getLevelCode() != null) {
-            result.put("levelCode", getLevelCode().toString());
-        }
-        if (getSchoolType() != null) {
-            result.put("schoolType", this.getSchoolType().getSchoolTypeName());
-        }
-        if (getGreatSchoolsRating() != null) {
-            result.put("greatSchoolsRating", getGreatSchoolsRating());
-        }
-        if (getParentRating() != null) {
-            result.put("parentRating", getParentRating());
-        }
-        return result;
     }
 }

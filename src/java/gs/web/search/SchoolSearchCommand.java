@@ -5,6 +5,7 @@ public class SchoolSearchCommand {
     private String _searchString;
     private String _state;
     private String[] _schoolTypes;
+    private String _format = "html";
     /**
      * Valid values are: [p e m h]
      */
@@ -85,5 +86,17 @@ public class SchoolSearchCommand {
 
     public void setPageSize(Integer pageSize) {
         _pageSize = pageSize;
+    }
+
+    public String getFormat() {
+        return _format;
+    }
+
+    public void setFormat(String format) {
+        _format = format;
+    }
+
+    public boolean isJsonFormat() {
+        return "json".equals(_format);
     }
 }
