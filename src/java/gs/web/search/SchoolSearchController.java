@@ -4,6 +4,8 @@ import gs.data.json.JSONObject;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
+import gs.data.school.district.District;
+import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -24,6 +26,8 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     private ISchoolDao _schoolDao;
 
+    private IDistrictDao _districtDao;
+
     private SchoolSearchService _schoolSearchService;
 
     private CitySearchService _citySearchService;
@@ -42,6 +46,10 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_CURRENT_PAGE = "currentPage";
     public static final String MODEL_USE_PAGING = "usePaging";
+
+    // TODO: GAM attributes
+    // TODO: Omniture tracking
+    // TODO: rel="canonical"
 
     @Override
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
@@ -122,10 +130,19 @@ public class SchoolSearchController extends AbstractCommandController implements
         Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 
+        State state = null;
         if (schoolSearchCommand.getState() != null) {
-            fieldConstraints.put(FieldConstraint.STATE, schoolSearchCommand.getState());
+            try {
+                state = State.fromString(schoolSearchCommand.getState());
+            } catch (IllegalArgumentException e) {
+                // invalid state
+            }
         } else if (fields.getState() != null) {
+            state = fields.getState();
             fieldConstraints.put(FieldConstraint.STATE, fields.getState().getAbbreviationLowerCase());
+        }
+        if (state != null) {
+            fieldConstraints.put(FieldConstraint.STATE, state.getAbbreviationLowerCase());
         }
 
         String city = fields.getCityName();
@@ -134,11 +151,11 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         String districtName = fields.getDistrictName();
-        //TODO: handle district name constraint?
-
-        String districtId = request.getParameter("districtId");
-        if (!StringUtils.isBlank(districtId)) {
-            fieldConstraints.put(FieldConstraint.DISTRICT_ID, districtId);
+        if (!StringUtils.isBlank(districtName) && state != null && !StringUtils.isBlank(city)) {
+            District district = _districtDao.findDistrictByNameAndCity(state, districtName, city);
+            if (district != null) {
+                fieldConstraints.put(FieldConstraint.DISTRICT_ID, String.valueOf(district.getId()));
+            }
         }
 
         return fieldConstraints;
@@ -230,6 +247,14 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public IDistrictDao getDistrictDao() {
+        return _districtDao;
+    }
+
+    public void setDistrictDao(IDistrictDao districtDao) {
+        _districtDao = districtDao;
     }
 
     public SchoolSearchService getSchoolSearchService() {
