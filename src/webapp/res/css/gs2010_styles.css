@@ -8556,7 +8556,7 @@ body.ie8 span.arrow-top {
 }
 
 /* skin right arrow */
-span.arrow-outline-shadow-right {
+/*span.arrow-outline-shadow-right {
     font-size: 0px;
     line-height: 0%;
     width: 0px;
@@ -8564,7 +8564,7 @@ span.arrow-outline-shadow-right {
     border-left: 15px solid #333;
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
     background: none;
-}
+}*/
 
 span.arrow-outline-right {
     font-size: 0px;
