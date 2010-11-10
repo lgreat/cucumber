@@ -300,14 +300,16 @@
 
         <div class="spacer_5"><!-- do not collapse --></div>
         <div class="principalsIMG">
-                <c:if test="${principalReview.user.userProfile.active}">
+                <c:if test="${not empty principalReview.user and
+                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
                     <link:userProfile user="${principalReview.user}">
                         <community:avatar user="${principalReview.user}" width="46" height="46"/>
                     </link:userProfile>
                 </c:if>
         </div>
         <c:choose>
-            <c:when test="${principalReview.who eq 'principal' and not empty(principalReview.user)}">
+            <c:when test="${principalReview.who eq 'principal' and not empty principalReview.user and
+                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
                 <c:set var="principalName" value="${principalReview.user.firstName}"/>
                 <c:if test="${not empty (principalReview.user.lastName)}">
                     <c:set var="principalName" value="${principalName} ${principalReview.user.lastName}"/>
