@@ -392,11 +392,13 @@ public class SchoolSearchController extends AbstractCommandController implements
             schoolsController =  true;
         }
 
+        //TODO: should these be removed?
         //copied from CityController
-        cityController = fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
+        //cityController = fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
 
+        //TODO: should these be removed?
         //copied from DistrictController
-        districtController = fields.hasState() && fields.hasCityName() && fields.hasDistrictName();
+        //districtController = fields.hasState() && fields.hasCityName() && fields.hasDistrictName();
 
         return schoolsController || cityController || districtController;
 
