@@ -177,7 +177,7 @@
             <div id="js-bubbleInfo-7">
                 <div class="js-trigger">
                     <p class="smallText1-06b">
-                        Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
+                        Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'} <span class="sprite i-sparklet"><!-- do not collapse --></span>
                     </p>
                 </div>
 
@@ -572,7 +572,7 @@
 <script type="text/javascript">
     jQuery(function () {
         jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
-        jQuery('#js-bubbleInfo-7').popup({appear:'above',leftPosition:-38,topPosition:-138});
+        jQuery('#js-bubbleInfo-7').popup({appear:'above',leftPosition:-38,topPosition:-120});
     });
 </script>
 
