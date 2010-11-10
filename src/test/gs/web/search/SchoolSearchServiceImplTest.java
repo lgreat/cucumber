@@ -51,6 +51,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -65,6 +66,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -79,6 +81,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -93,6 +96,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -107,6 +111,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.PRESCHOOL.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -123,6 +128,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, LevelCode.MIDDLE.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -137,6 +143,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.OR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -151,6 +158,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.OR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.CHARTER.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -165,6 +173,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.OR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PRIVATE.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -179,6 +188,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.AR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -193,6 +203,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.AR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.PRESCHOOL.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.SCHOOL_TYPE, SchoolType.PRIVATE.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         document = new Document();
@@ -207,6 +218,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.AR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_SCHOOL, Field.Store.YES, Field.Index.TOKENIZED));
         writer.addDocument(document);
 
         writer.close();
