@@ -134,6 +134,7 @@
 
 <tr>
 <!-- Compare Box -->
+<variant:a>
 <td valign="top">
 <div class="middleTitle">
     <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
@@ -420,6 +421,156 @@
         </div>
 
     </div></td>
+</variant:a>
+<variant:b>
+    <td colspan="3" valign="top">
+            <div class="middleTitle">
+        <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
+    </div>
+
+    <div class="findBox btest">
+
+
+
+        <gsweb:form action="/search/search.page" method="get" styleClass="goInterstitial dotted">
+            <input type="hidden" name="c" value="school" />
+            <table width="264" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td rowspan="4" valign="top" class="yellowArrow">
+                        <img style="width: 22px;" alt=""
+                             src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td colspan="2" valign="top">
+                        <img src="/res/img/content/research/t_search_schools.gif"
+                             width="137"
+                             height="28"
+                             alt="Find schools nationwide"
+                             border="0"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="districtText2">
+                        <img style="height: 18px;" alt=""
+                             src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
+                        <br/>
+                        Name, District, or City</td>
+                </tr>
+                <tr>
+                    <td valign="bottom" style="padding-bottom:4px;">
+                        <input type="text" name="q" class="district formText"/>
+                        <img style="width:4px;height:10px;" alt=""
+                             src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
+                        <gsweb:stateSelector useNoState="${empty stateOrNull}"
+                                             styleId="stateSelector3"
+                                             usingLongNames="false"
+                                             state="${requestScope.context.state}" styleClass="state2 formText"/>
+                    </td>
+                    <td valign="bottom"><input
+                            onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
+                            onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
+                            onclick="return checkStateSelection('stateSelector3');"
+                            class="button" style="width:41px;height:26px;padding-bottom:2px;" alt="Find ${requestScope.context.state.longName} Schools"
+                            src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img style="width: 184px;height:15px;" alt=""
+                             src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+
+
+
+
+        <div class="middleBottom">
+            <!-- non-breaking space preserves alignment when districts link isn't shown -->
+            &#160;
+            <c:if test="${stateOrNull ne null}">
+                <link:districts styleClass="underline" state="${stateOrNull}">Browse by district &#62;</link:districts>
+            </c:if>
+            <br />
+            <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="underline">Search near an address &#62;</gsml:a>
+        </div>
+        </gsweb:form>
+        <gsweb:form action="/school/research.page" method="get" styleClass="goInterstitial">
+            <input name="form" value="cities" type="hidden" />
+            <table width="254" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td rowspan="3" valign="top" class="yellowArrow">
+                        <img style="width: 22px;" alt="" src="/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_find_city.gif"
+                                                      width="232"
+                                                      height="14"
+                                                      alt="Find Top-Rated ${stateOrNull.longName} schools in a city"
+                                                      border="0"/><br/>
+                        <img style="height: 11px;" alt=""
+                             src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:3px;">All
+                        <gsweb:stateSelector useNoState="${empty stateOrNull}"
+                                             styleId="stateSelector2"
+                                             usingLongNames="true"
+                                             state="${requestScope.context.state}" styleClass="state formText"/>
+                        cities<br/>
+                        <img style="height: 9px;" alt=""
+                             src="http://www.greatschools.org/res/img/header/clear_pix.gif"/>
+                        <br/>
+                        <c:if test="${stateOrNull ne 'DC'}">
+                            <c:forEach var="city" items="${cities}">
+                                <c:if test="${not empty city.link}">
+                                    <a href="${city.link}" class="arrowLink">${city.name} schools</a>
+                                </c:if>
+                                <br/>
+                            </c:forEach>
+                        </c:if>
+                    </td>
+
+                    <td valign="top"><input onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
+                                            onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
+                                            onclick="return checkStateSelection('stateSelector2');"
+                                            class="button" style="width:41px;height:26px;" alt="Find ${requestScope.context.state.longName} Schools"
+                                            src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
+                        <c:if test="${stateOrNull ne null and stateOrDefault.abbreviation ne 'DC'}">
+                            <noscript>
+                                <br />
+                                <div style="line-height: 6px;">&#160;</div>
+                                <link:cities state="${stateOrNull}" styleClass="arrowLink">All ${stateOrNull.longName} cities</link:cities>
+                            </noscript>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <c:choose>
+                        <c:when test="${stateOrDefault.abbreviation eq 'DC'}">
+                            <td  colspan="2">
+                                <img style="width: 164px;height: 2px;" alt=""
+                                     src="http://www.greatschools.org/res/img/header/clear_pix.gif"/><br/>
+                                <gsml:a href="/washington-dc/washington/schools/" styleClass="arrowLink">View all Washington DC schools</gsml:a><br />
+                                <gsml:a href="/city/washington/DC" styleClass="arrowLink">View Washington DC city information</gsml:a>
+                                <br/><br/><br/><br/>
+                            </td>
+                        </c:when>
+                        <c:otherwise>
+                            <td><img style="width: 164px;height: 8px;" alt=""
+                                     src="http://www.greatschools.org/res/img/header/clear_pix.gif"/></td>
+                            <td><img style="width: 68px;height: 8px;" alt=""
+                                     src="http://www.greatschools.org/res/img/header/clear_pix.gif"/></td>
+                        </c:otherwise>
+                    </c:choose>
+                </tr>
+            </table>
+        </gsweb:form>
+
+    </div>
+    </td>
+
+</variant:b>
 </tr>
     <tr>
         <td valign="top" colspan="6"><img style="height: 14px;" alt=""

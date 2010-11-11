@@ -10,6 +10,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           version="2.0">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 
@@ -159,12 +160,20 @@
                         <form method="get" action="/stateLauncher.page" onsubmit="return findAndCompareCheck('schoolChoiceQuery', 'searchState', 'p');">
 
                         <div class="searchContent">
+                            <variant:a>
                             <input type="text" maxlength="75" name="q" id="schoolChoiceQuery"
                                    value="Search for school, district or city"
                                    class="searchInput"
                                    onfocus="textSwitch(this, '', 'Search for school, district or city');"
                                    onblur="textSwitch(this, 'Search for school, district or city', '');"/>
-
+                            </variant:a>
+                            <variant:b>
+                            <input type="text" maxlength="75" name="q" id="schoolChoiceQuery"
+                                   value="Search for school, city or zipcode"
+                                   class="searchInput"
+                                   onfocus="textSwitch(this, '', 'Search for school, city or zipcode');"
+                                   onblur="textSwitch(this, 'Search for school, city or zipcode', '');"/>
+                            </variant:b>
                             <gsweb:stateSelector styleClass="searchDropdown" name="state"
                                                  styleId="searchState"
                                                  state="${requestScope.context.state}"
@@ -176,7 +185,7 @@
                         </div>
 
                         </form>
-
+                        <variant:a>
                         <p class="searchOr">OR</p>
 
                         <h3 class="searchHeader">Compare schools <span class="gray">near an address</span></h3>
@@ -221,7 +230,7 @@
                                 </div>
                             </gsweb:form>
                         </div>
-
+                        </variant:a>
                         <div class="hr">
                             <hr/>
                         </div>
