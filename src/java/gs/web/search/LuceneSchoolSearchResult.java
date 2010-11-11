@@ -46,7 +46,7 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         if (indexedSchoolId != null) {
             returnId = Integer.valueOf(_document.get(Indexer.ID));
         }
-        return null;
+        return returnId;
     }
 
     @XmlElement
