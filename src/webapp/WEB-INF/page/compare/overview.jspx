@@ -24,10 +24,12 @@
         <!-- TODO: Remove temporary styles -->
         <style type="text/css">
             div.leftSide {
+                margin: 5px 0 0 12px;
                 width: 760px;
             }
             div.rightSide {
                 width: 160px;
+                margin: 23px 12px 0 0;
             }
             div.compareNavigation {
                 background-color: #EBEBEB;
@@ -36,6 +38,9 @@
             }
             table#compareTable {
                 border: 1px solid #ccc;
+            }
+            table#compareTable td {
+                vertical-align: top;
             }
             div.schoolThumbnailMap {
                 width: 130px;
@@ -83,6 +88,14 @@
                     <th>School</th>
                     <c:forEach items="${schools}" var="school">
                         <td>
+                            <!-- Remove school -->
+                            <c:if test="${totalSchools gt 2}">
+                                <span class="fltrt">
+                                    <link:compareSchools tab="overview" schools="${schoolsString}" page="${page}"
+                                                         remove="${school.uniqueIdentifier}"
+                                            ><span class="sprite close2"><!-- do not collapse --></span></link:compareSchools>
+                                </span>
+                            </c:if>
                             <div>
                                 <link:schoolProfileOverview school="${school.school}">${school.name}</link:schoolProfileOverview>
                             </div>

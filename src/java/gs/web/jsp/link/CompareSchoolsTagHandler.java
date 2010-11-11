@@ -1,6 +1,7 @@
 package gs.web.jsp.link;
 
 import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -10,10 +11,11 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
     private String _schools;
     private String _tab;
     private Integer _page;
+    private String _remove;
 
     @Override
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder builder = null;
+        UrlBuilder builder;
         if (StringUtils.equals("overview", _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_OVERVIEW);
         } else if (StringUtils.equals("map", _tab)) {
@@ -22,6 +24,10 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
             throw new IllegalArgumentException("Tab not recognized for compare: " + _tab);
         }
 
+        if (StringUtils.isNotEmpty(_remove)) {
+            String[] schoolsArr = (String[]) ArrayUtils.removeElement(_schools.split(","), _remove);
+            _schools = StringUtils.join(schoolsArr, ",");
+        }
         builder.setParameter("schools", _schools);
 
         if (_page != null && _page > 1) {
@@ -53,5 +59,13 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
 
     public void setPage(Integer page) {
         _page = page;
+    }
+
+    public String getRemove() {
+        return _remove;
+    }
+
+    public void setRemove(String remove) {
+        _remove = remove;
     }
 }

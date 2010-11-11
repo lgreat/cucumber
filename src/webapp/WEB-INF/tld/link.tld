@@ -3963,6 +3963,13 @@
             <type>java.lang.Integer</type>
             <description>Page number</description>
         </attribute>
+        <attribute>
+            <name>remove</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>School identifier to remove from list, as "ca1"</description>
+        </attribute>
     </tag>
 
 </taglib>
