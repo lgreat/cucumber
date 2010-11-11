@@ -500,7 +500,8 @@ ul.horizontal li {
 .shareThis {
     font: 11px/1.0 Arial, Arial, Helvetica, sans-serif;
     float: left;
-    padding: 3px 0;
+    padding: 3px 0 8px 10px;
+
 }
 
 #content .shareThis a {
@@ -615,10 +616,10 @@ ul.horizontal li {
 #ss_footer {
     clear: both;
     background: #ececec;
-    width: 588px;
-    height: 23px;
+    width: 608px;
     border-top: 1px dotted #999;
-    padding: 10px;
+    padding: 10px 0;
+    overflow: hidden;
 }
 
 .ss_image {
@@ -675,7 +676,7 @@ ul.horizontal li {
 .stepNav {
     width: 204px;
     float: right;
-    padding: 3px 0;
+    padding: 3px 10px 8px 0;
 }
 
 .prev {

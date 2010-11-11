@@ -339,17 +339,17 @@
 
             </c:forEach>
 
-            <!-- TODO-10708 -->
-            <ad:adTag position="Sponsor_BelowFold_610x38"/>
-
             <c:if test="${param.print ne 'true'}">
                 <div id="ss_footer" class="rounded_bottom">
                     <!-- share this -->
                     <cms:communityDistribution content="${feature}"/>
                     ${stepNavContent}
+            <!-- TODO-10708 -->
+            <ad:adTag position="Sponsor_BelowFold_610x38"/>
                 </div>
                 <!-- ss_footer -->
             </c:if>
+
 
         </div><!-- slideshow -->
 
