@@ -8,6 +8,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -24,11 +25,9 @@
         <style type="text/css">
             div.leftSide {
                 width: 760px;
-                float: left;
             }
             div.rightSide {
                 width: 160px;
-                float: right;
             }
             div.compareNavigation {
                 background-color: #EBEBEB;
@@ -49,13 +48,12 @@
     </head>
 
     <c:set var="omniturePageName" value="Compare_overview" scope="request"/>
-    <!-- TODO -->
     <ad:setSlotPrefix slotPrefix="Compare_Page"/>
     <map:setup/>
 
     <gsml:body adPageName="compare" pageLayout="leftside">
 
-        <div class="leftSide">
+        <div class="leftSide fltlft">
             <div class="compareHeader">
                 <div class="pagination">
                     (${startIndex}-${endIndex} of ${totalSchools} schools)
@@ -68,39 +66,10 @@
                                              page="${nextPage}">More schools (${totalSchools-pageSize})</link:compareSchools>
                     </c:if>
                 </div>
-                <h2>Compare</h2>
+                <h2>Compare Schools</h2>
             </div>
-            <div class="compareNavigation">
-                <c:choose>
-                    <c:when test="${tab eq 'overview'}">Overview</c:when>
-                    <c:otherwise><link:compareSchools tab="overview" schools="${schoolsString}" page="${page}">Overview</link:compareSchools></c:otherwise>
-                </c:choose>
-                |
-                <c:choose>
-                    <c:when test="${tab eq 'ratings'}">Ratings &amp;amp; Reviews</c:when>
-                    <c:otherwise><a href="#" onclick="return false;">Ratings &amp;amp; Reviews</a></c:otherwise>
-                </c:choose>
-                |
-                <c:choose>
-                    <c:when test="${tab eq 'tests'}">Test Scores</c:when>
-                    <c:otherwise><a href="#" onclick="return false;">Test Scores</a></c:otherwise>
-                </c:choose>
-                |
-                <c:choose>
-                    <c:when test="${tab eq 'other'}">Teachers &amp;amp; Students</c:when>
-                    <c:otherwise><a href="#" onclick="return false;">Teachers &amp;amp; Students</a></c:otherwise>
-                </c:choose>
-                |
-                <c:choose>
-                    <c:when test="${tab eq 'programs'}">Programs &amp;amp; Extracurriculars</c:when>
-                    <c:otherwise><a href="#" onclick="return false;">Programs &amp;amp; Extracurriculars</a></c:otherwise>
-                </c:choose>
-                |
-                <c:choose>
-                    <c:when test="${tab eq 'map'}">Map</c:when>
-                    <c:otherwise><a href="#" onclick="return false;">Map</a></c:otherwise>
-                </c:choose>
-            </div>
+
+            <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}"/>
 
             <table id="compareTable" border="1">
                 <!-- row header column -->
@@ -120,7 +89,7 @@
                             <div>${school.street}</div>
                             <div>${school.cityStateZip}</div>
                             <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
-                            <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"/>
+                            <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}" clickUrl="map.page?p=${page}&amp;schools=${schoolsString}&amp;selectedSchool=${school.uniqueIdentifier}"/>
                             <div>
                                 <gslink:realtorDotComLink school="${school.school}"
                                                           customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
@@ -190,13 +159,13 @@
                 </tr>
             </table>
         </div>
-        <div class="rightSide">
+        <div class="rightSide fltrt">
             <ad:AboveFold_Right_120x600 showAdWord="true"/>
         </div>
         <br class="clear"/>
 
         <div id="tracking">
-            <mod:tracking pageName="Compare_overview" hier1="Compare,CompareOverview"/>
+            <mod:tracking pageName="${omniturePageName}" hier1="Compare,CompareOverview"/>
         </div>
     </gsml:body>
     </html>

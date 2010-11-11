@@ -15,6 +15,7 @@
 <jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school this map is displaying"/>
 <jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
 <jsp:directive.attribute name="zoomLevel" required="false" type="java.lang.Integer" description="Zoom level"/>
+<jsp:directive.attribute name="clickUrl" required="true" type="java.lang.String" description="URL to link to when clicked."/>
 
 <map:setup/>
 <pageHelper:addOnLoadHandler handler="doMiniMap_${school.id}()"/>
@@ -40,7 +41,7 @@ function initMiniMap_${school.id}() {
     var displayTooltips = ${not empty tooltips};
     var centerPoint = new GLatLng(${center.lat}, ${center.lon});
     var schoolName = "${school.name}";
-    var mapLink = '${mapLink}';
+    var mapLink = '${clickUrl}';
     var i = 0;
     var tooltip = null;
     var map = new GMap2(document.getElementById("${id}"));

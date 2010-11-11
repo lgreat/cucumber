@@ -37,7 +37,7 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
                                                 Map<String, Object> model) {
             }
             @Override
-            protected String getSuccessView() {
+            public String getSuccessView() {
                 return "success";
             }
             @Override

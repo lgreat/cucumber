@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+
+    <jsp:directive.attribute name="tab" required="true" description="Tab to be selected"/>
+    <jsp:directive.attribute name="schoolsString" required="true" description="Schools parameter to use in creating link"/>
+    <jsp:directive.attribute name="page" required="true" description="Page number for linking"/>
+
+    <div class="compareNavigation">
+        <c:choose>
+            <c:when test="${tab eq 'overview'}">Overview</c:when>
+            <c:otherwise><link:compareSchools tab="overview" schools="${schoolsString}" page="${page}">Overview</link:compareSchools></c:otherwise>
+        </c:choose>
+        |
+        <c:choose>
+            <c:when test="${tab eq 'ratings'}">Ratings &amp;amp; Reviews</c:when>
+            <c:otherwise><a href="#" onclick="return false;">Ratings &amp;amp; Reviews</a></c:otherwise>
+        </c:choose>
+        |
+        <c:choose>
+            <c:when test="${tab eq 'tests'}">Test Scores</c:when>
+            <c:otherwise><a href="#" onclick="return false;">Test Scores</a></c:otherwise>
+        </c:choose>
+        |
+        <c:choose>
+            <c:when test="${tab eq 'other'}">Teachers &amp;amp; Students</c:when>
+            <c:otherwise><a href="#" onclick="return false;">Teachers &amp;amp; Students</a></c:otherwise>
+        </c:choose>
+        |
+        <c:choose>
+            <c:when test="${tab eq 'programs'}">Programs &amp;amp; Extracurriculars</c:when>
+            <c:otherwise><a href="#" onclick="return false;">Programs &amp;amp; Extracurriculars</a></c:otherwise>
+        </c:choose>
+        |
+        <c:choose>
+            <c:when test="${tab eq 'map'}">Map</c:when>
+            <c:otherwise><link:compareSchools tab="map" schools="${schoolsString}" page="${page}">Map</link:compareSchools></c:otherwise>
+        </c:choose>
+    </div>
+</jsp:root>

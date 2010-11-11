@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>School Comparison Map | GreatSchools</title>
+
+        <!-- TODO: Remove temporary styles -->
+        <style type="text/css">
+            div.leftSide {
+                margin-left: 12px;
+                width: 760px;
+            }
+            div.rightSide {
+                width: 160px;
+            }
+            div.compareNavigation {
+                background-color: #EBEBEB;
+                border: 1px solid #ccc;
+                border-bottom: 0;
+            }
+            div#compareMap {
+                width: 512px;
+                height: 478px;
+            }
+            div.schoolList {
+                background-color: #F9ECCD;
+                width: 243px;
+            }
+        </style>
+    </head>
+
+    <c:set var="omniturePageName" value="Compare_Map" scope="request"/>
+    <ad:setSlotPrefix slotPrefix="Compare_Page"/>
+
+    <gsml:body adPageName="compare" pageLayout="leftside">
+
+        <div class="leftSide fltlft">
+            <div class="compareHeader">
+                <div class="pagination">
+                    (${startIndex}-${endIndex} of ${totalSchools} schools)
+                    <c:if test="${totalSchools gt pageSize}">
+                        <c:set var="nextPage" value="2"/>
+                        <c:if test="${page eq 2}">
+                            <c:set var="nextPage" value="1"/>
+                        </c:if>
+                        <link:compareSchools tab="${tab}" schools="${schoolsString}"
+                                             page="${nextPage}">More schools (${totalSchools-pageSize})</link:compareSchools>
+                    </c:if>
+                </div>
+                <h2>Compare Schools</h2>
+            </div>
+            <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}"/>
+            <div class="schoolList fltrt">
+                <c:forEach var="school" items="${schools}">
+                    <p><link:schoolProfileOverview school="${school.school}"
+                                        styleClass="schoolName">${school.name}</link:schoolProfileOverview></p>
+                    <div class="line">
+                        <div class="unit">
+                            <div class="gsRating">
+                                <c:choose>
+                                    <c:when test="${school.private}">
+                                        <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:when test="${empty school.gsRating}">
+                                        <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite badge_sm_${school.gsRating}_y"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                        <div class="unit">
+                            <div class="communityRating brdlft-solid">
+                                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
+                                    <c:choose>
+                                        <c:when test="${school.communityRating gt 0}">
+                                            <span class="sprite stars_sm_${school.communityRating}_y"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite stars_sm_rate_it_y"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </link:schoolProfileParentReview>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <div id="compareMap"><!-- Do not collapse --></div>
+            <compare:mapCompareSchools mapCenter="${mapCenter}" schools="${schools}"/>
+            
+            <div style="display:none">
+                <c:forEach var="school" items="${schools}">
+                    <compare:compareSchoolBubble school="${school}"/>
+                </c:forEach>
+            </div>
+
+        </div>
+        <div class="rightSide fltrt">
+            <ad:AboveFold_Right_120x600 showAdWord="true"/>
+        </div>
+        <br class="clear"/>
+
+
+        <div id="tracking">
+            <mod:tracking pageName="${omniturePageName}" hier1="Compare,Map"/>
+        </div>
+    </gsml:body>
+    </html>
+</jsp:root>
+

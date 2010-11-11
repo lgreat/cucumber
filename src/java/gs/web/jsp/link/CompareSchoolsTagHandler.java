@@ -16,6 +16,8 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
         UrlBuilder builder = null;
         if (StringUtils.equals("overview", _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_OVERVIEW);
+        } else if (StringUtils.equals("map", _tab)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_MAP);
         } else {
             throw new IllegalArgumentException("Tab not recognized for compare: " + _tab);
         }

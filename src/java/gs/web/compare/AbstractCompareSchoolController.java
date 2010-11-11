@@ -3,6 +3,11 @@ package gs.web.compare;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.test.SchoolTestValue;
+import gs.data.test.TestManager;
+import gs.data.test.rating.IRatingsConfig;
+import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.util.PageHelper;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -30,12 +35,15 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final String MODEL_TAB = "tab";
     public static final String MODEL_PAGE_NUMBER = "page";
     public static final String MODEL_PAGE_SIZE = "pageSize";
-    public static final int PAGE_SIZE = 4;
+    public static final int DEFAULT_PAGE_SIZE = 4;
     public static final int MIN_SCHOOLS = 2;
     public static final int MAX_SCHOOLS = 8;
 
     private ISchoolDao _schoolDao;
+    private IRatingsConfigDao _ratingsConfigDao;
+    private TestManager _testManager;
     private String _errorView = "/compare/error";
+    private int _pageSize = DEFAULT_PAGE_SIZE;
 
     @Override
     protected final ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -62,7 +70,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                                                  List<ComparedSchoolBaseStruct> schools,
                                                  Map<String, Object> model) throws IOException;
     /** Return the appropriate success view for the implementing class. */
-    protected abstract String getSuccessView();
+    public abstract String getSuccessView();
     /** Return an instance of the struct appropriate for the implementing class. */
     protected abstract ComparedSchoolBaseStruct getStruct();
 
@@ -76,33 +84,33 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                                        Map<String, Object> model) {
         model.put(MODEL_TOTAL_SCHOOLS, schoolsArray.length);
         model.put(MODEL_START_INDEX, 1);
-        model.put(MODEL_END_INDEX, PAGE_SIZE);
+        model.put(MODEL_END_INDEX, getPageSize());
         model.put(MODEL_PAGE_NUMBER, 1);
-        model.put(MODEL_PAGE_SIZE, PAGE_SIZE);
-        if (schoolsArray.length <= PAGE_SIZE) {
+        model.put(MODEL_PAGE_SIZE, getPageSize());
+        if (schoolsArray.length <= getPageSize()) {
             model.put(MODEL_END_INDEX, schoolsArray.length);
             return schoolsArray;
         }
         String pageNumber = request.getParameter(PARAM_PAGE);
         if (StringUtils.isBlank(pageNumber) || StringUtils.equals("1", pageNumber)
                 || !StringUtils.isNumeric(pageNumber)) {
-            return (String[]) ArrayUtils.subarray(schoolsArray, 0, PAGE_SIZE);
+            return (String[]) ArrayUtils.subarray(schoolsArray, 0, getPageSize());
         }
         int startIndex, endIndex;
         try {
             int nPageNumber = Integer.parseInt(pageNumber);
             model.put(MODEL_PAGE_NUMBER, nPageNumber);
-            endIndex = PAGE_SIZE * nPageNumber;
+            endIndex = getPageSize() * nPageNumber;
             if (endIndex > schoolsArray.length) {
                 endIndex = schoolsArray.length;
             }
-            startIndex = endIndex - PAGE_SIZE;
+            startIndex = endIndex - getPageSize();
             model.put(MODEL_START_INDEX, startIndex+1);
             model.put(MODEL_END_INDEX, endIndex);
             return (String[]) ArrayUtils.subarray(schoolsArray, startIndex, endIndex);
         } catch (NumberFormatException nfe) {
             _log.warn("Invalid page number: " + pageNumber);
-            return (String[]) ArrayUtils.subarray(schoolsArray, 0, PAGE_SIZE);
+            return (String[]) ArrayUtils.subarray(schoolsArray, 0, getPageSize());
         }
     }
 
@@ -182,6 +190,34 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return rval;
     }
 
+    // Helper methods
+
+    protected void handleGSRating(HttpServletRequest request, List<ComparedSchoolBaseStruct> schools) throws IOException {
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        boolean isFromCache = true;
+        if (pageHelper != null && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
+            isFromCache = false;
+        }
+
+        State state = schools.get(0).getSchool().getDatabaseState();
+        IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(state, isFromCache);
+
+        if (null != ratingsConfig) {
+            for (ComparedSchoolBaseStruct baseStruct: schools) {
+                handleGSRating(baseStruct, ratingsConfig);
+            }
+        }
+    }
+
+    protected void handleGSRating(ComparedSchoolBaseStruct struct, IRatingsConfig ratingsConfig) {
+        SchoolTestValue schoolTestValue =
+                _testManager.getOverallRating(struct.getSchool(), ratingsConfig.getYear());
+        if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+            struct.setGsRating(schoolTestValue.getValueInteger());
+        }
+    }
+
+
     public ISchoolDao getSchoolDao() {
         return _schoolDao;
     }
@@ -190,11 +226,35 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         _schoolDao = schoolDao;
     }
 
+    public IRatingsConfigDao getRatingsConfigDao() {
+        return _ratingsConfigDao;
+    }
+
+    public void setRatingsConfigDao(IRatingsConfigDao ratingsConfigDao) {
+        _ratingsConfigDao = ratingsConfigDao;
+    }
+
+    public TestManager getTestManager() {
+        return _testManager;
+    }
+
+    public void setTestManager(TestManager testManager) {
+        _testManager = testManager;
+    }
+
     public String getErrorView() {
         return _errorView;
     }
 
     public void setErrorView(String errorView) {
         _errorView = errorView;
+    }
+
+    public int getPageSize() {
+        return _pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        _pageSize = pageSize;
     }
 }

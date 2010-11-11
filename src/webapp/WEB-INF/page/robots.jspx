@@ -86,7 +86,8 @@ Disallow: /content/holidayGiving.page
 Disallow: /holiday-giving/
 Disallow: /content/holidayLearning.page
 Disallow: /alert
-Disallow: /alert/ 
+Disallow: /alert/
+Disallow: /school-comparison-tool/*
 
 
 </c:set>
