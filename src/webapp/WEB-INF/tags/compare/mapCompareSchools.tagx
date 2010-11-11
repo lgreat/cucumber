@@ -32,7 +32,11 @@
             var map = new google.maps.Map(document.getElementById("compareMap"), myOptions);
 
             var imageUrl;
-            var markerOptions;
+            var markerOptions = {
+                map: map,
+                shadow: markerShadow,
+                shape: markerShape
+            };
             var preSelect;
             var centerPoint = null;
             var markerShadow = new google.maps.MarkerImage(
@@ -60,13 +64,8 @@
             </c:otherwise></c:choose>
 
             preSelect = ${(school.selected)?'true':'false'};
-            markerOptions = {
-                position: new google.maps.LatLng(${school.latLon.lat}, ${school.latLon.lon}),
-                map: map,
-                shadow: markerShadow,
-                shape: markerShape,
-                title: "${school.name}"
-            };
+            markerOptions.position = new google.maps.LatLng(${school.latLon.lat}, ${school.latLon.lon});
+            markerOptions.title = "${school.name}";
             if (preSelect) {
                 centerPoint = markerOptions.position;
             }
@@ -89,12 +88,13 @@
             var marker = new google.maps.Marker(options);
             bounds.extend(options.position);
             google.maps.event.addListener(marker, 'click', function() {
-                var infowindow = jQuery('#mapBubble_' + schoolIdentifier);
-                GS_compareMapInfoWindow.setContent(infowindow.html());
+                var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
+                GS_compareMapInfoWindow.setContent(infowindowElement.html());
                 GS_compareMapInfoWindow.open(map, marker);
             });
             if (preSelect) {
-                GS_compareMapInfoWindow.setContent(document.getElementById('mapBubble_' + schoolIdentifier));
+                var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
+                GS_compareMapInfoWindow.setContent(infowindowElement.html());
                 GS_compareMapInfoWindow.open(map, marker);
             }
         }
