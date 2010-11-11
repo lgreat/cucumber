@@ -7,11 +7,12 @@ import gs.data.search.IndexField;
 import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.web.BaseTestCase;
 import junit.framework.TestCase;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 
-public class LuceneSchoolSearchResultTest extends TestCase {
+public class LuceneSchoolSearchResultTest extends BaseTestCase {
 
     LuceneSchoolSearchResult _result;
 
