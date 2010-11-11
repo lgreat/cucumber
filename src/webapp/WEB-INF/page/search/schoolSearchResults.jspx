@@ -25,6 +25,18 @@
         <title>REPLACE ME</title>
     </head>
 
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
+
+
+
+    <div id="js-gradeLevels">
+        <p>Grade Level</p>
+        <input type="checkbox" name="gradeLevels" id="p" />Preschool<br/>
+        <input type="checkbox" name="gradeLevels" id="e" />Elementary School<br/>
+        <input type="checkbox" name="gradeLevels" id="m" />Middle School<br/>
+        <input type="checkbox" name="gradeLevels" id="h" />High School<br/>
+    </div>
+
     <table id="school-search-results-table-header">
         <colgroup>
             <col align="center" width="62"/>
@@ -51,6 +63,9 @@
             <col align="center" width="76"/>
         </colgroup>
         <tbody>
+            <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
+            <search:schoolSearchResultTemplate school="${schoolSearchResults[0]}"/>
+
             <c:set var="count" value="0"/>
 
             <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">

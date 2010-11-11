@@ -12,7 +12,7 @@
 
     <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult"/>
 
-        <tr class="school-search-result-row" id="school-search-result-${school.databaseState}${school.id}">
+        <tr id="js-school-search-result-template" style="display:none;">
 
             <!-- Compare Checkbox-->
             <td class="brdbtm_dotted" align="center">
