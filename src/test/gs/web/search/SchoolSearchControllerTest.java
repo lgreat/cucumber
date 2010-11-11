@@ -91,4 +91,16 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertEquals(referenceEditorialKeywords.size(), actualEditorialKeywords.size());
 */
     }
+
+    public void testGetGradeLevelFilters() {
+        String[] gradeLevels = new String[] {"p","h", "blah"};
+
+        List<FieldFilter> filters = _controller.getGradeLevelFilters(gradeLevels);
+
+        assertEquals("Filters list should contain two filters", 2, filters.size());
+
+        assertTrue(filters.contains(FieldFilter.GradeLevelFilter.PRESCHOOL));
+        assertTrue(filters.contains(FieldFilter.GradeLevelFilter.HIGH));
+    }
+
 }

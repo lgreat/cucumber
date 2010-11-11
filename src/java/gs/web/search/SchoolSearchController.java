@@ -309,9 +309,11 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (gradeLevelStrings != null) {
             for (String levelCode : gradeLevelStrings) {
                 LevelCode.Level level = LevelCode.Level.getLevelCode(levelCode);
-                FieldFilter filter = getGradeLevelFilter(level);
-                if (filter != null) {
-                    filters.add(filter);
+                if (level != null) {
+                    FieldFilter filter = getGradeLevelFilter(level);
+                    if (filter != null) {
+                        filters.add(filter);
+                    }
                 }
             }
         }
@@ -383,30 +385,22 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
-        //TODO: write correct condition for when to delegate to this controller;
-        
         boolean schoolsController = false;
         boolean cityController = false;
         boolean districtController = false;
         // level code is optional
-        //copied from SchoolsController
-        if (fields.hasState() && fields.hasCityName() && fields.hasSchoolTypes() && fields.hasSchoolsLabel()
+
+        //city browse
+        if (fields.hasState() && fields.hasCityName() && fields.hasSchoolsLabel()
                 && !fields.hasSchoolName()) {
             schoolsController = true;
         }
 
+        //district browse
         if (fields.hasState() && fields.hasCityName() && fields.hasDistrictName() && fields.hasSchoolsLabel()) {
             schoolsController =  true;
         }
-
-        //TODO: should these be removed?
-        //copied from CityController
-        //cityController = fields.hasState() && fields.hasCityName() && !fields.hasDistrictName() && !fields.hasLevelCode() && !fields.hasSchoolName();
-
-        //TODO: should these be removed?
-        //copied from DistrictController
-        //districtController = fields.hasState() && fields.hasCityName() && fields.hasDistrictName();
-
+        
         return schoolsController || cityController || districtController;
 
     }
