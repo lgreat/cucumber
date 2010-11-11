@@ -204,7 +204,7 @@
                                         </div>
                                         <div class="unit size9of19 lastUnit">
                                             <!-- numRatings = -->
-                                            <span class="numRatings smallText1-06b">Based on ${ratingByYear.numRatings} ratings</span>
+                                            <span class="numRatings smallText1">Based on ${ratingByYear.numRatings} ratings</span>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
