@@ -89,7 +89,8 @@
             var marker = new google.maps.Marker(options);
             bounds.extend(options.position);
             google.maps.event.addListener(marker, 'click', function() {
-                GS_compareMapInfoWindow.setContent(document.getElementById('mapBubble_' + schoolIdentifier));
+                var infowindow = jQuery('#mapBubble_' + schoolIdentifier);
+                GS_compareMapInfoWindow.setContent(infowindow.html());
                 GS_compareMapInfoWindow.open(map, marker);
             });
             if (preSelect) {
