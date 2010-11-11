@@ -130,7 +130,26 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_START, schoolSearchCommand.getStart());
     }
 
-    protected void addGamAttributes() {
+    protected void addGamAttributes(PageHelper pageHelper, Map<FieldConstraint,String> constraints, List<FieldFilter> filters) {
+        if (pageHelper == null || constraints == null || filters == null) {
+            throw new IllegalArgumentException("PageHelper, constraints, and filters must not be null");
+        }
+
+        // school type
+        Set<FieldFilter> filtersSet = new HashSet<FieldFilter>();
+        filtersSet.addAll(filters);
+        for (FieldFilter schoolTypeFilter : FieldFilter.SchoolTypeFilter.values()) {
+            if (filtersSet.contains(schoolTypeFilter)) {
+                pageHelper.addAdKeywordMulti("type", schoolTypeFilter.toString().toLowerCase());
+            }
+        }
+
+        // district browse
+        if (constraints.containsKey(FieldConstraint.DISTRICT_ID)) {
+            pageHelper.addAdKeyword("district_id", constraints.get(FieldConstraint.DISTRICT_ID));
+        }
+        
+
     // TODO: GAM attributes
     // SchoolsController:
     // same value as MODEL_SCHOOL_TYPE
