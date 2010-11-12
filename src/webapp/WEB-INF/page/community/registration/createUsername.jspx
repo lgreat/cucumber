@@ -17,7 +17,7 @@
       <pageHelper:externalCss file="/res/css/community/registration/createUsername.css"/>
       <pageHelper:externalJavascript file="/res/js/community/registration/registration.js"/>
   </head>
-  <gsml:body adPageName="createUsername">
+  <gsml:body adPageName="createUsername" pageLayout="nocol">
 
   <ad:setSlotPrefix slotPrefix="CommunityRegistration"/>
 
