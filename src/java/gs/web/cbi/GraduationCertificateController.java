@@ -58,7 +58,7 @@ public class GraduationCertificateController implements Controller {
             contentStream.close();
 
             response.setContentType("application/pdf");
-            response.setHeader("Content-Disposition", "inline; filename=architect.pdf");
+            response.setHeader("Content-Disposition", "inline; filename=collegebound_grad.pdf");
             response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Pragma", "No-cache");
             document.save(response.getOutputStream());
