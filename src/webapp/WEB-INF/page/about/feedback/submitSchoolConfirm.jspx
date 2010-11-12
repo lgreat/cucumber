@@ -31,7 +31,7 @@
         <pageHelper:externalCss file="/res/css/about/feedback/submitSchool.css"/>
     </head>
 
-    <gsml:body adPageName="submitSchoolConfirm" pageLayout="submitSchoolConfirm">
+    <gsml:body adPageName="submitSchoolConfirm" pageLayout="nocol">
 
         <div class="content">
 
