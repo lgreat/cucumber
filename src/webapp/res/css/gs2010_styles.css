@@ -1241,6 +1241,11 @@ body.cobranded #pageGS {
     color: white;
 }
 
+.navmod_hd h5.symbolsize-21 {
+    font: bold 21px Arial, Helvetica, sans-serif;
+    color: white;
+}
+
 .navmod_bd {
     padding: 9px 5px 9px 13px;
     border-right: 1px solid #c6c6c6;

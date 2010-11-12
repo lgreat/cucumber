@@ -30,75 +30,94 @@
     <div id="mainGS" class="col">
         <div id="topicbarGS" class="col">
 
-        <div id="js-gradeLevels">
-            <p>Grade Level</p>
-            <input type="checkbox" name="gradeLevels" id="p"/>Preschool<br/>
-            <input type="checkbox" name="gradeLevels" id="e"/>Elementary School<br/>
-            <input type="checkbox" name="gradeLevels" id="m"/>Middle School<br/>
-            <input type="checkbox" name="gradeLevels" id="h"/>High School<br/>
+            <!--<div id="js-gradeLevels">-->
+            <div id="js-gradeLevels" class="mod">
+                <div class="navmod_hd">
+                    <h5 class="fltlft">GRADE LEVEL</h5><h5 class="symbolsize-21 fltrt">&amp;#9662;</h5>
+
+                    <div class="clearfloat"><!-- do not collapse --></div>
+                </div>
+                <div class="navmod_bd">
+                    <div>
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="p"/>
+                        <label for="p">Preschool</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="e"/>
+                        <label for="e">Elementary School</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="m"/>
+                        <label for="m">Middle School</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="h"/>
+                        <label for="h">High School</label>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        </div>
 
         <div id="topicMainGS" class="col">
 
-        <table id="school-search-results-table-header">
-            <colgroup>
-                <col align="center" width="62"/>
-                <col align="left" width="179"/>
-                <col align="right" width="90"/>
-                <col align="center" width="69"/>
-                <col align="center" width="7"/>
-            </colgroup>
-            <thead>
-            <tr class="smallText2bold">
-                <th align="center">COMPARE</th>
-                <th class="text-align-lft">SCHOOL</th>
-                <th align="center">GREATSCHOOLS RATING</th>
-                <th align="center">COMMUNITY RATING</th>
-                <th><!-- do not collapse --></th>
-            </tr>
-            </thead>
-        </table>
-        <table id="school-search-results-table-body">
-            <colgroup>
-                <col align="center" width="62"/>
-                <col align="left" width="212"/>
-                <col align="left" width="57"/>
-                <col align="center" width="76"/>
-            </colgroup>
-            <tbody>
-            <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
-            <search:schoolSearchResultTemplate school="${schoolSearchResults[0]}"/>
+            <table id="school-search-results-table-header">
+                <colgroup>
+                    <col align="center" width="62"/>
+                    <col align="left" width="179"/>
+                    <col align="right" width="90"/>
+                    <col align="center" width="69"/>
+                    <col align="center" width="7"/>
+                </colgroup>
+                <thead>
+                <tr class="smallText2bold">
+                    <th align="center">COMPARE</th>
+                    <th class="text-align-lft">SCHOOL</th>
+                    <th align="center">GREATSCHOOLS RATING</th>
+                    <th align="center">COMMUNITY RATING</th>
+                    <th><!-- do not collapse --></th>
+                </tr>
+                </thead>
+            </table>
+            <table id="school-search-results-table-body">
+                <colgroup>
+                    <col align="center" width="62"/>
+                    <col align="left" width="212"/>
+                    <col align="left" width="57"/>
+                    <col align="center" width="76"/>
+                </colgroup>
+                <tbody>
+                <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
+                <search:schoolSearchResultTemplate school="${schoolSearchResults[0]}"/>
 
-            <c:set var="count" value="0"/>
+                <c:set var="count" value="0"/>
 
-            <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
-                <search:schoolSearchResult school="${s}"/>
-            </c:forEach>
-
-            <c:choose>
-                <c:when test="${totalPages gt 1}">
-                    <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="nearbySchoolClass" value="nearby-school"/>
-                </c:otherwise>
-            </c:choose>
-            <c:if test="${blankRows gt 0}">
-                <c:forEach begin="0" end="${blankRows - 1}">
-                    <tr class="${nearbySchoolClass}">
-                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                    </tr>
+                <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
+                    <search:schoolSearchResult school="${s}"/>
                 </c:forEach>
-            </c:if>
-            </tbody>
-        </table>
 
-    </div>
+                <c:choose>
+                    <c:when test="${totalPages gt 1}">
+                        <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="nearbySchoolClass" value="nearby-school"/>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${blankRows gt 0}">
+                    <c:forEach begin="0" end="${blankRows - 1}">
+                        <tr class="${nearbySchoolClass}">
+                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+                </tbody>
+            </table>
+
+        </div>
     </div>
 
     <div id="sidebarGS" class="col">
