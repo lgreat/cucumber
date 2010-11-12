@@ -165,7 +165,7 @@
     <div class="mod ${alternateStyle}" id="realtorDotCom">
         <c:if test="${requestScope.size ne '160x600'}">
             <div class="mod_hd">
-                <h3>Find a home</h3>
+                <h3>Find a Home</h3>
             </div>
         </c:if>
 
