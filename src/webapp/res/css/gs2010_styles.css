@@ -73,6 +73,7 @@ General comments:
 =4l-1 reviews
 =4m-2 test scores and stats
 =4m-2.1 test scores and stats - gs ratings
+=4n-1 school search results
 =5 icons
 =6 editorialFooter
 =7 communitySidebar
@@ -500,6 +501,16 @@ a.smallAlertText {
 .alertDoubleArrow-fff {
     font: 15px Arial, Helvetica, sans-serif;
     color: #fff;
+}
+
+.symbolsize-16{
+    font-size:16px;
+    line-height:1;
+}
+
+.symbolsize-25{
+    font-size:25px;
+    line-height:1;
 }
 
 .result_title {
@@ -1238,11 +1249,6 @@ body.cobranded #pageGS {
 .navmod_hd h5 {
     padding: 0 10px;
     font: bold 13px / 2.0 Arial, Helvetica, sans-serif;
-    color: white;
-}
-
-.navmod_hd h5.symbolsize-21 {
-    font: bold 21px Arial, Helvetica, sans-serif;
     color: white;
 }
 
@@ -5862,6 +5868,26 @@ body.ie8 #frmPRModule .helperMessage, body.ie7 #frmPRModule .helperMessage{
 
 #ratingContent .text1bold{
     padding-bottom:5px;
+}
+
+/* =4n-1 school search results
+-------------------------------------------------------------------------------------------*/
+
+#school-search-results-table-header {
+    border-top: 1px solid #c6c6c6;
+    border-bottom: 1px dotted #999;
+}
+
+#school-search-results-table-header th {
+    padding: 5px 0;
+}
+
+#school-search-results-table-body{
+    border-bottom: 1px solid #c6c6c6
+}
+
+#school-search-results-table-body td {
+    padding: 10px 0;
 }
 
 /* =5 icons

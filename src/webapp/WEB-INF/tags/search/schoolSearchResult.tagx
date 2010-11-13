@@ -15,7 +15,7 @@
         <tr class="school-search-result-row" id="school-search-result-${school.databaseState}${school.id}">
 
             <!-- Compare Checkbox-->
-            <td class="brdbtm_dotted" align="center">
+            <td class="brdbtm_dotted" align="center" valign="top">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <c:choose>
                     <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
@@ -31,22 +31,22 @@
 
             <!-- School Name -->
             <td class="brdbtm_dotted">
-                <p class="text2bold school-search-result-link" id="school-search-result-link-${school.databaseState}${school.id}">
+                <p class="school-search-result-link" id="school-search-result-link-${school.databaseState}${school.id}">
                     <!--<link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>-->
-                    <span class="js-school-search-result-name">${school.name}</span>
+                    <span class="text1bold js-school-search-result-name">${school.name}</span>
                     <br/>
-                    <span class="js-school-search-result-street">${school.address.street}</span>
+                    <span class="smallAlertText js-school-search-result-street">${school.address.street}</span>
                     <br/>
-                    <span class="js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</span>
+                    <span class="smallAlertText js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</span>
                     <br/>
-                    <span class="js-school-search-result-phone">(XXX)XXX-XXXX</span>
+                    <span class="smallAlertText js-school-search-result-phone">(XXX)XXX-XXXX</span>
 
                     <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->
                 </p>
             </td>
 
             <!-- GreatSchools Rating -->
-            <td class="brdbtm_dotted" align="left">
+            <td class="brdbtm_dotted" align="left" valign="top">
                 <c:choose>
                     <c:when test="${school.schoolType eq 'private'}">
                         <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
@@ -61,7 +61,7 @@
             </td>
 
             <!-- Parent Rating -->
-            <td class="brdbtm_dotted" align="center">
+            <td class="brdbtm_dotted" align="center" valign="top">
                 <!--<link:schoolProfileParentReview school="${school}">-->
                 <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->
                     <c:choose>

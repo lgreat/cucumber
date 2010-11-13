@@ -28,12 +28,13 @@
     <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
 
     <div id="mainGS" class="col">
+        <div class="spacer_30"><!-- do not collapse --></div>
         <div id="topicbarGS" class="col">
 
             <!--<div id="js-gradeLevels">-->
             <div id="js-gradeLevels" class="mod">
                 <div class="navmod_hd">
-                    <h5 class="fltlft">GRADE LEVEL</h5><h5 class="symbolsize-21 fltrt">&amp;#9662;</h5>
+                    <h5 class="fltlft">GRADE LEVEL</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
 
                     <div class="clearfloat"><!-- do not collapse --></div>
                 </div>
@@ -63,28 +64,28 @@
 
             <table id="school-search-results-table-header">
                 <colgroup>
-                    <col align="center" width="62"/>
-                    <col align="left" width="179"/>
-                    <col align="right" width="90"/>
-                    <col align="center" width="69"/>
-                    <col align="center" width="7"/>
+                    <col align="center" width="15%"/>
+                    <col align="left" width="39%"/>
+                    <col align="right" width="27%"/>
+                    <col align="center" width="17%"/>
+                    <col align="center" width="2%"/>
                 </colgroup>
                 <thead>
                 <tr class="smallText2bold">
-                    <th align="center">COMPARE</th>
-                    <th class="text-align-lft">SCHOOL</th>
-                    <th align="center">GREATSCHOOLS RATING</th>
-                    <th align="center">COMMUNITY RATING</th>
+                    <th align="center"><!-- do not collapse --></th>
+                    <th align="left" valign="bottom">SCHOOL NAME<span class="symbolsize-16">&amp;#9663;</span></th>
+                    <th align="center">GREATSCHOOLS<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
+                    <th align="center">COMMUNITY<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
                     <th><!-- do not collapse --></th>
                 </tr>
                 </thead>
             </table>
             <table id="school-search-results-table-body">
                 <colgroup>
-                    <col align="center" width="62"/>
-                    <col align="left" width="212"/>
-                    <col align="left" width="57"/>
-                    <col align="center" width="76"/>
+                    <col align="center" width="15%" valign="top"/>
+                    <col align="left" width="50%"/>
+                    <col align="left" width="14%" valign="top"/>
+                    <col align="center" width="21%" valign="top"/>
                 </colgroup>
                 <tbody>
                 <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
