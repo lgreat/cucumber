@@ -20,15 +20,15 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
     //TODO: best way to get correct builder?
     SchoolSearchResultsBuilder _resultsBuilder = new SchoolSearchResultsBuilder();
 
-    public List<ISchoolSearchResult> search(String queryString) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString) throws SearchException {
         return search(queryString, new HashMap<FieldConstraint, String>(), new FieldFilter[0], null);
     }
 
-    public List<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints) throws SearchException {
         return search(queryString, fieldConstraints, new FieldFilter[0], null);
     }
 
-    public List<ISchoolSearchResult> search(String queryString, FieldFilter[] fieldFilters, FieldSort fieldSort) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, FieldFilter[] fieldFilters, FieldSort fieldSort) throws SearchException {
         return search(queryString, new HashMap<FieldConstraint, String>(), fieldFilters, fieldSort);
     }
 
@@ -38,7 +38,7 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
      * @param fieldSort
      * @return
      */
-    public List<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, FieldFilter[] filters, FieldSort fieldSort) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, FieldFilter[] filters, FieldSort fieldSort) throws SearchException {
 
         ChainedFilter luceneFilter = null;
         if (filters.length > 0) {
@@ -52,13 +52,15 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
 
         Hits hits = searchLucene(queryString, fieldConstraints, luceneFilter, luceneSort);
 
-        List<ISchoolSearchResult> searchResults = null;
+        List<ISchoolSearchResult> resultList = null;
 
         try {
-            searchResults = new SchoolSearchResultsBuilder().build(hits);
+            resultList = new SchoolSearchResultsBuilder().build(hits);
         } catch (IOException e) {
             throw new SearchException("Problem accessing search results.", e);
         }
+
+        SearchResultsPage searchResults = new SearchResultsPage(hits.length(), resultList);
 
         return searchResults;
     }

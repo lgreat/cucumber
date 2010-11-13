@@ -95,7 +95,7 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         LevelCode levelCode = null;
 
         if (levelCodeArray != null && levelCodeArray.length > 0) {
-            levelCode = LevelCode.createLevelCode(_document.getValues(IndexField.GRADE_LEVEL));
+            levelCode = LevelCode.createLevelCode(levelCodeArray);
         }
         
         if (levelCode != null) {
@@ -130,18 +130,19 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         //some of below logic copied from SchoolSearchResult.java
         Integer rating = null;
         String parentRatingsCountString = _document.get(Indexer.PARENT_RATINGS_COUNT);
-        Integer parentRatingsCount = Integer.valueOf(parentRatingsCountString);
-        if (parentRatingsCount != null && Integer.valueOf(parentRatingsCount) > 2) {
-            //TODO: test below logic on real data
-            if (LevelCode.PRESCHOOL.equals(getLevelCode())) {
-                String parentRatingsPreschool = _document.get(Indexer.PARENT_RATINGS_AVG_P_OVERALL);
-                if (parentRatingsPreschool != null) {
-                    rating = Integer.valueOf(parentRatingsPreschool);
-                }
-            } else {
-                String parentRatings = _document.get(Indexer.PARENT_RATINGS_AVG_QUALITY);
-                if (parentRatings != null) {
-                    rating = Integer.valueOf(parentRatings);
+        if (parentRatingsCountString != null) {
+            Integer parentRatingsCount = Integer.valueOf(parentRatingsCountString);
+            if (parentRatingsCount != null && Integer.valueOf(parentRatingsCount) > 2) {
+                if (LevelCode.PRESCHOOL.equals(getLevelCode())) {
+                    String parentRatingsPreschool = _document.get(Indexer.PARENT_RATINGS_AVG_P_OVERALL);
+                    if (parentRatingsPreschool != null) {
+                        rating = Integer.valueOf(parentRatingsPreschool);
+                    }
+                } else {
+                    String parentRatings = _document.get(Indexer.PARENT_RATINGS_AVG_QUALITY);
+                    if (parentRatings != null) {
+                        rating = Integer.valueOf(parentRatings);
+                    }
                 }
             }
         }

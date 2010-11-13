@@ -27,8 +27,6 @@ import java.util.*;
 
 public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController {
 
-    private ISchoolDao _schoolDao;
-
     private IDistrictDao _districtDao;
 
     private SchoolSearchService _schoolSearchService;
@@ -78,12 +76,11 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         FieldSort sort = this.getChosenSort(schoolSearchCommand);
 
-        List<ISchoolSearchResult> searchResults = getSchoolSearchService().search(schoolSearchCommand.getSearchString(), fieldConstraints, filters.toArray(new FieldFilter[0]), sort);
+        SearchResultsPage<ISchoolSearchResult> searchResultsPage = getSchoolSearchService().search(schoolSearchCommand.getSearchString(), fieldConstraints, filters.toArray(new FieldFilter[0]), sort);
         //List<ICitySearchResult> citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state);
         //List<IDistrictSearchResult> districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state);
 
         PageHelper.setHasSearchedCookie(request, response);
-
 
         //TODO: write city and district lists to model
         Map<String,Object> model = new HashMap<String,Object>();
@@ -91,9 +88,9 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_LEVEL_CODE, StringUtils.join(schoolSearchCommand.getGradeLevels()));
         model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
-        addPagingDataToModel(schoolSearchCommand, searchResults, model);
+        addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), searchResultsPage.getTotalResults(), model); //TODO: fix
 
-        model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResults);
+        model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
 
         if (schoolSearchCommand.isJsonFormat()) {
             response.setContentType("application/json");
@@ -111,15 +108,20 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     }
 
-    protected void addPagingDataToModel(SchoolSearchCommand schoolSearchCommand, List<ISchoolSearchResult> searchResults, Map<String,Object> model) {
-        int start = schoolSearchCommand.getStart();
-        Integer pageSize = schoolSearchCommand.getPageSize();
-        int totalResults = searchResults.size();
+    /**
+     * Calculates paging info and adds it to model. Paging is zero-based. First search result has start=0
+     * 
+     * @param start
+     * @param pageSize
+     * @param totalResults
+     * @param model
+     */
+    protected void addPagingDataToModel(int start, Integer pageSize, int totalResults, Map<String,Object> model) {
 
         //TODO: perform validation to only allow no paging when results are a certain size
         if (pageSize > 0) {
-            int currentPage = (int) Math.floor(start / pageSize);
-            int numberOfPages = (int) Math.ceil(totalResults / pageSize);
+            int currentPage = (int) Math.ceil(start / pageSize.floatValue());
+            int numberOfPages = (int) Math.ceil(totalResults / pageSize.floatValue());
             model.put(MODEL_CURRENT_PAGE, currentPage);
             model.put(MODEL_TOTAL_PAGES, numberOfPages);
             model.put(MODEL_USE_PAGING, Boolean.valueOf(true));
@@ -127,7 +129,8 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
         }
 
-        model.put(MODEL_START, schoolSearchCommand.getStart());
+        model.put(MODEL_START, start);
+        model.put(MODEL_PAGE_SIZE, pageSize);
     }
 
     protected void addGamAttributes(PageHelper pageHelper, Map<FieldConstraint,String> constraints, List<FieldFilter> filters) {
@@ -256,16 +259,18 @@ public class SchoolSearchController extends AbstractCommandController implements
             fieldConstraints.put(FieldConstraint.STATE, state.getAbbreviationLowerCase());
         }
 
-        String city = fields.getCityName();
-        if (!StringUtils.isBlank(city)) {
-            fieldConstraints.put(FieldConstraint.CITY, city);
-        }
+        if (fields != null) {
+            String city = fields.getCityName();
+            if (!StringUtils.isBlank(city)) {
+                fieldConstraints.put(FieldConstraint.CITY, city);
+            }
 
-        String districtName = fields.getDistrictName();
-        if (!StringUtils.isBlank(districtName) && state != null && !StringUtils.isBlank(city)) {
-            District district = _districtDao.findDistrictByNameAndCity(state, districtName, city);
-            if (district != null) {
-                fieldConstraints.put(FieldConstraint.DISTRICT_ID, String.valueOf(district.getId()));
+            String districtName = fields.getDistrictName();
+            if (!StringUtils.isBlank(districtName) && state != null && !StringUtils.isBlank(city)) {
+                District district = getDistrictDao().findDistrictByNameAndCity(state, districtName, city);
+                if (district != null) {
+                    fieldConstraints.put(FieldConstraint.DISTRICT_ID, String.valueOf(district.getId()));
+                }
             }
         }
 
@@ -273,7 +278,6 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     protected FieldSort getChosenSort(SchoolSearchCommand schoolSearchCommand) {
-        //TODO: should be able to do this stuff using spring property editors
         String sortBy = schoolSearchCommand.getSortBy();
         FieldSort fieldSort = null;
         if (sortBy != null) {
@@ -283,8 +287,6 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     protected List<FieldFilter> getSchoolTypeFilters(String[] schoolTypeStrings) {
-        //TODO: should be able to do this stuff using spring property editors
-
         List<FieldFilter> filters = new ArrayList<FieldFilter>();
 
         if (schoolTypeStrings != null) {
@@ -303,7 +305,6 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     protected List<FieldFilter> getGradeLevelFilters(String[] gradeLevelStrings) {
-        //TODO: should be able to do this stuff using spring property editors
         List<FieldFilter> filters = new ArrayList<FieldFilter>();
 
         if (gradeLevelStrings != null) {
@@ -334,14 +335,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         FieldFilter filter = FieldFilter.GradeLevelFilter.valueOf(StringUtils.upperCase(level.getLongName()));
         return filter;
-    }
-
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
-    }
-
-    public void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
     }
 
     public IDistrictDao getDistrictDao() {

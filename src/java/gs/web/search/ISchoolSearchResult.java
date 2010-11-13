@@ -5,7 +5,7 @@ import gs.data.geo.LatLon;
 import gs.data.state.State;
 import gs.data.util.Address;
 
-public interface ISchoolSearchResult extends ILocation {
+public interface ISchoolSearchResult extends ISearchResult, ILocation {
 
     public Integer getId();
 
