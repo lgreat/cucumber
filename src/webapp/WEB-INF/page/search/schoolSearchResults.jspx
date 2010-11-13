@@ -31,7 +31,6 @@
         <div class="spacer_30"><!-- do not collapse --></div>
         <div id="topicbarGS" class="col">
 
-            <!--<div id="js-gradeLevels">-->
             <div id="js-gradeLevels" class="mod">
                 <div class="navmod_hd">
                     <h5 class="fltlft">GRADE LEVEL</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
@@ -54,6 +53,27 @@
                     <div>
                         <input type="checkbox" checked="checked" name="gradeLevels" id="h"/>
                         <label for="h">High School</label>
+                    </div>
+                </div>
+            </div>
+            <div id="js-schoolTypes" class="mod">
+                <div class="navmod_hd">
+                    <h5 class="fltlft">SCHOOL TYPE</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
+
+                    <div class="clearfloat"><!-- do not collapse --></div>
+                </div>
+                <div class="navmod_bd">
+                    <div>
+                        <input type="checkbox" checked="checked" name="schoolTypes" id="public"/>
+                        <label for="public">Public</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked="checked" name="schoolTypes" id="charter"/>
+                        <label for="charter">Public Charter</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked="checked" name="schoolTypes" id="private"/>
+                        <label for="private">Private</label>
                     </div>
                 </div>
             </div>
