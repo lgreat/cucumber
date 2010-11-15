@@ -613,6 +613,36 @@
 <fieldset>
     <div class="formContentGS clearfix">
         <div class="formBarGS col">
+            <img src="/res/img/email/savvy_owl.gif" width="83" height="65" alt="pencils" class="newsletterImage"/>
+        </div>
+
+        <div class="formMainGS col">
+            <div class="newsletterInfo">
+                <p class="newsletterHeader text2bold">Savvy Savings &amp; Sponsorships<a name="savvy_anchor">&amp;nbsp;</a></p>
+                <p class="newsletterDescription text2">
+                    Save money on great family and learning activities,
+                    and help schools and children in the process.
+                </p>
+                <ol>
+                    <li>
+                        <fieldset>
+                            <ol>
+                                <li>
+                                    <form:checkbox path="savvy" cssClass="newsletterCheckbox"
+                                           id="savvy_checkbox"/>
+                                    <label for="savvy_checkbox">Subscribe to this newsletter</label></li>
+                            </ol>
+                        </fieldset>
+                    </li>
+                    <form:hidden path="savvyId"/></ol>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <div class="formContentGS clearfix">
+        <div class="formBarGS col">
             <img src="/res/img/email/pencils.jpg" width="83" height="65" alt="pencils" class="newsletterImage"/>
         </div>
 

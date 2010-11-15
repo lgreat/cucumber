@@ -110,6 +110,10 @@ public class ManagementCommand {
     private int chooserpack_mId;
     private int chooserpack_hId;
 
+    //variable for savvy
+    private boolean savvy;
+    private int savvyId;
+
     //variable for sponsors
     private boolean sponsor;
     private int sponsorId;
@@ -600,6 +604,22 @@ public class ManagementCommand {
 
     public void setChooserpack_hId(int chooserpack_hId) {
         this.chooserpack_hId = chooserpack_hId;
+    }
+
+    public boolean isSavvy() {
+        return savvy;
+    }
+
+    public void setSavvy(boolean savvy) {
+        this.savvy = savvy;
+    }
+
+    public int getSavvyId() {
+        return savvyId;
+    }
+
+    public void setSavvyId(int savvyId) {
+        this.savvyId = savvyId;
     }
 
     public boolean isSponsor() {
