@@ -117,9 +117,9 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
     }
 
     public void testValidateSchools() {
-        assertFalse("Expect too few schools to fail validation",
+        assertTrue("Expect too few schools to pass validation",
                     _controller.validateSchools(new String[] {}));
-        assertFalse("Expect too few schools to fail validation",
+        assertTrue("Expect too few schools to pass validation",
                     _controller.validateSchools(new String[] {"ca1"}));
         assertFalse("Expect too many schools to fail validation",
                     _controller.validateSchools(new String[] {"ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9"}));
@@ -131,10 +131,10 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
     }
 
     public void testGetSchools() {
-        assertNull(_controller.getSchools(getRequest(), _model));
+        assertNotNull(_controller.getSchools(getRequest(), _model));
 
         getRequest().setParameter(PARAM_SCHOOLS, "");
-        assertNull(_controller.getSchools(getRequest(), _model));
+        assertNotNull(_controller.getSchools(getRequest(), _model));
 
         getRequest().setParameter(PARAM_SCHOOLS, "garbage");
         assertNull(_controller.getSchools(getRequest(), _model));
@@ -198,7 +198,7 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
 
         mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         assertNotNull(mAndV);
-        assertEquals(_controller.getErrorView(), mAndV.getViewName());
+        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
 
         getRequest().setParameter(PARAM_SCHOOLS, "foo");
         mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
@@ -212,12 +212,13 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
 
         // too few schools
         getRequest().setParameter(PARAM_SCHOOLS, "ca1");
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(ca1);
         replayAllMocks();
         mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         verifyAllMocks();
         resetAllMocks();
         assertNotNull(mAndV);
-        assertEquals(_controller.getErrorView(), mAndV.getViewName());
+        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
 
         // different states
         getRequest().setParameter(PARAM_SCHOOLS, "ca1,ak1");

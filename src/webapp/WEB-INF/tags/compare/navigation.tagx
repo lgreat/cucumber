@@ -18,7 +18,7 @@
         |
         <c:choose>
             <c:when test="${tab eq 'ratings'}">Ratings &amp;amp; Reviews</c:when>
-            <c:otherwise><a href="#" onclick="return false;">Ratings &amp;amp; Reviews</a></c:otherwise>
+            <c:otherwise><link:compareSchools tab="ratings" schools="${schoolsString}" page="${page}">Ratings &amp;amp; Reviews</link:compareSchools></c:otherwise>
         </c:choose>
         |
         <c:choose>

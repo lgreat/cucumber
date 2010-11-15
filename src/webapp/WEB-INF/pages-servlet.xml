@@ -2656,6 +2656,12 @@
         <property name="successView" value="/compare/overview"/>
     </bean>
 
+    <bean name="/school-comparison-tool/ratings.page"
+          class="gs.web.compare.CompareRatingsController"
+          autowire="byName" lazy-init="true">
+        <property name="successView" value="/compare/ratings"/>
+    </bean>
+
     <bean name="/school-comparison-tool/map.page"
           class="gs.web.compare.CompareMapController"
           autowire="byName" lazy-init="true">

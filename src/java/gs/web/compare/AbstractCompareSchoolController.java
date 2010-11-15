@@ -36,7 +36,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final String MODEL_PAGE_NUMBER = "page";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final int DEFAULT_PAGE_SIZE = 4;
-    public static final int MIN_SCHOOLS = 2;
+    public static final int MIN_SCHOOLS = 0;
     public static final int MAX_SCHOOLS = 8;
 
     private ISchoolDao _schoolDao;
@@ -158,8 +158,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     protected List<ComparedSchoolBaseStruct> getSchools(HttpServletRequest request, Map<String, Object> model) {
         String schoolsParamValue = request.getParameter(PARAM_SCHOOLS);
         if (StringUtils.isBlank(schoolsParamValue)) {
-            _log.error("Compare schools string empty");
-            return null;
+//            _log.error("Compare schools string empty");
+//            return null;
+            return new ArrayList<ComparedSchoolBaseStruct>(0);
         }
         String[] splitSchools = schoolsParamValue.split(",");
         if (!validateSchools(splitSchools)) {
@@ -193,6 +194,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     // Helper methods
 
     protected void handleGSRating(HttpServletRequest request, List<ComparedSchoolBaseStruct> schools) throws IOException {
+        if (schools.size() == 0) {
+            return; // early exit
+        }
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         boolean isFromCache = true;
         if (pageHelper != null && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {

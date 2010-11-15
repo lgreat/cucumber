@@ -25,7 +25,7 @@
         function GS_initializeCompareMap() {
             var latlng = new google.maps.LatLng(${mapCenter.lat}, ${mapCenter.lon});
             var myOptions = {
-                zoom: 8,
+                zoom: 12,
                 center: latlng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
@@ -52,6 +52,7 @@
                 type: 'poly'
             };
             var bounds = new google.maps.LatLngBounds();
+            var numSchools = 0;
             GS_compareMapInfoWindow = new google.maps.InfoWindow();
             bounds.extend(latlng);
             <c:forEach var="school" items="${schools}">
@@ -70,8 +71,11 @@
                 centerPoint = markerOptions.position;
             }
             GS_addMarker(map, bounds, markerOptions, imageUrl, '${school.uniqueIdentifier}', preSelect);
+            numSchools++;
             </c:forEach>
-            map.fitBounds(bounds);
+            if (numSchools > 1) {
+                map.fitBounds(bounds);
+            }
 
             if (centerPoint != null) {
                 map.panTo(centerPoint);

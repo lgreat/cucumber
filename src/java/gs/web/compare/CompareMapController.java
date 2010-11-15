@@ -41,7 +41,6 @@ public class CompareMapController extends AbstractCompareSchoolController {
     }
 
     protected void handleCommunityRating(List<ComparedSchoolBaseStruct> structs) {
-
         for (ComparedSchoolBaseStruct struct: structs) {
             School school = struct.getSchool();
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
@@ -51,8 +50,8 @@ public class CompareMapController extends AbstractCompareSchoolController {
                 struct.setCommunityRating(ratings.getOverall());
             }
         }
-
     }
+
     protected void determineCenterOfMap(List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) {
         LatLonRect latLonRect = new LatLonRect(schools);
         model.put(MODEL_MAP_CENTER, latLonRect.getCenter());

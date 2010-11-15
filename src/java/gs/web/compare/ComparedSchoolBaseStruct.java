@@ -11,10 +11,10 @@ import org.apache.commons.lang.StringUtils;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class ComparedSchoolBaseStruct implements ILocation {
+public class ComparedSchoolBaseStruct {
     private School _school;
     private Integer _gsRating;
-    private Integer _communityRating;
+    private int _communityRating = 0;
 
     public School getSchool() {
         return _school;
@@ -24,6 +24,7 @@ public class ComparedSchoolBaseStruct implements ILocation {
         _school = school;
     }
 
+    // used by overview, map
     public Integer getGsRating() {
         return _gsRating;
     }
@@ -32,11 +33,12 @@ public class ComparedSchoolBaseStruct implements ILocation {
         _gsRating = gsRating;
     }
 
-    public Integer getCommunityRating() {
+    // used by overview, map, ratings
+    public int getCommunityRating() {
         return _communityRating;
     }
 
-    public void setCommunityRating(Integer communityRating) {
+    public void setCommunityRating(int communityRating) {
         _communityRating = communityRating;
     }
 
@@ -54,6 +56,7 @@ public class ComparedSchoolBaseStruct implements ILocation {
         return getSchool().getPhysicalAddress().getCityStateZip();
     }
 
+    // used by overview, map
     public String getEnrollment() {
         Integer enrollment = getSchool().getEnrollmentOrCapacity();
         if (enrollment != null && enrollment > 0) {
@@ -62,33 +65,12 @@ public class ComparedSchoolBaseStruct implements ILocation {
         return "";
     }
 
-    public String getPhone() {
-        return getSchool().getPhone();
-    }
-
+    // used by overview, map
     public District getDistrict() {
         return getSchool().getDistrict();
     }
 
-    public String getGender() {
-        SchoolSubtype subtype = getSchool().getSubtype();
-        if (subtype != null) {
-            String schoolSubtype = subtype.getCommaSeparatedString();
-            if (schoolSubtype.contains("all_male")) {
-                return "all male";
-            } else if (schoolSubtype.contains("all_female")) {
-                return "all female";
-            } else if (schoolSubtype.contains("coed")) {
-                return "coed";
-            }
-        }
-        return "";
-    }
-
-    public LatLon getLatLon() {
-        return _school.getLatLon();
-    }
-    
+    // used by overview, map
     public String getType() {
         return Util.capitalize(getSchool().getType().getSchoolTypeName());
     }
@@ -101,6 +83,7 @@ public class ComparedSchoolBaseStruct implements ILocation {
         return getSchool().getDatabaseState().getAbbreviationLowerCase() + getSchool().getId();
     }
 
+    // used by overview, map
     public String getGradeLevels() {
         // empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'
         String rangeString = getSchool().getGradeLevels().getRangeString();

@@ -18,6 +18,8 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
         UrlBuilder builder;
         if (StringUtils.equals("overview", _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_OVERVIEW);
+        } else if (StringUtils.equals("ratings", _tab)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_RATINGS);
         } else if (StringUtils.equals("map", _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_MAP);
         } else {
