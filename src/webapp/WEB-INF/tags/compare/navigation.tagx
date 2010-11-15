@@ -9,8 +9,9 @@
     <jsp:directive.attribute name="tab" required="true" description="Tab to be selected"/>
     <jsp:directive.attribute name="schoolsString" required="true" description="Schools parameter to use in creating link"/>
     <jsp:directive.attribute name="page" required="true" description="Page number for linking"/>
+    <jsp:directive.attribute name="alignment" required="false" description="Hint to CSS about where navigation is located."/>
 
-    <div class="compareNavigation">
+    <div class="compareNavigation ${alignment}">
         <c:choose>
             <c:when test="${tab eq 'overview'}">Overview</c:when>
             <c:otherwise><link:compareSchools tab="overview" schools="${schoolsString}" page="${page}">Overview</link:compareSchools></c:otherwise>

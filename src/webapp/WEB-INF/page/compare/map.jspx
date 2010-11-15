@@ -24,19 +24,6 @@
 
         <!-- TODO: Remove temporary styles -->
         <style type="text/css">
-            div.leftSide {
-                margin: 5px 0 0 12px;
-                width: 760px;
-            }
-            div.rightSide {
-                width: 160px;
-                margin: 23px 12px 0 0;
-            }
-            div.compareNavigation {
-                background-color: #EBEBEB;
-                border: 1px solid #ccc;
-                border-bottom: 0;
-            }
             div#compareMap {
                 width: 512px;
                 height: 478px;
@@ -53,78 +40,59 @@
 
     <gsml:body adPageName="compare" pageLayout="leftside">
 
-        <div class="leftSide fltlft">
-            <compare:header tab="${tab}" schoolsString="${schoolsString}" page="${page}"
-                            startIndex="${startIndex}" endIndex="${endIndex}"
-                            totalSchools="${totalSchools}" pageSize="${pageSize}"/>
-            <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}"/>
-            <c:choose>
-                <c:when test="${totalSchools gt 0}">
-                    <div class="schoolList fltrt">
-                        <c:forEach var="school" items="${schools}">
-                            <!-- Remove school -->
-                            <span class="fltrt">
-                                <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}"
-                                                     remove="${school.uniqueIdentifier}"
-                                        ><span class="sprite close2"><!-- do not collapse --></span></link:compareSchools>
-                            </span>
-                            <p><link:schoolProfileOverview school="${school.school}"
-                                                styleClass="schoolName">${school.name}</link:schoolProfileOverview></p>
-                            <div class="line">
-                                <div class="unit">
-                                    <div class="gsRating">
-                                        <c:choose>
-                                            <c:when test="${school.private}">
-                                                <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
-                                            </c:when>
-                                            <c:when test="${empty school.gsRating}">
-                                                <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="sprite badge_sm_${school.gsRating}_y"><!-- do not collapse --></span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                </div>
-                                <div class="unit">
-                                    <div class="communityRating brdlft-solid">
-                                        <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
-                                            <c:choose>
-                                                <c:when test="${school.communityRating gt 0}">
-                                                    <span class="sprite stars_sm_${school.communityRating}_y"><!-- do not collapse --></span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="sprite stars_sm_rate_it_y"><!-- do not collapse --></span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </link:schoolProfileParentReview>
-                                    </div>
-                                </div>
+        <compare:compareTemplate pageName="omniturePageName" hier1="Compare,Map">
+            <div class="schoolList fltrt">
+                <c:forEach var="school" items="${schools}">
+                    <!-- Remove school -->
+                    <span class="fltrt">
+                        <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}"
+                                             remove="${school.uniqueIdentifier}"
+                                ><span class="sprite close2"><!-- do not collapse --></span></link:compareSchools>
+                    </span>
+                    <p><link:schoolProfileOverview school="${school.school}"
+                                        styleClass="schoolName">${school.name}</link:schoolProfileOverview></p>
+                    <div class="line">
+                        <div class="unit">
+                            <div class="gsRating">
+                                <c:choose>
+                                    <c:when test="${school.private}">
+                                        <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:when test="${empty school.gsRating}">
+                                        <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite badge_sm_${school.gsRating}_y"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
-                        </c:forEach>
+                        </div>
+                        <div class="unit">
+                            <div class="communityRating brdlft-solid">
+                                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
+                                    <c:choose>
+                                        <c:when test="${school.communityRating gt 0}">
+                                            <span class="sprite stars_sm_${school.communityRating}_y"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite stars_sm_rate_it_y"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </link:schoolProfileParentReview>
+                            </div>
+                        </div>
                     </div>
-                    <div id="compareMap"><!-- Do not collapse --></div>
-                    <compare:mapCompareSchools mapCenter="${mapCenter}" schools="${schools}"/>
+                </c:forEach>
+            </div>
+            <div id="compareMap"><!-- Do not collapse --></div>
+            <compare:mapCompareSchools mapCenter="${mapCenter}" schools="${schools}"/>
 
-                    <div style="display:none">
-                        <c:forEach var="school" items="${schools}">
-                            <compare:compareSchoolBubble school="${school}"/>
-                        </c:forEach>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <p>There are no schools selected to compare.</p>
-                </c:otherwise>
-            </c:choose>
-        </div>
-        <div class="rightSide fltrt">
-            <ad:AboveFold_Right_120x600 showAdWord="true"/>
-        </div>
-        <br class="clear"/>
-
-        <div id="tracking">
-            <mod:tracking pageName="${omniturePageName}" hier1="Compare,Map"/>
-        </div>
+            <div style="display:none">
+                <c:forEach var="school" items="${schools}">
+                    <compare:compareSchoolBubble school="${school}"/>
+                </c:forEach>
+            </div>
+        </compare:compareTemplate>
     </gsml:body>
     </html>
 </jsp:root>

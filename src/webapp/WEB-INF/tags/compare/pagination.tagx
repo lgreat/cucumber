@@ -14,18 +14,15 @@
     <jsp:directive.attribute name="totalSchools" required="true" type="java.lang.Integer" description="Page number for linking"/>
     <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer" description="Page number for linking"/>
 
-    <div class="compareHeader">
-        <div class="pagination">
-            (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
-            <c:if test="${totalSchools gt pageSize}">
-                <c:set var="nextPage" value="2"/>
-                <c:if test="${page eq 2}">
-                    <c:set var="nextPage" value="1"/>
-                </c:if>
-                <link:compareSchools tab="${tab}" schools="${schoolsString}"
-                                     page="${nextPage}">More schools (${totalSchools-pageSize})</link:compareSchools>
+    <div class="pagination">
+        (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
+        <c:if test="${totalSchools gt pageSize}">
+            <c:set var="nextPage" value="2"/>
+            <c:if test="${page eq 2}">
+                <c:set var="nextPage" value="1"/>
             </c:if>
-        </div>
-        <h2>Compare Schools</h2>
+            <link:compareSchools tab="${tab}" schools="${schoolsString}"
+                                 page="${nextPage}">More schools (${totalSchools-pageSize})</link:compareSchools>
+        </c:if>
     </div>
 </jsp:root>

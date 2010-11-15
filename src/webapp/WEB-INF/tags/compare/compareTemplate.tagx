@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    
+    <jsp:directive.attribute name="pageName" required="true" type="java.lang.String"
+                             description="Omniture pageName."/>
+    <jsp:directive.attribute name="hier1" required="true" type="java.lang.String"
+                             description="Omniture hierarchy."/>
+    <jsp:directive.attribute name="useTable" required="false" type="java.lang.Boolean"
+                             description="If false, do not output a table."/>
+
+    <!-- TODO: Remove temporary styles -->
+    <style type="text/css">
+        div.leftSide {
+            margin: 5px 0 0 12px;
+            width: 760px;
+        }
+        div.rightSide {
+            width: 160px;
+            margin: 23px 12px 0 0;
+        }
+        div.compareNavigation {
+            background-color: #EBEBEB;
+            border: 1px solid #ccc;;
+        }
+        div.compareNavigation.top {
+            background-color: #EBEBEB;
+            border-bottom: 0;
+            margin-top: 10px;
+        }
+        div.compareNavigation.bottom {
+            background-color: #EBEBEB;
+            border-top: 0;
+            margin-bottom: 15px;
+        }
+        table#compareTable {
+            border: 1px solid #ccc;
+        }
+        table#compareTable td {
+            vertical-align: top;
+            border: 1px solid #ccc;
+        }
+        table#compareTable th {
+            border: 1px solid #ccc;
+        }
+        table#compareTable td.center {
+            text-align: center;
+        }
+        div.footerInfo {
+            background-color: #EBEBEB;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+
+    <div class="leftSide fltlft">
+        <div class="compareHeader">
+            <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
+                                      startIndex="${startIndex}" endIndex="${endIndex}"
+                                      totalSchools="${totalSchools}" pageSize="${pageSize}"/>
+            <h2>Compare Schools</h2>
+        </div>
+
+        <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}" alignment="top"/>
+
+        <c:choose>
+            <c:when test="${totalSchools gt 0}">
+                <c:choose>
+                    <c:when test="${empty useTable or useTable eq true}">
+                        <table id="compareTable">
+                            <!-- row header column -->
+                            <col class="rowHeader"/>
+                            <!-- School columns -->
+                            <c:forEach items="${schools}" varStatus="loopStatus">
+                                <col class="schoolColumn${loopStatus.index+1}"/>
+                            </c:forEach>
+
+                            <jsp:doBody/>
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <jsp:doBody/>
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+            <c:otherwise>
+                <p>There are no schools selected to compare.</p>
+            </c:otherwise>
+        </c:choose>
+        <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}" alignment="bottom"/>
+        <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
+                                  startIndex="${startIndex}" endIndex="${endIndex}"
+                                  totalSchools="${totalSchools}" pageSize="${pageSize}"/>
+        <div class="footerInfo clearBoth">
+            <div class="contactUs fltrt">
+                Notice an inaccuracy?
+                <link:schoolFeedback>Let us know</link:schoolFeedback>
+            </div>
+            <div class="howWeGather">
+                <a href="#" onclick="return false;">
+                    <span class="alertDoubleArrow">&amp;#187;</span> How we gather our data
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="rightSide fltrt">
+        <ad:AboveFold_Right_120x600 showAdWord="true"/>
+    </div>
+    <br class="clearBoth"/>
+
+    <div id="tracking">
+        <mod:tracking pageName="${pageName}" hier1="${hier1}"/>
+    </div>
+
+</jsp:root>

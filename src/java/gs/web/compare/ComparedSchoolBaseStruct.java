@@ -1,9 +1,6 @@
 package gs.web.compare;
 
-import gs.data.geo.ILocation;
-import gs.data.geo.LatLon;
 import gs.data.school.School;
-import gs.data.school.SchoolSubtype;
 import gs.data.school.district.District;
 import gs.web.jsp.Util;
 import org.apache.commons.lang.StringUtils;

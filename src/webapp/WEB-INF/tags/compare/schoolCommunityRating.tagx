@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+
+    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School"
+                             description="School to output rating description of."/>
+    <jsp:directive.attribute name="communityRating" required="true" type="java.lang.Integer"
+                             description="Rating to output"/>
+    <jsp:directive.attribute name="numRatings" required="false" type="java.lang.Integer"
+                             description="If provided, output a string listing the number of ratings behind this value."/>
+
+    <c:choose>
+        <c:when test="${communityRating gt 0}">
+            <span class="sprite stars_lg_${communityRating}"><!-- do not collapse --></span>
+            <c:if test="${not empty numRatings and numRatings gt 0}">
+                <p>
+                    <link:schoolProfileParentReview school="${school}">
+                        Based on ${numRatings} ${gsweb:pluralize(numRatings, 'rating')}
+                    </link:schoolProfileParentReview>
+                </p>
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <p>There are no ratings yet for this school.</p>
+            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                Be the first to rate it!
+            </link:schoolProfileParentReview>
+        </c:otherwise>
+    </c:choose>
+
+</jsp:root>

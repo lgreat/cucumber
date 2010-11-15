@@ -20,229 +20,125 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>School Comparison Ratings | GreatSchools</title>
-
-        <!-- TODO: Remove temporary styles -->
-        <style type="text/css">
-            div.leftSide {
-                margin: 5px 0 0 12px;
-                width: 760px;
-            }
-            div.rightSide {
-                width: 160px;
-                margin: 23px 12px 0 0;
-            }
-            div.compareNavigation {
-                background-color: #EBEBEB;
-                border: 1px solid #ccc;
-                border-bottom: 0;
-            }
-            table#compareTable {
-                border: 1px solid #ccc;
-            }
-            table#compareTable td {
-                vertical-align: top;
-            }
-            table#compareTable td.center {
-                text-align: center;
-            }
-            div.schoolThumbnailMap {
-                width: 130px;
-                height: 100px;
-            }
-            div.schoolThumbnailMap .terms-of-use-link {
-                display:block;
-            }
-        </style>
     </head>
 
     <c:set var="omniturePageName" value="Compare_ratings" scope="request"/>
     <ad:setSlotPrefix slotPrefix="Compare_Page"/>
 
     <gsml:body adPageName="compare" pageLayout="leftside">
-
-        <div class="leftSide fltlft">
-            <compare:header tab="${tab}" schoolsString="${schoolsString}" page="${page}"
-                            startIndex="${startIndex}" endIndex="${endIndex}"
-                            totalSchools="${totalSchools}" pageSize="${pageSize}"/>
-
-            <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}"/>
-
-            <c:choose>
-                <c:when test="${totalSchools gt 0}">
-                    <table id="compareTable" border="1">
-                        <!-- row header column -->
-                        <col class="rowHeader"/>
-                        <!-- School columns -->
-                        <c:forEach items="${schools}" varStatus="loopStatus">
-                            <col class="schoolColumn${loopStatus.index+1}"/>
-                        </c:forEach>
-
-                        <tr>
-                            <th>School</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td>
-                                    <compare:schoolOverview school="${school}" tab="${tab}"
-                                                            schoolsString="${schoolsString}" page="${page}"/>
-                                </td>
-                            </c:forEach>
-                        </tr>
-                        <tr>
-                            <th>School type</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td>
-                                    ${school.type} ${school.gradeLevels}
-                                </td>
-                            </c:forEach>
-                        </tr>
-                        <tr>
-                            <th>Community rating (overall)</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td class="center">
-                                    <c:choose>
-                                        <c:when test="${school.communityRating gt 0}">
-                                            <span class="sprite stars_lg_${school.communityRating}"><!-- do not collapse --></span>
-                                            <p>
-                                                <link:schoolProfileParentReview school="${school.school}">
-                                                    Based on ${school.numRatings} ${gsweb:pluralize(school.numRatings, 'rating')}
-                                                </link:schoolProfileParentReview>
-                                            </p>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p>There are no ratings yet for this school.</p>
-                                            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
-                                                Be the first to rate it!
-                                            </link:schoolProfileParentReview>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </c:forEach>
-                        </tr>
-                        <tr>
-                            <th>Teacher quality rating</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td class="center">
-                                    <c:choose>
-                                        <c:when test="${school.teacherRating gt 0}">
-                                            <span class="sprite stars_lg_${school.teacherRating}"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p>There are no ratings yet for this school.</p>
-                                            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
-                                                Be the first to rate it!
-                                            </link:schoolProfileParentReview>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </c:forEach>
-                        </tr>
-                        <tr>
-                            <th>Principal quality rating</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td class="center">
-                                    <c:choose>
-                                        <c:when test="${school.principalRating gt 0}">
-                                            <span class="sprite stars_lg_${school.principalRating}"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p>There are no ratings yet for this school.</p>
-                                            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
-                                                Be the first to rate it!
-                                            </link:schoolProfileParentReview>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </c:forEach>
-                        </tr>
-                        <tr>
-                            <th>Parent involvement rating</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td class="center">
-                                    <c:choose>
-                                        <c:when test="${school.parentRating gt 0}">
-                                            <span class="sprite stars_lg_${school.parentRating}"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p>There are no ratings yet for this school.</p>
-                                            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
-                                                Be the first to rate it!
-                                            </link:schoolProfileParentReview>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </c:forEach>
-                        </tr>
-                        <tr>
-                            <th>Recent reviews</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td class="center">
-                                    <c:choose>
-                                        <c:when test="${school.recentReview ne null}">
-                                            <p class="reviewComments">
-                                                ${gsweb:abbreviateAtWhitespace(school.recentReview.comments, 70)}
-                                                <link:schoolProfileParentReview school="${school.school}" anchor="ps${school.recentReview.id}">
-                                                    More <span class="alertDoubleArrow">&amp;#187;</span>
-                                                </link:schoolProfileParentReview>
-                                            </p>
-                                            <c:if test="${not empty school.recentReview.who and school.recentReview.who ne 'other'}">
-                                                <p class="reviewSubmittedBy">
-                                                    &amp;mdash; Submitted by
-                                                    ${gsweb:createParentReviewDisplayName('', '', school.recentReview.who)}
-                                                </p>
-                                            </c:if>
-                                            <p>
-                                                <link:schoolProfileParentReview school="${school.school}">
-                                                    <c:choose>
-                                                        <c:when test="${school.numReviews eq 1}">Read the review</c:when>
-                                                        <c:otherwise>Read all <span
-                                                                class="count">${school.numReviews}</span> reviews</c:otherwise>
-                                                    </c:choose>
-                                                </link:schoolProfileParentReview>
-                                            </p>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <p>
-                                                There are no reviews yet for this school.
-                                            </p>
-                                            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
-                                                Be the first the share!
-                                            </link:schoolProfileParentReview>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </c:forEach>
-                        </tr>
-                        <tr>
-                            <th>&amp;nbsp;</th>
-                            <c:forEach items="${schools}" var="school">
-                                <td class="center">
-                                    <c:choose>
-                                        <c:when test="${school.numReviews gt 0}">
-                                            <link:schoolProfileParentReview school="${school.school}">
-                                                View more ratings &amp;amp; reviews
-                                            </link:schoolProfileParentReview>
-                                        </c:when>
-                                        <c:otherwise>
-                                            &amp;nbsp;
-                                        </c:otherwise>
-                                    </c:choose>
-                                </td>
-                            </c:forEach>
-                        </tr>
-                    </table>
-                </c:when>
-                <c:otherwise>
-                    <p>There are no schools selected to compare.</p>
-                </c:otherwise>
-            </c:choose>
-        </div>
-        <div class="rightSide fltrt">
-            <ad:AboveFold_Right_120x600 showAdWord="true"/>
-        </div>
-        <br class="clear"/>
-
-        <div id="tracking">
-            <mod:tracking pageName="${omniturePageName}" hier1="Compare,Ratings_Reviews"/>
-        </div>
+        <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Reviews">
+            <tr>
+                <th>School</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        <compare:schoolOverview school="${school}" tab="${tab}"
+                                                schoolsString="${schoolsString}" page="${page}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>School type</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        ${school.type} ${school.gradeLevels}
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Community rating (overall)</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <compare:schoolCommunityRating school="${school.school}"
+                                                       communityRating="${school.communityRating}"
+                                                       numRatings="${school.numRatings}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Teacher quality rating</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <compare:schoolCommunityRating school="${school.school}"
+                                                       communityRating="${school.teacherRating}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Principal quality rating</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <compare:schoolCommunityRating school="${school.school}"
+                                                       communityRating="${school.principalRating}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Parent involvement rating</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <compare:schoolCommunityRating school="${school.school}"
+                                                       communityRating="${school.parentRating}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Recent reviews</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <c:choose>
+                            <c:when test="${school.recentReview ne null}">
+                                <p class="reviewComments">
+                                    ${gsweb:abbreviateAtWhitespace(school.recentReview.comments, 70)}
+                                    <link:schoolProfileParentReview school="${school.school}" anchor="ps${school.recentReview.id}">
+                                        More <span class="alertDoubleArrow">&amp;#187;</span>
+                                    </link:schoolProfileParentReview>
+                                </p>
+                                <c:if test="${not empty school.recentReview.who and school.recentReview.who ne 'other'}">
+                                    <p class="reviewSubmittedBy">
+                                        &amp;mdash; Submitted by
+                                        ${gsweb:createParentReviewDisplayName('', '', school.recentReview.who)}
+                                    </p>
+                                </c:if>
+                                <p>
+                                    <link:schoolProfileParentReview school="${school.school}">
+                                        <c:choose>
+                                            <c:when test="${school.numReviews eq 1}">Read the review</c:when>
+                                            <c:otherwise>Read all <span
+                                                    class="count">${school.numReviews}</span> reviews</c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview>
+                                </p>
+                            </c:when>
+                            <c:otherwise>
+                                <p>
+                                    There are no reviews yet for this school.
+                                </p>
+                                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
+                                    Be the first the share!
+                                </link:schoolProfileParentReview>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>&amp;nbsp;</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <c:choose>
+                            <c:when test="${school.numReviews gt 0}">
+                                <link:schoolProfileParentReview school="${school.school}">
+                                    View more ratings &amp;amp; reviews
+                                </link:schoolProfileParentReview>
+                            </c:when>
+                            <c:otherwise>
+                                &amp;nbsp;
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+        </compare:compareTemplate>
     </gsml:body>
     </html>
 </jsp:root>
