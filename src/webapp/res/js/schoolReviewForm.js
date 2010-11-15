@@ -160,6 +160,7 @@ GS.form.SchoolReviewForm = function(id) {
             if (GS.isSignedIn() || !this.isEmailTaken) {
                 GS_postSchoolReview();
             } else {
+                jQuery('#signInHover h2 span').hide();
                 GSType.hover.signInHover.showHover("", window.location.href, GSType.hover.joinHover.showSchoolReviewJoin, GS_postSchoolReview);
             }
         } else {
