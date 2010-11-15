@@ -38,7 +38,7 @@
                             <c:choose>
                                 <c:when test="${school.communityRating gt 0}">
                                     <!-- do not split this into a separate line; it will break the map -->
-                                    <div class="smallText1-333"><c:choose><c:when test="${requestScope.context.showReviewsPageRedesign}">Community Rating</c:when><c:otherwise>Overall Parent Rating</c:otherwise></c:choose></div>
+                                    <div class="smallText1-333">Community Rating</div>
                                     <span class="sprite stars_sm_${school.communityRating}"><!-- do not collapse --></span>
                                 </c:when>
                                 <c:otherwise>

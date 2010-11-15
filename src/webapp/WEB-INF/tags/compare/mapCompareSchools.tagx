@@ -32,11 +32,6 @@
             var map = new google.maps.Map(document.getElementById("compareMap"), myOptions);
 
             var imageUrl;
-            var markerOptions = {
-                map: map,
-                shadow: markerShadow,
-                shape: markerShape
-            };
             var preSelect;
             var centerPoint = null;
             var markerShadow = new google.maps.MarkerImage(
@@ -50,6 +45,11 @@
             var markerShape = {
                 coord: [0, 0, 30, 0, 30, 37, 0, 37],
                 type: 'poly'
+            };
+            var markerOptions = {
+                map: map,
+                shadow: markerShadow,
+                shape: markerShape
             };
             var bounds = new google.maps.LatLngBounds();
             var numSchools = 0;

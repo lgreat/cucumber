@@ -29,7 +29,9 @@
     <div>${school.cityStateZip}</div>
     <c:if test="${not empty showMap and showMap eq true}">
         <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
-        <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}" clickUrl="map.page?p=${page}&amp;schools=${schoolsString}&amp;selectedSchool=${school.uniqueIdentifier}"/>
+        <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"
+                        clickUrl="map.page?p=${page}&amp;schools=${schoolsString}&amp;selectedSchool=${school.uniqueIdentifier}"
+                        gsRating="${school.gsRating}" isPrivate="${school.private}"/>
     </c:if>
     <div>
         <gslink:realtorDotComLink school="${school.school}"

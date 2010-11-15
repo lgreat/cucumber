@@ -24,18 +24,14 @@
         <!-- TODO: Remove temporary styles -->
         <style type="text/css">
             div.schoolThumbnailMap {
-                width: 130px;
-                height: 100px;
-            }
-            div.schoolThumbnailMap .terms-of-use-link {
-                display:block;
+                width: 150px;
+                height: 150px;
             }
         </style>
     </head>
 
     <c:set var="omniturePageName" value="Compare_overview" scope="request"/>
     <ad:setSlotPrefix slotPrefix="Compare_Page"/>
-    <map:setup/>
 
     <gsml:body adPageName="compare" pageLayout="leftside">
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,CompareOverview">
