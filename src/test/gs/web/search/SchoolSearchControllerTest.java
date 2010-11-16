@@ -61,7 +61,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
 
-        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(FieldFilter[].class), eq(FieldSort.GS_RATING))).andReturn(page);
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING), eq(10), eq(5))).andReturn(page);
         replay(_schoolSearchService);
         BindException errors = new BindException(schoolSearchCommand, "");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
@@ -90,7 +90,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
 
-        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(FieldFilter[].class), eq(FieldSort.GS_RATING))).andReturn(page);
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING), eq(10), eq(5))).andReturn(page);
         replay(_schoolSearchService);
         BindException errors = new BindException(schoolSearchCommand, "");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);

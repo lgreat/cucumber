@@ -64,19 +64,34 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(schoolSearchCommand, request);
 
+        List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
+
+
         List<FieldFilter> filters = new ArrayList<FieldFilter>();
         String[] schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
         if (schoolSearchTypes != null && schoolSearchTypes.length > 0) {
-            filters.addAll(getSchoolTypeFilters(schoolSearchTypes));
+            FilterGroup filterGroup = new FilterGroup();
+            filterGroup.setFieldFilters(getSchoolTypeFilters(schoolSearchTypes).toArray(new FieldFilter[0]));
+            filterGroups.add(filterGroup);
         }
         String[] schoolGradeLevels = schoolSearchCommand.getGradeLevels();
         if (schoolGradeLevels != null && schoolGradeLevels.length > 0) {
-            filters.addAll(getGradeLevelFilters(schoolGradeLevels));
+            FilterGroup filterGroup = new FilterGroup();
+            filterGroup.setFieldFilters(getGradeLevelFilters(schoolGradeLevels).toArray(new FieldFilter[0]));
+            filterGroups.add(filterGroup);
         }
 
         FieldSort sort = this.getChosenSort(schoolSearchCommand);
 
-        SearchResultsPage<ISchoolSearchResult> searchResultsPage = getSchoolSearchService().search(schoolSearchCommand.getSearchString(), fieldConstraints, filters.toArray(new FieldFilter[0]), sort);
+        SearchResultsPage<ISchoolSearchResult> searchResultsPage = getSchoolSearchService().search(
+                schoolSearchCommand.getSearchString(),
+                fieldConstraints,
+                filterGroups,
+                sort,
+                schoolSearchCommand.getStart(),
+                schoolSearchCommand.getPageSize()
+        );//TODO: finish paging
+        
         //List<ICitySearchResult> citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state);
         //List<IDistrictSearchResult> districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state);
 

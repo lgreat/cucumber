@@ -31,14 +31,25 @@ GS.search.SchoolSearcher = function() {
     };
 
     this.search = function(callback) {
-        var gradeLevels = [];
+        console.log("search called");
         var i = 0;
-        jQuery('#js-gradeLevels input :checked').each(function(item) {
+        var data = {};
+        var gradeLevels = [];
+        var schoolTypes = [];
+        
+        //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
+        jQuery('#js-gradeLevels :checked').each(function() {
             gradeLevels[i++] = jQuery(this).val();
         });
 
-        console.log("gradeLevels: " + gradeLevels.join());
-        jQuery.getJSON(this.url(), {gradeLevels:gradeLevels.join()}, callback);
+        i = 0;
+        jQuery('#js-schoolTypes :checked').each(function() {
+            schoolTypes[i++] = jQuery(this).val();
+        });
+        data["gradeLevels"] = gradeLevels;
+        data["schoolTypes"] = schoolTypes;
+
+        jQuery.getJSON(this.url(), data , callback);
     };
 };
 
@@ -46,10 +57,12 @@ GS.search.SchoolSearchResultsTable = function() {
     var thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
 
     this.clear = function() {
+        console.log("clear() called");
         thisDomElement.find('.school-search-result-row').remove();
     };
 
     this.add = function(schoolSearchResult) {
+        console.log("add called");
         console.log("school search result is: ");
         console.log(schoolSearchResult);
         var template = new GS.search.SchoolSearchResult();
@@ -86,9 +99,10 @@ GS.search.SchoolSearchResultsTable = function() {
     };
 };
 
-GS.search.schoolSearchResultsTable = new GS.search.SchoolSearchResultsTable();
 jQuery(function() {
-    jQuery('#js-gradeLevels input').change(function() {
+    GS.search.schoolSearchResultsTable = new GS.search.SchoolSearchResultsTable();
+
+    jQuery('#topicbarGS input').change(function() {
         GS.search.schoolSearchResultsTable.update();
     });
 });

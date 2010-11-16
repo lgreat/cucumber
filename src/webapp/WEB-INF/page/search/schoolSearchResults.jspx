@@ -41,19 +41,20 @@
                 </div>
                 <div class="filter-bd">
                     <div>
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="p"/>
+                        <!-- TODO: make IDs on checkboxes more unique -->
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
                         <label for="p">Preschool</label>
                     </div>
                     <div>
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="e"/>
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="e" value="e"/>
                         <label for="e">Elementary School</label>
                     </div>
                     <div>
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="m"/>
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="m" value="m"/>
                         <label for="m">Middle School</label>
                     </div>
                     <div>
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="h"/>
+                        <input type="checkbox" checked="checked" name="gradeLevels" id="h" value="h"/>
                         <label for="h">High School</label>
                     </div>
                 </div>
@@ -66,16 +67,16 @@
                 </div>
                 <div class="filter-bd">
                     <div>
-                        <input type="checkbox" checked="checked" name="schoolTypes" id="public"/>
-                        <label for="public">Public</label>
+                        <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-public" value="public"/>
+                        <label for="school-type-public">Public</label>
                     </div>
                     <div>
-                        <input type="checkbox" checked="checked" name="schoolTypes" id="charter"/>
-                        <label for="charter">Public Charter</label>
+                        <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-charter" value="charter"/>
+                        <label for="school-type-charter">Public Charter</label>
                     </div>
                     <div>
-                        <input type="checkbox" checked="checked" name="schoolTypes" id="private"/>
-                        <label for="private">Private</label>
+                        <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-private" value="private"/>
+                        <label for="school-type-private">Private</label>
                     </div>
                 </div>
             </div>

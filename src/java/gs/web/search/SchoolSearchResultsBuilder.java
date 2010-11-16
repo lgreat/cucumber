@@ -20,6 +20,9 @@ public class SchoolSearchResultsBuilder {
 
     public List<ISchoolSearchResult> build(Hits hits, int offset, int count) throws IOException {
         int length = hits.length();
+        if (count == 0) {
+            count = hits.length();
+        }
         List<ISchoolSearchResult> searchResults = new ArrayList<ISchoolSearchResult>();
 
         for (int i = offset; (i < length && i < offset + count); i++ ) {

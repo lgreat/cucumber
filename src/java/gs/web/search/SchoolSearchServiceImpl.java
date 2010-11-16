@@ -21,16 +21,33 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
     SchoolSearchResultsBuilder _resultsBuilder = new SchoolSearchResultsBuilder();
 
     public SearchResultsPage<ISchoolSearchResult> search(String queryString) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new FieldFilter[0], null);
+        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), null);
     }
 
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints) throws SearchException {
-        return search(queryString, fieldConstraints, new FieldFilter[0], null);
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, int offset, int count) throws SearchException {
+        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), null, offset, count);
     }
 
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, FieldFilter[] fieldFilters, FieldSort fieldSort) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), fieldFilters, fieldSort);
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, FieldSort fieldSort) throws SearchException {
+        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), fieldSort);
     }
+
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, FieldSort fieldSort, int offset, int count) throws SearchException {
+        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), fieldSort, offset, count);
+    }
+
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort) throws SearchException {
+        return search(queryString, new HashMap<FieldConstraint, String>(), filterGroups, fieldSort);
+    }
+    
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort, int offset, int count) throws SearchException {
+        return search(queryString, new HashMap<FieldConstraint, String>(), filterGroups, fieldSort, offset, count);
+    }
+    
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort) throws SearchException {
+        return search(queryString, fieldConstraints, filters, fieldSort, 0, 0);
+    }
+
 
     /**
      * @param queryString
@@ -38,10 +55,10 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
      * @param fieldSort
      * @return
      */
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, FieldFilter[] filters, FieldSort fieldSort) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int count, int offset) throws SearchException {
 
         ChainedFilter luceneFilter = null;
-        if (filters.length > 0) {
+        if (filters.size() > 0) {
             luceneFilter = createChainedFilter(filters);
         }
 
@@ -55,7 +72,7 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
         List<ISchoolSearchResult> resultList = null;
 
         try {
-            resultList = new SchoolSearchResultsBuilder().build(hits);
+            resultList = new SchoolSearchResultsBuilder().build(hits, offset, count);
         } catch (IOException e) {
             throw new SearchException("Problem accessing search results.", e);
         }
@@ -126,16 +143,21 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
         return mixedQuery;
     }
 
-    protected ChainedFilter createChainedFilter(FieldFilter[] filters) {
+    protected ChainedFilter createChainedFilter(List<FilterGroup> filterGroups) {
+        ChainedFilter[] subFilters = new ChainedFilter[filterGroups.size()];
+        int j = 0;
 
-        Filter[] filtersToAdd = new Filter[filters.length];
-
-        for (int i = 0; i < filters.length; i++) {
-            Filter filterToAdd = Searcher.getFilters().get(filters[i].getFilterName());
-            filtersToAdd[i] = filterToAdd;
+        for (FilterGroup filterGroup : filterGroups) {
+            FieldFilter[] filters = filterGroup.getFieldFilters();
+            Filter[] filtersToAdd = new Filter[filters.length];
+            for (int i = 0; i < filters.length; i++) {
+                Filter filterToAdd = Searcher.getFilters().get(filters[i].getFilterName());
+                filtersToAdd[i] = filterToAdd;
+            }
+            subFilters[j++] = new ChainedFilter(filtersToAdd, ChainedFilter.OR);
         }
 
-        ChainedFilter chainedFilter = new ChainedFilter(filtersToAdd, ChainedFilter.AND);
+        ChainedFilter chainedFilter = new ChainedFilter(subFilters, ChainedFilter.AND);
         return chainedFilter;
     }
 

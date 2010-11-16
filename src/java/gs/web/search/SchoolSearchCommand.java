@@ -25,7 +25,7 @@ public class SchoolSearchCommand {
     private Integer _pageSize;
 
     public SchoolSearchCommand() {
-        _pageSize = 20;
+        _pageSize = 25;
     }
 
     public void setQ(String q) {
@@ -98,5 +98,13 @@ public class SchoolSearchCommand {
 
     public boolean isJsonFormat() {
         return "json".equals(_format);
+    }
+
+    public boolean hasSchoolTypes() {
+        return (_schoolTypes != null && _schoolTypes.length > 0);
+    }
+
+    public boolean hasGradeLevels() {
+        return (_gradeLevels != null && _gradeLevels.length > 0);
     }
 }
