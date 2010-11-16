@@ -104,6 +104,7 @@ public class SearchManagerController extends AbstractController {
 
                     }
 
+                    Indexer.clearScorecardSchools();
                     _indexer.index(states,
                             _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
 
