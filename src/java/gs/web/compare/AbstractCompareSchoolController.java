@@ -1,6 +1,7 @@
 package gs.web.compare;
 
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.SchoolTestValue;
@@ -46,6 +47,10 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     private int _pageSize = DEFAULT_PAGE_SIZE;
 
     @Override
+    /**
+     * Handles common behavior, such as validation, error-handling, and pagination.
+     * Delegates to handleCompareRequest
+     */
     protected final ModelAndView handleRequestInternal(HttpServletRequest request,
                                                        HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -57,6 +62,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         try {
             handleCompareRequest(request, response, schools, model);
             model.put(MODEL_SCHOOLS, schools);
+            handleAdKeywords(request, schools);
         } catch (Exception e) {
             _log.error(e, e);
             return getErrorResponse("unknown exception");
@@ -64,22 +70,31 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return new ModelAndView(getSuccessView(), model);
     }
 
-    /** Insert whatever data needed by the view for the implementing class. */
+    /**
+     * Insert into model whatever data needed by the view for the implementing class.
+     * */
     protected abstract void handleCompareRequest(HttpServletRequest request,
                                                  HttpServletResponse response,
                                                  List<ComparedSchoolBaseStruct> schools,
-                                                 Map<String, Object> model) throws IOException;
+                                                 Map<String, Object> model) throws Exception;
     /** Return the appropriate success view for the implementing class. */
     public abstract String getSuccessView();
     /** Return an instance of the struct appropriate for the implementing class. */
     protected abstract ComparedSchoolBaseStruct getStruct();
 
+    /**
+     * Returns an error view.
+     */
     protected ModelAndView getErrorResponse(String details) {
         Map<String, String> errorModel = new HashMap<String, String>(1);
         errorModel.put("details", details);
         return new ModelAndView(_errorView, errorModel);
     }
 
+    /**
+     * Takes a split schools array (e.g. {"ca1", "ca2"} and paginates it. Puts appropriate pagination values
+     * into the model and returns the sub-array for the desired page.
+     */
     protected String[] paginateSchools(HttpServletRequest request, String[] schoolsArray,
                                        Map<String, Object> model) {
         model.put(MODEL_TOTAL_SCHOOLS, schoolsArray.length);
@@ -114,6 +129,13 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         }
     }
 
+    /**
+     * Takes a split array of schools (e.g. {"ca1", "ca2"}) and validates it.
+     * Checks number of schools, proper format of each school string, disparate states,
+     * duplicate schools.
+     *
+     * If validation fails, returns false. Otherwise returns true.
+     */
     protected boolean validateSchools(String[] schools) {
         if (schools.length < MIN_SCHOOLS) {
             _log.error("Compare schools with fewer than " + MIN_SCHOOLS +
@@ -155,6 +177,13 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return true;
     }
 
+    /**
+     * Fetches the schools for the current page. This method performs validation on the
+     * schools request parameter, paginates it, fetches each school, and places them into
+     * the appropriate struct.
+     *
+     * Returns null on error. Otherwise returns a list of school structs.
+     */
     protected List<ComparedSchoolBaseStruct> getSchools(HttpServletRequest request, Map<String, Object> model) {
         String schoolsParamValue = request.getParameter(PARAM_SCHOOLS);
         if (StringUtils.isBlank(schoolsParamValue)) {
@@ -191,8 +220,66 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return rval;
     }
 
-    // Helper methods
+    protected void handleAdKeywords(HttpServletRequest request, List<ComparedSchoolBaseStruct> structs) {
+        try {
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
+            Set<String> typeSet = new HashSet<String>();
+            Set<String> levelSet = new HashSet<String>();
+            Set<String> countySet = new HashSet<String>();
+            Set<String> citySet = new HashSet<String>();
+            Set<String> schoolIdSet = new HashSet<String>();
+            Set<String> zipSet = new HashSet<String>();
+            Set<String> districtNameSet = new HashSet<String>();
+            Set<String> districtIdSet = new HashSet<String>();
+            if (null != pageHelper) {
+                for (ComparedSchoolBaseStruct struct: structs) {
+                    School school = struct.getSchool();
+                    String schoolType = school.getType().getSchoolTypeName();
+                    // GS-5064
+                    String county = school.getCounty();
+                    String city = school.getCity();
+                    typeSet.add(schoolType);
+                    for (LevelCode.Level level : school.getLevelCode().getIndividualLevelCodes()) {
+                        levelSet.add(level.getName());
+                    }
+                    countySet.add(county);
+                    citySet.add(city);
+                    schoolIdSet.add(school.getId().toString());
+                    zipSet.add(school.getZipcode());
+
+                    // set district name and id ad attributes only if there's a district and school is not preschool-only
+                    if (school.getDistrictId() != 0 && school.getLevelCode() != null
+                            && !school.getLevelCode().toString().equals("p")) {
+                        districtNameSet.add(school.getDistrict().getName());
+                        districtIdSet.add(String.valueOf(school.getDistrictId()));
+                    }
+                }
+                addAdKeywordMulti("type", typeSet, pageHelper);
+                addAdKeywordMulti("level", levelSet, pageHelper);
+                addAdKeywordMulti("county", countySet, pageHelper);
+                addAdKeywordMulti("city", citySet, pageHelper);
+                addAdKeywordMulti("school_id", schoolIdSet, pageHelper);
+                addAdKeywordMulti("zipcode", zipSet, pageHelper);
+                addAdKeywordMulti("district_name", districtNameSet, pageHelper);
+                addAdKeywordMulti("district_id", districtIdSet, pageHelper);
+            }
+        } catch (Exception e) {
+            _log.warn("Error constructing ad keywords in new compare");
+        }
+    }
+
+    protected void addAdKeywordMulti(String key, Set<String> values, PageHelper pageHelper) {
+        for (String value: values) {
+            pageHelper.addAdKeywordMulti(key, value);
+        }
+    }
+
+    // SHARED METHODS FOR SUB-CLASSES
+
+    /**
+     * Sets the gsRating field for the provided schools.
+     */
     protected void handleGSRating(HttpServletRequest request, List<ComparedSchoolBaseStruct> schools) throws IOException {
         if (schools.size() == 0) {
             return; // early exit
@@ -213,6 +300,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         }
     }
 
+    /**
+     * Sets the gsRating field for the provided school.
+     */
     protected void handleGSRating(ComparedSchoolBaseStruct struct, IRatingsConfig ratingsConfig) {
         SchoolTestValue schoolTestValue =
                 _testManager.getOverallRating(struct.getSchool(), ratingsConfig.getYear());
@@ -221,6 +311,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         }
     }
 
+    // FIELD ACCESSOR/MUTATORS
 
     public ISchoolDao getSchoolDao() {
         return _schoolDao;

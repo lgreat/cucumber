@@ -45,6 +45,7 @@ public class TestCompareRatingsController extends BaseControllerTestCase {
     public void testBasics() {
         assertSame(_reviewDao, _controller.getReviewDao());
         assertEquals("success", _controller.getSuccessView());
+        assertEquals(ComparedSchoolRatingsStruct.class, _controller.getStruct().getClass());
     }
 
     public void testHandleCommunityRating() {

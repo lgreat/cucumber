@@ -3,6 +3,10 @@ package gs.web.compare;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.test.SchoolTestValue;
+import gs.data.test.TestManager;
+import gs.data.test.rating.IRatingsConfig;
+import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.BaseControllerTestCase;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,13 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.easymock.EasyMock.*;
 import static gs.web.compare.AbstractCompareSchoolController.PARAM_SCHOOLS;
 import static gs.web.compare.AbstractCompareSchoolController.PARAM_PAGE;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -24,6 +29,8 @@ import static gs.web.compare.AbstractCompareSchoolController.PARAM_PAGE;
 public class TestAbstractCompareSchoolController extends BaseControllerTestCase {
     private AbstractCompareSchoolController _controller;
     private ISchoolDao _schoolDao;
+    private IRatingsConfigDao _ratingsConfigDao;
+    private TestManager _testManager;
     private Map<String, Object> _model;
 
     @Override
@@ -47,28 +54,36 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
         };
 
         _schoolDao = createStrictMock(ISchoolDao.class);
+        _ratingsConfigDao = createStrictMock(IRatingsConfigDao.class);
+        _testManager = createStrictMock(TestManager.class);
 
         _controller.setSchoolDao(_schoolDao);
+        _controller.setRatingsConfigDao(_ratingsConfigDao);
+        _controller.setTestManager(_testManager);
         _controller.setErrorView("error");
+        _controller.setPageSize(4);
 
         _model = new HashMap<String, Object>();
     }
 
     public void testBasics() {
         assertSame(_schoolDao, _controller.getSchoolDao());
+        assertSame(_ratingsConfigDao, _controller.getRatingsConfigDao());
+        assertSame(_testManager, _controller.getTestManager());
         assertEquals("error", _controller.getErrorView());
+        assertEquals(4, _controller.getPageSize());
     }
 
     private void replayAllMocks() {
-        replayMocks(_schoolDao);
+        replayMocks(_schoolDao, _ratingsConfigDao, _testManager);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_schoolDao);
+        verifyMocks(_schoolDao, _ratingsConfigDao, _testManager);
     }
 
     private void resetAllMocks() {
-        resetMocks(_schoolDao);
+        resetMocks(_schoolDao, _ratingsConfigDao, _testManager);
     }
 
     public void testPaginateSchools() {
@@ -94,6 +109,13 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
         assertEquals("ca3", _controller.paginateSchools(getRequest(), schools, _model)[2]);
         assertEquals("ca4", _controller.paginateSchools(getRequest(), schools, _model)[3]);
 
+        getRequest().setParameter(PARAM_PAGE, "two"); // defaults to first page
+        assertEquals(4, _controller.paginateSchools(getRequest(), schools, _model).length);
+        assertEquals("ca1", _controller.paginateSchools(getRequest(), schools, _model)[0]);
+        assertEquals("ca2", _controller.paginateSchools(getRequest(), schools, _model)[1]);
+        assertEquals("ca3", _controller.paginateSchools(getRequest(), schools, _model)[2]);
+        assertEquals("ca4", _controller.paginateSchools(getRequest(), schools, _model)[3]);
+        
         getRequest().setParameter(PARAM_PAGE, "2");
         assertEquals(4, _controller.paginateSchools(getRequest(), schools, _model).length);
         assertEquals("ca2", _controller.paginateSchools(getRequest(), schools, _model)[0]);
@@ -248,5 +270,62 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
         resetAllMocks();
         assertNotNull(mAndV);
         assertEquals("success", mAndV.getViewName()); // as configured in setUp
+    }
+
+    public void testHandleGSRatingSingle() {
+        ComparedSchoolOverviewStruct struct = new ComparedSchoolOverviewStruct();
+        School school = new School();
+        struct.setSchool(school);
+
+        IRatingsConfig ratingsConfig = createStrictMock(IRatingsConfig.class);
+        SchoolTestValue stv = new SchoolTestValue();
+        stv.setValueFloat(3f);
+
+        expect(ratingsConfig.getYear()).andReturn(2010);
+        expect(_testManager.getOverallRating(school, 2010)).andReturn(stv);
+        replayAllMocks();
+        replay(ratingsConfig);
+        _controller.handleGSRating(struct, ratingsConfig);
+        verifyAllMocks();
+        verify(ratingsConfig);
+        assertNotNull(struct.getGsRating());
+        assertEquals(3, struct.getGsRating().intValue());
+    }
+
+    public void testHandleGSRating() throws Exception {
+        List<ComparedSchoolBaseStruct> structs = new ArrayList<ComparedSchoolBaseStruct>();
+        ComparedSchoolOverviewStruct struct1 = new ComparedSchoolOverviewStruct();
+        School school1 = new School();
+        school1.setDatabaseState(State.CA);
+        struct1.setSchool(school1);
+
+        ComparedSchoolOverviewStruct struct2 = new ComparedSchoolOverviewStruct();
+        School school2 = new School();
+        struct2.setSchool(school2);
+
+        structs.add(struct1);
+        structs.add(struct2);
+
+        SchoolTestValue stv1 = new SchoolTestValue();
+        stv1.setValueFloat(3f);
+
+        SchoolTestValue stv2 = new SchoolTestValue();
+        stv2.setValueFloat(6f);
+
+        IRatingsConfig ratingsConfig = createStrictMock(IRatingsConfig.class);
+        expect(_ratingsConfigDao.restoreRatingsConfig(State.CA, true)).andReturn(ratingsConfig);
+        expect(ratingsConfig.getYear()).andReturn(2010);
+        expect(_testManager.getOverallRating(school1, 2010)).andReturn(stv1);
+        expect(ratingsConfig.getYear()).andReturn(2010);
+        expect(_testManager.getOverallRating(school2, 2010)).andReturn(stv2);
+        replayAllMocks();
+        replay(ratingsConfig);
+        _controller.handleGSRating(getRequest(), structs);
+        verifyAllMocks();
+        verify(ratingsConfig);
+        assertNotNull(struct1.getGsRating());
+        assertEquals(3, struct1.getGsRating().intValue());
+        assertNotNull(struct2.getGsRating());
+        assertEquals(6, struct2.getGsRating().intValue());
     }
 }

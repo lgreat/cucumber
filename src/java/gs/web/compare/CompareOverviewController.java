@@ -14,8 +14,8 @@ public class CompareOverviewController extends AbstractCompareSchoolController {
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
-                                        List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) throws
-                                                                                                       IOException {
+                                        List<ComparedSchoolBaseStruct> schools, Map<String, Object> model)
+            throws IOException {
         model.put(MODEL_TAB, "overview");
         handleGSRating(request, schools);
     }
