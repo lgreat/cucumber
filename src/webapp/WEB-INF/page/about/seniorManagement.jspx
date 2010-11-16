@@ -125,34 +125,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_clare.jpg" alt="Clare Ellis"/></td>
-                    <td valign="top">
-                        <div class="text3boldOrange">Clare Ellis, Vice President, Product Strategy</div>
-                        <div class="text3">
-                            Clare guides the strategic development of GreatSchools and our growing
-                            community of involved parents. Previously, Clare was the director of
-                            content development for Nickelodeon's Family and Kids Division, where
-                            she helped launch ParentsConnect and manage GoCityKids, which she cofounded.
-                            She was the
-                            founding editor in chief of BabyCenter.com and served as the editor of
-                            Disney Publishing's <em>FamilyFun</em> magazine. After graduating from Smith
-                            College with a BA in English, Clare worked in publishing at <em>Health</em>
-                            magazine, Time-Warner Inc. and McGraw-Hill. She'll never miss a recital
-                            by either of her two sons after having been one of 24 (or so) flautists in
-                            the
-                            <c:choose>
-                                <c:when test="${bronxville_school ne null}">
-                                    <link:schoolProfileOverview school="${bronxville_school}">Bronxville High School</link:schoolProfileOverview>
-                                </c:when>
-                                <c:otherwise>
-                                    Bronxville High School
-                                </c:otherwise>
-                            </c:choose>
-                            band.
-                        </div>
-                    </td>
-                </tr>
+
                 <tr>
                     <td valign="top"><img src="/res/img/about/seniormanagement_lilly.jpg" alt="Lilly Fu"/></td>
                     <td valign="top">
@@ -235,7 +208,7 @@
                 <tr>
                     <td valign="top"><img src="/res/img/about/seniormanagement_molly.jpg" alt="Molly Vitorte"/></td>
                     <td valign="top">
-                        <div class="text3boldOrange">Molly Vitorte, Vice President, Partner Relationships</div>
+                        <div class="text3boldOrange">Molly Vitorte, Vice President and Managing Director, College Bound </div>
                         <div class="text3">
                             Molly brings to GreatSchools over 20 years of experience in the nonprofit,
                             for-profit and higher education sectors, with a focus on improving college
