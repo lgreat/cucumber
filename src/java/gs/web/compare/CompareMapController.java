@@ -26,11 +26,14 @@ public class CompareMapController extends AbstractCompareSchoolController {
                                         List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) throws
                                                                                                            IOException {
         model.put(MODEL_TAB, "map");
+
         handleGSRating(request, schools);
+
         determineCenterOfMap(schools, model);
 
         handleCommunityRating(schools);
-        
+
+        // if a school is requested to be selected, set the field on that school
         if (request.getParameter(PARAM_SELECTED_SCHOOL) != null) {
             for (ComparedSchoolBaseStruct struct: schools) {
                 if (StringUtils.equals(request.getParameter(PARAM_SELECTED_SCHOOL), struct.getUniqueIdentifier())) {
@@ -40,6 +43,9 @@ public class CompareMapController extends AbstractCompareSchoolController {
         }
     }
 
+    /**
+     * Determine the average overall rating for each school
+     */
     protected void handleCommunityRating(List<ComparedSchoolBaseStruct> structs) {
         for (ComparedSchoolBaseStruct struct: structs) {
             School school = struct.getSchool();
@@ -52,6 +58,9 @@ public class CompareMapController extends AbstractCompareSchoolController {
         }
     }
 
+    /**
+     * Use the constructor of LatLonRect to determine the center of the list of schools.
+     */
     protected void determineCenterOfMap(List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) {
         LatLonRect latLonRect = new LatLonRect(schools);
         model.put(MODEL_MAP_CENTER, latLonRect.getCenter());

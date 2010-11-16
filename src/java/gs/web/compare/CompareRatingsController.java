@@ -29,6 +29,9 @@ public class CompareRatingsController extends AbstractCompareSchoolController {
         handleRecentReview(schools);
     }
 
+    /**
+     * Find the most recent review for each school and add it to the struct.
+     */
     protected void handleRecentReview(List<ComparedSchoolBaseStruct> structs) {
         for (ComparedSchoolBaseStruct baseStruct: structs) {
             ComparedSchoolRatingsStruct struct = (ComparedSchoolRatingsStruct) baseStruct;
@@ -44,6 +47,10 @@ public class CompareRatingsController extends AbstractCompareSchoolController {
         }
     }
 
+    /**
+     * Determine the average overall, parent, principal, and teacher rating for each
+     * school and add them to the structs.
+     */
     protected void handleCommunityRating(List<ComparedSchoolBaseStruct> structs) {
         for (ComparedSchoolBaseStruct baseStruct: structs) {
             ComparedSchoolRatingsStruct struct = (ComparedSchoolRatingsStruct) baseStruct;

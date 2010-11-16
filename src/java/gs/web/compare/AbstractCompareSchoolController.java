@@ -220,6 +220,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return rval;
     }
 
+    /**
+     * For each school, set the appropriate Google ad keywords.
+     */
     protected void handleAdKeywords(HttpServletRequest request, List<ComparedSchoolBaseStruct> structs) {
         try {
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
@@ -269,6 +272,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         }
     }
 
+    /**
+     * Helper method to add all the keywords in a set.
+     */
     protected void addAdKeywordMulti(String key, Set<String> values, PageHelper pageHelper) {
         for (String value: values) {
             pageHelper.addAdKeywordMulti(key, value);
