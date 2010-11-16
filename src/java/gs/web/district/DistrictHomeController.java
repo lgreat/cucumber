@@ -1,5 +1,6 @@
 package gs.web.district;
 
+import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -39,6 +40,7 @@ import gs.web.util.BadRequestLogger;
 import gs.web.util.PageHelper;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.path.DirectoryStructureUrlFields;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
 import java.net.URLEncoder;
@@ -100,14 +102,8 @@ public class DistrictHomeController extends AbstractController  implements IDire
                     city = _geoDao.findCity(district.getPhysicalAddress().getState(), cityName);
                 }
             } else {
-                List<City> cities = _geoDao.findAllCitiesWithName(cityName);
-                for (City cityIter : cities) {
-                    district = _districtDao.findDistrictByNameAndCity(cityIter.getState(), districtName, cityName);
-                    if (district != null) {
-                        city = cityIter;
-                        break;
-                    }
-                }
+                // GS-10800
+                return new ModelAndView(new RedirectView(DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, cityName)));
             }
         } else {
             String districtIdStr = request.getParameter(PARAM_DISTRICT_ID);
