@@ -38,6 +38,7 @@
 
             GS.map.schoolMap.addCenterSchool(jsCenterMapSchool, markerClickedCallback);
             GS.map.schoolMap.addSchools(jsMapSchools, markerClickedCallback);
+            GS.map.schoolMap.centerOnSchool(jsCenterMapSchool.databaseState, jsCenterMapSchool.id);
             GS.map.schoolMap.showMarkerBubble(jsCenterMapSchool.databaseState, jsCenterMapSchool.id);
         });
     </script>
