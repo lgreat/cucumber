@@ -178,9 +178,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </c:otherwise>
         </c:choose>
 
-        <button class="btn25-2" type="submit" name="reviewBtn" id="reviewBtn">
+        <!--<button class="btn25-2" type="submit" name="reviewBtn" id="reviewBtn">
             <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
-        </button>
+        </button>-->
+        <button class="button-1Ext-1" type="submit" name="reviewBtn" id="reviewBtn">Review this school</button>
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
     <ad:AboveFold_Left_160x600/>

@@ -1237,7 +1237,7 @@ body.cobranded #pageGS {
     padding: 8px;
 }*/
 
-.navmod_hd {
+.navmod_hd, .filter-hd {
     position: relative;
     background: #149; /* for non-css3 browsers */
 
@@ -1246,7 +1246,7 @@ body.cobranded #pageGS {
     background: -moz-linear-gradient(top, #276ab3, #143e90); /* for firefox 3.6+ */
 }
 
-.navmod_hd h5 {
+.navmod_hd h5, .filter-hd h5 {
     padding: 0 10px;
     font: bold 13px / 2.0 Arial, Helvetica, sans-serif;
     color: white;
@@ -1254,6 +1254,13 @@ body.cobranded #pageGS {
 
 .navmod_bd {
     padding: 9px 5px 9px 13px;
+    border-right: 1px solid #c6c6c6;
+    border-bottom: 1px solid #c6c6c6;
+    border-left: 1px solid #c6c6c6;
+}
+
+.filter-bd {
+    padding: 3px 5px 5px 6px;
     border-right: 1px solid #c6c6c6;
     border-bottom: 1px solid #c6c6c6;
     border-left: 1px solid #c6c6c6;
@@ -5890,6 +5897,10 @@ body.ie8 #frmPRModule .helperMessage, body.ie7 #frmPRModule .helperMessage{
     padding: 10px 0;
 }
 
+#school-search-results-table-body .button-1Ext-2{
+    width:50px;
+}
+
 /* =5 icons
 -------------------------------------------------------------------------------------------*/
 
@@ -7408,6 +7419,261 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 
 /* Firefox: remove outline of text on focus within button */
 .button-1::-moz-focus-inner, .button-1-inactive::-moz-focus-inner {
+    border: none;
+}
+
+/*
+Extends button-1 by changing:
+    font:       bold 14px/23px Arial, Helvetica, sans-serif;
+                bold 11px Arial, Helvetica, sans-serif;
+*/
+
+.button-1Ext-1 {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 15px;
+    height: 23px;
+    color: white;
+    text-decoration: none;
+    font: bold 11px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+
+/* Background Gradients */
+    background: #258fb6; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#57b8d5', EndColorStr='#269acb')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#57b8d5', endColorStr = '#269acb'); /* IE6,IE7 */
+
+/* Border Radius */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+
+    border: 1px solid #5ca2c3;
+    border-top-color: #5ca2c3; /* highlight */
+
+/* Text Shadow */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+
+/* Box Shadow */
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.button-1Ext-1:hover {
+    text-decoration: none;
+
+/* Background Gradients */
+    background: #ff9000; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ff9000', EndColorStr='#dd6611')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
+
+    border: 1px solid #c4591b;
+    border-top-color: #c4591b;
+}
+
+.button-1Ext-1:active {
+
+/* Background Gradients */
+    background: #ff9000; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ff9000', EndColorStr='#dd6611')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
+
+    border: 1px solid #c4591b;
+    border-top-color: #c4591b;
+}
+
+.button-1Ext-1-inactive {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 5px;
+    height: auto;
+    color: white;
+    text-decoration: none;
+    font: bold 11px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: default;
+    outline: none;
+
+/* Background Gradients */
+    background: #b2bdc9; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #e5e9ec, #b2bdc9 50%, #b2bdc9 51%, #f0f2f5); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e5e9ec), color-stop(.5, #b2bdc9), color-stop(.5, #b2bdc9), color-stop(1, #f0f2f5)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#e5e9ec', EndColorStr='#b2bdc9')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#e5e9ec', endColorStr = '#b2bdc9'); /* IE6,IE7 */
+
+/* Border Radius */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+
+    border: 1px solid #b6c1cc;
+    border-top-color: #b6c1cc;
+
+/* Text Shadow */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+
+/* Box Shadow */
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* IE7 bug: vertical centering */
+*+html button.button-1Ext-1, *+html button.button-1Ext-1-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-1Ext-1::-moz-focus-inner, .button-1Ext-1-inactive::-moz-focus-inner {
+    border: none;
+}
+
+/*
+Extends button-1 by changing:
+    padding:        0 15px;
+                    0 5px;
+
+    height:         23px;
+                    auto;
+
+    font:           bold 14px/23px Arial, Helvetica, sans-serif;
+                    normal 8px/8px Arial, Helvetica, sans-serif;
+                    
+    line-height:    20px
+                    12px;
+*/
+
+.button-1Ext-2 {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 5px;
+    height: auto;
+    color: white;
+    text-decoration: none;
+    font: normal 8px/8px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+
+/* Background Gradients */
+    background: #258fb6; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#57b8d5', EndColorStr='#269acb')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#57b8d5', endColorStr = '#269acb'); /* IE6,IE7 */
+
+/* Border Radius */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+
+    border: 1px solid #5ca2c3;
+    border-top-color: #5ca2c3; /* highlight */
+
+/* Text Shadow */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+
+/* Box Shadow */
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.button-1Ext-2:hover {
+    text-decoration: none;
+
+/* Background Gradients */
+    background: #ff9000; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ff9000', EndColorStr='#dd6611')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
+
+    border: 1px solid #c4591b;
+    border-top-color: #c4591b;
+}
+
+.button-1Ext-2:active {
+
+/* Background Gradients */
+    background: #ff9000; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ff9000', EndColorStr='#dd6611')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ff9000', endColorStr = '#dd6611'); /* IE6,IE7 */
+
+    border: 1px solid #c4591b;
+    border-top-color: #c4591b;
+}
+
+.button-1Ext-2-inactive {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 5px;
+    height: auto;
+    color: white;
+    text-decoration: none;
+    font: normal 8px/8px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: default;
+    outline: none;
+
+/* Background Gradients */
+    background: #b2bdc9; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #e5e9ec, #b2bdc9 50%, #b2bdc9 51%, #f0f2f5); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e5e9ec), color-stop(.5, #b2bdc9), color-stop(.5, #b2bdc9), color-stop(1, #f0f2f5)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#e5e9ec', EndColorStr='#b2bdc9')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#e5e9ec', endColorStr = '#b2bdc9'); /* IE6,IE7 */
+
+/* Border Radius */
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+
+    border: 1px solid #b6c1cc;
+    border-top-color: #b6c1cc;
+
+/* Text Shadow */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+
+/* Box Shadow */
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* IE7 bug: vertical centering */
+*+html button.button-1Ext-2, *+html button.button-1Ext-2-inactive {
+    line-height: 12px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-1Ext-2::-moz-focus-inner, .button-1Ext-2-inactive::-moz-focus-inner {
     border: none;
 }
 

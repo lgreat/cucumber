@@ -19,14 +19,15 @@
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <c:choose>
                     <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox" checked="true"/>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox" checked="checked"/>
                     </c:when>
                     <c:otherwise>
                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
                     </c:otherwise>
                 </c:choose>
-                <br/>
                 <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
+                <p id="compareHelperMessage" class="formHelperText">Check 2 or more to compare</p>
+                <button class="button-1Ext-2 smallText2">COMPARE NOW</button>
             </td>
 
             <!-- School Name -->
@@ -35,12 +36,20 @@
                     <!--<link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>-->
                     <span class="text1bold js-school-search-result-name">${school.name}</span>
                     <br/>
+                    <span class="text3">School Type goes here</span>
+                    <br/>
                     <span class="smallAlertText js-school-search-result-street">${school.address.street}</span>
                     <br/>
                     <span class="smallAlertText js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</span>
                     <br/>
                     <span class="smallAlertText js-school-search-result-phone">(XXX)XXX-XXXX</span>
-
+                    <br/>
+                    <span>
+                        <!--<gslink:realtorDotComLink school="${school}"
+                                                  customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>--> |
+                        <span class="sprite add2"><!-- do not collapse --></span>
+                        <!--<link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
+                    </span>
                     <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->
                 </p>
             </td>
