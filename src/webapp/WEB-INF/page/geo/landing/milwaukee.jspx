@@ -207,10 +207,10 @@
                 <ul>
                     <li><a href="mailto:milwaukee@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20Milwaukee" >E-mail us for more information</a></li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/MilwaukeeSchoolChooser.pdf" target="_blank">Milwaukee School Chooser</gsml:a>
+                        <gsml:a href="/schoolreports/EnglishChooserFull.pdf" target="_blank">Milwaukee School Chooser</gsml:a>
                     </li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
-                        <gsml:a href="/schoolreports/ListadodeEscuelasdeMilwaukee.pdf" target="_blank">Listado de Escuelas de Milwaukee</gsml:a>
+                        <gsml:a href="/schoolreports/SpanishChooserFull.pdf" target="_blank">Listado de Escuelas de Milwaukee</gsml:a>
                     </li>
                     <li><gsml:a href="/schoolreports/StatisticalMethodologyForTheMilwaukeeSchoolChooser.doc" target="_blank">Statistical methodology for the Milwaukee School Chooser</gsml:a></li>
                 </ul>
