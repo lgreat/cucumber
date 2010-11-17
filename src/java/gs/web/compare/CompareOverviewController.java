@@ -18,6 +18,8 @@ public class CompareOverviewController extends AbstractCompareSchoolController {
             throws IOException {
         model.put(MODEL_TAB, "overview");
         handleGSRating(request, schools);
+        handleCommunityRating(schools);
+        handleRecentReview(schools);        
     }
 
     @Override

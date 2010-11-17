@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+
+    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School"
+                             description="School to output rating description of."/>
+
+    <jsp:directive.attribute name="recentReview" required="true" type="gs.data.school.review.Review"
+                             description="Recent review of the school."/>
+
+    <jsp:directive.attribute name="numReviews" required="false" type="java.lang.Integer"
+                             description="If provided, output a string listing the number of reviews for the school."/>
+
+    <c:choose>
+        <c:when test="${recentReview ne null}">
+            <p class="reviewComments">
+                ${gsweb:abbreviateAtWhitespace(recentReview.comments, 70)}
+                <link:schoolProfileParentReview school="${school}" anchor="ps${recentReview.id}">
+                    More <span class="alertDoubleArrow">&amp;#187;</span>
+                </link:schoolProfileParentReview>
+            </p>
+            <c:if test="${not empty recentReview.who and recentReview.who ne 'other'}">
+                <p class="reviewSubmittedBy">
+                    &amp;mdash; Submitted by
+                    ${gsweb:createParentReviewDisplayName('', '', recentReview.who)}
+                </p>
+            </c:if>
+
+            <p>
+                <link:schoolProfileParentReview school="${school}">
+                    <c:choose>
+                        <c:when test="${numReviews eq 1}">Read the review</c:when>
+                        <c:otherwise>Read all <span
+                                class="count">${numReviews}</span> reviews</c:otherwise>
+                    </c:choose>
+                </link:schoolProfileParentReview>
+            </p>
+        </c:when>
+        <c:otherwise>
+            <p>
+                There are no reviews yet for this school.
+            </p>
+            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                Be the first the share!
+            </link:schoolProfileParentReview>
+        </c:otherwise>
+    </c:choose>
+</jsp:root>

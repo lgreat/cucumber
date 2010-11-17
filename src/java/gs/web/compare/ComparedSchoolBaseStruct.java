@@ -2,6 +2,7 @@ package gs.web.compare;
 
 import gs.data.school.School;
 import gs.data.school.district.District;
+import gs.data.school.review.Review;
 import gs.web.jsp.Util;
 import org.apache.commons.lang.StringUtils;
 
@@ -12,6 +13,9 @@ public class ComparedSchoolBaseStruct {
     private School _school;
     private Integer _gsRating;
     private int _communityRating = 0;
+    private Review _recentReview;
+    private int _numRatings = 0;
+    private int _numReviews = 0;
 
     public School getSchool() {
         return _school;
@@ -37,6 +41,33 @@ public class ComparedSchoolBaseStruct {
 
     public void setCommunityRating(int communityRating) {
         _communityRating = communityRating;
+    }
+
+    // used by overview, ratings
+    public Review getRecentReview() {
+        return _recentReview;
+    }
+
+    public void setRecentReview(Review recentReview) {
+        _recentReview = recentReview;
+    }
+
+    // used by overview, ratings
+    public int getNumRatings() {
+        return _numRatings;
+    }
+
+    public void setNumRatings(int numRatings) {
+        _numRatings = numRatings;
+    }
+
+    // used by overview, ratings
+    public int getNumReviews() {
+        return _numReviews;
+    }
+
+    public void setNumReviews(int numReviews) {
+        _numReviews = numReviews;
     }
 
     /* Convenience methods */
@@ -88,5 +119,9 @@ public class ComparedSchoolBaseStruct {
             rangeString = "";
         }
         return rangeString;
+    }
+    
+    public boolean getHasReviews() {
+        return _numReviews > 0;
     }
 }

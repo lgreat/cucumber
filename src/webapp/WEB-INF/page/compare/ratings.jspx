@@ -85,39 +85,9 @@
                 <th>Recent reviews</th>
                 <c:forEach items="${schools}" var="school">
                     <td class="center">
-                        <c:choose>
-                            <c:when test="${school.recentReview ne null}">
-                                <p class="reviewComments">
-                                    ${gsweb:abbreviateAtWhitespace(school.recentReview.comments, 70)}
-                                    <link:schoolProfileParentReview school="${school.school}" anchor="ps${school.recentReview.id}">
-                                        More <span class="alertDoubleArrow">&amp;#187;</span>
-                                    </link:schoolProfileParentReview>
-                                </p>
-                                <c:if test="${not empty school.recentReview.who and school.recentReview.who ne 'other'}">
-                                    <p class="reviewSubmittedBy">
-                                        &amp;mdash; Submitted by
-                                        ${gsweb:createParentReviewDisplayName('', '', school.recentReview.who)}
-                                    </p>
-                                </c:if>
-                                <p>
-                                    <link:schoolProfileParentReview school="${school.school}">
-                                        <c:choose>
-                                            <c:when test="${school.numReviews eq 1}">Read the review</c:when>
-                                            <c:otherwise>Read all <span
-                                                    class="count">${school.numReviews}</span> reviews</c:otherwise>
-                                        </c:choose>
-                                    </link:schoolProfileParentReview>
-                                </p>
-                            </c:when>
-                            <c:otherwise>
-                                <p>
-                                    There are no reviews yet for this school.
-                                </p>
-                                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
-                                    Be the first the share!
-                                </link:schoolProfileParentReview>
-                            </c:otherwise>
-                        </c:choose>
+                        <compare:schoolRecentReview school="${school.school}"
+                                                    recentReview="${school.recentReview}"
+                                                    numReviews="${school.numReviews}"/>
                     </td>
                 </c:forEach>
             </tr>

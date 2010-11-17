@@ -3,7 +3,6 @@ package gs.web.compare;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
 import gs.web.BaseControllerTestCase;
 
 import java.util.ArrayList;
@@ -95,32 +94,5 @@ public class TestCompareRatingsController extends BaseControllerTestCase {
         assertEquals(2, struct1.getTeacherRating());
     }
 
-    public void testHandleRecentReview() {
-        List<ComparedSchoolBaseStruct> schools = new ArrayList<ComparedSchoolBaseStruct>();
 
-        replayAllMocks();
-        _controller.handleRecentReview(schools);
-        verifyAllMocks();
-
-        // ok
-
-        School school1 = new School();
-        ComparedSchoolRatingsStruct struct1 = new ComparedSchoolRatingsStruct();
-        struct1.setSchool(school1);
-        schools.add(struct1);
-        Review review1 = new Review();
-        List<Review> reviews = new ArrayList<Review>();
-        reviews.add(review1);
-
-        resetAllMocks();
-        
-        expect(_reviewDao.getPublishedReviewsBySchool(school1, 1)).andReturn(reviews);
-        expect(_reviewDao.countPublishedNonPrincipalReviewsBySchool(school1)).andReturn(5L);
-        replayAllMocks();
-        _controller.handleRecentReview(schools);
-        verifyAllMocks();
-
-        assertEquals(review1, struct1.getRecentReview());
-        assertEquals(5, struct1.getNumReviews());
-    }
 }

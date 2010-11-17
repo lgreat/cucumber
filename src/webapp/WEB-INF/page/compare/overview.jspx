@@ -8,7 +8,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
-          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"          
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -89,6 +89,26 @@
                                     ><c:out value="${school.district.name}"
                                             escapeXml="true"/></link:districtHome>
                         </c:if>
+                    </td>
+                </c:forEach>
+            </tr>             
+            <tr>
+                <th>Community rating (overall)</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <compare:schoolCommunityRating school="${school.school}"
+                                                       communityRating="${school.communityRating}"
+                                                       numRatings="${school.numRatings}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th>Recent reviews</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center">
+                        <compare:schoolRecentReview school="${school.school}"
+                                                    recentReview="${school.recentReview}"
+                                                    numReviews="${school.numReviews}"/>
                     </td>
                 </c:forEach>
             </tr>

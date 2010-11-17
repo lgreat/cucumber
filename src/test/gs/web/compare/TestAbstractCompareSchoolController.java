@@ -2,6 +2,9 @@ package gs.web.compare;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Ratings;
+import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
@@ -32,6 +35,7 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
     private IRatingsConfigDao _ratingsConfigDao;
     private TestManager _testManager;
     private Map<String, Object> _model;
+    private IReviewDao _reviewDao;
 
     @Override
     public void setUp() throws Exception {
@@ -56,6 +60,7 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
         _schoolDao = createStrictMock(ISchoolDao.class);
         _ratingsConfigDao = createStrictMock(IRatingsConfigDao.class);
         _testManager = createStrictMock(TestManager.class);
+        _reviewDao = createStrictMock(IReviewDao.class);
 
         _controller.setSchoolDao(_schoolDao);
         _controller.setRatingsConfigDao(_ratingsConfigDao);
@@ -75,15 +80,15 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
     }
 
     private void replayAllMocks() {
-        replayMocks(_schoolDao, _ratingsConfigDao, _testManager);
+        replayMocks(_schoolDao, _ratingsConfigDao, _testManager,_reviewDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_schoolDao, _ratingsConfigDao, _testManager);
+        verifyMocks(_schoolDao, _ratingsConfigDao, _testManager,_reviewDao);
     }
 
     private void resetAllMocks() {
-        resetMocks(_schoolDao, _ratingsConfigDao, _testManager);
+        resetMocks(_schoolDao, _ratingsConfigDao, _testManager,_reviewDao);
     }
 
     public void testPaginateSchools() {
@@ -327,5 +332,62 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
         assertEquals(3, struct1.getGsRating().intValue());
         assertNotNull(struct2.getGsRating());
         assertEquals(6, struct2.getGsRating().intValue());
+    }
+
+    public void testHandleCommunityRating() {
+        List<ComparedSchoolBaseStruct> structs = new ArrayList<ComparedSchoolBaseStruct>();
+        replayAllMocks();
+        _controller.handleCommunityRating(structs);
+        verifyAllMocks(); // handles empty case
+        resetAllMocks();
+
+        ComparedSchoolBaseStruct struct1 = new ComparedSchoolBaseStruct();
+        School school1 = new School();
+        struct1.setSchool(school1);
+        structs.add(struct1);
+
+        expect(_reviewDao.findRatingsBySchool(school1)).andReturn(null);
+        replayAllMocks();
+        _controller.handleCommunityRating(structs);
+        verifyAllMocks();
+        assertEquals(0, struct1.getCommunityRating());
+        resetAllMocks();
+
+        Ratings ratings1 = new Ratings();
+        ratings1.setAvgQuality(4);
+        expect(_reviewDao.findRatingsBySchool(school1)).andReturn(ratings1);
+        replayAllMocks();
+        _controller.handleCommunityRating(structs);
+        verifyAllMocks();
+        assertEquals(4, struct1.getCommunityRating());
+    }
+
+    public void testHandleRecentReview() {
+        List<ComparedSchoolBaseStruct> schools = new ArrayList<ComparedSchoolBaseStruct>();
+
+        replayAllMocks();
+        _controller.handleRecentReview(schools);
+        verifyAllMocks();
+
+        // ok
+
+        School school1 = new School();
+        ComparedSchoolRatingsStruct struct1 = new ComparedSchoolRatingsStruct();
+        struct1.setSchool(school1);
+        schools.add(struct1);
+        Review review1 = new Review();
+        List<Review> reviews = new ArrayList<Review>();
+        reviews.add(review1);
+
+        resetAllMocks();
+
+        expect(_reviewDao.getPublishedReviewsBySchool(school1, 1)).andReturn(reviews);
+        expect(_reviewDao.countPublishedNonPrincipalReviewsBySchool(school1)).andReturn(5L);
+        replayAllMocks();
+        _controller.handleRecentReview(schools);
+        verifyAllMocks();
+
+        assertEquals(review1, struct1.getRecentReview());
+        assertEquals(5, struct1.getNumReviews());
     }
 }

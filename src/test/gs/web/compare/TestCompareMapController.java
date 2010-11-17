@@ -1,8 +1,6 @@
 package gs.web.compare;
 
-import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
 import gs.web.BaseControllerTestCase;
 
 import java.util.ArrayList;
@@ -48,34 +46,6 @@ public class TestCompareMapController extends BaseControllerTestCase {
         assertEquals("success", _controller.getSuccessView());
         assertEquals(ComparedSchoolMapStruct.class, _controller.getStruct().getClass());
         assertEquals(8, _controller.getPageSize());
-    }
-
-    public void testHandleCommunityRating() {
-        List<ComparedSchoolBaseStruct> structs = new ArrayList<ComparedSchoolBaseStruct>();
-        replayAllMocks();
-        _controller.handleCommunityRating(structs);
-        verifyAllMocks(); // handles empty case
-        resetAllMocks();
-        
-        ComparedSchoolBaseStruct struct1 = new ComparedSchoolBaseStruct();
-        School school1 = new School();
-        struct1.setSchool(school1);
-        structs.add(struct1);
-
-        expect(_reviewDao.findRatingsBySchool(school1)).andReturn(null);
-        replayAllMocks();
-        _controller.handleCommunityRating(structs);
-        verifyAllMocks();
-        assertEquals(0, struct1.getCommunityRating());
-        resetAllMocks();
-
-        Ratings ratings1 = new Ratings();
-        ratings1.setAvgQuality(4);
-        expect(_reviewDao.findRatingsBySchool(school1)).andReturn(ratings1);
-        replayAllMocks();
-        _controller.handleCommunityRating(structs);
-        verifyAllMocks();
-        assertEquals(4, struct1.getCommunityRating());
     }
 
     public void testDetermineCenterOfMap() {

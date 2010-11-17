@@ -1,9 +1,6 @@
 package gs.web.compare;
 
 import gs.data.geo.LatLonRect;
-import gs.data.school.School;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +14,6 @@ import java.util.Map;
  */
 public class CompareMapController extends AbstractCompareSchoolController {
     private String _successView;
-    private IReviewDao _reviewDao;
     public static final String MODEL_MAP_CENTER = "mapCenter";
     public static final String PARAM_SELECTED_SCHOOL = "selectedSchool";
 
@@ -39,21 +35,6 @@ public class CompareMapController extends AbstractCompareSchoolController {
                 if (StringUtils.equals(request.getParameter(PARAM_SELECTED_SCHOOL), struct.getUniqueIdentifier())) {
                     ((ComparedSchoolMapStruct) struct).setSelected(true);
                 }
-            }
-        }
-    }
-
-    /**
-     * Determine the average overall rating for each school
-     */
-    protected void handleCommunityRating(List<ComparedSchoolBaseStruct> structs) {
-        for (ComparedSchoolBaseStruct struct: structs) {
-            School school = struct.getSchool();
-            Ratings ratings = _reviewDao.findRatingsBySchool(school);
-            if (ratings == null || ratings.getOverall() == null) {
-                struct.setCommunityRating(0);
-            } else {
-                struct.setCommunityRating(ratings.getOverall());
             }
         }
     }
@@ -85,11 +66,4 @@ public class CompareMapController extends AbstractCompareSchoolController {
         return 8;
     }
 
-    public IReviewDao getReviewDao() {
-        return _reviewDao;
-    }
-
-    public void setReviewDao(IReviewDao reviewDao) {
-        _reviewDao = reviewDao;
-    }
 }

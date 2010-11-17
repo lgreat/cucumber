@@ -3,6 +3,9 @@ package gs.web.compare;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Ratings;
+import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
@@ -42,6 +45,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
 
     private ISchoolDao _schoolDao;
     private IRatingsConfigDao _ratingsConfigDao;
+    private IReviewDao _reviewDao;
     private TestManager _testManager;
     private String _errorView = "/compare/error";
     private int _pageSize = DEFAULT_PAGE_SIZE;
@@ -317,6 +321,41 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         }
     }
 
+    /**
+     * Find the most recent review for each school and add it to the struct.
+     */
+    protected void handleRecentReview(List<ComparedSchoolBaseStruct> structs) {
+        for (ComparedSchoolBaseStruct struct: structs) {
+            School school = struct.getSchool();
+            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school, 1);
+            if (reviews != null && reviews.size() == 1) {
+                struct.setRecentReview(reviews.get(0));
+            }
+            Long numReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
+            if (numReviews != null && numReviews > 0) {
+                struct.setNumReviews(numReviews.intValue());
+            }
+        }
+    }
+
+     /**
+     * Determine the average overall rating for each school
+     */
+    protected void handleCommunityRating(List<ComparedSchoolBaseStruct> structs) {
+        for (ComparedSchoolBaseStruct struct: structs) {
+            School school = struct.getSchool();
+            Ratings ratings = _reviewDao.findRatingsBySchool(school);
+            if (ratings == null || ratings.getOverall() == null) {
+                struct.setCommunityRating(0);
+            } else {
+                struct.setCommunityRating(ratings.getOverall());
+                if (ratings.getNumberOfReviews() != null) {
+                    struct.setNumRatings(ratings.getNumberOfReviews().intValue());
+                }
+            }
+        }
+    }
+
     // FIELD ACCESSOR/MUTATORS
 
     public ISchoolDao getSchoolDao() {
@@ -342,6 +381,14 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public void setTestManager(TestManager testManager) {
         _testManager = testManager;
     }
+    
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        this._reviewDao = reviewDao;
+    }
 
     public String getErrorView() {
         return _errorView;
@@ -358,4 +405,5 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public void setPageSize(int pageSize) {
         _pageSize = pageSize;
     }
+
 }

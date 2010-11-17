@@ -1,9 +1,7 @@
 package gs.web.compare;
 
 import gs.data.school.School;
-import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +14,6 @@ import java.util.Map;
  */
 public class CompareRatingsController extends AbstractCompareSchoolController {
     private String _successView;
-    private IReviewDao _reviewDao;
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -30,24 +27,6 @@ public class CompareRatingsController extends AbstractCompareSchoolController {
     }
 
     /**
-     * Find the most recent review for each school and add it to the struct.
-     */
-    protected void handleRecentReview(List<ComparedSchoolBaseStruct> structs) {
-        for (ComparedSchoolBaseStruct baseStruct: structs) {
-            ComparedSchoolRatingsStruct struct = (ComparedSchoolRatingsStruct) baseStruct;
-            School school = struct.getSchool();
-            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school, 1);
-            if (reviews != null && reviews.size() == 1) {
-                struct.setRecentReview(reviews.get(0));
-            }
-            Long numReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
-            if (numReviews != null && numReviews > 0) {
-                struct.setNumReviews(numReviews.intValue());
-            }
-        }
-    }
-
-    /**
      * Determine the average overall, parent, principal, and teacher rating for each
      * school and add them to the structs.
      */
@@ -56,7 +35,7 @@ public class CompareRatingsController extends AbstractCompareSchoolController {
             ComparedSchoolRatingsStruct struct = (ComparedSchoolRatingsStruct) baseStruct;
             School school = struct.getSchool();
 
-            Ratings ratings = _reviewDao.findRatingsBySchool(school);
+            Ratings ratings = getReviewDao().findRatingsBySchool(school);
             if (ratings == null) {
                 continue;
             }
@@ -93,11 +72,4 @@ public class CompareRatingsController extends AbstractCompareSchoolController {
         _successView = successView;
     }
 
-    public IReviewDao getReviewDao() {
-        return _reviewDao;
-    }
-
-    public void setReviewDao(IReviewDao reviewDao) {
-        _reviewDao = reviewDao;
-    }
 }
