@@ -53,6 +53,7 @@ public class GraduationCertificateController implements Controller {
             contentStream.beginText();
             contentStream.setFont(font, fontSize);
             contentStream.moveTextPositionByAmount((float) centeredPosition, 255f);
+            contentStream.setNonStrokingColor(17,42,111);
             contentStream.drawString(name);
             contentStream.endText();
             contentStream.close();
