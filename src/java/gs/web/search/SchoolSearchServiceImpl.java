@@ -55,7 +55,7 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
      * @param fieldSort
      * @return
      */
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int count, int offset) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
 
         ChainedFilter luceneFilter = null;
         if (filters.size() > 0) {

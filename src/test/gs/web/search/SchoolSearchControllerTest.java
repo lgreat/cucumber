@@ -334,4 +334,34 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
         assertFalse("should not be using paging", ((Boolean)(model.get(SchoolSearchController.MODEL_USE_PAGING))).booleanValue());
     }
+
+    public void testAddPagingDataToModel3() {
+        int pageSize = 25;
+        int start = 0;
+        int totalResults = 50;
+
+        List<ISchoolSearchResult> results = new ArrayList<ISchoolSearchResult>();
+        results.add(new LuceneSchoolSearchResult());
+        results.add(new LuceneSchoolSearchResult());
+        results.add(new LuceneSchoolSearchResult());
+
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        _controller.addPagingDataToModel(start, pageSize, totalResults, model);
+
+        assertTrue("model should contain start value", model.containsKey(SchoolSearchController.MODEL_START));
+        assertEquals("model should contain correct start value", 0, ((Integer)(model.get(SchoolSearchController.MODEL_START))).intValue());
+
+        assertTrue("model should contain 'total pages' value", model.containsKey(SchoolSearchController.MODEL_TOTAL_PAGES));
+        assertEquals("model should contain correct 'total pages' value", 2, ((Integer)(model.get(SchoolSearchController.MODEL_TOTAL_PAGES))).intValue());
+
+        assertTrue("model should contain 'current page' value", model.containsKey(SchoolSearchController.MODEL_CURRENT_PAGE));
+        assertEquals("model should contain correct 'current page' value", 1, ((Integer)(model.get(SchoolSearchController.MODEL_CURRENT_PAGE))).intValue());
+
+        assertTrue("model should contain 'page size' value", model.containsKey(SchoolSearchController.MODEL_PAGE_SIZE));
+        assertEquals("model should contain correct 'page size' value", pageSize, ((Integer)(model.get(SchoolSearchController.MODEL_PAGE_SIZE))).intValue());
+
+        assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
+        assertTrue("should be using paging", ((Boolean)(model.get(SchoolSearchController.MODEL_USE_PAGING))).booleanValue());
+    }
 }

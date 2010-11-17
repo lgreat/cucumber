@@ -26,7 +26,7 @@ GS.search.SchoolSearchResult = function() {
 
 GS.search.SchoolSearcher = function() {
     this.url = function() {
-        var value = window.location.href + '?format=json';
+        var value = window.location.href;
         return value;
     };
 
@@ -36,6 +36,8 @@ GS.search.SchoolSearcher = function() {
         var data = {};
         var gradeLevels = [];
         var schoolTypes = [];
+
+        data.format = "json";
         
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
         jQuery('#js-gradeLevels :checked').each(function() {

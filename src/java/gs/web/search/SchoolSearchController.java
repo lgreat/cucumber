@@ -65,17 +65,14 @@ public class SchoolSearchController extends AbstractCommandController implements
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(schoolSearchCommand, request);
 
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
-
-
-        List<FieldFilter> filters = new ArrayList<FieldFilter>();
         String[] schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
-        if (schoolSearchTypes != null && schoolSearchTypes.length > 0) {
+        if (schoolSearchCommand.hasSchoolTypes()) {
             FilterGroup filterGroup = new FilterGroup();
             filterGroup.setFieldFilters(getSchoolTypeFilters(schoolSearchTypes).toArray(new FieldFilter[0]));
             filterGroups.add(filterGroup);
         }
         String[] schoolGradeLevels = schoolSearchCommand.getGradeLevels();
-        if (schoolGradeLevels != null && schoolGradeLevels.length > 0) {
+        if (schoolSearchCommand.hasGradeLevels()) {
             FilterGroup filterGroup = new FilterGroup();
             filterGroup.setFieldFilters(getGradeLevelFilters(schoolGradeLevels).toArray(new FieldFilter[0]));
             filterGroups.add(filterGroup);
@@ -106,6 +103,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), searchResultsPage.getTotalResults(), model); //TODO: fix
 
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
+        model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
 
         if (schoolSearchCommand.isJsonFormat()) {
             response.setContentType("application/json");
@@ -135,7 +133,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         //TODO: perform validation to only allow no paging when results are a certain size
         if (pageSize > 0) {
-            int currentPage = (int) Math.ceil(start / pageSize.floatValue());
+            int currentPage = (int) Math.ceil((start+1) / pageSize.floatValue());
             int numberOfPages = (int) Math.ceil(totalResults / pageSize.floatValue());
             model.put(MODEL_CURRENT_PAGE, currentPage);
             model.put(MODEL_TOTAL_PAGES, numberOfPages);
