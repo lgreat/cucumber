@@ -161,8 +161,21 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         // district browse
-        if (constraints.containsKey(FieldConstraint.DISTRICT_ID)) {
-            pageHelper.addAdKeyword("district_id", constraints.get(FieldConstraint.DISTRICT_ID));
+        State state = null;
+        Integer districtId = null;
+        try {
+            state = State.fromString(constraints.get(FieldConstraint.STATE));
+            districtId = Integer.parseInt(constraints.get(FieldConstraint.DISTRICT_ID));
+        } catch (IllegalArgumentException e) {
+            // nothing to do, invalid state or district ID
+        }
+
+        if (state != null && districtId != null) {
+            District district = _districtDao.findDistrictById(state, districtId);
+            if (district != null) {
+                pageHelper.addAdKeyword("district_id", constraints.get(FieldConstraint.DISTRICT_ID));
+                pageHelper.addAdKeyword("district_name", district.getName());
+            }
         }
         
 

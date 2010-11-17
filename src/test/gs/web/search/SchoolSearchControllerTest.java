@@ -42,6 +42,14 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
     }
 
+    private void replayAllMocks() {
+        replayMocks(_districtDao);
+    }
+
+    private void verifyAllMocks() {
+        verifyMocks(_districtDao);
+    }
+
     public void testHandle() throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
@@ -137,18 +145,33 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         filters.clear();
         constraints.clear();
 
+        constraints.put(FieldConstraint.STATE, "CA");
         constraints.put(FieldConstraint.DISTRICT_ID, "3");
 
+        District district = new District();
+        district.setId(3);
+        district.setName("San Francisco Unified School District");
+        expect(_districtDao.findDistrictById(State.CA, 3)).andReturn(district);
+
         actualPageHelper = new PageHelper(_sessionContext, _request);
+        replayAllMocks();
         _controller.addGamAttributes(actualPageHelper, constraints, filters);
+        verifyAllMocks();
 
         referencePageHelper = new PageHelper(_sessionContext, _request);
         referencePageHelper.addAdKeyword("district_name","San Francisco Unified School District");
         referencePageHelper.addAdKeyword("district_id","3");
 
         Collection actualDistrictIdKeywords = (Collection)actualPageHelper.getAdKeywords().get("district_id");
+        Collection referenceDistrictIdKeywords = (Collection)referencePageHelper.getAdKeywords().get("district_id");
         assertNotNull(actualDistrictIdKeywords);
         assertEquals(1,actualDistrictIdKeywords.size());
+        assertEquals((referenceDistrictIdKeywords.toArray())[0], (actualDistrictIdKeywords.toArray())[0]);
+        Collection actualDistrictNameKeywords = (Collection)actualPageHelper.getAdKeywords().get("district_name");
+        Collection referenceDistrictNameKeywords = (Collection)referencePageHelper.getAdKeywords().get("district_name");
+        assertNotNull(actualDistrictNameKeywords);
+        assertEquals(1,actualDistrictNameKeywords.size());
+        assertEquals((referenceDistrictNameKeywords.toArray())[0], (actualDistrictNameKeywords.toArray())[0]);
         // TODO:fixme
         //assertEquals("3", (String)actualDistrictIdKeywords.get(0));
 /*
