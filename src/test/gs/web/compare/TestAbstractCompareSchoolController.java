@@ -64,6 +64,7 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
 
         _controller.setSchoolDao(_schoolDao);
         _controller.setRatingsConfigDao(_ratingsConfigDao);
+        _controller.setReviewDao(_reviewDao);
         _controller.setTestManager(_testManager);
         _controller.setErrorView("error");
         _controller.setPageSize(4);
@@ -74,6 +75,7 @@ public class TestAbstractCompareSchoolController extends BaseControllerTestCase 
     public void testBasics() {
         assertSame(_schoolDao, _controller.getSchoolDao());
         assertSame(_ratingsConfigDao, _controller.getRatingsConfigDao());
+        assertSame(_reviewDao, _controller.getReviewDao());
         assertSame(_testManager, _controller.getTestManager());
         assertEquals("error", _controller.getErrorView());
         assertEquals(4, _controller.getPageSize());

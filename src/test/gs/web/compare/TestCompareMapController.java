@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static gs.web.compare.AbstractCompareSchoolController.MODEL_TAB;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
@@ -37,15 +38,24 @@ public class TestCompareMapController extends BaseControllerTestCase {
         verifyMocks(_reviewDao);
     }
 
-    private void resetAllMocks() {
-        resetMocks(_reviewDao);
-    }
+//    private void resetAllMocks() {
+//        resetMocks(_reviewDao);
+//    }
 
     public void testBasics() {
         assertSame(_reviewDao, _controller.getReviewDao());
         assertEquals("success", _controller.getSuccessView());
         assertEquals(ComparedSchoolMapStruct.class, _controller.getStruct().getClass());
         assertEquals(8, _controller.getPageSize());
+    }
+
+    public void testEmptyList() throws Exception {
+        Map<String, Object> model = new HashMap<String, Object>();
+        replayAllMocks();
+        _controller.handleCompareRequest(getRequest(), getResponse(),
+                                         new ArrayList<ComparedSchoolBaseStruct>(), model);
+        verifyAllMocks();
+        assertEquals(CompareMapController.TAB_NAME, model.get(MODEL_TAB));
     }
 
     public void testDetermineCenterOfMap() {

@@ -10,13 +10,14 @@ import java.util.Map;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class CompareOverviewController extends AbstractCompareSchoolController {
+    public static final String TAB_NAME = "overview";
     private String _successView;
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
                                         List<ComparedSchoolBaseStruct> schools, Map<String, Object> model)
             throws IOException {
-        model.put(MODEL_TAB, "overview");
+        model.put(MODEL_TAB, TAB_NAME);
         handleGSRating(request, schools);
         handleCommunityRating(schools);
         handleRecentReview(schools);        

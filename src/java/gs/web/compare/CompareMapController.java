@@ -13,6 +13,7 @@ import java.util.Map;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class CompareMapController extends AbstractCompareSchoolController {
+    public static final String TAB_NAME = "map";
     private String _successView;
     public static final String MODEL_MAP_CENTER = "mapCenter";
     public static final String PARAM_SELECTED_SCHOOL = "selectedSchool";
@@ -21,7 +22,7 @@ public class CompareMapController extends AbstractCompareSchoolController {
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
                                         List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) throws
                                                                                                            IOException {
-        model.put(MODEL_TAB, "map");
+        model.put(MODEL_TAB, TAB_NAME);
 
         handleGSRating(request, schools);
 

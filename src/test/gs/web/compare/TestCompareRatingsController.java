@@ -6,8 +6,11 @@ import gs.data.school.review.Ratings;
 import gs.web.BaseControllerTestCase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static gs.web.compare.AbstractCompareSchoolController.MODEL_TAB;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
@@ -46,6 +49,16 @@ public class TestCompareRatingsController extends BaseControllerTestCase {
         assertEquals("success", _controller.getSuccessView());
         assertEquals(ComparedSchoolRatingsStruct.class, _controller.getStruct().getClass());
     }
+
+    public void testEmptyList() throws Exception {
+        Map<String, Object> model = new HashMap<String, Object>();
+        replayAllMocks();
+        _controller.handleCompareRequest(getRequest(), getResponse(),
+                                         new ArrayList<ComparedSchoolBaseStruct>(), model);
+        verifyAllMocks();
+        assertEquals(CompareRatingsController.TAB_NAME, model.get(MODEL_TAB));
+    }
+
 
     public void testHandleCommunityRating() {
         List<ComparedSchoolBaseStruct> schools = new ArrayList<ComparedSchoolBaseStruct>();
@@ -93,6 +106,4 @@ public class TestCompareRatingsController extends BaseControllerTestCase {
         assertEquals(3, struct1.getPrincipalRating());
         assertEquals(2, struct1.getTeacherRating());
     }
-
-
 }

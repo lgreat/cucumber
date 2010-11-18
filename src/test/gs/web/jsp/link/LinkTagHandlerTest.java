@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.82 2010/11/15 17:24:58 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.83 2010/11/18 16:10:56 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -17,6 +17,10 @@ import gs.data.community.Discussion;
 import gs.data.community.UserProfile;
 import gs.data.community.User;
 import gs.web.BaseTestCase;
+import gs.web.compare.CompareMapController;
+import gs.web.compare.CompareOverviewController;
+import gs.web.compare.CompareRatingsController;
+import gs.web.compare.CompareStudentTeacherController;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.jsp.link.microsite.*;
@@ -757,22 +761,26 @@ public class LinkTagHandlerTest extends BaseTestCase {
             // ok
         }
 
-        handler.setTab("overview");
+        handler.setTab(CompareOverviewController.TAB_NAME);
         handler.setSchools("ca1,ca2");
         UrlBuilder builder;
 
         builder = handler.createUrlBuilder();
         assertEquals("/school-comparison-tool/results.page?schools=ca1%2Cca2", builder.asSiteRelative(null));
 
-        handler.setTab("ratings");
+        handler.setTab(CompareRatingsController.TAB_NAME);
         builder = handler.createUrlBuilder();
         assertEquals("/school-comparison-tool/ratings.page?schools=ca1%2Cca2", builder.asSiteRelative(null));
 
-        handler.setTab("map");
+        handler.setTab(CompareMapController.TAB_NAME);
         builder = handler.createUrlBuilder();
         assertEquals("/school-comparison-tool/map.page?schools=ca1%2Cca2", builder.asSiteRelative(null));
 
-        handler.setTab("overview");
+        handler.setTab(CompareStudentTeacherController.TAB_NAME);
+        builder = handler.createUrlBuilder();
+        assertEquals("/school-comparison-tool/studentTeacher.page?schools=ca1%2Cca2", builder.asSiteRelative(null));
+
+        handler.setTab(CompareOverviewController.TAB_NAME);
         handler.setPage(2);
         builder = handler.createUrlBuilder();
         assertEquals("/school-comparison-tool/results.page?p=2&schools=ca1%2Cca2", builder.asSiteRelative(null));

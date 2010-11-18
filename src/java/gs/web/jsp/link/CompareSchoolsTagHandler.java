@@ -1,5 +1,9 @@
 package gs.web.jsp.link;
 
+import gs.web.compare.CompareMapController;
+import gs.web.compare.CompareOverviewController;
+import gs.web.compare.CompareRatingsController;
+import gs.web.compare.CompareStudentTeacherController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -16,11 +20,13 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
     @Override
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder;
-        if (StringUtils.equals("overview", _tab)) {
+        if (StringUtils.equals(CompareOverviewController.TAB_NAME, _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_OVERVIEW);
-        } else if (StringUtils.equals("ratings", _tab)) {
+        } else if (StringUtils.equals(CompareRatingsController.TAB_NAME, _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_RATINGS);
-        } else if (StringUtils.equals("map", _tab)) {
+        } else if (StringUtils.equals(CompareStudentTeacherController.TAB_NAME, _tab)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_STUDENT_TEACHER);
+        } else if (StringUtils.equals(CompareMapController.TAB_NAME, _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_MAP);
         } else {
             throw new IllegalArgumentException("Tab not recognized for compare: " + _tab);
