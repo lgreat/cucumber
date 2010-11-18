@@ -87,6 +87,28 @@ GS.search.SchoolSearchResultsTable = function() {
         return;
     };
 
+    this.transformToMapSchools = function(schoolSearchResults) {
+        var numberOfSearchResults = schoolSearchResults.length;
+        var mapSchools = [];
+        if (numberOfSearchResults > 0) {
+            for (var i = 0; i < numberOfSearchResults; i++) {
+                var searchResult = schoolSearchResults[i];
+                var mapSchool = new GS.map.MapSchool(
+                    searchResult.id,
+                    searchResult.databaseState,
+                    searchResult.name,
+                    searchResult.latLon.lat,
+                    searchResult.latLon.lon
+                );
+                mapSchool.gsRating = searchResult.greatSchoolsRating;
+                mapSchool.parentRating = searchResult.parentRating;
+                mapSchool.type = searchResult.schoolType;
+                mapSchools.push(mapSchool);
+            }
+        }
+        return mapSchools;
+    };
+
     this.update = function() {
         var searcher = new GS.search.SchoolSearcher();
         searcher.search(function(data) {
@@ -116,6 +138,12 @@ GS.search.SchoolSearchResultsTable = function() {
             jQuery('#pagination').html(pagerHtml);
 
             this.addAll(data.schoolSearchResults);
+
+            var mapSchools = this.transformToMapSchools(data.schoolSearchResults);
+            GS.map.schoolMap.removeAllSchools();
+            console.log(mapSchools);
+            GS.map.schoolMap.addSchools(mapSchools, function() {});
+            GS.map.schoolMap.drawMarkers();
         }.gs_bind(this));
     };
 };

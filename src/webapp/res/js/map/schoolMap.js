@@ -188,6 +188,17 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         delete markers[state + id];
     };
 
+    this.removeSchool = function(state, id) {
+        delete markers[state + id];
+    };
+
+    this.removeAllSchools = function() {
+        for (var marker in markers) {
+            markers[marker].setMap(null);
+        }
+        markers = [];
+    }
+
     this.createPrivateSchoolMarker = function(lat, lon, tooltip) {
         var position = new google.maps.LatLng(lat, lon);
         var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_private_forground.png',
