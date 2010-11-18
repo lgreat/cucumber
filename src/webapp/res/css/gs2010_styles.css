@@ -1994,7 +1994,11 @@ body.ie6 .clearfix {
 }
 
 #raise-your-hand .ryh-submit-onTC {
-    padding-left: 58px;
+    margin-left: 61px;
+}
+
+.ie6 #raise-your-hand .ryh-submit-onTC, .ie7 #raise-your-hand .ryh-submit-onTC, .ie8 #raise-your-hand .ryh-submit-onTC {
+    margin-left: 58px;
 }
 
 .ryh-bottomsection {

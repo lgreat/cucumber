@@ -283,15 +283,18 @@
                 </c:if>
 
                 <c:choose>
-                    <c:when test="${style eq 'topicCenter'}"><label for="ryhAnswer"
-                                                                    class="${ryhAnswerLabel} text1 fltlft">Your<br/>answer:
-                    </label></c:when>
-                    <c:otherwise><label for="ryhAnswer"
-                                        class="${ryhAnswerLabel} text1 fltlft">Your reply: </label></c:otherwise>
+                    <c:when test="${style eq 'topicCenter'}">
+                        <label for="ryhAnswer" class="${ryhAnswerLabel} text1 fltlft">Your<br/>answer:</label>
+                    </c:when>
+                    <c:otherwise>
+                        <label for="ryhAnswer" class="${ryhAnswerLabel} text1 fltlft">Your reply: </label>
+                    </c:otherwise>
                 </c:choose>
                 
-                <textarea name="ryhAnswer" class="ryhAnswer fltrt" id="ryhAnswer" rows="3" cols="50"
-                          style="width: ${textareaWidth}; height: ${textareaHeight};"><!-- --></textarea>
+                <textarea name="ryhAnswer"
+                          class="ryhAnswer fltrt"
+                          id="ryhAnswer" rows="3" cols="50"
+                          style="width: ${textareaWidth}; height: ${textareaHeight};"><!-- do not collapse --></textarea>
                 <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
                 <br class="clearfloat"/>
 
