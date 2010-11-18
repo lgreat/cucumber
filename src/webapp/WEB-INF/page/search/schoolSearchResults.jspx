@@ -129,15 +129,16 @@
             </c:choose>
             Parent rating
         </select>
-        <c:choose>
-            <c:when test="${usePaging}">
-                Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
-            </c:when>
-            <c:otherwise>
-                Showing results 1-${totalResults} of ${totalResults}
-            </c:otherwise>
-        </c:choose>
-        
+        <span id="js-search-results-paging-summary">
+            <c:choose>
+                <c:when test="${usePaging}">
+                    Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
+                </c:when>
+                <c:otherwise>
+                    Showing results 1-${totalResults} of ${totalResults}
+                </c:otherwise>
+            </c:choose>
+        </span>
         <br/>
 
         Display: 
@@ -237,14 +238,14 @@
             </c:if>
             </tbody>
         </table>
-        <div class="pagination">
+        <div class="pagination" id="pagination">
             <c:forEach begin="1" end="${totalPages}" var="loopPageNumber" varStatus="status">
                 <c:set var="pagerTabClass" value="pager-tab"/>
                 <c:if test="${loopPageNumber == currentPage}">
                     <c:set var="pagerTabClass" value="pager-tab active"/>
                 </c:if>
                 <span class="${pagerTabClass}" onclick="page(${loopPageNumber});">
-                    <fmt:formatNumber value="${loopPageNumber}" maxFractionDigits="0"/>
+                    ${loopPageNumber}
                 </span>
             </c:forEach>
             <span class="prv_nxt">Next &amp;raquo;</span>

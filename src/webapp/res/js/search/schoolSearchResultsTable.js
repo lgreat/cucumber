@@ -31,7 +31,6 @@ GS.search.SchoolSearcher = function() {
     };
 
     this.search = function(callback) {
-        console.log("search called");
         var i = 0;
         var data = {};
         var gradeLevels = [];
@@ -59,14 +58,10 @@ GS.search.SchoolSearchResultsTable = function() {
     var thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
 
     this.clear = function() {
-        console.log("clear() called");
         thisDomElement.find('.school-search-result-row').remove();
     };
 
     this.add = function(schoolSearchResult) {
-        console.log("add called");
-        console.log("school search result is: ");
-        console.log(schoolSearchResult);
         var template = new GS.search.SchoolSearchResult();
         template.setName(schoolSearchResult.name);
         template.setStreet(schoolSearchResult.address.street);
@@ -95,7 +90,31 @@ GS.search.SchoolSearchResultsTable = function() {
     this.update = function() {
         var searcher = new GS.search.SchoolSearcher();
         searcher.search(function(data) {
+            var start = data.start;
+            var currentPage = data.currentPage;
+            var totalResults = data.totalResults;
+            var pageSize = data.pageSize;
+            var totalPages = data.totalPages;
+
+            start++;
+
             this.clear();
+
+            //update paging info. TODO: move out of this method
+            jQuery('#js-search-results-paging-summary').html("Showing results " + start + "-" + currentPage*pageSize + " of " + totalResults);
+
+            var pagerHtml = "";
+            for (i = 1; i <= totalPages; i++) {
+                var pagerTabClass = "pager-tab";
+                if (i === currentPage) {
+                    var pagerTabClass = "pager-tab active";
+                }
+                pagerHtml = pagerHtml + "<span class='" + pagerTabClass + "' onclick='page(" + i + ")'>" + i + "</span>";
+            }
+            pagerHtml = pagerHtml + "<span class='prv_nxt'>Next</span>";
+
+            jQuery('#pagination').html(pagerHtml);
+
             this.addAll(data.schoolSearchResults);
         }.gs_bind(this));
     };
