@@ -271,14 +271,12 @@
         </noscript>
     </div>
 
-    <map:mapSchoolsWithoutBubbles
+    <map:schoolSearchMap
             id="nearbySchoolsMap"
             tooltips="true"
-            schools="${mapSchools}"
-            school="${school}"
+            schools="${schoolSearchResults}"
             start="${param.start}"
             count="${pageSize}"
-            gsRating="${gs_rating}"
             ratings="${ratings}"
             />
     <!-- end map -->

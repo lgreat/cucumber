@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:gsweb="gstaglib"
+        >
+
+    <jsp:directive.tag body-content="empty" description="Display the bubble (InfoWindow) for google maps marker."/>
+    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school to display within the bubble"/>
+    <jsp:directive.attribute name="greatSchoolsRating" required="false" description="GreatSchools school rating"/>
+    <jsp:directive.attribute name="parentRating" required="false" description="School's parent rating"/>
+
+    <!--
+var height = 85; // default height
+var heightMultiplier = Math.floor(school.name.length / 30);
+// add 13 pixels (font line-height) for every multiple of 30 that the school name's length exceeds
+// this is a guesstimate of how many chars it takes to wrap to the next line
+height += heightMultiplier * 13;-->
+
+    <div class="schoolInfoWindow">
+
+        <!--<p>School type is: <c:out value="${school.type.schoolTypeName}" default="not set"/></p>-->
+        <!--<p>School level is: <c:out value="${school.levelCode}" default="not set"/></p>-->
+        <!--<p>Parent rating is: <c:out value="${parentRating}" default="not set"/></p>-->
+
+        <p class="text2"><link:schoolProfileOverview school="${school}"
+                                                     styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview>
+        </p>
+
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="line">
+
+            <div class="unit size4of7">
+                <div class="schoolInfo smallText1-333">
+                    <p>${school.physicalAddress.street}</p>
+
+                    <p>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}</p>
+                    <c:if test="${not empty school.phone}">
+                        <p class="schoolPhone">${school.phone}</p>
+                    </c:if>
+                </div>
+            </div>
+
+            <div class="unit size3of7 lastUnit">
+                <div class="schoolRatings">
+                    <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                        <c:choose>
+                            <c:when test="${not empty parentRating}">
+                                <!-- do not split this into a separate line; it will break the map -->
+                                <div class="smallText1-333"><c:choose><c:when test="${requestScope.context.showReviewsPageRedesign}">Community Rating</c:when><c:otherwise>Overall Parent Rating</c:otherwise></c:choose></div>
+                                <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="spacer_5"><!-- do not collapse --></div>
+                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </link:schoolProfileParentReview>
+                </div>
+            </div>
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+        
+        <div class="line smallText1-333">
+            <div class="unit size1of3">
+                <div class="typeGrade">
+                <c:choose>
+                    <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
+                    <c:otherwise>${gsweb:capitalize(school.schoolType)}, ${school.gradeLevels}</c:otherwise>
+                </c:choose>
+                    </div>
+            </div>
+            <div class="unit size1of3">
+                <div class="brdlft-solid getDirections brdrt-solid">
+                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.physicalAddress.street}%20${school.physicalAddress.city},%20${school.physicalAddress.state}%20${school.physicalAddress.zip}"
+                   onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions</a>
+                    </div>
+            </div>
+            <div class="unit size1of3 lastUnit">
+                <div class="homesForSale">
+                <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
+                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
+                   onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
+                   rel="nofollow">Homes for sale</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</jsp:root>
