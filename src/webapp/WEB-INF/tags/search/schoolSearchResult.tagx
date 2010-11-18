@@ -55,7 +55,7 @@
             </td>
 
             <!-- GreatSchools Rating -->
-            <td class="brdbtm_dotted" align="left" valign="top">
+            <td class="brdbtm_dotted badge-column" align="left" valign="top">
                 <c:choose>
                     <c:when test="${school.schoolType eq 'private'}">
                         <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
@@ -70,7 +70,7 @@
             </td>
 
             <!-- Parent Rating -->
-            <td class="brdbtm_dotted" align="center" valign="top">
+            <td class="brdbtm_dotted stars-column" align="center" valign="top">
                 <!--<link:schoolProfileParentReview school="${school}">-->
                 <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->
                     <c:choose>

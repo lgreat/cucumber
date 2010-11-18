@@ -14,201 +14,432 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:form="http://www.springframework.org/tags/form"
         >
 
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <title>REPLACE ME</title>
-    </head>
+<head>
+    <title>REPLACE ME</title>
+</head>
 
-    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
+<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
 
-    <script type="text/javascript">
-        jQuery(function() {
-            jQuery('#sort-by').change(function() {
-                var url = window.location.href;
-                var queryString = window.location.search.substring(1);
 
-                var vars = queryString.split("&amp;");
-                for (var i=0;i&lt;vars.length;i++) {
-                    var pair = vars[i].split("=");
-                    var key = pair[0];
-                    var value = pair[1];
 
-                    if (key == "sortBy") {
-                        value = jQuery('#sort-by').val();
-                    }
+<div id="mainGS" class="col">
+    <div class="spacer_30"><!-- do not collapse --></div>
+    <div id="topicbarGS" class="col">
 
-                     vars[i] = key + "=" + value;
+        <div id="js-gradeLevels" class="mod">
+            <div class="filter-hd">
+                <h5 class="fltlft">GRADE LEVEL</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
+
+                <div class="clearfloat"><!-- do not collapse --></div>
+            </div>
+            <div class="filter-bd">
+                <div>
+                    <!-- TODO: make IDs on checkboxes more unique -->
+                    <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
+                    <label for="p">Preschool</label>
+                </div>
+                <div>
+                    <input type="checkbox" checked="checked" name="gradeLevels" id="e" value="e"/>
+                    <label for="e">Elementary School</label>
+                </div>
+                <div>
+                    <input type="checkbox" checked="checked" name="gradeLevels" id="m" value="m"/>
+                    <label for="m">Middle School</label>
+                </div>
+                <div>
+                    <input type="checkbox" checked="checked" name="gradeLevels" id="h" value="h"/>
+                    <label for="h">High School</label>
+                </div>
+            </div>
+        </div>
+        <div id="js-schoolTypes" class="mod">
+            <div class="filter-hd">
+                <h5 class="fltlft">SCHOOL TYPE</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
+
+                <div class="clearfloat"><!-- do not collapse --></div>
+            </div>
+            <div class="filter-bd">
+                <div>
+                    <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-public" value="public"/>
+                    <label for="school-type-public">Public</label>
+                </div>
+                <div>
+                    <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-charter"
+                           value="charter"/>
+                    <label for="school-type-charter">Public Charter</label>
+                </div>
+                <div>
+                    <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-private"
+                           value="private"/>
+                    <label for="school-type-private">Private</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="topicMainGS" class="col">
+        Sort by: 
+        <select id="sort-by" name="sortBy">
+            <c:choose>
+                <c:when test="${sort eq 'SCSHOOL_NAME_DESCENDING'}">
+                    <option value="SCHOOL_NAME_DESCENDING" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="SCHOOL_NAME_DESCENDING"/>
+                </c:otherwise>
+            </c:choose>
+            School name: descending
+
+            <c:choose>
+                <c:when test="${sort eq 'SCHOOL_NAME_ASCENDING'}">
+                    <option value="SCHOOL_NAME_ASCENDING" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="SCHOOL_NAME_ASCENDING"/>
+                </c:otherwise>
+            </c:choose>
+            School name: ascending
+
+            <c:choose>
+                <c:when test="${sort eq 'GS_RATING'}">
+                    <option value="GS_RATING" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="GS_RATING"/>
+                </c:otherwise>
+            </c:choose>
+            GreatSchools rating
+
+            <c:choose>
+                <c:when test="${sort eq 'PARENT_RATING'}">
+                    <option value="PARENT_RATING" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="PARENT_RATING"/>
+                </c:otherwise>
+            </c:choose>
+            Parent rating
+        </select>
+        <c:choose>
+            <c:when test="${usePaging}">
+                Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
+            </c:when>
+            <c:otherwise>
+                Showing results 1-${totalResults} of ${totalResults}
+            </c:otherwise>
+        </c:choose>
+        
+        <br/>
+
+        Display: 
+        <select id="page-size" name="pageSize">
+            <c:choose>
+                <c:when test="${pageSize eq 25}">
+                    <option value="25" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="25"/>
+                </c:otherwise>
+            </c:choose>
+            25 schools
+            <c:choose>
+                <c:when test="${pageSize eq 50}">
+                    <option value="50" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="50"/>
+                </c:otherwise>
+            </c:choose>
+            50 schools
+            <c:choose>
+                <c:when test="${pageSize eq 100}">
+                    <option value="100" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="100"/>
+                </c:otherwise>
+            </c:choose>
+            100 schools
+            <c:choose> <!-- TODO: only show this option under certain situations -->
+                <c:when test="${pageSize eq 0}">
+                    <option value="0" selected="selected"/>
+                </c:when>
+                <c:otherwise>
+                    <option value="0"/>
+                </c:otherwise>
+            </c:choose>
+            All schools
+
+        </select>
+        <table id="school-search-results-table-header">
+            <colgroup>
+                <col align="center" width="15%"/>
+                <col align="left" width="39%"/>
+                <col align="right" width="27%"/>
+                <col align="center" width="17%"/>
+                <col align="center" width="2%"/>
+            </colgroup>
+            <thead>
+            <tr class="smallText2bold">
+                <th align="center"><!-- do not collapse --></th>
+                <th align="left" valign="bottom">SCHOOL NAME<span class="symbolsize-16">&amp;#9663;</span></th>
+                <th align="center">GREATSCHOOLS<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
+                <th align="center">COMMUNITY<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
+                <th><!-- do not collapse --></th>
+            </tr>
+            </thead>
+        </table>
+        <table id="school-search-results-table-body">
+            <colgroup>
+                <col align="center" width="15%" valign="top"/>
+                <col align="left" width="50%"/>
+                <col align="left" width="14%" valign="top"/>
+                <col align="center" width="21%" valign="top"/>
+            </colgroup>
+            <tbody>
+            <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
+            <search:schoolSearchResultTemplate school="${schoolSearchResults[0]}"/>
+
+            <c:set var="count" value="0"/>
+
+            <c:if test="${fn:length(schoolSearchResults) gt 0}">
+                <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
+                    <search:schoolSearchResult school="${s}"/>
+                </c:forEach>
+            </c:if>
+
+            <c:choose>
+                <c:when test="${totalPages gt 1}">
+                    <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="nearbySchoolClass" value="nearby-school"/>
+                </c:otherwise>
+            </c:choose>
+            <c:if test="${blankRows gt 0}">
+                <c:forEach begin="0" end="${blankRows - 1}">
+                    <tr class="${nearbySchoolClass}">
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <c:forEach begin="1" end="${totalPages}" var="loopPageNumber" varStatus="status">
+                <c:set var="pagerTabClass" value="pager-tab"/>
+                <c:if test="${loopPageNumber == currentPage}">
+                    <c:set var="pagerTabClass" value="pager-tab active"/>
+                </c:if>
+                <span class="${pagerTabClass}" onclick="page(${loopPageNumber});">
+                    <fmt:formatNumber value="${loopPageNumber}" maxFractionDigits="0"/>
+                </span>
+            </c:forEach>
+            <span class="prv_nxt">Next &amp;raquo;</span>
+        </div>
+
+    </div>
+</div>
+
+<div id="sidebarGS" class="col">
+    <ad:AboveFold_300x600/>
+
+    <div class="mod">
+        <div class="mod_hd">
+            <h3>Map of Results</h3>
+        </div>
+        <div class="mod_bd"><!-- do not collapse --></div>
+    </div>
+
+    <div id="nearbySchoolsMap" class="border-c6">
+        &#160;
+        <noscript>JavaScript is required in order to view a map of the city and its
+            schools.
+        </noscript>
+    </div>
+
+    <map:mapSchoolsWithoutBubbles
+            id="nearbySchoolsMap"
+            tooltips="true"
+            schools="${mapSchools}"
+            school="${school}"
+            start="${param.start}"
+            count="${pageSize}"
+            gsRating="${gs_rating}"
+            ratings="${ratings}"
+            />
+    <!-- end map -->
+
+    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
+                               showAdPct="0"/>
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    var compareSchoolsArray = [];
+
+    jQuery(function() {
+        jQuery('#sort-by').change(function() {
+            var queryString = window.location.search.substring(1);
+
+            var vars = queryString.split("&amp;");
+            for (var i = 0; i &lt; vars.length; i++) {
+                var pair = vars[i].split("=");
+                var key = pair[0];
+                var value = pair[1];
+
+                if (key == "sortBy") {
+                    value = jQuery('#sort-by').val();
                 }
 
-                queryString = vars.join("&amp;");
-                console.log(window.location.host + window.location.pathname + "?" + queryString);
-                window.location.search = "?" + queryString;
-           });
+                vars[i] = key + "=" + value;
+            }
+
+            queryString = vars.join("&amp;");
+            window.location.search = "?" + queryString;
         });
-    </script>
+        //TODO: make method reusable
+        jQuery('#page-size').change(function() {
+            var queryString = window.location.search.substring(1);
 
-    <div id="mainGS" class="col">
-        <div class="spacer_30"><!-- do not collapse --></div>
-        <div id="topicbarGS" class="col">
+            var vars = queryString.split("&amp;");
+            for (var i = 0; i &lt; vars.length; i++) {
+                var pair = vars[i].split("=");
+                var key = pair[0];
+                var value = pair[1];
 
-            <div id="js-gradeLevels" class="mod">
-                <div class="filter-hd">
-                    <h5 class="fltlft">GRADE LEVEL</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
+                if (key == "pageSize") {
+                    value = jQuery('#page-size').val();
+                }
 
-                    <div class="clearfloat"><!-- do not collapse --></div>
-                </div>
-                <div class="filter-bd">
-                    <div>
-                        <!-- TODO: make IDs on checkboxes more unique -->
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
-                        <label for="p">Preschool</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="e" value="e"/>
-                        <label for="e">Elementary School</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="m" value="m"/>
-                        <label for="m">Middle School</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" checked="checked" name="gradeLevels" id="h" value="h"/>
-                        <label for="h">High School</label>
-                    </div>
-                </div>
-            </div>
-            <div id="js-schoolTypes" class="mod">
-                <div class="filter-hd">
-                    <h5 class="fltlft">SCHOOL TYPE</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
+                vars[i] = key + "=" + value;
+            }
 
-                    <div class="clearfloat"><!-- do not collapse --></div>
-                </div>
-                <div class="filter-bd">
-                    <div>
-                        <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-public" value="public"/>
-                        <label for="school-type-public">Public</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-charter" value="charter"/>
-                        <label for="school-type-charter">Public Charter</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-private" value="private"/>
-                        <label for="school-type-private">Private</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+            queryString = vars.join("&amp;");
+            window.location.search = "?" + queryString;
+        });
 
-        <div id="topicMainGS" class="col">
-            <select id="sort-by" name="sortBy">
-                <option value="SCHOOL_NAME_DESCENDING"/>School name: descending
-                <option value="SCHOOL_NAME_ASCENDING"/>School name: ascending
-                <option value="GS_RATING"/>GreatSchools rating
-                <option value="PARENT_RATING"/>Parent rating
-            </select>
-            Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
-            <table id="school-search-results-table-header">
-                <colgroup>
-                    <col align="center" width="15%"/>
-                    <col align="left" width="39%"/>
-                    <col align="right" width="27%"/>
-                    <col align="center" width="17%"/>
-                    <col align="center" width="2%"/>
-                </colgroup>
-                <thead>
-                <tr class="smallText2bold">
-                    <th align="center"><!-- do not collapse --></th>
-                    <th align="left" valign="bottom">SCHOOL NAME<span class="symbolsize-16">&amp;#9663;</span></th>
-                    <th align="center">GREATSCHOOLS<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
-                    <th align="center">COMMUNITY<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
-                    <th><!-- do not collapse --></th>
-                </tr>
-                </thead>
-            </table>
-            <table id="school-search-results-table-body">
-                <colgroup>
-                    <col align="center" width="15%" valign="top"/>
-                    <col align="left" width="50%"/>
-                    <col align="left" width="14%" valign="top"/>
-                    <col align="center" width="21%" valign="top"/>
-                </colgroup>
-                <tbody>
-                <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
-                <search:schoolSearchResultTemplate school="${schoolSearchResults[0]}"/>
 
-                <c:set var="count" value="0"/>
+        jQuery('.compare-school-checkbox').click(function() {
+            // to highlight table row
+            var theTD = jQuery(this).parent();
+            var theTR = theTD.parent();
 
-                <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                    <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
-                        <search:schoolSearchResult school="${s}"/>
-                    </c:forEach>
-                </c:if>
+            // change GS Rating badge and parent rating stars backgrounds from white to blue
+            jQuery('#school-search-results-table-body').find(':checked').each(function () {
+                var isWhite = null;
+                var pattern2 = /_y|_b/gi;
+                var stars = jQuery(this).parent().parent().find('td.stars-column > span');
+                var starsClass = stars.attr('class');
+                (starsClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
+                var badge = jQuery(this).parent().parent().find('td.badge-column > span');
+                if (badge.length != 0) {
+                    var badgeClass = badge.attr('class');
+                    if (isWhite) {
+                        var blueBadgeClass = badgeClass + '_b';
+                        badge.removeClass(badgeClass).addClass(blueBadgeClass);
+                    }
+                }
 
-                <c:choose>
-                    <c:when test="${totalPages gt 1}">
-                        <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="nearbySchoolClass" value="nearby-school"/>
-                    </c:otherwise>
-                </c:choose>
-                <c:if test="${blankRows gt 0}">
-                    <c:forEach begin="0" end="${blankRows - 1}">
-                        <tr class="${nearbySchoolClass}">
-                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                            <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                        </tr>
-                    </c:forEach>
-                </c:if>
-                </tbody>
-            </table>
+                if (isWhite) {
+                    var blueStarsClass = starsClass + '_b';
+                    stars.removeClass(starsClass).addClass(blueStarsClass);
+                }
+            });
+            // change GS Rating badge and parent rating stars backgrounds from blue to white
+            jQuery('#school-search-results-table-body').find(':checkbox').not(':checked').each(function () {
+                var isBlue = null;
+                var pattern1 = /_b/gi;
+                var pattern3 = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
+                var pattern4 = /sprite stars_sm_(\d|[a-z_]{7})/gi;
+                var stars = jQuery(this).parent().parent().find('td.stars-column > span');
+                var starsClass = stars.attr('class');
+                (starsClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
+                var whiteStarsClass = starsClass.match(pattern4)[0];
+                var badge = jQuery(this).parent().parent().find('td.badge-column > span');
+                if (badge.length != 0) {
+                    var badgeClass = badge.attr('class');
+                    var whiteBadgeClass = badgeClass.match(pattern3)[0];
+                    if (isBlue) {
+                        badge.removeClass(badgeClass).addClass(whiteBadgeClass);
+                    }
+                }
+                if (isBlue) {
+                    stars.removeClass(starsClass).addClass(whiteStarsClass);
+                }
+            });
+            // change TD background color
+            if (jQuery(this).attr('checked')) {
+                theTR.children().addClass('bg-color-f4fafd');
+                compareSchoolsArray.push(jQuery(this).attr('id'));
+            } else {
+                theTR.children().removeClass('bg-color-f4fafd');
+                compareSchoolsArray.pop(jQuery(this).attr('id'));
+            }
+        });
 
-        </div>
-    </div>
+    });
 
-    <div id="sidebarGS" class="col">
-        <ad:AboveFold_300x600/>
+    /**
+     * Takes a string that resembles a URL querystring in the format ?key=value&amp;key=value&amp;key=value
+     * @param queryString
+     * @param key
+     * @param value
+     */
+    function putIntoQueryString(queryString, key, value) {
+        queryString = queryString.substring(1);
+        var put = false;
+        var vars = queryString.split("&amp;");
+        for (var i = 0; i &lt; vars.length; i++) {
+            var pair = vars[i].split("=");
+            var thisKey = pair[0];
 
-        <div class="mod">
-            <div class="mod_hd">
-                <h3>Map of Results</h3>
-            </div>
-            <div class="mod_bd"><!-- do not collapse --></div>
-        </div>
-        <c:set var="pageSize" value="${4}"/>
+            if (thisKey === key) {
+                vars[i] = key + "=" + value;
+                put = true;
+            }
+        }
 
-        <div id="nearbySchoolsMap" class="border-c6">
-            &#160;
-            <noscript>JavaScript is required in order to view a map of the city and its
-                schools.
-            </noscript>
-        </div>
+        if (put !== true) {
+            vars[vars.length] = key + "=" + value;
+        }
 
-        <map:mapSchoolsWithoutBubbles
-                id="nearbySchoolsMap"
-                tooltips="true"
-                schools="${mapSchools}"
-                school="${school}"
-                start="${param.start}"
-                count="${pageSize}"
-                gsRating="${gs_rating}"
-                ratings="${ratings}"
-                />
-        <!-- end map -->
+        queryString = "?" + vars.join("&amp;");
+        return queryString;
+    }
 
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                                   showAdPct="0"/>
-    </div>
+    function page(pageNumber) {
+        var start = ${start};
+        var pageSize = ${pageSize};
+        start = (pageNumber-1) * pageSize;
+        var compareSchools = compareSchoolsArray.join(',');
+        var queryString = window.location.search;
+        if (compareSchools !== undefined &amp;&amp; compareSchools.length > 0) {
+            queryString = putIntoQueryString(window.location.search, "compareSchools", compareSchools);
+        }
+        queryString = putIntoQueryString(queryString,"start",start);
+
+        window.location.search = queryString;
+    }
+</script>
+
 
 </jsp:root>
