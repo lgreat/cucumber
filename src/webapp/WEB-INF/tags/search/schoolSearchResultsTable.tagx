@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:form="http://www.springframework.org/tags/form"
+        >
+
+        <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
+
+        <c:set var="searchResultsPagingSummary">
+            <div class="js-search-results-paging-summary text3">
+                <c:choose>
+                    <c:when test="${usePaging}">
+                        Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
+                    </c:when>
+                    <c:otherwise>
+                        Showing results 1-${totalResults} of ${totalResults}
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </c:set>
+
+        <div class="line text3">
+            <div class="unit size1of1 lastUnit">
+                <div class="fltrt">
+                    ${searchResultsPagingSummary}
+                </div>
+            </div>
+        </div>
+
+        <div class="spacer_10"><!-- do not collapse --></div>
+
+        <div class="line text3">
+            <div class="unit size3of5">
+                <label for="sort-by">Sort by: </label>
+                <select id="sort-by" name="sortBy">
+
+                    <c:choose>
+                        <c:when test="${sort eq 'SCSHOOL_NAME_DESCENDING'}">
+                            <option value="SCHOOL_NAME_DESCENDING" selected="selected">School name: descending</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="SCHOOL_NAME_DESCENDING">School name: descending</option>
+                        </c:otherwise>
+                    </c:choose>
+                    
+                    <c:choose>
+                        <c:when test="${sort eq 'SCHOOL_NAME_ASCENDING'}">
+                            <option value="SCHOOL_NAME_ASCENDING" selected="selected">School name: ascending</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="SCHOOL_NAME_ASCENDING">School name: ascending></option>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                    <c:choose>
+                        <c:when test="${sort eq 'GS_RATING'}">
+                            <option value="GS_RATING" selected="selected">GreatSchools rating</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="GS_RATING">GreatSchools rating</option>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:choose>
+                        <c:when test="${sort eq 'PARENT_RATING'}">
+                            <option value="PARENT_RATING" selected="selected">Community Rating</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="PARENT_RATING">Community Rating</option>
+                        </c:otherwise>
+                    </c:choose>
+                </select>
+            </div>
+
+
+            <div class="unit size2of5 lastUnit">
+                <div class="fltrt">
+                    <label for="page-size">Display: </label>
+                    <select id="page-size" name="pageSize">
+                        <c:choose>
+                            <c:when test="${pageSize eq 25}">
+                                <option value="25" selected="selected">25 schools</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="25">25 schools</option>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${pageSize eq 50}">
+                                <option value="50" selected="selected">50 schools</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="50">50 schools</option>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${pageSize eq 100}">
+                                <option value="100" selected="selected">100 schools</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="100">100 schools</option>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose> <!-- TODO: only show this option under certain situations -->
+                            <c:when test="${pageSize eq 0}">
+                                <option value="0" selected="selected">All schools</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="0">All schools</option>
+                            </c:otherwise>
+                        </c:choose>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <table id="school-search-results-table-header">
+            <colgroup>
+                <col align="center" width="15%"/>
+                <col align="left" width="39%"/>
+                <col align="right" width="27%"/>
+                <col align="center" width="17%"/>
+                <col align="center" width="2%"/>
+            </colgroup>
+            <thead>
+            <tr class="smallText2bold">
+                <th align="center"><!-- do not collapse --></th>
+                <th align="left" valign="bottom">SCHOOL NAME<span class="symbolsize-16">&amp;#9663;</span></th>
+                <th align="center">GREATSCHOOLS<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
+                <th align="center">COMMUNITY<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
+                <th><!-- do not collapse --></th>
+            </tr>
+            </thead>
+        </table>
+        <table id="school-search-results-table-body">
+            <colgroup>
+                <col align="center" width="15%" valign="top"/>
+                <col align="left" width="50%"/>
+                <col align="left" width="14%" valign="top"/>
+                <col align="center" width="21%" valign="top"/>
+            </colgroup>
+            <tbody>
+            <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
+            <search:schoolSearchResultTemplate school="${schoolSearchResults[0]}"/>
+
+            <c:set var="count" value="0"/>
+
+            <c:if test="${fn:length(schoolSearchResults) gt 0}">
+                <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
+                    <search:schoolSearchResult school="${s}"/>
+                </c:forEach>
+            </c:if>
+
+            <c:choose>
+                <c:when test="${totalPages gt 1}">
+                    <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="nearbySchoolClass" value="nearby-school"/>
+                </c:otherwise>
+            </c:choose>
+            <c:if test="${blankRows gt 0}">
+                <c:forEach begin="0" end="${blankRows - 1}">
+                    <tr class="${nearbySchoolClass}">
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                        <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
+                    </tr>
+                </c:forEach>
+            </c:if>
+            </tbody>
+        </table>
+
+        <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="line">
+            <div class="unit size1of2">
+                <div class="fltlft">
+                    ${searchResultsPagingSummary}
+                </div>
+            </div>
+            <div class="unit size1of2 lastUnit">
+                <div class="pagination" id="pagination">
+                    <c:forEach begin="1" end="${totalPages}" var="loopPageNumber" varStatus="status">
+                        <c:set var="pagerTabClass" value="pager-tab"/>
+                        <c:if test="${loopPageNumber == currentPage}">
+                            <c:set var="pagerTabClass" value="pager-tab active"/>
+                        </c:if>
+                <span class="${pagerTabClass}" onclick="page(${loopPageNumber});">
+                    ${loopPageNumber}
+                </span>
+                    </c:forEach>
+                    <span class="prv_nxt">Next &amp;raquo;</span>
+                </div>
+
+            </div>
+        </div>
+
+
+
+</jsp:root>

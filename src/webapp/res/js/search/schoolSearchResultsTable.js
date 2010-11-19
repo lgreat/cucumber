@@ -37,6 +37,8 @@ GS.search.SchoolSearcher = function() {
         var schoolTypes = [];
 
         data.format = "json";
+        data.decorator="emptyDecorator";
+        data.confirm="true";
         
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
         jQuery('#js-gradeLevels :checked').each(function() {
@@ -50,7 +52,7 @@ GS.search.SchoolSearcher = function() {
         data["gradeLevels"] = gradeLevels;
         data["schoolTypes"] = schoolTypes;
 
-        jQuery.getJSON(this.url(), data , callback);
+        jQuery.get(this.url(), data , callback);
     };
 };
 
@@ -112,38 +114,10 @@ GS.search.SchoolSearchResultsTable = function() {
     this.update = function() {
         var searcher = new GS.search.SchoolSearcher();
         searcher.search(function(data) {
-            var start = data.start;
-            var currentPage = data.currentPage;
-            var totalResults = data.totalResults;
-            var pageSize = data.pageSize;
-            var totalPages = data.totalPages;
+            
+            console.log(data);
+            jQuery('#topicMainGS').html(data);
 
-            start++;
-
-            this.clear();
-
-            //update paging info. TODO: move out of this method
-            jQuery('.js-search-results-paging-summary').html("Showing results " + start + "-" + currentPage*pageSize + " of " + totalResults);
-
-            var pagerHtml = "";
-            for (i = 1; i <= totalPages; i++) {
-                var pagerTabClass = "pager-tab";
-                if (i === currentPage) {
-                    var pagerTabClass = "pager-tab active";
-                }
-                pagerHtml = pagerHtml + "<span class='" + pagerTabClass + "' onclick='page(" + i + ")'>" + i + "</span>";
-            }
-            pagerHtml = pagerHtml + "<span class='prv_nxt'>Next</span>";
-
-            jQuery('#pagination').html(pagerHtml);
-
-            this.addAll(data.schoolSearchResults);
-
-            var mapSchools = this.transformToMapSchools(data.schoolSearchResults);
-            GS.map.schoolMap.removeAllSchools();
-            console.log(mapSchools);
-            GS.map.schoolMap.addSchools(mapSchools, function() {});
-            GS.map.schoolMap.drawMarkers();
         }.gs_bind(this));
     };
 };

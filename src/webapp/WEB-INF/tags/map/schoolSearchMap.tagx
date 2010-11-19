@@ -32,7 +32,6 @@
     <script type="text/javascript">
         jQuery(function(){
             ${js}
-            console.log(jsCenterMapSchool);
             GS.map.schoolMap = new GS.map.SchoolMap('${id}','${schools[0].latLon.lat}','${schools[0].latLon.lon}', true);
             //GS.map.schoolMap = new GS.map.SchoolMap(jsCenterMapSchool.id,jsCenterMapSchool.latitude,jsCenterMapSchool.longitude, false);
             //execute the JS generated above
