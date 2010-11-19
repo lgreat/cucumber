@@ -17,6 +17,10 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
     private GSQueryParser _queryParser;
     public static final Logger _log = Logger.getLogger(SchoolSearchServiceImpl.class);
 
+    public SchoolSearchServiceImpl() {
+        _queryParser = new GSQueryParser();
+    }
+
     //TODO: best way to get correct builder?
     SchoolSearchResultsBuilder _resultsBuilder = new SchoolSearchResultsBuilder();
 
