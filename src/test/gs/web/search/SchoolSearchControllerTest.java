@@ -1,7 +1,10 @@
 package gs.web.search;
 
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -9,9 +12,12 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
 import org.apache.commons.collections.MultiMap;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,16 +31,19 @@ import java.util.*;
 public class SchoolSearchControllerTest extends BaseControllerTestCase {
     private SchoolSearchController _controller;
     private IDistrictDao _districtDao;
+    private IGeoDao _geoDao;
     private SchoolSearchService _schoolSearchService;
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = new SchoolSearchController();
         _districtDao = createStrictMock(IDistrictDao.class);
+        _geoDao = createStrictMock(IGeoDao.class);
 
         _schoolSearchService = createStrictMock(SchoolSearchService.class);
 
         _controller.setDistrictDao(_districtDao);
+        _controller.setGeoDao(_geoDao);
         _controller.setSchoolSearchService(_schoolSearchService);
         _controller.setStateManager(new StateManager());
 
@@ -42,12 +51,16 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
     }
 
+    private void resetAllMocks() {
+        resetMocks(_districtDao, _geoDao);
+    }
+
     private void replayAllMocks() {
-        replayMocks(_districtDao);
+        replayMocks(_districtDao, _geoDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_districtDao);
+        verifyMocks(_districtDao, _geoDao);
     }
 
     public void testHandle() throws Exception {
@@ -109,14 +122,26 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
     public void testAddGamAttributes() {
         Map<FieldConstraint,String> constraints = new HashMap<FieldConstraint,String>();
+        List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
         List<FieldFilter> filters = new ArrayList<FieldFilter>();
+        String searchString = null;
+        List<ISchoolSearchResult> schoolResults = new ArrayList<ISchoolSearchResult>();
         PageHelper referencePageHelper;
         PageHelper actualPageHelper;
 
         // basic case: null checks
+
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
         boolean threwException = false;
         try {
-            _controller.addGamAttributes(null, null, null);
+            // technically, this is an incomplete test, because none of these except searchString can be null
+            _controller.addGamAttributes(null, null, null, null, null, null, null);
         } catch (IllegalArgumentException e) {
             threwException = true;
         }
@@ -124,15 +149,23 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         // school type
 
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
         filters.add(FieldFilter.SchoolTypeFilter.PUBLIC);
         filters.add(FieldFilter.SchoolTypeFilter.CHARTER);
+        FilterGroup filterGroup = new FilterGroup();
+        filterGroup.setFieldFilters(filters.toArray(new FieldFilter[0]));
+        filterGroups.add(filterGroup);
 
-        actualPageHelper = new PageHelper(_sessionContext, _request);
-        _controller.addGamAttributes(actualPageHelper, constraints, filters);
-
-        referencePageHelper = new PageHelper(_sessionContext, _request);
-        referencePageHelper.addAdKeywordMulti("type","public");
-        referencePageHelper.addAdKeywordMulti("type","charter");
+        resetAllMocks();
+        replayAllMocks();
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        verifyAllMocks();
 
         Collection actualTypeKeywords = (Collection)actualPageHelper.getAdKeywords().get("type");
         assertNotNull(actualTypeKeywords);
@@ -142,20 +175,24 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         // district browse
 
-        filters.clear();
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
         constraints.clear();
+        searchString = null;
+        schoolResults.clear();
 
         constraints.put(FieldConstraint.STATE, "CA");
         constraints.put(FieldConstraint.DISTRICT_ID, "3");
 
+        resetAllMocks();
         District district = new District();
         district.setId(3);
         district.setName("San Francisco Unified School District");
         expect(_districtDao.findDistrictById(State.CA, 3)).andReturn(district);
 
-        actualPageHelper = new PageHelper(_sessionContext, _request);
         replayAllMocks();
-        _controller.addGamAttributes(actualPageHelper, constraints, filters);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
         verifyAllMocks();
 
         referencePageHelper = new PageHelper(_sessionContext, _request);
@@ -172,6 +209,137 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertNotNull(actualDistrictNameKeywords);
         assertEquals(1,actualDistrictNameKeywords.size());
         assertEquals((referenceDistrictNameKeywords.toArray())[0], (actualDistrictNameKeywords.toArray())[0]);
+
+        // city GAM attributes
+
+        // GS-10448 - search results
+
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
+        Document doc;
+        ISchoolSearchResult result;
+
+        doc = new Document();
+        doc.add(new Field(Indexer.CITY, "San Francisco", Field.Store.YES, Field.Index.TOKENIZED));
+        result = new LuceneSchoolSearchResult(doc);
+        schoolResults.add(result);
+        doc = new Document();
+        doc.add(new Field(Indexer.CITY, "San Francisco", Field.Store.YES, Field.Index.TOKENIZED));
+        result = new LuceneSchoolSearchResult(doc);
+        schoolResults.add(result);
+        doc = new Document();
+        doc.add(new Field(Indexer.CITY, "Bolinas", Field.Store.YES, Field.Index.TOKENIZED));
+        result = new LuceneSchoolSearchResult(doc);
+        schoolResults.add(result);
+        doc = new Document();
+        doc.add(new Field(Indexer.CITY, "Sacramento", Field.Store.YES, Field.Index.TOKENIZED));
+        result = new LuceneSchoolSearchResult(doc);
+        schoolResults.add(result);
+        doc = new Document();
+        doc.add(new Field(Indexer.CITY, "Berkeley", Field.Store.YES, Field.Index.TOKENIZED));
+        result = new LuceneSchoolSearchResult(doc);
+        schoolResults.add(result);
+
+        resetAllMocks();
+        replayAllMocks();
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        verifyAllMocks();
+
+        Collection actualCityKeywords = (Collection)actualPageHelper.getAdKeywords().get("city");
+        assertNotNull(actualCityKeywords);
+        assertEquals(4,actualCityKeywords.size());
+        assertTrue(actualCityKeywords.contains("SanFrancis"));
+        assertTrue(actualCityKeywords.contains("Bolinas"));
+        assertTrue(actualCityKeywords.contains("Sacramento"));
+        assertTrue(actualCityKeywords.contains("Berkeley"));
+
+        // GS-5786 - city browse, GS-7809 - adsense hints for realtor.com, GS-6971 - city id cookie
+
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
+        resetAllMocks();
+
+        constraints.put(FieldConstraint.STATE, "CA");
+        constraints.put(FieldConstraint.CITY, "san francisco");
+        City city = new City();
+        city.setId(15432);
+        city.setName("San Francisco");
+        expect(_geoDao.findCity(State.CA, "san francisco")).andReturn(city);
+
+        replayAllMocks();
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        verifyAllMocks();
+
+        referencePageHelper = new PageHelper(_sessionContext, _request);
+        referencePageHelper.addAdKeyword("city","San Francisco");
+
+        actualCityKeywords = (Collection)actualPageHelper.getAdKeywords().get("city");
+        assertNotNull(actualCityKeywords);
+        assertEquals(1,actualCityKeywords.size());
+        assertTrue(actualCityKeywords.contains("SanFrancis"));
+
+        String actualAdSenseHint = actualPageHelper.getAdSenseHint();
+        assertEquals("san francisco california real estate house homes for sale", actualAdSenseHint);
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(getRequest());
+        assertEquals(new Integer(15432), sessionContext.getCityId());
+
+        // GS-10642 - query
+
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
+        resetAllMocks();
+
+        searchString = " hi-tech   toys";
+
+        replayAllMocks();
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        verifyAllMocks();
+
+        Collection actualQueryKeywords = (Collection)actualPageHelper.getAdKeywords().get("query");
+        assertNotNull(actualQueryKeywords);
+        assertEquals(3,actualQueryKeywords.size());
+        assertTrue(actualQueryKeywords.contains("hi"));
+        assertTrue(actualQueryKeywords.contains("tech"));
+        assertTrue(actualQueryKeywords.contains("toys"));
+
+       // GS-9323 - zip code
+
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
+        resetAllMocks();
+
+        searchString = " 94105 ";
+
+        replayAllMocks();
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        verifyAllMocks();
+
+        Collection actualZipcodeKeywords = (Collection)actualPageHelper.getAdKeywords().get("zipcode");
+        assertNotNull(actualZipcodeKeywords);
+        assertEquals(1,actualZipcodeKeywords.size());
+        assertTrue(actualZipcodeKeywords.contains("94105"));
+
         // TODO:fixme
         //assertEquals("3", (String)actualDistrictIdKeywords.get(0));
 /*
