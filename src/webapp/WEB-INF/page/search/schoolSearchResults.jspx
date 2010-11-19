@@ -87,100 +87,125 @@
     </div>
 
     <div id="topicMainGS" class="col">
-        Sort by: 
-        <select id="sort-by" name="sortBy">
-            <c:choose>
-                <c:when test="${sort eq 'SCSHOOL_NAME_DESCENDING'}">
-                    <option value="SCHOOL_NAME_DESCENDING" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="SCHOOL_NAME_DESCENDING"/>
-                </c:otherwise>
-            </c:choose>
-            School name: descending
 
-            <c:choose>
-                <c:when test="${sort eq 'SCHOOL_NAME_ASCENDING'}">
-                    <option value="SCHOOL_NAME_ASCENDING" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="SCHOOL_NAME_ASCENDING"/>
-                </c:otherwise>
-            </c:choose>
-            School name: ascending
+        <c:set var="searchResultsPagingSummary">
+            <div id="js-search-results-paging-summary" class="text3">
+                <c:choose>
+                    <c:when test="${usePaging}">
+                        Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
+                    </c:when>
+                    <c:otherwise>
+                        Showing results 1-${totalResults} of ${totalResults}
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </c:set>
 
-            <c:choose>
-                <c:when test="${sort eq 'GS_RATING'}">
-                    <option value="GS_RATING" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="GS_RATING"/>
-                </c:otherwise>
-            </c:choose>
-            GreatSchools rating
+        <div class="line text3">
+            <div class="unit size1of1 lastUnit">
+                <div class="fltrt">
+                    ${searchResultsPagingSummary}
+                </div>
+            </div>
+        </div>
 
-            <c:choose>
-                <c:when test="${sort eq 'PARENT_RATING'}">
-                    <option value="PARENT_RATING" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="PARENT_RATING"/>
-                </c:otherwise>
-            </c:choose>
-            Parent rating
-        </select>
-        <span id="js-search-results-paging-summary">
-            <c:choose>
-                <c:when test="${usePaging}">
-                    Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
-                </c:when>
-                <c:otherwise>
-                    Showing results 1-${totalResults} of ${totalResults}
-                </c:otherwise>
-            </c:choose>
-        </span>
-        <br/>
+        <div class="spacer_10"><!-- do not collapse --></div>
 
-        Display: 
-        <select id="page-size" name="pageSize">
-            <c:choose>
-                <c:when test="${pageSize eq 25}">
-                    <option value="25" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="25"/>
-                </c:otherwise>
-            </c:choose>
-            25 schools
-            <c:choose>
-                <c:when test="${pageSize eq 50}">
-                    <option value="50" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="50"/>
-                </c:otherwise>
-            </c:choose>
-            50 schools
-            <c:choose>
-                <c:when test="${pageSize eq 100}">
-                    <option value="100" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="100"/>
-                </c:otherwise>
-            </c:choose>
-            100 schools
-            <c:choose> <!-- TODO: only show this option under certain situations -->
-                <c:when test="${pageSize eq 0}">
-                    <option value="0" selected="selected"/>
-                </c:when>
-                <c:otherwise>
-                    <option value="0"/>
-                </c:otherwise>
-            </c:choose>
-            All schools
+        <div class="line text3">
+            <div class="unit size3of5">
+                <label for="sort-by">Sort by: </label>
+                <select id="sort-by" name="sortBy">
+                    <c:choose>
+                        <c:when test="${sort eq 'SCSHOOL_NAME_DESCENDING'}">
+                            <option value="SCHOOL_NAME_DESCENDING" selected="selected"/>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="SCHOOL_NAME_DESCENDING"/>
+                        </c:otherwise>
+                    </c:choose>
+                    School name: descending
 
-        </select>
+                    <c:choose>
+                        <c:when test="${sort eq 'SCHOOL_NAME_ASCENDING'}">
+                            <option value="SCHOOL_NAME_ASCENDING" selected="selected"/>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="SCHOOL_NAME_ASCENDING"/>
+                        </c:otherwise>
+                    </c:choose>
+                    School name: ascending
+
+                    <c:choose>
+                        <c:when test="${sort eq 'GS_RATING'}">
+                            <option value="GS_RATING" selected="selected"/>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="GS_RATING"/>
+                        </c:otherwise>
+                    </c:choose>
+                    GreatSchools rating
+
+                    <c:choose>
+                        <c:when test="${sort eq 'PARENT_RATING'}">
+                            <option value="PARENT_RATING" selected="selected"/>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="PARENT_RATING"/>
+                        </c:otherwise>
+                    </c:choose>
+                    Community rating
+                </select>
+            </div>
+
+
+            <div class="unit size2of5 lastUnit">
+                <div class="fltrt">
+                    <label for="page-size">Display: </label>
+                    <select id="page-size" name="pageSize">
+                        <c:choose>
+                            <c:when test="${pageSize eq 25}">
+                                <option value="25" selected="selected"/>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="25"/>
+                            </c:otherwise>
+                        </c:choose>
+                        25 schools
+                        <c:choose>
+                            <c:when test="${pageSize eq 50}">
+                                <option value="50" selected="selected"/>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="50"/>
+                            </c:otherwise>
+                        </c:choose>
+                        50 schools
+                        <c:choose>
+                            <c:when test="${pageSize eq 100}">
+                                <option value="100" selected="selected"/>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="100"/>
+                            </c:otherwise>
+                        </c:choose>
+                        100 schools
+                        <c:choose> <!-- TODO: only show this option under certain situations -->
+                            <c:when test="${pageSize eq 0}">
+                                <option value="0" selected="selected"/>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="0"/>
+                            </c:otherwise>
+                        </c:choose>
+                        All schools
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="spacer_10"><!-- do not collapse --></div>
+
         <table id="school-search-results-table-header">
             <colgroup>
                 <col align="center" width="15%"/>
@@ -238,17 +263,30 @@
             </c:if>
             </tbody>
         </table>
-        <div class="pagination" id="pagination">
-            <c:forEach begin="1" end="${totalPages}" var="loopPageNumber" varStatus="status">
-                <c:set var="pagerTabClass" value="pager-tab"/>
-                <c:if test="${loopPageNumber == currentPage}">
-                    <c:set var="pagerTabClass" value="pager-tab active"/>
-                </c:if>
+
+        <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="line">
+            <div class="unit size1of2">
+                <div class="fltlft">
+                    ${searchResultsPagingSummary}
+                </div>
+            </div>
+
+            <div class="unit size1of2 lastUnit">
+                <div class="pagination" id="pagination">
+                    <c:forEach begin="1" end="${totalPages}" var="loopPageNumber" varStatus="status">
+                        <c:set var="pagerTabClass" value="pager-tab"/>
+                        <c:if test="${loopPageNumber == currentPage}">
+                            <c:set var="pagerTabClass" value="pager-tab active"/>
+                        </c:if>
                 <span class="${pagerTabClass}" onclick="page(${loopPageNumber});">
                     ${loopPageNumber}
                 </span>
-            </c:forEach>
-            <span class="prv_nxt">Next &amp;raquo;</span>
+                    </c:forEach>
+                    <span class="prv_nxt">Next &amp;raquo;</span>
+                </div>
+
+            </div>
         </div>
 
     </div>
