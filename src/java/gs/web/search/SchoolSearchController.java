@@ -59,6 +59,16 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     // TODO: Omniture tracking
     // TODO: rel="canonical"
+    // GS-10036
+    // schoolResults.jspx: (SearchController)
+    //    <c:if test="${not empty relCanonical}">
+    //        <link rel="canonical" href="${relCanonical}"/>
+    //    </c:if>
+    // SearchController:
+    // lines 336-340, 419-426
+    // GS-10144, GS-10400
+    // schoolsTable.jspx: (SchoolsController)
+    // lines 385-414
 
     @Override
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
@@ -261,6 +271,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     // TODO: GAM attributes
     //
     // schoolResults.jspx: (view for SearchController)
+        // GS-6875
     //        gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
     //        LevelCode levelCode = (LevelCode) request.getAttribute("levelCode");
     //        if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
