@@ -1,6 +1,7 @@
 div#main {
     position:relative;
     margin: 0;
+    height: 866px;
     padding-top: 15px;
     overflow:hidden;
 }
@@ -17,12 +18,11 @@ div#left_col.border10 {
 /** Adjusting these values will require a change to the js function adjustLeftColAd */
 div#leftcolAd {
     position:absolute;
-    top: 278px;
+    top: 230px;
     left: 20px;
     width: 204px;
     margin: 0 auto 0 auto;
     padding-top: 10px;
-    background-color: #DDEEEE;
     text-align: center;
 }
 
