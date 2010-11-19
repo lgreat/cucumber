@@ -41,11 +41,9 @@
 
         <div id="js-gradeLevels" class="mod">
             <div class="filter-hd">
-                <h5 class="fltlft">GRADE LEVEL</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
-
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <h5>GRADE LEVEL</h5>
             </div>
-            <div class="filter-bd">
+            <div class="filter-bd smallAlertText">
                 <div>
                     <!-- TODO: make IDs on checkboxes more unique -->
                     <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
@@ -67,11 +65,9 @@
         </div>
         <div id="js-schoolTypes" class="mod">
             <div class="filter-hd">
-                <h5 class="fltlft">SCHOOL TYPE</h5><h5 class="fltrt"><span class="symbolsize-25">&amp;#9662;</span></h5>
-
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <h5>SCHOOL TYPE</h5>
             </div>
-            <div class="filter-bd">
+            <div class="filter-bd smallAlertText">
                 <div>
                     <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-public" value="public"/>
                     <label for="school-type-public">Public</label>

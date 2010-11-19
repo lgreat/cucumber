@@ -19,15 +19,15 @@
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <c:choose>
                     <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox" checked="checked"/>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox" checked="checked"/><br/>
                     </c:when>
                     <c:otherwise>
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/><br/>
                     </c:otherwise>
                 </c:choose>
                 <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
-                <p id="compareHelperMessage" class="formHelperText">Check 2 or more to compare</p>
-                <button class="button-1Ext-2 smallText2">COMPARE NOW</button>
+                <p id="compareHelperMessage" class="formHelperText">Check 2<br/>or more to<br/>compare</p>
+                <button class="button-1Ext-2 smallText2">COMPARE<br/>NOW</button>
             </td>
 
             <!-- School Name -->

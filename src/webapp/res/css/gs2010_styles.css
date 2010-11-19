@@ -508,6 +508,11 @@ a.smallAlertText {
     line-height:1;
 }
 
+.symbolsize-19{
+    font-size:19px;
+    line-height:1;
+}
+
 .symbolsize-25{
     font-size:25px;
     line-height:1;
@@ -1241,12 +1246,15 @@ body.cobranded #pageGS {
     position: relative;
     background: #149; /* for non-css3 browsers */
 
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#276ab3', endColorstr = '#143e90'); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90)); /* for webkit browsers */
-    background: -moz-linear-gradient(top, #276ab3, #143e90); /* for firefox 3.6+ */
+    background: -moz-linear-gradient(top, #276ab3, #143e90); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#276ab3', EndColorStr='#143e90')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#276ab3', endColorStr = '#143e90'); /* IE6,IE7 */
+
+    zoom:1;
 }
 
-.navmod_hd h5, .filter-hd h5 {
+.navmod_hd h5 {
     padding: 0 10px;
     font: bold 13px / 2.0 Arial, Helvetica, sans-serif;
     color: white;
@@ -1257,6 +1265,21 @@ body.cobranded #pageGS {
     border-right: 1px solid #c6c6c6;
     border-bottom: 1px solid #c6c6c6;
     border-left: 1px solid #c6c6c6;
+}
+
+.filter-hd{
+    line-height:19px;
+}
+
+.filter-hd h5 {
+    padding: 3px 10px;
+    font: bold 11px/1.2 Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.filter-hd span {
+    color:white;
+    padding-right:10px;
 }
 
 .filter-bd {
@@ -1370,6 +1393,10 @@ body.cobranded #pageGS {
 }
 .infoBox1 .sprite {
     vertical-align:middle;
+}
+
+.lineheight-19{
+    line-height:19px;
 }
 
 .lineheight-25{
