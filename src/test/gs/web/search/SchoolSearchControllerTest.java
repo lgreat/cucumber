@@ -78,7 +78,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         List<ISchoolSearchResult> listResults = new ArrayList<ISchoolSearchResult>();
         int i = 0;
         while (i++ < schoolSearchCommand.getPageSize()) {
-            listResults.add(new LuceneSchoolSearchResult());
+            listResults.add(new LuceneSchoolSearchResult(new Document()));
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
 
