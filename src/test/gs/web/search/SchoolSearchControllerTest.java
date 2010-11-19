@@ -389,7 +389,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetRelCanonical() throws Exception {
-
+        // TODO
     }
 
     public void testGetGradeLevelFilters() {

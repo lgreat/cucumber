@@ -2,9 +2,8 @@ package gs.web.search;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
-import gs.data.json.JSONObject;
-import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
+import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
@@ -27,7 +26,6 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 
 
@@ -274,7 +272,14 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
+    protected String getRelCanonical(School s, State state) {
+        State state2 = state; 
+        s.getName();
+        return null;
+    }
+
     protected String getRelCanonical() {
+
         // TODO: rel="canonical"
         // GS-10036
         // schoolResults.jspx: (SearchController)
@@ -282,10 +287,65 @@ public class SchoolSearchController extends AbstractCommandController implements
         //        <link rel="canonical" href="${relCanonical}"/>
         //    </c:if>
         // SearchController:
+        // GS-10036
         // lines 336-340, 419-426
+        //                    for (int x=0; x < cityHits.length(); x++) {
+        //                        Document cityDoc = cityHits.doc(x);
+        //                        try {
+        //                            if (StringUtils.equalsIgnoreCase(queryString, cityDoc.get("city"))
+        //                                    && StringUtils.equalsIgnoreCase(state.getAbbreviation(), cityDoc.get("state"))) {
+        //                                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, queryString);
+        //                                model.put(MODEL_REL_CANONICAL, urlBuilder.asFullUrl(request));
+        //                            }
+        //                        } catch (Exception e) {
+        //                            _log.warn("Error determining city URL for canonical: " + e, e);
+        //                        }
+        //                    }
+
+        //
+        //        if (searchCommand.isSchoolsOnly() && model.get(MODEL_REL_CANONICAL) == null) {
+        //            try {
+        //                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
+        //                model.put(MODEL_REL_CANONICAL, urlBuilder.asFullUrl(request));
+        //            } catch (Exception e) {
+        //                _log.warn("Error determining state URL for canonical: " + e, e);
+        //            }
+        //        }
+
         // GS-10144, GS-10400
         // schoolsTable.jspx: (SchoolsController)
         // lines 385-414
+        //        if (request.getAttribute("districtObject") != null) {
+        //            LevelCode levelCode = (LevelCode) request.getAttribute("lc");
+        //            UrlBuilder myCanonical = new UrlBuilder((District) request.getAttribute("districtObject"),
+        //                                                    UrlBuilder.SCHOOLS_IN_DISTRICT);
+        //            request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request) + (levelCode != null ? "?lc=" + levelCode : ""));
+        //        } else if (request.getAttribute("cityName") != null) {
+        //            HashSet&lt;SchoolType> schoolTypeSet = new HashSet&lt;SchoolType>(1);
+        //            if (request.getAttribute("publicChecked") != null
+        //                    &amp;&amp; request.getAttribute("charterChecked") == null
+        //                    &amp;&amp; request.getAttribute("privateChecked") == null) {
+        //                schoolTypeSet.add(SchoolType.PUBLIC);
+        //            } else if (request.getAttribute("publicChecked") == null
+        //                    &amp;&amp; request.getAttribute("charterChecked") != null
+        //                    &amp;&amp; request.getAttribute("privateChecked") == null) {
+        //                schoolTypeSet.add(SchoolType.CHARTER);
+        //            } else if (request.getAttribute("publicChecked") == null
+        //                    &amp;&amp; request.getAttribute("charterChecked") == null
+        //                    &amp;&amp; request.getAttribute("privateChecked") != null) {
+        //                schoolTypeSet.add(SchoolType.PRIVATE);
+        //            }
+        //            UrlBuilder myCanonical = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+        //                                                    SessionContextUtil.getSessionContext(request).getStateOrDefault(),
+        //                                                    (String)request.getAttribute("cityName"),
+        //                                                    schoolTypeSet, (LevelCode)request.getAttribute("lc"));
+        //            request.setAttribute("myCanonicalUrl", myCanonical.asFullUrl(request));
+        //        }
+        //    </jsp:scriptlet>
+        //    <c:if test="${not empty myCanonicalUrl}">
+        //        <link rel="canonical" href="${myCanonicalUrl}"/>
+        //    </c:if>
+
         return null;
     }
 
