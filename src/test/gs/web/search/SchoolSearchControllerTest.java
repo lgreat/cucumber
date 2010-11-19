@@ -120,7 +120,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertNull("Model should be null", modelAndView);
     }
 
-    public void testAddGamAttributes() {
+    public void testAddGamAttributes() throws Exception {
         Map<FieldConstraint,String> constraints = new HashMap<FieldConstraint,String>();
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
         List<FieldFilter> filters = new ArrayList<FieldFilter>();
@@ -147,7 +147,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         }
         assertTrue(threwException);
 
-        // school type
+        // GS-10003 - school type
 
         // reset
         actualPageHelper = new PageHelper(_sessionContext, _request);
@@ -173,7 +173,54 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertTrue(actualTypeKeywords.contains("public"));
         assertTrue(actualTypeKeywords.contains("charter"));
 
-        // district browse
+        // GS-6875 - level
+
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
+        resetAllMocks();
+
+        replayAllMocks();
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        verifyAllMocks();
+
+        Collection actualLevelKeywords = (Collection)actualPageHelper.getAdKeywords().get("level");
+        assertNotNull(actualLevelKeywords);
+        assertEquals(4,actualLevelKeywords.size());
+        assertTrue(actualLevelKeywords.contains("p"));
+        assertTrue(actualLevelKeywords.contains("e"));
+        assertTrue(actualLevelKeywords.contains("m"));
+        assertTrue(actualLevelKeywords.contains("h"));
+
+        // reset
+        actualPageHelper = new PageHelper(_sessionContext, _request);
+        filterGroups.clear();
+        constraints.clear();
+        searchString = null;
+        schoolResults.clear();
+
+        filters.add(FieldFilter.GradeLevelFilter.ELEMENTARY);
+        filters.add(FieldFilter.GradeLevelFilter.HIGH);
+        filterGroup.setFieldFilters(filters.toArray(new FieldFilter[0]));
+        filterGroups.add(filterGroup);
+
+        resetAllMocks();
+
+        replayAllMocks();
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        verifyAllMocks();
+
+        actualLevelKeywords = (Collection)actualPageHelper.getAdKeywords().get("level");
+        assertNotNull(actualLevelKeywords);
+        assertEquals(2,actualLevelKeywords.size());
+        assertTrue(actualLevelKeywords.contains("e"));
+        assertTrue(actualLevelKeywords.contains("h"));
+
+        // GS-10157 - district browse
 
         // reset
         actualPageHelper = new PageHelper(_sessionContext, _request);
@@ -339,30 +386,6 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertNotNull(actualZipcodeKeywords);
         assertEquals(1,actualZipcodeKeywords.size());
         assertTrue(actualZipcodeKeywords.contains("94105"));
-
-        // TODO:fixme
-        //assertEquals("3", (String)actualDistrictIdKeywords.get(0));
-/*
-        Collection actualDistrictNameKeywords = (Collection)actualPageHelper.getAdKeywords().get("district_name");
-        assertNotNull(actualDistrictNameKeywords);
-        assertEquals(1,actualDistrictNameKeywords.size());
-*/
-
-/*
-        referencePageHelper.addAdKeyword("state", "CA");
-        referencePageHelper.addAdKeywordMulti("editorial", "Category 1");
-        referencePageHelper.addAdKeywordMulti("editorial", "Category 2");
-        referencePageHelper.addAdKeywordMulti("editorial", "Category 3");
-        referencePageHelper.addAdKeywordMulti("editorial", "2ndCat1");
-        referencePageHelper.addAdKeywordMulti("editorial", "2ndCat2");
-        referencePageHelper.addAdKeywordMulti("editorial", "2ndCatA");
-        referencePageHelper.addAdKeywordMulti("editorial", "2ndCatB");
-        referencePageHelper.addAdKeyword("article_id", "23");
-
-        Collection referenceEditorialKeywords = (Collection)referencePageHelper.getAdKeywords().get("editorial");
-        Collection actualEditorialKeywords = (Collection)pageHelper.getAdKeywords().get("editorial");
-        assertEquals(referenceEditorialKeywords.size(), actualEditorialKeywords.size());
-*/
     }
 
     public void testGetGradeLevelFilters() {

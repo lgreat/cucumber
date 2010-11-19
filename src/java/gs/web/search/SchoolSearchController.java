@@ -179,18 +179,33 @@ public class SchoolSearchController extends AbstractCommandController implements
             throw new IllegalArgumentException("PageHelper, constraints, filters, and school results must not be null");
         }
 
-        // school type
         Set<FieldFilter> filtersSet = new HashSet<FieldFilter>();
         for (FilterGroup filterGroup : filterGroups) {
             filtersSet.addAll(Arrays.asList(filterGroup.getFieldFilters()));
         }
-        for (FieldFilter schoolTypeFilter : FieldFilter.SchoolTypeFilter.values()) {
+
+        // GS-10003 - school type
+        for (FieldFilter.SchoolTypeFilter schoolTypeFilter : FieldFilter.SchoolTypeFilter.values()) {
             if (filtersSet.contains(schoolTypeFilter)) {
                 pageHelper.addAdKeywordMulti("type", schoolTypeFilter.toString().toLowerCase());
             }
         }
 
-        // district browse
+        // GS-6875 - level
+        Set<FieldFilter.GradeLevelFilter> gradeLevelFilters = new HashSet<FieldFilter.GradeLevelFilter>();
+        for (FieldFilter.GradeLevelFilter gradeLevelFilter : FieldFilter.GradeLevelFilter.values()) {
+            if (filtersSet.contains(gradeLevelFilter)) {
+                gradeLevelFilters.add(gradeLevelFilter);
+            }
+        }
+        if (gradeLevelFilters.size() == 0) {
+            gradeLevelFilters.addAll(Arrays.asList(FieldFilter.GradeLevelFilter.values()));
+        }
+        for (FieldFilter.GradeLevelFilter gradeLevelFilter : gradeLevelFilters) {
+            pageHelper.addAdKeywordMulti("level", String.valueOf(gradeLevelFilter.name().toLowerCase().charAt(0)));
+        }
+
+        // GS-10157 - district browse
         State state = null;
         Integer districtId = null;
         try {
@@ -266,26 +281,6 @@ public class SchoolSearchController extends AbstractCommandController implements
                 pageHelper.addAdKeyword("zipcode", searchString.trim());
             }
         }
-        
-                                                                
-    // TODO: GAM attributes
-    //
-    // schoolResults.jspx: (view for SearchController)
-        // GS-6875
-    //        gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-    //        LevelCode levelCode = (LevelCode) request.getAttribute("levelCode");
-    //        if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
-    //        for (LevelCode.Level level : levelCode.getIndividualLevelCodes())
-    //            pageHelper.addAdKeywordMulti("level", level.getName());
-    
-    // schoolsTable.jspx: (view for SchoolsController)
-    //        }
-    //        LevelCode levelCode = (LevelCode) request.getAttribute("lc");
-    //        if (levelCode == null) levelCode = LevelCode.ALL_LEVELS;
-    //        for (LevelCode.Level level : levelCode.getIndividualLevelCodes()) {
-    //            pageHelper.addAdKeywordMulti("level", level.getName());
-    //        }
-    //    }
     }
 
     protected Map<FieldConstraint,String> getFieldConstraints(SchoolSearchCommand schoolSearchCommand, HttpServletRequest request) {
