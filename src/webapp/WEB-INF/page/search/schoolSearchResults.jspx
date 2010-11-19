@@ -89,7 +89,7 @@
     <div id="topicMainGS" class="col">
 
         <c:set var="searchResultsPagingSummary">
-            <div id="js-search-results-paging-summary" class="text3">
+            <div class="js-search-results-paging-summary text3">
                 <c:choose>
                     <c:when test="${usePaging}">
                         Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}

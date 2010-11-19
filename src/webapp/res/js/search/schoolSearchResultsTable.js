@@ -123,7 +123,7 @@ GS.search.SchoolSearchResultsTable = function() {
             this.clear();
 
             //update paging info. TODO: move out of this method
-            jQuery('#js-search-results-paging-summary').html("Showing results " + start + "-" + currentPage*pageSize + " of " + totalResults);
+            jQuery('.js-search-results-paging-summary').html("Showing results " + start + "-" + currentPage*pageSize + " of " + totalResults);
 
             var pagerHtml = "";
             for (i = 1; i <= totalPages; i++) {
