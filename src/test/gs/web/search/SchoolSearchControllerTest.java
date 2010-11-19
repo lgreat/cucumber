@@ -388,6 +388,10 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertTrue(actualZipcodeKeywords.contains("94105"));
     }
 
+    public void testGetRelCanonical() throws Exception {
+
+    }
+
     public void testGetGradeLevelFilters() {
         String[] gradeLevels = new String[] {"p","h", "blah"};
 

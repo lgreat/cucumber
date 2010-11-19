@@ -56,19 +56,9 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_CURRENT_PAGE = "currentPage";
     public static final String MODEL_USE_PAGING = "usePaging";
     public static final String MODEL_CITY_ID = "cityId";
+    public static final String MODEL_REL_CANONICAL = "relCanonical";
 
     // TODO: Omniture tracking
-    // TODO: rel="canonical"
-    // GS-10036
-    // schoolResults.jspx: (SearchController)
-    //    <c:if test="${not empty relCanonical}">
-    //        <link rel="canonical" href="${relCanonical}"/>
-    //    </c:if>
-    // SearchController:
-    // lines 336-340, 419-426
-    // GS-10144, GS-10400
-    // schoolsTable.jspx: (SchoolsController)
-    // lines 385-414
 
     @Override
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
@@ -131,6 +121,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
+        model.put(MODEL_REL_CANONICAL, getRelCanonical());
 
         if (schoolSearchCommand.isJsonFormat()) {
             response.setContentType("application/json");
@@ -281,6 +272,21 @@ public class SchoolSearchController extends AbstractCommandController implements
                 pageHelper.addAdKeyword("zipcode", searchString.trim());
             }
         }
+    }
+
+    protected String getRelCanonical() {
+        // TODO: rel="canonical"
+        // GS-10036
+        // schoolResults.jspx: (SearchController)
+        //    <c:if test="${not empty relCanonical}">
+        //        <link rel="canonical" href="${relCanonical}"/>
+        //    </c:if>
+        // SearchController:
+        // lines 336-340, 419-426
+        // GS-10144, GS-10400
+        // schoolsTable.jspx: (SchoolsController)
+        // lines 385-414
+        return null;
     }
 
     protected Map<FieldConstraint,String> getFieldConstraints(SchoolSearchCommand schoolSearchCommand, HttpServletRequest request) {

@@ -25,6 +25,10 @@
 
 <head>
     <title>REPLACE ME</title>
+
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
 </head>
 
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
