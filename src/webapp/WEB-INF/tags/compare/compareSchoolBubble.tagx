@@ -70,9 +70,8 @@
             </div>
             <div class="unit size1of3">
                 <div class="brdlft-solid brdrt-solid homesForSale">
-                    <gslink:realtorDotComLink school="${school.school}"
-                                              customLinkSuffix="inlinelinkmap"
-                            >Homes for sale</gslink:realtorDotComLink>
+                    <gslink:realtorDotComLink address="${school.school.physicalAddress}"
+                                              customLinkSuffix="inlinelinkmap">Homes for sale</gslink:realtorDotComLink>
                 </div>
             </div>
             <div class="unit size1of3 lastUnit">

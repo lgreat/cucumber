@@ -34,7 +34,7 @@
                         gsRating="${school.gsRating}" isPrivate="${school.private}"/>
     </c:if>
     <div>
-        <gslink:realtorDotComLink school="${school.school}"
+        <gslink:realtorDotComLink address="${school.school.physicalAddress}"
                                   customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
     </div>
     <div>

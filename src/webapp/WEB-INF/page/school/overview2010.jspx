@@ -351,7 +351,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </div>
 <div class="spacer_5"><!-- do not collapse --></div>
 <div class="smallAlertText">
-    <gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink>
+    <gslink:realtorDotComLink address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink>
 </div>
 
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>

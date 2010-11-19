@@ -139,7 +139,7 @@
                     </div>
                     <address><c:out value="${school.physicalAddress.cityStateZip}"/></address>
                     <div class="resultcontrols">
-                        <span><gslink:realtorDotComLink school="${school}">Homes for sale</gslink:realtorDotComLink></span> |
+                        <span><gslink:realtorDotComLink address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink></span> |
                         <link:mySchoolList school="${school}"
                                            styleClass="noInterstitial">Add to my school list &gt;</link:mySchoolList>
                         <c:if test="${school.levelCode ne 'p'}">
