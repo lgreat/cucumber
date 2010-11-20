@@ -33,6 +33,8 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     private IDistrictDao _districtDao;
     private IGeoDao _geoDao;
     private SchoolSearchService _schoolSearchService;
+    private CitySearchService _citySearchService;
+    private DistrictSearchService _districtSearchService;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -41,10 +43,14 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         _geoDao = createStrictMock(IGeoDao.class);
 
         _schoolSearchService = createStrictMock(SchoolSearchService.class);
+        _citySearchService = createStrictMock(CitySearchService.class);
+        _districtSearchService = createStrictMock(DistrictSearchService.class);
 
         _controller.setDistrictDao(_districtDao);
         _controller.setGeoDao(_geoDao);
         _controller.setSchoolSearchService(_schoolSearchService);
+        _controller.setCitySearchService(_citySearchService);
+        _controller.setDistrictSearchService(_districtSearchService);
         _controller.setStateManager(new StateManager());
 
         PageHelper pageHelper = new PageHelper(_sessionContext, _request);
@@ -117,7 +123,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
         verify(_schoolSearchService);
 
-        assertNull("Model should be null", modelAndView);
+        assertNotNull("Model should be no longer", modelAndView);
     }
 
     public void testAddGamAttributes() throws Exception {
