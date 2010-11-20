@@ -161,10 +161,10 @@
 
                             <div class="bd">Please enter your email.</div>
                         </div>
-                        <div id="frmPRModule-email-alert" class="formErrorText media padlft_10">
+                        <div id="frmPRModule-email-alert" class="formErrorText mediaExt3 padlft_10">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                            <div class="bd">You will need to verify your email <br/>address when you submit your review.</div>
+                            <div class="bd">You will need to verify your email address when you submit your review.</div>
                         </div>
                     </div>
                 </div>

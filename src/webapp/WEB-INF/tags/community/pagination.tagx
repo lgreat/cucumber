@@ -22,7 +22,7 @@
             <c:if test="${pageScope.page gt 1}">
                 <c:set var="previousPageNum" value="${pageScope.page - 1}" scope="page"/>
             <span class="prv_nxt"><a
-                    href="${pageScope.url}&amp;amp;page=${pageScope.previousPageNum}">&amp;#171; Prev</a></span>
+                    href="${pageScope.url}&amp;amp;page=${pageScope.previousPageNum}#revPagination">&amp;#171; Prev</a></span>
             </c:if>
 
             <c:choose>
@@ -46,7 +46,7 @@
 
             <c:if test="${pageScope.totalPages gt 5 and page ge 5}">
                 <span> <a
-                        href="${pageScope.url}&amp;amp;page=${1}">${1}</a></span>
+                        href="${pageScope.url}&amp;amp;page=${1}#revPagination">${1}</a></span>
                 <span class="ellipsis">...</span>
             </c:if>
 
@@ -57,7 +57,7 @@
                     </c:when>
                     <c:otherwise>
                         <span class="${pageNumberStyleClass}"><a
-                                href="${pageScope.url}&amp;amp;page=${pageScope.pageNum}">${pageScope.pageNum}</a></span>
+                                href="${pageScope.url}&amp;amp;page=${pageScope.pageNum}#revPagination">${pageScope.pageNum}</a></span>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -65,13 +65,13 @@
             <c:if test="${pageScope.totalPages gt 5 and (page lt 5 or page le pageScope.totalPages - 4)}">
                 <span class="ellipsis">...</span> 
                 <span class="${pageNumberStyleClass}"> <a
-                        href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}">${pageScope.totalPages}</a></span>
+                        href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}#revPagination">${pageScope.totalPages}</a></span>
             </c:if>
 
             <c:if test="${pageScope.page lt pageScope.totalPages}">
                 <c:set var="nextPageNum" value="${pageScope.page + 1}" scope="page"/>
                 <span class="prv_nxt"><a
-                        href="${pageScope.url}&amp;amp;page=${pageScope.nextPageNum}">Next &amp;#187;</a></span>
+                        href="${pageScope.url}&amp;amp;page=${pageScope.nextPageNum}#revPagination">Next &amp;#187;</a></span>
             </c:if>
         </div>
     </c:if>
