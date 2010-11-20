@@ -32,7 +32,7 @@ public class CitySearchServiceImpl implements CitySearchService {
     public List<ICitySearchResult> search(String searchString, State state) throws IOException{
         Query query = buildQuery(searchString, state);
         Hits hits = getSearcher().search(query, null, null, null);
-        return getResultBuilder().build(hits);
+        return new CityResultBuilder().build(hits);//TODO: find better way to get result builder
     }
 
     public Query buildQuery(String searchString, State state) {
@@ -40,9 +40,11 @@ public class CitySearchServiceImpl implements CitySearchService {
             BooleanQuery cityQuery = new BooleanQuery();
             cityQuery.add(new TermQuery(new Term("type", "city")), BooleanClause.Occur.MUST);
 
-            Query parsedCityQuery = _queryParser.parse(searchString);
-            parsedCityQuery.setBoost(3.0f);
-            cityQuery.add(parsedCityQuery, BooleanClause.Occur.MUST);
+            if (searchString != null) {
+                Query parsedCityQuery = _queryParser.parse(searchString);
+                parsedCityQuery.setBoost(3.0f);
+                cityQuery.add(parsedCityQuery, BooleanClause.Occur.MUST);
+            }
 
             if (state != null) {
                 cityQuery.add(new TermQuery(new Term("city", state.getLongName().toLowerCase())), BooleanClause.Occur.SHOULD);
@@ -65,13 +67,6 @@ public class CitySearchServiceImpl implements CitySearchService {
         _searcher = searcher;
     }
 
-    public CityResultBuilder getResultBuilder() {
-        return _resultBuilder;
-    }
-
-    public void setResultBuilder(CityResultBuilder resultBuilder) {
-        _resultBuilder = resultBuilder;
-    }
 }
 
 class CityResultBuilder implements LuceneResultBuilder {

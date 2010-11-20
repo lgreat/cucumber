@@ -47,6 +47,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_LEVEL_CODE = "levelCode";
     public static final String MODEL_SORT = "sort";
     public static final String MODEL_SCHOOL_SEARCH_RESULTS = "schoolSearchResults";
+    public static final String MODEL_CITY_SEARCH_RESULTS = "citySearchResults";
+    public static final String MODEL_DISTRICT_SEARCH_RESULTS = "districtSearchResults";
     public static final String MODEL_START = "start";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_TOTAL_RESULTS = "totalResults";
@@ -65,6 +67,8 @@ public class SchoolSearchController extends AbstractCommandController implements
             //TODO: handle errors
         }
 
+        Map<String,Object> model = new HashMap<String,Object>();
+        
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
 
         State state = getStateManager().getState(schoolSearchCommand.getState());
@@ -94,15 +98,18 @@ public class SchoolSearchController extends AbstractCommandController implements
                 sort,
                 schoolSearchCommand.getStart(),
                 schoolSearchCommand.getPageSize()
-        );//TODO: finish paging
-        
-        //List<ICitySearchResult> citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state);
+        );
+
+        if (schoolSearchCommand.getSearchString() != null) {
+            List<ICitySearchResult> citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state);
+            model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
+        }
         //List<IDistrictSearchResult> districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state);
 
         PageHelper.setHasSearchedCookie(request, response);
 
-        //TODO: write city and district lists to model
-        Map<String,Object> model = new HashMap<String,Object>();
+        //TODO: write district lists to model
+
         model.put(MODEL_SCHOOL_TYPE, StringUtils.join(schoolSearchCommand.getSchoolTypes()));
         model.put(MODEL_LEVEL_CODE, StringUtils.join(schoolSearchCommand.getGradeLevels()));
         model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
@@ -122,15 +129,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_REL_CANONICAL, getRelCanonical());
 
         if (schoolSearchCommand.isJsonFormat()) {
-            response.setContentType("application/json");
-            ObjectMapper mapper = new ObjectMapper();
-            AnnotationIntrospector introspector = new JaxbAnnotationIntrospector();
-            // make deserializer use JAXB annotations (only)
-            mapper.getDeserializationConfig().setAnnotationIntrospector(introspector);
-            // make serializer use JAXB annotations (only)
-            mapper.getSerializationConfig().setAnnotationIntrospector(introspector);
-            mapper.writeValue(response.getWriter(), model);
-            return null;
+            return new ModelAndView("/search/schoolSearchResultsTable", model);
         } else {
             return new ModelAndView("/search/schoolSearchResults", model);
         }

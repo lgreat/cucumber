@@ -42,16 +42,20 @@ public class DistrictSearchServiceImpl implements DistrictSearchService {
     }
 
     public Query buildQuery(String searchString, State state) throws SchoolSearchService.SearchException {
-        try {
-        Query keywordQuery = _queryParser.parse(searchString);
-        } catch (ParseException e) {
-            throw new SchoolSearchService.SearchException("Could not parse query.", e);
-        }
-        Query baseQuery = new TermQuery(new Term("state", state.getAbbreviationLowerCase()));
         BooleanQuery districtQuery = new BooleanQuery();
-        districtQuery.add(new TermQuery(new Term("type", "district")),
-                BooleanClause.Occur.MUST);
-        districtQuery.add(baseQuery, BooleanClause.Occur.MUST);
+
+        if (searchString != null) {
+            try {
+                Query keywordQuery = _queryParser.parse(searchString);
+                districtQuery.add(keywordQuery, BooleanClause.Occur.MUST);
+            } catch (ParseException e) {
+                throw new SchoolSearchService.SearchException("Could not parse query.", e);
+            }
+        }
+
+        Query stateQuery = new TermQuery(new Term("state", state.getAbbreviationLowerCase()));
+        districtQuery.add(new TermQuery(new Term("type", "district")), BooleanClause.Occur.MUST);
+        districtQuery.add(stateQuery, BooleanClause.Occur.MUST);
         return districtQuery;
     }
 
