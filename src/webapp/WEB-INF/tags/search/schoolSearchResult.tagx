@@ -33,20 +33,25 @@
             <!-- School Name -->
             <td class="brdbtm_dotted">
                 <p class="school-search-result-link" id="school-search-result-link-${school.databaseState}${school.id}">
-                    <!--<link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>-->
-                    <span class="text1bold js-school-search-result-name">${school.name}</span>
+                    <span class="text1bold js-school-search-result-name">
+                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                            databaseState="${school.databaseState}"
+                            name="${school.name}"
+                            physicalAddress="${school.address}"
+                            levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
+                    </span>
                     <br/>
-                    <span class="text3">School Type goes here</span>
+                    <span class="text3">${school.grades.rangeString}</span>
                     <br/>
                     <span class="smallAlertText js-school-search-result-street">${school.address.street}</span>
                     <br/>
                     <span class="smallAlertText js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</span>
                     <br/>
-                    <span class="smallAlertText js-school-search-result-phone">(XXX)XXX-XXXX</span>
+                    <span class="smallAlertText js-school-search-result-phone">${school.phone}</span>
                     <br/>
                     <span>
-                        <!--<gslink:realtorDotComLink school="${school}"
-                                                  customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>--> |
+                        <gslink:realtorDotComLink address="${school.address}"
+                                                  customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink> |
                         <span class="sprite add2"><!-- do not collapse --></span>
                         <!--<link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
                     </span>

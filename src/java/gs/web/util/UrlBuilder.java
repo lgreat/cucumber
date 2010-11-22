@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.233 2010/11/18 16:10:55 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.234 2010/11/22 22:10:31 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -15,6 +15,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.util.Address;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
 import gs.data.community.User;
@@ -873,6 +874,12 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(VPage page, Integer id, State databaseState, String name, Address physicalAddress, LevelCode levelCode, boolean showConfirmation) {
+        if (SCHOOL_PROFILE.equals(page)) {
+            handleSchoolProfile(id, databaseState, name, physicalAddress, levelCode, showConfirmation);
+        }
+    }
+    
     /**
      * Url for CMS-driven browse-content-by-category page
      * @param page Must be UrlBuilder.CMS_CATEGORY_BROWSE
@@ -919,24 +926,36 @@ public class UrlBuilder {
 
     // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
     public void handleSchoolProfile(School school, boolean showConfirmation) {
+        handleSchoolProfile(school.getId(), school.getDatabaseState(), school.getName(), school.getPhysicalAddress(), school.getLevelCode(), showConfirmation);
+    }
+
+    public void handleSchoolProfile(Integer id, State databaseState, String name, Address physicalAddress, LevelCode levelCode, boolean showConfirmation) {
         _perlPage = true;
 
-        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+        if (LevelCode.PRESCHOOL.equals(levelCode)) {
             // turn spaces and / into hyphens for readable and remove #
             // yes, this does mean there is no way to deterministically get the school name back
-            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(school.getDatabaseState(),
-                    school.getPhysicalAddress().getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
-                    WordUtils.capitalize(school.getName().replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}) +
-                    "/" + school.getId() + "/" +
+            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(databaseState,
+                    physicalAddress.getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
+                    WordUtils.capitalize(name.replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}) +
+                    "/" + id + "/" +
                     (showConfirmation ? "?confirm=true" : "");
         } else {
-            StringBuffer path = new StringBuffer(DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(school.getDatabaseState(),
-                                                                            school.getPhysicalAddress().getCity()));
-            path.append(school.getId()).append("-");
-            path.append(WordUtils.capitalize(school.getName().replaceAll(" ", "-")
-                                .replaceAll("/", "-")
-                                .replaceAll("`", "")
-                                .replaceAll("#", ""), new char[]{'-'}));
+            StringBuffer path = new StringBuffer(
+                    DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(
+                        databaseState,
+                        physicalAddress.getCity()
+                    )
+            );
+
+            path.append(id).append("-");
+            path.append(WordUtils.capitalize(
+                    name.replaceAll(" ", "-")
+                        .replaceAll("/", "-")
+                        .replaceAll("`", "")
+                        .replaceAll("#", ""),
+                    new char[]{'-'}
+            ));
             path.append("/");
             if (showConfirmation) {
                 path.append("?confirm=true");

@@ -18,12 +18,15 @@
         >
 
         <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
-
         <c:set var="searchResultsPagingSummary">
             <div class="js-search-results-paging-summary text3">
+                <c:set var="lastResultOnPage" value="${currentPage*pageSize}"/>
+                <c:if test="${lastResultOnPage gt totalResults}">
+                    <c:set var="lastResultOnPage" value="${totalResults}"/>
+                </c:if>
                 <c:choose>
                     <c:when test="${usePaging}">
-                        Showing results ${start+1}-${currentPage*pageSize} of ${totalResults}
+                        Showing results ${start+1}-${lastResultOnPage} of ${totalResults}
                     </c:when>
                     <c:otherwise>
                         Showing results 1-${totalResults} of ${totalResults}

@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.geo.LatLon;
+import gs.data.school.Grades;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.IndexField;
@@ -8,6 +9,7 @@ import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 
 import javax.xml.bind.annotation.*;
@@ -72,7 +74,7 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
 
     @XmlElement
     public String getPhone() {
-        return null; //TODO: index phone
+        return _document.get(Indexer.SCHOOL_PHONE);
     }
 
     @XmlElement
@@ -102,6 +104,17 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
             return levelCode.getCommaSeparatedString();
         }
         return null;
+    }
+
+    public Grades getGrades() {
+        String[] gradeArray = _document.getValues(Indexer.GRADES);
+        Grades grades = null;
+
+        if (gradeArray != null && gradeArray.length > 0) {
+            grades = Grades.createGrades(StringUtils.join(gradeArray,","));
+        }
+        
+        return grades;
     }
 
     @XmlElement

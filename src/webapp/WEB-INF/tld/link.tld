@@ -1962,6 +1962,92 @@
         </attribute>        
     </tag>
     <tag>
+        <name>schoolProfileOverviewForPrimitives</name>
+        <tag-class>gs.web.jsp.link.school.SchoolOverviewTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Overview Page</display-name>
+        <description>
+            <![CDATA[School Profile Overview Page]]>
+        </description>
+        <attribute>
+            <name>schoolId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>School id</description>
+        </attribute>
+        <attribute>
+            <name>databaseState</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>School database state</description>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>School name</description>
+        </attribute>
+        <attribute>
+            <name>physicalAddress</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.util.Address</type>
+            <description>School address</description>
+        </attribute>
+        <attribute>
+            <name>levelCode</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>School level code</description>
+        </attribute>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Element id</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>title (tool tip)</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
+        <attribute>
+            <name>rel</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>rel attribute, for nofollow links</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>schoolProfileParentReview</name>
         <tag-class>gs.web.jsp.link.school.ParentReviewTagHandler</tag-class>
         <body-content>JSP</body-content>
