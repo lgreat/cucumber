@@ -3823,17 +3823,25 @@ body.hover #startADiscussion textarea{
     width:540px; height:250px
 }
 
-body.hover #startADiscussion .communityGuidelines{
-    margin-left:20px;
-    /*float:right;*/
+body.hover #startADiscussion .communityGuidelines {
+    margin-left: 20px;
 }
 
-body.hover #startADiscussion .submit li{
-    padding-left:50px;
+body.hover #startADiscussion .submit li {
+    padding-left: 50px;
 }
 
 body.hover #startADiscussion .sd_InnerLayout {
-    margin:0 10px 10px 50px;
+    margin: 0 10px 10px 50px;
+}
+
+#discussionSubmissionForm .sd_InnerLayout {
+    margin: 0 5px;
+}
+
+.ie7 #discussionSubmissionForm .sd_InnerLayout,
+.ie6 #discussionSubmissionForm .sd_InnerLayout {
+    margin: 0 3px;
 }
 
 /* =4d-3 community avatar hover

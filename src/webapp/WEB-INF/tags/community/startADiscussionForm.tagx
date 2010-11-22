@@ -270,11 +270,7 @@
 
                         <c:choose>
                             <c:when test="${discussionId gt 0}">
-                                <button class="${submitButtonStyle}" type="submit" name="post">
-                                    <span class="lftDoor25">
-                                        <span class="rtDoor25">${submitButtonText}</span>
-                                    </span>
-                                </button>
+                                <button class="${submitButtonStyle}" type="submit" name="post">${submitButtonText}</button>
                             </c:when>
                             <c:otherwise>
 
@@ -282,21 +278,12 @@
                                     <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
                                         <!-- DONE-RANDALL - do use image -->
                                         <button class="${submitButtonStyle}" type="submit" name="post">
-                                            <span class="lftDoor25">
-                                                <span class="rtDoor25 nowrap-hpc">
-                                                    <span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
-                                                    <span class="fltlft">${submitButtonText}</span>
-                                                </span>
-                                            </span>
+                                            <span class="sprite community mrgtop_2 mrgrt_5"><!-- icon --></span>${submitButtonText}
                                         </button>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- DONE-RANDALL - don't use image -->
-                                        <button class="${submitButtonStyle}" type="submit" name="post">
-                                            <span class="lftDoor25">
-                                                <span class="rtDoor25">${submitButtonText}</span>
-                                            </span>
-                                        </button>
+                                        <button class="${submitButtonStyle}" type="submit" name="post">${submitButtonText}</button>
                                     </c:otherwise>
                                 </c:choose>
 
