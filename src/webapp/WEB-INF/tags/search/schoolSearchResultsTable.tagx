@@ -129,6 +129,7 @@
             </div>
         </div>
 
+        <div class="spacer_10"><!-- do not collapse --></div>
 
         <table id="school-search-results-table-header">
             <colgroup>
