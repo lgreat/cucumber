@@ -84,6 +84,10 @@
                 </div>
             </div>
         </div>
+
+        <div class="spacer_15"><!-- do not collapse --></div>
+        <ad:AboveFold_Left_160x600/>
+
     </div>
 
     <div id="topicMainGS" class="col">
@@ -141,6 +145,9 @@
 
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
                                showAdPct="0"/>
+    
+    <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
+
 </div>
 
 
