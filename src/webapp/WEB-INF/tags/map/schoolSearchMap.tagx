@@ -32,7 +32,7 @@
     <c:set var="js2">
         <map:searchResultsMapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" start="${start}" count="${count}" useBubbles="${false}"/>
     </c:set>
-    
+
     <script type="text/javascript">
         jQuery(function(){
             ${js}

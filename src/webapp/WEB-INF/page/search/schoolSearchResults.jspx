@@ -133,14 +133,16 @@
         </noscript>
     </div>
 
-    <map:schoolSearchMap
-            id="nearbySchoolsMap"
-            tooltips="true"
-            schools="${schoolSearchResults}"
-            start="${param.start}"
-            count="${pageSize}"
-            ratings="${ratings}"
-            />
+    <c:if test="${fn:length(schoolSearchResults) gt 0}">
+        <map:schoolSearchMap
+                id="nearbySchoolsMap"
+                tooltips="true"
+                schools="${schoolSearchResults}"
+                start="${param.start}"
+                count="${pageSize}"
+                ratings="${ratings}"
+                />
+    </c:if>
     <!-- end map -->
 
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
