@@ -255,7 +255,7 @@
                                 <c:set var="submitButtonText" value="Save"/>
                             </c:when>
                             <c:otherwise>
-                                <c:set var="submitButtonText" value="Post&amp;nbsp;conversation"/>
+                                <c:set var="submitButtonText" value="Post conversation"/>
                             </c:otherwise>
                         </c:choose>
 

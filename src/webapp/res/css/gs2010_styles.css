@@ -2897,7 +2897,7 @@ body.ie6 .clearfix {
 }
 
 .startAConversationModule .submit {
-    margin-left: 51px;
+    margin-left: 54px;
 }
 
 /* =4c-5.2 preview a conversation
@@ -3836,11 +3836,6 @@ body.hover #startADiscussion .sd_InnerLayout {
 }
 
 #discussionSubmissionForm .sd_InnerLayout {
-    margin: 0 5px;
-}
-
-.ie7 #discussionSubmissionForm .sd_InnerLayout,
-.ie6 #discussionSubmissionForm .sd_InnerLayout {
     margin: 0 3px;
 }
 
@@ -7347,7 +7342,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 .button-1 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
-    padding: 0 15px;
+    padding: 0 11px;
     height: 23px;
     color: white;
     text-decoration: none;
@@ -7415,7 +7410,7 @@ h1.sfooter, div.sfooter, #testScoreLandingLinks a.testScoreLandingLink, div#Yaho
 .button-1-inactive {
     width: auto;
     overflow: visible; /* for button width bug in IE */
-    padding: 0 15px;
+    padding: 0 11px;
     height: 23px;
     color: white;
     text-decoration: none;
@@ -7470,7 +7465,7 @@ Extends button-1 by changing:
 .button-1Ext-1 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
-    padding: 0 15px;
+    padding: 0 5px;
     height: 23px;
     color: white;
     text-decoration: none;
