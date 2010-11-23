@@ -35,7 +35,13 @@
 
 
 <div id="mainGS" class="col">
+
+    <div class="spacer_15"><!-- do not collapse --></div>
+    <div class="title2-333">School results for <span class="title2-d61">&amp;ldquo;${citySearchResults[0].city}&amp;rdquo;</span></div>
+    <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
+    <div class="spacer_10"><!-- do not collapse --></div>
     <!-- nearby cities box -->
+    <div class="text3">
     Schools in city: ${citySearchResults[0].city}, ${citySearchResults[0].state}
     <c:if test="${fn:length(citySearchResults) gt 1}">
         | ${citySearchResults[1].city}, ${citySearchResults[1].state}
@@ -44,7 +50,7 @@
         | ${citySearchResults[2].city}, ${citySearchResults[2].state}
     </c:if>
     <c:if test="${fn:length(citySearchResults) gt 3}">
-        | <span id="nearby-cities-link">more nearby cities</span>
+        | <span id="nearby-cities-link" class="smallAlertText">more nearby cities <span class="alertDoubleArrow">&amp;raquo;</span></span>
 
         <div id="nearby-cities"
              style="display:none;float:left;position:absolute;left:200px;z-index:100;background-color:white;border:1px solid gray;"><!-- TODO: Randall: style -->
@@ -81,8 +87,9 @@
             </c:if>
         </div>
     </c:if>
+        </div>
 
-    <div class="spacer_30"><!-- do not collapse --></div>
+    <div class="spacer_15"><!-- do not collapse --></div>
 
     <div id="topicbarGS" class="col">
 
@@ -140,8 +147,8 @@
 
     <div id="topicMainGS" class="col">
 
-                <search:schoolSearchResultsTable/>
-</div>
+        <search:schoolSearchResultsTable/>
+    </div>
 </div>
 
 <div id="sidebarGS" class="col">
