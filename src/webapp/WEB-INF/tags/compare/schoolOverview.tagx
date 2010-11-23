@@ -20,25 +20,25 @@
     <span class="fltrt">
         <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}"
                              remove="${school.uniqueIdentifier}"
-                ><span class="sprite close2"><!-- do not collapse --></span></link:compareSchools>
+                ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
     </span>
-    <div>
-        <link:schoolProfileOverview school="${school.school}">${school.name}</link:schoolProfileOverview>
-    </div>
-    <div>${school.street}</div>
-    <div>${school.cityStateZip}</div>
+    <p class="text2">
+        <strong><link:schoolProfileOverview school="${school.school}">${school.name}</link:schoolProfileOverview></strong>
+    </p>
+    <p class="text3">${school.street}<br />
+    ${school.cityStateZip}</p>
     <c:if test="${not empty showMap and showMap eq true}">
         <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
         <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"
                         clickUrl="map.page?p=${page}&amp;schools=${schoolsString}&amp;selectedSchool=${school.uniqueIdentifier}"
                         gsRating="${school.gsRating}" isPrivate="${school.private}"/>
     </c:if>
-    <div>
+    <p class="smallText1">
         <gslink:realtorDotComLink address="${school.school.physicalAddress}"
                                   customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
-    </div>
-    <div>
+    </p>
+    <p class="smallText1">
         <span class="sprite add2"><!-- do not collapse --></span>
         <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
-    </div>
+    </p>
 </jsp:root>

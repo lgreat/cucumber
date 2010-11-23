@@ -28,26 +28,26 @@
     <gsml:body adPageName="compare" pageLayout="leftside">
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Reviews">
             <tr>
-                <th>School</th>
+                <th scope="row">School</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_schools">
                         <compare:schoolOverview school="${school}" tab="${tab}"
                                                 schoolsString="${schoolsString}" page="${page}"/>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>School type</th>
+                <th scope="row">School type</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_type center text3">
                         ${school.type} ${school.gradeLevels}
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>Community rating (overall)</th>
+                <th scope="row">Community rating (overall)</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_commRate center">
                         <compare:schoolCommunityRating school="${school.school}"
                                                        communityRating="${school.communityRating}"
                                                        numRatings="${school.numRatings}"/>
@@ -55,36 +55,36 @@
                 </c:forEach>
             </tr>
             <tr>
-                <th>Teacher quality rating</th>
+                <th scope="row">Teacher quality rating</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_TeachQual center">
                         <compare:schoolCommunityRating school="${school.school}"
                                                        communityRating="${school.teacherRating}"/>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>Principal leadership rating</th>
+                <th scope="row">Principal leadership rating</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_prQual center">
                         <compare:schoolCommunityRating school="${school.school}"
                                                        communityRating="${school.principalRating}"/>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>Parent involvement rating</th>
+                <th scope="row">Parent involvement rating</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_piInv center">
                         <compare:schoolCommunityRating school="${school.school}"
                                                        communityRating="${school.parentRating}"/>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>Recent reviews</th>
+                <th scope="row">Recent reviews</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_rReviews">
                         <compare:schoolRecentReview school="${school.school}"
                                                     recentReview="${school.recentReview}"
                                                     numReviews="${school.numReviews}"/>
@@ -94,7 +94,7 @@
             <tr>
                 <th>&amp;nbsp;</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_moreRates center">
                         <c:choose>
                             <c:when test="${school.numReviews gt 0}">
                                 <link:schoolProfileParentReview school="${school.school}">

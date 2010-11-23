@@ -28,26 +28,26 @@
     <gsml:body adPageName="compare" pageLayout="leftside">
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Teachers_Students">
             <tr>
-                <th>School</th>
+                <th scope="row">School</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_schools">
                         <compare:schoolOverview school="${school}" tab="${tab}"
                                                 schoolsString="${schoolsString}" page="${page}"/>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>School type</th>
+                <th scope="row">School type</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_type center text3">
                         ${school.type} ${school.gradeLevels}
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>Ethnicities</th>
+                <th scope="row">Ethnicities</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_ethnic">
                         <ul>
                             <c:forEach items="${school.ethnicities}" var="ethnicity">
                                 <li>${ethnicity.key} ${ethnicity.value}%</li>

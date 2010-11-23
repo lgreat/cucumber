@@ -13,33 +13,35 @@
 
     <div class="compareNavigation ${alignment}">
         <c:choose>
-            <c:when test="${tab eq 'overview'}">Overview</c:when>
-            <c:otherwise><link:compareSchools tab="overview" schools="${schoolsString}" page="${page}">Overview</link:compareSchools></c:otherwise>
+            <c:when test="${alignment == 'top'}">
+                <div id="compareTabBar" class="gradient-1 rnd-top-4"><!-- don't collapse --></div>
+            </c:when>
         </c:choose>
-        |
+        <ul class="compareTabs" >
         <c:choose>
-            <c:when test="${tab eq 'ratings'}">Ratings &amp;amp; Reviews</c:when>
-            <c:otherwise><link:compareSchools tab="ratings" schools="${schoolsString}" page="${page}">Ratings &amp;amp; Reviews</link:compareSchools></c:otherwise>
+            <c:when test="${tab eq 'overview'}"><li class="active"><span>Overview</span></li></c:when>
+            <c:otherwise><li class="inactive"><link:compareSchools tab="overview" schools="${schoolsString}" page="${page}">Overview</link:compareSchools></li></c:otherwise>
         </c:choose>
-        |
         <c:choose>
-            <c:when test="${tab eq 'tests'}">Test Scores</c:when>
-            <c:otherwise><a href="#" onclick="return false;">Test Scores</a></c:otherwise>
+            <c:when test="${tab eq 'ratings'}"><li class="active"><span>Ratings &amp;amp; Reviews</span></li></c:when>
+            <c:otherwise><li class="inactive"><link:compareSchools tab="ratings" schools="${schoolsString}" page="${page}">Ratings &amp;amp; Reviews</link:compareSchools></li></c:otherwise>
         </c:choose>
-        |
         <c:choose>
-            <c:when test="${tab eq 'studentTeacher'}">Teachers &amp;amp; Students</c:when>
-            <c:otherwise><link:compareSchools tab="studentTeacher" schools="${schoolsString}" page="${page}">Teachers &amp;amp; Students</link:compareSchools></c:otherwise>
+            <c:when test="${tab eq 'tests'}"><li class="active"><span>Test Scores</span></li></c:when>
+            <c:otherwise><li class="inactive"><a href="#" onclick="return false;">Test Scores</a></li></c:otherwise>
         </c:choose>
-        |
         <c:choose>
-            <c:when test="${tab eq 'programs'}">Programs &amp;amp; Extracurriculars</c:when>
-            <c:otherwise><a href="#" onclick="return false;">Programs &amp;amp; Extracurriculars</a></c:otherwise>
+            <c:when test="${tab eq 'studentTeacher'}"><li class="active"><span>Teachers &amp;amp; Students</span></li></c:when>
+            <c:otherwise><li class="inactive"><link:compareSchools tab="studentTeacher" schools="${schoolsString}" page="${page}">Teachers &amp;amp; Students</link:compareSchools></li></c:otherwise>
         </c:choose>
-        |
         <c:choose>
-            <c:when test="${tab eq 'map'}">Map</c:when>
-            <c:otherwise><link:compareSchools tab="map" schools="${schoolsString}" page="${page}">Map</link:compareSchools></c:otherwise>
+            <c:when test="${tab eq 'programs'}"><li class="active"><span>Programs &amp;amp; Extracurriculars</span></li></c:when>
+            <c:otherwise><li class="inactive"><a href="#" onclick="return false;">Programs &amp;amp; Extracurriculars</a></li></c:otherwise>
         </c:choose>
+        <c:choose>
+            <c:when test="${tab eq 'map'}"><li class="active last"><span>Map</span></li></c:when>
+            <c:otherwise><li class="inactive last"><link:compareSchools tab="map" schools="${schoolsString}" page="${page}">Map</link:compareSchools></li></c:otherwise>
+        </c:choose>
+        </ul>
     </div>
 </jsp:root>

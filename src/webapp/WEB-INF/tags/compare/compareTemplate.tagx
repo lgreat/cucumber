@@ -8,7 +8,10 @@
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
+
+    <pageHelper:externalJavascript file="/res/js/compare/compare.js"/>
     <jsp:directive.tag body-content="scriptless"/>
     
     <jsp:directive.attribute name="pageName" required="true" type="java.lang.String"
@@ -18,53 +21,9 @@
     <jsp:directive.attribute name="useTable" required="false" type="java.lang.Boolean"
                              description="If false, do not output a table."/>
 
-    <!-- TODO: Remove temporary styles -->
-    <style type="text/css">
-        div.leftSide {
-            margin: 5px 0 0 12px;
-            width: 760px;
-        }
-        div.rightSide {
-            width: 160px;
-            margin: 23px 12px 0 0;
-        }
-        div.compareNavigation {
-            background-color: #EBEBEB;
-            border: 1px solid #ccc;;
-        }
-        div.compareNavigation.top {
-            background-color: #EBEBEB;
-            border-bottom: 0;
-            margin-top: 10px;
-        }
-        div.compareNavigation.bottom {
-            background-color: #EBEBEB;
-            border-top: 0;
-            margin-bottom: 15px;
-        }
-        table#compareTable {
-            border: 1px solid #ccc;
-        }
-        table#compareTable td {
-            vertical-align: top;
-            border: 1px solid #ccc;
-            padding: 5px;
-        }
-        table#compareTable th {
-            border: 1px solid #ccc;
-            padding: 5px;
-        }
-        table#compareTable td.center {
-            text-align: center;
-        }
-        div.footerInfo {
-            background-color: #EBEBEB;
-            border: 1px solid #ccc;
-            padding: 5px;
-        }
-    </style>
 
-    <div class="leftSide fltlft">
+
+    <div id="csMain" class="leftSide fltlft">
         <div class="compareHeader">
             <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
                                       startIndex="${startIndex}" endIndex="${endIndex}"
@@ -85,8 +44,9 @@
                             <c:forEach items="${schools}" varStatus="loopStatus">
                                 <col class="schoolColumn${loopStatus.index+1}"/>
                             </c:forEach>
-
+                            <tbody>
                             <jsp:doBody/>
+                            </tbody>
                         </table>
                     </c:when>
                     <c:otherwise>
@@ -99,22 +59,22 @@
             </c:otherwise>
         </c:choose>
         <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}" alignment="bottom"/>
-        <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
-                                  startIndex="${startIndex}" endIndex="${endIndex}"
-                                  totalSchools="${totalSchools}" pageSize="${pageSize}"/>
         <div class="footerInfo clearBoth">
-            <div class="contactUs fltrt">
+            <div class="contactUs fltlft">
                 Notice an inaccuracy?
                 <link:schoolFeedback>Let us know</link:schoolFeedback>
             </div>
-            <div class="howWeGather">
+        <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
+                                  startIndex="${startIndex}" endIndex="${endIndex}"
+                                  totalSchools="${totalSchools}" pageSize="${pageSize}"/>
+            <div class="howWeGather clearBoth">
                 <a href="#" onclick="return false;">
                     <span class="alertDoubleArrow">&amp;#187;</span> How we gather our data
                 </a>
             </div>
         </div>
     </div>
-    <div class="rightSide fltrt">
+    <div class="rightSide fltlft">
         <ad:AboveFold_Right_120x600 showAdWord="true"/>
     </div>
     <br class="clearBoth"/>

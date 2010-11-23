@@ -14,7 +14,7 @@
     <jsp:directive.attribute name="totalSchools" required="true" type="java.lang.Integer" description="Page number for linking"/>
     <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer" description="Page number for linking"/>
 
-    <div class="pagination">
+    <div class="pagination text3">
         (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
         <c:if test="${totalSchools gt pageSize}">
             <c:set var="nextPage" value="2"/>

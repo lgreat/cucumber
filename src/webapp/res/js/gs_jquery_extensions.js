@@ -222,3 +222,30 @@ jQuery(document).ready(function() {
 
 //pass jQuery to the function for closure,
 })(jQuery);
+/*=table stripping plugin
+---------------------------------------------------------------------------*/
+
+(function($){
+
+    //Attach this new method to jQuery
+    $.fn.extend({
+
+        //This is where you write your plugin's name
+        alternateRowColors: function() {
+
+            //Iterate over the current set of matched elements
+            return this.each(function() {
+              $('tbody tr:odd', this)
+                .removeClass('even').addClass('odd');
+              $('tbody tr:even', this)
+                .removeClass('odd').addClass('even');
+              return this;
+
+                //code to be inserted here
+
+            });
+        }
+    });
+
+// end of closure
+})(jQuery);

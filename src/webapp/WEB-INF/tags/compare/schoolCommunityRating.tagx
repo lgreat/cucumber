@@ -18,7 +18,7 @@
         <c:when test="${communityRating gt 0}">
             <span class="sprite stars_lg_${communityRating}"><!-- do not collapse --></span>
             <c:if test="${not empty numRatings and numRatings gt 0}">
-                <p>
+                <p class="smallText1-333">
                     <link:schoolProfileParentReview school="${school}">
                         Based on ${numRatings} ${gsweb:pluralize(numRatings, 'rating')}
                     </link:schoolProfileParentReview>
@@ -26,7 +26,7 @@
             </c:if>
         </c:when>
         <c:otherwise>
-            <p>There are no ratings yet for this school.</p>
+            <p class="smallText1-italic">There are no ratings yet for this school.</p>
             <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
                 Be the first to rate it!
             </link:schoolProfileParentReview>

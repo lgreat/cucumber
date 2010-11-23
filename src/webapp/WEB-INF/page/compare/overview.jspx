@@ -21,13 +21,7 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>School Comparison Overview | GreatSchools</title>
 
-        <!-- TODO: Remove temporary styles -->
-        <style type="text/css">
-            div.schoolThumbnailMap {
-                width: 150px;
-                height: 150px;
-            }
-        </style>
+
     </head>
 
     <c:set var="omniturePageName" value="Compare_overview" scope="request"/>
@@ -36,54 +30,54 @@
     <gsml:body adPageName="compare" pageLayout="leftside">
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,CompareOverview">
             <tr>
-                <th>School</th>
+                <th scope="row">School</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_schools">
                         <compare:schoolOverview school="${school}" tab="${tab}" showMap="${true}"
                                                 schoolsString="${schoolsString}" page="${page}"/>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>GreatSchools Rating</th>
+                <th scope="row">GreatSchools Rating</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_gsRating">
                         <c:choose>
                             <c:when test="${school.private}">
-                                <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                                <span class="privateRating">GreatSchools Ratings not available for private schools.</span>
+                                <p class="smallText1"><span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                                <span class="privateRating rateDesc">GreatSchools Ratings not available for private schools.</span></p>
                             </c:when>
                             <c:when test="${empty school.gsRating}">
-                                <span class="ratingNotApplicable">n/a</span>
+                                <span class="ratingNotApplicable rateDesc">n/a</span>
                             </c:when>
                             <c:otherwise>
-                                <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
-                                <span class="gsRating">GreatSchools Rating out of 10</span>
+                                <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
+                                <span class="gsRating rateDesc">GreatSchools Rating out of 10</span></p>
                             </c:otherwise>
                         </c:choose>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>School type</th>
+                <th scope="row">School type</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_type center text3">
                         ${school.type} ${school.gradeLevels}
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>Total enrollment</th>
+                <th scope="row">Total enrollment</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_Enrlmt center text3">
                         ${school.enrollment}
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th>District name</th>
+                <th scope="row">District name</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_dName center text3">
                         <c:if test="${not empty school.district}">
                             <link:districtHome district="${school.district}" title="District information"
                                     ><c:out value="${school.district.name}"
@@ -93,9 +87,9 @@
                 </c:forEach>
             </tr>             
             <tr>
-                <th>Community rating (overall)</th>
+                <th scope="row">Community rating (overall)</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_commRate center">
                         <compare:schoolCommunityRating school="${school.school}"
                                                        communityRating="${school.communityRating}"
                                                        numRatings="${school.numRatings}"/>
@@ -103,9 +97,9 @@
                 </c:forEach>
             </tr>
             <tr>
-                <th>Recent reviews</th>
+                <th scope="row">Recent reviews</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="center">
+                    <td class="cs_rReviews">
                         <compare:schoolRecentReview school="${school.school}"
                                                     recentReview="${school.recentReview}"
                                                     numReviews="${school.numReviews}"/>
@@ -113,9 +107,9 @@
                 </c:forEach>
             </tr>
             <tr>
-                <th>Gender</th>
+                <th scope="row">Gender</th>
                 <c:forEach items="${schools}" var="school">
-                    <td>
+                    <td class="cs_sGender">
                         ${school.gender}
                     </td>
                 </c:forEach>

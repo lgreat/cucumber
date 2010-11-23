@@ -18,20 +18,20 @@
 
     <c:choose>
         <c:when test="${recentReview ne null}">
-            <p class="reviewComments">
+            <p class="reviewComments smallText1-333">
                 ${gsweb:abbreviateAtWhitespace(recentReview.comments, 70)}
                 <link:schoolProfileParentReview school="${school}" anchor="ps${recentReview.id}">
                     More <span class="alertDoubleArrow">&amp;#187;</span>
                 </link:schoolProfileParentReview>
             </p>
             <c:if test="${not empty recentReview.who and recentReview.who ne 'other'}">
-                <p class="reviewSubmittedBy">
-                    &amp;mdash; Submitted by
+                <p class="reviewSubmittedBy smallText2italic">
+                    - Submitted by
                     ${gsweb:createParentReviewDisplayName('', '', recentReview.who)}
                 </p>
             </c:if>
 
-            <p>
+            <p class="smallText1">
                 <link:schoolProfileParentReview school="${school}">
                     <c:choose>
                         <c:when test="${numReviews eq 1}">Read the review</c:when>
@@ -42,12 +42,12 @@
             </p>
         </c:when>
         <c:otherwise>
-            <p>
+            <p class="smallText1 center">
                 There are no reviews yet for this school.
             </p>
-            <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+            <p class="smallText1"><link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
                 Be the first the share!
-            </link:schoolProfileParentReview>
+            </link:schoolProfileParentReview></p>
         </c:otherwise>
     </c:choose>
 </jsp:root>
