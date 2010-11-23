@@ -93,15 +93,18 @@
     <div id="topicMainGS" class="col">
 
         <search:schoolSearchResultsTable/>
-<!--
 
+        <c:set var="openCloseTr">
+            <![CDATA[</tr><tr>]]>
+        </c:set>
+        <c:if test="${fn:length(citySearchResults) > 0}">
         <table>
             <tbody>
                 <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
                 <tr>
-                    <c:forEach var="city" items="${citySearchResults}" begin="0" end="citySearchResults-1" varStatus="status">
+                    <c:forEach var="city" items="${citySearchResults}" begin="0" end="${fn:length(citySearchResults)-1}" varStatus="status">
                         <c:if test="${status.count % 3 == 0}">
-                            <![CDATA[</tr><tr>]]>
+                            ${openCloseTr}
                         </c:if>
                         <td>${city.city}</td>
                     </c:forEach>
@@ -109,7 +112,8 @@
             </tbody>
 
         </table>
--->
+        </c:if>
+
 
 
 

@@ -8,6 +8,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
+import gs.data.security.Permission;
 import gs.data.util.email.EmailHelper;
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.EmailContentHelper;
@@ -15,11 +16,14 @@ import static gs.data.util.XMLUtil.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.state.State;
 import gs.web.school.SchoolPageInterceptor;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import gs.web.util.NewSubscriberDetector;
 import gs.web.util.UrlBuilder;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,10 +42,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,6 +88,20 @@ public class AddParentReviewsController extends SimpleFormController implements 
             else if (isJsonPage()) return errorJSON(response, errors);
         }
         return super.processFormSubmission(request, response, command, errors);
+    }
+
+    public Map<String,Object> referenceData(HttpServletRequest request) throws Exception {
+        Map<String,Object> model = new HashMap<String,Object>();
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user;
+        if(PageHelper.isMemberAuthorized(request)){
+            user = sessionContext.getUser();
+            if (user != null) {
+                model.put("validUser", user);
+            }
+        }
+
+        return model;
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
