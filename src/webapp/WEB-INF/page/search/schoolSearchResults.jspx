@@ -36,13 +36,16 @@
 
 
 <div id="mainGS" class="col">
-    <!-- nearby cities hover -->
+    <!-- nearby cities box -->
     <c:if test="${fn:length(citySearchResults) gt 0}">
         Schools in city: ${citySearchResults[0].city}, ${citySearchResults[0].state}
         <c:if test="${fn:length(citySearchResults) gt 1}">
             | ${citySearchResults[1].city}, ${citySearchResults[1].state}
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 2}">
+            | ${citySearchResults[2].city}, ${citySearchResults[2].state}
+        </c:if>
+        <c:if test="${fn:length(citySearchResults) gt 3}">
             | <span id="nearby-cities-link">more nearby cities</span>
             <div id="nearby-cities" style="display:none;float:left;position:absolute;left:200px;z-index:100;background-color:white;border:1px solid gray;"><!-- TODO: Randall: style -->
                 <c:set var="openCloseTr">
@@ -64,8 +67,8 @@
                         <tbody>
                             <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
                             <tr>
-                                <c:forEach var="city" items="${citySearchResults}" begin="2" end="${fn:length(citySearchResults)-1}" varStatus="status">
-                                    <td>${city.city}, ${city.state}</td>
+                                <c:forEach var="city" items="${citySearchResults}" begin="3" end="${fn:length(citySearchResults)-1}" varStatus="status">
+                                    <td><link:city city="${city.city}" state="${city.state}">${city.city}, ${city.state}</link:city></td>
                                     <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
                                         ${openCloseTr}
                                     </c:if>
@@ -77,7 +80,7 @@
             </div>
         </c:if>
     </c:if>
-    <!-- end nearby cities hover -->
+    <!-- end nearby cities box -->
 
     <c:choose>
         <c:when test="${fn:length(schoolSearchResults) gt 0}">
