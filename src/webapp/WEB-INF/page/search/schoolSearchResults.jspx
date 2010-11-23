@@ -34,65 +34,58 @@
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
 
 
-
 <div id="mainGS" class="col">
     <!-- nearby cities box -->
-    <c:if test="${fn:length(citySearchResults) gt 0}">
-        Schools in city: ${citySearchResults[0].city}, ${citySearchResults[0].state}
-        <c:if test="${fn:length(citySearchResults) gt 1}">
-            | ${citySearchResults[1].city}, ${citySearchResults[1].state}
-        </c:if>
-        <c:if test="${fn:length(citySearchResults) gt 2}">
-            | ${citySearchResults[2].city}, ${citySearchResults[2].state}
-        </c:if>
-        <c:if test="${fn:length(citySearchResults) gt 3}">
-            | <span id="nearby-cities-link">more nearby cities</span>
-            <div id="nearby-cities" style="display:none;float:left;position:absolute;left:200px;z-index:100;background-color:white;border:1px solid gray;"><!-- TODO: Randall: style -->
-                <c:set var="openCloseTr">
-                    <![CDATA[</tr><tr>]]>
-                </c:set>
-                <c:choose>
-                    <c:when test="${fn:length(citySearchResults) lt 6}">
-                        <c:set var="cityTableColumns" value="${1}"/>
-                    </c:when>
-                    <c:when test="${fn:length(citySearchResults) ge 6 and fn:length(citySearchResults) lt 12}">
-                        <c:set var="cityTableColumns" value="${2}"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="cityTableColumns" value="${3}"/>
-                    </c:otherwise>
-                </c:choose>
-                <c:if test="${fn:length(citySearchResults) > 0}">
-                    <table>
-                        <tbody>
-                            <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
-                            <tr>
-                                <c:forEach var="city" items="${citySearchResults}" begin="3" end="${fn:length(citySearchResults)-1}" varStatus="status">
-                                    <td><link:city city="${city.city}" state="${city.state}">${city.city}, ${city.state}</link:city></td>
-                                    <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
-                                        ${openCloseTr}
-                                    </c:if>
-                                </c:forEach>
-                            </tr>
-                        </tbody>
-                    </table>
-                </c:if>
-            </div>
-        </c:if>
+    Schools in city: ${citySearchResults[0].city}, ${citySearchResults[0].state}
+    <c:if test="${fn:length(citySearchResults) gt 1}">
+        | ${citySearchResults[1].city}, ${citySearchResults[1].state}
     </c:if>
-    <!-- end nearby cities box -->
+    <c:if test="${fn:length(citySearchResults) gt 2}">
+        | ${citySearchResults[2].city}, ${citySearchResults[2].state}
+    </c:if>
+    <c:if test="${fn:length(citySearchResults) gt 3}">
+        | <span id="nearby-cities-link">more nearby cities</span>
 
-    <c:choose>
-        <c:when test="${fn:length(schoolSearchResults) gt 0}">
-            <div class="spacer_30"><!-- do not collapse --></div>
-        </c:when>
-        <c:otherwise>
-            <div class="spacer_10"><!-- do not collapse --></div>
-        </c:otherwise>
-    </c:choose>
+        <div id="nearby-cities"
+             style="display:none;float:left;position:absolute;left:200px;z-index:100;background-color:white;border:1px solid gray;"><!-- TODO: Randall: style -->
+            <c:set var="openCloseTr">
+                <![CDATA[</tr><tr>]]>
+            </c:set>
+            <c:choose>
+                <c:when test="${fn:length(citySearchResults) lt 6}">
+                    <c:set var="cityTableColumns" value="${1}"/>
+                </c:when>
+                <c:when test="${fn:length(citySearchResults) ge 6 and fn:length(citySearchResults) lt 12}">
+                    <c:set var="cityTableColumns" value="${2}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="cityTableColumns" value="${3}"/>
+                </c:otherwise>
+            </c:choose>
+            <c:if test="${fn:length(citySearchResults) > 0}">
+                <table>
+                    <tbody>
+                    <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
+                    <tr>
+                        <c:forEach var="city" items="${citySearchResults}" begin="3"
+                                   end="${fn:length(citySearchResults)-1}" varStatus="status">
+                            <td><link:city city="${city.city}"
+                                           state="${city.state}">${city.city}, ${city.state}</link:city></td>
+                            <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
+                                ${openCloseTr}
+                            </c:if>
+                        </c:forEach>
+                    </tr>
+                    </tbody>
+                </table>
+            </c:if>
+        </div>
+    </c:if>
+
+    <div class="spacer_30"><!-- do not collapse --></div>
+
     <div id="topicbarGS" class="col">
 
-        <c:if test="${fn:length(schoolSearchResults) gt 0}">
         <div id="js-gradeLevels" class="mod">
             <div class="filter-hd">
                 <h5>GRADE LEVEL</h5>
@@ -140,7 +133,6 @@
         </div>
 
         <div class="spacer_15"><!-- do not collapse --></div>
-        </c:if>
 
         <ad:AboveFold_Left_160x600/>
 
@@ -148,96 +140,13 @@
 
     <div id="topicMainGS" class="col">
 
-        <c:choose>
-            <c:when test="${fn:length(schoolSearchResults) gt 0}">
                 <search:schoolSearchResultsTable/>
-            </c:when>
-            <c:otherwise>
-
-                <!-- TODO:
-                    Hello Samson,
-                    Please make "badSearch" and "bestGuess" dynamic.
-                    The "bestGuess" should also be a link.
-                    The search form also needs to work.
-                 -->
-
-                <c:set var="badSearch" value="Sam Clam's Disco"/>
-                <c:set var="bestGuess" value="San Francisco"/>
-
-                <div id="failedSearch">
-                    <p class="introText-c03">Your search for <strong>${badSearch}</strong> did not match any schools</p>
-
-                    <div class="spacer_25"><!-- do not collapse --></div>
-                    <p class="introText">Did you mean: <span class="introTextitalic"><a href="#">${bestGuess}</a></span>
-                    </p>
-
-                    <div class="spacer_20"><!-- do not collapse --></div>
-                    <p class="text1bold">Suggestion:</p>
-                    <div class="spacer_5"><!-- do not collapse --></div>
-                    <ul class="text1-d61">
-                        <li><span class="text1">Make sure all words are spelled correctly.</span></li>
-                        <li><span class="text1">Try different or fewer keywords.</span></li>
-                        <li><span class="text1">Try more general keywords.</span></li>
-                    </ul>
-                    <div class="spacer_25"><!-- do not collapse --></div>
-                </div>
-                <div class="mod">
-                    <div class="search-hd">
-                        <h5>Search</h5>
-                    </div>
-                    <div class="search-bd">
-                        <form id="newSearchForm" action="" method="get">
-                            <div class="spacer_10"><!-- do not collapse --></div>
-                            <label for="newSearch" class="text1bold">Search again for: </label>
-                            <input type="text"
-                                   id="newSearch"
-                                   name="newSearch"
-                                   class="text1"
-                                   value="${badSearch}"
-                                    />
-                            <button class="button-1"
-                                    type="submit"
-                                    onclick="return false;">Search</button>
-                            <div class="spacer_15"><!-- do not collapse --></div>
-                        </form>
-                    </div>
-                </div>
-            </c:otherwise>
-        </c:choose>
-
-        <!--
-
-        <c:set var="openCloseTr">
-            <![CDATA[</tr><tr>]]>
-        </c:set>
-        <c:if test="${fn:length(citySearchResults) > 0}">
-        <table>
-            <tbody>
-                <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
-                <tr>
-                    <c:forEach var="city" items="${citySearchResults}" begin="0" end="${fn:length(citySearchResults)-1}" varStatus="status">
-                        <c:if test="${status.count % 3 == 0}">
-                            ${openCloseTr}
-                        </c:if>
-                        <td>${city.city}</td>
-                    </c:forEach>
-                </tr>
-            </tbody>
-
-        </table>
-        </c:if>
-        -->
-
-
-
-
-    </div>
+</div>
 </div>
 
 <div id="sidebarGS" class="col">
     <ad:AboveFold_300x600/>
 
-    <c:if test="${fn:length(schoolSearchResults) gt 0}">
     <div class="mod">
         <div class="mod_hd">
             <h3>Map of Results</h3>
@@ -252,29 +161,23 @@
         </noscript>
     </div>
 
-        <map:schoolSearchMap
-                id="nearbySchoolsMap"
-                tooltips="true"
-                schools="${schoolSearchResults}"
-                start="${param.start}"
-                count="${pageSize}"
-                ratings="${ratings}"
-                />
+    <map:schoolSearchMap
+            id="nearbySchoolsMap"
+            tooltips="true"
+            schools="${schoolSearchResults}"
+            start="${param.start}"
+            count="${pageSize}"
+            ratings="${ratings}"
+            />
 
     <!-- end map -->
 
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
                                showAdPct="0"/>
-    </c:if>
-    
+
     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
 </div>
-
-
-
-
-
 
 
 
