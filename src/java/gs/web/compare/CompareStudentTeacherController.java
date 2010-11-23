@@ -57,6 +57,66 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         }
     }
 
+//    public List<List<CensusStruct>> getSchoolCensusData(State state, List<School> schools, String tab) {
+        // 1) select out config rows
+        // List<CompareConfig> compareConfigs = _compareConfigDao.find(state, tab, 'school')
+
+        // 2) for each config row, retrieve the data set and label
+        // List censusDataSets;
+        // Map censusDataSetToLabel; // censusDataSet to compareLabel
+        // Map rowLabelToOrder; // label level1 to orderNum from CompareConfig
+        // Map censusDataSetToSchoolType; // censusDataSet to schoolType from CompareConfig
+        // foreach compareConfig : compareConfigs {
+        //  CensusDataSet censusDataSet = _censusDataSetDao.findDataSet
+        //                              (state, censusDataType, grade, breakdown, levelCode, subject, year)
+        //  CompareLabel compareLabel = _compareLabelDao.findLabel
+        //                      (state, tabname, censusDataType, grade, breakdown, levelCode, subject);
+        //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
+        //  censusDataSets .add censusDataSet; // add censusDataSet to list
+        // }
+
+        // 3) bulk query: retrieve school values for each school and data set
+        // List<SchoolCensusValue> schoolCensusValues =
+        //              _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets, schools);
+        //
+
+        // 4) Populate return struct
+        // Map schoolIdToIndex;
+        // int index=1;
+        // foreach (school: schools) {
+        //  schoolIdToIndex.put(school.getId(), index++);
+        // }
+        // Map rowLabelToCellList; // map of row label to list of cells
+        // foreach schoolCensusValue: schoolCensusValues {
+        //  if (dataSet's schoolType is defined and not equal to school's type) {
+        //      do nothing!
+        //  } else {
+        //      look up row and value label in censusDataSetToCompareLabelMap
+        //      get list of cells from rowLabelToCellList map
+        //      if null, create new cell list
+        //          create static sized list with schools.size()+1 elements
+        //          add header cell using row label to position 0
+        //          add list to rowLabelToCellList
+        //      Check list for existing cell in position -- if exists and dataSet's schoolType == null, continue
+        //          This prevents a default value from overwriting a schoolType value
+        //      How to handle breakdowns?
+        //      populate cell with value and label (from censusDataSetToLabel map)
+        //      add cell to cell list in position from schoolIdToIndex
+        //  }
+        // }
+
+        // 5) Sort the rows
+        // Collections.sort(rowLabelToCellList, new Comparator<String>() {
+        //  int compare(String s1, String s2) {
+        //      return rowLabelToOrder.get(s1).compareTo(rowLabelToOrder.get(s2);
+        //  }
+        // }
+
+        // 6) return
+        // return new ArrayList<List<CensusStruct>>(rowLabelToCellList.values());
+//    }
+
+
     @Override
     public String getSuccessView() {
         return _successView;
