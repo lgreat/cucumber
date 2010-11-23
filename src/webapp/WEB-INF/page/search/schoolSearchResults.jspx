@@ -36,6 +36,49 @@
 
 
 <div id="mainGS" class="col">
+    <!-- nearby cities hover -->
+    <c:if test="${fn:length(citySearchResults) gt 0}">
+        Schools in city: ${citySearchResults[0].city}, ${citySearchResults[0].state}
+        <c:if test="${fn:length(citySearchResults) gt 1}">
+            | ${citySearchResults[1].city}, ${citySearchResults[1].state}
+        </c:if>
+        <c:if test="${fn:length(citySearchResults) gt 2}">
+            | <span id="nearby-cities-link">more nearby cities</span>
+            <div id="nearby-cities" style="display:none;float:left;position:absolute;left:200px;z-index:100;background-color:white;border:1px solid gray;"><!-- TODO: Randall: style -->
+                <c:set var="openCloseTr">
+                    <![CDATA[</tr><tr>]]>
+                </c:set>
+                <c:choose>
+                    <c:when test="${fn:length(citySearchResults) lt 6}">
+                        <c:set var="cityTableColumns" value="${1}"/>
+                    </c:when>
+                    <c:when test="${fn:length(citySearchResults) ge 6 and fn:length(citySearchResults) lt 12}">
+                        <c:set var="cityTableColumns" value="${2}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="cityTableColumns" value="${3}"/>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${fn:length(citySearchResults) > 0}">
+                    <table>
+                        <tbody>
+                            <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
+                            <tr>
+                                <c:forEach var="city" items="${citySearchResults}" begin="2" end="${fn:length(citySearchResults)-1}" varStatus="status">
+                                    <td>${city.city}, ${city.state}</td>
+                                    <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
+                                        ${openCloseTr}
+                                    </c:if>
+                                </c:forEach>
+                            </tr>
+                        </tbody>
+                    </table>
+                </c:if>
+            </div>
+        </c:if>
+    </c:if>
+    <!-- end nearby cities hover -->
+
     <c:choose>
         <c:when test="${fn:length(schoolSearchResults) gt 0}">
             <div class="spacer_30"><!-- do not collapse --></div>
@@ -159,7 +202,7 @@
             </c:otherwise>
         </c:choose>
 
-<!--
+        <!--
 
         <c:set var="openCloseTr">
             <![CDATA[</tr><tr>]]>
@@ -180,6 +223,7 @@
 
         </table>
         </c:if>
+        -->
 
 
 
@@ -235,6 +279,13 @@
     var compareSchoolsArray = [];
 
     jQuery(function() {
+        jQuery('#nearby-cities-link').mouseover(function() {
+           jQuery('#nearby-cities').show(); 
+        });
+        jQuery('#nearby-cities-link').mouseout(function() {
+           jQuery('#nearby-cities').hide(); 
+        });
+
         jQuery('#sort-by').change(function() {
             var i = 0;
             var gradeLevels = [];

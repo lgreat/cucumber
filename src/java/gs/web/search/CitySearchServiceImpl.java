@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.GSAnalyzer;
+import gs.data.search.Indexer;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -47,8 +48,7 @@ public class CitySearchServiceImpl implements CitySearchService {
             }
 
             if (state != null) {
-                cityQuery.add(new TermQuery(new Term("city", state.getLongName().toLowerCase())), BooleanClause.Occur.SHOULD);
-                cityQuery.add(new TermQuery(new Term("city", state.getAbbreviationLowerCase())), BooleanClause.Occur.SHOULD);
+                cityQuery.add(new TermQuery(new Term(Indexer.STATE, state.getAbbreviationLowerCase())), BooleanClause.Occur.MUST);
             }
 
             return cityQuery;
