@@ -128,10 +128,15 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
         model.put(MODEL_REL_CANONICAL, getRelCanonical());
 
+
         if (schoolSearchCommand.isJsonFormat()) {
             return new ModelAndView("/search/schoolSearchResultsTable", model);
         } else {
-            return new ModelAndView("/search/schoolSearchResults", model);
+            if (searchResultsPage.getTotalResults() == 0) {
+                return new ModelAndView("/search/schoolSearchNoResults", model);
+            } else {
+                return new ModelAndView("/search/schoolSearchResults", model);
+            }
         }
 
     }
