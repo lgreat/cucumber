@@ -181,7 +181,6 @@ public class MonitorController implements ReadWriteController {
             model.put("showExtra", true);
             model.put("avatarURLPrefix", CommunityUtil.getAvatarURLPrefix());
             model.put("avatarUploadURL", System.getProperty(UploadAvatarHoverController.POST_URL_PROPERTY_KEY));
-            model.put("new_community", CommunityUtil.isNewCommunityEnabled());
             model.put("cms_enabled", CmsUtil.isCmsEnabled());
             model.put("cms_db_url", System.getProperty("cms.db.url"));
             model.put("solr_ro_server_url", System.getProperty("solr.ro.server.url"));

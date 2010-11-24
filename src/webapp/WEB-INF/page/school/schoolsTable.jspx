@@ -698,13 +698,6 @@ function reloadPageWithFilters(sortColId, keepCheckedSchools) {
             <c:set var="callerPagename" value="browsecity"/>
         </c:otherwise>
     </c:choose>
-    <c:if test="${!communityUtil.newCommunityEnabled}">
-        <jsp:include page="/community/localQuestions.module">
-            <jsp:param name="cityId" value="${cityId}"/>
-            <jsp:param name="cityDisplayName" value="${cityDisplayName}"/>
-            <jsp:param name="callerPagename" value="${callerPagename}"/>
-        </jsp:include>
-    </c:if>
 
     <c:if test="${isCityBrowse}">
         <ad:House_Ad_300x137 referredBy="${pageName}" slotPrefix="${slotPrefix}"/>

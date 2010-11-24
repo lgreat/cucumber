@@ -58,57 +58,6 @@
   <p>This Agreement shall be deemed to include all other notices, policies, disclaimers, and other terms contained in this website; provided, however, that in the event of a conflict between such other terms and the terms of this Agreement, the terms of this Agreement shall control. This Agreement has been made in and shall be construed and enforced in accordance with California law. Any action to enforce this agreement shall be brought in the federal or state courts located in San Francisco, California. If any provision is deemed to be unlawful or unenforceable, that shall not affect the validity and enforceability of the remaining provisions. </p>
   <h2 id="s13">Copyright Information</h2>
   <p>Except where noted otherwise, all website contents Copyright &#169; 2010 GreatSchools.org. All rights reserved under United States and foreign law. No part of the materials on the website, including but not limited to the text, graphics and html code, may be reproduced or transmitted in any form by any means without GreatSchools' written permission. </p>
-    <c:choose>
-            <c:when test="${!communityUtil.newCommunityEnabled}">
-    <h2 id="s14">GreatSchools Parent Community Guidelines</h2>
-  <p>The GreatSchools online community gives you the opportunity to connect with other parents who are passionate about education and to communicate and inspire one another. Please share your opinions, questions and advice with others in the GreatSchools community. </p>
-  <p>When you post on GreatSchools, you are agreeing to abide by the GreatSchools Parent Community Guidelines described below. Please respect them, and use common sense and good manners to ensure that your experiences with the GreatSchools community are positive ones. </p>
-  <p>Please read the GreatSchools Parent Community Guidelines before posting. </p>
-  <ol>
-    <li><strong>Be respectful of others and their opinions.</strong> While we encourage a healthy, even passionate, exchange of opinions, we insist that differences be expressed with civility and without insulting language.</li>
-    <li><strong>Do not use offensive language.</strong> No racist, sexist, ageist, obscene, sexually explicit, violent, threatening or otherwise offensive language is allowed. This applies to user names and subject lines as well as to the actual posts. We reserve the right to remove or edit postings that defame or insult anyone and that are abusive or hateful. Any postings that can be construed as stalking will be deleted and made available to the proper law enforcement officials.</li>
-    <li><strong>Keep in mind that your posts can be seen by non-members and community visitors.</strong> Do not post personal data -- yours or anyone else's. For your safety and privacy, please do not post personal data such as phone numbers, addresses, Social Security numbers or any other private information. Do not publicly post content from private messages or email.</li>
-    <li id="photoGuidelines"><strong>GreatSchools photo guidelines:</strong> While you are welcome to include pictures and images in your posts, all pictures and images must adhere to our community guidelines. Please limit the number of images you post out of consideration for members with slower Internet connections. We ask that the images you post not exceed 3 inches by 5 inches--larger images may be deleted.</li>
-    <li><strong>Do not post sexually explicit images.</strong></li>
-    <li><strong>Protecting the privacy of young children is especially important to us.</strong> If you are under 13 years of age, then please do not use or access the website at any time or in any manner. If GreatSchools learns that personally identifiable information of persons under 13 years of age has been collected through the website without verified parental consent, then GreatSchools will take the appropriate steps to delete this information.</li>
-    <li><strong>You agree not to use the services to harm children or minors in any way, or encourage inappropriate interactions with children or minors of any kind.</strong></li>
-    <li><strong>Do not collect screen names or email addresses from our site for any commercial use.</strong></li>
-    <li><strong>Do not collect personal information from our site about any member of the GreatSchools community, or otherwise stalk, repeatedly contact or harass any member.</strong></li>
-    <li><strong>Be aware that this is a public forum and what you post will be visible to all users of GreatSchools.org and could end up anywhere on the Internet.</strong></li>
-    <li><strong>Do not post anything that contains harmful code of any sort,</strong> including viruses, cancel bots, Trojan horses or other codes that harm computer software or programs or the proper functioning of any software, hardware or equipment or materials.</li>
-    <li><strong>Don't believe everything you read.</strong> GreatSchools does not and cannot screen all the content our users post. When someone recommends something, such as a book, service or product, it is his or her personal recommendation and not one necessarily endorsed by GreatSchools or its advertisers, sponsors or partners. We recommend you use your best judgment in evaluating recommendations posted on the Internet, and we suggest that you back up all endorsements found in the GreatSchools community with further research before making a purchase or an investment of time.</li>
-    <li><strong>Respect copyrights.</strong> Please do not cut and paste articles, recipes, song lyrics, art, graphics or any other original material that you do not hold the copyright to as this could violate the copyright of the original publisher. Even if you include the copyright mark, you do not have permission to republish without explicit permission of the original publisher. GreatSchools is required by law to remove all copyrighted material if requested by the copyright holder. This means the great conversation you started about an article could be deleted, if you copy content from the article. We recommend referring to the title of the article and summarizing the relevant portion of the article in your own words.</li>
-    <li><strong>Please post ads only in designated areas.</strong> Advertising includes, but is not limited to:
-      <ul>
-        <li>Work-at-home or other businesses;</li>
-        <li>Products or services that you are selling (personal or professional);</li>
-        <li>Job opportunities;</li>
-        <li>Charities and charitable causes;</li>
-        <li>Call for participants for research or studies;</li>
-        <li>Other websites (personal, non-business websites are fine).</li>
-      </ul>
-      <p>The only places on the GreatSchools Community where it is acceptable to post advertisements and promotions are:</p>
-      <ul>
-        <li>On your member profile;</li>
-        <li><a href="http://community.greatschools.org/groups/37735">In our Parent Marketplace group</a>.</li>
-      </ul>
-      <p>From time to time, GreatSchools may work with an advertiser or other sponsor to feature community posts in order to foster discussions around particular topics. Such posts are clearly marked as 'sponsored' and may be subject to moderation.</p>
-    </li>
-    <li><strong>Do not spam.</strong> Do not flood, spam, or post chain letters, pyramid schemes or junk mail.</li>
-    <li><strong>Don't use ALL CAPS in your posts.</strong> Posts written in all capitals letters are hard to read and give the impression that you are shouting. If you have difficulty switching from capital letters to lowercase letters, please just use all lowercase.</li>
-    <li><strong>Be a law-abiding citizen.</strong> If you are not sure that what you are about to say is legal, hold off and check. If GreatSchools is notified that illegal activity is being encouraged in our community, we will alert law-enforcement officials. You agree that you will not violate any international, U.S. federal or state law.</li>
-    <li><strong>Do not impersonate others or misrepresent who you are.</strong> Do not impersonate any person or entity, and do not misrepresent your affiliation with any entity. Please be aware that members may claim expertise or status (legal, medical, etc.) that they do not possess; use discretion in following any advice.</li>
-    <li><strong>Do not repost deleted content.</strong> Do not repost something that was deleted from the community. These posts will be deleted as well, and posting privileges may be removed for members who repost deleted content.</li>
-    <li><strong>Do not post links to sites that violate our guidelines.</strong></li>
-    <li><strong>Report a problem.</strong> If you feel that someone in the GreatSchools community is behaving inappropriately, please click on the "Flag as inappropriate" or "Report user" links and submit the problem to us. We will look into the matter within 48 hours of the report. Please note that we do not publicly discuss flagged content, reported users, warnings, suspensions or bannings, so we may not follow up with you directly about your reported issue.</li>
-    <li><strong>If you have a customer service question please visit our "<link:contactUs>Contact Us</link:contactUs>" page to find the appropriate place to send your query.</strong></li>
-    <li><strong>When you post to our community, discussion boards, blogs or other forums, you are giving GreatSchools permission to use your content.</strong> By posting your comments on GreatSchools, you give us a fully paid, royalty-free, irrevocable, perpetual, transferable, worldwide right and license (with the right to sublicense) to use, copy, modify, publicly perform, publicly display, reformat, translate, excerpt (in whole or in part) and distribute the content from your post and to prepare derivative works of, or incorporate into other works, such content, in any manner and medium.</li>
-    <li><strong>We do not review all posts.</strong> However, we do have the right to remove any post at any time and without notice.</li>
-  </ol>
-  <p>If you violate any of the above Parent Community Guidelines, you will be notified individually by community staff and may, as a result of your actions, receive a warning, temporary suspension or permanent banning from the community. We reserve the right to suspend or terminate your right to use our services at any time, for any reason.</p>
-    </c:when>
-            <c:otherwise>
-    <!-- new community guidelines -->
     <h2 id="communityStandards">GreatSchools Parent Community Guidelines</h2>
     <p>The GreatSchools online community gives you the opportunity to connect with other parents who are passionate about education and to communicate and inspire one another. Please share your opinions, questions and advice with others in the GreatSchools community. </p>
     <p>When you post on GreatSchools, you are agreeing to abide by the GreatSchools Parent Community Guidelines described below. Please respect them, and use common sense and good manners to ensure that your experiences with the GreatSchools community are positive ones. </p>
@@ -149,8 +98,6 @@
         <li><strong>We do not review all posts</strong>. However, we do have the right to remove any post at any time and without notice.</li>
     </ol>
     <p>If you violate any of the above Parent Community Guidelines, you will be notified individually by community staff and may, as a result of your actions, receive a warning, temporary suspension or permanent banning from the community. We reserve the right to suspend or terminate your right to use our services at any time, for any reason.</p>
-    </c:otherwise>
-    </c:choose>
 </div>
         <mod:tracking pageName="TermsOfUse" hier1="Home,Corporate,TermsOfUse"/>
     </gsml:body>

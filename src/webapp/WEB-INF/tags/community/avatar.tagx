@@ -32,7 +32,6 @@
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
 
-        request.setAttribute("useNewCommunity", CommunityUtil.isNewCommunityEnabled());
         request.setAttribute("avatarUrlPrefix", CommunityUtil.getAvatarURLPrefix());
 
         request.setAttribute("validAvatarSize", CommunityUtil.getClosestValidAvatarSize(width));

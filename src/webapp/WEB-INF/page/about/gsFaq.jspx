@@ -47,9 +47,6 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 			<ul class="pageNav">
 				<li><a href="#faq-101">GreatSchools 101</a></li>
 				<li><a href="#faq-rightschool">Find the Right School Using GreatSchools Data</a></li>
-                <c:if test="${!communityUtil.newCommunityEnabled}">
-				    <li><a href="#faq-parents">Connect with Other Parents</a></li>
-                </c:if>
 				<li><a href="#faq-advice">Expert Advice and Newsletters</a></li>
 				<li><a href="#faq-schwabtransition">SchwabLearning.org Transition</a></li>
 			</ul>
@@ -489,21 +486,6 @@ compare the schools in your list.</p>
 			<p class="emphasis-right">Didn't find the answer you're looking for?
                 <gsml:a href="/cgi-bin/feedback_faq/${state}s?fbtype=profile">Contact us about comparing schools</gsml:a>.</p>
 
-            <c:if test="${!communityUtil.newCommunityEnabled}">
-                <h2 id="faq-parents">Connect with Other Parents</h2>
-
-                <ol class="questions">
-                    <li>
-                        <p>The
-    GreatSchools Parent Community is a safe, supportive online community
-    where you can connect with like-minded parents and share success
-    stories about your child's education. You can use the community to find
-    answers to your questions about school choice, dealing with bullies and
-    <gsml:a href="http://${communityHost}/">more</gsml:a>.</p>
-                    </li>
-                </ol>
-            </c:if>
-
 			<h2 id="faq-advice">Expert Advice and Newsletters</h2>
 
 			<ol class="questions">
@@ -603,28 +585,9 @@ received this newsletter in 2008, please <link:newsletterManagement>subscribe he
 				<li>
 					<p class="question">Does GreatSchools host a message board for parents of kids with learning difficulties?</p>
 
-                    <c:choose>
-                        <c:when test="${communityUtil.newCommunityEnabled}">
-                            <p>Yes. We invite former Schwab Learning message board members to continue the discussion
-                                on the <link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD">
-                                Learning Disabilities discussion board</link:cmsContent> on our parent community.</p>
-                        </c:when>
-                        <c:otherwise>
-                            <p>Yes.
-                            We invite former Schwab Learning message board members to continue the
-                            discussion on the GreatSchools Parent Community. Be sure to check out
-                            two of our most active online parent groups:</p>
-                            <ul>
-                                <li><gsml:a href="http://${communityHost}/groups/11554">Learning and Attention Difficulties</gsml:a></li>
-                                <li><gsml:a href="http://${communityHost}/groups/12143">Schwabbies</gsml:a> (former SchwabLearning.org members)</li>
-                            </ul>
-                            <p>To learn more about the GreatSchools Parent Community, take a
-                               <gsml:a href="http://${communityHost}/tour/index.html">tour of the community</gsml:a> or
-                               <gsml:a href="http://${communityHost}/faq">read the GreatSchools Parent Community FAQ</gsml:a>.
-                               Any questions about the GreatSchools Parent Community can be sent to
-                               <a href="mailto:communitysupport@greatschools.org">communitysupport@greatschools.org</a>.</p>
-                        </c:otherwise>
-                    </c:choose>
+                    <p>Yes. We invite former Schwab Learning message board members to continue the discussion
+                        on the <link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD">
+                        Learning Disabilities discussion board</link:cmsContent> on our parent community.</p>
 				</li>
 
 				<li>

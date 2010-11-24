@@ -126,11 +126,6 @@
             <td class="statuserror"></td>
         </tr>
         <tr>
-            <td class="statustitle">new_community</td>
-            <td class="statusvalue">${new_community}</td>
-            <td class="statuserror"></td>
-        </tr>
-        <tr>
             <td class="statustitle">cms.enabled</td>
             <td class="statusvalue">${cms_enabled}</td>
             <td class="statuserror"></td>
