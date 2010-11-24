@@ -81,6 +81,9 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         Map<FieldConstraint, String> fieldConstraints = new HashMap<FieldConstraint,String>();
         fieldConstraints.put(FieldConstraint.STATE, "ca");
 
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
+        getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+
         List<ISchoolSearchResult> listResults = new ArrayList<ISchoolSearchResult>();
         int i = 0;
         while (i++ < schoolSearchCommand.getPageSize()) {
@@ -109,6 +112,9 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         Map<FieldConstraint, String> fieldConstraints = new HashMap<FieldConstraint,String>();
         fieldConstraints.put(FieldConstraint.STATE, "ca");
+
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
+        getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
 
         List<ISchoolSearchResult> listResults = new ArrayList<ISchoolSearchResult>();
         int i = 0;
@@ -147,7 +153,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         boolean threwException = false;
         try {
             // technically, this is an incomplete test, because none of these except searchString can be null
-            _controller.addGamAttributes(null, null, null, null, null, null, null);
+            _controller.addGamAttributes(null, null, null, null, null, null, null, null, null);
         } catch (IllegalArgumentException e) {
             threwException = true;
         }
@@ -170,7 +176,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         resetAllMocks();
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, null);
         verifyAllMocks();
 
         Collection actualTypeKeywords = (Collection)actualPageHelper.getAdKeywords().get("type");
@@ -191,7 +197,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         resetAllMocks();
 
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, null);
         verifyAllMocks();
 
         Collection actualLevelKeywords = (Collection)actualPageHelper.getAdKeywords().get("level");
@@ -217,7 +223,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         resetAllMocks();
 
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, null);
         verifyAllMocks();
 
         actualLevelKeywords = (Collection)actualPageHelper.getAdKeywords().get("level");
@@ -238,14 +244,14 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         constraints.put(FieldConstraint.STATE, "CA");
         constraints.put(FieldConstraint.DISTRICT_ID, "3");
 
-        resetAllMocks();
         District district = new District();
-        district.setId(3);
+        district.setId(1);
         district.setName("San Francisco Unified School District");
-        expect(_districtDao.findDistrictById(State.CA, 3)).andReturn(district);
+
+        resetAllMocks();
 
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, district);
         verifyAllMocks();
 
         referencePageHelper = new PageHelper(_sessionContext, _request);
@@ -298,9 +304,14 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         result = new LuceneSchoolSearchResult(doc);
         schoolResults.add(result);
 
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
+        getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+
+        searchString = "school";
+
         resetAllMocks();
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, null);
         verifyAllMocks();
 
         Collection actualCityKeywords = (Collection)actualPageHelper.getAdKeywords().get("city");
@@ -324,13 +335,13 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         constraints.put(FieldConstraint.STATE, "CA");
         constraints.put(FieldConstraint.CITY, "san francisco");
+
         City city = new City();
         city.setId(15432);
         city.setName("San Francisco");
-        expect(_geoDao.findCity(State.CA, "san francisco")).andReturn(city);
 
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, city, null);
         verifyAllMocks();
 
         referencePageHelper = new PageHelper(_sessionContext, _request);
@@ -361,7 +372,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         searchString = " hi-tech   toys";
 
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, null);
         verifyAllMocks();
 
         Collection actualQueryKeywords = (Collection)actualPageHelper.getAdKeywords().get("query");
@@ -385,7 +396,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         searchString = " 94105 ";
 
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, null);
         verifyAllMocks();
 
         Collection actualZipcodeKeywords = (Collection)actualPageHelper.getAdKeywords().get("zipcode");
@@ -447,43 +458,32 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetFieldConstraints1() {
-        SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
-        schoolSearchCommand.setState("ca");
-        HttpServletRequest request = getRequest();
-        Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(schoolSearchCommand, request);
+        Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(State.CA, null, null);
 
         assertTrue("fieldConstraints should contain state", fieldConstraints.containsKey(FieldConstraint.STATE));
     }
 
     public void testGetFieldConstraints2() {
-        SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
-        GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/california/alameda/schools");
-        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(request);
-        request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        City city = new City();
+        city.setId(1);
+        city.setName("Alameda");
 
-        Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(schoolSearchCommand, request);
+        Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(State.CA, city, null);
 
         assertTrue("fieldConstraints should contain state", fieldConstraints.containsKey(FieldConstraint.STATE));
         assertTrue("fieldConstraints should contain city", fieldConstraints.containsKey(FieldConstraint.CITY));
     }
 
     public void testGetFieldConstraints3() {
-        SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
-        GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/california/alameda/Alameda-City-Unified-School-District/schools");
-        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(request);
-        request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
-
+        City city = new City();
+        city.setId(1);
+        city.setName("Alameda");
         District district = new District();
         district.setId(1);
+        district.setName("Alameda City Unified School District");
 
-        expect(_districtDao.findDistrictByNameAndCity(State.CA, "Alameda City Unified School District", "alameda")).andReturn(district);
-        replay(_districtDao);
+        Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(State.CA, city, district);
 
-        Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(schoolSearchCommand, request);
-
-        verify(_districtDao);
         assertTrue("fieldConstraints should contain state", fieldConstraints.containsKey(FieldConstraint.STATE));
         assertTrue("fieldConstraints should contain city", fieldConstraints.containsKey(FieldConstraint.CITY));
         assertTrue("fieldConstraints should contain city", fieldConstraints.containsKey(FieldConstraint.DISTRICT_ID));

@@ -191,8 +191,6 @@
                 <col align="center" width="21%" valign="top"/>
             </colgroup>
             <tbody>
-            <!-- we at least need one hidden search result that javascript can clone if we need to display more results later -->
-            <search:schoolSearchResultTemplate school="${schoolSearchResults[0]}"/>
 
             <c:set var="count" value="0"/>
 

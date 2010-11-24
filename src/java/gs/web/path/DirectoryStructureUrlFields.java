@@ -1,5 +1,7 @@
 package gs.web.path;
 
+import gs.data.geo.City;
+import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.school.SchoolType;
 import gs.data.school.LevelCode;
@@ -29,7 +31,9 @@ public class DirectoryStructureUrlFields {
     private String[] _schoolTypesParams = null;
     private LevelCode _levelCode = null;
     private String _schoolName = null;
-    private String _schoolID = null; 
+    private String _schoolID = null;
+    private City _city = null;
+    private District _district = null;
 
     private boolean _hasSchoolsLabel = false;
 
@@ -275,6 +279,22 @@ public class DirectoryStructureUrlFields {
 
     public boolean hasSchoolID() {
         return _schoolID != null;
+    }
+
+    public City getCity() {
+        return _city;
+    }
+
+    public void setCity(City city) {
+        _city = city;
+    }
+
+    public District getDistrict() {
+        return _district;
+    }
+
+    public void setDistrict(District district) {
+        _district = district;
     }
 
     @Override

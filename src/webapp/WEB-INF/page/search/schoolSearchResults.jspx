@@ -38,7 +38,7 @@
 <div id="mainGS" class="col">
 
     <div class="spacer_15"><!-- do not collapse --></div>
-    <div class="title2-333">School results for <span class="title2-d61">&amp;ldquo;${searchString}${schoolSearchResults[0].address.city}&amp;rdquo;</span></div>
+    <div class="title2-333">School results for <span class="title2-d61">&amp;ldquo;${searchString}&amp;rdquo;</span></div>
     <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
     <div class="spacer_10"><!-- do not collapse --></div>
     <!-- nearby cities box -->

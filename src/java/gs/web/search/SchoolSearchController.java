@@ -13,10 +13,12 @@ import gs.data.util.Address;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.AnnotationIntrospector;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
@@ -42,6 +44,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     private DistrictSearchService _districtSearchService;
 
     private StateManager _stateManager;
+
+    private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
 
     public static final String MODEL_SCHOOL_TYPE = "schoolType";
     public static final String MODEL_LEVEL_CODE = "levelCode";
@@ -71,12 +75,30 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         Map<String,Object> model = new HashMap<String,Object>();
-        
+
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
 
-        State state = getStateManager().getState(schoolSearchCommand.getState());
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 
-        Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(schoolSearchCommand, request);
+        State state = null;
+        if (schoolSearchCommand.getState() != null) {
+            try {
+                state = State.fromString(schoolSearchCommand.getState());
+            } catch (IllegalArgumentException iae) {
+                // invalid state
+            }
+        } else if (fields.getState() != null) {
+            state = fields.getState();
+        }
+
+        City city = null;
+        District district = null;
+        if (StringUtils.isBlank(schoolSearchCommand.getSearchString()) && fields != null) {
+            city = fields.getCity();
+            district = fields.getDistrict();
+        }
+
+        Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);
 
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
         String[] schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
@@ -86,6 +108,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             filterGroups.add(filterGroup);
         }
         String[] schoolGradeLevels = schoolSearchCommand.getGradeLevels();
+        LevelCode levelCode = LevelCode.createLevelCode(schoolGradeLevels);
         if (schoolSearchCommand.hasGradeLevels()) {
             FilterGroup filterGroup = new FilterGroup();
             filterGroup.setFieldFilters(getGradeLevelFilters(schoolGradeLevels).toArray(new FieldFilter[0]));
@@ -103,8 +126,9 @@ public class SchoolSearchController extends AbstractCommandController implements
                 schoolSearchCommand.getPageSize()
         );
 
+        List<ICitySearchResult> citySearchResults = null;
         if (schoolSearchCommand.getSearchString() != null) {
-            List<ICitySearchResult> citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state);
+            citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state);
             model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
         }
         //List<IDistrictSearchResult> districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state);
@@ -119,7 +143,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), searchResultsPage.getTotalResults(), model); //TODO: fix
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, schoolSearchCommand.getSearchString(), searchResultsPage.getSearchResults());
+        addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, schoolSearchCommand.getSearchString(), searchResultsPage.getSearchResults(), city, district);
 
         // city id needed for local community module
         SessionContext context = SessionContextUtil.getSessionContext(request);
@@ -130,7 +154,8 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_SEARCH_STRING, schoolSearchCommand.getSearchString());
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
-        model.put(MODEL_REL_CANONICAL, getRelCanonical());
+        model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
+                                     filterGroups, levelCode, schoolSearchCommand.getSearchString()));
 
 
         if (schoolSearchCommand.isJsonFormat()) {
@@ -170,7 +195,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_PAGE_SIZE, pageSize);
     }
 
-    protected void addGamAttributes(HttpServletRequest request, HttpServletResponse response, PageHelper pageHelper, Map<FieldConstraint,String> constraints, List<FilterGroup> filterGroups, String searchString, List<ISchoolSearchResult> schoolResults) {
+    protected void addGamAttributes(HttpServletRequest request, HttpServletResponse response, PageHelper pageHelper,
+                                    Map<FieldConstraint,String> constraints, List<FilterGroup> filterGroups, String searchString,
+                                    List<ISchoolSearchResult> schoolResults,
+                                    City city, District district) {
         if (pageHelper == null || constraints == null || filterGroups == null || schoolResults == null) {
             // search string can be null
             throw new IllegalArgumentException("PageHelper, constraints, filters, and school results must not be null");
@@ -212,16 +240,13 @@ public class SchoolSearchController extends AbstractCommandController implements
             // nothing to do, invalid state or district ID
         }
 
-        if (state != null && districtId != null) {
-            District district = _districtDao.findDistrictById(state, districtId);
-            if (district != null) {
-                pageHelper.addAdKeyword("district_id", constraints.get(FieldConstraint.DISTRICT_ID));
-                pageHelper.addAdKeyword("district_name", district.getName());
-            }
+        if (district != null) {
+            pageHelper.addAdKeyword("district_id", constraints.get(FieldConstraint.DISTRICT_ID));
+            pageHelper.addAdKeyword("district_name", district.getName());
         }
 
         // GS-10448 - search results
-        if (schoolResults != null) {
+        if (StringUtils.isNotBlank(searchString) && schoolResults != null) {
             Set<String> cityNames = new HashSet<String>();
             for (ISchoolSearchResult schoolResult : schoolResults) {
                 Address address = schoolResult.getAddress();
@@ -239,25 +264,22 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         // GS-5786 - city browse, GS-7809 - adsense hints for realtor.com, GS-6971 - city id cookie
         String cityName = constraints.get(FieldConstraint.CITY);
-        if (StringUtils.isNotBlank(cityName) && state != null) {
-            City city = _geoDao.findCity(state, cityName);
-            if (city != null) {
-                // GS-5786 - city browse
-                cityName = WordUtils.capitalize(city.getName());
-                cityName = WordUtils.capitalize(cityName, new char[]{'-'});
-                pageHelper.addAdKeywordMulti("city", cityName);
+        if (city != null) {
+            // GS-5786 - city browse
+            cityName = WordUtils.capitalize(city.getName());
+            cityName = WordUtils.capitalize(cityName, new char[]{'-'});
+            pageHelper.addAdKeywordMulti("city", cityName);
 
-                // GS-7809 - adsense hints for realtor.com
-                StringBuilder adSenseHint = new StringBuilder();
-                adSenseHint.append(cityName.toLowerCase());
-                adSenseHint.append(" ");
-                adSenseHint.append(state.getLongName().toLowerCase());
-                adSenseHint.append(" real estate house homes for sale");
-                pageHelper.addAdSenseHint(adSenseHint.toString());
+            // GS-7809 - adsense hints for realtor.com
+            StringBuilder adSenseHint = new StringBuilder();
+            adSenseHint.append(cityName.toLowerCase());
+            adSenseHint.append(" ");
+            adSenseHint.append(state.getLongName().toLowerCase());
+            adSenseHint.append(" real estate house homes for sale");
+            pageHelper.addAdSenseHint(adSenseHint.toString());
 
-                // GS-6971 - city id cookie
-                PageHelper.setCityIdCookie(request, response, city);
-            }
+            // GS-6971 - city id cookie
+            PageHelper.setCityIdCookie(request, response, city);
         }
 
         // GS-10642 - query, GS-9323 zip code
@@ -280,13 +302,73 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
-    protected String getRelCanonical(School s, State state) {
-        State state2 = state; 
-        s.getName();
-        return null;
-    }
+    // TODO: fixme rel="canonical" not working for city browse with school types, level codes
+    protected String getRelCanonical(HttpServletRequest request, State state, List<ICitySearchResult> citySearchResults, City city, District district,
+                                     List<FilterGroup> filterGroups, LevelCode levelCode, String searchString) {
+        String url = null;
 
-    protected String getRelCanonical() {
+        if (StringUtils.isNotBlank(searchString)) {
+            // GS-10036 - search pages
+            // search string that matches city, e.g. q=alameda&state=CA
+            if (citySearchResults != null) {
+                for (ICitySearchResult cityResult : citySearchResults) {
+                    try {
+                        if (StringUtils.equalsIgnoreCase(searchString, cityResult.getCity())
+                                && StringUtils.equalsIgnoreCase(state.getAbbreviation(), cityResult.getState().toString())) {
+                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, searchString);
+                            url = urlBuilder.asFullUrl(request);
+                        }
+                    } catch (Exception e) {
+                        _log.warn("Error determining city URL for canonical: " + e, e);
+                    }
+                }
+            }
+            // if no valid city is discernible, the result should be canonicalized to the appropriate state home page
+            if (url == null) {
+                try {
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
+                    url = urlBuilder.asFullUrl(request);
+                } catch (Exception e) {
+                    _log.warn("Error determining state URL for canonical: " + e, e);
+                }
+            }
+        } else {
+            // GS-10144, GS-10400 - browse pages
+
+            Set<FieldFilter> filtersSet = new HashSet<FieldFilter>();
+            for (FilterGroup filterGroup : filterGroups) {
+                filtersSet.addAll(Arrays.asList(filterGroup.getFieldFilters()));
+            }
+
+            if (district != null) {
+                // district browse
+                UrlBuilder urlBuilder = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
+                url = urlBuilder.asFullUrl(request) + (levelCode != null ? "?lc=" + levelCode : "");
+            } else if (city != null) {
+                // city browse
+                boolean publicSelected = filtersSet.contains(FieldFilter.SchoolTypeFilter.PUBLIC);
+                boolean charterSelected = filtersSet.contains(FieldFilter.SchoolTypeFilter.CHARTER);
+                boolean privateSelected = filtersSet.contains(FieldFilter.SchoolTypeFilter.PRIVATE);
+
+                HashSet<SchoolType> schoolTypeSet = new HashSet<SchoolType>(1);
+                if (publicSelected && !charterSelected && !privateSelected) {
+                    schoolTypeSet.add(SchoolType.PUBLIC);
+                } else if (!publicSelected && charterSelected && !privateSelected) {
+                    schoolTypeSet.add(SchoolType.CHARTER);
+                } else if (!publicSelected && !charterSelected && privateSelected) {
+                    schoolTypeSet.add(SchoolType.PRIVATE);
+                }
+
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+                        SessionContextUtil.getSessionContext(request).getStateOrDefault(),
+                        city.getName(),
+                        schoolTypeSet, levelCode);
+                url = urlBuilder.asFullUrl(request);
+            }
+        }
+
+        return url;
+    }
 
         // TODO: rel="canonical"
         // GS-10036
@@ -354,41 +436,19 @@ public class SchoolSearchController extends AbstractCommandController implements
         //        <link rel="canonical" href="${myCanonicalUrl}"/>
         //    </c:if>
 
-        return null;
-    }
-
-    protected Map<FieldConstraint,String> getFieldConstraints(SchoolSearchCommand schoolSearchCommand, HttpServletRequest request) {
+    protected Map<FieldConstraint,String> getFieldConstraints(State state, City city, District district) {
         Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
-        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 
-        State state = null;
-        if (schoolSearchCommand.getState() != null) {
-            try {
-                state = State.fromString(schoolSearchCommand.getState());
-            } catch (IllegalArgumentException e) {
-                // invalid state
-            }
-        } else if (fields.getState() != null) {
-            state = fields.getState();
-            fieldConstraints.put(FieldConstraint.STATE, fields.getState().getAbbreviationLowerCase());
-        }
         if (state != null) {
             fieldConstraints.put(FieldConstraint.STATE, state.getAbbreviationLowerCase());
         }
 
-        if (fields != null) {
-            String city = fields.getCityName();
-            if (!StringUtils.isBlank(city)) {
-                fieldConstraints.put(FieldConstraint.CITY, city);
-            }
+        if (city != null) {
+            fieldConstraints.put(FieldConstraint.CITY, city.getName());
+        }
 
-            String districtName = fields.getDistrictName();
-            if (!StringUtils.isBlank(districtName) && state != null && !StringUtils.isBlank(city)) {
-                District district = getDistrictDao().findDistrictByNameAndCity(state, districtName, city);
-                if (district != null) {
-                    fieldConstraints.put(FieldConstraint.DISTRICT_ID, String.valueOf(district.getId()));
-                }
-            }
+        if (district != null) {
+            fieldConstraints.put(FieldConstraint.DISTRICT_ID, String.valueOf(district.getId()));
         }
 
         return fieldConstraints;
