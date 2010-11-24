@@ -68,13 +68,13 @@
     function go() {
         var sort = document.getElementById('sltRatingSort');
         var option = sort.options[sort.selectedIndex].value;
-        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option + '&amp;${param_reviewsby}=' + getReviewsByCsv();
+        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option + '&amp;${param_reviewsby}=' + getReviewsByCsv() + '#revPagination';
     }
     </c:when>
     <c:otherwise>
         function go(box) {
         option = box.options[box.selectedIndex].value;
-        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
+        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option + '#revPagination';
         }        
     </c:otherwise>
     </c:choose>
