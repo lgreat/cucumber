@@ -112,14 +112,14 @@ var compareSchoolsArray = [];
         }
 
         if (queryString.length > 0) {
-            vars = queryString.split("&amp;");
+            vars = queryString.split("&");
         }
 
-        for (var i = 0; i &lt; vars.length; i++) {
+        for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split("=");
             var thisKey = pair[0];
 
-            if (overwrite === true &amp;&amp; thisKey === key) {
+            if (overwrite === true && thisKey === key) {
                 vars[i] = key + "=" + value;
                 put = true;
             }
@@ -130,7 +130,7 @@ var compareSchoolsArray = [];
         }
 
 
-        queryString = "?" + vars.join("&amp;");
+        queryString = "?" + vars.join("&");
         return queryString;
     }
 
@@ -140,10 +140,10 @@ var compareSchoolsArray = [];
         var vars = [];
 
         if (queryString.length > 0) {
-            vars = queryString.split("&amp;");
+            vars = queryString.split("&");
         }
 
-        for (var i = 0; i &lt; vars.length; i++) {
+        for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split("=");
             var thisKey = pair[0];
 
@@ -152,7 +152,7 @@ var compareSchoolsArray = [];
             }
         }
 
-        queryString = "?" + vars.join("&amp;");
+        queryString = "?" + vars.join("&");
         return queryString;
     }
 
@@ -160,7 +160,7 @@ var compareSchoolsArray = [];
         var start = (pageNumber-1) * pageSize;
         var compareSchools = compareSchoolsArray.join(',');
         var queryString = window.location.search;
-        if (compareSchools !== undefined &amp;&amp; compareSchools.length > 0) {
+        if (compareSchools !== undefined && compareSchools.length > 0) {
             queryString = putIntoQueryString(window.location.search, "compareSchools", compareSchools, true);
         }
         queryString = putIntoQueryString(queryString,"start",start, true);

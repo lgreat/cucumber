@@ -5,8 +5,10 @@ import gs.data.search.Indexer;
 public enum FieldSort {
     SCHOOL_NAME_DESCENDING(Indexer.SORTABLE_NAME, true),
     SCHOOL_NAME_ASCENDING(Indexer.SORTABLE_NAME, false),
-    GS_RATING(Indexer.OVERALL_RATING, true),
-    PARENT_RATING(Indexer.PARENT_RATINGS_AVG_QUALITY, true);
+    GS_RATING_DESCENDING(Indexer.OVERALL_RATING, true),
+    GS_RATING_ASCENDING(Indexer.OVERALL_RATING, false),
+    PARENT_RATING_DESCENDING(Indexer.PARENT_RATINGS_AVG_QUALITY, true),
+    PARENT_RATING_ASCENDING(Indexer.PARENT_RATINGS_AVG_QUALITY, false);
 
     private String _field;
     private boolean _descending;
