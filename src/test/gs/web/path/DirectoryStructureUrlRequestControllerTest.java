@@ -74,7 +74,7 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
         verifyMocks(_districtDao, _geoDao);
     }
 
-    public void xtestHandleRequestInternalRedirects() throws Exception {
+    public void testHandleRequestInternalRedirects() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setMethod("GET");
 
