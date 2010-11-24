@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.*;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
     private Searcher _searcher;
     private GSQueryParser _queryParser;
     public static final Logger _log = Logger.getLogger(SchoolSearchServiceImpl.class);
+    private static final String PUNCTUATION_AND_WHITESPACE_PATTERN = "^[\\p{Punct}\\s]*$";
 
     public SchoolSearchServiceImpl() {
         _queryParser = new GSQueryParser();
@@ -72,16 +74,20 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
         }
 
         Hits hits = searchLucene(queryString, fieldConstraints, luceneFilter, luceneSort);
+        List<ISchoolSearchResult> resultList = new ArrayList<ISchoolSearchResult>();
+        int totalResults = 0;
 
-        List<ISchoolSearchResult> resultList = null;
+        if (hits != null) {
+            try {
+                resultList = new SchoolSearchResultsBuilder().build(hits, offset, count);
+            } catch (IOException e) {
+                throw new SearchException("Problem accessing search results.", e);
+            }
 
-        try {
-            resultList = new SchoolSearchResultsBuilder().build(hits, offset, count);
-        } catch (IOException e) {
-            throw new SearchException("Problem accessing search results.", e);
+            totalResults = hits.length();
         }
 
-        SearchResultsPage searchResults = new SearchResultsPage(hits.length(), resultList);
+        SearchResultsPage searchResults = new SearchResultsPage(totalResults, resultList);
 
         return searchResults;
     }
@@ -96,8 +102,9 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
 
         try {
             Query query = buildQuery(queryString, fieldConstraints);
-            System.out.println(query.toString());
-            hits = getSearcher().search(query, luceneSort, null, luceneFilter);
+            if (query != null) {
+                hits = getSearcher().search(query, luceneSort, null, luceneFilter);
+            }
 
         } catch (ParseException e) {
             _log.debug("Parse exception: ", e);
@@ -114,13 +121,27 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
      * @throws Exception
      */
     protected Query buildQuery(String searchString, Map<FieldConstraint, String> fieldConstraints) throws ParseException {
-
-        //Query should be built using the given searchString; however, caller should be able to provide
-        //an actual districtId, city, or state as well, since we cannot currently parse those out of the search string.
-
-        searchString = StringUtils.trimToNull(searchString);
         if (searchString != null) {
-            searchString = searchString.replaceFirst("\\?$", ""); // GS-7244 - trim question marks
+            searchString = StringUtils.trimToNull(searchString);
+            searchString = StringUtils.lowerCase(searchString);
+
+            if (searchString != null && searchString.matches(PUNCTUATION_AND_WHITESPACE_PATTERN)) {
+                return null;//TODO: throw exception instead
+            }
+
+            searchString = padCommasAndNormalizeExtraSpaces(searchString);
+
+            if (searchString != null) {
+                searchString = QueryParser.escape(searchString);
+            }
+
+            //Query should be built using the given searchString; however, caller should be able to provide
+            //an actual districtId, city, or state as well, since we cannot currently parse those out of the search string.
+
+            searchString = StringUtils.trimToNull(searchString);
+            if (searchString != null) {
+                searchString = searchString.replaceFirst("\\?$", ""); // GS-7244 - trim question marks
+            }
         }
 
         // Check for zipcode searches
@@ -145,6 +166,13 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
         }
 
         return mixedQuery;
+    }
+
+    static String padCommasAndNormalizeExtraSpaces(String s) {
+        if (s == null) {
+            return null;
+        }
+        return s.replaceAll(",", ", ").replaceAll("\\s+", " ");
     }
 
     protected ChainedFilter createChainedFilter(List<FilterGroup> filterGroups) {

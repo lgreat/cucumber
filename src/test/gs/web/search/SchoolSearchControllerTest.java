@@ -72,7 +72,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     public void testHandle() throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
-        schoolSearchCommand.setSortBy(FieldSort.GS_RATING.name());
+        schoolSearchCommand.setSortBy(FieldSort.GS_RATING_DESCENDING.name());
         schoolSearchCommand.setState("ca");
         schoolSearchCommand.setPageSize(new Integer(5));
         schoolSearchCommand.setSearchString("alameda");
@@ -88,7 +88,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
 
-        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING), eq(10), eq(5))).andReturn(page);
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(5))).andReturn(page);
         replay(_schoolSearchService);
         BindException errors = new BindException(schoolSearchCommand, "");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
@@ -100,7 +100,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     public void testHandle2() throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
-        schoolSearchCommand.setSortBy(FieldSort.GS_RATING.name());
+        schoolSearchCommand.setSortBy(FieldSort.GS_RATING_DESCENDING.name());
         schoolSearchCommand.setState("ca");
         schoolSearchCommand.setPageSize(new Integer(5));
         schoolSearchCommand.setSearchString("alameda");
@@ -117,7 +117,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
 
-        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING), eq(10), eq(5))).andReturn(page);
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(5))).andReturn(page);
         replay(_schoolSearchService);
         BindException errors = new BindException(schoolSearchCommand, "");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
