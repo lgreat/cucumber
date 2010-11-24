@@ -50,7 +50,7 @@ import java.util.*;
  */
 public class SearchController extends AbstractFormController {
 
-    public static final String BEAN_ID = "/search/search.page";
+    public static final String BEAN_ID = "/search/oldSearch.page";
 
     private Searcher _searcher;
 
