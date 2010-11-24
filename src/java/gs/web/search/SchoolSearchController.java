@@ -100,18 +100,25 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);
 
+        String[] schoolSearchTypes = null;
+        LevelCode levelCode = null;
+
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
-        String[] schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
-        if (schoolSearchCommand.hasSchoolTypes()) {
+        if (StringUtils.isBlank(schoolSearchCommand.getSearchString()) && fields != null) {
+            schoolSearchTypes = fields.getSchoolTypesParams();
+            levelCode = fields.getLevelCode();
+        } else {
+            schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
+            levelCode = LevelCode.createLevelCode(schoolSearchCommand.getGradeLevels());
+        }
+        if (schoolSearchTypes != null && schoolSearchTypes.length > 0) {
             FilterGroup filterGroup = new FilterGroup();
             filterGroup.setFieldFilters(getSchoolTypeFilters(schoolSearchTypes).toArray(new FieldFilter[0]));
             filterGroups.add(filterGroup);
         }
-        String[] schoolGradeLevels = schoolSearchCommand.getGradeLevels();
-        LevelCode levelCode = LevelCode.createLevelCode(schoolGradeLevels);
-        if (schoolSearchCommand.hasGradeLevels()) {
+        if (levelCode != null) {
             FilterGroup filterGroup = new FilterGroup();
-            filterGroup.setFieldFilters(getGradeLevelFilters(schoolGradeLevels).toArray(new FieldFilter[0]));
+            filterGroup.setFieldFilters(getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]));
             filterGroups.add(filterGroup);
         }
 
@@ -492,6 +499,21 @@ public class SchoolSearchController extends AbstractCommandController implements
                     if (filter != null) {
                         filters.add(filter);
                     }
+                }
+            }
+        }
+
+        return filters;
+    }
+
+    protected List<FieldFilter> getGradeLevelFilters(LevelCode levelCode) {
+        List<FieldFilter> filters = new ArrayList<FieldFilter>();
+
+        if (levelCode != null) {
+            for (LevelCode.Level level : levelCode.getIndividualLevelCodes()) {
+                FieldFilter filter = getGradeLevelFilter(level);
+                if (filter != null) {
+                    filters.add(filter);
                 }
             }
         }
