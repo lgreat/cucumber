@@ -59,6 +59,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_REL_CANONICAL = "relCanonical";
     public static final String MODEL_SEARCH_STRING = "searchString";
 
+    public static final int MAX_PAGE_SIZE = 100;
+
     // TODO: Omniture tracking
 
     @Override
