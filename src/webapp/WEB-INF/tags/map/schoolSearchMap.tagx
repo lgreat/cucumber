@@ -27,10 +27,10 @@
     </c:if>
 
     <c:set var="js">
-        <map:searchResultsSchoolToJsMapSchool school="${schools[0]}" jsVariableName="jsCenterMapSchool" useBubbles="${false}"/>
+        <map:searchResultsSchoolToJsMapSchool school="${schools[0]}" jsVariableName="jsCenterMapSchool" useBubbles="${true}"/>
     </c:set>
     <c:set var="js2">
-        <map:searchResultsMapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" start="${start}" count="${count}" useBubbles="${false}"/>
+        <map:searchResultsMapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" start="${start}" count="${count}" useBubbles="${true}"/>
     </c:set>
 
     <script type="text/javascript">

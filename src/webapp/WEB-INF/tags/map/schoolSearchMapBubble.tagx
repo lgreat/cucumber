@@ -12,7 +12,7 @@
         >
 
     <jsp:directive.tag body-content="empty" description="Display the bubble (InfoWindow) for google maps marker."/>
-    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school to display within the bubble"/>
+    <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult" description="The search result to display within the bubble"/>
     <jsp:directive.attribute name="greatSchoolsRating" required="false" description="GreatSchools school rating"/>
     <jsp:directive.attribute name="parentRating" required="false" description="School's parent rating"/>
 
@@ -29,8 +29,8 @@ height += heightMultiplier * 13;-->
         <!--<p>School level is: <c:out value="${school.levelCode}" default="not set"/></p>-->
         <!--<p>Parent rating is: <c:out value="${parentRating}" default="not set"/></p>-->
 
-        <p class="text2"><link:schoolProfileOverview school="${school}"
-                                                     styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverview>
+        <p class="text2"><link:schoolProfileOverviewForPrimitives schoolId="${school.id}" databaseState="${school.databaseState}" name="${school.name}" physicalAddress="${school.address}" levelCode="${school.levelCode}"
+                                                     styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverviewForPrimitives>
         </p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
@@ -38,9 +38,9 @@ height += heightMultiplier * 13;-->
 
             <div class="unit size4of7">
                 <div class="schoolInfo smallText1-333">
-                    <p>${school.physicalAddress.street}</p>
+                    <p>${school.address.street}</p>
 
-                    <p>${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}</p>
+                    <p>${school.address.city}, ${school.address.state} ${school.address.zip}</p>
                     <c:if test="${not empty school.phone}">
                         <p class="schoolPhone">${school.phone}</p>
                     </c:if>
@@ -49,7 +49,7 @@ height += heightMultiplier * 13;-->
 
             <div class="unit size3of7 lastUnit">
                 <div class="schoolRatings">
-                    <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                    <!--<link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">-->
                         <c:choose>
                             <c:when test="${not empty parentRating}">
                                 <!-- do not split this into a separate line; it will break the map -->
@@ -61,7 +61,7 @@ height += heightMultiplier * 13;-->
                                 <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
                             </c:otherwise>
                         </c:choose>
-                    </link:schoolProfileParentReview>
+                    <!--</link:schoolProfileParentReview>-->
                 </div>
             </div>
         </div>
@@ -72,20 +72,20 @@ height += heightMultiplier * 13;-->
                 <div class="typeGrade">
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
-                    <c:otherwise>${gsweb:capitalize(school.schoolType)}, ${school.gradeLevels}</c:otherwise>
+                    <c:otherwise>${gsweb:capitalize(school.schoolType)}, ${school.levelCode}</c:otherwise>
                 </c:choose>
                     </div>
             </div>
             <div class="unit size1of3">
                 <div class="brdlft-solid getDirections brdrt-solid">
-                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.physicalAddress.street}%20${school.physicalAddress.city},%20${school.physicalAddress.state}%20${school.physicalAddress.zip}"
+                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.address.street}%20${school.address.city},%20${school.address.state}%20${school.address.zip}"
                    onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions</a>
                     </div>
             </div>
             <div class="unit size1of3 lastUnit">
                 <div class="homesForSale">
                 <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
-                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
+                <a href="http://www.realtor.com/realestateandhomes-search/${school.address.zip}?gate=gs&amp;amp;source=a28956"
                    onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
                    rel="nofollow">Homes for sale</a>
                 </div>

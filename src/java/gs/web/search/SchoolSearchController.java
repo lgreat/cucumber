@@ -57,6 +57,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_USE_PAGING = "usePaging";
     public static final String MODEL_CITY_ID = "cityId";
     public static final String MODEL_REL_CANONICAL = "relCanonical";
+    public static final String MODEL_SEARCH_STRING = "searchString";
 
     // TODO: Omniture tracking
 
@@ -124,6 +125,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_CITY_ID, context.getCityId());
         }
 
+        model.put(MODEL_SEARCH_STRING, schoolSearchCommand.getSearchString());
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
         model.put(MODEL_REL_CANONICAL, getRelCanonical());

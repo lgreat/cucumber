@@ -27,6 +27,7 @@ GS.search.SchoolSearchResult = function() {
 GS.search.SchoolSearcher = function() {
     this.url = function() {
         var value = window.location.href;
+        value = window.location.protocol + "//" + window.location.host + window.location.pathname;
         return value;
     };
 
@@ -52,7 +53,11 @@ GS.search.SchoolSearcher = function() {
         data["gradeLevels"] = gradeLevels;
         data["schoolTypes"] = schoolTypes;
 
-        jQuery.get(this.url(), data , callback);
+        var queryString = window.location.search;
+        queryString = removeFromQueryString(queryString, "gradeLevels");
+        queryString = removeFromQueryString(queryString, "schoolTypes");
+
+        jQuery.get(this.url() + queryString, data , callback);
     };
 };
 

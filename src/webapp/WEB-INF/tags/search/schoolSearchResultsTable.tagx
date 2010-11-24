@@ -51,7 +51,16 @@
                 <select id="sort-by" name="sortBy">
 
                     <c:choose>
-                        <c:when test="${sort eq 'SCSHOOL_NAME_DESCENDING'}">
+                        <c:when test="${sort eq null}">
+                            <option value="" selected="selected">Relevancy</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="">Relevancy</option>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:choose>
+                        <c:when test="${sort eq 'SCHOOL_NAME_DESCENDING'}">
                             <option value="SCHOOL_NAME_DESCENDING" selected="selected">School name: descending</option>
                         </c:when>
                         <c:otherwise>
@@ -64,7 +73,7 @@
                             <option value="SCHOOL_NAME_ASCENDING" selected="selected">School name: ascending</option>
                         </c:when>
                         <c:otherwise>
-                            <option value="SCHOOL_NAME_ASCENDING">School name: ascending></option>
+                            <option value="SCHOOL_NAME_ASCENDING">School name: ascending</option>
                         </c:otherwise>
                     </c:choose>
 
@@ -206,7 +215,7 @@
                         <c:if test="${loopPageNumber == currentPage}">
                             <c:set var="pagerTabClass" value="pager-tab active"/>
                         </c:if>
-                <span class="${pagerTabClass}" onclick="page(${loopPageNumber});">
+                <span class="${pagerTabClass}" onclick="page(${loopPageNumber},${pageSize});">
                     ${loopPageNumber}
                 </span>
                     </c:forEach>

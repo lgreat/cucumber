@@ -385,27 +385,6 @@
         </property>
     </bean>
 
-    <!-- Search begin -->
-    <bean name="/search/search.page"
-          class="gs.web.search.SearchController"
-          autowire="byName" lazy-init="true">
-        <constructor-arg>
-            <ref bean="searcher"/>
-        </constructor-arg>
-        <property name="sessionForm">
-            <value>false</value>
-        </property>
-        <property name="commandName">
-            <value>searchCommand</value>
-        </property>
-        <property name="commandClass">
-            <value>gs.data.search.SearchCommand</value>
-        </property>
-        <property name="searcher">
-            <ref bean="searcher"/>
-        </property>
-    </bean>
-
     <!-- These beans control access to searchmanager.page -->
     <bean id="loginValidator" class="gs.web.status.LoginValidator" lazy-init="true"/>
     <bean name="/status/login.page"
@@ -442,7 +421,7 @@
         </property>
     </bean>
 
-    <bean name="/search/schoolSearch.page"
+    <bean name="/search/search.page"
           class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
         <property name="commandName">
             <value>schoolSearchCommand</value>
@@ -2268,7 +2247,7 @@
                 <!-- TODO-10701 comment the following to use OLD search -->
                 <!--ref bean="/search/schoolSearch.page"/-->
 
-                <ref bean="/search/schoolSearch.page"/>
+                <ref bean="/search/search.page"/>
                 <ref bean="/school/overview.page"/>
                 <ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>
