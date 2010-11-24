@@ -49,6 +49,7 @@
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
     
+    <!-- Begin CSS files.  All CSS should be above JS files. -->
     <c:if test="${!requestScope.pageHelper.adFree}">
         <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
@@ -58,7 +59,25 @@
         <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.209' or pageContext.request.serverName eq '172.18.1.149' or pageContext.request.serverName eq '172.18.1.129' or pageContext.request.serverName eq '127.0.0.1') and empty param.compressedScripts}">
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+        </c:when>
+        <c:otherwise>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+        </c:otherwise>
+    </c:choose>
 
+    <gsml:url var="gs2010_IEstyles" value="/res/css/gs2010_IEstyles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+    <![CDATA[
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="${gs2010_IEstyles}" type="text/css" />
+    <![endif]-->
+    ]]>
+
+    ${requestScope.pageHelper.headCssElements}
+
+    <!-- Begin JS files.  No CSS below this point. -->
+    <c:choose>
+        <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.209' or pageContext.request.serverName eq '172.18.1.149' or pageContext.request.serverName eq '172.18.1.129' or pageContext.request.serverName eq '127.0.0.1') and empty param.compressedScripts}">
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.3.2.min.js" allowCdn="true"/>
             <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.7.2.min.js" allowCdn="true"/>
@@ -81,20 +100,10 @@
             <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
-
             <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
         </c:otherwise>
     </c:choose>
-
-    <gsml:url var="gs2010_IEstyles" value="/res/css/gs2010_IEstyles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-    <![CDATA[
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="${gs2010_IEstyles}" type="text/css" />
-    <![endif]-->
-    ]]>
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -116,7 +125,7 @@
     <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
     <!-- This tag includes ad_popunder.js -->
 
-    ${requestScope.pageHelper.headElements}
+    ${requestScope.pageHelper.headElementsWithoutCss}
 
     <decorator:head/>
 

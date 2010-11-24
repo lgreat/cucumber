@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.98 2010/10/28 21:17:01 yfan Exp $
+ * $Id: PageHelper.java,v 1.99 2010/11/24 22:44:34 droy Exp $
  */
 
 package gs.web.util;
@@ -689,15 +689,57 @@ public class PageHelper {
                 || UrlUtil.isQAServer(_sessionContext.getHostName());
     }
 
+    public String getHeadCssElements() {
+        StringBuffer sb = new StringBuffer();
+        if (_cssFiles != null && _cssMediaMap != null) {
+            for (String _cssFile : _cssFiles) {
+                String src = _cssFile;
+                String media = _cssMediaMap.get(src);
+
+                src = StringUtils.replace(src, "&", "&amp;");
+                if (media == null) {
+                    media = "";
+                    if (StringUtils.containsIgnoreCase(src, "screen")) {
+                        media = " media=\"screen\"";
+                    } else if (StringUtils.containsIgnoreCase(src, "print")) {
+                        media = " media=\"print\"";
+                    }
+                } else {
+                    media = " media=\"" + media + "\"";
+                }
+                sb.append("<link rel=\"stylesheet\" type=\"text/css\"")
+                        .append(media)
+                        .append(" href=\"")
+                        .append(src)
+                        .append("\"></link>");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public String getHeadElements() {
+        return getHeadElements(true);
+    }
+
+    public String getHeadElementsWithoutCss() {
+        return getHeadElements(false);
+    }
+
     /**
      * Examines all the javascript and css includes and dumps out the appropriate header code. If no code is necessary,
      * and empty string is returned.
      *
+     * @param includeCss True to include css tags, false to skip them
      * @return non-null String.
      */
-    public String getHeadElements() {
+    public String getHeadElements(boolean includeCss) {
         if (_javascriptFiles != null || _cssFiles != null || _cssMediaMap != null) {
             StringBuffer sb = new StringBuffer();
+            if (includeCss) {
+                sb.append(getHeadCssElements());
+            }
+
             if (_javascriptFiles != null) {
                 for (String _javascriptFile : _javascriptFiles) {
                     String src = _javascriptFile;
@@ -705,33 +747,14 @@ public class PageHelper {
                     sb.append("<script type=\"text/javascript\" src=\"").append(src).append("\"></script>");
                 }
             }
-            if (_cssFiles != null && _cssMediaMap != null) {
-                for (String _cssFile : _cssFiles) {
-                    String src = _cssFile;
-                    String media = _cssMediaMap.get(src);
-
-                    src = StringUtils.replace(src, "&", "&amp;");
-                    if (media == null) {
-                        media = "";
-                        if (StringUtils.containsIgnoreCase(src, "screen")) {
-                            media = " media=\"screen\"";
-                        } else if (StringUtils.containsIgnoreCase(src, "print")) {
-                            media = " media=\"print\"";
-                        }
-                    } else {
-                        media = " media=\"" + media + "\"";
-                    }
-                    sb.append("<link rel=\"stylesheet\" type=\"text/css\"")
-                            .append(media)
-                            .append(" href=\"")
-                            .append(src)
-                            .append("\"></link>");
-                }
-            }
             if (_metaProperties != null) {
                 //sb.append("<!-- facebook ignores comments");
                 for (Map.Entry entry : _metaProperties.entrySet()) {
-                    sb.append("<meta property=\"" + entry.getKey() + "\" content=\"" + entry.getValue() + "\" />");
+                    sb.append("<meta property=\"");
+                    sb.append(entry.getKey());
+                    sb.append("\" content=\"");
+                    sb.append(entry.getValue());
+                    sb.append("\" />");
                 }
                 //sb.append("-->");
             }

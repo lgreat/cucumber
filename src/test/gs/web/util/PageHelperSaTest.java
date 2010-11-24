@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.54 2010/08/03 23:32:39 ssprouse Exp $
+ * $Id: PageHelperSaTest.java,v 1.55 2010/11/24 22:44:34 droy Exp $
  */
 
 package gs.web.util;
@@ -235,33 +235,33 @@ public class PageHelperSaTest extends TestCase {
                 pageHelper.getHeadElements());
 
         PageHelper.addExternalCss(_request, "/res/css/special.css", null);
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>",
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
+                "<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
                 pageHelper.getHeadElements());
 
         //add a duplicate, should not get multiple
         PageHelper.addExternalCss(_request, "/res/css/special.css", null);
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>",
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
+                "<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
                 pageHelper.getHeadElements());
 
         //add a print css
         PageHelper.addExternalCss(_request, "/res/pRint-sifr.css", null);
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css?v=8.3\"></link>",
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css?v=8.3\"></link>" +
+                "<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
                 pageHelper.getHeadElements());
 
         //add a screen css
         PageHelper.addExternalCss(_request, "/res/screen-sifr.css", null);
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
-                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
+        assertEquals("<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css?v=8.3\"></link>" +
-                "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/res/screen-sifr.css?v=8.3\"></link>",
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/res/screen-sifr.css?v=8.3\"></link>" +
+                "<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
                 pageHelper.getHeadElements());
 
 
