@@ -118,62 +118,94 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // return new ArrayList<List<CensusStruct>>(rowLabelToCellList.values());
 //    }
 
-       protected Map<String, CensusStruct[]> populateStructs
+    /**
+     * 4) Populate return struct
+     */
+    // TODO: Verify that schoolCensusValue.valueFloat is the only value we're interested in, vs. valueText
+    protected Map<String, CensusStruct[]> populateStructs
             (List<School> schools,
              List<SchoolCensusValue> schoolCensusValues,
              Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap,
              Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap)
     {
-        Map<String, CensusStruct[]> rval = new TreeMap<String, CensusStruct[]>();
+        // map of row label to list of cells (school values)
+        Map<String, CensusStruct[]> rval = new HashMap<String, CensusStruct[]>();
         if (schools == null || schoolCensusValues == null || schools.isEmpty() || schoolCensusValues.isEmpty()) {
             return rval; // early exit
         }
-        Map<Integer, Integer> schoolIdToIndex = new HashMap();
+        // construct map of school to column for later ordering of cells
+        Map<Integer, Integer> schoolIdToIndex = new HashMap<Integer, Integer>();
         int index = 1;
         for (School school : schools) {
             schoolIdToIndex.put(school.getId(), index++);
         }
 
-        // 4) Populate return struct
         // foreach schoolCensusValue: schoolCensusValues {
         for(SchoolCensusValue schoolCensusValue : schoolCensusValues){
+            SchoolType schoolTypeOverride = censusDataSetToSchoolTypeMap.get(schoolCensusValue.getDataSet());
+            //  if (dataSet's schoolType is defined and not equal to school's type) {
+            if (schoolTypeOverride != null &&
+                    !schoolTypeOverride.equals(schoolCensusValue.getSchool().getType())) {
+                System.out.println("School already has value, not overriding");
+                // do nothing!
+                continue;
+            }
+            // look up row and value label in censusDataSetToLabelMap
             CompareLabel label = censusDataSetToRowLabelMap.get(schoolCensusValue.getDataSet());
+            // get array of cells from rowLabelToCellList map
             CensusStruct[] cells = rval.get(label.getRowLabel());
+            // if null, create new cell list
             if (cells == null) {
+                // create static sized array with schools.size()+1 elements
                 cells = new CensusStruct[(schools.size() + 1)];
+                // add header cell using row label to position 0
                 CensusStruct headerCell = new CensusStruct();
                 headerCell.setIsHeaderCell(true);
                 headerCell.setHeaderText(label.getRowLabel());
                 cells[0]=headerCell;
+                // add list to rowLabelToCellList
                 rval.put(label.getRowLabel(), cells);
             }
-            CensusStruct cell = new CensusStruct();
+            int cellIndex = schoolIdToIndex.get(schoolCensusValue.getSchool().getId());
+            CensusStruct cell = cells[cellIndex];
+            //  Check list for existing cell in position -- if exists and dataSet's schoolType == null, continue
+            //  This prevents a default value from overwriting a schoolType value
+            if (cell != null && schoolTypeOverride == null) {
+                continue;
+            }
+            if (cell == null) {
+                cell = new CensusStruct();
+            }
             if (label.getBreakdownLabel() != null) {
+                // TODO: How to handle breakdowns?
+                // Initial proposed logic:
+                // set cell.isSimpleCell = false
+                // if cell.breakdownMap is null
+                //   instantiate new map
+                // cell.breakdownMap.put(label.breakdownLabel, schoolCensusValue.valueFloat)
 
+                // Problem: This puts them in out-of-order
+                // Question: Why is cell.breakdownMap a map anyway?
+                // Seems like we want it to be an ordered list.
+                // Could it instead be an ordered list of key/value pairs (e.g. gs.data.util.NameValuePair)?
+                // If it were defined as a List<NameValuePair>, then a sort would be trivial based
+                // on the NameValuePair's .value.
+                // In that case, the modified logic would be:
+                // set cell.isSimpleCell = false
+                // if cell.breakdownList is null
+                //   instantiate new list
+                // cell.breakdownList.add(new NameValuePair(label.breakdownLabel, schoolCensusValue.valueFloat))
+                // at some point after this loop, we'd loop through each cell in every row, and if it is
+                // a breakdown cell call Collections.sort(cell.breakdownList, Comparator<NameValuePair>)
             } else {
+                // populate cell with value and label (from censusDataSetToLabel map)
+                // TODO: Does how we format the value depend on schoolCensusValue.dataSet.dataType.valueType?
                 cell.setValue(String.valueOf(Math.round(schoolCensusValue.getValueFloat())));
                 cell.setIsSimpleCell(true);
             }
-            cells[schoolIdToIndex.get(schoolCensusValue.getSchool().getId())]=cell;
+            // add cell to cell list in position from schoolIdToIndex
+            cells[cellIndex]=cell;
         }
-
-
-        //  if (dataSet's schoolType is defined and not equal to school's type) {
-        //      do nothing!
-        //  } else {
-        //      look up row and value label in censusDataSetToCompareLabelMap
-        //      get list of cells from rowLabelToCellList map
-        //      if null, create new cell list
-        //          create static sized list with schools.size()+1 elements
-        //          add header cell using row label to position 0
-        //          add list to rowLabelToCellList
-        //      Check list for existing cell in position -- if exists and dataSet's schoolType == null, continue
-        //          This prevents a default value from overwriting a schoolType value
-        //      How to handle breakdowns?
-        //      populate cell with value and label (from censusDataSetToLabel map)
-        //      add cell to cell list in position from schoolIdToIndex
-        //  }
-        // }
 
         return rval;
     }

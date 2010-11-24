@@ -5,10 +5,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.census.*;
 import gs.web.BaseControllerTestCase;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.easymock.EasyMock.*;
 import static gs.web.compare.AbstractCompareSchoolController.MODEL_TAB;
@@ -63,7 +60,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(CompareStudentTeacherController.TAB_NAME, model.get(MODEL_TAB));
     }
 
-    public void testPopulateStructs() {
+    public void testPopulateStructsEmpty() {
         List<School> schools = new ArrayList<School>();
         List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
@@ -82,66 +79,147 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertTrue("Expect empty map", rval.isEmpty());
 
         schoolCensusValues.clear();
-        School school1 = getSchoolWithId(1);
+        School school1 = getSchool(1);
         schools.add(school1);
         rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
         assertNotNull("Expect empty map", rval);
         assertTrue("Expect empty map", rval.isEmpty());
 
-        //add one school and assert the cells.
-        censusValue1 = new SchoolCensusValue();
-        censusValue1.setSchool(school1);
+    }
+
+    public void testPopulateStructsSimple() {
+        List<School> schools = new ArrayList<School>();
+        List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
+        Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+        Map<CensusDataSet, CompareStudentTeacherController.CompareLabel> censusDataSetToRowLabelMap =
+                new HashMap<CensusDataSet, CompareStudentTeacherController.CompareLabel>();
+        Map<String, CensusStruct[]> rval;
+        SchoolCensusValue censusValue1;
         CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2009);
         CompareStudentTeacherController.CompareLabel label= new CompareStudentTeacherController.CompareLabel();
         label.setRowLabel("Average Salary");
         censusDataSetToRowLabelMap.put(censusDataSet,label);
-        censusValue1.setDataSet(censusDataSet);
-        censusValue1.setValueFloat(40000F);
+
+        //add one school and assert the cells.
+        School school1 = getSchool(1);
+        schools.add(school1);
+        censusValue1 = getSchoolCensusValue(school1, censusDataSet, 40000);
         schoolCensusValues.add(censusValue1);
         rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
         assertEquals(2,rval.get("Average Salary").length);
-        CensusStruct firstCell = rval.get("Average Salary")[0];
-        assertTrue(firstCell.getIsHeaderCell());
-        assertEquals("Average Salary",firstCell.getHeaderText());
-        CensusStruct secondCell = rval.get("Average Salary")[1];
-        assertFalse(secondCell.getIsHeaderCell());
-        assertTrue(secondCell.getIsSimpleCell());
-        assertEquals("40000",secondCell.getValue());
+        assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
 
         //add two schools and assert the order of the cells.
-        SchoolCensusValue censusValue2 = new SchoolCensusValue();
-        School school2 = getSchoolWithId(2);
+        School school2 = getSchool(2);
         schools.add(school2);
-        censusValue2.setSchool(school2);
-        censusValue2.setDataSet(censusDataSet);
-        censusValue2.setValueFloat(60000F);
+        SchoolCensusValue censusValue2 = getSchoolCensusValue(school2, censusDataSet, 60000);
         schoolCensusValues.add(censusValue2);
         rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
         assertEquals(3,rval.get("Average Salary").length);
-        firstCell = rval.get("Average Salary")[0];
-        assertTrue(firstCell.getIsHeaderCell());
-        secondCell = rval.get("Average Salary")[1];
-        assertFalse(secondCell.getIsHeaderCell());
-        assertTrue(secondCell.getIsSimpleCell());
-        assertEquals("40000",secondCell.getValue());
-        CensusStruct thirdCell = rval.get("Average Salary")[2];
-        assertFalse(thirdCell.getIsHeaderCell());
-        assertTrue(thirdCell.getIsSimpleCell());
-        assertEquals("60000",thirdCell.getValue());
+        assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
+        assertSimpleCell(rval.get("Average Salary")[2], "60000");
+
     }
 
-    public School getSchoolWithId(int Id) {
+    public void testPopulateStructsRespectsSchoolType() {
+        // test that schools are assigned values only if the compare config doesn't define the value as
+        // belonging to a different school type
+        List<School> schools = new ArrayList<School>();
+        List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
+        Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+        Map<CensusDataSet, CompareStudentTeacherController.CompareLabel> censusDataSetToRowLabelMap =
+                new HashMap<CensusDataSet, CompareStudentTeacherController.CompareLabel>();
+        Map<String, CensusStruct[]> rval;
+        School school1 = getSchool(1, SchoolType.PUBLIC);
+        schools.add(school1);
+        School school2 = getSchool(2, SchoolType.PRIVATE);
+        schools.add(school2);
+
+        CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2009);
+        censusDataSetToSchoolTypeMap.put(censusDataSet, SchoolType.PUBLIC);
+        CensusDataSet censusDataSet2 = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2008);
+        CompareStudentTeacherController.CompareLabel label2 = new CompareStudentTeacherController.CompareLabel();
+        label2.setRowLabel("Average Salary");
+        censusDataSetToRowLabelMap.put(censusDataSet2,label2);
+        CompareStudentTeacherController.CompareLabel label= new CompareStudentTeacherController.CompareLabel();
+        label.setRowLabel("Average Salary");
+        censusDataSetToRowLabelMap.put(censusDataSet,label);
+
+        SchoolCensusValue censusValue1 = getSchoolCensusValue(school1, censusDataSet, 40000);
+        schoolCensusValues.add(censusValue1);
+
+        // test that a census data set with a school type will only apply to schools of that type
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(3,rval.get("Average Salary").length);
+        assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
+        assertNull("Expect third cell to be null as its school type has no data.", rval.get("Average Salary")[2]);
+
+        // this census data set has values for all schools
+        // test that the public data set overrides this one for school1
+        SchoolCensusValue censusValue3 = getSchoolCensusValue(school1, censusDataSet2, 70000);
+        schoolCensusValues.add(censusValue3);
+        SchoolCensusValue censusValue4 = getSchoolCensusValue(school2, censusDataSet2, 80000);
+        schoolCensusValues.add(censusValue4);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(3,rval.get("Average Salary").length);
+        assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
+        assertSimpleCell(rval.get("Average Salary")[2], "80000");
+
+        // try in different order to double check
+        Collections.reverse(schoolCensusValues);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(3,rval.get("Average Salary").length);
+        assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
+        assertSimpleCell(rval.get("Average Salary")[2], "80000");
+    }
+
+    private void assertHeaderCell(CensusStruct cell, String headerText) {
+        assertNotNull(cell);
+        assertTrue(cell.getIsHeaderCell());
+        assertEquals(headerText, cell.getHeaderText());
+    }
+
+    private void assertSimpleCell(CensusStruct cell, String cellValue) {
+        assertNotNull(cell);
+        assertTrue(cell.getIsSimpleCell());
+        assertFalse(cell.getIsHeaderCell());
+        assertEquals(cellValue, cell.getValue());
+    }
+
+    private School getSchool(int id) {
+        return getSchool(id, SchoolType.PUBLIC);
+    }
+
+    private School getSchool(int id, SchoolType schoolType) {
         School school = new School();
-        school.setId(Id);
+        school.setId(id);
+        school.setType(schoolType);
         return school;
-
     }
 
-
+    private SchoolCensusValue getSchoolCensusValue(School school, CensusDataSet dataSet, float value) {
+        SchoolCensusValue rval = new SchoolCensusValue(school, dataSet);
+        rval.setValueFloat(value);
+        return rval;
+    }
 }
