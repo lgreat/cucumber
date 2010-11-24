@@ -1,6 +1,7 @@
 package gs.web.compare;
 
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.school.census.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
             struct.setEthnicities(ethnicities);
         }
+
     }
 
 //    public List<List<CensusStruct>> getSchoolCensusData(State state, List<School> schools, String tab) {
@@ -116,6 +118,66 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // return new ArrayList<List<CensusStruct>>(rowLabelToCellList.values());
 //    }
 
+       protected Map<String, CensusStruct[]> populateStructs
+            (List<School> schools,
+             List<SchoolCensusValue> schoolCensusValues,
+             Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap,
+             Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap)
+    {
+        Map<String, CensusStruct[]> rval = new TreeMap<String, CensusStruct[]>();
+        if (schools == null || schoolCensusValues == null || schools.isEmpty() || schoolCensusValues.isEmpty()) {
+            return rval; // early exit
+        }
+        Map<Integer, Integer> schoolIdToIndex = new HashMap();
+        int index = 1;
+        for (School school : schools) {
+            schoolIdToIndex.put(school.getId(), index++);
+        }
+
+        // 4) Populate return struct
+        // foreach schoolCensusValue: schoolCensusValues {
+        for(SchoolCensusValue schoolCensusValue : schoolCensusValues){
+            CompareLabel label = censusDataSetToRowLabelMap.get(schoolCensusValue.getDataSet());
+            CensusStruct[] cells = rval.get(label.getRowLabel());
+            if (cells == null) {
+                cells = new CensusStruct[(schools.size() + 1)];
+                CensusStruct headerCell = new CensusStruct();
+                headerCell.setIsHeaderCell(true);
+                headerCell.setHeaderText(label.getRowLabel());
+                cells[0]=headerCell;
+                rval.put(label.getRowLabel(), cells);
+            }
+            CensusStruct cell = new CensusStruct();
+            if (label.getBreakdownLabel() != null) {
+
+            } else {
+                cell.setValue(String.valueOf(Math.round(schoolCensusValue.getValueFloat())));
+                cell.setIsSimpleCell(true);
+            }
+            cells[schoolIdToIndex.get(schoolCensusValue.getSchool().getId())]=cell;
+        }
+
+
+        //  if (dataSet's schoolType is defined and not equal to school's type) {
+        //      do nothing!
+        //  } else {
+        //      look up row and value label in censusDataSetToCompareLabelMap
+        //      get list of cells from rowLabelToCellList map
+        //      if null, create new cell list
+        //          create static sized list with schools.size()+1 elements
+        //          add header cell using row label to position 0
+        //          add list to rowLabelToCellList
+        //      Check list for existing cell in position -- if exists and dataSet's schoolType == null, continue
+        //          This prevents a default value from overwriting a schoolType value
+        //      How to handle breakdowns?
+        //      populate cell with value and label (from censusDataSetToLabel map)
+        //      add cell to cell list in position from schoolIdToIndex
+        //  }
+        // }
+
+        return rval;
+    }
+
 
     @Override
     public String getSuccessView() {
@@ -149,5 +211,26 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
     public void setCensusInfo(ICensusInfo censusInfo) {
         _censusInfo = censusInfo;
+    }
+    
+    protected static class CompareLabel{
+        private String rowLabel;
+        private String breakdownLabel;
+
+        public String getRowLabel() {
+            return rowLabel;
+        }
+
+        public void setRowLabel(String rowLabel) {
+            this.rowLabel = rowLabel;
+        }
+
+        public String getBreakdownLabel() {
+            return breakdownLabel;
+        }
+
+        public void setBreakdownLabel(String breakdownLabel) {
+            this.breakdownLabel = breakdownLabel;
+        }
     }
 }
