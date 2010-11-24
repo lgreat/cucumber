@@ -55,49 +55,29 @@
         <c:set var="anonymous" value="false"/>
     </c:if>
 
+    <c:set var="avatarUrl" value="stock/default-${validAvatarSize}.jpg"/>
+    <c:set var="avatarVersion" value=""/>
     <c:choose>
-        <c:when test="${useNewCommunity}">
-            <c:set var="avatarUrl" value="stock/default-${validAvatarSize}.jpg"/>
-            <c:set var="avatarVersion" value=""/>
-            <c:choose>
-                <c:when test="${anonymous == true}">
-                    <!-- Do nothing, use the default which has already been set -->
-                </c:when>
-                <c:when test="${user.userProfile.avatarType eq 'custom'}">
-                    <c:set var="avatarUrl" value="${avatarPath}${avatarName}"/>
-                    <c:set var="avatarVersion" value="?v=${user.userProfile.avatarVersion}"/>
-                </c:when>
-                <!-- TODO gsweb tag to validate stock photos -->
-                <c:when test="${user.userProfile.avatarType eq 'stk-sunflower' or
-                                user.userProfile.avatarType eq 'stk-cat' or
-                                user.userProfile.avatarType eq 'stk-dog' or
-                                user.userProfile.avatarType eq 'stk-dandelion' or
-                                user.userProfile.avatarType eq 'stk-palm'}">
-                    <c:set var="avatarUrl" value="stock/${user.userProfile.avatarType}-${validAvatarSize}.jpg"/>
-                </c:when>
-            </c:choose>
-
-            <gsml:img src="${avatarUrlPrefix}${avatarUrl}${avatarVersion}"
-                      alt="${alt}" width="${width}" height="${height}"
-                      styleClass="${cssClass}" style="${cssStyle}"
-                      id="${cssId}"/>
+        <c:when test="${anonymous == true}">
+            <!-- Do nothing, use the default which has already been set -->
         </c:when>
-        <c:otherwise>
-            <c:choose>
-                <c:when test="${anonymous == true}">
-                    <gsml:img src="http://${communityHost}/avatar?id=1&amp;width=${width}&amp;height=${height}"
-                              alt="${alt}" width="${width}" height="${height}"
-                              styleClass="${cssClass}" style="${cssStyle}"
-                              id="${cssId}"/>
-                </c:when>
-                <c:otherwise>
-                    <gsml:img src="http://${communityHost}/avatar?id=${user.id}&amp;width=${width}&amp;height=${height}"
-                              alt="${alt}" width="${width}" height="${height}"
-                              styleClass="${cssClass}" style="${cssStyle}"
-                              id="${cssId}"/>
-                </c:otherwise>
-            </c:choose>
-        </c:otherwise>
+        <c:when test="${user.userProfile.avatarType eq 'custom'}">
+            <c:set var="avatarUrl" value="${avatarPath}${avatarName}"/>
+            <c:set var="avatarVersion" value="?v=${user.userProfile.avatarVersion}"/>
+        </c:when>
+        <!-- TODO gsweb tag to validate stock photos -->
+        <c:when test="${user.userProfile.avatarType eq 'stk-sunflower' or
+                        user.userProfile.avatarType eq 'stk-cat' or
+                        user.userProfile.avatarType eq 'stk-dog' or
+                        user.userProfile.avatarType eq 'stk-dandelion' or
+                        user.userProfile.avatarType eq 'stk-palm'}">
+            <c:set var="avatarUrl" value="stock/${user.userProfile.avatarType}-${validAvatarSize}.jpg"/>
+        </c:when>
     </c:choose>
+
+    <gsml:img src="${avatarUrlPrefix}${avatarUrl}${avatarVersion}"
+              alt="${alt}" width="${width}" height="${height}"
+              styleClass="${cssClass}" style="${cssStyle}"
+              id="${cssId}"/>
 
 </jsp:root>
