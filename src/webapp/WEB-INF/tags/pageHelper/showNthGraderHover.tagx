@@ -11,7 +11,7 @@
     <pageHelper:externalJavascript file="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"/>
     <pageHelper:externalJavascript file="/res/js/yahooRegistrationHover.js"/>
 
-    <!-- See standardDecorator.jspx -->
+    <!-- See standardDecorator2010.jspx -->
     <jsp:scriptlet>
         gs.web.util.PageHelper.addNthGraderHover(request);
     </jsp:scriptlet>
