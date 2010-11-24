@@ -13,7 +13,7 @@
 
     <div class="mod dcNCLB" id="dcNCLB_district">
         <div class="mod_hd">
-            <h3>2008-2009 NCLB Report Cards</h3>
+            <h3>${requestScope.context.dcNclbYearRange} NCLB Report Cards</h3>
         </div>
 
         <div class="mod_bd">

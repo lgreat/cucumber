@@ -26,7 +26,7 @@
     <!-- DONE-9899 -->
     <div id="dcNCLB_school" class="mod">
         <div class="mod_hd gradient-1">
-            <h3>2008-2009 NCLB Report Cards</h3>
+            <h3>${requestScope.context.dcNclbYearRange} NCLB Report Cards</h3>
         </div>
         <div class="mod_bd">
             <ul class="text3">

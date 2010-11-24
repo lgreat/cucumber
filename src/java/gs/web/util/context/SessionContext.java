@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.43 2010/10/12 23:25:34 ssprouse Exp $
+ * $Id: SessionContext.java,v 1.44 2010/11/24 22:11:59 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -271,6 +271,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public boolean isShowDcNclbAllSchoolLinks() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.SHOW_DC_NCLB_ALL_SCHOOL_LINKS_KEY, "false"));
+    }
+
+    public String getDcNclbYearRange() {
+        return _propertyDao.getProperty(IPropertyDao.DC_NCLB_YEAR_RANGE_KEY, "");
     }
 
     public boolean isShowReviewsPageRedesign() {
