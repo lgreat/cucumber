@@ -6,12 +6,17 @@
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.attribute name="address" required="true" type="gs.data.util.Address"/>
     <jsp:directive.attribute name="customLinkSuffix" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"/>
 
     <jsp:scriptlet>
         SessionContext context = SessionContextUtil.getSessionContext(request);
         request.setAttribute("isFramed", context.isFramed());
         request.setAttribute("isCobranded", context.isCobranded());
     </jsp:scriptlet>
+
+    <c:if test="${styleClass eq null}">
+        <c:set var="styleClass" value="sprite house"/>
+    </c:if>
 
     <c:if test="${not isFramed or not isCobranded}">
         <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelink"/>
@@ -24,7 +29,7 @@
         </c:if>
 
         <a href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;source=a28956" onclick="${onclick}" target="_blank" rel="nofollow">
-            <span class="sprite house"><!-- icon --></span>&amp;nbsp;<jsp:doBody/>
+            <span class="${styleClass}"><!-- icon --></span>&amp;nbsp;<jsp:doBody/>
         </a>
     </c:if>
 </jsp:root>

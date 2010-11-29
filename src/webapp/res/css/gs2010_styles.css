@@ -653,7 +653,7 @@ body.cobranded #pageGS {
 }
 
 #Community_Ad_300x50 { /* GS-10357 */
-    
+
 }
 
 /*#google_ads_div_School_Profile_Page_Overview_CustomSponsor_407x65 {
@@ -1650,7 +1650,7 @@ body.ie6 .clearfix {
     background: -moz-linear-gradient(top, #ffffff, #ebebeb); /* FF3.6 */
     background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ffffff),color-stop(1, #ebebeb)); /* Saf4+, Chrome */
     -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#ebebeb')"; /* IE8 */
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', endColorStr='#ebebeb'); /* IE6,IE7 */    
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', endColorStr='#ebebeb'); /* IE6,IE7 */
 }
 
 /* =4a- home page carousel
@@ -3470,7 +3470,7 @@ body.nocol  #moreGrades_SCPP {
     left: 0;
     top: 0;
     display: inline;
-    
+
 }
 #moreGrades.show, #manageNewsletters #moreGrades.show, #moreGrades_SCPP.show {
     left: -1px;
@@ -4397,7 +4397,7 @@ margin:10px 0 14px 20px;
     /*height:172px;*/
     background: #f9eccd;
     padding: 15px;
-    overflow: hidden;    
+    overflow: hidden;
 }
 
 #userInfo div{
@@ -4601,7 +4601,7 @@ margin:10px 0 14px 20px;
 #manageNewsletters .btstip .prompt {
     float: left;
     width: 110px;
-    padding-left: 17px; 
+    padding-left: 17px;
 }
 
 #manageNewsletters .btstip .versions {
@@ -5039,7 +5039,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 }
 
 #google_ads_div_School_Profile_Page_Overview_CustomSponsor_407x65 {
-    padding: 0 0 12px 0; 
+    padding: 0 0 12px 0;
 }
 
 /* =4k-1.1.0 school info window (Google Map bubble)
@@ -5354,7 +5354,7 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
 }
 
 #schoolChoicePackPromo-wide .privacy_terms_label{
-    
+
 }
 
 #privacy_terms_checkbox{
@@ -5835,7 +5835,7 @@ body.ie8 #reviewOverallRating {
 }
 
 #reviewOverallRating {
-    
+
 }
 
 #reviewColumn2 {
@@ -7900,7 +7900,7 @@ Extends button-1 by changing:
 
     font:           bold 14px/23px Arial, Helvetica, sans-serif;
                     normal 8px/8px Arial, Helvetica, sans-serif;
-                    
+
     line-height:    20px
                     12px;
 */
@@ -10122,7 +10122,7 @@ p#btsBubbleOpts {
 }
 #btsTipOfTheDayForm .btsTipOfTheDay {
     float: left;
-    
+
 }
 #btsTipOfTheDayForm p {
     overflow: hidden;

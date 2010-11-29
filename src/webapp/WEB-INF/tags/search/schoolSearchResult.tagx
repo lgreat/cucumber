@@ -51,8 +51,9 @@
                     <br/>
                     <span>
                         <gslink:realtorDotComLink address="${school.address}"
-                                                  customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink> |
-                        <span class="sprite add2"><!-- do not collapse --></span>
+                                                  customLinkSuffix="inlinelinkheader"
+                                                  styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink> |
+                        <span class="sprite i-add-sm"><!-- do not collapse --></span>&amp;nbsp;
                         <span><a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">Add to my school list</a></span>
                         <!--<link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
                     </span>
