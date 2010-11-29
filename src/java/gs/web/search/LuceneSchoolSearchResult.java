@@ -145,7 +145,7 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         String parentRatingsCountString = _document.get(Indexer.PARENT_RATINGS_COUNT);
         if (parentRatingsCountString != null) {
             Integer parentRatingsCount = Integer.valueOf(parentRatingsCountString);
-            if (parentRatingsCount != null && Integer.valueOf(parentRatingsCount) > 2) {
+            if (parentRatingsCount != null && Integer.valueOf(parentRatingsCount) > 0) {
                 if (LevelCode.PRESCHOOL.equals(getLevelCode())) {
                     String parentRatingsPreschool = _document.get(Indexer.PARENT_RATINGS_AVG_P_OVERALL);
                     if (parentRatingsPreschool != null) {

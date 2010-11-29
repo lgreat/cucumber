@@ -87,7 +87,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             } catch (IllegalArgumentException iae) {
                 // invalid state
             }
-        } else if (fields.getState() != null) {
+        } else if (fields != null && fields.getState() != null) {
             state = fields.getState();
         }
 
@@ -118,8 +118,11 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         if (levelCode != null) {
             FilterGroup filterGroup = new FilterGroup();
-            filterGroup.setFieldFilters(getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]));
-            filterGroups.add(filterGroup);
+            FieldFilter[] filters = getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]);
+            if (filters != null && filters.length > 0) {
+                filterGroup.setFieldFilters(getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]));
+                filterGroups.add(filterGroup);
+            }
         }
 
         FieldSort sort = this.getChosenSort(schoolSearchCommand);
