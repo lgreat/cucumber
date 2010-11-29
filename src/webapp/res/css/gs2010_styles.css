@@ -6207,7 +6207,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-11-22.png);
+    background-image: url(/res/img/sprites/iconSprite_2010-11-29.png);
 }
 
 .reportIt-nbg {
@@ -6308,6 +6308,25 @@ additional icons on the sprite.
     width: 11px;
     height: 10px;
     background-position: 0 -300px;
+}
+
+.i-house-sm {
+    width: 12px;
+    height: 11px;
+    background-position: 0 -310px;
+}
+
+.i-add-sm {
+    width: 10px;
+    height: 10px;
+    background-position: 0 -330px;
+}
+
+.i-checkmark-sm {
+    width: 15px;
+    height: 12px;
+    background-position: 0 -340px;
+    background-position: 0 -340px;
 }
 
 /* column 20 */
