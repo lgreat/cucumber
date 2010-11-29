@@ -89,6 +89,8 @@ public class SchoolSearchController extends AbstractCommandController implements
             }
         } else if (fields != null && fields.getState() != null) {
             state = fields.getState();
+        } else {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
 
         City city = null;
@@ -315,9 +317,12 @@ public class SchoolSearchController extends AbstractCommandController implements
     // TODO: fixme rel="canonical" not working for city browse with school types, level codes
     protected String getRelCanonical(HttpServletRequest request, State state, List<ICitySearchResult> citySearchResults, City city, District district,
                                      List<FilterGroup> filterGroups, LevelCode levelCode, String searchString) {
+        if (request == null || state == null) {
+            throw new IllegalArgumentException("Request and state must not be null");
+        }
         String url = null;
 
-        if (StringUtils.isNotBlank(searchString)) {
+        if (StringUtils.isNotBlank(searchString) && state != null) {
             // GS-10036 - search pages
             // search string that matches city, e.g. q=alameda&state=CA
             if (citySearchResults != null) {
@@ -346,8 +351,10 @@ public class SchoolSearchController extends AbstractCommandController implements
             // GS-10144, GS-10400 - browse pages
 
             Set<FieldFilter> filtersSet = new HashSet<FieldFilter>();
-            for (FilterGroup filterGroup : filterGroups) {
-                filtersSet.addAll(Arrays.asList(filterGroup.getFieldFilters()));
+            if (filterGroups != null) {
+                for (FilterGroup filterGroup : filterGroups) {
+                    filtersSet.addAll(Arrays.asList(filterGroup.getFieldFilters()));
+                }
             }
 
             if (district != null) {
@@ -370,7 +377,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                 }
 
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
-                        SessionContextUtil.getSessionContext(request).getStateOrDefault(),
+                        state,
                         city.getName(),
                         schoolTypeSet, levelCode);
                 url = urlBuilder.asFullUrl(request);
@@ -382,12 +389,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         // TODO: rel="canonical"
         // GS-10036
-        // schoolResults.jspx: (SearchController)
-        //    <c:if test="${not empty relCanonical}">
-        //        <link rel="canonical" href="${relCanonical}"/>
-        //    </c:if>
         // SearchController:
-        // GS-10036
         // lines 336-340, 419-426
         //                    for (int x=0; x < cityHits.length(); x++) {
         //                        Document cityDoc = cityHits.doc(x);
