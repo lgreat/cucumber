@@ -9,6 +9,7 @@ import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.seo.SeoUtil;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
@@ -18,6 +19,7 @@ import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
@@ -192,9 +194,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
         model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
                                      filterGroups, levelCode, schoolSearchCommand.getSearchString()));
-        model.put(MODEL_TITLE, getTitle());
+        model.put(MODEL_TITLE, getTitle(city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString()));
+        // todo: meta description
         model.put(MODEL_META_DESCRIPTION, getMetaDescription());
-        model.put(MODEL_META_KEYWORDS, getMetaKeywords());
+        model.put(MODEL_META_KEYWORDS, getMetaKeywords(district));
 
 
         if (schoolSearchCommand.isJsonFormat()) {
@@ -209,15 +212,89 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     }
 
-    protected String getTitle() {
-        return null;
+    // copied from SchoolsController.java
+    // todo: copy over unit tests from SchoolsControllerTest.java
+    public static String calcCitySchoolsTitle(String cityDisplayName, State cityState, LevelCode levelCode, String[] schoolType) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(cityDisplayName);
+        if (schoolType != null && (schoolType.length == 1 || schoolType.length == 2)) {
+            for (int x=0; x < schoolType.length; x++) {
+                if (x == 1) {
+                    sb.append(" and");
+                }
+                if ("private".equals(schoolType[x])) {
+                    sb.append(" Private");
+                } else if ("charter".equals(schoolType[x])) {
+                    sb.append(" Public Charter");
+                } else {
+                    sb.append(" Public");
+                }
+            }
+        }
+        if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1) {
+            if (levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                sb.append(" Preschool");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                sb.append(" Elementary");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                sb.append(" Middle");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                sb.append(" High");
+            }
+        }
+        if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1 &&
+                levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+            sb.append("s and Daycare Centers");
+        } else {
+            sb.append(" Schools");
+        }
+        sb.append(" - ").append(cityDisplayName).append(", ").append(cityState.getAbbreviation());
+        sb.append(" | GreatSchools");
+        return sb.toString();
+    }
+
+    protected String getTitle(City city, District district, LevelCode levelCode, String[] schoolTypes, String searchString) {
+        if (city != null) {
+            return calcCitySchoolsTitle(city.getDisplayName(), city.getState(), levelCode, schoolTypes);
+        } else if (district != null) {
+            return SeoUtil.generatePageTitle(district, levelCode, schoolTypes);
+        } else if (StringUtils.isNotBlank(searchString)) {
+            return "GreatSchools.org Search: " + StringEscapeUtils.escapeHtml(searchString);
+        } else {
+            return "GreatSchools.org Search";
+        }
     }
 
     protected String getMetaDescription() {
+        // Browse:
+        // <c:set var="metadesc">
+        //     <c:choose>
+        //         <c:when test="${isCityBrowse}">
+        //
+        //             <jsp:scriptlet>
+        //                 String metadesc = SchoolsController.calcMetaDesc(
+        //                         (String) request.getAttribute("districtDisplayName"),
+        //                         (String) request.getAttribute("cityDisplayName"),
+        //                         SessionContextUtil.getSessionContext(request).getStateOrDefault(),
+        //                         (LevelCode) request.getAttribute("lc"),
+        //                         (String[]) request.getAttribute("st"));
+        //                 out.print(metadesc);
+        //             </jsp:scriptlet>
+        //         </c:when>
+        //         <c:when test="${isDistrictBrowse}">
+        //             ${gsweb:districtPageDescription(districtObject)}
+        //         </c:when>
+        //     </c:choose>
+        // </c:set>
         return null;
     }
 
-    protected String getMetaKeywords() {
+    protected String getMetaKeywords(District district) {
+        if (district != null) {
+            return SeoUtil.generateMetaKeywords(district);
+        }
         return null;
     }
 
