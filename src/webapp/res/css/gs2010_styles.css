@@ -5955,10 +5955,14 @@ body.ie8 #frmPRModule .helperMessage, body.ie7 #frmPRModule .helperMessage{
 #school-search-results-table-body .button-1Ext-2{
     width:50px;
 }
-/*
-=compare
--------------------------------------------------------------------------------------------
-*/
+
+#school-search-results-table-body .js-compareHelperMessage,
+#school-search-results-table-body .js-compareButton{
+    display:none;
+}
+
+/* =compare
+-------------------------------------------------------------------------------------------*/
 #csMain {
     width: 755px;
     margin: 0 15px 0 20px;

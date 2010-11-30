@@ -15,7 +15,7 @@
         <tr class="school-search-result-row" id="school-search-result-${school.databaseState}${school.id}">
 
             <!-- Compare Checkbox-->
-            <td class="brdbtm_dotted" align="center" valign="top">
+            <td class="brdbtm_dotted js-checkbox-column" align="center" valign="top">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <c:choose>
                     <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
@@ -25,9 +25,9 @@
                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/><br/>
                     </c:otherwise>
                 </c:choose>
-                <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
-                <p id="compareHelperMessage" class="formHelperText">Check 2<br/>or more to<br/>compare</p>
-                <button class="button-1Ext-2 smallText2">COMPARE<br/>NOW</button>
+                <label class="js-compareLabel smallText2" for="${school.databaseState}${school.id}">COMPARE</label>
+                <p class="js-compareHelperMessage formHelperText">Check 2<br/>or more to<br/>compare</p>
+                <button class="js-compareButton button-1Ext-2 smallText2">COMPARE<br/>NOW</button>
             </td>
 
             <!-- School Name -->

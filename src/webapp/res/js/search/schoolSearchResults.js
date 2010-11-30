@@ -37,12 +37,20 @@ var compareSchoolsArray = [];
         });
 
         jQuery('.compare-school-checkbox').click(function() {
+            // number of checked checkboxes
+            var n = jQuery('#school-search-results-table-body input:checked').length;
             // to highlight table row
             var theTD = jQuery(this).parent();
             var theTR = theTD.parent();
 
             // change GS Rating badge and parent rating stars backgrounds from white to blue
             jQuery('#school-search-results-table-body').find(':checked').each(function () {
+                var compareLabel = jQuery(this).parent().parent().find('td.js-checkbox-column > .js-compareLabel');
+                var compareHelperMessage = jQuery(this).parent().parent().find('td.js-checkbox-column > .js-compareHelperMessage');
+                var compareButton = jQuery(this).parent().parent().find('td.js-checkbox-column > .js-compareButton');
+                compareLabel.hide();
+                compareHelperMessage.hide();
+                compareButton.hide();
                 var isWhite = null;
                 var pattern2 = /_y|_b/gi;
                 var stars = jQuery(this).parent().parent().find('td.stars-column > span');
@@ -61,9 +69,31 @@ var compareSchoolsArray = [];
                     var blueStarsClass = starsClass + '_b';
                     stars.removeClass(starsClass).addClass(blueStarsClass);
                 }
+
+                if (n == 0) {
+                    compareLabel.show();
+                    compareHelperMessage.hide();
+                    compareButton.hide();
+                }
+
+                if (n == 1) {
+                    compareLabel.hide();
+                    compareHelperMessage.show();
+                    compareButton.hide();
+                }
+
+                if (n > 1) {
+                    compareLabel.hide();
+                    compareHelperMessage.hide();
+                    compareButton.show();
+                }
+
             });
             // change GS Rating badge and parent rating stars backgrounds from blue to white
             jQuery('#school-search-results-table-body').find(':checkbox').not(':checked').each(function () {
+                var compareLabel = jQuery(this).parent().parent().find('td.js-checkbox-column > .js-compareLabel');
+                var compareHelperMessage = jQuery(this).parent().parent().find('td.js-checkbox-column > .js-compareHelperMessage');
+                var compareButton = jQuery(this).parent().parent().find('td.js-checkbox-column > .js-compareButton');
                 var isBlue = null;
                 var pattern1 = /_b/gi;
                 var pattern3 = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
@@ -83,6 +113,11 @@ var compareSchoolsArray = [];
                 if (isBlue) {
                     stars.removeClass(starsClass).addClass(whiteStarsClass);
                 }
+
+                compareLabel.show();
+                compareHelperMessage.hide();
+                compareButton.hide();
+
             });
             // change TD background color
             if (jQuery(this).attr('checked')) {
@@ -167,3 +202,36 @@ var compareSchoolsArray = [];
 
         window.location.search = queryString;
     }
+
+/*
+    function countChecked() {
+        var n = jQuery('#school-search-results-table-body input:checked').length;
+        if (n >= 2) {
+            */
+/* show "Compare Now" button on checked schools *//*
+
+            jQuery('#compareBtn').attr('disabled', '');
+            jQuery('#compareBtn').removeClass('button-1-inactive');
+            jQuery('#compareBtn').addClass('button-1');
+        } else {
+            jQuery('#compareBtn').attr('disabled', 'disabled');
+            jQuery('#compareBtn').removeClass('button-1');
+            jQuery('#compareBtn').addClass('button-1-inactive');
+        }
+        if (n == 1) {
+            */
+/* show "Check 2 or more..." message on checked school *//*
+
+            jQuery('.compareHelperMessage').show();
+        } else {
+            jQuery('.compareHelperMessage').hide();
+        }
+        if (n = 0) {
+            */
+/* show "COMPARE" label on all schools *//*
+
+        }
+    }
+
+    countChecked();
+    jQuery(":checkbox").click(countChecked);*/
