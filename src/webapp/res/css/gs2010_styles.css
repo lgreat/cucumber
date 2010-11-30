@@ -9168,13 +9168,12 @@ button {
 
 /* Safari 3.0 and Chrome rules here */
 @media screen and (-webkit-min-device-pixel-ratio:0){
-
-#popup-contents-7 span.arrow-outline-bottom {
-    top: 118px;
-}
-#popup-contents-7 span.arrow-bottom {
-    top: 116px;
-}
+    #popup-contents-7 span.arrow-outline-bottom {
+        top: 118px;
+    }
+    #popup-contents-7 span.arrow-bottom {
+        top: 116px;
+    }
 }
 
 /* skin top arrow */

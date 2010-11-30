@@ -35,10 +35,10 @@
                 <p class="school-search-result-link" id="school-search-result-link-${school.databaseState}${school.id}">
                     <span class="text1bold js-school-search-result-name">
                         <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
-                            databaseState="${school.databaseState}"
-                            name="${school.name}"
-                            physicalAddress="${school.address}"
-                            levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
+                                                                 databaseState="${school.databaseState}"
+                                                                 name="${school.name}"
+                                                                 physicalAddress="${school.address}"
+                                                                 levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
                     </span>
                     <br/>
                     <span class="text3">${school.grades.rangeString}</span>
@@ -49,34 +49,35 @@
                     <br/>
                     <span class="smallAlertText js-school-search-result-phone">${school.phone}</span>
                     <br/>
-                    <span>
-                        <gslink:realtorDotComLink address="${school.address}"
-                                                  customLinkSuffix="inlinelinkheader"
-                                                  styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink> |
-                        <c:set var="mslHasSchool" value="${false}"/>
-                        <c:forEach items="${mslSchools}" var="mslSchool">
-                            <c:if test="${mslSchool.schoolId eq school.id and mslSchool.state eq school.databaseState}">
-                                <c:set var="mslHasSchool" value="${true}"/>
-                            </c:if>
-                        </c:forEach>
-                        <c:choose>
-                            <c:when test="${mslHasSchool}">
-                                <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
+
+                    <gslink:realtorDotComLink address="${school.address}"
+                                              customLinkSuffix="inlinelinkheader"
+                                              styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
+                    <br/>
+                    <c:set var="mslHasSchool" value="${false}"/>
+                    <c:forEach items="${mslSchools}" var="mslSchool">
+                        <c:if test="${mslSchool.schoolId eq school.id and mslSchool.state eq school.databaseState}">
+                            <c:set var="mslHasSchool" value="${true}"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${mslHasSchool}">
+                            <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
                                 <span>
                                     Added
                                 </span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="sprite i-add-sm"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite i-add-sm"><!-- do not collapse --></span>
                                 <span>
                                     <a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
                                         Add to my school list
                                     </a>
                                 </span>
-                            </c:otherwise>
-                        </c:choose>
-                        <!--<link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
-                    </span>
+                        </c:otherwise>
+                    </c:choose>
+                    <!--<link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
+
                     <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->
                 </p>
             </td>

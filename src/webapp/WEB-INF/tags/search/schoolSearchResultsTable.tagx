@@ -175,10 +175,11 @@
             </colgroup>
             <thead>
             <tr class="smallText2bold">
+                <!--<span class="symbolsize-16">&amp;#9663;</span>-->
                 <th align="center"><!-- do not collapse --></th>
-                <th align="left" valign="bottom">SCHOOL NAME<span class="symbolsize-16">&amp;#9663;</span></th>
-                <th align="center">GREATSCHOOLS<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
-                <th align="center">COMMUNITY<span class="symbolsize-16">&amp;#9663;</span> RATING</th>
+                <th align="left" valign="bottom">SCHOOL NAME</th>
+                <th align="center">GREATSCHOOLS RATING</th>
+                <th align="center">COMMUNITY RATING</th>
                 <th><!-- do not collapse --></th>
             </tr>
             </thead>
