@@ -95,9 +95,20 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         City city = null;
         District district = null;
-        if (StringUtils.isBlank(schoolSearchCommand.getSearchString()) && fields != null) {
-            city = fields.getCity();
-            district = fields.getDistrict();
+
+        if (StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
+            String cityName = fields.getCityName();
+            String districtName = fields.getDistrictName();
+
+            if (StringUtils.isNotBlank(districtName) && state != null && StringUtils.isNotBlank(cityName)) {
+                // might be null
+                district = getDistrictDao().findDistrictByNameAndCity(state, districtName, cityName);
+            }
+
+            if (StringUtils.isNotBlank(cityName) && state != null) {
+                // might be null
+                city = getGeoDao().findCity(state, cityName);
+            }
         }
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);

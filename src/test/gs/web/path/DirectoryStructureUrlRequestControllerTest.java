@@ -1,7 +1,5 @@
 package gs.web.path;
 
-import gs.data.geo.City;
-import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContextUtil;
@@ -18,8 +16,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.List;
 import java.util.ArrayList;
 
-import static org.easymock.EasyMock.*;
-
 /**
  * Created by IntelliJ IDEA.
  * User: youngfan
@@ -32,9 +28,6 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
     private SessionContextUtil _sessionContextUtil;
 
     private DirectoryStructureUrlControllerFactory _controllerFactory;
-
-    private IDistrictDao _districtDao;
-    private IGeoDao _geoDao;
 
     private SchoolsController _schoolsController =
         (SchoolsController) getApplicationContext().getBean(SchoolsController.BEAN_ID);
@@ -53,83 +46,50 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
         _controllers.add(_schoolsController);
         _controllers.add(_schoolOverviewController);
 
-        _districtDao = createStrictMock(IDistrictDao.class);
-        _geoDao = createStrictMock(IGeoDao.class);
-
         _controllerFactory = new DirectoryStructureUrlControllerFactory();
         _controllerFactory.setControllers(_controllers);
-        _controllerFactory.setDistrictDao(_districtDao);
-        _controllerFactory.setGeoDao(_geoDao);
     }
 
-    private void resetAllMocks() {
-        resetMocks(_districtDao, _geoDao);
-    }
-
-    private void replayAllMocks() {
-        replayMocks(_districtDao, _geoDao);
-    }
-
-    private void verifyAllMocks() {
-        verifyMocks(_districtDao, _geoDao);
-    }
-
-    public void xtestHandleRequestInternalRedirects() throws Exception {
+    public void testHandleRequestInternalRedirects() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setMethod("GET");
 
         // adding trailing slash
-        resetAllMocks();
         request.removeAllParameters();
         request.setQueryString(null);
         request.setRequestURI("/alaska/anchorage");
         _controllerFactory.setRequest(request);
         _controller.setController(_controllerFactory.getController());
-        City city = new City();
-        city.setId(1);
-        city.setName("Anchorage");
-        //expect(_geoDao.findCity(State.AK, "anchorage")).andReturn(city);
-        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
-        verifyAllMocks();
         assertTrue(mAndV.getView() instanceof RedirectView);
         assertEquals("/alaska/anchorage/", ((RedirectView) mAndV.getView()).getUrl());
 
         // redirect request url with capitalized state name to same url with lowercased state name
-        resetAllMocks();
         request.removeAllParameters();
         request.setQueryString(null);
         request.setRequestURI("/California/sonoma/private-charter/elementary-schools/");
         _controllerFactory.setRequest(request);
         _controller.setController(_controllerFactory.getController());
-        replayAllMocks();
         mAndV = _controller.handleRequestInternal(request, getResponse());
-        verifyAllMocks();
         assertTrue(mAndV.getView() instanceof RedirectView301);
         assertEquals("/california/sonoma/private-charter/elementary-schools/", ((RedirectView301) mAndV.getView()).getUrl());
 
         // valid new-style city browse request
-        resetAllMocks();
         request.removeAllParameters();
         request.setQueryString(null);
         request.setRequestURI("/california/alameda/elementary-schools/");
         _controllerFactory.setRequest(request);
         _controller.setController(_controllerFactory.getController());
-        replayAllMocks();
         mAndV = _controller.handleRequestInternal(request, getResponse());
-        verifyAllMocks();
         assertEquals(_schoolsController.getViewName(), mAndV.getViewName());
 
         // invalid new-style city browse request
-        resetAllMocks();
         request.removeAllParameters();
         request.setQueryString(null);
         request.setRequestURI("/california/alameda/elementary/private-charter/schools/");
         _controllerFactory.setRequest(request);
         _controller.setController(_controllerFactory.getController());
-        replayAllMocks();
         mAndV = _controller.handleRequestInternal(request, getResponse());
-        verifyAllMocks();
         assertEquals("status/error", mAndV.getViewName());
     }
 
