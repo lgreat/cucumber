@@ -195,8 +195,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
                                      filterGroups, levelCode, schoolSearchCommand.getSearchString()));
         model.put(MODEL_TITLE, getTitle(city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString()));
-        // todo: meta description
-        model.put(MODEL_META_DESCRIPTION, getMetaDescription());
+        model.put(MODEL_META_DESCRIPTION, getMetaDescription(city, district, levelCode, schoolSearchTypes));
         model.put(MODEL_META_KEYWORDS, getMetaKeywords(district));
 
 
@@ -209,11 +208,71 @@ public class SchoolSearchController extends AbstractCommandController implements
                 return new ModelAndView("/search/schoolSearchResults", model);
             }
         }
-
     }
 
-    // copied from SchoolsController.java
-    // todo: copy over unit tests from SchoolsControllerTest.java
+    public static String calcMetaDesc(String districtDisplayName, String cityDisplayName,
+                                      State state, LevelCode levelCode, String[] schoolType) {
+        StringBuffer sb = new StringBuffer();
+        StringBuffer cityWithModifier = new StringBuffer();
+        StringBuffer modifier = new StringBuffer();
+
+        if (schoolType != null && schoolType.length == 1) {
+            if ("private".equals(schoolType[0])) {
+                modifier.append("private");
+            } else if ("charter".equals(schoolType[0])) {
+                modifier.append("charter");
+            } else {
+                modifier.append("public");
+            }
+            modifier.append(" ");
+
+        }
+
+        if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1) {
+            if (levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                modifier.append("preschool");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                modifier.append("elementary");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                modifier.append("middle");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                modifier.append("high");
+            }
+            modifier.append(" ");
+
+        }
+
+
+        if (districtDisplayName == null) {
+            cityWithModifier.append(cityDisplayName).append(" ").append(modifier);
+            // for preschools, do a special SEO meta description
+            if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1 &&
+                    levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
+                sb.append("Find the best preschools in ").append(cityDisplayName);
+                if (state != null) {
+                    // pretty sure State can never be null here, but why take a chance?
+                    sb.append(", ").append(state.getLongName()).append(" (").
+                            append(state.getAbbreviation()).
+                            append(")");
+                }
+                sb.append(" - view preschool ratings, reviews and map locations.");
+            } else {
+                sb.append("View and map all ").append(cityWithModifier).
+                        append("schools. Plus, compare or save ").
+                        append(modifier).append("schools.");
+            }
+        } else {
+            sb.append("View and map all ").append(modifier).
+                    append("schools in the ").append(districtDisplayName).
+                    append(". Plus, compare or save ").append(modifier).
+                    append("schools in this district.");
+        }
+
+        return sb.toString();
+    }
+
     public static String calcCitySchoolsTitle(String cityDisplayName, State cityState, LevelCode levelCode, String[] schoolType) {
         StringBuffer sb = new StringBuffer();
         sb.append(cityDisplayName);
@@ -267,28 +326,14 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
-    protected String getMetaDescription() {
-        // Browse:
-        // <c:set var="metadesc">
-        //     <c:choose>
-        //         <c:when test="${isCityBrowse}">
-        //
-        //             <jsp:scriptlet>
-        //                 String metadesc = SchoolsController.calcMetaDesc(
-        //                         (String) request.getAttribute("districtDisplayName"),
-        //                         (String) request.getAttribute("cityDisplayName"),
-        //                         SessionContextUtil.getSessionContext(request).getStateOrDefault(),
-        //                         (LevelCode) request.getAttribute("lc"),
-        //                         (String[]) request.getAttribute("st"));
-        //                 out.print(metadesc);
-        //             </jsp:scriptlet>
-        //         </c:when>
-        //         <c:when test="${isDistrictBrowse}">
-        //             ${gsweb:districtPageDescription(districtObject)}
-        //         </c:when>
-        //     </c:choose>
-        // </c:set>
-        return null;
+    protected String getMetaDescription(City city, District district, LevelCode levelCode, String[] schoolTypes) {
+        if (city != null) {
+            return calcMetaDesc(district.getName(), city.getDisplayName(), city.getState(), levelCode, schoolTypes);
+        } else if (district != null) {
+            return SeoUtil.generateMetaDescription(district);
+        } else {
+            return null;
+        }
     }
 
     protected String getMetaKeywords(District district) {
