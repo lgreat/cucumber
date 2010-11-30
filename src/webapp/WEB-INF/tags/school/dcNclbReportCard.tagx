@@ -11,6 +11,7 @@
     <jsp:directive.attribute name="schoolCodesToShow" required="true" description="Set of school codes for which to show school report card links (Set of String)" type="java.util.Set"/>
 
     <c:set var="schoolCode" value="${pageScope.school.stateId}"/>
+    <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
     <c:choose>
         <c:when test="${pageScope.school.districtId eq 0}">
             <c:set var="districtCode" value="${gsweb:getDcNclbLeaCode(pageScope.school.id)}"/>
@@ -41,16 +42,19 @@
                         </div>
                     </li>
                 </c:if>
-                <li class="media">
-                    <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+                <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
+                <c:if test="${pageScope.school.districtId ne 0}">
+                    <li class="media">
+                        <span class="sprite pdf_sm img"><!-- do not collapse --></span>
 
-                    <div class="bd">
-                        <gsml:a
-                                href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
-                                target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
-                        </gsml:a>
-                    </div>
-                </li>
+                        <div class="bd">
+                            <gsml:a
+                                    href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
+                                    target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
+                            </gsml:a>
+                        </div>
+                    </li>
+                </c:if>
                 <li class="media">
                     <span class="sprite pdf_sm img"><!-- do not collapse --></span>
 

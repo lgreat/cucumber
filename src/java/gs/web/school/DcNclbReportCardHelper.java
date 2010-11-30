@@ -8,6 +8,7 @@ import java.util.Map;
  */
 public class DcNclbReportCardHelper {
     // from School_without_LEA_PAGES.xlsx in GS-9899
+    // GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF.
     final private static Map<Integer,Integer> schoolIdLeaCodeMap = new HashMap<Integer,Integer>();
 
     static {
