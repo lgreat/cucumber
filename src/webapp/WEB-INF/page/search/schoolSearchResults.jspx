@@ -24,7 +24,15 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>REPLACE ME</title>
+    <c:if test="${not empty title}">
+        <title>${title}</title>
+    </c:if>
+    <c:if test="${not empty metaDescription}">
+        <meta name="description" content="${metaDescription}"/>
+    </c:if>
+    <c:if test="${not empty metaKeywords}">
+        <meta name="keywords" content="${metaKeywords}"/>
+    </c:if>
 
     <c:if test="${not empty relCanonical}">
         <link rel="canonical" href="${relCanonical}"/>

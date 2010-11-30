@@ -65,6 +65,9 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_REL_CANONICAL = "relCanonical";
     public static final String MODEL_SEARCH_STRING = "searchString";
     public static final String MODEL_MSL_SCHOOLS = "mslSchools";
+    public static final String MODEL_TITLE = "title";
+    public static final String MODEL_META_DESCRIPTION = "metaDescription";
+    public static final String MODEL_META_KEYWORDS = "metaKeywords";
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -189,6 +192,9 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
         model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
                                      filterGroups, levelCode, schoolSearchCommand.getSearchString()));
+        model.put(MODEL_TITLE, getTitle());
+        model.put(MODEL_META_DESCRIPTION, getMetaDescription());
+        model.put(MODEL_META_KEYWORDS, getMetaKeywords());
 
 
         if (schoolSearchCommand.isJsonFormat()) {
@@ -201,6 +207,18 @@ public class SchoolSearchController extends AbstractCommandController implements
             }
         }
 
+    }
+
+    protected String getTitle() {
+        return null;
+    }
+
+    protected String getMetaDescription() {
+        return null;
+    }
+
+    protected String getMetaKeywords() {
+        return null;
     }
 
     /**
