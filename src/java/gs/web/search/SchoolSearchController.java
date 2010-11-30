@@ -328,7 +328,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected String getMetaDescription(City city, District district, LevelCode levelCode, String[] schoolTypes) {
         if (city != null) {
-            return calcMetaDesc(district.getName(), city.getDisplayName(), city.getState(), levelCode, schoolTypes);
+            return calcMetaDesc(null, city.getDisplayName(), city.getState(), levelCode, schoolTypes);
         } else if (district != null) {
             return SeoUtil.generateMetaDescription(district);
         } else {

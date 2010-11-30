@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.Indexer;
@@ -587,5 +588,57 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
         assertTrue("should be using paging", ((Boolean)(model.get(SchoolSearchController.MODEL_USE_PAGING))).booleanValue());
+    }
+
+    public void testTitleCalcCode() {
+        // These all have standard headers
+        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, null));
+        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.ELEMENTARY_MIDDLE, null));
+        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.MIDDLE_HIGH, null));
+
+        // These useful views get nice SEO friendly titles
+        assertEquals("San Francisco Elementary Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.ELEMENTARY, null));
+        assertEquals("San Francisco Middle Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.MIDDLE, null));
+        assertEquals("San Francisco High Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.HIGH, null));
+        assertEquals("San Francisco Preschools and Daycare Centers - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.PRESCHOOL, null));
+
+        assertEquals("San Francisco Public Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"public"}));
+        assertEquals("San Francisco Private Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"private"}));
+        assertEquals("San Francisco Public Charter Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"charter"}));
+
+        assertEquals("San Francisco Public and Private Schools - San Francisco, CA | GreatSchools",
+                     SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"public", "private"}));
+        assertEquals("San Francisco Public and Public Charter Schools - San Francisco, CA | GreatSchools",
+                     SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"public", "charter"}));
+        assertEquals("San Francisco Private and Public Charter Schools - San Francisco, CA | GreatSchools",
+                     SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, new String[]{"private", "charter"}));
+
+        assertEquals("San Francisco Public and Private Elementary Schools - San Francisco, CA | GreatSchools",
+                     SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.ELEMENTARY, new String[]{"public", "private"}));
+        assertEquals("San Francisco Public and Public Charter Middle Schools - San Francisco, CA | GreatSchools",
+                     SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.MIDDLE, new String[]{"public", "charter"}));
+        assertEquals("San Francisco Private and Public Charter High Schools - San Francisco, CA | GreatSchools",
+                     SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.HIGH, new String[]{"private", "charter"}));
+        assertEquals("San Francisco Private Preschools and Daycare Centers - San Francisco, CA | GreatSchools",
+                     SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, LevelCode.PRESCHOOL, new String[]{"private"}));
+    }
+
+    public void testMetaDescCalc() {
+        assertEquals("View and map all San Francisco schools. Plus, compare or save schools.",
+                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, null, null));
+        assertEquals("View and map all San Francisco middle schools. Plus, compare or save middle schools.",
+                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, LevelCode.MIDDLE, null));
+        assertEquals("View and map all San Francisco public elementary schools. Plus, compare or save public elementary schools.",
+                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, LevelCode.ELEMENTARY, new String[]{"public"}));
+
+        assertEquals("Find the best preschools in San Francisco, California (CA) - view preschool ratings, reviews and map locations.",
+                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, LevelCode.PRESCHOOL, null));
+
+        assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
+                SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, null, null));
+        assertEquals("View and map all middle schools in the Oakland Unified School District. Plus, compare or save middle schools in this district.",
+                SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, LevelCode.MIDDLE, null));
+        assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
+                SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, LevelCode.ELEMENTARY, new String[]{"public"}));
     }
 }
