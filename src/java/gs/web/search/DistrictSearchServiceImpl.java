@@ -4,6 +4,8 @@ import gs.data.search.GSQueryParser;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
@@ -14,43 +16,73 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DistrictSearchServiceImpl implements DistrictSearchService {
+public class DistrictSearchServiceImpl extends BaseLuceneSearchService implements DistrictSearchService {
 
     Searcher _searcher;
+    
     DistrictResultBuilder _resultBuilder;
+
     GSQueryParser _queryParser;
+
+    private Logger _log = Logger.getLogger(DistrictSearchServiceImpl.class);
 
     public DistrictSearchServiceImpl() {
         _queryParser = new GSQueryParser();
     }
 
     public List<IDistrictSearchResult> search(String searchString, State state) throws SchoolSearchService.SearchException {
+        List<IDistrictSearchResult> resultList = new ArrayList<IDistrictSearchResult>();
 
-        Query query = buildQuery(searchString, state);
-
-        Hits hits = getSearcher().search(query, null, null, null);
-
-        List<IDistrictSearchResult> results;
-
+        Hits hits = null;
         try {
-            results = getResultBuilder().build(hits);
+            Query query = buildQuery(searchString, state);
+
+            if (query != null) {
+                hits = getSearcher().search(query, null, null, null);
+            }
+
+            if (hits != null) {
+                resultList = getResultBuilder().build(hits);
+            }
+        } catch (ParseException e) {
+            _log.debug("Parse exception: ", e);
+            throw new SchoolSearchService.SearchException("Problem when performing search ", e);
         } catch (IOException e) {
             throw new SchoolSearchService.SearchException("Problem processing results.", e);
         }
 
-        return results;
+        return resultList;
     }
 
-    public Query buildQuery(String searchString, State state) throws SchoolSearchService.SearchException {
+    public Query buildQuery(String searchString, State state) throws ParseException {
+        if (searchString != null) {
+            searchString = StringUtils.trimToNull(searchString);
+            searchString = StringUtils.lowerCase(searchString);
+
+            if (searchString != null && searchString.matches(PUNCTUATION_AND_WHITESPACE_PATTERN)) {
+                return null;//TODO: throw exception instead
+            }
+
+            searchString = padCommasAndNormalizeExtraSpaces(searchString);
+
+            if (searchString != null) {
+                searchString = QueryParser.escape(searchString);
+            }
+
+            //Query should be built using the given searchString; however, caller should be able to provide
+            //an actual districtId, city, or state as well, since we cannot currently parse those out of the search string.
+
+            searchString = StringUtils.trimToNull(searchString);
+            if (searchString != null) {
+                searchString = searchString.replaceFirst("\\?$", ""); // GS-7244 - trim question marks
+            }
+        }
+
         BooleanQuery districtQuery = new BooleanQuery();
 
         if (searchString != null) {
-            try {
-                Query keywordQuery = _queryParser.parse(searchString);
-                districtQuery.add(keywordQuery, BooleanClause.Occur.MUST);
-            } catch (ParseException e) {
-                throw new SchoolSearchService.SearchException("Could not parse query.", e);
-            }
+            Query keywordQuery = _queryParser.parse(searchString);
+            districtQuery.add(keywordQuery, BooleanClause.Occur.MUST);
         }
 
         Query stateQuery = new TermQuery(new Term("state", state.getAbbreviationLowerCase()));

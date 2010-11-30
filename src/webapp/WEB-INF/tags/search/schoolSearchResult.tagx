@@ -53,8 +53,28 @@
                         <gslink:realtorDotComLink address="${school.address}"
                                                   customLinkSuffix="inlinelinkheader"
                                                   styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink> |
-                        <span class="sprite i-add-sm"><!-- do not collapse --></span>&amp;nbsp;
-                        <span><a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">Add to my school list</a></span>
+                        <c:set var="mslHasSchool" value="${false}"/>
+                        <c:forEach items="${mslSchools}" var="mslSchool">
+                            <c:if test="${mslSchool.schoolId eq school.id and mslSchool.state eq school.databaseState}">
+                                <c:set var="mslHasSchool" value="${true}"/>
+                            </c:if>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${mslHasSchool}">
+                                <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
+                                <span>
+                                    Added
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="sprite i-add-sm"><!-- do not collapse --></span>
+                                <span>
+                                    <a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
+                                        Add to my school list
+                                    </a>
+                                </span>
+                            </c:otherwise>
+                        </c:choose>
                         <!--<link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
                     </span>
                     <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->

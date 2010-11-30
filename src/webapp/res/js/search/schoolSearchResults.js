@@ -15,16 +15,24 @@ var compareSchoolsArray = [];
             var queryString = window.location.search;
 
             //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
+            var overwriteGradeLevels = true;
             jQuery('#js-gradeLevels :checked').each(function() {
-                queryString = putIntoQueryString(queryString,"gradeLevels", jQuery(this).val(), false);
+                queryString = putIntoQueryString(queryString,"gradeLevels", jQuery(this).val(), overwriteGradeLevels);
+                overwriteGradeLevels = false;
             });
 
+            var overwriteSchoolTypes = true;
             i = 0;
             jQuery('#js-schoolTypes :checked').each(function() {
-                queryString = putIntoQueryString(queryString,"schoolTypes", jQuery(this).val(), false);
+                queryString = putIntoQueryString(queryString,"schoolTypes", jQuery(this).val(), overwriteSchoolTypes);
+                overwriteSchoolTypes = false;
             });
 
-            queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
+            if (jQuery('#sort-by').val() !== '') {
+                queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
+            } else {
+                queryString = removeFromQueryString(queryString, "sortBy");
+            }
             //queryString = putIntoQueryString(queryString,"gradeLevels", gradeLevels);
             //queryString = putIntoQueryString(queryString,"schoolTypes", schoolTypes);
             window.location.search = queryString;

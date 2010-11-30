@@ -12,12 +12,11 @@ import org.apache.lucene.search.*;
 import java.io.IOException;
 import java.util.*;
 
-public class SchoolSearchServiceImpl implements SchoolSearchService {
+public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements SchoolSearchService {
 
     private Searcher _searcher;
     private GSQueryParser _queryParser;
     public static final Logger _log = Logger.getLogger(SchoolSearchServiceImpl.class);
-    private static final String PUNCTUATION_AND_WHITESPACE_PATTERN = "^[\\p{Punct}\\s]*$";
 
     public SchoolSearchServiceImpl() {
         _queryParser = new GSQueryParser();
@@ -166,13 +165,6 @@ public class SchoolSearchServiceImpl implements SchoolSearchService {
         }
 
         return mixedQuery;
-    }
-
-    static String padCommasAndNormalizeExtraSpaces(String s) {
-        if (s == null) {
-            return null;
-        }
-        return s.replaceAll(",", ", ").replaceAll("\\s+", " ");
     }
 
     protected ChainedFilter createChainedFilter(List<FilterGroup> filterGroups) {

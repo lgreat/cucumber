@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import gs.data.community.FavoriteSchool;
+import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
@@ -62,6 +64,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_CITY_ID = "cityId";
     public static final String MODEL_REL_CANONICAL = "relCanonical";
     public static final String MODEL_SEARCH_STRING = "searchString";
+    public static final String MODEL_MSL_SCHOOLS = "mslSchools";
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -77,6 +80,13 @@ public class SchoolSearchController extends AbstractCommandController implements
         Map<String,Object> model = new HashMap<String,Object>();
 
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
+        if (user != null) {
+            Set<FavoriteSchool> mslSchools = user.getFavoriteSchools();
+            model.put(MODEL_MSL_SCHOOLS, mslSchools);
+        }
 
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 

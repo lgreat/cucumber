@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CitySearchService {
 
-    public List<ICitySearchResult> search(String query, State state) throws IOException;
+    public List<ICitySearchResult> search(String query, State state) throws SchoolSearchServiceImpl.SearchException;
     
 }
