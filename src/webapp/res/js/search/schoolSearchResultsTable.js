@@ -120,7 +120,6 @@ GS.search.SchoolSearchResultsTable = function() {
         var searcher = new GS.search.SchoolSearcher();
         searcher.search(function(data) {
             
-            console.log(data);
             jQuery('#topicMainGS').html(data);
 
         }.gs_bind(this));

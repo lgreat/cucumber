@@ -111,7 +111,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         City city = null;
         District district = null;
 
-        if (StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
+        if (fields != null) {
             String cityName = fields.getCityName();
             String districtName = fields.getDistrictName();
 
@@ -132,7 +132,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         LevelCode levelCode = null;
 
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
-        if (StringUtils.isBlank(schoolSearchCommand.getSearchString()) && fields != null) {
+        if (fields != null) {
             schoolSearchTypes = fields.getSchoolTypesParams();
             levelCode = fields.getLevelCode();
         } else {
@@ -175,8 +175,10 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         //TODO: write district lists to model
 
-        model.put(MODEL_SCHOOL_TYPE, StringUtils.join(schoolSearchCommand.getSchoolTypes()));
-        model.put(MODEL_LEVEL_CODE, StringUtils.join(schoolSearchCommand.getGradeLevels()));
+        model.put(MODEL_SCHOOL_TYPE, StringUtils.join(schoolSearchTypes));
+        if (levelCode != null) {
+            model.put(MODEL_LEVEL_CODE, levelCode.getCommaSeparatedString());
+        }
         model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
         addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), searchResultsPage.getTotalResults(), model); //TODO: fix

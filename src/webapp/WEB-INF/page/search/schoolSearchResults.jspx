@@ -115,19 +115,47 @@
             <div class="filter-bd smallAlertText">
                 <div>
                     <!-- TODO: make IDs on checkboxes more unique -->
-                    <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
+                    <c:choose>
+                        <c:when test="${levelCode eq null or fn:contains(levelCode,'p')}">
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="gradeLevels" id="p" value="p"/>
+                        </c:otherwise>
+                    </c:choose>
                     <label for="p">Preschool</label>
                 </div>
                 <div>
-                    <input type="checkbox" checked="checked" name="gradeLevels" id="e" value="e"/>
+                    <c:choose>
+                        <c:when test="${levelCode eq null or fn:contains(levelCode,'e')}">
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="e" value="e"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="gradeLevels" id="e" value="e"/>
+                        </c:otherwise>
+                    </c:choose>
                     <label for="e">Elementary School</label>
                 </div>
                 <div>
-                    <input type="checkbox" checked="checked" name="gradeLevels" id="m" value="m"/>
+                    <c:choose>
+                        <c:when test="${levelCode eq null or fn:contains(levelCode,'m')}">
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="m" value="m"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="gradeLevels" id="m" value="m"/>
+                        </c:otherwise>
+                    </c:choose>
                     <label for="m">Middle School</label>
                 </div>
                 <div>
-                    <input type="checkbox" checked="checked" name="gradeLevels" id="h" value="h"/>
+                    <c:choose>
+                        <c:when test="${levelCode eq null or fn:contains(levelCode,'h')}">
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="h" value="h"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="gradeLevels" id="h" value="h"/>
+                        </c:otherwise>
+                    </c:choose>
                     <label for="h">High School</label>
                 </div>
             </div>
@@ -138,17 +166,36 @@
             </div>
             <div class="filter-bd smallAlertText">
                 <div>
-                    <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-public" value="public"/>
+                    <c:choose>
+                        <c:when test="${schoolType eq null or fn:contains(schoolType,'public')}">
+                            <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-public" value="public"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="schoolTypes" id="school-type-public" value="public"/>
+                        </c:otherwise>
+                    </c:choose>
                     <label for="school-type-public">Public</label>
                 </div>
                 <div>
-                    <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-charter"
-                           value="charter"/>
+                    <c:choose>
+                        <c:when test="${schoolType eq null or fn:contains(schoolType,'charter')}">
+                            <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-charter" value="charter"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="schoolTypes" id="school-type-charter" value="charter"/>
+                        </c:otherwise>
+                    </c:choose>
                     <label for="school-type-charter">Public Charter</label>
                 </div>
                 <div>
-                    <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-private"
-                           value="private"/>
+                    <c:choose>
+                        <c:when test="${schoolType eq null or fn:contains(schoolType,'private')}">
+                            <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-private" value="private"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="schoolTypes" id="school-type-private" value="private"/>
+                        </c:otherwise>
+                    </c:choose>
                     <label for="school-type-private">Private</label>
                 </div>
             </div>
