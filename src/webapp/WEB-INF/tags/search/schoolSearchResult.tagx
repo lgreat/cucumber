@@ -41,14 +41,18 @@
                                                                  levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
                     </span>
                     <br/>
-                    <span class="text3">${school.grades.rangeString}</span>
-                    <br/>
+                    <c:if test="${school.grades.rangeString ne null}">
+                        <span class="text3">${school.grades.rangeString}</span>
+                        <br/>
+                    </c:if>
                     <span class="smallAlertText js-school-search-result-street">${school.address.street}</span>
                     <br/>
                     <span class="smallAlertText js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</span>
                     <br/>
-                    <span class="smallAlertText js-school-search-result-phone">${school.phone}</span>
-                    <br/>
+                    <c:if test="${school.phone ne null}">
+                        <span class="smallAlertText js-school-search-result-phone">${school.phone}</span>
+                        <br/>
+                    </c:if>
 
                     <gslink:realtorDotComLink address="${school.address}"
                                               customLinkSuffix="inlinelinkheader"

@@ -1,12 +1,6 @@
 var compareSchoolsArray = [];
 
     jQuery(function() {
-        jQuery('#nearby-cities-link').mouseover(function() {
-           jQuery('#nearby-cities').show();
-        });
-        jQuery('#nearby-cities-link').mouseout(function() {
-           jQuery('#nearby-cities').hide();
-        });
 
         jQuery('#sort-by').change(function() {
             var i = 0;
@@ -210,36 +204,3 @@ var compareSchoolsArray = [];
 
         window.location.search = queryString;
     }
-
-/*
-    function countChecked() {
-        var n = jQuery('#school-search-results-table-body input:checked').length;
-        if (n >= 2) {
-            */
-/* show "Compare Now" button on checked schools *//*
-
-            jQuery('#compareBtn').attr('disabled', '');
-            jQuery('#compareBtn').removeClass('button-1-inactive');
-            jQuery('#compareBtn').addClass('button-1');
-        } else {
-            jQuery('#compareBtn').attr('disabled', 'disabled');
-            jQuery('#compareBtn').removeClass('button-1');
-            jQuery('#compareBtn').addClass('button-1-inactive');
-        }
-        if (n == 1) {
-            */
-/* show "Check 2 or more..." message on checked school *//*
-
-            jQuery('.compareHelperMessage').show();
-        } else {
-            jQuery('.compareHelperMessage').hide();
-        }
-        if (n = 0) {
-            */
-/* show "COMPARE" label on all schools *//*
-
-        }
-    }
-
-    countChecked();
-    jQuery(":checkbox").click(countChecked);*/

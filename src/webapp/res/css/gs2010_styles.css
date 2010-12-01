@@ -9066,6 +9066,11 @@ button {
     position:relative;
 }
 
+#js-bubbleInfo-8{
+    position:relative;
+    display:inline-block;
+}
+
 #popup-contents-1 {
     background: #FFF;
     border: 1px solid #ccc;
@@ -9095,6 +9100,20 @@ button {
     width: 220px;
     text-align: left;
     margin-bottom: 15px;
+}
+
+#popup-contents-8 {
+    background: #FFF;
+    border: 1px solid #ccc;
+    padding: 10px 0 10px 15px;
+    text-align: left;
+    margin-top: 15px;
+}
+
+#popup-contents-8 td{
+    width:117px;
+    padding:3px 15px 3px 0;
+    vertical-align:top;
 }
 
 #popup-contents-1 span.arrow-outline-top {
@@ -9164,6 +9183,18 @@ button {
     position: absolute;
     left: 119px;
     top: 118px;
+}
+
+#popup-contents-8 span.arrow-outline-top {
+    position: absolute;
+    left: 30px;
+    top: 1px;
+}
+
+#popup-contents-8 span.arrow-top {
+    position: absolute;
+    left: 30px;
+    top: 3px;
 }
 
 /* Safari 3.0 and Chrome rules here */

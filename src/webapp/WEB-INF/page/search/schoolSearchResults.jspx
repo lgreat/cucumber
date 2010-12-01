@@ -42,6 +42,11 @@
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
 
+<c:set var="slotPrefix" value="Search_Site"/>
+<c:if test="${isCityBrowse}">
+    <c:set var="slotPrefix" value="Search_All_Cities"/>
+</c:if>
+<ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
 
 <div id="mainGS" class="col">
 
@@ -56,7 +61,7 @@
     <!-- nearby cities box -->
     <div class="text3">
         <c:if test="${fn:length(citySearchResults) gt 0}">
-        Schools in city: ${citySearchResults[0].city}, ${citySearchResults[0].state}
+            Schools in city: ${citySearchResults[0].city}, ${citySearchResults[0].state}
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 1}">
             | ${citySearchResults[1].city}, ${citySearchResults[1].state}
@@ -65,45 +70,58 @@
             | ${citySearchResults[2].city}, ${citySearchResults[2].state}
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 3}">
-            | <span id="nearby-cities-link" class="smallAlertText">more nearby cities <span class="alertDoubleArrow">&amp;raquo;</span></span>
+            | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">more nearby cities <span
+                class="alertDoubleArrow">&amp;raquo;</span></span>
 
-            <div id="nearby-cities"
-                 style="display:none;float:left;position:absolute;left:200px;z-index:100;background-color:white;border:1px solid gray;"><!-- TODO: Randall: style -->
-                <c:set var="openCloseTr">
-                    <![CDATA[</tr><tr>]]>
-                </c:set>
-                <c:choose>
-                    <c:when test="${fn:length(citySearchResults) lt 6}">
-                        <c:set var="cityTableColumns" value="${1}"/>
-                    </c:when>
-                    <c:when test="${fn:length(citySearchResults) ge 6 and fn:length(citySearchResults) lt 12}">
-                        <c:set var="cityTableColumns" value="${2}"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="cityTableColumns" value="${3}"/>
-                    </c:otherwise>
-                </c:choose>
-                <c:if test="${fn:length(citySearchResults) > 0}">
-                    <table>
-                        <tbody>
-                        <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
-                        <tr>
-                            <c:forEach var="city" items="${citySearchResults}" begin="3"
-                                       end="${gsweb:min(27,fn:length(citySearchResults)-1)}" varStatus="status">
-                                <td>
-                                    <link:city city="${city.city}" state="${city.state}">${city.city}, ${city.state}</link:city>
-                                </td>
-                                <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
-                                    ${openCloseTr}
-                                </c:if>
-                            </c:forEach>
-                        </tr>
-                        </tbody>
-                    </table>
-                </c:if>
+            <div id="nearby-cities" class="js-popup"><!-- DONE: Randall: style -->
+                <div id="popup-contents-8">
+                    <span class="arrow-outline-top"><!-- do not collapse --></span>
+                    <span class="arrow-top"><!-- do not collapse --></span>
+                    <c:set var="openCloseTr">
+                        <![CDATA[</tr><tr>]]>
+                    </c:set>
+                    <c:choose>
+                        <c:when test="${fn:length(citySearchResults) lt 6}">
+                            <c:set var="cityTableColumns" value="${1}"/>
+                            <c:set var="tableWidth" value="${132}"/>
+                        </c:when>
+                        <c:when test="${fn:length(citySearchResults) ge 6 and fn:length(citySearchResults) lt 12}">
+                            <c:set var="cityTableColumns" value="${2}"/>
+                            <c:set var="tableWidth" value="${264}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="cityTableColumns" value="${3}"/>
+                            <c:set var="tableWidth" value="${396}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="${fn:length(citySearchResults) > 0}">
+                        <table cellspacing="0" width="${tableWidth}">
+                            <tbody>
+                            <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
+                            <tr>
+                                <c:forEach var="city" items="${citySearchResults}" begin="3"
+                                           end="${fn:length(citySearchResults)-1}" varStatus="status">
+                                    <td><link:city city="${city.city}"
+                                                   state="${city.state}">${city.city}, ${city.state}</link:city></td>
+                                    <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
+                                        ${openCloseTr}
+                                    </c:if>
+                                </c:forEach>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </c:if>
+                </div>
             </div>
+        </div>
         </c:if>
     </div>
+
+    <script type="text/javascript">
+        jQuery(function () {
+            jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:0,topPosition:8});
+        });
+    </script>
 
     <div class="spacer_15"><!-- do not collapse --></div>
 
