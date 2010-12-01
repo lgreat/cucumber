@@ -90,6 +90,13 @@ public class SchoolSearchCommand {
         _pageSize = pageSize;
     }
 
+    public int getCurrentPage() {
+        if (_pageSize == 0) {
+            throw new IllegalStateException("Page size cannot be 0 when asking for current page");
+        }
+        return (int) Math.ceil((_start+1) / ((float)_pageSize));
+    }
+
     public String getFormat() {
         return _format;
     }

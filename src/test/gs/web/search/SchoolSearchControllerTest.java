@@ -549,6 +549,11 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         int pageSize = 3;
         int totalResults = 17;
 
+        SchoolSearchCommand command = new SchoolSearchCommand();
+        command.setStart(11);
+        command.setPageSize(3);
+        int currentPage = command.getCurrentPage();
+
         List<ISchoolSearchResult> results = new ArrayList<ISchoolSearchResult>();
         results.add(new LuceneSchoolSearchResult());
         results.add(new LuceneSchoolSearchResult());
@@ -556,7 +561,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         Map<String,Object> model = new HashMap<String,Object>();
 
-        _controller.addPagingDataToModel(start, pageSize, totalResults, model);
+        _controller.addPagingDataToModel(start, pageSize, currentPage, totalResults, model);
 
         assertTrue("model should contain start value", model.containsKey(SchoolSearchController.MODEL_START));
         assertEquals("model should contain correct start value", 11, ((Integer)(model.get(SchoolSearchController.MODEL_START))).intValue());
@@ -585,9 +590,11 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         results.add(new LuceneSchoolSearchResult());
         results.add(new LuceneSchoolSearchResult());
 
+        int currentPage = 1;
+
         Map<String,Object> model = new HashMap<String,Object>();
 
-        _controller.addPagingDataToModel(start, pageSize, totalResults, model);
+        _controller.addPagingDataToModel(start, pageSize, currentPage, totalResults, model);
 
         assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
         assertFalse("should not be using paging", ((Boolean)(model.get(SchoolSearchController.MODEL_USE_PAGING))).booleanValue());
@@ -605,7 +612,9 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         Map<String,Object> model = new HashMap<String,Object>();
 
-        _controller.addPagingDataToModel(start, pageSize, totalResults, model);
+        int currentPage = 1;
+
+        _controller.addPagingDataToModel(start, pageSize, currentPage, totalResults, model);
 
         assertTrue("model should contain start value", model.containsKey(SchoolSearchController.MODEL_START));
         assertEquals("model should contain correct start value", 0, ((Integer)(model.get(SchoolSearchController.MODEL_START))).intValue());
