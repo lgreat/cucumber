@@ -8752,6 +8752,13 @@ button {
     line-height:30px;
 }
 
+.alertBox5 {
+    display: block;
+    padding: 5px;
+    background-color: #f9eccd;
+    /*line-height:30px;*/
+}
+
 .errorBox1 {
     display: block;
     padding: 12px;
