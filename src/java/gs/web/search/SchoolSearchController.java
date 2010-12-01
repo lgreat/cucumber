@@ -519,7 +519,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
         }
 
-        model.put(MODEL_START, start);
+        model.put(MODEL_START, start <= totalResults? start : totalResults);
         model.put(MODEL_PAGE_SIZE, pageSize);
     }
 
@@ -869,3 +869,49 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     }
 }
+
+
+/*
+
+
+public static boolean isOldStyleCityBrowseRequest(HttpServletRequest request) {
+        if (request.getRequestURI() == null) {
+            throw new IllegalArgumentException("Request must have request URI");
+        }
+
+        // state is in SessionContext already
+        return (!isDistrictBrowseRequest(request) &&
+                request.getRequestURI().contains("/schools.page") &&
+                request.getParameter(PARAM_CITY) != null);
+    }
+
+    public static String createNewCityBrowseURI(HttpServletRequest request) {
+        // school type(s)
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+        final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        if (paramSchoolType != null) {
+            for (String schoolType : paramSchoolType) {
+                if (SchoolType.PUBLIC.getSchoolTypeName().equals(schoolType)) {
+                    schoolTypes.add(SchoolType.PUBLIC);
+                } else if (SchoolType.PRIVATE.getSchoolTypeName().equals(schoolType)) {
+                    schoolTypes.add(SchoolType.PRIVATE);
+                } else if (SchoolType.CHARTER.getSchoolTypeName().equals(schoolType)) {
+                    schoolTypes.add(SchoolType.CHARTER);
+                }
+            }
+        }
+
+        // level code
+        LevelCode levelCode = null;
+        final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
+        if (paramLevelCode != null) {
+            levelCode = LevelCode.createLevelCode(paramLevelCode);
+        }
+
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+            SessionContextUtil.getSessionContext(request).getState(), request.getParameter(PARAM_CITY), schoolTypes, levelCode);
+        return urlBuilder.asSiteRelative(request);
+    }
+
+
+*/

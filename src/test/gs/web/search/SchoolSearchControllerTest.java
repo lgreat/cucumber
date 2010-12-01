@@ -632,6 +632,25 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertTrue("should be using paging", ((Boolean)(model.get(SchoolSearchController.MODEL_USE_PAGING))).booleanValue());
     }
 
+    public void testAddPagingDataToModelWhenStartGreaterThanTotalResults() {
+        int pageSize = 5;
+        int start = 132342;
+        int totalResults = 12;
+
+        List<ISchoolSearchResult> results = new ArrayList<ISchoolSearchResult>();
+        results.add(new LuceneSchoolSearchResult());
+        results.add(new LuceneSchoolSearchResult());
+        results.add(new LuceneSchoolSearchResult());
+
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        _controller.addPagingDataToModel(start, pageSize, 1, totalResults, model);
+
+        assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
+        assertEquals("start should be no larger than total results", 12, model.get(SchoolSearchController.MODEL_START));
+    }
+
+
     public void testTitleCalcCode() {
         // These all have standard headers
         assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolSearchController.calcCitySchoolsTitle("San Francisco", State.CA, null, null));
