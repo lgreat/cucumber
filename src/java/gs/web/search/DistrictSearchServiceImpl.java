@@ -42,7 +42,7 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
             }
 
             if (hits != null) {
-                resultList = getResultBuilder().build(hits);
+                resultList = new DistrictResultBuilder().build(hits);
             }
         } catch (ParseException e) {
             _log.debug("Parse exception: ", e);
@@ -99,13 +99,6 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
         _searcher = searcher;
     }
 
-    public DistrictResultBuilder getResultBuilder() {
-        return _resultBuilder;
-    }
-
-    public void setResultBuilder(DistrictResultBuilder resultBuilder) {
-        _resultBuilder = resultBuilder;
-    }
 }
 
 class DistrictResultBuilder implements LuceneResultBuilder {
