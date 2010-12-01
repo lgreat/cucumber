@@ -117,7 +117,7 @@
                 <div>
                     <!-- TODO: make IDs on checkboxes more unique -->
                     <c:choose>
-                        <c:when test="${levelCode eq null or fn:contains(levelCode,'p')}">
+                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'p')}">
                             <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
                         </c:when>
                         <c:otherwise>
@@ -128,7 +128,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or fn:contains(levelCode,'e')}">
+                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'e')}">
                             <input type="checkbox" checked="checked" name="gradeLevels" id="e" value="e"/>
                         </c:when>
                         <c:otherwise>
@@ -139,7 +139,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or fn:contains(levelCode,'m')}">
+                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'m')}">
                             <input type="checkbox" checked="checked" name="gradeLevels" id="m" value="m"/>
                         </c:when>
                         <c:otherwise>
@@ -150,7 +150,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or fn:contains(levelCode,'h')}">
+                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'h')}">
                             <input type="checkbox" checked="checked" name="gradeLevels" id="h" value="h"/>
                         </c:when>
                         <c:otherwise>
