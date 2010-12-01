@@ -106,7 +106,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
         schoolSearchCommand.setSortBy(FieldSort.GS_RATING_DESCENDING.name());
         schoolSearchCommand.setState("ca");
-        schoolSearchCommand.setPageSize(new Integer(5));
+        schoolSearchCommand.setPageSize(5);
         schoolSearchCommand.setSearchString("alameda");
         schoolSearchCommand.setStart(10);
         schoolSearchCommand.setFormat("json");
@@ -127,6 +127,39 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(5))).andReturn(page);
         replay(_schoolSearchService);
         BindException errors = new BindException(schoolSearchCommand, "");
+        ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
+        verify(_schoolSearchService);
+
+        assertNotNull("Model should be no longer", modelAndView);
+    }
+
+    public void testHandle3() throws Exception {
+
+        SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
+        schoolSearchCommand.setSortBy(FieldSort.GS_RATING_DESCENDING.name());
+        schoolSearchCommand.setState("ca");
+        schoolSearchCommand.setPageSize(-5);
+        schoolSearchCommand.setSearchString("alameda");
+        schoolSearchCommand.setStart(10);
+        schoolSearchCommand.setFormat("json");
+
+        Map<FieldConstraint, String> fieldConstraints = new HashMap<FieldConstraint,String>();
+        fieldConstraints.put(FieldConstraint.STATE, "ca");
+
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
+        getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+
+        List<ISchoolSearchResult> listResults = new ArrayList<ISchoolSearchResult>();
+        int i = 0;
+        while (i++ < SchoolSearchCommand.DEFAULT_PAGE_SIZE) {
+            listResults.add(new LuceneSchoolSearchResult(new Document()));
+        }
+        SearchResultsPage page = new SearchResultsPage(50, listResults);
+
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(SchoolSearchCommand.DEFAULT_PAGE_SIZE))).andReturn(page);
+        replay(_schoolSearchService);
+        BindException errors = new BindException(schoolSearchCommand, "");
+        errors.rejectValue("pageSize","pageSize");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
         verify(_schoolSearchService);
 

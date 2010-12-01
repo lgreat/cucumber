@@ -15,8 +15,8 @@ public class SchoolSearchCommandValidator implements Validator {
 
         SchoolSearchCommand command = (SchoolSearchCommand) o;
 
-        if (StringUtils.isBlank(command.getSearchString())) {
-            errors.rejectValue("queryString", "queryString", "Query must not be empty");
+        if (command.getSearchString() != null && StringUtils.trimToNull(command.getSearchString()) == null) {
+            errors.rejectValue("searchString", "searchString", "Query must not be empty");
         }
 
         //setting the page size to 0 will disable paging and return all results.

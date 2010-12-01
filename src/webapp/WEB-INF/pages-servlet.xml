@@ -246,6 +246,8 @@
           autowire="byName" lazy-init="true"/>
     <bean id="emailVerificationLinkValidator" class="gs.web.community.registration.EmailVerificationLinkValidator"
           autowire="byName" lazy-init="true"/>
+    <bean id="schoolSearchCommandValidator" class="gs.web.search.SchoolSearchCommandValidator"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/index.page"
           class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
@@ -446,6 +448,11 @@
           class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
         <property name="commandName">
             <value>schoolSearchCommand</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref local="schoolSearchCommandValidator"/>
+            </list>
         </property>
         <property name="commandClass">
             <value>gs.web.search.SchoolSearchCommand</value>

@@ -89,9 +89,10 @@
                         <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
                         <tr>
                             <c:forEach var="city" items="${citySearchResults}" begin="3"
-                                       end="${fn:length(citySearchResults)-1}" varStatus="status">
-                                <td><link:city city="${city.city}"
-                                               state="${city.state}">${city.city}, ${city.state}</link:city></td>
+                                       end="${gsweb:min(27,fn:length(citySearchResults)-1)}" varStatus="status">
+                                <td>
+                                    <link:city city="${city.city}" state="${city.state}">${city.city}, ${city.state}</link:city>
+                                </td>
                                 <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
                                     ${openCloseTr}
                                 </c:if>

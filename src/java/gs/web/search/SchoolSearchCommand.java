@@ -22,10 +22,12 @@ public class SchoolSearchCommand {
     /**
      * Total number of results to display per page. 0 = all
      */
-    private Integer _pageSize;
+    private int _pageSize;
+
+    public static int DEFAULT_PAGE_SIZE = 25;
 
     public SchoolSearchCommand() {
-        _pageSize = 25;
+        _pageSize = DEFAULT_PAGE_SIZE;
     }
 
     public void setQ(String q) {
@@ -80,11 +82,11 @@ public class SchoolSearchCommand {
         _start = start;
     }
 
-    public Integer getPageSize() {
+    public int getPageSize() {
         return _pageSize;
     }
 
-    public void setPageSize(Integer pageSize) {
+    public void setPageSize(int pageSize) {
         _pageSize = pageSize;
     }
 

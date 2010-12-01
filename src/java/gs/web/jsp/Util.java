@@ -502,4 +502,8 @@ public class Util {
         }
         return false;
     }
+
+    public static int min(int i, int j) {
+        return Math.min(i,j);
+    }
 }

@@ -5,7 +5,6 @@ import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
-import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
@@ -23,12 +22,10 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.AnnotationIntrospector;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,27 +70,32 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public static final int MAX_PAGE_SIZE = 100;
 
+    protected static final String VIEW_NOT_FOUND = "/status/error404";
+
     // TODO: Omniture tracking
 
     @Override
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
 
+        SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
+
         if (e.hasErrors()) {
-            //TODO: handle errors
+            handleErrors(e, schoolSearchCommand);
         }
 
         Map<String,Object> model = new HashMap<String,Object>();
 
-        SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
+        List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
+
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+
         if (user != null) {
             Set<FavoriteSchool> mslSchools = user.getFavoriteSchools();
             model.put(MODEL_MSL_SCHOOLS, mslSchools);
         }
-
-        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 
         State state = null;
         if (schoolSearchCommand.getState() != null) {
@@ -118,32 +120,42 @@ public class SchoolSearchController extends AbstractCommandController implements
             if (StringUtils.isNotBlank(districtName) && state != null && StringUtils.isNotBlank(cityName)) {
                 // might be null
                 district = getDistrictDao().findDistrictByNameAndCity(state, districtName, cityName);
+                if (district == null) {
+                    return redirectTo404(response);
+                }
             }
 
             if (StringUtils.isNotBlank(cityName) && state != null) {
                 // might be null
                 city = getGeoDao().findCity(state, cityName);
+                if (city == null) {
+                    return redirectTo404(response);
+                }
             }
         }
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);
 
-        String[] schoolSearchTypes = null;
-        LevelCode levelCode = null;
+        //create school types and level code from SchoolSearchCommand
+        String[] schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
+        LevelCode levelCode = LevelCode.createLevelCode(schoolSearchCommand.getGradeLevels());
 
-        List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
-        if (fields != null) {
+        //If command did not contain level code / school types, grab those from DirectoryStructureUrlFields
+        if (fields != null && (schoolSearchTypes == null || schoolSearchTypes.length > 0)) {
             schoolSearchTypes = fields.getSchoolTypesParams();
-            levelCode = fields.getLevelCode();
-        } else {
-            schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
-            levelCode = LevelCode.createLevelCode(schoolSearchCommand.getGradeLevels());
         }
+        if (fields != null && (schoolSearchCommand.getGradeLevels() == null || levelCode == null)) {
+            levelCode = fields.getLevelCode();
+        }
+
+        //If we have school types, create a filter group for it
         if (schoolSearchTypes != null && schoolSearchTypes.length > 0) {
             FilterGroup filterGroup = new FilterGroup();
             filterGroup.setFieldFilters(getSchoolTypeFilters(schoolSearchTypes).toArray(new FieldFilter[0]));
             filterGroups.add(filterGroup);
         }
+
+        //If we have level code(s), create a filter group for it
         if (levelCode != null) {
             FilterGroup filterGroup = new FilterGroup();
             FieldFilter[] filters = getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]);
@@ -209,6 +221,16 @@ public class SchoolSearchController extends AbstractCommandController implements
             } else {
                 return new ModelAndView("/search/schoolSearchResults", model);
             }
+        }
+    }
+
+    protected void handleErrors(BindException e, SchoolSearchCommand schoolSearchCommand) {
+        if (e.hasFieldErrors("pageSize")) {
+            schoolSearchCommand.setPageSize(SchoolSearchCommand.DEFAULT_PAGE_SIZE);
+        }
+
+        if (e.hasFieldErrors("start")) {
+            schoolSearchCommand.setStart(0);
         }
     }
 
@@ -702,6 +724,11 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         FieldFilter filter = FieldFilter.GradeLevelFilter.valueOf(StringUtils.upperCase(level.getLongName()));
         return filter;
+    }
+
+    public ModelAndView redirectTo404(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        return new ModelAndView("redirect:" + VIEW_NOT_FOUND);
     }
 
     public IDistrictDao getDistrictDao() {

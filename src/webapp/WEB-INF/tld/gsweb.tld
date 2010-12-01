@@ -256,6 +256,12 @@
         <function-signature>boolean showBasicError404Page(java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>min</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>int min(int, int)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
@@ -942,5 +948,6 @@
             <type>java.lang.Boolean</type>
         </attribute>
     </tag>
+
 
 </taglib>
