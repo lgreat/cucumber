@@ -58,10 +58,13 @@ public class ReviewServiceTest extends BaseTestCase {
 
         replay(_reviewDao);
 
+        assertNull("Test review process date should be null", review1.getProcessDate());
+
         List<Review> upgradedReviews = _reviewService.upgradeProvisionalReviews(user);
         
         verify(_reviewDao);
 
+        assertNotNull("Test review process date should have been set", review1.getProcessDate());
         assertEquals("Review status should have been upgraded.", "u", review1.getStatus());
         assertEquals("Review status should have been upgraded.", "d", review2.getStatus());
         assertEquals("Review status should have been upgraded.", "p", review3.getStatus());

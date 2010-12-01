@@ -6,6 +6,7 @@ import gs.data.school.review.Review;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ReviewService {
@@ -86,6 +87,7 @@ public class ReviewService {
             String status = review.getStatus();
             if (StringUtils.length(status) > 1 && StringUtils.startsWith(status, "p")) {
                 review.setStatus(StringUtils.substring(status, 1));
+                review.setProcessDate(new Date());
                 _reviewDao.saveReview(review);
                 upgradedReviews.add(review);
             }
