@@ -170,7 +170,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             CensusStruct cell = cells[cellIndex];
             //  Check list for existing cell in position -- if exists and dataSet's schoolType == null, continue
             //  This prevents a default value from overwriting a schoolType value
-            if (cell != null && schoolTypeOverride == null) {
+            if (cell != null && schoolTypeOverride == null && label.getBreakdownLabel() == null) {
                 continue;
             }
             if (cell == null) {
@@ -197,6 +197,17 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 // cell.breakdownList.add(new NameValuePair(label.breakdownLabel, schoolCensusValue.valueFloat))
                 // at some point after this loop, we'd loop through each cell in every row, and if it is
                 // a breakdown cell call Collections.sort(cell.breakdownList, Comparator<NameValuePair>)
+                cell.setIsSimpleCell(false);
+                List<BreakdownNameValue> breakdowns = new ArrayList();
+
+                if(cell.getBreakdownList() != null){
+                    breakdowns = cell.getBreakdownList();
+                }
+                BreakdownNameValue breakdown = new BreakdownNameValue();
+                breakdown.setName(label.breakdownLabel);
+                breakdown.setValue(String.valueOf(Math.round(schoolCensusValue.getValueFloat())));
+                breakdowns.add(breakdown);
+                cell.setBreakdownList(breakdowns);
             } else {
                 // populate cell with value and label (from censusDataSetToLabel map)
                 // TODO: Does how we format the value depend on schoolCensusValue.dataSet.dataType.valueType?
@@ -210,6 +221,21 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         return rval;
     }
 
+    //TODO:better way to sort a Map based on another Map?
+    public LinkedHashMap<String, CensusStruct[]> sortRows(Map<String, CensusStruct[]> rowLabelToCells, final Map<String, String> rowLabelToOrder) {
+        List<String> rowLabels = new LinkedList<String>(rowLabelToCells.keySet());
+        Collections.sort(rowLabels, new Comparator<String>() {
+            public int compare(String label1, String label2) {
+                return (rowLabelToOrder.get(label1).compareTo(rowLabelToOrder.get(label2)));
+            }
+        });
+        //put sorted list into map again
+        LinkedHashMap<String, CensusStruct[]> sortedMap = new LinkedHashMap<String, CensusStruct[]>();
+        for (String label : rowLabels) {
+            sortedMap.put(label, rowLabelToCells.get(label));
+        }
+        return sortedMap;
+    }
 
     @Override
     public String getSuccessView() {

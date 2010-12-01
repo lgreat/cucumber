@@ -1,6 +1,7 @@
 package gs.web.compare;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -13,6 +14,7 @@ public class CensusStruct {
     private String headerText;
     private String extraInfo;
     private Map breakdownMap;
+    private List<BreakdownNameValue> breakdownList;
     private String value;
 
 
@@ -62,5 +64,13 @@ public class CensusStruct {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public List<BreakdownNameValue> getBreakdownList() {
+        return breakdownList;
+    }
+
+    public void setBreakdownList(List<BreakdownNameValue> breakdownList) {
+        this.breakdownList = breakdownList;
     }
 }

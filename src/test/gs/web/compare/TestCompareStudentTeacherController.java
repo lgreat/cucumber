@@ -193,6 +193,105 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertSimpleCell(rval.get("Average Salary")[2], "80000");
     }
 
+
+
+
+
+    public void testPopulateStructsWithBreakdown() {
+        List<School> schools = new ArrayList<School>();
+        List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
+        Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+        Map<CensusDataSet, CompareStudentTeacherController.CompareLabel> censusDataSetToRowLabelMap =
+                new HashMap<CensusDataSet, CompareStudentTeacherController.CompareLabel>();
+        Map<String, CensusStruct[]> rval;
+
+        //add first school with white,asian breakdowns
+        CensusDataSet censusDataSet1 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
+        CensusDataSet censusDataSet2 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
+        CompareStudentTeacherController.CompareLabel label1= new CompareStudentTeacherController.CompareLabel();
+        label1.setRowLabel("Student Ethnicity");
+        label1.setBreakdownLabel("White");
+        CompareStudentTeacherController.CompareLabel label2= new CompareStudentTeacherController.CompareLabel();
+        label2.setRowLabel("Student Ethnicity");
+        label2.setBreakdownLabel("Asian");
+        censusDataSetToRowLabelMap.put(censusDataSet1,label1);
+        censusDataSetToRowLabelMap.put(censusDataSet2,label2);
+        School school1 = getSchool(1);
+        schools.add(school1);
+        SchoolCensusValue censusValue1 = getSchoolCensusValue(school1, censusDataSet1, 40);
+        schoolCensusValues.add(censusValue1);
+        SchoolCensusValue censusValue2 = getSchoolCensusValue(school1, censusDataSet2, 60);
+        schoolCensusValues.add(censusValue2);
+
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(2,rval.get("Student Ethnicity").length);
+        assertHeaderCell(rval.get("Student Ethnicity")[0], "Student Ethnicity");
+        assertBreakdownCell(rval.get("Student Ethnicity")[1],0,"White","40");
+        assertBreakdownCell(rval.get("Student Ethnicity")[1],1,"Asian","60");
+
+        //add second school with white, asian, hispanic breakdowns
+        CensusDataSet censusDataSet3 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
+        CensusDataSet censusDataSet4 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
+        CensusDataSet censusDataSet5 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
+        CompareStudentTeacherController.CompareLabel label3= new CompareStudentTeacherController.CompareLabel();
+        label3.setRowLabel("Student Ethnicity");
+        label3.setBreakdownLabel("White");
+        CompareStudentTeacherController.CompareLabel label4= new CompareStudentTeacherController.CompareLabel();
+        label4.setRowLabel("Student Ethnicity");
+        label4.setBreakdownLabel("Asian");
+        CompareStudentTeacherController.CompareLabel label5= new CompareStudentTeacherController.CompareLabel();
+        label5.setRowLabel("Student Ethnicity");
+        label5.setBreakdownLabel("Hispanic");
+        censusDataSetToRowLabelMap.put(censusDataSet3,label3);
+        censusDataSetToRowLabelMap.put(censusDataSet4,label4);
+        censusDataSetToRowLabelMap.put(censusDataSet5,label5);
+        School school2 = getSchool(2);
+        schools.add(school2);
+        SchoolCensusValue censusValue3 = getSchoolCensusValue(school2, censusDataSet3, 20);
+        schoolCensusValues.add(censusValue3);
+        SchoolCensusValue censusValue4 = getSchoolCensusValue(school2, censusDataSet4, 40);
+        schoolCensusValues.add(censusValue4);
+        SchoolCensusValue censusValue5 = getSchoolCensusValue(school2, censusDataSet5, 40);
+        schoolCensusValues.add(censusValue5);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(3,rval.get("Student Ethnicity").length);
+        assertBreakdownCell(rval.get("Student Ethnicity")[2],0,"White","20");
+        assertBreakdownCell(rval.get("Student Ethnicity")[2],1,"Asian","40");
+        assertBreakdownCell(rval.get("Student Ethnicity")[2],2,"Hispanic","40");
+    }
+
+    public void testSortRows(){
+        Map<String, CensusStruct[]> rowLabelToCells = new HashMap();
+        CensusStruct[] cs1 = new CensusStruct[1];
+        rowLabelToCells.put("Average Salary",cs1);
+        CensusStruct[] cs2 = new CensusStruct[1];
+        rowLabelToCells.put("Student Ethnicity",cs2);
+        CensusStruct[] cs3 = new CensusStruct[1];
+        rowLabelToCells.put("Average years Teaching",cs3);
+        CensusStruct[] cs4 = new CensusStruct[1];
+        rowLabelToCells.put("Students per teacher",cs4);
+        Map<String, String> rowLabelToOrder = new HashMap<String,String>();
+        rowLabelToOrder.put("Average Salary","1");
+        rowLabelToOrder.put("Students per teacher","2");
+        rowLabelToOrder.put("Student Ethnicity","3");
+        rowLabelToOrder.put("Average years Teaching","4");
+        
+        LinkedHashMap<String, CensusStruct[]> sortedMap = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
+        List<String> labels = new LinkedList<String>(sortedMap.keySet());
+        assertEquals(labels.get(0),"Average Salary");
+        assertEquals(labels.get(1),"Students per teacher");
+        assertEquals(labels.get(2),"Student Ethnicity");
+        assertEquals(labels.get(3),"Average years Teaching");
+
+    }
+
     private void assertHeaderCell(CensusStruct cell, String headerText) {
         assertNotNull(cell);
         assertTrue(cell.getIsHeaderCell());
@@ -204,6 +303,14 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertTrue(cell.getIsSimpleCell());
         assertFalse(cell.getIsHeaderCell());
         assertEquals(cellValue, cell.getValue());
+    }
+
+    private void assertBreakdownCell(CensusStruct cell,int index, String breakdownName,String breakdownValue) {
+        assertNotNull(cell);
+        assertFalse(cell.getIsSimpleCell());
+        assertFalse(cell.getIsHeaderCell());
+        assertEquals(breakdownName, cell.getBreakdownList().get(index).getName());
+        assertEquals(breakdownValue, cell.getBreakdownList().get(index).getValue());
     }
 
     private School getSchool(int id) {
