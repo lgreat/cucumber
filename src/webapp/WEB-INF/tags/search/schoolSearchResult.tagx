@@ -68,14 +68,14 @@
                         <c:when test="${mslHasSchool}">
                             <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
                                 <span>
-                                    Added
+                                    Added to <a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">My School List</a>
                                 </span>
                         </c:when>
                         <c:otherwise>
                             <span class="sprite i-add-sm"><!-- do not collapse --></span>
                                 <span>
                                     <a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
-                                        Add to my school list
+                                        Add to My School List
                                     </a>
                                 </span>
                         </c:otherwise>
