@@ -4,8 +4,6 @@ import gs.data.geo.City;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.regex.Pattern;
-
 public class SavvySourceHelper {
     public static String getSavvyCityPageUrl(City city) {
         if (city != null) {

@@ -262,6 +262,24 @@
         <function-signature>int min(int, int)</function-signature>
     </function>
 
+    <function>
+        <name>getSavvyCityPageUrl</name>
+        <function-class>gs.web.school.SavvySourceHelper</function-class>
+        <function-signature>java.lang.String getSavvyCityPageUrl(gs.data.geo.City)</function-signature>
+    </function>
+
+    <function>
+        <name>getSavvyCityPageUrl</name>
+        <function-class>gs.web.school.SavvySourceHelper</function-class>
+        <function-signature>java.lang.String getSavvyCityPageUrl(gs.data.state.State, java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>getSavvyStatePageUrl</name>
+        <function-class>gs.web.school.SavvySourceHelper</function-class>
+        <function-signature>java.lang.String getSavvyStatePageUrl(gs.data.state.State)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
