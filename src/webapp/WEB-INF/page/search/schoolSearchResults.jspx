@@ -42,11 +42,7 @@
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
 
-<c:set var="slotPrefix" value="Search_Site"/>
-<c:if test="${isCityBrowse}">
-    <c:set var="slotPrefix" value="Search_All_Cities"/>
-</c:if>
-<ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
+<ad:setSlotPrefix slotPrefix="Search_Site"/>
 
 <div id="mainGS" class="col">
 
