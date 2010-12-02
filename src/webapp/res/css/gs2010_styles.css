@@ -9073,7 +9073,8 @@ button {
     position:relative;
 }
 
-#js-bubbleInfo-8{
+#js-bubbleInfo-8,
+#js-bubbleInfo-9{
     position:relative;
     display:inline-block;
 }
@@ -9109,7 +9110,8 @@ button {
     margin-bottom: 15px;
 }
 
-#popup-contents-8 {
+#popup-contents-8,
+#popup-contents-9{
     background: #FFF;
     border: 1px solid #ccc;
     padding: 10px 0 10px 15px;
@@ -9117,7 +9119,8 @@ button {
     margin-top: 15px;
 }
 
-#popup-contents-8 td{
+#popup-contents-8 td,
+#popup-contents-9 td{
     width:117px;
     padding:3px 15px 3px 0;
     vertical-align:top;
@@ -9192,13 +9195,15 @@ button {
     top: 118px;
 }
 
-#popup-contents-8 span.arrow-outline-top {
+#popup-contents-8 span.arrow-outline-top,
+#popup-contents-9 span.arrow-outline-top{
     position: absolute;
     left: 30px;
     top: 1px;
 }
 
-#popup-contents-8 span.arrow-top {
+#popup-contents-8 span.arrow-top,
+#popup-contents-9 span.arrow-top{
     position: absolute;
     left: 30px;
     top: 3px;
