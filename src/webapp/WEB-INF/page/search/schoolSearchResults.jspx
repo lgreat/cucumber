@@ -45,6 +45,8 @@
 <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
 <div id="mainGS" class="col">
+    <!-- Hi Randall! Can you relocate this and move styles to css, thx -->
+    <div id="spinner" style="float:left;z-index:101;position:absolute;left:400px;top:250px;background-color:white;display:none;"><gsml:img src="/res/img/admin/spinner.gif" alt=""/></div>
 
     <div class="spacer_15"><!-- do not collapse --></div>
     <c:set var="schoolResultsFor"><c:choose>
@@ -116,6 +118,7 @@
     <script type="text/javascript">
         jQuery(function () {
             jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:0,topPosition:8});
+            jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:0,topPosition:8});
         });
     </script>
 

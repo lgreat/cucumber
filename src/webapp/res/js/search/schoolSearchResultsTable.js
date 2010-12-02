@@ -118,10 +118,31 @@ GS.search.SchoolSearchResultsTable = function() {
 
     this.update = function() {
         var searcher = new GS.search.SchoolSearcher();
+
+        jQuery('#spinner').show();
+
+        jQuery('#school-search-results-table-body').animate(
+            { opacity: .2 },
+            250,
+            'linear',
+            function() {
+                
+            }
+        );
+
         searcher.search(function(data) {
-            
+
             jQuery('#topicMainGS').html(data);
-           
+            jQuery('#school-search-results-table-body').css("opacity",.2);
+            jQuery('#school-search-results-table-body').animate(
+                {opacity: 1},
+                250,
+                'linear',
+                function() {
+                    jQuery("#spinner").hide();
+                }
+            );
+
         }.gs_bind(this));
     };
 };
@@ -130,6 +151,8 @@ jQuery(function() {
     GS.search.schoolSearchResultsTable = new GS.search.SchoolSearchResultsTable();
 
     jQuery('#topicbarGS input').change(function() {
+        //jQuery("#spinner").css("top",jQuery(this).position().top+118);
+        //jQuery("#spinner").css("left",jQuery(this).position().left+25);
         GS.search.schoolSearchResultsTable.update();
     });
 });
