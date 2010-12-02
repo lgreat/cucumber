@@ -284,7 +284,7 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 };
 
     var markerClickedCallback = function(state, id) {
-        jQuery('.bg-color-f4fafd input:not(:checked').each(function(item) {
+        jQuery('.bg-color-f4fafd input:not(:checked)').each(function(item) {
             jQuery(this).parent().parent().removeClass('bg-color-f4fafd');
         });
         jQuery('#nearby-schools-' + state + id).addClass('bg-color-f4fafd');
