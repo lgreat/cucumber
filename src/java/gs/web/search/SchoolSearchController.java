@@ -51,22 +51,27 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_SCHOOL_TYPE = "schoolType";
     public static final String MODEL_LEVEL_CODE = "levelCode";
     public static final String MODEL_SORT = "sort";
+    public static final String MODEL_SEARCH_STRING = "searchString";
+
     public static final String MODEL_SCHOOL_SEARCH_RESULTS = "schoolSearchResults";
     public static final String MODEL_CITY_SEARCH_RESULTS = "citySearchResults";
     public static final String MODEL_DISTRICT_SEARCH_RESULTS = "districtSearchResults";
+
     public static final String MODEL_START = "start";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_TOTAL_RESULTS = "totalResults";
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_CURRENT_PAGE = "currentPage";
     public static final String MODEL_USE_PAGING = "usePaging";
+
     public static final String MODEL_CITY_ID = "cityId";
-    public static final String MODEL_REL_CANONICAL = "relCanonical";
-    public static final String MODEL_SEARCH_STRING = "searchString";
     public static final String MODEL_MSL_SCHOOLS = "mslSchools";
+
     public static final String MODEL_TITLE = "title";
     public static final String MODEL_META_DESCRIPTION = "metaDescription";
     public static final String MODEL_META_KEYWORDS = "metaKeywords";
+
+    public static final String MODEL_REL_CANONICAL = "relCanonical";
 
     public static final String MODEL_OMNITURE_PAGE_NAME = "omniturePageName";
     public static final String MODEL_OMNITURE_HIERARCHY = "omnitureHierarchy";
