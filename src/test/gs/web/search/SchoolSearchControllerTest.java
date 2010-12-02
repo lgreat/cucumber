@@ -647,7 +647,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         _controller.addPagingDataToModel(start, pageSize, 1, totalResults, model);
 
         assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
-        assertEquals("start should be no larger than total results", 12, model.get(SchoolSearchController.MODEL_START));
+        assertEquals("start should be less than total results", 11, model.get(SchoolSearchController.MODEL_START));
     }
 
 
