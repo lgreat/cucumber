@@ -27,4 +27,11 @@
 
 <search:schoolSearchResultsTable/>
 
+<map:updateSchoolSearchMap
+        id="nearbySchoolsMap"
+        tooltips="true"
+        schools="${schoolSearchResults}"
+        ratings="${ratings}"
+        />
+
 </jsp:root>

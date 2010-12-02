@@ -254,15 +254,12 @@
             id="nearbySchoolsMap"
             tooltips="true"
             schools="${schoolSearchResults}"
-            start="${param.start}"
-            count="${pageSize}"
             ratings="${ratings}"
             />
 
     <!-- end map -->
 
-    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                               showAdPct="0"/>
+    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
 
     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 

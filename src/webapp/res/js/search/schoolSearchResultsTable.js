@@ -121,7 +121,7 @@ GS.search.SchoolSearchResultsTable = function() {
         searcher.search(function(data) {
             
             jQuery('#topicMainGS').html(data);
-
+           
         }.gs_bind(this));
     };
 };

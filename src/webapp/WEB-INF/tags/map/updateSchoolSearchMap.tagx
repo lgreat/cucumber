@@ -17,32 +17,19 @@
     <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom to start with, defaults to 12"/>
     <jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
 
-    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
-    <pageHelper:externalJavascript file="/res/js/map/schoolMap.js" />
-
     <c:if test="${count == 0}">
         <c:set var="count" value="${fn:length(schools)}"/>
     </c:if>
 
-    <c:set var="js">
-        <map:searchResultsSchoolToJsMapSchool school="${schools[0]}" jsVariableName="jsCenterMapSchool" useBubbles="${true}"/>
-    </c:set>
     <c:set var="js2">
         <map:searchResultsMapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" useBubbles="${true}"/>
     </c:set>
 
     <script type="text/javascript">
-        jQuery(function(){
-            ${js}
-            GS.map.schoolMap = new GS.map.SchoolMap('${id}','${schools[0].latLon.lat}','${schools[0].latLon.lon}', true);
-            //GS.map.schoolMap = new GS.map.SchoolMap(jsCenterMapSchool.id,jsCenterMapSchool.latitude,jsCenterMapSchool.longitude, false);
-            //execute the JS generated above
             ${js2}
-
-            //GS.map.schoolMap.addCenterSchool(jsCenterMapSchool, markerClickedCallback);
+            GS.map.schoolMap.removeAllSchools();
             GS.map.schoolMap.addSchools(jsMapSchools, markerClickedCallback);
-            //GS.map.schoolMap.centerOnSchool(jsCenterMapSchool.databaseState, jsCenterMapSchool.id);
-        });
+            GS.map.schoolMap.drawMarkers();
     </script>
 
 

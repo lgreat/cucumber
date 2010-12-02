@@ -20,7 +20,7 @@
         <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
         <c:set var="searchResultsPagingSummary">
             <div class="js-search-results-paging-summary text3">
-                <c:set var="lastResultOnPage" value="${currentPage*pageSize}"/>
+                <c:set var="lastResultOnPage" value="${start+pageSize}"/>
                 <c:if test="${lastResultOnPage gt totalResults}">
                     <c:set var="lastResultOnPage" value="${totalResults}"/>
                 </c:if>

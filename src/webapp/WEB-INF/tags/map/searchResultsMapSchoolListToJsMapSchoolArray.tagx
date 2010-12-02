@@ -11,10 +11,6 @@
 
     <jsp:directive.attribute name="schools" required="true" description="Collection of MapSchools to convert" type="java.util.Collection"/>
     <jsp:directive.attribute name="jsArrayName" required="true" description="Variable name of the MapSchool array that will get instantiated" />
-
-    <jsp:directive.attribute name="start" required="false" type="java.lang.Integer" description="Used for paging. Which neighbor in list to start with."/>
-    <jsp:directive.attribute name="count" required="false" type="java.lang.Integer" description="AKA page size. Number of pinpoints to display on map. Default all." />
-
     <jsp:directive.attribute name="useBubbles" required="false" type="java.lang.Boolean" description="Whether or not to show bubbles when clicking map marker"/>
     <!-- this tag shouldn't really need to exist, but the NearbySchool / MapSchool foo needs
     to be refactored so that it's easier to create a js GS.map.MapSchool from a School + rating -->
@@ -24,7 +20,7 @@
     </c:set>
 
     <c:set var="counter" value="${0}"/>
-    <c:forEach var ="curSchool" items = "${schools}" begin="${start}" end="${start+count-1}">
+    <c:forEach var ="curSchool" items = "${schools}">
         <c:set var="schoolName" value="${fn:replace(curSchool.name, '\'', '\\\'')}"/>
 
         <c:choose>
