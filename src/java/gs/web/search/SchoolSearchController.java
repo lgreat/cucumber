@@ -79,8 +79,6 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected static final String VIEW_NOT_FOUND = "/status/error404";
 
-    // TODO: Omniture tracking
-
     @Override
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
 
@@ -259,6 +257,15 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
+    public ModelAndView redirectTo404(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        return new ModelAndView("redirect:" + VIEW_NOT_FOUND);
+    }
+
+    //-------------------------------------------------------------------------
+    // omniture
+    //-------------------------------------------------------------------------
+
     protected static String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults,
                                                 City city, District district, LevelCode levelCode, String[] schoolTypes, String searchString,
                                                 List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
@@ -365,6 +372,10 @@ public class SchoolSearchController extends AbstractCommandController implements
             }
         }
     }
+
+    //-------------------------------------------------------------------------
+    // title, meta description, meta keywords
+    //-------------------------------------------------------------------------
 
     public static String calcMetaDesc(String districtDisplayName, String cityDisplayName,
                                       State state, LevelCode levelCode, String[] schoolType) {
@@ -499,6 +510,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         return null;
     }
 
+    //-------------------------------------------------------------------------
+    // pagination
+    //-------------------------------------------------------------------------
+
     /**
      * Calculates paging info and adds it to model. Paging is zero-based. First search result has start=0
      * 
@@ -522,6 +537,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_START, start <= totalResults? start : totalResults-1);
         model.put(MODEL_PAGE_SIZE, pageSize);
     }
+
+    //-------------------------------------------------------------------------
+    // GAM
+    //-------------------------------------------------------------------------
 
     protected void addGamAttributes(HttpServletRequest request, HttpServletResponse response, PageHelper pageHelper,
                                     Map<FieldConstraint,String> constraints, List<FilterGroup> filterGroups, String searchString,
@@ -630,6 +649,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
+    //-------------------------------------------------------------------------
+    // rel canonical
+    //-------------------------------------------------------------------------
+
     protected String getRelCanonical(HttpServletRequest request, State state, List<ICitySearchResult> citySearchResults, City city, District district,
                                      List<FilterGroup> filterGroups, LevelCode levelCode, String searchString) {
         if (request == null || state == null) {
@@ -701,6 +724,10 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         return url;
     }
+
+    //-------------------------------------------------------------------------
+    // helper methods for filters, constraints
+    //-------------------------------------------------------------------------
 
     protected Map<FieldConstraint,String> getFieldConstraints(State state, City city, District district) {
         Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
@@ -795,10 +822,9 @@ public class SchoolSearchController extends AbstractCommandController implements
         return filter;
     }
 
-    public ModelAndView redirectTo404(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        return new ModelAndView("redirect:" + VIEW_NOT_FOUND);
-    }
+    //-------------------------------------------------------------------------
+    // spring-injected accessors
+    //-------------------------------------------------------------------------
 
     public IDistrictDao getDistrictDao() {
         return _districtDao;
@@ -847,6 +873,10 @@ public class SchoolSearchController extends AbstractCommandController implements
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
     }
+
+    //-------------------------------------------------------------------------
+    // required to implement interface IDirectoryStructureUrlController
+    //-------------------------------------------------------------------------
 
     public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
         boolean schoolsController = false;
