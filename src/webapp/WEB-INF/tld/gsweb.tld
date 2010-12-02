@@ -269,12 +269,6 @@
     </function>
 
     <function>
-        <name>getSavvyCityPageUrl</name>
-        <function-class>gs.web.school.SavvySourceHelper</function-class>
-        <function-signature>java.lang.String getSavvyCityPageUrl(gs.data.state.State, java.lang.String)</function-signature>
-    </function>
-
-    <function>
         <name>getSavvyStatePageUrl</name>
         <function-class>gs.web.school.SavvySourceHelper</function-class>
         <function-signature>java.lang.String getSavvyStatePageUrl(gs.data.state.State)</function-signature>
