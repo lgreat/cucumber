@@ -112,7 +112,8 @@ public class SchoolSearchController extends AbstractCommandController implements
             try {
                 state = State.fromString(schoolSearchCommand.getState());
             } catch (IllegalArgumentException iae) {
-                // invalid state
+                // invalid state, use default
+                state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
             }
         } else if (fields != null && fields.getState() != null) {
             state = fields.getState();
