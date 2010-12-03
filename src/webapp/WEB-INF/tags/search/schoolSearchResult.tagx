@@ -41,13 +41,12 @@
                                                                  levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
                     </span>
                     <br/>
-                    <c:if test="${school.schoolType ne null}">
-                        <span class="text3">${school.schoolType}</span>
-                    </c:if>
+                    <span class="text3 schoolType">${school.schoolType}</span>
                     <c:if test="${school.grades.rangeString ne null}">
-                        <span class="text3">${school.grades.rangeString}</span>
-                        <br/>
+                        &amp;#183;
+                        <span class="text3">K-12${school.grades.rangeString}</span>
                     </c:if>
+                    <br/>
                     <span class="smallAlertText js-school-search-result-street">${school.address.street}</span>
                     <br/>
                     <span class="smallAlertText js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</span>

@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.geo.ILocation;
 import gs.data.geo.LatLon;
+import gs.data.school.Grades;
 import gs.data.state.State;
 import gs.data.util.Address;
 
@@ -26,5 +27,7 @@ public interface ISchoolSearchResult extends ISearchResult, ILocation {
     public Integer getGreatSchoolsRating();
 
     public Integer getParentRating();
+
+    public Grades getGrades();
 
 }

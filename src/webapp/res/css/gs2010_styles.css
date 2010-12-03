@@ -5961,6 +5961,10 @@ body.ie8 #frmPRModule .helperMessage, body.ie7 #frmPRModule .helperMessage{
     display:none;
 }
 
+#school-search-results-table-body .schoolType {
+    text-transform: capitalize;
+}
+
 /* =compare
 -------------------------------------------------------------------------------------------*/
 #csMain {
