@@ -224,12 +224,7 @@
 
         <div class="spacer_10"><!-- do not collapse --></div>
         <div class="line">
-            <div class="unit size1of2">
-                <div class="fltlft">
-                    ${searchResultsPagingSummary}
-                </div>
-            </div>
-            <div class="unit size1of2 lastUnit">
+            <div class="unit size1of1 lastUnit">
                 <div class="pagination" id="pagination">
                     <!--<c:forEach begin="1" end="${totalPages}" var="loopPageNumber" varStatus="status">
                         <c:set var="pagerTabClass" value="pager-tab"/>
@@ -243,7 +238,6 @@
                     <span class="prv_nxt">Next &amp;raquo;</span>-->
                     <search:pagination page="${currentPage}" pageSize="${pageSize}" totalPages="${totalPages}"/>
                 </div>
-
             </div>
         </div>
 
