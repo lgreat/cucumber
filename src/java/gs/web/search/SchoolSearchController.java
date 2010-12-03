@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,6 +78,11 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_OMNITURE_SCHOOL_TYPE = "omnitureSchoolType";
     public static final String MODEL_OMNITURE_SCHOOL_LEVEL = "omnitureSchoolLevel";
     public static final String MODEL_OMNITURE_SORT_SELECTION = "omnitureSortSelection";
+
+    public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
+    public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
+    public static final String MODEL_IS_SEARCH = "isSearch";
+
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -151,6 +155,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         String[] schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
         LevelCode levelCode = LevelCode.createLevelCode(schoolSearchCommand.getGradeLevels());
 
+        // used for ajax updates only
+        boolean hasSchoolTypeFilters = !(schoolSearchTypes == null || schoolSearchTypes.length == 0);
+        boolean hasLevelCodeFilters = !(schoolSearchCommand.getGradeLevels() == null || schoolSearchCommand.getGradeLevels().length == 0);
+
         //If command did not contain level code / school types, grab those from DirectoryStructureUrlFields
         if (fields != null && (schoolSearchTypes == null || schoolSearchTypes.length > 0)) {
             schoolSearchTypes = fields.getSchoolTypesParams();
@@ -178,14 +186,19 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         FieldSort sort = this.getChosenSort(schoolSearchCommand);
 
-        SearchResultsPage<ISchoolSearchResult> searchResultsPage = getSchoolSearchService().search(
-                schoolSearchCommand.getSearchString(),
-                fieldConstraints,
-                filterGroups,
-                sort,
-                schoolSearchCommand.getStart(),
-                schoolSearchCommand.getPageSize()
-        );
+        SearchResultsPage<ISchoolSearchResult> searchResultsPage;
+        if (schoolSearchCommand.isAjaxRequest() && (!hasSchoolTypeFilters || !hasLevelCodeFilters)) {
+            searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
+        } else {
+            searchResultsPage = getSchoolSearchService().search(
+                    schoolSearchCommand.getSearchString(),
+                    fieldConstraints,
+                    filterGroups,
+                    sort,
+                    schoolSearchCommand.getStart(),
+                    schoolSearchCommand.getPageSize()
+            );
+        }
 
         List<ICitySearchResult> citySearchResults = null;
         List<IDistrictSearchResult> districtSearchResults = null;
@@ -241,9 +254,17 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(levelCode));
         model.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sort));
 
+        model.put(MODEL_IS_CITY_BROWSE, city != null);
+        model.put(MODEL_IS_DISTRICT_BROWSE, district != null);
+        model.put(MODEL_IS_SEARCH, city == null && district == null);
 
-        if (schoolSearchCommand.isJsonFormat()) {
-            return new ModelAndView("/search/schoolSearchResultsTable", model);
+        if (schoolSearchCommand.isAjaxRequest()) {
+            if (searchResultsPage.getTotalResults() == 0) {
+                return new ModelAndView("/search/schoolSearchNoResultsTable", model);
+            } else {
+                return new ModelAndView("/search/schoolSearchResultsTable", model);
+            }
+
         } else {
             if (searchResultsPage.getTotalResults() == 0) {
                 return new ModelAndView("/search/schoolSearchNoResults", model);
@@ -353,7 +374,13 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     protected static String getOmnitureSchoolType(String[] schoolSearchTypes) {
-        return StringUtils.join(schoolSearchTypes);
+        if (schoolSearchTypes == null) {
+            return "nothing checked";
+        } else if (schoolSearchTypes.length == 4) {
+            return null;
+        } else {
+            return StringUtils.join(schoolSearchTypes);
+        }
     }
 
     protected static String getOmnitureSchoolLevel(LevelCode levelCode) {

@@ -5,7 +5,7 @@ public class SchoolSearchCommand {
     private String _searchString;
     private String _state;
     private String[] _schoolTypes;
-    private String _format = "html";
+    private String _requestType = "html";
     /**
      * Valid values are: [p e m h]
      */
@@ -97,16 +97,16 @@ public class SchoolSearchCommand {
         return (int) Math.ceil((_start+1) / ((float)_pageSize));
     }
 
-    public String getFormat() {
-        return _format;
+    public String getRequestType() {
+        return _requestType;
     }
 
-    public void setFormat(String format) {
-        _format = format;
+    public void setRequestType(String requestType) {
+        _requestType = requestType;
     }
 
-    public boolean isJsonFormat() {
-        return "json".equals(_format);
+    public boolean isAjaxRequest() {
+        return "ajax".equals(_requestType);
     }
 
     public boolean hasSchoolTypes() {
