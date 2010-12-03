@@ -6328,12 +6328,12 @@ additional icons on the sprite.
     width: 10px;
     height: 10px;
     background-position: 0 -330px;
+    _font-size:8px;
 }
 
 .i-checkmark-sm {
     width: 15px;
     height: 12px;
-    background-position: 0 -340px;
     background-position: 0 -340px;
 }
 
