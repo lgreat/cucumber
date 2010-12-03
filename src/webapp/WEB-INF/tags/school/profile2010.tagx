@@ -145,9 +145,8 @@
             <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
                 | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
             </c:if>
-<!--
             | &amp;nbsp; <promo:facebookLikeButton showLongText="false" />
--->
+
         </p>
 
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
@@ -558,4 +557,6 @@
 </div>
 <!-- end schoolProfile -->
 <br class="clearfloat"/>
+
+
 </jsp:root>

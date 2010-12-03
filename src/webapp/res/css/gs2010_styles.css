@@ -6053,20 +6053,20 @@ body.ie8 #frmPRModule .helperMessage, body.ie7 #frmPRModule .helperMessage{
 .bottom .compareTabs li a {
     color: #fff;
 }
-#compareTable {
+table#compareTable {
     border: solid #c6c6c6;
     border-width: 0 1px 1px;
 }
-#compareTable th, #compareTable td {
+table#compareTable th, table#compareTable td {
     padding: 10px;
     vertical-align: top;
     text-align: left;
 }
-#compareTable th {
+table#compareTable th {
     border-bottom: 1px solid #c6c6c6;
     width: 97px;
 }
-#compareTable td {
+table#compareTable td {
     border: solid #c6c6c6;
     border-width: 0 0 1px 1px;
     width: 153px;
