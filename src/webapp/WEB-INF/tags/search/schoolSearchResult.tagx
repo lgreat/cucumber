@@ -44,7 +44,7 @@
                     <span class="text3 schoolType">${school.schoolType}</span>
                     <c:if test="${school.grades.rangeString ne null}">
                         &amp;#183;
-                        <span class="text3">K-12${school.grades.rangeString}</span>
+                        <span class="text3">${school.grades.rangeString}</span>
                     </c:if>
                     <br/>
                     <span class="smallAlertText js-school-search-result-street">${school.address.street}</span>
