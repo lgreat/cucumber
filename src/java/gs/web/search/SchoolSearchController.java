@@ -66,6 +66,9 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_CITY_ID = "cityId";
     public static final String MODEL_MSL_SCHOOLS = "mslSchools";
 
+    public static final String MODEL_CITY = "city";
+    public static final String MODEL_DISTRICT = "district";
+
     public static final String MODEL_TITLE = "title";
     public static final String MODEL_META_DESCRIPTION = "metaDescription";
     public static final String MODEL_META_KEYWORDS = "metaKeywords";
@@ -137,6 +140,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                 district = getDistrictDao().findDistrictByNameAndCity(state, districtName, cityName);
                 if (district == null) {
                     return redirectTo404(response);
+                } else {
+                    model.put(MODEL_DISTRICT, district);
                 }
             }
 
@@ -145,6 +150,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                 city = getGeoDao().findCity(state, cityName);
                 if (city == null) {
                     return redirectTo404(response);
+                } else {
+                    model.put(MODEL_CITY, city);
                 }
             }
         }
