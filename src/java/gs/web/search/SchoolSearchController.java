@@ -390,6 +390,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         return null; 
     }
 
+    // TODO: fixme - return null if everything checked, "nothing checked" if no checkboxes checked, csv list otherwise
     protected static String getOmnitureSchoolType(String[] schoolSearchTypes) {
         if (schoolSearchTypes == null) {
             return "nothing checked";
@@ -400,6 +401,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
+    // TODO: fixme - return null if everything checked, "nothing checked" if no checkboxes checked, csv list otherwise
     protected static String getOmnitureSchoolLevel(LevelCode levelCode) {
         if (levelCode != null) {
             return levelCode.getCommaSeparatedString();
