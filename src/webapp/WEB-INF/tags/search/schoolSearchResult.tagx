@@ -41,6 +41,9 @@
                                                                  levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
                     </span>
                     <br/>
+                    <c:if test="${school.schoolType ne null}">
+                        <span class="text3">${school.schoolType}</span>
+                    </c:if>
                     <c:if test="${school.grades.rangeString ne null}">
                         <span class="text3">${school.grades.rangeString}</span>
                         <br/>

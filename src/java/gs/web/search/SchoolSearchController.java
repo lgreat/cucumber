@@ -149,6 +149,21 @@ public class SchoolSearchController extends AbstractCommandController implements
             }
         }
 
+        boolean isCityBrowse = false;
+        boolean isDistrictBrowse = false;
+        boolean isSearch = false;
+        // warning: for district browse, the city object is also populated, so the order of these if-else if-else statements matters!
+        if (district != null) {
+            isDistrictBrowse = true;
+        } else if (city != null) {
+            isCityBrowse = true;
+        } else {
+            isSearch = true;
+        }
+        model.put(MODEL_IS_CITY_BROWSE, isCityBrowse);
+        model.put(MODEL_IS_DISTRICT_BROWSE, isDistrictBrowse);
+        model.put(MODEL_IS_SEARCH, isSearch);
+
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);
 
         //create school types and level code from SchoolSearchCommand
@@ -235,28 +250,24 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
         model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
                                      filterGroups, levelCode, schoolSearchCommand.getSearchString()));
-        model.put(MODEL_TITLE, getTitle(city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString()));
-        model.put(MODEL_META_DESCRIPTION, getMetaDescription(city, district, levelCode, schoolSearchTypes));
+        model.put(MODEL_TITLE, getTitle(isCityBrowse, isDistrictBrowse, city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString()));
+        model.put(MODEL_META_DESCRIPTION, getMetaDescription(isCityBrowse, isDistrictBrowse, city, district, levelCode, schoolSearchTypes));
         model.put(MODEL_META_KEYWORDS, getMetaKeywords(district));
 
         model.put(MODEL_OMNITURE_PAGE_NAME,
                 getOmniturePageName(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
-                        city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString(),
+                        isCityBrowse, isDistrictBrowse, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString(),
                         citySearchResults, districtSearchResults)
         );
         model.put(MODEL_OMNITURE_HIERARCHY,
                 getOmnitureHierarchy(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
-                        city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString(),
+                        isCityBrowse, isDistrictBrowse, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString(),
                         citySearchResults, districtSearchResults)
         );
-        model.put(MODEL_OMNITURE_QUERY, getOmnitureQuery(city, district, schoolSearchCommand.getSearchString()));
+        model.put(MODEL_OMNITURE_QUERY, getOmnitureQuery(isSearch,  schoolSearchCommand.getSearchString()));
         model.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
         model.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(levelCode));
         model.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sort));
-
-        model.put(MODEL_IS_CITY_BROWSE, city != null);
-        model.put(MODEL_IS_DISTRICT_BROWSE, district != null);
-        model.put(MODEL_IS_SEARCH, city == null && district == null);
 
         if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
@@ -293,7 +304,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     //-------------------------------------------------------------------------
 
     protected static String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults,
-                                                City city, District district, LevelCode levelCode, String[] schoolTypes, String searchString,
+                                                boolean isCityBrowse, boolean isDistrictBrowse, LevelCode levelCode, String[] schoolTypes, String searchString,
                                                 List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
         String pageName = "";
 
@@ -301,9 +312,9 @@ public class SchoolSearchController extends AbstractCommandController implements
         boolean hasCityResults = (citySearchResults != null && citySearchResults.size() > 0);
         boolean hasDistrictResults = (districtSearchResults != null && districtSearchResults.size() > 0);
 
-        if (city != null) {
+        if (isCityBrowse) {
             pageName = "schools:city:" + currentPage + ("1".equals(paramMap) ? ":map" : "");
-        } else if (district != null) {            
+        } else if (isDistrictBrowse) {
             pageName = "schools:district:" + currentPage + ("1".equals(paramMap) ? ":map" : "");
         } else if (totalResults > 0) {
             pageName = "School Search:Page" + currentPage;
@@ -328,16 +339,16 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     protected static String getOmnitureHierarchy(HttpServletRequest request, int currentPage, int totalResults,
-                                                City city, District district, LevelCode levelCode, String[] schoolTypes, String searchString,
+                                                boolean isCityBrowse, boolean isDistrictBrowse, LevelCode levelCode, String[] schoolTypes, String searchString,
                                                 List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
         String hierarchy = "";
 
         boolean hasCityResults = (citySearchResults != null && citySearchResults.size() > 0);
         boolean hasDistrictResults = (districtSearchResults != null && districtSearchResults.size() > 0);
 
-        if (city != null) {
+        if (isCityBrowse) {
             hierarchy = "Search,Schools,City," + (totalResults > 0 ? currentPage : "noresults");
-        } else if (district != null) {
+        } else if (isDistrictBrowse) {
             hierarchy = "Search,Schools,District," + (totalResults > 0 ? currentPage : "noresults");
         } else if (totalResults > 0) {
             hierarchy = "Search,School Search," + currentPage;
@@ -361,8 +372,8 @@ public class SchoolSearchController extends AbstractCommandController implements
         return hierarchy;
     }
 
-    protected static String getOmnitureQuery(City city, District district, String searchString) {
-        if (city == null && district == null) {
+    protected static String getOmnitureQuery(boolean isSearch, String searchString) {
+        if (isSearch) {
             if (StringUtils.isBlank(searchString)) {
                 return "[blank]";
             } else {
@@ -513,10 +524,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         return sb.toString();
     }
 
-    protected static String getTitle(City city, District district, LevelCode levelCode, String[] schoolTypes, String searchString) {
-        if (city != null) {
+    protected static String getTitle(boolean isCityBrowse, boolean isDistrictBrowse, City city, District district, LevelCode levelCode, String[] schoolTypes, String searchString) {
+        if (isCityBrowse) {
             return calcCitySchoolsTitle(city.getDisplayName(), city.getState(), levelCode, schoolTypes);
-        } else if (district != null) {
+        } else if (isDistrictBrowse) {
             return SeoUtil.generatePageTitle(district, levelCode, schoolTypes);
         } else if (StringUtils.isNotBlank(searchString)) {
             return "GreatSchools.org Search: " + StringEscapeUtils.escapeHtml(searchString);
@@ -525,10 +536,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
-    protected static String getMetaDescription(City city, District district, LevelCode levelCode, String[] schoolTypes) {
-        if (city != null) {
+    protected static String getMetaDescription(boolean isCityBrowse, boolean isDistrictBrowse, City city, District district, LevelCode levelCode, String[] schoolTypes) {
+        if (isCityBrowse) {
             return calcMetaDesc(null, city.getDisplayName(), city.getState(), levelCode, schoolTypes);
-        } else if (district != null) {
+        } else if (isDistrictBrowse) {
             return SeoUtil.generateMetaDescription(district);
         } else {
             return null;
