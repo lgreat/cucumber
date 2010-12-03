@@ -116,7 +116,7 @@
             | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">more nearby cities <span
                 class="alertDoubleArrow">&amp;raquo;</span></span>
 
-            <div id="nearby-cities" class="js-popup"><!-- DONE: Randall: style -->
+            <div id="nearby-cities" class="js-popup">
                 <div id="popup-contents-8">
                     <span class="arrow-outline-top"><!-- do not collapse --></span>
                     <span class="arrow-top"><!-- do not collapse --></span>
@@ -126,17 +126,15 @@
                     <c:choose>
                         <c:when test="${fn:length(citySearchResults) lt 6}">
                             <c:set var="cityTableColumns" value="${1}"/>
-                            <c:set var="tableWidth" value="${132}"/>
                         </c:when>
                         <c:when test="${fn:length(citySearchResults) ge 6 and fn:length(citySearchResults) lt 12}">
                             <c:set var="cityTableColumns" value="${2}"/>
-                            <c:set var="tableWidth" value="${264}"/>
                         </c:when>
                         <c:otherwise>
                             <c:set var="cityTableColumns" value="${3}"/>
-                            <c:set var="tableWidth" value="${396}"/>
                         </c:otherwise>
                     </c:choose>
+                    <c:set var="tableWidth" value="${132 * cityTableColumns}"/>
                     <c:if test="${fn:length(citySearchResults) > 0}">
                         <table cellspacing="0" width="${tableWidth}">
                             <tbody>

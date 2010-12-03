@@ -19,8 +19,6 @@ import java.util.List;
 public class DistrictSearchServiceImpl extends BaseLuceneSearchService implements DistrictSearchService {
 
     Searcher _searcher;
-    
-    DistrictResultBuilder _resultBuilder;
 
     GSQueryParser _queryParser;
 
@@ -31,6 +29,10 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
     }
 
     public List<IDistrictSearchResult> search(String searchString, State state) throws SchoolSearchService.SearchException {
+        return search(searchString, state, 0, 0);
+    }
+
+    public List<IDistrictSearchResult> search(String searchString, State state, int offset, int count) throws SchoolSearchService.SearchException {
         List<IDistrictSearchResult> resultList = new ArrayList<IDistrictSearchResult>();
 
         Hits hits = null;
@@ -42,7 +44,7 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
             }
 
             if (hits != null) {
-                resultList = new DistrictResultBuilder().build(hits);
+                resultList = new DistrictResultBuilder().build(hits, offset, count);
             }
         } catch (ParseException e) {
             _log.debug("Parse exception: ", e);
@@ -98,7 +100,6 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
     }
-
 }
 
 class DistrictResultBuilder implements LuceneResultBuilder {
@@ -109,11 +110,18 @@ class DistrictResultBuilder implements LuceneResultBuilder {
     }
 
     public List<IDistrictSearchResult> build(Hits hits) throws IOException {
+        return build(hits, 0, 0);
+    }
+
+    public List<IDistrictSearchResult> build(Hits hits, int offset, int count) throws IOException {
+        int length = hits.length();
+        if (count == 0) {
+            count = hits.length();
+        }
+
         List<IDistrictSearchResult> searchResults = new ArrayList<IDistrictSearchResult>();
 
-        int length = hits.length();
-
-        for (int i = 0; i < length; i++) {
+        for (int i = offset; (i < length && i < offset + count); i++ ) {
             Document document = hits.doc(i);
             DistrictSearchResult result = new DistrictSearchResult();
             result.setDistrict(document.get("district"));

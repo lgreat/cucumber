@@ -32,6 +32,10 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
     }
 
     public List<ICitySearchResult> search(String searchString, State state) throws SchoolSearchServiceImpl.SearchException {
+        return search(searchString, state, 0, 0);
+    }
+
+    public List<ICitySearchResult> search(String searchString, State state, int offset, int count) throws SchoolSearchServiceImpl.SearchException {
         List<ICitySearchResult> resultList = new ArrayList<ICitySearchResult>();
 
         Hits hits = null;
@@ -43,7 +47,7 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
             }
 
             if (hits != null) {
-                resultList = new CityResultBuilder().build(hits);//TODO: find better way to get result builder
+                resultList = new CityResultBuilder().build(hits, offset, count);//TODO: find better way to get result builder
             }
         } catch (ParseException e) {
             _log.debug("Parse exception: ", e);
@@ -119,11 +123,22 @@ class CityResultBuilder implements LuceneResultBuilder {
     }
 
     public List<ICitySearchResult> build(Hits hits) throws IOException {
+        return build(hits, 0, hits.length());
+    }
+
+
+    public List<ICitySearchResult> build(Hits hits, int offset) throws IOException {
+        return build(hits, offset, hits.length() - offset);
+    }
+
+    public List<ICitySearchResult> build(Hits hits, int offset, int count) throws IOException {
+        int length = hits.length();
+        if (count == 0) {
+            count = hits.length();
+        }
         List<ICitySearchResult> searchResults = new ArrayList<ICitySearchResult>();
 
-        int length = hits.length();
-
-        for (int i = 0; i < length; i++) {
+        for (int i = offset; (i < length && i < offset + count); i++ ) {
             Document document = hits.doc(i);
             CitySearchResult result = new CitySearchResult();
             result.setCity(document.get("city"));
