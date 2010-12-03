@@ -56,12 +56,12 @@
 
         <div id="topicMainGS" class="col">
 
-            <!-- TODO:
-               Hello Samson,
+             TODO:
                Please make "badSearch" and "bestGuess" dynamic.
                The "bestGuess" should also be a link.
                The search form also needs to work.
-            -->
+              The Did You Mean should be commented out because we don't support this yet.
+            
 
             <c:set var="badSearch" value="Sam Clam's Disco"/>
             <c:set var="bestGuess" value="San Francisco"/>
