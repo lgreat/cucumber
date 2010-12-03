@@ -49,11 +49,41 @@
     <div id="spinner" style="float:left;z-index:101;position:absolute;left:400px;top:250px;background-color:white;display:none;"><gsml:img src="/res/img/admin/spinner.gif" alt=""/></div>
 
     <div class="spacer_15"><!-- do not collapse --></div>
-    <c:set var="schoolResultsFor"><c:choose>
+    <c:set var="schoolResultsFor">
+        <c:choose>
             <c:when test="${not empty searchString}">${searchString}</c:when>
             <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
-        </c:choose></c:set>
-    <div class="title2-333">School results for <span class="title2-d61">&amp;ldquo;${schoolResultsFor}&amp;rdquo;</span></div>
+        </c:choose>
+    </c:set>
+    <c:if test="${isSearch}">
+        <div class="title2-333">School results for <span
+                class="title2-d61">&amp;ldquo;${schoolResultsFor}&amp;rdquo;</span></div>
+    </c:if>
+    <c:if test="${isCityBrowse}">
+        <div class="line">
+            <div class="unit size1of2">
+                <div class="title2-d61">${schoolResultsFor} Schools</div>
+            </div>
+            <div class="unit size1of2 lastUnit">
+                <div class="smallAlertText fltrt">
+                    View city information for <link:city city="${city.name}" state="${city.state}">${schoolResultsFor} </link:city><span class="alertDoubleArrow">&amp;raquo;</span>
+                </div>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${isDistrictBrowse}">
+        <div class="line">
+            <div class="unit size3of4">
+                <div class="title2-d61">${schoolResultsFor} Unified School District Schools</div>
+            </div>
+            <div class="unit size1of4 lastUnit">
+                <div class="smallAlertText fltrt">
+                    <link:districtHome
+                    district="${district}">View district information <span class="alertDoubleArrow">&amp;raquo;</span></link:districtHome>
+                </div>
+            </div>
+        </div>
+    </c:if>
     <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
     <div class="spacer_10"><!-- do not collapse --></div>
     <!-- nearby cities box -->
