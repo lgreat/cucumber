@@ -23,13 +23,13 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<search:schoolSearchResultsTable/>
+<div id="failedSearch">
+    <p class="introText-c03">No results match your selections</p>
+</div>
 
-<map:updateSchoolSearchMap
-        id="nearbySchoolsMap"
-        tooltips="true"
-        schools="${schoolSearchResults}"
-        ratings="${ratings}"
-        />
+    <table id="school-search-results-table-header">
+    </table>
+    <table id="school-search-results-table-body">
+    </table>
 
 </jsp:root>

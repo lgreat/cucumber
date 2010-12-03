@@ -264,7 +264,6 @@ public class SchoolSearchController extends AbstractCommandController implements
             } else {
                 return new ModelAndView("/search/schoolSearchResultsTable", model);
             }
-
         } else {
             if (searchResultsPage.getTotalResults() == 0) {
                 return new ModelAndView("/search/schoolSearchNoResults", model);

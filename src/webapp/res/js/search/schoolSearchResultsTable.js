@@ -37,7 +37,7 @@ GS.search.SchoolSearcher = function() {
         var gradeLevels = [];
         var schoolTypes = [];
 
-        data.format = "json";
+        data.requestType = "ajax";
         data.decorator="emptyDecorator";
         data.confirm="true";
         

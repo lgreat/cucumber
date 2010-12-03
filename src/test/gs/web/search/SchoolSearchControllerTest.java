@@ -15,8 +15,6 @@ import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import junit.framework.TestCase;
-import org.apache.commons.collections.MultiMap;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.springframework.validation.BindException;
@@ -24,9 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import static org.easymock.EasyMock.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class SchoolSearchControllerTest extends BaseControllerTestCase {
@@ -109,7 +104,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         schoolSearchCommand.setPageSize(5);
         schoolSearchCommand.setSearchString("alameda");
         schoolSearchCommand.setStart(10);
-        schoolSearchCommand.setFormat("json");
+        schoolSearchCommand.setRequestType("json");
 
         Map<FieldConstraint, String> fieldConstraints = new HashMap<FieldConstraint,String>();
         fieldConstraints.put(FieldConstraint.STATE, "ca");
@@ -141,7 +136,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         schoolSearchCommand.setPageSize(-5);
         schoolSearchCommand.setSearchString("alameda");
         schoolSearchCommand.setStart(10);
-        schoolSearchCommand.setFormat("json");
+        schoolSearchCommand.setRequestType("json");
 
         Map<FieldConstraint, String> fieldConstraints = new HashMap<FieldConstraint,String>();
         fieldConstraints.put(FieldConstraint.STATE, "ca");
