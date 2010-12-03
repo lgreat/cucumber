@@ -95,6 +95,7 @@
     TODO: padding around top-right box ad is a little odd<br/>
     TODO: no-results page has todos<br/>
     TODO: make ids on filter checkboxes more unique<br/>
+    TODO: prevent 500 page from being shown within results column on ajax updates
     TODO: sponsored result ads disappear when applying filters - is that okay or should the ads be moved out of the div that gets replaced?<br/>
     TODO: sponsored result ads push down the page, so that filter spinner is no longer centered inside the first result. maybe move the spinner to be positioned relative to something different so it stays in the center of the first result regardless of ads above it?<br/>
     TODO: Omniture for filters is incorrect, needs to be empty when all checked, "nothing checked" when nothing is checked, and CSV list otherwise
