@@ -126,7 +126,7 @@ GS.search.SchoolSearchResultsTable = function() {
             250,
             'linear',
             function() {
-                
+
             }
         );
 

@@ -23,9 +23,13 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<div id="failedSearch">
-    <p class="introText-c03">No results match your selections</p>
-</div>
+    <div id="failedSearch" class="errorBox2">
+        <div class="media">
+            <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+            <p class="formErrorText bd">No results match your selections</p>
+        </div>
+    </div>
 
     <table id="school-search-results-table-header">
     </table>

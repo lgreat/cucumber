@@ -45,8 +45,6 @@
 <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
 <div id="mainGS" class="col">
-    <!-- Todo: Hi Randall! Can you relocate this and move styles to css, thx -->
-    <div id="spinner" style="float:left;z-index:101;position:absolute;left:400px;top:250px;background-color:white;display:none;"><gsml:img src="/res/img/admin/spinner.gif" alt=""/></div>
 
     <div class="spacer_15"><!-- do not collapse --></div>
     <c:set var="schoolResultsFor">
@@ -89,12 +87,12 @@
     <!--
     TODO: Do we need a district list?<br/>
     TODO: City list needs to be linked<br/>
-    TODO: spinner css should be moved out of inline css into a gs2010_styles.css<br/>
+    DONE: spinner css should be moved out of inline css into a gs2010_styles.css<br/>
     TODO: school type filters don't work on browse pages (they work on search pages)<br/>
-    TODO: sort by menu wraps to next line<br/>
-    TODO: padding around top-right box ad is a little odd<br/>
+    DONE: sort by menu wraps to next line<br/>
+    DONE: padding around top-right box ad is a little odd<br/>
     TODO: no-results page has todos<br/>
-    TODO: make ids on filter checkboxes more unique<br/>
+    DONE: make ids on filter checkboxes more unique<br/>
     TODO: prevent 500 page from being shown within results column on ajax updates
     TODO: sponsored result ads disappear when applying filters - is that okay or should the ads be moved out of the div that gets replaced?<br/>
     TODO: sponsored result ads push down the page, so that filter spinner is no longer centered inside the first result. maybe move the spinner to be positioned relative to something different so it stays in the center of the first result regardless of ads above it?<br/>
@@ -178,46 +176,46 @@
                     <!-- TODO: make IDs on checkboxes more unique -->
                     <c:choose>
                         <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'p')}">
-                            <input type="checkbox" checked="checked" name="gradeLevels" id="p" value="p"/>
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-p" value="p"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="gradeLevels" id="p" value="p"/>
+                            <input type="checkbox" name="gradeLevels" id="grade-level-p" value="p"/>
                         </c:otherwise>
                     </c:choose>
-                    <label for="p">Preschool</label>
+                    <label for="grade-level-p">Preschool</label>
                 </div>
                 <div>
                     <c:choose>
                         <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'e')}">
-                            <input type="checkbox" checked="checked" name="gradeLevels" id="e" value="e"/>
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-e" value="e"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="gradeLevels" id="e" value="e"/>
+                            <input type="checkbox" name="gradeLevels" id="grade-level-e" value="e"/>
                         </c:otherwise>
                     </c:choose>
-                    <label for="e">Elementary School</label>
+                    <label for="grade-level-e">Elementary School</label>
                 </div>
                 <div>
                     <c:choose>
                         <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'m')}">
-                            <input type="checkbox" checked="checked" name="gradeLevels" id="m" value="m"/>
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-m" value="m"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="gradeLevels" id="m" value="m"/>
+                            <input type="checkbox" name="gradeLevels" id="grade-level-m" value="m"/>
                         </c:otherwise>
                     </c:choose>
-                    <label for="m">Middle School</label>
+                    <label for="grade-level-m">Middle School</label>
                 </div>
                 <div>
                     <c:choose>
                         <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'h')}">
-                            <input type="checkbox" checked="checked" name="gradeLevels" id="h" value="h"/>
+                            <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-h" value="h"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="gradeLevels" id="h" value="h"/>
+                            <input type="checkbox" name="gradeLevels" id="grade-level-h" value="h"/>
                         </c:otherwise>
                     </c:choose>
-                    <label for="h">High School</label>
+                    <label for="grade-level-h">High School</label>
                 </div>
             </div>
         </div>

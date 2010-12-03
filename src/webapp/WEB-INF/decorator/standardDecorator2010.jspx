@@ -50,10 +50,10 @@
     </title>
     
     <!-- Begin CSS files.  All CSS should be above JS files. -->
-    <c:if test="${!requestScope.pageHelper.adFree}">
+    <!--<c:if test="${!requestScope.pageHelper.adFree}">
         <gsml:url var="adscss" value="/res/css/ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
-    </c:if>
+    </c:if>-->
 
     <c:choose>
         <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.209' or pageContext.request.serverName eq '172.18.1.149' or pageContext.request.serverName eq '172.18.1.129' or pageContext.request.serverName eq '127.0.0.1') and empty param.compressedScripts}">
