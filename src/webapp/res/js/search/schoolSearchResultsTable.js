@@ -66,11 +66,47 @@ GS.search.SchoolSearchResultsTable = function() {
     var checkedSchoolsList = getFromQueryString("compareSchools");
     var checkedSchools = [];
 
-    if (checkedSchoolsList !== undefined && checkedSchoolsList.length > 0) {
-        checkedSchools = checkedSchoolsList.split(',');
-    }
+    /**
+     * This method is needed because when clicking browse back button, checkboxes stay checked but saved array is gone.
+     */
+    this.findCheckedSchools = function() {
+        var checkedSchools = [];
+        jQuery('#school-search-results-table-body tbody input:checked').each(function() {
+            checkedSchools.push(jQuery(this).attr("id"));
+        });
+        return checkedSchools;
+    };
 
-    jQuery('.compare-school-checkbox').change(function(item) {
+    /**
+     * Get array of state+schoolIds that are listed in query string
+     */
+    this.getQueryStringSchools = function() {
+        var checkedSchoolsList = getFromQueryString("compareSchools");
+        var queryStringSchools = [];
+        if (checkedSchoolsList !== undefined && checkedSchoolsList.length > 0) {
+            queryStringSchools =  checkedSchoolsList.split(',');
+        }
+        return queryStringSchools;
+    };
+
+    /**
+     * When table is set up and page is loaded (or browse back button is clicked), reset saved checked schools
+     * and make sure all rows are highlighte correctly, etc
+     */
+    this.initializeRowsAndCheckedSchoolsArray = function() {
+        console.log("initializing");
+        var queryStringSchools = this.getQueryStringSchools();
+        var numberOfQueryStringSchools = queryStringSchools.length;
+
+        for (var i = 0; i < numberOfQueryStringSchools; i++) {
+            jQuery('#' +queryStringSchools[i]).attr("checked", true);
+        }
+
+        checkedSchools = this.findCheckedSchools();
+        this.updateAllCheckedRows();
+    };
+
+    this.onCompareCheckboxClicked = function(item) {
         var checkbox = jQuery(item.currentTarget);
         var checked = checkbox.attr("checked");
         var rowId = checkbox.parent().parent().attr("id");
@@ -88,17 +124,20 @@ GS.search.SchoolSearchResultsTable = function() {
             this.deselectRow(checkbox.parent().parent().attr("id"));
         }
 
-        console.log("checkboxes: " + checkedSchools.join(','));
-        this.updateAllCompareButtons();
+        this.updateAllCheckedRows();
+    }.gs_bind(this);
 
+    jQuery('.compare-school-checkbox').change(function(item) {
+        this.onCompareCheckboxClicked(item);
     }.gs_bind(this));  //now, references to "this" in method will reference containing method's scope
 
-    this.updateAllCompareButtons = function() {
+    this.updateAllCheckedRows = function() {
         var count = checkedSchools.length;
 
         for (var i = 0; i < count; i++) {
             var id = checkedSchools[i];
-            this.updateCompareButton(jQuery('#'+id).parent().parent().attr("id"));
+            jQuery('#' + id).attr('checked', true);
+            this.selectRow(jQuery('#'+id).parent().parent().attr("id"));
         }
     };
 
@@ -245,6 +284,8 @@ GS.search.SchoolSearchResultsTable = function() {
                 'linear',
                 function() {
                     jQuery("#spinner").hide();
+                    jQuery('.compare-school-checkbox').change(GS.search.schoolSearchResultsTable.onCompareCheckboxClicked);
+                    GS.search.schoolSearchResultsTable.updateAllCheckedRows();
                 }
             );
 
@@ -253,9 +294,9 @@ GS.search.SchoolSearchResultsTable = function() {
 
     this.getCheckedSchools = function() {
         return checkedSchools;
-    }
+    };
 
-    this.updateAllCompareButtons();
+    this.initializeRowsAndCheckedSchoolsArray();
 
 };
 
@@ -263,8 +304,7 @@ jQuery(function() {
     GS.search.schoolSearchResultsTable = new GS.search.SchoolSearchResultsTable();
 
     jQuery('#topicbarGS input').change(function() {
-        //jQuery("#spinner").css("top",jQuery(this).position().top+118);
-        //jQuery("#spinner").css("left",jQuery(this).position().left+25);
         GS.search.schoolSearchResultsTable.update();
+
     });
 });
