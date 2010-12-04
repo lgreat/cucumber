@@ -38,7 +38,7 @@ var compareSchoolsArray = [];
             window.location.search = queryString;
         });
 
-        jQuery('.compare-school-checkbox').click(function() {
+        jQuery('.compare-school-checkboxx').click(function() {
             // number of checked checkboxes
             var n = jQuery('#school-search-results-table-body input:checked').length;
             // to highlight table row
@@ -130,6 +130,11 @@ var compareSchoolsArray = [];
                 compareSchoolsArray.pop(jQuery(this).attr('id'));
             }
         });
+        
+        jQuery('.js-compareButton').click(function() {
+            var list = compareSchoolsArray.join(',');
+            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list;
+        });
 
     });
 
@@ -171,6 +176,32 @@ var compareSchoolsArray = [];
         return queryString;
     }
 
+    /**
+     * Returns the value associated with a key in the current url's query string
+     * @param key
+     */
+    function getFromQueryString(key) {
+        queryString = window.location.search.substring(1);
+        var vars = [];
+        var result;
+
+        if (queryString.length > 0) {
+            vars = queryString.split("&");
+        }
+
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            var thisKey = pair[0];
+
+            if (thisKey === key) {
+                result = pair[1];
+                break;
+            }
+        }
+
+        return result;
+    }
+
     function removeFromQueryString(queryString, key) {
         queryString = queryString.substring(1);
         var put = false;
@@ -195,7 +226,8 @@ var compareSchoolsArray = [];
 
     function page(pageNumber, pageSize) {
         var start = (pageNumber-1) * pageSize;
-        var compareSchools = compareSchoolsArray.join(',');
+        var compareSchools = GS.search.schoolSearchResultsTable.getCheckedSchools().join(',');
+        console.log("found checked schools: " + compareSchools);
         var queryString = window.location.search;
         if (compareSchools !== undefined && compareSchools.length > 0) {
             queryString = putIntoQueryString(window.location.search, "compareSchools", compareSchools, true);
@@ -204,3 +236,4 @@ var compareSchoolsArray = [];
 
         window.location.search = queryString;
     }
+

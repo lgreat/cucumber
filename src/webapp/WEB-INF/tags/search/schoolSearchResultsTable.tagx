@@ -17,11 +17,8 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:form="http://www.springframework.org/tags/form"
         >
 
+    <div id="js-school-search-results-table">
 <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
-
-<!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
-<div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
-
 <c:set var="searchResultsPagingSummary">
     <div class="js-search-results-paging-summary text3">
         <c:set var="lastResultOnPage" value="${start+pageSize}"/>
@@ -249,6 +246,6 @@
     </div>
 </div>
 
-
+    </div>
 
 </jsp:root>
