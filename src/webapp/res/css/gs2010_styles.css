@@ -6159,6 +6159,7 @@ body.ie8 #frmPRModule .helperMessage, body.ie7 #frmPRModule .helperMessage{
 .bottom .compareTabs {
     height: 20px;
     padding-top: 7px;
+    clear: both;
     background: #149; /* for non-css3 browsers */
     background: -moz-linear-gradient(top, #276ab3, #143e90); /* FF3.6 */
     background: -webkit-gradient(linear,left top,left bottom,color-stop(0, #276ab3),color-stop(1, #143e90)); /* Saf4+, Chrome */
@@ -6307,7 +6308,27 @@ table#compareTable td {
 .cs_rReviews .reviewSubmittedBy {
     margin-bottom: 5px;
 }
+#compareMap {
+    width: 512px;
+    height: 478px;
+}
+.schoolList {
+    width: 243px;
 
+}
+.schoolList li {
+    padding: 5px;
+    margin-left: 10px;
+    border-bottom: 1px dotted #999;
+    overflow: auto;
+}
+.communityRating {
+    padding-left: 5px;
+    margin: 4px 0 0 5px;
+}
+.schoolList p {
+    margin-right: 14px;
+}
 .footerInfo {
     margin: 10px 0;
 }

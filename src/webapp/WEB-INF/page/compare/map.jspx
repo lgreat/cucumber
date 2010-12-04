@@ -23,16 +23,7 @@
         <title>School Comparison Map | GreatSchools</title>
 
         <!-- TODO: Remove temporary styles -->
-        <style type="text/css">
-            div#compareMap {
-                width: 512px;
-                height: 478px;
-            }
-            div.schoolList {
-                background-color: #F9ECCD;
-                width: 243px;
-            }
-        </style>
+
     </head>
 
     <c:set var="omniturePageName" value="Compare_Map" scope="request"/>
@@ -41,13 +32,14 @@
     <gsml:body adPageName="compare" pageLayout="leftside">
 
         <compare:compareTemplate pageName="omniturePageName" hier1="Compare,Map">
-            <div class="schoolList fltrt">
+            <ul class="schoolList fltrt">
                 <c:forEach var="school" items="${schools}">
                     <!-- Remove school -->
+                    <li>
                     <span class="fltrt">
                         <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}"
                                              remove="${school.uniqueIdentifier}"
-                                ><span class="sprite close2"><!-- do not collapse --></span></link:compareSchools>
+                                ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
                     </span>
                     <p><link:schoolProfileOverview school="${school.school}"
                                         styleClass="schoolName">${school.name}</link:schoolProfileOverview></p>
@@ -56,13 +48,13 @@
                             <div class="gsRating">
                                 <c:choose>
                                     <c:when test="${school.private}">
-                                        <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                                        <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
                                     </c:when>
                                     <c:when test="${empty school.gsRating}">
-                                        <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                                        <span class="sprite badge_sm_na"><!-- do not collapse --></span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="sprite badge_sm_${school.gsRating}_y"><!-- do not collapse --></span>
+                                        <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -72,18 +64,18 @@
                                 <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
                                     <c:choose>
                                         <c:when test="${school.communityRating gt 0}">
-                                            <span class="sprite stars_sm_${school.communityRating}_y"><!-- do not collapse --></span>
+                                            <span class="sprite stars_sm_${school.communityRating}"><!-- do not collapse --></span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="sprite stars_sm_rate_it_y"><!-- do not collapse --></span>
+                                            <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
                                         </c:otherwise>
                                     </c:choose>
                                 </link:schoolProfileParentReview>
                             </div>
                         </div>
-                    </div>
+                    </div></li>
                 </c:forEach>
-            </div>
+            </ul>
             <div id="compareMap"><!-- Do not collapse --></div>
             <compare:mapCompareSchools mapCenter="${mapCenter}" schools="${schools}"/>
 
