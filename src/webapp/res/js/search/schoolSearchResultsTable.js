@@ -94,7 +94,6 @@ GS.search.SchoolSearchResultsTable = function() {
      * and make sure all rows are highlighte correctly, etc
      */
     this.initializeRowsAndCheckedSchoolsArray = function() {
-        console.log("initializing");
         var queryStringSchools = this.getQueryStringSchools();
         var numberOfQueryStringSchools = queryStringSchools.length;
 
