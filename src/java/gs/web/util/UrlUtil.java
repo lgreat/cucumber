@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.98 2010/11/05 00:07:11 droy Exp $
+ * $Id: UrlUtil.java,v 1.99 2010/12/06 23:18:11 yfan Exp $
  */
 
 package gs.web.util;
@@ -346,6 +346,7 @@ public final class UrlUtil {
                 hostName.indexOf("staging") != -1 ||
                 hostName.indexOf("clone") != -1 ||
                 hostName.indexOf("cmsqa") != -1 ||
+                hostName.indexOf("qa") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.matches("^172\\.18\\.1.*") ||
                 hostName.matches(".*carbonfive.com") ||
