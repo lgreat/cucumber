@@ -123,7 +123,7 @@
                 ${citySearchResults[2].city}, ${citySearchResults[2].state}</link:city>
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 3}">
-            | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">more nearby cities <span
+            | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">more cities <span
                 class="alertDoubleArrow">&amp;raquo;</span></span>
 
             <div id="nearby-cities" class="js-popup">
