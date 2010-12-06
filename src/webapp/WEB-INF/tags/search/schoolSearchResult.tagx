@@ -90,23 +90,24 @@
 
             <!-- GreatSchools Rating -->
             <td class="brdbtm_dotted badge-column" align="left" valign="top">
-                <c:choose>
-                    <c:when test="${school.schoolType eq 'private'}">
-                        <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                    </c:when>
-                    <c:when test="${not empty school.greatSchoolsRating}">
-                        <span class="sprite badge_sm_${school.greatSchoolsRating}"><!-- do not collapse --></span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                    </c:otherwise>
-                </c:choose>
+                <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}">
+                    <c:choose>
+                        <c:when test="${school.schoolType eq 'private'}">
+                            <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:when test="${not empty school.greatSchoolsRating}">
+                            <span class="sprite badge_sm_${school.greatSchoolsRating}"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </link:schoolProfileRating2010>
             </td>
 
             <!-- Parent Rating -->
             <td class="brdbtm_dotted stars-column" align="center" valign="top">
-                <!--<link:schoolProfileParentReview school="${school}">-->
-                <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->
+                <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}">
                     <c:choose>
                         <c:when test="${not empty school.parentRating}">
                             <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
@@ -115,7 +116,7 @@
                             <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
                         </c:otherwise>
                     </c:choose>
-                <!--</link:schoolProfileParentReview>-->
+                </link:schoolProfileParentReview2010>
             </td>
         </tr>
 

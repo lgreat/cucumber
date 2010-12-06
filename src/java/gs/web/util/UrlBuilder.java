@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.234 2010/11/22 22:10:31 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.235 2010/12/06 23:08:54 yfan Exp $
  */
 
 package gs.web.util;
@@ -523,6 +523,28 @@ public class UrlBuilder {
             }
         } else {
             _path = "";
+        }
+    }
+
+    public UrlBuilder(State state, Integer schoolId, VPage page) {
+        if (SCHOOL_PARENT_REVIEWS.equals(page)) {
+            _perlPage = false;
+            _path = "/school/parentReviews.page";
+            // http://stackoverflow.com/questions/3131865/why-does-string-valueofnull-throw-a-nullpointerexception
+            setParameter("id", String.valueOf((Object)schoolId));
+            if (state != null) {
+                setParameter("state", state.getAbbreviation());
+            }
+        } else if (SCHOOL_PROFILE_RATINGS.equals(page)) {
+            _perlPage = false;
+            _path = "/school/rating.page";
+            // http://stackoverflow.com/questions/3131865/why-does-string-valueofnull-throw-a-nullpointerexception
+            setParameter("id", String.valueOf((Object)schoolId));
+            if (state != null) {
+                setParameter("state", state.getAbbreviation());
+            }
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
 
