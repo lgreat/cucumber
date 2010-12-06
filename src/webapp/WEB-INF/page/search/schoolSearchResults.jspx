@@ -98,6 +98,7 @@
     TODO: Community star ratings should link to reviews page of the school. Logged initially in GS-10704.
     TODO: GS rating icon should send users to the GS rating page of the school.
     TODO: Omniture evar on map pin clicks http://jira.greatschools.net/browse/GS-10725?page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#action_91729
+    TODO: Allow interstitials for this page. Note the property in the db must still be enabled for an interstitial to appear. GS-3852 See schoolsTable.jspx and schoolResults.jspx
     -->
 
     <!-- nearby cities box -->
