@@ -37,11 +37,19 @@
     <c:if test="${not empty relCanonical}">
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
+
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
+    <!-- Allow interstitials for this page.
+     Note the property in the db must still be enabled for an interstitial to appear
+     GS-3852 -->
+    <c:if test="${requestScope.context.interstitialEnabled}">
+        <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
+        <pageHelper:addOnLoadHandler handler="doInterstitial('search')"/>
+    </c:if>
 </head>
 
-<pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
-<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
-
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
 <div id="mainGS" class="col">
