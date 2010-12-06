@@ -182,7 +182,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         boolean hasLevelCodeFilters = !(schoolSearchCommand.getGradeLevels() == null || schoolSearchCommand.getGradeLevels().length == 0);
 
         //If command did not contain level code / school types, grab those from DirectoryStructureUrlFields
-        if (fields != null && (schoolSearchTypes == null || schoolSearchTypes.length > 0)) {
+        if (fields != null && (schoolSearchTypes == null || schoolSearchTypes.length == 0)) {
             schoolSearchTypes = fields.getSchoolTypesParams();
         }
         if (fields != null && (schoolSearchCommand.getGradeLevels() == null || levelCode == null)) {

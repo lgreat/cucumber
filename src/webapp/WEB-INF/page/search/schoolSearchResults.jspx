@@ -111,13 +111,16 @@
     <!-- nearby cities box -->
     <div class="text3">
         <c:if test="${fn:length(citySearchResults) gt 0}">
-            schools in city: ${citysearchresults[0].city}, ${citysearchresults[0].state}
+            schools in city: <link:city city="${citySearchResults[0].city}" state="${citySearchResults[0].state}">
+                ${citySearchResults[0].city}, ${citySearchResults[0].state}</link:city>
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 1}">
-            | ${citySearchResults[1].city}, ${citySearchResults[1].state}
+            | <link:city city="${citySearchResults[1].city}" state="${citySearchResults[1].state}">
+                ${citySearchResults[1].city}, ${citySearchResults[1].state}</link:city>
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 2}">
-            | ${citySearchResults[2].city}, ${citySearchResults[2].state}
+            | <link:city city="${citySearchResults[2].city}" state="${citySearchResults[2].state}">
+                ${citySearchResults[2].city}, ${citySearchResults[2].state}</link:city>
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 3}">
             | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">more nearby cities <span
