@@ -98,11 +98,16 @@ GS.search.SchoolSearchResultsTable = function() {
         var queryStringSchools = this.getQueryStringSchools();
         var numberOfQueryStringSchools = queryStringSchools.length;
 
+        checkedSchools = this.findCheckedSchools();
+
         for (var i = 0; i < numberOfQueryStringSchools; i++) {
             jQuery('#' +queryStringSchools[i]).attr("checked", true);
+            var index = checkedSchools.indexOf(+queryStringSchools[i]);
+            if (index === -1) {
+                checkedSchools.push(queryStringSchools[i]);
+            }
         }
 
-        checkedSchools = this.findCheckedSchools();
         this.updateAllCheckedRows();
     };
 
