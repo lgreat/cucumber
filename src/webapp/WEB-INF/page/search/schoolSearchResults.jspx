@@ -95,6 +95,9 @@
     TODO: Omniture for filters is incorrect, needs to be empty when all checked, "nothing checked" when nothing is checked, and CSV list otherwise
     TODO: remove compare box on preschools
     TODO: provide sysadmins with list of urls to wget to initialize the lucene search filters (to avoid 500 errors)
+    TODO: Community star ratings should link to reviews page of the school. Logged initially in GS-10704.
+    TODO: GS rating icon should send users to the GS rating page of the school.
+    TODO: Omniture evar on map pin clicks http://jira.greatschools.net/browse/GS-10725?page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#action_91729
     -->
 
     <!-- nearby cities box -->
