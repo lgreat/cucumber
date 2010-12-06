@@ -98,6 +98,7 @@
     TODO: sponsored result ads push down the page, so that filter spinner is no longer centered inside the first result. maybe move the spinner to be positioned relative to something different so it stays in the center of the first result regardless of ads above it?<br/>
     TODO: Omniture for filters is incorrect, needs to be empty when all checked, "nothing checked" when nothing is checked, and CSV list otherwise
     TODO: remove compare box on preschools
+    TODO: provide sysadmins with list of urls to wget to initialize the lucene search filters (to avoid 500 errors)
     -->
 
     <!-- nearby cities box -->
