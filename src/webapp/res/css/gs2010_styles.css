@@ -9292,12 +9292,14 @@ button {
     position: absolute;
     left: 5px;
     top: 1px;
+    *top: -1px;
 }
 
 #popup-contents-1 span.arrow-top {
     position: absolute;
     left: 5px;
     top: 3px;
+    *top: 1px
 }
 
 /*#popup-contents-2 span.arrow-outline-shadow-right,
@@ -9362,6 +9364,7 @@ button {
     position: absolute;
     left: 30px;
     top: 1px;
+    *top: -1px;
 }
 
 #popup-contents-8 span.arrow-top,
@@ -9369,6 +9372,7 @@ button {
     position: absolute;
     left: 30px;
     top: 3px;
+    *top: 1px;
 }
 
 /* Safari 3.0 and Chrome rules here */
