@@ -85,17 +85,13 @@
     <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
     <div class="spacer_10"><!-- do not collapse --></div>
     <!--
-    TODO: Do we need a district list?<br/>
-    TODO: City list needs to be linked<br/>
-    DONE: spinner css should be moved out of inline css into a gs2010_styles.css<br/>
-    TODO: school type filters don't work on browse pages (they work on search pages)<br/>
-    DONE: sort by menu wraps to next line<br/>
-    DONE: padding around top-right box ad is a little odd<br/>
-    TODO: no-results page has todos<br/>
-    DONE: make ids on filter checkboxes more unique<br/>
+    TODO: Do we need a district list?
+    TODO: City list needs to be linked
+    TODO: school type filters don't work on browse pages (they work on search pages)
+    TODO: no-results page has todos
     TODO: prevent 500 page from being shown within results column on ajax updates
-    TODO: sponsored result ads disappear when applying filters - is that okay or should the ads be moved out of the div that gets replaced?<br/>
-    TODO: sponsored result ads push down the page, so that filter spinner is no longer centered inside the first result. maybe move the spinner to be positioned relative to something different so it stays in the center of the first result regardless of ads above it?<br/>
+    TODO: sponsored result ads disappear when applying filters - is that okay or should the ads be moved out of the div that gets replaced?
+    TODO: sponsored result ads push down the page, so that filter spinner is no longer centered inside the first result. maybe move the spinner to be positioned relative to something different so it stays in the center of the first result regardless of ads above it?
     TODO: Omniture for filters is incorrect, needs to be empty when all checked, "nothing checked" when nothing is checked, and CSV list otherwise
     TODO: remove compare box on preschools
     TODO: provide sysadmins with list of urls to wget to initialize the lucene search filters (to avoid 500 errors)
