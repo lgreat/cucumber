@@ -55,20 +55,14 @@
         </div>
 
         <div id="topicMainGS" class="col">
-            <!--
-             TODO: Please make "badSearch" and "bestGuess" dynamic.
-             TODO: The "bestGuess" should also be a link.
-             TODO: The search form also needs to work.
-             DONE: The "Did You Mean..." should be commented out because we don't support this yet.
-            -->
-
-            <c:set var="badSearch" value="Sam Clam's Disco"/>
-            <c:set var="bestGuess" value="San Francisco"/>
+            <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
             <div id="failedSearch">
                 <p class="introText-c03">Your search for <strong>${badSearch}</strong> did not match any schools</p>
 
                 <div class="spacer_25"><!-- do not collapse --></div>
+                <!-- The "Did You Mean..." is commented out because we don't support this yet. -->
+                <!--c:set var="bestGuess" value="San Francisco"/-->
                 <!--<p class="introText">Did you mean: <span class="introTextitalic"><a href="#">${bestGuess}</a></span>
                 </p>
 
@@ -88,18 +82,20 @@
                     <h5>Search</h5>
                 </div>
                 <div class="search-bd">
-                    <form id="newSearchForm" action="" method="get">
+                    <form id="newSearchForm" action="/search/search.page" method="get">
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <label for="newSearch" class="text1bold">Search again for: </label>
                         <input type="text"
                                id="newSearch"
-                               name="newSearch"
+                               name="q"
                                class="text1"
                                value="${badSearch}"
                                 />
+                        <gsweb:stateSelector usingLongNames="false"
+                                             state="${requestScope.context.state}"
+                                             styleClass="stateSelect"/>
                         <button class="button-1"
-                                type="submit"
-                                onclick="return false;">Search
+                                type="submit">Search
                         </button>
                         <div class="spacer_15"><!-- do not collapse --></div>
                     </form>

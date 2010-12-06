@@ -6339,7 +6339,11 @@ table#compareTable td {
 }
 
 #newSearchForm input{
-    width:188px;
+    width:125px;
+    margin-right:10px;
+}
+
+#newSearchForm select{
     margin-right:10px;
 }
 
