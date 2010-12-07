@@ -104,7 +104,7 @@
     <!-- nearby cities box -->
     <div class="text3">
         <c:if test="${fn:length(citySearchResults) gt 0}">
-            schools in city: <link:city city="${citySearchResults[0].city}" state="${citySearchResults[0].state}">
+            Schools in city: <link:city city="${citySearchResults[0].city}" state="${citySearchResults[0].state}">
                 ${citySearchResults[0].city}, ${citySearchResults[0].state}</link:city>
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 1}">
@@ -164,7 +164,7 @@
     <!-- nearby districts box -->
     <div class="text3">
         <c:if test="${fn:length(districtSearchResults) gt 0}">
-            schools in district: <link:districtHomeForPrimitives
+            Schools in district: <link:districtHomeForPrimitives
                 state="${districtSearchResults[0].state}"
                 districtId="${districtSearchResults[0].id}"
                 name="${districtSearchResults[0].name}"
