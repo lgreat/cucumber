@@ -41,7 +41,7 @@
             <tr>
                 <th scope="row">GreatSchools Rating</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="cs_gsRating">
+                    <td class="cs_gsRating center">
                         <c:choose>
                             <c:when test="${school.private}">
                                 <p class="smallText1"><span class="sprite badge_sm_pr"><!-- do not collapse --></span>
@@ -51,8 +51,7 @@
                                 <span class="ratingNotApplicable rateDesc">n/a</span>
                             </c:when>
                             <c:otherwise>
-                                <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
-                                <span class="gsRating rateDesc">GreatSchools Rating out of 10</span></p>
+                                <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span></p>
                             </c:otherwise>
                         </c:choose>
                     </td>

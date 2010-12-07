@@ -22,7 +22,7 @@
                 <c:set var="nextPage" value="1"/>
             </c:if>
             <link:compareSchools tab="${tab}" schools="${schoolsString}"
-                                 page="${nextPage}">More schools (${totalSchools-pageSize})</link:compareSchools>
+                                 page="${nextPage}">More schools (${totalSchools-pageSize})<span class="sprite twirlyClosed"><!-- don't collapse --></span></link:compareSchools>
         </c:if>
     </div>
 </jsp:root>
