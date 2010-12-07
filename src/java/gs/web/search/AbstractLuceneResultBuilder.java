@@ -21,6 +21,9 @@ public abstract class AbstractLuceneResultBuilder<SR extends ISearchResult> impl
      */
     public List<SR> build(Hits hits, int offset, int count) throws IOException {
         int length = hits.length();
+        if (offset >= hits.length()) {
+            throw new IllegalArgumentException("Cannot access element at offset " + offset + ", which is greater than total number of results, which is " + hits.length());
+        }
         if (count == 0) {
             count = hits.length();
         }

@@ -23,7 +23,7 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
     }
 
     //TODO: best way to get correct builder?
-    SchoolSearchResultsBuilder _resultsBuilder = new SchoolSearchResultsBuilder();
+    SchoolSearchResultBuilder _resultsBuilder = new SchoolSearchResultBuilder();
 
     public SearchResultsPage<ISchoolSearchResult> search(String queryString) throws SearchException {
         return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), null);
@@ -84,7 +84,7 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
             }
 
             try {
-                resultList = new SchoolSearchResultsBuilder().build(hits, offset, count);
+                resultList = new SchoolSearchResultBuilder().build(hits, offset, count);
             } catch (IOException e) {
                 throw new SearchException("Problem accessing search results.", e);
             }
@@ -205,11 +205,11 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
         _queryParser = queryParser;
     }
 
-    public SchoolSearchResultsBuilder getResultsBuilder() {
+    public SchoolSearchResultBuilder getResultsBuilder() {
         return _resultsBuilder;
     }
 
-    public void setResultsBuilder(SchoolSearchResultsBuilder resultsBuilder) {
+    public void setResultsBuilder(SchoolSearchResultBuilder resultsBuilder) {
         _resultsBuilder = resultsBuilder;
     }
 

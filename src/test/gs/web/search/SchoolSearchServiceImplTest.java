@@ -31,7 +31,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         _searcher = getRamDirectorySearcher();
         _schoolSearchService.setSearcher(_searcher);
         _schoolSearchService.setQueryParser(new GSQueryParser());
-        _schoolSearchService.setResultsBuilder(new SchoolSearchResultsBuilder());
+        _schoolSearchService.setResultsBuilder(new SchoolSearchResultBuilder());
     }
 
     private gs.data.search.Searcher getRamDirectorySearcher() throws Exception {
