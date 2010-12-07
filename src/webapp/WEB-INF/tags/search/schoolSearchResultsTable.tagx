@@ -176,11 +176,11 @@
 
 <table id="school-search-results-table-header">
     <colgroup>
-        <col align="center" width="15%"/>
-        <col align="left" width="39%"/>
-        <col align="right" width="27%"/>
-        <col align="center" width="17%"/>
-        <col align="center" width="2%"/>
+        <col align="center" width="63px"/>
+        <col align="left" width="165px"/>
+        <col align="right" width="114px"/>
+        <col align="center" width="72px"/>
+        <col align="center" width="9px"/>
     </colgroup>
     <thead>
     <tr class="smallText2bold">
@@ -195,10 +195,10 @@
 </table>
 <table id="school-search-results-table-body">
     <colgroup>
-        <col align="center" width="15%" valign="top"/>
-        <col align="left" width="50%"/>
-        <col align="left" width="14%" valign="top"/>
-        <col align="center" width="21%" valign="top"/>
+        <col align="center" width="63px" valign="top"/>
+        <col align="left" width="212px"/>
+        <col align="left" width="59px" valign="top"/>
+        <col align="center" width="89px" valign="top"/>
     </colgroup>
     <tbody>
 
