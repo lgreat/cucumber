@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.129 2010/08/03 23:32:39 ssprouse Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.130 2010/12/07 02:54:28 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -605,6 +605,7 @@ public class UrlBuilderSaTest extends TestCase {
     public void testDistrictHomePage() {
         GsMockHttpServletRequest request = getMockRequest();
         District district = new District();
+        district.setId(1);
         district.setDatabaseState(State.CA);
         district.setName("A Test-District");
         Address address = new Address();
