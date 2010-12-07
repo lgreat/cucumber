@@ -189,10 +189,8 @@ public class SchoolSearchController extends AbstractCommandController implements
             levelCode = fields.getLevelCode();
         }
 
-        // get rid of invalid school types from array, and if no valid school types, then include all three (public, private, charter)
+        // get rid of invalid and duplicate school types from array, and if no valid school types, then include all three (public, private, charter)
         schoolSearchTypes = cleanSchoolTypes(schoolSearchTypes);
-
-System.out.println("====== schoolSearchTypes = [" + Arrays.toString(schoolSearchTypes) + "]");
 
         //If we have school types, create a filter group for it
         if (schoolSearchTypes != null && schoolSearchTypes.length > 0) {
@@ -883,24 +881,37 @@ System.out.println("====== schoolSearchTypes = [" + Arrays.toString(schoolSearch
     }
 
     protected static String[] cleanSchoolTypes(String[] schoolSearchTypes) {
-        List<String> schoolTypes = new ArrayList<String>();
+        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
         if (schoolSearchTypes != null) {
             for (String type : schoolSearchTypes) {
                 SchoolType schoolType = SchoolType.getSchoolType(type);
-                if (schoolType != null) {
-                    schoolTypes.add(schoolType.getSchoolTypeName());
+                if (schoolType != null && !schoolTypes.contains(schoolType)) {
+                    schoolTypes.add(schoolType);
                 }
             }
         }
 
         // if none are selected, show all
         if (schoolTypes.size() == 0) {
-            schoolTypes.add(SchoolType.PUBLIC.getSchoolTypeName());
-            schoolTypes.add(SchoolType.PRIVATE.getSchoolTypeName());
-            schoolTypes.add(SchoolType.CHARTER.getSchoolTypeName());
+            return new String[] {
+                    SchoolType.PUBLIC.getSchoolTypeName(),
+                    SchoolType.PRIVATE.getSchoolTypeName(),
+                    SchoolType.CHARTER.getSchoolTypeName()
+            };
+        } else {
+            String[] cleanedTypes = new String[schoolTypes.size()];
+            int i = 0;
+            if (schoolTypes.contains(SchoolType.PUBLIC)) {
+                cleanedTypes[i++] = SchoolType.PUBLIC.getSchoolTypeName();
+            }
+            if (schoolTypes.contains(SchoolType.PRIVATE)) {
+                cleanedTypes[i++] = SchoolType.PRIVATE.getSchoolTypeName();
+            }
+            if (schoolTypes.contains(SchoolType.CHARTER)) {
+                cleanedTypes[i++] = SchoolType.CHARTER.getSchoolTypeName();
+            }
+            return cleanedTypes;
         }
-
-        return schoolTypes.toArray(new String[]{});
     }
 
     //-------------------------------------------------------------------------
