@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.83 2010/11/18 16:10:56 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.84 2010/12/07 02:38:02 ssprouse Exp $
  */
 
 package gs.web.jsp.link;
@@ -600,6 +600,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
     public void testAllSchoolsInDistrict() {
         DistrictsAllSchoolsTagHandler tagHandler = new DistrictsAllSchoolsTagHandler();
         District district = new District();
+        district.setId(1);
         district.setName("San Francisco City Unified School District");
         district.setDatabaseState(State.CA);
         Address address = new Address();
@@ -626,6 +627,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
     public void testDistrictHome() {
         DistrictHomeTagHandler tagHandler = new DistrictHomeTagHandler();
         District district = new District();
+        district.setId(1);
         district.setName("San Francisco City Unified School District");
         district.setDatabaseState(State.CA);
         Address address = new Address();
