@@ -42,10 +42,16 @@
                     </span>
                     <br/>
                     <span class="text3 schoolType">${school.schoolType}</span>
-                    <c:if test="${school.grades.rangeString ne null}">
-                        &amp;#183;
-                        <span class="text3">${school.grades.rangeString}</span>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${school.levelCode eq 'p'}">
+                            &amp;#183;
+                            <span class="text3 schoolType">Preschool</span>
+                        </c:when>
+                        <c:when test="${school.grades.rangeString ne null}">
+                                &amp;#183;
+                                <span class="text3">${school.grades.rangeString}</span>
+                        </c:when>
+                    </c:choose>
                     <br/>
                     <span class="smallAlertText js-school-search-result-street">${school.address.street}</span>
                     <br/>
@@ -92,6 +98,9 @@
             <td class="brdbtm_dotted badge-column" align="left" valign="top">
                 <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}">
                     <c:choose>
+                        <c:when test="${school.levelCode eq 'p'}">
+                            <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
+                        </c:when>
                         <c:when test="${school.schoolType eq 'private'}">
                             <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
                         </c:when>
