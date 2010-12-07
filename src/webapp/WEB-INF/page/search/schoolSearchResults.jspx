@@ -160,6 +160,74 @@
         </div>
         </c:if>
     </div>
+    
+    <!-- nearby districts box -->
+    <div class="text3">
+        <c:if test="${fn:length(districtSearchResults) gt 0}">
+            schools in district: <link:districtHomeForPrimitives
+                state="${districtSearchResults[0].state}"
+                districtId="${districtSearchResults[0].id}"
+                name="${districtSearchResults[0].name}"
+                city="${districtSearchResults[0].city}">${districtSearchResults[0].name}</link:districtHomeForPrimitives>
+        </c:if>
+        <c:if test="${fn:length(districtSearchResults) gt 1}">
+            | <link:districtHomeForPrimitives
+                state="${districtSearchResults[1].state}"
+                districtId="${districtSearchResults[1].id}"
+                name="${districtSearchResults[1].name}"
+                city="${districtSearchResults[1].city}">${districtSearchResults[1].name}</link:districtHomeForPrimitives>
+        </c:if>
+        <c:if test="${fn:length(districtSearchResults) gt 2}">
+            | <link:districtHomeForPrimitives 
+                state="${districtSearchResults[2].state}"
+                districtId="${districtSearchResults[2].id}"
+                name="${districtSearchResults[2].name}"
+                city="${districtSearchResults[2].city}">${districtSearchResults[2].name}</link:districtHomeForPrimitives>
+        </c:if>
+        <c:if test="${fn:length(districtSearchResults) gt 3}">
+            | <div id="js-bubbleInfo-9"><span id="nearby-districts-link" class="js-trigger smallAlertText">more districts <span
+                class="alertDoubleArrow">&amp;raquo;</span></span>
+
+            <div id="nearby-districts" class="js-popup">
+                <div id="popup-contents-9">
+                    <span class="arrow-outline-top"><!-- do not collapse --></span>
+                    <span class="arrow-top"><!-- do not collapse --></span>
+                    <c:set var="openCloseTr">
+                        <![CDATA[</tr><tr>]]>
+                    </c:set>
+                    <c:choose>
+                        <c:when test="${fn:length(districtSearchResults) lt 6}">
+                            <c:set var="districtTableColumns" value="${1}"/>
+                        </c:when>
+                        <c:when test="${fn:length(districtSearchResults) ge 6 and fn:length(districtSearchResults) lt 12}">
+                            <c:set var="districtTableColumns" value="${2}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="districtTableColumns" value="${3}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:set var="tableWidth" value="${132 * districtTableColumns}"/>
+                    <c:if test="${fn:length(districtSearchResults) > 0}">
+                        <table cellspacing="0" width="${tableWidth}">
+                            <tbody>
+                            <tr>
+                                <c:forEach var="district" items="${districtSearchResults}" begin="3"
+                                           end="${fn:length(districtSearchResults)-1}" varStatus="status">
+                                    <td><link:districtHomeForPrimitives state="${district.state}" districtId="${district.id}" name="${district.name}"
+                                              city="${district.city}">${district.name}</link:districtHomeForPrimitives></td>
+                                    <c:if test="${(status.count+districtTableColumns) % districtTableColumns == 0}">
+                                        ${openCloseTr}
+                                    </c:if>
+                                </c:forEach>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+        </c:if>
+    </div>
 
     <script type="text/javascript">
         jQuery(function () {

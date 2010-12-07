@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.GSQueryParser;
+import gs.data.search.Indexer;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -124,8 +125,13 @@ class DistrictResultBuilder implements LuceneResultBuilder {
         for (int i = offset; (i < length && i < offset + count); i++ ) {
             Document document = hits.doc(i);
             DistrictSearchResult result = new DistrictSearchResult();
-            result.setDistrict(document.get("district"));
+            result.setName(document.get(Indexer.DISTRICT_NAME));
+            String id = document.get(Indexer.ID);
+            if (id != null) {
+                result.setId(Integer.valueOf(id));
+            }
             result.setState(getStateManager().getState(document.get("state")));
+            result.setCity(document.get(Indexer.CITY));
             searchResults.add(result);
         }
 

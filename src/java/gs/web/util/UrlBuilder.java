@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.235 2010/12/06 23:08:54 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.236 2010/12/07 00:53:50 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -669,6 +669,26 @@ public class UrlBuilder {
         } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
             _perlPage = false;
             _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(district.getDatabaseState(), district);
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+    
+    public UrlBuilder(State state, Integer districtId, String districtName, String districtCity, VPage page) {
+        if (DISTRICT_PROFILE.equals(page)) {
+            _perlPage = true;
+
+            _path = "/cgi-bin/" +
+                    state.getAbbreviationLowerCase() +
+                    "/district-profile/" +
+                    districtId;
+        } else if (DISTRICT_HOME.equals(page)) {
+            _perlPage = false;
+            // WARNING: if this url changes, also change the entry in CmsUtil.GRADE_LEVEL_TOPIC_CENTER_URI_MAP
+            _path = DirectoryStructureUrlFactory.createNewDistrictHomeURI(state, districtId, districtName, districtCity);
+        } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
+            _perlPage = false;
+            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(state, districtId, districtName, districtCity);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

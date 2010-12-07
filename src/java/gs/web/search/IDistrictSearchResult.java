@@ -4,7 +4,11 @@ import gs.data.state.State;
 
 public interface IDistrictSearchResult extends ISearchResult {
 
-    public String getDistrict();
+    public Integer getId();
 
     public State getState();
+
+    public String getName();
+
+    public String getCity();
 }

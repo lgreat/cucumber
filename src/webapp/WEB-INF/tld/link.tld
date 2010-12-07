@@ -1215,6 +1215,85 @@
         </attribute>
     </tag>
     <tag>
+        <name>districtHomeForPrimitives</name>
+        <tag-class>gs.web.jsp.link.DistrictHomeForPrimitivesTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>District Home</display-name>
+        <description>
+            <![CDATA[Link to district home page]]>
+        </description>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>State object</description>
+        </attribute>
+        <attribute>
+            <name>districtId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>The district ID</description>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>The district name</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>The district city</description>
+        </attribute>
+        <attribute>
+            <name>schoolId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>School id (optional), if specified the district profile page will add the school profile header</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title attribute (tooltip)</description>
+        </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Anchor value</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>betaSignup</name>
         <tag-class>gs.web.jsp.link.BetaSignupTagHandler</tag-class>
         <body-content>JSP</body-content>

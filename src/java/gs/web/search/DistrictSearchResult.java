@@ -3,15 +3,18 @@ package gs.web.search;
 import gs.data.state.State;
 
 public class DistrictSearchResult implements IDistrictSearchResult {
-    private String _district;
-    private State _state;
 
-    public String getDistrict() {
-        return _district;
+    private Integer _id;
+    private State _state;
+    private String _name;
+    private String _city;
+
+    public Integer getId() {
+        return _id;
     }
 
-    public void setDistrict(String district) {
-        _district = district;
+    public void setId(Integer id) {
+        _id = id;
     }
 
     public State getState() {
@@ -20,5 +23,21 @@ public class DistrictSearchResult implements IDistrictSearchResult {
 
     public void setState(State state) {
         _state = state;
+    }
+
+    public String getName() {
+        return _name;
+    }
+
+    public void setName(String name) {
+        _name = name;
+    }
+
+    public String getCity() {
+        return _city;
+    }
+
+    public void setCity(String city) {
+        _city = city;
     }
 }
