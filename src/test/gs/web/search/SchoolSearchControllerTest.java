@@ -642,7 +642,26 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         _controller.addPagingDataToModel(start, pageSize, 1, totalResults, model);
 
         assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
-        assertEquals("start should be less than total results", 11, model.get(SchoolSearchController.MODEL_START));
+        assertEquals("start should be less than total results", 0, model.get(SchoolSearchController.MODEL_START));
+    }
+
+    public void testAddPagingDataToModelWhenStartGreaterThanTotalResults2() {
+        int pageSize = 5;
+        //start is zero-based
+        int start = 12;
+        int totalResults = 12;
+
+        List<ISchoolSearchResult> results = new ArrayList<ISchoolSearchResult>();
+        results.add(new LuceneSchoolSearchResult());
+        results.add(new LuceneSchoolSearchResult());
+        results.add(new LuceneSchoolSearchResult());
+
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        _controller.addPagingDataToModel(start, pageSize, 1, totalResults, model);
+
+        assertTrue("model should have 'use paging' value", model.containsKey(SchoolSearchController.MODEL_USE_PAGING));
+        assertEquals("start should be less than total results", 0, model.get(SchoolSearchController.MODEL_START));
     }
 
 

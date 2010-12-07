@@ -103,39 +103,23 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
     }
 }
 
-class DistrictResultBuilder implements LuceneResultBuilder {
+class DistrictResultBuilder extends AbstractLuceneResultBuilder<IDistrictSearchResult> {
     StateManager _stateManager;
 
     public DistrictResultBuilder() {
         _stateManager = new StateManager();
     }
 
-    public List<IDistrictSearchResult> build(Hits hits) throws IOException {
-        return build(hits, 0, 0);
-    }
-
-    public List<IDistrictSearchResult> build(Hits hits, int offset, int count) throws IOException {
-        int length = hits.length();
-        if (count == 0) {
-            count = hits.length();
+    public IDistrictSearchResult build(Document document) {
+        DistrictSearchResult result = new DistrictSearchResult();
+        result.setName(document.get(Indexer.DISTRICT_NAME));
+        String id = document.get(Indexer.ID);
+        if (id != null) {
+            result.setId(Integer.valueOf(id));
         }
-
-        List<IDistrictSearchResult> searchResults = new ArrayList<IDistrictSearchResult>();
-
-        for (int i = offset; (i < length && i < offset + count); i++ ) {
-            Document document = hits.doc(i);
-            DistrictSearchResult result = new DistrictSearchResult();
-            result.setName(document.get(Indexer.DISTRICT_NAME));
-            String id = document.get(Indexer.ID);
-            if (id != null) {
-                result.setId(Integer.valueOf(id));
-            }
-            result.setState(getStateManager().getState(document.get("state")));
-            result.setCity(document.get(Indexer.CITY));
-            searchResults.add(result);
-        }
-
-        return searchResults;
+        result.setState(getStateManager().getState(document.get("state")));
+        result.setCity(document.get(Indexer.CITY));
+        return result;
     }
 
     public StateManager getStateManager() {

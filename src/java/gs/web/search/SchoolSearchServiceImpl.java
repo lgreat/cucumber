@@ -77,13 +77,17 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
         int totalResults = 0;
 
         if (hits != null) {
+            totalResults = hits.length();
+
+            if (offset >= totalResults) {
+                offset = 0;
+            }
+
             try {
                 resultList = new SchoolSearchResultsBuilder().build(hits, offset, count);
             } catch (IOException e) {
                 throw new SearchException("Problem accessing search results.", e);
             }
-
-            totalResults = hits.length();
         }
 
         SearchResultsPage searchResults = new SearchResultsPage(totalResults, resultList);

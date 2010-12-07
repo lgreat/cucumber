@@ -2,12 +2,10 @@ package gs.web.search;
 
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
-import gs.data.search.GSQueryParser;
-import gs.data.search.IndexDir;
-import gs.data.search.IndexField;
-import gs.data.search.Indexer;
+import gs.data.search.*;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
+import junit.framework.TestCase;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.document.Document;
@@ -18,15 +16,17 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-
-public class SchoolSearchServiceImplTest extends BaseTestCase {
-
+public class SchoolSearchResultsBuilderTest extends BaseTestCase {
+    SchoolSearchResultsBuilder _builder;
     SchoolSearchServiceImpl _schoolSearchService;
-    gs.data.search.Searcher _searcher;
+    Searcher _searcher;
 
     public void setUp() throws Exception {
+        _builder = new SchoolSearchResultsBuilder();
+
         _schoolSearchService = (SchoolSearchServiceImpl) getApplicationContext().getBean("luceneSchoolSearchService");
         _searcher = getRamDirectorySearcher();
         _schoolSearchService.setSearcher(_searcher);
@@ -227,69 +227,56 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         return searcher;
     }
 
-    public void testSearch() throws Exception {
-
-    }
-
-    public void testSearchLucene1() throws Exception {
-
-        String searchString = "Alameda, CA";
-        
-        Hits hits = _schoolSearchService.searchLucene(searchString, new HashMap<FieldConstraint,String>(), null, null);
-
-        for (int i = 0; i < hits.length(); i++) {
-            Document d = hits.doc(i);
-            System.out.println(d.get(Indexer.SCHOOL_NAME));
-        }
-        assertEquals("hits should contain one result", 1, hits.length());
-    }
-
-    public void testSearchLucene2() throws Exception {
-
-        String searchString = "Lowell";
-        
-        Hits hits = _schoolSearchService.searchLucene(searchString, new HashMap<FieldConstraint,String>(), null, null);
-
-        assertEquals("hits should contain correct results", 8, hits.length());
-    }
-
-    public void testSearchLuceneWithState() throws Exception {
-
+    public Hits getTestHits() throws Exception{
         String searchString = "Lowell";
         Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
         fieldConstraints.put(FieldConstraint.STATE, "ca");
-
         Hits hits = _schoolSearchService.searchLucene(searchString, fieldConstraints, null, null);
-
-        assertEquals("hits should contain correct result", 4, hits.length());
+        assertEquals("hits should contain correct results", 4, hits.length());
+        return hits;
     }
 
-    public void testSearchLuceneWithCity() throws Exception {
+    public void testBuildWhenOffsetIsOutOfBounds() throws Exception {
+        Hits hits = getTestHits();
 
-        String searchString = "Lowell";
-        Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
-        fieldConstraints.put(FieldConstraint.CITY, "san francisco");
+        try {
+            List<ISchoolSearchResult> results = _builder.build(hits, 999999);
+            fail("should have thrown exception");
+        } catch (IllegalArgumentException e) {
 
-        Hits hits = _schoolSearchService.searchLucene(searchString, fieldConstraints, null, null);
-
-        assertEquals("hits should contain one result", 1, hits.length());
-    }
-
-    public void testSearchLuceneWithCityOnly() throws Exception {
-
-        String searchString = "";
-        Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
-        fieldConstraints.put(FieldConstraint.CITY, "portland");
-
-        Hits hits = _schoolSearchService.searchLucene(searchString, fieldConstraints, null, null);
-
-        assertEquals("hits should contain one result", 3, hits.length());
-    }
-
-    private void printResults(Hits hits) throws Exception {
-        for (int i = 0; i < hits.length(); i++) {
-            Document d = hits.doc(i);
-            System.out.println(d.get(Indexer.SCHOOL_NAME));
         }
     }
+
+    public void testBuildWhenCountZero() throws Exception {
+        Hits hits = getTestHits();
+
+        List<ISchoolSearchResult> results = _builder.build(hits, 0, 0);
+
+        assertEquals("Results should contain correct number of results", 4, results.size());
+    }
+
+    public void testBuildWhenCountEqualToTotalResults() throws Exception {
+        Hits hits = getTestHits();
+
+        List<ISchoolSearchResult> results = _builder.build(hits, 0, 4);
+
+        assertEquals("Results should contain correct number of results", 4, results.size());
+    }
+
+    public void testBuildWhenOffsetOneLessThanTotalResults() throws Exception {
+        Hits hits = getTestHits();
+
+        List<ISchoolSearchResult> results = _builder.build(hits, 3);
+
+        assertEquals("Results should contain correct number of results", 1, results.size());
+    }
+
+    public void testBuild() throws Exception {
+        Hits hits = getTestHits();
+
+        List<ISchoolSearchResult> results = _builder.build(hits);
+
+        assertEquals("Results should contain correct number of results", 4, results.size());
+    }
+
 }

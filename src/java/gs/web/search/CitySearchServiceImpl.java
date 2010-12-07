@@ -112,41 +112,20 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
     }
-
 }
 
-class CityResultBuilder implements LuceneResultBuilder {
+class CityResultBuilder extends AbstractLuceneResultBuilder<ICitySearchResult> {
     StateManager _stateManager;
 
     public CityResultBuilder() {
         _stateManager = new StateManager();
     }
-
-    public List<ICitySearchResult> build(Hits hits) throws IOException {
-        return build(hits, 0, hits.length());
-    }
-
-
-    public List<ICitySearchResult> build(Hits hits, int offset) throws IOException {
-        return build(hits, offset, hits.length() - offset);
-    }
-
-    public List<ICitySearchResult> build(Hits hits, int offset, int count) throws IOException {
-        int length = hits.length();
-        if (count == 0) {
-            count = hits.length();
-        }
-        List<ICitySearchResult> searchResults = new ArrayList<ICitySearchResult>();
-
-        for (int i = offset; (i < length && i < offset + count); i++ ) {
-            Document document = hits.doc(i);
-            CitySearchResult result = new CitySearchResult();
-            result.setCity(document.get("city"));
-            result.setState(getStateManager().getState(document.get("state")));
-            searchResults.add(result);
-        }
-
-        return searchResults;
+    
+    public ICitySearchResult build(Document document) {
+        CitySearchResult result = new CitySearchResult();
+        result.setCity(document.get("city"));
+        result.setState(getStateManager().getState(document.get("state")));
+        return result;
     }
 
     public StateManager getStateManager() {

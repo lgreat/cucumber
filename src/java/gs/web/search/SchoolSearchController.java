@@ -594,7 +594,7 @@ System.out.println("====== schoolSearchTypes = [" + Arrays.toString(schoolSearch
             model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
         }
 
-        model.put(MODEL_START, start <= totalResults? start : totalResults-1);
+        model.put(MODEL_START, start < totalResults? start : 0);
         model.put(MODEL_PAGE_SIZE, pageSize);
     }
 

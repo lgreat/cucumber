@@ -8,7 +8,6 @@ import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.BaseTestCase;
-import junit.framework.TestCase;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 
