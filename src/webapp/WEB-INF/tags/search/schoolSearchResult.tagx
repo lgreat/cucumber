@@ -17,14 +17,16 @@
             <!-- Compare Checkbox-->
             <td class="brdbtm_dotted js-checkbox-column" align="center" valign="top">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
-                <!--<c:choose>
-                    <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox" checked="checked"/><br/>
+                <!-- TODO: Randall fixme -->
+                <c:choose>
+                    <c:when test="${school.levelCode eq 'p'}">
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox" disabled="disabled"/>
                     </c:when>
-                    <c:otherwise>-->
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/><br/>
-                    <!--</c:otherwise>
-                </c:choose>-->
+                    <c:otherwise>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
+                    </c:otherwise>
+                </c:choose>
+                <br/>
                 <label class="js-compareLabel smallText2" for="${school.databaseState}${school.id}">COMPARE</label>
                 <p class="js-compareHelperMessage formHelperText">Check 2<br/>or more to<br/>compare</p>
                 <button class="js-compareButton button-1Ext-2 smallText2">COMPARE<br/>NOW</button>
