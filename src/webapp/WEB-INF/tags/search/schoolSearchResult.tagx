@@ -17,19 +17,26 @@
             <!-- Compare Checkbox-->
             <td class="brdbtm_dotted js-checkbox-column" align="center" valign="top">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
-                <!-- TODO: Randall fixme -->
+                <!-- DONE: Randall fixme -->
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox" disabled="disabled"/>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"
+                               disabled="disabled"/>
+                        <acronym class="smallText2-777"
+                                 title="Due to a lack of available data on preschools, they cannot be compared"><i>COMPARE</i></acronym>
                     </c:when>
                     <c:otherwise>
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"/>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
+                               type="checkbox"/>
+
+                        <br/>
+                        <label class="js-compareLabel smallText2"
+                               for="${school.databaseState}${school.id}">COMPARE</label>
+
+                        <p class="js-compareHelperMessage formHelperText">Check 2<br/>or more to<br/>compare</p>
+                        <button class="js-compareButton button-1Ext-2 smallText2">COMPARE<br/>NOW</button>
                     </c:otherwise>
                 </c:choose>
-                <br/>
-                <label class="js-compareLabel smallText2" for="${school.databaseState}${school.id}">COMPARE</label>
-                <p class="js-compareHelperMessage formHelperText">Check 2<br/>or more to<br/>compare</p>
-                <button class="js-compareButton button-1Ext-2 smallText2">COMPARE<br/>NOW</button>
             </td>
 
             <!-- School Name -->
