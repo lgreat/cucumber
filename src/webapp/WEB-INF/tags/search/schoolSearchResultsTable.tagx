@@ -235,16 +235,6 @@
 <div class="line">
     <div class="unit size1of1 lastUnit">
         <div class="pagination" id="pagination">
-            <!--<c:forEach begin="1" end="${totalPages}" var="loopPageNumber" varStatus="status">
-              <c:set var="pagerTabClass" value="pager-tab"/>
-              <c:if test="${loopPageNumber == currentPage}">
-                  <c:set var="pagerTabClass" value="pager-tab active"/>
-              </c:if>
-              <span class="${pagerTabClass}" onclick="page(${loopPageNumber},${pageSize});">
-                  ${loopPageNumber}
-              </span>
-          </c:forEach>
-          <span class="prv_nxt">Next &amp;raquo;</span>-->
             <search:pagination page="${currentPage}" pageSize="${pageSize}" totalPages="${totalPages}"/>
         </div>
     </div>
