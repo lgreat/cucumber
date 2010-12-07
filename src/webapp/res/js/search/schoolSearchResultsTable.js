@@ -166,20 +166,25 @@ GS.search.SchoolSearchResultsTable = function() {
 
     this.selectRow = function(rowDomId) {
         var row = jQuery('#' + rowDomId);
-        var stars = row.find('td.stars-column > span');
+        var isWhite = null;
+        var pattern2 = /_y|_b/gi;
+        var stars = row.find('td.stars-column > a > span');
         var starsClass = stars.attr('class');
-        var badge = row.find('td.badge-column > span');
+        var badge = row.find('td.badge-column > a > span');
+        (starsClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
 
         jQuery(row).find('td').addClass("bg-color-f4fafd");
 
-        if (badge.length !== 0) {
+        if (badge.length !== 0 && isWhite) {
             var badgeClass = badge.attr('class');
             var blueBadgeClass = badgeClass + '_b';
             badge.removeClass(badgeClass).addClass(blueBadgeClass);
         }
 
-        var blueStarsClass = starsClass + '_b';
-        stars.removeClass(starsClass).addClass(blueStarsClass);
+        if (isWhite) {
+            var blueStarsClass = starsClass + '_b';
+            stars.removeClass(starsClass).addClass(blueStarsClass);
+        }
         this.updateCompareButton(rowDomId);
     };
 
@@ -189,11 +194,12 @@ GS.search.SchoolSearchResultsTable = function() {
         var pattern1 = /_b/gi;
         var pattern3 = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
         var pattern4 = /sprite stars_sm_(\d|[a-z_]{7})/gi;
-        var stars = row.find('td.stars-column > span');
+        var stars = row.find('td.stars-column > a > span');
         var starsClass = stars.attr('class');
+        console.log(starsClass);
         (starsClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
         var whiteStarsClass = starsClass.match(pattern4)[0];
-        var badge = row.find('td.badge-column > span');
+        var badge = row.find('td.badge-column > a > span');
         if (badge.length != 0) {
             var badgeClass = badge.attr('class');
             var whiteBadgeClass = badgeClass.match(pattern3)[0];
