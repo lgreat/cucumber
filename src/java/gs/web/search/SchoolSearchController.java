@@ -189,6 +189,11 @@ public class SchoolSearchController extends AbstractCommandController implements
             levelCode = fields.getLevelCode();
         }
 
+        // get rid of invalid school types from array, and if no valid school types, then include all three (public, private, charter)
+        schoolSearchTypes = cleanSchoolTypes(schoolSearchTypes);
+
+System.out.println("====== schoolSearchTypes = [" + Arrays.toString(schoolSearchTypes) + "]");
+
         //If we have school types, create a filter group for it
         if (schoolSearchTypes != null && schoolSearchTypes.length > 0) {
             FilterGroup filterGroup = new FilterGroup();
@@ -390,20 +395,23 @@ public class SchoolSearchController extends AbstractCommandController implements
         return null; 
     }
 
-    // TODO: fixme - return null if everything checked, "nothing checked" if no checkboxes checked, csv list otherwise
+    // this presumes all schoolSearchTypes passed in are valid SchoolTypes.
     protected static String getOmnitureSchoolType(String[] schoolSearchTypes) {
-        if (schoolSearchTypes == null) {
-            return "nothing checked";
-        } else if (schoolSearchTypes.length == 4) {
+        // currently, there's no url that will take you to a page with all school type filters unchecked,
+        // for which we should be logging "nothing checked" in Omniture;
+        // that's why the code here doesn't ever return it. it can be implemented if we ever add such a url
+        if (schoolSearchTypes == null || schoolSearchTypes.length == 3) {
             return null;
         } else {
-            return StringUtils.join(schoolSearchTypes);
+            return StringUtils.join(schoolSearchTypes, ",");
         }
     }
 
-    // TODO: fixme - return null if everything checked, "nothing checked" if no checkboxes checked, csv list otherwise
     protected static String getOmnitureSchoolLevel(LevelCode levelCode) {
-        if (levelCode != null) {
+        // currently, there's no url that will take you to a page with all level code filters unchecked,
+        // for which we should be logging "nothing checked" in Omniture;
+        // that's why the code here doesn't ever return it. it can be implemented if we ever add such a url
+        if (levelCode != null && !levelCode.equals(LevelCode.ALL_LEVELS)) {
             return levelCode.getCommaSeparatedString();
         }
         return null;
@@ -872,6 +880,27 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         FieldFilter filter = FieldFilter.GradeLevelFilter.valueOf(StringUtils.upperCase(level.getLongName()));
         return filter;
+    }
+
+    protected static String[] cleanSchoolTypes(String[] schoolSearchTypes) {
+        List<String> schoolTypes = new ArrayList<String>();
+        if (schoolSearchTypes != null) {
+            for (String type : schoolSearchTypes) {
+                SchoolType schoolType = SchoolType.getSchoolType(type);
+                if (schoolType != null) {
+                    schoolTypes.add(schoolType.getSchoolTypeName());
+                }
+            }
+        }
+
+        // if none are selected, show all
+        if (schoolTypes.size() == 0) {
+            schoolTypes.add(SchoolType.PUBLIC.getSchoolTypeName());
+            schoolTypes.add(SchoolType.PRIVATE.getSchoolTypeName());
+            schoolTypes.add(SchoolType.CHARTER.getSchoolTypeName());
+        }
+
+        return schoolTypes.toArray(new String[]{});
     }
 
     //-------------------------------------------------------------------------
