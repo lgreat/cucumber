@@ -50,7 +50,7 @@
                                                                  levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
                     </span>
                     <br/>
-                    <span class="text3 schoolType">${school.schoolType}</span>
+                    <span class="text3">${gsweb:capitalize(school.schoolType)}</span>
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p'}">
                             &amp;#183;
