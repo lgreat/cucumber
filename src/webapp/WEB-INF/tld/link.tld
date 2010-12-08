@@ -428,6 +428,20 @@
             <description>District object</description>
         </attribute>
         <attribute>
+            <name>districtId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>District ID</description>
+        </attribute>
+        <attribute>
+            <name>districtName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>District name</description>
+        </attribute>
+        <attribute>
             <name>page</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

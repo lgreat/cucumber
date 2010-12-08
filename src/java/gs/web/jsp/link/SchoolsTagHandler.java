@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.22 2010/03/18 20:55:15 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.23 2010/12/08 23:57:20 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -32,6 +32,8 @@ public class SchoolsTagHandler extends LinkTagHandler {
     private State _state;
     private String _cityName;
     private District _district;
+    private Integer _districtId;
+    private String _districtName;
     private boolean _showAll = false;
     private Integer _resultsPerPage;
     private String _sortColumn;
@@ -40,7 +42,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder;
-        if (_district == null || _district.getId() == 0) {
+        if ((_district == null || _district.getId() == 0) && (_districtId == null || _districtName == null)) {
             LevelCode levelCode = null;
             if (StringUtils.isNotBlank(_levelCode)) {
                 levelCode = LevelCode.createLevelCode(_levelCode);
@@ -58,7 +60,13 @@ public class SchoolsTagHandler extends LinkTagHandler {
             State myState = _city != null ? _city.getState() : (_state != null ? _state : super.getState());
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, myState, _cityName, schoolTypes, levelCode);
         } else {
-            urlBuilder = new UrlBuilder(_district, UrlBuilder.SCHOOLS_IN_DISTRICT);
+            if (_district != null) {
+                urlBuilder = new UrlBuilder(_district, UrlBuilder.SCHOOLS_IN_DISTRICT);
+            } else if (_districtId != null && _districtName != null && _cityName != null && _state != null) {
+                urlBuilder = new UrlBuilder(_state, _districtId, _districtName, _cityName, UrlBuilder.SCHOOLS_IN_DISTRICT);
+            } else {
+                throw new IllegalStateException("Either district, or district ID and district name should be available");
+            }
             urlBuilder.removeParameter(SchoolsController.PARAM_CITY);
 
             if (StringUtils.isNotBlank(_levelCode)) {
@@ -199,5 +207,21 @@ public class SchoolsTagHandler extends LinkTagHandler {
 
     public void setState(State state) {
         _state = state;
+    }
+
+    public Integer getDistrictId() {
+        return _districtId;
+    }
+
+    public void setDistrictId(Integer districtId) {
+        _districtId = districtId;
+    }
+
+    public String getDistrictName() {
+        return _districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        _districtName = districtName;
     }
 }
