@@ -195,7 +195,7 @@ GS.search.SchoolSearchResultsTable = function() {
         var pattern4 = /sprite stars_sm_(\d|[a-z_]{7})/gi;
         var stars = row.find('td.stars-column > a > span');
         var starsClass = stars.attr('class');
-        console.log(starsClass);
+//        console.log(starsClass);
         (starsClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
         var whiteStarsClass = starsClass.match(pattern4)[0];
         var badge = row.find('td.badge-column > a > span');

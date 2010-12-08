@@ -58,7 +58,7 @@
             <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
             <div id="failedSearch">
-                <p class="introText-c03">Your search for <strong>${badSearch}</strong> did not match any schools</p>
+                <p class="introText-c03">Your search for <strong>${badSearch}</strong> did not match any schools in ${state.longName}.</p>
 
                 <div class="spacer_25"><!-- do not collapse --></div>
                 <!-- The "Did You Mean..." is commented out because we don't support this yet. -->
