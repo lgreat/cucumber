@@ -9243,6 +9243,7 @@ button {
 #js-bubbleInfo-9{
     position:relative;
     display:inline-block;
+    *display:inline;
 }
 
 #popup-contents-1 {
