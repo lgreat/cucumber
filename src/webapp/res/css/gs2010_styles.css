@@ -9286,9 +9286,14 @@ button {
     margin-top: 15px;
 }
 
-#popup-contents-8 td,
-#popup-contents-9 td{
+#popup-contents-8 td{
     width:117px;
+    padding:3px 15px 3px 0;
+    vertical-align:top;
+}
+
+#popup-contents-9 td{
+    width:183px;
     padding:3px 15px 3px 0;
     vertical-align:top;
 }
