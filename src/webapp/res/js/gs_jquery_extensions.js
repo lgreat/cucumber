@@ -16,6 +16,8 @@ http://docs.jquery.com/Tutorials#Plugin_Development
 =1 disableSelection - for disabling text selection
 =1a disableSelection - CSS class list of website wide items with text selection disabled
 =2 popup - for informational popup bubbles
+=3 table stripping plugin
+=4 debug messaging
 */
 
 /* =0 template
@@ -222,7 +224,8 @@ jQuery(document).ready(function() {
 
 //pass jQuery to the function for closure,
 })(jQuery);
-/*=table stripping plugin
+
+/* =3 table stripping plugin
 ---------------------------------------------------------------------------*/
 
 (function($){
@@ -249,3 +252,15 @@ jQuery(document).ready(function() {
 
 // end of closure
 })(jQuery);
+
+/* =4 debug messaging
+---------------------------------------------------------------------------*/
+
+function debug(what) {
+    if (window.console && window.console.firebug) {
+        console.log(what);
+    }
+    else {
+        alert(what);
+    }
+}
