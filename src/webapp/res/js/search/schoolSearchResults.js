@@ -1,48 +1,4 @@
-var compareSchoolsArray = [];
 
-    jQuery(function() {
-
-        jQuery('#sort-by').change(function() {
-            var i = 0;
-            var gradeLevels = [];
-            var schoolTypes = [];
-            var queryString = window.location.search;
-
-            //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
-            var overwriteGradeLevels = true;
-            jQuery('#js-gradeLevels :checked').each(function() {
-                queryString = putIntoQueryString(queryString,"gradeLevels", jQuery(this).val(), overwriteGradeLevels);
-                overwriteGradeLevels = false;
-            });
-
-            var overwriteSchoolTypes = true;
-            i = 0;
-            jQuery('#js-schoolTypes :checked').each(function() {
-                queryString = putIntoQueryString(queryString,"schoolTypes", jQuery(this).val(), overwriteSchoolTypes);
-                overwriteSchoolTypes = false;
-            });
-
-            if (jQuery('#sort-by').val() !== '') {
-                queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
-            } else {
-                queryString = removeFromQueryString(queryString, "sortBy");
-            }
-            
-            window.location.search = queryString;
-        });
-
-        jQuery('#page-size').change(function() {
-            var queryString = window.location.search;
-            queryString = putIntoQueryString(queryString,"pageSize",jQuery('#page-size').val(), true);
-            window.location.search = queryString;
-        });
-        
-        jQuery('.js-compareButton').click(function() {
-            var list = compareSchoolsArray.join(',');
-            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list;
-        });
-
-    });
 
     /**
      * Takes a string that resembles a URL querystring in the format ?key=value&amp;key=value&amp;key=value

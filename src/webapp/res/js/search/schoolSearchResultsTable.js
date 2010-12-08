@@ -31,7 +31,7 @@ GS.search.SchoolSearcher = function() {
         return value;
     };
 
-    this.search = function(callback) {
+    this.search = function(callback, errorCallback) {
         var i = 0;
         var data = {};
         var gradeLevels = [];
@@ -57,7 +57,7 @@ GS.search.SchoolSearcher = function() {
         queryString = removeFromQueryString(queryString, "gradeLevels");
         queryString = removeFromQueryString(queryString, "schoolTypes");
 
-        jQuery.get(this.url() + queryString, data , callback);
+        jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
     };
 };
 
@@ -91,14 +91,16 @@ GS.search.SchoolSearchResultsTable = function() {
 
     /**
      * When table is set up and page is loaded (or browse back button is clicked), reset saved checked schools
-     * and make sure all rows are highlighte correctly, etc
+     * and make sure all rows are highlighted correctly, etc
      */
     this.initializeRowsAndCheckedSchoolsArray = function() {
         var queryStringSchools = this.getQueryStringSchools();
         var numberOfQueryStringSchools = queryStringSchools.length;
 
+        //start with all the checkboxes checked on this page
         checkedSchools = this.findCheckedSchools();
 
+        //add to array all of checkboxes which are checked, according to what's in the query string
         for (var i = 0; i < numberOfQueryStringSchools; i++) {
             jQuery('#' +queryStringSchools[i]).attr("checked", true);
             var index = checkedSchools.indexOf(+queryStringSchools[i]);
@@ -130,10 +132,6 @@ GS.search.SchoolSearchResultsTable = function() {
 
         this.updateAllCheckedRows();
     }.gs_bind(this);
-
-    jQuery('.compare-school-checkbox').change(function(item) {
-        this.onCompareCheckboxClicked(item);
-    }.gs_bind(this));  //now, references to "this" in method will reference containing method's scope
 
     this.updateAllCheckedRows = function() {
         var count = checkedSchools.length;
@@ -222,56 +220,32 @@ GS.search.SchoolSearchResultsTable = function() {
         thisDomElement.find('.school-search-result-row').remove();
     };
 
-    this.add = function(schoolSearchResult) {
-        var template = new GS.search.SchoolSearchResult();
-        template.setName(schoolSearchResult.name);
-        template.setStreet(schoolSearchResult.address.street);
-        template.setCityStateZip(schoolSearchResult.address.cityStateZip);
-        var item = template.getElement().clone();
-        item.attr("class","school-search-result-row");
-        item.attr("id","school-search-result-" + schoolSearchResult.databaseState + schoolSearchResult.id);
-        item.show();
-        thisDomElement.append(item);
-        return;
-    };
-
-    this.addAll = function(schoolSearchResults) {
-        thisDomElement.hide();
-
-        var length = schoolSearchResults.length;
-
-        for (var i = 0; i < length; i++ ) {
-            this.add(schoolSearchResults[i]);
-        }
-
-        thisDomElement.show();
-        return;
-    };
-
-    this.transformToMapSchools = function(schoolSearchResults) {
-        var numberOfSearchResults = schoolSearchResults.length;
-        var mapSchools = [];
-        if (numberOfSearchResults > 0) {
-            for (var i = 0; i < numberOfSearchResults; i++) {
-                var searchResult = schoolSearchResults[i];
-                var mapSchool = new GS.map.MapSchool(
-                    searchResult.id,
-                    searchResult.databaseState,
-                    searchResult.name,
-                    searchResult.latLon.lat,
-                    searchResult.latLon.lon
-                );
-                mapSchool.gsRating = searchResult.greatSchoolsRating;
-                mapSchool.parentRating = searchResult.parentRating;
-                mapSchool.type = searchResult.schoolType;
-                mapSchools.push(mapSchool);
-            }
-        }
-        return mapSchools;
-    };
-
     this.update = function() {
+
         var searcher = new GS.search.SchoolSearcher();
+
+        var onSearchSuccess = function(data) {
+            var afterFadeIn = function() {
+                jQuery("#spinner").hide();
+                //reattach callbacks to dom element events
+                this.attachEventHandlers();
+                this.updateAllCheckedRows();
+            }.gs_bind(this);
+
+            jQuery('#js-school-search-results-table').html(data);
+            jQuery('#school-search-results-table-body').css("opacity",.2);
+            jQuery('#school-search-results-table-body').animate(
+                {opacity: 1},
+                250,
+                'linear',
+                afterFadeIn
+            );
+        }.gs_bind(this);
+
+        var onSearchError = function() {
+            this.clear();
+            jQuery("#spinner").hide();
+        }.gs_bind(this);
 
         jQuery('#spinner').show();
 
@@ -280,31 +254,62 @@ GS.search.SchoolSearchResultsTable = function() {
             250,
             'linear',
             function() {
-
+                searcher.search(onSearchSuccess, onSearchError);
             }
         );
 
-        searcher.search(function(data) {
-
-            jQuery('#js-school-search-results-table').html(data);
-            jQuery('#school-search-results-table-body').css("opacity",.2);
-            jQuery('#school-search-results-table-body').animate(
-                {opacity: 1},
-                250,
-                'linear',
-                function() {
-                    jQuery("#spinner").hide();
-                    jQuery('.compare-school-checkbox').change(GS.search.schoolSearchResultsTable.onCompareCheckboxClicked);
-                    GS.search.schoolSearchResultsTable.updateAllCheckedRows();
-                }
-            );
-
-        }.gs_bind(this));
     };
+
+    this.onPageSizeChanged = function() {
+        var queryString = window.location.search;
+        queryString = putIntoQueryString(queryString,"pageSize",jQuery('#page-size').val(), true);
+        window.location.search = queryString;
+    }.gs_bind(this);
+
+    this.onSortChanged = function() {
+        var i = 0;
+        var gradeLevels = [];
+        var schoolTypes = [];
+        var queryString = window.location.search;
+
+        //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
+        var overwriteGradeLevels = true;
+        jQuery('#js-gradeLevels :checked').each(function() {
+            queryString = putIntoQueryString(queryString,"gradeLevels", jQuery(this).val(), overwriteGradeLevels);
+            overwriteGradeLevels = false;
+        });
+
+        var overwriteSchoolTypes = true;
+        i = 0;
+        jQuery('#js-schoolTypes :checked').each(function() {
+            queryString = putIntoQueryString(queryString,"schoolTypes", jQuery(this).val(), overwriteSchoolTypes);
+            overwriteSchoolTypes = false;
+        });
+
+        if (jQuery('#sort-by').val() !== '') {
+            queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
+        } else {
+            queryString = removeFromQueryString(queryString, "sortBy");
+        }
+
+        window.location.search = queryString;
+    }.gs_bind(this);
 
     this.getCheckedSchools = function() {
         return checkedSchools;
     };
+
+    this.attachEventHandlers = function() {
+        jQuery('.compare-school-checkbox').change(this.onCompareCheckboxClicked);
+        jQuery('#page-size').change(this.onPageSizeChanged);
+        jQuery('#sort-by').change(this.onSortChanged);
+        jQuery('.js-compareButton').click(function() {
+            var list = checkedSchools.join(',');
+            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list;
+        });
+    };
+
+    this.attachEventHandlers();
 
     this.initializeRowsAndCheckedSchoolsArray();
 
@@ -315,6 +320,5 @@ jQuery(function() {
 
     jQuery('#topicbarGS input').change(function() {
         GS.search.schoolSearchResultsTable.update();
-
     });
 });
