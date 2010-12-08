@@ -195,7 +195,6 @@ GS.search.SchoolSearchResultsTable = function() {
         var pattern4 = /sprite stars_sm_(\d|[a-z_]{7})/gi;
         var stars = row.find('td.stars-column > a > span');
         var starsClass = stars.attr('class');
-//        console.log(starsClass);
         (starsClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
         var whiteStarsClass = starsClass.match(pattern4)[0];
         var badge = row.find('td.badge-column > a > span');
@@ -306,8 +305,15 @@ GS.search.SchoolSearchResultsTable = function() {
         jQuery('#page-size').change(this.onPageSizeChanged);
         jQuery('#sort-by').change(this.onSortChanged);
         jQuery('.js-compareButton').click(function() {
-            var list = checkedSchools.join(',');
-            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list;
+            if (checkedSchools !== undefined && checkedSchools.length > 0) {
+                var ids = [];
+                var j = 0;
+                var stateAbbrev = '';
+                if (checkedSchools[0].length >= 2) {
+                    stateAbbrev = checkedSchools[0].substring(0,2).toLowerCase();
+                }
+                window.location = '/modperl/msl_compare/' + stateAbbrev + '/?ids=' + checkedSchools.join(',');
+            }
         });
     };
 
