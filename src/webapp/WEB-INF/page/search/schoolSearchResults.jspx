@@ -196,7 +196,7 @@
                         <table cellspacing="0" width="${tableWidth}">
                             <tbody>
                             <tr>
-                                <c:forEach var="district" items="${districtSearchResults}" begin="3"
+                                <c:forEach var="district" items="${districtSearchResults}" begin="1"
                                            end="${fn:length(districtSearchResults)-1}" varStatus="status">
                                     <td><link:districtHomeForPrimitives state="${district.state}" districtId="${district.id}" name="${district.name}"
                                               city="${district.city}">${district.name}</link:districtHomeForPrimitives></td>

@@ -231,7 +231,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state, 0, 33);
             model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
 
-            districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 33);
+            districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 21);
             model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
         }
 
