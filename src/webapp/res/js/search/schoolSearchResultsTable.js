@@ -171,6 +171,7 @@ GS.search.SchoolSearchResultsTable = function() {
         var badge = row.find('td.badge-column > a > span');
         (starsClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
 
+        jQuery(row).find('td').removeClass("bg-color-fff");
         jQuery(row).find('td').addClass("bg-color-f4fafd");
 
         if (badge.length !== 0 && isWhite) {
@@ -206,6 +207,7 @@ GS.search.SchoolSearchResultsTable = function() {
         stars.removeClass(starsClass).addClass(whiteStarsClass);
 
         jQuery(row).find('td').removeClass("bg-color-f4fafd");
+        jQuery(row).find('td').addClass("bg-color-fff");
 
         var compareLabel = row.find('td.js-checkbox-column > .js-compareLabel');
         var compareHelperMessage = row.find('td.js-checkbox-column > .js-compareHelperMessage');

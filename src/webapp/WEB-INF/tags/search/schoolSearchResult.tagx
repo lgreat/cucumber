@@ -15,7 +15,7 @@
         <tr class="school-search-result-row" id="school-search-result-${school.databaseState}${school.id}">
 
             <!-- Compare Checkbox-->
-            <td class="brdbtm_dotted js-checkbox-column" align="center" valign="top">
+            <td class="brdbtm_dotted js-checkbox-column bg-color-fff" align="center" valign="top">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <!-- DONE: Randall fixme -->
                 <c:choose>
@@ -40,7 +40,7 @@
             </td>
 
             <!-- School Name -->
-            <td class="brdbtm_dotted">
+            <td class="brdbtm_dotted bg-color-fff">
                 <p class="school-search-result-link" id="school-search-result-link-${school.databaseState}${school.id}">
                     <span class="text1bold js-school-search-result-name">
                         <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
@@ -104,7 +104,7 @@
             </td>
 
             <!-- GreatSchools Rating -->
-            <td class="brdbtm_dotted badge-column" align="left" valign="top">
+            <td class="brdbtm_dotted badge-column bg-color-fff" align="left" valign="top">
                 <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}">
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p'}">
@@ -124,7 +124,7 @@
             </td>
 
             <!-- Parent Rating -->
-            <td class="brdbtm_dotted stars-column" align="center" valign="top">
+            <td class="brdbtm_dotted stars-column bg-color-fff" align="center" valign="top">
                 <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}">
                     <c:choose>
                         <c:when test="${not empty school.parentRating}">
