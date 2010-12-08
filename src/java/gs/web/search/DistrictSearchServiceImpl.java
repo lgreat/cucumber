@@ -44,7 +44,7 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
                 hits = getSearcher().search(query, null, null, null);
             }
 
-            if (hits != null) {
+            if (hits != null && hits.length() > 0) {
                 resultList = new DistrictResultBuilder().build(hits, offset, count);
             }
         } catch (ParseException e) {

@@ -46,7 +46,7 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
                 hits = getSearcher().search(query, null, null, null);
             }
 
-            if (hits != null) {
+            if (hits != null && hits.length() > 0) {
                 resultList = new CityResultBuilder().build(hits, offset, count);//TODO: find better way to get result builder
             }
         } catch (ParseException e) {
