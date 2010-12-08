@@ -76,7 +76,7 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
         List<ISchoolSearchResult> resultList = new ArrayList<ISchoolSearchResult>();
         int totalResults = 0;
 
-        if (hits != null) {
+        if (hits != null && hits.length() > 0) {
             totalResults = hits.length();
 
             if (offset >= totalResults) {
