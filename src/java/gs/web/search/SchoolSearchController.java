@@ -86,6 +86,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
     public static final String MODEL_IS_SEARCH = "isSearch";
 
+    public static final String MODEL_STATE = "state";
+
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -263,6 +265,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_TITLE, getTitle(isCityBrowse, isDistrictBrowse, city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString()));
         model.put(MODEL_META_DESCRIPTION, getMetaDescription(isCityBrowse, isDistrictBrowse, city, district, levelCode, schoolSearchTypes));
         model.put(MODEL_META_KEYWORDS, getMetaKeywords(district));
+        model.put(MODEL_STATE, state);
 
         model.put(MODEL_OMNITURE_PAGE_NAME,
                 getOmniturePageName(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
