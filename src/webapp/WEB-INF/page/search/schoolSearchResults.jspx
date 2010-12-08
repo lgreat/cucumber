@@ -127,10 +127,10 @@
                         <![CDATA[</tr><tr>]]>
                     </c:set>
                     <c:choose>
-                        <c:when test="${fn:length(citySearchResults) lt 6}">
+                        <c:when test="${fn:length(citySearchResults) lt 11}">
                             <c:set var="cityTableColumns" value="${1}"/>
                         </c:when>
-                        <c:when test="${fn:length(citySearchResults) ge 6 and fn:length(citySearchResults) lt 12}">
+                        <c:when test="${fn:length(citySearchResults) ge 11 and fn:length(citySearchResults) lt 21}">
                             <c:set var="cityTableColumns" value="${2}"/>
                         </c:when>
                         <c:otherwise>
@@ -173,20 +173,6 @@
                 city="${districtSearchResults[0].city}">${districtSearchResults[0].name}</link:districtHomeForPrimitives>
         </c:if>
         <c:if test="${fn:length(districtSearchResults) gt 1}">
-            | <link:districtHomeForPrimitives
-                state="${districtSearchResults[1].state}"
-                districtId="${districtSearchResults[1].id}"
-                name="${districtSearchResults[1].name}"
-                city="${districtSearchResults[1].city}">${districtSearchResults[1].name}</link:districtHomeForPrimitives>
-        </c:if>
-        <c:if test="${fn:length(districtSearchResults) gt 2}">
-            | <link:districtHomeForPrimitives 
-                state="${districtSearchResults[2].state}"
-                districtId="${districtSearchResults[2].id}"
-                name="${districtSearchResults[2].name}"
-                city="${districtSearchResults[2].city}">${districtSearchResults[2].name}</link:districtHomeForPrimitives>
-        </c:if>
-        <c:if test="${fn:length(districtSearchResults) gt 3}">
             | <div id="js-bubbleInfo-9"><span id="nearby-districts-link" class="js-trigger smallAlertText">more districts <span
                 class="alertDoubleArrow">&amp;raquo;</span></span>
 
@@ -198,17 +184,14 @@
                         <![CDATA[</tr><tr>]]>
                     </c:set>
                     <c:choose>
-                        <c:when test="${fn:length(districtSearchResults) lt 6}">
+                        <c:when test="${fn:length(districtSearchResults) lt 5}">
                             <c:set var="districtTableColumns" value="${1}"/>
                         </c:when>
-                        <c:when test="${fn:length(districtSearchResults) ge 6 and fn:length(districtSearchResults) lt 12}">
-                            <c:set var="districtTableColumns" value="${2}"/>
-                        </c:when>
                         <c:otherwise>
-                            <c:set var="districtTableColumns" value="${3}"/>
+                            <c:set var="districtTableColumns" value="${2}"/>
                         </c:otherwise>
                     </c:choose>
-                    <c:set var="tableWidth" value="${132 * districtTableColumns}"/>
+                    <c:set var="tableWidth" value="${198 * districtTableColumns}"/>
                     <c:if test="${fn:length(districtSearchResults) > 0}">
                         <table cellspacing="0" width="${tableWidth}">
                             <tbody>
