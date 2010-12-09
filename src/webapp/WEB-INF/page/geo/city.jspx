@@ -314,7 +314,7 @@
         </tr>
         <tr>
             <td>
-                <promo:savvysource/>
+                <promo:savvysource state="${cityObject.state.abbreviation}" cityName="${cityObject.name}"/>
             </td>
         </tr>
         <variant:a>

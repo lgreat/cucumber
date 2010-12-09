@@ -5,25 +5,44 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
+    <jsp:directive.attribute name="cityName" type="java.lang.String" required="false"/>
+
+    <!--<p>SavvySource city page URL: <c:out value="${gsweb:getSavvyCityPageUrl(state, cityName)}" default="not set"/></p>-->
+    <!--<p>SavvySource state page URL: <c:out value="${gsweb:getSavvyStatePageUrl(state)}" default="not set"/></p>-->
+
+    <c:choose>
+        <c:when test="${cityName ne null}">
+            <c:set var="savvySourceURL" value="${gsweb:getSavvyCityPageUrl(state, cityName)}"/>
+            <c:set var="savvyLocation" value="${cityName}"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="savvySourceURL" value="${gsweb:getSavvyStatePageUrl(state)}"/>
+            <c:set var="savvyLocation" value="${state.longName}"/>
+        </c:otherwise>
+    </c:choose>
 
     <div class="spacer_15"><!-- do not collapse --></div>
     <div id="savvysource" class="mod clearfix">
-    <div class="mod_hd">
-        <gsml:img height="36" width="142" alt="savvysource logo" src="/res/img/savvysource/savvysource_noowl_sm.png"/> 
-    </div>
+        <div class="mod_hd">
+            <gsml:img height="36" width="142" alt="savvysource logo"
+                      src="/res/img/savvysource/savvysource_noowl_sm.png"/>
+        </div>
         <div class="spacer_5"><!-- do not collapse --></div>
-    <div class="mod_bd">
-        <div class="mediaExt1-1">
-            <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>
-            <div class="bd">
-                <p class="text1">
-                    <gsml:a href="#" target="_blank">From our friends at Savvy Source, find more preschools in ${cityObject.name}</gsml:a>
-                </p>
+        <div class="mod_bd">
+            <div class="mediaExt1-1">
+                <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>
+                <div class="bd">
+                    <p class="text1">
+                        <gsml:a href="${savvySourceURL}"
+                                target="_blank">From our friends at Savvy Source, find more preschools in ${savvyLocation}</gsml:a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="spacer_15"><!-- do not collapse --></div>
 </jsp:root>
