@@ -1,7 +1,12 @@
 package gs.web.compare;
 
+import gs.data.compare.CompareConfig;
+import gs.data.compare.CompareLabel;
+import gs.data.compare.ICompareConfigDao;
+import gs.data.compare.ICompareLabelDao;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.state.State;
 import gs.data.school.census.*;
 import gs.web.BaseControllerTestCase;
 
@@ -17,6 +22,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
     private CompareStudentTeacherController _controller;
     private ICensusDataSetDao _censusDataSetDao;
     private ICensusInfo _censusInfo;
+    private ICompareLabelDao _compareLabelDao;
+    private ICompareConfigDao _compareConfigDao;
 
     @Override
     public void setUp() throws Exception {
@@ -26,18 +33,21 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
 
         _censusDataSetDao = createStrictMock(ICensusDataSetDao.class);
         _censusInfo = createStrictMock(ICensusInfo.class);
+        _compareLabelDao = createStrictMock(ICompareLabelDao.class);
+        _compareConfigDao = createStrictMock(ICompareConfigDao.class);
 
+        
         _controller.setSuccessView("success");
         _controller.setCensusDataSetDao(_censusDataSetDao);
         _controller.setCensusInfo(_censusInfo);
     }
 
     private void replayAllMocks() {
-        replayMocks(_censusDataSetDao, _censusInfo);
+        replayMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_censusDataSetDao, _censusInfo);
+        verifyMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao);
     }
 
 //    private void resetAllMocks() {
@@ -64,8 +74,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         List<School> schools = new ArrayList<School>();
         List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
-        Map<CensusDataSet, CompareStudentTeacherController.CompareLabel> censusDataSetToRowLabelMap =
-                new HashMap<CensusDataSet, CompareStudentTeacherController.CompareLabel>();
+        Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
+                new HashMap<CensusDataSet, CompareLabel>();
         Map<String, CensusStruct[]> rval;
 
         rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
@@ -91,12 +101,12 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         List<School> schools = new ArrayList<School>();
         List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
-        Map<CensusDataSet, CompareStudentTeacherController.CompareLabel> censusDataSetToRowLabelMap =
-                new HashMap<CensusDataSet, CompareStudentTeacherController.CompareLabel>();
+        Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
+                new HashMap<CensusDataSet, CompareLabel>();
         Map<String, CensusStruct[]> rval;
         SchoolCensusValue censusValue1;
         CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2009);
-        CompareStudentTeacherController.CompareLabel label= new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label= new CompareLabel();
         label.setRowLabel("Average Salary");
         censusDataSetToRowLabelMap.put(censusDataSet,label);
 
@@ -135,8 +145,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         List<School> schools = new ArrayList<School>();
         List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
-        Map<CensusDataSet, CompareStudentTeacherController.CompareLabel> censusDataSetToRowLabelMap =
-                new HashMap<CensusDataSet, CompareStudentTeacherController.CompareLabel>();
+        Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
+                new HashMap<CensusDataSet, CompareLabel>();
         Map<String, CensusStruct[]> rval;
         School school1 = getSchool(1, SchoolType.PUBLIC);
         schools.add(school1);
@@ -146,10 +156,10 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2009);
         censusDataSetToSchoolTypeMap.put(censusDataSet, SchoolType.PUBLIC);
         CensusDataSet censusDataSet2 = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2008);
-        CompareStudentTeacherController.CompareLabel label2 = new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label2 = new CompareLabel();
         label2.setRowLabel("Average Salary");
         censusDataSetToRowLabelMap.put(censusDataSet2,label2);
-        CompareStudentTeacherController.CompareLabel label= new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label= new CompareLabel();
         label.setRowLabel("Average Salary");
         censusDataSetToRowLabelMap.put(censusDataSet,label);
 
@@ -201,17 +211,17 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         List<School> schools = new ArrayList<School>();
         List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
-        Map<CensusDataSet, CompareStudentTeacherController.CompareLabel> censusDataSetToRowLabelMap =
-                new HashMap<CensusDataSet, CompareStudentTeacherController.CompareLabel>();
+        Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
+                new HashMap<CensusDataSet, CompareLabel>();
         Map<String, CensusStruct[]> rval;
 
         //add first school with white,asian breakdowns
         CensusDataSet censusDataSet1 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
         CensusDataSet censusDataSet2 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
-        CompareStudentTeacherController.CompareLabel label1= new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label1= new CompareLabel();
         label1.setRowLabel("Student Ethnicity");
         label1.setBreakdownLabel("White");
-        CompareStudentTeacherController.CompareLabel label2= new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label2= new CompareLabel();
         label2.setRowLabel("Student Ethnicity");
         label2.setBreakdownLabel("Asian");
         censusDataSetToRowLabelMap.put(censusDataSet1,label1);
@@ -236,13 +246,13 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         CensusDataSet censusDataSet3 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
         CensusDataSet censusDataSet4 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
         CensusDataSet censusDataSet5 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
-        CompareStudentTeacherController.CompareLabel label3= new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label3= new CompareLabel();
         label3.setRowLabel("Student Ethnicity");
         label3.setBreakdownLabel("White");
-        CompareStudentTeacherController.CompareLabel label4= new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label4= new CompareLabel();
         label4.setRowLabel("Student Ethnicity");
         label4.setBreakdownLabel("Asian");
-        CompareStudentTeacherController.CompareLabel label5= new CompareStudentTeacherController.CompareLabel();
+        CompareLabel label5= new CompareLabel();
         label5.setRowLabel("Student Ethnicity");
         label5.setBreakdownLabel("Hispanic");
         censusDataSetToRowLabelMap.put(censusDataSet3,label3);
@@ -268,7 +278,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
     }
 
     public void testSortRows(){
-        Map<String, CensusStruct[]> rowLabelToCells = new HashMap();
+        Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
         CensusStruct[] cs1 = new CensusStruct[1];
         rowLabelToCells.put("Average Salary",cs1);
         CensusStruct[] cs2 = new CensusStruct[1];
@@ -290,6 +300,16 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(labels.get(2),"Student Ethnicity");
         assertEquals(labels.get(3),"Average years Teaching");
 
+    }
+
+    public void testGetCompareConfig(){
+        State state = State.fromString("CA");
+        String tabName = "student_teacher";
+        List<CompareConfig> compareConfigs = _controller.getCompareConfig(state,tabName);
+        expect(_compareConfigDao.getConfig(state,tabName,CensusDataSetType.SCHOOL));
+        replay(_compareConfigDao);
+        verify(_compareConfigDao);
+        assertTrue(compareConfigs.size()==0);
     }
 
     private void assertHeaderCell(CensusStruct cell, String headerText) {

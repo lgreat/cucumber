@@ -1,7 +1,12 @@
 package gs.web.compare;
 
+import gs.data.compare.CompareConfig;
+import gs.data.compare.CompareLabel;
+import gs.data.compare.ICompareConfigDao;
+import gs.data.compare.ICompareLabelDao;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.state.State;
 import gs.data.school.census.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +23,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     private String _successView;
     private ICensusDataSetDao _censusDataSetDao;
     private ICensusInfo _censusInfo;
+    private ICompareLabelDao _compareLabelDao;
+    private ICompareConfigDao _compareConfigDao;
+
+
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -57,6 +66,29 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             struct.setEthnicities(ethnicities);
         }
 
+    }
+
+   public List<CompareConfig> getCompareConfig(State state,String tabName){
+       List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state,tabName,CensusDataSetType.SCHOOL);
+       return compareConfigs;
+   }
+
+    public void buildDataStructs(List<CompareConfig> compareConfigs){
+        List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
+        Map<CensusDataSet, CompareLabel>  censusDataSetToLabel = new HashMap<CensusDataSet, CompareLabel>();
+        Map<CompareLabel,Integer> rowLabelToOrder = new HashMap<CompareLabel,Integer>();
+        Map<CensusDataSet,SchoolType> censusDataSetToSchoolType = new HashMap<CensusDataSet,SchoolType>();
+        for(CompareConfig config : compareConfigs){
+            int dataTypeId = config.getDataTypeId();
+            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
+            Breakdown breakdown = new Breakdown(config.getBreakdownId());
+            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(config.getState(),censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
+            censusDataSets.add(censusDataSet);
+            CompareLabel label = _compareLabelDao.findLabel(config.getState(),censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
+            censusDataSetToLabel.put(censusDataSet,label);
+            rowLabelToOrder.put(label,config.getOrderNum());
+            censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
+        }
     }
 
 //    public List<List<CensusStruct>> getSchoolCensusData(State state, List<School> schools, String tab) {
@@ -204,7 +236,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                     breakdowns = cell.getBreakdownList();
                 }
                 BreakdownNameValue breakdown = new BreakdownNameValue();
-                breakdown.setName(label.breakdownLabel);
+                breakdown.setName(label.getBreakdownLabel());
                 breakdown.setValue(String.valueOf(Math.round(schoolCensusValue.getValueFloat())));
                 breakdowns.add(breakdown);
                 cell.setBreakdownList(breakdowns);
@@ -271,24 +303,41 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         _censusInfo = censusInfo;
     }
     
-    protected static class CompareLabel{
-        private String rowLabel;
-        private String breakdownLabel;
-
-        public String getRowLabel() {
-            return rowLabel;
-        }
-
-        public void setRowLabel(String rowLabel) {
-            this.rowLabel = rowLabel;
-        }
-
-        public String getBreakdownLabel() {
-            return breakdownLabel;
-        }
-
-        public void setBreakdownLabel(String breakdownLabel) {
-            this.breakdownLabel = breakdownLabel;
-        }
+     public ICompareLabelDao getCompareLabelDao() {
+        return _compareLabelDao;
     }
+
+    public void setCompareLabelDao(ICompareLabelDao compareLabelDao) {
+        _compareLabelDao = compareLabelDao;
+    }
+
+    public ICompareConfigDao getCompareConfigDao() {
+        return _compareConfigDao;
+    }
+
+    public void setCompareConfigDao(ICompareConfigDao compareConfigDao) {
+        _compareConfigDao = compareConfigDao;
+    }
+    
+//    protected static class CompareLabel{
+//        private String rowLabel;
+//        private String breakdownLabel;
+//
+//        public String getRowLabel() {
+//            return rowLabel;
+//        }
+//
+//        public void setRowLabel(String rowLabel) {
+//            this.rowLabel = rowLabel;
+//        }
+//
+//        public String getBreakdownLabel() {
+//            return breakdownLabel;
+//        }
+//
+//        public void setBreakdownLabel(String breakdownLabel) {
+//            this.breakdownLabel = breakdownLabel;
+//        }
+//    }
+
 }
