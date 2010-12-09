@@ -283,7 +283,7 @@ GS.search.SchoolSearchResultsTable = function() {
     };
 
     this.attachEventHandlers = function() {
-        jQuery('.compare-school-checkbox').change(this.onCompareCheckboxClicked);
+        jQuery('.compare-school-checkbox').click(this.onCompareCheckboxClicked);
         jQuery('#page-size').change(this.onPageSizeChanged);
         jQuery('#sort-by').change(this.onSortChanged);
         jQuery('.js-compareButton').click(function() {
@@ -308,7 +308,7 @@ GS.search.SchoolSearchResultsTable = function() {
 jQuery(function() {
     GS.search.schoolSearchResultsTable = new GS.search.SchoolSearchResultsTable();
 
-    jQuery('#topicbarGS input').change(function() {
+    jQuery('#topicbarGS input').click(function() {
         GS.search.schoolSearchResultsTable.update();
     });
 });
