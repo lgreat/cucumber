@@ -99,9 +99,9 @@
                 <ul class="answer-list">
                     <c:forEach var="year" items="${schoolYears}" varStatus="count">
                         <li class="answer-list-item">
+                            <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
                             <form:radiobutton path="year" value="${year}" id="r${year}" cssStyle="radio"/>
                             <label class="years" for="r${year}">${year-1}-${year}</label>
-                            <c:if test="${count.index == 0}"><form:errors path="year" cssClass="error"/></c:if>
                         </li>
                     </c:forEach>
                 </ul>

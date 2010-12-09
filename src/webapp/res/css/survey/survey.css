@@ -195,6 +195,7 @@ div.email-subtext{
     background-position: 0 2px;
     padding: 0 0 2px 18px;
     margin-left:10px;
+    display: block;
     }
 
 /******************** questions ***************************/
