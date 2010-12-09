@@ -7,15 +7,11 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
     <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
-    <!--<jsp:directive.attribute name="format" type="java.lang.String" required="false" description="Format of the module. Used to change chosen styles for this module. Valid values are: null or narrow"/>-->
-
-    <script type="text/javascript">
-        var savvysourcCookieKey = '${school.databaseState}${school.id}';
-    </script>
 
     <div id="savvysource" class="mod clearfix">
-    <div class="mod_hd"><!-- do not collapse --></div>
+    <div class="mod_hd">
+        <gsml:img height="35" width="142" alt="savvysource logo" src="#"/> 
+    </div>
     <div class="mod_bd">
         <div class="media">
             <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>

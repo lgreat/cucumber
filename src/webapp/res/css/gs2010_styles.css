@@ -6355,8 +6355,10 @@ table#compareTable td {
 /* =4o promo savvysource
 -------------------------------------------------------------------------------------------*/
 
-#savvysource{
-
+#savvysource .img{
+    margin-top:8px;
+    width:9px;
+    height:10px;
 }
 
 #savvysource span.arrow-right {
