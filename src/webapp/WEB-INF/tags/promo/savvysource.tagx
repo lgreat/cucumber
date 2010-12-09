@@ -15,10 +15,14 @@
     </script>
 
     <div id="savvysource" class="mod clearfix">
-
-
-
-
-
+    <div class="mod_hd"><!-- do not collapse --></div>
+    <div class="mod_bd">
+        <div class="media">
+            <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>
+            <div class="bd">
+                <p class="text1">From our friends at Savvy Source, find more preschools in San Francisco</p>
+            </div>
+        </div>
+    </div>
     </div>
 </jsp:root>

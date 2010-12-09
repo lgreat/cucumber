@@ -74,6 +74,7 @@ General comments:
 =4m-2 test scores and stats
 =4m-2.1 test scores and stats - gs ratings
 =4n-1 school search results
+=4o promo savvysource
 =5 icons
 =6 editorialFooter
 =7 communitySidebar
@@ -6349,6 +6350,33 @@ table#compareTable td {
 
 #newSearchForm select{
     margin-right:10px;
+}
+
+/* =4o promo savvysource
+-------------------------------------------------------------------------------------------*/
+
+#savvysource{
+
+}
+
+#savvysource span.arrow-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 5px solid rgba(255, 255, 255, 0.0);
+    border-left: 9px solid #f90;
+    border-bottom: 5px solid rgba(255, 255, 255, 0.0);
+}
+
+body.ie6 #savvysource span.arrow-right,
+body.ie7 #savvysource span.arrow-right,
+body.ie8 #savvysource span.arrow-right {
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 5px dashed black;
+    border-left: 9px solid #f90;
+    border-bottom: 5px dashed black;
 }
 
 /* =5 icons
