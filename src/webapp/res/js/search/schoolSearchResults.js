@@ -66,9 +66,7 @@
 
     function removeFromQueryString(queryString, key) {
         queryString = queryString.substring(1);
-        var put = false;
         var vars = [];
-
         if (queryString.length > 0) {
             vars = queryString.split("&");
         }
@@ -77,8 +75,10 @@
             var pair = vars[i].split("=");
             var thisKey = pair[0];
 
-            if (thisKey === key) {
-                delete vars[i];
+            if (thisKey == key) {
+                // http://wolfram.kriesing.de/blog/index.php/2008/javascript-remove-element-from-array
+                vars.splice(i,1);
+                i--;
             }
         }
 
@@ -91,23 +91,32 @@
         var compareSchools = GS.search.schoolSearchResultsTable.getCheckedSchools().join(',');
         var queryString = window.location.search;
         if (compareSchools !== undefined && compareSchools.length > 0) {
-            queryString = putIntoQueryString(window.location.search, "compareSchools", compareSchools, true);
+            queryString = putIntoQueryString(queryString, "compareSchools", compareSchools, true);
         }
         queryString = putIntoQueryString(queryString,"start",start, true);
 
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
-        var overwriteGradeLevels = true;
-        jQuery('#js-gradeLevels :checked').each(function() {
-            queryString = putIntoQueryString(queryString,"gradeLevels", jQuery(this).val(), overwriteGradeLevels);
-            overwriteGradeLevels = false;
-        });
+        queryString = removeFromQueryString(queryString, "gradeLevels");
+        var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
+        var numGradeLevels = jQuery('#js-gradeLevels input[type=checkbox]').size();
+        if (checkedGradeLevels.size() < numGradeLevels) {
+            var overwriteGradeLevels = true;
+            checkedGradeLevels.each(function() {
+                queryString = putIntoQueryString(queryString, "gradeLevels", jQuery(this).val(), overwriteGradeLevels);
+                overwriteGradeLevels = false;
+            });
+        }
 
-        var overwriteSchoolTypes = true;
-        i = 0;
-        jQuery('#js-schoolTypes :checked').each(function() {
-            queryString = putIntoQueryString(queryString,"schoolTypes", jQuery(this).val(), overwriteSchoolTypes);
-            overwriteSchoolTypes = false;
-        });
+        queryString = removeFromQueryString(queryString, "schoolTypes");
+        var checkedSchoolTypes = jQuery('#js-schoolTypes :checked');
+        var numSchoolTypes = jQuery('#js-schoolTypes input[type=checkbox]').size();
+        if (checkedSchoolTypes.size() < numSchoolTypes) {
+            var overwriteSchoolTypes = true;
+            checkedSchoolTypes.each(function() {
+                queryString = putIntoQueryString(queryString, "schoolTypes", jQuery(this).val(), overwriteSchoolTypes);
+                overwriteSchoolTypes = false;
+            });
+        }
 
         if (jQuery('#sort-by').val() !== '') {
             queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
