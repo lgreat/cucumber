@@ -18,7 +18,9 @@
         <div class="mediaExt1-1">
             <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>
             <div class="bd">
-                <p class="text1">From our friends at Savvy Source, find more preschools in San Francisco</p>
+                <p class="text1">
+                    <gsml:a href="#" target="_blank">From our friends at Savvy Source, find more preschools in ${cityObject.name}</gsml:a>
+                </p>
             </div>
         </div>
     </div>
