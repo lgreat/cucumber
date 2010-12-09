@@ -66,6 +66,17 @@ GS.search.SchoolSearchResultsTable = function() {
     var checkedSchoolsList = getFromQueryString("compareSchools");
     var checkedSchools = [];
 
+    // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
+    // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function(obj, start) {
+             for (var i = (start || 0), j = this.length; i < j; i++) {
+                 if (this[i] == obj) { return i; }
+             }
+             return -1;
+        }
+    }
+
     /**
      * This method is needed because when clicking browse back button, checkboxes stay checked but saved array is gone.
      */
