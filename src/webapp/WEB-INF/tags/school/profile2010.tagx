@@ -408,6 +408,8 @@
 
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
+                    <promo:savvysource/>
+
                     <div class="spacer_15"><!-- do not collapse --></div>
 
                     <!-- Community module -->
@@ -428,6 +430,8 @@
 
                     <!--<c:if test="${tab eq 'parentReviews'}">-->
                         <ad:AboveFold_300x250/>
+
+                    <promo:savvysource/>
 
                         <!--<c:if test="${cmd.totalReviews gt 0}">
                             <promo:schoolChoicePackPromo
@@ -512,13 +516,17 @@
                     <!--</c:if>-->
                 </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
-                    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
-                                               defaultCity="${school.city}"
-                                               defaultState="${school.databaseState.abbreviation}"/>
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
                     <div class="ad_middle">
                         <ad:AboveFold_300x250/>
                     </div>
+
+                    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
+                                               defaultCity="${school.city}"
+                                               defaultState="${school.databaseState.abbreviation}"/>
+
+
+                    <promo:savvysource/>
                 </c:when>
                 <c:otherwise>
                     <ad:AboveFold_300x250/>
