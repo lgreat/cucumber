@@ -86,15 +86,7 @@
         return queryString;
     }
 
-    function page(pageNumber, pageSize) {
-        var start = (pageNumber-1) * pageSize;
-        var compareSchools = GS.search.schoolSearchResultsTable.getCheckedSchools().join(',');
-        var queryString = window.location.search;
-        if (compareSchools !== undefined && compareSchools.length > 0) {
-            queryString = putIntoQueryString(queryString, "compareSchools", compareSchools, true);
-        }
-        queryString = putIntoQueryString(queryString,"start",start, true);
-
+    function buildQueryString(queryString) {
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
         queryString = removeFromQueryString(queryString, "gradeLevels");
         var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
@@ -123,6 +115,19 @@
         } else {
             queryString = removeFromQueryString(queryString, "sortBy");
         }
+        return queryString;
+    }
+
+    function page(pageNumber, pageSize) {
+        var start = (pageNumber-1) * pageSize;
+        var compareSchools = GS.search.schoolSearchResultsTable.getCheckedSchools().join(',');
+        var queryString = window.location.search;
+        if (compareSchools !== undefined && compareSchools.length > 0) {
+            queryString = putIntoQueryString(queryString, "compareSchools", compareSchools, true);
+        }
+        queryString = putIntoQueryString(queryString,"start",start, true);
+
+        queryString = buildQueryString(queryString);
 
         window.location.search = queryString;
     }
