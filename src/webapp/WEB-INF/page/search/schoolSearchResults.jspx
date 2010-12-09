@@ -217,7 +217,7 @@
         });
     </script>
 
-    <c:if test="${fn:length(districtSearchResults) gt 0}">
+    <c:if test="${fn:length(districtSearchResults) gt 0 || fn:length(citySearchResults) gt 0}">
     <div class="spacer_15"><!-- do not collapse --></div>
     </c:if>
 
