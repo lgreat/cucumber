@@ -1303,12 +1303,14 @@ body.cobranded #pageGS {
 #mainGS.col {
     width: 598px;
     padding: 0 20px;
+    z-index:1;
 }
 
 #sidebarGS.col {
     width: 328px;
     padding-left: 2px;
     overflow: hidden;
+    z-index:0;
 }
 
 #topicContentGS {
@@ -9258,6 +9260,7 @@ button {
 .js-popup {
     display: none;
     position: absolute;
+    z-index:1;
 }
 
 #js-bubbleInfo-1,
@@ -9275,6 +9278,7 @@ button {
     position:relative;
     display:inline-block;
     *display:inline;
+    *z-index:1000;
 }
 
 #popup-contents-1 {

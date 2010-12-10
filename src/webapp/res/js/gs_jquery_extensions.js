@@ -137,7 +137,8 @@ jQuery(document).ready(function() {
         // set the mouseover and mouseout on both element
         $([trigger.get(0), popup.get(0)]).mouseover(function () {
           //Add a higher z-index value so this image stays on top
-          obj.css({'z-index' : '501'});
+          obj.css({'z-index' : '2'});
+          popup.css({'z-index' : '501'});
           // get the location of the popup and set its horizonal and vertical directions
           switch (true) {
             case (o.appear==='above'):
@@ -198,6 +199,7 @@ jQuery(document).ready(function() {
         }).mouseout(function () {
           //Add a higher z-index value so this image stays on top
           obj.css({'z-index' : '1'});
+          popup.css({'z-index' : '1'});
           // reset the timer if we get fired again - avoids double animations
           if (hideDelayTimer) clearTimeout(hideDelayTimer);
 
