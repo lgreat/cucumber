@@ -36,7 +36,7 @@
             <div class="mediaExt1-1">
                 <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>
                 <div class="bd">
-                    <p class="text1">
+                    <p>
                         <gsml:a href="${savvySourceURL}"
                                 target="_blank">From our friends at Savvy Source, find more preschools in ${savvyLocation}</gsml:a>
                     </p>
@@ -44,5 +44,5 @@
             </div>
         </div>
     </div>
-    <div class="spacer_15"><!-- do not collapse --></div>
+    <div class="spacer_20"><!-- do not collapse --></div>
 </jsp:root>
