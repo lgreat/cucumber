@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -117,6 +118,9 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         State state = null;
+        City city = null;
+        District district = null;
+
         if (schoolSearchCommand.getState() != null) {
             try {
                 state = State.fromString(schoolSearchCommand.getState());
@@ -129,9 +133,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else {
             state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
-
-        City city = null;
-        District district = null;
 
         if (fields != null) {
             String cityName = fields.getCityName();
@@ -172,6 +173,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_IS_CITY_BROWSE, isCityBrowse);
         model.put(MODEL_IS_DISTRICT_BROWSE, isDistrictBrowse);
         model.put(MODEL_IS_SEARCH, isSearch);
+        
+        if (isSearch && StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
+            return stateBrowseRedirect(request, sessionContext);
+        }
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);
 
@@ -233,7 +238,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state, 0, 33);
             model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
 
-            districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 21);
+            districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 11);
             model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
         }
 
@@ -295,6 +300,13 @@ public class SchoolSearchController extends AbstractCommandController implements
                 return new ModelAndView("/search/schoolSearchResults", model);
             }
         }
+    }
+
+    private ModelAndView stateBrowseRedirect(HttpServletRequest request, SessionContext sessionContext) {
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.RESEARCH, sessionContext.getState());
+        final String url = builder.asSiteRelative(request);
+        final RedirectView view = new RedirectView(url, false);
+        return new ModelAndView(view);
     }
 
     protected void handleErrors(BindException e, SchoolSearchCommand schoolSearchCommand) {
