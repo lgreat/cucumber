@@ -28,6 +28,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     private ICensusInfo _censusInfo;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
+    private ISchoolCensusValueDao _schoolCensusValueDao;
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -40,117 +41,85 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
     // TEMPORARY METHOD PENDING FINAL IMPLEMENTATION
     protected void handleEthnicities(List<ComparedSchoolBaseStruct> structs) {
+        if (structs.size() == 0) {
+            return;
+        }
+        List<School> schools = new ArrayList<School>(structs.size());
         for (ComparedSchoolBaseStruct baseStruct: structs) {
-            ComparedSchoolStudentTeacherStruct struct = (ComparedSchoolStudentTeacherStruct) baseStruct;
-            School school = baseStruct.getSchool();
-            List<AbstractCensusValue> values = getCensusInfo().getLatestSchoolValues
-                    (school, CensusDataType.STUDENTS_ETHNICITY);
-            Collections.sort(values, new Comparator<AbstractCensusValue>() {
-                public int compare(AbstractCensusValue o1, AbstractCensusValue o2) {
-                    return o2.getValueFloat().compareTo(o1.getValueFloat());
-                }
-            });
-            Map<String, String> ethnicities = new LinkedHashMap<String, String>();
-
-            for (AbstractCensusValue value: values) {
-                String ethnicityName = value.getDataSet().getBreakdown().getEthnicity().getName();
-                Float ethnicityValue = value.getValueFloat();
-
-                int nVal = Math.round(ethnicityValue);
-                if (nVal < 1) {
-                    ethnicities.put(ethnicityName, "<1");
-                } else {
-                    ethnicities.put(ethnicityName, String.valueOf(nVal));
-                }
-            }
-
-            struct.setEthnicities(ethnicities);
+            schools.add(baseStruct.getSchool());
         }
 
+        getSchoolCensusData(schools.get(0).getDatabaseState(), schools, TAB_NAME);
     }
 
-   public List<CompareConfig> getCompareConfig(State state,String tabName){
-       List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state,tabName,CensusDataSetType.SCHOOL);
-       return compareConfigs;
-   }
-
-    public List <CensusDataSet> buildDataStructs(List<CompareConfig> compareConfigs,Map censusDataSetToLabel,Map rowLabelToOrder, Map censusDataSetToSchoolType){
+    public List<CensusDataSet> getCensusDataSets(
+            List<CompareConfig> compareConfigs,
+            Map<CensusDataSet, CompareLabel> censusDataSetToLabel,
+            Map<String, Integer> rowLabelToOrder,
+            Map<CensusDataSet, SchoolType> censusDataSetToSchoolType)
+    {
         List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
-//        Map<CensusDataSet, CompareLabel>  censusDataSetToLabel = new HashMap<CensusDataSet, CompareLabel>();
-//        Map<CompareLabel,Integer> rowLabelToOrder = new HashMap<CompareLabel,Integer>();
-//        Map<CensusDataSet,SchoolType> censusDataSetToSchoolType = new HashMap<CensusDataSet,SchoolType>();
+        // foreach compareConfig
         for(CompareConfig config : compareConfigs){
             int dataTypeId = config.getDataTypeId();
             CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
             Breakdown breakdown = new Breakdown(config.getBreakdownId());
             CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(config.getState(),censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
+            // add censusDataSet to list
             censusDataSets.add(censusDataSet);
             CompareLabel label = _compareLabelDao.findLabel(config.getState(),censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
+            //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
             censusDataSetToLabel.put(censusDataSet,label);
-            rowLabelToOrder.put(label,config.getOrderNum());
+            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
             censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
         }
         return censusDataSets;
     }
 
-//    public List<List<CensusStruct>> getSchoolCensusData(State state, List<School> schools, String tab) {
+    public List<CensusStruct[]> getSchoolCensusData(State state, List<School> schools, String tab) {
+        // initialize some maps necessary for this process
+        // censusDataSet to compareLabel
+        Map<CensusDataSet, CompareLabel> censusDataSetToLabel = new HashMap<CensusDataSet, CompareLabel>();
+        // label level1 to orderNum from CompareConfig
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        // censusDataSet to schoolType from CompareConfig
+        Map<CensusDataSet, SchoolType> censusDataSetToSchoolType = new HashMap<CensusDataSet, SchoolType>();
+
         // 1) select out config rows
-        // List<CompareConfig> compareConfigs = _compareConfigDao.find(state, tab, 'school')
+        List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state, tab, CensusDataSetType.SCHOOL);
+        if (compareConfigs == null || compareConfigs.size() == 0) {
+            _log.error("Can't find compare config rows for " + state + ", " + tab);
+            return new ArrayList<CensusStruct[]>();
+        }
 
         // 2) for each config row, retrieve the data set and label
-        // List censusDataSets;
-        // Map censusDataSetToLabel; // censusDataSet to compareLabel
-        // Map rowLabelToOrder; // label level1 to orderNum from CompareConfig
-        // Map censusDataSetToSchoolType; // censusDataSet to schoolType from CompareConfig
-        // foreach compareConfig : compareConfigs {
-        //  CensusDataSet censusDataSet = _censusDataSetDao.findDataSet
-        //                              (state, censusDataType, grade, breakdown, levelCode, subject, year)
-        //  CompareLabel compareLabel = _compareLabelDao.findLabel
-        //                      (state, tabname, censusDataType, grade, breakdown, levelCode, subject);
-        //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
-        //  censusDataSets .add censusDataSet; // add censusDataSet to list
-        // }
+        // also populate the 3 maps
+        List<CensusDataSet> censusDataSets =
+                getCensusDataSets(compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
+        if (censusDataSets == null || censusDataSets.size() == 0) {
+            _log.error("Can't find census data sets for " + state + ", " + tab);
+            return new ArrayList<CensusStruct[]>();
+        }
 
         // 3) bulk query: retrieve school values for each school and data set
-        // List<SchoolCensusValue> schoolCensusValues =
-        //              _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets, schools);
-        //
+        List<SchoolCensusValue> schoolCensusValues =
+                _schoolCensusValueDao.findSchoolCensusValues(state, censusDataSets, schools);
+        if (schoolCensusValues == null || schoolCensusValues.size() == 0) {
+            _log.error("Can't find school census values for " + state + ", " + tab);
+            return new ArrayList<CensusStruct[]>();
+        }
 
         // 4) Populate return struct
-        // Map schoolIdToIndex;
-        // int index=1;
-        // foreach (school: schools) {
-        //  schoolIdToIndex.put(school.getId(), index++);
-        // }
-        // Map rowLabelToCellList; // map of row label to list of cells
-        // foreach schoolCensusValue: schoolCensusValues {
-        //  if (dataSet's schoolType is defined and not equal to school's type) {
-        //      do nothing!
-        //  } else {
-        //      look up row and value label in censusDataSetToCompareLabelMap
-        //      get list of cells from rowLabelToCellList map
-        //      if null, create new cell list
-        //          create static sized list with schools.size()+1 elements
-        //          add header cell using row label to position 0
-        //          add list to rowLabelToCellList
-        //      Check list for existing cell in position -- if exists and dataSet's schoolType == null, continue
-        //          This prevents a default value from overwriting a schoolType value
-        //      How to handle breakdowns?
-        //      populate cell with value and label (from censusDataSetToLabel map)
-        //      add cell to cell list in position from schoolIdToIndex
-        //  }
-        // }
+        // map is used here because all we have when populating each cell is a SchoolCensusValue. From that
+        // we can get the data set, and from that we can look up the row label where it is supposed to live.
+        // With the row label, we use the map to pull out the specific row needed.
+        Map<String, CensusStruct[]> rowLabelToCellList =
+                populateStructs(schools, schoolCensusValues, censusDataSetToSchoolType, censusDataSetToLabel);
 
         // 5) Sort the rows
-        // Collections.sort(rowLabelToCellList, new Comparator<String>() {
-        //  int compare(String s1, String s2) {
-        //      return rowLabelToOrder.get(s1).compareTo(rowLabelToOrder.get(s2);
-        //  }
-        // }
-
         // 6) return
-        // return new ArrayList<List<CensusStruct>>(rowLabelToCellList.values());
-//    }
+        return sortRows(rowLabelToCellList, rowLabelToOrder);
+    }
 
     /**
      * 4) Populate return struct
@@ -167,16 +136,21 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             return rval; // early exit
         }
         // construct map of school to column for later ordering of cells
+        // this is what tells us that when we have a schoolCensusValue for school #315 we should put the value
+        // into column 2 for example
         Map<Integer, Integer> schoolIdToIndex = new HashMap<Integer, Integer>();
         int index = 1;
         for (School school : schools) {
             schoolIdToIndex.put(school.getId(), index++);
         }
 
-        // foreach schoolCensusValue: schoolCensusValues {
         for(SchoolCensusValue schoolCensusValue : schoolCensusValues){
             SchoolType schoolTypeOverride = censusDataSetToSchoolTypeMap.get(schoolCensusValue.getDataSet());
-            //  if (dataSet's schoolType is defined and not equal to school's type) {
+            // if the dataset is restricted to a school type, make sure it is applied only to schools
+            // of that type.
+            // Example: we want public schools to use 2009 data, private schools continue using 2008.
+            // To prevent public schools from falling back on 2008 data, we mark that data set "private".
+            // That way, if a public school has no value in 2009 data, it will get "N/A" rather than 2008 data.
             if (schoolTypeOverride != null &&
                     !schoolTypeOverride.equals(schoolCensusValue.getSchool().getType())) {
                 // do nothing!
@@ -213,11 +187,17 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 // set cell.isSimpleCell = false
                 cell.setIsSimpleCell(false);
                 // if cell.breakdownList is null
-                //   instantiate new list
                 if(cell.getBreakdownList() == null){
+                    // instantiate new list
                     cell.setBreakdownList(new ArrayList<BreakdownNameValue>());
                 } else if (cell.getYear() < schoolCensusValue.getDataSet().getYear()) {
                     // we found a more recent data set. clear out any values from the older data set
+                    // Example: We have a school with two valid data sets (for some reason): 2008, 2009.
+                    // As we loop through school values, we start seeing values from 2008 and adding them
+                    // to the breakdown list. Once we come across a 2009 value, we realize that we want to
+                    // use that data set instead of the 2008 one, so we delete all the 2008 values out to
+                    // make room. Below we update the year on the cell to 2009 so we know to ignore any
+                    // other 2008 values we come across.
                     cell.getBreakdownList().clear();
                 }
                 List<BreakdownNameValue> breakdowns = cell.getBreakdownList();
@@ -225,6 +205,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 BreakdownNameValue breakdown = new BreakdownNameValue();
                 breakdown.setName(label.getBreakdownLabel());
                 breakdown.setValue(getValueAsText(schoolCensusValue));
+                breakdown.setFloatValue(schoolCensusValue.getValueFloat()); // for sorting
                 // Need to check if this label is set already in list
                 if (!breakdowns.contains(breakdown)) {
                     breakdowns.add(breakdown);
@@ -232,9 +213,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                     _log.warn("Duplicate data value detected for \"" + label.getBreakdownLabel() + "\", ignoring.");
                 }
                 cell.setYear(schoolCensusValue.getDataSet().getYear());
-
-                // TODO: at some point after this loop, we'd loop through each cell in every row, and if it is
-                // a breakdown cell call Collections.sort(cell.breakdownList, Comparator<NameValuePair>)
             } else {
                 // populate cell with value and label (from censusDataSetToLabel map)
                 cell.setValue(getValueAsText(schoolCensusValue));
@@ -248,37 +226,60 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         return rval;
     }
 
+    /**
+     * Converts a value to a display format.
+     */
     // TODO: Needs unit test coverage once behavior is defined by PMs
     protected String getValueAsText(SchoolCensusValue value) {
         if (value.getValueText() != null) {
             return value.getValueText();
         } else {
-            if (value.getDataSet().getDataType().getValueType() == CensusDataType.ValueType.PERCENT) {
+            CensusDataType.ValueType valueType = value.getDataSet().getDataType().getValueType();
+            if (valueType == CensusDataType.ValueType.PERCENT) {
                 return String.valueOf(Math.round(value.getValueFloat())) + "%";
-            } else if (value.getDataSet().getDataType().getValueType() == CensusDataType.ValueType.NUMBER) {
+            } else if (valueType == CensusDataType.ValueType.NUMBER) {
                 return String.valueOf(Math.round(value.getValueFloat()));
-            } else if (value.getDataSet().getDataType().getValueType() == CensusDataType.ValueType.MONETARY) {
+            } else if (valueType == CensusDataType.ValueType.MONETARY) {
                 return "$" + String.valueOf(Math.round(value.getValueFloat()));
+            } else {
+                return String.valueOf(Math.round(value.getValueFloat()));
             }
         }
-        return "";
     }
 
-    //TODO:better way to sort a Map based on another Map?
-    // 5) Sort the rows
-    public LinkedHashMap<String, CensusStruct[]> sortRows(Map<String, CensusStruct[]> rowLabelToCells, final Map<String, String> rowLabelToOrder) {
+    /**
+     * Sorts the CensusStruct[]'s in the map per the order in rowLabelToOrder.
+     * Also sorts each breakdown cell by value in descending order
+     */
+    public List<CensusStruct[]> sortRows(Map<String, CensusStruct[]> rowLabelToCells,
+                                         final Map<String, Integer> rowLabelToOrder) {
         List<String> rowLabels = new LinkedList<String>(rowLabelToCells.keySet());
         Collections.sort(rowLabels, new Comparator<String>() {
             public int compare(String label1, String label2) {
                 return (rowLabelToOrder.get(label1).compareTo(rowLabelToOrder.get(label2)));
             }
         });
-        //put sorted list into map again
-        LinkedHashMap<String, CensusStruct[]> sortedMap = new LinkedHashMap<String, CensusStruct[]>();
+        // now we know the order, let's populate a list with the rows in correct order
+        // at the same time, we'll sort any breakdown cells by value desc
+        List<CensusStruct[]> rows = new ArrayList<CensusStruct[]>();
         for (String label : rowLabels) {
-            sortedMap.put(label, rowLabelToCells.get(label));
+            CensusStruct[] row = rowLabelToCells.get(label);
+            rows.add(row);
+            for (CensusStruct cell: row) {
+                if (cell.getBreakdownList() != null) {
+                    Collections.sort(cell.getBreakdownList(), new Comparator<BreakdownNameValue>() {
+                        // sort by value descending
+                        public int compare(BreakdownNameValue o1, BreakdownNameValue o2) {
+                            if (o1.getFloatValue() != null && o2.getFloatValue() != null) {
+                                return o2.getFloatValue().compareTo(o1.getFloatValue());
+                            }
+                            return o2.getValue().compareTo(o1.getValue());
+                        }
+                    });
+                }
+            }
         }
-        return sortedMap;
+        return rows;
     }
 
     @Override
@@ -329,5 +330,13 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
     public void setCompareConfigDao(ICompareConfigDao compareConfigDao) {
         _compareConfigDao = compareConfigDao;
+    }
+
+    public ISchoolCensusValueDao getSchoolCensusValueDao() {
+        return _schoolCensusValueDao;
+    }
+
+    public void setSchoolCensusValueDao(ISchoolCensusValueDao schoolCensusValueDao) {
+        _schoolCensusValueDao = schoolCensusValueDao;
     }
 }

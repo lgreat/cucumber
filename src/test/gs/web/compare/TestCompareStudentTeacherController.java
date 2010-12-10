@@ -1,12 +1,10 @@
 package gs.web.compare;
 
-import gs.data.compare.CompareConfig;
 import gs.data.compare.CompareLabel;
 import gs.data.compare.ICompareConfigDao;
 import gs.data.compare.ICompareLabelDao;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
-import gs.data.state.State;
 import gs.data.school.census.*;
 import gs.web.BaseControllerTestCase;
 
@@ -24,6 +22,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
     private ICensusInfo _censusInfo;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
+    private ISchoolCensusValueDao _schoolCensusValueDao;
 
     @Override
     public void setUp() throws Exception {
@@ -35,25 +34,26 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         _censusInfo = createStrictMock(ICensusInfo.class);
         _compareLabelDao = createStrictMock(ICompareLabelDao.class);
         _compareConfigDao = createStrictMock(ICompareConfigDao.class);
-
+        _schoolCensusValueDao = createStrictMock(ISchoolCensusValueDao.class);
         
         _controller.setSuccessView("success");
         _controller.setCensusDataSetDao(_censusDataSetDao);
         _controller.setCensusInfo(_censusInfo);
         _controller.setCompareLabelDao(_compareLabelDao);
         _controller.setCompareConfigDao(_compareConfigDao);
+        _controller.setSchoolCensusValueDao(_schoolCensusValueDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao);
+        replayMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _schoolCensusValueDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao);
+        verifyMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _schoolCensusValueDao);
     }
 
 //    private void resetAllMocks() {
-//        resetMocks(_censusDataSetDao, _censusInfo);
+//        resetMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _schoolCensusValueDao);
 //    }
 
     public void testBasics() {
@@ -62,6 +62,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertSame(_censusInfo, _controller.getCensusInfo());
         assertSame(_compareConfigDao, _controller.getCompareConfigDao());
         assertSame(_compareLabelDao, _controller.getCompareLabelDao());
+        assertSame(_schoolCensusValueDao, _controller.getSchoolCensusValueDao());
         assertEquals(ComparedSchoolStudentTeacherStruct.class, _controller.getStruct().getClass());
     }
 
@@ -204,10 +205,6 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertSimpleCell(rval.get("Average Salary")[2], "$80000");
     }
 
-
-
-
-
     public void testPopulateStructsWithBreakdown() {
         List<School> schools = new ArrayList<School>();
         List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
@@ -243,7 +240,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         CensusDataSet censusDataSet3 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
         CompareLabel label3= getLabel("Student Ethnicity", "Hispanic");
         censusDataSetToRowLabelMap.put(censusDataSet3,label3);
-        School school2 = getSchool(2);
+        School school2 = getSchool(2, SchoolType.PRIVATE);
         schools.add(school2);
         SchoolCensusValue censusValue3 = getSchoolCensusValue(school2, censusDataSet1, 20);
         schoolCensusValues.add(censusValue3);
@@ -261,11 +258,13 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertBreakdownCell(rval.get("Student Ethnicity")[2],1,"Asian","40%");
         assertBreakdownCell(rval.get("Student Ethnicity")[2],2,"Hispanic","40%");
 
-        // add more recent data set, confirm that those values are used over the older ones
+        // add more recent data set for private schools, confirm that those values are used over the older ones
         CensusDataSet censusDataSet1b = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2010);
         CensusDataSet censusDataSet2b = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2010);
         censusDataSetToRowLabelMap.put(censusDataSet1b,label1);
         censusDataSetToRowLabelMap.put(censusDataSet2b,label2);
+        censusDataSetToSchoolTypeMap.put(censusDataSet1b, SchoolType.PRIVATE);
+        censusDataSetToSchoolTypeMap.put(censusDataSet2b, SchoolType.PRIVATE);
         SchoolCensusValue censusValue1b = getSchoolCensusValue(school1, censusDataSet1b, 30);
         schoolCensusValues.add(censusValue1b);
         SchoolCensusValue censusValue2b = getSchoolCensusValue(school1, censusDataSet2b, 70);
@@ -283,8 +282,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(3,rval.get("Student Ethnicity").length);
         assertHeaderCell(rval.get("Student Ethnicity")[0], "Student Ethnicity");
         assertEquals(2, rval.get("Student Ethnicity")[1].getBreakdownList().size());
-        assertBreakdownCell(rval.get("Student Ethnicity")[1],0,"White","30%");
-        assertBreakdownCell(rval.get("Student Ethnicity")[1],1,"Asian","70%");
+        assertBreakdownCell(rval.get("Student Ethnicity")[1],0,"White","40%");
+        assertBreakdownCell(rval.get("Student Ethnicity")[1],1,"Asian","60%");
         assertEquals(2, rval.get("Student Ethnicity")[2].getBreakdownList().size());
         assertBreakdownCell(rval.get("Student Ethnicity")[2],0,"White","20%");
         assertBreakdownCell(rval.get("Student Ethnicity")[2],1,"Asian","80%");
@@ -293,37 +292,68 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
     public void testSortRows(){
         Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
         CensusStruct[] cs1 = new CensusStruct[1];
+        cs1[0] = new CensusStruct();
+        cs1[0].setHeaderText("Average Salary");
         rowLabelToCells.put("Average Salary",cs1);
-        CensusStruct[] cs2 = new CensusStruct[1];
+        CensusStruct[] cs2 = new CensusStruct[2];
+        cs2[0] = new CensusStruct();
+        cs2[0].setHeaderText("Student Ethnicity");
+        cs2[1] = new CensusStruct();
+        List<BreakdownNameValue> breakdowns = new ArrayList<BreakdownNameValue>();
+        breakdowns.add(getBreakdown("White", "30%", 30f));
+        breakdowns.add(getBreakdown("Asian", "50%", 50f));
+        breakdowns.add(getBreakdown("Black", "20%", 20f));
+        cs2[1].setBreakdownList(breakdowns);
         rowLabelToCells.put("Student Ethnicity",cs2);
         CensusStruct[] cs3 = new CensusStruct[1];
+        cs3[0] = new CensusStruct();
+        cs3[0].setHeaderText("Average years Teaching");
         rowLabelToCells.put("Average years Teaching",cs3);
-        CensusStruct[] cs4 = new CensusStruct[1];
+        CensusStruct[] cs4 = new CensusStruct[2];
+        cs4[0] = new CensusStruct();
+        cs4[0].setHeaderText("Students per teacher");
+        cs4[1] = new CensusStruct();
+        breakdowns = new ArrayList<BreakdownNameValue>();
+        breakdowns.add(getBreakdown("1st grade", "12:1", null));
+        breakdowns.add(getBreakdown("2nd grade", "12:1", null));
+        breakdowns.add(getBreakdown("3rd grade", "8:1", null));
+        breakdowns.add(getBreakdown("4th grade", "10:1", null));
+        breakdowns.add(getBreakdown("5th grade", "15:1", null));
+        cs4[1].setBreakdownList(breakdowns);
         rowLabelToCells.put("Students per teacher",cs4);
-        Map<String, String> rowLabelToOrder = new HashMap<String,String>();
-        rowLabelToOrder.put("Average Salary","1");
-        rowLabelToOrder.put("Students per teacher","2");
-        rowLabelToOrder.put("Student Ethnicity","3");
-        rowLabelToOrder.put("Average years Teaching","4");
+        Map<String, Integer> rowLabelToOrder = new HashMap<String,Integer>();
+        rowLabelToOrder.put("Average Salary",1);
+        rowLabelToOrder.put("Students per teacher",2);
+        rowLabelToOrder.put("Student Ethnicity",3);
+        rowLabelToOrder.put("Average years Teaching",4);
         
-        LinkedHashMap<String, CensusStruct[]> sortedMap = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
-        List<String> labels = new LinkedList<String>(sortedMap.keySet());
-        assertEquals(labels.get(0),"Average Salary");
-        assertEquals(labels.get(1),"Students per teacher");
-        assertEquals(labels.get(2),"Student Ethnicity");
-        assertEquals(labels.get(3),"Average years Teaching");
+        List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
+        assertNotNull(rval);
+        assertEquals(4, rval.size());
+        assertEquals("Average Salary", rval.get(0)[0].getHeaderText());
+        assertEquals("Students per teacher", rval.get(1)[0].getHeaderText());
+        assertEquals("Student Ethnicity", rval.get(2)[0].getHeaderText());
+        assertEquals("Average years Teaching", rval.get(3)[0].getHeaderText());
 
+        assertEquals("Asian", rval.get(2)[1].getBreakdownList().get(0).getName());
+        assertEquals("50%", rval.get(2)[1].getBreakdownList().get(0).getValue());
+        assertEquals("White", rval.get(2)[1].getBreakdownList().get(1).getName());
+        assertEquals("30%", rval.get(2)[1].getBreakdownList().get(1).getValue());
+        assertEquals("Black", rval.get(2)[1].getBreakdownList().get(2).getName());
+        assertEquals("20%", rval.get(2)[1].getBreakdownList().get(2).getValue());
+
+        assertEquals("3rd grade", rval.get(1)[1].getBreakdownList().get(0).getName());
+        assertEquals("8:1", rval.get(1)[1].getBreakdownList().get(0).getValue());
+        assertEquals("4th grade", rval.get(1)[1].getBreakdownList().get(4).getName());
+        assertEquals("10:1", rval.get(1)[1].getBreakdownList().get(4).getValue());
     }
 
-    public void testGetCompareConfig(){
-        State state = State.fromString("CA");
-        String tabName = "student_teacher";
-        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
-        expect(_compareConfigDao.getConfig(state,tabName,CensusDataSetType.SCHOOL)).andReturn(compareConfigs);
-        replayAllMocks();
-        List<CompareConfig> rval = _controller.getCompareConfig(state,tabName);
-        verifyAllMocks();
-        assertEquals(0, rval.size());
+    private BreakdownNameValue getBreakdown(String name, String value, Float floatValue) {
+        BreakdownNameValue breakdown = new BreakdownNameValue();
+        breakdown.setName(name);
+        breakdown.setValue(value);
+        breakdown.setFloatValue(floatValue);
+        return breakdown;
     }
 
     private void assertHeaderCell(CensusStruct cell, String headerText) {

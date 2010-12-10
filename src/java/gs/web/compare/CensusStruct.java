@@ -14,6 +14,7 @@ public class CensusStruct {
     private String _value;
     private int _year;
 
+    // following signatures are helpful for JSTL readability
     public boolean getIsHeaderCell() {
         return _isHeaderCell;
     }
@@ -28,6 +29,15 @@ public class CensusStruct {
 
     public void setIsSimpleCell(boolean simpleCell) {
         _isSimpleCell = simpleCell;
+    }
+
+    // following two signatures are helpful for Java readability
+    public boolean isHeaderCell() {
+        return _isHeaderCell;
+    }
+
+    public boolean isSimpleCell() {
+        return _isSimpleCell;
     }
 
     public String getHeaderText() {

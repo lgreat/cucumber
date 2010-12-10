@@ -1,8 +1,11 @@
 package gs.web.compare;
 
+import gs.data.school.census.CensusDataType;
+
 public class BreakdownNameValue {
     private String _value;
     private String _name;
+    private Float _floatValue; // for sorting
 
     public String getValue() {
         return _value;
@@ -18,6 +21,14 @@ public class BreakdownNameValue {
 
     public void setName(String name) {
         this._name = name;
+    }
+
+    public Float getFloatValue() {
+        return _floatValue;
+    }
+
+    public void setFloatValue(Float floatValue) {
+        _floatValue = floatValue;
     }
 
     @Override
