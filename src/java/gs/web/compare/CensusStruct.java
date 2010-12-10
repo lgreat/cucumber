@@ -1,76 +1,72 @@
 package gs.web.compare;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
 
 /**
  * @author Nanditha Patury <mailto:npatury@greatschools.net>
  */
 public class CensusStruct {
-    private boolean isHeaderCell = false;
-    private boolean isSimpleCell = false;
-    private String headerText;
-    private String extraInfo;
-    private Map breakdownMap;
-    private List<BreakdownNameValue> breakdownList;
-    private String value;
-
+    private boolean _isHeaderCell = false;
+    private boolean _isSimpleCell = false;
+    private String _headerText;
+    private String _extraInfo;
+    private List<BreakdownNameValue> _breakdownList;
+    private String _value;
+    private int _year;
 
     public boolean getIsHeaderCell() {
-        return isHeaderCell;
+        return _isHeaderCell;
     }
 
     public void setIsHeaderCell(boolean headerCell) {
-        isHeaderCell = headerCell;
+        _isHeaderCell = headerCell;
     }
 
     public boolean getIsSimpleCell() {
-        return isSimpleCell;
+        return _isSimpleCell;
     }
 
     public void setIsSimpleCell(boolean simpleCell) {
-        isSimpleCell = simpleCell;
+        _isSimpleCell = simpleCell;
     }
 
     public String getHeaderText() {
-        return headerText;
+        return _headerText;
     }
 
     public void setHeaderText(String headerText) {
-        this.headerText = headerText;
+        _headerText = headerText;
     }
 
     public String getExtraInfo() {
-        return extraInfo;
+        return _extraInfo;
     }
 
     public void setExtraInfo(String extraInfo) {
-        this.extraInfo = extraInfo;
-    }
-
-    public Map getBreakdownMap() {
-        return breakdownMap;
-    }
-
-    public void setBreakdownMap(Map breakdownMap) {
-        this.breakdownMap = breakdownMap;
+        _extraInfo = extraInfo;
     }
 
     public String getValue() {
-        return value;
+        return _value;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        _value = value;
     }
 
     public List<BreakdownNameValue> getBreakdownList() {
-        return breakdownList;
+        return _breakdownList;
     }
 
     public void setBreakdownList(List<BreakdownNameValue> breakdownList) {
-        this.breakdownList = breakdownList;
+        _breakdownList = breakdownList;
+    }
+
+    public int getYear() {
+        return _year;
+    }
+
+    public void setYear(int year) {
+        _year = year;
     }
 }

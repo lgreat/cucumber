@@ -8,6 +8,8 @@ import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.data.school.census.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,14 +21,13 @@ import java.util.*;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class CompareStudentTeacherController extends AbstractCompareSchoolController {
+    private final Log _log = LogFactory.getLog(getClass());
     public static final String TAB_NAME = "studentTeacher";
     private String _successView;
     private ICensusDataSetDao _censusDataSetDao;
     private ICensusInfo _censusInfo;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
-
-
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -153,7 +154,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     /**
      * 4) Populate return struct
      */
-    // TODO: Verify that schoolCensusValue.valueFloat is the only value we're interested in, vs. valueText
     protected Map<String, CensusStruct[]> populateStructs
             (List<School> schools,
              List<SchoolCensusValue> schoolCensusValues,
@@ -178,7 +178,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             //  if (dataSet's schoolType is defined and not equal to school's type) {
             if (schoolTypeOverride != null &&
                     !schoolTypeOverride.equals(schoolCensusValue.getSchool().getType())) {
-                System.out.println("School already has value, not overriding");
                 // do nothing!
                 continue;
             }
@@ -200,50 +199,45 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
             int cellIndex = schoolIdToIndex.get(schoolCensusValue.getSchool().getId());
             CensusStruct cell = cells[cellIndex];
-            //  Check list for existing cell in position -- if exists and dataSet's schoolType == null, continue
-            //  This prevents a default value from overwriting a schoolType value
-            if (cell != null && schoolTypeOverride == null && label.getBreakdownLabel() == null) {
+            // Check list for existing cell in position -- if exists and it is more recent than the
+            // current value, don't overwrite it
+            if (cell != null && cell.getYear() > schoolCensusValue.getDataSet().getYear()) {
                 continue;
             }
             if (cell == null) {
                 cell = new CensusStruct();
             }
             if (label.getBreakdownLabel() != null) {
-                // TODO: How to handle breakdowns?
                 // Initial proposed logic:
                 // set cell.isSimpleCell = false
-                // if cell.breakdownMap is null
-                //   instantiate new map
-                // cell.breakdownMap.put(label.breakdownLabel, schoolCensusValue.valueFloat)
-
-                // Problem: This puts them in out-of-order
-                // Question: Why is cell.breakdownMap a map anyway?
-                // Seems like we want it to be an ordered list.
-                // Could it instead be an ordered list of key/value pairs (e.g. gs.data.util.NameValuePair)?
-                // If it were defined as a List<NameValuePair>, then a sort would be trivial based
-                // on the NameValuePair's .value.
-                // In that case, the modified logic would be:
-                // set cell.isSimpleCell = false
+                cell.setIsSimpleCell(false);
                 // if cell.breakdownList is null
                 //   instantiate new list
-                // cell.breakdownList.add(new NameValuePair(label.breakdownLabel, schoolCensusValue.valueFloat))
-                // at some point after this loop, we'd loop through each cell in every row, and if it is
-                // a breakdown cell call Collections.sort(cell.breakdownList, Comparator<NameValuePair>)
-                cell.setIsSimpleCell(false);
-                List<BreakdownNameValue> breakdowns = new ArrayList();
-
-                if(cell.getBreakdownList() != null){
-                    breakdowns = cell.getBreakdownList();
+                if(cell.getBreakdownList() == null){
+                    cell.setBreakdownList(new ArrayList<BreakdownNameValue>());
+                } else if (cell.getYear() < schoolCensusValue.getDataSet().getYear()) {
+                    // we found a more recent data set. clear out any values from the older data set
+                    cell.getBreakdownList().clear();
                 }
+                List<BreakdownNameValue> breakdowns = cell.getBreakdownList();
+                // cell.breakdownList.add(new NameValuePair(label.breakdownLabel, schoolCensusValue.valueFloat))
                 BreakdownNameValue breakdown = new BreakdownNameValue();
                 breakdown.setName(label.getBreakdownLabel());
-                breakdown.setValue(String.valueOf(Math.round(schoolCensusValue.getValueFloat())));
-                breakdowns.add(breakdown);
-                cell.setBreakdownList(breakdowns);
+                breakdown.setValue(getValueAsText(schoolCensusValue));
+                // Need to check if this label is set already in list
+                if (!breakdowns.contains(breakdown)) {
+                    breakdowns.add(breakdown);
+                } else {
+                    _log.warn("Duplicate data value detected for \"" + label.getBreakdownLabel() + "\", ignoring.");
+                }
+                cell.setYear(schoolCensusValue.getDataSet().getYear());
+
+                // TODO: at some point after this loop, we'd loop through each cell in every row, and if it is
+                // a breakdown cell call Collections.sort(cell.breakdownList, Comparator<NameValuePair>)
             } else {
                 // populate cell with value and label (from censusDataSetToLabel map)
-                // TODO: Does how we format the value depend on schoolCensusValue.dataSet.dataType.valueType?
-                cell.setValue(String.valueOf(Math.round(schoolCensusValue.getValueFloat())));
+                cell.setValue(getValueAsText(schoolCensusValue));
+                cell.setYear(schoolCensusValue.getDataSet().getYear());
                 cell.setIsSimpleCell(true);
             }
             // add cell to cell list in position from schoolIdToIndex
@@ -253,7 +247,24 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         return rval;
     }
 
+    // TODO: Needs unit test coverage once behavior is defined by PMs
+    protected String getValueAsText(SchoolCensusValue value) {
+        if (value.getValueText() != null) {
+            return value.getValueText();
+        } else {
+            if (value.getDataSet().getDataType().getValueType() == CensusDataType.ValueType.PERCENT) {
+                return String.valueOf(Math.round(value.getValueFloat())) + "%";
+            } else if (value.getDataSet().getDataType().getValueType() == CensusDataType.ValueType.NUMBER) {
+                return String.valueOf(Math.round(value.getValueFloat()));
+            } else if (value.getDataSet().getDataType().getValueType() == CensusDataType.ValueType.MONETARY) {
+                return "$" + String.valueOf(Math.round(value.getValueFloat()));
+            }
+        }
+        return "";
+    }
+
     //TODO:better way to sort a Map based on another Map?
+    // 5) Sort the rows
     public LinkedHashMap<String, CensusStruct[]> sortRows(Map<String, CensusStruct[]> rowLabelToCells, final Map<String, String> rowLabelToOrder) {
         List<String> rowLabels = new LinkedList<String>(rowLabelToCells.keySet());
         Collections.sort(rowLabels, new Comparator<String>() {
@@ -318,26 +329,4 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     public void setCompareConfigDao(ICompareConfigDao compareConfigDao) {
         _compareConfigDao = compareConfigDao;
     }
-    
-//    protected static class CompareLabel{
-//        private String rowLabel;
-//        private String breakdownLabel;
-//
-//        public String getRowLabel() {
-//            return rowLabel;
-//        }
-//
-//        public void setRowLabel(String rowLabel) {
-//            this.rowLabel = rowLabel;
-//        }
-//
-//        public String getBreakdownLabel() {
-//            return breakdownLabel;
-//        }
-//
-//        public void setBreakdownLabel(String breakdownLabel) {
-//            this.breakdownLabel = breakdownLabel;
-//        }
-//    }
-
 }
