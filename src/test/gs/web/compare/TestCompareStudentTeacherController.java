@@ -1,17 +1,20 @@
 package gs.web.compare;
 
+import gs.data.compare.CompareConfig;
 import gs.data.compare.CompareLabel;
 import gs.data.compare.ICompareConfigDao;
 import gs.data.compare.ICompareLabelDao;
-import gs.data.school.School;
-import gs.data.school.SchoolType;
+import gs.data.school.*;
 import gs.data.school.census.*;
+import gs.data.state.State;
+import gs.data.test.Subject;
 import gs.web.BaseControllerTestCase;
 
 import java.util.*;
 
 import static org.easymock.EasyMock.*;
 import static gs.web.compare.AbstractCompareSchoolController.MODEL_TAB;
+import static gs.web.compare.CompareStudentTeacherController.TAB_NAME;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -69,7 +72,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
     public void testEmptyList() throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         replayAllMocks();
-        _controller.handleCompareRequest(getRequest(), getResponse(), 
+        _controller.handleCompareRequest(getRequest(), getResponse(),
                                          new ArrayList<ComparedSchoolBaseStruct>(), model);
         verifyAllMocks();
         assertEquals(CompareStudentTeacherController.TAB_NAME, model.get(MODEL_TAB));
@@ -289,6 +292,155 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertBreakdownCell(rval.get("Student Ethnicity")[2],1,"Asian","80%");
     }
 
+    public void testGetCensusDataSetsNoConfigs() {
+        // expect nothing to happen
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        Map<CensusDataSet, CompareLabel> censusDataSetCompareLabelMap = new HashMap<CensusDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<CensusDataSet, SchoolType> censusDataSetSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+        replayAllMocks();
+        List<CensusDataSet> rval = _controller.getCensusDataSets
+                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(0, rval.size());
+        assertEquals(0, censusDataSetCompareLabelMap.size());
+        assertEquals(0, rowLabelToOrder.size());
+        assertEquals(0, censusDataSetSchoolTypeMap.size());
+    }
+
+    public void testGetCensusDataSetsNoDataSet() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(CensusDataType.STUDENTS_ETHNICITY.getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfigs.add(compareConfig);
+        Map<CensusDataSet, CompareLabel> censusDataSetCompareLabelMap = new HashMap<CensusDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<CensusDataSet, SchoolType> censusDataSetSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+
+        expect(_censusDataSetDao.findDataSet(State.CA, CensusDataType.STUDENTS_ETHNICITY, null, null, null, null, null))
+                .andReturn(null);
+        replayAllMocks();
+        List<CensusDataSet> rval = _controller.getCensusDataSets
+                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(0, rval.size());
+        assertEquals(0, censusDataSetCompareLabelMap.size());
+        assertEquals(0, rowLabelToOrder.size());
+        assertEquals(0, censusDataSetSchoolTypeMap.size());
+    }
+
+    public void testGetCensusDataSetsNoLabel() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(CensusDataType.STUDENTS_ETHNICITY.getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfigs.add(compareConfig);
+        Map<CensusDataSet, CompareLabel> censusDataSetCompareLabelMap = new HashMap<CensusDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<CensusDataSet, SchoolType> censusDataSetSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+
+        expect(_censusDataSetDao.findDataSet(State.CA, CensusDataType.STUDENTS_ETHNICITY, null, null, null, null, null))
+                .andReturn(new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY, 2009));
+        expect(_compareLabelDao
+                       .findLabel(State.CA, CensusDataType.STUDENTS_ETHNICITY, TAB_NAME, null, null, null, null))
+                .andReturn(null);
+        replayAllMocks();
+        List<CensusDataSet> rval = _controller.getCensusDataSets
+                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(0, rval.size());
+        assertEquals(0, censusDataSetCompareLabelMap.size());
+        assertEquals(0, rowLabelToOrder.size());
+        assertEquals(0, censusDataSetSchoolTypeMap.size());
+    }
+
+    public void testGetCensusDataSetsOneConfigSimple() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(CensusDataType.STUDENTS_ETHNICITY.getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfig.setOrderNum(1);
+        compareConfigs.add(compareConfig);
+        Map<CensusDataSet, CompareLabel> censusDataSetCompareLabelMap = new HashMap<CensusDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<CensusDataSet, SchoolType> censusDataSetSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+
+        CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY, 2009);
+        expect(_censusDataSetDao.findDataSet(State.CA, CensusDataType.STUDENTS_ETHNICITY, null, null, null, null, null))
+                .andReturn(censusDataSet);
+        CompareLabel label = new CompareLabel();
+        label.setRowLabel("Ethnicity");
+        expect(_compareLabelDao
+                       .findLabel(State.CA, CensusDataType.STUDENTS_ETHNICITY, TAB_NAME, null, null, null, null))
+                .andReturn(label);
+        replayAllMocks();
+        List<CensusDataSet> rval = _controller.getCensusDataSets
+                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(1, rval.size());
+        assertSame(censusDataSet, rval.get(0));
+        assertEquals(1, censusDataSetCompareLabelMap.size());
+        assertSame(label, censusDataSetCompareLabelMap.get(censusDataSet));
+        assertEquals(1, rowLabelToOrder.size());
+        assertEquals(1, rowLabelToOrder.get("Ethnicity").intValue());
+        assertEquals(0, censusDataSetSchoolTypeMap.size());
+    }
+
+    public void testGetCensusDataSetsOneConfigComplex() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(CensusDataType.STUDENTS_ETHNICITY.getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfig.setOrderNum(1);
+        compareConfig.setBreakdownId(5);
+        compareConfig.setGradeLevels(Grades.createGrades(Grade.G_3));
+        compareConfig.setLevelCode(LevelCode.ELEMENTARY);
+        compareConfig.setYear(2009);
+        compareConfig.setSubject(Subject.ENGLISH);
+        compareConfigs.add(compareConfig);
+        Map<CensusDataSet, CompareLabel> censusDataSetCompareLabelMap = new HashMap<CensusDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<CensusDataSet, SchoolType> censusDataSetSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
+
+        CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY, 2009);
+        expect(_censusDataSetDao
+                       .findDataSet(eq(State.CA), eq(CensusDataType.STUDENTS_ETHNICITY), eq(2009), isA(Breakdown.class),
+                                    eq(Subject.ENGLISH), eq(LevelCode.ELEMENTARY), eq(Grades.createGrades(Grade.G_3))))
+                .andReturn(censusDataSet);
+        CompareLabel label = new CompareLabel();
+        label.setRowLabel("Ethnicity");
+        expect(_compareLabelDao
+                       .findLabel(eq(State.CA), eq(CensusDataType.STUDENTS_ETHNICITY), eq(TAB_NAME),
+                                  eq(Grades.createGrades(Grade.G_3)), isA(Breakdown.class), eq(LevelCode.ELEMENTARY),
+                                  eq(Subject.ENGLISH)))
+                .andReturn(label);
+        replayAllMocks();
+        List<CensusDataSet> rval = _controller.getCensusDataSets
+                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(1, rval.size());
+        assertSame(censusDataSet, rval.get(0));
+        assertEquals(1, censusDataSetCompareLabelMap.size());
+        assertSame(label, censusDataSetCompareLabelMap.get(censusDataSet));
+        assertEquals(1, rowLabelToOrder.size());
+        assertEquals(1, rowLabelToOrder.get("Ethnicity").intValue());
+        assertEquals(0, censusDataSetSchoolTypeMap.size());
+    }
+
     public void testSortRows(){
         Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
         CensusStruct[] cs1 = new CensusStruct[1];
@@ -320,7 +472,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         breakdowns.add(getBreakdown("4th grade", "10:1", null));
         breakdowns.add(getBreakdown("5th grade", "15:1", null));
         cs4[1].setBreakdownList(breakdowns);
-        rowLabelToCells.put("Students per teacher",cs4);
+        rowLabelToCells.put("Students per teacher", cs4);
         Map<String, Integer> rowLabelToOrder = new HashMap<String,Integer>();
         rowLabelToOrder.put("Average Salary",1);
         rowLabelToOrder.put("Students per teacher",2);

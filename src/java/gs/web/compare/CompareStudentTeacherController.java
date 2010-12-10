@@ -32,15 +32,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
-                                        List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) throws
+                                        List<ComparedSchoolBaseStruct> structs, Map<String, Object> model) throws
                                                                                                            Exception {
         model.put(MODEL_TAB, TAB_NAME);
 
-        handleEthnicities(schools);
-    }
-
-    // TEMPORARY METHOD PENDING FINAL IMPLEMENTATION
-    protected void handleEthnicities(List<ComparedSchoolBaseStruct> structs) {
         if (structs.size() == 0) {
             return;
         }
@@ -63,15 +58,28 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         for(CompareConfig config : compareConfigs){
             int dataTypeId = config.getDataTypeId();
             CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
-            Breakdown breakdown = new Breakdown(config.getBreakdownId());
+            Breakdown breakdown = null;
+            if (config.getBreakdownId() != null) {
+                breakdown = new Breakdown(config.getBreakdownId());
+            }
             CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(config.getState(),censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
+            if (censusDataSet == null) {
+                _log.warn("Can't find data set corresponding to config row: " + config.getId());
+                continue;
+            }
+            CompareLabel label = _compareLabelDao.findLabel(config.getState(),censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
+            if (label == null) {
+                _log.warn("Can't find label corresponding to config row: " + config.getId());
+                continue;
+            }
             // add censusDataSet to list
             censusDataSets.add(censusDataSet);
-            CompareLabel label = _compareLabelDao.findLabel(config.getState(),censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
             //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
             censusDataSetToLabel.put(censusDataSet,label);
             rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
-            censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
+            if (config.getSchoolType() != null) {
+                censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
+            }
         }
         return censusDataSets;
     }
