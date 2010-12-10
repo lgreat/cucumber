@@ -399,6 +399,12 @@
         </div>
         <!-- end schoolProfileLeftColumn -->
 
+        <c:if test="${fn:contains(school.levelCode, 'p')}">
+            <c:set var="savvySource">
+                <promo:savvysource state="${state}" cityName="${(showSavvySourceCityLink ? city : null)}"/>
+            </c:set>
+        </c:if>
+
         <div id="schoolProfileRightColumn" class="col">
             <!--<p>tab is: <c:out value="${tab}" default="not set"/></p>-->
             <!--<p>caller is: <c:out value="${caller}" default="not set"/></p>-->
@@ -409,9 +415,7 @@
 
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
-                    <c:if test="${fn:contains(school.levelCode, 'p')}">
-                    <promo:savvysource state="${state}" cityName="${city}"/>
-                    </c:if>
+                    ${savvySource}
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 
@@ -434,9 +438,7 @@
                     <!--<c:if test="${tab eq 'parentReviews'}">-->
                         <ad:AboveFold_300x250/>
 
-                    <c:if test="${fn:contains(school.levelCode, 'p')}">
-                    <promo:savvysource state="${state}" cityName="${city}"/>
-                    </c:if>
+                    ${savvySource}
 
                         <!--<c:if test="${cmd.totalReviews gt 0}">
                             <promo:schoolChoicePackPromo
@@ -530,18 +532,14 @@
                                                defaultCity="${school.city}"
                                                defaultState="${school.databaseState.abbreviation}"/>
 
-                    <c:if test="${fn:contains(school.levelCode, 'p')}">
-                    <promo:savvysource state="${state}" cityName="${city}"/>
-                    </c:if>
+                    ${savvySource}
                 </c:when>
                 <c:otherwise>
                     <ad:AboveFold_300x250/>
 
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
-                    <c:if test="${fn:contains(school.levelCode, 'p')}">
-                    <promo:savvysource state="${state}" cityName="${city}"/>
-                    </c:if>
+                    ${savvySource}
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 

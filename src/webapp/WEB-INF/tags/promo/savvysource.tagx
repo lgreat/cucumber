@@ -17,13 +17,23 @@
     <c:choose>
         <c:when test="${cityName ne null}">
             <c:set var="savvySourceURL" value="${gsweb:getSavvyCityPageUrl(state, cityName)}"/>
-            <c:set var="savvyLocation" value="${cityName}"/>
+            <jsp:useBean id="cityObject" scope="page" class="gs.data.geo.City">
+                <jsp:setProperty name="cityObject" property="state" value="${state}"/>
+                <jsp:setProperty name="cityObject" property="name" value="${cityName}"/>
+            </jsp:useBean>
+            <c:set var="savvyLocation" value="${cityObject.displayName}"/>
         </c:when>
         <c:otherwise>
             <c:set var="savvySourceURL" value="${gsweb:getSavvyStatePageUrl(state)}"/>
             <c:set var="savvyLocation" value="${state.longName}"/>
         </c:otherwise>
     </c:choose>
+
+    <c:set var="customLinkValue" value="SavvyPartnership_${requestScope.omniturePageName}_link"/>
+    <c:set var="onclick" value=""/>
+    <c:if test="${not empty requestScope.omniturePageName}">
+        <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
+    </c:if>
 
     <div class="spacer_15"><!-- do not collapse --></div>
     <div id="savvysource" class="mod clearfix">
@@ -37,7 +47,7 @@
                 <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>
                 <div class="bd">
                     <p>
-                        <gsml:a href="${savvySourceURL}"
+                        <gsml:a href="${savvySourceURL}"  onClick="${onclick}"
                                 target="_blank">From our friends at Savvy Source, find more preschools in ${savvyLocation}</gsml:a>
                     </p>
                 </div>

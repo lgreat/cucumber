@@ -5,10 +5,7 @@ import gs.data.community.local.LocalBoard;
 import gs.data.content.cms.CmsConstants;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
-import gs.data.school.IPQDao;
-import gs.data.school.LevelCode;
-import gs.data.school.PQ;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
@@ -46,6 +43,7 @@ public class SchoolProfileHeaderHelper {
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
     private IRatingsConfigDao _ratingsConfigDao;
     private TestManager _testManager;
+    private ISchoolDao _schoolDao;
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
@@ -57,6 +55,7 @@ public class SchoolProfileHeaderHelper {
     public static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
     public static final String IS_LOCAL = "isLocal";
     public static final String SURVEY_LEVEL_CODE = "surveyLevelCode";
+    public static final String SHOW_SAVVY_SOURCE_CITY_LINK = "showSavvySourceCityLink";
 
     private void logDuration(long durationInMillis, String eventName) {
         _log.info(eventName + " took " + durationInMillis + " milliseconds");
@@ -84,6 +83,14 @@ public class SchoolProfileHeaderHelper {
                         model.put(HAS_SCHOOL_STATS, true);
                     }
                 }
+
+                startTime = System.currentTimeMillis();
+                // GS-10853
+                boolean showSavvySourceCityLink = _schoolDao.isCityWithNActivePreschools(
+                        school.getDatabaseState(), school.getCity(),
+                        SavvySourceHelper.NUM_PRESCHOOLS_THRESHOLD);
+                model.put(SHOW_SAVVY_SOURCE_CITY_LINK, showSavvySourceCityLink);
+                logDuration(System.currentTimeMillis() - startTime, "Determining whether to show Savvy Source city link");
 
                 startTime = System.currentTimeMillis();
                 determineSurveyResults(school, model); // Determine survey results
@@ -333,5 +340,13 @@ public class SchoolProfileHeaderHelper {
 
     public void setTestManager(TestManager testManager) {
         this._testManager = testManager;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

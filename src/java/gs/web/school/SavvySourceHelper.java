@@ -5,6 +5,8 @@ import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 
 public class SavvySourceHelper {
+    final public static int NUM_PRESCHOOLS_THRESHOLD = 10;
+
     public static String getSavvyCityPageUrl(City city) {
         if (city != null) {
             return getSavvyCityPageUrl(city.getState(), city.getName());
