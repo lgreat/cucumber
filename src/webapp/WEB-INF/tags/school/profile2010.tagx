@@ -402,13 +402,16 @@
         <div id="schoolProfileRightColumn" class="col">
             <!--<p>tab is: <c:out value="${tab}" default="not set"/></p>-->
             <!--<p>caller is: <c:out value="${caller}" default="not set"/></p>-->
+            <!--<p>school levelCode is: <c:out value="${school.levelCode}" default="not set"/></p>-->
             <c:choose>
                 <c:when test="${tab eq 'overview'}">
                     <ad:AboveFold_300x250/>
 
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
+                    <c:if test="${fn:contains(school.levelCode, 'p')}">
                     <promo:savvysource state="${state}" cityName="${city}"/>
+                    </c:if>
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 
@@ -431,7 +434,9 @@
                     <!--<c:if test="${tab eq 'parentReviews'}">-->
                         <ad:AboveFold_300x250/>
 
+                    <c:if test="${fn:contains(school.levelCode, 'p')}">
                     <promo:savvysource state="${state}" cityName="${city}"/>
+                    </c:if>
 
                         <!--<c:if test="${cmd.totalReviews gt 0}">
                             <promo:schoolChoicePackPromo
@@ -525,15 +530,18 @@
                                                defaultCity="${school.city}"
                                                defaultState="${school.databaseState.abbreviation}"/>
 
-
+                    <c:if test="${fn:contains(school.levelCode, 'p')}">
                     <promo:savvysource state="${state}" cityName="${city}"/>
+                    </c:if>
                 </c:when>
                 <c:otherwise>
                     <ad:AboveFold_300x250/>
 
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
+                    <c:if test="${fn:contains(school.levelCode, 'p')}">
                     <promo:savvysource state="${state}" cityName="${city}"/>
+                    </c:if>
 
                     <div class="spacer_15"><!-- do not collapse --></div>
 
