@@ -74,11 +74,11 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
        return compareConfigs;
    }
 
-    public void buildDataStructs(List<CompareConfig> compareConfigs){
+    public List <CensusDataSet> buildDataStructs(List<CompareConfig> compareConfigs,Map censusDataSetToLabel,Map rowLabelToOrder, Map censusDataSetToSchoolType){
         List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
-        Map<CensusDataSet, CompareLabel>  censusDataSetToLabel = new HashMap<CensusDataSet, CompareLabel>();
-        Map<CompareLabel,Integer> rowLabelToOrder = new HashMap<CompareLabel,Integer>();
-        Map<CensusDataSet,SchoolType> censusDataSetToSchoolType = new HashMap<CensusDataSet,SchoolType>();
+//        Map<CensusDataSet, CompareLabel>  censusDataSetToLabel = new HashMap<CensusDataSet, CompareLabel>();
+//        Map<CompareLabel,Integer> rowLabelToOrder = new HashMap<CompareLabel,Integer>();
+//        Map<CensusDataSet,SchoolType> censusDataSetToSchoolType = new HashMap<CensusDataSet,SchoolType>();
         for(CompareConfig config : compareConfigs){
             int dataTypeId = config.getDataTypeId();
             CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
@@ -90,6 +90,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             rowLabelToOrder.put(label,config.getOrderNum());
             censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
         }
+        return censusDataSets;
     }
 
 //    public List<List<CensusStruct>> getSchoolCensusData(State state, List<School> schools, String tab) {
