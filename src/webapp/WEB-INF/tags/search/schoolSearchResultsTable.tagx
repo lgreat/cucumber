@@ -84,41 +84,41 @@
 
             <c:choose>
                 <c:when test="${sort eq 'GS_RATING_DESCENDING'}">
-                    <option value="GS_RATING_DESCENDING" selected="selected">GreatSchools Rating: Highest to Lowest
+                    <option value="GS_RATING_DESCENDING" selected="selected">GreatSchools Rating: High to Low
                     </option>
                 </c:when>
                 <c:otherwise>
-                    <option value="GS_RATING_DESCENDING">GreatSchools rating: Highest to Lowest</option>
+                    <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
                 </c:otherwise>
             </c:choose>
 
             <c:choose>
                 <c:when test="${sort eq 'GS_RATING_ASCENDING'}">
-                    <option value="GS_RATING_ASCENDING" selected="selected">GreatSchools Rating: Lowest to Highest
+                    <option value="GS_RATING_ASCENDING" selected="selected">GreatSchools Rating: Low to High
                     </option>
                 </c:when>
                 <c:otherwise>
-                    <option value="GS_RATING_ASCENDING">GreatSchools rating: Lowest to Highest</option>
+                    <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
                 </c:otherwise>
             </c:choose>
 
             <c:choose>
                 <c:when test="${sort eq 'PARENT_RATING_DESCENDING'}">
-                    <option value="PARENT_RATING_DESCENDING" selected="selected">Community Rating: Highest to Lowest
+                    <option value="PARENT_RATING_DESCENDING" selected="selected">Community Rating: High to Low
                     </option>
                 </c:when>
                 <c:otherwise>
-                    <option value="PARENT_RATING_DESCENDING">Community Rating: Highest to Lowest</option>
+                    <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
                 </c:otherwise>
             </c:choose>
 
             <c:choose>
                 <c:when test="${sort eq 'PARENT_RATING_ASCENDING'}">
-                    <option value="PARENT_RATING_ASCENDING" selected="selected">Community Rating: Lowest to Highest
+                    <option value="PARENT_RATING_ASCENDING" selected="selected">Community Rating: Low to High
                     </option>
                 </c:when>
                 <c:otherwise>
-                    <option value="PARENT_RATING_ASCENDING">Community Rating: Lowest to Highest</option>
+                    <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
                 </c:otherwise>
             </c:choose>
         </select>
