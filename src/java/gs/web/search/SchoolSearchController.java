@@ -252,7 +252,9 @@ public class SchoolSearchController extends AbstractCommandController implements
                         isCityBrowse, isDistrictBrowse, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString(),
                         citySearchResults, districtSearchResults)
         );
-        model.put(MODEL_OMNITURE_QUERY, getOmnitureQuery(isSearch,  schoolSearchCommand.getSearchString()));
+        
+        String omnitureQuery = isSearch? getOmnitureQuery(schoolSearchCommand.getSearchString()) : null;
+        model.put(MODEL_OMNITURE_QUERY, omnitureQuery);
         model.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
         model.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(levelCode));
         model.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sort));
@@ -427,15 +429,12 @@ public class SchoolSearchController extends AbstractCommandController implements
         return hierarchy;
     }
 
-    protected static String getOmnitureQuery(boolean isSearch, String searchString) {
-        if (isSearch) {
-            if (StringUtils.isBlank(searchString)) {
-                return "[blank]";
-            } else {
-                return searchString.toLowerCase();
-            }
+    protected static String getOmnitureQuery(String searchString) {
+        if (StringUtils.isBlank(searchString)) {
+            return "[blank]";
+        } else {
+            return StringEscapeUtils.escapeXml(searchString.toLowerCase());
         }
-        return null; 
     }
 
     // this presumes all schoolSearchTypes passed in are valid SchoolTypes.

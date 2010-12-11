@@ -15,6 +15,7 @@ import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.springframework.validation.BindException;
@@ -530,6 +531,12 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         fields = new DirectoryStructureUrlFields(request);
         assertFalse("Should handle city home", _controller.shouldHandleRequest(fields));
 
+    }
+
+    public void testGetOmnitureQuery() {
+        String testSearchString = "</script>";
+        String result = SchoolSearchController.getOmnitureQuery(testSearchString);
+        assertFalse("Result should be escaped.", StringUtils.contains(result, '<'));
     }
 
     public void testAddPagingDataToModel() {

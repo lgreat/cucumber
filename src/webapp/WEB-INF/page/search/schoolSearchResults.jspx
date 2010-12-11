@@ -57,7 +57,7 @@
     <div class="spacer_15"><!-- do not collapse --></div>
     <c:set var="schoolResultsFor">
         <c:choose>
-            <c:when test="${not empty searchString}">${searchString}</c:when>
+            <c:when test="${not empty searchString}"><c:out value="${searchString}" escapeXml="true"/></c:when>
             <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
         </c:choose>
     </c:set>
