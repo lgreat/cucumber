@@ -479,13 +479,6 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         }
     }
 
-    public void testGetChosenSort() {
-        SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
-        schoolSearchCommand.setSortBy("SCHOOL_NAME_ASCENDING");
-        FieldSort sort = _controller.getChosenSort(schoolSearchCommand);
-        assertEquals("Should return correct sort", FieldSort.SCHOOL_NAME_ASCENDING, sort);
-    }
-
     public void testGetFieldConstraints1() {
         Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(State.CA, null, null);
 

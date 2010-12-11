@@ -1,5 +1,10 @@
 package gs.web.search;
 
+import gs.data.school.SchoolType;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class SchoolSearchCommand {
 
     private String _searchString;
@@ -50,8 +55,43 @@ public class SchoolSearchCommand {
         _state = state;
     }
 
+    // get rid of invalid and duplicate school types from array, and if no valid school types, then include all three (public, private, charter)
+    public static String[] cleanSchoolTypes(String[] schoolTypesArray) {
+        Set<SchoolType> schoolTypeSet = new HashSet<SchoolType>();
+        if (schoolTypesArray != null) {
+            for (String type : schoolTypesArray) {
+                SchoolType schoolType = SchoolType.getSchoolType(type);
+                if (schoolType != null && !schoolTypeSet.contains(schoolType)) {
+                    schoolTypeSet.add(schoolType);
+                }
+            }
+        }
+
+        // if none are selected, show all
+        if (schoolTypeSet.size() == 0) {
+            return new String[] {
+                    SchoolType.PUBLIC.getSchoolTypeName(),
+                    SchoolType.PRIVATE.getSchoolTypeName(),
+                    SchoolType.CHARTER.getSchoolTypeName()
+            };
+        } else {
+            String[] cleanedTypes = new String[schoolTypeSet.size()];
+            int i = 0;
+            if (schoolTypeSet.contains(SchoolType.PUBLIC)) {
+                cleanedTypes[i++] = SchoolType.PUBLIC.getSchoolTypeName();
+            }
+            if (schoolTypeSet.contains(SchoolType.PRIVATE)) {
+                cleanedTypes[i++] = SchoolType.PRIVATE.getSchoolTypeName();
+            }
+            if (schoolTypeSet.contains(SchoolType.CHARTER)) {
+                cleanedTypes[i++] = SchoolType.CHARTER.getSchoolTypeName();
+            }
+            return cleanedTypes;
+        }
+    }
+    
     public String[] getSchoolTypes() {
-        return _schoolTypes;
+        return cleanSchoolTypes(_schoolTypes);
     }
 
     public void setSchoolTypes(String[] schoolTypes) {
@@ -116,4 +156,5 @@ public class SchoolSearchCommand {
     public boolean hasGradeLevels() {
         return (_gradeLevels != null && _gradeLevels.length > 0);
     }
+
 }

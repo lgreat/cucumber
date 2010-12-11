@@ -275,6 +275,7 @@ GS.search.SchoolSearchResultsTable = function() {
     this.onPageSizeChanged = function() {
         var queryString = window.location.search;
         queryString = putIntoQueryString(queryString,"pageSize",jQuery('#page-size').val(), true);
+        queryString = buildQueryString(queryString);
         window.location.search = queryString;
     }.gs_bind(this);
 
