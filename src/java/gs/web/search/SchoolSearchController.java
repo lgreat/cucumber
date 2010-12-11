@@ -201,6 +201,11 @@ public class SchoolSearchController extends AbstractCommandController implements
             );
         }
 
+        //update command's start value once we know how many results there are, since command generates page #
+        if (schoolSearchCommand.getStart() >= searchResultsPage.getTotalResults()) {
+            schoolSearchCommand.setStart(0);
+        }
+
         List<ICitySearchResult> citySearchResults = null;
         List<IDistrictSearchResult> districtSearchResults = null;
         if (schoolSearchCommand.getSearchString() != null) {

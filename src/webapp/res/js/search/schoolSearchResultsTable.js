@@ -63,7 +63,6 @@ GS.search.SchoolSearcher = function() {
 
 GS.search.SchoolSearchResultsTable = function() {
     var thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
-    var checkedSchoolsList = getFromQueryString("compareSchools");
     var checkedSchools = [];
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
