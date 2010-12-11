@@ -23,7 +23,7 @@
         <div class="${pageScope.styleClass}">
             <c:if test="${pageScope.page gt 1}">
                 <c:set var="previousPageNum" value="${pageScope.page - 1}" scope="page"/>
-                <span class="prv_nxt" onclick="page(${previousPageNum},${pageSize});">
+                <span class="prv_nxt" onclick="GS.search.schoolSearchResultsTable.page(${previousPageNum},${pageSize});">
                     &amp;#171; Prev
                     <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.previousPageNum}#revPagination">&amp;#171; Prev</a>-->
                 </span>
@@ -49,7 +49,7 @@
             </c:choose>
 
             <c:if test="${pageScope.totalPages gt 5 and page ge 5}">
-                <span onclick="page(${1},${pageSize});">
+                <span onclick="GS.search.schoolSearchResultsTable.page(${1},${pageSize});">
                     ${1}
                     <!--<a href="${pageScope.url}&amp;amp;page=${1}#revPagination">${1}</a>-->
                 </span>
@@ -62,7 +62,7 @@
                         <span class="active ${pageNumberStyleClass}">${pageScope.pageNum}</span>
                     </c:when>
                     <c:otherwise>
-                        <span class="${pageNumberStyleClass}" onclick="page(${pageScope.pageNum},${pageSize});">
+                        <span class="${pageNumberStyleClass}" onclick="GS.search.schoolSearchResultsTable.page(${pageScope.pageNum},${pageSize});">
                             ${pageScope.pageNum}
                             <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.pageNum}#revPagination">${pageScope.pageNum}</a>-->
                         </span>
@@ -72,7 +72,7 @@
 
             <c:if test="${pageScope.totalPages gt 5 and (page lt 5 or page le pageScope.totalPages - 4)}">
                 <span class="ellipsis">...</span>
-                <span class="${pageNumberStyleClass}" onclick="page(${pageScope.totalPages},${pageSize});">
+                <span class="${pageNumberStyleClass}" onclick="GS.search.schoolSearchResultsTable.page(${pageScope.totalPages},${pageSize});">
                     ${pageScope.totalPages}
                     <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}#revPagination">${pageScope.totalPages}</a>-->
                 </span>
@@ -80,7 +80,7 @@
 
             <c:if test="${pageScope.page lt pageScope.totalPages}">
                 <c:set var="nextPageNum" value="${pageScope.page + 1}" scope="page"/>
-                <span class="prv_nxt" onclick="page(${pageScope.nextPageNum},${pageSize});">
+                <span class="prv_nxt" onclick="GS.search.schoolSearchResultsTable.page(${pageScope.nextPageNum},${pageSize});">
                     Next &amp;#187;
                     <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.nextPageNum}#revPagination"></a>-->
                 </span>

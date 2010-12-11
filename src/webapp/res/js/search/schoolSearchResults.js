@@ -118,17 +118,5 @@
         return queryString;
     }
 
-    function page(pageNumber, pageSize) {
-        var start = (pageNumber-1) * pageSize;
-        var compareSchools = GS.search.schoolSearchResultsTable.getCheckedSchools().join(',');
-        var queryString = window.location.search;
-        if (compareSchools !== undefined && compareSchools.length > 0) {
-            queryString = putIntoQueryString(queryString, "compareSchools", compareSchools, true);
-        }
-        queryString = putIntoQueryString(queryString,"start",start, true);
 
-        queryString = buildQueryString(queryString);
-
-        window.location.search = queryString;
-    }
 
