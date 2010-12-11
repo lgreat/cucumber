@@ -32,7 +32,7 @@
             ${js}
             GS.map.schoolMap = new GS.map.SchoolMap('${id}','${schools[0].latLon.lat}','${schools[0].latLon.lon}', true);
             ${js2}
-            GS.map.schoolMap.addSchools(jsMapSchools, markerClickedCallback);
+            GS.map.schoolMap.addSchools(jsMapSchools, GS.search.onMapMarkerClick);
         });
     </script>
 

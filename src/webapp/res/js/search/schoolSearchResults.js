@@ -1,4 +1,16 @@
+GS = GS || {};
+GS.search = GS.search || {};
 
+GS.search.onMapMarkerClick = function(state, id) {
+    jQuery('.bg-color-f4fafd input:not(:checked)').each(function(item) {
+        jQuery(this).parent().parent().removeClass('bg-color-f4fafd');
+    });
+    jQuery('#nearby-schools-' + state + id).addClass('bg-color-f4fafd');
+
+    if (s.tl) {
+        s.tl(this,'o', 'Map_pin_click');
+    }
+};
 
     /**
      * Takes a string that resembles a URL querystring in the format ?key=value&amp;key=value&amp;key=value
