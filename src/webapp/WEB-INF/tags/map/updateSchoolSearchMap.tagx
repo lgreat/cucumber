@@ -28,7 +28,7 @@
     <script type="text/javascript">
             ${js2}
             GS.map.schoolMap.removeAllSchools();
-            GS.map.schoolMap.addSchools(jsMapSchools, markerClickedCallback);
+            GS.map.schoolMap.addSchools(jsMapSchools, GS.search.onMapMarkerClick);
             GS.map.schoolMap.drawMarkers();
     </script>
 

@@ -174,63 +174,59 @@ GS.search.SchoolSearchResultsTable = function() {
 
     this.selectRow = function(rowDomId) {
         var row = jQuery('#' + rowDomId);
-        var isWhite = null;
-        var pattern2 = /_y|_b/gi;
-        var stars = row.find('td.stars-column > a > span');
-        if (stars !== undefined) {
+        if (row.size() > 0) {
+            var isWhite = null;
+            var pattern2 = /_y|_b/gi;
+            var stars = row.find('td.stars-column > a > span');
             var starsClass = stars.attr('class');
-            if (starsClass !== undefined) {
-                var badge = row.find('td.badge-column > a > span');
-                (starsClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
+            var badge = row.find('td.badge-column > a > span');
+            (starsClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
 
-                jQuery(row).find('td').removeClass("bg-color-fff");
-                jQuery(row).find('td').addClass("bg-color-f4fafd");
+            jQuery(row).find('td').removeClass("bg-color-fff");
+            jQuery(row).find('td').addClass("bg-color-f4fafd");
 
-                if (badge.length !== 0 && isWhite) {
-                    var badgeClass = badge.attr('class');
-                    var blueBadgeClass = badgeClass + '_b';
-                    badge.removeClass(badgeClass).addClass(blueBadgeClass);
-                }
-                if (isWhite) {
-                    var blueStarsClass = starsClass + '_b';
-                    stars.removeClass(starsClass).addClass(blueStarsClass);
-                }
-                this.updateCompareButton(rowDomId);
+            if (badge.length !== 0 && isWhite) {
+                var badgeClass = badge.attr('class');
+                var blueBadgeClass = badgeClass + '_b';
+                badge.removeClass(badgeClass).addClass(blueBadgeClass);
             }
+            if (isWhite) {
+                var blueStarsClass = starsClass + '_b';
+                stars.removeClass(starsClass).addClass(blueStarsClass);
+            }
+            this.updateCompareButton(rowDomId);
         }
     };
 
     this.deselectRow = function(rowDomId) {
         var row = jQuery('#' + rowDomId);
-        var isBlue = null;
-        var pattern1 = /_b/gi;
-        var pattern3 = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
-        var pattern4 = /sprite stars_sm_(\d|[a-z_]{7})/gi;
-        var stars = row.find('td.stars-column > a > span');
-        if (stars !== undefined) {
+        if (row.size() > 0) {
+            var isBlue = null;
+            var pattern1 = /_b/gi;
+            var pattern3 = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
+            var pattern4 = /sprite stars_sm_(\d|[a-z_]{7})/gi;
+            var stars = row.find('td.stars-column > a > span');
             var starsClass = stars.attr('class');
-            if (starsClass !== undefined) {
-                (starsClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
-                var whiteStarsClass = starsClass.match(pattern4)[0];
-                var badge = row.find('td.badge-column > a > span');
-                if (badge.length != 0) {
-                    var badgeClass = badge.attr('class');
-                    var whiteBadgeClass = badgeClass.match(pattern3)[0];
-                    badge.removeClass(badgeClass).addClass(whiteBadgeClass);
-                }
-                stars.removeClass(starsClass).addClass(whiteStarsClass);
-
-                jQuery(row).find('td').removeClass("bg-color-f4fafd");
-                jQuery(row).find('td').addClass("bg-color-fff");
-
-                var compareLabel = row.find('td.js-checkbox-column > .js-compareLabel');
-                var compareHelperMessage = row.find('td.js-checkbox-column > .js-compareHelperMessage');
-                var compareButton = row.find('td.js-checkbox-column > .js-compareButton');
-
-                compareLabel.show();
-                compareHelperMessage.hide();
-                compareButton.hide();
+            (starsClass.match(pattern1) === null) ? isBlue = false : isBlue = true;
+            var whiteStarsClass = starsClass.match(pattern4)[0];
+            var badge = row.find('td.badge-column > a > span');
+            if (badge.length != 0) {
+                var badgeClass = badge.attr('class');
+                var whiteBadgeClass = badgeClass.match(pattern3)[0];
+                badge.removeClass(badgeClass).addClass(whiteBadgeClass);
             }
+            stars.removeClass(starsClass).addClass(whiteStarsClass);
+
+            jQuery(row).find('td').removeClass("bg-color-f4fafd");
+            jQuery(row).find('td').addClass("bg-color-fff");
+
+            var compareLabel = row.find('td.js-checkbox-column > .js-compareLabel');
+            var compareHelperMessage = row.find('td.js-checkbox-column > .js-compareHelperMessage');
+            var compareButton = row.find('td.js-checkbox-column > .js-compareButton');
+
+            compareLabel.show();
+            compareHelperMessage.hide();
+            compareButton.hide();
         }
     };
 

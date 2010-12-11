@@ -162,12 +162,14 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         var position = null;
 
         for (var marker in markers) {
-            position = markers[marker].getPosition();
+            if (markers.hasOwnProperty(marker)) {
+                position = markers[marker].getPosition();
 
-            if (bounds == null) {
-                bounds = new google.maps.LatLngBounds(position);
-            } else {
-                bounds.extend(position);
+                if (bounds == null) {
+                    bounds = new google.maps.LatLngBounds(position);
+                } else {
+                    bounds.extend(position);
+                }
             }
         }
         return bounds;
@@ -180,7 +182,9 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.drawMarkers = function() {
         for (var marker in markers) {
-            markers[marker].setMap(map);
+            if (markers.hasOwnProperty(marker)) {
+                markers[marker].setMap(map);
+            }
         }
     };
 
@@ -194,9 +198,11 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.removeAllSchools = function() {
         for (var marker in markers) {
-            markers[marker].setMap(null);
+            if (markers.hasOwnProperty(marker)) {
+                markers[marker].setMap(null);
+            }
         }
-        markers = [];
+        markers = {};
     }
 
     this.createPrivateSchoolMarker = function(lat, lon, tooltip) {
