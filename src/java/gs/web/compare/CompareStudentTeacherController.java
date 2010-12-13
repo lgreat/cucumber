@@ -281,7 +281,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             CensusStruct[] row = rowLabelToCells.get(label);
             rows.add(row);
             for (CensusStruct cell: row) {
-                if (cell.getBreakdownList() != null) {
+                if (cell != null && cell.getBreakdownList() != null) {
                     Collections.sort(cell.getBreakdownList(), new Comparator<BreakdownNameValue>() {
                         // sort by value descending
                         public int compare(BreakdownNameValue o1, BreakdownNameValue o2) {

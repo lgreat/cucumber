@@ -57,6 +57,9 @@
                                 <c:otherwise>
                                     <td>
                                         <c:choose>
+                                            <c:when test="${empty censusCell}">
+                                                This information is not available.
+                                            </c:when>
                                             <c:when test="${censusCell.isSimpleCell}">
                                                 ${censusCell.value}
                                             </c:when>

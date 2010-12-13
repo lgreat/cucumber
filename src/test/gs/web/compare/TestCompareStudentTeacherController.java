@@ -500,6 +500,65 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals("10:1", rval.get(1)[1].getBreakdownList().get(4).getValue());
     }
 
+    public void testSortRowsRegressionNullCell(){
+        Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
+        CensusStruct[] cs1 = new CensusStruct[1];
+        cs1[0] = new CensusStruct();
+        cs1[0].setHeaderText("Average Salary");
+        rowLabelToCells.put("Average Salary",cs1);
+        CensusStruct[] cs2 = new CensusStruct[2];
+        cs2[0] = new CensusStruct();
+        cs2[0].setHeaderText("Student Ethnicity");
+        cs2[1] = new CensusStruct();
+        List<BreakdownNameValue> breakdowns = new ArrayList<BreakdownNameValue>();
+        breakdowns.add(getBreakdown("White", "30%", 30f));
+        breakdowns.add(getBreakdown("Asian", "50%", 50f));
+        breakdowns.add(getBreakdown("Black", "20%", 20f));
+        cs2[1].setBreakdownList(breakdowns);
+        rowLabelToCells.put("Student Ethnicity",cs2);
+        CensusStruct[] cs3 = new CensusStruct[1];
+        cs3[0] = new CensusStruct();
+        cs3[0].setHeaderText("Average years Teaching");
+        rowLabelToCells.put("Average years Teaching",cs3);
+        CensusStruct[] cs4 = new CensusStruct[3];
+        cs4[0] = new CensusStruct();
+        cs4[0].setHeaderText("Students per teacher");
+        cs4[1] = new CensusStruct();
+        breakdowns = new ArrayList<BreakdownNameValue>();
+        breakdowns.add(getBreakdown("1st grade", "12:1", null));
+        breakdowns.add(getBreakdown("2nd grade", "12:1", null));
+        breakdowns.add(getBreakdown("3rd grade", "8:1", null));
+        breakdowns.add(getBreakdown("4th grade", "10:1", null));
+        breakdowns.add(getBreakdown("5th grade", "15:1", null));
+        cs4[1].setBreakdownList(breakdowns);
+        rowLabelToCells.put("Students per teacher", cs4);
+        Map<String, Integer> rowLabelToOrder = new HashMap<String,Integer>();
+        rowLabelToOrder.put("Average Salary",1);
+        rowLabelToOrder.put("Students per teacher",2);
+        rowLabelToOrder.put("Student Ethnicity",3);
+        rowLabelToOrder.put("Average years Teaching",4);
+
+        List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
+        assertNotNull(rval);
+        assertEquals(4, rval.size());
+        assertEquals("Average Salary", rval.get(0)[0].getHeaderText());
+        assertEquals("Students per teacher", rval.get(1)[0].getHeaderText());
+        assertEquals("Student Ethnicity", rval.get(2)[0].getHeaderText());
+        assertEquals("Average years Teaching", rval.get(3)[0].getHeaderText());
+
+        assertEquals("Asian", rval.get(2)[1].getBreakdownList().get(0).getName());
+        assertEquals("50%", rval.get(2)[1].getBreakdownList().get(0).getValue());
+        assertEquals("White", rval.get(2)[1].getBreakdownList().get(1).getName());
+        assertEquals("30%", rval.get(2)[1].getBreakdownList().get(1).getValue());
+        assertEquals("Black", rval.get(2)[1].getBreakdownList().get(2).getName());
+        assertEquals("20%", rval.get(2)[1].getBreakdownList().get(2).getValue());
+
+        assertEquals("3rd grade", rval.get(1)[1].getBreakdownList().get(0).getName());
+        assertEquals("8:1", rval.get(1)[1].getBreakdownList().get(0).getValue());
+        assertEquals("4th grade", rval.get(1)[1].getBreakdownList().get(4).getName());
+        assertEquals("10:1", rval.get(1)[1].getBreakdownList().get(4).getValue());
+    }
+
     private BreakdownNameValue getBreakdown(String name, String value, Float floatValue) {
         BreakdownNameValue breakdown = new BreakdownNameValue();
         breakdown.setName(name);
