@@ -9,38 +9,7 @@
                              description="To display the appropriate design and copy between the homepage and grade level landing pages and K-5 topic center pages."/>
     <jsp:directive.attribute name="levelCode" required="false" description="To display the appropriate input select in compare module."/>
 
-        <script type="text/javascript" language="javascript">
-            <![CDATA[
-            jQuery(function() {
-                function checkZipCode(zip){
-                    var re5digit=/^\d{5}$/; //regular expression defining a 5 digit number
-                    if (zip.value.search(re5digit)==-1) { //if match failed
-                        alert("Please enter a valid ZIP code.");
-                        return false;
-                    } else {
-                        var url = '/util/validator/isZipCodeValid.page';
-                        var params = {'zipcode':zip.value};
-                        jQuery.get(url, params, showResponse, 'text');
-                        return false;
-                    }
-                }
-
-                function showResponse(data) {
-                    if(data == "false"){
-                        alert("Please enter a valid ZIP code.");
-                    }else{
-                        document.forms['compareForm'].submit();
-                    }
-                }
-
-                jQuery('#compareForm').submit(function() {
-                    return checkZipCode(this.zip);
-                });
-            });
-            ]]>
-        </script>
-
-    <gsweb:form action="/school/research.page" method="get" id="compareForm" styleClass="goInterstitial" onsubmit="return false;">
+    <gsweb:form action="/school/research.page" method="get" id="compareForm" styleClass="goInterstitial">
         <input type="hidden" name="sortby" value="distance" />
         <input type="hidden" name="tab" value="over" />
         <input type="hidden" name="area" value="m" />
@@ -89,4 +58,33 @@
         <br class="clearfloat"/>
 
     </gsweb:form>
+
+    <script type="text/javascript" language="javascript">
+        <![CDATA[
+        jQuery('#compareForm').submit(function() {
+            var checkZipCode = function(zip) {
+                var re5digit=/^\d{5}$/; //regular expression defining a 5 digit number
+                if (zip.value.search(re5digit)==-1) { //if match failed
+                    alert("Please enter a valid ZIP code.");
+                    return false;
+                } else {
+                    var url = '/util/validator/isZipCodeValid.page';
+                    var params = {'zipcode':zip.value};
+                    jQuery.get(url, params, showResponse, 'text');
+                    return false;
+                }
+            };
+
+            var showResponse = function(data) {
+                if(data == "false"){
+                    alert("Please enter a valid ZIP code.");
+                }else{
+                    document.forms['compareForm'].submit();
+                }
+            };
+
+            return checkZipCode(this.zip);
+        });
+        ]]>
+    </script>
 </jsp:root>
