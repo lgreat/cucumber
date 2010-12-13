@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.99 2010/12/06 23:18:11 yfan Exp $
+ * $Id: UrlUtil.java,v 1.100 2010/12/13 18:49:08 droy Exp $
  */
 
 package gs.web.util;
@@ -385,23 +385,6 @@ public final class UrlUtil {
             return "api.dev.greatschools.org";
         }
         return "api.greatschools.org";
-    }
-
-    /**
-     * Converts a "vpage" to a url that can be used on the site.
-     * This method can be expanded and configured to work with more
-     * URLs as we grow this concept.
-     * URLs that don't look like VPAGE URLs are returned as is.
-     *
-     * @param url url or "vpage". A vpage starts with "vpage:"
-     * @return a url
-     */
-    protected String vpageToUrl(String url) {
-        if (url.startsWith("vpage:")) {
-            throw new IllegalArgumentException("vpage no longer suported");
-        } else {
-            return url;
-        }
     }
 
     public static boolean isAdminServer(String hostName) {
