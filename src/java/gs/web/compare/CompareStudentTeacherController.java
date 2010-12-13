@@ -23,6 +23,7 @@ import java.util.*;
 public class CompareStudentTeacherController extends AbstractCompareSchoolController {
     private final Log _log = LogFactory.getLog(getClass());
     public static final String TAB_NAME = "studentTeacher";
+    public static final String COMPARE_CONFIG_TAB_NAME = "student_teacher";
     public static final String MODEL_CENSUS_ROWS = "censusRows";
     private String _successView;
     private ICensusDataSetDao _censusDataSetDao;
@@ -45,7 +46,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             schools.add(baseStruct.getSchool());
         }
 
-        model.put(MODEL_CENSUS_ROWS, getSchoolCensusData(schools.get(0).getDatabaseState(), schools, TAB_NAME));
+        model.put(MODEL_CENSUS_ROWS, getSchoolCensusData(schools.get(0).getDatabaseState(), schools, COMPARE_CONFIG_TAB_NAME));
     }
 
     public List<CensusDataSet> getCensusDataSets(
