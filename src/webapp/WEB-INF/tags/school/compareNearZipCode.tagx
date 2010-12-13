@@ -2,57 +2,45 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
     <jsp:directive.attribute name="isHomePage" required="true"
                              description="To display the appropriate design and copy between the homepage and grade level landing pages and K-5 topic center pages."/>
     <jsp:directive.attribute name="levelCode" required="false" description="To display the appropriate input select in compare module."/>
 
-    <![CDATA[
-
         <script type="text/javascript" language="javascript">
-                <!--
+            <![CDATA[
+            jQuery(function() {
                 function checkZipCode(zip){
-
-                var re5digit=/^\d{5}$/ //regular expression defining a 5 digit number
-                    if (zip.value.search(re5digit)==-1){ //if match failed
+                    var re5digit=/^\d{5}$/; //regular expression defining a 5 digit number
+                    if (zip.value.search(re5digit)==-1) { //if match failed
                         alert("Please enter a valid ZIP code.");
                         return false;
-                    }else{
+                    } else {
                         var url = '/util/validator/isZipCodeValid.page';
                         var params = {'zipcode':zip.value};
-                        new Ajax.Request(
-                        url,
-                        {
-                        method: 'post',
-                        parameters: params,
-                        onSuccess: showResponse
-                        });
-                         return false;
+                        jQuery.get(url, params, showResponse, 'text');
+                        return false;
                     }
                 }
 
-                function showResponse(x) {
-                if(x.responseText == "false"){
-                    alert("Please enter a valid ZIP code.");
-                }else{
-                    document.forms['compareForm'].submit();
+                function showResponse(data) {
+                    if(data == "false"){
+                        alert("Please enter a valid ZIP code.");
+                    }else{
+                        document.forms['compareForm'].submit();
+                    }
                 }
-  }
-                    -->
-        </script>
-                ]]>
 
-    <gsweb:form action="/school/research.page" method="get" id="compareForm" styleClass="goInterstitial"
-                onsubmit="return checkZipCode(this.zip)">
+                jQuery('#compareForm').submit(function() {
+                    return checkZipCode(this.zip);
+                });
+            });
+            ]]>
+        </script>
+
+    <gsweb:form action="/school/research.page" method="get" id="compareForm" styleClass="goInterstitial">
         <input type="hidden" name="sortby" value="distance" />
         <input type="hidden" name="tab" value="over" />
         <input type="hidden" name="area" value="m" />
@@ -92,17 +80,9 @@
                    size="10"
                    onfocus="textSwitch(this, '', 'ZIP code');"
                    onblur="textSwitch(this, 'ZIP code', '');"/>
-                <!--<button class="btn25 fltlft" type="submit">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">GO</span>
-                    </span>
-                </button>-->
             <button class="button-1 fltlft" type="submit">GO</button>
         </div>
 
-        <!-- DONE-10165-RANDALL -->
-        <!-- Randall, please style this ad slot so that the module will look fine
-             with the ad slot both targeted with an ad, and not targeted with an ad. -->
         <ad:adTag position="Homepage_61x47"/>
         <ad:adTag position="CompareSchools_61x47"/>
 
