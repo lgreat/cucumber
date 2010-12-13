@@ -282,10 +282,10 @@
                 <div>
                     <c:choose>
                         <c:when test="${schoolType eq null or fn:contains(schoolType,'public')}">
-                            <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-public" value="public"/>
+                            <input type="checkbox" checked="checked" name="st" id="school-type-public" value="public"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="schoolTypes" id="school-type-public" value="public"/>
+                            <input type="checkbox" name="st" id="school-type-public" value="public"/>
                         </c:otherwise>
                     </c:choose>
                     <label for="school-type-public">Public</label>
@@ -293,10 +293,10 @@
                 <div>
                     <c:choose>
                         <c:when test="${schoolType eq null or fn:contains(schoolType,'charter')}">
-                            <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-charter" value="charter"/>
+                            <input type="checkbox" checked="checked" name="st" id="school-type-charter" value="charter"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="schoolTypes" id="school-type-charter" value="charter"/>
+                            <input type="checkbox" name="st" id="school-type-charter" value="charter"/>
                         </c:otherwise>
                     </c:choose>
                     <label for="school-type-charter">Public Charter</label>
@@ -304,10 +304,10 @@
                 <div>
                     <c:choose>
                         <c:when test="${schoolType eq null or fn:contains(schoolType,'private')}">
-                            <input type="checkbox" checked="checked" name="schoolTypes" id="school-type-private" value="private"/>
+                            <input type="checkbox" checked="checked" name="st" id="school-type-private" value="private"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="schoolTypes" id="school-type-private" value="private"/>
+                            <input type="checkbox" name="st" id="school-type-private" value="private"/>
                         </c:otherwise>
                     </c:choose>
                     <label for="school-type-private">Private</label>

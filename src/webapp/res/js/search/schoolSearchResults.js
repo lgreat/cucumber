@@ -100,24 +100,24 @@ GS.search.onMapMarkerClick = function(state, id) {
 
     function buildQueryString(queryString) {
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
-        queryString = removeFromQueryString(queryString, "gradeLevels");
+        queryString = removeFromQueryString(queryString, "lc");
         var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
         var numGradeLevels = jQuery('#js-gradeLevels input[type=checkbox]').size();
         if (checkedGradeLevels.size() < numGradeLevels) {
             var overwriteGradeLevels = true;
             checkedGradeLevels.each(function() {
-                queryString = putIntoQueryString(queryString, "gradeLevels", jQuery(this).val(), overwriteGradeLevels);
+                queryString = putIntoQueryString(queryString, "lc", jQuery(this).val(), overwriteGradeLevels);
                 overwriteGradeLevels = false;
             });
         }
 
-        queryString = removeFromQueryString(queryString, "schoolTypes");
+        queryString = removeFromQueryString(queryString, "st");
         var checkedSchoolTypes = jQuery('#js-schoolTypes :checked');
         var numSchoolTypes = jQuery('#js-schoolTypes input[type=checkbox]').size();
         if (checkedSchoolTypes.size() < numSchoolTypes) {
             var overwriteSchoolTypes = true;
             checkedSchoolTypes.each(function() {
-                queryString = putIntoQueryString(queryString, "schoolTypes", jQuery(this).val(), overwriteSchoolTypes);
+                queryString = putIntoQueryString(queryString, "st", jQuery(this).val(), overwriteSchoolTypes);
                 overwriteSchoolTypes = false;
             });
         }

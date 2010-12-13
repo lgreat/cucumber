@@ -94,7 +94,11 @@ public class SchoolSearchCommand {
         return cleanSchoolTypes(_schoolTypes);
     }
 
-    public void setSchoolTypes(String[] schoolTypes) {
+    /**
+     * Sets school types
+     * @param schoolTypes
+     */
+    public void setSt(String[] schoolTypes) {
         _schoolTypes = schoolTypes;
     }
 
@@ -102,7 +106,7 @@ public class SchoolSearchCommand {
         return _gradeLevels;
     }
 
-    public void setGradeLevels(String[] gradeLevels) {
+    public void setLc(String[] gradeLevels) {
         _gradeLevels = gradeLevels;
     }
 
