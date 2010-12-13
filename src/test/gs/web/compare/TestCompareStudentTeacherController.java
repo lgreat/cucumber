@@ -78,6 +78,81 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(CompareStudentTeacherController.TAB_NAME, model.get(MODEL_TAB));
     }
 
+    public void testGetCompareConfigsNull() {
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL)).andReturn(null);
+        replayAllMocks();
+        List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
+        verifyAllMocks();
+        assertNull(rval);
+    }
+
+    public void testGetCompareConfigsSimple() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig1 = new CompareConfig();
+        compareConfig1.setState(State.CA);
+        compareConfig1.setDataTypeId(9);
+        compareConfigs.add(compareConfig1);
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL))
+                .andReturn(compareConfigs);
+        replayAllMocks();
+        List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(1, rval.size());
+        assertSame(compareConfig1, rval.get(0));
+    }
+
+    public void testGetCompareConfigsStateOverride() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig1 = new CompareConfig();
+        compareConfig1.setState(State.CA);
+        compareConfig1.setDataTypeId(9);
+        compareConfig1.setYear(-1);
+        compareConfigs.add(compareConfig1);
+        CompareConfig compareConfig2 = new CompareConfig();
+        compareConfig2.setState(null);
+        compareConfig2.setDataTypeId(9);
+        compareConfig2.setYear(null);
+        compareConfigs.add(compareConfig2);
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL))
+                .andReturn(compareConfigs);
+        replayAllMocks();
+        List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals("Expect state row to override default row", 1, rval.size());
+        assertSame("Expect state row to override default row", compareConfig1, rval.get(0));
+    }
+
+    public void testGetCompareConfigsComplex() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig1 = new CompareConfig();
+        compareConfig1.setState(State.CA);
+        compareConfig1.setDataTypeId(9);
+        compareConfig1.setYear(-1);
+        compareConfigs.add(compareConfig1);
+        CompareConfig compareConfig2 = new CompareConfig();
+        compareConfig2.setState(null);
+        compareConfig2.setDataTypeId(9);
+        compareConfig2.setYear(null);
+        compareConfigs.add(compareConfig2);
+        CompareConfig compareConfig3 = new CompareConfig();
+        compareConfig3.setState(null);
+        compareConfig3.setDataTypeId(9);
+        compareConfig3.setYear(2010);
+        compareConfig3.setSchoolType(SchoolType.PRIVATE);
+        compareConfigs.add(compareConfig3);
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL))
+                .andReturn(compareConfigs);
+        replayAllMocks();
+        List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals("Expect state row to override default row", 2, rval.size());
+        assertSame("Expect state row to override default row", compareConfig1, rval.get(0));
+        assertSame(compareConfig3, rval.get(1));
+    }
+
     public void testPopulateStructsEmpty() {
         List<School> schools = new ArrayList<School>();
         List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
@@ -535,8 +610,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         Map<String, Integer> rowLabelToOrder = new HashMap<String,Integer>();
         rowLabelToOrder.put("Average Salary",1);
         rowLabelToOrder.put("Students per teacher",2);
-        rowLabelToOrder.put("Student Ethnicity",3);
-        rowLabelToOrder.put("Average years Teaching",4);
+        rowLabelToOrder.put("Student Ethnicity", 3);
+        rowLabelToOrder.put("Average years Teaching", 4);
 
         List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
         assertNotNull(rval);

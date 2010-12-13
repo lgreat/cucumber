@@ -87,6 +87,31 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         return censusDataSets;
     }
 
+    protected List<CompareConfig> getCompareConfigs(State state, String tab) {
+        List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state, tab, CensusDataSetType.SCHOOL);
+        if (compareConfigs == null || compareConfigs.size() == 0) {
+            return null;
+        }
+        // process these rows, removing duplicates.
+        // e.g. a state-specific configuration should override a default state configuration
+        // create a map of a unique key (not using state) to the compare config
+        Map<String, CompareConfig> uniqueConfigMap = new LinkedHashMap<String, CompareConfig>(compareConfigs.size());
+        for (CompareConfig compareConfig: compareConfigs) {
+            // copy all the compare configs in
+            String uniqueKey = compareConfig.getDataTypeId() + ":" + compareConfig.getBreakdownId() + ":" +
+                    compareConfig.getGradeLevels() + ":" + compareConfig.getLevelCode() + ":" +
+                    compareConfig.getSubject() + ":" + compareConfig.getSchoolType();
+            CompareConfig existing = uniqueConfigMap.get(uniqueKey);
+            // making sure not overwrite a value unless the new one has a state
+            if (existing == null || compareConfig.getState() != null) {
+                uniqueConfigMap.put(uniqueKey, compareConfig);
+            }
+        }
+
+        // convert the map values back into a list and return
+        return new ArrayList<CompareConfig>(uniqueConfigMap.values());
+    }
+
     public List<CensusStruct[]> getSchoolCensusData(State state, List<School> schools, String tab) {
         // initialize some maps necessary for this process
         // censusDataSet to compareLabel
@@ -97,7 +122,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolType = new HashMap<CensusDataSet, SchoolType>();
 
         // 1) select out config rows
-        List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state, tab, CensusDataSetType.SCHOOL);
+        List<CompareConfig> compareConfigs = getCompareConfigs(state, tab);
         if (compareConfigs == null || compareConfigs.size() == 0) {
             _log.error("Can't find compare config rows for " + state + ", " + tab);
             return new ArrayList<CensusStruct[]>();
