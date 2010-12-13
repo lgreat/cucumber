@@ -4,8 +4,6 @@
     xmlns:link="urn:www.greatschools.org/taglib/link"
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="gs.data.util.CommunityUtil"/>
     <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:directive.tag body-content="scriptless"/>
@@ -29,9 +27,6 @@
                              description="If anonymous always use the default avatar."/>
 
     <jsp:scriptlet>
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
-
         request.setAttribute("avatarUrlPrefix", CommunityUtil.getAvatarURLPrefix());
 
         request.setAttribute("validAvatarSize", CommunityUtil.getClosestValidAvatarSize(width));
