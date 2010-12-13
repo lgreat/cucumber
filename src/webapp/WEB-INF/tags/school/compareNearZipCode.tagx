@@ -40,7 +40,7 @@
             ]]>
         </script>
 
-    <gsweb:form action="/school/research.page" method="get" id="compareForm" styleClass="goInterstitial">
+    <gsweb:form action="/school/research.page" method="get" id="compareForm" styleClass="goInterstitial" onsubmit="return false;">
         <input type="hidden" name="sortby" value="distance" />
         <input type="hidden" name="tab" value="over" />
         <input type="hidden" name="area" value="m" />
