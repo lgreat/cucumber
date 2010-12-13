@@ -300,7 +300,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         Map<CensusDataSet, SchoolType> censusDataSetSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
         replayAllMocks();
         List<CensusDataSet> rval = _controller.getCensusDataSets
-                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+                (State.CA, compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
         verifyAllMocks();
         assertNotNull(rval);
         assertEquals(0, rval.size());
@@ -325,7 +325,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
                 .andReturn(null);
         replayAllMocks();
         List<CensusDataSet> rval = _controller.getCensusDataSets
-                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+                (State.CA, compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
         verifyAllMocks();
         assertNotNull(rval);
         assertEquals(0, rval.size());
@@ -353,7 +353,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
                 .andReturn(null);
         replayAllMocks();
         List<CensusDataSet> rval = _controller.getCensusDataSets
-                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+                (State.CA, compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
         verifyAllMocks();
         assertNotNull(rval);
         assertEquals(0, rval.size());
@@ -385,7 +385,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
                 .andReturn(label);
         replayAllMocks();
         List<CensusDataSet> rval = _controller.getCensusDataSets
-                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+                (State.CA, compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
         verifyAllMocks();
         assertNotNull(rval);
         assertEquals(1, rval.size());
@@ -429,7 +429,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
                 .andReturn(label);
         replayAllMocks();
         List<CensusDataSet> rval = _controller.getCensusDataSets
-                (compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
+                (State.CA, compareConfigs, censusDataSetCompareLabelMap, rowLabelToOrder, censusDataSetSchoolTypeMap);
         verifyAllMocks();
         assertNotNull(rval);
         assertEquals(1, rval.size());

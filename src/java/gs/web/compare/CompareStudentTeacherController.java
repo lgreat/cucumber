@@ -48,6 +48,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     }
 
     public List<CensusDataSet> getCensusDataSets(
+            State state,
             List<CompareConfig> compareConfigs,
             Map<CensusDataSet, CompareLabel> censusDataSetToLabel,
             Map<String, Integer> rowLabelToOrder,
@@ -62,12 +63,12 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             if (config.getBreakdownId() != null) {
                 breakdown = new Breakdown(config.getBreakdownId());
             }
-            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(config.getState(),censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
+            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
             if (censusDataSet == null) {
                 _log.warn("Can't find data set corresponding to config row: " + config.getId());
                 continue;
             }
-            CompareLabel label = _compareLabelDao.findLabel(config.getState(),censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
+            CompareLabel label = _compareLabelDao.findLabel(state,censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
             if (label == null) {
                 _log.warn("Can't find label corresponding to config row: " + config.getId());
                 continue;
@@ -103,7 +104,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // 2) for each config row, retrieve the data set and label
         // also populate the 3 maps
         List<CensusDataSet> censusDataSets =
-                getCensusDataSets(compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
+                getCensusDataSets(state, compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
         if (censusDataSets == null || censusDataSets.size() == 0) {
             _log.error("Can't find census data sets for " + state + ", " + tab);
             return new ArrayList<CensusStruct[]>();
