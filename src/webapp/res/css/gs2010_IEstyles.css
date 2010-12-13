@@ -376,7 +376,7 @@ body.ie6 #topnav_search ul li label, body.ie6 #topnav_menusubnav li a {
 
 body.ie6 #mainGS.col {
     border: 0;
-    overflow: hidden;
+    overflow: visible;
     margin: 0;
 }
 

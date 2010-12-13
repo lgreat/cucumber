@@ -1303,14 +1303,20 @@ body.cobranded #pageGS {
 #mainGS.col {
     width: 598px;
     padding: 0 20px;
-    z-index:1;
+    *z-index:1;
+    _z-index:2;
+    _position:relative;
+    _zoom:1;
 }
 
 #sidebarGS.col {
     width: 328px;
     padding-left: 2px;
     overflow: hidden;
-    z-index:0;
+    *z-index:0;
+    _z-index:1;
+    _position:relative;
+    _zoom:1;
 }
 
 #topicContentGS {
