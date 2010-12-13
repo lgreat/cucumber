@@ -56,7 +56,7 @@
                             &amp;#183;
                             <span class="text3 schoolType">Preschool</span>
                         </c:when>
-                        <c:when test="${school.grades.rangeString ne null}">
+                        <c:when test="${not empty school.grades.rangeString}">
                                 &amp;#183;
                                 <span class="text3">${school.grades.rangeString}</span>
                         </c:when>
@@ -66,7 +66,7 @@
                     <br/>
                     <span class="smallAlertText js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</span>
                     <br/>
-                    <c:if test="${school.phone ne null}">
+                    <c:if test="${not empty school.phone}">
                         <span class="smallAlertText js-school-search-result-phone">${school.phone}</span>
                         <br/>
                     </c:if>
