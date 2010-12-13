@@ -183,6 +183,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 CensusStruct headerCell = new CensusStruct();
                 headerCell.setIsHeaderCell(true);
                 headerCell.setHeaderText(label.getRowLabel());
+                // header cell's year should be the most recent year represented in the row
+                // start it off as the first cell's year, then below we will update it if we
+                // find a more recent year
+                headerCell.setYear(schoolCensusValue.getDataSet().getYear());
                 cells[0]=headerCell;
                 // add list to rowLabelToCellList
                 rval.put(label.getRowLabel(), cells);
@@ -233,6 +237,9 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 cell.setValue(getValueAsText(schoolCensusValue));
                 cell.setYear(schoolCensusValue.getDataSet().getYear());
                 cell.setIsSimpleCell(true);
+            }
+            if (cell.getYear() > cells[0].getYear()) {
+                cells[0].setYear(cell.getYear());
             }
             // add cell to cell list in position from schoolIdToIndex
             cells[cellIndex]=cell;

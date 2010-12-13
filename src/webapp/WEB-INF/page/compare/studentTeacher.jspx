@@ -46,12 +46,15 @@
             </tr>
             <c:if test="${not empty censusRows}">
                 <c:forEach items="${censusRows}" var="censusRow">
+                    <c:set var="rowYear" value="9999"/>
                     <tr>
                         <c:forEach items="${censusRow}" var="censusCell">
                             <c:choose>
                                 <c:when test="${censusCell.isHeaderCell}">
+                                    <c:set var="rowYear" value="${censusCell.year}"/>
                                     <th>
                                         ${censusCell.headerText}
+                                        <div class="year">${censusCell.year}</div>
                                     </th>
                                 </c:when>
                                 <c:otherwise>
@@ -69,6 +72,9 @@
                                                 </c:forEach>
                                             </c:otherwise>
                                         </c:choose>
+                                        <c:if test="${not empty censusCell and censusCell.year ne rowYear}">
+                                            <div class="year">Note: ${censusCell.year} data</div>
+                                        </c:if>
                                     </td>
                                 </c:otherwise>
                             </c:choose>
