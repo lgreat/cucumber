@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.236 2010/12/07 00:53:50 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.237 2010/12/13 19:06:17 yfan Exp $
  */
 
 package gs.web.util;
@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.lucene.analysis.ISOLatin1AccentFilter;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -1002,7 +1003,9 @@ public class UrlBuilder {
             if (showConfirmation) {
                 path.append("?confirm=true");
             }
-            _path = path.toString();
+            // GS-10949 WARNING: this requires ISOLatin1AccentFilter from Lucene, so be careful to either port this
+            // when switching from Lucene to Solr, or don't remove the Lucene dependency till that's done
+            _path = ISOLatin1AccentFilter.removeAccents(path.toString());
         }
     }
 
