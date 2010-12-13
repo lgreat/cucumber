@@ -44,18 +44,35 @@
                     </td>
                 </c:forEach>
             </tr>
-            <tr>
-                <th scope="row">Ethnicities</th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="cs_ethnic">
-                        <ul>
-                            <c:forEach items="${school.ethnicities}" var="ethnicity">
-                                <li>${ethnicity.key} ${ethnicity.value}%</li>
-                            </c:forEach>
-                        </ul>
-                    </td>
+            <c:if test="${not empty censusRows}">
+                <c:forEach items="${censusRows}" var="censusRow">
+                    <tr>
+                        <c:forEach items="${censusRow}" var="censusCell">
+                            <c:choose>
+                                <c:when test="${censusCell.isHeaderCell}">
+                                    <th>
+                                        ${censusCell.headerText}
+                                    </th>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${censusCell.isSimpleCell}">
+                                                ${censusCell.value}
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${censusCell.breakdownList}" var="censusBreakdown">
+                                                    ${censusBreakdown.name} ${censusBreakdown.value}<br/>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </tr>
                 </c:forEach>
-            </tr>
+            </c:if>
         </compare:compareTemplate>
     </gsml:body>
     </html>

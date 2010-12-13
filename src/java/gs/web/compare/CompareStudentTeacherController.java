@@ -23,6 +23,7 @@ import java.util.*;
 public class CompareStudentTeacherController extends AbstractCompareSchoolController {
     private final Log _log = LogFactory.getLog(getClass());
     public static final String TAB_NAME = "studentTeacher";
+    public static final String MODEL_CENSUS_ROWS = "censusRows";
     private String _successView;
     private ICensusDataSetDao _censusDataSetDao;
     private ICensusInfo _censusInfo;
@@ -44,7 +45,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             schools.add(baseStruct.getSchool());
         }
 
-        getSchoolCensusData(schools.get(0).getDatabaseState(), schools, TAB_NAME);
+        model.put(MODEL_CENSUS_ROWS, getSchoolCensusData(schools.get(0).getDatabaseState(), schools, TAB_NAME));
     }
 
     public List<CensusDataSet> getCensusDataSets(
@@ -100,6 +101,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             _log.error("Can't find compare config rows for " + state + ", " + tab);
             return new ArrayList<CensusStruct[]>();
         }
+        _log.warn("Found " + compareConfigs.size() + " compare configuration rows");
 
         // 2) for each config row, retrieve the data set and label
         // also populate the 3 maps
@@ -109,6 +111,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             _log.error("Can't find census data sets for " + state + ", " + tab);
             return new ArrayList<CensusStruct[]>();
         }
+        _log.warn("Found " + censusDataSets.size() + " census data sets");
 
         // 3) bulk query: retrieve school values for each school and data set
         List<SchoolCensusValue> schoolCensusValues =
@@ -117,6 +120,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             _log.error("Can't find school census values for " + state + ", " + tab);
             return new ArrayList<CensusStruct[]>();
         }
+        _log.warn("Found " + schoolCensusValues.size() + " school census values");
 
         // 4) Populate return struct
         // map is used here because all we have when populating each cell is a SchoolCensusValue. From that
@@ -124,6 +128,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // With the row label, we use the map to pull out the specific row needed.
         Map<String, CensusStruct[]> rowLabelToCellList =
                 populateStructs(schools, schoolCensusValues, censusDataSetToSchoolType, censusDataSetToLabel);
+        _log.warn("Created " + rowLabelToCellList.size() + " rows");
 
         // 5) Sort the rows
         // 6) return
