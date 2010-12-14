@@ -9,6 +9,7 @@ import gs.data.search.Indexer;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;
 
@@ -94,6 +95,9 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
     @XmlElement
     public String getLevelCode() {
         String[] levelCodeArray = _document.getValues(IndexField.GRADE_LEVEL);
+        if (levelCodeArray != null) {
+            levelCodeArray = (String[])ArrayUtils.removeElement((String[])levelCodeArray,"junior");
+        }
         LevelCode levelCode = null;
 
         if (levelCodeArray != null && levelCodeArray.length > 0) {
