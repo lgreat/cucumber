@@ -103,24 +103,22 @@ GS.search.onMapMarkerClick = function(state, id) {
         queryString = removeFromQueryString(queryString, "lc");
         var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
         var numGradeLevels = jQuery('#js-gradeLevels input[type=checkbox]').size();
-        if (checkedGradeLevels.size() < numGradeLevels) {
-            var overwriteGradeLevels = true;
-            checkedGradeLevels.each(function() {
-                queryString = putIntoQueryString(queryString, "lc", jQuery(this).val(), overwriteGradeLevels);
-                overwriteGradeLevels = false;
-            });
-        }
+        var overwriteGradeLevels = true;
+        checkedGradeLevels.each(function() {
+            queryString = putIntoQueryString(queryString, "lc", jQuery(this).val(), overwriteGradeLevels);
+            overwriteGradeLevels = false;
+        });
+
 
         queryString = removeFromQueryString(queryString, "st");
         var checkedSchoolTypes = jQuery('#js-schoolTypes :checked');
         var numSchoolTypes = jQuery('#js-schoolTypes input[type=checkbox]').size();
-        if (checkedSchoolTypes.size() < numSchoolTypes) {
-            var overwriteSchoolTypes = true;
-            checkedSchoolTypes.each(function() {
-                queryString = putIntoQueryString(queryString, "st", jQuery(this).val(), overwriteSchoolTypes);
-                overwriteSchoolTypes = false;
-            });
-        }
+        var overwriteSchoolTypes = true;
+        checkedSchoolTypes.each(function() {
+            queryString = putIntoQueryString(queryString, "st", jQuery(this).val(), overwriteSchoolTypes);
+            overwriteSchoolTypes = false;
+        });
+
 
         if (jQuery('#sort-by').val() !== '') {
             queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
