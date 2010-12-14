@@ -281,7 +281,7 @@
             <div class="filter-bd smallAlertText">
                 <div>
                     <c:choose>
-                        <c:when test="${schoolType eq null or fn:contains(schoolType,'public')}">
+                        <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'public')}">
                             <input type="checkbox" checked="checked" name="st" id="school-type-public" value="public"/>
                         </c:when>
                         <c:otherwise>
@@ -292,7 +292,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${schoolType eq null or fn:contains(schoolType,'charter')}">
+                        <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'charter')}">
                             <input type="checkbox" checked="checked" name="st" id="school-type-charter" value="charter"/>
                         </c:when>
                         <c:otherwise>
@@ -303,7 +303,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${schoolType eq null or fn:contains(schoolType,'private')}">
+                        <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'private')}">
                             <input type="checkbox" checked="checked" name="st" id="school-type-private" value="private"/>
                         </c:when>
                         <c:otherwise>

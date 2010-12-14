@@ -71,11 +71,7 @@ public class SchoolSearchCommand {
 
         // if none are selected, show all
         if (schoolTypeSet.size() == 0) {
-            return new String[] {
-                    SchoolType.PUBLIC.getSchoolTypeName(),
-                    SchoolType.PRIVATE.getSchoolTypeName(),
-                    SchoolType.CHARTER.getSchoolTypeName()
-            };
+            return new String[0];
         } else {
             String[] cleanedTypes = new String[schoolTypeSet.size()];
             int i = 0;
