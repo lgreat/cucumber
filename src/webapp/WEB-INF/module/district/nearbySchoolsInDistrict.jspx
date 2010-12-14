@@ -89,20 +89,20 @@
 
             <div id="schoolBrowseLinks">
                 <c:if test="${numElementarySchools gt 0}">
-                    <div><link:allSchoolsInDistrict district="${district}" levelCode="e">
-                        ${district.name} Elementary Schools</link:allSchoolsInDistrict> (${numElementarySchools})
+                    <div><link:schools district="${district}" levelCode="e">
+                        ${district.name} Elementary Schools</link:schools> (${numElementarySchools})
                     </div>
                 </c:if>
 
                 <c:if test="${numMiddleSchools gt 0}">
-                    <div><link:allSchoolsInDistrict district="${district}" levelCode="m">
-                        ${district.name} Middle Schools</link:allSchoolsInDistrict> (${numMiddleSchools})
+                    <div><link:schools district="${district}" levelCode="m">
+                        ${district.name} Middle Schools</link:schools> (${numMiddleSchools})
                     </div>
                 </c:if>
 
                 <c:if test="${numHighSchools gt 0}">
-                    <div><link:allSchoolsInDistrict district="${district}" levelCode="h">
-                        ${district.name} High Schools</link:allSchoolsInDistrict> (${numHighSchools})
+                    <div><link:schools district="${district}" levelCode="h">
+                        ${district.name} High Schools</link:schools> (${numHighSchools})
                     </div>
                 </c:if>
             </div>

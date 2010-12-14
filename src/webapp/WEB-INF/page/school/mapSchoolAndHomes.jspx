@@ -105,10 +105,10 @@
                 <ul>
                     <c:if test="${school.type.schoolTypeName != 'private'}">
                         <li>
-                            <link:allSchoolsInDistrict district="${school.district}"
+                            <link:schools district="${school.district}"
                                                        title="${school.district.name}">
                                 Schools in ${school.district.name}&amp;#160;&gt;
-                            </link:allSchoolsInDistrict>
+                            </link:schools>
                         </li>
                     </c:if>
                     <li>

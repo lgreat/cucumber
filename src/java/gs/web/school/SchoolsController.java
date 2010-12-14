@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.97 2010/11/09 03:27:26 droy Exp $
+ * $Id: SchoolsController.java,v 1.98 2010/12/14 01:59:59 yfan Exp $
  */
 
 package gs.web.school;
@@ -352,7 +352,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
         } else {
             cityName = fields.getCityName();
             model.put(MODEL_CITY_BROWSE_URI_ROOT, DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, cityName));
-            model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, DirectoryStructureUrlFactory.createNewCityBrowseURILevelLabel(levelCode));
+            model.put(MODEL_CITY_BROWSE_URI_LEVEL_LABEL, DirectoryStructureUrlFactory.createBrowseURILevelLabel(levelCode));
             model.put(MODEL_CITY_BROWSE_URI, DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, fields.getSchoolTypes(), levelCode));
             searchCommand.setCity(cityName);
             searchCommand.setQ(cityName);

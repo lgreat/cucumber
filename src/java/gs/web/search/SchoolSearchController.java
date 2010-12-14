@@ -15,6 +15,7 @@ import gs.data.util.Address;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -150,6 +151,14 @@ public class SchoolSearchController extends AbstractCommandController implements
         //if user did not enter search term, redirect to state browse
         if (isSearch && StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
             return stateBrowseRedirect(request, sessionContext);
+        }
+
+        // if district browse *and* lc parameter was specified, 301-redirect to use directory-structure schools label instead of lc parameter
+        String lc = request.getParameter("lc");
+        if (isDistrictBrowse && StringUtils.isNotBlank(lc)) {
+            LevelCode levelCode = LevelCode.createLevelCode(lc);
+            UrlBuilder urlBuilder = new UrlBuilder(district, levelCode, UrlBuilder.SCHOOLS_IN_DISTRICT);
+            return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
         }
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);

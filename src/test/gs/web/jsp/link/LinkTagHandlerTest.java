@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.84 2010/12/07 02:38:02 ssprouse Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.85 2010/12/14 01:59:59 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -595,22 +595,6 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals(urlBuilder.asSiteRelative(null), builder.asSiteRelative(null));
-    }
-
-    public void testAllSchoolsInDistrict() {
-        DistrictsAllSchoolsTagHandler tagHandler = new DistrictsAllSchoolsTagHandler();
-        District district = new District();
-        district.setId(1);
-        district.setName("San Francisco City Unified School District");
-        district.setDatabaseState(State.CA);
-        Address address = new Address();
-        address.setCity("San Francisco");
-        district.setPhysicalAddress(address);
-
-        tagHandler.setDistrict(district);
-        tagHandler.setPageContext(new MockPageContext());
-        UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/california/san-francisco/San-Francisco-City-Unified-School-District/schools/", builder.asSiteRelative(null));
     }
 
     public void testDistrictProfile() {

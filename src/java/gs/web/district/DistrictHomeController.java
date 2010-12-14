@@ -368,7 +368,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
             return false;
         }
 
-        return fields.hasState() && fields.hasCityName() && fields.hasDistrictName();
+        return fields.hasState() && fields.hasCityName() && fields.hasDistrictName() && !fields.hasSchoolsLabel();
     }
 
     public IDistrictDao getDistrictDao() {

@@ -332,7 +332,7 @@
                 <c:choose>
                     <c:when test="${school.districtId != 0}">
                         ${delimiter}
-                        <link:allSchoolsInDistrict district="${school.district}">${school.district.name}</link:allSchoolsInDistrict>
+                        <link:schools district="${school.district}">${school.district.name}</link:schools>
                         <c:if test="${tab ne 'overview'}">
                             ${delimiter}<br/>
                             <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>

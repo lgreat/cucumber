@@ -161,7 +161,7 @@
                         <c:if test="${not empty district.numberOfSchools}">
                             <tr><td><img src="/res/img/school/overview/li_yellow-triangle.gif" alt="yellow arrow"/> ${district.numberOfSchools} ${district.numberOfSchools > 1 ? "schools" : "school"}</td></tr>
                         </c:if>
-                        <tr><td><link:allSchoolsInDistrict district="${district}" rel="nofollow">View all schools in this district &gt;</link:allSchoolsInDistrict></td></tr>
+                        <tr><td><link:schools district="${district}" rel="nofollow">View all schools in this district &gt;</link:schools></td></tr>
                         <c:if test="${not empty model.superintendent}">
                             <tr><td>District superintendent:</td></tr>
                             <tr><td>${model.superintendent}</td></tr>

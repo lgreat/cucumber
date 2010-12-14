@@ -98,19 +98,20 @@ public class DirectoryStructureUrlFields {
             // /california/san-francisco/San-Francisco-Unified-School-District/schools/
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
+            Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[4]);
             if (schoolTypeMatcher.find()) {
                 populateSchoolTypesFromLabel(pathComponents[3]);
-                Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[4]);
                 if (levelCodeMatcher.find()) {
                     populateLevelCodeFromLabel(pathComponents[4]);
                 }
-            } else if (pathComponents[4].equals(LEVEL_LABEL_SCHOOLS)) {
+            } else if (levelCodeMatcher.find()) {
+                populateLevelCodeFromLabel(pathComponents[4]);
+                _hasSchoolsLabel = true;
                 try {
                     _districtName = URLDecoder.decode(pathComponents[3], "UTF-8");
                 } catch (UnsupportedEncodingException uee) {
                     _districtName = pathComponents[3];
                 }
-                _hasSchoolsLabel = true;
             }
         } else if (pathComponents.length == 6) {
             // /california/sonoma/preschools/Preschool-Name/123/

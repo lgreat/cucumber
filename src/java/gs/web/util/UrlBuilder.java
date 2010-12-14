@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.237 2010/12/13 19:06:17 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.238 2010/12/14 01:59:59 yfan Exp $
  */
 
 package gs.web.util;
@@ -655,6 +655,15 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(District district, LevelCode levelCode, VPage page) {
+        if (SCHOOLS_IN_DISTRICT.equals(page)) {
+            _perlPage = false;
+            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(district.getDatabaseState(), district, levelCode);
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
     public UrlBuilder(District district, VPage page) {
         if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;
@@ -669,27 +678,26 @@ public class UrlBuilder {
             _path = DirectoryStructureUrlFactory.createNewDistrictHomeURI(district.getDatabaseState(), district);
         } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
             _perlPage = false;
-            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(district.getDatabaseState(), district);
+            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(district.getDatabaseState(), district, null);
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
+    public UrlBuilder(State state, Integer districtId, String districtName, String districtCity, LevelCode levelCode, VPage page) {
+        if (SCHOOLS_IN_DISTRICT.equals(page)) {
+            _perlPage = false;
+            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(state, districtId, districtName, districtCity, levelCode);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
     
     public UrlBuilder(State state, Integer districtId, String districtName, String districtCity, VPage page) {
-        if (DISTRICT_PROFILE.equals(page)) {
-            _perlPage = true;
-
-            _path = "/cgi-bin/" +
-                    state.getAbbreviationLowerCase() +
-                    "/district-profile/" +
-                    districtId;
-        } else if (DISTRICT_HOME.equals(page)) {
+        if (DISTRICT_HOME.equals(page)) {
             _perlPage = false;
             // WARNING: if this url changes, also change the entry in CmsUtil.GRADE_LEVEL_TOPIC_CENTER_URI_MAP
             _path = DirectoryStructureUrlFactory.createNewDistrictHomeURI(state, districtId, districtName, districtCity);
-        } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
-            _perlPage = false;
-            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(state, districtId, districtName, districtCity);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

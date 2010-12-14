@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.23 2010/12/08 23:57:20 yfan Exp $
+ * $Id: SchoolsTagHandler.java,v 1.24 2010/12/14 01:59:58 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -42,12 +42,11 @@ public class SchoolsTagHandler extends LinkTagHandler {
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder;
+        LevelCode levelCode = null;
+        if (StringUtils.isNotBlank(_levelCode)) {
+            levelCode = LevelCode.createLevelCode(_levelCode);
+        }
         if ((_district == null || _district.getId() == 0) && (_districtId == null || _districtName == null)) {
-            LevelCode levelCode = null;
-            if (StringUtils.isNotBlank(_levelCode)) {
-                levelCode = LevelCode.createLevelCode(_levelCode);
-            }
-
             Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
             if (StringUtils.isNotBlank(_schoolType)) {
                 StringTokenizer tok = new StringTokenizer(_schoolType, ",");
@@ -61,17 +60,14 @@ public class SchoolsTagHandler extends LinkTagHandler {
             urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, myState, _cityName, schoolTypes, levelCode);
         } else {
             if (_district != null) {
-                urlBuilder = new UrlBuilder(_district, UrlBuilder.SCHOOLS_IN_DISTRICT);
+                urlBuilder = new UrlBuilder(_district, levelCode, UrlBuilder.SCHOOLS_IN_DISTRICT);
             } else if (_districtId != null && _districtName != null && _cityName != null && _state != null) {
-                urlBuilder = new UrlBuilder(_state, _districtId, _districtName, _cityName, UrlBuilder.SCHOOLS_IN_DISTRICT);
+                urlBuilder = new UrlBuilder(_state, _districtId, _districtName, _cityName, levelCode, UrlBuilder.SCHOOLS_IN_DISTRICT);
             } else {
                 throw new IllegalStateException("Either district, or district ID and district name should be available");
             }
             urlBuilder.removeParameter(SchoolsController.PARAM_CITY);
 
-            if (StringUtils.isNotBlank(_levelCode)) {
-                urlBuilder.setParameter(SchoolsController.PARAM_LEVEL_CODE, _levelCode);
-            }
             if (StringUtils.isNotBlank(_schoolType)) {
                 StringTokenizer tok = new StringTokenizer(_schoolType, ",");
                 while (tok.hasMoreTokens()) {
