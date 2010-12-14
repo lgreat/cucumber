@@ -17,7 +17,6 @@
     <pageHelper:externalCss file="/css/spp2.css"/>
     <pageHelper:externalJavascript file="/js/anchorSectionToggler.js"/>
     <school:profile2010ShareThisJavaScript/>
-    <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE_TEST_SCORE" />
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
     <ad:setSlotPrefix slotPrefix="School_Profile_Page_Academic_Performance"/>

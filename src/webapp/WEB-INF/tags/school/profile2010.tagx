@@ -22,6 +22,7 @@
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"
                          description="Omniture page name for custom click tracking"/>
 
+<pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
 <c:set var="state" value="${school.databaseState}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="schoolId" value="${school.id}"/>
