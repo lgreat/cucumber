@@ -130,7 +130,7 @@
         // TODO-10495 - Randall - END subcategory ratings toggle
     </script>
     <school:profile2010ShareThisJavaScript/>
-    <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PARENT_REVIEWS" />
+    <!--<pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PARENT_REVIEWS" />-->
     <c:if test="${not empty relCanonical}">
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
