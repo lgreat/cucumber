@@ -83,7 +83,7 @@
     <c:if test="${isDistrictBrowse}">
         <div class="line">
             <div class="unit size3of4">
-                <div class="title2-d61">${schoolResultsFor} Unified School District Schools</div>
+                <div class="title2-d61">${fn:escapeXml(district.name)} Schools</div>
             </div>
             <div class="unit size1of4 lastUnit">
                 <div class="smallAlertText fltrt">
