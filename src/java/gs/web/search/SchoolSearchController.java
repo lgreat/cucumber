@@ -363,13 +363,11 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     public City getCity(DirectoryStructureUrlFields fields) throws InvalidCityException {
-        State state = fields.getState();
-        String cityName = fields.getCityName();
-        City city = getCity(state, cityName);
+        City city = getCity(fields.getState(), fields.getCityName());
         if (city != null) {
             return city;
         } else {
-            throw new InvalidCityException("Could not locate city with name " + cityName);
+            throw new InvalidCityException("Could not locate city with name " + fields.getCityName());
         }
     }
 
