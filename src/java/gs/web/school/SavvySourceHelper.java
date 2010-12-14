@@ -15,7 +15,8 @@ public class SavvySourceHelper {
         }
     }
 
-    final private static String SPECIAL_CHARACTERS = "[,'\\-\\s]";
+    // hyphens, spaces, apostrophes
+    final private static String SPECIAL_CHARACTERS = "['\\-\\s]";
 
     public static String getSavvyCityPageUrl(State state, String cityName) {
         if (state == null || StringUtils.isBlank(cityName)) {

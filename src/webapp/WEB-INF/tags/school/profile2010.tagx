@@ -402,7 +402,7 @@
 
         <c:if test="${fn:contains(school.levelCode, 'p')}">
             <c:set var="savvySource">
-                <promo:savvysource state="${state}" cityName="${(showSavvySourceCityLink ? city : null)}" omniturePageName="${pageName}"/>
+                <promo:savvysource state="${state}" cityName="${(showSavvySourceCityLink ? city : null)}" omniturePageName="${omniturePageName}"/>
             </c:set>
         </c:if>
 
