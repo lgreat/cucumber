@@ -30,7 +30,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     private ICensusInfo _censusInfo;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
-    private ISchoolCensusValueDao _schoolCensusValueDao;
+    private ICensusDataSchoolValueDao _schoolCensusValueDao;
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -398,11 +398,11 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         _compareConfigDao = compareConfigDao;
     }
 
-    public ISchoolCensusValueDao getSchoolCensusValueDao() {
+    public ICensusDataSchoolValueDao getSchoolCensusValueDao() {
         return _schoolCensusValueDao;
     }
 
-    public void setSchoolCensusValueDao(ISchoolCensusValueDao schoolCensusValueDao) {
+    public void setSchoolCensusValueDao(ICensusDataSchoolValueDao schoolCensusValueDao) {
         _schoolCensusValueDao = schoolCensusValueDao;
     }
 }

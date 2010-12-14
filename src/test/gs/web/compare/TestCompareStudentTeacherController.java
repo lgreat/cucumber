@@ -25,7 +25,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
     private ICensusInfo _censusInfo;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
-    private ISchoolCensusValueDao _schoolCensusValueDao;
+    private ICensusDataSchoolValueDao _schoolCensusValueDao;
 
     @Override
     public void setUp() throws Exception {
@@ -37,7 +37,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         _censusInfo = createStrictMock(ICensusInfo.class);
         _compareLabelDao = createStrictMock(ICompareLabelDao.class);
         _compareConfigDao = createStrictMock(ICompareConfigDao.class);
-        _schoolCensusValueDao = createStrictMock(ISchoolCensusValueDao.class);
+        _schoolCensusValueDao = createStrictMock(ICensusDataSchoolValueDao.class);
         
         _controller.setSuccessView("success");
         _controller.setCensusDataSetDao(_censusDataSetDao);
