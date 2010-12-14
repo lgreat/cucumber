@@ -188,7 +188,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
                 new HashMap<CensusDataSet, CompareLabel>();
         Map<String, CensusStruct[]> rval;
         SchoolCensusValue censusValue1;
-        CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2009);
+        CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.STUDENT_TEACHER_RATIO,2009);
         CompareLabel label= getLabel("Average Salary");
         censusDataSetToRowLabelMap.put(censusDataSet,label);
 
@@ -203,7 +203,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(1,rval.size());
         assertEquals(2,rval.get("Average Salary").length);
         assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
-        assertSimpleCell(rval.get("Average Salary")[1], "$40000");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
 
         //add two schools and assert the order of the cells.
         School school2 = getSchool(2);
@@ -216,8 +216,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(1,rval.size());
         assertEquals(3,rval.get("Average Salary").length);
         assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
-        assertSimpleCell(rval.get("Average Salary")[1], "$40000");
-        assertSimpleCell(rval.get("Average Salary")[2], "$60000");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
+        assertSimpleCell(rval.get("Average Salary")[2], "60000");
 
     }
 
@@ -235,9 +235,9 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         School school2 = getSchool(2, SchoolType.PRIVATE);
         schools.add(school2);
 
-        CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2009);
+        CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.STUDENT_TEACHER_RATIO,2009);
         censusDataSetToSchoolTypeMap.put(censusDataSet, SchoolType.PUBLIC);
-        CensusDataSet censusDataSet2 = new CensusDataSet(CensusDataType.AVERAGE_SALARY,2008);
+        CensusDataSet censusDataSet2 = new CensusDataSet(CensusDataType.STUDENT_TEACHER_RATIO,2008);
         CompareLabel label2 = getLabel("Average Salary");
         censusDataSetToRowLabelMap.put(censusDataSet2,label2);
         CompareLabel label= getLabel("Average Salary");
@@ -253,7 +253,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(1,rval.size());
         assertEquals(3,rval.get("Average Salary").length);
         assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
-        assertSimpleCell(rval.get("Average Salary")[1], "$40000");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
         assertNull("Expect third cell to be null as its school type has no data.", rval.get("Average Salary")[2]);
 
         // this census data set has values for all schools
@@ -268,8 +268,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(1,rval.size());
         assertEquals(3,rval.get("Average Salary").length);
         assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
-        assertSimpleCell(rval.get("Average Salary")[1], "$40000");
-        assertSimpleCell(rval.get("Average Salary")[2], "$80000");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
+        assertSimpleCell(rval.get("Average Salary")[2], "80000");
 
         // try in different order to double check
         Collections.reverse(schoolCensusValues);
@@ -279,8 +279,8 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals(1,rval.size());
         assertEquals(3,rval.get("Average Salary").length);
         assertHeaderCell(rval.get("Average Salary")[0], "Average Salary");
-        assertSimpleCell(rval.get("Average Salary")[1], "$40000");
-        assertSimpleCell(rval.get("Average Salary")[2], "$80000");
+        assertSimpleCell(rval.get("Average Salary")[1], "40000");
+        assertSimpleCell(rval.get("Average Salary")[2], "80000");
     }
 
     public void testPopulateStructsWithBreakdown() {
@@ -573,6 +573,38 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals("8:1", rval.get(1)[1].getBreakdownList().get(0).getValue());
         assertEquals("4th grade", rval.get(1)[1].getBreakdownList().get(4).getName());
         assertEquals("10:1", rval.get(1)[1].getBreakdownList().get(4).getValue());
+    }
+
+    public void testSortRowsHomeLanguage() {
+        Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
+        CensusStruct[] cs = new CensusStruct[2];
+        cs[0] = new CensusStruct();
+        cs[0].setHeaderText("Home Language");
+        rowLabelToCells.put("Home Language",cs);
+
+        Map<String, Integer> rowLabelToOrder = new HashMap<String,Integer>();
+        rowLabelToOrder.put("Home Language",1);
+
+        cs[1] = new CensusStruct();
+        List<BreakdownNameValue> breakdowns = new ArrayList<BreakdownNameValue>();
+        breakdowns.add(getBreakdown("Australian", "5%", 5f)); // mate!
+        breakdowns.add(getBreakdown("Spanish", "15%", 15f)); // el capitan
+        breakdowns.add(getBreakdown("Canadian", "4%", 4f)); // eh?
+        breakdowns.add(getBreakdown("French", "7%", 7f)); // bon apetit
+        breakdowns.add(getBreakdown("Italian", "6%", 6f)); // manicotti, amore mio!
+        breakdowns.add(getBreakdown("Mandarin", "30%", 30f)); // gen nide qian niu pengyou shuo hua bu keyi. Bu keyi!! *screams and throws fork*
+        cs[1].setBreakdownList(breakdowns);
+        cs[1].setBreakdownValueMinimum(5);
+
+        List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells, rowLabelToOrder);
+        assertNotNull(rval);
+        assertEquals(1, rval.size());
+        CensusStruct languages = rval.get(0)[1];
+        assertEquals(4, languages.getBreakdownList().size());
+        assertEquals("Mandarin", languages.getBreakdownList().get(0).getName());
+        assertEquals("Spanish", languages.getBreakdownList().get(1).getName());
+        assertEquals("French", languages.getBreakdownList().get(2).getName());
+        assertEquals("Italian", languages.getBreakdownList().get(3).getName());
     }
 
     public void testSortRowsRegressionNullCell(){

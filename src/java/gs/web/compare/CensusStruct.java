@@ -13,6 +13,8 @@ public class CensusStruct {
     private List<BreakdownNameValue> _breakdownList;
     private String _value;
     private int _year;
+    /** Remove any values lower than this from _breakdownList (display requirement) */
+    private int _breakdownValueMinimum = 0;
 
     // following signatures are helpful for JSTL readability
     public boolean getIsHeaderCell() {
@@ -78,5 +80,13 @@ public class CensusStruct {
 
     public void setYear(int year) {
         _year = year;
+    }
+
+    public int getBreakdownValueMinimum() {
+        return _breakdownValueMinimum;
+    }
+
+    public void setBreakdownValueMinimum(int breakdownValueMinimum) {
+        _breakdownValueMinimum = breakdownValueMinimum;
     }
 }

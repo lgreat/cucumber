@@ -234,6 +234,9 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 if(cell.getBreakdownList() == null){
                     // instantiate new list
                     cell.setBreakdownList(new ArrayList<BreakdownNameValue>());
+                    if (schoolCensusValue.getDataSet().getDataType().equals(CensusDataType.HOME_LANGUAGE)) {
+                        cell.setBreakdownValueMinimum(5);
+                    }
                 } else if (cell.getYear() < schoolCensusValue.getDataSet().getYear()) {
                     // we found a more recent data set. clear out any values from the older data set
                     // Example: We have a school with two valid data sets (for some reason): 2008, 2009.
@@ -324,6 +327,21 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                             return o2.getValue().compareTo(o1.getValue());
                         }
                     });
+                    // Also, at this point let's enforce the breakdownValueMinimum, if any.
+                    // This rule is a display requirement to keep long lists (of, say, home languages)
+                    // from getting out of hand. It removes any values below or equal to a cutoff.
+                    if (cell.getBreakdownValueMinimum() > 0) {
+                        int index = 0;
+                        for (BreakdownNameValue pair: cell.getBreakdownList()) {
+                            if (Math.round(pair.getFloatValue()) <= cell.getBreakdownValueMinimum()) {
+                                break;
+                            }
+                            index++;
+                        }
+                        if (index < cell.getBreakdownList().size()) {
+                            cell.setBreakdownList(cell.getBreakdownList().subList(0,index));
+                        }
+                    }
                 }
             }
         }
