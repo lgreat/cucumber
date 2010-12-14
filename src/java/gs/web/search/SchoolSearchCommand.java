@@ -44,7 +44,9 @@ public class SchoolSearchCommand {
     }
 
     public void setSearchString(String searchString) {
-        _searchString = searchString;
+        if (searchString != null) {
+            _searchString = searchString.trim();
+        }
     }
 
     public String getState() {

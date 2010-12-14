@@ -2,6 +2,8 @@ package gs.web.search;
 
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
+import gs.data.community.local.ILocalBoardDao;
+import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
@@ -45,6 +47,8 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     private DistrictSearchService _districtSearchService;
 
+    private ILocalBoardDao _localBoardDao;
+
     private StateManager _stateManager;
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
@@ -67,6 +71,9 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public static final String MODEL_CITY_ID = "cityId";
     public static final String MODEL_MSL_SCHOOLS = "mslSchools";
+
+    public static final String MODEL_LOCAL_BOARD_ID = "localBoardId";
+    public static final String MODEL_LOCAL_CITY_NAME = "localCityName";
 
     public static final String MODEL_CITY = "city";
     public static final String MODEL_DISTRICT = "district";
@@ -236,9 +243,13 @@ public class SchoolSearchController extends AbstractCommandController implements
         addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(), model); //TODO: fix
         addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, schoolSearchCommand.getSearchString(), searchResultsPage.getSearchResults(), city, district);
 
-        // city id needed for local community module
-        if (sessionContext.getCityId() != null) {
-            model.put(MODEL_CITY_ID, sessionContext.getCityId());
+        City localCity = (city != null ? city : getCity(state, schoolSearchCommand.getSearchString()));
+        if (localCity != null) {
+            LocalBoard localBoard = _localBoardDao.findByCityId(localCity.getId());
+            if (localBoard != null) {
+                model.put(MODEL_LOCAL_BOARD_ID, localBoard.getBoardId());
+                model.put(MODEL_LOCAL_CITY_NAME, localCity.getName());
+            }
         }
 
         model.put(MODEL_SEARCH_STRING, schoolSearchCommand.getSearchString());
@@ -354,13 +365,19 @@ public class SchoolSearchController extends AbstractCommandController implements
     public City getCity(DirectoryStructureUrlFields fields) throws InvalidCityException {
         State state = fields.getState();
         String cityName = fields.getCityName();
+        City city = getCity(state, cityName);
+        if (city != null) {
+            return city;
+        } else {
+            throw new InvalidCityException("Could not locate city with name " + cityName);
+        }
+    }
+
+    public City getCity(State state, String cityName) {
         City city = null;
         if (StringUtils.isNotBlank(cityName) && state != null) {
             // might be null
             city = getGeoDao().findCity(state, cityName);
-            if (city == null) {
-                throw new InvalidCityException("Could not locate city with name " + cityName);
-            }
         }
         return city;
     }
@@ -966,6 +983,14 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public void setDistrictSearchService(DistrictSearchService districtSearchService) {
         _districtSearchService = districtSearchService;
+    }
+
+    public ILocalBoardDao getLocalBoardDao() {
+        return _localBoardDao;
+    }
+
+    public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
+        _localBoardDao = localBoardDao;
     }
 
     public StateManager getStateManager() {
