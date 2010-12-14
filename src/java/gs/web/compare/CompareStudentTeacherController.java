@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * Teachers & Students
+ * Teachers & Students tab on the new compare (2010)
  * 
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -49,70 +49,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         model.put(MODEL_CENSUS_ROWS, getSchoolCensusData(schools.get(0).getDatabaseState(), schools, COMPARE_CONFIG_TAB_NAME));
     }
 
-    public List<CensusDataSet> getCensusDataSets(
-            State state,
-            List<CompareConfig> compareConfigs,
-            Map<CensusDataSet, CompareLabel> censusDataSetToLabel,
-            Map<String, Integer> rowLabelToOrder,
-            Map<CensusDataSet, SchoolType> censusDataSetToSchoolType)
-    {
-        List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
-        // foreach compareConfig
-        for(CompareConfig config : compareConfigs){
-            int dataTypeId = config.getDataTypeId();
-            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
-            Breakdown breakdown = null;
-            if (config.getBreakdownId() != null) {
-                breakdown = new Breakdown(config.getBreakdownId());
-            }
-            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
-            if (censusDataSet == null) {
-                _log.warn("Can't find data set corresponding to config row: " + config.getId());
-                continue;
-            }
-            CompareLabel label = _compareLabelDao.findLabel(state,censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
-            if (label == null) {
-                _log.warn("Can't find label corresponding to config row: " + config.getId());
-                continue;
-            }
-            // add censusDataSet to list
-            censusDataSets.add(censusDataSet);
-            //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
-            censusDataSetToLabel.put(censusDataSet,label);
-            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
-            if (config.getSchoolType() != null) {
-                censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
-            }
-        }
-        return censusDataSets;
-    }
-
-    protected List<CompareConfig> getCompareConfigs(State state, String tab) {
-        List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state, tab, CensusDataSetType.SCHOOL);
-        if (compareConfigs == null || compareConfigs.size() == 0) {
-            return null;
-        }
-        // process these rows, removing duplicates.
-        // e.g. a state-specific configuration should override a default state configuration
-        // create a map of a unique key (not using state) to the compare config
-        Map<String, CompareConfig> uniqueConfigMap = new LinkedHashMap<String, CompareConfig>(compareConfigs.size());
-        for (CompareConfig compareConfig: compareConfigs) {
-            // copy all the compare configs in
-            String uniqueKey = compareConfig.getDataTypeId() + ":" + compareConfig.getBreakdownId() + ":" +
-                    compareConfig.getGradeLevels() + ":" + compareConfig.getLevelCode() + ":" +
-                    compareConfig.getSubject() + ":" + compareConfig.getSchoolType();
-            CompareConfig existing = uniqueConfigMap.get(uniqueKey);
-            // making sure not overwrite a value unless the new one has a state
-            if (existing == null || compareConfig.getState() != null) {
-                uniqueConfigMap.put(uniqueKey, compareConfig);
-            }
-        }
-
-        // convert the map values back into a list and return
-        return new ArrayList<CompareConfig>(uniqueConfigMap.values());
-    }
-
-    public List<CensusStruct[]> getSchoolCensusData(State state, List<School> schools, String tab) {
+    protected List<CensusStruct[]> getSchoolCensusData(State state, List<School> schools, String tab) {
         // initialize some maps necessary for this process
         // censusDataSet to compareLabel
         Map<CensusDataSet, CompareLabel> censusDataSetToLabel = new HashMap<CensusDataSet, CompareLabel>();
@@ -162,7 +99,81 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     }
 
     /**
+     * 1) select out config rows
+     */
+    protected List<CompareConfig> getCompareConfigs(State state, String tab) {
+        List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state, tab, CensusDataSetType.SCHOOL);
+        if (compareConfigs == null || compareConfigs.size() == 0) {
+            return null;
+        }
+        // process these rows, removing duplicates.
+        // e.g. a state-specific configuration should override a default state configuration
+        // create a map of a unique key (not using state) to the compare config
+        Map<String, CompareConfig> uniqueConfigMap = new LinkedHashMap<String, CompareConfig>(compareConfigs.size());
+        for (CompareConfig compareConfig: compareConfigs) {
+            // copy all the compare configs in
+            String uniqueKey = compareConfig.getDataTypeId() + ":" + compareConfig.getBreakdownId() + ":" +
+                    compareConfig.getGradeLevels() + ":" + compareConfig.getLevelCode() + ":" +
+                    compareConfig.getSubject() + ":" + compareConfig.getSchoolType();
+            CompareConfig existing = uniqueConfigMap.get(uniqueKey);
+            // making sure not overwrite a value unless the new one has a state
+            if (existing == null || compareConfig.getState() != null) {
+                uniqueConfigMap.put(uniqueKey, compareConfig);
+            }
+        }
+
+        // convert the map values back into a list and return
+        return new ArrayList<CompareConfig>(uniqueConfigMap.values());
+    }
+
+    /**
+     * 2) for each config row, retrieve the data set and label.
+     * Also populate the 3 maps
+     */
+    protected List<CensusDataSet> getCensusDataSets(
+            State state,
+            List<CompareConfig> compareConfigs,
+            Map<CensusDataSet, CompareLabel> censusDataSetToLabel,
+            Map<String, Integer> rowLabelToOrder,
+            Map<CensusDataSet, SchoolType> censusDataSetToSchoolType)
+    {
+        List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
+        // foreach compareConfig
+        for(CompareConfig config : compareConfigs){
+            int dataTypeId = config.getDataTypeId();
+            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
+            Breakdown breakdown = null;
+            if (config.getBreakdownId() != null) {
+                breakdown = new Breakdown(config.getBreakdownId());
+            }
+            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
+            if (censusDataSet == null) {
+                _log.warn("Can't find data set corresponding to config row: " + config.getId());
+                continue;
+            }
+            CompareLabel label = _compareLabelDao.findLabel(state,censusDataType,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
+            if (label == null) {
+                _log.warn("Can't find label corresponding to config row: " + config.getId());
+                continue;
+            }
+            // add censusDataSet to list
+            censusDataSets.add(censusDataSet);
+            //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
+            censusDataSetToLabel.put(censusDataSet,label);
+            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
+            if (config.getSchoolType() != null) {
+                censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
+            }
+        }
+        return censusDataSets;
+    }
+
+    /**
      * 4) Populate return struct
+     * map is used here because all we have when populating each cell is a SchoolCensusValue. From that
+     * we can get the data set, and from that we can look up the row label where it is supposed to live.
+     * With the row label, we use the map to pull out the specific row needed.
+     * Although we ultimately need this to be ordered, it's easier to deal with right now as a map.
      */
     protected Map<String, CensusStruct[]> populateStructs
             (List<School> schools,
@@ -236,6 +247,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                     cell.setBreakdownList(new ArrayList<BreakdownNameValue>());
                     if (schoolCensusValue.getDataSet().getDataType().equals(CensusDataType.HOME_LANGUAGE)) {
                         cell.setBreakdownValueMinimum(5);
+                        cells[0].setBreakdownValueMinimum(5); // for a display note in the header cell
                     }
                 } else if (cell.getYear() < schoolCensusValue.getDataSet().getYear()) {
                     // we found a more recent data set. clear out any values from the older data set
@@ -299,6 +311,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     }
 
     /**
+     * 5) Sort the rows
      * Sorts the CensusStruct[]'s in the map per the order in rowLabelToOrder.
      * Also sorts each breakdown cell by value in descending order
      */

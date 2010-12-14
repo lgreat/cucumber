@@ -1,7 +1,5 @@
 package gs.web.compare;
 
-import gs.data.school.census.CensusDataType;
-
 public class BreakdownNameValue {
     private String _value;
     private String _name;
