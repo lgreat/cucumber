@@ -253,12 +253,12 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         model.put(MODEL_OMNITURE_PAGE_NAME,
                 getOmniturePageName(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
-                        isCityBrowse, isDistrictBrowse, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString(),
+                        isCityBrowse, isDistrictBrowse,
                         citySearchResults, districtSearchResults)
         );
         model.put(MODEL_OMNITURE_HIERARCHY,
-                getOmnitureHierarchy(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
-                        isCityBrowse, isDistrictBrowse, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString(),
+                getOmnitureHierarchy(schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
+                        isCityBrowse, isDistrictBrowse,
                         citySearchResults, districtSearchResults)
         );
         
@@ -370,7 +370,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     //-------------------------------------------------------------------------
 
     protected static String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults,
-                                                boolean isCityBrowse, boolean isDistrictBrowse, LevelCode levelCode, String[] schoolTypes, String searchString,
+                                                boolean isCityBrowse, boolean isDistrictBrowse,
                                                 List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
         String pageName = "";
 
@@ -404,8 +404,8 @@ public class SchoolSearchController extends AbstractCommandController implements
         return pageName;
     }
 
-    protected static String getOmnitureHierarchy(HttpServletRequest request, int currentPage, int totalResults,
-                                                boolean isCityBrowse, boolean isDistrictBrowse, LevelCode levelCode, String[] schoolTypes, String searchString,
+    protected static String getOmnitureHierarchy(int currentPage, int totalResults,
+                                                boolean isCityBrowse, boolean isDistrictBrowse,
                                                 List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
         String hierarchy = "";
 
@@ -419,7 +419,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else if (totalResults > 0) {
             hierarchy = "Search,School Search," + currentPage;
         } else {
-            String hierarchyPartTwo = null;
+            String hierarchyPartTwo;
             if (hasCityResults) {
                 if (hasDistrictResults) {
                     hierarchyPartTwo = "City and District only";
