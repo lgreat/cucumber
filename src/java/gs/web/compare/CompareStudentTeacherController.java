@@ -276,20 +276,21 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     /**
      * Converts a value to a display format.
      */
-    // TODO: Needs unit test coverage once behavior is defined by PMs
     protected String getValueAsText(SchoolCensusValue value) {
         if (value.getValueText() != null) {
             return value.getValueText();
         } else {
             CensusDataType.ValueType valueType = value.getDataSet().getDataType().getValueType();
             if (valueType == CensusDataType.ValueType.PERCENT) {
-                return String.valueOf(Math.round(value.getValueFloat())) + "%";
+                if (value.getValueFloat() >= 1f) {
+                    return String.valueOf(Math.round(value.getValueFloat())) + "%";
+                } else {
+                    return "&lt;1%";
+                }
             } else if (valueType == CensusDataType.ValueType.NUMBER) {
                 return String.valueOf(Math.round(value.getValueFloat()));
-            } else if (valueType == CensusDataType.ValueType.MONETARY) {
-                return "$" + String.valueOf(Math.round(value.getValueFloat()));
             } else {
-                return String.valueOf(Math.round(value.getValueFloat()));
+                return String.valueOf(value.getValueFloat());
             }
         }
     }

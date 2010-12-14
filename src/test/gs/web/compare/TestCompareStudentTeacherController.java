@@ -634,6 +634,36 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         assertEquals("10:1", rval.get(1)[1].getBreakdownList().get(4).getValue());
     }
 
+    public void testGetValueAsText() {
+        SchoolCensusValue value = new SchoolCensusValue();
+
+        value.setValueText("text value");
+        assertEquals("text value", _controller.getValueAsText(value));
+
+        value.setValueText("15.15");
+        assertEquals("15.15", _controller.getValueAsText(value));
+
+        CensusDataSet dataSet = new CensusDataSet(CensusDataType.TEACHERS_PERCENT_IN_FIRST_YEAR, 2010); // PERCENT
+        value.setDataSet(dataSet);
+        value.setValueText(null);
+        value.setValueFloat(100f);
+        assertEquals("100%", _controller.getValueAsText(value));
+        value.setValueFloat(99.51f);
+        assertEquals("100%", _controller.getValueAsText(value));
+        value.setValueFloat(99.49f);
+        assertEquals("99%", _controller.getValueAsText(value));
+        value.setValueFloat(1f);
+        assertEquals("1%", _controller.getValueAsText(value));
+        value.setValueFloat(0.9f);
+        assertEquals("&lt;1%", _controller.getValueAsText(value));
+
+        dataSet = new CensusDataSet(CensusDataType.STUDENT_TEACHER_RATIO, 2010); // NUMBER
+        value = new SchoolCensusValue(); // to prevent exception on setting dataSet twice
+        value.setDataSet(dataSet);
+        value.setValueFloat(99.9f);
+        assertEquals("100", _controller.getValueAsText(value));
+    }
+
     private BreakdownNameValue getBreakdown(String name, String value, Float floatValue) {
         BreakdownNameValue breakdown = new BreakdownNameValue();
         breakdown.setName(name);
