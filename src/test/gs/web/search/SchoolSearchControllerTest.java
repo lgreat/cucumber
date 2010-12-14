@@ -70,7 +70,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         verifyMocks(_districtDao, _geoDao);
     }
 
-    public void xtestHandle() throws Exception {
+    public void testHandle() throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
         schoolSearchCommand.setSortBy(FieldSort.GS_RATING_DESCENDING.name());
@@ -101,7 +101,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertEquals("Model should contain correct view name", "/search/schoolSearchResults", modelAndView.getViewName());
     }
 
-    public void xtestHandle2() throws Exception {
+    public void testHandle2() throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
         schoolSearchCommand.setSortBy(FieldSort.GS_RATING_DESCENDING.name());
@@ -133,7 +133,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertNotNull("Model should be no longer", modelAndView);
     }
 
-    public void xtestHandle3() throws Exception {
+    public void testHandle3() throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
         schoolSearchCommand.setSortBy(FieldSort.GS_RATING_DESCENDING.name());
