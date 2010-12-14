@@ -56,7 +56,7 @@
                                         ${censusCell.headerText}
                                         <div class="year">${censusCell.year}</div>
                                         <c:if test="${censusCell.breakdownValueMinimum gt 0}">
-                                            <div class="minimum">Values over ${censusCell.breakdownValueMinimum} are shown</div>
+                                            <div class="minimum">Values over ${censusCell.breakdownValueMinimum}% are shown</div>
                                         </c:if>
                                     </th>
                                 </c:when>
