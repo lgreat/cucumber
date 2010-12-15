@@ -9,6 +9,7 @@ public class CensusStruct {
     private boolean _isHeaderCell = false;
     private boolean _isSimpleCell = false;
     private String _headerText;
+    private String _breakdownText;
     private String _extraInfo;
     private List<BreakdownNameValue> _breakdownList;
     private String _value;
@@ -48,6 +49,14 @@ public class CensusStruct {
 
     public void setHeaderText(String headerText) {
         _headerText = headerText;
+    }
+
+    public String getBreakdownText() {
+        return _breakdownText;
+    }
+
+    public void setBreakdownText(String breakdownText) {
+        _breakdownText = breakdownText;
     }
 
     public String getExtraInfo() {

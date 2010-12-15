@@ -4,6 +4,7 @@ import gs.data.compare.CompareConfig;
 import gs.data.compare.CompareLabel;
 import gs.data.compare.ICompareConfigDao;
 import gs.data.compare.ICompareLabelDao;
+import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.state.State;
@@ -113,7 +114,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         for (CompareConfig compareConfig: compareConfigs) {
             // copy all the compare configs in
             String uniqueKey = compareConfig.getDataTypeId() + ":" + compareConfig.getBreakdownId() + ":" +
-                    compareConfig.getGradeLevels() + ":" + compareConfig.getLevelCode() + ":" +
+                    compareConfig.getGrade() + ":" + compareConfig.getLevelCode() + ":" +
                     compareConfig.getSubject() + ":" + compareConfig.getSchoolType();
             CompareConfig existing = uniqueConfigMap.get(uniqueKey);
             // making sure not overwrite a value unless the new one has a state
@@ -146,12 +147,13 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             if (config.getBreakdownId() != null) {
                 breakdown = new Breakdown(config.getBreakdownId());
             }
-            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),config.getGradeLevels());
+            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),
+                                                                        Grades.createGrades(config.getGrade()));
             if (censusDataSet == null) {
                 _log.warn("Can't find data set corresponding to config row: " + config.getId());
                 continue;
             }
-            CompareLabel label = _compareLabelDao.findLabel(state,dataTypeId,config.getTabName(),config.getGradeLevels(),breakdown,config.getLevelCode(),config.getSubject());
+            CompareLabel label = _compareLabelDao.findLabel(state,dataTypeId,config.getTabName(),config.getGrade(),breakdown,config.getLevelCode(),config.getSubject());
             if (label == null) {
                 _log.warn("Can't find label corresponding to config row: " + config.getId());
                 continue;

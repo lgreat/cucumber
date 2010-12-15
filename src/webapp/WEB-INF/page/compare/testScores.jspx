@@ -68,23 +68,31 @@
                                 <c:when test="${testCell.isHeaderCell}">
                                     <c:set var="rowYear" value="${testCell.year}"/>
                                     <th>
-                                        ${testCell.headerText}
-                                        <div class="year">${testCell.year}</div>
+                                        <div class="mainLabel">${testCell.headerText}</div>
+                                        <c:choose>
+                                            <c:when test="${not empty testCell.breakdownText}">
+                                                <div class="breakdownLabel">${testCell.breakdownText} - ${testCell.year}</div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="year">${testCell.year}</div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </th>
                                 </c:when>
                                 <c:otherwise>
                                     <td>
                                         <c:choose>
                                             <c:when test="${empty testCell}">
-                                                This information is not available.
+                                                <!-- TODO: Handle private school case -->
+                                                <div class="noInfo">N/A</div>
                                             </c:when>
                                             <c:otherwise>
                                                 ${testCell.value}
+                                                <c:if test="${testCell.year ne rowYear}">
+                                                    <div class="year">Note: ${testCell.year} data</div>
+                                                </c:if>
                                             </c:otherwise>
                                         </c:choose>
-                                        <c:if test="${not empty testCell and testCell.year ne rowYear}">
-                                            <div class="year">Note: ${testCell.year} data</div>
-                                        </c:if>
                                     </td>
                                 </c:otherwise>
                             </c:choose>

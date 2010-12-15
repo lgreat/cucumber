@@ -481,7 +481,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         compareConfig.setId(1);
         compareConfig.setOrderNum(1);
         compareConfig.setBreakdownId(5);
-        compareConfig.setGradeLevels(Grades.createGrades(Grade.G_3));
+        compareConfig.setGrade(Grade.G_3);
         compareConfig.setLevelCode(LevelCode.ELEMENTARY);
         compareConfig.setYear(2009);
         compareConfig.setSubject(Subject.ENGLISH);
@@ -499,7 +499,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         label.setRowLabel("Ethnicity");
         expect(_compareLabelDao
                        .findLabel(eq(State.CA), eq(CensusDataType.STUDENTS_ETHNICITY.getId().intValue()), eq(TAB_NAME),
-                                  eq(Grades.createGrades(Grade.G_3)), isA(Breakdown.class), eq(LevelCode.ELEMENTARY),
+                                  eq(Grade.G_3), isA(Breakdown.class), eq(LevelCode.ELEMENTARY),
                                   eq(Subject.ENGLISH)))
                 .andReturn(label);
         replayAllMocks();
