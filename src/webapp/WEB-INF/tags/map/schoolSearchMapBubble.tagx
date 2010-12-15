@@ -12,31 +12,38 @@
         >
 
     <jsp:directive.tag body-content="empty" description="Display the bubble (InfoWindow) for google maps marker."/>
-    <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult" description="The search result to display within the bubble"/>
+    <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult"
+                             description="The search result to display within the bubble"/>
     <jsp:directive.attribute name="greatSchoolsRating" required="false" description="GreatSchools school rating"/>
     <jsp:directive.attribute name="parentRating" required="false" description="School's parent rating"/>
 
-    <!--
+<!--
 var height = 85; // default height
 var heightMultiplier = Math.floor(school.name.length / 30);
 // add 13 pixels (font line-height) for every multiple of 30 that the school name's length exceeds
 // this is a guesstimate of how many chars it takes to wrap to the next line
-height += heightMultiplier * 13;-->
+height += heightMultiplier * 13;
+-->
 
-    <div class="schoolInfoWindow">
+    <div class="schoolInfoWindow clearfix">
 
         <!--<p>School type is: <c:out value="${school.type.schoolTypeName}" default="not set"/></p>-->
         <!--<p>School level is: <c:out value="${school.levelCode}" default="not set"/></p>-->
         <!--<p>Parent rating is: <c:out value="${parentRating}" default="not set"/></p>-->
 
-        <p class="text2">
-            <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
-                                                     databaseState="${school.databaseState}"
-                                                     name="${school.name}"
-                                                     physicalAddress="${school.address}"
-                                                     levelCode="${school.levelCode}"
-                                                     styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverviewForPrimitives>
-        </p>
+        <div class="line">
+
+            <div class="unit size1of1 lastUnit">
+                <p class="text2">
+                    <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                             databaseState="${school.databaseState}"
+                                                             name="${school.name}"
+                                                             physicalAddress="${school.address}"
+                                                             levelCode="${school.levelCode}"
+                                                             styleClass="schoolName"><!-- TODO: school name width 210px -->${school.name}</link:schoolProfileOverviewForPrimitives>
+                </p>
+            </div>
+        </div>
 
         <div class="spacer_5"><!-- do not collapse --></div>
         <div class="line">
@@ -71,21 +78,21 @@ height += heightMultiplier * 13;-->
             </div>-->
         </div>
         <div class="spacer_5"><!-- do not collapse --></div>
-        
+
         <div class="line smallText1-333">
             <div class="unit size1of2">
                 <div class="typeGrade">
-                <c:choose>
-                    <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
-                    <c:otherwise>${gsweb:capitalize(school.schoolType)}, ${school.grades.rangeString}</c:otherwise>
-                </c:choose>
-                    </div>
+                    <c:choose>
+                        <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
+                        <c:otherwise>${gsweb:capitalize(school.schoolType)}, ${school.grades.rangeString}</c:otherwise>
+                    </c:choose>
+                </div>
             </div>
             <div class="unit size1of2 lastUnit">
                 <div class="brdlft-solid getDirections">
-                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.address.street}%20${school.address.city},%20${school.address.state}%20${school.address.zip}"
-                   onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions</a>
-                    </div>
+                    <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.address.street}%20${school.address.city},%20${school.address.state}%20${school.address.zip}"
+                       onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions</a>
+                </div>
             </div>
             <!--<div class="unit size1of3 lastUnit">
                 <div class="homesForSale">
@@ -97,6 +104,4 @@ height += heightMultiplier * 13;-->
             </div>-->
         </div>
     </div>
-
-
 </jsp:root>
