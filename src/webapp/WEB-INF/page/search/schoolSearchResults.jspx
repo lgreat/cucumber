@@ -338,7 +338,7 @@
         <div class="mod_bd"><!-- do not collapse --></div>
     </div>
 
-    <div id="nearbySchoolsMap" class="border-c6">
+    <div id="nearbySchoolsSearchMap" class="border-c6">
         &#160;
         <noscript>JavaScript is required in order to view a map of the city and its
             schools.
@@ -346,7 +346,7 @@
     </div>
 
     <map:schoolSearchMap
-            id="nearbySchoolsMap"
+            id="nearbySchoolsSearchMap"
             tooltips="true"
             schools="${schoolSearchResults}"
             ratings="${ratings}"

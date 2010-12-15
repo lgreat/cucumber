@@ -5167,6 +5167,10 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     height: 277px;
 }
 
+#nearbySchoolsSearchMap {
+    height: 277px;
+}
+
 #google_ads_div_School_Profile_Page_Overview_CustomSponsor_407x65 {
     padding: 0 0 12px 0;
 }
@@ -5179,6 +5183,11 @@ body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline, body.ie7 #js-esp-info-pop
     /*height:135px;*/
     /*display:block;*/
     /*overflow:hidden;*/
+}
+
+#nearbySchoolsSearchMap .schoolInfoWindow{
+    width:auto;
+    margin-right:15px;
 }
 
 .schoolInfo{
