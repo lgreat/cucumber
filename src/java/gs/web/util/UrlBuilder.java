@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.238 2010/12/14 01:59:59 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.239 2010/12/15 00:04:23 aroy Exp $
  */
 
 package gs.web.util;
@@ -186,6 +186,7 @@ public class UrlBuilder {
     public static final VPage COMPARE_SCHOOL = new VPage("vpage:compareSchool");
     public static final VPage COMPARE_SCHOOLS_OVERVIEW = new VPage("vpage:compareSchoolsOverview");
     public static final VPage COMPARE_SCHOOLS_RATINGS = new VPage("vpage:compareSchoolsRatings");
+    public static final VPage COMPARE_SCHOOLS_TEST_SCORES = new VPage("vpage:compareTestScores");
     public static final VPage COMPARE_SCHOOLS_STUDENT_TEACHER = new VPage("vpage:compareSchoolsStudentTeacher");
     public static final VPage COMPARE_SCHOOLS_MAP = new VPage("vpage:compareSchoolsMap");
 
@@ -858,6 +859,8 @@ public class UrlBuilder {
             _path="/school-comparison-tool/results.page";
         } else if (COMPARE_SCHOOLS_RATINGS.equals(page)) {
             _path="/school-comparison-tool/ratings.page";
+        } else if (COMPARE_SCHOOLS_TEST_SCORES.equals(page)) {
+            _path="/school-comparison-tool/testScores.page";
         } else if (COMPARE_SCHOOLS_STUDENT_TEACHER.equals(page)) {
             _path="/school-comparison-tool/studentTeacher.page";
         } else if (COMPARE_SCHOOLS_MAP.equals(page)) {

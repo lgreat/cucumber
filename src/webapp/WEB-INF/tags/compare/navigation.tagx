@@ -28,7 +28,7 @@
         </c:choose>
         <c:choose>
             <c:when test="${tab eq 'tests'}"><li class="active"><span>Test Scores</span></li></c:when>
-            <c:otherwise><li class="inactive"><a href="#" onclick="return false;">Test Scores</a></li></c:otherwise>
+            <c:otherwise><li class="inactive"><link:compareSchools tab="testScores" schools="${schoolsString}" page="${page}">Test Scores</link:compareSchools></li></c:otherwise>
         </c:choose>
         <c:choose>
             <c:when test="${tab eq 'studentTeacher'}"><li class="active"><span>Teachers &amp;amp; Students</span></li></c:when>

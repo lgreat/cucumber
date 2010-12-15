@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>School Comparison Test Scores | GreatSchools</title>
+    </head>
+
+    <c:set var="omniturePageName" value="Compare_testscores" scope="request"/>
+    <ad:setSlotPrefix slotPrefix="Compare_Page"/>
+
+    <gsml:body adPageName="compare" pageLayout="leftside">
+        <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Academics">
+            <tr>
+                <th scope="row">School</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_schools">
+                        <compare:schoolOverview school="${school}" tab="${tab}"
+                                                schoolsString="${schoolsString}" page="${page}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th scope="row">GreatSchools Rating</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_gsRating center">
+                        <c:choose>
+                            <c:when test="${school.private}">
+                                <p class="smallText1"><span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                                <span class="privateRating rateDesc">GreatSchools Ratings not available for private schools.</span></p>
+                            </c:when>
+                            <c:when test="${empty school.gsRating}">
+                                <span class="ratingNotApplicable rateDesc">n/a</span>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span></p>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th scope="row">School type</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_type center text3">
+                        ${school.type} ${school.gradeLevels}
+                    </td>
+                </c:forEach>
+            </tr>
+            <c:if test="${not empty testRows}">
+                <c:forEach items="${testRows}" var="testRow">
+                    <c:set var="rowYear" value="9999"/>
+                    <tr>
+                        <c:forEach items="${testRow}" var="testCell">
+                            <c:choose>
+                                <c:when test="${testCell.isHeaderCell}">
+                                    <c:set var="rowYear" value="${testCell.year}"/>
+                                    <th>
+                                        ${testCell.headerText}
+                                        <div class="year">${testCell.year}</div>
+                                    </th>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${empty testCell}">
+                                                This information is not available.
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${testCell.value}
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:if test="${not empty testCell and testCell.year ne rowYear}">
+                                            <div class="year">Note: ${testCell.year} data</div>
+                                        </c:if>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+            </c:if>
+        </compare:compareTemplate>
+    </gsml:body>
+    </html>
+</jsp:root>
+
