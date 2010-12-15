@@ -601,6 +601,7 @@ public class DiscussionSubmissionController extends SimpleFormController impleme
             UrlBuilder postUrlBuilder = discussionTagHandler.createUrlBuilder();
             emailAttributes.put("post_url", postUrlBuilder.asSiteRelative(request));
             emailAttributes.put("entity_id", String.valueOf(discussion.getId()));
+            emailAttributes.put("post_title", discussion.getTitle());
 
             _exactTargetAPI.sendTriggeredEmail("gs_community_notification", author, emailAttributes);
         }
