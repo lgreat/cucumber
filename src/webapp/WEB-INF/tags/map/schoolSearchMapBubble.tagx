@@ -84,7 +84,7 @@ height += heightMultiplier * 13;
                 <div class="typeGrade">
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p'}">Preschool</c:when>
-                        <c:otherwise>${gsweb:capitalize(school.schoolType)}, ${school.grades.rangeString}</c:otherwise>
+                        <c:otherwise>${gsweb:capitalize(school.schoolType)}<c:if test="${school.grades.rangeString ne 'n/a'}">, ${school.grades.rangeString}</c:if></c:otherwise>
                     </c:choose>
                 </div>
             </div>
