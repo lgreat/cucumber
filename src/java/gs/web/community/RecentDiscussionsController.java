@@ -37,7 +37,6 @@ public class RecentDiscussionsController extends AbstractController {
 
     public static final String DEFAULT_MORE_TEXT = "More conversations";
     public static final String STYLE_COMMUNITY_LANDING = "communityLanding";
-    public static final String STYLE_SEARCH_RESULTS = "searchResults";
 
     public static final String VIEW_NOT_FOUND = "/status/error404.page";
     public static final String PARAM_BOARD_ID = "board_id";
@@ -127,9 +126,6 @@ public class RecentDiscussionsController extends AbstractController {
             model.put(MODEL_STYLE, style);
             if (STYLE_COMMUNITY_LANDING.equals(style)) {
                 showForm = false;
-                showCityMenu = true;
-            } else if (STYLE_SEARCH_RESULTS.equals(style)) {
-                showForm = true;
                 showCityMenu = true;
             }
 

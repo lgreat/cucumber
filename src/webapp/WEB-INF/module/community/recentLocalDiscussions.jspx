@@ -57,7 +57,7 @@
 
             <p class="text1">
                 <c:choose>
-                    <c:when test="${requestScope.showCityMenu}">
+                    <c:when test="${requestScope.style eq 'communityLanding'}">
                         Conversations about <span class="text1bold-d61">${requestScope.cityName}</span>
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <c:import url="/community/changeLocalBoards.module"/>

@@ -356,20 +356,16 @@
 
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
 
+    <!-- Community module -->
+    <c:set var="recentDiscussions" value=""/>
     <c:if test="${not empty localBoardId and not empty localCityName}">
         <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-
-        <div id="recentLocalDiscussions" class="mod">
-            <div class="mod_hd">
-                <h3>${fn:escapeXml(localCityName)} Community</h3>
-            </div>
-
-            <div class="mod_bd">
-                <c:import
-                        url="/community/recentLocalDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;cityName=${gsweb:urlEncode(localCityName)}&amp;style=searchResults"/>
-            </div>
-        </div>
+        <c:set var="recentDiscussions">
+            <c:import
+                    url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false"/>
+        </c:set>
     </c:if>
+    ${recentDiscussions}
 
     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
