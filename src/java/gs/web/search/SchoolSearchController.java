@@ -162,7 +162,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         // if district browse *and* lc parameter was specified, 301-redirect to use directory-structure schools label instead of lc parameter
         String lc = request.getParameter("lc");
-        if (isDistrictBrowse && StringUtils.isNotBlank(lc)) {
+        if (isDistrictBrowse && StringUtils.isNotBlank(lc) && !schoolSearchCommand.isAjaxRequest()) {
             LevelCode levelCode = LevelCode.createLevelCode(lc);
             UrlBuilder urlBuilder = new UrlBuilder(district, levelCode, UrlBuilder.SCHOOLS_IN_DISTRICT);
             return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
