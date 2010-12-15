@@ -46,6 +46,7 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+    var onLoadCallback = function() {};
 
     map = new google.maps.Map(document.getElementById(id), mapOptions);
 
@@ -57,8 +58,9 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     //when the map finishes loading, draw the markers and zoom out to see all markers
     google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
-        this.drawMarkers();
         this.expandMapToFitMarkers();
+        this.drawMarkers();
+        onLoadCallback();
     }.gs_bind(this));
 
     
@@ -277,6 +279,10 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
             this.addSchool(schools[i], markerClickedCallback);
         }
     };
+
+    this.setOnLoadCallback = function(callback) {
+        onLoadCallback = callback;
+    }.gs_bind(this);
 
     //var displayTooltips = ${not empty tooltips};
     //I'm not sure where this is used so I'm leaving it here
