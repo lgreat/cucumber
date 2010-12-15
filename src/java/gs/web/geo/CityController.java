@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.67 2010/12/10 19:56:51 yfan Exp $
+ * $Id: CityController.java,v 1.68 2010/12/15 01:53:02 yfan Exp $
  */
 
 package gs.web.geo;
@@ -18,7 +18,6 @@ import gs.data.test.rating.ICityRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
-import gs.web.school.SavvySourceHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -64,8 +63,6 @@ public class CityController extends AbstractController  implements IDirectoryStr
     public static final String MODEL_DISCUSSION_BOARD_ID = "discussionBoardId"; // AnchorListModel object
 
     public static final String PARAM_CITY_CANONICAL_PATH = "canonicalCityPath";
-
-    public static final String SHOW_SAVVY_SOURCE_CITY_LINK = "showSavvySourceCityLink";
 
     //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of AnchorListModel object
     private static final Log _log = LogFactory.getLog(CityController.class);
@@ -205,12 +202,6 @@ public class CityController extends AbstractController  implements IDirectoryStr
                 model.put(MODEL_SCHOOLS, schools);
             }
         }
-
-        // GS-10853
-        boolean showSavvySourceCityLink = _schoolDao.isCityWithNActivePreschools(
-                city.getState(), city.getName(),
-                SavvySourceHelper.NUM_PRESCHOOLS_THRESHOLD);
-        model.put(SHOW_SAVVY_SOURCE_CITY_LINK, showSavvySourceCityLink);
 
         Integer cityRatingValue = 0;
         String strCityRating = "no";
