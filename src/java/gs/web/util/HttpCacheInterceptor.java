@@ -65,7 +65,7 @@ public class HttpCacheInterceptor implements HandlerInterceptor {
      */
     public void setCacheHeaders(HttpServletResponse response) {
         response.setHeader(HEADER_CACHE_CONTROL, "public, max-age=" + getCacheControlMaxAge());
-        response.setDateHeader(HEADER_EXPIRES, new Date().getTime() + 1000 * getCacheControlMaxAge());
+        response.setDateHeader(HEADER_EXPIRES, new Date().getTime() + (1000 * getCacheControlMaxAge()));
     }
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
