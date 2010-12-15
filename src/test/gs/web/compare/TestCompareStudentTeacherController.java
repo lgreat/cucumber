@@ -424,7 +424,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         expect(_censusDataSetDao.findDataSet(State.CA, CensusDataType.STUDENTS_ETHNICITY, null, null, null, null, null))
                 .andReturn(new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY, 2009));
         expect(_compareLabelDao
-                       .findLabel(State.CA, CensusDataType.STUDENTS_ETHNICITY, TAB_NAME, null, null, null, null))
+                       .findLabel(State.CA, CensusDataType.STUDENTS_ETHNICITY.getId(), TAB_NAME, null, null, null, null))
                 .andReturn(null);
         replayAllMocks();
         List<CensusDataSet> rval = _controller.getCensusDataSets
@@ -456,7 +456,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         CompareLabel label = new CompareLabel();
         label.setRowLabel("Ethnicity");
         expect(_compareLabelDao
-                       .findLabel(State.CA, CensusDataType.STUDENTS_ETHNICITY, TAB_NAME, null, null, null, null))
+                       .findLabel(State.CA, CensusDataType.STUDENTS_ETHNICITY.getId(), TAB_NAME, null, null, null, null))
                 .andReturn(label);
         replayAllMocks();
         List<CensusDataSet> rval = _controller.getCensusDataSets
@@ -498,7 +498,7 @@ public class TestCompareStudentTeacherController extends BaseControllerTestCase 
         CompareLabel label = new CompareLabel();
         label.setRowLabel("Ethnicity");
         expect(_compareLabelDao
-                       .findLabel(eq(State.CA), eq(CensusDataType.STUDENTS_ETHNICITY), eq(TAB_NAME),
+                       .findLabel(eq(State.CA), eq(CensusDataType.STUDENTS_ETHNICITY.getId().intValue()), eq(TAB_NAME),
                                   eq(Grades.createGrades(Grade.G_3)), isA(Breakdown.class), eq(LevelCode.ELEMENTARY),
                                   eq(Subject.ENGLISH)))
                 .andReturn(label);
