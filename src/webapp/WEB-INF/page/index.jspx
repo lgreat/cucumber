@@ -140,8 +140,6 @@
 <pageHelper:addOnLoadHandler handler="hoverHome();showLatestTools();"/>
 <pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
-<pageHelper:externalJavascript file="http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.2/prototype.js"/>
-
 <c:set var="showAd"
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 
