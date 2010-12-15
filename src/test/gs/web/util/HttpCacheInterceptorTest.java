@@ -17,6 +17,26 @@ public class HttpCacheInterceptorTest extends BaseControllerTestCase {
         _interceptor = new HttpCacheInterceptor();
     }
 
+    public void testGetCacheControlMaxAge() throws Exception {
+        System.clearProperty("cachetime");
+        assertEquals(604800, HttpCacheInterceptor.getCacheControlMaxAge());
+
+        System.setProperty("cachetime", String.valueOf(604800));
+        assertEquals(604800, HttpCacheInterceptor.getCacheControlMaxAge());
+
+        System.setProperty("cachetime", String.valueOf(600));
+        assertEquals(600, HttpCacheInterceptor.getCacheControlMaxAge());
+
+        System.setProperty("cachetime", String.valueOf(-600));
+        assertEquals(0, HttpCacheInterceptor.getCacheControlMaxAge());
+
+        System.setProperty("cachetime", String.valueOf(0));
+        assertEquals(0, HttpCacheInterceptor.getCacheControlMaxAge());
+
+        System.setProperty("cachetime", "not-a-number");
+        assertEquals(604800, HttpCacheInterceptor.getCacheControlMaxAge());
+    }
+
     public void testNoCacheHeaders() throws Exception {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
