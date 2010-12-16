@@ -25,7 +25,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
     private ICensusInfo _censusInfo;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
-    private ICensusDataSchoolValueDao _schoolCensusValueDao;
+    private ICensusDataSchoolValueDao _censusDataSchoolValueDao;
 
     @Override
     public void setUp() throws Exception {
@@ -37,22 +37,22 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         _censusInfo = createStrictMock(ICensusInfo.class);
         _compareLabelDao = createStrictMock(ICompareLabelDao.class);
         _compareConfigDao = createStrictMock(ICompareConfigDao.class);
-        _schoolCensusValueDao = createStrictMock(ICensusDataSchoolValueDao.class);
+        _censusDataSchoolValueDao = createStrictMock(ICensusDataSchoolValueDao.class);
         
         _controller.setSuccessView("success");
         _controller.setCensusDataSetDao(_censusDataSetDao);
         _controller.setCensusInfo(_censusInfo);
         _controller.setCompareLabelDao(_compareLabelDao);
         _controller.setCompareConfigDao(_compareConfigDao);
-        _controller.setSchoolCensusValueDao(_schoolCensusValueDao);
+        _controller.setCensusDataSchoolValueDao(_censusDataSchoolValueDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _schoolCensusValueDao);
+        replayMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _censusDataSchoolValueDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _schoolCensusValueDao);
+        verifyMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _censusDataSchoolValueDao);
     }
 
 //    private void resetAllMocks() {
@@ -65,7 +65,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         assertSame(_censusInfo, _controller.getCensusInfo());
         assertSame(_compareConfigDao, _controller.getCompareConfigDao());
         assertSame(_compareLabelDao, _controller.getCompareLabelDao());
-        assertSame(_schoolCensusValueDao, _controller.getSchoolCensusValueDao());
+        assertSame(_censusDataSchoolValueDao, _controller.getCensusDataSchoolValueDao());
         assertEquals(ComparedSchoolStudentTeacherStruct.class, _controller.getStruct().getClass());
     }
 

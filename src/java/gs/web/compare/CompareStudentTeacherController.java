@@ -31,7 +31,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     private ICensusInfo _censusInfo;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
-    private ICensusDataSchoolValueDao _schoolCensusValueDao;
+    private ICensusDataSchoolValueDao _censusDataSchoolValueDao;
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -79,7 +79,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
         // 3) bulk query: retrieve school values for each school and data set
         List<SchoolCensusValue> schoolCensusValues =
-                _schoolCensusValueDao.findSchoolCensusValues(state, censusDataSets, schools);
+                _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets, schools);
         if (schoolCensusValues == null || schoolCensusValues.size() == 0) {
             _log.error("Can't find school census values for " + state + ", " + tab);
             return new ArrayList<CensusStruct[]>();
@@ -417,11 +417,11 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         _compareConfigDao = compareConfigDao;
     }
 
-    public ICensusDataSchoolValueDao getSchoolCensusValueDao() {
-        return _schoolCensusValueDao;
+    public ICensusDataSchoolValueDao getCensusDataSchoolValueDao() {
+        return _censusDataSchoolValueDao;
     }
 
-    public void setSchoolCensusValueDao(ICensusDataSchoolValueDao schoolCensusValueDao) {
-        _schoolCensusValueDao = schoolCensusValueDao;
+    public void setCensusDataSchoolValueDao(ICensusDataSchoolValueDao censusDataSchoolValueDao) {
+        _censusDataSchoolValueDao = censusDataSchoolValueDao;
     }
 }
