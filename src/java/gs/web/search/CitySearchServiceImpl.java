@@ -61,26 +61,7 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
 
     public Query buildQuery(String searchString, State state) throws ParseException {
         if (searchString != null) {
-            searchString = StringUtils.trimToNull(searchString);
-            searchString = StringUtils.lowerCase(searchString);
-
-            if (searchString != null && searchString.matches(PUNCTUATION_AND_WHITESPACE_PATTERN)) {
-                return null;//TODO: throw exception instead
-            }
-
-            searchString = padCommasAndNormalizeExtraSpaces(searchString);
-
-            if (searchString != null) {
-                searchString = QueryParser.escape(searchString);
-            }
-
-            //Query should be built using the given searchString; however, caller should be able to provide
-            //an actual districtId, city, or state as well, since we cannot currently parse those out of the search string.
-
-            searchString = StringUtils.trimToNull(searchString);
-            if (searchString != null) {
-                searchString = searchString.replaceFirst("\\?$", ""); // GS-7244 - trim question marks
-            }
+            searchString = cleanseSearchString(searchString);
         }
 
         try {
