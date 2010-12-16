@@ -22,13 +22,13 @@ public class RatingHelper {
         IRatingsConfig ratingsConfig = null;
 
         try {
-            ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), useCache);
+            ratingsConfig = getRatingsConfigDao().restoreRatingsConfig(school.getDatabaseState(), useCache);
         } catch (IOException e) {
             _log.debug("Failed to get ratings config from ratings config dao", e);
         }
 
         if (null != ratingsConfig) {
-            SchoolTestValue schoolTestValue = _testManager.getOverallRating(school, ratingsConfig.getYear());
+            SchoolTestValue schoolTestValue = getTestManager().getOverallRating(school, ratingsConfig.getYear());
 
             if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
                 greatSchoolsRating = schoolTestValue.getValueInteger();
