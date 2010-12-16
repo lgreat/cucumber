@@ -9279,6 +9279,7 @@ button {
     z-index:1;
 }
 
+#js-bubbleInfo-0,
 #js-bubbleInfo-1,
 #js-bubbleInfo-2,
 #js-bubbleInfo-3,
@@ -9295,6 +9296,15 @@ button {
     display:inline-block;
     *display:inline;
     *z-index:1000;
+}
+
+#popup-contents-0 {
+    background: #FFF;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 288px;
+    text-align: left;
+    margin-left: 15px;
 }
 
 #popup-contents-1 {
@@ -9347,6 +9357,18 @@ button {
     width:183px;
     padding:3px 15px 3px 0;
     vertical-align:top;
+}
+
+#popup-contents-0 span.arrow-outline-left {
+    position: absolute;
+    left: 1px;
+    top: 15px;
+}
+
+#popup-contents-0 span.arrow-left {
+    position: absolute;
+    left: 3px;
+    top: 15px;
 }
 
 #popup-contents-1 span.arrow-outline-top {
@@ -9448,18 +9470,18 @@ button {
 
 /* skin top arrow */
 span.arrow-outline-top {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-bottom: 15px solid #ccc;
     border-right: 11px solid rgba(255, 255, 255, 0.0);
 }
 
 span.arrow-top {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-bottom: 15px solid white;
     border-right: 11px solid rgba(255, 255, 255, 0.0);
@@ -9468,9 +9490,9 @@ span.arrow-top {
 body.ie6 span.arrow-outline-top,
 body.ie7 span.arrow-outline-top,
 body.ie8 span.arrow-outline-top {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px solid white;
     border-bottom: 15px solid #ccc;
     border-right: 11px solid white;
@@ -9479,9 +9501,9 @@ body.ie8 span.arrow-outline-top {
 body.ie6 span.arrow-top,
 body.ie7 span.arrow-top,
 body.ie8 span.arrow-top {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px dashed black;
     border-bottom: 15px solid white;
     border-right: 11px dashed black;
@@ -9489,9 +9511,9 @@ body.ie8 span.arrow-top {
 
 /* skin right arrow */
 /*span.arrow-outline-shadow-right {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-left: 15px solid #333;
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
@@ -9499,18 +9521,18 @@ body.ie8 span.arrow-top {
 }*/
 
 span.arrow-outline-right {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-left: 15px solid #ccc;
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
 }
 
 span.arrow-right {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-left: 15px solid white;
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
@@ -9519,9 +9541,9 @@ span.arrow-right {
 /*body.ie6 span.arrow-outline-shadow-right,
 body.ie7 span.arrow-outline-shadow-right,
 body.ie8 span.arrow-outline-shadow-right {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-top: 11px dashed white;
     border-left: 15px solid #333;
     border-bottom: 11px dashed white;
@@ -9531,9 +9553,9 @@ body.ie8 span.arrow-outline-shadow-right {
 body.ie6 span.arrow-outline-right,
 body.ie7 span.arrow-outline-right,
 body.ie8 span.arrow-outline-right {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-top: 11px solid white;
     border-left: 15px solid #ccc;
     border-bottom: 11px solid white;
@@ -9542,9 +9564,9 @@ body.ie8 span.arrow-outline-right {
 body.ie6 span.arrow-right,
 body.ie7 span.arrow-right,
 body.ie8 span.arrow-right {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-top: 11px dashed black;
     border-left: 15px solid white;
     border-bottom: 11px dashed black;
@@ -9552,18 +9574,18 @@ body.ie8 span.arrow-right {
 
 /* skin bottom arrow */
 span.arrow-outline-bottom {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-top: 15px solid #ccc;
     border-right: 11px solid rgba(255, 255, 255, 0.0);
 }
 
 span.arrow-bottom {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-top: 15px solid white;
     border-right: 11px solid rgba(255, 255, 255, 0.0);
@@ -9572,9 +9594,9 @@ span.arrow-bottom {
 body.ie6 span.arrow-outline-bottom,
 body.ie7 span.arrow-outline-bottom,
 body.ie8 span.arrow-outline-bottom {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px solid white;
     border-top: 15px solid #ccc;
     border-right: 11px solid white;
@@ -9583,12 +9605,75 @@ body.ie8 span.arrow-outline-bottom {
 body.ie6 span.arrow-bottom,
 body.ie7 span.arrow-bottom,
 body.ie8 span.arrow-bottom {
-    font-size: 0px;
+    font-size: 0;
     line-height: 0%;
-    width: 0px;
+    width: 0;
     border-left: 11px dashed black;
     border-top: 15px solid white;
     border-right: 11px dashed black;
+}
+
+/* skin left arrow */
+/*span.arrow-outline-shadow-left {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-right: 15px solid #333;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
+    background: none;
+}*/
+
+span.arrow-outline-left {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-right: 15px solid #ccc;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
+}
+
+span.arrow-left {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    border-top: 11px solid rgba(255, 255, 255, 0.0);
+    border-right: 15px solid white;
+    border-bottom: 11px solid rgba(255, 255, 255, 0.0);
+}
+
+/*body.ie6 span.arrow-outline-shadow-left,
+body.ie7 span.arrow-outline-shadow-left,
+body.ie8 span.arrow-outline-shadow-left {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    border-top: 11px dashed white;
+    border-right: 15px solid #333;
+    border-bottom: 11px dashed white;
+    zoom: 1;
+}*/
+
+body.ie6 span.arrow-outline-left,
+body.ie7 span.arrow-outline-left,
+body.ie8 span.arrow-outline-left {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    border-top: 11px solid white;
+    border-right: 15px solid #ccc;
+    border-bottom: 11px solid white;
+}
+
+body.ie6 span.arrow-left,
+body.ie7 span.arrow-left,
+body.ie8 span.arrow-left {
+    font-size: 0;
+    line-height: 0%;
+    width: 0;
+    border-top: 11px dashed black;
+    border-right: 15px solid white;
+    border-bottom: 11px dashed black;
 }
 
 /* =14 opacity / shadow
