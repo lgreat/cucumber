@@ -29,7 +29,7 @@ import static org.easymock.classextension.EasyMock.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class TestAbstractCompareSchoolController extends BaseControllerTestCase {
+public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase {
     private AbstractCompareSchoolController _controller;
     private ISchoolDao _schoolDao;
     private IRatingsConfigDao _ratingsConfigDao;

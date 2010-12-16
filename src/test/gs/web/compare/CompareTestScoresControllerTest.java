@@ -22,7 +22,7 @@ import static gs.web.compare.CompareTestScoresController.TAB_NAME;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class TestCompareTestScoresController extends BaseControllerTestCase {
+public class CompareTestScoresControllerTest extends BaseControllerTestCase {
     private CompareTestScoresController _controller;
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;

@@ -10,7 +10,7 @@ import static gs.web.compare.AbstractCompareSchoolController.MODEL_TAB;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class TestCompareOverviewController extends BaseControllerTestCase {
+public class CompareOverviewControllerTest extends BaseControllerTestCase {
     private CompareOverviewController _controller;
 
     @Override

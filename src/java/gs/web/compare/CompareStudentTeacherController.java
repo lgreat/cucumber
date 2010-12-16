@@ -147,8 +147,12 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             if (config.getBreakdownId() != null) {
                 breakdown = new Breakdown(config.getBreakdownId());
             }
+            Grades grades = null;
+            if (config.getGrade() != null) {
+                grades = Grades.createGrades(config.getGrade());
+            }
             CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),
-                                                                        Grades.createGrades(config.getGrade()));
+                                                                        grades);
             if (censusDataSet == null) {
                 _log.warn("Can't find data set corresponding to config row: " + config.getId());
                 continue;

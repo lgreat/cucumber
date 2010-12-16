@@ -19,7 +19,7 @@ import static gs.web.compare.CompareStudentTeacherController.TAB_NAME;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class TestCompareStudentTeacherController extends BaseControllerTestCase {
+public class CompareStudentTeacherControllerTest extends BaseControllerTestCase {
     private CompareStudentTeacherController _controller;
     private ICensusDataSetDao _censusDataSetDao;
     private ICensusInfo _censusInfo;

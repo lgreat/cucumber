@@ -14,7 +14,7 @@ import static org.easymock.classextension.EasyMock.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class TestCompareMapController extends BaseControllerTestCase {
+public class CompareMapControllerTest extends BaseControllerTestCase {
     private CompareMapController _controller;
     private IReviewDao _reviewDao;
 
