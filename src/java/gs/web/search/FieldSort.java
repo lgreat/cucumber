@@ -8,7 +8,7 @@ public enum FieldSort {
     GS_RATING_DESCENDING(Indexer.OVERALL_RATING, true),
     GS_RATING_ASCENDING(Indexer.OVERALL_RATING_SORTED_ASC, false),
     PARENT_RATING_DESCENDING(Indexer.PARENT_RATINGS_AVG_QUALITY, true),
-    PARENT_RATING_ASCENDING(Indexer.PARENT_RATINGS_AVG_QUALITY, false);
+    PARENT_RATING_ASCENDING(Indexer.COMMUNITY_RATING_SORTED_ASC, false);
 
     private String _field;
     private boolean _descending;

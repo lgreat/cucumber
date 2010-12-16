@@ -144,26 +144,15 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
 
     @XmlElement
     public Integer getParentRating() {
-        //some of below logic copied from SchoolSearchResult.java
-        Integer rating = null;
-        String parentRatingsCountString = _document.get(Indexer.PARENT_RATINGS_COUNT);
-        if (parentRatingsCountString != null) {
-            Integer parentRatingsCount = Integer.valueOf(parentRatingsCountString);
-            if (parentRatingsCount != null && Integer.valueOf(parentRatingsCount) > 0) {
-                if (LevelCode.PRESCHOOL.equals(getLevelCode())) {
-                    String parentRatingsPreschool = _document.get(Indexer.PARENT_RATINGS_AVG_P_OVERALL);
-                    if (parentRatingsPreschool != null) {
-                        rating = Integer.valueOf(parentRatingsPreschool);
-                    }
-                } else {
-                    String parentRatings = _document.get(Indexer.PARENT_RATINGS_AVG_QUALITY);
-                    if (parentRatings != null) {
-                        rating = Integer.valueOf(parentRatings);
-                    }
-                }
-            }
+        String rating = _document.get(Indexer.COMMUNITY_RATING_SORTED_ASC);
+        if ("99".equals(rating)) {
+            rating = null; //used to push an otherwise null value to end of results when sorted by this rating  :'(
         }
-        return rating;
+        Integer iRating = null;
+        if (rating != null) {
+            iRating = Integer.valueOf(rating);
+        }
+        return iRating;
     }
 
     @XmlTransient
