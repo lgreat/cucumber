@@ -32,20 +32,32 @@ public class LuceneSchoolSearchResultTest extends BaseTestCase {
         document.add(new Field(IndexField.TEXT, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.TEXT, SchoolType.PUBLIC.getSchoolTypeName(), Field.Store.YES, Field.Index.UN_TOKENIZED));
-        document.add(new Field("PHONE", "415-555-5555", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field(Indexer.SCHOOL_PHONE, "415-555-5555", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.LATITUDE, "37.00", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.LONGITUDE, "-122.00", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.OVERALL_RATING, "5", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.PARENT_RATINGS_AVG_QUALITY, "8", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.PARENT_RATINGS_COUNT, "3", Field.Store.YES, Field.Index.UN_TOKENIZED));
-
         return document;
     }
+
+    private Document getTestDocument1() {
+        Document document = getTestDocument();
+        document.add(new Field(Indexer.COMMUNITY_RATING_SORTED_ASC, "99", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        return document;
+    }
+
+    private Document getTestDocument2() {
+        Document document = getTestDocument();
+        document.add(new Field(Indexer.COMMUNITY_RATING_SORTED_ASC, "9", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        return document;
+    }
+
 
     public void setUp() throws Exception {
         super.setUp();
 
-        Document document = getTestDocument();
+        Document document = getTestDocument1();
 
         _result = new LuceneSchoolSearchResult(document);
     }
@@ -72,7 +84,7 @@ public class LuceneSchoolSearchResultTest extends BaseTestCase {
         assertEquals("Zip should match document", "94501", address.getZip());
     }
 
-    public void xtestGetPhone() throws Exception {
+    public void testGetPhone() throws Exception {
         String actualPhone = _result.getPhone();
         assertEquals("Phone should match document", "415-555-5555", actualPhone);
     }
@@ -98,8 +110,14 @@ public class LuceneSchoolSearchResultTest extends BaseTestCase {
         assertEquals("GS rating should match document", new Integer(5), actualRating);
     }
 
-    public void testGetParentRating() throws Exception {
+    public void testGetParentRatingNullWhen99() throws Exception {
         Integer actualRating = _result.getParentRating();
-        assertEquals("Parent rating should match document", new Integer(8), actualRating);
+        assertNull("Parent rating should be null", actualRating);
+    }
+
+    public void testGetParentRatingNull() throws Exception {
+        ISchoolSearchResult result2 = new LuceneSchoolSearchResult(getTestDocument2());
+        Integer actualRating = result2.getParentRating();
+        assertEquals("Parent rating should be 9", new Integer(9), actualRating);
     }
 }
