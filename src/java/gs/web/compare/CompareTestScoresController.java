@@ -230,7 +230,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
             // look up row and value label in censusDataSetToLabelMap
             CompareLabel label = testDataSetToRowLabelMap.get(schoolTestValue.getDataSet());
             // get array of cells from rowLabelToCellList map
-            CensusStruct[] cells = rval.get(label.getRowLabel() + label.getBreakdownLabel());
+            CensusStruct[] cells = rval.get(label.getRowLabel() + (label.getBreakdownLabel()!=null?label.getBreakdownLabel():""));
             // if null, create new cell list
             if (cells == null) {
                 // create static sized array with schools.size()+1 elements
@@ -246,7 +246,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
                 headerCell.setYear(schoolTestValue.getDataSet().getYear());
                 cells[0]=headerCell;
                 // add list to rowLabelToCellList
-                rval.put(label.getRowLabel() + label.getBreakdownLabel(), cells);
+                rval.put(label.getRowLabel() + (label.getBreakdownLabel()!=null?label.getBreakdownLabel():""), cells);
             }
             int cellIndex = schoolIdToIndex.get(schoolTestValue.getSchool().getId());
             CensusStruct cell = cells[cellIndex];
