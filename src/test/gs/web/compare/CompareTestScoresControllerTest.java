@@ -5,6 +5,7 @@ import gs.data.compare.CompareLabel;
 import gs.data.compare.ICompareConfigDao;
 import gs.data.compare.ICompareLabelDao;
 import gs.data.school.*;
+import gs.data.school.census.Breakdown;
 import gs.data.school.census.CensusDataSetType;
 import gs.data.state.State;
 import gs.data.test.*;
@@ -229,31 +230,31 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
-//    public void testGetTestDataSetsNoDataSet() {
-//        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
-//        CompareConfig compareConfig = new CompareConfig();
-//        compareConfig.setState(State.CA);
-//        compareConfig.setDataTypeId(110);
-//        compareConfig.setTabName(TAB_NAME);
-//        compareConfig.setId(1);
-//        compareConfigs.add(compareConfig);
-//        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
-//        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
-//        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
-//
-//        expect(_testDataTypeDao.getDataType(getTestDataType().getId())).andReturn(getTestDataType());
-//        expect(_testDataSetDao.findDataSet(State.CA, getTestDataType(), null, null, null, null, null))
-//                .andReturn(null);
-//        replayAllMocks();
-//        List<TestDataSet> rval = _controller.getTestDataSets
-//                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
-//        verifyAllMocks();
-//        assertNotNull(rval);
-//        assertEquals(0, rval.size());
-//        assertEquals(0, testDataSetCompareLabelMap.size());
-//        assertEquals(0, rowLabelToOrder.size());
-//        assertEquals(0, testDataSetSchoolTypeMap.size());
-//    }
+    public void testGetTestDataSetsNoDataSet() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(getTestDataType().getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfigs.add(compareConfig);
+        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
+
+        expect(_testDataTypeDao.getDataType(getTestDataType().getId())).andReturn(getTestDataType());
+        expect(_testDataSetDao.findDataSet(State.CA, null, getTestDataType().getId(), null, null, null, null, true, null))
+                .andReturn(null);
+        replayAllMocks();
+        List<TestDataSet> rval = _controller.getTestDataSets
+                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(0, rval.size());
+        assertEquals(0, testDataSetCompareLabelMap.size());
+        assertEquals(0, rowLabelToOrder.size());
+        assertEquals(0, testDataSetSchoolTypeMap.size());
+    }
 
     public void testGetTestDataSetsNoDataType() {
         List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
@@ -279,113 +280,117 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         assertEquals(0, testDataSetSchoolTypeMap.size());
     }
 
-//    public void testGetTestDataSetsNoLabel() {
-//        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
-//        CompareConfig compareConfig = new CompareConfig();
-//        compareConfig.setState(State.CA);
-//        compareConfig.setDataTypeId(getTestDataType().getId());
-//        compareConfig.setTabName(TAB_NAME);
-//        compareConfig.setId(1);
-//        compareConfigs.add(compareConfig);
-//        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
-//        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
-//        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
-//
-//        expect(_testDataTypeDao.getDataType(getTestDataType().getId())).andReturn(getTestDataType());
-//        expect(_testDataSetDao.findDataSet(State.CA, getTestDataType(), null, null, null, null, null))
-//                .andReturn(new TestDataSet());
-//        expect(_compareLabelDao
-//                       .findLabel(State.CA, getTestDataType().getId(), TAB_NAME, null, null, null, null))
-//                .andReturn(null);
-//        replayAllMocks();
-//        List<TestDataSet> rval = _controller.getTestDataSets
-//                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
-//        verifyAllMocks();
-//        assertNotNull(rval);
-//        assertEquals(0, rval.size());
-//        assertEquals(0, testDataSetCompareLabelMap.size());
-//        assertEquals(0, rowLabelToOrder.size());
-//        assertEquals(0, testDataSetSchoolTypeMap.size());
-//    }
-//
-//    public void testGetTestDataSetsOneConfigSimple() {
-//        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
-//        CompareConfig compareConfig = new CompareConfig();
-//        compareConfig.setState(State.CA);
-//        compareConfig.setDataTypeId(getTestDataType().getId());
-//        compareConfig.setTabName(TAB_NAME);
-//        compareConfig.setId(1);
-//        compareConfig.setOrderNum(1);
-//        compareConfigs.add(compareConfig);
-//        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
-//        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
-//        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
-//
-//        TestDataSet testDataSet = new TestDataSet();
-//        expect(_testDataSetDao.findDataSet(State.CA, getTestDataType(), null, null, null, null, null))
-//                .andReturn(testDataSet);
-//        CompareLabel label = new CompareLabel();
-//        label.setRowLabel("Ethnicity");
-//        expect(_compareLabelDao
-//                       .findLabel(State.CA, getTestDataType().getId(), TAB_NAME, null, null, null, null))
-//                .andReturn(label);
-//        replayAllMocks();
-//        List<TestDataSet> rval = _controller.getTestDataSets
-//                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
-//        verifyAllMocks();
-//        assertNotNull(rval);
-//        assertEquals(1, rval.size());
-//        assertSame(testDataSet, rval.get(0));
-//        assertEquals(1, testDataSetCompareLabelMap.size());
-//        assertSame(label, testDataSetCompareLabelMap.get(testDataSet));
-//        assertEquals(1, rowLabelToOrder.size());
-//        assertEquals(1, rowLabelToOrder.get("Ethnicity").intValue());
-//        assertEquals(0, testDataSetSchoolTypeMap.size());
-//    }
-//
-//    public void testGetTestDataSetsOneConfigComplex() {
-//        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
-//        CompareConfig compareConfig = new CompareConfig();
-//        compareConfig.setState(State.CA);
-//        compareConfig.setDataTypeId(getTestDataType().getId());
-//        compareConfig.setTabName(TAB_NAME);
-//        compareConfig.setId(1);
-//        compareConfig.setOrderNum(1);
-//        compareConfig.setBreakdownId(5);
-//        compareConfig.setGradeLevels(Grades.createGrades(Grade.G_3));
-//        compareConfig.setLevelCode(LevelCode.ELEMENTARY);
-//        compareConfig.setYear(2009);
-//        compareConfig.setSubject(Subject.ENGLISH);
-//        compareConfigs.add(compareConfig);
-//        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
-//        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
-//        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
-//
-//        TestDataSet testDataSet = new TestDataSet();
-//        expect(_testDataSetDao
-//                       .findDataSet(eq(State.CA), eq(getTestDataType()), eq(2009), isA(Breakdown.class),
-//                                    eq(Subject.ENGLISH), eq(LevelCode.ELEMENTARY), eq(Grades.createGrades(Grade.G_3))))
-//                .andReturn(testDataSet);
-//        CompareLabel label = new CompareLabel();
-//        label.setRowLabel("Ethnicity");
-//        expect(_compareLabelDao
-//                       .findLabel(eq(State.CA), eq(getTestDataType().getId().intValue()), eq(TAB_NAME),
-//                                  eq(Grades.createGrades(Grade.G_3)), isA(Breakdown.class), eq(LevelCode.ELEMENTARY),
-//                                  eq(Subject.ENGLISH)))
-//                .andReturn(label);
-//        replayAllMocks();
-//        List<TestDataSet> rval = _controller.getTestDataSets
-//                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
-//        verifyAllMocks();
-//        assertNotNull(rval);
-//        assertEquals(1, rval.size());
-//        assertSame(testDataSet, rval.get(0));
-//        assertEquals(1, testDataSetCompareLabelMap.size());
-//        assertSame(label, testDataSetCompareLabelMap.get(testDataSet));
-//        assertEquals(1, rowLabelToOrder.size());
-//        assertEquals(1, rowLabelToOrder.get("Ethnicity").intValue());
-//        assertEquals(0, testDataSetSchoolTypeMap.size());
-//    }
+    public void testGetTestDataSetsNoLabel() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(getTestDataType().getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfigs.add(compareConfig);
+        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
+
+        expect(_testDataTypeDao.getDataType(getTestDataType().getId())).andReturn(getTestDataType());
+        expect(_testDataSetDao.findDataSet(State.CA, null, getTestDataType().getId(), null, null, null, null, true, null))
+                .andReturn(new TestDataSet());
+        expect(_compareLabelDao
+                .findLabel(State.CA, getTestDataType().getId(), TAB_NAME, null, null, null, null))
+                .andReturn(null);
+        replayAllMocks();
+        List<TestDataSet> rval = _controller.getTestDataSets
+                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(0, rval.size());
+        assertEquals(0, testDataSetCompareLabelMap.size());
+        assertEquals(0, rowLabelToOrder.size());
+        assertEquals(0, testDataSetSchoolTypeMap.size());
+    }
+
+    public void testGetTestDataSetsOneConfigSimple() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(getTestDataType().getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfig.setOrderNum(1);
+        compareConfigs.add(compareConfig);
+        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
+
+        expect(_testDataTypeDao.getDataType(getTestDataType().getId())).andReturn(getTestDataType());
+        TestDataSet testDataSet = new TestDataSet();
+        expect(_testDataSetDao.findDataSet(State.CA, null, getTestDataType().getId(), null, null, null, null, true, null))
+                .andReturn(testDataSet);
+        CompareLabel label = new CompareLabel();
+        label.setRowLabel("API Growth");
+        expect(_compareLabelDao
+                .findLabel(State.CA, getTestDataType().getId(), TAB_NAME, null, null, null, null))
+                .andReturn(label);
+        replayAllMocks();
+        List<TestDataSet> rval = _controller.getTestDataSets
+                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(1, rval.size());
+        assertSame(testDataSet, rval.get(0));
+        assertEquals(1, testDataSetCompareLabelMap.size());
+        assertSame(label, testDataSetCompareLabelMap.get(testDataSet));
+        assertEquals(1, rowLabelToOrder.size());
+        assertEquals(1, rowLabelToOrder.get("API Growth").intValue());
+        assertEquals(0, testDataSetSchoolTypeMap.size());
+    }
+
+    public void testGetTestDataSetsOneConfigComplex() {
+        List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
+        CompareConfig compareConfig = new CompareConfig();
+        compareConfig.setState(State.CA);
+        compareConfig.setDataTypeId(getTestDataType().getId());
+        compareConfig.setTabName(TAB_NAME);
+        compareConfig.setId(1);
+        compareConfig.setOrderNum(1);
+        Breakdown breakdown = new Breakdown(5);
+        compareConfig.setBreakdownId(breakdown.getId());
+        compareConfig.setGrade(Grade.G_3);
+        compareConfig.setLevelCode(LevelCode.ELEMENTARY);
+        compareConfig.setYear(2009);
+        compareConfig.setSubject(Subject.ENGLISH);
+        compareConfigs.add(compareConfig);
+        Map<TestDataSet, CompareLabel> testDataSetCompareLabelMap = new HashMap<TestDataSet, CompareLabel>();
+        Map<String, Integer> rowLabelToOrder = new HashMap<String, Integer>();
+        Map<TestDataSet, SchoolType> testDataSetSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
+
+        expect(_testDataTypeDao.getDataType(getTestDataType().getId())).andReturn(getTestDataType());
+        TestDataSet testDataSet = new TestDataSet();
+        expect(_testDataSetDao
+                .findDataSet(eq(State.CA), eq(2009), eq(getTestDataType().getId()), eq(Subject.ENGLISH), eq(Grade.G_3), eq(breakdown.getId()),
+                (Integer) isNull(), eq(true), eq(LevelCode.ELEMENTARY)))
+                .andReturn(testDataSet);
+        CompareLabel label = new CompareLabel();
+        label.setRowLabel("CST");
+        label.setBreakdownLabel("English");
+        expect(_compareLabelDao
+                .findLabel(eq(State.CA), eq(getTestDataType().getId().intValue()), eq(TAB_NAME),
+                eq(Grade.G_3), isA(Breakdown.class), eq(LevelCode.ELEMENTARY),
+                eq(Subject.ENGLISH)))
+                .andReturn(label);
+        replayAllMocks();
+        List<TestDataSet> rval = _controller.getTestDataSets
+                (State.CA, compareConfigs, testDataSetCompareLabelMap, rowLabelToOrder, testDataSetSchoolTypeMap);
+        verifyAllMocks();
+        assertNotNull(rval);
+        assertEquals(1, rval.size());
+        assertSame(testDataSet, rval.get(0));
+        assertEquals(1, testDataSetCompareLabelMap.size());
+        assertSame(label, testDataSetCompareLabelMap.get(testDataSet));
+        assertEquals(1, rowLabelToOrder.size());
+        assertEquals(1, rowLabelToOrder.get("CSTEnglish").intValue());
+        assertEquals(0, testDataSetSchoolTypeMap.size());
+    }
 
     public void testSortRows(){
         Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
