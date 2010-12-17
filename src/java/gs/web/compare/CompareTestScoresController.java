@@ -173,7 +173,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
             testDataSets.add(testDataSet);
             // Populate testDataSetToLabel, rowLabelToOrder, testDataSetToSchoolType
             testDataSetToLabel.put(testDataSet,label);
-            rowLabelToOrder.put(label.getRowLabel() + label.getBreakdownLabel(),config.getOrderNum());
+            rowLabelToOrder.put(label.getRowLabel() + (label.getBreakdownLabel()!=null?label.getBreakdownLabel():""),config.getOrderNum());
             if (config.getSchoolType() != null) {
                 testDataSetToSchoolType.put(testDataSet,config.getSchoolType());
             }
