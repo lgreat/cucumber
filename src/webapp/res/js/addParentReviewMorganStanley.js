@@ -233,7 +233,6 @@ function GS_countWords(textField) {
     return count + 1; // # of words is # of spaces + 1
 }
 
-postedSchoolReview = false;
 function validateReview() {
     var noError = true;
     var height = 360;
@@ -286,12 +285,6 @@ function validateReview() {
     if (GS_countWords(document.getElementById('reviewText')) < 15) {
         noError = false;
         alert("Please use at least 15 words in your comment.")
-    }
-
-    if (!postedSchoolReview) {
-        postedSchoolReview = true;
-    } else {
-        return false;
     }
 
     return noError;

@@ -387,15 +387,8 @@ function reviewThisSchool() {
     return false;
 }
 
-postedSchoolReview = false;
-function GS_postSchoolReview(email, callerFormId) {
-    if (!postedSchoolReview) {
-        postedSchoolReview = true;
-    } else {
-        window.location.href = '/school/parentReviews.page?id=' + jQuery('#schoolId').val() + '&state=' + jQuery('#schoolState').val();
-        return;
-    }
 
+function GS_postSchoolReview(email, callerFormId) {
     // first, grab the email from the join/signIn form and use that with the review
     if (email) {
         jQuery('#frmPRModule-email').val(email);
