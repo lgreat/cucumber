@@ -485,6 +485,11 @@ a.smallAlertText {
     color: #333;
 }
 
+.smallAlertTextBold-999 {
+    font: bold 11px Arial, Helvetica, sans-serif;
+    color: #999;
+}
+
 .smallAlertTextBold-06b {
     font: bold 11px Arial, Helvetica, sans-serif;
     color: #06b;
@@ -1258,7 +1263,10 @@ body.cobranded #pageGS {
   </div>
 </div>
 */
-/* original version with 10px margin on all sides */
+/* original version
+    margin: 10px;
+    gutter: 10px;
+*/
 .media {
     margin: 10px;
 }
@@ -1284,7 +1292,10 @@ body.cobranded #pageGS {
     margin-left: 10px;
 }
 
-/* extends the original version with no margin on all sides */
+/* Ext1
+    margin: 0;
+    gutter: 10px;
+*/
 .mediaExt1 {
     margin: 0;
 }
@@ -1310,7 +1321,10 @@ body.cobranded #pageGS {
     margin-left: 10px;
 }
 
-/* extends the Ext1 version with a 5px margin on .img and .imgExt */
+/* Ext1-1
+    margin: 0;
+    gutter: 5px;
+*/
 .mediaExt1-1 {
     margin: 0;
 }
@@ -1336,7 +1350,10 @@ body.cobranded #pageGS {
     margin-left: 5px;
 }
 
-/* extends the original version with 10px margin on top/bottom and no margin left/right */
+/* Ext2
+    margin: 10px 0;
+    gutter: 10px;
+*/
 .mediaExt2 {
     margin: 10px 0;
 }
@@ -1362,7 +1379,10 @@ body.cobranded #pageGS {
     margin-left: 10px;
 }
 
-/* extends the Ext2 version with 5px margin on top/bottom and no margin left/right */
+/* Ext2-1
+    margin: 5px 0;
+    gutter: 10px;
+*/
 .mediaExt2-1 {
     margin: 5px 0;
 }
@@ -1388,7 +1408,10 @@ body.cobranded #pageGS {
     margin-left: 10px;
 }
 
-/* extends the Ext2 version with 20px margin on top/bottom and no margin left/right */
+/* Ext2-2
+    margin: 20px 0;
+    gutter: 10px;
+*/
 .mediaExt2-2 {
     margin: 20px 0;
 }
@@ -1414,7 +1437,10 @@ body.cobranded #pageGS {
     margin-left: 10px;
 }
 
-/* extends the original version with 10px margin on left/right and no margin top/bottom */
+/* Ext3
+    margin: 0 10px;
+    gutter: 10px;
+*/
 .mediaExt3 {
     margin: 0 10px;
 }
@@ -1542,7 +1568,11 @@ body.cobranded #pageGS {
 }
 
 #oneColumn{
-    padding:0 20px;
+    padding:20px 20px 0;
+}
+
+#oneColumnExt1{
+    padding:15px 15px 0;
 }
 
 .mod_hd {
@@ -1570,9 +1600,14 @@ body.cobranded #pageGS {
     font: 20px / 1.7 Georgia, "Times New Roman", Times, serif;
 }
 
-/*.mod_bd {
-    padding: 8px;
-}*/
+.mod_bd {
+}
+
+.mod_bdExt1{
+    border-left: 1px solid #c6c6c6;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+}
 
 .navmod_hd,
 .filter-hd,
@@ -9343,6 +9378,30 @@ button {
 .lastUnit {
     float: none;
     width: auto;
+}
+
+.firstColGutter-10 {
+    margin-right: 10px;
+}
+
+.middleColGutter-10 {
+    margin: 0 10px;
+}
+
+.lastColGutter-10 {
+    margin-left: 10px;
+}
+
+.firstColGutter-30 {
+    margin-right: 30px;
+}
+
+.middleColGutter-30 {
+    margin: 0 30px;
+}
+
+.lastColGutter-30 {
+    margin-left: 30px;
 }
 
 /* =11 forms
