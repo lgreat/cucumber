@@ -30,10 +30,6 @@ public class AccountInformationAjaxController implements Controller {
     private IGeoDao _geoDao;
     private StateManager _stateManager;
 
-    /**
-     * WARNING: Used by the grade level landing pages as well! See gradeLevelLandingPages.js and
-     * elementarySchool.jspx
-     */
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
 

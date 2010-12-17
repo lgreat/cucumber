@@ -1277,62 +1277,6 @@
         <property name="projection" value="values"/>
     </bean>
 
-    <bean name="/content/elementarySchool.page"
-          class="gs.web.content.ElementaryLandingPageController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/elementarySchool"/>
-        <property name="tableDao">
-            <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
-        </property>
-        <property name="keySuffixes">
-            <list>
-                <value>k</value>
-                <value>1</value>
-                <value>2</value>
-                <value>3</value>
-                <value>4</value>
-                <value>5</value>
-            </list>
-        </property>
-        <property name="levelCode" value="e"/>
-        <property name="topicCenterContentID" value="1574"/>
-    </bean>
-
-    <bean name="/content/middleSchool.page"
-          class="gs.web.content.MiddleLandingPageController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/middleSchool"/>
-        <property name="tableDao">
-            <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
-        </property>
-        <property name="keySuffixes">
-            <list>
-                <value>ms_support_classroom</value>
-                <value>ms_support_hallway</value>
-                <value>ms_college</value>
-            </list>
-        </property>
-        <property name="levelCode" value="m"/>
-        <property name="topicCenterContentID" value="1575"/>
-    </bean>
-
-    <bean name="/content/highSchool.page"
-          class="gs.web.content.HighLandingPageController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/highSchool"/>
-        <property name="tableDao">
-            <bean factory-bean="gradeLevelLandingPageLinksFactory" factory-method="getTableDao"/>
-        </property>
-        <property name="keySuffixes">
-            <list>
-                <value>hs_boost_classroom</value>
-                <value>hs_boost_hallway</value>
-            </list>
-        </property>
-        <property name="levelCode" value="h"/>
-        <property name="topicCenterContentID" value="1576"/>
-    </bean>
-
     <bean name="/geo/landing/dayton_ohio.page"
           class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
