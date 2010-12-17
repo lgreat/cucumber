@@ -5,6 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -59,47 +60,65 @@
                     </td>
                 </c:forEach>
             </tr>
-            <c:if test="${not empty testRows}">
-                <c:forEach items="${testRows}" var="testRow">
-                    <c:set var="rowYear" value="9999"/>
+            <c:choose>
+                <c:when test="${not empty testRows}">
+                    <c:forEach items="${testRows}" var="testRow">
+                        <c:set var="rowYear" value="9999"/>
+                        <tr>
+                            <c:forEach items="${testRow}" var="testCell">
+                                <c:choose>
+                                    <c:when test="${testCell.isHeaderCell}">
+                                        <c:set var="rowYear" value="${testCell.year}"/>
+                                        <th scope="row">
+                                            <div class="mainLabel">${testCell.headerText}</div>
+                                            <c:choose>
+                                                <c:when test="${not empty testCell.breakdownText}">
+                                                    <div class="breakdownLabel">${testCell.breakdownText} - ${testCell.year}</div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="year">${testCell.year}</div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </th>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${empty testCell}">
+                                                    <div class="noInfo">-</div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${testCell.value}
+                                                    <c:if test="${testCell.year ne rowYear}">
+                                                        <div class="year">Note: ${testCell.year} data</div>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
                     <tr>
-                        <c:forEach items="${testRow}" var="testCell">
-                            <c:choose>
-                                <c:when test="${testCell.isHeaderCell}">
-                                    <c:set var="rowYear" value="${testCell.year}"/>
-                                    <th>
-                                        <div class="mainLabel">${testCell.headerText}</div>
-                                        <c:choose>
-                                            <c:when test="${not empty testCell.breakdownText}">
-                                                <div class="breakdownLabel">${testCell.breakdownText} - ${testCell.year}</div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <div class="year">${testCell.year}</div>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </th>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${empty testCell}">
-                                                <!-- TODO: Handle private school case -->
-                                                <div class="noInfo">N/A</div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${testCell.value}
-                                                <c:if test="${testCell.year ne rowYear}">
-                                                    <div class="year">Note: ${testCell.year} data</div>
-                                                </c:if>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
+                        <th scope="row">&amp;nbsp;</th>
+                        <c:forEach items="${schools}" var="school">
+                            <td>
+                                <c:choose>
+                                    <c:when test="${school.hasTestScores}">
+                                        <link:schoolProfileTestscore school="${school.school}">
+                                            View detailed test scores
+                                        </link:schoolProfileTestscore>
+                                    </c:when>
+                                    <c:otherwise>
+                                        &amp;nbsp;
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                         </c:forEach>
                     </tr>
-                </c:forEach>
-            </c:if>
+                </c:when>
+            </c:choose>
         </compare:compareTemplate>
     </gsml:body>
     </html>

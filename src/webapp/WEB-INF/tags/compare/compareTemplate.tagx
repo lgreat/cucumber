@@ -67,11 +67,11 @@
         <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
                                   startIndex="${startIndex}" endIndex="${endIndex}"
                                   totalSchools="${totalSchools}" pageSize="${pageSize}"/>
-            <div class="howWeGather clearBoth">
-                <a href="#" onclick="return false;">
-                    <span class="alertDoubleArrow">&amp;#187;</span> How we gather our data
-                </a>
-            </div>
+            <!--<div class="howWeGather clearBoth">-->
+                <!--<a href="#" onclick="return false;">-->
+                    <!--<span class="alertDoubleArrow">&amp;#187;</span> How we gather our data-->
+                <!--</a>-->
+            <!--</div>-->
         </div>
     </div>
     <div class="rightSide fltlft">

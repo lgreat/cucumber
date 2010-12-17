@@ -59,7 +59,7 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
 
     public void testBasics() {
         assertEquals("success", _controller.getSuccessView());
-        assertEquals(ComparedSchoolBaseStruct.class, _controller.getStruct().getClass());
+        assertEquals(ComparedSchoolTestScoresStruct.class, _controller.getStruct().getClass());
         assertSame(_compareLabelDao, _controller.getCompareLabelDao());
         assertSame(_compareConfigDao, _controller.getCompareConfigDao());
         assertSame(_testDataTypeDao, _controller.getTestDataTypeDao());

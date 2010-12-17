@@ -4,6 +4,7 @@ import gs.data.compare.CompareConfig;
 import gs.data.compare.CompareLabel;
 import gs.data.compare.ICompareConfigDao;
 import gs.data.compare.ICompareLabelDao;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.census.Breakdown;
@@ -11,6 +12,7 @@ import gs.data.school.census.Breakdown;
 import gs.data.source.DataSetContentType;
 import gs.data.state.State;
 import gs.data.test.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,7 +49,9 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
 
         List<School> schools = new ArrayList<School>(structs.size());
         for (ComparedSchoolBaseStruct baseStruct: structs) {
-            schools.add(baseStruct.getSchool());
+            ComparedSchoolTestScoresStruct struct = (ComparedSchoolTestScoresStruct) baseStruct;
+            schools.add(struct.getSchool());
+            struct.setHasTestScores(determineTestScores(struct.getSchool()));
         }
 
         model.put(MODEL_TEST_ROWS, getSchoolTestData(schools.get(0).getDatabaseState(), schools,
@@ -311,6 +315,17 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
         }
     }
 
+    public boolean determineTestScores(School school) {
+        boolean hasTestScores = true;
+        if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
+            hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
+                    _testDataSetDao.hasDisplayableData(school);
+        } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            hasTestScores = false;
+        }
+        return hasTestScores;
+    }
+
     @Override
     public String getSuccessView() {
         return _successView;
@@ -322,7 +337,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
 
     @Override
     protected ComparedSchoolBaseStruct getStruct() {
-        return new ComparedSchoolBaseStruct();
+        return new ComparedSchoolTestScoresStruct();
     }
 
     public ICompareLabelDao getCompareLabelDao() {
