@@ -7,7 +7,8 @@ import gs.data.compare.ICompareLabelDao;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.census.Breakdown;
-import gs.data.school.census.CensusDataSetType;
+//import gs.data.school.census.CensusDataSetType;
+import gs.data.source.DataSetContentType;
 import gs.data.state.State;
 import gs.data.test.*;
 import org.apache.commons.logging.Log;
@@ -106,7 +107,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
      * 1) select out config rows
      */
     protected List<CompareConfig> getCompareConfigs(State state, String tab) {
-        List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state, tab, CensusDataSetType.SCHOOL);
+        List<CompareConfig> compareConfigs = _compareConfigDao.getConfig(state, tab, DataSetContentType.getInstance("school"));
         if (compareConfigs == null || compareConfigs.size() == 0) {
             return null;
         }

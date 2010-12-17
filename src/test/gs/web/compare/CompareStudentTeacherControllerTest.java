@@ -6,6 +6,7 @@ import gs.data.compare.ICompareConfigDao;
 import gs.data.compare.ICompareLabelDao;
 import gs.data.school.*;
 import gs.data.school.census.*;
+import gs.data.source.DataSetContentType;
 import gs.data.state.State;
 import gs.data.test.Subject;
 import gs.web.BaseControllerTestCase;
@@ -79,7 +80,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
     }
 
     public void testGetCompareConfigsNull() {
-        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL)).andReturn(null);
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", DataSetContentType.getInstance("school"))).andReturn(null);
         replayAllMocks();
         List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
         verifyAllMocks();
@@ -92,7 +93,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         compareConfig1.setState(State.CA);
         compareConfig1.setDataTypeId(9);
         compareConfigs.add(compareConfig1);
-        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL))
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", DataSetContentType.getInstance("school")))
                 .andReturn(compareConfigs);
         replayAllMocks();
         List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
@@ -114,7 +115,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         compareConfig2.setDataTypeId(9);
         compareConfig2.setYear(null);
         compareConfigs.add(compareConfig2);
-        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL))
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", DataSetContentType.getInstance("school")))
                 .andReturn(compareConfigs);
         replayAllMocks();
         List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
@@ -142,7 +143,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         compareConfig3.setYear(2010);
         compareConfig3.setSchoolType(SchoolType.PRIVATE);
         compareConfigs.add(compareConfig3);
-        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", CensusDataSetType.SCHOOL))
+        expect(_compareConfigDao.getConfig(State.CA, "student_teacher", DataSetContentType.getInstance("school")))
                 .andReturn(compareConfigs);
         replayAllMocks();
         List<CompareConfig> rval = _controller.getCompareConfigs(State.CA, "student_teacher");
