@@ -44,9 +44,9 @@
 <gsml:body adPageName="ParentReviews" pageLayout="nocol">
 
 <div id="oneColumn">
-<h1>Help us help parents - review your child's school</h1>
+<h1>Help us help parents &amp;mdash; review your child's school</h1>
 
-<div class="mediaExt2-2">
+<div class="mediaExt2-3">
     <div class="img">
         <gsml:img src="/res/img/school/parentReviews/parent_reviews.jpg" width="220" height="167"
                   alt="Parent Review Image"/>
@@ -55,7 +55,9 @@
     <div class="bd">
         <p>A few minutes of your time can make a difference. Rate and review your child's school so other parents can make the right choice for their family.</p>
 
+        <div class="spacer_10"><!-- do not collapse --></div>
         <h3 class="alert">Find your school</h3>
+        <div class="spacer_10"><!-- do not collapse --></div>
         <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
 
         <div class="line">
@@ -71,6 +73,7 @@
                                      usingLongNames="true"
                                      tabIndex="9"/>
             </div>
+            <div class="spacer_10"><!-- do not collapse --></div>
 
         </div>
         <div class="line">
@@ -87,6 +90,7 @@
                     </c:forEach>
                 </select>
             </div>
+            <div class="spacer_10"><!-- do not collapse --></div>
         </div>
         <div class="line">
             <div class="unit size1of14">
@@ -98,6 +102,7 @@
                     <option value="">Choose a school</option>
                 </select>
             </div>
+            <div class="spacer_10"><!-- do not collapse --></div>
 
         </div>
 
@@ -130,17 +135,17 @@
 <div id="oneColumnExt1">
 <div class="line">
     <div class="unit size1of2 firstColGutter-30">
-        <h2>${swr.school.name}</h2>
+        <h2 id="schoolNameHeader">${swr.school.name}</h2>
 
-        <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="spacer_5"><!-- do not collapse --></div>
         <div class="line">
-            <div class="unit size2of7 firstColGutter-10 brdrt-solid">
+            <div class="unit size3of11 firstColGutter-10 brdrt-solid">
                 <div class="mediaExt1-1">
                     <span class="img sprite badge_sm_10"><!-- do not collapse --></span>
                     <div class="bd smallAlertTextBold-999">GreatSchools <br/>Rating out of 10</div>
                 </div>
             </div>
-            <div class="unit size5of7 lastColGutter-10 lastUnit">
+            <div class="unit size8of11 lastColGutter-10 lastUnit">
                 <p class="smallAlertTextBold-999">Community Rating</p>
 
                 <div class="mediaExt1">
@@ -151,7 +156,17 @@
         </div>
     </div>
     <div class="unit size1of2 lastColGutter-30 lastUnit">
-        <p class="text3">school address goes here</p>
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <div id="schoolInfo" class="text3"> <![CDATA[
+                    <!--<div id="gsSchoolRating"></div>
+                    <div id="overallParentRating"></div>
+                    <div id="parentRatingCount"></div>-->
+                     <div id="schoolAddress">
+                    <div id="schoolAddressLine1"></div>
+                    <div id="schoolAddressLine2"></div>
+                    <div id="schoolAddressLine3"></div>
+                    <div id="schoolAddressLine4"></div></div>]]>
+    </div>
     </div>
 </div>
 <div class="spacer_20 brdbtm_dotted"><!-- do not collapse --></div>
@@ -162,28 +177,14 @@
 <input type="hidden" name="posterAsString"/>
 
 <div id="parentReviewForm">
-    <!--<div id="parentReviewForm">-->
     <input type="hidden" name="source" value="${pageName}"/>
 
     <input type="hidden" name="id" id="schoolId" value=""/>
     <input type="hidden" name="state" id="schoolState" value=""/>
     <input type="hidden" name="isAddNewParentReview" value="true"/>
-    <h4 id="schoolNameHeader">${swr.school.name}</h4>
-
-    <div id="schoolInfo"> <![CDATA[
-                    <div id="gsSchoolRating"></div>
-                    <div id="overallParentRating"></div>
-                    <div id="parentRatingCount"></div>
-                     <div id="schoolAddress">
-                    <div id="schoolAddressLine1"></div>
-                    <div id="schoolAddressLine2"></div>
-                    <div id="schoolAddressLine3"></div>
-                    <div id="schoolAddressLine4"></div></div>]]>
-    </div>
 
     <div class="line">
         <div class="unit size1of2 firstColGutter-30">
-            <div id="parentRating">
 
                 <div id="inputRating">
                     <div id="ratingTitle" class="biggerFontText">My Overall rating</div>
@@ -225,73 +226,91 @@
                 </div>
 
                 <div id="reviewRatingError" style="display:none" class="reviewError">
-                    <img
-                            src="/res/img/bullet/exclamation.gif"
+                    <img src="/res/img/bullet/exclamation.gif"
                             alt="error"></img>Please enter a review and overall rating.
                 </div>
 
-                <div class="marginTextArea" id="reviewAndGuidlines"><span
-                        id="guidelines"><link:parentReviewGuidelines>School review guidelines</link:parentReviewGuidelines></span>
-
+            <div class="line">
+                <div class="unit size1of1 lastUnit">
+                    <link:parentReviewGuidelines styleClass="fltrt">School review guidelines</link:parentReviewGuidelines>
                 </div>
-                <div id="reviewCommnents"><textarea id="reviewText"
-                                                    name="comments"
-                                                    onkeyup="countWords(this)"
-                                                    onkeydown="countWords(this)"
-                                                    onfocus="if(this.value=='Enter your review here'){this.value='';}"
-                                                    rows="10" cols="50">Enter your review here</textarea></div>
+            </div>
 
-                <div class="line">
+            <div class="line">
+                <div class="unit size1of1 lastUnit">
+                    <textarea id="reviewText"
+                              class="reviewText text1-ededed text3"
+                              name="comments"
+                              onkeyup="countWords(this)"
+                              onkeydown="countWords(this)"
+                              onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                              onblur="if(this.value==''){this.value='Enter your review here';}"
+                              rows="10" cols="50">Enter your review here</textarea>
+                </div>
+            </div>
+            <div class="spacer_10"><!-- do not collapse --></div>
 
+            <div class="line">
+                <div class="unit size1of1 lastUnit">
                     <!-- c:set used to prevent IDEA error on duplicate CSS id attribute used in c:choose -->
-                    <c:set var="emailID" value="frmPRModule-email"/>
-                    <label for="${emailID}" class="unit size1of7">Email
-                        <em class="sprite i-required"><!-- do not collapse --></em>
-                    </label>
-
+                    <c:set var="emailID" value="parentReviewEmail"/>
                     <c:choose>
-                        <c:when test="${validUser.email eq null}">
-                            <input id="${emailID}" name="email" class="text1-ededed text3 unit size3of7"
+                        <!--<c:when test="${not empty validUser.email}">-->
+                        <c:when test="${true}">
+                            <input id="${emailID}"
+                                   name="email"
+                                   class="parentReviewEmail text1-ededed text3"
                                    type="text"
-                                   value="[Enter email address]"
-                                   onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                                   onblur="if(this.value==''){this.value='[Enter email address]';}"
-                                    />
+                                   value="Enter your email address"
+                                   onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                                   onblur="if(this.value==''){this.value='Enter your email address';}"
+                                    />&amp;nbsp;
+                            <em class="sprite i-required"><!-- do not collapse --></em>
                         </c:when>
                         <c:otherwise>
-                            <input id="${emailID}" name="email" class="text1-ededed text3 unit size3of7" type="text"
+                            <input id="${emailID}"
+                                   name="email"
+                                   class="parentReviewEmail text1-ededed text3"
+                                   type="text"
                                    value="${validUser.email}"
-                                   onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                                   onblur="if(this.value==''){this.value='[Enter email address]';}"
+                                   onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                                   onblur="if(this.value==''){this.value='Enter your email address';}"
                                    disabled="true"
-                                    />
+                                    />&amp;nbsp;
+                            <em class="sprite i-required"><!-- do not collapse --></em>
                         </c:otherwise>
                     </c:choose>
+                </div>
+            </div>
+            <div class="spacer_20"><!-- do not collapse --></div>
 
-
-                    <div class="unit size3of7 lastUnit">
                         <div id="frmPRModule-email-error" class="formErrorText media padlft_10"
                              style="display:none;">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                             <div class="bd">Please enter your email.</div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="spacer_10"><!-- do not collapse --></div>
                 <div id="terms-error" class="formErrorText media padlft_5" style="display:none;">
                     <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                     <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
                 </div>
 
-                <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse
-                        target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
-                        target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
-                    <em class="sprite i-required"><!-- do not collapse --></em>
-                </label>
+            <div class="line">
+                <div class="unit size1of1 lastUnit">
+                    <input id="parentReviewTerms" name="parentReviewTerms" class="checkbox" type="checkbox" value="1"/>
+                    <label for="parentReviewTerms"
+                           class="text3">I agree to the <link:termsOfUse
+                            target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
+                            target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
+                        <em class="sprite i-required"><!-- do not collapse --></em>
+                    </label>
+                </div>
+            </div>
+            <div class="spacer_10"><!-- do not collapse --></div>
+            <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy>
+            <div class="spacer_15"><!-- do not collapse --></div>
 
                 <fieldset class="btns">
                     <button class="button-1"
@@ -301,7 +320,10 @@
                     </button>
                 </fieldset>
 
-            </div>
+            <div class="spacer_15"><!-- do not collapse --></div>
+            <p class="footerText1"><em class="sprite i-required"><!-- do not collapse --></em>Required</p>
+            <div class="spacer_25"><!-- do not collapse --></div>
+
         </div>
         <div class="unit size1of2 lastColGutter-30 lastUnit">
 
