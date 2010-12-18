@@ -19,76 +19,24 @@
         </jsp:scriptlet>
 
     <div id="fb-root" class="hidden"><!-- empty tag = broken page --></div>
-
-
-
-    <span id="facebook-likes" style="display:none"><!-- not empty --></span>
-
     <script type="text/javascript">
-
-        var getNumberOfLikes = function() {
-            var url = "${pageUrlOnFacebook}";
-            url = "http://www.greatschools.org/california/1-Alameda-High-School";
-            var facebookService = "https://api.facebook.com/method/fql.query";
-            var query = "select like_count from link_stat where url=\"" + url + "\"";
-
-            jQuery.ajax({
-                url: facebookService + '?callback=?',
-                data: {query:query},
-                type: 'GET',
-                dataType: "json",
-                cache: false,
-                success: function(data) {
-                    var count = jQuery(data).find('like_count').html();
-                    //updateLikeText(count);
-                }
-            });
-        };
-
-        var updateLikeText = function(numberOfLikes) {
-
-            var schoolName = "${school.name}";
-
-            if (numberOfLikes == 0) {
-                likeString = "Be the first to like " + schoolName;
-            } else if (numberOfLikes == 1) {
-                likeString = "person likes " + schoolName;
-            } else {
-                likeString = "people likes " + schoolName;
-            }
-
-            jQuery('#facebook-likes').html(likeString);
-            jQuery('#facebook-likes').show();
-        };
-
         window.fbAsyncInit = function() {
-            if (navigator.userAgent.indexOf("msie 6") == -1) {
-                FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl:'${domainUrl}res/channel.html'});
-                //getNumberOfLikes();
-
-                FB.Event.subscribe('edge.create', function(href, widget) {
-                    var abVersion = '${requestScope.context.ABVersion}';
-                    if (s.tl) {
-                        s.tl(this, 'o', 'FBLike_SPP_B');
-                    }
-                });
-            }
+            FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl: '${domainUrl}res/channel.html'});
+            //FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true});
 
         };
 
         (function() {
-            if (navigator.userAgent.indexOf("msie 6")) {
-                var e = document.createElement('script');
-                e.async = true;
-                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                document.getElementById('fb-root').appendChild(e);
-            }
+            var e = document.createElement('script');
+            e.async = true;
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
         }());
+
     </script>
 
-
     <![CDATA[
-    <fb:like layout="button_count" href="${pageUrlOnFacebook}" show_faces="false" width="90" font="arial" action="like" colorscheme="light"></fb:like>
+    <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
     ]]>
 </jsp:root>
 

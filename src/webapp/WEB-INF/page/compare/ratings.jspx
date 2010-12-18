@@ -39,8 +39,8 @@
             <tr>
                 <th scope="row">School type</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="cs_type center text3">
-                        ${school.type} ${school.gradeLevels}
+                    <td class="cs_type center">
+                        <p class="text3">${school.type} ${school.gradeLevels}</p>
                     </td>
                 </c:forEach>
             </tr>
@@ -95,16 +95,18 @@
                 <th>&amp;nbsp;</th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_moreRates center">
-                        <c:choose>
-                            <c:when test="${school.numReviews gt 0}">
-                                <link:schoolProfileParentReview school="${school.school}">
-                                    View more ratings &amp;amp; reviews
-                                </link:schoolProfileParentReview>
-                            </c:when>
-                            <c:otherwise>
-                                &amp;nbsp;
-                            </c:otherwise>
-                        </c:choose>
+                        <p class="text2">
+                            <c:choose>
+                                <c:when test="${school.numReviews gt 0}">
+                                    <link:schoolProfileParentReview school="${school.school}">
+                                        View more ratings &amp;amp; reviews
+                                    </link:schoolProfileParentReview>
+                                </c:when>
+                                <c:otherwise>
+                                    &amp;nbsp;
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
                     </td>
                 </c:forEach>
             </tr>

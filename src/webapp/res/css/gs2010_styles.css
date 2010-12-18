@@ -6661,13 +6661,16 @@ table#compareTable td {
 
 table#compareTable th {
     border-bottom: 1px solid #c6c6c6;
-    width: 97px;
 }
 
 table#compareTable td {
     border: solid #c6c6c6;
     border-width: 0 0 1px 1px;
-    width: 153px;
+    width: 139px;
+}
+table#compareTable td p {
+    width: 130px;
+    word-wrap: break-word;
 }
 
 .odd th,
@@ -6756,7 +6759,7 @@ table#compareTable td {
 }
 
 #compareTable .schoolThumbnailMap {
-    width: 100%;
+    width: 139px;
     height: 110px;
     margin: 5px 0;
 }
