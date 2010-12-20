@@ -160,7 +160,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
         Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
                 new HashMap<CensusDataSet, CompareLabel>();
-        Map<String, CensusStruct[]> rval;
+        Map<String, CompareConfigStruct[]> rval;
 
         rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
         assertNotNull("Expect empty map", rval);
@@ -187,7 +187,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
         Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
                 new HashMap<CensusDataSet, CompareLabel>();
-        Map<String, CensusStruct[]> rval;
+        Map<String, CompareConfigStruct[]> rval;
         SchoolCensusValue censusValue1;
         CensusDataSet censusDataSet = new CensusDataSet(CensusDataType.STUDENT_TEACHER_RATIO,2009);
         CompareLabel label= getLabel("Average Salary");
@@ -230,7 +230,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
         Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
                 new HashMap<CensusDataSet, CompareLabel>();
-        Map<String, CensusStruct[]> rval;
+        Map<String, CompareConfigStruct[]> rval;
         School school1 = getSchool(1, SchoolType.PUBLIC);
         schools.add(school1);
         School school2 = getSchool(2, SchoolType.PRIVATE);
@@ -290,7 +290,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap = new HashMap<CensusDataSet, SchoolType>();
         Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap =
                 new HashMap<CensusDataSet, CompareLabel>();
-        Map<String, CensusStruct[]> rval;
+        Map<String, CompareConfigStruct[]> rval;
 
         //add first school with white,asian breakdowns
         CensusDataSet censusDataSet1 = new CensusDataSet(CensusDataType.STUDENTS_ETHNICITY,2009);
@@ -518,29 +518,29 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
     }
 
     public void testSortRows(){
-        Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
-        CensusStruct[] cs1 = new CensusStruct[1];
-        cs1[0] = new CensusStruct();
+        Map<String, CompareConfigStruct[]> rowLabelToCells = new HashMap<String, CompareConfigStruct[]>();
+        CompareConfigStruct[] cs1 = new CompareConfigStruct[1];
+        cs1[0] = new CompareConfigStruct();
         cs1[0].setHeaderText("Average Salary");
         rowLabelToCells.put("Average Salary",cs1);
-        CensusStruct[] cs2 = new CensusStruct[2];
-        cs2[0] = new CensusStruct();
+        CompareConfigStruct[] cs2 = new CompareConfigStruct[2];
+        cs2[0] = new CompareConfigStruct();
         cs2[0].setHeaderText("Student Ethnicity");
-        cs2[1] = new CensusStruct();
+        cs2[1] = new CompareConfigStruct();
         List<BreakdownNameValue> breakdowns = new ArrayList<BreakdownNameValue>();
         breakdowns.add(getBreakdown("White", "30%", 30f));
         breakdowns.add(getBreakdown("Asian", "50%", 50f));
         breakdowns.add(getBreakdown("Black", "20%", 20f));
         cs2[1].setBreakdownList(breakdowns);
         rowLabelToCells.put("Student Ethnicity",cs2);
-        CensusStruct[] cs3 = new CensusStruct[1];
-        cs3[0] = new CensusStruct();
+        CompareConfigStruct[] cs3 = new CompareConfigStruct[1];
+        cs3[0] = new CompareConfigStruct();
         cs3[0].setHeaderText("Average years Teaching");
         rowLabelToCells.put("Average years Teaching",cs3);
-        CensusStruct[] cs4 = new CensusStruct[2];
-        cs4[0] = new CensusStruct();
+        CompareConfigStruct[] cs4 = new CompareConfigStruct[2];
+        cs4[0] = new CompareConfigStruct();
         cs4[0].setHeaderText("Students per teacher");
-        cs4[1] = new CensusStruct();
+        cs4[1] = new CompareConfigStruct();
         breakdowns = new ArrayList<BreakdownNameValue>();
         breakdowns.add(getBreakdown("1st grade", "12:1", null));
         breakdowns.add(getBreakdown("2nd grade", "12:1", null));
@@ -555,7 +555,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         rowLabelToOrder.put("Student Ethnicity",3);
         rowLabelToOrder.put("Average years Teaching",4);
         
-        List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
+        List<CompareConfigStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
         assertNotNull(rval);
         assertEquals(4, rval.size());
         assertEquals("Average Salary", rval.get(0)[0].getHeaderText());
@@ -577,16 +577,16 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
     }
 
     public void testSortRowsHomeLanguage() {
-        Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
-        CensusStruct[] cs = new CensusStruct[2];
-        cs[0] = new CensusStruct();
+        Map<String, CompareConfigStruct[]> rowLabelToCells = new HashMap<String, CompareConfigStruct[]>();
+        CompareConfigStruct[] cs = new CompareConfigStruct[2];
+        cs[0] = new CompareConfigStruct();
         cs[0].setHeaderText("Home Language");
         rowLabelToCells.put("Home Language",cs);
 
         Map<String, Integer> rowLabelToOrder = new HashMap<String,Integer>();
         rowLabelToOrder.put("Home Language",1);
 
-        cs[1] = new CensusStruct();
+        cs[1] = new CompareConfigStruct();
         List<BreakdownNameValue> breakdowns = new ArrayList<BreakdownNameValue>();
         breakdowns.add(getBreakdown("Australian", "5%", 5f)); // mate!
         breakdowns.add(getBreakdown("Spanish", "15%", 15f)); // el capitan
@@ -597,10 +597,10 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         cs[1].setBreakdownList(breakdowns);
         cs[1].setBreakdownValueMinimum(5);
 
-        List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells, rowLabelToOrder);
+        List<CompareConfigStruct[]> rval = _controller.sortRows(rowLabelToCells, rowLabelToOrder);
         assertNotNull(rval);
         assertEquals(1, rval.size());
-        CensusStruct languages = rval.get(0)[1];
+        CompareConfigStruct languages = rval.get(0)[1];
         assertEquals(4, languages.getBreakdownList().size());
         assertEquals("Mandarin", languages.getBreakdownList().get(0).getName());
         assertEquals("Spanish", languages.getBreakdownList().get(1).getName());
@@ -609,29 +609,29 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
     }
 
     public void testSortRowsRegressionNullCell(){
-        Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
-        CensusStruct[] cs1 = new CensusStruct[1];
-        cs1[0] = new CensusStruct();
+        Map<String, CompareConfigStruct[]> rowLabelToCells = new HashMap<String, CompareConfigStruct[]>();
+        CompareConfigStruct[] cs1 = new CompareConfigStruct[1];
+        cs1[0] = new CompareConfigStruct();
         cs1[0].setHeaderText("Average Salary");
         rowLabelToCells.put("Average Salary",cs1);
-        CensusStruct[] cs2 = new CensusStruct[2];
-        cs2[0] = new CensusStruct();
+        CompareConfigStruct[] cs2 = new CompareConfigStruct[2];
+        cs2[0] = new CompareConfigStruct();
         cs2[0].setHeaderText("Student Ethnicity");
-        cs2[1] = new CensusStruct();
+        cs2[1] = new CompareConfigStruct();
         List<BreakdownNameValue> breakdowns = new ArrayList<BreakdownNameValue>();
         breakdowns.add(getBreakdown("White", "30%", 30f));
         breakdowns.add(getBreakdown("Asian", "50%", 50f));
         breakdowns.add(getBreakdown("Black", "20%", 20f));
         cs2[1].setBreakdownList(breakdowns);
         rowLabelToCells.put("Student Ethnicity",cs2);
-        CensusStruct[] cs3 = new CensusStruct[1];
-        cs3[0] = new CensusStruct();
+        CompareConfigStruct[] cs3 = new CompareConfigStruct[1];
+        cs3[0] = new CompareConfigStruct();
         cs3[0].setHeaderText("Average years Teaching");
         rowLabelToCells.put("Average years Teaching",cs3);
-        CensusStruct[] cs4 = new CensusStruct[3];
-        cs4[0] = new CensusStruct();
+        CompareConfigStruct[] cs4 = new CompareConfigStruct[3];
+        cs4[0] = new CompareConfigStruct();
         cs4[0].setHeaderText("Students per teacher");
-        cs4[1] = new CensusStruct();
+        cs4[1] = new CompareConfigStruct();
         breakdowns = new ArrayList<BreakdownNameValue>();
         breakdowns.add(getBreakdown("1st grade", "12:1", null));
         breakdowns.add(getBreakdown("2nd grade", "12:1", null));
@@ -646,7 +646,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         rowLabelToOrder.put("Student Ethnicity", 3);
         rowLabelToOrder.put("Average years Teaching", 4);
 
-        List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
+        List<CompareConfigStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
         assertNotNull(rval);
         assertEquals(4, rval.size());
         assertEquals("Average Salary", rval.get(0)[0].getHeaderText());
@@ -705,20 +705,20 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         return breakdown;
     }
 
-    private void assertHeaderCell(CensusStruct cell, String headerText) {
+    private void assertHeaderCell(CompareConfigStruct cell, String headerText) {
         assertNotNull(cell);
         assertTrue(cell.getIsHeaderCell());
         assertEquals(headerText, cell.getHeaderText());
     }
 
-    private void assertSimpleCell(CensusStruct cell, String cellValue) {
+    private void assertSimpleCell(CompareConfigStruct cell, String cellValue) {
         assertNotNull(cell);
         assertTrue(cell.getIsSimpleCell());
         assertFalse(cell.getIsHeaderCell());
         assertEquals(cellValue, cell.getValue());
     }
 
-    private void assertBreakdownCell(CensusStruct cell,int index, String breakdownName,String breakdownValue) {
+    private void assertBreakdownCell(CompareConfigStruct cell,int index, String breakdownName,String breakdownValue) {
         assertNotNull(cell);
         assertFalse(cell.getIsSimpleCell());
         assertFalse(cell.getIsHeaderCell());

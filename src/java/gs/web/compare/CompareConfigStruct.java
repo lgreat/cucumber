@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author Nanditha Patury <mailto:npatury@greatschools.net>
  */
-public class CensusStruct {
+public class CompareConfigStruct {
     private boolean _isHeaderCell = false;
     private boolean _isSimpleCell = false;
     private String _headerText;

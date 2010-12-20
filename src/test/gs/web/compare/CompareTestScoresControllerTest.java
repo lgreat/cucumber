@@ -165,7 +165,7 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         Map<TestDataSet, SchoolType> testDataSetToSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
         Map<TestDataSet, CompareLabel> testDataSetToRowLabelMap =
                 new HashMap<TestDataSet, CompareLabel>();
-        Map<String, CensusStruct[]> rval;
+        Map<String, CompareConfigStruct[]> rval;
 
         rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap);
         assertNotNull("Expect empty map", rval);
@@ -191,7 +191,7 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         Map<TestDataSet, SchoolType> testDataSetToSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
         Map<TestDataSet, CompareLabel> testDataSetToRowLabelMap =
                 new HashMap<TestDataSet, CompareLabel>();
-        Map<String, CensusStruct[]> rval;
+        Map<String, CompareConfigStruct[]> rval;
         SchoolTestValue testValue1;
         TestDataSet testDataSet = new TestDataSet();
         testDataSet.setDataTypeId(getTestDataType().getId());
@@ -394,24 +394,24 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
     }
 
     public void testSortRows(){
-        Map<String, CensusStruct[]> rowLabelToCells = new HashMap<String, CensusStruct[]>();
-        CensusStruct[] cs1 = new CensusStruct[1];
-        cs1[0] = new CensusStruct();
+        Map<String, CompareConfigStruct[]> rowLabelToCells = new HashMap<String, CompareConfigStruct[]>();
+        CompareConfigStruct[] cs1 = new CompareConfigStruct[1];
+        cs1[0] = new CompareConfigStruct();
         cs1[0].setHeaderText("API Growth");
         rowLabelToCells.put("API Growth",cs1);
-        CensusStruct[] cs2 = new CensusStruct[2];
-        cs2[0] = new CensusStruct();
+        CompareConfigStruct[] cs2 = new CompareConfigStruct[2];
+        cs2[0] = new CompareConfigStruct();
         cs2[0].setHeaderText("CST English Grade 3");
-        cs2[1] = new CensusStruct();
+        cs2[1] = new CompareConfigStruct();
         rowLabelToCells.put("CST English Grade 3",cs2);
-        CensusStruct[] cs3 = new CensusStruct[1];
-        cs3[0] = new CensusStruct();
+        CompareConfigStruct[] cs3 = new CompareConfigStruct[1];
+        cs3[0] = new CompareConfigStruct();
         cs3[0].setHeaderText("CST Math Grade 3");
         rowLabelToCells.put("CST Math Grade 3",cs3);
-        CensusStruct[] cs4 = new CensusStruct[3];
-        cs4[0] = new CensusStruct();
+        CompareConfigStruct[] cs4 = new CompareConfigStruct[3];
+        cs4[0] = new CompareConfigStruct();
         cs4[0].setHeaderText("CST English Grade 8");
-        cs4[1] = new CensusStruct();
+        cs4[1] = new CompareConfigStruct();
         rowLabelToCells.put("CST English Grade 8", cs4);
         Map<String, Integer> rowLabelToOrder = new HashMap<String,Integer>();
         rowLabelToOrder.put("CST English Grade 3",1);
@@ -419,7 +419,7 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         rowLabelToOrder.put("CST English Grade 8",3);
         rowLabelToOrder.put("API Growth",4);
 
-        List<CensusStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
+        List<CompareConfigStruct[]> rval = _controller.sortRows(rowLabelToCells,rowLabelToOrder);
         assertNotNull(rval);
         assertEquals(4, rval.size());
         assertEquals("CST English Grade 3", rval.get(0)[0].getHeaderText());
@@ -428,13 +428,13 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         assertEquals("API Growth", rval.get(3)[0].getHeaderText());
     }
 
-    private void assertHeaderCell(CensusStruct cell, String headerText) {
+    private void assertHeaderCell(CompareConfigStruct cell, String headerText) {
         assertNotNull(cell);
         assertTrue(cell.getIsHeaderCell());
         assertEquals(headerText, cell.getHeaderText());
     }
 
-    private void assertSimpleCell(CensusStruct cell, String cellValue) {
+    private void assertSimpleCell(CompareConfigStruct cell, String cellValue) {
         assertNotNull(cell);
         assertTrue(cell.getIsSimpleCell());
         assertFalse(cell.getIsHeaderCell());

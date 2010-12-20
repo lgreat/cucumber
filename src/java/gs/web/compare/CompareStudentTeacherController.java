@@ -51,7 +51,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         model.put(MODEL_CENSUS_ROWS, getSchoolCensusData(schools.get(0).getDatabaseState(), schools, COMPARE_CONFIG_TAB_NAME));
     }
 
-    protected List<CensusStruct[]> getSchoolCensusData(State state, List<School> schools, String tab) {
+    protected List<CompareConfigStruct[]> getSchoolCensusData(State state, List<School> schools, String tab) {
         // initialize some maps necessary for this process
         // censusDataSet to compareLabel
         Map<CensusDataSet, CompareLabel> censusDataSetToLabel = new HashMap<CensusDataSet, CompareLabel>();
@@ -64,7 +64,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         List<CompareConfig> compareConfigs = getCompareConfigs(state, tab);
         if (compareConfigs == null || compareConfigs.size() == 0) {
             _log.error("Can't find compare config rows for " + state + ", " + tab);
-            return new ArrayList<CensusStruct[]>();
+            return new ArrayList<CompareConfigStruct[]>();
         }
         _log.warn("Found " + compareConfigs.size() + " compare configuration rows");
 
@@ -74,7 +74,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 getCensusDataSets(state, compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
         if (censusDataSets == null || censusDataSets.size() == 0) {
             _log.error("Can't find census data sets for " + state + ", " + tab);
-            return new ArrayList<CensusStruct[]>();
+            return new ArrayList<CompareConfigStruct[]>();
         }
         _log.warn("Found " + censusDataSets.size() + " census data sets");
 
@@ -83,7 +83,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets, schools);
         if (schoolCensusValues == null || schoolCensusValues.size() == 0) {
             _log.error("Can't find school census values for " + state + ", " + tab);
-            return new ArrayList<CensusStruct[]>();
+            return new ArrayList<CompareConfigStruct[]>();
         }
         _log.warn("Found " + schoolCensusValues.size() + " school census values");
 
@@ -91,7 +91,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // map is used here because all we have when populating each cell is a SchoolCensusValue. From that
         // we can get the data set, and from that we can look up the row label where it is supposed to live.
         // With the row label, we use the map to pull out the specific row needed.
-        Map<String, CensusStruct[]> rowLabelToCellList =
+        Map<String, CompareConfigStruct[]> rowLabelToCellList =
                 populateStructs(schools, schoolCensusValues, censusDataSetToSchoolType, censusDataSetToLabel);
         _log.warn("Created " + rowLabelToCellList.size() + " rows");
 
@@ -182,14 +182,14 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
      * With the row label, we use the map to pull out the specific row needed.
      * Although we ultimately need this to be ordered, it's easier to deal with right now as a map.
      */
-    protected Map<String, CensusStruct[]> populateStructs
+    protected Map<String, CompareConfigStruct[]> populateStructs
             (List<School> schools,
              List<SchoolCensusValue> schoolCensusValues,
              Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap,
              Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap)
     {
         // map of row label to list of cells (school values)
-        Map<String, CensusStruct[]> rval = new HashMap<String, CensusStruct[]>();
+        Map<String, CompareConfigStruct[]> rval = new HashMap<String, CompareConfigStruct[]>();
         if (schools == null || schoolCensusValues == null || schools.isEmpty() || schoolCensusValues.isEmpty()) {
             return rval; // early exit
         }
@@ -217,13 +217,13 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             // look up row and value label in censusDataSetToLabelMap
             CompareLabel label = censusDataSetToRowLabelMap.get(schoolCensusValue.getDataSet());
             // get array of cells from rowLabelToCellList map
-            CensusStruct[] cells = rval.get(label.getRowLabel());
+            CompareConfigStruct[] cells = rval.get(label.getRowLabel());
             // if null, create new cell list
             if (cells == null) {
                 // create static sized array with schools.size()+1 elements
-                cells = new CensusStruct[(schools.size() + 1)];
+                cells = new CompareConfigStruct[(schools.size() + 1)];
                 // add header cell using row label to position 0
-                CensusStruct headerCell = new CensusStruct();
+                CompareConfigStruct headerCell = new CompareConfigStruct();
                 headerCell.setIsHeaderCell(true);
                 headerCell.setHeaderText(label.getRowLabel());
                 // header cell's year should be the most recent year represented in the row
@@ -235,14 +235,14 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 rval.put(label.getRowLabel(), cells);
             }
             int cellIndex = schoolIdToIndex.get(schoolCensusValue.getSchool().getId());
-            CensusStruct cell = cells[cellIndex];
+            CompareConfigStruct cell = cells[cellIndex];
             // Check list for existing cell in position -- if exists and it is more recent than the
             // current value, don't overwrite it
             if (cell != null && cell.getYear() > schoolCensusValue.getDataSet().getYear()) {
                 continue;
             }
             if (cell == null) {
-                cell = new CensusStruct();
+                cell = new CompareConfigStruct();
             }
             if (label.getBreakdownLabel() != null) {
                 // Initial proposed logic:
@@ -319,10 +319,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
     /**
      * 5) Sort the rows
-     * Sorts the CensusStruct[]'s in the map per the order in rowLabelToOrder.
+     * Sorts the CompareConfigStruct[]'s in the map per the order in rowLabelToOrder.
      * Also sorts each breakdown cell by value in descending order
      */
-    public List<CensusStruct[]> sortRows(Map<String, CensusStruct[]> rowLabelToCells,
+    public List<CompareConfigStruct[]> sortRows(Map<String, CompareConfigStruct[]> rowLabelToCells,
                                          final Map<String, Integer> rowLabelToOrder) {
         List<String> rowLabels = new LinkedList<String>(rowLabelToCells.keySet());
         Collections.sort(rowLabels, new Comparator<String>() {
@@ -332,11 +332,11 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         });
         // now we know the order, let's populate a list with the rows in correct order
         // at the same time, we'll sort any breakdown cells by value desc
-        List<CensusStruct[]> rows = new ArrayList<CensusStruct[]>();
+        List<CompareConfigStruct[]> rows = new ArrayList<CompareConfigStruct[]>();
         for (String label : rowLabels) {
-            CensusStruct[] row = rowLabelToCells.get(label);
+            CompareConfigStruct[] row = rowLabelToCells.get(label);
             rows.add(row);
-            for (CensusStruct cell: row) {
+            for (CompareConfigStruct cell: row) {
                 if (cell != null && cell.getBreakdownList() != null) {
                     Collections.sort(cell.getBreakdownList(), new Comparator<BreakdownNameValue>() {
                         // sort by value descending
