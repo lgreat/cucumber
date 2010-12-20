@@ -160,20 +160,20 @@
                         <form method="get" action="/stateLauncher.page" onsubmit="return findAndCompareCheck('schoolChoiceQuery', 'searchState', 'p');">
 
                         <div class="searchContent">
-                            <variant:a>
+                            <!--<variant:a>-->
                             <input type="text" maxlength="75" name="q" id="schoolChoiceQuery"
                                    value="Search for school, district or city"
                                    class="searchInput"
                                    onfocus="textSwitch(this, '', 'Search for school, district or city');"
                                    onblur="textSwitch(this, 'Search for school, district or city', '');"/>
-                            </variant:a>
-                            <variant:b>
-                            <input type="text" maxlength="75" name="q" id="schoolChoiceQuery"
-                                   value="Search for school, city or zipcode"
-                                   class="searchInput"
-                                   onfocus="textSwitch(this, '', 'Search for school, city or zipcode');"
-                                   onblur="textSwitch(this, 'Search for school, city or zipcode', '');"/>
-                            </variant:b>
+                            <!--</variant:a>-->
+                            <!--<variant:b>-->
+                            <!--<input type="text" maxlength="75" name="q" id="schoolChoiceQuery"-->
+                                   <!--value="Search for school, city or zipcode"-->
+                                   <!--class="searchInput"-->
+                                   <!--onfocus="textSwitch(this, '', 'Search for school, city or zipcode');"-->
+                                   <!--onblur="textSwitch(this, 'Search for school, city or zipcode', '');"/>-->
+                            <!--</variant:b>-->
                             <gsweb:stateSelector styleClass="searchDropdown" name="state"
                                                  styleId="searchState"
                                                  state="${requestScope.context.state}"

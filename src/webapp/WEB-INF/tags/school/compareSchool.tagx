@@ -15,7 +15,7 @@
         >
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
-   <variant:a>
+   <!--<variant:a>-->
     <div id="compareSchool">
         <h2>Compare ${school.name} to</h2>
         <c:set var="level" value="high"/>
@@ -55,6 +55,6 @@
         </gsweb:form>
         <br style="clear:both;" />
     </div>
-    </variant:a>
+    <!--</variant:a>-->
 
 </jsp:root>

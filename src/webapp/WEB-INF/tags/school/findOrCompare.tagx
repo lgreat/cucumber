@@ -44,18 +44,18 @@
                 <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                     <input type="hidden" name="st" value="charter"/>
                 </c:if>
-                <variant:a>
+                <!--<variant:a>-->
                 <input type="text" value="Enter school, city, or district" name="q" id="q" size="21"
                        class="text2 fltlft"
                        onfocus="textSwitch(this, '', 'Enter school, city, or district');"
                        onblur="textSwitch(this, 'Enter school, city, or district', '');"/>
-                </variant:a>
-                <variant:b>
-                <input type="text" value="Enter school, city, or zipcode" name="q" id="q" size="21"
-                       class="text2 fltlft"
-                       onfocus="textSwitch(this, '', 'Enter school, city, or zipcode');"
-                       onblur="textSwitch(this, 'Enter school, city, or zipcode', '');"/>
-                </variant:b>
+                <!--</variant:a>-->
+                <!--<variant:b>-->
+                <!--<input type="text" value="Enter school, city, or zipcode" name="q" id="q" size="21"-->
+                       <!--class="text2 fltlft"-->
+                       <!--onfocus="textSwitch(this, '', 'Enter school, city, or zipcode');"-->
+                       <!--onblur="textSwitch(this, 'Enter school, city, or zipcode', '');"/>-->
+                <!--</variant:b>-->
                 <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
                                      useNoState="${not requestScope.context.hasSearched}"
                                      styleId="splashStateSelector"

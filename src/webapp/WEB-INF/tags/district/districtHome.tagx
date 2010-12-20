@@ -178,7 +178,7 @@
                 <jsp:include page="/district/nearbySchoolsInDistrict.module?zoom=10&amp;district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}&amp;numElementarySchools=${model.numElementarySchools}&amp;numMiddleSchools=${model.numMiddleSchools}&amp;numHighSchools=${model.numHighSchools}"/>
             </div>
         </div>
-        <variant:a>
+        <!--<variant:a>-->
         <div id="compareSchools">
             <c:choose>
                 <c:when test="${fn:endsWith(fn:toLowerCase(districtAcronymOrName),'schools')}">
@@ -213,7 +213,7 @@
                 </form>
             </div>
         </div>
-        </variant:a>
+        <!--</variant:a>-->
         <div id="parentReviews">
             <jsp:include page="/school/review/recentParentReviews.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;nofollow=1"/>
         </div>
