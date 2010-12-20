@@ -50,11 +50,11 @@ GS.search.SchoolSearcher = function() {
         jQuery('#js-schoolTypes :checked').each(function() {
             schoolTypes[i++] = jQuery(this).val();
         });
-        data["lc"] = gradeLevels;
+        data["gradeLevels"] = gradeLevels;
         data["st"] = schoolTypes;
 
         var queryString = window.location.search;
-        queryString = removeFromQueryString(queryString, "lc");
+        queryString = removeFromQueryString(queryString, "gradeLevels");
         queryString = removeFromQueryString(queryString, "st");
 
         jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
@@ -271,7 +271,6 @@ GS.search.SchoolSearchResultsTable = function() {
                 searcher.search(onSearchSuccess, onSearchError);
             }
         );
-
     };
 
     this.onPageSizeChanged = function() {

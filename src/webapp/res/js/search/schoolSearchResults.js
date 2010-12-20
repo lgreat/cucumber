@@ -100,12 +100,12 @@ GS.search.onMapMarkerClick = function(state, id) {
 
     function buildQueryString(queryString) {
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
-        queryString = removeFromQueryString(queryString, "lc");
+        queryString = removeFromQueryString(queryString, "gradeLevels");
         var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
         var numGradeLevels = jQuery('#js-gradeLevels input[type=checkbox]').size();
         var overwriteGradeLevels = true;
         checkedGradeLevels.each(function() {
-            queryString = putIntoQueryString(queryString, "lc", jQuery(this).val(), overwriteGradeLevels);
+            queryString = putIntoQueryString(queryString, "gradeLevels", jQuery(this).val(), overwriteGradeLevels);
             overwriteGradeLevels = false;
         });
 
