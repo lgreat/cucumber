@@ -46,7 +46,7 @@
                 There are no reviews yet for this school.
             </p>
             <p class="smallText1"><link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
-                Be the first the share!
+                Be the first to share!
             </link:schoolProfileParentReview></p>
         </c:otherwise>
     </c:choose>

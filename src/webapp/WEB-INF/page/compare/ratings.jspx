@@ -91,25 +91,6 @@
                     </td>
                 </c:forEach>
             </tr>
-            <tr>
-                <th>&amp;nbsp;</th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="cs_moreRates center">
-                        <p class="text2">
-                            <c:choose>
-                                <c:when test="${school.numReviews gt 0}">
-                                    <link:schoolProfileParentReview school="${school.school}">
-                                        View more ratings &amp;amp; reviews
-                                    </link:schoolProfileParentReview>
-                                </c:when>
-                                <c:otherwise>
-                                    &amp;nbsp;
-                                </c:otherwise>
-                            </c:choose>
-                        </p>
-                    </td>
-                </c:forEach>
-            </tr>
         </compare:compareTemplate>
     </gsml:body>
     </html>
