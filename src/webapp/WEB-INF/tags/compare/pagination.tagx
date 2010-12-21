@@ -7,22 +7,41 @@
     <jsp:directive.tag body-content="scriptless"/>
 
     <jsp:directive.attribute name="tab" required="true" description="Tab to be selected"/>
-    <jsp:directive.attribute name="schoolsString" required="true" description="Schools parameter to use in creating link"/>
-    <jsp:directive.attribute name="page" required="true" type="java.lang.Integer" description="Page number for linking"/>
-    <jsp:directive.attribute name="startIndex" required="true" type="java.lang.Integer" description="Page number for linking"/>
-    <jsp:directive.attribute name="endIndex" required="true" type="java.lang.Integer" description="Page number for linking"/>
-    <jsp:directive.attribute name="totalSchools" required="true" type="java.lang.Integer" description="Page number for linking"/>
-    <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer" description="Page number for linking"/>
+    <jsp:directive.attribute name="schoolsString" required="true"
+                             description="Schools parameter to use in creating link"/>
+    <jsp:directive.attribute name="page" required="true" type="java.lang.Integer"
+                             description="Page number for linking"/>
+    <jsp:directive.attribute name="startIndex" required="true" type="java.lang.Integer"
+                             description="Page number for linking"/>
+    <jsp:directive.attribute name="endIndex" required="true" type="java.lang.Integer"
+                             description="Page number for linking"/>
+    <jsp:directive.attribute name="totalSchools" required="true" type="java.lang.Integer"
+                             description="Page number for linking"/>
+    <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer"
+                             description="Page number for linking"/>
 
     <div class="pagination text3">
-        (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
-        <c:if test="${totalSchools gt pageSize}">
-            <c:set var="nextPage" value="2"/>
-            <c:if test="${page eq 2}">
+        <c:choose>
+            <c:when test="${page eq 1}">
+                <c:set var="nextPage" value="2"/>
+                (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
+                <c:if test="${totalSchools gt pageSize}">
+                    <link:compareSchools tab="${tab}" schools="${schoolsString}"
+                                         page="${nextPage}">More schools (${totalSchools-pageSize})<span
+                            class="sprite twirlyClosed"><!-- don't collapse --></span>
+                    </link:compareSchools>
+                </c:if>
+            </c:when>
+            <c:otherwise>
                 <c:set var="nextPage" value="1"/>
-            </c:if>
-            <link:compareSchools tab="${tab}" schools="${schoolsString}"
-                                 page="${nextPage}">More schools (${totalSchools-pageSize})<span class="sprite twirlyClosed"><!-- don't collapse --></span></link:compareSchools>
-        </c:if>
+                <c:if test="${totalSchools gt pageSize}">
+                    <link:compareSchools tab="${tab}" schools="${schoolsString}"
+                                         page="${nextPage}">Previous schools (${totalSchools-pageSize})<span
+                            class="sprite twirlyClosed"><!-- don't collapse --></span>
+                    </link:compareSchools>
+                </c:if>
+                (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
+            </c:otherwise>
+        </c:choose>
     </div>
 </jsp:root>
