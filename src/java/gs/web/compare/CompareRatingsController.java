@@ -40,8 +40,8 @@ public class CompareRatingsController extends AbstractCompareSchoolController {
             if (ratings == null) {
                 continue;
             }
-            if (ratings.getNumberOfReviews() != null) {
-                struct.setNumRatings(ratings.getNumberOfReviews().intValue());
+            if (ratings.getCount() != null) {
+                struct.setNumRatings(ratings.getCount());
             }
             if (ratings.getOverall() != null) {
                 struct.setCommunityRating(ratings.getOverall());

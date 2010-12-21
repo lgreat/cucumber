@@ -90,7 +90,7 @@ public class CompareRatingsControllerTest extends BaseControllerTestCase {
 
         resetAllMocks();
 
-        ratings1.setNumberOfReviews(5L);
+        ratings1.setCount(5);
         ratings1.setAvgQuality(5);
         ratings1.setAvgParents(4);
         ratings1.setAvgPrincipal(3);
