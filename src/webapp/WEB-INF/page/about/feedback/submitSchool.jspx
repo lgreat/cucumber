@@ -27,23 +27,27 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="Add your ${type} to the GreatSchools web site"/>
         <title>Add your ${type} to the GreatSchools Web site</title>
-        <pageHelper:externalJavascript file="/res/js/prototype.js"/>
           <script type="text/javascript">
           <![CDATA[
-          <!--
+          //<!--
           function stateChange(stateSelect) {
               var url = '/community/registrationAjax.page';
-              var pars = 'state=' + stateSelect.value + "&type=county";
-              $('county').innerHTML = '<select name="county" class="selectCounty"><option value="">Loading ...</option></select>';
-              var myAjax = new Ajax.Updater (
-                      'county',
-                      url,
-                      {
-                          method: 'get',
-                          parameters: pars
-                      });
+              var params = {
+                  'state':stateSelect.value,
+                  'type':'county'
+              };
+              document.getElementById('county').innerHTML = '<select name="county" class="selectCounty"><option value="">Loading ...</option></select>';
+              jQuery.ajax({
+                      url: url,
+                      data: params,
+                      success: function(data) {
+                        jQuery('#county').html(data);
+                      },
+                      dataType: 'html'
+                  }
+              );
           }
-          -->
+          //-->
           ]]>
           </script>
 
