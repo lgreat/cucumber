@@ -71,6 +71,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         assertSame(_compareConfigDao, _controller.getCompareConfigDao());
         assertSame(_compareLabelDao, _controller.getCompareLabelDao());
         assertSame(_censusDataSchoolValueDao, _controller.getCensusDataSchoolValueDao());
+        assertSame(_compareLabelInfoDao, _controller.getCompareLabelInfoDao());
         assertEquals(ComparedSchoolStudentTeacherStruct.class, _controller.getStruct().getClass());
     }
 

@@ -70,6 +70,10 @@
                                     <c:when test="${testCell.isHeaderCell}">
                                         <c:set var="rowYear" value="${testCell.year}"/>
                                         <th scope="row">
+                                            <c:if test="${not empty testCell.extraInfo}">
+                                                <a onclick="window.open(this.href, 'info', 'width=500,height=400,scrollbars=yes'); return false;"
+                                                   href="${testCell.extraInfo}" class="fltrt"><span class="sprite info"><!-- not empty --></span></a>
+                                            </c:if>
                                             <div class="mainLabel">${testCell.headerText}</div>
                                             <c:choose>
                                                 <c:when test="${not empty testCell.breakdownText}">

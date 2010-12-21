@@ -71,8 +71,9 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         assertSame(_compareConfigDao, _controller.getCompareConfigDao());
         assertSame(_testDataTypeDao, _controller.getTestDataTypeDao());
         assertSame(_testDataSetDao, _controller.getTestDataSetDao());
+        assertSame(_testDataSchoolValueDao, _controller.getTestDataSchoolValueDao());
+        assertSame(_compareLabelInfoDao, _controller.getCompareLabelInfoDao());
     }
-
 
     public void testGetCompareConfigsNull() {
         expect(_compareConfigDao.getConfig(State.CA, "student_teacher", DataSetContentType.getInstance("school"))).andReturn(null);

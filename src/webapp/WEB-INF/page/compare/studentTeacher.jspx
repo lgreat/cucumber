@@ -51,6 +51,10 @@
                                     <c:when test="${censusCell.isHeaderCell}">
                                         <c:set var="rowYear" value="${censusCell.year}"/>
                                         <th scope="row">
+                                            <c:if test="${not empty censusCell.extraInfo}">
+                                                <a onclick="window.open(this.href, 'info', 'width=500,height=400,scrollbars=yes'); return false;"
+                                                   href="${censusCell.extraInfo}" class="fltrt"><span class="sprite info"><!-- not empty --></span></a>
+                                            </c:if>
                                             ${censusCell.headerText}
                                             <div class="year">${censusCell.year}</div>
                                             <c:if test="${censusCell.breakdownValueMinimum gt 0}">
