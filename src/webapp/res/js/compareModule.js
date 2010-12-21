@@ -9,14 +9,16 @@ function verifyCity(selectId) {
 }
 
 function stateChange(stateSelect, cityDivId, citySelectId) {
+    document.getElementById(cityDivId).innerHTML = '<select name="city" id="' + citySelectId + '" class="compareCitySelect"><option value="">Loading ...</option></select>';
     var url = '/citiesAjax.page';
-    var pars = 'state=' + stateSelect.value;
-    $(cityDivId).innerHTML = '<select name="city" id="' + citySelectId + '" class="compareCitySelect"><option value="">Loading ...</option></select>';
-    new Ajax.Updater (
-            cityDivId,
-            url,
-            {
-                method: 'get',
-                parameters: pars
-            });
+    var params = {'state':stateSelect.value};
+    jQuery.ajax({
+            url: url,
+            data: params,
+            success: function(data) {
+              jQuery('#' + cityDivId).html(data);
+            },
+            dataType: 'html'
+        }
+    );
 }
