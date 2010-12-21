@@ -1,9 +1,6 @@
 package gs.web.compare;
 
-import gs.data.compare.CompareConfig;
-import gs.data.compare.CompareLabel;
-import gs.data.compare.ICompareConfigDao;
-import gs.data.compare.ICompareLabelDao;
+import gs.data.compare.*;
 import gs.data.school.*;
 import gs.data.school.census.Breakdown;
 //import gs.data.school.census.CensusDataSetType;
@@ -30,6 +27,10 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
     private ICompareConfigDao _compareConfigDao;
     private ITestDataTypeDao _testDataTypeDao;
     private ITestDataSetDao _testDataSetDao;
+    private ITestDataSchoolValueDao _testDataSchoolValueDao;
+    private ICompareLabelInfoDao _compareLabelInfoDao;
+
+    private Map<String, CompareLabelInfo> _labelToCompareLabelInfoMap;
 
     @Override
     public void setUp() throws Exception {
@@ -41,20 +42,26 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         _compareConfigDao = createStrictMock(ICompareConfigDao.class);
         _testDataTypeDao = createStrictMock(ITestDataTypeDao.class);
         _testDataSetDao = createStrictMock(ITestDataSetDao.class);
+        _testDataSchoolValueDao = createStrictMock(ITestDataSchoolValueDao.class);
+        _compareLabelInfoDao = createStrictMock(ICompareLabelInfoDao.class);
 
         _controller.setSuccessView("success");
         _controller.setCompareLabelDao(_compareLabelDao);
         _controller.setCompareConfigDao(_compareConfigDao);
         _controller.setTestDataTypeDao(_testDataTypeDao);
         _controller.setTestDataSetDao(_testDataSetDao);
+        _controller.setTestDataSchoolValueDao(_testDataSchoolValueDao);
+        _controller.setCompareLabelInfoDao(_compareLabelInfoDao);
+
+        _labelToCompareLabelInfoMap = new HashMap<String, CompareLabelInfo>();
     }
 
     private void replayAllMocks() {
-        replayMocks(_compareLabelDao, _compareConfigDao, _testDataTypeDao, _testDataSetDao);
+        replayMocks(_compareLabelDao, _compareConfigDao, _testDataTypeDao, _testDataSetDao, _testDataSchoolValueDao, _compareLabelInfoDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_compareLabelDao, _compareConfigDao, _testDataTypeDao, _testDataSetDao);
+        verifyMocks(_compareLabelDao, _compareConfigDao, _testDataTypeDao, _testDataSetDao, _testDataSchoolValueDao, _compareLabelInfoDao);
     }
 
     public void testBasics() {
@@ -167,20 +174,20 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
                 new HashMap<TestDataSet, CompareLabel>();
         Map<String, CompareConfigStruct[]> rval;
 
-        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull("Expect empty map", rval);
         assertTrue("Expect empty map", rval.isEmpty());
 
         SchoolTestValue testValue1 = new SchoolTestValue();
         schoolTestValues.add(testValue1);
-        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull("Expect empty map", rval);
         assertTrue("Expect empty map", rval.isEmpty());
 
         schoolTestValues.clear();
         School school1 = getSchool(1);
         schools.add(school1);
-        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull("Expect empty map", rval);
         assertTrue("Expect empty map", rval.isEmpty());
     }
@@ -206,7 +213,7 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         schools.add(school1);
         testValue1 = getSchoolTestValue(school1, testDataSet, 40000);
         schoolTestValues.add(testValue1);
-        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
@@ -219,7 +226,7 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         schools.add(school2);
         SchoolTestValue testValue2 = getSchoolTestValue(school2, testDataSet, 60000);
         schoolTestValues.add(testValue2);
-        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());

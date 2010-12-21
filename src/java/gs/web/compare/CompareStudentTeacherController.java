@@ -1,9 +1,6 @@
 package gs.web.compare;
 
-import gs.data.compare.CompareConfig;
-import gs.data.compare.CompareLabel;
-import gs.data.compare.ICompareConfigDao;
-import gs.data.compare.ICompareLabelDao;
+import gs.data.compare.*;
 import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
@@ -33,6 +30,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
     private ICensusDataSchoolValueDao _censusDataSchoolValueDao;
+    private ICompareLabelInfoDao _compareLabelInfoDao;
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -78,6 +76,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         }
         _log.warn("Found " + censusDataSets.size() + " census data sets");
 
+        // 2.5) bulk query: Fetch out the label info for each label (e.g. info dialog URL)
+        List<String> rowLabels = new ArrayList<String>(rowLabelToOrder.keySet());
+        Map<String, CompareLabelInfo> rowLabelToInfo = _compareLabelInfoDao.findLabelInfos(state, rowLabels);
+
         // 3) bulk query: retrieve school values for each school and data set
         List<SchoolCensusValue> schoolCensusValues =
                 _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets, schools);
@@ -92,7 +94,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // we can get the data set, and from that we can look up the row label where it is supposed to live.
         // With the row label, we use the map to pull out the specific row needed.
         Map<String, CompareConfigStruct[]> rowLabelToCellList =
-                populateStructs(schools, schoolCensusValues, censusDataSetToSchoolType, censusDataSetToLabel);
+                populateStructs(schools, schoolCensusValues, censusDataSetToSchoolType, censusDataSetToLabel, rowLabelToInfo);
         _log.warn("Created " + rowLabelToCellList.size() + " rows");
 
         // 5) Sort the rows
@@ -186,7 +188,8 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             (List<School> schools,
              List<SchoolCensusValue> schoolCensusValues,
              Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap,
-             Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap)
+             Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap,
+             Map<String, CompareLabelInfo> rowLabelToInfoMap)
     {
         // map of row label to list of cells (school values)
         Map<String, CompareConfigStruct[]> rval = new HashMap<String, CompareConfigStruct[]>();
@@ -226,6 +229,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 CompareConfigStruct headerCell = new CompareConfigStruct();
                 headerCell.setIsHeaderCell(true);
                 headerCell.setHeaderText(label.getRowLabel());
+                CompareLabelInfo labelInfo = rowLabelToInfoMap.get(label.getRowLabel());
+                if (labelInfo != null) {
+                    headerCell.setExtraInfo(labelInfo.getLink());
+                }
                 // header cell's year should be the most recent year represented in the row
                 // start it off as the first cell's year, then below we will update it if we
                 // find a more recent year
@@ -424,5 +431,13 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
     public void setCensusDataSchoolValueDao(ICensusDataSchoolValueDao censusDataSchoolValueDao) {
         _censusDataSchoolValueDao = censusDataSchoolValueDao;
+    }
+
+    public ICompareLabelInfoDao getCompareLabelInfoDao() {
+        return _compareLabelInfoDao;
+    }
+
+    public void setCompareLabelInfoDao(ICompareLabelInfoDao compareLabelInfoDao) {
+        _compareLabelInfoDao = compareLabelInfoDao;
     }
 }

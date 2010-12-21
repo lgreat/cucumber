@@ -1,9 +1,6 @@
 package gs.web.compare;
 
-import gs.data.compare.CompareConfig;
-import gs.data.compare.CompareLabel;
-import gs.data.compare.ICompareConfigDao;
-import gs.data.compare.ICompareLabelDao;
+import gs.data.compare.*;
 import gs.data.school.*;
 import gs.data.school.census.*;
 import gs.data.source.DataSetContentType;
@@ -27,6 +24,9 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
     private ICompareLabelDao _compareLabelDao;
     private ICompareConfigDao _compareConfigDao;
     private ICensusDataSchoolValueDao _censusDataSchoolValueDao;
+    private ICompareLabelInfoDao _compareLabelInfoDao;
+
+    private Map<String, CompareLabelInfo> _labelToCompareLabelInfoMap;
 
     @Override
     public void setUp() throws Exception {
@@ -39,6 +39,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         _compareLabelDao = createStrictMock(ICompareLabelDao.class);
         _compareConfigDao = createStrictMock(ICompareConfigDao.class);
         _censusDataSchoolValueDao = createStrictMock(ICensusDataSchoolValueDao.class);
+        _compareLabelInfoDao = createStrictMock(ICompareLabelInfoDao.class);
         
         _controller.setSuccessView("success");
         _controller.setCensusDataSetDao(_censusDataSetDao);
@@ -46,14 +47,17 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         _controller.setCompareLabelDao(_compareLabelDao);
         _controller.setCompareConfigDao(_compareConfigDao);
         _controller.setCensusDataSchoolValueDao(_censusDataSchoolValueDao);
+        _controller.setCompareLabelInfoDao(_compareLabelInfoDao);
+
+        _labelToCompareLabelInfoMap = new HashMap<String, CompareLabelInfo>();
     }
 
     private void replayAllMocks() {
-        replayMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _censusDataSchoolValueDao);
+        replayMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _censusDataSchoolValueDao, _compareLabelInfoDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _censusDataSchoolValueDao);
+        verifyMocks(_censusDataSetDao, _censusInfo, _compareLabelDao, _compareConfigDao, _censusDataSchoolValueDao, _compareLabelInfoDao);
     }
 
 //    private void resetAllMocks() {
@@ -162,20 +166,20 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
                 new HashMap<CensusDataSet, CompareLabel>();
         Map<String, CompareConfigStruct[]> rval;
 
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull("Expect empty map", rval);
         assertTrue("Expect empty map", rval.isEmpty());
 
         SchoolCensusValue censusValue1 = new SchoolCensusValue();
         schoolCensusValues.add(censusValue1);
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull("Expect empty map", rval);
         assertTrue("Expect empty map", rval.isEmpty());
 
         schoolCensusValues.clear();
         School school1 = getSchool(1);
         schools.add(school1);
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull("Expect empty map", rval);
         assertTrue("Expect empty map", rval.isEmpty());
 
@@ -198,7 +202,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         schools.add(school1);
         censusValue1 = getSchoolCensusValue(school1, censusDataSet, 40000);
         schoolCensusValues.add(censusValue1);
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
@@ -211,7 +215,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         schools.add(school2);
         SchoolCensusValue censusValue2 = getSchoolCensusValue(school2, censusDataSet, 60000);
         schoolCensusValues.add(censusValue2);
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
@@ -248,7 +252,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         schoolCensusValues.add(censusValue1);
 
         // test that a census data set with a school type will only apply to schools of that type
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
@@ -263,7 +267,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         schoolCensusValues.add(censusValue3);
         SchoolCensusValue censusValue4 = getSchoolCensusValue(school2, censusDataSet2, 80000);
         schoolCensusValues.add(censusValue4);
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
@@ -274,7 +278,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
 
         // try in different order to double check
         Collections.reverse(schoolCensusValues);
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
@@ -306,7 +310,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         SchoolCensusValue censusValue2 = getSchoolCensusValue(school1, censusDataSet2, 60);
         schoolCensusValues.add(censusValue2);
 
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
         assertEquals(1,rval.size());
@@ -327,7 +331,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         schoolCensusValues.add(censusValue4);
         SchoolCensusValue censusValue5 = getSchoolCensusValue(school2, censusDataSet3, 40);
         schoolCensusValues.add(censusValue5);
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
 
         assertNotNull(rval);
         assertFalse(rval.isEmpty());
@@ -353,7 +357,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         SchoolCensusValue censusValue4b = getSchoolCensusValue(school2, censusDataSet2b, 80);
         schoolCensusValues.add(censusValue4b);
 
-        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap);
+        rval = _controller.populateStructs(schools, schoolCensusValues, censusDataSetToSchoolTypeMap, censusDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
 
         assertNotNull(rval);
         assertFalse(rval.isEmpty());

@@ -1,9 +1,6 @@
 package gs.web.compare;
 
-import gs.data.compare.CompareConfig;
-import gs.data.compare.CompareLabel;
-import gs.data.compare.ICompareConfigDao;
-import gs.data.compare.ICompareLabelDao;
+import gs.data.compare.*;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
@@ -34,6 +31,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
     private ITestDataTypeDao _testDataTypeDao;
     private ITestDataSetDao _testDataSetDao;
     private ITestDataSchoolValueDao _testDataSchoolValueDao;
+    private ICompareLabelInfoDao _compareLabelInfoDao;
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -85,6 +83,15 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
         }
         _log.warn("Found " + testDataSets.size() + " test data sets");
 
+        // 2.5) bulk query: Fetch out the label info for each label (e.g. info dialog URL)
+        List<CompareLabel> rowLabels = new ArrayList<CompareLabel>(testDataSetToLabel.values());
+        List<String> rowLabelStrings = new ArrayList<String>(rowLabels.size());
+        for (CompareLabel label: rowLabels) {
+            rowLabelStrings.add(label.getRowLabel());
+        }
+        Map<String, CompareLabelInfo> rowLabelToInfo = _compareLabelInfoDao.findLabelInfos(state, rowLabelStrings);
+        _log.warn("Found " + rowLabelToInfo.size() + " row label info dialogs");
+
         // 3) bulk query: retrieve school values for each school and data set
         List<SchoolTestValue> schoolTestValues = _testDataSchoolValueDao.findSchoolTestValues(state, testDataSets,
                                                                                               schools);
@@ -99,7 +106,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
         // we can get the data set, and from that we can look up the row label where it is supposed to live.
         // With the row label, we use the map to pull out the specific row needed.
         Map<String, CompareConfigStruct[]> rowLabelToCellList =
-                populateStructs(schools, schoolTestValues, testDataSetToSchoolType, testDataSetToLabel);
+                populateStructs(schools, schoolTestValues, testDataSetToSchoolType, testDataSetToLabel, rowLabelToInfo);
         _log.warn("Created " + rowLabelToCellList.size() + " rows");
 
         // 5) Sort the rows
@@ -197,7 +204,8 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
             (List<School> schools,
              List<SchoolTestValue> schoolTestValues,
              Map<TestDataSet, SchoolType> testDataSetToSchoolTypeMap,
-             Map<TestDataSet, CompareLabel> testDataSetToRowLabelMap)
+             Map<TestDataSet, CompareLabel> testDataSetToRowLabelMap,
+             Map<String, CompareLabelInfo> rowLabelToInfoMap)
     {
         // map of row label to list of cells (school values)
         Map<String, CompareConfigStruct[]> rval = new HashMap<String, CompareConfigStruct[]>();
@@ -239,6 +247,13 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
                 CompareConfigStruct headerCell = new CompareConfigStruct();
                 headerCell.setIsHeaderCell(true);
                 headerCell.setHeaderText(label.getRowLabel());
+                CompareLabelInfo labelInfo = rowLabelToInfoMap.get(label.getRowLabel());
+                if (labelInfo != null) {
+                    headerCell.setExtraInfo(labelInfo.getLink());
+                    _log.warn("Setting \"" + label.getRowLabel() + "\" to " + labelInfo.getLink());
+                } else {
+                    _log.warn("Can't find info for \"" + label.getRowLabel() + "\"");
+                }
                 headerCell.setBreakdownText(label.getBreakdownLabel());
                 // header cell's year should be the most recent year represented in the row
                 // start it off as the first cell's year, then below we will update it if we
@@ -378,5 +393,13 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
 
     public void setTestDataSchoolValueDao(ITestDataSchoolValueDao testDataSchoolValueDao) {
         _testDataSchoolValueDao = testDataSchoolValueDao;
+    }
+
+    public ICompareLabelInfoDao getCompareLabelInfoDao() {
+        return _compareLabelInfoDao;
+    }
+
+    public void setCompareLabelInfoDao(ICompareLabelInfoDao compareLabelInfoDao) {
+        _compareLabelInfoDao = compareLabelInfoDao;
     }
 }
