@@ -357,11 +357,13 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
 
         Ratings ratings1 = new Ratings();
         ratings1.setAvgQuality(4);
+        ratings1.setCount(2);
         expect(_reviewDao.findRatingsBySchool(school1)).andReturn(ratings1);
         replayAllMocks();
         _controller.handleCommunityRating(structs);
         verifyAllMocks();
         assertEquals(4, struct1.getCommunityRating());
+        assertEquals(2, struct1.getNumRatings());
     }
 
     public void testHandleRecentReview() {
