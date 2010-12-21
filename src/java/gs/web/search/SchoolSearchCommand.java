@@ -104,7 +104,7 @@ public class SchoolSearchCommand {
         return _gradeLevels;
     }
 
-    public void setLc(String[] gradeLevels) {
+    public void setGradeLevels(String[] gradeLevels) {
         _gradeLevels = gradeLevels;
     }
 
