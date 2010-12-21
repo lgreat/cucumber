@@ -345,7 +345,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         for (ComparedSchoolBaseStruct struct: structs) {
             School school = struct.getSchool();
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
-            if (ratings == null || ratings.getCount() == null) {
+            if (ratings == null || ratings.getOverall() == null) {
                 struct.setCommunityRating(0);
             } else {
                 struct.setCommunityRating(ratings.getOverall());
