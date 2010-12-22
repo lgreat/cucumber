@@ -201,20 +201,20 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         FieldSort sort = schoolSearchCommand.getSortBy() == null ? null : FieldSort.valueOf(schoolSearchCommand.getSortBy());
 
-        SearchResultsPage<ISchoolSearchResult> searchResultsPage;
-
-        if (schoolSearchCommand.isAjaxRequest() && (!schoolSearchCommand.hasSchoolTypes() || !schoolSearchCommand.hasGradeLevels())) {
-            // used for ajax updates only
-            searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
-        } else {
-            searchResultsPage = getSchoolSearchService().search(
-                    schoolSearchCommand.getSearchString(),
-                    fieldConstraints,
-                    filterGroups,
-                    sort,
-                    schoolSearchCommand.getStart(),
-                    schoolSearchCommand.getPageSize()
-            );
+        SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
+        if (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) {
+            try {
+                searchResultsPage = getSchoolSearchService().search(
+                        schoolSearchCommand.getSearchString(),
+                        fieldConstraints,
+                        filterGroups,
+                        sort,
+                        schoolSearchCommand.getStart(),
+                        schoolSearchCommand.getPageSize()
+                );
+            } catch (SchoolSearchService.SearchException ex) {
+                _log.debug("something when wrong when attempting to use SchoolSearchService. Eating exception", e);
+            }
         }
 
         //update command's start value once we know how many results there are, since command generates page #
@@ -222,13 +222,21 @@ public class SchoolSearchController extends AbstractCommandController implements
             schoolSearchCommand.setStart(0);
         }
 
-        List<ICitySearchResult> citySearchResults = null;
-        List<IDistrictSearchResult> districtSearchResults = null;
+        List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+        List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
         if (schoolSearchCommand.getSearchString() != null) {
-            citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state, 0, 33);
+            try {
+                citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state, 0, 33);
+            } catch (SchoolSearchService.SearchException ex) {
+                _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", e);
+            }
             model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
 
-            districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 11);
+            try {
+                districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 11);
+            } catch (SchoolSearchService.SearchException ex) {
+                _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
+            }
             model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
         }
 

@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.*;
 
 import java.io.IOException;
@@ -58,20 +57,29 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
     }
 
     public Query buildQuery(String searchString, State state) throws ParseException {
-        if (searchString != null) {
+        if (StringUtils.isBlank(searchString) && state == null) {
+            throw new IllegalArgumentException("Cannot find districts without a searchString or a state");
+        }
+
+        if (!StringUtils.isBlank(searchString)) {
             searchString = cleanseSearchString(searchString);
+            if (searchString == null) {
+                return null; //Provided search string was garbage, early exit regardless of field constraints
+            }
         }
 
         BooleanQuery districtQuery = new BooleanQuery();
+        districtQuery.add(new TermQuery(new Term("type", "district")), BooleanClause.Occur.MUST);
 
         if (searchString != null) {
             Query keywordQuery = _queryParser.parse(searchString);
             districtQuery.add(keywordQuery, BooleanClause.Occur.MUST);
         }
 
-        Query stateQuery = new TermQuery(new Term("state", state.getAbbreviationLowerCase()));
-        districtQuery.add(new TermQuery(new Term("type", "district")), BooleanClause.Occur.MUST);
-        districtQuery.add(stateQuery, BooleanClause.Occur.MUST);
+        if (state != null) {
+            districtQuery.add(new TermQuery(new Term(Indexer.STATE, state.getAbbreviationLowerCase())), BooleanClause.Occur.MUST);
+        }
+
         return districtQuery;
     }
 

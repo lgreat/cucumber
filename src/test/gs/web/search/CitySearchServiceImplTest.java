@@ -2,7 +2,6 @@ package gs.web.search;
 
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
-import gs.data.search.GSQueryParser;
 import gs.data.search.IndexDir;
 import gs.data.search.IndexField;
 import gs.data.search.Indexer;
@@ -13,26 +12,19 @@ import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 
-import java.util.HashMap;
-import java.util.Map;
+public class CitySearchServiceImplTest extends BaseTestCase {
 
-
-public class SchoolSearchServiceImplTest extends BaseTestCase {
-
-    SchoolSearchServiceImpl _schoolSearchService;
+    CitySearchServiceImpl _citySearchService;
     gs.data.search.Searcher _searcher;
 
     public void setUp() throws Exception {
-        _schoolSearchService = (SchoolSearchServiceImpl) getApplicationContext().getBean("luceneSchoolSearchService");
+        _citySearchService = new CitySearchServiceImpl();
         _searcher = getRamDirectorySearcher();
-        _schoolSearchService.setSearcher(_searcher);
-        _schoolSearchService.setQueryParser(new GSQueryParser());
-        _schoolSearchService.setResultsBuilder(new SchoolSearchResultBuilder());
+        _citySearchService.setSearcher(_searcher);
     }
 
     private gs.data.search.Searcher getRamDirectorySearcher() throws Exception {
@@ -228,78 +220,10 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
         return searcher;
     }
 
-    public void testSearch() throws Exception {
-
-    }
-
-    public void testSearchLucene1() throws Exception {
-
-        String searchString = "Alameda, CA";
-        
-        Hits hits = _schoolSearchService.searchLucene(searchString, new HashMap<FieldConstraint,String>(), null, null);
-
-        for (int i = 0; i < hits.length(); i++) {
-            Document d = hits.doc(i);
-            System.out.println(d.get(Indexer.SCHOOL_NAME));
-        }
-        assertEquals("hits should contain one result", 1, hits.length());
-    }
-
-    public void testSearchLucene2() throws Exception {
-
-        String searchString = "Lowell";
-        
-        Hits hits = _schoolSearchService.searchLucene(searchString, new HashMap<FieldConstraint,String>(), null, null);
-
-        assertEquals("hits should contain correct results", 8, hits.length());
-    }
-
-    public void testSearchLuceneWithState() throws Exception {
-
-        String searchString = "Lowell";
-        Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
-        fieldConstraints.put(FieldConstraint.STATE, "ca");
-
-        Hits hits = _schoolSearchService.searchLucene(searchString, fieldConstraints, null, null);
-
-        assertEquals("hits should contain correct result", 4, hits.length());
-    }
-
-    public void testSearchLuceneWithCity() throws Exception {
-
-        String searchString = "Lowell";
-        Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
-        fieldConstraints.put(FieldConstraint.CITY, "san francisco");
-
-        Hits hits = _schoolSearchService.searchLucene(searchString, fieldConstraints, null, null);
-
-        assertEquals("hits should contain one result", 1, hits.length());
-    }
-
-    public void testSearchLuceneWithCityOnly() throws Exception {
-
-        String searchString = "";
-        Map<FieldConstraint,String> fieldConstraints = new HashMap<FieldConstraint,String>();
-        fieldConstraints.put(FieldConstraint.CITY, "portland");
-
-        Hits hits = _schoolSearchService.searchLucene(searchString, fieldConstraints, null, null);
-
-        assertEquals("hits should contain one result", 3, hits.length());
-    }
-
-    private void printResults(Hits hits) throws Exception {
-        for (int i = 0; i < hits.length(); i++) {
-            Document d = hits.doc(i);
-            System.out.println(d.get(Indexer.SCHOOL_NAME));
-        }
-    }
-
     public void testBuildQueryWithSpecialCharacterOnlySearchString() throws Exception {
-        String searchString = "!@#";
+        String searchString = "?";
 
-        Map<FieldConstraint,String> fieldConstraintMap = new HashMap<FieldConstraint, String>();
-
-        Query query = _schoolSearchService.buildQuery(searchString, fieldConstraintMap);
+        Query query = _citySearchService.buildQuery(searchString, null);
 
         assertNull("meaningless search string should return null query, for now",query);
     }
@@ -307,10 +231,15 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
     public void testBuildQueryWithSpecialCharacterOnlySearchString2() throws Exception {
         String searchString = "!@#";
 
-        Map<FieldConstraint,String> fieldConstraintMap = new HashMap<FieldConstraint, String>();
-        fieldConstraintMap.put(FieldConstraint.STATE, "ca");
+        Query query = _citySearchService.buildQuery(searchString, null);
 
-        Query query = _schoolSearchService.buildQuery(searchString, fieldConstraintMap);
+        assertNull("meaningless search string should return null query, for now",query);
+    }
+
+    public void testBuildQueryWithSpecialCharacterOnlySearchString3() throws Exception {
+        String searchString = "!@#";
+
+        Query query = _citySearchService.buildQuery(searchString, State.CA);
 
         assertNull("meaningless search string + field constraints should return null query, for now",query);
     }
@@ -318,23 +247,12 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
     public void testBuildQueryWithNoMeaningfulInput() throws Exception {
         String searchString = "";
 
-        Map<FieldConstraint,String> fieldConstraintMap = new HashMap<FieldConstraint, String>();
-
         try {
-            Query query = _schoolSearchService.buildQuery(searchString, fieldConstraintMap);
+            Query query = _citySearchService.buildQuery(searchString, null);
             fail("meaningless search string + field constraints should return null query, for now");
         } catch (IllegalArgumentException e) {
 
         }
     }
 
-    public void testSearchLuceneWithNoMeaningfulInput() throws Exception {
-        String searchString = "";
-
-        Map<FieldConstraint,String> fieldConstraintMap = new HashMap<FieldConstraint, String>();
-
-        Hits hits = _schoolSearchService.searchLucene(searchString, fieldConstraintMap, null, null);
-
-        assertNull("Hits should be null", null);
-    }
 }

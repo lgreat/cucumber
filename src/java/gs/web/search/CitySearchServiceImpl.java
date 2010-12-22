@@ -60,30 +60,31 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
     }
 
     public Query buildQuery(String searchString, State state) throws ParseException {
-        if (searchString != null) {
+        if (StringUtils.isBlank(searchString) && state == null) {
+            throw new IllegalArgumentException("Cannot find cities without a searchString or a state");
+        }
+
+        if (!StringUtils.isBlank(searchString)) {
             searchString = cleanseSearchString(searchString);
+            if (searchString == null) {
+                return null; //Provided search string was garbage, early exit regardless of field constraints
+            }
         }
 
-        try {
-            BooleanQuery cityQuery = new BooleanQuery();
-            cityQuery.add(new TermQuery(new Term("type", "city")), BooleanClause.Occur.MUST);
+        BooleanQuery cityQuery = new BooleanQuery();
+        cityQuery.add(new TermQuery(new Term("type", "city")), BooleanClause.Occur.MUST);
 
-            if (searchString != null) {
-                Query parsedCityQuery = _queryParser.parse(searchString);
-                parsedCityQuery.setBoost(3.0f);
-                cityQuery.add(parsedCityQuery, BooleanClause.Occur.MUST);
-            }
-
-            if (state != null) {
-                cityQuery.add(new TermQuery(new Term(Indexer.STATE, state.getAbbreviationLowerCase())), BooleanClause.Occur.MUST);
-            }
-
-            return cityQuery;
-
-        } catch (ParseException pe) {
-            _log.warn("error parsing: " + searchString, pe);
-            return null;
+        if (searchString != null) {
+            Query parsedCityQuery = _queryParser.parse(searchString);
+            parsedCityQuery.setBoost(3.0f);
+            cityQuery.add(parsedCityQuery, BooleanClause.Occur.MUST);
         }
+
+        if (state != null) {
+            cityQuery.add(new TermQuery(new Term(Indexer.STATE, state.getAbbreviationLowerCase())), BooleanClause.Occur.MUST);
+        }
+
+        return cityQuery;
     }
 
     public Searcher getSearcher() {

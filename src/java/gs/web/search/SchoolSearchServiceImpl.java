@@ -1,12 +1,12 @@
 package gs.web.search;
 
-import gs.data.search.*;
+import gs.data.search.ChainedFilter;
+import gs.data.search.GSQueryParser;
 import gs.data.search.Searcher;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.*;
 
 import java.io.IOException;
@@ -112,6 +112,9 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
         } catch (ParseException e) {
             _log.debug("Parse exception: ", e);
             throw new SearchException("Problem when performing search ", e);
+        } catch (IllegalArgumentException e) {
+            _log.debug("Error building query", e);
+            //search string or field constraints contained bad data, eat exception and return no hits
         }
 
         return hits;
@@ -124,29 +127,39 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
      * @throws Exception
      */
     protected Query buildQuery(String searchString, Map<FieldConstraint, String> fieldConstraints) throws ParseException {
-        if (searchString != null) {
+        BooleanQuery mixedQuery = null;
+
+        if (StringUtils.isBlank(searchString) && (fieldConstraints == null || fieldConstraints.size() == 0)) {
+            throw new IllegalArgumentException("Cannot build query with no search string and no constraints");
+        }
+
+        if (!StringUtils.isBlank(searchString)) {
             searchString = cleanseSearchString(searchString);
+            if (searchString == null) {
+                return null; //Provided search string was garbage, early exit regardless of field constraints
+            }
         }
 
         // Check for zipcode searches
-        if (searchString != null && searchString.length() == 5 && StringUtils.isNumeric(searchString)) {
+        if (searchString.length() == 5 && StringUtils.isNumeric(searchString)) {
             searchString = "zip:" + searchString;
         }
 
-        BooleanQuery mixedQuery = new BooleanQuery();
+        mixedQuery = new BooleanQuery();
+        mixedQuery.add(new TermQuery(new Term("type", "school")), BooleanClause.Occur.MUST);
 
-        if (searchString != null) {
+        if (!StringUtils.isBlank(searchString)) {
             Query query = _queryParser.parse(searchString);
             mixedQuery.add(query, BooleanClause.Occur.MUST);
         }
 
-        mixedQuery.add(new TermQuery(new Term("type", "school")), BooleanClause.Occur.MUST);
-
-        Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
-        for (Map.Entry<FieldConstraint, String> entry : entrySet) {
-            PhraseQuery phraseQuery = new PhraseQuery();
-            phraseQuery.add(new Term(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue())));
-            mixedQuery.add(phraseQuery, BooleanClause.Occur.MUST);
+        if (fieldConstraints != null && fieldConstraints.size() > 0) {
+            Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
+            for (Map.Entry<FieldConstraint, String> entry : entrySet) {
+                PhraseQuery phraseQuery = new PhraseQuery();
+                phraseQuery.add(new Term(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue())));
+                mixedQuery.add(phraseQuery, BooleanClause.Occur.MUST);
+            }
         }
 
         return mixedQuery;
