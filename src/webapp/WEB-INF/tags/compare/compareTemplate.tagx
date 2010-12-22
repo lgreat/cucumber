@@ -3,8 +3,6 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -72,6 +70,12 @@
                     <!--<span class="alertDoubleArrow">&amp;#187;</span> How we gather our data-->
                 <!--</a>-->
             <!--</div>-->
+            <!-- GS-10783 Following code depends on vars exposed by CompareTestScoresController -->
+            <c:if test="${tab eq 'testScores' and not empty testRows}">
+                <div class="dataNote clearBoth">
+                    Test score data reflects the percentage of students at the school meeting or exceeding standards.
+                </div>
+            </c:if>
         </div>
     </div>
     <div class="rightSide fltlft">
