@@ -10,7 +10,7 @@
             jQuery('#continueToSurvey').click(function() {
                 var schoolId = '${school.id}';
                 var schoolState = '${school.databaseState}';
-                window.location.href='/cgi-bin/pq/page0.cgi?id=' + schoolId + '&amp;state=' + schoolState;
+                window.location.href='/cgi-bin/pq/page0.cgi?id=' + schoolId + '&amp;amp;state=' + schoolState;
             });
         });
     </script>
