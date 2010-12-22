@@ -43,10 +43,10 @@
         </c:when>
         <c:otherwise>
             <p class="smallText1 center">
-                There are no reviews yet for this school.
+                <em>There are no reviews yet for this school.</em>
             </p>
-            <p class="smallText1"><link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
-                Be the first to share!
+            <p class="smallText1 center"><link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                <em>Be the first to share!</em>
             </link:schoolProfileParentReview></p>
         </c:otherwise>
     </c:choose>
