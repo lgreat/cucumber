@@ -44,8 +44,7 @@
                     <td class="cs_gsRating center">
                         <c:choose>
                             <c:when test="${school.private}">
-                                <p class="smallText1"><span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                                <span class="privateRating rateDesc">GreatSchools Ratings not available for private schools.</span></p>
+                                <span class="sprite badge_sm_pr" title="GreatSchools Ratings not available for private schools."><!-- do not collapse --></span>
                             </c:when>
                             <c:when test="${empty school.gsRating}">
                                 <span class="ratingNotApplicable rateDesc">n/a</span>
@@ -108,7 +107,7 @@
             <tr>
                 <th scope="row">Gender</th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="cs_sGender">
+                    <td class="cs_sGender center">
                         ${school.gender}
                     </td>
                 </c:forEach>

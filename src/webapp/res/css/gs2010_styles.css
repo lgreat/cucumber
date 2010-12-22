@@ -6693,6 +6693,10 @@ table#compareTable th {
     border-bottom: 1px solid #c6c6c6;
 }
 
+table#compareTable th p em {
+    font-weight: 400;
+    font-style: normal;
+}
 table#compareTable td {
     border: solid #c6c6c6;
     border-width: 0 0 1px 1px;
@@ -6784,7 +6788,7 @@ table#compareTable td p {
     background-position: -500px -360px;
 }
 
-#compareTable td.center {
+#compareTable td.center, #compareTable p.center {
     text-align: center;
 }
 
@@ -6821,12 +6825,32 @@ table#compareTable td p {
 .cs_rReviews .reviewSubmittedBy {
     margin-bottom: 5px;
 }
-
+#compareTable .censusBreakdown li {
+    text-align: right;
+    overflow: hidden;
+    margin-bottom: .25em;
+}
+#compareTable .censusBreakdown li strong {
+    float: left;
+    text-align: left;
+    width: 112px;
+}
+#compareTable td div.year {
+    position: relative;
+    top: 24px;
+    text-align: right;
+    font-size: 10px;
+}
 #compareMap {
     width: 512px;
     height: 478px;
 }
-
+#compareMap .homesForSale, #compareMap .msl {
+    padding: 0 12px;
+}
+#compareMap .getDirections {
+    padding-right: 12px;
+}
 .schoolList {
     width: 243px;
 

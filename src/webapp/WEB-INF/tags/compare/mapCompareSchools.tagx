@@ -28,6 +28,7 @@
                 zoom: 12,
                 center: latlng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
+
             };
             var map = new google.maps.Map(document.getElementById("compareMap"), myOptions);
 
@@ -93,7 +94,9 @@
             bounds.extend(options.position);
             google.maps.event.addListener(marker, 'click', function() {
                 var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
-                GS_compareMapInfoWindow.setContent(infowindowElement.html());
+                GS_compareMapInfoWindow.setContent(
+                        '<div style="width:310px;">'+infowindowElement.html()+'</div>'
+                        );
                 GS_compareMapInfoWindow.open(map, marker);
             });
             if (preSelect) {

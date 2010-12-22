@@ -39,8 +39,7 @@
                     <td class="cs_gsRating center">
                         <c:choose>
                             <c:when test="${school.private}">
-                                <p class="smallText1"><span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                                <span class="privateRating rateDesc">GreatSchools Ratings not available for private schools.</span></p>
+                                <span class="sprite badge_sm_pr" title="GreatSchools Ratings not available for private schools."><!-- do not collapse --></span>
                             </c:when>
                             <c:when test="${empty school.gsRating}">
                                 <span class="ratingNotApplicable rateDesc">n/a</span>
@@ -77,16 +76,16 @@
                                             <div class="mainLabel">${testCell.headerText}</div>
                                             <c:choose>
                                                 <c:when test="${not empty testCell.breakdownText}">
-                                                    <div class="breakdownLabel">${testCell.breakdownText} - ${testCell.year}</div>
+                                                    <p class="breakdownLabel"><em>${testCell.breakdownText} - ${testCell.year}</em></p>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="year">${testCell.year}</div>
+                                                    <p class="year"><em>${testCell.year}</em></p>
                                                 </c:otherwise>
                                             </c:choose>
                                         </th>
                                     </c:when>
                                     <c:otherwise>
-                                        <td>
+                                        <td class="center">
                                             <c:choose>
                                                 <c:when test="${empty testCell}">
                                                     <div class="noInfo">-</div>
@@ -107,7 +106,7 @@
                     <tr>
                         <th scope="row">&amp;nbsp;</th>
                         <c:forEach items="${schools}" var="school">
-                            <td>
+                            <td class="center text2">
                                 <c:choose>
                                     <c:when test="${school.hasTestScores}">
                                         <link:schoolProfileTestscore school="${school.school}">

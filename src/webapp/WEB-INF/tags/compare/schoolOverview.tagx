@@ -34,11 +34,11 @@
                         gsRating="${school.gsRating}" isPrivate="${school.private}"/>
     </c:if>
     <p class="smallText1">
-        <gslink:realtorDotComLink address="${school.school.physicalAddress}"
+        <gslink:realtorDotComLink styleClass="sprite i-house-sm" address="${school.school.physicalAddress}"
                                   customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
     </p>
     <p class="smallText1">
-        <span class="sprite add2"><!-- do not collapse --></span>
+        <span class="sprite i-add-sm"><!-- do not collapse --></span>&amp;nbsp; 
         <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
     </p>
 </jsp:root>

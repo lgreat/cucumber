@@ -59,22 +59,27 @@
                         ><c:out value="${school.district.name}"
                                 escapeXml="true"/></link:districtHome>
             </p>
+        <div class="spacer_5"><!-- Do not collapse --></div>
         </c:if>
         <div class="line smallText1-333">
-            <div class="unit size1of3">
+            <div class="unit">
                 <div class="getDirections">
                     <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}%20${school.cityStateZip}"
                        onclick="s.tl(this, 'o', 'School Compare Map - Get Directions');"
                        target="_blank">Get directions</a>
                 </div>
             </div>
-            <div class="unit size1of3">
+            <div class="unit">
                 <div class="brdlft-solid brdrt-solid homesForSale">
-                    <gslink:realtorDotComLink address="${school.school.physicalAddress}"
-                                              customLinkSuffix="inlinelinkmap">Homes for sale</gslink:realtorDotComLink>
+                <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
+                <a href="http://www.realtor.com/realestateandhomes-search/${school.school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
+                   onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
+                   rel="nofollow">Homes for sale</a>
+                    <!--<gslink:realtorDotComLink address="${school.school.physicalAddress}"-->
+                                              <!--customLinkSuffix="inlinelinkmap">Homes for sale</gslink:realtorDotComLink>-->
                 </div>
             </div>
-            <div class="unit size1of3 lastUnit">
+            <div class="unit lastUnit">
                 <div class="msl">
                     <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
                 </div>

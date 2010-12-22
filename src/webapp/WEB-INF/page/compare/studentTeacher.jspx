@@ -56,9 +56,9 @@
                                                    href="${censusCell.extraInfo}" class="fltrt"><span class="sprite info"><!-- not empty --></span></a>
                                             </c:if>
                                             ${censusCell.headerText}
-                                            <div class="year">${censusCell.year}</div>
+                                            <p class="year"><em>${censusCell.year}</em></p>
                                             <c:if test="${censusCell.breakdownValueMinimum gt 0}">
-                                                <div class="minimum">Values over ${censusCell.breakdownValueMinimum}% are shown</div>
+                                                <p class="minimum"><em>Values over ${censusCell.breakdownValueMinimum}% are shown</em></p>
                                             </c:if>
                                         </th>
                                     </c:when>
@@ -66,15 +66,17 @@
                                         <td>
                                             <c:choose>
                                                 <c:when test="${empty censusCell}">
-                                                    This information is not available.
+                                                    <p class="center">This information is not available.</p>
                                                 </c:when>
                                                 <c:when test="${censusCell.isSimpleCell}">
-                                                    ${censusCell.value}
+                                                    <p class="center">${censusCell.value}</p>
                                                 </c:when>
                                                 <c:otherwise>
+                                                    <ul class="censusBreakdown">
                                                     <c:forEach items="${censusCell.breakdownList}" var="censusBreakdown">
-                                                        ${censusBreakdown.name} ${censusBreakdown.value}<br/>
+                                                        <li class="text3"><strong>${censusBreakdown.name}</strong> ${censusBreakdown.value}</li>
                                                     </c:forEach>
+                                                    </ul>
                                                 </c:otherwise>
                                             </c:choose>
                                             <c:if test="${not empty censusCell and censusCell.year ne rowYear}">
@@ -89,7 +91,7 @@
                     <tr>
                         <th scope="row">&amp;nbsp;</th>
                         <c:forEach items="${schools}" var="school">
-                            <td>
+                            <td class="center text2">
                                 <link:schoolProfileCensus school="${school.school}">
                                     View more teacher &amp;amp; student stats
                                 </link:schoolProfileCensus>
