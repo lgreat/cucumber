@@ -6929,12 +6929,12 @@ body.ie8 #savvysource span.arrow-right {
 /* =4p parent review landing page
 -------------------------------------------------------------------------------------------*/
 
-#parentReviewForm .reviewText {
+#addParentReviewForm .reviewText {
     width: 100%;
     height: 120px;
 }
 
-#parentReviewForm .parentReviewEmail {
+#addParentReviewForm .parentReviewEmail {
     width: 50%;
 }
 

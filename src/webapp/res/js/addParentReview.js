@@ -1,5 +1,101 @@
+jQuery(function() {
+//    1) select a state
+//    2) select a city
+//    3) select a school
+//    4) retrieve/store:
+//      a) school name
+//      b) school address
+//      c) gs rating
+//      d) community rating
+//      e) school level:
+//          1) type 1 = p-only
+//          2) type 2 = any combination of p, e, m
+//          3) type 3 = any combination of p, e, m with h or h only
+//    5) select user role
+//    6) display the appropriate form
+//    7) upon submission:
+//      a) proper error messages are shown, or
+//      b) the data is accepted
+
+//    NOTE:
+//    1) The form becomes hidden if:
+//      a) user refreshes the page
+//      b) user selects a different state
+//      c) user selects a different city
+//    2) The form changes, but continues to show if:
+//      a) user selects a different role
+//      b) user selects a different school
+
+    jQuery('#parentReviewEmail').blur(validateEmailAjax);
+    jQuery('#stateSelect').change(loadCities);
+    jQuery('#citySelect').change(loadSchools);
+    jQuery('#schoolSelect').change(schoolChange);
+    
+    jQuery('#userRoleSelect').change(function() {
+
+        clearRatings('principalAsString');
+        clearRatings('teacherAsString');
+        clearRatings('parentAsString');
+        clearRatings('pFacilitiesAsString');
+
+        jQuery('#principalsLink').hide();
+
+        jQuery('#addParentReviewForm [name="userRoleAsString"]').val(jQuery('#userRoleSelect').val());
+
+        switch (true) {
+            case (this.value === 'parent'):
+                debug('this value: '+this.value)
+                jQuery('#additionalStarRatingsTitle').show();
+                jQuery('#additionalStarRatingTitle').hide();
+                jQuery('#teacherStars').show();
+                jQuery('#principalStars').show();
+                jQuery('#parentStars').show();
+                jQuery('#facilitiesStars').show();
+                jQuery('#additionalStarRatingsExplained').show();
+                break;
+            case (this.value === 'student'):
+                jQuery('#additionalStarRatingsTitle').hide();
+                jQuery('#additionalStarRatingTitle').show();
+                jQuery('#teacherStars').show();
+                jQuery('#principalStars').hide();
+                jQuery('#parentStars').hide();
+                jQuery('#facilitiesStars').hide();
+                jQuery('#additionalStarRatingsExplained').show();
+                break;
+            case (this.value === 'teacher'):
+                jQuery('#additionalStarRatingsTitle').hide();
+                jQuery('#additionalStarRatingTitle').hide();
+                jQuery('#teacherStars').hide();
+                jQuery('#principalStars').hide();
+                jQuery('#parentStars').hide();
+                jQuery('#facilitiesStars').hide();
+                jQuery('#additionalStarRatingsExplained').hide();
+                break;
+            case (this.value === 'other'):
+                jQuery('#additionalStarRatingsTitle').hide();
+                jQuery('#additionalStarRatingTitle').hide();
+                jQuery('#teacherStars').hide();
+                jQuery('#principalStars').hide();
+                jQuery('#parentStars').hide();
+                jQuery('#facilitiesStars').hide();
+                jQuery('#additionalStarRatingsExplained').hide();
+                break;
+            default:
+                alert("A valid user role was not set.");
+        }
+    });
+
+    jQuery("#parentReviewTerms").click(function() {
+       if (jQuery("#parentReviewTerms").attr("checked")) {
+           jQuery("#terms-error").hide();
+       } else {
+           jQuery("#terms-error").show();
+       }
+    });
+});
+
 function loadCities() {
-    var state = jQuery('#userState').val();
+    var state = jQuery('#stateSelect').val();
     var url = "/community/registrationAjax.page";
 
     jQuery('#citySelect').html("<option>Loading...</option>");
@@ -21,7 +117,7 @@ function parseCities(data) {
 }
 
 function loadSchools() {
-    var params = {state : jQuery('#userState').val(), city : jQuery('#citySelect').val(),onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'}
+    var params = {state : jQuery('#stateSelect').val(), city : jQuery('#citySelect').val(),onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'}
     jQuery.get('/test/schoolsInCity.page', params, parseSchools);
 }
 
@@ -32,68 +128,12 @@ function parseSchools(data) {
     });
 }
 
-
-jQuery(function() {
-    jQuery('#frmPRModule-email').click(function() {
-       if (jQuery('#frmPRModule-email').val() == "Enter your email address*") {
-           jQuery('#frmPRModule-email').val('');
-       }
-    });
-    jQuery('#frmPRModule-email').blur(validateEmailAjax);
-    jQuery('#userState').change(loadCities);
-    jQuery('#citySelect').change(loadSchools);
-    jQuery('#schoolSelect').change(schoolChange);
-    
-    jQuery('#posterDropdown').change(function() {
-
-        clearRatings('principalAsString');
-        clearRatings('teacherAsString');
-        clearRatings('parentAsString');
-        clearRatings('pFacilitiesAsString');
-
-        jQuery('#principalsLink').hide();
-
-        jQuery('#addParentReviewForm [name="posterAsString"]').val(jQuery('#posterDropdown').val());
-
-        if (this.value == 'parent') {
-            jQuery('.principalOrFacilityStars').show();
-            jQuery('#teacherStars').show();
-            jQuery('#parentStars').show();
-            jQuery('#learnMoreLinks').show();
-            jQuery('#categoryRatings p').show();
-            jQuery('#principalsLink').show();
-        } else if (this.value == 'student') {
-            jQuery('.principalOrFacilityStars').hide();
-            jQuery('#teacherStars').show();
-            jQuery('#parentStars').hide();
-            jQuery('#learnMoreLinks').show();
-            jQuery('#categoryRatings p').show();
-            jQuery('#principalsLink').hide();
-        } else {
-            jQuery('.principalOrFacilityStars').hide();
-            jQuery('#teacherStars').hide();
-            jQuery('#parentStars').hide();
-            jQuery('#learnMoreLinks').hide();
-            jQuery('#categoryRatings p').hide();
-            jQuery('#principalsLink').show();
-        }
-    });
-
-    jQuery("#terms").click(function() {
-       if (jQuery("#terms").attr("checked")) {
-           jQuery("#terms-error").hide();
-       } else {
-           jQuery("#terms-error").show();
-       }
-    });
-});
-
 function schoolChange() {
     var school = jQuery('#schoolSelect').val();
 
     if (school != '') {
         var url = '/school/schoolForParentReview.page';
-        var params = {schoolId : school, state : jQuery('#userState').val()};
+        var params = {schoolId : school, state : jQuery('#stateSelect').val()};
         jQuery.get(url, params, showResponse);
     }
 }
@@ -137,6 +177,10 @@ function showResponse(x) {
     var reviewCount = schoolInfoArray[3];
     var schoolLevelCode = schoolInfoArray[13];
     var isHighSchoolOnly = (x.indexOf('showStudent') != -1);
+
+    debug('school info array: '+schoolInfoArray);
+    debug('gsSchoolRating: '+gsSchoolRating);
+    debug('school level code: '+schoolLevelCode);
 
     jQuery('#schoolNameHeader').html(schoolName);
 
@@ -212,11 +256,11 @@ function showResponse(x) {
     var studentOption = '<option value="student">student</option>';
 
     if (isHighSchoolOnly != undefined && isHighSchoolOnly) {
-        if (jQuery('#posterDropdown [value="student"]').length == 0) {
-            jQuery('#posterDropdown [value="parent"]').after(studentOption);
+        if (jQuery('#userRoleSelect [value="student"]').length == 0) {
+            jQuery('#userRoleSelect [value="parent"]').after(studentOption);
         }
     } else {
-        jQuery('#posterDropdown [value="student"]').remove();
+        jQuery('#userRoleSelect [value="student"]').remove();
     }
 
 }
@@ -252,17 +296,17 @@ function GS_countWords(textField) {
 }
 
 var validateEmailAjax = function() {
-    var email = jQuery('#frmPRModule-email').val();
+    var email = jQuery('#parentReviewEmail').val();
     jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'}, function(data) {
         if (data && data['email']) {
-            jQuery('#frmPRModule-email-error .bd').html(data['email']);
-            jQuery('#frmPRModule-email-error').show();
-            jQuery('#frmPRModule-email-error .bd a.launchSignInHover').click(function() {
+            jQuery('#email-error .bd').html(data['email']);
+            jQuery('#email-error').show();
+            jQuery('#email-error .bd a.launchSignInHover').click(function() {
                 GSType.hover.joinHover.showSignin();
                 return false;
             });
         } else {
-            jQuery('#frmPRModule-email-error').hide();
+            jQuery('#email-error').hide();
         }
     });
 }
@@ -298,22 +342,22 @@ function validateReview() {
     }
 
     if (!GS.isSignedIn()) {
-        var email = jQuery('#frmPRModule-email').val();
+        var email = jQuery('#parentReviewEmail').val();
         if (email == '') {
-            jQuery('#frmPRModule-email-error').show();
+            jQuery('#email-error').show();
         } else {
             jQuery.getJSON('/community/registrationValidationAjax.page', {email:email, field:'email'}, function(data) {
                 if (data && data['email']) {
-                    jQuery('#frmPRModule-email-error .bd').html(data['email']);
-                    jQuery('#frmPRModule-email-error').show();
-                    jQuery('#frmPRModule-email-error .bd a.launchSignInHover').click(function() {
+                    jQuery('#email-error .bd').html(data['email']);
+                    jQuery('#email-error').show();
+                    jQuery('#email-error .bd a.launchSignInHover').click(function() {
                         GSType.hover.joinHover.showSignin();
                         return false;
                     });
                     noError = false;
 
                 } else {
-                    jQuery('#frmPRModule-email-error').hide();
+                    jQuery('#email-error').hide();
 
                     if (noError) {
                         GS_postSchoolReview();
@@ -357,7 +401,7 @@ function reviewThisSchool() {
     var errMsg = 'Please enter the following fields: ';
     var noError = true;
 
-    if ((jQuery('#userState').val() == 0) || (jQuery('#userState').val() == 'Choose a state')) {
+    if ((jQuery('#stateSelect').val() == 0) || (jQuery('#stateSelect').val() == 'Choose a state')) {
         errMsg = errMsg + '\nPlease select a state.';
         noError = false;
     }
@@ -372,7 +416,7 @@ function reviewThisSchool() {
         noError = false;
     }
 
-    if (jQuery('#selections [name="posterAsString"]').val() == '') {
+    if (jQuery('#selections [name="userRoleAsString"]').val() == '') {
         errMsg = errMsg + '\nPlease select your affiliation with the school.';
         noError = false;
     }
@@ -391,7 +435,7 @@ function reviewThisSchool() {
 function GS_postSchoolReview(email, callerFormId) {
     // first, grab the email from the join/signIn form and use that with the review
     if (email) {
-        jQuery('#frmPRModule-email').val(email);
+        jQuery('#parentReviewEmail').val(email);
     }
 
     //clear submit fields

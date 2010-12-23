@@ -48,7 +48,9 @@
 
 <div class="mediaExt2-3">
     <div class="img">
-        <gsml:img src="/res/img/school/parentReviews/parent_reviews.jpg" width="220" height="167"
+        <gsml:img src="/res/img/school/parentReviews/parent_reviews.jpg"
+                  width="220"
+                  height="167"
                   alt="Parent Review Image"/>
     </div>
 
@@ -57,17 +59,18 @@
 
         <div class="spacer_10"><!-- do not collapse --></div>
         <h3 class="alert">Find your school</h3>
+
         <div class="spacer_10"><!-- do not collapse --></div>
         <c:set var="mslOnclick" value="return storeHrefOpenHover(this.href);"/>
 
         <div class="line">
             <div class="unit size1of14">
-                <label for="userState">State:</label>
+                <label for="stateSelect">State:</label>
             </div>
 
             <div class="unit size13of14 lastUnit">
                 <gsweb:stateSelector state="${requestScope.context.state}"
-                                     styleId="userState"
+                                     styleId="stateSelect"
                                      noStateLabel="Choose a state"
                                      useNoState="${not empty requestScope.context.state}"
                                      usingLongNames="true"
@@ -82,7 +85,9 @@
             </div>
 
             <div class="unit size13of14 lastUnit">
-                <select name="city" id="citySelect" tabindex="10">
+                <select name="city"
+                        id="citySelect"
+                        tabindex="10">
                     <option selected="selected" value="">Choose a city</option>
                     <c:forEach var="cityOption" items="${cities}">
                         <![CDATA[<option ]]>
@@ -98,7 +103,9 @@
             </div>
 
             <div class="unit size13of14 lastUnit">
-                <select id="schoolSelect" name="sid" class="selectSchool">
+                <select id="schoolSelect"
+                        name="sid"
+                        class="selectSchool">
                     <option value="">Choose a school</option>
                 </select>
             </div>
@@ -106,15 +113,13 @@
 
         </div>
 
-            <span class="error whoError"
-                  style="display:none;">Please identify how you are affiliated with this school.</span>
-
         <div class="line">
             <div class="unit size1of14">
-                <label for="posterDropdown">I'm a </label>
+                <label for="userRoleSelect">I'm a </label>
             </div>
             <div class="unit size13of14 lastUnit">
-                <select name="posterAsString" id="posterDropdown">
+                <select id="userRoleSelect"
+                        name="userRoleAsString">
                     <option value="" selected="selected">- Select one -</option>
                     <option value="parent">parent</option>
                     <option value="student">student</option>
@@ -142,6 +147,7 @@
             <div class="unit size3of11 firstColGutter-10 brdrt-solid">
                 <div class="mediaExt1-1">
                     <span class="img sprite badge_sm_10"><!-- do not collapse --></span>
+
                     <div class="bd smallAlertTextBold-999">GreatSchools <br/>Rating out of 10</div>
                 </div>
             </div>
@@ -150,6 +156,7 @@
 
                 <div class="mediaExt1">
                     <span class="img sprite stars_sm_4"><!-- do not collapse --></span>
+
                     <div class="bd formHelperText">Based on ## ratings</div>
                 </div>
             </div>
@@ -166,220 +173,247 @@
                     <div id="schoolAddressLine2"></div>
                     <div id="schoolAddressLine3"></div>
                     <div id="schoolAddressLine4"></div></div>]]>
-    </div>
+        </div>
     </div>
 </div>
+
 <div class="spacer_20 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_15"><!-- do not collapse --></div>
+
 <form id="addParentReviewForm" class="hide" method="post" action="#"
       onsubmit="return validateReview();">
 
 <input type="hidden" name="posterAsString"/>
 
-<div id="parentReviewForm">
-    <input type="hidden" name="source" value="${pageName}"/>
+<input type="hidden" name="source" value="${pageName}"/>
 
-    <input type="hidden" name="id" id="schoolId" value=""/>
-    <input type="hidden" name="state" id="schoolState" value=""/>
-    <input type="hidden" name="isAddNewParentReview" value="true"/>
+<input type="hidden" name="id" id="schoolId" value=""/>
+<input type="hidden" name="state" id="schoolState" value=""/>
+<input type="hidden" name="isAddNewParentReview" value="true"/>
+
+<div class="line">
+<div class="unit size1of2 firstColGutter-30">
 
     <div class="line">
-        <div class="unit size1of2 firstColGutter-30">
-
-                <div id="inputRating">
-                    <div id="ratingTitle" class="biggerFontText">My Overall rating</div>
-                    <div class="parentRatingStars">
-                        <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
-                        <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="My Overall Rating"/>
-                        <ul class="star-rating large-star">
-                            <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.
-                            </li>
-                            <li><a href="#" id="validateStar1"
-                                   title="1 star out of 5"
-                                   class="one-star"
-                                   onclick="this.hideFocus=true;setStars(1);return false;"
-                                   onmouseover="showStars(1);"
-                                   onmouseout="resetStars();"
-                                    >1</a></li>
-                            <li><a href="#" id="validateStar2" title="2 stars out of 5" class="two-stars"
-                                   onclick="this.hideFocus=true;setStars(2);return false;"
-                                   onmouseover="showStars(2);"
-                                   onmouseout="resetStars();"
-                                    >2</a></li>
-                            <li><a href="#" id="validateStar3" title="3 stars out of 5" class="three-stars"
-                                   onclick="this.hideFocus=true;setStars(3);return false;"
-                                   onmouseover="showStars(3);"
-                                   onmouseout="resetStars();"
-                                    >3</a></li>
-                            <li><a href="#" id="validateStar4" title="4 stars out of 5" class="four-stars"
-                                   onclick="this.hideFocus=true;setStars(4);return false;"
-                                   onmouseover="showStars(4);"
-                                   onmouseout="resetStars();"
-                                    >4</a></li>
-                            <li><a href="#" id="validateStar5" title="5 stars out of 5" class="five-stars"
-                                   onclick="this.hideFocus=true;setStars(5);return false;"
-                                   onmouseover="showStars(5);"
-                                   onmouseout="resetStars();"
-                                    >5</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div id="reviewRatingError" style="display:none" class="reviewError">
-                    <img src="/res/img/bullet/exclamation.gif"
-                            alt="error"></img>Please enter a review and overall rating.
-                </div>
-
-            <div class="line">
-                <div class="unit size1of1 lastUnit">
-                    <link:parentReviewGuidelines styleClass="fltrt">School review guidelines</link:parentReviewGuidelines>
-                </div>
-            </div>
-
-            <div class="line">
-                <div class="unit size1of1 lastUnit">
-                    <textarea id="reviewText"
-                              class="reviewText text1-ededed text3"
-                              name="comments"
-                              onkeyup="countWords(this)"
-                              onkeydown="countWords(this)"
-                              onfocus="if(this.value=='Enter your review here'){this.value='';}"
-                              onblur="if(this.value==''){this.value='Enter your review here';}"
-                              rows="10" cols="50">Enter your review here</textarea>
-                </div>
-            </div>
-            <div class="spacer_10"><!-- do not collapse --></div>
-
-            <div class="line">
-                <div class="unit size1of1 lastUnit">
-                    <!-- c:set used to prevent IDEA error on duplicate CSS id attribute used in c:choose -->
-                    <c:set var="emailID" value="parentReviewEmail"/>
-                    <c:choose>
-                        <!--<c:when test="${not empty validUser.email}">-->
-                        <c:when test="${true}">
-                            <input id="${emailID}"
-                                   name="email"
-                                   class="parentReviewEmail text1-ededed text3"
-                                   type="text"
-                                   value="Enter your email address"
-                                   onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                                   onblur="if(this.value==''){this.value='Enter your email address';}"
-                                    />&amp;nbsp;
-                            <em class="sprite i-required"><!-- do not collapse --></em>
-                        </c:when>
-                        <c:otherwise>
-                            <input id="${emailID}"
-                                   name="email"
-                                   class="parentReviewEmail text1-ededed text3"
-                                   type="text"
-                                   value="${validUser.email}"
-                                   onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                                   onblur="if(this.value==''){this.value='Enter your email address';}"
-                                   disabled="true"
-                                    />&amp;nbsp;
-                            <em class="sprite i-required"><!-- do not collapse --></em>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
-            <div class="spacer_20"><!-- do not collapse --></div>
-
-                        <div id="frmPRModule-email-error" class="formErrorText media padlft_10"
-                             style="display:none;">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                            <div class="bd">Please enter your email.</div>
-                        </div>
-
-                <div id="terms-error" class="formErrorText media padlft_5" style="display:none;">
-                    <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                    <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
-                </div>
-
-            <div class="line">
-                <div class="unit size1of1 lastUnit">
-                    <input id="parentReviewTerms" name="parentReviewTerms" class="checkbox" type="checkbox" value="1"/>
-                    <label for="parentReviewTerms"
-                           class="text3">I agree to the <link:termsOfUse
-                            target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
-                            target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
-                        <em class="sprite i-required"><!-- do not collapse --></em>
-                    </label>
-                </div>
-            </div>
-            <div class="spacer_10"><!-- do not collapse --></div>
-            <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy>
-            <div class="spacer_15"><!-- do not collapse --></div>
-
-                <fieldset class="btns">
-                    <button class="button-1"
-                            type="submit"
-                            name="parentReviewFormSubmit"
-                            id="parentReviewFormSubmit">Submit review
-                    </button>
-                </fieldset>
-
-            <div class="spacer_15"><!-- do not collapse --></div>
-            <p class="footerText1"><em class="sprite i-required"><!-- do not collapse --></em>Required</p>
-            <div class="spacer_25"><!-- do not collapse --></div>
-
+        <div class="unit size1of3">
+            <p class="introText">Rate this school <em class="sprite i-required"><!-- do not collapse --></em></p>
         </div>
-        <div class="unit size1of2 lastColGutter-30 lastUnit">
-
-            <p class="text1bold-d61">How do you rate this school in these additional areas?</p>
-            <div class="spacer_10"><!-- do not collapse --></div>
-
-            <div class="line">
-                <div class="text1 unit size2of5">Teacher quality</div>
-                <div class="unit size3of5 lastUnit">
-                    <gsml:starRating id="teacherAsString" additionalClass="med-star"/>
+        <div class="unit size2of3 lastUnit">
+            <div id="inputRating">
+                <div class="parentRatingStars fltlft mrgrt_10">
+                    <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
+                    <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="Currently unrated."/>
+                    <ul class="star-rating large-star">
+                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                        <li><a href="#" id="validateStar1"
+                               title="1 star out of 5"
+                               class="one-star"
+                               onclick="this.hideFocus=true;setStars(1);return false;"
+                               onmouseover="showStars(1);"
+                               onmouseout="resetStars();"
+                                >1</a></li>
+                        <li><a href="#" id="validateStar2" title="2 stars out of 5" class="two-stars"
+                               onclick="this.hideFocus=true;setStars(2);return false;"
+                               onmouseover="showStars(2);"
+                               onmouseout="resetStars();"
+                                >2</a></li>
+                        <li><a href="#" id="validateStar3" title="3 stars out of 5" class="three-stars"
+                               onclick="this.hideFocus=true;setStars(3);return false;"
+                               onmouseover="showStars(3);"
+                               onmouseout="resetStars();"
+                                >3</a></li>
+                        <li><a href="#" id="validateStar4" title="4 stars out of 5" class="four-stars"
+                               onclick="this.hideFocus=true;setStars(4);return false;"
+                               onmouseover="showStars(4);"
+                               onmouseout="resetStars();"
+                                >4</a></li>
+                        <li><a href="#" id="validateStar5" title="5 stars out of 5" class="five-stars"
+                               onclick="this.hideFocus=true;setStars(5);return false;"
+                               onmouseover="showStars(5);"
+                               onmouseout="resetStars();"
+                                >5</a></li>
+                    </ul>
                 </div>
-                <div class="spacer_5"><!-- do not collapse --></div>
-            </div>
+                <div id="ratingTitle" class="fltlft mrgtop_5">Currently unrated.</div>
 
-            <div class="line">
-                <div class="text1 unit size2of5">Principal leadership</div>
-                <div class="unit size3of5 lastUnit">
-                    <gsml:starRating id="principalAsString" additionalClass="med-star"/>
-                </div>
-                <div class="spacer_5"><!-- do not collapse --></div>
             </div>
-
-            <div class="line">
-                <div class="text1 unit size2of5">Parent involvement</div>
-                <div class="unit size3of5 lastUnit">
-                    <gsml:starRating id="parentAsString" additionalClass="med-star"/>
-                </div>
-                <div class="spacer_5"><!-- do not collapse --></div>
-            </div>
-
-            <div id="line">
-                <div class="text1 unit size2of5">Facilities &amp;amp; equipment</div>
-                <div class="unit size3of5 lastUnit">
-                    <gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/>
-                </div>
-                <div class="spacer_5"><!-- do not collapse --></div>
-            </div>
-
-            <div class="spacer_15"><!-- do not collapse --></div>
-            <div class="line">
-                <div class="text2 unit size1of1 lastUnit">
-                    <link:parentRatingsExplained>More about these categories <span class="alertDoubleArrow">&amp;raquo;</span></link:parentRatingsExplained>
-                </div>
-                <div class="spacer_5"><!-- do not collapse --></div>
-            </div>
-
-            <div class="line">
-                <div class="text2 unit size1of1 lastUnit">
-                    <a href="#">Principals, submit your review here <span class="alertDoubleArrow">&amp;raquo;</span></a>
-                </div>
-                <div class="spacer_5"><!-- do not collapse --></div>
-            </div>
-
         </div>
     </div>
+
+    <div id="rating-error" class="mediaExt1-1 hidden">
+        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+        <div class="bd formErrorText">Please enter a review and overall rating.</div>
+    </div>
+
+    <div class="spacer_15"><!-- do not collapse --></div>
+
+    <div class="line">
+        <div class="unit size1of1 lastUnit">
+            <link:parentReviewGuidelines styleClass="fltrt">School review guidelines</link:parentReviewGuidelines>
+        </div>
+    </div>
+
+    <div class="line">
+        <div class="unit size1of1 lastUnit">
+            <textarea id="reviewText"
+                      class="reviewText text1-ededed text3"
+                      name="comments"
+                      onkeyup="countWords(this)"
+                      onkeydown="countWords(this)"
+                      onfocus="if(this.value=='Enter your review here'){this.value='';}"
+                      onblur="if(this.value==''){this.value='Enter your review here';}"
+                      rows="10"
+                      cols="50">Enter your review here</textarea>
+        </div>
+    </div>
+    <div class="spacer_10"><!-- do not collapse --></div>
+
+    <div class="line">
+        <div class="unit size1of1 lastUnit">
+            <!-- c:set used to prevent IDEA error on duplicate CSS id attribute used in c:choose -->
+            <c:set var="emailID" value="parentReviewEmail"/>
+            <c:choose>
+                <!--<c:when test="${not empty validUser.email}">-->
+                <c:when test="${true}">
+                    <input id="${emailID}"
+                           name="email"
+                           class="parentReviewEmail text1-ededed text3"
+                           type="text"
+                           value="Enter your email address"
+                           onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                           onblur="if(this.value==''){this.value='Enter your email address';}"
+                            />&amp;nbsp;
+                    <em class="sprite i-required"><!-- do not collapse --></em>
+                </c:when>
+                <c:otherwise>
+                    <input id="${emailID}"
+                           name="email"
+                           class="parentReviewEmail text1-ededed text3"
+                           type="text"
+                           value="${validUser.email}"
+                           onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                           onblur="if(this.value==''){this.value='Enter your email address';}"
+                           disabled="true"
+                            />&amp;nbsp;
+                    <em class="sprite i-required"><!-- do not collapse --></em>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+    <div id="email-error" class="mediaExt1-1 hidden">
+        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+        <div class="bd formErrorText">Please enter your email.</div>
+    </div>
+
+    <div class="spacer_25"><!-- do not collapse --></div>
+
+    <div class="line">
+        <div class="unit size1of1 lastUnit">
+            <input id="parentReviewTerms" name="parentReviewTerms" class="checkbox" type="checkbox" checked="checked"
+                   value="1"/>
+            <label for="parentReviewTerms" class="text3">I agree to the <link:termsOfUse
+                    target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
+                    target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
+                <em class="sprite i-required"><!-- do not collapse --></em>
+            </label>
+        </div>
+    </div>
+
+    <div id="terms-error" class="mediaExt1-1 hidden">
+        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+        <div class="bd formErrorText">Please read and accept our Terms of Use to join GreatSchools.</div>
+    </div>
+
+    <div class="spacer_10"><!-- do not collapse --></div>
+
+    <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy>
+
+    <div class="spacer_20"><!-- do not collapse --></div>
+
+    <button class="button-1"
+            type="submit"
+            name="parentReviewFormSubmit"
+            id="parentReviewFormSubmit">Submit review
+    </button>
+
+    <div class="spacer_15"><!-- do not collapse --></div>
+    <p class="footerText1"><em class="sprite i-required"><!-- do not collapse --></em>Required</p>
+
+    <div class="spacer_25"><!-- do not collapse --></div>
+
 </div>
+<div class="unit size1of2 lastColGutter-30 lastUnit">
+
+    <div id="additionalStarRatingsTitle" class="line hidden">
+        <div class="unit size1of1 lastUnit">
+            <p class="text1bold-d61">How do you rate this school in these additional areas?</p>
+
+            <div class="spacer_10"><!-- do not collapse --></div>
+        </div>
+    </div>
+
+    <div id="additionalStarRatingTitle" class="line hidden">
+        <div class="unit size1of1 lastUnit">
+            <p class="text1bold-d61">How do you rate this school in this additional area?</p>
+
+            <div class="spacer_10"><!-- do not collapse --></div>
+        </div>
+    </div>
+
+    <div id="teacherStars" class="line hidden">
+        <div class="text1 unit size2of5">Teacher quality</div>
+        <div class="unit size3of5 lastUnit">
+            <gsml:starRating id="teacherAsString" additionalClass="med-star"/>
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+    </div>
+
+    <div id="principalStars" class="line hidden">
+        <div class="text1 unit size2of5">Principal leadership</div>
+        <div class="unit size3of5 lastUnit">
+            <gsml:starRating id="principalAsString" additionalClass="med-star"/>
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+    </div>
+
+    <div id="parentStars" class="line hidden">
+        <div class="text1 unit size2of5">Parent involvement</div>
+        <div class="unit size3of5 lastUnit">
+            <gsml:starRating id="parentAsString" additionalClass="med-star"/>
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+    </div>
+
+    <div id="facilitiesStars" class="line hidden">
+        <div class="text1 unit size2of5">Facilities &amp;amp; equipment</div>
+        <div class="unit size3of5 lastUnit">
+            <gsml:starRating id="pFacilitiesAsString" additionalClass="med-star"/>
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+    </div>
+
+    <div id="additionalStarRatingsExplained" class="line hidden">
+        <div class="spacer_15"><!-- do not collapse --></div>
+        <div class="text2 unit size1of1 lastUnit">
+            <link:parentRatingsExplained>More about additional categories <span class="alertDoubleArrow">&amp;raquo;</span>
+            </link:parentRatingsExplained>
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+    </div>
+
+    <div class="line">
+        <div class="text2 unit size1of1 lastUnit">
+            <a href="#">Principals, submit your review here <span class="alertDoubleArrow">&amp;raquo;</span></a>
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+    </div>
+
+</div>
+</div>
+
 </form>
 </div>
 </div>

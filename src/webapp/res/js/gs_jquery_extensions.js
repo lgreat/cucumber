@@ -230,7 +230,7 @@ jQuery(document).ready(function() {
 /* =3 table stripping plugin
 ---------------------------------------------------------------------------*/
 
-(function($){
+(function($) {
 
     //Attach this new method to jQuery
     $.fn.extend({
@@ -240,13 +240,11 @@ jQuery(document).ready(function() {
 
             //Iterate over the current set of matched elements
             return this.each(function() {
-              $('tbody tr:odd', this)
-                .removeClass('even').addClass('odd');
-              $('tbody tr:even', this)
-                .removeClass('odd').addClass('even');
-              return this;
-
-                //code to be inserted here
+                $('tbody tr:odd', this)
+                        .removeClass('even').addClass('odd');
+                $('tbody tr:even', this)
+                        .removeClass('odd').addClass('even');
+                return this;
 
             });
         }
