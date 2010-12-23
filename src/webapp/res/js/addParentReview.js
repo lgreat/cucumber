@@ -11,9 +11,11 @@ jQuery(function() {
 //          1) type 1 = p-only
 //          2) type 2 = any combination of p, e, m
 //          3) type 3 = any combination of p, e, m with h or h only
-//    5) select user role
-//    6) display the appropriate form
-//    7) upon submission:
+//    5) set school information on form
+//    6) select user role
+//    7) set additional rating areas, if any, on form
+//    8) show the form
+//    9) upon submission:
 //      a) proper error messages are shown, or
 //      b) the data is accepted
 
