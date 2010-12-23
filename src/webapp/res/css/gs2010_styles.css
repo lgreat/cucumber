@@ -6838,7 +6838,7 @@ table#compareTable td.cs_schools p.text3 {
 #compareTable .censusBreakdown li strong {
     float: left;
     text-align: left;
-    width: 112px;
+    width: 100px;
 }
 #compareTable td div.year {
     position: relative;
