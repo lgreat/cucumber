@@ -932,7 +932,7 @@ GS.getServerName = function() {
     // check for staging
     if (location.hostname.match(/staging\.|staging$|clone/)) {
         serverName = 'staging';
-    } else if (location.hostname.match(/dev\.|dev$|\.office\.|cmsqa|cpickslay\.|localhost|127\.0\.0\.1|macbook/)) {
+    } else if (location.hostname.match(/dev\.|dev$|\.office\.|cmsqa|localhost|127\.0\.0\.1|macbook|qaapp-1\.|qaapp-2\.|qaadmin-1\.|qa\.|qa-preview\./)) {
         serverName = 'dev';
     }
 
