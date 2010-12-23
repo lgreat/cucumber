@@ -150,6 +150,7 @@
 <communityHover:emailValidatedSchoolReview/>
 <school:principalConfirmHover/>
 <school:principalReviewSubmitted/>
+<communityHover:mslHover/>
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">

@@ -69,6 +69,10 @@
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
+    <bean id="mySchoolListHelper" class="gs.web.community.MySchoolListHelper">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
     <!-- factory bean for user session information -->
     <bean id="sessionContext" class="gs.web.util.context.SessionContext"
           scope="prototype">

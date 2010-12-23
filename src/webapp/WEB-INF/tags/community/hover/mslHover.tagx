@@ -4,19 +4,25 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
-
     <div id="msl-hover" class="dialog_white" style="display:none;">
         <h2>Add to My School List</h2>
 
         <p><strong>To start building your school list, or to return to a list you've already created, enter your email address below.</strong></p>
-            <!--<button class="btn25 schoolReviewThankYou_hideHover" type="button">
-                <span class="lftDoor25"><span class="rtDoor25">OK</span></span>
-            </button>-->
+        <!--<button class="btn25 schoolReviewThankYou_hideHover" type="button">
+            <span class="lftDoor25"><span class="rtDoor25">OK</span></span>
+        </button>-->
+        
+        <form id="msl-form" action="/mySchoolListAjax.page" method="post" name="msl-form">
+
+            <input type="hidden" id="msl-redirectUrl" name="redirectUrl" value=""/>
+            <input type="hidden" id="msl-schoolId" name="schoolId" value=""/>
+            <input type="hidden" id="msl-schoolDatabaseState" name="schoolDatabaseState" value=""/>
+
             <fieldset class="email">
                 <h3>Sign in with an existing GreatSchools account:</h3>
                 <ul>
                     <li>
-                        <label for="semail">Email address </label><input type="text" id="semail" name="email"/>
+                        <label for="msl-email">Email address </label><input type="text" id="msl-email" name="email"/>
                         <div class="errors">
                             <p class="error"><!-- message --></p>
                         </div>
@@ -28,9 +34,10 @@
                 <!--<button class="btn25" type="submit" name="signinBtn" id="signinBtn">
                     <span class="lftDoor25"><span class="rtDoor25">Sign in</span></span>
                 </button>-->
-                <button class="button-1" type="submit" name="signinBtn" id="signinBtn">Go</button>
+                <button class="button-1" type="button" name="submitButton" id="msl-submit">Go</button>
 
             </fieldset>
+        </form>
 
     </div>
 </jsp:root>

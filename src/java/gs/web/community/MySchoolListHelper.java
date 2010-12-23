@@ -3,11 +3,9 @@ package gs.web.community;
 import gs.data.community.FavoriteSchool;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.school.ISchoolDao;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.School;
-import gs.data.state.State;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -71,6 +69,18 @@ public class MySchoolListHelper {
         }
         user.setFavoriteSchools(favoriteSchools);
         getUserDao().updateUser(user);
+    }
+
+    protected User createNewMSLUser(String email) {
+        User user = new User();
+        user.setEmail(email);
+        getUserDao().saveUser(user);
+        user = getUserDao().findUserFromEmail(email);
+        // Because of hibernate caching, it's possible for a list_active record
+        // (with list_member id) to be commited before the list_member record is
+        // committed. Adding this commitOrRollback prevents this.
+        ThreadLocalTransactionManager.commitOrRollback();
+        return user;
     }
 
     public IUserDao getUserDao() {

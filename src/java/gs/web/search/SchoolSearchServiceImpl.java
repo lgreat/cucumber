@@ -140,15 +140,14 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
             }
         }
 
-        // Check for zipcode searches
-        if (searchString.length() == 5 && StringUtils.isNumeric(searchString)) {
-            searchString = "zip:" + searchString;
-        }
-
         mixedQuery = new BooleanQuery();
         mixedQuery.add(new TermQuery(new Term("type", "school")), BooleanClause.Occur.MUST);
 
         if (!StringUtils.isBlank(searchString)) {
+            // Check for zipcode searches
+            if (searchString.length() == 5 && StringUtils.isNumeric(searchString)) {
+                searchString = "zip:" + searchString;
+            }
             Query query = _queryParser.parse(searchString);
             mixedQuery.add(query, BooleanClause.Occur.MUST);
         }

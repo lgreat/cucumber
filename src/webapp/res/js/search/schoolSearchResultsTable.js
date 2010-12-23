@@ -338,4 +338,40 @@ jQuery(function() {
     jQuery('#topicbarGS input').click(function() {
         GS.search.schoolSearchResultsTable.update();
     });
+
+    jQuery('.js-add-msl').click(function() {
+        var statePlusId = jQuery(this).attr('id');
+        statePlusId = statePlusId.replace("js-add-msl-", "");
+        var state = statePlusId.substring(0,2);
+        var id = statePlusId.substring(2, statePlusId.length);
+        var url = "/mySchoolListAjax.page";
+        var data = {};
+        data.schoolDatabaseString = state;
+        data.schoolId = id;
+
+        var loggedInAsFullOrMSLUser = GS.isSignedIn();
+        var redirectUrl = window.location.href;
+
+        if (loggedInAsFullOrMSLUser) {
+            jQuery.post(url, data, function(data) {
+                console.log(data);
+            }, "JSON");
+        } else {
+
+            //show hover, create msl, save school to msl, round trip to log user in
+            GSType.hover.mslHover.setSchoolId(id);
+            GSType.hover.mslHover.setSchoolDatabaseState(state);
+            GSType.hover.mslHover.setRedirectUrl(redirectUrl);
+
+            jQuery('#msl-submit').click(function() {
+                GSType.hover.mslHover.onSubmit();
+               jQuery('#msl-form').submit();
+            });
+            
+            GSType.hover.mslHover.show();
+
+        }
+
+        return false;
+    });
 });

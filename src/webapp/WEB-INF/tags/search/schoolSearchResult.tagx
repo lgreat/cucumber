@@ -92,15 +92,15 @@
                         <c:otherwise>
                             <span class="sprite i-add-sm"><!-- do not collapse --></span>
                                 <span>
-                                    <a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
+                                    <!--<a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
+                                        Add to My School List
+                                    </a>-->
+                                    <a href="#" class="js-add-msl" id="js-add-msl-${school.databaseState}${school.id}">
                                         Add to My School List
                                     </a>
                                 </span>
                         </c:otherwise>
                     </c:choose>
-                    <!--<link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>-->
-
-                    <!--TODO: create a tag which will accept a school database state and school id as params instead of school object -->
                 </p>
             </td>
 
