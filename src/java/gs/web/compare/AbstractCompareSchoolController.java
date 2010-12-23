@@ -211,6 +211,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     _log.error("Compare schools School not found. School " + splitSchool +
                         " from \"" + schoolsParamValue + "\"");
                     return null;
+                } else if (school.isPreschoolOnly()) {
+                    _log.error("Compare does not support preschools.");
+                    return null;
                 }
                 ComparedSchoolBaseStruct struct = getStruct();
                 struct.setSchool(school);
