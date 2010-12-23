@@ -72,14 +72,14 @@
 
         </div>
 
-        <variant:a>
+        <!--<variant:a>-->
         <div id="compare" class="clearfix">
             <school:compareNearZipCode
                     isHomePage="${isHomePage}"
                     levelCode="${levelCode}"
                     />
         </div>
-        </variant:a>
+        <!--</variant:a>-->
     </div>
 
 </jsp:root>
