@@ -123,38 +123,36 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_MSL_SCHOOLS, mslSchools);
         }
 
-        State state = getState(request, schoolSearchCommand, fields);
+        SchoolSearchCommandWithFields commandAndFields = new SchoolSearchCommandWithFields(schoolSearchCommand, fields);
+        String[] schoolSearchTypes = commandAndFields.getSchoolTypes();
+        commandAndFields.setDistrictDao(getDistrictDao());
+        commandAndFields.setGeoDao(getGeoDao());
+        State state = commandAndFields.getState();
+        boolean isCityBrowse = commandAndFields.isCityBrowse();
+        boolean isDistrictBrowse = commandAndFields.isDistrictBrowse();
+        boolean isSearch = !isCityBrowse && !isDistrictBrowse;
+
         City city = null;
         District district = null;
 
-        if (fields != null) {
-            try {
-                city = getCity(fields);
-                district = getDistrict(fields);
-                model.put(MODEL_CITY, city);
-                model.put(MODEL_DISTRICT, district);
-            } catch (InvalidCityException exception) {
-                return redirectTo404(response);
-            } catch (InvalidDistrictException exception) {
+        if (isCityBrowse || isDistrictBrowse) {
+            city = commandAndFields.getCityFromUrl();
+            model.put(MODEL_CITY, city);
+            if (city == null) {
                 return redirectTo404(response);
             }
         }
-
-        boolean isCityBrowse = false;
-        boolean isDistrictBrowse = false;
-        boolean isSearch = false;
-        // warning: for district browse, the city object is also populated, so the order of these if-else if-else statements matters!
-        if (district != null) {
-            isDistrictBrowse = true;
-        } else if (city != null) {
-            isCityBrowse = true;
-        } else {
-            isSearch = true;
+        if (isDistrictBrowse) {
+            district = commandAndFields.getDistrict();
+            model.put(MODEL_DISTRICT, district);
+            if (district == null) {
+                return redirectTo404(response);
+            }
         }
         model.put(MODEL_IS_CITY_BROWSE, isCityBrowse);
         model.put(MODEL_IS_DISTRICT_BROWSE, isDistrictBrowse);
         model.put(MODEL_IS_SEARCH, isSearch);
-        
+
         //if user did not enter search term, redirect to state browse
         if (isSearch && StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
             return stateBrowseRedirect(request, sessionContext);
@@ -162,7 +160,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         // if district browse *and* lc parameter was specified, 301-redirect to use directory-structure schools label instead of lc parameter
         String lc = request.getParameter("lc");
-        if (isDistrictBrowse && StringUtils.isNotBlank(lc) && !schoolSearchCommand.isAjaxRequest()) {
+        if (commandAndFields.isDistrictBrowse() && StringUtils.isNotBlank(lc) && !schoolSearchCommand.isAjaxRequest()) {
             LevelCode levelCode = LevelCode.createLevelCode(lc);
             UrlBuilder urlBuilder = new UrlBuilder(district, levelCode, UrlBuilder.SCHOOLS_IN_DISTRICT);
             return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
@@ -170,31 +168,22 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);
 
-        //create school types and level code from SchoolSearchCommand
-        String[] schoolSearchTypes = schoolSearchCommand.getSchoolTypes();
-        LevelCode levelCode = LevelCode.createLevelCode(schoolSearchCommand.getGradeLevels());
 
-        //If command did not contain level code / school types, grab those from DirectoryStructureUrlFields
-        if (fields != null && (schoolSearchTypes == null || schoolSearchTypes.length == 0)) {
-            schoolSearchTypes = fields.getSchoolTypesParams();
-        }
-        if (fields != null && (schoolSearchCommand.getGradeLevels() == null || levelCode == null)) {
-            levelCode = fields.getLevelCode();
-        }
 
         //If we have school types, create a filter group for it
-        if (schoolSearchTypes != null && schoolSearchTypes.length > 0) {
+        if (commandAndFields.hasSchoolTypes()) {
             FilterGroup filterGroup = new FilterGroup();
-            filterGroup.setFieldFilters(getSchoolTypeFilters(schoolSearchTypes).toArray(new FieldFilter[0]));
+            filterGroup.setFieldFilters(getSchoolTypeFilters(commandAndFields.getSchoolTypes()).toArray(new FieldFilter[0]));
             filterGroups.add(filterGroup);
         }
 
         //If we have level code(s), create a filter group for it
+        LevelCode levelCode = commandAndFields.getLevelCode();
         if (levelCode != null) {
             FilterGroup filterGroup = new FilterGroup();
             FieldFilter[] filters = getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]);
             if (filters != null && filters.length > 0) {
-                filterGroup.setFieldFilters(getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]));
+                filterGroup.setFieldFilters(filters);
                 filterGroups.add(filterGroup);
             }
         }
@@ -242,7 +231,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         PageHelper.setHasSearchedCookie(request, response);
 
-        model.put(MODEL_SCHOOL_TYPE, StringUtils.join(schoolSearchTypes));
+        model.put(MODEL_SCHOOL_TYPE, StringUtils.join(commandAndFields.getSchoolTypes()));
         if (levelCode != null) {
             model.put(MODEL_LEVEL_CODE, levelCode.getCommaSeparatedString());
         }
@@ -251,7 +240,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(), model); //TODO: fix
         addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, schoolSearchCommand.getSearchString(), searchResultsPage.getSearchResults(), city, district);
 
-        City localCity = (city != null ? city : getCity(state, schoolSearchCommand.getSearchString()));
+        City localCity = (city != null ? city : commandAndFields.getCityFromSearchString());
         if (localCity != null) {
             LocalBoard localBoard = _localBoardDao.findByCityId(localCity.getId());
             if (localBoard != null) {
@@ -265,9 +254,15 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
         model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
                                      filterGroups, levelCode, schoolSearchCommand.getSearchString()));
-        model.put(MODEL_TITLE, getTitle(isCityBrowse, isDistrictBrowse, city, district, levelCode, schoolSearchTypes, schoolSearchCommand.getSearchString()));
-        model.put(MODEL_META_DESCRIPTION, getMetaDescription(isCityBrowse, isDistrictBrowse, city, district, levelCode, schoolSearchTypes));
-        model.put(MODEL_META_KEYWORDS, getMetaKeywords(district));
+
+        if (commandAndFields.isCityBrowse()) {
+            model.putAll(new CityMetaDataHelper().getMetaData(commandAndFields));
+        } else if (commandAndFields.isDistrictBrowse()) {
+            model.putAll(new DistrictMetaDataHelper().getMetaData(commandAndFields));
+        } else {
+            model.putAll(new MetaDataHelper().getMetaData(commandAndFields));
+        }
+
         model.put(MODEL_STATE, state);
 
         model.put(MODEL_OMNITURE_PAGE_NAME,
@@ -299,6 +294,41 @@ public class SchoolSearchController extends AbstractCommandController implements
             } else {
                 return new ModelAndView("/search/schoolSearchResults", model);
             }
+        }
+    }
+
+    protected class MetaDataHelper {
+        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
+            String searchString = commandWithFields.getSearchString();
+            Map<String,Object> model = new HashMap<String,Object>();
+            model.put(MODEL_TITLE, getTitle(searchString));
+            return model;
+        }
+    }
+
+    protected class DistrictMetaDataHelper {
+        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
+            District district = commandWithFields.getDistrict();
+            String[] schoolSearchTypes = commandWithFields.getSchoolTypes();
+            LevelCode levelCode = commandWithFields.getLevelCode();
+            Map<String,Object> model = new HashMap<String,Object>();
+            model.put(MODEL_TITLE, getTitle(district, levelCode, schoolSearchTypes));
+            model.put(MODEL_META_DESCRIPTION, getMetaDescription(district));
+            model.put(MODEL_META_KEYWORDS, getMetaKeywords(district));
+            return model;
+        }
+    }
+
+    protected class CityMetaDataHelper {
+        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
+            City city = commandWithFields.getCityFromUrl();
+            String[] schoolSearchTypes = commandWithFields.getSchoolTypes();
+            LevelCode levelCode = commandWithFields.getLevelCode();
+
+            Map<String,Object> model = new HashMap<String,Object>();
+            model.put(MODEL_TITLE, getTitle(city.getDisplayName(), city.getState(), levelCode, schoolSearchTypes));
+            model.put(MODEL_META_DESCRIPTION, getMetaDescription(city, levelCode, schoolSearchTypes));
+            return model;
         }
     }
 
@@ -350,46 +380,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         public InvalidCityException(String message) {
             super(message);
         }
-    }
-
-    public District getDistrict(DirectoryStructureUrlFields fields) throws InvalidDistrictException {
-        State state = fields.getState();
-        String districtName = fields.getDistrictName();
-        String cityName = fields.getCityName();
-
-        District district = null;
-
-        if (StringUtils.isNotBlank(districtName) && state != null && StringUtils.isNotBlank(cityName)) {
-            // might be null
-            district = getDistrictDao().findDistrictByNameAndCity(state, districtName, cityName);
-            if (district == null) {
-                throw new InvalidDistrictException("Could not locate district with name " + districtName);
-            }
-        }
-
-        return district;
-    }
-
-    public City getCity(DirectoryStructureUrlFields fields) throws InvalidCityException {
-        State state = fields.getState();
-        String cityName = fields.getCityName();
-        City city = null;
-        if (StringUtils.isNotBlank(cityName) && state != null) {
-            city = getCity(state, cityName);
-            if (city == null) {
-                throw new InvalidCityException("Could not locate city with name " + cityName);
-            }
-        }
-        return city;
-    }
-
-    public City getCity(State state, String cityName) {
-        City city = null;
-        if (StringUtils.isNotBlank(cityName) && state != null) {
-            // might be null
-            city = getGeoDao().findCity(state, cityName);
-        }
-        return city;
     }
 
     //-------------------------------------------------------------------------
@@ -578,7 +568,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         return sb.toString();
     }
 
-    public static String calcCitySchoolsTitle(String cityDisplayName, State cityState, LevelCode levelCode, String[] schoolType) {
+    public static String getTitle(String cityDisplayName, State cityState, LevelCode levelCode, String[] schoolType) {
         StringBuffer sb = new StringBuffer();
         sb.append(cityDisplayName);
         if (schoolType != null && (schoolType.length == 1 || schoolType.length == 2)) {
@@ -621,14 +611,24 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected static String getTitle(boolean isCityBrowse, boolean isDistrictBrowse, City city, District district, LevelCode levelCode, String[] schoolTypes, String searchString) {
         if (isCityBrowse) {
-            return calcCitySchoolsTitle(city.getDisplayName(), city.getState(), levelCode, schoolTypes);
+            return getTitle(city.getDisplayName(), city.getState(), levelCode, schoolTypes);
         } else if (isDistrictBrowse) {
-            return SeoUtil.generatePageTitle(district, levelCode, schoolTypes);
-        } else if (StringUtils.isNotBlank(searchString)) {
-            return "GreatSchools.org Search: " + StringEscapeUtils.escapeHtml(searchString);
+            return getTitle(district, levelCode, schoolTypes);
         } else {
-            return "GreatSchools.org Search";
+            return getTitle(searchString);
         }
+    }
+    protected static String getTitle(District district, LevelCode levelCode, String[] schoolTypes) {
+        return SeoUtil.generatePageTitle(district, levelCode, schoolTypes);
+    }
+    protected static String getTitle(String searchString) {
+        String title;
+        if (StringUtils.isNotBlank(searchString)) {
+            title = "GreatSchools.org Search: " + StringEscapeUtils.escapeHtml(searchString);
+        } else {
+            title = "GreatSchools.org Search";
+        }
+        return title;
     }
 
     protected static String getMetaDescription(boolean isCityBrowse, boolean isDistrictBrowse, City city, District district, LevelCode levelCode, String[] schoolTypes) {
@@ -639,6 +639,12 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else {
             return null;
         }
+    }
+    protected static String getMetaDescription(City city, LevelCode levelCode, String[] schoolTypes) {
+        return calcMetaDesc(null, city.getDisplayName(), city.getState(), levelCode, schoolTypes);
+    }
+    protected static String getMetaDescription(District district) {
+        return SeoUtil.generateMetaDescription(district);
     }
 
     protected static String getMetaKeywords(District district) {
