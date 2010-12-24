@@ -1,39 +1,124 @@
-jQuery(function() {
-//    1) select a state
-//    2) select a city
-//    3) select a school
-//    4) retrieve/store:
-//      a) school name
-//      b) school address
-//      c) gs rating
-//      d) community rating
-//      e) school level:
-//          1) type 1 = p-only
-//          2) type 2 = any combination of p, e, m
-//          3) type 3 = any combination of p, e, m with h or h only
-//    5) set school information on form
-//    6) select user role
-//    7) set additional rating areas, if any, on form
-//    8) show the form
-//    9) upon submission:
-//      a) proper error messages are shown, or
-//      b) the data is accepted
+if (GS === undefined) {
+    var GS = {};
+}
+if (GS.module === undefined) {
+    GS.module = {};
+}
+if (GS.form === undefined) {
+    GS.form = {};
+}
 
-//    NOTE:
-//    1) The form becomes hidden if:
-//      a) user refreshes the page
-//      b) user selects a different state
-//      c) user selects a different city
-//    2) The form changes, but continues to show if:
-//      a) user selects a different role
-//      b) user selects a different school
 
-    jQuery('#parentReviewEmail').blur(validateEmailAjax);
-    jQuery('#stateSelect').change(loadCities);
-    jQuery('#citySelect').change(loadSchools);
-    jQuery('#schoolSelect').change(schoolChange);
-    
-    jQuery('#userRoleSelect').change(function() {
+
+GS.module.SchoolSelect = function() {
+    this._levelCode = undefined;
+    this._role = undefined;
+
+    this.onStateChange = function() {
+        var state = jQuery('#stateSelect').val();
+        this.getCities(state);
+    }.gs_bind(this);
+
+    this.getCities = function(state) {
+        var url = "/community/registrationAjax.page";
+
+        jQuery('#citySelect').html("<option>Loading...</option>");
+
+        jQuery.getJSON(url, {state:state, format:'json', type:'city'}, this.updateCitySelect);
+    }.gs_bind(this);
+
+    this.updateCitySelect = function(data) {
+        var citySelect = jQuery('#citySelect');
+        if (data.cities) {
+            citySelect.empty();
+            for (var x = 0; x < data.cities.length; x++) {
+                var city = data.cities[x];
+                if (city.name) {
+                    citySelect.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
+                }
+            }
+        }
+    }.gs_bind(this);
+
+    this.onCityChange = function() {
+        var state = jQuery('#stateSelect').val();
+        var city = jQuery('#citySelect').val();
+
+        this.getSchools(state, city)
+    }.gs_bind(this);
+    this.getSchools = function(state, city) {
+        var params = {state : state, city : city,onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'};
+        jQuery.get('/test/schoolsInCity.page', params, this.updateSchoolSelect);
+    }.gs_bind(this);
+
+    this.updateSchoolSelect = function(data) {
+        jQuery('#schoolSelect').html("");
+        jQuery(data).find('option').each(function () {
+            jQuery('#schoolSelect').append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
+        });
+    };
+    this.onSchoolChange = function() {
+        var schoolId = jQuery('#schoolSelect').val();
+        var state = jQuery('#stateSelect').val();
+        this.getSchool(state, schoolId);
+    }.gs_bind(this);
+    this.getSchool = function(state, school) {
+        if (state != '' && school !== '') {
+            var url = '/school/schoolForParentReview.page';
+            var params = {schoolId : school, state : jQuery('#stateSelect').val()};
+            jQuery.getJSON(url, params, this.updatePageWithSchool);
+        }
+    }.gs_bind(this);
+    this.updatePageWithSchool = function(data) {
+
+        var id = data.id;
+        var name = data.name;
+        var street1 = data.street1;
+        var street2 = data.street2;
+        var cityStateZip = data.cityStateZip;
+        var county = data.county;
+        var greatSchoolsRating = data.greatSchoolsRating;
+        var communityRating = data.communityRating;
+        var numberOfCommunityRatings = data.numberOfCommunityRatings;
+        var espLoginUrl = data.espLoginUrl;
+
+        var schoolNameElement = jQuery('#schoolNameHeader');
+        var street1Element = jQuery('#schoolAddressLine1');
+        var street2Element = jQuery('#schoolAddressLine2');
+        var cityStateZipElement = jQuery('#schoolAddressLine3');
+        var countyElement = jQuery('#schoolAddressLine4');
+
+        schoolNameElement.html(name);
+        street1Element.html(street1);
+        street2Element.html(street2);
+        cityStateZipElement.html(cityStateZip);
+        if (county !== undefined && county !== '') {
+            countyElement.html(county + ' County');
+        } else {
+            countyElement.html("");
+        }
+
+        jQuery('#gs-rating-badge').attr("class","img sprite badge_sm_" + greatSchoolsRating);
+        jQuery('#community-rating-badge').attr("class","img sprite stars_sm_" + communityRating);
+        if (numberOfCommunityRatings !== undefined) {
+            jQuery('#number-of-ratings').html("Based on " + numberOfCommunityRatings + " ratings");
+        } else {
+            jQuery('#number-of-ratings').html("Be the first to rate!");
+        }
+
+        this._levelCode = data.levelCode;
+        this.updateAdditionalRatings(this._levelCode, this._role);
+    }.gs_bind(this);
+
+    this.onRoleChange = function() {
+        this._role = jQuery('#userRoleSelect').val();
+        this.updateAdditionalRatings(this._levelCode, this._role);
+    }.gs_bind(this);
+
+    this.updateAdditionalRatings = function(levelCode, role) {
+        if (role === undefined || role === "" || levelCode === undefined || levelCode === "") {
+            return;  //EARLY EXIT
+        }
 
         clearRatings('principalAsString');
         clearRatings('teacherAsString');
@@ -45,17 +130,25 @@ jQuery(function() {
         jQuery('#addParentReviewForm [name="userRoleAsString"]').val(jQuery('#userRoleSelect').val());
 
         switch (true) {
-            case (this.value === 'parent'):
-                debug('this value: '+this.value)
+            case (role === 'parent' && levelCode === 'p'):
+                jQuery('#additionalStarRatingsTitle').show();
+                jQuery('#additionalStarRatingTitle').hide();
+                jQuery('#teacherStars').show();
+                jQuery('#principalStars').hide();
+                jQuery('#parentStars').show();
+                jQuery('#facilitiesStars').show();
+                jQuery('#additionalStarRatingsExplained').show();
+                break;
+            case (role === 'parent'):
                 jQuery('#additionalStarRatingsTitle').show();
                 jQuery('#additionalStarRatingTitle').hide();
                 jQuery('#teacherStars').show();
                 jQuery('#principalStars').show();
                 jQuery('#parentStars').show();
-                jQuery('#facilitiesStars').show();
+                jQuery('#facilitiesStars').hide();
                 jQuery('#additionalStarRatingsExplained').show();
                 break;
-            case (this.value === 'student'):
+            case (role === 'student' && levelCode.indexOf('h') !== -1):
                 jQuery('#additionalStarRatingsTitle').hide();
                 jQuery('#additionalStarRatingTitle').show();
                 jQuery('#teacherStars').show();
@@ -64,7 +157,7 @@ jQuery(function() {
                 jQuery('#facilitiesStars').hide();
                 jQuery('#additionalStarRatingsExplained').show();
                 break;
-            case (this.value === 'teacher'):
+            case (role === 'student'):
                 jQuery('#additionalStarRatingsTitle').hide();
                 jQuery('#additionalStarRatingTitle').hide();
                 jQuery('#teacherStars').hide();
@@ -73,7 +166,16 @@ jQuery(function() {
                 jQuery('#facilitiesStars').hide();
                 jQuery('#additionalStarRatingsExplained').hide();
                 break;
-            case (this.value === 'other'):
+            case (role === 'teacher'):
+                jQuery('#additionalStarRatingsTitle').hide();
+                jQuery('#additionalStarRatingTitle').hide();
+                jQuery('#teacherStars').hide();
+                jQuery('#principalStars').hide();
+                jQuery('#parentStars').hide();
+                jQuery('#facilitiesStars').hide();
+                jQuery('#additionalStarRatingsExplained').hide();
+                break;
+            case (role === 'other'):
                 jQuery('#additionalStarRatingsTitle').hide();
                 jQuery('#additionalStarRatingTitle').hide();
                 jQuery('#teacherStars').hide();
@@ -85,7 +187,28 @@ jQuery(function() {
             default:
                 alert("A valid user role was not set.");
         }
-    });
+    };
+
+
+    this.attachEventHandlers = function() {
+        jQuery('#stateSelect').change(this.onStateChange);
+        jQuery('#citySelect').change(this.onCityChange);
+        jQuery('#schoolSelect').change(this.onSchoolChange);
+        jQuery('#userRoleSelect').change(this.onRoleChange);
+    };
+
+    this.attachEventHandlers();
+
+};
+
+jQuery(function() {
+    GS.module.schoolSelect = new GS.module.SchoolSelect();
+});
+
+
+jQuery(function() {
+
+    jQuery('#parentReviewEmail').blur(validateEmailAjax);
 
     jQuery("#parentReviewTerms").click(function() {
        if (jQuery("#parentReviewTerms").attr("checked")) {
@@ -96,193 +219,9 @@ jQuery(function() {
     });
 });
 
-function loadCities() {
-    var state = jQuery('#stateSelect').val();
-    var url = "/community/registrationAjax.page";
-
-    jQuery('#citySelect').html("<option>Loading...</option>");
-
-    jQuery.getJSON(url, {state:state, format:'json', type:'city'}, parseCities);
-}
-
-function parseCities(data) {
-    var citySelect = jQuery('#citySelect');
-    if (data.cities) {
-        citySelect.empty();
-        for (var x = 0; x < data.cities.length; x++) {
-            var city = data.cities[x];
-            if (city.name) {
-                citySelect.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
-            }
-        }
-    }
-}
-
-function loadSchools() {
-    var params = {state : jQuery('#stateSelect').val(), city : jQuery('#citySelect').val(),onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'}
-    jQuery.get('/test/schoolsInCity.page', params, parseSchools);
-}
-
-function parseSchools(data) {
-    jQuery('#schoolSelect').html("");
-    jQuery(data).find('option').each(function () {
-        jQuery('#schoolSelect').append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
-    });
-}
-
-function schoolChange() {
-    var school = jQuery('#schoolSelect').val();
-
-    if (school != '') {
-        var url = '/school/schoolForParentReview.page';
-        var params = {schoolId : school, state : jQuery('#stateSelect').val()};
-        jQuery.get(url, params, showResponse);
-    }
-}
-
-function showResponse(x) {
-
-    setDisplay('');
-
-    jQuery('#principalAsString').value = '';
-    jQuery('#teacherAsString').value = '';
-    //jQuery('#activitiesAsString').value = '';
-    jQuery('#parentAsString').value = '';
-    //jQuery('#safetyAsString').value = '';
-    //jQuery('#PProgramAsString').value = '';
-    jQuery('#pFacilitiesAsString').value = '';
-    //jQuery('#PSafetyPreschoolAsString').value = '';
-    //jQuery('#PTeachersPreschoolAsString').value = '';
-    //jQuery('#PParentsPreschoolAsString').value = '';
-
-    clearRatings('principalAsString');
-    clearRatings('teacherAsString');
-    //clearRatings('activitiesAsString');
-    clearRatings('parentAsString');
-    //clearRatings('safetyAsString');
-    //clearRatings('PProgramAsString');
-    clearRatings('pFacilitiesAsString');
-    //clearRatings('PSafetyPreschoolAsString');
-    //clearRatings('PTeachersPreschoolAsString');
-    //clearRatings('PParentsPreschoolAsString');
-
-    var isRatingInfoPresent = (x.indexOf('noRatingInfo') == -1);
-    var isPreschool = (x.indexOf('isPreschool') != -1);
-    var isPublic = (x.indexOf('isPublic') != -1);
-    jQuery('#schoolAddress').css("padding-left", "0px");
-
-    var schoolInfoArray = x.split(";");
-
-    var schoolName = schoolInfoArray[0];
-    var gsSchoolRating = schoolInfoArray[1];
-    var parentRating = schoolInfoArray[2];
-    var reviewCount = schoolInfoArray[3];
-    var schoolLevelCode = schoolInfoArray[13];
-    var isHighSchoolOnly = (x.indexOf('showStudent') != -1);
-
-    debug('school info array: '+schoolInfoArray);
-    debug('gsSchoolRating: '+gsSchoolRating);
-    debug('school level code: '+schoolLevelCode);
-
-    jQuery('#schoolNameHeader').html(schoolName);
-
-    jQuery('#gsSchoolRating').children().remove();
-
-    if (gsSchoolRating != "" && isRatingInfoPresent && gsSchoolRating > 0) {
-        var image = document.createElement('img');
-        image.setAttribute('alt', 'GreatSchools Rating: ' + gsSchoolRating + ' out of 10. Greatschools Ratings are based on test results. 10 is best.');
-        image.setAttribute('src', '/res/img/school/ratings/ratings_gs_head_' + gsSchoolRating + '.gif');
-        image.setAttribute('class', 'rating_gs');
-        jQuery('#gsSchoolRating').append(image);
-        jQuery('#gsSchoolRating').show();
-    } else {
-        jQuery('#gsSchoolRating').hide();
-    }
-
-    if (parentRating != "" && parentRating > 0) {
-        // TODO-10623 - Parent Rating in alt text cannot check db property
-        // TODO-10623 - Parent Rating word in image must be changed in image
-        jQuery('#overallParentRating').html('<img class="sm_stars" alt="Parent Rating: ' + parentRating + ' out of 5 stars" src="/res/img/school/ratings/ratings_parent_head_' + parentRating + '.gif"/>');
-        jQuery('#overallParentRating').show();
-        if (reviewCount != "" && reviewCount > 0) {
-            jQuery('#parentRatingCount').html('Based on ' + reviewCount + ' rating' + (reviewCount > 1 ? 's' : ''));
-            jQuery('#parentRatingCount').show();
-        } else {
-            jQuery('#parentRatingCount').hide();
-        }
-    } else {
-        jQuery('#overallParentRating').hide();
-        jQuery('#parentRatingCount').hide();
-        if (gsSchoolRating != "" && isRatingInfoPresent && gsSchoolRating > 0) {
-            jQuery('#schoolAddress').css("padding-left", "50px");
-        }
-    }
-
-    if (schoolInfoArray[4] != "" && schoolInfoArray[5] == "") {
-        jQuery('#schoolAddressLine1').html(schoolInfoArray[4]);
-        jQuery('#schoolAddressLine3').html(schoolInfoArray[6] + ',' + schoolInfoArray[7] + ' ' + schoolInfoArray[8]);
-        jQuery('#schoolAddressLine4').html(schoolInfoArray[9] + ' ' + 'county');
-    }
-    else if (schoolInfoArray[4] != "" && schoolInfoArray[5] != "") {
-        jQuery('#schoolAddressLine1').html(schoolInfoArray[4]);
-        jQuery('#schoolAddressLine2').html(schoolInfoArray[4]);
-        jQuery('#schoolAddressLine3').html(schoolInfoArray[6] + ',' + schoolInfoArray[7] + ' ' + schoolInfoArray[8]);
-        jQuery('#schoolAddressLine4').html(schoolInfoArray[9] + ' ' + 'county');
-    }
-    if (isPublic) {
-        //jQuery('#weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools, including periodic updates about ' + schoolInfoArray[0] + '.</div>';
-    } else {
-        //jQuery('#weeklyEmails').innerHTML = '<input id="wantMssNL" type="checkbox" name="wantMssNL" value="yes" checked="checked" class="parentReviewChkBoxes"/> <div>Sign me up for weekly email updates from GreatSchools.</div>';
-    }
-    jQuery('#schoolId').val(schoolInfoArray[10]);
-    jQuery('#schoolState').val(schoolInfoArray[7]);
-
-    removeChildrenFromNode(jQuery('#principalsLink'));
-    var principalsHref = document.createElement('a');
-    principalsHref.setAttribute('href', schoolInfoArray[11]);
-    principalsHref.appendChild(document.createTextNode("Principals, submit your review here >"));
-    jQuery('#principalsLink').append(principalsHref);
-
-    if (isPreschool) {
-        jQuery('#principalStars').hide();
-        jQuery('#facilityStars').show();
-        jQuery('#ratingsExplainedGradeschool').hide();
-        jQuery('#ratingsExplainedPreschool').show();
-    } else {
-        jQuery('#facilityStars').hide();
-        jQuery('#principalStars').show();
-        jQuery('#ratingsExplainedPreschool').hide();
-        jQuery('#ratingsExplainedGradeschool').show();
-    }
-
-    var studentOption = '<option value="student">student</option>';
-
-    if (isHighSchoolOnly != undefined && isHighSchoolOnly) {
-        if (jQuery('#userRoleSelect [value="student"]').length == 0) {
-            jQuery('#userRoleSelect [value="parent"]').after(studentOption);
-        }
-    } else {
-        jQuery('#userRoleSelect [value="student"]').remove();
-    }
-
-}
-
-var starSelected = false;
-function onLoadCities() {
-    loadCities();
 
 
-    var starHandler = function(event) {
-        starSelected = true;
-    };
 
-    jQuery('#validateStar1').click(starHandler);
-    jQuery('#validateStar2').click(starHandler);
-    jQuery('#validateStar3').click(starHandler);
-    jQuery('#validateStar4').click(starHandler);
-    jQuery('#validateStar5').click(starHandler);
-
-}
 
 function GS_countWords(textField) {
     var text = textField.value;
