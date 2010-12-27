@@ -96,7 +96,7 @@
                                     <!--<a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
                                         Add to My School List
                                     </a>-->
-                                    <a href="#" id="js-add-msl-link-${school.databaseState}${school.id}">
+                                    <a href="#" class="js-add-msl-link" id="js-add-msl-link-${school.databaseState}${school.id}">
                                         Add to My School List
                                     </a>
                                 </span>

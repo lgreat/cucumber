@@ -355,7 +355,7 @@ GS.search.SchoolSearchResultsTable = function() {
                 window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',');
             }
         });
-        jQuery('.msl-text > a').click(this.onClickAddMslLink);
+        jQuery('.js-add-msl-link').click(this.onClickAddMslLink);
     };
 
     this.attachEventHandlers();
