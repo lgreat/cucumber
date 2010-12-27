@@ -37,17 +37,19 @@
                 <th scope="row">GreatSchools Rating</th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_gsRating center">
-                        <c:choose>
-                            <c:when test="${school.private}">
-                                <span class="sprite badge_sm_pr" title="GreatSchools Ratings not available for private schools."><!-- do not collapse --></span>
-                            </c:when>
-                            <c:when test="${empty school.gsRating}">
-                                <span class="ratingNotApplicable rateDesc">n/a</span>
-                            </c:when>
-                            <c:otherwise>
-                                <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span></p>
-                            </c:otherwise>
-                        </c:choose>
+                        <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}">
+                            <c:choose>
+                                <c:when test="${school.private}">
+                                    <span class="sprite badge_sm_pr" title="GreatSchools Ratings not available for private schools."><!-- do not collapse --></span>
+                                </c:when>
+                                <c:when test="${empty school.gsRating}">
+                                    <span class="ratingNotApplicable rateDesc sprite badge_sm_na_y"><!-- don't collapse --></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span></p>
+                                </c:otherwise>
+                            </c:choose>
+                        </link:schoolProfileRating2010>
                     </td>
                 </c:forEach>
             </tr>

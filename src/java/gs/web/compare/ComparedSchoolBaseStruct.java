@@ -3,6 +3,7 @@ package gs.web.compare;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.school.review.Review;
+import gs.data.state.State;
 import gs.web.jsp.Util;
 import org.apache.commons.lang.StringUtils;
 
@@ -82,6 +83,14 @@ public class ComparedSchoolBaseStruct {
 
     public String getCityStateZip() {
         return getSchool().getPhysicalAddress().getCityStateZip();
+    }
+
+    public Integer getId() {
+        return getSchool().getId();
+    }
+
+    public State getState() {
+        return getSchool().getDatabaseState();
     }
 
     // used by overview, map
