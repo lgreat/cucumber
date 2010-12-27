@@ -1,13 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.99 2010/11/24 22:44:34 droy Exp $
+ * $Id: PageHelper.java,v 1.100 2010/12/27 20:16:59 ssprouse Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.data.geo.City;
-import gs.data.school.School;
 import gs.web.ads.AdPosition;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.util.context.SessionContext;
@@ -769,7 +768,7 @@ public class PageHelper {
     public static void setMemberCookie(HttpServletRequest request, HttpServletResponse response, User user) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
-        util.changeUser(context, response, user);
+        util.changeUser(request, response, user);
     }
 
     public static void setCityIdCookie(HttpServletRequest request, HttpServletResponse response, Integer cityId) {

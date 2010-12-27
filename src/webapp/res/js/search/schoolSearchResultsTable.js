@@ -314,6 +314,31 @@ GS.search.SchoolSearchResultsTable = function() {
         return checkedSchools;
     };
 
+    this.onClickAddMslLink = function() {
+
+        var statePlusId = jQuery(this).attr('id');
+        
+        statePlusId = statePlusId.replace("js-add-msl-link-", "");
+        var state = statePlusId.substring(0,2).toLowerCase();
+        var id = statePlusId.substring(2, statePlusId.length);
+
+        var memId = subCookie.getObject("MEMID");
+
+        var mslHelper = new GS.community.MySchoolListHelper();
+
+        if (memId !== undefined && memId !== null) {
+            mslHelper.addSchool(state, id, function() {
+                jQuery('#js-add-msl-' + statePlusId).find('.msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
+                jQuery('#js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm");
+            }, function() {});
+        } else {
+            //show hover, create msl, save school to msl, round trip to log user in
+            mslHelper.showHover(state,id);
+        }
+
+        return false;
+    };
+
     this.attachEventHandlers = function() {
         jQuery('.compare-school-checkbox').click(this.onCompareCheckboxClicked);
         jQuery('#page-size').change(this.onPageSizeChanged);
@@ -330,6 +355,7 @@ GS.search.SchoolSearchResultsTable = function() {
                 window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',');
             }
         });
+        jQuery('.msl-text > a').click(this.onClickAddMslLink);
     };
 
     this.attachEventHandlers();
@@ -345,39 +371,5 @@ jQuery(function() {
         GS.search.schoolSearchResultsTable.update();
     });
 
-    jQuery('.js-add-msl').click(function() {
-        var statePlusId = jQuery(this).attr('id');
-        statePlusId = statePlusId.replace("js-add-msl-", "");
-        var state = statePlusId.substring(0,2);
-        var id = statePlusId.substring(2, statePlusId.length);
-        var url = "/mySchoolListAjax.page";
-        var data = {};
-        data.schoolDatabaseString = state;
-        data.schoolId = id;
 
-        var loggedInAsFullOrMSLUser = GS.isSignedIn();
-        var redirectUrl = window.location.href;
-
-        if (loggedInAsFullOrMSLUser) {
-            jQuery.post(url, data, function(data) {
-                console.log(data);
-            }, "JSON");
-        } else {
-
-            //show hover, create msl, save school to msl, round trip to log user in
-            GSType.hover.mslHover.setSchoolId(id);
-            GSType.hover.mslHover.setSchoolDatabaseState(state);
-            GSType.hover.mslHover.setRedirectUrl(redirectUrl);
-
-            jQuery('#msl-submit').click(function() {
-                GSType.hover.mslHover.onSubmit();
-               jQuery('#msl-form').submit();
-            });
-            
-            GSType.hover.mslHover.show();
-
-        }
-
-        return false;
-    });
 });

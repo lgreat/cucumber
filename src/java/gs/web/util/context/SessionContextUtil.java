@@ -1,20 +1,20 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.79 2010/08/16 18:52:24 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.80 2010/12/27 20:16:59 ssprouse Exp $
  */
 
 package gs.web.util.context;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.geo.City;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.geo.City;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.community.registration.AuthenticationManager;
+import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
-import gs.web.util.CookieUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,9 +26,9 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Provides...
@@ -655,9 +655,11 @@ public class SessionContextUtil implements ApplicationContextAware {
         return (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
     }
 
-    public void changeUser(SessionContext context, HttpServletResponse response, User user) {
+    public void changeUser(HttpServletRequest request, HttpServletResponse response, User user) {
         if (user != null) {
-            _memberIdCookieGenerator.setCookieDomain(".greatschools.org");
+            if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+                _memberIdCookieGenerator.setCookieDomain(".greatschools.org");
+            }
             _memberIdCookieGenerator.addCookie(response, user.getId().toString());
         } else {
             _log.error("Tried to set member id for a null user");

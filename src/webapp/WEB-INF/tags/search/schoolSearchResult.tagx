@@ -82,25 +82,27 @@
                             <c:set var="mslHasSchool" value="${true}"/>
                         </c:if>
                     </c:forEach>
-                    <c:choose>
-                        <c:when test="${mslHasSchool}">
-                            <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
-                                <span>
-                                    Added to <a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">My School List</a>
+                    <span class="js-add-msl" id="js-add-msl-${school.databaseState}${school.id}">
+                        <c:choose>
+                            <c:when test="${mslHasSchool}">
+                                <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
+                                <span class="msl-text">
+                                    Added to <a href="/mySchoolList.page">My School List</a>
                                 </span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="sprite i-add-sm"><!-- do not collapse --></span>
-                                <span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="sprite i-add-sm"><!-- do not collapse --></span>
+                                <span class="msl-text">
                                     <!--<a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
                                         Add to My School List
                                     </a>-->
-                                    <a href="#" class="js-add-msl" id="js-add-msl-${school.databaseState}${school.id}">
+                                    <a href="#" id="js-add-msl-link-${school.databaseState}${school.id}">
                                         Add to My School List
                                     </a>
                                 </span>
-                        </c:otherwise>
-                    </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                    </span>
                 </p>
             </td>
 
