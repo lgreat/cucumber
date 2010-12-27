@@ -23,6 +23,9 @@
 
     <div id="csMain" class="leftSide fltlft">
         <div class="compareHeader">
+            <c:if test="${not empty requestScope.returnLink}">
+                <a href="${requestScope.returnLink}"><span class="alertDoubleArrow">&#171;</span> Back to results</a>
+            </c:if>
             <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
                                       startIndex="${startIndex}" endIndex="${endIndex}"
                                       totalSchools="${totalSchools}" pageSize="${pageSize}"/>

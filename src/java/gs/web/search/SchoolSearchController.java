@@ -16,6 +16,7 @@ import gs.data.state.StateManager;
 import gs.data.util.Address;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.school.SearchResultsCookie;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
@@ -292,6 +293,16 @@ public class SchoolSearchController extends AbstractCommandController implements
             if (searchResultsPage.getTotalResults() == 0) {
                 return new ModelAndView("/search/schoolSearchNoResults", model);
             } else {
+                // GS-10742: Re-instate search results cookie so that compare will know where to send
+                // users back to.
+                SearchResultsCookie mostRecentSearchResultsCookie = new SearchResultsCookie(request, response);
+                String url = request.getRequestURL().toString();
+                String queryString = request.getQueryString();
+                if (queryString != null) {
+                    url += "?" + queryString;
+                }
+                mostRecentSearchResultsCookie.setProperty("mostRecentSearchResults", url);
+
                 return new ModelAndView("/search/schoolSearchResults", model);
             }
         }

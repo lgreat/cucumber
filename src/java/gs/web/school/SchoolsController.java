@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.98 2010/12/14 01:59:59 yfan Exp $
+ * $Id: SchoolsController.java,v 1.99 2010/12/27 20:02:11 aroy Exp $
  */
 
 package gs.web.school;
@@ -474,6 +474,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
         _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
 
+        // aroy: This class is deprecated and this code is no longer called
         SearchResultsCookie mostRecentSearchResultsCookie = new SearchResultsCookie(request, response);
         String url = request.getRequestURL().toString();
         String queryString = request.getQueryString();

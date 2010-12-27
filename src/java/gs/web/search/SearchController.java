@@ -187,6 +187,7 @@ public class SearchController extends AbstractFormController {
             viewname = "search/schoolResults";
         }
 
+        // aroy: This class is deprecated and this code is no longer called
         SearchResultsCookie mostRecentSearchResultsCookie = new SearchResultsCookie(request, response);
         String url = request.getRequestURL().toString();
         String queryString = request.getQueryString();

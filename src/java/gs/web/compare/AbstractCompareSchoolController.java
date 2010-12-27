@@ -11,6 +11,7 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.school.SearchResultsCookie;
 import gs.web.util.PageHelper;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -39,6 +40,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final String MODEL_TAB = "tab";
     public static final String MODEL_PAGE_NUMBER = "page";
     public static final String MODEL_PAGE_SIZE = "pageSize";
+    public static final String MODEL_RETURN_LINK = "returnLink";
     public static final int DEFAULT_PAGE_SIZE = 4;
     public static final int MIN_SCHOOLS = 0;
     public static final int MAX_SCHOOLS = 8;
@@ -67,11 +69,20 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             handleCompareRequest(request, response, schools, model);
             model.put(MODEL_SCHOOLS, schools);
             handleAdKeywords(request, schools);
+            handleReturnLink(request, response, model);
         } catch (Exception e) {
             _log.error(e, e);
             return getErrorResponse("unknown exception");
         }
         return new ModelAndView(getSuccessView(), model);
+    }
+
+    protected void handleReturnLink(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) {
+        SearchResultsCookie searchResultsCookie = new SearchResultsCookie(request, response);
+        String mostRecentSearchResults = searchResultsCookie.getProperty("mostRecentSearchResults");
+        if (mostRecentSearchResults != null) {
+            model.put(MODEL_RETURN_LINK, mostRecentSearchResults);
+        }
     }
 
     /**

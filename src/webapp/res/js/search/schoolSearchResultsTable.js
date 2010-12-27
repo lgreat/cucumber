@@ -64,6 +64,7 @@ GS.search.SchoolSearcher = function() {
 GS.search.SchoolSearchResultsTable = function() {
     var thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
     var checkedSchools = [];
+    var maxCheckedSchools = 8;
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
     // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
@@ -130,6 +131,10 @@ GS.search.SchoolSearchResultsTable = function() {
         var statePlusSchoolId = row.find('input.compare-school-checkbox').attr('id');
 
         if (checked) {
+            if (checkedSchools.length >= maxCheckedSchools) {
+                alert("You can compare a maximum of " + maxCheckedSchools + " schools.");
+                return false;
+            }
             checkedSchools.push(statePlusSchoolId);
             this.selectRow(checkbox.parent().parent().attr("id"));
         } else {
@@ -321,7 +326,8 @@ GS.search.SchoolSearchResultsTable = function() {
                 if (checkedSchools[0].length >= 2) {
                     stateAbbrev = checkedSchools[0].substring(0,2).toLowerCase();
                 }
-                window.location = '/modperl/msl_compare/' + stateAbbrev + '/?ids=' + checkedSchools.join(',');
+//                window.location = '/modperl/msl_compare/' + stateAbbrev + '/?ids=' + checkedSchools.join(',');
+                window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',');
             }
         });
     };
