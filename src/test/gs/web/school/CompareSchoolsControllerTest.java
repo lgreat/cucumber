@@ -5,8 +5,6 @@ import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
@@ -24,9 +22,9 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
         String[] stateIds = {"ca1", "ca2", "ca3"};
         getRequest().addParameter("sc", stateIds);
         getRequest().setParameter("compare.x", "1234");
-        ModelAndView mav = controller.handleRequestInternal(getRequest(), (HttpServletResponse)null);
+        ModelAndView mav = controller.handleRequestInternal(getRequest(), null);
         RedirectView view = (RedirectView)mav.getView();
-        assertEquals("http://www.greatschools.org/modperl/msl_compare/ca/?ids=ca1,ca2,ca3", view.getUrl());
+        assertEquals("http://www.greatschools.org/school-comparison-tool/results.page?schools=ca1%2Cca2%2Cca3", view.getUrl());
     }
 
     public void testConfirm() throws Exception {
@@ -34,16 +32,16 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
         request.setParameter("confirm.x", "1234");
         String[] stateIds = {"ca1", "ca2", "ca3"};
         request.addParameter("sc", stateIds);
-        ModelAndView mav = controller.handleRequestInternal(request, (HttpServletResponse)null);
+        ModelAndView mav = controller.handleRequestInternal(request, null);
         RedirectView view = (RedirectView)mav.getView();
         assertEquals("/cgi-bin/msl_confirm/ca/?add_ids=1&add_ids=2&add_ids=3", view.getUrl());
     }
     public void testNullSessionContext() throws Exception {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setParameter("compare.x", "1234");
-        ModelAndView mav = controller.handleRequestInternal(request, (HttpServletResponse)null);
+        ModelAndView mav = controller.handleRequestInternal(request, null);
         RedirectView view = (RedirectView)mav.getView();
-        assertEquals("/modperl/msl_compare/ca/?ids=", view.getUrl());
+        assertEquals("http://localhost/school-comparison-tool/results.page", view.getUrl());
     }
 
     public void testCompareWithoutState() throws Exception {

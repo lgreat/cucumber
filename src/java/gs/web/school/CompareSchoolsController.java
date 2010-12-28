@@ -1,8 +1,11 @@
 package gs.web.school;
 
 import gs.data.state.State;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.axis.utils.ArrayUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -44,10 +47,24 @@ public class CompareSchoolsController extends AbstractController {
 
         String p1 = request.getParameter("compare.x");
 
-        if (hoverCompare) {
-            urlBuffer.append("/cgi-bin/cs_compare/");
-        } else if (p1 != null) {
-            urlBuffer.append("/modperl/msl_compare/");
+        if (hoverCompare || p1 != null) {
+//            urlBuffer.append("/cgi-bin/cs_compare/");
+//        } else if (p1 != null) {
+//            urlBuffer.append("/modperl/msl_compare/");
+            // aroy: GS-10742 new compare
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_OVERVIEW);
+
+            String[] schoolIds = request.getParameterValues("sc");
+            if (schoolIds != null) {
+                urlBuilder.setParameter("schools", StringUtils.join(schoolIds, ","));
+            }
+            String cpnValue = request.getParameter("cpn");
+            if (cpnValue != null && cpnValue.length() > 0) {
+                urlBuilder.addParameter("cpn", cpnValue);
+            }
+
+            View redirectView = new RedirectView(urlBuilder.asFullUrl(request));
+            return new ModelAndView(redirectView);
         } else {
             urlBuffer.append("/cgi-bin/msl_confirm/");
             idString = "/?add_ids=";

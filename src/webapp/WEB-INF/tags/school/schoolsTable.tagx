@@ -17,7 +17,7 @@
 
     <c:set var="showPreschoolNote" value="false" />
 
-    <school:compareHover schools="${schools}"/>
+    <!--<school:compareHover schools="${schools}"/>-->
 
     <div id="searchResults">
     <div id="schoolsTable">
@@ -73,7 +73,7 @@
                                     value="${school.databaseState.abbreviation}${school.id}"
                                     styleClass="compare_checkbox"
                                     styleId="compare_schools_${school.id}"
-                                    onclick="return evaluateCheckboxes();"/>
+                                    onclick="return evaluateCheckboxes(this);"/>
                             <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
                             <label class="compare_label" id="compare_schools_label_${school.id}">
                                 <gsml:img src="/res/img/button/button_check_to_compare.gif" alt="Check to compare"
@@ -85,7 +85,7 @@
                             </label>
                             <span class="compare_submit" id="compare_schools_submit_${school.id}" style="display: none;">
                                 <input type="image" name="compare" src="/res/img/button/button_compare_now.gif"
-                                       alt="Compare now" onclick="return evaluateSchoolsForCompare();"/>
+                                       alt="Compare now" onclick="return GS_launchCompare();"/>
                             </span>
                         </div>
                     </c:if>

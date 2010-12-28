@@ -99,7 +99,7 @@ function showInline(elementId) {
     document.getElementById(elementId).style.display = "inline";
 }
 
-function evaluateCheckboxes() {
+function evaluateCheckboxes(currentElem) {
     // first determine if they are trying to check multiple states
     var numStates = countStates();
     if (numStates > 1) {
@@ -114,11 +114,35 @@ function evaluateCheckboxes() {
     if (numChecked == 1) {
         // "Compare: check two or more"
         setCheckedToDisplayError();
+    } else if (numChecked > 8 ) {
+        currentElem.checked = false;
+        setCheckedToDisplaySubmit();
+        alert("You can compare a maximum of 8 schools at a time.");
+        return false;
     } else {
         // "Compare now"
         setCheckedToDisplaySubmit();
     }
     return true;
+}
+
+function GS_launchCompare() {
+    var inputs = document.getElementsByTagName("input");
+    // for each input on the page
+    var checkedSchools = [];
+    for (var i=0; i < inputs.length; i++) {
+        var currentElem = inputs[i];
+        // if the id is of the correct form
+        if (currentElem.checked && currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
+            // grab the school id, level code, and state
+            var schoolId = currentElem.id.substring(ID_PREFIX.length);
+            var schoolState = currentElem.value.substring(0, 2);
+            var statePlusId = schoolState + schoolId;
+            checkedSchools.push(statePlusId);
+        }
+    }
+    return checkedSchools.length > 1 && checkedSchools.length < 9;
+
 }
 
 
