@@ -12,6 +12,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
+import gs.web.school.SearchResultsCookie;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.context.SessionContext;
@@ -135,6 +136,19 @@ public class MySchoolListController extends AbstractController implements ReadWr
         if (isShowRecentReviews()) {
             List<School> schools = (List<School>)model.get(MODEL_SCHOOLS);
             createRecentReviewsModel(schools, model);
+        }
+
+        if (StringUtils.equals(LIST_VIEW_NAME, view)) {
+                // GS-10742: Search results cookie so that compare will know where to send
+                // users back to.
+                SearchResultsCookie mostRecentSearchResultsCookie = new SearchResultsCookie(request, response);
+                String url = request.getRequestURL().toString();
+                String queryString = request.getQueryString();
+                if (queryString != null) {
+                    url += "?" + queryString;
+                }
+                mostRecentSearchResultsCookie.setProperty("mostRecentSearchResults", url);
+
         }
 
         return new ModelAndView(view, model);
