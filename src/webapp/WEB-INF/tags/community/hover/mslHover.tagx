@@ -2,16 +2,18 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
-    <div id="msl-hover" class="dialog_white" style="display:none;">
+    <div id="msl-hover" style="display:none;">
         <h2>Add to My School List</h2>
 
-        <p><strong>To start building your school list, or to return to a list you've already created, enter your email address below.</strong></p>
-        <!--<button class="btn25 schoolReviewThankYou_hideHover" type="button">
-            <span class="lftDoor25"><span class="rtDoor25">OK</span></span>
-        </button>-->
-        
+        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+        <div class="spacer_15"><!-- do not collapse --></div>
+
+        <p class="text1">To start building your school list, or to return to a list you've already created, enter your email address below.</p>
+
+        <div class="spacer_5"><!-- do not collapse --></div>
         <form id="msl-form" action="/mySchoolListAjax.page" method="post" name="msl-form">
 
             <input type="hidden" id="msl-redirectUrl" name="redirectUrl" value=""/>
@@ -19,22 +21,37 @@
             <input type="hidden" id="msl-schoolDatabaseState" name="schoolDatabaseState" value=""/>
 
             <fieldset class="email">
-                <h3>Sign in with an existing GreatSchools account:</h3>
-                <ul>
-                    <li>
-                        <label for="msl-email">Email address </label><input type="text" id="msl-email" name="email"/>
-                        <div class="errors">
-                            <p class="error"><!-- message --></p>
-                        </div>
-                    </li>
-                </ul>
+                <div class="line">
+                    <div class="unit size2of11">
+                        <label class="text2bold" for="msl-email">Email address <span
+                                class="sprite i-required"><!-- do not collapse --></span></label>
+                    </div>
+                    <div class="unit size9of11 lastUnit">
+                        <input type="text" id="msl-email" name="email" size="30"/>
+                    </div>
+                    <div class="spacer_10"><!-- do not collapse --></div>
+                </div>
+                <div class="errors">
+                    <p class="error"><!-- message --></p>
+                </div>
+
             </fieldset>
 
             <fieldset class="btns">
-                <!--<button class="btn25" type="submit" name="signinBtn" id="signinBtn">
-                    <span class="lftDoor25"><span class="rtDoor25">Sign in</span></span>
-                </button>-->
-                <button class="button-1" type="button" name="submitButton" id="msl-submit">Go</button>
+                <div class="line">
+                    <div class="unit size2of11">&amp;nbsp;</div>
+                    <div class="unit size9of11 lastUnit">Your privacy is important to us.
+                        <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy>.
+                    </div>
+                    <div class="spacer_10"><!-- do not collapse --></div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size2of11">&amp;nbsp;</div>
+                    <div class="unit size9of11 lastUnit">
+                        <button class="button-1" type="button" name="submitButton" id="msl-submit">Go</button>
+                    </div>
+                </div>
 
             </fieldset>
         </form>

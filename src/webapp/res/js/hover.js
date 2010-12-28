@@ -924,7 +924,7 @@ GSType.hover.MslHover = function() {
 
 };
 
-GSType.hover.MslHover.prototype = new GSType.hover.HoverDialog("msl-hover", 640);
+GSType.hover.MslHover.prototype = new GSType.hover.HoverDialog("msl-hover", 615);
 
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
