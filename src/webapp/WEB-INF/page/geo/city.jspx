@@ -319,14 +319,14 @@
             </td>
         </tr>
         <!--</c:if>-->
-        <variant:a>
+        <!--<variant:a>-->
             <tr>
                 <td>
                     <school:compareInCity city="${cityObject.name}" state="${stateAbbrevLowerCase}"
                                           levelCode="${levelCode}"/>
                 </td>
             </tr>
-        </variant:a>
+        <!--</variant:a>-->
         <tr>
             <td>
                 <c:set var="recentDiscussion" value=""/>

@@ -185,7 +185,7 @@
                         </div>
 
                         </form>
-                        <variant:a>
+                        <!--<variant:a>-->
                         <p class="searchOr">OR</p>
 
                         <h3 class="searchHeader">Compare schools <span class="gray">near an address</span></h3>
@@ -230,7 +230,7 @@
                                 </div>
                             </gsweb:form>
                         </div>
-                        </variant:a>
+                        <!--</variant:a>-->
                         <div class="hr">
                             <hr/>
                         </div>
