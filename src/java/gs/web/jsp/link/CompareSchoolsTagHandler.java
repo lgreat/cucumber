@@ -32,7 +32,7 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
         }
 
         if (StringUtils.isNotEmpty(_remove)) {
-            String[] schoolsArr = (String[]) ArrayUtils.removeElement(_schools.split(","), _remove);
+            String[] schoolsArr = (String[]) ArrayUtils.removeElement(_schools.toLowerCase().split(","), _remove.toLowerCase());
             _schools = StringUtils.join(schoolsArr, ",");
         }
         builder.setParameter("schools", _schools);
