@@ -18,6 +18,8 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.EmailValidator;
+import org.apache.log4j.Logger;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,6 +62,8 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
 
     public static final String MODEL_SCHOOLS = "schools";
 
+    public static Logger log = Logger.getLogger(MySchoolListAjaxController.class);
+
     /** Used to sort schools by name */
     private Comparator<School> _schoolNameComparator;
 
@@ -75,7 +79,7 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
 
         if (user == null) {
             String email = command.getEmail();
-            if (email != null) {
+            if (email != null && EmailValidator.getInstance().isValid(email)) {
                 
                 user = _userDao.findUserFromEmailIfExists(email);
 
@@ -83,26 +87,41 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
                     user = _mySchoolListHelper.createNewMSLUser(email);
                     sendConfirmationEmail(user, request);
                 }
-                _mySchoolListHelper.addToMSL(user, school);
+                if (school != null) {
+                    _mySchoolListHelper.addToMSL(user, school);
+                } else {
+                    _log.debug("School to add to MSL was null, so add was skipped");
+                }
                 PageHelper.setMemberCookie(request, response, user);
-                return referer(command, request);
+                return referer(command, request); // Early exit
+            } else if (email != null) {
+                Map<Object,Object> data = new HashMap<Object,Object>();
+                data.put("success", false);
+                data.put("error", "invalid email");
+                jsonResponse(response, data);  // Early exit
             } else {
                 Map<Object,Object> data = new HashMap<Object,Object>();
                 data.put("success", false);
                 data.put("error", "unauthorized");
-                jsonResponse(response, data);
+                jsonResponse(response, data);  // Early exit
             }
         }
 
-        _mySchoolListHelper.addToMSL(user, school);
-        jsonResponse(response, "success", true);
+        boolean success = false;
+        if (school != null) {
+            _mySchoolListHelper.addToMSL(user, school);
+            success = true;
+        } else {
+            _log.debug("School to add to MSL was null, so add was skipped");
+        }
+        jsonResponse(response, "success", success);
         //TODO: figure out how to record omniture events in JS, then do so after ajax response is received
         return null;
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     public ModelAndView handleDelete(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("mySchoolListCommand")MySchoolListCommand command) {
-
+        /*
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
 
@@ -112,6 +131,7 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
 
         School school = getSchoolFromCommand(command);
         _mySchoolListHelper.removeFromMSL(user, school);
+        */
         //TODO: figure out how to record omniture events in JS, then do so after ajax response is received
         //TODO: what to do if user is null? redirect? -- use email to fetch user
         return null;
@@ -120,7 +140,7 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
     @RequestMapping(method = RequestMethod.GET)
     public Map<String,Object> handleList(HttpServletRequest request, HttpServletResponse response) {
 
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        /*SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
 
         if (user == null) {
@@ -129,7 +149,8 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
 
         Map<String,Object> model = buildModel(user);
 
-        return model;
+        return model;*/
+        return null;
     }
 
     protected ModelAndView referer(MySchoolListCommand command, HttpServletRequest request) {
@@ -185,7 +206,16 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
 
     protected School getSchoolFromCommand(MySchoolListCommand command) {
         State state = new StateManager().getState(command.getSchoolDatabaseState());
-        School school = _schoolDao.getSchoolById(state, command.getSchoolId());
+        Integer id = command.getSchoolId();
+        if (state == null || id == null) {
+            throw new IllegalArgumentException("Cannot get school for state:" + String.valueOf(command.getSchoolDatabaseState()) + " and id:" + Integer.valueOf(id));
+        }
+        School school = null;
+        try {
+            school = _schoolDao.getSchoolById(state, command.getSchoolId());
+        } catch (Exception e) {
+            log.debug("Error getting school for state:" + command.getSchoolDatabaseState() + " and id:" + command.getSchoolId());
+        }
         return school;
     }
     
@@ -195,7 +225,6 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
         List<School> schools = convertFavoriteSchoolsToSchools(new ArrayList<FavoriteSchool>(favs));
         Collections.sort(schools, getSchoolNameComparator());
         model.put(MODEL_SCHOOLS, schools);
-
         return model;
     }
 

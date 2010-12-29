@@ -28,14 +28,15 @@ GS.community.MySchoolListHelper = function() {
     };
 
     this.showHover = function(state, id) {
-        GSType.hover.mslHover.setSchoolId(id);
+        /*GSType.hover.mslHover.setSchoolId(id);
         GSType.hover.mslHover.setSchoolDatabaseState(state);
-        GSType.hover.mslHover.setRedirectUrl(window.location.href);
+        GSType.hover.mslHover.setRedirectUrl(window.location.href);*/
 
-        jQuery('#msl-submit').click(function() {
-            GSType.hover.mslHover.onSubmit();
-           jQuery('#msl-form').submit();
-        });
+        jQuery('#msl-redirectUrl').val(window.location.href);
+        jQuery('#msl-schoolId').val(id);
+        jQuery('#msl-schoolDatabaseState').val(state);
+
+        jQuery('#msl-form').submit(GSType.hover.mslHover.onSubmit);
 
         GSType.hover.mslHover.show();
     };

@@ -75,11 +75,11 @@ public class MySchoolListHelper {
         User user = new User();
         user.setEmail(email);
         getUserDao().saveUser(user);
-        user = getUserDao().findUserFromEmail(email);
         // Because of hibernate caching, it's possible for a list_active record
         // (with list_member id) to be commited before the list_member record is
         // committed. Adding this commitOrRollback prevents this.
         ThreadLocalTransactionManager.commitOrRollback();
+        user = getUserDao().findUserFromEmail(email);
         return user;
     }
 

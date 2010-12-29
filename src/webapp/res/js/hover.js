@@ -900,6 +900,7 @@ GSType.hover.MslHover = function() {
 
     };
 
+
     this.setSchoolDatabaseState = function(state) {
         schoolDatabaseState = state;
     };
@@ -911,13 +912,15 @@ GSType.hover.MslHover = function() {
     };
 
     this.onSubmit = function() {
-        this.fields = {};
-        this.fields.redirectUrl = jQuery('#msl-redirectUrl');
-        this.fields.schoolId = jQuery('#msl-schoolId');
-        this.fields.schoolDatabaseState = jQuery('#msl-schoolDatabaseState');
-        this.fields.redirectUrl.val(redirectUrl);
-        this.fields.schoolId.val(schoolId);
-        this.fields.schoolDatabaseState.val(schoolDatabaseState);
+
+        var email = jQuery('#msl-email').val();
+
+        var emailPattern = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPattern.test(email)) {
+            alert("Please enter a valid email address.");
+            return false;
+        }
+
     }.gs_bind(this);
 
     

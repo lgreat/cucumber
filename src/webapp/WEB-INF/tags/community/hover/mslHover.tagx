@@ -41,7 +41,7 @@
                 <div class="line">
                     <div class="unit size2of11">&amp;nbsp;</div>
                     <div class="unit size9of11 lastUnit">Your privacy is important to us.
-                        <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy>.
+                        <link:privacyPolicy target="_blank">GreatSchools Privacy Policy</link:privacyPolicy>.
                     </div>
                     <div class="spacer_10"><!-- do not collapse --></div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="line">
                     <div class="unit size2of11">&amp;nbsp;</div>
                     <div class="unit size9of11 lastUnit">
-                        <button class="button-1" type="button" name="submitButton" id="msl-submit">Go</button>
+                        <button class="button-1" type="submit" name="submitButton" id="msl-submit">Go</button>
                     </div>
                 </div>
 
