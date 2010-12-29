@@ -24,7 +24,7 @@
 
     <gsml:body adPageName="compare" pageLayout="leftside">
 
-        <compare:compareTemplate pageName="omniturePageName" hier1="Compare,Map">
+        <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Map">
             <ul class="schoolList fltrt">
                 <c:forEach var="school" items="${schools}">
                     <!-- Remove school -->
