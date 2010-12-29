@@ -131,7 +131,7 @@
     </div>
 </div>
 
-<div class="mod">
+<div id="addParentReviewForm" class="mod hidden">
 <div class="mod_hd">
     <h3>Complete your review &amp;amp; rating</h3>
 </div>
@@ -145,7 +145,7 @@
         <div class="line">
             <div class="unit size3of11 firstColGutter-10 brdrt-solid">
                 <div class="mediaExt1-1">
-                    <span class="img sprite badge_sm_10" id="gs-rating-badge"><!-- do not collapse --></span>
+                    <span class="img sprite badge_sm_na" id="gs-rating-badge"><!-- do not collapse --></span>
 
                     <div class="bd smallAlertTextBold-999">GreatSchools <br/>Rating out of 10</div>
                 </div>
@@ -154,9 +154,9 @@
                 <p class="smallAlertTextBold-999">Community Rating</p>
 
                 <div class="mediaExt1">
-                    <span class="img sprite stars_sm_4" id="community-rating-badge"><!-- do not collapse --></span>
+                    <span id="community-rating-badge"><!-- do not collapse --></span>
 
-                    <div class="bd formHelperText" id="number-of-ratings">Based on ## ratings</div>
+                    <div class="bd formHelperText" id="number-of-ratings">Be the first to rate!</div>
                 </div>
             </div>
         </div>
@@ -179,8 +179,7 @@
 <div class="spacer_20 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_15"><!-- do not collapse --></div>
 
-<form id="addParentReviewForm" class="hide" method="post" action="#"
-      onsubmit="return validateReview();">
+<form method="post" action="#" onsubmit="return validateReview();">
 
 <input type="hidden" name="posterAsString"/>
 

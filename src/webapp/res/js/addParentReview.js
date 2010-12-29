@@ -8,8 +8,6 @@ if (GS.form === undefined) {
     GS.form = {};
 }
 
-
-
 GS.module.SchoolSelect = function() {
     this._levelCode = undefined;
     this._role = undefined;
@@ -46,6 +44,7 @@ GS.module.SchoolSelect = function() {
 
         this.getSchools(state, city)
     }.gs_bind(this);
+
     this.getSchools = function(state, city) {
         var params = {state : state, city : city,onchange:'schoolChange(this)',includePrivateSchools :true,chooseSchoolLabel :'Choose a school'};
         jQuery.get('/test/schoolsInCity.page', params, this.updateSchoolSelect);
@@ -57,11 +56,13 @@ GS.module.SchoolSelect = function() {
             jQuery('#schoolSelect').append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
         });
     };
+    
     this.onSchoolChange = function() {
         var schoolId = jQuery('#schoolSelect').val();
         var state = jQuery('#stateSelect').val();
         this.getSchool(state, schoolId);
     }.gs_bind(this);
+
     this.getSchool = function(state, school) {
         if (state != '' && school !== '') {
             var url = '/school/schoolForParentReview.page';
@@ -69,6 +70,7 @@ GS.module.SchoolSelect = function() {
             jQuery.getJSON(url, params, this.updatePageWithSchool);
         }
     }.gs_bind(this);
+
     this.updatePageWithSchool = function(data) {
 
         var id = data.id;
@@ -98,9 +100,19 @@ GS.module.SchoolSelect = function() {
             countyElement.html("");
         }
 
-        jQuery('#gs-rating-badge').attr("class","img sprite badge_sm_" + greatSchoolsRating);
-        jQuery('#community-rating-badge').attr("class","img sprite stars_sm_" + communityRating);
-        if (numberOfCommunityRatings !== undefined) {
+        if (greatSchoolsRating >= 1 && greatSchoolsRating <= 10) {
+            jQuery('#gs-rating-badge').attr("class", "img sprite badge_sm_" + greatSchoolsRating);
+        } else {
+            jQuery('#gs-rating-badge').attr("class", "img sprite badge_sm_na");
+        }
+
+        if (communityRating >= 0 && communityRating <= 5) {
+            jQuery('#community-rating-badge').attr("class", "img sprite stars_sm_" + communityRating);
+        } else {
+            jQuery('#number-of-rating-badge').html("&nbsp;");
+        }
+
+        if (numberOfCommunityRatings !== undefined && numberOfCommunityRatings > 0) {
             jQuery('#number-of-ratings').html("Based on " + numberOfCommunityRatings + " ratings");
         } else {
             jQuery('#number-of-ratings').html("Be the first to rate!");
@@ -189,7 +201,6 @@ GS.module.SchoolSelect = function() {
         }
     };
 
-
     this.attachEventHandlers = function() {
         jQuery('#stateSelect').change(this.onStateChange);
         jQuery('#citySelect').change(this.onCityChange);
@@ -205,7 +216,6 @@ jQuery(function() {
     GS.module.schoolSelect = new GS.module.SchoolSelect();
 });
 
-
 jQuery(function() {
 
     jQuery('#parentReviewEmail').blur(validateEmailAjax);
@@ -218,10 +228,6 @@ jQuery(function() {
        }
     });
 });
-
-
-
-
 
 function GS_countWords(textField) {
     var text = textField.value;
@@ -333,8 +339,7 @@ function validateEmail(elementValue) {
     return emailPattern.test(elementValue);
 }
 
-function removeChildrenFromNode(node)
-{
+function removeChildrenFromNode(node) {
     jQuery(node).children().remove();
 }
 
@@ -371,7 +376,6 @@ function reviewThisSchool() {
 
     return false;
 }
-
 
 function GS_postSchoolReview(email, callerFormId) {
     // first, grab the email from the join/signIn form and use that with the review
@@ -417,4 +421,3 @@ function GS_postSchoolReview(email, callerFormId) {
         }
     }, "json");
 }
-
