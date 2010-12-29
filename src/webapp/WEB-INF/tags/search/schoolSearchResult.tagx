@@ -91,15 +91,14 @@
                                 </span>
                             </c:when>
                             <c:otherwise>
-                                <span class="sprite i-add-sm"><!-- do not collapse --></span>
-                                <span class="msl-text">
-                                    <!--<a href="/mySchoolList.page?state=${fn:toUpperCase(school.databaseState)}&amp;ids=${school.id}&amp;command=add">
-                                        Add to My School List
-                                    </a>-->
+                                <div class="mediaExt1-1">
+                                <span class="sprite i-add-sm mrgtop_2 img"><!-- do not collapse --></span>
+                                <div class="msl-text bd">
                                     <a href="#" class="js-add-msl-link" id="js-add-msl-link-${school.databaseState}${school.id}">
                                         Add to My School List
                                     </a>
-                                </span>
+                                </div>
+                                </div>
                             </c:otherwise>
                         </c:choose>
                     </span>
