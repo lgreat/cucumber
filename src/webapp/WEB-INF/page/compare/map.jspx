@@ -31,7 +31,7 @@
                     <li>
                     <span class="fltrt">
                         <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}"
-                                             remove="${school.uniqueIdentifier}"
+                                             remove="${school.uniqueIdentifier}" source="${requestScope.source}"
                                 ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
                     </span>
                     <p><link:schoolProfileOverview school="${school.school}"

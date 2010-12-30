@@ -133,7 +133,8 @@ GS.search.SchoolSearchResultsTable = function() {
 
         if (checked) {
             if (checkedSchools.length >= maxCheckedSchools) {
-                GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','));
+                var encodedCurrentUrl = encodeURIComponent(window.location.pathname + buildQueryString(window.location.search));
+                GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','), encodedCurrentUrl);
                 return false;
             }
             checkedSchools.push(statePlusSchoolId);
@@ -351,7 +352,10 @@ GS.search.SchoolSearchResultsTable = function() {
                     stateAbbrev = checkedSchools[0].substring(0,2).toLowerCase();
                 }
 //                window.location = '/modperl/msl_compare/' + stateAbbrev + '/?ids=' + checkedSchools.join(',');
-                window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',');
+                var searcher = new GS.search.SchoolSearcher();
+                var encodedCurrentUrl = encodeURIComponent(window.location.pathname + buildQueryString(window.location.search));
+                window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',') +
+                        '&source=' + encodedCurrentUrl;
             }
         });
         jQuery('.js-add-msl-link').click(this.onClickAddMslLink);

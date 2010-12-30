@@ -5,6 +5,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="scriptless"/>
 
@@ -18,7 +19,7 @@
 
     <!-- Remove school -->
     <span class="fltrt">
-        <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}"
+        <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}" source="${requestScope.source}"
                              remove="${school.uniqueIdentifier}"
                 ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
     </span>
@@ -30,7 +31,7 @@
     <c:if test="${not empty showMap and showMap eq true}">
         <div id="mapThumb_${school.school.id}" class="schoolThumbnailMap"><!-- do not collapse --></div>
         <map:miniSchool id="mapThumb_${school.school.id}" school="${school.school}"
-                        clickUrl="map.page?p=${page}&amp;schools=${schoolsString}&amp;selectedSchool=${school.uniqueIdentifier}"
+                        clickUrl="map.page?p=${page}&amp;schools=${schoolsString}&amp;selectedSchool=${school.uniqueIdentifier}&amp;source=${gsweb:urlEncode(requestScope.source)}"
                         gsRating="${school.gsRating}" isPrivate="${school.private}"/>
     </c:if>
     <p class="smallText1">

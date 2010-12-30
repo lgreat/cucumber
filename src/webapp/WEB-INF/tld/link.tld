@@ -4236,6 +4236,13 @@
             <description>Page number</description>
         </attribute>
         <attribute>
+            <name>source</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Source URL that sent user to compare</description>
+        </attribute>
+        <attribute>
             <name>remove</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

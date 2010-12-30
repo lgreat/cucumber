@@ -117,7 +117,8 @@ function evaluateCheckboxes(currentElem) {
     } else if (numChecked > 8 ) {
         currentElem.checked = false;
         setCheckedToDisplaySubmit();
-        GSType.hover.compareSchoolsLimitReached.show(GS_getCheckedSchools().join(','));
+        // any other pages use this besides MSL? I hope not!
+        GSType.hover.compareSchoolsLimitReached.show(GS_getCheckedSchools().join(','), 'msl');
         return false;
     } else {
         // "Compare now"

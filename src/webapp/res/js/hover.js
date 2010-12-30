@@ -933,11 +933,13 @@ GSType.hover.MslHover.prototype = new GSType.hover.HoverDialog("msl-hover", 615)
 GSType.hover.CompareSchoolsLimitReached = function() {
     this.loadDialog = function() {};
     this.schoolList = '';
+    this.source = '';
     this.showCompare = function() {
-        window.location = '/school-comparison-tool/results.page?schools=' + this.schoolList;
+        window.location = '/school-comparison-tool/results.page?schools=' + this.schoolList + '&source=' + this.source;
     };
-    this.show = function(schoolList) {
+    this.show = function(schoolList, source) {
         this.schoolList = schoolList;
+        this.source = source;
         if (!this.initialized) {
             this.dialogByWidth();
             this.initialized = true;

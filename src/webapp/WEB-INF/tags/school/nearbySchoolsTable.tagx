@@ -684,7 +684,9 @@
 
         jQuery('.compare-school-checkbox').click(function(item) {
             if (jQuery(this).attr('checked') &amp;&amp; compareSchoolsArray.length >= 8) {
-                GSType.hover.compareSchoolsLimitReached.show(compareSchoolsArray.join(','));
+                var pageCode = "${(tab eq 'overview')?'spoverview':'spreviews'}";
+                var schoolCode = "${school.databaseState}${school.id}";
+                GSType.hover.compareSchoolsLimitReached.show(compareSchoolsArray.join(','), pageCode + schoolCode);
                 return false; // maximum of 8 schools to compare
             }
             // to highlight table row
@@ -751,7 +753,10 @@
 
         jQuery('#compareBtn').click(function() {
             var list = compareSchoolsArray.join(',');
-            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list;
+            var pageCode = "${(tab eq 'overview')?'spoverview':'spreviews'}";
+            var schoolCode = "${school.databaseState}${school.id}";
+            window.location = '/compareSchools.page?compare.x=true&amp;sc=' + list +
+                    '&amp;source=' + pageCode + schoolCode;
         });
 
         jQuery('#jsNearbySchoolsTablePagination .pager-tab').click(function() {

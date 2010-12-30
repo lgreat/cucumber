@@ -13,6 +13,7 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
     private String _tab;
     private Integer _page;
     private String _remove;
+    private String _source;
 
     @Override
     protected UrlBuilder createUrlBuilder() {
@@ -36,6 +37,10 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
             _schools = StringUtils.join(schoolsArr, ",");
         }
         builder.setParameter("schools", _schools);
+
+        if (StringUtils.isNotEmpty(_source)) {
+            builder.setParameter("source", _source);
+        }
 
         if (_page != null && _page > 1) {
             builder.setParameter("p", String.valueOf(_page));
@@ -74,5 +79,13 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
 
     public void setRemove(String remove) {
         _remove = remove;
+    }
+
+    public String getSource() {
+        return _source;
+    }
+
+    public void setSource(String source) {
+        _source = source;
     }
 }

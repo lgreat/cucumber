@@ -11,8 +11,9 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
-import gs.web.school.SearchResultsCookie;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -32,6 +33,8 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     private static final Logger _log = Logger.getLogger(AbstractCompareSchoolController.class);
     public static final String PARAM_SCHOOLS = "schools";
     public static final String PARAM_PAGE = "p";
+    public static final String PARAM_SOURCE = "source";
+    public static final String MODEL_SOURCE = "source";
     public static final String MODEL_SCHOOLS_STRING = "schoolsString";
     public static final String MODEL_SCHOOLS = "schools";
     public static final String MODEL_START_INDEX = "startIndex";
@@ -78,10 +81,50 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     }
 
     protected void handleReturnLink(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) {
-        SearchResultsCookie searchResultsCookie = new SearchResultsCookie(request, response);
-        String mostRecentSearchResults = searchResultsCookie.getProperty("mostRecentSearchResults");
-        if (mostRecentSearchResults != null) {
-            model.put(MODEL_RETURN_LINK, mostRecentSearchResults);
+        String source = request.getParameter(PARAM_SOURCE);
+        if (source != null) {
+            model.put(MODEL_SOURCE, source);
+            String schoolsString = StringUtils.upperCase(String.valueOf(model.get(MODEL_SCHOOLS_STRING)));
+            if (StringUtils.startsWith(source, "http") || StringUtils.startsWith(source, "/")) {
+                if (StringUtils.contains(source, "compareSchools=")) {
+                    // need to replace parameter
+                    int startReplace = source.indexOf("compareSchools=") + 15;
+                    int endReplace = source.indexOf("&", startReplace);
+                    if (endReplace == -1) {
+                        endReplace = source.length();
+                    }
+                    source = source.substring(0, startReplace) + schoolsString +
+                            (endReplace == -1 ? "" : source.substring(endReplace));
+                } else {
+                    source = UrlUtil.addParameter(source, "compareSchools=" + schoolsString);
+                }
+                model.put(MODEL_RETURN_LINK, source);
+            } else {
+                UrlBuilder urlBuilder = null;
+                if (StringUtils.startsWith(source, "msl")) {
+                    urlBuilder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
+                } else if (StringUtils.startsWith(source, "spoverview")) {
+                    try {
+                        State state = State.fromString(source.substring(10, 12));
+                        Integer id = Integer.parseInt(source.substring(12));
+                        urlBuilder = new UrlBuilder(_schoolDao.getSchoolById(state, id), UrlBuilder.SCHOOL_PROFILE);
+                    } catch (Exception e) {
+                        _log.warn("Can't find school from source string \"" + source + "\"", e);
+                    }
+                } else if (StringUtils.startsWith(source, "spreviews")) {
+                    try {
+                        State state = State.fromString(source.substring(9, 11));
+                        Integer id = Integer.parseInt(source.substring(11));
+                        urlBuilder = new UrlBuilder(state, id, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                    } catch (Exception e) {
+                        _log.warn("Can't find school from source string \"" + source + "\"", e);
+                    }
+                }
+                if (urlBuilder != null) {
+                    urlBuilder.setParameter("compareSchools", schoolsString);
+                    model.put(MODEL_RETURN_LINK, urlBuilder.asSiteRelative(request));
+                }
+            }
         }
     }
 

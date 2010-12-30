@@ -4,7 +4,6 @@ import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.axis.utils.ArrayUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -58,9 +57,12 @@ public class CompareSchoolsController extends AbstractController {
             if (schoolIds != null) {
                 urlBuilder.setParameter("schools", StringUtils.join(schoolIds, ","));
             }
+            if (request.getParameter("source") != null) {
+                urlBuilder.setParameter("source", request.getParameter("source"));
+            }
             String cpnValue = request.getParameter("cpn");
             if (cpnValue != null && cpnValue.length() > 0) {
-                urlBuilder.addParameter("cpn", cpnValue);
+                urlBuilder.setParameter("cpn", cpnValue);
             }
 
             View redirectView = new RedirectView(urlBuilder.asFullUrl(request));
