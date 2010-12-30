@@ -64,6 +64,7 @@ GS.search.SchoolSearcher = function() {
 GS.search.SchoolSearchResultsTable = function() {
     var thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
     var checkedSchools = [];
+    var searcher = new GS.search.SchoolSearcher();
     var maxCheckedSchools = 8;
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
@@ -240,8 +241,6 @@ GS.search.SchoolSearchResultsTable = function() {
     };
 
     this.update = function() {
-
-        var searcher = new GS.search.SchoolSearcher();
 
         var onSearchSuccess = function(data) {
             var afterFadeIn = function() {
