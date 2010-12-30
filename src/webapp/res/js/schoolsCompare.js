@@ -117,7 +117,7 @@ function evaluateCheckboxes(currentElem) {
     } else if (numChecked > 8 ) {
         currentElem.checked = false;
         setCheckedToDisplaySubmit();
-        alert("You can compare a maximum of 8 schools at a time.");
+        GSType.hover.compareSchoolsLimitReached.show(GS_getCheckedSchools().join(','));
         return false;
     } else {
         // "Compare now"
@@ -126,7 +126,7 @@ function evaluateCheckboxes(currentElem) {
     return true;
 }
 
-function GS_launchCompare() {
+function GS_getCheckedSchools() {
     var inputs = document.getElementsByTagName("input");
     // for each input on the page
     var checkedSchools = [];
@@ -141,8 +141,12 @@ function GS_launchCompare() {
             checkedSchools.push(statePlusId);
         }
     }
-    return checkedSchools.length > 1 && checkedSchools.length < 9;
+    return checkedSchools;
+}
 
+function GS_launchCompare() {
+    var checkedSchools = GS_getCheckedSchools();
+    return checkedSchools.length > 1 && checkedSchools.length < 9;
 }
 
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+
+    <div id="compareSchoolsLimitReachedHover" class="dialog_white" style="display:none;">
+        <div class="media">
+            <div class="bd">
+                <h2>You may only compare 8 schools</h2>
+
+                <p>
+                    You may only select 8 schools to compare at a time. Please
+                    <strong>edit the schools to select fewer</strong> or
+                    <strong>continue on to compare</strong> the schools you've selected.
+                </p>
+                <button class="button-1 jq_compareSchoolsLimitReachedHover_edit"
+                        type="button">Edit schools</button>
+                <button class="button-1 jq_compareSchoolsLimitReachedHover_continue"
+                        type="button">Continue to compare</button>
+            </div>
+        </div>
+    </div>
+</jsp:root>

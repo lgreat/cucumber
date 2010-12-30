@@ -929,6 +929,32 @@ GSType.hover.MslHover = function() {
 
 GSType.hover.MslHover.prototype = new GSType.hover.HoverDialog("msl-hover", 615);
 
+// May only compare 8 schools hover
+GSType.hover.CompareSchoolsLimitReached = function() {
+    this.loadDialog = function() {};
+    this.schoolList = '';
+    this.showCompare = function() {
+        window.location = '/school-comparison-tool/results.page?schools=' + this.schoolList;
+    };
+    this.show = function(schoolList) {
+        this.schoolList = schoolList;
+        if (!this.initialized) {
+            this.dialogByWidth();
+            this.initialized = true;
+            jQuery('.jq_compareSchoolsLimitReachedHover_edit').bind('click', this.hide.gs_bind(this));
+            jQuery('.jq_compareSchoolsLimitReachedHover_continue').bind('click', this.showCompare.gs_bind(this));
+        }
+        pageTracking.clear();
+        pageTracking.pageName = 'Compare_8Maximum_Hover';
+        pageTracking.hierarchy = 'Compare,8Maximum_Hover';
+        pageTracking.send();
+
+        jQuery('#' + this.hoverId).dialog('open');
+        return false;
+    };
+};
+GSType.hover.CompareSchoolsLimitReached.prototype = new GSType.hover.HoverDialog("compareSchoolsLimitReachedHover", 640);
+
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
@@ -948,6 +974,8 @@ GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
 GSType.hover.mslHover = new GSType.hover.MslHover();
+
+GSType.hover.compareSchoolsLimitReached = new GSType.hover.CompareSchoolsLimitReached();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -1204,6 +1232,8 @@ jQuery(function() {
     GSType.hover.principalConfirmation.loadDialog();
     GSType.hover.principalReviewSubmitted.loadDialog();
     GSType.hover.mslHover.loadDialog();
+
+    GSType.hover.compareSchoolsLimitReached.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON('/community/forgotPasswordValidator.page',

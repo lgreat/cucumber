@@ -132,7 +132,7 @@ GS.search.SchoolSearchResultsTable = function() {
 
         if (checked) {
             if (checkedSchools.length >= maxCheckedSchools) {
-                alert("You can compare a maximum of " + maxCheckedSchools + " schools.");
+                GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','));
                 return false;
             }
             checkedSchools.push(statePlusSchoolId);

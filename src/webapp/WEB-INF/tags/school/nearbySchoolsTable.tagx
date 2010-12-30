@@ -684,7 +684,7 @@
 
         jQuery('.compare-school-checkbox').click(function(item) {
             if (jQuery(this).attr('checked') &amp;&amp; compareSchoolsArray.length >= 8) {
-                alert("You may compare a maximum of 8 schools.");
+                GSType.hover.compareSchoolsLimitReached.show(compareSchoolsArray.join(','));
                 return false; // maximum of 8 schools to compare
             }
             // to highlight table row

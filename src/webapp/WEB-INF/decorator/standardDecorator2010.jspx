@@ -17,6 +17,7 @@
         xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
@@ -151,6 +152,7 @@
 <school:principalConfirmHover/>
 <school:principalReviewSubmitted/>
 <communityHover:mslHover/>
+<compare:compareSchoolsLimitReachedHover/>
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
