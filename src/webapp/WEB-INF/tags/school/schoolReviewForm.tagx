@@ -47,7 +47,7 @@
 
                 <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
 
-                <div class="line">
+                <div class="line rating">
                     <div class="unit size2of5">
                         <h4 class="subhead6 label3">Rate this school <em
                                 class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
@@ -79,17 +79,14 @@
                         </span>
                         <!-- end star ratings -->
                     </div>
-                </div>
-                <div class="line">
-                    <div class="unit size1of1 lastUnit">
-                        <div class="overallError formErrorText media">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                            <div class="bd">Please select a star rating for this school.</div>
-                        </div>
+                    <div class="form-error formErrorText mediaExt1-1">
+                        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                        <div class="bd">Please select a star rating for this school.</div>
                     </div>
-                </div>
 
+                </div>
 
                 <input type="hidden" name="id" value="${schoolId}"/>
                 <input type="hidden" name="state" value="${state}"/>
@@ -135,7 +132,7 @@
                 </div>
 
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="line">
+                <div class="line email">
 
                     <label for="frmPRModule-email" class="unit size1of7">Email:
                         <em class="sprite i-required"><!-- do not collapse --></em>
@@ -143,34 +140,40 @@
 
                     <c:choose>
                         <c:when test="${validUser.email eq null}">
-                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
-                               value="[Enter email address]"
-                               onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                               onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
+                                   type="text"
+                                   value="[Enter email address]"
+                                   onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                                   onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                         </c:when>
                         <c:otherwise>
                             <input type="hidden" name="email" value="${validUser.email}"/>
-                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
-                               value="${validUser.email}" disabled="disabled"/>
+                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
+                                   type="text"
+                                   value="${validUser.email}" disabled="disabled"/>
                         </c:otherwise>
                     </c:choose>
 
                     <div class="unit size3of7 lastUnit">
-                        <div id="frmPRModule-email-error" class="formErrorText mediaExt3 padlft_10">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                            <div class="bd">Please enter your email.</div>
-                        </div>
-                        <div id="frmPRModule-email-alert" class="formErrorText mediaExt3 padlft_10">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                            <div class="bd">You will need to verify your email address when you submit your review.</div>
-                        </div>
+                        &amp;nbsp;
                     </div>
+                    <div class="clearfloat"><!-- do not collapse --></div>
+
+                    <div class="formErrorText mediaExt1-1 form-error">
+                        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                        <div class="bd">Please enter your email.</div>
+                    </div>
+                    <div class="formErrorText mediaExt1-1 form-alert">
+                        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                        <div class="bd">You will need to verify your email address when you submit your review.</div>
+                    </div>
+
                 </div>
 
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="line">
+                <div class="line role">
                     <label for="affiliation" class="unit size1of7">I am a:
                         <em class="sprite i-required"><!-- do not collapse --></em>
 
@@ -186,10 +189,13 @@
                     </select>
 
                     <div class="unit size3of7 lastUnit">
-                        <div class="poster-error formErrorText mediaExt3 padlft_10">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-                            <div class="bd">Please let us know how you are affiliated with this school.</div>
-                        </div>
+                        &amp;nbsp;
+                    </div>
+                    <div class="clearfloat"><!-- do not collapse --></div>
+                    <div class="form-error formErrorText mediaExt1-1">
+                        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                        <div class="bd">Please let us know how you are affiliated with this school.</div>
                     </div>
                 </div>
 
@@ -318,21 +324,24 @@
                 </div>
 
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="termsError formErrorText media padlft_5">
-                    <span class="sprite i-alert img"><!-- do not collapse --></span>
-                    <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
+
+                <div class="line terms">
+                    <div class="unit size1of1 lastUnit">
+                        <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
+                        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse
+                                target="_blank">GreatSchools Terms of Use</link:termsOfUse> and
+                            <link:parentReviewGuidelines
+                                    target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
+                            <em class="sprite i-required"><!-- do not collapse --></em>
+                        </label>
+
+                        <div class="form-error formErrorText mediaExt1-1">
+                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                            <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
+                        </div>
+                    </div>
                 </div>
-
-                <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
-                    <em class="sprite i-required"><!-- do not collapse --></em>
-                </label>
-
-                <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>
-                <input id="updates" name="updates" class="checkbox" type="checkbox" value="1"
-                       checked="checked"/>
-                <label for="updates" class="smallText1">Send me periodic updates about ${school.name}</label>-->
-
 
             </fieldset>
             <fieldset>
@@ -458,40 +467,46 @@
 
 
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="line">
+                        <div class="line email">
 
-                    <label for="frmPRModule-email" class="unit size1of7" style="width:11%;">Email
-                        <em class="sprite i-required"><!-- do not collapse --></em>
-                    </label>
+                            <label for="frmPRModule-email" class="unit size1of7" style="width:11%;">Email
+                                <em class="sprite i-required"><!-- do not collapse --></em>
+                            </label>
 
-                <c:choose>
-                    <c:when test="${requestScope.context.email eq null}">
-                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
-                               value="[Enter email address]"
-                               onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                               onblur="if(this.value==''){this.value='[Enter email address]';}" style="width:41%;"/>
-                    </c:when>
-                    <c:otherwise>
-                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7" type="text"
-                               value="${requestScope.context.email}" disabled="disabled"/>
-                        <input name="email" value="${requestScope.context.email}" type="hidden"/>
-                        </c:otherwise>
-                    </c:choose>
+                            <c:choose>
+                                <c:when test="${requestScope.context.email eq null}">
+                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
+                                           type="text"
+                                           value="[Enter email address]"
+                                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                                           onblur="if(this.value==''){this.value='[Enter email address]';}"
+                                           style="width:41%;"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
+                                           type="text"
+                                           value="${requestScope.context.email}" disabled="disabled"/>
+                                    <input name="email" value="${requestScope.context.email}" type="hidden"/>
+                                </c:otherwise>
+                            </c:choose>
 
-                    <div class="unit size3of7 lastUnit" style="overflow:visible;">
-                        <div id="frmPRModule-email-error" class="formErrorText media padlft_10">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+                            <div class="unit size3of7 lastUnit">
+                                &amp;nbsp;
+                            </div>
 
-                            <div class="bd">Please enter your email.</div>
+                            <div class="formErrorText mediaExt1-1 error">
+                                <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                                <div class="bd">Please enter your email.</div>
+                            </div>
+                            <div class="formErrorText mediaExt1-1 alert">
+                                <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                                <div class="bd">You will need to verify your email address when you submit your review.
+                                </div>
+                            </div>
+
                         </div>
-                        <div id="frmPRModule-email-alert" class="formErrorText media padlft_10">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                            <div class="bd">You will need to verify your email <br/>address when you submit your review.</div>
-                        </div>
-                    </div>
-
-                </div>
                 <div class="spacer_10"><!-- do not collapse --></div>
 
                             <div class="line">
