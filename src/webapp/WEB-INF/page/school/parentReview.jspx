@@ -131,7 +131,7 @@
     </div>
 </div>
 
-<div id="addParentReviewForm" class="mod hidden">
+<div id="addParentReviewForm" class="mod">
 <div class="mod_hd">
     <h3>Complete your review &amp;amp; rating</h3>
 </div>
@@ -192,7 +192,7 @@
 <div class="line">
 <div class="unit size1of2 firstColGutter-30">
 
-    <div class="line">
+    <div class="line rating">
         <div class="unit size1of3">
             <p class="introText">Rate this school <em class="sprite i-required"><!-- do not collapse --></em></p>
         </div>
@@ -235,13 +235,13 @@
                 <div id="ratingTitle" class="fltlft mrgtop_5">Currently unrated.</div>
 
             </div>
+
         </div>
-    </div>
+        <div class="mediaExt1-1 form-error hidden">
+            <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-    <div id="rating-error" class="mediaExt1-1 hidden">
-        <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-        <div class="bd formErrorText">Please enter a review and overall rating.</div>
+            <div class="bd formErrorText">Please enter a review and overall rating.</div>
+        </div>
     </div>
 
     <div class="spacer_15"><!-- do not collapse --></div>
@@ -267,7 +267,7 @@
     </div>
     <div class="spacer_10"><!-- do not collapse --></div>
 
-    <div class="line">
+    <div class="line email">
         <div class="unit size1of1 lastUnit">
             <!-- c:set used to prevent IDEA error on duplicate CSS id attribute used in c:choose -->
             <c:set var="emailID" value="parentReviewEmail"/>
@@ -297,17 +297,19 @@
                     <em class="sprite i-required"><!-- do not collapse --></em>
                 </c:otherwise>
             </c:choose>
-        </div>
-    </div>
-    <div id="email-error" class="mediaExt1-1 hidden">
-        <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-        <div class="bd formErrorText">Please enter your email.</div>
+            <div class="mediaExt1-1 form-error hidden">
+                <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                <div class="bd formErrorText">Please enter your email.</div>
+            </div>
+
+        </div>
     </div>
 
     <div class="spacer_25"><!-- do not collapse --></div>
 
-    <div class="line">
+    <div class="line terms">
         <div class="unit size1of1 lastUnit">
             <input id="parentReviewTerms" name="parentReviewTerms" class="checkbox" type="checkbox" checked="checked"
                    value="1"/>
@@ -316,13 +318,13 @@
                     target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
                 <em class="sprite i-required"><!-- do not collapse --></em>
             </label>
+
+            <div class="mediaExt1-1 form-error hidden">
+                <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                <div class="bd formErrorText">Please read and accept our Terms of Use to join GreatSchools.</div>
+            </div>
         </div>
-    </div>
-
-    <div id="terms-error" class="mediaExt1-1 hidden">
-        <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-        <div class="bd formErrorText">Please read and accept our Terms of Use to join GreatSchools.</div>
     </div>
 
     <div class="spacer_10"><!-- do not collapse --></div>
