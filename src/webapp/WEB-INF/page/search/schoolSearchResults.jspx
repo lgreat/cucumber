@@ -215,6 +215,7 @@
         jQuery(function () {
             jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-15,topPosition:8});
             jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:-8,topPosition:8});
+            jQuery('#filtersForm')[0].reset();
         });
     </script>
 
@@ -223,7 +224,7 @@
     </c:if>
 
     <div id="topicbarGS" class="col">
-
+        <form id="filtersForm" action="">
         <div id="js-gradeLevels" class="mod">
             <div class="filter-hd">
                 <h5>GRADE LEVEL</h5>
@@ -315,6 +316,7 @@
                 </div>
             </div>
         </div>
+        </form>
 
         <div class="spacer_15"><!-- do not collapse --></div>
 
