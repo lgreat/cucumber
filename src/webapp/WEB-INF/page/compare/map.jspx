@@ -39,17 +39,19 @@
                     <div class="line">
                         <div class="unit">
                             <div class="gsRating">
-                                <c:choose>
-                                    <c:when test="${school.private}">
-                                        <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:when test="${empty school.gsRating}">
-                                        <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
+                                <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}">
+                                    <c:choose>
+                                        <c:when test="${school.private}">
+                                            <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:when test="${empty school.gsRating}">
+                                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </link:schoolProfileRating2010>
                             </div>
                         </div>
                         <div class="unit">
