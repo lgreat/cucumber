@@ -130,11 +130,7 @@
 
     <!-- begin center column -->
     <div id="col_center">
-            <c:if test="${!requestScope.context.crawler and school.levelCode != 'p'}">
-                <div id="topCompare" style="float:left;" >
-                    <school:compareSchool school="${school}"/>
-                </div>
-            </c:if>
+
 
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${(not empty latestReviewsModel) }">

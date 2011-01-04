@@ -178,42 +178,7 @@
                 <jsp:include page="/district/nearbySchoolsInDistrict.module?zoom=10&amp;district_id=${district.id}&amp;state=${stateAbbrev}&amp;acronymOrName=${model.acronymOrName}&amp;show_e=${model.school_level_code_e}&amp;show_m=${model.school_level_code_m}&amp;show_h=${model.school_level_code_h}&amp;numElementarySchools=${model.numElementarySchools}&amp;numMiddleSchools=${model.numMiddleSchools}&amp;numHighSchools=${model.numHighSchools}"/>
             </div>
         </div>
-        <!--<variant:a>-->
-        <div id="compareSchools">
-            <c:choose>
-                <c:when test="${fn:endsWith(fn:toLowerCase(districtAcronymOrName),'schools')}">
-                    <c:set var="compareHeaderName" value="${fn:length(districtAcronymOrName) > 40 ? 'Schools in This District' : districtAcronymOrName}"/>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="districtSchoolsName" value="${districtAcronymOrName} Schools"/>
-                    <c:set var="compareHeaderName" value="${fn:length(districtSchoolsName) > 40 ? 'Schools in This District' : districtSchoolsName}"/>
-                </c:otherwise>
-            </c:choose>
-
-            <div id="compareSchoolsHeader" class="headerTab"><h3>Compare ${compareHeaderName}</h3></div><img id="compareCitiesYellow" alt="Magnifying glass" src="/res/img/district/17671_thumb_mag_glass.gif"/>
-            <div>
-                <form id="compareSchoolsForm" action="/cgi-bin/cs_compare/${stateAbbrevLowerCase}/">
-                    <c:if test="${model.numElementarySchools gt 0}">
-                    <gsml:radio styleId="rightCompSchoolsE" checked="${model.compare_e_checked}" value="e" name="level"/>
-                    <label for="rightCompSchoolsE">Elementary schools</label>
-                    </c:if>
-                    <c:if test="${model.numMiddleSchools gt 0}">
-                    <gsml:radio styleId="rightCompSchoolsM" checked="${model.compare_m_checked}" value="m" name="level"/>
-                    <label for="rightCompSchoolsM">Middle schools</label>
-                    </c:if>
-                    <c:if test="${model.numHighSchools gt 0}">
-                    <gsml:radio styleId="rightCompSchoolsH" checked="${model.compare_h_checked}" value="h" name="level"/>
-                    <label for="rightCompSchoolsH">High schools${numHighSchools}</label>
-                    </c:if>
-                    <input type="hidden" value="d" name="area"/>
-                    <input type="hidden" value="${district.id}" name="district"/>
-                    <input type="hidden" value="name" name="sortby"/>
-                    <input type="hidden" value="over" name="tab"/>
-                    <input id="compareSchoolsFormSubmit" class="submit" type="image" alt="Compare" value="Submit" src="/res/img/school/overview/submit_compare.gif"/>
-                </form>
-            </div>
-        </div>
-        <!--</variant:a>-->
+        
         <div id="parentReviews">
             <jsp:include page="/school/review/recentParentReviews.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;nofollow=1"/>
         </div>

@@ -109,7 +109,6 @@
                    </div>
                     
                     <school:bigPicture school="${school}" hideTalkLink="true"/>
-                    <school:compareSchool school="${school}"/>
                     <br class="clearfloat"/>
                 </div>
             </school:profile2010>

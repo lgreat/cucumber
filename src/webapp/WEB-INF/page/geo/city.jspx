@@ -131,18 +131,7 @@
                 ${displayName}'s rating is based on its public schools' test results; 10 is best.
                 <link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings" anchor="13" target="_blank"><img src="/res/img/yellow_circle_i.gif" alt="Learn more" id="ratingYellowCircle"/></link:cmsContent>
             </div>
-            <!--<variant:a>-->
-            <div id="compareToNearbyCities">
-                <link:nearbyCities city="${cityObject.name}"
-                                   state="${requestScope.context.stateOrDefault}"
-                                   title="Cities near ${cityObject.name}"
-                                   styleClass="callToAction"
-                                   styleId="nearbyCityLink"
-                                   onclick="if (s.tl) {s.tl(this,'o', 'Compare_Cities_Link');} return true;">
-                    Compare to nearby cities &gt;
-                </link:nearbyCities>
-            </div>
-            <!--</variant:a>-->
+
         </div>
         <div id="city_Badge_100x69">
             <ad:adTag position="Badge_100x69"/>
@@ -319,14 +308,6 @@
             </td>
         </tr>
         <!--</c:if>-->
-        <!--<variant:a>-->
-            <tr>
-                <td>
-                    <school:compareInCity city="${cityObject.name}" state="${stateAbbrevLowerCase}"
-                                          levelCode="${levelCode}"/>
-                </td>
-            </tr>
-        <!--</variant:a>-->
         <tr>
             <td>
                 <c:set var="recentDiscussion" value=""/>

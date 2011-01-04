@@ -160,20 +160,12 @@
                         <form method="get" action="/stateLauncher.page" onsubmit="return findAndCompareCheck('schoolChoiceQuery', 'searchState', 'p');">
 
                         <div class="searchContent">
-                            <!--<variant:a>-->
+
                             <input type="text" maxlength="75" name="q" id="schoolChoiceQuery"
-                                   value="Search for school, district or city"
+                                   value="Search for school, city or zipcode"
                                    class="searchInput"
-                                   onfocus="textSwitch(this, '', 'Search for school, district or city');"
-                                   onblur="textSwitch(this, 'Search for school, district or city', '');"/>
-                            <!--</variant:a>-->
-                            <!--<variant:b>-->
-                            <!--<input type="text" maxlength="75" name="q" id="schoolChoiceQuery"-->
-                                   <!--value="Search for school, city or zipcode"-->
-                                   <!--class="searchInput"-->
-                                   <!--onfocus="textSwitch(this, '', 'Search for school, city or zipcode');"-->
-                                   <!--onblur="textSwitch(this, 'Search for school, city or zipcode', '');"/>-->
-                            <!--</variant:b>-->
+                                   onfocus="textSwitch(this, '', 'Search for school, city or zipcode');"
+                                   onblur="textSwitch(this, 'Search for school, city or zipcode', '');"/>
                             <gsweb:stateSelector styleClass="searchDropdown" name="state"
                                                  styleId="searchState"
                                                  state="${requestScope.context.state}"
@@ -185,52 +177,7 @@
                         </div>
 
                         </form>
-                        <!--<variant:a>-->
-                        <p class="searchOr">OR</p>
-
-                        <h3 class="searchHeader">Compare schools <span class="gray">near an address</span></h3>
-
-                        <div class="compareSchoolForm">
-                            <gsweb:form action="/school/research.page" id="compareModuleForm" method="get"
-                                        styleClass="goInterstitial" onsubmit="return validateZipCode('zipCode');">
-                                <input type="hidden" name="sortby" value="distance"/>
-                                <input type="hidden" name="tab" value="over"/>
-                                <input type="hidden" name="area" value="m"/>
-                                <input type="hidden" name="form" value="address"/>
-
-                                <div class="showMeLine">
-                                    <span>Show</span>
-                                    <select name="level" class="formLevel">
-                                        <gsml:selectOption value="e"
-                                                           selected="${gradeLevel eq 'e'}">elementary</gsml:selectOption>
-                                        <gsml:selectOption value="m"
-                                                           selected="${gradeLevel eq 'm'}">middle</gsml:selectOption>
-                                        <gsml:selectOption value="h"
-                                                           selected="${gradeLevel eq 'h'}">high</gsml:selectOption>
-
-                                    </select>
-                                    <span>schools within</span>
-                                    <select name="miles" class="formMiles">
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
-                                        <option value="30">30</option>
-                                    </select>
-                                    <span>miles of</span>
-                                    <input type="text" name="zip" id="zipCode" class="formZip" value="ZIP code"
-                                           onfocus="textSwitch(this, '', 'ZIP code');"
-                                           onblur="textSwitch(this, 'ZIP code', '');"/>
-                                    <input onmouseout="this.src='http://www.greatschools.org/res/img/splash/go.gif';"
-                                           onmouseover="this.src='http://www.greatschools.org/res/img/splash/goOver.gif';"
-                                           class="formButton"
-                                           alt="Compare ${requestScope.context.state.longName} Schools"
-                                           src="http://www.greatschools.org/res/img/splash/go.gif" type="image"/>
-                                </div>
-                            </gsweb:form>
-                        </div>
-                        <!--</variant:a>-->
+                        
                         <div class="hr">
                             <hr/>
                         </div>
