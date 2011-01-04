@@ -101,7 +101,7 @@
             });
             if (preSelect) {
                 var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
-                GS_compareMapInfoWindow.setContent(infowindowElement.html());
+                GS_compareMapInfoWindow.setContent('<div style="width:310px;">'+infowindowElement.html()+'</div>');
                 GS_compareMapInfoWindow.open(map, marker);
             }
         }
