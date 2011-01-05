@@ -339,6 +339,13 @@
             <description>A school to pass to msl_confirm</description>
         </attribute>
         <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS id name</description>
+        </attribute>
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

@@ -1,5 +1,7 @@
 package gs.web.compare;
 
+import gs.data.community.FavoriteSchool;
+import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
@@ -17,10 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static gs.web.compare.AbstractCompareSchoolController.PARAM_SCHOOLS;
 import static gs.web.compare.AbstractCompareSchoolController.PARAM_PAGE;
@@ -393,5 +392,66 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
 
         assertEquals(review1, struct1.getRecentReview());
         assertEquals(5, struct1.getNumReviews());
+    }
+
+    public void testHandleMsl() {
+        replayAllMocks();
+
+        _controller.handleMSL(getRequest(), null);
+
+        List<ComparedSchoolBaseStruct> schools = new ArrayList<ComparedSchoolBaseStruct>();
+        _controller.handleMSL(getRequest(), schools);
+
+        User user = new User();
+        user.setEmail("aroy@greatschools.org"); // needed for hashCode on FavoriteSchool
+
+        getSessionContext().setUser(user);
+
+        _controller.handleMSL(getRequest(), schools);
+
+        ComparedSchoolBaseStruct struct1 = new ComparedSchoolBaseStruct();
+        School school1 = new School();
+        school1.setDatabaseState(State.CA);
+        school1.setId(5);
+        struct1.setSchool(school1);
+        schools.add(struct1);
+
+        assertFalse(struct1.isInMsl());
+        _controller.handleMSL(getRequest(), schools);
+        assertFalse(struct1.isInMsl());
+
+        FavoriteSchool faveSchool1 = new FavoriteSchool(school1, user);
+        Set<FavoriteSchool> faveSchools = new HashSet<FavoriteSchool>();
+        faveSchools.add(faveSchool1);
+        user.setFavoriteSchools(faveSchools);
+
+        _controller.handleMSL(getRequest(), schools);
+        assertTrue(struct1.isInMsl());
+
+        struct1.setInMsl(false);
+
+        ComparedSchoolBaseStruct struct2 = new ComparedSchoolBaseStruct();
+        School school2 = new School();
+        school2.setDatabaseState(State.CA);
+        school2.setId(7);
+        struct2.setSchool(school2);
+        schools.add(struct2);
+
+        ComparedSchoolBaseStruct struct3 = new ComparedSchoolBaseStruct();
+        School school3 = new School();
+        school3.setDatabaseState(State.CA);
+        school3.setId(11);
+        struct3.setSchool(school3);
+        schools.add(struct3);
+
+        FavoriteSchool faveSchool3 = new FavoriteSchool(school3, user);
+        faveSchools.add(faveSchool3);
+
+        _controller.handleMSL(getRequest(), schools);
+        assertTrue(struct1.isInMsl());
+        assertFalse(struct2.isInMsl());
+        assertTrue(struct3.isInMsl());
+
+        verifyAllMocks();
     }
 }

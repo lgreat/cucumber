@@ -38,8 +38,23 @@
         <gslink:realtorDotComLink styleClass="sprite i-house-sm" address="${school.school.physicalAddress}"
                                   customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
     </p>
-    <p class="smallText1">
-        <span class="sprite i-add-sm"><!-- do not collapse --></span>&amp;nbsp; 
-        <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
+    <p class="js-add-msl smallText1" id="js-add-msl-${school.state}${school.id}">
+        <c:choose>
+            <c:when test="${school.inMsl}">
+                <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
+                <span class="js-msl-text">
+                    Added to <link:mySchoolList>My School List</link:mySchoolList>
+                </span>
+            </c:when>
+            <c:otherwise>
+                <span class="sprite i-add-sm"><!-- do not collapse --></span>&amp;nbsp;
+                <span class="js-msl-text">
+                    <link:mySchoolList school="${school.school}"
+                                       onclick="compare_onClickAddMslLink(this); return false;"
+                                       styleClass="js-add-msl-link"
+                                       styleId="js-add-msl-link-${school.state}${school.id}">Add to My School List</link:mySchoolList>
+                </span>
+            </c:otherwise>
+        </c:choose>
     </p>
 </jsp:root>

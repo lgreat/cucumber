@@ -10,6 +10,7 @@
         >
 
     <pageHelper:externalJavascript file="/res/js/compare/compare.js"/>
+    <pageHelper:externalJavascript file="/res/js/community/mySchoolListHelper.js"/>
     <jsp:directive.tag body-content="scriptless"/>
     
     <jsp:directive.attribute name="pageName" required="true" type="java.lang.String"

@@ -1,5 +1,7 @@
 package gs.web.compare;
 
+import gs.data.community.FavoriteSchool;
+import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -14,6 +16,8 @@ import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -73,11 +77,35 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             model.put(MODEL_SCHOOLS, schools);
             handleAdKeywords(request, schools);
             handleReturnLink(request, response, model);
+            handleMSL(request, schools);
         } catch (Exception e) {
             _log.error(e, e);
             return getErrorResponse("unknown exception");
         }
         return new ModelAndView(getSuccessView(), model);
+    }
+
+    protected void handleMSL(HttpServletRequest request, List<ComparedSchoolBaseStruct> schools) {
+        SessionContext sc = SessionContextUtil.getSessionContext(request);
+        User user = sc.getUser();
+        if (user == null || schools == null || schools.size() == 0) {
+            return;
+        }
+        Map<Integer, Boolean> schoolIdToInMsl = new HashMap<Integer, Boolean>();
+        State state = schools.get(0).getState();
+        Set<FavoriteSchool> faveSchools = user.getFavoriteSchools();
+        if (faveSchools == null || faveSchools.size() == 0) {
+            return;
+        }
+        for (FavoriteSchool faveSchool: faveSchools) {
+            if (state.equals(faveSchool.getState())) {
+                schoolIdToInMsl.put(faveSchool.getSchoolId(), true);
+            }
+        }
+
+        for (ComparedSchoolBaseStruct school: schools) {
+            school.setInMsl(schoolIdToInMsl.get(school.getId()) != null);
+        }
     }
 
     protected void handleReturnLink(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) {

@@ -17,6 +17,7 @@ public class ComparedSchoolBaseStruct {
     private Review _recentReview;
     private int _numRatings = 0;
     private int _numReviews = 0;
+    private boolean _isInMsl = false;
 
     public School getSchool() {
         return _school;
@@ -69,6 +70,14 @@ public class ComparedSchoolBaseStruct {
 
     public void setNumReviews(int numReviews) {
         _numReviews = numReviews;
+    }
+
+    public boolean isInMsl() {
+        return _isInMsl;
+    }
+
+    public void setInMsl(boolean inMsl) {
+        _isInMsl = inMsl;
     }
 
     /* Convenience methods */
