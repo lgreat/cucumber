@@ -42,6 +42,14 @@
                 </c:forEach>
             </tr>
             <tr>
+                <th scope="row">School type</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_type center text3">
+                        ${school.type} ${school.gradeLevels}
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
                 <th scope="row">GreatSchools Rating</th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_gsRating center">
@@ -58,14 +66,6 @@
                                 </c:otherwise>
                             </c:choose>
                         </link:schoolProfileRating2010>
-                    </td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <th scope="row">School type</th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="cs_type center text3">
-                        ${school.type} ${school.gradeLevels}
                     </td>
                 </c:forEach>
             </tr>
