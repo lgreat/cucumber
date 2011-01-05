@@ -188,7 +188,11 @@ public class SchoolSearchController extends AbstractCommandController implements
             }
         }
 
-        FieldSort sort = schoolSearchCommand.getSortBy() == null ? null : FieldSort.valueOf(schoolSearchCommand.getSortBy());
+        FieldSort sort = schoolSearchCommand.getSortBy() == null ? (isCityBrowse || isDistrictBrowse ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(schoolSearchCommand.getSortBy());
+        if (sort != null) {
+            schoolSearchCommand.setSortBy(sort.name());
+        }
+        model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
         SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
         if (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) {
@@ -235,7 +239,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (levelCode != null) {
             model.put(MODEL_LEVEL_CODE, levelCode.getCommaSeparatedString());
         }
-        model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
         addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(), model); //TODO: fix
         addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, schoolSearchCommand.getSearchString(), searchResultsPage.getSearchResults(), city, district);
