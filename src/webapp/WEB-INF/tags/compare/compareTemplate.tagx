@@ -7,6 +7,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 
     <pageHelper:externalJavascript file="/res/js/compare/compare.js"/>
@@ -25,7 +26,22 @@
     <div id="csMain" class="leftSide fltlft">
         <div class="compareHeader">
             <c:if test="${not empty requestScope.returnLink}">
-                <a href="${requestScope.returnLink}"><span class="alertDoubleArrow">&#171;</span> Back to results</a>
+                <a href="${requestScope.returnLink}"><span class="alertDoubleArrow">&#171;</span>
+                    <c:choose>
+                        <c:when test="${not empty source and source eq 'msl'}">
+                            Back to My School List
+                        </c:when>
+                        <c:when test="${not empty source and fn:startsWith(source, 'spoverview')}">
+                            Back to school profile
+                        </c:when>
+                        <c:when test="${not empty source and fn:startsWith(source, 'spreviews')}">
+                            Back to school reviews
+                        </c:when>
+                        <c:otherwise>
+                            Back to search results
+                        </c:otherwise>
+                    </c:choose>
+                </a>
             </c:if>
             <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
                                       startIndex="${startIndex}" endIndex="${endIndex}"
