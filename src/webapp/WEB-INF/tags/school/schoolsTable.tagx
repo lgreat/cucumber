@@ -11,7 +11,7 @@
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
 
     <pageHelper:externalJavascript file="/res/js/schoolsCompare.js"/>
-    <pageHelper:addOnLoadHandler handler="evaluateCheckboxes();"/>
+    <pageHelper:addOnLoadHandler handler="GS_initCheckedSchools();"/>
 
     <c:set var="showPreschoolNote" value="false" />
 
@@ -67,22 +67,23 @@
                     </div>
                     <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
                         <div class="compare_schools_row">
+                            <c:set var="statePlusId" value="${school.databaseState.abbreviation}${school.id}"/>
                             <gsml:checkbox
                                     name="sc"
-                                    value="${school.databaseState.abbreviation}${school.id}"
+                                    value="${statePlusId}"
                                     styleClass="compare_checkbox"
-                                    styleId="compare_schools_${school.id}"
+                                    styleId="compare_schools_${statePlusId}"
                                     onclick="return evaluateCheckboxes(this);"/>
                             <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
-                            <label class="compare_label" id="compare_schools_label_${school.id}">
+                            <label class="compare_label" id="compare_schools_label_${statePlusId}">
                                 <gsml:img src="/res/img/button/button_check_to_compare.gif" alt="Check to compare"
-                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/>
+                                    onclick="document.getElementById('compare_schools_${statePlusId}').click();"/>
                             </label>
-                            <label class="compare_error" id="compare_schools_error_${school.id}" style="display: none;">
+                            <label class="compare_error" id="compare_schools_error_${statePlusId}" style="display: none;">
                                 <gsml:img src="/res/img/button/button_check_two_more.gif" alt="Check two or more"
-                                    onclick="document.getElementById('compare_schools_${school.id}').click();"/>
+                                    onclick="document.getElementById('compare_schools_${statePlusId}').click();"/>
                             </label>
-                            <span class="compare_submit" id="compare_schools_submit_${school.id}" style="display: none;">
+                            <span class="compare_submit" id="compare_schools_submit_${statePlusId}" style="display: none;">
                                 <input type="image" name="compare" src="/res/img/button/button_compare_now.gif"
                                        alt="Compare now" onclick="return GS_launchCompare();"/>
                             </span>

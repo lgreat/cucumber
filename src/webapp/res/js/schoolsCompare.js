@@ -22,7 +22,7 @@ function getCompareSchoolsParam() {
                     schoolIds += ",";
                 }
 
-                schoolIds += currentElem.value;
+                schoolIds += currentElem.value.substring(2);
             }
         }
     }
@@ -115,16 +115,64 @@ function evaluateCheckboxes(currentElem) {
         // "Compare: check two or more"
         setCheckedToDisplayError();
     } else if (numChecked > 8 ) {
-        currentElem.checked = false;
-        setCheckedToDisplaySubmit();
-        // any other pages use this besides MSL? I hope not!
-        GSType.hover.compareSchoolsLimitReached.show(GS_getCheckedSchools().join(','), 'msl');
+        if (currentElem !== undefined) {
+            currentElem.checked = false;
+            setCheckedToDisplaySubmit();
+            // any other pages use this besides MSL? I hope not!
+            GSType.hover.compareSchoolsLimitReached.show(GS_getCheckedSchools().join(','), 'msl');
+        }
         return false;
     } else {
         // "Compare now"
         setCheckedToDisplaySubmit();
     }
     return true;
+}
+
+function GS_initCheckedSchools() {
+    var checkedSchoolsList = getFromQueryString("compareSchools");
+    var queryStringSchools = [];
+    if (checkedSchoolsList !== undefined && checkedSchoolsList.length > 0) {
+        if (checkedSchoolsList.indexOf('%2C') > -1) {
+            queryStringSchools =  checkedSchoolsList.split('%2C');
+        } else {
+            queryStringSchools =  checkedSchoolsList.split(',');
+        }
+    }
+    var numberOfQueryStringSchools = queryStringSchools.length;
+
+    //add to array all of checkboxes which are checked, according to what's in the query string
+    for (var i = 0; i < numberOfQueryStringSchools; i++) {
+        var checkbox = jQuery('#' + ID_PREFIX + queryStringSchools[i]);
+        checkbox.attr("checked", true);
+    }
+    evaluateCheckboxes();
+}
+
+/**
+ * Returns the value associated with a key in the current url's query string
+ * @param key
+ */
+function getFromQueryString(key) {
+    var queryString = window.location.search.substring(1);
+    var vars = [];
+    var result;
+
+    if (queryString.length > 0) {
+        vars = queryString.split("&");
+    }
+
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        var thisKey = pair[0];
+
+        if (thisKey === key) {
+            result = pair[1];
+            break;
+        }
+    }
+
+    return result;
 }
 
 function GS_getCheckedSchools() {
@@ -136,9 +184,7 @@ function GS_getCheckedSchools() {
         // if the id is of the correct form
         if (currentElem.checked && currentElem.id > '' && currentElem.id.indexOf(ID_PREFIX) > -1) {
             // grab the school id, level code, and state
-            var schoolId = currentElem.id.substring(ID_PREFIX.length);
-            var schoolState = currentElem.value.substring(0, 2);
-            var statePlusId = schoolState + schoolId;
+            var statePlusId = currentElem.id.substring(ID_PREFIX.length);
             checkedSchools.push(statePlusId);
         }
     }
