@@ -125,16 +125,12 @@ GS.search.SchoolSearchResultsTable = function() {
     };
 
     this.onCompareUncheckAllClicked = function() {
-        var count = checkedSchools.length;
+        var queryString = window.location.search;
+        queryString = removeFromQueryString(queryString, "compareSchools");
 
-        for (var i = 0; i < count; i++) {
-            var id = checkedSchools[i];
-            jQuery('#' + id).attr('checked', false);
-            this.deselectRow(jQuery('#'+id).parent().parent().attr("id"));
-        }
+        queryString = buildQueryString(queryString);
 
-        checkedSchools = [];
-        this.updateNumCheckedSchoolsText();
+        window.location.search = queryString;
     }.gs_bind(this);
 
     this.onCompareCheckboxClicked = function(item) {
