@@ -115,7 +115,7 @@ GS.search.SchoolSearchResultsTable = function() {
         //add to array all of checkboxes which are checked, according to what's in the query string
         for (var i = 0; i < numberOfQueryStringSchools; i++) {
             jQuery('#' +queryStringSchools[i]).attr("checked", true);
-            var index = checkedSchools.indexOf(+queryStringSchools[i]);
+            var index = checkedSchools.indexOf(queryStringSchools[i]);
             if (index === -1) {
                 checkedSchools.push(queryStringSchools[i]);
             }
@@ -123,6 +123,19 @@ GS.search.SchoolSearchResultsTable = function() {
 
         this.updateAllCheckedRows();
     };
+
+    this.onCompareUncheckAllClicked = function() {
+        var count = checkedSchools.length;
+
+        for (var i = 0; i < count; i++) {
+            var id = checkedSchools[i];
+            jQuery('#' + id).attr('checked', false);
+            this.deselectRow(jQuery('#'+id).parent().parent().attr("id"));
+        }
+
+        checkedSchools = [];
+        this.updateNumCheckedSchoolsText();
+    }.gs_bind(this);
 
     this.onCompareCheckboxClicked = function(item) {
         var checkbox = jQuery(item.currentTarget);
@@ -134,7 +147,7 @@ GS.search.SchoolSearchResultsTable = function() {
         if (checked) {
             if (checkedSchools.length >= maxCheckedSchools) {
                 var encodedCurrentUrl = encodeURIComponent(window.location.pathname + buildQueryString(window.location.search));
-                GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','), encodedCurrentUrl);
+                GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','), encodedCurrentUrl, this.onCompareUncheckAllClicked);
                 return false;
             }
             checkedSchools.push(statePlusSchoolId);
@@ -158,6 +171,7 @@ GS.search.SchoolSearchResultsTable = function() {
             jQuery('#' + id).attr('checked', true);
             this.selectRow(jQuery('#'+id).parent().parent().attr("id"));
         }
+        this.updateNumCheckedSchoolsText();
     };
 
     this.updateCompareButton = function(rowDomId) {
@@ -339,26 +353,38 @@ GS.search.SchoolSearchResultsTable = function() {
         return false;
     };
 
+    this.sendToCompare = function() {
+        if (checkedSchools !== undefined && checkedSchools.length > 0) {
+            var encodedCurrentUrl = encodeURIComponent(window.location.pathname + buildQueryString(window.location.search));
+            window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',') +
+                    '&source=' + encodedCurrentUrl;
+        }
+    };
+
+    this.updateNumCheckedSchoolsText = function() {
+        if (checkedSchools !== undefined && checkedSchools.length >= 2) {
+            jQuery('.js-how-many-compare-checked-unlinked').hide();
+            jQuery('.js-num-checked-send-to-compare').show();
+            jQuery('.js-how-many-compare-checked-linked').html(checkedSchools.length);
+        } else if (checkedSchools !== undefined && checkedSchools.length == 1) {
+            jQuery('.js-how-many-compare-checked-unlinked').html('1 school to compare');
+            jQuery('.js-how-many-compare-checked-unlinked').show();
+            jQuery('.js-num-checked-send-to-compare').hide();
+        } else {
+            jQuery('.js-how-many-compare-checked-unlinked').html('0 schools to compare');
+            jQuery('.js-how-many-compare-checked-unlinked').show();
+            jQuery('.js-num-checked-send-to-compare').hide();
+        }
+    };
+
     this.attachEventHandlers = function() {
         jQuery('.compare-school-checkbox').click(this.onCompareCheckboxClicked);
         jQuery('#page-size').change(this.onPageSizeChanged);
         jQuery('#sort-by').change(this.onSortChanged);
-        jQuery('.js-compareButton').click(function() {
-            if (checkedSchools !== undefined && checkedSchools.length > 0) {
-                var ids = [];
-                var j = 0;
-                var stateAbbrev = '';
-                if (checkedSchools[0].length >= 2) {
-                    stateAbbrev = checkedSchools[0].substring(0,2).toLowerCase();
-                }
-//                window.location = '/modperl/msl_compare/' + stateAbbrev + '/?ids=' + checkedSchools.join(',');
-                var searcher = new GS.search.SchoolSearcher();
-                var encodedCurrentUrl = encodeURIComponent(window.location.pathname + buildQueryString(window.location.search));
-                window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',') +
-                        '&source=' + encodedCurrentUrl;
-            }
-        });
+        jQuery('.js-compareButton').click(this.sendToCompare.gs_bind(this));
+        jQuery('.js-num-checked-send-to-compare').click(this.sendToCompare.gs_bind(this));
         jQuery('.js-add-msl-link').click(this.onClickAddMslLink);
+        jQuery('.js-compare-uncheck-all').click(this.onCompareUncheckAllClicked);
     };
 
     this.attachEventHandlers();

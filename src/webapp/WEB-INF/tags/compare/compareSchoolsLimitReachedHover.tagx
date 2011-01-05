@@ -17,6 +17,10 @@
                         type="button">Edit schools</button>
                 <button class="button-1 jq_compareSchoolsLimitReachedHover_continue"
                         type="button">Continue to compare</button>
+                <div class="jq_compareSchoolsLimitReachedHover_uncheckAll_div">
+                    Or, <a href="#" class="jq_compareSchoolsLimitReachedHover_uncheckAll"
+                           onclick="return false;">uncheck all schools to start over</a>.
+                </div>
             </div>
         </div>
     </div>

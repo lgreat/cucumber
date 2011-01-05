@@ -934,12 +934,27 @@ GSType.hover.CompareSchoolsLimitReached = function() {
     this.loadDialog = function() {};
     this.schoolList = '';
     this.source = '';
+    this.uncheckAllCallback = null;
     this.showCompare = function() {
         window.location = '/school-comparison-tool/results.page?schools=' + this.schoolList + '&source=' + this.source;
     };
-    this.show = function(schoolList, source) {
+    this.uncheckAll = function() {
+        if (this.uncheckAllCallback) {
+            this.uncheckAllCallback();
+        }
+        this.hide();
+    };
+    this.show = function(schoolList, source, uncheckAllCallback) {
         this.schoolList = schoolList;
         this.source = source;
+        if (uncheckAllCallback) {
+            this.uncheckAllCallback = uncheckAllCallback;
+            jQuery('.jq_compareSchoolsLimitReachedHover_uncheckAll_div').show();
+            jQuery('.jq_compareSchoolsLimitReachedHover_uncheckAll').bind('click', this.uncheckAll.gs_bind(this));
+        } else {
+            this.uncheckAllCallback = null;
+            jQuery('.jq_compareSchoolsLimitReachedHover_uncheckAll_div').hide();
+        }
         if (!this.initialized) {
             this.dialogByWidth();
             this.initialized = true;
