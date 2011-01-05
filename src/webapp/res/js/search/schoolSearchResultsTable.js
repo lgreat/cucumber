@@ -316,6 +316,8 @@ GS.search.SchoolSearchResultsTable = function() {
         var queryString = window.location.search;
         if (compareSchoolsList !== undefined && compareSchoolsList.length > 0) {
             queryString = putIntoQueryString(queryString, "compareSchools", compareSchoolsList, true);
+        } else {
+            queryString = removeFromQueryString(queryString, "compareSchools");
         }
         queryString = putIntoQueryString(queryString,"start",start, true);
 
