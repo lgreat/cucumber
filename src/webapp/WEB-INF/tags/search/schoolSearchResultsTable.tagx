@@ -234,14 +234,13 @@
         <td colspan="3" class="smallText1">
             You have checked
             <!--
-            .js-how-many-compare-checked-unlinked is shown when 0 or 1 schools are selected
+            .js-how-many-compare-checked-unlinked is shown when 1 school is selected
             .js-num-checked-send-to-compare is shown when 2 or more schools are selected
             -->
-            <span class="js-how-many-compare-checked-unlinked">0 schools to compare</span><a
+            <span class="js-how-many-compare-checked-unlinked">1 school to compare</span><a
                 href="#" onclick="return false;" class="js-num-checked-send-to-compare"
                 style="display:none;">
-                <span class="js-how-many-compare-checked-linked">2</span> schools to compare
-            </a>.
+                <span class="js-how-many-compare-checked-linked">2</span> schools to compare</a>.
         </td>
     </tr>
     </tbody>

@@ -363,15 +363,16 @@ GS.search.SchoolSearchResultsTable = function() {
 
     this.updateNumCheckedSchoolsText = function() {
         if (checkedSchools !== undefined && checkedSchools.length >= 2) {
+            jQuery('tr.uncheck').show();
             jQuery('.js-how-many-compare-checked-unlinked').hide();
             jQuery('.js-num-checked-send-to-compare').show();
             jQuery('.js-how-many-compare-checked-linked').html(checkedSchools.length);
         } else if (checkedSchools !== undefined && checkedSchools.length == 1) {
-            jQuery('.js-how-many-compare-checked-unlinked').html('1 school to compare');
+            jQuery('tr.uncheck').show();
             jQuery('.js-how-many-compare-checked-unlinked').show();
             jQuery('.js-num-checked-send-to-compare').hide();
         } else {
-            jQuery('.js-how-many-compare-checked-unlinked').html('0 schools to compare');
+            jQuery('tr.uncheck').hide();
             jQuery('.js-how-many-compare-checked-unlinked').show();
             jQuery('.js-num-checked-send-to-compare').hide();
         }
