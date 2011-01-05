@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
-          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
         >
     <jsp:directive.tag body-content="scriptless"/>
 
@@ -14,10 +10,16 @@
     <jsp:directive.attribute name="tab" required="true" description="Tab to be selected"/>
     <jsp:directive.attribute name="schoolsString" required="true" description="Schools parameter to use in creating link"/>
     <jsp:directive.attribute name="page" required="true" description="Page number for linking"/>
-    <jsp:directive.attribute name="showMap" required="false" type="java.lang.Boolean"
-                             description="True to show mini-thumbnail map that links to map tab"/>
 
-    <compare:schoolOverviewTop school="${school}" tab="${tab}" schoolsString="${schoolsString}" page="${page}"/>
-    <compare:schoolOverviewBottom school="${school}" tab="${tab}" schoolsString="${schoolsString}" page="${page}"
-                                  showMap="${showMap}"/>
+    <!-- Remove school -->
+    <span class="fltrt">
+        <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}" source="${requestScope.source}"
+                             remove="${school.uniqueIdentifier}"
+                ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
+    </span>
+    <p class="text2">
+        <strong><link:schoolProfileOverview school="${school.school}">${school.name}</link:schoolProfileOverview></strong>
+    </p>
+    <p class="text3">${school.street}<br />
+    ${school.cityStateZip}</p>
 </jsp:root>
