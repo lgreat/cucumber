@@ -88,7 +88,7 @@
     <br class="clearBoth"/>
 
     <div id="tracking">
-        <mod:tracking pageName="${pageName}" hier1="${hier1}"/>
+        <mod:tracking pageName="${pageName}" hier1="${hier1}" compareNumSchools="${totalSchools}"/>
     </div>
 
 </jsp:root>

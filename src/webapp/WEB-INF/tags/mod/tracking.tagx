@@ -89,6 +89,11 @@
             name="siteSearchFilterType"
             description="Content search results filter: All, Community, or Articles"
             required="false"/>
+    <!-- See GS-11150 for compareNumSchools -->
+    <jsp:directive.attribute
+            name="compareNumSchools" type="java.lang.Integer"
+            description="Number of schools being compared"
+            required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -188,6 +193,7 @@
             s.prop26 = clickCapture.getProp(26,"${requestScope.realtorDotComModule}");
             s.prop27 = clickCapture.getProp(27,"${requestScope.leadGenModule}");
             s.prop28 = clickCapture.getProp(28,"${empty requestScope.reviewsFilterSortTracking ? '' : requestScope.reviewsFilterSortTracking}");
+            s.prop30 = clickCapture.getProp(30,"${compareNumSchools}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
