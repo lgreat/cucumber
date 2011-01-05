@@ -372,7 +372,16 @@
 
     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
-    <ad:BelowFold_Top_300x125/>
+    <gsweb:adTagGenerator position="BelowFold_Top_300x125">
+        <span style="display:block; margin-bottom: 2px;">ADVERTISEMENT</span>$AD
+    </gsweb:adTagGenerator>
+    <script type="text/javascript">
+        jQuery(function () {
+            if (jQuery('#google_ads_div_Search_Site_BelowFold_Top_300x125').length == 0) {
+                jQuery('#BelowFold_Top_300x125').hide();
+            }
+        });
+    </script>
 
 </div>
 
