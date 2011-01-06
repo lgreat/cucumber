@@ -885,12 +885,12 @@ public class SchoolSearchController extends AbstractCommandController implements
             fieldConstraints.put(FieldConstraint.STATE, state.getAbbreviationLowerCase());
         }
 
-        if (city != null) {
-            fieldConstraints.put(FieldConstraint.CITY, city.getName());
-        }
-
+        // GS-11129 if constraining by district, don't also constrain by city
+        // or else we'll omit schools in the district that aren't in the same city as the distict
         if (district != null) {
             fieldConstraints.put(FieldConstraint.DISTRICT_ID, String.valueOf(district.getId()));
+        } else if (city != null) {
+            fieldConstraints.put(FieldConstraint.CITY, city.getName());
         }
 
         return fieldConstraints;
