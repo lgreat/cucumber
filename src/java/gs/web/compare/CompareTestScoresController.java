@@ -83,14 +83,16 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
         }
         _log.warn("Found " + testDataSets.size() + " test data sets");
 
+        // Aroy: Temporarily disable info dialog code
         // 2.5) bulk query: Fetch out the label info for each label (e.g. info dialog URL)
-        List<CompareLabel> rowLabels = new ArrayList<CompareLabel>(testDataSetToLabel.values());
-        List<String> rowLabelStrings = new ArrayList<String>(rowLabels.size());
-        for (CompareLabel label: rowLabels) {
-            rowLabelStrings.add(label.getRowLabel());
-        }
-        Map<String, CompareLabelInfo> rowLabelToInfo = _compareLabelInfoDao.findLabelInfos(state, rowLabelStrings);
-        _log.warn("Found " + rowLabelToInfo.size() + " row label info dialogs");
+//        List<CompareLabel> rowLabels = new ArrayList<CompareLabel>(testDataSetToLabel.values());
+//        List<String> rowLabelStrings = new ArrayList<String>(rowLabels.size());
+//        for (CompareLabel label: rowLabels) {
+//            rowLabelStrings.add(label.getRowLabel());
+//        }
+//        Map<String, CompareLabelInfo> rowLabelToInfo = _compareLabelInfoDao.findLabelInfos(state, rowLabelStrings);
+//        _log.warn("Found " + rowLabelToInfo.size() + " row label info dialogs");
+        Map<String, CompareLabelInfo> rowLabelToInfo = new HashMap<String, CompareLabelInfo>();
 
         // 3) bulk query: retrieve school values for each school and data set
         List<SchoolTestValue> schoolTestValues = _testDataSchoolValueDao.findSchoolTestValues(state, testDataSets,

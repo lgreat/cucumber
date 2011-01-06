@@ -76,9 +76,11 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         }
         _log.warn("Found " + censusDataSets.size() + " census data sets");
 
+        // Aroy: Temporarily disable info dialog code
         // 2.5) bulk query: Fetch out the label info for each label (e.g. info dialog URL)
-        List<String> rowLabels = new ArrayList<String>(rowLabelToOrder.keySet());
-        Map<String, CompareLabelInfo> rowLabelToInfo = _compareLabelInfoDao.findLabelInfos(state, rowLabels);
+//        List<String> rowLabels = new ArrayList<String>(rowLabelToOrder.keySet());
+//        Map<String, CompareLabelInfo> rowLabelToInfo = _compareLabelInfoDao.findLabelInfos(state, rowLabels);
+        Map<String, CompareLabelInfo> rowLabelToInfo = new HashMap<String, CompareLabelInfo>();
 
         // 3) bulk query: retrieve school values for each school and data set
         List<SchoolCensusValue> schoolCensusValues =
