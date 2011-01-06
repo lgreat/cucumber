@@ -239,6 +239,74 @@ public class CompareTestScoresControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
+    public void testPopulateStructsGradeOverride() {
+        List<School> schools = new ArrayList<School>();
+        List<SchoolTestValue> schoolTestValues = new ArrayList<SchoolTestValue>();
+        Map<TestDataSet, SchoolType> testDataSetToSchoolTypeMap = new HashMap<TestDataSet, SchoolType>();
+        Map<TestDataSet, CompareLabel> testDataSetToRowLabelMap = new HashMap<TestDataSet, CompareLabel>();
+        Map<String, CompareConfigStruct[]> rval;
+        SchoolTestValue testValue1;
+        TestDataSet testDataSet = new TestDataSet();
+        testDataSet.setGrade(Grade.G_5);
+        testDataSet.setDataTypeId(getTestDataType().getId());
+        CompareLabel label = getLabel("API Growth", "");
+        testDataSetToRowLabelMap.put(testDataSet,label);
+
+        expect(_testDataTypeDao.getDataType(getTestDataType().getId())).andReturn(getTestDataType()).anyTimes();
+        replayAllMocks();
+
+        //add one school and assert the grade causes an override.
+        School school1 = getSchool(1);
+        school1.setGradeLevels(Grades.createGrades(Grade.G_1, Grade.G_4));
+        school1.setLevelCode(LevelCode.ELEMENTARY);
+        schools.add(school1);
+        testValue1 = getSchoolTestValue(school1, testDataSet, 40000);
+        schoolTestValues.add(testValue1);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
+        assertNotNull(rval);
+        assertTrue("Expect grade of data set to cause school to be ignored", rval.isEmpty());
+
+        // add two schools and assert the order of the cells.
+        School school2 = getSchool(2);
+        school2.setGradeLevels(Grades.createGrades(Grade.G_1, Grade.G_8));
+        school2.setLevelCode(LevelCode.ELEMENTARY_MIDDLE);
+        schools.add(school2);
+        SchoolTestValue testValue2 = getSchoolTestValue(school2, testDataSet, 60000);
+        schoolTestValues.add(testValue2);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(3,rval.get("API Growth").length);
+        assertHeaderCell(rval.get("API Growth")[0], "API Growth");
+        assertNull(rval.get("API Growth")[1]);
+        assertSimpleCell(rval.get("API Growth")[2], "60000.0");
+
+        // Grade.ALL with no lc includes all schools
+        testDataSet.setGrade(Grade.ALL);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(3,rval.get("API Growth").length);
+        assertHeaderCell(rval.get("API Growth")[0], "API Growth");
+        assertSimpleCell(rval.get("API Growth")[1], "40000.0");
+        assertSimpleCell(rval.get("API Growth")[2], "60000.0");
+
+        // Grade.ALL with lc uses lc as override
+        testDataSet.setLevelCode(LevelCode.MIDDLE);
+        rval = _controller.populateStructs(schools, schoolTestValues, testDataSetToSchoolTypeMap, testDataSetToRowLabelMap, _labelToCompareLabelInfoMap);
+        assertNotNull(rval);
+        assertFalse(rval.isEmpty());
+        assertEquals(1,rval.size());
+        assertEquals(3,rval.get("API Growth").length);
+        assertHeaderCell(rval.get("API Growth")[0], "API Growth");
+        assertNull(rval.get("API Growth")[1]);
+        assertSimpleCell(rval.get("API Growth")[2], "60000.0");
+
+        verifyAllMocks();
+    }
+
     public void testGetTestDataSetsNoDataSet() {
         List<CompareConfig> compareConfigs = new ArrayList<CompareConfig>();
         CompareConfig compareConfig = new CompareConfig();

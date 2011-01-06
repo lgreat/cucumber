@@ -1,6 +1,7 @@
 package gs.web.compare;
 
 import gs.data.compare.*;
+import gs.data.school.Grade;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
@@ -236,6 +237,21 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
                     !schoolTypeOverride.equals(schoolTestValue.getSchool().getType())) {
                 // do nothing!
                 continue;
+            }
+            // check that the grade and level code match
+            if (schoolTestValue.getDataSet().getGrade() != null) {
+                // if data set grade is set to ALL, make sure level code matches school
+                if (Grade.ALL.equals(schoolTestValue.getDataSet().getGrade())) {
+                    if (schoolTestValue.getDataSet().getLevelCode() != null &&
+                            !schoolTestValue.getDataSet().getLevelCode().containsSimilarLevelCode
+                                    (schoolTestValue.getSchool().getLevelCode())) {
+                        continue; // skip school
+                    }
+                // otherwise, make sure the school's grades contains the data set grade
+                } else if (!schoolTestValue.getSchool().getGradeLevels().contains
+                        (schoolTestValue.getDataSet().getGrade())) {
+                    continue; // skip school
+                }
             }
             // look up row and value label in censusDataSetToLabelMap
             CompareLabel label = testDataSetToRowLabelMap.get(schoolTestValue.getDataSet());
