@@ -67,7 +67,7 @@
 
             <table cellpadding="0" cellspacing="0">
                 <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_bill.jpg" alt="Bill Jackson"/></td>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_bill.jpg" width="97" height="108" alt="Bill Jackson"/></td>
                     <td valign="top">
                         <div class="text3boldOrange">Bill Jackson, Founder, President, and CEO</div>
                         <div class="text3">
@@ -100,7 +100,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_matthew.jpg" alt="Matthew Nelson"/></td>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_matthew.jpg" width="97" height="108" alt="Matthew Nelson"/></td>
                     <td valign="top">
                         <div class="text3boldOrange">Matthew Nelson, Chief Operating Officer </div>
                         <div class="text3">
@@ -128,7 +128,7 @@
                 </tr>
 
                 <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_lilly.jpg" alt="Lilly Fu"/></td>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_lilly.jpg" width="97" height="108" alt="Lilly Fu"/></td>
                     <td valign="top">
                         <div class="text3boldOrange">Lilly Fu, Chief Financial Officer</div>
                         <div class="text3">
@@ -156,7 +156,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_lisa.jpg" alt="Lisa Fung"/></td>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_lisa.jpg" width="97" height="108" alt="Lisa Fung"/></td>
                     <td valign="top">
                         <div class="text3boldOrange">Lisa Fung, Vice President of Business Development and Sales</div>
                         <div class="text3">
@@ -179,7 +179,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_karissa.jpg" width="97" height="108" alt="Lisa Fung"/></td>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_karissa.jpg" width="97" height="108" alt="Karissa Sparks"/></td>
                     <td valign="top">
                         <div class="text3boldOrange">Karissa Sparks, Vice President, Marketing and Research</div>
                         <div class="text3">
@@ -196,7 +196,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_jaime.jpg" alt="Jaime Uzeta"/></td>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_jaime.jpg" width="97" height="108" alt="Jaime Uzeta"/></td>
                     <td valign="top">
                         <div class="text3boldOrange">Jaime Uzeta, Vice President, Growth Strategy and Development</div>
                         <div class="text3">
@@ -224,7 +224,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top"><img src="/res/img/about/seniormanagement_mollyv2.jpg" alt="Molly Vitorte"/></td>
+                    <td valign="top"><img src="/res/img/about/seniormanagement_mollyv2.jpg" width="97" height="108" alt="Molly Vitorte"/></td>
                     <td valign="top">
                         <div class="text3boldOrange">Molly Vitorte, Vice President and Managing Director, College Bound </div>
                         <div class="text3">
