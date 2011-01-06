@@ -15,12 +15,12 @@ General comments:
 =0 reset
 =1 text
 =2 ads
-=3 header/topnav
+=3 header/primary navigation
 =3a utility links
 =3b logo
 =3c search
 =3d global nav
-=3e subnav menu
+=3e secondary navigation menus
 =4 page layouts
 =4a home page carousel
 =4a-1 find-compare
@@ -809,7 +809,7 @@ body.cobranded #pageGS {
     padding: 0 0 12px 0;
 }*/
 
-/* =3 header/topnav
+/* =3 header/primary navigation
 -------------------------------------------------------------------------------------------*/
 
 #header {
@@ -1102,7 +1102,7 @@ body.cobranded #pageGS {
     padding: 0 5px;
 }
 
-/* =3e subnav menus
+/* =3e secondary navigation menus
 -------------------------------------------------------------------------------------------*/
 
 #topnav_menusubnav {
@@ -1216,7 +1216,7 @@ body.cobranded #pageGS {
     border-top: 1px dotted #999;
 }
 
-/* START list-based subnav */
+/* START list-based secondary navigation */
 
 #topnav #topnav_menusubnav_wrapper {
     margin: 0 16px 0 18px;
@@ -1249,7 +1249,7 @@ body.cobranded #pageGS {
     float: left;
 }
 
-/* END subnav spacing */
+/* END secondary navigation spacing */
 
 /* =4 page layouts
 -------------------------------------------------------------------------------------------*/
@@ -1262,7 +1262,7 @@ body.cobranded #pageGS {
     <img src="http://website.com/profile_image.jpg" alt="me" />
   </a>
   <div class="bd">
-    Suspendisse aliquam, lacus at tristique tempus, justo neque pulvinar magna, a consequat urna felis in odio.
+    Media block body content goes here.
   </div>
 </div>
 */
