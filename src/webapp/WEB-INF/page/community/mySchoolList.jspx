@@ -69,14 +69,6 @@
 
 <div id="col_right">
 
-    <c:choose>
-        <c:when test="${(preschoolOnly eq 'true') or (fn:length(schools) lt 2)}">
-            <ad:House_Ad_300x137 referredBy="MSL Logged In"/>
-        </c:when>
-        <c:otherwise>
-            <community:mslCompare schools="${schools}" />
-        </c:otherwise>
-    </c:choose>
 
     <ad:AboveFold_300x250 />
     <ad:Top_300x137/>

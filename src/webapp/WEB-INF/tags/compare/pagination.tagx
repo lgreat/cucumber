@@ -36,11 +36,10 @@
                 <c:set var="nextPage" value="1"/>
                 <c:if test="${totalSchools gt pageSize}">
                     <link:compareSchools tab="${tab}" schools="${schoolsString}" source="${requestScope.source}"
-                                         page="${nextPage}">Previous schools (${totalSchools-pageSize})<span
-                            class="sprite twirlyClosed"><!-- don't collapse --></span>
-                    </link:compareSchools>
+                                         page="${nextPage}"><span
+                            class="sprite prevArrow"><!-- don't collapse --></span>Previous schools (${totalSchools-pageSize})</link:compareSchools>
                 </c:if>
-                (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
+                 (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
             </c:otherwise>
         </c:choose>
     </div>

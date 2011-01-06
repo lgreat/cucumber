@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
     // disable selection of button-1 class
-    jQuery('#compareTable').alternateRowColors();
+    jQuery('#compareTable tbody.striped').alternateRowColors();
 });
 
 compare_onClickAddMslLink = function(elem) {

@@ -45,8 +45,8 @@
             <p class="smallText1 center">
                 <em>There are no reviews yet for this school.</em>
             </p>
-            <p class="smallText1 center"><link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
-                <em>Be the first to share!</em>
+            <p class="center"><link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
+                Be the first to share!
             </link:schoolProfileParentReview></p>
         </c:otherwise>
     </c:choose>

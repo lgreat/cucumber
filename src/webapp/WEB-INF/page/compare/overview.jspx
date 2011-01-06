@@ -24,23 +24,26 @@
 
     <gsml:body adPageName="compare" pageLayout="leftside">
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,CompareOverview">
-            <tr>
-                <th scope="row" rowspan="2">School</th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="cs_schools" style="border-bottom: 0;">
-                        <compare:schoolOverviewTop school="${school}" tab="${tab}"
-                                                   schoolsString="${schoolsString}" page="${page}"/>
-                    </td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <c:forEach items="${schools}" var="school">
-                    <td class="cs_schools">
-                        <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${true}"
-                                                      schoolsString="${schoolsString}" page="${page}"/>
-                    </td>
-                </c:forEach>
-            </tr>
+            <tbody>
+                <tr>
+                    <th scope="row" rowspan="2">School</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td class="cs_schools" style="border-bottom: 0;">
+                            <compare:schoolOverviewTop school="${school}" tab="${tab}"
+                                                       schoolsString="${schoolsString}" page="${page}"/>
+                        </td>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <c:forEach items="${schools}" var="school">
+                        <td class="cs_schools">
+                            <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${true}"
+                                                          schoolsString="${schoolsString}" page="${page}"/>
+                        </td>
+                    </c:forEach>
+                </tr>
+            </tbody>
+            <tbody class="striped">
             <tr>
                 <th scope="row">School type</th>
                 <c:forEach items="${schools}" var="school">
@@ -59,7 +62,7 @@
                                         <span class="sprite badge_sm_pr" title="GreatSchools Ratings not available for private schools."><!-- do not collapse --></span>
                                 </c:when>
                                 <c:when test="${empty school.gsRating}">
-                                    <span class="ratingNotApplicable rateDesc sprite badge_sm_na_y"><!-- don't collapse --></span>
+                                    <span class="ratingNotApplicable rateDesc sprite badge_sm_na"><!-- don't collapse --></span>
                                 </c:when>
                                 <c:otherwise>
                                     <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span></p>
@@ -117,6 +120,7 @@
                     </td>
                 </c:forEach>
             </tr>
+            </tbody>
         </compare:compareTemplate>
     </gsml:body>
     </html>

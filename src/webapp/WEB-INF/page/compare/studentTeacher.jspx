@@ -24,6 +24,7 @@
 
     <gsml:body adPageName="compare" pageLayout="leftside">
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Teachers_Students">
+            <tbody>
             <tr>
                 <th scope="row">School</th>
                 <c:forEach items="${schools}" var="school">
@@ -33,73 +34,77 @@
                     </td>
                 </c:forEach>
             </tr>
-            <tr>
-                <th scope="row">School type</th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="cs_type center text3">
-                        ${school.type} ${school.gradeLevels}
-                    </td>
-                </c:forEach>
-            </tr>
-            <c:choose>
-                <c:when test="${not empty censusRows}">
-                    <c:forEach items="${censusRows}" var="censusRow">
-                        <c:set var="rowYear" value="9999"/>
+            </tbody>
+
+            <tbody class="striped">
+                <tr>
+                    <th scope="row">School type</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td class="cs_type center text3">
+                            ${school.type} ${school.gradeLevels}
+                        </td>
+                    </c:forEach>
+                </tr>
+                <c:choose>
+                    <c:when test="${not empty censusRows}">
+                        <c:forEach items="${censusRows}" var="censusRow">
+                            <c:set var="rowYear" value="9999"/>
+                            <tr>
+                                <c:forEach items="${censusRow}" var="censusCell">
+                                    <c:choose>
+                                        <c:when test="${censusCell.isHeaderCell}">
+                                            <c:set var="rowYear" value="${censusCell.year}"/>
+                                            <th scope="row">
+                                                <c:if test="${not empty censusCell.extraInfo}">
+                                                    <a onclick="window.open(this.href, 'info', 'width=500,height=400,scrollbars=yes'); return false;"
+                                                       href="${censusCell.extraInfo}" class="fltrt"><span class="sprite info"><!-- not empty --></span></a>
+                                                </c:if>
+                                                ${censusCell.headerText}
+                                                <p class="year"><em>${censusCell.year}</em></p>
+                                                <c:if test="${censusCell.breakdownValueMinimum gt 0}">
+                                                    <p class="minimum"><em>Values over ${censusCell.breakdownValueMinimum}% are shown</em></p>
+                                                </c:if>
+                                            </th>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${empty censusCell}">
+                                                        <p class="center">-</p>
+                                                    </c:when>
+                                                    <c:when test="${censusCell.isSimpleCell}">
+                                                        <p class="center">${censusCell.value}</p>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <ul class="censusBreakdown">
+                                                        <c:forEach items="${censusCell.breakdownList}" var="censusBreakdown">
+                                                            <li class="text3"><strong>${censusBreakdown.name}</strong> ${censusBreakdown.value}</li>
+                                                        </c:forEach>
+                                                        </ul>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:if test="${not empty censusCell and censusCell.year ne rowYear}">
+                                                    <div class="year">Note: ${censusCell.year} data</div>
+                                                </c:if>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </tr>
+                        </c:forEach>
                         <tr>
-                            <c:forEach items="${censusRow}" var="censusCell">
-                                <c:choose>
-                                    <c:when test="${censusCell.isHeaderCell}">
-                                        <c:set var="rowYear" value="${censusCell.year}"/>
-                                        <th scope="row">
-                                            <c:if test="${not empty censusCell.extraInfo}">
-                                                <a onclick="window.open(this.href, 'info', 'width=500,height=400,scrollbars=yes'); return false;"
-                                                   href="${censusCell.extraInfo}" class="fltrt"><span class="sprite info"><!-- not empty --></span></a>
-                                            </c:if>
-                                            ${censusCell.headerText}
-                                            <p class="year"><em>${censusCell.year}</em></p>
-                                            <c:if test="${censusCell.breakdownValueMinimum gt 0}">
-                                                <p class="minimum"><em>Values over ${censusCell.breakdownValueMinimum}% are shown</em></p>
-                                            </c:if>
-                                        </th>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${empty censusCell}">
-                                                    <p class="center">-</p>
-                                                </c:when>
-                                                <c:when test="${censusCell.isSimpleCell}">
-                                                    <p class="center">${censusCell.value}</p>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <ul class="censusBreakdown">
-                                                    <c:forEach items="${censusCell.breakdownList}" var="censusBreakdown">
-                                                        <li class="text3"><strong>${censusBreakdown.name}</strong> ${censusBreakdown.value}</li>
-                                                    </c:forEach>
-                                                    </ul>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <c:if test="${not empty censusCell and censusCell.year ne rowYear}">
-                                                <div class="year">Note: ${censusCell.year} data</div>
-                                            </c:if>
-                                        </td>
-                                    </c:otherwise>
-                                </c:choose>
+                            <th scope="row">&amp;nbsp;</th>
+                            <c:forEach items="${schools}" var="school">
+                                <td class="center text2">
+                                    <link:schoolProfileCensus school="${school.school}">
+                                        View more teacher &amp;amp; student stats
+                                    </link:schoolProfileCensus>
+                                </td>
                             </c:forEach>
                         </tr>
-                    </c:forEach>
-                    <tr>
-                        <th scope="row">&amp;nbsp;</th>
-                        <c:forEach items="${schools}" var="school">
-                            <td class="center text2">
-                                <link:schoolProfileCensus school="${school.school}">
-                                    View more teacher &amp;amp; student stats
-                                </link:schoolProfileCensus>
-                            </td>
-                        </c:forEach>
-                    </tr>
-                </c:when>
-            </c:choose>
+                    </c:when>
+                </c:choose>
+            </tbody>
         </compare:compareTemplate>
     </gsml:body>
     </html>

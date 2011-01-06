@@ -1003,13 +1003,13 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 
 *html .sprite { /* for IE 6 iframe hovers */
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-11-29.gif);
+    background-image: url(/res/img/sprites/iconSprite_2011-01-06.gif);
     _zoom:1;
 }
 
 body.ie6 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-11-29.gif);
+    background-image: url(/res/img/sprites/iconSprite_2011-01-06.gif);
     _zoom:1;
 }
 
@@ -1045,6 +1045,9 @@ body.ie6 .sprite {
 =compare
 ----------------------------------------------------------------------------------------------
 */
+body.ie6 .fltlft {
+    display: inline;
+}
 body.ie6 #compareTable .censusBreakdown li {
     height: 1%;
 }

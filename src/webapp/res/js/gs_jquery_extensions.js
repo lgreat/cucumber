@@ -240,9 +240,9 @@ jQuery(document).ready(function() {
 
             //Iterate over the current set of matched elements
             return this.each(function() {
-                $('tbody tr:odd', this)
+                $('tr:odd', this)
                         .removeClass('even').addClass('odd');
-                $('tbody tr:even', this)
+                $('tr:even', this)
                         .removeClass('odd').addClass('even');
                 return this;
 

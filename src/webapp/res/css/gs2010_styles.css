@@ -516,7 +516,9 @@ a.smallAlertText {
 .certCourse {
     font: italic 16px/1.3 Georgia, "Times New Roman", Times, serif; /*color: #149;*/
 }
-
+.alert-c03 {
+    color: #c03;
+}
 .alertDoubleArrow {
     font: 15px Arial, Helvetica, sans-serif;
     color: #d61;
@@ -2277,7 +2279,12 @@ body.ie6 .clearfix {
 #findZipCodeInput {
     margin-right: 4px;
 }
-
+#compareSchoolsLimitReachedHover .button-1 {
+    margin-right: 15px;
+}
+#compareSchoolsLimitReachedHover .jq_compareSchoolsLimitReachedHover_uncheckAll_div {
+    padding: 8px 0;
+}
 /* =4a-2 most popular
 -------------------------------------------------------------------------------------------*/
 
@@ -6615,7 +6622,14 @@ body.ie7 #frmPRModule .helperMessage {
     zoom: 1;
 
 }
-
+#noResults {
+    position: relative;
+    clear: both;
+    height: 478px;
+    border: solid #c6c6c6;
+    border-width: 0 1px;
+    padding: 15px;
+}
 .top .compareTabs {
     height: 34px;
     white-space: nowrap;
@@ -6725,84 +6739,84 @@ table#compareTable td p {
 table#compareTable td.cs_schools p.text3 {
     margin-bottom: 5px;
 }
-.odd th,
-.odd td {
+.even th,
+.even td {
     background-color: #f9eccd;
 }
 
-.odd .cs_gsRating .badge_sm_na {
+.even .cs_gsRating .badge_sm_na {
     background-position: -500px 0;
 }
 
-.odd .cs_gsRating .badge_sm_1 {
+.even .cs_gsRating .badge_sm_1 {
     background-position: -500px -30px;
 }
 
-.odd .cs_gsRating .badge_sm_2 {
+.even .cs_gsRating .badge_sm_2 {
     background-position: -500px -60px;
 }
 
-.odd .cs_gsRating .badge_sm_3 {
+.even .cs_gsRating .badge_sm_3 {
     background-position: -500px -90px;
 }
 
-.odd .cs_gsRating .badge_sm_4 {
+.even .cs_gsRating .badge_sm_4 {
     background-position: -500px -120px;
 }
 
-.odd .center .stars_lg_0 {
+.even .center .stars_lg_0 {
     background-position: -200px -240px;
 }
 
-.odd .center .stars_lg_1 {
+.even .center .stars_lg_1 {
     background-position: -200px -260px;
 }
 
-.odd .center .stars_lg_2 {
+.even .center .stars_lg_2 {
     background-position: -200px -280px;
 }
 
-.odd .center .stars_lg_3 {
+.even .center .stars_lg_3 {
     background-position: -200px -300px;
 }
 
-.odd .center .stars_lg_4 {
+.even .center .stars_lg_4 {
     background-position: -200px -320px;
 }
 
-.odd .center .stars_lg_5 {
+.even .center .stars_lg_5 {
     background-position: -200px -340px;
 }
 
-.odd .cs_gsRating .badge_sm_5 {
+.even .cs_gsRating .badge_sm_5 {
     background-position: -500px -150px;
 }
 
-.odd .cs_gsRating .badge_sm_6 {
+.even .cs_gsRating .badge_sm_6 {
     background-position: -500px -180px;
 }
 
-.odd .cs_gsRating .badge_sm_7 {
+.even .cs_gsRating .badge_sm_7 {
     background-position: -500px -210px;
 }
 
-.odd .cs_gsRating .badge_sm_8 {
+.even .cs_gsRating .badge_sm_8 {
     background-position: -500px -240px;
 }
 
-.odd .cs_gsRating .badge_sm_9 {
+.even .cs_gsRating .badge_sm_9 {
     background-position: -500px -270px;
 }
 
-.odd .cs_gsRating .badge_sm_10 {
+.even .cs_gsRating .badge_sm_10 {
     background-position: -500px -300px;
 }
 
-.odd .cs_gsRating .badge_sm_ps {
+.even .cs_gsRating .badge_sm_ps {
     background-position: -500px -330px;
 }
 
-.odd .cs_gsRating .badge_sm_pr {
+.even .cs_gsRating .badge_sm_pr {
     background-position: -500px -360px;
 }
 
@@ -6969,7 +6983,7 @@ additional icons on the sprite.
 /* column 0 */
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2010-11-29.png);
+    background-image: url(/res/img/sprites/iconSprite_2011-01-06.png);
 }
 
 .reportIt-nbg {
@@ -7029,7 +7043,11 @@ additional icons on the sprite.
     height: 13px;
     background-position: 0 -160px;
 }
-
+.prevArrow {
+    width: 14px;
+    height: 13px;
+    background-position: 0 -359px;
+}
 .house {
     width: 16px;
     height: 16px;

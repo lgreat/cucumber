@@ -8,15 +8,12 @@
             <div class="bd">
                 <h2>You may only compare 8 schools</h2>
 
-                <p>
-                    You may only select 8 schools to compare at a time. Please
-                    <strong>edit the schools to select fewer</strong> or
-                    <strong>continue on to compare</strong> the schools you've selected.
+                <p><strong>Continue to compare</strong> the schools you have already selected or <strong>Edit schools</strong> to change your selection. 
                 </p>
-                <button class="button-1 jq_compareSchoolsLimitReachedHover_edit"
-                        type="button">Edit schools</button>
                 <button class="button-1 jq_compareSchoolsLimitReachedHover_continue"
                         type="button">Continue to compare</button>
+                <button class="button-1 jq_compareSchoolsLimitReachedHover_edit"
+                        type="button">Edit schools</button>
                 <div class="jq_compareSchoolsLimitReachedHover_uncheckAll_div">
                     Or, <a href="#" class="jq_compareSchoolsLimitReachedHover_uncheckAll"
                            onclick="return false;">uncheck all schools to start over</a>.

@@ -63,9 +63,7 @@
                             <c:forEach items="${schools}" varStatus="loopStatus">
                                 <col class="schoolColumn${loopStatus.index+1}"/>
                             </c:forEach>
-                            <tbody>
                             <jsp:doBody/>
-                            </tbody>
                         </table>
                     </c:when>
                     <c:otherwise>
@@ -74,7 +72,8 @@
                 </c:choose>
             </c:when>
             <c:otherwise>
-                <p>There are no schools selected to compare.</p>
+            <div id="noResults"><p class="alert-c03">There are no schools selected to compare.</p></div>
+
             </c:otherwise>
         </c:choose>
         <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}" alignment="bottom"/>
