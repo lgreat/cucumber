@@ -123,10 +123,7 @@
         <p id="schoolTypeInfo">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
-                <c:choose>
-                    <c:when test="${school.type.schoolTypeName eq 'charter'}">Public Charter</c:when>
-                    <c:otherwise>${gsweb:capitalize(school.type.schoolTypeName)}</c:otherwise>
-                </c:choose>
+                ${gsweb:capitalize(school.type.schoolTypeName)}
             </c:if>
             <!-- Grade levels -->
             <c:choose>
