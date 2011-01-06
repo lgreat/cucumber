@@ -31,6 +31,34 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     private ICompareConfigDao _compareConfigDao;
     private ICensusDataSchoolValueDao _censusDataSchoolValueDao;
     private ICompareLabelInfoDao _compareLabelInfoDao;
+    private static Map<Integer, Integer> _dataTypeIdToOrderMap = new HashMap<Integer, Integer>() {
+        {
+            int order = 1;
+            put(35, order++);
+            put(5, order++);
+            put(9, order++);
+            put(95, order++);
+            put(16, order++);
+            put(6, order++);
+            put(13, order++);
+            put(15, order++);
+            put(22, order++);
+            put(14, order++);
+            put(97, order++);
+            put(7, order++);
+            put(10, order++);
+            put(112, order++);
+            put(11, order++);
+            put(114, order++);
+            put(33, order++);
+            put(26, order++);
+            put(111, order++);
+            put(12, order++);
+            put(103, order++);
+            put(1, order++);
+            put(30, order++);
+        }
+    };
 
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
@@ -171,7 +199,9 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             censusDataSets.add(censusDataSet);
             //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
             censusDataSetToLabel.put(censusDataSet,label);
-            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
+//            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
+            // GS-10784: use static mapping across all states. Ignore config's order_num
+            rowLabelToOrder.put(label.getRowLabel(), getOrderForDataType(config.getDataTypeId()));
             if (config.getSchoolType() != null) {
                 censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
             }
@@ -377,6 +407,11 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         return rows;
     }
 
+    protected Integer getOrderForDataType(Integer dataTypeId) {
+        Integer rval = _dataTypeIdToOrderMap.get(dataTypeId);
+        return (rval == null) ? 0 : rval;
+    }
+
     @Override
     public String getSuccessView() {
         return _successView;
@@ -441,5 +476,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
     public void setCompareLabelInfoDao(ICompareLabelInfoDao compareLabelInfoDao) {
         _compareLabelInfoDao = compareLabelInfoDao;
+    }
+
+    // For unit tests
+    protected void setDataTypeIdToOrderMap(Map<Integer, Integer> dataTypeIdToOrderMap) {
+        _dataTypeIdToOrderMap = dataTypeIdToOrderMap;
     }
 }

@@ -50,6 +50,16 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         _controller.setCompareLabelInfoDao(_compareLabelInfoDao);
 
         _labelToCompareLabelInfoMap = new HashMap<String, CompareLabelInfo>();
+
+        _controller.setDataTypeIdToOrderMap(new HashMap<Integer, Integer>() {
+            {
+                put(1, 1);
+                put(2, 4);
+                put(3, 9);
+                put(4, 16);
+                put(9, 81);
+            }
+        });
     }
 
     private void replayAllMocks() {
@@ -474,7 +484,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         assertEquals(1, censusDataSetCompareLabelMap.size());
         assertSame(label, censusDataSetCompareLabelMap.get(censusDataSet));
         assertEquals(1, rowLabelToOrder.size());
-        assertEquals(1, rowLabelToOrder.get("Ethnicity").intValue());
+        assertEquals(81, rowLabelToOrder.get("Ethnicity").intValue());
         assertEquals(0, censusDataSetSchoolTypeMap.size());
     }
 
@@ -518,7 +528,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         assertEquals(1, censusDataSetCompareLabelMap.size());
         assertSame(label, censusDataSetCompareLabelMap.get(censusDataSet));
         assertEquals(1, rowLabelToOrder.size());
-        assertEquals(1, rowLabelToOrder.get("Ethnicity").intValue());
+        assertEquals(81, rowLabelToOrder.get("Ethnicity").intValue());
         assertEquals(0, censusDataSetSchoolTypeMap.size());
     }
 
