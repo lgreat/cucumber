@@ -52,7 +52,7 @@
 
                 <c:set var="footerCopyright">
                 <p id="footerCopyright" class="copyright">
-                          &amp;#169;1998-2010 GreatSchools Inc. All Rights Reserved.
+                          &amp;#169;1998-2011 GreatSchools Inc. All Rights Reserved.
                           GreatSchools is a 501(c)(3) not-for-profit organization
                           <link:termsOfUse>Terms of Use</link:termsOfUse>
                           <link:privacyPolicy>Privacy Policy</link:privacyPolicy>
