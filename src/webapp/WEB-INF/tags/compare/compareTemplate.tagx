@@ -26,7 +26,8 @@
     <div id="csMain" class="leftSide fltlft">
         <div class="compareHeader">
             <c:if test="${not empty requestScope.returnLink}">
-                <a href="${requestScope.returnLink}"><span class="alertDoubleArrow">&#171;</span>
+                <a onclick="if (s.tl) {s.tl(this,'o','Compare_Back_to_Search_Results_Link');} return true;"
+                   href="${requestScope.returnLink}" ><span class="alertDoubleArrow">&#171;</span>
                     <c:choose>
                         <c:when test="${not empty source and source eq 'msl'}">
                             Back to My School List
