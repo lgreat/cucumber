@@ -512,7 +512,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         Map<FieldConstraint,String> fieldConstraints = _controller.getFieldConstraints(State.CA, city, district);
 
         assertTrue("fieldConstraints should contain state", fieldConstraints.containsKey(FieldConstraint.STATE));
-        assertTrue("fieldConstraints should contain city", fieldConstraints.containsKey(FieldConstraint.CITY));
+        assertFalse("fieldConstraints should not contain city", fieldConstraints.containsKey(FieldConstraint.CITY));
         assertTrue("fieldConstraints should contain city", fieldConstraints.containsKey(FieldConstraint.DISTRICT_ID));
         assertEquals("District should have correct id", 1, Integer.valueOf(fieldConstraints.get(FieldConstraint.DISTRICT_ID)).intValue());
     }
