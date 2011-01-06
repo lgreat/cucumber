@@ -53,10 +53,7 @@
                     </div>
 
                     <div class="text3">
-                        <span><c:choose>
-                            <c:when test="${school.schoolType eq 'charter'}">Public Charter</c:when>
-                            <c:otherwise>${gsweb:capitalize(school.schoolType)}</c:otherwise>
-                        </c:choose></span>
+                        <span>${gsweb:capitalize(school.schoolType)}</span>
                         <c:choose>
                             <c:when test="${school.levelCode eq 'p'}">
                                 &amp;#183;
