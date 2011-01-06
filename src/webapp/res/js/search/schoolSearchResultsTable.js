@@ -303,6 +303,8 @@ GS.search.SchoolSearchResultsTable = function() {
 
         queryString = buildQueryString(queryString);
 
+        queryString = putIntoQueryString(queryString,"sortChanged",true, true);
+
         window.location.search = queryString;
     }.gs_bind(this);
 

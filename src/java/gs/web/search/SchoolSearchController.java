@@ -188,9 +188,11 @@ public class SchoolSearchController extends AbstractCommandController implements
             }
         }
 
-        FieldSort sort = schoolSearchCommand.getSortBy() == null ? (isCityBrowse || isDistrictBrowse ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(schoolSearchCommand.getSortBy());
+        FieldSort sort = schoolSearchCommand.getSortBy() == null ? ((isCityBrowse || isDistrictBrowse) && !"true".equals(request.getParameter("sortChanged")) ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(schoolSearchCommand.getSortBy());
         if (sort != null) {
             schoolSearchCommand.setSortBy(sort.name());
+        } else {
+            schoolSearchCommand.setSortBy(null);
         }
         model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
