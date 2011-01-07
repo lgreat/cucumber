@@ -1,7 +1,12 @@
-GS = GS || {};
-GS.form = GS.form || {};
-GS.module = GS.module || {};
-GS.validation = GS.validation || {};
+if (GS === undefined) {
+    var GS = {};
+}
+if (GS.module === undefined) {
+    GS.module = {};
+}
+if (GS.form === undefined) {
+    GS.form = {};
+}
 
 GS.module.SchoolSelect = function() {
     this._levelCode = undefined;
@@ -51,7 +56,7 @@ GS.module.SchoolSelect = function() {
             jQuery('#schoolSelect').append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
         });
     };
-    
+
     this.onSchoolChange = function() {
         var schoolId = jQuery('#schoolSelect').val();
         var state = jQuery('#stateSelect').val();
@@ -69,6 +74,7 @@ GS.module.SchoolSelect = function() {
     this.updatePageWithSchool = function(data) {
 
         var id = data.id;
+        var state = data.state;
         var name = data.name;
         var street1 = data.street1;
         var street2 = data.street2;
@@ -84,6 +90,12 @@ GS.module.SchoolSelect = function() {
         var street2Element = jQuery('#schoolAddressLine2');
         var cityStateZipElement = jQuery('#schoolAddressLine3');
         var countyElement = jQuery('#schoolAddressLine4');
+
+        //TODO: move this code out to make this JS file more reusable
+        //write the id and state into hidden fields in form
+        jQuery('#schoolId').val(id);
+        jQuery('#schoolState').val(id);
+        jQuery('#hdnSchoolName').val(name);
 
         schoolNameElement.html(name);
         street1Element.html(street1);
@@ -119,6 +131,7 @@ GS.module.SchoolSelect = function() {
 
     this.onRoleChange = function() {
         this._role = jQuery('#userRoleSelect').val();
+        jQuery('#posterAsString').val(this._role); //create another hook up for so form can register a callback
         this.updateAdditionalStarRatings(this._role, this._levelCode);
     }.gs_bind(this);
 
@@ -210,54 +223,3 @@ GS.module.SchoolSelect = function() {
 jQuery(function() {
     GS.module.schoolSelect = new GS.module.SchoolSelect();
 });
-
-function validateEmail(elementValue) {
-    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(elementValue);
-}
-
-
-function GS_postSchoolReview(email, callerFormId) {
-    // first, grab the email from the join/signIn form and use that with the review
-    if (email) {
-        jQuery('#parentReviewEmail').val(email);
-    }
-
-    //clear submit fields
-
-    // then post the review
-    jQuery.post('/school/review/postReview.page', jQuery('#addParentReviewForm').serialize(), function(data) {
-        if (data.showHover != undefined && data.showHover == "validateEmailSchoolReview") {
-            subCookie.setObjectProperty("site_pref", "showHover", "validateEmailSchoolReview", 3);
-        } else {
-            if (data.reviewPosted != undefined) {
-                if (data.reviewPosted == "true") {
-                    // cookie to show schoolReviewPostedThankYou hover
-                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
-                } else {
-                    // cookie to show schoolReviewNotPostedThankYou hover
-                    subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
-                }
-            }
-        }
-        var successEvents = "";
-        if (data.ratingEvent != undefined) {
-            successEvents += data.ratingEvent;
-        }
-        if (data.reviewEvent != undefined) {
-            successEvents += data.reviewEvent;
-        }
-        if (successEvents != "") {
-            pageTracking.clear();
-            pageTracking.successEvents = successEvents;
-            pageTracking.send();
-        }
-        if (callerFormId) {
-            GSType.hover.signInHover.hide();
-            GSType.hover.joinHover.hide();
-            jQuery('#' + callerFormId).submit();
-        } else {
-            window.location.href = '/school/parentReviews.page?id=' + jQuery('#schoolId').val() + '&state=' + jQuery('#schoolState').val();
-        }
-    }, "json");
-}

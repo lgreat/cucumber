@@ -26,9 +26,11 @@
           content="Write a review for your child's school today and you can help other parents make a more informed choice about which school is right for their family."/>
     <!--<pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>-->
     <!--<pageHelper:externalCss file="/res/css/school/parentReviews/parentR.css"/>-->
-    <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>-->
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="/res/js/addParentReview.js"/>
+    <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
+    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPage.js"/>
+    <pageHelper:externalJavascript file="/res/js/parentReviewLandingPageSchoolReviewForm.js"/>
 
     <![CDATA[
     <script type="text/javascript">
@@ -179,9 +181,9 @@
 <div class="spacer_20 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_15"><!-- do not collapse --></div>
 
-<form method="post" action="#" onsubmit="return validateReview();">
+<form id="parentReviewForm"  method="post" action="#" onsubmit="return validateReview();">
 
-<input type="hidden" name="posterAsString"/>
+<input type="hidden" name="posterAsString" id="posterAsString" />
 
 <input type="hidden" name="source" value="${pageName}"/>
 
@@ -199,36 +201,26 @@
         <div class="unit size2of3 lastUnit">
             <div id="inputRating">
                 <div class="parentRatingStars fltlft mrgrt_10">
-                    <input type="hidden" id="overallStarRating" value="${presetRating}" name="overallAsString"/>
+                    <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
                     <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="Currently unrated."/>
                     <ul class="star-rating large-star">
                         <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
                         <li><a href="#" id="validateStar1"
                                title="1 star out of 5"
                                class="one-star"
-                               onclick="this.hideFocus=true;setStars(1);return false;"
-                               onmouseover="showStars(1);"
-                               onmouseout="resetStars();"
+                               onclick="this.hideFocus=true;return false;"
                                 >1</a></li>
                         <li><a href="#" id="validateStar2" title="2 stars out of 5" class="two-stars"
-                               onclick="this.hideFocus=true;setStars(2);return false;"
-                               onmouseover="showStars(2);"
-                               onmouseout="resetStars();"
+                               onclick="this.hideFocus=true;return false;"
                                 >2</a></li>
                         <li><a href="#" id="validateStar3" title="3 stars out of 5" class="three-stars"
-                               onclick="this.hideFocus=true;setStars(3);return false;"
-                               onmouseover="showStars(3);"
-                               onmouseout="resetStars();"
+                               onclick="this.hideFocus=true;return false;"
                                 >3</a></li>
                         <li><a href="#" id="validateStar4" title="4 stars out of 5" class="four-stars"
-                               onclick="this.hideFocus=true;setStars(4);return false;"
-                               onmouseover="showStars(4);"
-                               onmouseout="resetStars();"
+                               onclick="this.hideFocus=true;return false;"
                                 >4</a></li>
                         <li><a href="#" id="validateStar5" title="5 stars out of 5" class="five-stars"
-                               onclick="this.hideFocus=true;setStars(5);return false;"
-                               onmouseover="showStars(5);"
-                               onmouseout="resetStars();"
+                               onclick="this.hideFocus=true;return false;"
                                 >5</a></li>
                     </ul>
                 </div>
@@ -252,17 +244,15 @@
         </div>
     </div>
 
-    <div class="line">
+    <div class="line review-text">
         <div class="unit size1of1 lastUnit">
             <textarea id="reviewText"
                       class="reviewText text1-ededed text3"
                       name="comments"
-                      onkeyup="countWords(this)"
-                      onkeydown="countWords(this)"
-                      onfocus="if(this.value=='Enter your review here'){this.value='';}"
-                      onblur="if(this.value==''){this.value='Enter your review here';}"
+                      onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
+                      onblur="if(this.value==''){this.value='[Enter your review here]';}"
                       rows="10"
-                      cols="50">Enter your review here</textarea>
+                      cols="50">[Enter your review here]</textarea>
         </div>
     </div>
     <div class="spacer_10"><!-- do not collapse --></div>
@@ -272,15 +262,14 @@
             <!-- c:set used to prevent IDEA error on duplicate CSS id attribute used in c:choose -->
             <c:set var="emailID" value="parentReviewEmail"/>
             <c:choose>
-                <!--<c:when test="${not empty validUser.email}">-->
-                <c:when test="${true}">
+               <c:when test="${validUser.email eq null}">
                     <input id="${emailID}"
                            name="email"
                            class="parentReviewEmail text1-ededed text3"
                            type="text"
-                           value="Enter your email address"
-                           onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                           onblur="if(this.value==''){this.value='Enter your email address';}"
+                           value="[Enter email address]"
+                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                           onblur="if(this.value==''){this.value='[Enter email address]';}"
                             />&amp;nbsp;
                     <em class="sprite i-required"><!-- do not collapse --></em>
                 </c:when>
@@ -290,8 +279,8 @@
                            class="parentReviewEmail text1-ededed text3"
                            type="text"
                            value="${validUser.email}"
-                           onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                           onblur="if(this.value==''){this.value='Enter your email address';}"
+                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                           onblur="if(this.value==''){this.value='[Enter email address]';}"
                            disabled="true"
                             />&amp;nbsp;
                     <em class="sprite i-required"><!-- do not collapse --></em>
@@ -301,7 +290,12 @@
             <div class="mediaExt1-1 form-error hidden">
                 <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                <div class="bd formErrorText">Please enter your email.</div>
+                <div class="bd formErrorText">Please enter your email address.</div>
+            </div>
+            <div class="formErrorText mediaExt1-1 form-alert hidden">
+                <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                <div class="bd">You will need to verify your email address when you submit your review.</div>
             </div>
 
         </div>

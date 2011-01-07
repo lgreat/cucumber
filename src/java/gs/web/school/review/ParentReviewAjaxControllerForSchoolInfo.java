@@ -70,6 +70,7 @@ public class ParentReviewAjaxControllerForSchoolInfo implements Controller {
                 }
 
                 model.put("id", id);
+                model.put("state",state);
                 model.put("name", name);
                 model.put("street1", street1);
                 model.put("street2", street2);

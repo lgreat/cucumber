@@ -15,6 +15,7 @@
 <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
 <pageHelper:externalCss file="/res/css/school/parentReviews/schoolReviewForm.css"/>
 <pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
+<pageHelper:externalJavascript file="/res/js/parentReviewTabSchoolReviewForm.js"/>
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
 
@@ -31,8 +32,7 @@
 
 <!--<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>-->
 
-    <c:choose>
-    <c:when test="${requestScope.context.showReviewsPageRedesign}">
+
         <!--<p>the new redesign code goes here</p>-->
 
         <div class="spacer_10"><!-- do not collapse --></div>
@@ -59,23 +59,23 @@
                                 style="width:0;">Currently unrated.
                             </li>
                             <li><a href="#" title="1 star out of 5" class="one-star"
-                                   onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(1);return false;"
+                                   onclick="this.hideFocus=true;return false;"
                                     >1</a></li>
                             <li><a href="#" title="2 stars out of 5" class="two-stars"
-                                   onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(2);return false;"
+                                   onclick="this.hideFocus=true;return false;"
                                     >2</a></li>
                             <li><a href="#" title="3 stars out of 5" class="three-stars"
-                                   onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(3);return false;"
+                                   onclick="this.hideFocus=true;return false;"
                                     >3</a></li>
                             <li><a href="#" title="4 stars out of 5" class="four-stars"
-                                   onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(4);return false;"
+                                   onclick="this.hideFocus=true;return false;"
                                     >4</a></li>
                             <li><a href="#" title="5 stars out of 5" class="five-stars"
-                                   onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(5);return false;"
+                                   onclick="this.hideFocus=true;return false;"
                                     >5</a></li>
                         </ul>
-                        <span class="js-starRater top_5">
-                            <div class="js-starHint text3italic"><!-- do not collapse --></div>
+                        <span class="top_5">
+                            <div id="ratingTitle" class="text3italic">Currently unrated.</div>
                         </span>
                         <!-- end star ratings -->
                     </div>
@@ -95,13 +95,11 @@
 
                 <div class="spacer_10"><!-- do not collapse --></div>
                 <div id="js-bubbleInfo-6" class="text3">
-                <div class="js-trigger line">
+                <div class="js-trigger line review-text">
                     <div class="unit size1of1 lastUnit">
                         <textarea id="reviewText"
                                   class="text1-ededed text3"
                                   name="comments"
-                                  onkeyup="GS_countWords(this)"
-                                  onkeydown="GS_countWords(this)"
                                   onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
                                   onblur="if(this.value==''){this.value='[Enter your review here]';}"
                                   rows="" cols="">[Enter your review here]</textarea>
@@ -147,7 +145,6 @@
                                    onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="hidden" name="email" value="${validUser.email}"/>
                             <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
                                    type="text"
                                    value="${validUser.email}" disabled="disabled"/>
@@ -290,7 +287,7 @@
                     <c:if test="${school.levelCode eq 'p'}">
                         <div id="js-bubbleInfo-5" class="text3">
                             <div class="spacer_5"><!-- do not collapse --></div>
-                                                    
+
                             <div class="js-trigger line">
                                 <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
                                 <div class="catRating unit size5of7 lastUnit"><gsml:starRating
@@ -345,7 +342,7 @@
 
             </fieldset>
             <fieldset>
-                <button id="frmPRModule-submit" class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
+                <button id="parentReviewFormSubmit" class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
                 </button>
                 <div class="helperMessage formText1 media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
@@ -362,282 +359,7 @@
                 jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
             });
         </script>
-    </c:when>
 
-        <c:otherwise>
-            <!--<p>the old code goes here</p>-->
-            <style>
-                /*.size1of7 {
-                    width:11%;
-                }
-                .size3of7 {
-                    width:41%;
-                }*/
-                .line {
-                    overflow:visible;
-                }
-            </style>
-
-            <c:set var="mainColumnId" value="col_center"/>
-            <c:set var="divClass" value=""/>
-            <c:choose>
-                <c:when test="${pageName eq 'parentReviews'}">
-                    <c:set var="mainColumnId" value="col_left"/>
-
-                    <h2 id="rateReviewH2" class="noprint"><c:out escapeXml="true"
-                                                                 value="Rate &amp; Review ${school.name}"/>
-                    </h2>
-                </c:when>
-                <c:when test="${pageName eq 'overview'}">
-                    <c:set var="divClass" value="overview"/>
-                </c:when>
-            </c:choose>
-
-            <div id="rateReview" class="noprint ${divClass}">
-                <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
-                    <!--Begin star ratings.
-                        Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
-                        But because this page may load slowly, that's not an option.
-                    -->
-                    <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
-                    <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
-                    <input type="hidden" id="hdnSchoolName" value="${school.name}"/>
-                    <div class="line">
-                    <div class="unit size2of5">
-                        <h4 class="subhead6 label3">Rate this school <em
-                                class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
-                        </h4>
-                    </div>
-                    <div class="unit size3of5 lastUnit">
-                    <ul class="star-rating large-star">
-                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
-                        <li><a href="#"
-                               title="1 star out of 5"
-                               class="one-star"
-                               onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(1);return false;"
-                                >1</a></li>
-                        <li><a href="#" title="2 stars out of 5" class="two-stars"
-                               onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(2);return false;"
-                                >2</a></li>
-                        <li><a href="#" title="3 stars out of 5" class="three-stars"
-                               onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(3);return false;"
-                                >3</a></li>
-                        <li><a href="#" title="4 stars out of 5" class="four-stars"
-                               onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(4);return false;"
-                                >4</a></li>
-                        <li><a href="#" title="5 stars out of 5" class="five-stars"
-                               onclick="this.hideFocus=true;GS.form.schoolReviewForm.setStars(5);return false;"
-                                >5</a></li>
-                    </ul>
-                    <!-- end star ratings -->
-                    </div>
-                </div>
-                <div class="line">
-                    <div class="unit size1of1 lastUnit overall-rating-error">
-                        <div class="formErrorText media">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                            <div class="bd">Please select a star rating for this school.</div>
-                        </div>
-                    </div>
-                </div>
-
-                    <input type="hidden" name="id" value="${schoolId}"/>
-                    <input type="hidden" name="state" value="${state}"/>
-                    <input type="hidden" name="source" value="${pageName}"/>
-
-                    <div id="userInput">
-                        <textarea id="reviewText"
-                                  name="comments"
-                                  onkeyup="GS_countWords(this)"
-                                  onkeydown="GS_countWords(this)"
-                                  onfocus="if(this.value=='Enter your review here'){this.value='';}"
-                                  rows="" cols="">Enter your review here</textarea>
-
-                        <c:if test="${pageName eq 'parentReviews'}">
-                            <div class="greatSchoolNotes">
-                                <div>A great school has...</div>
-                                <ul>
-                                    <li><span>Excellent teachers</span></li>
-                                    <li><span>Strong principal/school leadership</span></li>
-                                    <li><span>Challenging academic programs</span></li>
-                                </ul>
-                            </div>
-                        </c:if>
-
-
-                <div class="spacer_10"><!-- do not collapse --></div>
-                        <div class="line email">
-
-                            <label for="frmPRModule-email" class="unit size1of7" style="width:11%;">Email
-                                <em class="sprite i-required"><!-- do not collapse --></em>
-                            </label>
-
-                            <c:choose>
-                                <c:when test="${requestScope.context.email eq null}">
-                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
-                                           type="text"
-                                           value="[Enter email address]"
-                                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                                           onblur="if(this.value==''){this.value='[Enter email address]';}"
-                                           style="width:41%;"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
-                                           type="text"
-                                           value="${requestScope.context.email}" disabled="disabled"/>
-                                    <input name="email" value="${requestScope.context.email}" type="hidden"/>
-                                </c:otherwise>
-                            </c:choose>
-
-                            <div class="unit size3of7 lastUnit">
-                                &amp;nbsp;
-                            </div>
-
-                            <div class="formErrorText mediaExt1-1 error">
-                                <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                                <div class="bd">Please enter your email.</div>
-                            </div>
-                            <div class="formErrorText mediaExt1-1 alert">
-                                <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                                <div class="bd">You will need to verify your email address when you submit your review.
-                                </div>
-                            </div>
-
-                        </div>
-                <div class="spacer_10"><!-- do not collapse --></div>
-
-                            <div class="line">
-                    <label for="affiliation" class="unit size1of7" style="width:11%;">I am a:
-                        <em class="sprite i-required"><!-- do not collapse --></em>
-
-                    </label>
-                    <select id="affiliation" name="posterAsString" class="unit size3of7" style="width:41%;">
-                        <option value="" selected="selected">- Select one -</option>
-                        <option value="parent">parent</option>
-                        <c:if test="${schoolReviewShowStudent}">
-                            <option value="student">student</option>
-                        </c:if>
-                        <option value="teacher">teacher/staff member</option>
-                        <option value="other">other</option>
-                    </select>
-
-                    <div class="unit size3of7 lastUnit" style="overflow:visible;">
-                        <div class="formErrorText media padlft_10 poster-error">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-                            <div class="bd">Please let us know how you are affiliated with this school.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="subStarRatings" style="display:none;">
-                    <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
-                    <div class="teachers spacer_10"><!-- do not collapse --></div>
-                    <div class="teachers line">
-                        <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
-                        <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
-                                                                                       additionalClass="med-star"/>
-                        </div>
-                    </div>
-
-                    <c:if test="${school.levelCode ne 'p'}">
-                        <div class="principal spacer_5"><!-- do not collapse --></div>
-                        <div class="principal line">
-                            <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating
-                                    id="principalAsString"
-                                    additionalClass="med-star"/>
-                            </div>
-                        </div>
-                    </c:if>
-
-                    <div class="parents spacer_5"><!-- do not collapse --></div>
-                    <div class="parents line">
-                        <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
-                        <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
-                                                                                       additionalClass="med-star"/>
-                        </div>
-                    </div>
-                    <c:if test="${school.levelCode eq 'p'}">
-                        <div class="facilities spacer_5"><!-- do not collapse --></div>
-                        <div class="facilities line">
-                            <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating
-                                    id="pFacilitiesAsString"
-                                    additionalClass="med-star"/>
-                            </div>
-                        </div>
-                    </c:if>
-                </div>
-
-
-
-                                <!--<link:parentRatingsExplained
-                                        preschool="${school.levelCode eq 'p'}" styleClass="moreAboutRatings hidden"
-                                        onclick="window.open(this.href, 'definitions', 'width=544,height=480,scrollbars=yes'); return false;"
-                                        target="_blank">More about these categories</link:parentRatingsExplained>-->
-
-
-                        <div class="spacer_10"><!-- do not collapse --></div>
-                        <div class="formErrorText media padlft_5 termsError">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
-                            <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
-                        </div>
-
-                        <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
-                            <em class="sprite i-required"><!-- do not collapse --></em>
-                        </label>
-
-                        <div class="spacer_10"><!-- do not collapse --></div>
-                        <div class="line">
-                            <div class="unit size1of2">
-                                <!--<button class="btn25 continueButton" type="submit">
-                                <span class="lftDoor25">
-                                    <span class="rtDoor25">Continue</span>
-                                </span>
-                                </button>-->
-                                <button class="button-1 continueButton" type="submit">Continue</button>
-                            </div>
-                            <div class="unit size1of2 lastUnit">
-                                <div style="float:right;">
-                                    <link:parentReviewGuidelines
-                            onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
-                            styleClass="linkGuidelines">School review guidelines <span
-                            class="go">&amp;#187;</span></link:parentReviewGuidelines>
-                            </div>
-                                </div>
-                        </div>
-
-
-                    </div>
-                </gsweb:form>
-
-                <!--<div id="emailFieldAlert" style="left:304px; position:absolute; top:170px;">
-                    You will need to verify your email <br/>address when you submit your review.
-                </div>-->
-
-
-                <c:if test="${school.levelCode != 'p'}">
-                    <div id="espLink">
-                        PRINCIPALS AND SCHOOL OFFICIALS: <a href="#" class="no_interrupt">Share your point of view<span
-                            class="go">&amp;#187;</span></a>
-                    </div>
-                </c:if>
-
-                <div class="commentsPopup">
-                    <div class="commentsPopupHeader">Don't forget</div>
-                    <div class="">GreatSchools discourages reviews that contain inappropriate language,
-                        allegations of criminal conduct, or identify students, teachers,
-                        or staff by name.
-                    </div>
-                </div>
-            </div>
-
-        </c:otherwise>
-    </c:choose>
 
     <!-- Force recalculation of column heights -->
     <script type="text/javascript">
