@@ -44,19 +44,19 @@ GS.review.Validator = function() {
 
     this.countWords = function(text) {
         var count = 0;
-        var a = text.replace(/\n/g,' ').replace(/\t/g,' ');
+        var a = text.replace(/\n/g, ' ').replace(/\t/g, ' ');
         var z = 0;
         for (; z < a.length; z++) {
-            if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { count++; }
+            if (a.charAt(z) == ' ' && a.charAt(z - 1) != ' ') { count++; }
         }
-        return count+1; // # of words is # of spaces + 1
+        return count + 1; // # of words is # of spaces + 1
     };
 
     this.validateEmail = function(email, successCallback, failCallback) {
         var url = '/community/registrationValidationAjax.page';
 
         if (email !== undefined && email.length > 0 && successCallback !== undefined) {
-            jQuery.getJSON(url, {email:email, field:'email'},
+            jQuery.getJSON(url, {email: email, field: 'email'},
                 function(data) {
                     var validationResult = new GS.validation.ValidationResult();
                     var emailErrorMessage = data.email;
@@ -78,20 +78,21 @@ GS.review.Validator = function() {
 
         if (reviewText.length > 1200) {
             validationResult.setValid(false);
-            validationResult.addError("Please keep your comments to 1200 characters or less.");
+            validationResult.addError('Please keep your comments to 1200 characters or less.');
         }
         if (this.countWords(reviewText) < 15) {
             validationResult.setValid(false);
-            validationResult.addError("Please use at least 15 words in your comment.");
+            validationResult.addError('Please use at least 15 words in your comment.');
         }
         return validationResult;
     };
-    
+
 };
 
 /**
  * Do not use new operator on this object until after form is rendered
- * @param id the dom id of the form but should not contain the pound sign
+ * @constructor
+ * @param {string} id the dom id of the form but should not contain the pound sign.
  */
 GS.form.SchoolReviewForm = function(id) {
     this.submitButton = jQuery('#parentReviewFormSubmit');
@@ -104,12 +105,12 @@ GS.form.SchoolReviewForm = function(id) {
 
     //Email
     this.email = new function Email() {
-        var componentName = "email";
+        var componentName = 'email';
         var formComponent = form.find('.' + componentName);
         var element = formComponent.find('input');
         var errorElement = formComponent.find('.form-error');
         var alertElement = formComponent.find('.form-alert');
-        var defaultValue = "[Enter email address]";
+        var defaultValue = '[Enter email address]';
         var valid = false;
         var validator = new GS.review.Validator();
         var error = null; // field only supports one error even though validation result might(should) support multiple
@@ -176,8 +177,8 @@ GS.form.SchoolReviewForm = function(id) {
             var emailAjaxValidationFailed = function(validationResult) {
                 var errors = validationResult.getErrors();
                 var emailErrorMessage = errors[0];
-                if (emailErrorMessage.indexOf("This email address is already registered") != -1) {
-                    this.setAlert("You will need to sign in when you submit your review.");
+                if (emailErrorMessage.indexOf('This email address is already registered') != -1) {
+                    this.setAlert('You will need to sign in when you submit your review.');
                     this.removeError();
                     emailTaken = true;
                 } else {
@@ -195,7 +196,7 @@ GS.form.SchoolReviewForm = function(id) {
                 if (GS.isCookieSet('emailVerified')) {
                     alertText = null;
                 } else {
-                    this.setAlert("You will need to verify your email <br/>address when you submit your review.");
+                    this.setAlert('You will need to verify your email <br/>address when you submit your review.');
                 }
                 emailTaken = false;
                 this.updateErrorDisplay();
@@ -204,7 +205,7 @@ GS.form.SchoolReviewForm = function(id) {
             if (email !== '' && email !== defaultValue) {
                 validator.validateEmail(email, emailAjaxValidationPassed, emailAjaxValidationFailed);
             } else {
-                error = "Please enter a valid email address.";
+                error = 'Please enter a valid email address.';
                 if (displayErrors === true) {
                     this.updateErrorDisplay();
                 }
@@ -219,14 +220,14 @@ GS.form.SchoolReviewForm = function(id) {
             return error;
         }.gs_bind(this);
     };
-    
+
     //Poster dropdown
     this.poster = new function() {
-        var componentName = "role";
+        var componentName = 'role';
         var formComponent = form.find('.' + componentName);
         var element = formComponent.find('select');
         var errorElement = formComponent.find('.form-error');
-        var defaultValue = "- Select one -";
+        var defaultValue = '- Select one -';
         var error = null;
         this.isValid = function() {
             return error === undefined || error === null || error.length === 0;
@@ -256,7 +257,7 @@ GS.form.SchoolReviewForm = function(id) {
         };
         this.validate = function() {
             if (element.val() === '' || element.val() === defaultValue) {
-                error = "Please let us know how you are affiliated with this school.";
+                error = 'Please let us know how you are affiliated with this school.';
             } else {
                 error = null;
                 this.updateErrorDisplay();
@@ -271,14 +272,14 @@ GS.form.SchoolReviewForm = function(id) {
 
     //review text/comments
     this.review = new function() {
-        var componentName = "review-text";
+        var componentName = 'review-text';
         var formComponent = form.find('.' + componentName);
         var element = formComponent.find('textarea');
         var errorElement = formComponent.find('.form-error');
-        var defaultValue = "[Enter your review here]";
+        var defaultValue = '[Enter your review here]';
         var valid = false;
         var validator = new GS.review.Validator();
-        var error = "";
+        var error = '';
 
         this.updateErrorDisplay = function() {
             if (this.isValid()) {
@@ -322,12 +323,12 @@ GS.form.SchoolReviewForm = function(id) {
 
     //overall star rating
     this.overallRating = new function() {
-        var componentName = "rating";
+        var componentName = 'rating';
         var formComponent = form.find('.' + componentName);
         //var element = formComponent.find('input');
         var errorElement = formComponent.find('.form-error');
         var element = jQuery('#overallStarRating');
-        var defaultValue = "0";
+        var defaultValue = '0';
         var error = null;
 
         this.isValid = function() {
@@ -358,7 +359,7 @@ GS.form.SchoolReviewForm = function(id) {
         };
         this.validate = function() {
             if (element.val() === defaultValue) {
-                error = "Please select a star rating for this school.";
+                error = 'Please select a star rating for this school.';
             } else {
                 error = null;
                 this.updateErrorDisplay();
@@ -372,7 +373,7 @@ GS.form.SchoolReviewForm = function(id) {
     };
 
     this.termsOfUse = new function() {
-        var componentName = "terms";
+        var componentName = 'terms';
         var formComponent = form.find('.' + componentName);
         var element = formComponent.find('input');
         var errorElement = formComponent.find('.form-error');
@@ -398,15 +399,15 @@ GS.form.SchoolReviewForm = function(id) {
             return element;
         };
         this.validate = function() {
-            var checked = element.attr("checked");
+            var checked = element.attr('checked');
             if (checked === true) {
                 error = null;
                 this.updateErrorDisplay();
             } else {
-                error = "Please read and accept our Terms of Use to join GreatSchools.";
+                error = 'Please read and accept our Terms of Use to join GreatSchools.';
             }
         }.gs_bind(this);
-        
+
         this.validateAndDisplayErrors = function() {
             this.validate();
             this.updateErrorDisplay();
@@ -414,7 +415,7 @@ GS.form.SchoolReviewForm = function(id) {
     };
 
     this.needToValidateEmail = function() {
-        var disabled = this.email.getElement().attr("disabled");
+        var disabled = this.email.getElement().attr('disabled');
         return !disabled || !GS.isMember();
     };
 
@@ -427,8 +428,8 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.formValid = function() {
-        return (this.email.isValid() || !this.needToValidateEmail()) && this.poster.isValid() && this.review.isValid()
-                && this.overallRating.isValid() && this.termsOfUse.isValid();
+        return (this.email.isValid() || !this.needToValidateEmail()) && this.poster.isValid() &&
+                this.review.isValid() && this.overallRating.isValid() && this.termsOfUse.isValid();
     }.gs_bind(this);
 
     this.resetStars = function() {
@@ -442,7 +443,7 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.showStars = function(numStars) {
-        document.getElementById('currentStarDisplay').style.width = 20*numStars + '%';
+        document.getElementById('currentStarDisplay').style.width = 20 * numStars + '%';
         this.updateStarRatingTitle(numStars);
     }.gs_bind(this);
 
@@ -487,37 +488,37 @@ GS.form.SchoolReviewForm = function(id) {
 
     this.postReview = function(email, callerFormId) {
         var url = '/school/review/postReview.page';
-        //When this method is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
+        //When this is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email != undefined && email != '') {
             this.email.getElement().val(email);
         }
         var formData = this.serialize();
         jQuery.post(url, formData, function(data) {
-            if (data.showHover !== undefined && data.showHover === "emailNotValidated") {
+            if (data.showHover !== undefined && data.showHover === 'emailNotValidated') {
                 GSType.hover.emailNotValidated.show();
                 return false;
-            } else if (data.showHover !== undefined && data.showHover === "validateEmailSchoolReview") {
-                subCookie.setObjectProperty("site_pref", "showHover", "validateEmailSchoolReview", 3);
+            } else if (data.showHover !== undefined && data.showHover === 'validateEmailSchoolReview') {
+                subCookie.setObjectProperty('site_pref', 'showHover', 'validateEmailSchoolReview', 3);
             } else {
                 if (data.reviewPosted !== undefined) {
-                    if (data.reviewPosted === "true") {
+                    if (data.reviewPosted === 'true') {
                         // cookie to show schoolReviewPostedThankYou hover
-                        subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
+                        subCookie.setObjectProperty('site_pref', 'showHover', 'schoolReviewPostedThankYou', 3);
                     } else {
                         // cookie to show schoolReviewNotPostedThankYou hover
-                        subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
+                        subCookie.setObjectProperty('site_pref', 'showHover', 'schoolReviewNotPostedThankYou', 3);
                     }
                 }
             }
 
-            var successEvents = "";
+            var successEvents = '';
             if (data.ratingEvent !== undefined) {
                 successEvents += data.ratingEvent;
             }
             if (data.reviewEvent !== undefined) {
                 successEvents += data.reviewEvent;
             }
-            if (successEvents !== "") {
+            if (successEvents !== '') {
                 pageTracking.clear();
                 pageTracking.successEvents = successEvents;
                 pageTracking.send();
@@ -534,12 +535,12 @@ GS.form.SchoolReviewForm = function(id) {
                 GSType.hover.joinHover.hide();
                 jQuery('#' + callerFormId).submit();
             } else {
-                window.location.href=redirectUrl;
+                window.location.href = redirectUrl;
                 if (reloading) {
                     window.location.reload();
                 }
             }
-        }, "json");
+        }, 'json');
     }.gs_bind(this);
 
     this.submitHandler = function() {
@@ -549,7 +550,12 @@ GS.form.SchoolReviewForm = function(id) {
             } else {
                 jQuery('#signInHover h2 span').hide();
                 //show the "sign in" hover, and tell it to execute the postReview method if users credentials are valid
-                GSType.hover.signInHover.showHover("", window.location.href, GSType.hover.joinHover.showSchoolReviewJoin, this.postReview);
+                GSType.hover.signInHover.showHover(
+                        '',
+                        window.location.href,
+                        GSType.hover.joinHover.showSchoolReviewJoin,
+                        this.postReview
+                );
             }
         } else {
             this.updateAllErrors();
@@ -560,7 +566,7 @@ GS.form.SchoolReviewForm = function(id) {
     this.serialize = function() {
         var serialized = {};
         form.find(':input').each(function() {
-            var name = jQuery(this).attr("name");
+            var name = jQuery(this).attr('name');
 
             if (name !== undefined) {
                 var value = jQuery(this).val();
@@ -582,7 +588,7 @@ GS.form.SchoolReviewForm = function(id) {
         }
         this.review.getElement().blur(this.review.validate);
 
-        var self = this; //jQuery sets the "this" scope in callback below. I need to reference the "this" scope as it is now
+        var self = this; //jQuery sets the "this" scope in callback below. I need to reference "this" scope as it is now
         this.overallRating.getFormComponent().find('a').each(function() {
             var link = jQuery(this);
             var numStars = link.html();
@@ -596,7 +602,7 @@ GS.form.SchoolReviewForm = function(id) {
                 self.setStars(numStars);
             });
         });
-        
+
     }.gs_bind(this);
 
     //this.review.blur(this.validateReviewText.gs_bind(this)); (GS-10810)
@@ -610,7 +616,7 @@ GS.form.SchoolReviewForm = function(id) {
         this.termsOfUse.validate();
         this.review.validate();
     }.gs_bind(this);
-    
+
     //Constructor code
     this.attachEventHandlers();
     this.validateOnLoad();
