@@ -17,6 +17,8 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:form="http://www.springframework.org/tags/form"
         >
 
+<jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
+
     <div id="js-school-search-results-table">
 <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
 
@@ -206,7 +208,7 @@
 
     <c:if test="${fn:length(schoolSearchResults) gt 0}">
         <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
-            <search:schoolSearchResult school="${s}"/>
+            <search:schoolSearchResult school="${s}" omniturePageName="${pageScope.omniturePageName}"/>
         </c:forEach>
     </c:if>
 

@@ -11,6 +11,7 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
     <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult"/>
+    <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
         <tr class="school-search-result-row" id="school-search-result-${school.databaseState}${school.id}">
 
@@ -101,7 +102,8 @@
 
                                     <div class="msl-text bd">
                                         <a href="#" class="js-add-msl-link"
-                                           id="js-add-msl-link-${school.databaseState}${school.id}">
+                                           id="js-add-msl-link-${school.databaseState}${school.id}"
+                                           onclick="if (s.tl) {s.tl(this,'o', 'Add_to_MSL_Link_${pageScope.omniturePageName}');} return true;">
                                             Add to My School List
                                         </a>
                                     </div>

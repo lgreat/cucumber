@@ -23,7 +23,7 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<search:schoolSearchResultsTable/>
+<search:schoolSearchResultsTable omniturePageName="${omniturePageName}"/>
 
 <map:updateSchoolSearchMap
         id="nearbySchoolsMap"

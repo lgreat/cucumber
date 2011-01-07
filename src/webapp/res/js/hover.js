@@ -894,6 +894,7 @@ GSType.hover.MslHover = function() {
 
     this.loadDialog = function() {
         jQuery('#msl-hover').bind('dialogclose', this.onClose.gs_bind(this));
+        this.pageName='Add_to_MSL_Ajax_Hover';
     };
 
     this.onClose = function() {
