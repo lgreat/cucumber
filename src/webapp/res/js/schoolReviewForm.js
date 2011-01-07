@@ -546,6 +546,7 @@ GS.form.SchoolReviewForm = function(id) {
     this.submitHandler = function() {
         if (this.formValid()) {
             if (GS.isSignedIn() || !this.email.isEmailTaken()) {
+                jQuery('#parentReviewFormSubmit').attr('disabled','disabled');
                 this.postReview();
             } else {
                 jQuery('#signInHover h2 span').hide();
