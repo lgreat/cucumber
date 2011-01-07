@@ -75,7 +75,7 @@
                                      noStateLabel="Choose a state"
                                      useNoState="${not empty requestScope.context.state}"
                                      usingLongNames="true"
-                                     tabIndex="9"/>
+                                     tabIndex="9" />
             </div>
             <div class="spacer_10"><!-- do not collapse --></div>
 
@@ -88,7 +88,8 @@
             <div class="unit size13of14 lastUnit">
                 <select name="city"
                         id="citySelect"
-                        tabindex="10">
+                        tabindex="10"
+                        disabled="disabled">
                     <option selected="selected" value="">Choose a city</option>
                     <c:forEach var="cityOption" items="${cities}">
                         <![CDATA[<option ]]>
@@ -106,7 +107,8 @@
             <div class="unit size13of14 lastUnit">
                 <select id="schoolSelect"
                         name="sid"
-                        class="selectSchool">
+                        class="selectSchool"
+                        disabled="disabled">
                     <option value="">Choose a school</option>
                 </select>
             </div>

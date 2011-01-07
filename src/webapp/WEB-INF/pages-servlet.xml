@@ -2301,32 +2301,22 @@
           class="gs.web.promo.SchoolChoicePackPromoController"
           autowire="byName" lazy-init="true"/>
 
-     <bean name="/school/parentReview.page"
-          class="gs.web.school.review.AddParentReviewsController"
+    <bean name="/school/parentReview.page"
+          class="gs.web.school.review.ParentReviewLandingPageController"
           autowire="byName" lazy-init="true">
-         <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="parentReviewCommand"/>
-        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
-        <property name="successView" value="parentReviews"/>
-        <property name="formView" value="school/parentReview" />
+        <property name="viewName">
+            <value>school/parentReview</value>
+        </property>
     </bean>
 
-    <bean name="/morgan-stanley/"
-          class="gs.web.school.review.AddParentReviewsController"
-          autowire="byName" lazy-init="true">
-         <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="parentReviewCommand"/>
-        <property name="commandClass" value="gs.web.school.review.ReviewCommand"/>
-        <property name="successView" value="parentReviews"/>
-        <property name="formView" value="school/parentReviewMorganStanley" />
-        <property name="how" value="morganstanley"/>
+    <!--<bean name="/morgan-stanley/"
+          please copy bean definition used for /school/parentReview.page (landing page)
     </bean>
-
     <bean name="/morgan-stanley"
           class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
         <property name="redirectPath" value="/morgan-stanley/"/>
-    </bean>
+    </bean>-->
 
     <bean id="apiAccountValidator" class="gs.web.api.ApiAccountCommandValidator"
           autowire="byName" lazy-init="true"/>

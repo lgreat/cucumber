@@ -9,40 +9,130 @@ if (GS.form === undefined) {
 }
 
 GS.module.SchoolSelect = function() {
+    var self = this; //needed inside of jquery iterator
     this._levelCode = undefined;
     this._role = undefined;
 
-    this.onStateChange = function() {
-        var state = jQuery('#stateSelect').val();
-        this.getCities(state);
-    }.gs_bind(this);
+    var becomeInvalidCallback = null;
+    var becomeValidCallback = null;
 
-    this.getCities = function(state) {
-        var url = "/community/registrationAjax.page";
+    this.Field = function(id) {
+        this.$element = jQuery('#' + id);
+        var error = null;
+        this.requiredError = "This field is required.";
+        this.validate = function() {
+            //TODO: override this instead of writing here
+            if (this.$element.val() !== '' && this.$element.val() !== '- Choose city -' &&
+                    this.$element.val() !== 'Choose a school' && this.$element.val() !== 'My city is not listed') {
+                error = null;
+            } else {
+                error = this.requiredError;
+            }
+        };
+        this.isValid = function() {
+            return error === null;
+        };
+    };
 
-        jQuery('#citySelect').html("<option>Loading...</option>");
+    this.stateSelect = new this.Field('stateSelect');
+    this.stateSelect.requiredError = "Please choose a state";
 
-        jQuery.getJSON(url, {state:state, format:'json', type:'city'}, this.updateCitySelect);
-    }.gs_bind(this);
+    this.citySelect = new this.Field('citySelect');
+    this.citySelect.requiredError = "Please choose a city";
+    this.citySelect.reset = function() {
+        this.$element.val('- Choose city -');
+    };
 
-    this.updateCitySelect = function(data) {
-        var citySelect = jQuery('#citySelect');
-        if (data.cities) {
-            citySelect.empty();
-            for (var x = 0; x < data.cities.length; x++) {
-                var city = data.cities[x];
-                if (city.name) {
-                    citySelect.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
+    this.schoolSelect = new this.Field('schoolSelect');
+    this.schoolSelect.requiredError = "Please choose a school";
+    this.schoolSelect.reset = function() {
+        this.$element.val('Choose a school');
+    };
+
+    this.roleSelect = new this.Field('userRoleSelect');
+    this.roleSelect.requiredError = "Please choose a role";
+
+
+    var valid = false;
+
+    this.validateAllFields = function() {
+        this.stateSelect.validate();
+        this.citySelect.validate();
+        this.schoolSelect.validate();
+        this.roleSelect.validate();
+    };
+    
+    this.isValid = function() {
+        var valid = false;
+        if (this.stateSelect.isValid() && this.citySelect.isValid() &&
+                this.schoolSelect.isValid() && this.roleSelect.isValid()) {
+            valid = true;
+        }
+        return valid;
+    };
+
+    this.checkIfValid = function() {
+        var newValidationState = this.isValid();
+        if (valid !== newValidationState) {
+            valid = newValidationState;
+            if (newValidationState) {
+                if (becomeValidCallback !== undefined) {
+                    becomeValidCallback();
+                }
+            } else {
+                if (becomeInvalidCallback !== undefined) {
+                    becomeInvalidCallback();
                 }
             }
         }
     }.gs_bind(this);
 
+    this.registerValidCallback = function(callback) {
+        becomeValidCallback = callback;
+    };
+    this.registerInvalidCallback = function(callback) {
+        becomeInvalidCallback = callback;
+    };
+
+    this.onStateChange = function() {
+        var state = this.stateSelect.$element.val();
+        this.citySelect.$element.attr("disabled", true);
+        this.citySelect.reset();
+        this.schoolSelect.$element.attr("disabled", true);
+        this.schoolSelect.reset();
+        this.getCities(state);
+        this.validateAllFields();
+        this.checkIfValid();
+    }.gs_bind(this);
+
+    this.getCities = function(state) {
+        var url = "/community/registrationAjax.page";
+
+        this.citySelect.$element.html("<option>Loading...</option>");
+
+        jQuery.getJSON(url, {state:state, format:'json', type:'city'}, this.updateCitySelect);
+    }.gs_bind(this);
+
+    this.updateCitySelect = function(data) {
+        if (data.cities) {
+            this.citySelect.$element.empty();
+            for (var x = 0; x < data.cities.length; x++) {
+                var city = data.cities[x];
+                if (city.name) {
+                    this.citySelect.$element.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
+                }
+            }
+        }
+        this.citySelect.$element.attr("disabled", false);
+    }.gs_bind(this);
+
     this.onCityChange = function() {
         var state = jQuery('#stateSelect').val();
         var city = jQuery('#citySelect').val();
-
-        this.getSchools(state, city)
+        this.schoolSelect.$element.attr("disabled", true);
+        this.getSchools(state, city);
+        this.validateAllFields();
+        this.checkIfValid();
     }.gs_bind(this);
 
     this.getSchools = function(state, city) {
@@ -51,24 +141,35 @@ GS.module.SchoolSelect = function() {
     }.gs_bind(this);
 
     this.updateSchoolSelect = function(data) {
-        jQuery('#schoolSelect').html("");
+        self.schoolSelect.$element.html('');
         jQuery(data).find('option').each(function () {
-            jQuery('#schoolSelect').append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
+            self.schoolSelect.$element.append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
         });
+        self.schoolSelect.$element.attr("disabled", false);
     };
 
     this.onSchoolChange = function() {
-        var schoolId = jQuery('#schoolSelect').val();
-        var state = jQuery('#stateSelect').val();
+        var schoolId = this.schoolSelect.$element.val();
+        var state = this.stateSelect.$element.val();
         this.getSchool(state, schoolId);
+        this.validateAllFields();
+        this.checkIfValid();
     }.gs_bind(this);
 
     this.getSchool = function(state, school) {
         if (state != '' && school !== '') {
             var url = '/school/schoolForParentReview.page';
-            var params = {schoolId : school, state : jQuery('#stateSelect').val()};
+            var params = {schoolId : school, state : this.stateSelect.$element.val()};
             jQuery.getJSON(url, params, this.updatePageWithSchool);
         }
+    }.gs_bind(this);
+    
+    this.onRoleChange = function() {
+        this._role = this.roleSelect.$element.val();
+        jQuery('#posterAsString').val(this._role); //create another hook up for so form can register a callback
+        this.updateAdditionalStarRatings(this._role, this._levelCode);
+        this.validateAllFields();
+        this.checkIfValid();
     }.gs_bind(this);
 
     this.updatePageWithSchool = function(data) {
@@ -126,12 +227,6 @@ GS.module.SchoolSelect = function() {
         }
 
         this._levelCode = data.levelCode;
-        this.updateAdditionalStarRatings(this._role, this._levelCode);
-    }.gs_bind(this);
-
-    this.onRoleChange = function() {
-        this._role = jQuery('#userRoleSelect').val();
-        jQuery('#posterAsString').val(this._role); //create another hook up for so form can register a callback
         this.updateAdditionalStarRatings(this._role, this._levelCode);
     }.gs_bind(this);
 
@@ -210,16 +305,28 @@ GS.module.SchoolSelect = function() {
     };
 
     this.attachEventHandlers = function() {
-        jQuery('#stateSelect').change(this.onStateChange);
-        jQuery('#citySelect').change(this.onCityChange);
-        jQuery('#schoolSelect').change(this.onSchoolChange);
-        jQuery('#userRoleSelect').change(this.onRoleChange);
-    };
+        this.stateSelect.$element.change(this.onStateChange);
+        this.citySelect.$element.change(this.onCityChange);
+        this.schoolSelect.$element.change(this.onSchoolChange);
+        this.roleSelect.$element.change(this.onRoleChange);
+    }.gs_bind(this);
 
     this.attachEventHandlers();
+
+    this.validateAllFields();
 
 };
 
 jQuery(function() {
     GS.module.schoolSelect = new GS.module.SchoolSelect();
+
+    GS.module.schoolSelect.registerValidCallback(function() {
+       jQuery('#addParentReviewForm').show();
+    });
+
+    GS.module.schoolSelect.registerInvalidCallback(function() {
+       jQuery('#addParentReviewForm').hide();
+    });
+
+    jQuery('#addParentReviewForm').hide();
 });
