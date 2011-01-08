@@ -29,11 +29,19 @@
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Reviews">
             <tbody>
                 <tr>
-                    <th scope="row">School</th>
+                    <th scope="row" rowspan="2">School</th>
+                    <c:forEach items="${schools}" var="school">
+                        <td class="cs_schools" style="border-bottom: 0;">
+                            <compare:schoolOverviewTop school="${school}" tab="${tab}"
+                                                       schoolsString="${schoolsString}" page="${page}"/>
+                        </td>
+                    </c:forEach>
+                </tr>
+                <tr>
                     <c:forEach items="${schools}" var="school">
                         <td class="cs_schools">
-                            <compare:schoolOverview school="${school}" tab="${tab}"
-                                                    schoolsString="${schoolsString}" page="${page}"/>
+                            <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
+                                                          schoolsString="${schoolsString}" page="${page}"/>
                         </td>
                     </c:forEach>
                 </tr>

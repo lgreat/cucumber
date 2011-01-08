@@ -1051,6 +1051,17 @@ body.ie6 .fltlft {
 body.ie6 #compareTable .censusBreakdown li {
     height: 1%;
 }
+body.ie6 .compareNavigation {
+    height: 34px;
+    overflow: hidden;
+    
+}
+body.ie6 .schoolList {
+    width: 240px;
+    position: relative;
+    background: #fff;
+}
+
 
 /* =debugging styles
 -------------------------------------------------------------------------------------------*/

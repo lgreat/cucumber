@@ -64,9 +64,6 @@ img.errorIcon {
 }
 
 #contentGS p.warning {
-    position: absolute;
-    top: 5px;
-    left: 564px;
     color: #cc5566;
     font-size: 11px;
     line-height: 12px;

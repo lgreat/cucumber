@@ -78,10 +78,10 @@
         </c:choose>
         <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}" alignment="bottom"/>
         <div class="footerInfo clearBoth">
-            <div class="contactUs fltlft">
+            <p class="contactUs fltlft">
                 Notice an inaccuracy?
                 <link:schoolFeedback>Let us know</link:schoolFeedback>
-            </div>
+            </p>
         <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
                                   startIndex="${startIndex}" endIndex="${endIndex}"
                                   totalSchools="${totalSchools}" pageSize="${pageSize}"/>
@@ -92,9 +92,9 @@
             <!--</div>-->
             <!-- GS-10783 Following code depends on vars exposed by CompareTestScoresController -->
             <c:if test="${tab eq 'testScores' and not empty testRows}">
-                <div class="dataNote clearBoth">
-                    Test score data reflects the percentage of students at the school meeting or exceeding standards.
-                </div>
+                <p class="text3 clearBoth">
+                    <em>Test score data reflects the percentage of students at the school meeting or exceeding standards.</em>
+                </p>
             </c:if>
         </div>
     </div>
