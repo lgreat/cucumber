@@ -680,7 +680,14 @@
     flipPage(${start});
 
     jQuery(function() {
-
+        if (!Array.prototype.indexOf) {
+            Array.prototype.indexOf = function(obj, start) {
+                 for (var i = (start || 0), j = this.length; i &lt; j; i++) {
+                     if (this[i] == obj) { return i; }
+                 }
+                 return -1;
+            }
+        } // IE fix
 
         jQuery('.compare-school-checkbox').click(function(item) {
             if (jQuery(this).attr('checked') &amp;&amp; compareSchoolsArray.length >= 8) {
@@ -747,7 +754,11 @@
                 compareSchoolsArray.push(jQuery(this).attr('id'));
             } else {
                 theTR.children().removeClass('bg-color-f4fafd');
-                compareSchoolsArray.pop(jQuery(this).attr('id'));
+                var idToRemove = jQuery(this).attr('id');
+                var index = compareSchoolsArray.indexOf(idToRemove);
+                if (index !== -1) {
+                    compareSchoolsArray.splice(index,1);
+                }
             }
         });
 
