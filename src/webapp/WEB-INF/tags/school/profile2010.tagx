@@ -395,6 +395,25 @@
                                 caller="${caller}"
                                 />
                     <!--</c:if>-->
+
+                    <!-- GS-10629 Community module / Raise Your Hand -->
+                    <c:choose>
+                        <c:when test="${not empty localBoardId and not empty localCityName}">
+                            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                            <c:set var="recentDiscussions">
+                                <c:import
+                                        url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false"/>
+                            </c:set>
+                            ${recentDiscussions}
+                        </c:when>
+                        <c:when test="${not empty ryhContentKey}">
+                            <c:set var="raiseYourHand">
+                                <c:import
+                                        url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(ryhContentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
+                            </c:set>
+                            ${raiseYourHand}
+                        </c:when>
+                    </c:choose>
                 </div>
             </c:if>
         </div>

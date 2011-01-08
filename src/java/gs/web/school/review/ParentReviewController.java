@@ -3,6 +3,12 @@ package gs.web.school.review;
 import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
+import gs.data.community.local.ILocalBoardDao;
+import gs.data.community.local.LocalBoard;
+import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.ContentKey;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.NearbySchool;
@@ -44,6 +50,8 @@ public class ParentReviewController extends AbstractController {
     private ISchoolDao _schoolDao;
     private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
+    private ILocalBoardDao _localBoardDao;
+    private IGeoDao _geoDao;
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_PAGE = "page";
@@ -53,6 +61,10 @@ public class ParentReviewController extends AbstractController {
     protected static final String PARAM_REVIEWS_BY = "reviewsBy";
     protected static final String MODEL_URI = "uri";
     protected static final Log _log = LogFactory.getLog(ParentReviewController.class.getName());
+
+    public static final String MODEL_LOCAL_BOARD_ID = "localBoardId";
+    public static final String MODEL_LOCAL_CITY_NAME = "localCityName";
+    public static final String MODEL_RYH_CONTENT_KEY = "ryhContentKey";
 
     //Compare on who, then overall rating descending, then date posted descending
     private static final Comparator<Review> PRINCIPAL_OVERALL_RATING_DESC_DATE_DESC =
@@ -252,6 +264,37 @@ public class ParentReviewController extends AbstractController {
             model.put("gs_rating", gsRating);
             model.put("ratings", ratings);
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
+
+            // GS-10629
+            if (StringUtils.isNotBlank(school.getCity()) && school.getDatabaseState() != null) {
+                City localCity = _geoDao.findCity(school.getDatabaseState(), school.getCity());
+                if (localCity != null) {
+                    LocalBoard localBoard = _localBoardDao.findByCityId(localCity.getId());
+                    if (localBoard != null) {
+                        model.put(MODEL_LOCAL_BOARD_ID, localBoard.getBoardId());
+                        model.put(MODEL_LOCAL_CITY_NAME, localCity.getName());
+                    } else {
+                        LevelCode levelCode = school.getLevelCode();
+                        if (levelCode != null) {
+                            ContentKey ryhContentKey = null;
+                            if (levelCode.equals(LevelCode.PRESCHOOL)) {
+                                ryhContentKey = new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, CmsConstants.PRESCHOOL_TOPIC_CENTER_ID);
+                            } else if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                                ryhContentKey = new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID);
+                            } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                                ryhContentKey = new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID);
+                            } else if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                                ryhContentKey = new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID);
+                            }
+
+                            if (ryhContentKey != null) {
+                                model.put(MODEL_RYH_CONTENT_KEY, ryhContentKey);
+                            }
+                        }
+                    }
+                }
+            }
+
         }
         return new ModelAndView(getViewName(), model);
     }
@@ -605,5 +648,21 @@ public class ParentReviewController extends AbstractController {
 
     public void setRatingHelper(RatingHelper ratingHelper) {
         _ratingHelper = ratingHelper;
+    }
+
+    public ILocalBoardDao getLocalBoardDao() {
+        return _localBoardDao;
+    }
+
+    public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
+        _localBoardDao = localBoardDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }
