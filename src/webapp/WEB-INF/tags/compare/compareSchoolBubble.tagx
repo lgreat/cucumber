@@ -80,9 +80,25 @@
                 </div>
             </div>
             <div class="unit lastUnit">
-                <div class="msl">
-                    <link:mySchoolList school="${school.school}">Add to My School List</link:mySchoolList>
-                </div>
+                <p class="msl js-add-msl smallText1" id="js-add-msl-${school.state}${school.id}">
+                    <c:choose>
+                        <c:when test="${school.inMsl}">
+                            <!--<span class="sprite i-checkmark-sm">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                            <span class="js-msl-text">
+                                Added to <link:mySchoolList>My School List</link:mySchoolList>
+                            </span>
+                        </c:when>
+                        <c:otherwise>
+                            <!--<span class="sprite i-add-sm">&lt;!&ndash; do not collapse &ndash;&gt;</span>&amp;nbsp;-->
+                            <span class="js-msl-text">
+                                <link:mySchoolList school="${school.school}"
+                                                   onclick="compare_onClickAddMslLink(this); return false;"
+                                                   styleClass="js-add-msl-link"
+                                                   styleId="js-add-msl-link-${school.state}${school.id}">Add to My School List</link:mySchoolList>
+                            </span>
+                        </c:otherwise>
+                    </c:choose>
+                </p>
             </div>
         </div>
     </div>
