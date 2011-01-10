@@ -231,10 +231,10 @@
         </c:forEach>
     </c:if>
     <tr class="uncheck">
-        <td class="smallText1"><a href="#" class="js-compare-uncheck-all"
-                                  onclick="return false;">Uncheck All</a></td>
-        <td colspan="3" class="smallText1">
-            You have checked
+        <td class="smallText1 center"><strong><a href="#" class="js-compare-uncheck-all"
+                                  onclick="return false;">Uncheck All</a></strong></td>
+        <td colspan="3" class="smallText1 vtop">
+            <em>You have checked
             <!--
             .js-how-many-compare-checked-unlinked is shown when 1 school is selected
             .js-num-checked-send-to-compare is shown when 2 or more schools are selected
@@ -242,7 +242,7 @@
             <span class="js-how-many-compare-checked-unlinked">1 school to compare</span><a
                 href="#" onclick="return false;" class="js-num-checked-send-to-compare"
                 style="display:none;">
-                <span class="js-how-many-compare-checked-linked">2</span> schools to compare</a>.
+                <span class="js-how-many-compare-checked-linked">2</span> schools to compare</a>.</em>
         </td>
     </tr>
     </tbody>

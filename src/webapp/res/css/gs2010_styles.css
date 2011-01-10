@@ -6567,7 +6567,12 @@ body.ie7 #frmPRModule .helperMessage {
 #school-search-results-table-body td {
     padding: 10px 0;
 }
-
+#school-search-results-table-body td.center {
+    text-align: center;
+}
+#school-search-results-table-body td.vtop {
+    vertical-align: top;
+}
 #school-search-results-table-body .button-1Ext-2 {
     width: 50px;
 }
