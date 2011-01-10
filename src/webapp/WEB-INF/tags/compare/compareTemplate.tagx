@@ -26,22 +26,27 @@
     <div id="csMain" class="leftSide fltlft">
         <div class="compareHeader">
             <c:if test="${not empty requestScope.returnLink}">
-                <a onclick="if (s.tl) {s.tl(this,'o','Compare_Back_to_Search_Results_Link');} return true;"
+                <c:choose>
+                    <c:when test="${not empty source and source eq 'msl'}">
+                        <c:set var="back_custom_name" value="Compare_Back_to_MSL_Link"/>
+                        <c:set var="back_link_text" value="Back to My School List"/>
+                    </c:when>
+                    <c:when test="${not empty source and fn:startsWith(source, 'spoverview')}">
+                        <c:set var="back_custom_name" value="Compare_Back_to_School_Overview_Link"/>
+                        <c:set var="back_link_text" value="Back to school profile"/>
+                    </c:when>
+                    <c:when test="${not empty source and fn:startsWith(source, 'spreviews')}">
+                        <c:set var="back_custom_name" value="Compare_Back_to_School_Reviews_Link"/>
+                        <c:set var="back_link_text" value="Back to school reviews"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="back_custom_name" value="Compare_Back_to_Search_Results_Link"/>
+                        <c:set var="back_link_text" value="Back to search results"/>
+                    </c:otherwise>
+                </c:choose>
+                <a onclick="if (s.tl) {s.tl(this,'o','${back_custom_name}');} return true;"
                    href="${requestScope.returnLink}" ><span class="alertDoubleArrow">&#171;</span>
-                    <c:choose>
-                        <c:when test="${not empty source and source eq 'msl'}">
-                            Back to My School List
-                        </c:when>
-                        <c:when test="${not empty source and fn:startsWith(source, 'spoverview')}">
-                            Back to school profile
-                        </c:when>
-                        <c:when test="${not empty source and fn:startsWith(source, 'spreviews')}">
-                            Back to school reviews
-                        </c:when>
-                        <c:otherwise>
-                            Back to search results
-                        </c:otherwise>
-                    </c:choose>
+                    ${back_link_text}
                 </a>
             </c:if>
             <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
