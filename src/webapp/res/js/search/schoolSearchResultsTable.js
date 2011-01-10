@@ -344,6 +344,15 @@ GS.search.SchoolSearchResultsTable = function() {
             mslHelper.addSchool(state, id, function() {
                 jQuery('#js-add-msl-' + statePlusId).find('.msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
                 jQuery('#js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
+
+                //TODO: move this out into global method
+                // "dis-arm" the reload stale page function so it doesn't fire until the page is reloaded from the
+                // browser's cache
+                window.reload_stale_page = function(){};
+
+                // change the iframe to point to a page that will reload the page when it loads
+                jQuery("#page_is_fresh").attr("src","/res/stale.html");
+
             }, function() {});
         } else {
             //show hover, create msl, save school to msl, round trip to log user in

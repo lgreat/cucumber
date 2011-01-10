@@ -50,6 +50,11 @@
     </c:if>
 </head>
 
+<script type="text/javascript">
+  function reload_stale_page() { location.reload(); }
+</script>
+<iframe id="page_is_fresh" src="/res/fresh.html" style="display:none;visibility:hidden;"><!-- --></iframe>
+
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
