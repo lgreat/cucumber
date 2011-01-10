@@ -61,7 +61,7 @@
                             <col class="rowHeader"/>
                             <!-- School columns -->
                             <c:forEach items="${schools}" varStatus="loopStatus">
-                                <col class="schoolColumn${loopStatus.index+1}"/>
+                                <col class="schoolColumn${loopStatus.index+1} col_${fn:length(schools)}"/>
                             </c:forEach>
                             <jsp:doBody/>
                         </table>
