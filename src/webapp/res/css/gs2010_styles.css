@@ -6712,6 +6712,7 @@ body.ie7 #frmPRModule .helperMessage {
 table#compareTable {
     border: solid #c6c6c6;
     border-width: 0 1px 1px;
+    clear: both;
 }
 
 table#compareTable th,
@@ -6723,7 +6724,7 @@ table#compareTable td {
 
 table#compareTable th {
     border-bottom: 1px solid #c6c6c6;
-    width: 34px;
+    width: 85px;
 }
 
 table#compareTable th em {
@@ -6736,10 +6737,20 @@ table#compareTable th p.minimum em {
 table#compareTable td {
     border: solid #c6c6c6;
     border-width: 0 0 1px 1px;
-    width: 139px;
+}
+table#compareTable col.col_4 {
+    width: 162px;
+}
+table#compareTable col.col_3 {
+    width: 216px;
+}
+table#compareTable col.col_2 {
+    width: 324px;
+}
+table#compareTable col.col_1 {
+    width: 648px;
 }
 table#compareTable td p {
-    width: 130px;
     word-wrap: break-word;
 }
 table#compareTable td.cs_schools p.text3 {

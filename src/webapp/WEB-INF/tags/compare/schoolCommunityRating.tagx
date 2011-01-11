@@ -16,13 +16,11 @@
 
     <c:choose>
         <c:when test="${communityRating gt 0}">
-            <span class="sprite stars_lg_${communityRating}"><!-- do not collapse --></span>
+            <span class="sprite stars_lg_${communityRating}"><!-- do not collapse --></span><br />
             <c:if test="${not empty numRatings and numRatings gt 0}">
-                <p class="smallText1-333">
                     <link:schoolProfileParentReview school="${school}">
                         Based on ${numRatings} ${gsweb:pluralize(numRatings, 'rating')}
                     </link:schoolProfileParentReview>
-                </p>
             </c:if>
         </c:when>
         <c:otherwise>

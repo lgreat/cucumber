@@ -65,7 +65,7 @@
                                     <span class="ratingNotApplicable rateDesc sprite badge_sm_na"><!-- don't collapse --></span>
                                 </c:when>
                                 <c:otherwise>
-                                    <p class="smallText1"><span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span></p>
+                                    <span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span>
                                 </c:otherwise>
                             </c:choose>
                         </link:schoolProfileRating2010>
@@ -95,7 +95,7 @@
             <tr>
                 <th scope="row">Community rating <em>(overall)</em></th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="cs_commRate center">
+                    <td class="cs_commRate center smallText1">
                         <compare:schoolCommunityRating school="${school.school}"
                                                        communityRating="${school.communityRating}"
                                                        numRatings="${school.numRatings}"/>

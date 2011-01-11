@@ -58,7 +58,7 @@
                 <tr>
                     <th scope="row">Community rating <em>(overall)</em></th>
                     <c:forEach items="${schools}" var="school">
-                        <td class="cs_commRate center">
+                        <td class="cs_commRate center smallText1">
                             <compare:schoolCommunityRating school="${school.school}"
                                                            communityRating="${school.communityRating}"
                                                            numRatings="${school.numRatings}"/>
