@@ -151,6 +151,12 @@ GS.module.SchoolSelect = function() {
     this.onSchoolChange = function() {
         var schoolId = this.schoolSelect.$element.val();
         var state = this.stateSelect.$element.val();
+
+        jQuery('#esp-link').click(function() {
+            this.showPrincipalHover(state, schoolId);
+            return false;
+        }.gs_bind(this));
+
         this.getSchool(state, schoolId);
         this.validateAllFields();
         this.checkIfValid();
@@ -225,6 +231,8 @@ GS.module.SchoolSelect = function() {
         } else {
             jQuery('#number-of-ratings').html("Be the first to rate!");
         }
+
+        jQuery('.esp-link').attr('id', 'esp-link-' + state + id);
 
         this._levelCode = data.levelCode;
         this.updateAdditionalStarRatings(this._role, this._levelCode);
@@ -304,6 +312,21 @@ GS.module.SchoolSelect = function() {
         }
     };
 
+    this.showPrincipalHover = function(schoolState, schoolId) {
+        if (s.tl) {
+            s.tl(this, 'o', 'PrincipalUpdate_Parent_Reviews');
+        }
+
+        pageTracking.pageName = "School Officials Pre Signup Hover";
+        pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
+        pageTracking.server = "www.greatschools.org";
+        pageTracking.send();
+
+        GSType.hover.principalConfirmation.show(schoolId, schoolState);
+
+        return false;
+    };
+
     this.attachEventHandlers = function() {
         this.stateSelect.$element.change(this.onStateChange);
         this.citySelect.$element.change(this.onCityChange);
@@ -329,4 +352,5 @@ jQuery(function() {
     });
 
     jQuery('#addParentReviewForm').hide();
+
 });

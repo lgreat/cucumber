@@ -75,7 +75,7 @@
                                      noStateLabel="Choose a state"
                                      useNoState="${not empty requestScope.context.state}"
                                      usingLongNames="true"
-                                     tabIndex="9" />
+                                     tabIndex="1" />
             </div>
             <div class="spacer_10"><!-- do not collapse --></div>
 
@@ -88,7 +88,7 @@
             <div class="unit size13of14 lastUnit">
                 <select name="city"
                         id="citySelect"
-                        tabindex="10"
+                        tabindex="2"
                         disabled="disabled">
                     <option selected="selected" value="">Choose a city</option>
                     <c:forEach var="cityOption" items="${cities}">
@@ -106,6 +106,7 @@
 
             <div class="unit size13of14 lastUnit">
                 <select id="schoolSelect"
+                        tabindex="3"
                         name="sid"
                         class="selectSchool"
                         disabled="disabled">
@@ -122,6 +123,7 @@
             </div>
             <div class="unit size13of14 lastUnit">
                 <select id="userRoleSelect"
+                        tabindex="4"
                         name="userRoleAsString">
                     <option value="" selected="selected">- Select one -</option>
                     <option value="parent">parent</option>
@@ -242,7 +244,7 @@
 
     <div class="line">
         <div class="unit size1of1 lastUnit">
-            <link:parentReviewGuidelines styleClass="fltrt">School review guidelines</link:parentReviewGuidelines>
+            <link:parentReviewGuidelines styleClass="fltrt" target="_blank">School review guidelines</link:parentReviewGuidelines>
         </div>
     </div>
 
@@ -325,7 +327,7 @@
 
     <div class="spacer_10"><!-- do not collapse --></div>
 
-    <link:privacyPolicy>GreatSchools Privacy Policy</link:privacyPolicy>
+    <link:privacyPolicy target="_blank">GreatSchools Privacy Policy</link:privacyPolicy>
 
     <div class="spacer_20"><!-- do not collapse --></div>
 
@@ -394,7 +396,7 @@
     <div id="additionalStarRatingsExplained" class="line hidden">
         <div class="spacer_15"><!-- do not collapse --></div>
         <div class="text2 unit size1of1 lastUnit">
-            <link:parentRatingsExplained>More about additional categories <span class="alertDoubleArrow">&amp;raquo;</span>
+            <link:parentRatingsExplained target="_blank">More about additional categories <span class="alertDoubleArrow">&amp;raquo;</span>
             </link:parentRatingsExplained>
         </div>
         <div class="spacer_5"><!-- do not collapse --></div>
@@ -402,7 +404,7 @@
 
     <div class="line">
         <div class="text2 unit size1of1 lastUnit">
-            <a href="#">Principals, submit your review here <span class="alertDoubleArrow">&amp;raquo;</span></a>
+            <a href="#" id="esp-link" >Principals, submit your review here <span class="alertDoubleArrow" target="_blank">&amp;raquo;</span></a>
         </div>
         <div class="spacer_5"><!-- do not collapse --></div>
     </div>
