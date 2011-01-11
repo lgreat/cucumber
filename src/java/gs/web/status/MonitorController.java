@@ -97,6 +97,14 @@ public class MonitorController implements ReadWriteController {
         String buildtime = _versionProperties.getProperty("gsweb.buildtime");
         String version = _versionProperties.getProperty("gsweb.version");
         String branch = _versionProperties.getProperty("gsweb.branch");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        try {
+            Date buildTimeDate = sdf.parse(buildtime);
+            sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+            buildtime = sdf.format(buildTimeDate);
+        } catch (Exception e) {
+            // ignore
+        }
         model.put("buildtime", buildtime);
         model.put("version", version);
 
