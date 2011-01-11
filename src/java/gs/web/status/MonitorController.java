@@ -200,7 +200,7 @@ public class MonitorController implements ReadWriteController {
     }
 
     protected String generateFisheyeUrl(String branch, String buildtime, String module) throws ParseException {
-        Date builddate = new SimpleDateFormat("yyyyMMddHHmmss").parse(buildtime);
+        Date builddate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(buildtime);
         String fisheyeBuildTime = new SimpleDateFormat("yyyy-MM-dd'T'HH'%3A'mm'%3A'ss.00").format(builddate);
         return "http://cvsweb.greatschools.org/search/gsrepo/" + module +
                 "?ql=select+revisions+from+dir+%2F" + module + "+where+(" + ("HEAD".equals(branch)?"":"on+branch+" + branch + "+and+") + 
