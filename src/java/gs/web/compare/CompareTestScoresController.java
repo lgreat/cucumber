@@ -181,7 +181,7 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
             }
             CompareLabel label = _compareLabelDao.findLabel(state,dataTypeId,config.getTabName(),config.getGrade(),breakdown,config.getLevelCode(),config.getSubject());
             if (label == null) {
-                _log.warn("Can't find label corresponding to config row: " + config.getId());
+                _log.error("Can't find label corresponding to config row: " + config.getId());
                 continue;
             }
             // add testDataSet to list
@@ -225,8 +225,8 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
         }
 
         for(SchoolTestValue schoolTestValue : schoolTestValues){
-            _log.warn("Processing schoolTestValue for school " + schoolTestValue.getSchool().getId() + " with value " +
-                              getValueAsText(schoolTestValue) + " and year " + schoolTestValue.getDataSet().getYear());
+//            _log.warn("Processing schoolTestValue for school " + schoolTestValue.getSchool().getId() + " with value " +
+//                              getValueAsText(schoolTestValue) + " and year " + schoolTestValue.getDataSet().getYear());
             SchoolType schoolTypeOverride = testDataSetToSchoolTypeMap.get(schoolTestValue.getDataSet());
             // if the dataset is restricted to a school type, make sure it is applied only to schools
             // of that type.
@@ -268,9 +268,9 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
                 CompareLabelInfo labelInfo = rowLabelToInfoMap.get(label.getRowLabel());
                 if (labelInfo != null) {
                     headerCell.setExtraInfo(labelInfo.getLink());
-                    _log.warn("Setting \"" + label.getRowLabel() + "\" to " + labelInfo.getLink());
+//                    _log.warn("Setting \"" + label.getRowLabel() + "\" to " + labelInfo.getLink());
                 } else {
-                    _log.warn("Can't find info for \"" + label.getRowLabel() + "\"");
+//                    _log.warn("Can't find info for \"" + label.getRowLabel() + "\"");
                 }
                 headerCell.setBreakdownText(label.getBreakdownLabel());
                 // header cell's year should be the most recent year represented in the row

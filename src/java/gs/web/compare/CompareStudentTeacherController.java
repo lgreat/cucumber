@@ -193,7 +193,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
             CompareLabel label = _compareLabelDao.findLabel(state,dataTypeId,config.getTabName(),config.getGrade(),breakdown,config.getLevelCode(),config.getSubject());
             if (label == null) {
-                _log.warn("Can't find label corresponding to config row: " + config.getId());
+                _log.error("Can't find label corresponding to config row: " + config.getId());
                 continue;
             }
             // add censusDataSet to list
