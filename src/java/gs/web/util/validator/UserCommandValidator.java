@@ -200,8 +200,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
         }
         // only bother checking the unique constraint if there is no other problem with the sn
         if (!snError && _userDao.findUserFromScreenNameIfExists(sn) != null) {
-            if (user == null || user.getUserProfile() == null ||
-                    !StringUtils.equals(user.getUserProfile().getScreenName(), sn)) {
+            if (user != null && user.getUserProfile() != null &&
+                    StringUtils.equals(user.getUserProfile().getScreenName(), sn)) {
                 if (command.isChooserRegistration()) {
                     errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN_SHORT);
                     _log.info("Registration error: " + ERROR_SCREEN_NAME_TAKEN_SHORT);                    

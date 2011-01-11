@@ -541,4 +541,35 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertTrue(errors.hasErrors());
         assertTrue(errors.hasFieldErrors("email"));
     }
+
+    public void testUsernameTaken() throws Exception {
+        UserCommand command = new UserCommand();
+        command.setScreenName("swonder");
+
+        UserProfile userProfile = new UserProfile();
+        userProfile.setScreenName("swonder");
+
+        User user = new User();
+        user.setId(1);
+        user.setEmail("test@greatschools.org");
+        user.setUserProfile(userProfile);
+
+        Errors errors = new BindException(command, "");
+
+        IUserDao userDao = org.easymock.EasyMock.createStrictMock(IUserDao.class);
+        _validator.setUserDao(userDao);
+
+        expect(userDao.findUserFromScreenNameIfExists("swonder")).andReturn(user);
+
+        replay(userDao);
+
+        _validator.validateUsername(command, user, errors);
+
+        verify(userDao);
+
+        String expectedError = UserCommandValidator.ERROR_SCREEN_NAME_TAKEN;
+
+        assertEquals("Should receive screen name error with value " + expectedError,
+                expectedError, errors.getFieldError("screenName").getDefaultMessage());
+    }
 }
