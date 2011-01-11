@@ -62,14 +62,14 @@
         <div class="spacer_5"><!-- Do not collapse --></div>
         </c:if>
         <div class="line smallText1-333">
-            <div class="unit">
+            <div class="unit size1of4">
                 <div class="getDirections">
                     <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}%20${school.cityStateZip}"
                        onclick="s.tl(this, 'o', 'School Compare Map - Get Directions');"
                        target="_blank">Get directions</a>
                 </div>
             </div>
-            <div class="unit">
+            <div class="unit size4of13">
                 <div class="brdlft-solid brdrt-solid homesForSale">
                 <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
                 <a href="http://www.realtor.com/realestateandhomes-search/${school.school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
@@ -79,7 +79,7 @@
                                               <!--customLinkSuffix="inlinelinkmap">Homes for sale</gslink:realtorDotComLink>-->
                 </div>
             </div>
-            <div class="unit lastUnit">
+            <div class="unit size7of16 lastUnit">
                 <p class="msl js-add-msl smallText1" id="js-add-msl-${school.state}${school.id}">
                     <c:choose>
                         <c:when test="${school.inMsl}">

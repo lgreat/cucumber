@@ -95,13 +95,13 @@
             google.maps.event.addListener(marker, 'click', function() {
                 var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
                 GS_compareMapInfoWindow.setContent(
-                        '<div style="width:310px;">'+infowindowElement.html()+'</div>'
+                        '<div style="width:325px;">'+infowindowElement.html()+'</div>'
                         );
                 GS_compareMapInfoWindow.open(map, marker);
             });
             if (preSelect) {
                 var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
-                GS_compareMapInfoWindow.setContent('<div style="width:310px;">'+infowindowElement.html()+'</div>');
+                GS_compareMapInfoWindow.setContent('<div style="width:325px;">'+infowindowElement.html()+'</div>');
                 GS_compareMapInfoWindow.open(map, marker);
             }
         }
