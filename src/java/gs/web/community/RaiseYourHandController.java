@@ -45,6 +45,7 @@ public class RaiseYourHandController extends AbstractController {
     public static final String MODEL_STYLE = "style";
     public static final String MODEL_SHOW_VIEW_ALL = "showViewAll";
     public static final String MODEL_SHOW_SPONSOR = "showSponsor";
+    public static final String MODEL_IS_FROMPARENTREVIEW = "isFromParentReview";
 
     public static final String PARAM_FEATURE_CONTENT_KEY = "featureContentKey";
     public static final String PARAM_REDIRECT_URL = "redirectUrl";
@@ -52,6 +53,7 @@ public class RaiseYourHandController extends AbstractController {
     public static final String PARAM_STYLE = "style";
     public static final String PARAM_SHOW_VIEW_ALL = "showViewAll";
     public static final String PARAM_SHOW_SPONSOR = "showSponsor";
+    public static final String PARAM_IS_FROMPARENTREVIEW = "isFromParentReview";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -86,6 +88,9 @@ public class RaiseYourHandController extends AbstractController {
             model.put(MODEL_STYLE, style);
             model.put(MODEL_SHOW_VIEW_ALL, showViewAll);
             model.put(MODEL_SHOW_SPONSOR, "true".equals(request.getParameter(PARAM_SHOW_SPONSOR)));
+            if (request.getParameter(PARAM_IS_FROMPARENTREVIEW) != null) {
+                model.put(MODEL_IS_FROMPARENTREVIEW, "true".equals(request.getParameter(PARAM_IS_FROMPARENTREVIEW)));
+            }
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             User user = null;

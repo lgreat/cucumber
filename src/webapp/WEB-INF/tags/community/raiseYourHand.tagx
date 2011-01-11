@@ -192,6 +192,7 @@
     <!--<p>limit = <c:out value="${param.limit}" default="don't know"/></p>-->
     <!--<p>style = <c:out value="${style}" default="don't know"/></p>-->
     <!--<p>showViewAll = <c:out value="${showViewAll}" default="don't know"/></p>-->
+    <p>isFromParentReview: <c:out value="${isFromParentReview}" default="not set"/></p>
 
     <c:if test="${style eq 'homePage' or style eq 'topicCenter'}">
         <div class="mod_hd">
