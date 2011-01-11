@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="unit size7of16 lastUnit">
-                <p class="msl js-add-msl smallText1" id="js-add-msl-${school.state}${school.id}">
+                <p class="msl js-add-msl smallText1 js-add-msl-${school.state}${school.id}" id="js-add-msl-${school.state}${school.id}">
                     <c:choose>
                         <c:when test="${school.inMsl}">
                             <!--<span class="sprite i-checkmark-sm">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->

@@ -16,8 +16,8 @@ compare_onClickAddMslLink = function(elem) {
 
     if (memId !== undefined && memId !== null) {
         mslHelper.addSchool(state, id, function() {
-            jQuery('#js-add-msl-' + statePlusId).find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
-            jQuery('#js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
+            jQuery('.js-add-msl-' + statePlusId).find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
+            jQuery('.js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
         }, function() {});
     } else {
         //show hover, create msl, save school to msl, round trip to log user in

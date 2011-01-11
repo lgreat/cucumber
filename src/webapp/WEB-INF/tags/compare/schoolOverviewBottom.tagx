@@ -27,7 +27,7 @@
         <gslink:realtorDotComLink styleClass="sprite i-house-sm" address="${school.school.physicalAddress}"
                                   customLinkSuffix="inlinelink">Homes for sale</gslink:realtorDotComLink>
     </p>
-    <p class="js-add-msl smallText1" id="js-add-msl-${school.state}${school.id}">
+    <p class="js-add-msl smallText1 js-add-msl-${school.state}${school.id}" id="js-add-msl-${school.state}${school.id}">
         <c:choose>
             <c:when test="${school.inMsl}">
                 <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
