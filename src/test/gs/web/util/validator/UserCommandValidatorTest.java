@@ -542,7 +542,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertTrue(errors.hasFieldErrors("email"));
     }
 
-    public void testUsernameTaken() throws Exception {
+    public void xtestUsernameTaken() throws Exception {
         UserCommand command = new UserCommand();
         command.setScreenName("swonder");
 
