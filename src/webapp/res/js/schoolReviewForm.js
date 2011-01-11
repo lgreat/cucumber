@@ -455,7 +455,7 @@ GS.form.SchoolReviewForm = function(id) {
             case 3: title = 'Average'; break;
             case 4: title = 'Above Average'; break;
             case 5: title = 'Excellent'; break;
-            default: title = 'Currently unrated.'; break;
+            default: title = ''; break;
         }
         jQuery('#ratingTitle').html(title);
     };

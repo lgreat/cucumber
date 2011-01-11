@@ -206,7 +206,7 @@
                     <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
                     <input type="hidden" id="hdnSchoolName" name="hdnSchoolName" value="Currently unrated."/>
                     <ul class="star-rating large-star">
-                        <li id="currentStarDisplay" class="current-rating" style="width:0;">Currently unrated.</li>
+                        <li id="currentStarDisplay" class="current-rating" style="width:0;"><!-- --></li>
                         <li><a href="#" id="validateStar1"
                                title="1 star out of 5"
                                class="one-star"
@@ -226,7 +226,7 @@
                                 >5</a></li>
                     </ul>
                 </div>
-                <div id="ratingTitle" class="fltlft mrgtop_5">Currently unrated.</div>
+                <div id="ratingTitle" class="fltlft mrgtop_5"><!-- --></div>
 
             </div>
 
