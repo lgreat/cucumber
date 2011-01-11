@@ -302,7 +302,7 @@ GS.search.SchoolSearchResultsTable = function() {
         var queryString = window.location.search;
 
         queryString = buildQueryString(queryString);
-
+        queryString = this.persistCompareCheckboxesToQueryString(queryString);
         queryString = putIntoQueryString(queryString,"sortChanged",true, true);
 
         window.location.search = queryString;
@@ -310,18 +310,24 @@ GS.search.SchoolSearchResultsTable = function() {
 
     this.page = function(pageNumber, pageSize) {
         var start = (pageNumber-1) * pageSize;
-        var compareSchoolsList = this.getCheckedSchools().join(',');
+
         var queryString = window.location.search;
-        if (compareSchoolsList !== undefined && compareSchoolsList.length > 0) {
-            queryString = putIntoQueryString(queryString, "compareSchools", compareSchoolsList, true);
-        } else {
-            queryString = removeFromQueryString(queryString, "compareSchools");
-        }
+        queryString = this.persistCompareCheckboxesToQueryString(queryString);
         queryString = putIntoQueryString(queryString,"start",start, true);
 
         queryString = buildQueryString(queryString);
 
         window.location.search = queryString;
+    }.gs_bind(this);
+
+    this.persistCompareCheckboxesToQueryString = function(queryString) {
+        var compareSchoolsList = this.getCheckedSchools().join(',');
+        if (compareSchoolsList !== undefined && compareSchoolsList.length > 0) {
+            queryString = putIntoQueryString(queryString, "compareSchools", compareSchoolsList, true);
+        } else {
+            queryString = removeFromQueryString(queryString, "compareSchools");
+        }
+        return queryString;
     }.gs_bind(this);
 
     this.getCheckedSchools = function() {
