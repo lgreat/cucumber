@@ -401,8 +401,9 @@
                         <c:when test="${not empty localBoardId and not empty localCityName}">
                             <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
                             <c:set var="recentDiscussions">
+                                <div class="spacer_20"><!-- do not collapse --></div>
                                 <c:import
-                                        url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false"/>
+                                        url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false&amp;isFromParentReview=true"/>
                             </c:set>
                             ${recentDiscussions}
                         </c:when>

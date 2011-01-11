@@ -1471,6 +1471,35 @@ body.cobranded #pageGS {
     margin-left: 20px;
 }
 
+/* Ext2-4
+    margin: 15px 0;
+    gutter: 5px;
+*/
+.mediaExt2-4 {
+    margin: 15px 0;
+}
+
+.mediaExt2-4,
+.bd {
+    overflow: hidden;
+    _overflow: visible;
+    zoom: 1;
+}
+
+.mediaExt2-4 .img {
+    float: left;
+    margin-right: 5px;
+}
+
+.mediaExt2-4 .img img {
+    display: block;
+}
+
+.mediaExt2-4 .imgExt {
+    float: right;
+    margin-left: 5px;
+}
+
 /* Ext3
     margin: 0 10px;
     gutter: 10px;
@@ -1652,6 +1681,13 @@ body.cobranded #pageGS {
     border-left: 1px solid #c6c6c6;
     border-bottom: 1px solid #c6c6c6;
     border-right: 1px solid #c6c6c6;
+}
+
+.mod_bdExt2 {
+    border-left: 1px solid #c6c6c6;
+    border-bottom: 1px solid #c6c6c6;
+    border-right: 1px solid #c6c6c6;
+    padding: 0 15px 15px;
 }
 
 .navmod_hd,
@@ -6265,6 +6301,12 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     padding: 4px;
 }
 
+#profileRecentDiscussions-parentReviews .textarea{
+    width: 100%;
+    height: 120px;
+    padding: 4px;
+}
+
 /* =4k-1.5 kindercare
 -------------------------------------------------------------------------------------------*/
 
@@ -9514,6 +9556,18 @@ button {
 
 .lastColGutter-10 {
     margin-left: 10px;
+}
+
+.firstColGutter-20 {
+    margin-right: 20px;
+}
+
+.middleColGutter-20 {
+    margin: 0 20px;
+}
+
+.lastColGutter-20 {
+    margin-left: 20px;
 }
 
 .firstColGutter-30 {

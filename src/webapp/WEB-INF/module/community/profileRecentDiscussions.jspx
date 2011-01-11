@@ -35,10 +35,12 @@
         <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
         <c:set var="isLocal" value="${requestScope.isLocal}"/>
         <c:set var="isFromProfile" value="${requestScope.isFromProfile}"/>
+        <c:set var="isFromParentReview" value="${requestScope.isFromParentReview}"/>
 
         <!--<c:out value="${fn:length(requestScope.discussionTopicFull)}"/>-->
         <!--<p>isLocal: <c:out value="${isLocal}" default="not set"/></p>-->
         <!--<p>isFromProfile: <c:out value="${isFromProfile}" default="not set"/></p>-->
+        <!--<p>isFromParentReview: <c:out value="${isFromParentReview}" default="not set"/></p>-->
 
         <c:choose>
             <c:when test="${isFromProfile}">
@@ -56,7 +58,7 @@
         <div id="profileRecentDiscussions" class="mod">
             <c:choose>
                 <c:when test="${fn:length(requestScope.discussionTopicFull) le 15}">
-                    <div class="mod_hd">
+                    <div class="mod_hdExt1">
                         <h3>${requestScope.discussionTopicFull} Community</h3>
                     </div>
                 </c:when>
@@ -66,83 +68,174 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-            <div class="mod_bd">
-                <div class="${viewTopicSection} text3">
-                    <label for="profileRecentDiscussions_topicSelect">View topic: </label>
-                    <select id="profileRecentDiscussions_topicSelect" onchange="selectTopic(this.value);">
-                        <c:forEach var="myTc" items="${requestScope.discussionTopics}">
-                            <gsml:selectOption value="${myTc.value}"
-                                               selected="${myTc.key == requestScope.discussionTopicFull}">${myTc.key}</gsml:selectOption>
-                        </c:forEach>
-                        <c:if test="${requestScope.isLocal eq true}">
-                            <gsml:selectOption value=""
-                                               selected="true">${requestScope.discussionTopic}</gsml:selectOption>
-                        </c:if>
-                    </select>
-                </div>
-                <ad:adTag position="Community_Ad_300x50"/>
-                <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 
-                <div class="${discussionsSection} brdbtm_dotted">
-                    <ul>
-                        <c:forEach var="discussion" items="${requestScope.discussions}">
-                            <li class="media">
-                                <span class="sprite discussion img"><!-- do not collapse --></span>
+            <c:choose>
+                <c:when test="${isFromParentReview}">
 
-                                <div class="bd">
-                                    <p class="text3bold">
-                                        <link:discussion discussionId="${discussion.id}"
-                                                         fullUri="${fullUri}">${discussion.title}</link:discussion>
-                                    </p>
+                    <div id="profileRecentDiscussions-parentReviews" class="mod_bdExt2">
+                        <div class="text3">
+                            <div class="spacer_7"><!-- do not collapse --></div>
+                            <label for="profileRecentDiscussions_topicSelect">View topic: </label>
+                            <select id="profileRecentDiscussions_topicSelect" onchange="selectTopic(this.value);">
+                                <c:forEach var="myTc" items="${requestScope.discussionTopics}">
+                                    <gsml:selectOption value="${myTc.value}"
+                                                       selected="${myTc.key == requestScope.discussionTopicFull}">${myTc.key}</gsml:selectOption>
+                                </c:forEach>
+                                <c:if test="${requestScope.isLocal eq true}">
+                                    <gsml:selectOption value=""
+                                                       selected="true">${requestScope.discussionTopic}</gsml:selectOption>
+                                </c:if>
+                            </select>
 
-                                    <p>
-                                        <community:userContentTeaserText
-                                                textToDisplay="${discussion.body}"
-                                                minLength="45" maxLength="55"
-                                                discussionId="${discussion.id}"
-                                                discussionFullUri="${fullUri}"
-                                                numReplies="${discussion.totalReplies}"
-                                                textSpanClass="smallAlertText"/>
-                                    </p>
+                            <div class="spacer_7"><!-- do not collapse --></div>
+                        </div>
+                        <ad:adTag position="Community_Ad_300x50"/>
+
+                        <div class="clearfloat brdbtm_dotted"><!-- do not collapse --></div>
+
+                        <div class="line">
+                            <div class="unit size1of2 firstColGutter-20">
+                                <ul>
+                                    <c:forEach var="discussion" items="${requestScope.discussions}">
+                                        <li class="mediaExt2-4">
+                                            <span class="sprite discussion img"><!-- do not collapse --></span>
+
+                                            <div class="bd">
+                                                <p class="text3bold">
+                                                    <link:discussion discussionId="${discussion.id}"
+                                                                     fullUri="${fullUri}">${discussion.title}</link:discussion>
+                                                </p>
+
+                                                <p>
+                                                    <community:userContentTeaserText
+                                                            textToDisplay="${discussion.body}"
+                                                            minLength="45" maxLength="55"
+                                                            discussionId="${discussion.id}"
+                                                            discussionFullUri="${fullUri}"
+                                                            numReplies="${discussion.totalReplies}"
+                                                            textSpanClass="smallAlertText"/>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                                <p class="text3bold padlft_20"><link:cmsContent
+                                        contentKey="${requestScope.discussionBoard.contentKey}"
+                                        fullUri="${fullUri}">More conversations <span
+                                        class="alertDoubleArrow">&amp;raquo;</span></link:cmsContent></p>
+                            </div>
+                            <div class="unit size1of2 lastUnit lastColGutter-20">
+                                <div class="spacer_15"><!-- do not collapse --></div>
+                                <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic}
+                                    <c:choose><c:when
+                                            test="${requestScope.discussionTopic eq 'preschool'}">s</c:when><c:otherwise> schools</c:otherwise></c:choose>?
+                                </p>
+
+                                <div class="spacer_10"><!-- do not collapse --></div>
+                                <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
+                                          class="textarea bg-ebebeb text2"
+                                          onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); GS_prd_checklogin();"
+                                          onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>
+
+                                <div class="spacer_10"><!-- do not collapse --></div>
+                                <div>
+
+                                    <button class="button-1 jq_startADiscussion" type="submit">Submit</button>
+
+                                    <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                                     openElementJQuerySelector=".jq_startADiscussion"
+                                                                     topicCenterId="${requestScope.discussionBoard.topicCenterId}"
+                                                                     discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
+                                                                     getTitleFunc="GS_getProfileDiscussionTitle()"/>
                                 </div>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </c:when>
 
-                    <p class="text3bold profileMore"><link:cmsContent
-                            contentKey="${requestScope.discussionBoard.contentKey}"
-                            fullUri="${fullUri}">More conversations <span
-                            class="alertDoubleArrow">&amp;raquo;</span></link:cmsContent></p>
+                <c:otherwise>
 
-                </div>
-                <div class="${startdiscussionsSection} brdbtm_dotted">
-                    <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic}<c:choose><c:when
-                            test="${requestScope.discussionTopic eq 'preschool'}">s</c:when><c:otherwise> schools</c:otherwise></c:choose>?
-                    </p>
+                    <div class="mod_bd">
+                        <div class="${viewTopicSection} text3">
+                            <label for="profileRecentDiscussions_topicSelect">View topic: </label>
+                            <select id="profileRecentDiscussions_topicSelect" onchange="selectTopic(this.value);">
+                                <c:forEach var="myTc" items="${requestScope.discussionTopics}">
+                                    <gsml:selectOption value="${myTc.value}"
+                                                       selected="${myTc.key == requestScope.discussionTopicFull}">${myTc.key}</gsml:selectOption>
+                                </c:forEach>
+                                <c:if test="${requestScope.isLocal eq true}">
+                                    <gsml:selectOption value=""
+                                                       selected="true">${requestScope.discussionTopic}</gsml:selectOption>
+                                </c:if>
+                            </select>
+                        </div>
+                        <ad:adTag position="Community_Ad_300x50"/>
 
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                    <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
-                              class="textarea bg-ebebeb text2"
-                              onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); GS_prd_checklogin();"
-                              onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>
+                        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                    <div>
-                        <a class="btn25 jq_startADiscussion" href="#" onclick="this.blur(); return false;">
+                        <div class="${discussionsSection} brdbtm_dotted">
+                            <ul>
+                                <c:forEach var="discussion" items="${requestScope.discussions}">
+                                    <li class="media">
+                                        <span class="sprite discussion img"><!-- do not collapse --></span>
+
+                                        <div class="bd">
+                                            <p class="text3bold">
+                                                <link:discussion discussionId="${discussion.id}"
+                                                                 fullUri="${fullUri}">${discussion.title}</link:discussion>
+                                            </p>
+
+                                            <p>
+                                                <community:userContentTeaserText
+                                                        textToDisplay="${discussion.body}"
+                                                        minLength="45" maxLength="55"
+                                                        discussionId="${discussion.id}"
+                                                        discussionFullUri="${fullUri}"
+                                                        numReplies="${discussion.totalReplies}"
+                                                        textSpanClass="smallAlertText"/>
+                                            </p>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+
+                            <p class="text3bold profileMore"><link:cmsContent
+                                    contentKey="${requestScope.discussionBoard.contentKey}"
+                                    fullUri="${fullUri}">More conversations <span
+                                    class="alertDoubleArrow">&amp;raquo;</span></link:cmsContent></p>
+
+                        </div>
+                        <div class="${startdiscussionsSection} brdbtm_dotted">
+                            <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic}
+                                <c:choose><c:when
+                                        test="${requestScope.discussionTopic eq 'preschool'}">s</c:when><c:otherwise> schools</c:otherwise></c:choose>?
+                            </p>
+
+                            <div class="spacer_10"><!-- do not collapse --></div>
+                            <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
+                                      class="textarea bg-ebebeb text2"
+                                      onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); GS_prd_checklogin();"
+                                      onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>
+
+                            <div class="spacer_10"><!-- do not collapse --></div>
+                            <div>
+                                <a class="btn25 jq_startADiscussion" href="#" onclick="this.blur(); return false;">
                     <span class="lftDoor25">
                         <span class="rtDoor25">Submit</span>
                     </span>
-                        </a>
-                        <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                         openElementJQuerySelector=".jq_startADiscussion"
-                                                         topicCenterId="${requestScope.discussionBoard.topicCenterId}"
-                                                         discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
-                                                         getTitleFunc="GS_getProfileDiscussionTitle()"/>
+                                </a>
+                                <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                                                 openElementJQuerySelector=".jq_startADiscussion"
+                                                                 topicCenterId="${requestScope.discussionBoard.topicCenterId}"
+                                                                 discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
+                                                                 getTitleFunc="GS_getProfileDiscussionTitle()"/>
+                            </div>
+                            <!-- end start a discussion button -->
+                            <div class="spacer_10"><!-- do not collapse --></div>
+                        </div>
                     </div>
-                    <!-- end start a discussion button -->
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                </div>
-            </div>
+                </c:otherwise>
+            </c:choose>
         </div>
         <!-- end recentDiscussions -->
         <div class="spacer_15"><!-- do not collapse --></div>

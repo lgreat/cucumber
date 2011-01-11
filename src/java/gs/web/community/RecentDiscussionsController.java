@@ -51,6 +51,7 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String PARAM_DISCUSSION_TOPIC_FULL = "discussionTopicFull";
     public static final String PARAM_IS_LOCAL = "isLocal";
     public static final String PARAM_IS_FROMPROFILE = "isFromProfile";
+    public static final String PARAM_IS_FROMPARENTREVIEW = "isFromParentReview";
 
     public static final String MODEL_DISCUSSION_LIST = "discussions";
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
@@ -70,6 +71,7 @@ public class RecentDiscussionsController extends AbstractController {
     public static final String MODEL_SHOW_CITY_MENU = "showCityMenu";
     public static final String DISCUSSION_TOPICS = "discussionTopics";
     public static final String MODEL_IS_FROMPROFILE = "isFromProfile";
+    public static final String MODEL_IS_FROMPARENTREVIEW = "isFromParentReview";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -159,6 +161,9 @@ public class RecentDiscussionsController extends AbstractController {
             }
             if (request.getParameter(PARAM_IS_FROMPROFILE) != null) {
                 model.put(MODEL_IS_FROMPROFILE, "true".equals(request.getParameter(PARAM_IS_FROMPROFILE)));
+            }
+            if (request.getParameter(PARAM_IS_FROMPARENTREVIEW) != null) {
+                model.put(MODEL_IS_FROMPARENTREVIEW, "true".equals(request.getParameter(PARAM_IS_FROMPARENTREVIEW)));
             }
 
             // for profileRecentDiscussions.jspx:
