@@ -7,6 +7,7 @@ import gs.data.school.SchoolType;
 import gs.data.source.DataSetContentType;
 import gs.data.state.State;
 import gs.data.school.census.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -283,7 +284,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             if (cell == null) {
                 cell = new CompareConfigStruct();
             }
-            if (label.getBreakdownLabel() != null) {
+            if (StringUtils.isNotBlank(label.getBreakdownLabel())) {
                 // Initial proposed logic:
                 // set cell.isSimpleCell = false
                 cell.setIsSimpleCell(false);
