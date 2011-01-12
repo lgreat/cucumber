@@ -76,4 +76,35 @@ public class ReviewServiceTest extends BaseTestCase {
         assertTrue("Upgraded reviews list should have contained review:", upgradedReviews.contains(review3));
         assertTrue(upgradedReviews.size() == 3);
     }
+
+    public void testUpgradeProvisionalReviewsWithHeldStatus() throws Exception {
+        User user = new User();
+        user.setId(99999);
+
+        Review review1 = new Review();
+        review1.setStatus("h");
+        review1.setUser(user);
+
+        Review review2 = new Review();
+        review2.setStatus("ph");
+        review2.setUser(user);
+
+        List<Review> reviews = new ArrayList<Review>();
+        reviews.add(review1);
+        reviews.add(review2);
+
+        expect(_reviewDao.findUserReviews(user)).andReturn(reviews);
+        _reviewDao.saveReview(isA(Review.class));
+
+        replay(_reviewDao);
+
+        try {
+
+            ReviewService.ReviewUpgradeSummary summary = _reviewService.upgradeProvisionalReviewsAndSummarize(user);
+        } catch (IllegalArgumentException e) {
+            fail("Should not have thrown exception: " + e.getMessage());
+        }
+
+        verify(_reviewDao);
+    }
 }
