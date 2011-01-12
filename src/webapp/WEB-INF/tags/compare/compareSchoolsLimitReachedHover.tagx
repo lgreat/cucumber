@@ -6,7 +6,7 @@
     <div id="compareSchoolsLimitReachedHover" class="dialog_white" style="display:none;">
         <div class="media">
             <div class="bd">
-                <h2>You may only compare 8 schools</h2>
+                <h2>You may only compare 8 schools at a time</h2>
 
                 <p><strong>Continue to compare</strong> the schools you have already selected or <strong>Edit schools</strong> to change your selection. 
                 </p>
