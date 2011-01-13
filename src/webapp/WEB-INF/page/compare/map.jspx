@@ -76,7 +76,7 @@
 
             <div style="display:none">
                 <c:forEach var="school" items="${schools}">
-                    <compare:compareSchoolBubble school="${school}"/>
+                    <compare:compareSchoolBubble school="${school}" omniturePageName="${omniturePageName}"/>
                 </c:forEach>
             </div>
         </compare:compareTemplate>

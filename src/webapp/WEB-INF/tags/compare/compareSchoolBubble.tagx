@@ -13,6 +13,7 @@
 
     <jsp:directive.tag body-content="empty" description="Contents of info window for a school on the compare map."/>
     <jsp:directive.attribute name="school" required="true" type="gs.web.compare.ComparedSchoolBaseStruct" description="The school to display within the bubble"/>
+    <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
     <div id="mapBubble_${school.uniqueIdentifier}" class="schoolInfoWindow">
         <p class="text2">
@@ -92,7 +93,7 @@
                             <!--<span class="sprite i-add-sm">&lt;!&ndash; do not collapse &ndash;&gt;</span>&amp;nbsp;-->
                             <span class="js-msl-text">
                                 <link:mySchoolList school="${school.school}"
-                                                   onclick="compare_onClickAddMslLink(this); return false;"
+                                                   onclick="compare_onClickAddMslLink(this,'${gsweb:escapeJavaScript(pageScope.omniturePageName)}'); return false;"
                                                    styleClass="js-add-msl-link"
                                                    styleId="js-add-msl-link-${school.state}${school.id}">Add to My School List</link:mySchoolList>
                             </span>

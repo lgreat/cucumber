@@ -3,7 +3,11 @@ jQuery(document).ready(function() {
     jQuery('#compareTable tbody.striped').alternateRowColors();
 });
 
-compare_onClickAddMslLink = function(elem) {
+compare_onClickAddMslLink = function(elem,omniturePageName) {
+   if (s.tl) {
+        s.tl(true,'o', 'Add_to_MSL_Link_' + omniturePageName);
+    }
+
     var statePlusId = jQuery(elem).attr('id');
 
     statePlusId = statePlusId.replace("js-add-msl-link-", "");

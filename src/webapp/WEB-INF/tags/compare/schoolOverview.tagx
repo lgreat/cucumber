@@ -16,8 +16,10 @@
     <jsp:directive.attribute name="page" required="true" description="Page number for linking"/>
     <jsp:directive.attribute name="showMap" required="false" type="java.lang.Boolean"
                              description="True to show mini-thumbnail map that links to map tab"/>
+    <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
     <compare:schoolOverviewTop school="${school}" tab="${tab}" schoolsString="${schoolsString}" page="${page}"/>
     <compare:schoolOverviewBottom school="${school}" tab="${tab}" schoolsString="${schoolsString}" page="${page}"
-                                  showMap="${showMap}"/>
+                                  showMap="${showMap}"
+                                  omniturePageName="${omniturePageName}"/>
 </jsp:root>
