@@ -487,6 +487,7 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.postReview = function(email, callerFormId) {
+        jQuery('#parentReviewFormSubmit').attr('disabled','disabled');
         var url = '/school/review/postReview.page';
         //When this is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email != undefined && email != '') {
@@ -546,7 +547,6 @@ GS.form.SchoolReviewForm = function(id) {
     this.submitHandler = function() {
         if (this.formValid()) {
             if (GS.isSignedIn() || !this.email.isEmailTaken()) {
-                jQuery('#parentReviewFormSubmit').attr('disabled','disabled');
                 this.postReview();
             } else {
                 jQuery('#signInHover h2 span').hide();
