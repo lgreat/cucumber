@@ -1500,6 +1500,35 @@ body.cobranded #pageGS {
     margin-left: 5px;
 }
 
+/* Ext2-5
+    margin: 8px 0;
+    gutter: 4px;
+*/
+.mediaExt2-5 {
+    margin: 8px 0;
+}
+
+.mediaExt2-5,
+.bd {
+    overflow: hidden;
+    _overflow: visible;
+    zoom: 1;
+}
+
+.mediaExt2-5 .img {
+    float: left;
+    margin-right: 4px;
+}
+
+.mediaExt2-5 .img img {
+    display: block;
+}
+
+.mediaExt2-5 .imgExt {
+    float: right;
+    margin-left: 4px;
+}
+
 /* Ext3
     margin: 0 10px;
     gutter: 10px;
@@ -1690,6 +1719,11 @@ body.cobranded #pageGS {
     padding: 0 15px 15px;
 }
 
+.mod_bdExt3 {
+    padding: 7px 15px 15px;
+    background: #ebebeb;
+}
+
 .navmod_hd,
 .filter-hd,
 .search-hd {
@@ -1796,6 +1830,13 @@ body.cobranded #pageGS {
     height: 7px;
     font-size: 1px;
     line-height: 7px;
+}
+
+.spacer_8 {
+    clear: both;
+    height: 8px;
+    font-size: 1px;
+    line-height: 8px;
 }
 
 .spacer_10 {
@@ -2443,6 +2484,16 @@ body.ie6 .clearfix {
     position: relative;
 }
 
+.ryh-title-parentReview {
+    width: 100%;
+    background: white;
+    position: relative;
+}
+
+.ryh-title-content-parentReview{
+    padding:15px;
+}
+
 .ryh-title a:hover {
     text-decoration: none;
 }
@@ -2454,6 +2505,13 @@ body.ie6 .clearfix {
 .ryh-answer-onTC {
 /*position:relative;*/
 }
+
+.ryh-answer-parentReview textarea{
+    width:99%;
+    height:60px;
+    padding:4px 0;
+}
+
 
 .ryhAnswer {
     margin-bottom: 8px;
@@ -2648,6 +2706,15 @@ body.ie6 .clearfix {
 
 .ryh-detail .see-more-top {
     margin-top: 7px;
+}
+
+/* ryh parent reviews tab */
+
+.ryh-content{
+    background-color:white;
+    padding:12px;
+    position:relative;
+    margin-left:12px;
 }
 
 /* =4a-5 grade by grade
@@ -9558,6 +9625,18 @@ button {
 
 .lastColGutter-10 {
     margin-left: 10px;
+}
+
+.firstColGutter-15 {
+    margin-right: 15px;
+}
+
+.middleColGutter-15 {
+    margin: 0 15px;
+}
+
+.lastColGutter-15 {
+    margin-left: 15px;
 }
 
 .firstColGutter-20 {

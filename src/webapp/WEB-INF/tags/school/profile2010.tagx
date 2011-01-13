@@ -409,6 +409,7 @@
                         </c:when>
                         <c:when test="${not empty ryhContentKey}">
                             <c:set var="raiseYourHand">
+                                <div class="spacer_20"><!-- do not collapse --></div>
                                 <c:import
                                         url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(ryhContentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true&amp;isFromParentReview=true"/>
                             </c:set>
