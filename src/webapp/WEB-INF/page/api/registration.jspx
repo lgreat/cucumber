@@ -37,6 +37,18 @@
         <![endif]-->
         ]]>
 
+    <![CDATA[
+    <script type="text/javascript">
+    <!--
+    jQuery(function() {
+        jQuery('#regForm').submit(function() {
+            jQuery('#save').attr('disabled','disabled');
+            return true;
+        });
+    });
+    -->
+    </script>
+    ]]>
 
 </head>
 
@@ -89,7 +101,7 @@
 
                 <div class="note">Fields marked with an asterisk (*) are required.</div>
                 <div id="api_reg">
-                    <form:form>
+                    <form:form id="regForm">
                         <table border="0">
                             <tr>
                                 <td width="130" class="label">Company Name *</td>
@@ -225,7 +237,7 @@
                             </tr>
                             <tr id="submitrow">
                                 <td colspan="3">
-                                    <input id="save" type="submit" value="Submit Request"/>
+                                    <button class="button-1" type="submit" id="save">Submit Request</button>
                                 </td>
                             </tr>
                         </table>
