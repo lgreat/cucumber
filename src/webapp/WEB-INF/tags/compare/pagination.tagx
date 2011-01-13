@@ -27,6 +27,7 @@
                 (<c:if test="${totalSchools gt 0}">${startIndex}-${endIndex} of </c:if>${totalSchools} schools)
                 <c:if test="${totalSchools gt pageSize}">
                     <link:compareSchools tab="${tab}" schools="${schoolsString}" source="${requestScope.source}"
+                                         onclick="if (s.tl) {s.tl(this,'o','Compare_More_Schools_Link');} return true;"
                                          page="${nextPage}">More schools (${totalSchools-pageSize})<span
                             class="sprite twirlyClosed"><!-- don't collapse --></span>
                     </link:compareSchools>
@@ -36,6 +37,7 @@
                 <c:set var="nextPage" value="1"/>
                 <c:if test="${totalSchools gt pageSize}">
                     <link:compareSchools tab="${tab}" schools="${schoolsString}" source="${requestScope.source}"
+                                         onclick="if (s.tl) {s.tl(this,'o','Compare_Previous_Schools_Link');} return true;"
                                          page="${nextPage}"><span
                             class="sprite prevArrow"><!-- don't collapse --></span>Previous schools (${totalSchools-pageSize})</link:compareSchools>
                 </c:if>

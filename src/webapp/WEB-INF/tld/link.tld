@@ -4250,6 +4250,13 @@
             <description>Source URL that sent user to compare</description>
         </attribute>
         <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>JavaScript onclick attribute</description>
+        </attribute>
+        <attribute>
             <name>remove</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
