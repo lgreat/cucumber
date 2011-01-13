@@ -121,17 +121,29 @@
             <td class="bg-color-f9eccd brdbtm_dotted" align="center">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <c:choose>
-                    <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
+                    <c:when test="${school.levelCode eq 'p'}">
                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"
-                               checked="true"/>
+                               disabled="disabled" title="Due to a lack of available data on preschools, they cannot be compared"/>
+                        <br/>
+                        <acronym class="smallText2-777"
+                                 title="Due to a lack of available data on preschools, they cannot be compared"><i>COMPARE</i></acronym>
                     </c:when>
                     <c:otherwise>
-                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
-                               type="checkbox"/>
+                        <c:choose>
+                            <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
+                                <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
+                                       type="checkbox"
+                                       checked="true"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
+                                       type="checkbox"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <br/>
+                        <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
                     </c:otherwise>
                 </c:choose>
-                <br/>
-                <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
             </td>
             <td class="bg-color-f9eccd brdbtm_dotted">
                 <p class="text2bold nearby-schools-link" id="nearby-schools-link-${school.databaseState}${school.id}">
@@ -179,18 +191,33 @@
                 <td class="brdbtm_dotted" align="center">
                     <c:set var="schoolKey" value="${s.neighbor.databaseState}${s.neighbor.id}"/>
                     <c:choose>
-                        <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
+                        <c:when test="${s.neighbor.levelCode eq 'p'}">
                             <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
-                                   type="checkbox" checked="true"/>
+                                   type="checkbox"
+                                   disabled="disabled"
+                                   title="Due to a lack of available data on preschools, they cannot be compared"/>
+                            <br/>
+                            <acronym class="smallText2-777"
+                                     title="Due to a lack of available data on preschools, they cannot be compared"><i>COMPARE</i></acronym>
                         </c:when>
                         <c:otherwise>
-                            <input id="${s.neighbor.databaseState}${s.neighbor.id}" class="compare-school-checkbox"
-                                   type="checkbox"/>
+                            <c:choose>
+                                <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
+                                    <input id="${s.neighbor.databaseState}${s.neighbor.id}"
+                                           class="compare-school-checkbox"
+                                           type="checkbox" checked="true"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input id="${s.neighbor.databaseState}${s.neighbor.id}"
+                                           class="compare-school-checkbox"
+                                           type="checkbox"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <br/>
+                            <label for="${s.neighbor.databaseState}${s.neighbor.id}"
+                                   class="smallText2">COMPARE</label>
                         </c:otherwise>
                     </c:choose>
-                    <br/>
-                    <label for="${s.neighbor.databaseState}${s.neighbor.id}"
-                           class="smallText2">COMPARE</label>
                 </td>
                 <td class="brdbtm_dotted">
                     <p class="text2bold nearby-schools-link"
