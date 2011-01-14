@@ -26,6 +26,8 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_TEST_SCORES);
         } else if (StringUtils.equals(CompareStudentTeacherController.TAB_NAME, _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_STUDENT_TEACHER);
+        } else if (StringUtils.equals(CompareProgramsExtracurricularsController.TAB_NAME, _tab)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_PROGRAMS_EXTRACURRICULARS);
         } else if (StringUtils.equals(CompareMapController.TAB_NAME, _tab)) {
             builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_MAP);
         } else {

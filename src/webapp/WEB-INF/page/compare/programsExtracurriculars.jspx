@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:gsweb="gstaglib" xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>School Comparison Programs &amp; Extracurriculars | GreatSchools</title>
+    </head>
+
+    <c:set var="omniturePageName" value="Compare_programs" scope="request"/>
+    <ad:setSlotPrefix slotPrefix="Compare_Page"/>
+
+    <gsml:body adPageName="compare" pageLayout="leftside">
+        <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Programs">
+            <tbody>
+            <tr>
+                <th scope="row" rowspan="2">School</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_schools" style="border-bottom: 0;">
+                        <compare:schoolOverviewTop school="${school}" tab="${tab}"
+                                                   schoolsString="${schoolsString}" page="${page}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_schools">
+                        <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
+                                                      schoolsString="${schoolsString}" page="${page}"/>
+                    </td>
+                </c:forEach>
+            </tr>
+            </tbody>
+            <tbody class="striped">
+            <tr>
+                <th scope="row">Source</th>
+                <c:forEach items="${schools}" var="school">
+                    <td>
+                        <c:choose>
+                            <c:when test="${school.programSource eq 'Principal'}">
+                                <p>
+                                    This information is based on a survey by the <strong>principal</strong>.
+                                </p>
+                            </c:when>
+                            <c:when test="${school.numResponses gt 0}">
+                                <p>
+                                    This information is based on surveys from
+                                    <strong>${school.numResponses} ${gsweb:pluralize(school.numResponses, 'parent')}</strong>.
+                                </p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="smallText1-italic">
+                                    Parents have not submitted information about this school.
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <th scope="row">&amp;nbsp;</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center text2">
+                        <c:choose>
+                            <c:when test="${school.programSource eq 'Principal'}">
+                                <link:schoolProfilePrincipalView school="${school.school}">
+                                    View more programs &amp;amp; extracurriculars
+                                </link:schoolProfilePrincipalView>
+                            </c:when>
+                            <c:otherwise>
+                                <link:startSurveyResults school="${school.school}">
+                                    View more programs &amp;amp; extracurriculars
+                                </link:startSurveyResults>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
+            </tbody>
+        </compare:compareTemplate>
+    </gsml:body>
+    </html>
+</jsp:root>
+

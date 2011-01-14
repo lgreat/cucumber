@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.88 2010/12/30 23:12:27 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.89 2011/01/14 01:35:21 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -766,6 +766,10 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.setTab(CompareStudentTeacherController.TAB_NAME);
         builder = handler.createUrlBuilder();
         assertEquals("/school-comparison-tool/studentTeacher.page?schools=ca1%2Cca2", builder.asSiteRelative(null));
+
+        handler.setTab(CompareProgramsExtracurricularsController.TAB_NAME);
+        builder = handler.createUrlBuilder();
+        assertEquals("/school-comparison-tool/programsExtracurriculars.page?schools=ca1%2Cca2", builder.asSiteRelative(null));
 
         handler.setTab(CompareOverviewController.TAB_NAME);
         handler.setPage(2);
