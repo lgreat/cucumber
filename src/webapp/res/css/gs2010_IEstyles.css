@@ -776,7 +776,7 @@ body.ie6 .ryh-reply-text-onCOM {
 /* =4a-5 grade by grade
 -------------------------------------------------------------------------------------------*/
 
-body.ie6 #gbgTabs {
+body.ie6 #gbgTabs, body.ie6 .top .compareTabs {
     left: 5px;
 }
 
@@ -797,7 +797,24 @@ body.ie6 #gbgTabs .selected {
 body.ie6 #gbgTabs .selected a {
     background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
 }
+body.ie6 .top .compareTabs li {
+    background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right -34px;
+    margin: 0;
+}
 
+body.ie6 .top .compareTabs .active {
+    background: url(/res/img/gradeByGrade/gbg-tab-right.gif) no-repeat right top;
+}
+
+body.ie6 .top .compareTabs a, body.ie6 .top .compareTabs span {
+    background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left -34px;
+    margin: 0;
+    
+}
+
+body.ie6 .top .compareTabs .active a, body.ie6 .top .compareTabs .active span {
+    background: url(/res/img/gradeByGrade/gbg-tab-left.gif) no-repeat left top;
+}
 body.ie6 #gbg-marker-p, body.ie6 #gbg-marker-k, body.ie6 #gbg-marker-1, body.ie6 #gbg-marker-2, body.ie6 #gbg-marker-3, body.ie6 #gbg-marker-4, body.ie6 #gbg-marker-5, body.ie6 #gbg-marker-m, body.ie6 #gbg-marker-h {
     overflow: hidden;
 }
