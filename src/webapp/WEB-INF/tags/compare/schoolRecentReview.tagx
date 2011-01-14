@@ -21,7 +21,7 @@
             <p class="reviewComments smallText1-333">
                 ${gsweb:abbreviateAtWhitespace(recentReview.comments, 70)}
                 <link:schoolProfileParentReview school="${school}" anchor="ps${recentReview.id}">
-                    More <span class="alertDoubleArrow">&amp;#187;</span>
+                    More&amp;nbsp;<span class="alertDoubleArrow">&amp;raquo;</span>
                 </link:schoolProfileParentReview>
             </p>
             <c:if test="${not empty recentReview.who and recentReview.who ne 'other'}">
