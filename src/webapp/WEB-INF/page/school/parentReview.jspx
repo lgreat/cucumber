@@ -311,11 +311,11 @@
         <div class="unit size1of1 lastUnit">
             <input id="parentReviewTerms" name="parentReviewTerms" class="checkbox" type="checkbox" checked="checked"
                    value="1"/>
-            <label for="parentReviewTerms" class="text3">I agree to the <link:termsOfUse
+            <span class="text3">I agree to the <link:termsOfUse
                     target="_blank">GreatSchools Terms of Use</link:termsOfUse> and <link:parentReviewGuidelines
                     target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
                 <em class="sprite i-required"><!-- do not collapse --></em>
-            </label>
+            </span>
 
             <div class="mediaExt1-1 form-error hidden">
                 <span class="sprite i-alert img"><!-- do not collapse --></span>

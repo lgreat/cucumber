@@ -31,25 +31,35 @@
 
         <p>For principals and school officials, we offer a special Enhanced School Profile (ESP) which allows you to update and add information about your school, as well as respond to reviews. If you are a school official, click Continue to start. </p>
 
-        <form name="principalConfirmation" id="principalConfirmationForm" action="#" method="get">
-            <input type="hidden" id="hdnSchoolId" name="id" />
-            <input type="hidden" id="hdnSchoolState" name="state" />
+        <form name="principalConfirmation" id="principalConfirmationForm" method="get">
+            <input type="hidden" id="hdnSchoolId" name="id"/>
+            <input type="hidden" id="hdnSchoolState" name="state"/>
+
             <div id="agreeError" class="error"><!-- dont collapse-->You must agree to continue</div>
 
-            <br class="clearfloat" />
-            
-            <input name="agree" id="agree" type="checkbox" value="agree"/><label for="agree">Yes, I am an official at this school. </label>
+            <div class="spacer_10"><!-- do not collapse --></div>
 
-            <br class="clearfloat" />
-            
-            <!--<button class="btn25" type="button" id="submitPrincipalConfirmation">
-                <span class="lftDoor25"><span class="rtDoor25">Continue</span></span>
-            </button>-->
-            <button class="button-1" type="button" id="submitPrincipalConfirmation">Continue</button>
-            <!--<button class="btn25" type="button" onclick="GSType.hover.principalConfirmation.hide();">
-                <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
-            </button>-->
-            <button class="button-1" type="button" onclick="GSType.hover.principalConfirmation.hide();">Cancel</button>
+            <input name="agree" id="agree" type="checkbox" value="agree"/>
+            <label for="agree">Yes, I am an official at this school. </label>
+
+            <div class="spacer_10"><!-- do not collapse --></div>
+
+            <div class="line">
+
+                <div class="unit size1of6">
+                    <button class="button-1"
+                            type="button"
+                            id="submitPrincipalConfirmation">Continue
+                    </button>
+                </div>
+                <div class="unit size5of6 lastUnit">
+                    <button class="button-1"
+                            type="button"
+                            onclick="GSType.hover.principalConfirmation.hide();">Cancel
+                    </button>
+                </div>
+            </div>
+
         </form>
     </div>
 
