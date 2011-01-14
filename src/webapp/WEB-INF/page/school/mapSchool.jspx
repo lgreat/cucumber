@@ -46,8 +46,9 @@
 
     <gsml:body adPageName="schoolMap" pageLayout="nocol">
 
-        <ad:setSlotPrefix slotPrefix="MapSchool"/>
-        <school:profile2010 school="${school}" tab="schoolMap" omniturePageName="${pageName}">
+        <c:set var="adSlotPrefix" value="MapSchool"/>
+        <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
+        <school:profile2010 school="${school}" tab="schoolMap" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
 
             <div class="spacer_15"><!-- do not collapse --></div>
             <!-- being large Google map -->

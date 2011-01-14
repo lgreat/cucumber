@@ -90,9 +90,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <school:profile2010ShareThisJavaScript/> 
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
-<ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
+<c:set var="adSlotPrefix" value="School_Profile_Page_Overview"/>
+<ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
 
-<school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}">
+<school:profile2010 school="${school}" tab="overview" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
 
 <div id="overviewContainer">
 

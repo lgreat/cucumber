@@ -118,8 +118,9 @@
     <school:profile2010ShareThisJavaScript/>
 </head>
 <gsml:body adPageName="surveyResult" pageLayout="nocol">
-<ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Survey"/>
-<school:profile2010 school="${school}" tab="schoolStats" subtab="survey" omniturePageName="${pageName}">
+<c:set var="adSlotPrefix" value="School_Profile_Page_Parent_Survey"/>
+<ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
+<school:profile2010 school="${school}" tab="schoolStats" subtab="survey" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
 <c:if test="${not empty param.thanks}">
     <div id="surveyThanks" style="border:4px solid #ddeeee;padding:5px;position:relative;margin-bottom:14px;">
         <div style="height:50px;background-color:#ddeeee;padding:10px;position:relative;">

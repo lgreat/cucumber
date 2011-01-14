@@ -19,8 +19,9 @@
     <school:profile2010ShareThisJavaScript/>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
-    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Academic_Performance"/>
-    <school:profile2010 school="${school}" tab="schoolStats" subtab="testScores" omniturePageName="${pageName}">
+    <c:set var="adSlotPrefix" value="School_Profile_Page_Academic_Performance"/>
+    <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
+    <school:profile2010 school="${school}" tab="schoolStats" subtab="testScores" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
         <div>
             ${perlHtml}
         </div>

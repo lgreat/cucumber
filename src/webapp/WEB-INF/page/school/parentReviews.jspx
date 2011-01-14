@@ -127,14 +127,15 @@
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="overview">
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
-<ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
+<c:set var="adSlotPrefix" value="School_Profile_Page_Parent_Reviews"/>
+<ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
 
 <!-- Report it dialog -->
 <community:reportContentHover openingElementSelector=".reportIt"
                               reporterId="${validUser.id}"/>
 <!-- End report it dialog -->
 
-<school:profile2010 school="${school}" tab="parentReviews" omniturePageName="${pageName}">
+<school:profile2010 school="${school}" tab="parentReviews" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
 <c:set var="hasPreschoolCategoryRatings" value="${
                          not empty cmd.ratings.averageRatingMap[catFacilities]
                          or not empty cmd.ratings.averageRatingMap[catTeachers]

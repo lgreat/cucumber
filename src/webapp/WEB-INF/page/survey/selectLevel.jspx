@@ -18,7 +18,8 @@
         <title>${titleText} ${school.name} in ${school.city}, ${school.databaseState}</title>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
         <pageHelper:externalCss file="/res/css/survey/survey.css"/>
-        <ad:setSlotPrefix slotPrefix="Parent_Survey_Select_Level"/>
+        <c:set var="adSlotPrefix" value="Parent_Survey_Select_Level"/>
+        <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
         <style type="text/css">
             div#left-col {
                 height:580px;
@@ -53,7 +54,7 @@
         <school:profile2010ShareThisJavaScript/>
     </head>
     <gsml:body adPageName="survey" pageLayout="nocol">
-    <school:profile2010 omniturePageName="${pagename}" school="${school}" tab="survey">
+    <school:profile2010 omniturePageName="${pagename}" school="${school}" tab="survey" adSlotPrefix="${adSlotPrefix}">
         <div id="left-col">
             <div id="intro-start" class="intro">
                 <gsml:img src="/res/img/survey/flower.gif" alt="flower" id="intro-pic" />

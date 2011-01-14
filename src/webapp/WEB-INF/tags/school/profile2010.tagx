@@ -21,6 +21,8 @@
 <jsp:directive.attribute name="subtab" required="false" description="The Selected Sub-Tab, if any" type="java.lang.String"/>
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"
                          description="Omniture page name for custom click tracking"/>
+<jsp:directive.attribute name="adSlotPrefix" required="true" type="java.lang.String"
+                         description="Ad slot prefix for hiding ad label when ad is not targeted"/>
 
 <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
 <c:set var="state" value="${school.databaseState}"/>
@@ -455,94 +457,88 @@
                     <ad:BelowFold_300x250/>
                 </c:when>
                 <c:when test="${tab eq 'parentReviews'}">
-                    <!--<p>the new redesign code goes here</p>-->
-
-                    <!--<c:if test="${tab eq 'parentReviews'}">-->
-                        <ad:AboveFold_300x250/>
+                    <ad:AboveFold_300x250/>
 
                     ${savvySource}
 
-                        <!--<c:if test="${cmd.totalReviews gt 0}">
-                            <promo:schoolChoicePackPromo
-                                    schoolName="${school.name}"
-                                    showBorder="${false}"
-                                    showSchoolChoiceLink="${true}"
-                                    schoolObjectForRedirect="${school}"
-                                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                    format=""
-                                    school="${school}"
-                                    caller="${caller}"
-                                    />
-                        </c:if>-->
-
-                        <div class="mod">
-                            <div class="navmod_hd">
-                                <h5>Nearby Schools</h5>
-                            </div>
-                            <div class="mod_bd"><!-- do not collapse --></div>
+                    <div class="mod">
+                        <div class="navmod_hd">
+                            <h5>Nearby Schools</h5>
                         </div>
-                        <c:set var="pageSize" value="${4}"/>
+                        <div class="mod_bd"><!-- do not collapse --></div>
+                    </div>
+                    <c:set var="pageSize" value="${4}"/>
 
-                        <div id="nearbySchoolsMap" class="border-c6">
-                            &#160;
-                            <noscript>JavaScript is required in order to view a map of the city and its
-                                schools.
-                            </noscript>
-                        </div>
+                    <div id="nearbySchoolsMap" class="border-c6">
+                        &#160;
+                        <noscript>JavaScript is required in order to view a map of the city and its
+                            schools.
+                        </noscript>
+                    </div>
 
-                        <map:mapSchoolsWithoutBubbles
-                                id="nearbySchoolsMap"
-                                tooltips="true"
-                                schools="${mapSchools}"
-                                school="${school}"
-                                start="${param.start}"
-                                count="${pageSize}"
-                                gsRating="${gs_rating}"
-                                ratings="${ratings}"
-                                />
-                        <!-- end map -->
+                    <map:mapSchoolsWithoutBubbles
+                            id="nearbySchoolsMap"
+                            tooltips="true"
+                            schools="${mapSchools}"
+                            school="${school}"
+                            start="${param.start}"
+                            count="${pageSize}"
+                            gsRating="${gs_rating}"
+                            ratings="${ratings}"
+                            />
+                    <!-- end map -->
 
-                        <div class="spacer_5"><!-- do not collapse --></div>
-                        <div class="text3">
-                            <c:choose>
-                                <c:when test="${school.city eq 'Washington' and school.databaseState eq 'DC'}">
-                                    <link:city city="${school.city}" state="${school.physicalAddress.state}"
-                                               title="${school.city} schools">Top-rated Washington, D.C. schools</link:city> |
-                                    <link:nearbyCities state="${school.physicalAddress.state}"
-                                                       city="${school.city}">Cities near Washington, D.C.</link:nearbyCities>
-                                </c:when>
-                                <c:otherwise>
-                                    <link:city city="${school.city}" state="${school.physicalAddress.state}"
-                                               title="${school.city} schools">Top-rated ${school.city} schools</link:city> |
-                                    <link:nearbyCities state="${school.physicalAddress.state}"
-                                                       city="${school.city}">Cities near ${school.city}</link:nearbyCities>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        <div class="spacer_5"><!-- do not collapse --></div>
-                        <div class="smallAlertText">
-                            <gslink:realtorDotComLink address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink>
-                        </div>
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="text3">
+                        <c:choose>
+                            <c:when test="${school.city eq 'Washington' and school.databaseState eq 'DC'}">
+                                <link:city city="${school.city}" state="${school.physicalAddress.state}"
+                                           title="${school.city} schools">Top-rated Washington, D.C. schools</link:city> |
+                                <link:nearbyCities state="${school.physicalAddress.state}"
+                                                   city="${school.city}">Cities near Washington, D.C.</link:nearbyCities>
+                            </c:when>
+                            <c:otherwise>
+                                <link:city city="${school.city}" state="${school.physicalAddress.state}"
+                                           title="${school.city} schools">Top-rated ${school.city} schools</link:city> |
+                                <link:nearbyCities state="${school.physicalAddress.state}"
+                                                   city="${school.city}">Cities near ${school.city}</link:nearbyCities>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="smallAlertText">
+                        <gslink:realtorDotComLink
+                                address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink>
+                    </div>
 
-                        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
-                        <div class="spacer_10"><!-- do not collapse --></div>
-                        <!--<p>The page tab is: <c:out value="${tab}" default="not set"/></p>-->
+                    <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+                    <div class="spacer_10"><!-- do not collapse --></div>
+                    <!--<p>The page tab is: <c:out value="${tab}" default="not set"/></p>-->
 
-                        <school:nearbySchoolsTable
-                                school="${school}"
-                                gsRating="${gs_rating}"
-                                ratings="${ratings}"
-                                mapSchools="${mapSchools}"
-                                pageSize="4"
-                                maxPages="5"
-                                tab="${tab}"
-                                />
+                    <school:nearbySchoolsTable
+                            school="${school}"
+                            gsRating="${gs_rating}"
+                            ratings="${ratings}"
+                            mapSchools="${mapSchools}"
+                            pageSize="4"
+                            maxPages="5"
+                            tab="${tab}"
+                            />
 
-                        <ad:BelowFold_300x250/>
+                    <ad:BelowFold_300x250/>
 
-                        <ad:BelowFold_Top_300x125/>
-
-                    <!--</c:if>-->
+                    <gsweb:adTagGenerator position="BelowFold_Top_300x125">
+                        <span style="display:block; margin-bottom: 2px;"
+                              id="messageBelowFold_Top_300x125">ADVERTISEMENT</span>$AD
+                    </gsweb:adTagGenerator>
+                    <script type="text/javascript">
+                        jQuery(function () {
+                            if (jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125').length == 0 &amp;&amp;
+                                    jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125_ad_container').length == 0) {
+                                jQuery('#messageBelowFold_Top_300x125').hide();
+                            }
+                        });
+                    </script>
                 </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
@@ -582,7 +578,18 @@
 
                     <ad:BelowFold_300x250/>
 
-                    <ad:BelowFold_Top_300x125/>
+                    <gsweb:adTagGenerator position="BelowFold_Top_300x125">
+                        <span style="display:block; margin-bottom: 2px;"
+                              id="messageBelowFold_Top_300x125">ADVERTISEMENT</span>$AD
+                    </gsweb:adTagGenerator>
+                    <script type="text/javascript">
+                        jQuery(function () {
+                            if (jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125').length == 0 &amp;&amp;
+                                    jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125_ad_container').length == 0) {
+                                jQuery('#messageBelowFold_Top_300x125').hide();
+                            }
+                        });
+                    </script>
 
                 </c:otherwise>
             </c:choose>

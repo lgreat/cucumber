@@ -63,7 +63,8 @@
 
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
 <gsml:body adPageName="ratings" pageLayout="nocol">
-    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Ratings"/>
+    <c:set var="adSlotPrefix" value="School_Profile_Page_Ratings"/>
+    <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
 
         <spring:hasBindErrors name="ratingsCmd">
             <c:set var="hasError" value="true"/>
@@ -77,7 +78,7 @@
         </spring:hasBindErrors>
 
         <c:if test="${hasError eq 'false'}">
-            <school:profile2010 school="${school}" tab="schoolStats" subtab="ratings" omniturePageName="${pageName}">
+            <school:profile2010 school="${school}" tab="schoolStats" subtab="ratings" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
                 <div id="ratingContent">
                     <div class="ratingSummaryWrapper">
                         <div class="ratingSummaryContent">
