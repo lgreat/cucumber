@@ -13,6 +13,8 @@
                              description="Rating to output"/>
     <jsp:directive.attribute name="numRatings" required="false" type="java.lang.Integer"
                              description="If provided, output a string listing the number of ratings behind this value."/>
+    <jsp:directive.attribute name="showDisclaimer" required="false" type="java.lang.Boolean"
+                             description="If true, shows a disclaimer when no rating is available"/>
 
     <c:choose>
         <c:when test="${communityRating gt 0}">
@@ -23,12 +25,12 @@
                     </link:schoolProfileParentReview>
             </c:if>
         </c:when>
-        <c:otherwise>
-            <p class="smallText1-italic">There are no ratings yet for this school.</p>
+        <c:when test="${not empty showDisclaimer and showDisclaimer eq true}">
+            <p class="smallText1-italic">There are no ratings yet.</p>
             <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">
-                Be the first to rate it!
+                Rate this school!
             </link:schoolProfileParentReview>
-        </c:otherwise>
+        </c:when>
     </c:choose>
 
 </jsp:root>

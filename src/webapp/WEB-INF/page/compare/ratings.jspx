@@ -62,7 +62,8 @@
                         <td class="cs_commRate center smallText1">
                             <compare:schoolCommunityRating school="${school.school}"
                                                            communityRating="${school.communityRating}"
-                                                           numRatings="${school.numRatings}"/>
+                                                           numRatings="${school.numRatings}"
+                                                           showDisclaimer="${true}"/>
                         </td>
                     </c:forEach>
                 </tr>
