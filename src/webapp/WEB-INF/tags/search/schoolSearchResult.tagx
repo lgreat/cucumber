@@ -13,19 +13,29 @@
     <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult"/>
     <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
+    <c:choose>
+        <c:when test="${school.levelCode eq 'p'}">
+            <c:set var="preschoolNoCompareMessage"
+                   value="Due to a lack of available data on preschools, they cannot be compared"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="preschoolNoCompareMessage" value=""/>
+        </c:otherwise>
+    </c:choose>
+
         <tr class="school-search-result-row" id="school-search-result-${school.databaseState}${school.id}">
 
             <!-- Compare Checkbox-->
-            <td class="brdbtm_dotted js-checkbox-column bg-color-fff" align="center" valign="top">
+            <td class="brdbtm_dotted js-checkbox-column bg-color-fff" align="center" valign="top" title="${preschoolNoCompareMessage}">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <!-- DONE: Randall fixme -->
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">
                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"
-                               disabled="disabled" title="Due to a lack of available data on preschools, they cannot be compared"/>
+                               disabled="disabled" title="${preschoolNoCompareMessage}"/>
                         <br/>
-                        <acronym class="smallText2-777"
-                                 title="Due to a lack of available data on preschools, they cannot be compared"><i>COMPARE</i></acronym>
+                        <label class="smallText2-777"
+                               for="${school.databaseState}${school.id}" title="${preschoolNoCompareMessage}"><i>COMPARE</i></label>
                     </c:when>
                     <c:otherwise>
                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
