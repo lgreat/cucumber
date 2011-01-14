@@ -38,7 +38,8 @@
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_schools">
                         <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
-                                                      schoolsString="${schoolsString}" page="${page}"/>
+                                                      schoolsString="${schoolsString}" page="${page}"
+                                                      omniturePageName="${omniturePageName}"/>
                     </td>
                 </c:forEach>
             </tr>
