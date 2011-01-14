@@ -1529,6 +1529,35 @@ body.cobranded #pageGS {
     margin-left: 4px;
 }
 
+/* Ext2-6
+    margin: 4px 0;
+    gutter: 5px;
+*/
+.mediaExt2-6 {
+    margin: 4px 0;
+}
+
+.mediaExt2-6,
+.bd {
+    overflow: hidden;
+    _overflow: visible;
+    zoom: 1;
+}
+
+.mediaExt2-6 .img {
+    float: left;
+    margin-right: 5px;
+}
+
+.mediaExt2-6 .img img {
+    display: block;
+}
+
+.mediaExt2-6 .imgExt {
+    float: right;
+    margin-left: 5px;
+}
+
 /* Ext3
     margin: 0 10px;
     gutter: 10px;
@@ -7023,7 +7052,6 @@ table#compareTable td.cs_schools p.text3 {
 
 .communityRating {
     padding-left: 5px;
-    margin: 4px 0 0 5px;
 }
 
 .schoolList p {

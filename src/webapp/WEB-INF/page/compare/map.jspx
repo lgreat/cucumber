@@ -29,16 +29,23 @@
                 <c:forEach var="school" items="${schools}">
                     <!-- Remove school -->
                     <li>
-                    <span class="fltrt">
-                        <link:compareSchools tab="${tab}" schools="${schoolsString}" page="${page}"
-                                             remove="${school.uniqueIdentifier}" source="${requestScope.source}"
-                                ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
-                    </span>
-                    <p><link:schoolProfileOverview school="${school.school}"
-                                        styleClass="schoolName">${school.name}</link:schoolProfileOverview></p>
-                    <div class="line">
-                        <div class="unit">
-                            <div class="gsRating">
+                        <div class="mediaExt1">
+                            <div class="imgExt">
+                                <link:compareSchools tab="${tab}"
+                                                     schools="${schoolsString}"
+                                                     page="${page}"
+                                                     remove="${school.uniqueIdentifier}"
+                                                     source="${requestScope.source}"><span
+                                        class="sprite cpareColClose"><!-- do not collapse --></span>
+                                </link:compareSchools>
+                            </div>
+                            <div class="bd">
+                                <link:schoolProfileOverview school="${school.school}"
+                                                            styleClass="schoolName">${school.name}</link:schoolProfileOverview>
+                            </div>
+                        </div>
+                        <div class="mediaExt2-6">
+                            <div class="img gsRating">
                                 <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}">
                                     <c:choose>
                                         <c:when test="${school.private}">
@@ -53,10 +60,9 @@
                                     </c:choose>
                                 </link:schoolProfileRating2010>
                             </div>
-                        </div>
-                        <div class="unit">
-                            <div class="communityRating brdlft-solid">
-                                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school.school}">
+                            <div class="bd brdlft-solid communityRating">
+                                <link:schoolProfileParentReview anchor="schoolReviewSubmitForm"
+                                                                school="${school.school}">
                                     <c:choose>
                                         <c:when test="${school.communityRating gt 0}">
                                             <span class="sprite stars_sm_${school.communityRating}"><!-- do not collapse --></span>
@@ -68,7 +74,7 @@
                                 </link:schoolProfileParentReview>
                             </div>
                         </div>
-                    </div></li>
+                    </li>
                 </c:forEach>
             </ul>
             <div id="compareMap"><!-- Do not collapse --></div>
