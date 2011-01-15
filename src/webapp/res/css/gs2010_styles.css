@@ -6889,6 +6889,9 @@ table#compareTable td p {
     width: 139px;
     margin: 0 auto;
 }
+ul.schoolList div p {
+    word-wrap: break-word;
+}
 table#compareTable td.cs_schools p.text3 {
     margin-bottom: 5px;
 }

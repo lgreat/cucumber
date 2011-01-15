@@ -86,9 +86,11 @@
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_dName center text3">
                         <c:if test="${not empty school.district}">
-                            <link:districtHome district="${school.district}" title="District information"
-                                    ><c:out value="${school.district.name}"
-                                            escapeXml="true"/></link:districtHome>
+                            <p>
+                                <link:districtHome district="${school.district}" title="District information"
+                                        ><c:out value="${school.district.name}"
+                                                escapeXml="true"/></link:districtHome>
+                            </p>
                         </c:if>
                     </td>
                 </c:forEach>

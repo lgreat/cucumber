@@ -40,8 +40,10 @@
                                 </link:compareSchools>
                             </div>
                             <div class="bd">
-                                <link:schoolProfileOverview school="${school.school}"
-                                                            styleClass="schoolName">${school.name}</link:schoolProfileOverview>
+                                <p>
+                                    <link:schoolProfileOverview school="${school.school}"
+                                                                styleClass="schoolName">${school.name}</link:schoolProfileOverview>
+                                </p>
                             </div>
                         </div>
                         <div class="mediaExt2-6">
