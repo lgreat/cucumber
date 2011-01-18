@@ -19,22 +19,41 @@
         </jsp:scriptlet>
 
     <div id="fb-root" class="hidden"><!-- empty tag = broken page --></div>
-    <script type="text/javascript">
-        window.fbAsyncInit = function() {
-            FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl: '${domainUrl}res/channel.html'});
-            //FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true});
+    <!--
+        switch to test asynchronous vs. synchronous loading of the like button
+    -->
+    <c:choose>
+        <c:when test="${(not empty param.synclike)}">
+            <script src="http://connect.facebook.net/en_US/all.js"><!-- not empty --></script>
 
-        };
+            <script>
+                FB.init({
+                    appId  : '112862918759431',
+                    status : true, // check login status
+                    cookie : true, // enable cookies to allow the server to access the session
+                    xfbml  : true,  // parse XFBML
+                    channelUrl: '${domainUrl}res/channel.html'
+                });
+                //        FB.event.subscribe('edge.create',function(){});
+            </script>
+        </c:when>
+        <c:otherwise>
+            <script type="text/javascript">
+                window.fbAsyncInit = function() {
+                    FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl: '${domainUrl}res/channel.html'});
 
-        (function() {
-            var e = document.createElement('script');
-            e.async = true;
-            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-            document.getElementById('fb-root').appendChild(e);
-        }());
+                };
 
-    </script>
+                (function() {
+                    var e = document.createElement('script');
+                    e.async = true;
+                    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                    document.getElementById('fb-root').appendChild(e);
+                }());
 
+            </script>
+        </c:otherwise>
+    </c:choose>
     <![CDATA[
     <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
     ]]>
