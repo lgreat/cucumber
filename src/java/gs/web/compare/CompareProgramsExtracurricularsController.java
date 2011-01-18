@@ -91,9 +91,9 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                     (ComparedSchoolProgramsExtracurricularsStruct) baseStruct;
             _log.warn("Processing " + baseStruct.getName() + " (" + baseStruct.getUniqueIdentifier() + ")");
 
-            Map<String, List<String>> categoryResponses = new HashMap<String, List<String>>();
+            Map<String, Set<String>> categoryResponses = new HashMap<String, Set<String>>();
             for (String category: categories) {
-                categoryResponses.put(category, new ArrayList<String>());
+                categoryResponses.put(category, new LinkedHashSet<String>());
             }
             struct.setCategoryResponses(categoryResponses);
 
