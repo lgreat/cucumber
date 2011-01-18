@@ -1,5 +1,8 @@
 package gs.web.compare;
 
+import java.util.List;
+import java.util.Map;
+
 import static gs.web.compare.ComparedSchoolProgramsExtracurricularsStruct.SourceType.*;
 
 /**
@@ -13,6 +16,7 @@ public class ComparedSchoolProgramsExtracurricularsStruct extends ComparedSchool
 
     private SourceType _programSource = Parents;
     private int _numResponses = 0;
+    private Map<String, List<String>> _categoryResponses;
 
     public SourceType getProgramSource() {
         return _programSource;
@@ -28,5 +32,13 @@ public class ComparedSchoolProgramsExtracurricularsStruct extends ComparedSchool
 
     public void setNumResponses(int numResponses) {
         _numResponses = numResponses;
+    }
+
+    public Map<String, List<String>> getCategoryResponses() {
+        return _categoryResponses;
+    }
+
+    public void setCategoryResponses(Map<String, List<String>> categoryResponses) {
+        _categoryResponses = categoryResponses;
     }
 }

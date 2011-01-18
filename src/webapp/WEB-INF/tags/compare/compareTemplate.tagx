@@ -84,8 +84,15 @@
         <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}" alignment="bottom"/>
         <div class="footerInfo clearBoth">
             <p class="contactUs fltlft">
-                Notice an inaccuracy?
-                <link:schoolFeedback>Let us know</link:schoolFeedback>
+                <c:choose>
+                    <c:when test="${tab eq 'programsExtracurriculars'}">
+                        Program information provided by parent surveys may not be completely accurate.
+                    </c:when>
+                    <c:otherwise>
+                        Notice an inaccuracy?
+                        <link:schoolFeedback>Let us know</link:schoolFeedback>
+                    </c:otherwise>
+                </c:choose>
             </p>
         <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
                                   startIndex="${startIndex}" endIndex="${endIndex}"
