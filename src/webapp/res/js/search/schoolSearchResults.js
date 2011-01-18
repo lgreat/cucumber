@@ -8,7 +8,7 @@ GS.search.onMapMarkerClick = function(state, id) {
     jQuery('#nearby-schools-' + state + id).addClass('bg-color-f4fafd');
 
     if (s.tl) {
-        s.tl(this,'o', 'Map_pin_click');
+        s.tl(true,'o', 'Map_pin_click');
     }
 };
 

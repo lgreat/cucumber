@@ -353,12 +353,18 @@ function initMap() {
 
 function addBubbleListener(marker, school) {
   GEvent.addListener(marker, "click", function() {
+      if (s.tl &amp;&amp; s.pageName != undefined) {
+          s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+      }
       marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
   });
 }
 
 function addHomeBubbleListener(marker, text) {
   GEvent.addListener(marker, "click", function() {
+      if (s.tl &amp;&amp; s.pageName != undefined) {
+          s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+      }
       marker.openInfoWindowHtml(text);
   });
 }

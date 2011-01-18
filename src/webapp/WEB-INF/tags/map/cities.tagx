@@ -26,6 +26,9 @@
  <c:if test="${empty tooltips or tooltips}">
  //<![CDATA[
             GEvent.addListener(marker, "click", function() {
+                if (s.tl && s.pageName != undefined) {
+                    s.tl(this, 'o', 'Map_pin_click_' + s.pageName);
+                }
                 location = newpage;
             });
  //]]>
@@ -33,6 +36,9 @@
        <c:if test="${not empty bubbles and bubbles}">
  //<![CDATA[
             GEvent.addListener(marker, "click", function() {
+                if (s.tl && s.pageName != undefined) {
+                    s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+                }
                marker.openInfoWindowHtml(bubbleText);
             });
  //]]>

@@ -93,6 +93,9 @@
             var marker = new google.maps.Marker(options);
             bounds.extend(options.position);
             google.maps.event.addListener(marker, 'click', function() {
+                if (s.tl &amp;&amp; s.pageName != undefined) {
+                    s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+                }
                 var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
                 GS_compareMapInfoWindow.setContent(
                         '<div style="width:325px;">'+infowindowElement.html()+'</div>'

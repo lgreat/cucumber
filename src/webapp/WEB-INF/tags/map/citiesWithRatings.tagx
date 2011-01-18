@@ -58,6 +58,9 @@
          GEvent.addListener(marker, "click", function() {
              window.clearTimeout(popTimeout);
              isClick = true;
+             if (s.tl && s.pageName != undefined) {
+                 s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+             }
              marker.openInfoWindowHtml(getBubbleHtml(cityUrl, schoolsUrl, cityName,
                      state, imageValue, cityMedianHomePrice, zip), {maxWidth: 210});
          });

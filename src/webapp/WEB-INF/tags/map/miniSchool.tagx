@@ -90,6 +90,9 @@ function initMiniMap_${school.id}() {
 
 
     google.maps.event.addListener(marker, 'click', function() {
+        if (s.tl &amp;&amp; s.pageName != undefined) {
+            s.tl(this, 'o', 'Map_pin_click_' + s.pageName);
+        }
         location = mapLink;
     });
 

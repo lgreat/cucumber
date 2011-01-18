@@ -78,6 +78,9 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.addMarker = function(marker, databaseState, id, markerClickedCallback) {
         google.maps.event.addListener(marker, "click", function() {
+            if (s.tl && s.pageName != undefined) {
+                s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+            }
             if (useBubbles) {
                 infoWindow.setContent(marker.infoWindowMarkup);
                 infoWindow.open(map, marker);

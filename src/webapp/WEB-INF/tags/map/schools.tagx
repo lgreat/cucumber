@@ -64,7 +64,10 @@ Schools without lat/lon are skipped.
 function addBubble(m, link, name, schInfo, stInfo) {
   GEvent.addListener(m, "click", function() {
     var s = '<div style="font-size:small;width: 200px;height: 20px"><a href="' + link + '">' + name + '</a>' +
-            schInfo + stInfo + '</div>'
+            schInfo + stInfo + '</div>';
+    if (s.tl && s.pageName != undefined) {
+        s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
+    }
     m.openInfoWindowHtml(s);
   });
 };
@@ -175,7 +178,12 @@ function initMap() {
 }
 
 function addClickListener(marker, link) {
-  GEvent.addListener(marker, "click", function() { location = link; });
+  GEvent.addListener(marker, "click", function() {
+      if (s.tl &amp;&amp; s.pageName != undefined) {
+          s.tl(this, 'o', 'Map_pin_click_' + s.pageName);
+      }
+      location = link;
+  });
 }
 
 function doMapSchools() {
