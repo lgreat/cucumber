@@ -400,10 +400,41 @@ GS.search.SchoolSearchResultsTable = function() {
 
 };
 
+GS.search.FilterTracking = function() {
+    var gradeLevel = new Object();
+    gradeLevel['p'] = 'PK';
+    gradeLevel['e'] = 'elem';
+    gradeLevel['m'] = 'middle';
+    gradeLevel['h'] = 'high';
+
+    this.track = function(cssId) {
+        var lastHyphenIndex = cssId.lastIndexOf('-');
+        var customLinkName;
+        if (lastHyphenIndex > 0) {
+            var cssIdPrefix = cssId.substr(0,lastHyphenIndex);
+            var filter = cssId.substr(lastHyphenIndex + 1);
+            if (cssIdPrefix == 'school-type') {
+                customLinkName = 'Search_filter_type_' + filter;
+            } else if (cssIdPrefix == 'grade-level') {
+                customLinkName = 'Search_filter_grade_' + gradeLevel[filter];
+            }
+
+            if (customLinkName != undefined) {
+                if (s.tl) {
+                    s.tl(true, 'o', customLinkName);
+                }
+            }
+        }
+    };
+};
+
 jQuery(function() {
     GS.search.schoolSearchResultsTable = new GS.search.SchoolSearchResultsTable();
+    GS.search.filterTracking = new GS.search.FilterTracking();
 
     jQuery('#topicbarGS input').click(function() {
+        var cssId = jQuery(this).attr('id');
+        GS.search.filterTracking.track(cssId);
         GS.search.schoolSearchResultsTable.update();
     });
 
