@@ -714,6 +714,14 @@
     </c:choose>
 </div>
 
+<c:if test="${showContextualAds}">
+    <!-- start Vibrant Media IntelliTXT script section -->
+    <![CDATA[
+    <script type="text/javascript" src="http://greatschools.us.intellitxt.com/intellitxt/front.asp?ipid=25436"></script>
+    ]]>
+    <!-- end Vibrant Media IntelliTXT script section -->
+</c:if>
+
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
 <mod:tracking pageName="${pageName}"

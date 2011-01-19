@@ -1,11 +1,8 @@
 package gs.web.content.cms;
 
+import gs.data.content.cms.*;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.PageHelper;
-import gs.data.content.cms.ICmsFeatureDao;
-import gs.data.content.cms.CmsFeature;
-import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.CmsCategory;
 import gs.data.content.IArticleDao;
 import gs.data.util.CmsUtil;
 
@@ -99,6 +96,51 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
     public void resetAll() {
         reset(_cmsFeatureDao);
         reset(_legacyArticleDao);
+    }
+
+    public void testShowContextualAds() {
+        getSessionContext().setAbVersion("b");
+
+        CmsFeature feature = getSampleFeature();
+        feature.setContentKey(ContentKey.valueOf("Article#123"));
+        CmsCategory first = new CmsCategory();
+        first.setName("First, with a comma");
+        first.setId(CmsConstants.ACADEMICS_AND_ACTIVITIES_CATEGORY_ID);
+        CmsCategory second = new CmsCategory();
+        second.setName("\"Second\"");
+        second.setId(CmsConstants.COLLEGE_PREP_CATEGORY_ID);
+        List<CmsCategory> breadcrumbs = Arrays.asList(first, second);
+        feature.setPrimaryKategoryBreadcrumbs(breadcrumbs);
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b"));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "a"));
+
+        feature.setContentKey(ContentKey.valueOf("ArticleSlideshow#123"));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b"));
+        feature.setContentKey(ContentKey.valueOf("AskTheExperts#123"));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b"));
+
+        feature.setContentKey(ContentKey.valueOf("Article#123"));
+        first = new CmsCategory();
+        first.setName("First, with a comma");
+        first.setId(CmsConstants.FIFTH_GRADE_CATEGORY_ID);
+        second = new CmsCategory();
+        second.setName("\"Second\"");
+        second.setId(CmsConstants.COLLEGE_PREP_CATEGORY_ID);
+        breadcrumbs = Arrays.asList(first, second);
+        feature.setPrimaryKategoryBreadcrumbs(breadcrumbs);
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b"));
+
+        first = new CmsCategory();
+        first.setName("First, with a comma");
+        first.setId(CmsConstants.GREAT_GIFTS_CATEGORY_ID);
+        second = new CmsCategory();
+        second.setName("\"Second\"");
+        second.setId(CmsConstants.COLLEGE_PREP_CATEGORY_ID);
+        breadcrumbs = Arrays.asList(first, second);
+        List<List<CmsCategory>> secondaryKategoryBreadcrumbs = new ArrayList<List<CmsCategory>>();
+        secondaryKategoryBreadcrumbs.add(breadcrumbs);
+        feature.setSecondaryKategoryBreadcrumbs(secondaryKategoryBreadcrumbs);
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b"));
     }
 
     public void testOmnitureTracking() {

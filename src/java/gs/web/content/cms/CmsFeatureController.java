@@ -1,5 +1,8 @@
 package gs.web.content.cms;
 
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
@@ -31,6 +34,16 @@ public class CmsFeatureController extends AbstractController {
     public static final String GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID = "referring_topic_center_id";
 
     private static final Pattern TOPIC_CENTER_URL_PATTERN = Pattern.compile("^.*\\.topic\\?content=(\\d+)");
+
+    // GS-11227
+    private static final Set<Long> CATEGORIES_FOR_CONTEXTUAL_ADS = new HashSet<Long>();
+    static {
+        CATEGORIES_FOR_CONTEXTUAL_ADS.add(CmsConstants.GREAT_GIFTS_CATEGORY_ID);
+        CATEGORIES_FOR_CONTEXTUAL_ADS.add(CmsConstants.HEALTH_AND_DEVELOPMENT_CATEGORY_ID);
+        CATEGORIES_FOR_CONTEXTUAL_ADS.add(CmsConstants.ACADEMICS_AND_ACTIVITIES_CATEGORY_ID);
+        CATEGORIES_FOR_CONTEXTUAL_ADS.add(CmsConstants.SPECIAL_EDUCATION_CATEGORY_ID);
+        CATEGORIES_FOR_CONTEXTUAL_ADS.add(CmsConstants.FIND_A_SCHOOL_CATEGORY_ID);
+    }
 
     private ICmsFeatureDao _featureDao;
     private IArticleDao _legacyArticleDao;
@@ -145,6 +158,12 @@ public class CmsFeatureController extends AbstractController {
         }
         pageHelper.addAdKeyword("article_id", String.valueOf(feature.getContentKey().getIdentifier()));
 
+        // GS-11227
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        if (sessionContext != null) {
+            model.put("showContextualAds", getShowContextualAds(feature, sessionContext.getABVersion()));
+        }
+
         // note: "referer" is a typo in the HTTP spec -- don't fix it here
         String referrer = request.getHeader("referer");
         if (referrer != null) {
@@ -198,6 +217,16 @@ public class CmsFeatureController extends AbstractController {
 
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
+    }
+
+    static boolean getShowContextualAds(CmsFeature feature, String abVersion) {
+        Set<Long> breadcrumbCategoryIds = new HashSet<Long>();
+        for (CmsCategory category : feature.getUniqueKategoryBreadcrumbs()) {
+            breadcrumbCategoryIds.add(category.getId());
+        }
+        return CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) &&
+                CollectionUtils.containsAny(CATEGORIES_FOR_CONTEXTUAL_ADS, breadcrumbCategoryIds) &&
+                "b".equals(abVersion);
     }
 
     protected UrlBuilder get301Redirect(Long contentId) {
