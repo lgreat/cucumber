@@ -6844,21 +6844,82 @@ body.ie7 #frmPRModule .helperMessage {
 }
 
 table#compareTable {
+    display:table;
+    table-layout:fixed;
     border: solid #c6c6c6;
     border-width: 0 1px 1px;
     clear: both;
+    zoom:1;
+    width:754px;
+    border-collapse:separate;
+    empty-cells:show;
+    margin:0;
+    padding:0;
 }
 
 table#compareTable th,
 table#compareTable td {
-    padding: 10px;
+    padding: 0;
+    margin:0;
     vertical-align: top;
     text-align: left;
 }
 
 table#compareTable th {
     border-bottom: 1px solid #c6c6c6;
-    width: 85px;
+}
+
+table#compareTable .th-compareContainer{
+    width:84px;
+    padding:10px;
+    margin:0;
+}
+
+table#compareTable .td-compareContainer{
+    padding:10px;
+    margin:0;
+}
+
+table#compareTable .td-compareContainer-splitTop{
+    padding:10px 10px 0;
+    margin:0 0 5px;
+}
+
+table#compareTable .td-compareContainer-splitBottom{
+    padding:0 10px 10px;
+    margin:0;
+}
+
+table#compareTable .td-compareContainerWidthCol_4{
+    width:141px;
+}
+
+table#compareTable .td-compareContainerWidthCol_3{
+    width:195px;
+}
+
+table#compareTable .td-compareContainerWidthCol_2{
+    width:303px;
+}
+
+table#compareTable .td-compareContainerWidthCol_1{
+    width:627px;
+}
+
+.ie6 table#compareTable .compareSchoolName,
+.ie7 table#compareTable .compareSchoolName{
+    word-wrap: break-word;
+    display:block;
+    margin: 0;
+    zoom: 1;
+}
+
+.ie6 table#compareTable .compareDistrictName,
+.ie7 table#compareTable .compareDistrictName{
+    word-wrap: break-word;
+    display:block;
+    margin: 0;
+    zoom: 1;
 }
 
 table#compareTable th em {
@@ -6872,28 +6933,25 @@ table#compareTable td {
     border: solid #c6c6c6;
     border-width: 0 0 1px 1px;
 }
-table#compareTable col.col_4 {
-    width: 162px;
+table#compareTable col.rowHeader{
+    width:104px;
 }
-table#compareTable col.col_3 {
-    width: 216px;
+
+table#compareTable col.col_4{
+    width: 161px;
 }
-table#compareTable col.col_2 {
-    width: 324px;
+table#compareTable col.col_3{
+    width: 215px;
 }
-table#compareTable col.col_1 {
-    width: 648px;
+table#compareTable col.col_2{
+    width: 323px;
 }
-table#compareTable td p {
-    word-wrap: break-word;
-    width: 139px;
-    margin: 0 auto;
+table#compareTable col.col_1{
+    width: 647px;
 }
+
 ul.schoolList div p {
     word-wrap: break-word;
-}
-table#compareTable td.cs_schools p.text3 {
-    margin-bottom: 5px;
 }
 .even th,
 .even td {
@@ -6981,15 +7039,9 @@ table#compareTable td.cs_schools p.text3 {
 }
 
 #compareTable .schoolThumbnailMap {
-    width: 139px;
     height: 110px;
-    margin: 0 auto 5px;
-}
-
-.cs_schools .fltrt {
-    position: relative;
-    right: -5px;
-    top: -5px;
+    border: 1px solid #c6c6c6;
+    margin: 0 0 5px;
 }
 
 .cs_gsRating .smallText1 {

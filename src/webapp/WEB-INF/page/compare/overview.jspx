@@ -6,6 +6,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -26,37 +27,44 @@
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,CompareOverview">
             <tbody>
                 <tr>
-                    <th scope="row" rowspan="2">School</th>
+                    <th scope="row" rowspan="2"><div class="th-compareContainer">School</div></th>
                     <c:forEach items="${schools}" var="school">
-                        <td class="cs_schools" style="border-bottom: 0;">
+                        <td class="cs_schools_top" style="border-bottom: 0; padding-bottom:0;">
+                            <div class="td-compareContainer-splitTop td-compareContainerWidthCol_${fn:length(schools)}">
                             <compare:schoolOverviewTop school="${school}" tab="${tab}"
                                                        schoolsString="${schoolsString}" page="${page}"/>
+                            </div>
                         </td>
                     </c:forEach>
                 </tr>
                 <tr>
                     <c:forEach items="${schools}" var="school">
-                        <td class="cs_schools">
+                        <td class="cs_schools" style="border-top: 0; padding-top:0;">
+                            <div class="td-compareContainer-splitBottom td-compareContainerWidthCol_${fn:length(schools)}">
                             <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${true}"
                                                           schoolsString="${schoolsString}" page="${page}"
                                                           omniturePageName="${omniturePageName}"/>
+                            </div>
                         </td>
                     </c:forEach>
                 </tr>
             </tbody>
             <tbody class="striped">
             <tr>
-                <th scope="row">School type</th>
+                <th scope="row"><div class="th-compareContainer">School type</div></th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="cs_type center text3">
-                        ${school.type} ${school.gradeLevels}
+                    <td class="cs_type text3">
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
+                        <p class="center">${school.type} ${school.gradeLevels}</p>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th scope="row">GreatSchools Rating</th>
+                <th scope="row"><div class="th-compareContainer">GreatSchools Rating</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_gsRating center">
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}">
                             <c:choose>
                                 <c:when test="${school.private}">
@@ -70,56 +78,74 @@
                                 </c:otherwise>
                             </c:choose>
                         </link:schoolProfileRating2010>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th scope="row">Total enrollment</th>
+                <th scope="row"><div class="th-compareContainer">Total enrollment</div></th>
                 <c:forEach items="${schools}" var="school">
-                    <td class="cs_Enrlmt center text3">
-                        ${school.enrollment}
+                    <td class="cs_Enrlmt text3">
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
+                        <p class="center">${school.enrollment}</p>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th scope="row">District name</th>
+                <th scope="row"><div class="th-compareContainer">District name</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_dName center text3">
                         <c:if test="${not empty school.district}">
+                            <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                             <p>
-                                <link:districtHome district="${school.district}" title="District information"
-                                        ><c:out value="${school.district.name}"
-                                                escapeXml="true"/></link:districtHome>
+                                <link:districtHome district="${school.district}" title="District information" styleClass="compareDistrictName">
+                                    <c:out value="${school.district.name}" escapeXml="true"/>
+                                </link:districtHome>
                             </p>
+                            </div>
                         </c:if>
                     </td>
                 </c:forEach>
-            </tr>             
+            </tr>
             <tr>
-                <th scope="row">Community rating <em>(overall)</em></th>
+                <th scope="row"><div class="th-compareContainer">Community rating <em>(overall)</em></div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_commRate center smallText1">
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         <compare:schoolCommunityRating school="${school.school}"
                                                        communityRating="${school.communityRating}"
                                                        numRatings="${school.numRatings}"/>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th scope="row">Recent reviews</th>
+                <th scope="row"><div class="th-compareContainer">Recent reviews</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_rReviews">
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         <compare:schoolRecentReview school="${school.school}"
                                                     recentReview="${school.recentReview}"
                                                     numReviews="${school.numReviews}"/>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th scope="row">Gender</th>
+                <th scope="row"><div class="th-compareContainer">Gender</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_sGender center">
-                        ${school.gender}
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
+                        <c:choose>
+                            <c:when test="${empty school.gender}">
+                                <p>&amp;nbsp;</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="center">${school.gender}</p>
+                            </c:otherwise>
+                        </c:choose>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>

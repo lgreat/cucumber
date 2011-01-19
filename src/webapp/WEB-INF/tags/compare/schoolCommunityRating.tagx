@@ -31,6 +31,9 @@
                 Rate this school!
             </link:schoolProfileParentReview>
         </c:when>
+        <c:otherwise>
+            <p>&amp;nbsp;</p>
+        </c:otherwise>
     </c:choose>
 
 </jsp:root>

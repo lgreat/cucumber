@@ -61,7 +61,7 @@
             <c:when test="${totalSchools gt 0}">
                 <c:choose>
                     <c:when test="${empty useTable or useTable eq true}">
-                        <table id="compareTable">
+                        <table id="compareTable" cellspacing="0" cellpadding="0" style="table-layout:fixed;">
                             <!-- row header column -->
                             <col class="rowHeader"/>
                             <!-- School columns -->
