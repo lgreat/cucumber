@@ -48,6 +48,14 @@
             </tbody>
             <tbody class="striped">
             <tr>
+                <th scope="row">School type</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_type center text3">
+                        ${school.type} ${school.gradeLevels}
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
                 <th scope="row">Source</th>
                 <c:forEach items="${schools}" var="school">
                     <td>
