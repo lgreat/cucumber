@@ -85,7 +85,8 @@ public abstract class  OmnitureTracking {
         CBTipDiscussionPost(30),
         CBTipReplyPost(31),
         CBAdviceDiscussionPost(32),
-        CBAdviceReplyPost(33);
+        CBAdviceReplyPost(33),
+        FacebookLike(36);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){
