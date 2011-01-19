@@ -5,6 +5,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.PQ;
 import gs.data.school.School;
 import gs.data.survey.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,29 +24,6 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     private String _successView;
     private ISurveyDao _surveyDao;
     private IPQDao _PQDao;
-
-    private static Map<String, String> _categoryToBeanMap = new HashMap<String, String>() {
-        {
-            put("Arts", "Arts &amp; activities");
-            put("Sports", "Sports");
-            put("Languages Taught", "Languages taught");
-            put("Other special programs", "Other special programs");
-            put("before_school", "Before/After school care");
-            put("after_school", "Before/After school care");
-            put("none", "Before/After school care");
-            put("Vocational programs", "Vocational programs");
-        }
-    };
-
-    private static Map<Integer, String> _answerIdToLabelMap = new HashMap<Integer, String>() {
-        {
-            put(1, "Arts &amp; activities");
-            put(2, "Languages taught");
-            put(3, "Sports");
-            put(4, "Other special programs");
-            put(5, "Vocational programs");
-        }
-    };
 
     private static Map<String, String> _questionAnswerToLabelMap = new HashMap<String, String>() {
         {
@@ -66,6 +44,66 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
 //            put("q8", "Before/After school care");
 
             put("q10", "Schools attended before this school");
+        }
+    };
+    
+    private static Map<String, String> _pqArtsMap = new HashMap<String, String>() {
+        {
+            put("b", "Band");
+            put("o", "Orchestra");
+            put("r", "Private music lessons");
+            put("t", "Theater/drama");
+            put("c", "Chorus");
+            put("p", "Photography");
+            put("d", "Drawing/painting");
+            put("e", "Ceramics");
+            put("n", "Dance");
+            put("v", "Video/film production");
+            put("l", "Electronics/technology");
+            put("g", "Gardening");
+            put("y", "Yearbook");
+            put("s", "Student newspaper");
+            put("h", "Physical education");
+            put("i", "Creative writing");
+        }
+    };
+
+    private static Map<String, String> _pqLanguagesMap = new HashMap<String, String>() {
+        {
+            put("c", "Cantonese");
+            put("e", "English");
+            put("f", "French");
+            put("g", "German");
+            put("i", "Italian");
+            put("j", "Japanese");
+            put("k", "Korean");
+            put("m", "Mandarin");
+            put("r", "Russian");
+            put("s", "Spanish");
+            put("t", "Tagalog");
+        }
+    };
+
+    private static Map<String, String> _pqSportsMap = new HashMap<String, String>() {
+        {
+            put("a","Basketball");
+            put("c","Cheerleading");
+            put("r","Cross country");
+            put("f","Field hockey");
+            put("g","Golf");
+            put("y","Gymnastics");
+            put("m","Ice hockey");
+            put("l","Lacrosse");
+            put("d","Soccer");
+            put("h","Softball");
+            put("w","Swimming");
+            put("t","Tennis");
+            put("k","Track");
+            put("v","Volleyball");
+            put("p","Water polo");
+            put("s","Baseball");
+            put("o","Football");
+            put("i","Wrestling");
         }
     };
 
@@ -102,6 +140,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
             if (pq != null) {
                 _log.warn("  Found PQ");
                 struct.setProgramSource(Principal);
+                processPQResults(struct, pq);
             } else {
                 _log.warn("  Did not find PQ, checking for survey results");
                 Set<LevelCode.Level> levels = school.getLevelCode().getIndividualLevelCodes();
@@ -116,6 +155,32 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                 processSurveyResults(struct, allResultsForSchool);
             }
         }
+    }
+
+    protected void processPQResults(ComparedSchoolProgramsExtracurricularsStruct school, PQ pq) {
+        parsePQValues(school.getCategoryResponses(), "Arts &amp; activities", pq.getArts(), _pqArtsMap);
+        parsePQValues(school.getCategoryResponses(), "Sports", pq.getBoysSports(), _pqSportsMap);
+        parsePQValues(school.getCategoryResponses(), "Sports", pq.getGirlsSports(), _pqSportsMap);
+        parsePQValues(school.getCategoryResponses(), "Languages taught", pq.getForeignLanguageClasses(), _pqLanguagesMap);
+        if (StringUtils.equals("checked", pq.getBeforecare())) {
+            school.getCategoryResponses().get("Before/After school care").add("Before school care");
+        }
+        if (StringUtils.equals("checked", pq.getAftercare())) {
+            school.getCategoryResponses().get("Before/After school care").add("After school care");
+        }
+    }
+
+    protected void parsePQValues(Map<String, Set<String>> categoryResponses, String categoryName, String pqValues, Map<String, String> valueMap) {
+        if (StringUtils.isNotBlank(pqValues)) {
+            for (String value:pqValues.split(":")) {
+                if (valueMap.get(value) != null) {
+                    categoryResponses.get(categoryName).add(valueMap.get(value));
+                } else {
+                    _log.warn("Can't find display text for PQ " + categoryName + " \"" + value + "\"");
+                }
+            }
+        }
+
     }
 
     protected void processSurveyResults(ComparedSchoolProgramsExtracurricularsStruct school,
