@@ -72,25 +72,6 @@
                     </td>
                 </c:forEach>
             </tr>
-            <tr>
-                <th scope="row">&amp;nbsp;</th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="center text2">
-                        <c:choose>
-                            <c:when test="${school.programSource eq 'Principal'}">
-                                <link:schoolProfilePrincipalView school="${school.school}">
-                                    View more programs &amp;amp; extracurriculars
-                                </link:schoolProfilePrincipalView>
-                            </c:when>
-                            <c:otherwise>
-                                <link:startSurveyResults school="${school.school}">
-                                    View more programs &amp;amp; extracurriculars
-                                </link:startSurveyResults>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                </c:forEach>
-            </tr>
             <c:forEach var="category" items="${categories}">
                 <tr>
                     <th scope="row">${category}</th>
@@ -114,6 +95,25 @@
                     </c:forEach>
                 </tr>
             </c:forEach>
+            <tr>
+                <th scope="row">&amp;nbsp;</th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="center text2">
+                        <c:choose>
+                            <c:when test="${school.programSource eq 'Principal'}">
+                                <link:schoolProfilePrincipalView school="${school.school}">
+                                    View more programs &amp;amp; extracurriculars
+                                </link:schoolProfilePrincipalView>
+                            </c:when>
+                            <c:otherwise>
+                                <link:startSurveyResults school="${school.school}">
+                                    View more programs &amp;amp; extracurriculars
+                                </link:startSurveyResults>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </c:forEach>
+            </tr>
             </tbody>
         </compare:compareTemplate>
     </gsml:body>
