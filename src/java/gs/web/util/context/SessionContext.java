@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.45 2011/01/07 00:51:36 yfan Exp $
+ * $Id: SessionContext.java,v 1.46 2011/01/20 02:05:11 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -283,6 +283,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public String getSavvyEmailSubscriptionName() {
         return _propertyDao.getProperty(IPropertyDao.SAVVY_EMAIL_SUBSCRIPTION_NAME, "Savvy Savings &amp; Scholarships");
+    }
+
+    public boolean isPartnerOptInCheckedByDefault() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.PARTNER_OPT_IN_CHECKED_BY_DEFAULT, "true"));
     }
 
     public boolean isInterstitialEnabled() {
