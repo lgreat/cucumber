@@ -6906,16 +6906,14 @@ table#compareTable .td-compareContainerWidthCol_1{
     width:627px;
 }
 
-.ie6 table#compareTable .compareSchoolName,
-.ie7 table#compareTable .compareSchoolName{
+table#compareTable .compareSchoolName{
     word-wrap: break-word;
     display:block;
     margin: 0;
     zoom: 1;
 }
 
-.ie6 table#compareTable .compareDistrictName,
-.ie7 table#compareTable .compareDistrictName{
+table#compareTable .compareDistrictName{
     word-wrap: break-word;
     display:block;
     margin: 0;
