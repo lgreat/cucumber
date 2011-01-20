@@ -132,26 +132,26 @@
                     </td>
                 </c:forEach>
             </tr>
-            <tr>
-                <th scope="row"><div class="th-compareContainer">Gender</div></th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="cs_sGender center">
-                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                        <c:choose>
-                            <c:when test="${empty school.gender}">
-                                <p>&amp;nbsp;</p>
-                            </c:when>
-                            <c:otherwise>
-                                <p class="center">${school.gender}</p>
-                            </c:otherwise>
-                        </c:choose>
-                        </div>
-                    </td>
-                </c:forEach>
-            </tr>
+            <!-- Removed per GS-11210 -->
+            <!--<tr>-->
+                <!--<th scope="row"><div class="th-compareContainer">Gender</div></th>-->
+                <!--<c:forEach items="${schools}" var="school">-->
+                    <!--<td class="cs_sGender center">-->
+                        <!--<div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">-->
+                        <!--<c:choose>-->
+                            <!--<c:when test="${empty school.gender}">-->
+                                <!--<p>&amp;nbsp;</p>-->
+                            <!--</c:when>-->
+                            <!--<c:otherwise>-->
+                                <!--<p class="center">${school.gender}</p>-->
+                            <!--</c:otherwise>-->
+                        <!--</c:choose>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                <!--</c:forEach>-->
+            <!--</tr>-->
             </tbody>
         </compare:compareTemplate>
     </gsml:body>
     </html>
 </jsp:root>
-
