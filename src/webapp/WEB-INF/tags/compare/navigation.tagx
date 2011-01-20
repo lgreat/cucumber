@@ -34,10 +34,10 @@
             <c:when test="${tab eq 'studentTeacher'}"><li class="active"><span>Teachers &amp;amp; Students</span></li></c:when>
             <c:otherwise><li class="inactive"><link:compareSchools tab="studentTeacher" schools="${schoolsString}" page="${page}" source="${requestScope.source}">Teachers &amp;amp; Students</link:compareSchools></li></c:otherwise>
         </c:choose>
-        <!--<c:choose>-->
-            <!--<c:when test="${tab eq 'programs'}"><li class="active"><span>Programs &amp;amp; Extracurriculars</span></li></c:when>-->
-            <!--<c:otherwise><li class="inactive"><a href="#" onclick="return false;">Programs &amp;amp; Extracurriculars</a></li></c:otherwise>-->
-        <!--</c:choose>-->
+        <c:choose>
+            <c:when test="${tab eq 'programsExtracurriculars'}"><li class="active"><span>Programs &amp;amp; Extracurriculars</span></li></c:when>
+            <c:otherwise><li class="inactive"><link:compareSchools tab="programsExtracurriculars" schools="${schoolsString}" page="${page}" source="${requestScope.source}">Programs &amp;amp; Extracurriculars</link:compareSchools></li></c:otherwise>
+        </c:choose>
         <c:choose>
             <c:when test="${tab eq 'map'}"><li class="active last"><span>Map</span></li></c:when>
             <c:otherwise><li class="inactive last"><link:compareSchools tab="map" schools="${schoolsString}" page="${page}" source="${requestScope.source}">Map</link:compareSchools></li></c:otherwise>
