@@ -73,7 +73,7 @@
                             </c:when>
                             <c:otherwise>
                                 <p class="smallText1-italic">
-                                    No program information is available on this school.
+                                    No program information available. Parents, update this <link:schoolStartSurvey school="${school.school}">school's information</link:schoolStartSurvey>.
                                 </p>
                             </c:otherwise>
                         </c:choose>
@@ -95,7 +95,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <c:if test="${school.programSource ne 'Principal'}">
-                                        <div class="center smallText1">No program information available on this school.</div>
+                                        <div class="center smallText1">Parents have not submitted information about these programs.</div>
                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
