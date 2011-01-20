@@ -257,15 +257,15 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                                             for (NameValuePair<String, Integer> answerValue: linkedQuestion.getResponseValuesAsList()) {
                                                 _log.warn("            " + answerValue.getKey() + ":" + answerValue.getValue());
                                                 if (answerValue.getValue() > 0) {
-                                                    if (StringUtils.contains("self-contained", answerValue.getKey())) {
+                                                    if (StringUtils.contains(answerValue.getKey(), "self-contained")) {
                                                         school.getCategoryResponses()
                                                                 .get(_questionAnswerToLabelMap.get(key))
                                                                 .add("Self-contained");
-                                                    } else if (StringUtils.contains("pull-out", answerValue.getKey())) {
+                                                    } else if (StringUtils.contains(answerValue.getKey(), "pull-out")) {
                                                         school.getCategoryResponses()
                                                                 .get(_questionAnswerToLabelMap.get(key))
                                                                 .add("Pull-out");
-                                                    } else if (StringUtils.contains("full inclusion", answerValue.getKey())) {
+                                                    } else if (StringUtils.contains(answerValue.getKey(), "full inclusion")) {
                                                         school.getCategoryResponses()
                                                                 .get(_questionAnswerToLabelMap.get(key))
                                                                 .add("Full inclusion");
