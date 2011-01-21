@@ -6,10 +6,15 @@
         >
     <jsp:directive.tag body-content="empty"
                        description="Adds a Facebook like button to the page. Requires that the proper meta tags have been added to the document head and that the html tag contains the proper xmlns declarations."
-                        import="gs.web.util.UrlBuilder"
-    />
+                        import="gs.web.util.UrlBuilder"/>
     <jsp:directive.attribute name="showLongText" type="java.lang.Boolean"
                              description="Whether or not to display the 'people like [school name]' text"
+                             required="true"/>
+    <jsp:directive.attribute name="state" type="gs.data.state.State"
+                             description="The database state of the school"
+                             required="true"/>
+    <jsp:directive.attribute name="schoolId" type="java.lang.Integer"
+                             description="The school ID"
                              required="true"/>
 
         <jsp:scriptlet>
@@ -24,9 +29,9 @@
         GS.FB = GS.FB || {};
         GS.FB.subscribes = function() {
             FB.Event.subscribe('edge.create', function(response) {
-                pageTracking.clear();
-                pageTracking.successEvents = 'event36;';
-                pageTracking.send();
+                if (s.tl) {
+                    s.tl(true, 'o', 'FBLike_School_${state}_${schoolId}');
+                }
             });
         };
     </script>
