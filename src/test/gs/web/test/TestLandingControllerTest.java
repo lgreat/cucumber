@@ -33,6 +33,39 @@ public class TestLandingControllerTest extends BaseControllerTestCase {
         _controller.setTableDao(tableDao);
     }
 
+    public void testGetCityBrowseUrlBuilder() {
+        UrlBuilder urlBuilder = TestLandingController.getCityBrowseUrlBuilder(State.CA, "San Francisco", "e");
+        assertEquals("/california/san-francisco/public-charter/elementary-schools/", urlBuilder.asSiteRelative(getRequest()));
+        urlBuilder = TestLandingController.getCityBrowseUrlBuilder(State.CA, "San Francisco", "m");
+        assertEquals("/california/san-francisco/public-charter/middle-schools/", urlBuilder.asSiteRelative(getRequest()));
+        urlBuilder = TestLandingController.getCityBrowseUrlBuilder(State.CA, "San Francisco", "h");
+        assertEquals("/california/san-francisco/public-charter/high-schools/", urlBuilder.asSiteRelative(getRequest()));
+
+        boolean threwException = false;
+        try {
+            TestLandingController.getCityBrowseUrlBuilder(State.CA, "San Francisco", null);
+        } catch (IllegalArgumentException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+
+        threwException = false;
+        try {
+            TestLandingController.getCityBrowseUrlBuilder(State.CA, null, "e");
+        } catch (IllegalArgumentException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+
+        threwException = false;
+        try {
+            TestLandingController.getCityBrowseUrlBuilder(null, "San Francisco", "e");
+        } catch (IllegalArgumentException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+    }
+
     public void testHandleRequestWithNoParams() throws Exception {
         getRequest().setMethod("GET");
         ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());

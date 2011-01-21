@@ -1,5 +1,6 @@
 package gs.web.test;
 
+import gs.data.school.SchoolType;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
@@ -59,6 +60,12 @@ public class TestLandingController extends SimpleFormController {
     private ITableDao _tableDao;
 
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+
+    final private static Set<SchoolType> CITY_BROWSE_SCHOOL_TYPES = new HashSet<SchoolType>();
+    static {
+        CITY_BROWSE_SCHOOL_TYPES.add(SchoolType.PUBLIC);
+        CITY_BROWSE_SCHOOL_TYPES.add(SchoolType.CHARTER);
+    }
 
     private static final Logger _log = Logger.getLogger(TestLandingController.class);
 
@@ -131,21 +138,18 @@ public class TestLandingController extends SimpleFormController {
             view = new RedirectView(url);
             
         } else if ("compare".equals(type)) {
-            String tabParam = request.getParameter("tab");
-            StringBuffer urlBuffer = new StringBuffer();
-            urlBuffer.append("/cgi-bin/cs_compare/");
-            urlBuffer.append(state.getAbbreviationLowerCase()).append("?area=m&city=");
-            urlBuffer.append(request.getParameter("city")).append("&level=");
-            urlBuffer.append(request.getParameter("level")).append("&sortby=distance&tab=");
-            if (StringUtils.isNotBlank(tabParam)) {
-                urlBuffer.append(tabParam);
-            } else {
-                urlBuffer.append("over");
-            }
-            view = new RedirectView(urlBuffer.toString());
+            UrlBuilder urlBuilder = getCityBrowseUrlBuilder(state, request.getParameter("city"), request.getParameter("level"));
+            view = new RedirectView(urlBuilder.asSiteRelative(request));
         } 
 
         return new ModelAndView(view);
+    }
+
+    static UrlBuilder getCityBrowseUrlBuilder(State state, String cityName, String level) {
+        if (state == null || StringUtils.isBlank(cityName) || StringUtils.isBlank(level)) {
+            throw new IllegalArgumentException("Must specify state, city name, and level");
+        }
+        return new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, CITY_BROWSE_SCHOOL_TYPES, LevelCode.createLevelCode(level));
     }
 
     public void loadCache(Map<String, Map> cache) {
