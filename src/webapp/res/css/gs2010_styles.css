@@ -7041,9 +7041,11 @@ ul.schoolList div p {
 }
 
 #compareTable .schoolThumbnailMap {
+    width: 139px;
     height: 110px;
     border: 1px solid #c6c6c6;
-    margin: 0 0 5px;
+    /*margin: 0 auto 5px;*/
+    margin-bottom:5px;
 }
 
 .cs_gsRating .smallText1 {

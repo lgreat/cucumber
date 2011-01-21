@@ -71,6 +71,7 @@
                                         <c:when test="${censusCell.isHeaderCell}">
                                             <c:set var="rowYear" value="${censusCell.year}"/>
                                             <th scope="row">
+                                                <div class="th-compareContainer">
                                                 <c:if test="${not empty censusCell.extraInfo}">
                                                     <a onclick="window.open(this.href, 'info', 'width=500,height=400,scrollbars=yes'); return false;"
                                                        href="${censusCell.extraInfo}" class="fltrt"><span class="sprite info"><!-- not empty --></span></a>
@@ -80,10 +81,12 @@
                                                 <c:if test="${censusCell.breakdownValueMinimum gt 0}">
                                                     <p class="minimum"><em>Values over ${censusCell.breakdownValueMinimum}% are shown</em></p>
                                                 </c:if>
+                                                </div>
                                             </th>
                                         </c:when>
                                         <c:otherwise>
                                             <td>
+                                                <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                                                 <c:choose>
                                                     <c:when test="${empty censusCell}">
                                                         <p class="center">-</p>
@@ -102,6 +105,7 @@
                                                 <c:if test="${not empty censusCell and censusCell.year ne rowYear}">
                                                     <div class="year">Note: ${censusCell.year} data</div>
                                                 </c:if>
+                                                </div>
                                             </td>
                                         </c:otherwise>
                                     </c:choose>
@@ -109,12 +113,14 @@
                             </tr>
                         </c:forEach>
                         <tr>
-                            <th scope="row">&amp;nbsp;</th>
+                            <th scope="row"><div class="th-compareContainer">&amp;nbsp;</div></th>
                             <c:forEach items="${schools}" var="school">
                                 <td class="center text2">
+                                    <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                                     <link:schoolProfileCensus school="${school.school}">
                                         View more teacher &amp;amp; student stats
                                     </link:schoolProfileCensus>
+                                    </div>
                                 </td>
                             </c:forEach>
                         </tr>
