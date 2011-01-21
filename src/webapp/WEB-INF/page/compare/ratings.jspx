@@ -29,28 +29,34 @@
     <gsml:body adPageName="compare" pageLayout="leftside">
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Reviews">
             <tbody>
-                <tr>
-                    <th scope="row" rowspan="2"><div class="th-compareContainer">School</div></th>
-                    <c:forEach items="${schools}" var="school">
-                        <td class="cs_schools" style="border-bottom: 0;">
-                            <div class="td-compareContainer-splitTop td-compareContainerWidthCol_${fn:length(schools)}">
-                            <compare:schoolOverviewTop school="${school}" tab="${tab}"
-                                                       schoolsString="${schoolsString}" page="${page}"/>
+            <tr>
+                <th scope="row" rowspan="2">
+                    <div class="th-compareContainer">School</div>
+                </th>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_schools" style="border-bottom: 0;">
+                        <div class="td-compareContainer-splitTop td-compareContainerWidthCol_${fn:length(schools)}">
+                            <div class="cs_school_top">
+                                <compare:schoolOverviewTop school="${school}" tab="${tab}"
+                                                           schoolsString="${schoolsString}" page="${page}"/>
                             </div>
-                        </td>
-                    </c:forEach>
-                </tr>
-                <tr>
-                    <c:forEach items="${schools}" var="school">
-                        <td class="cs_schools">
-                            <div class="td-compareContainer-splitBottom td-compareContainerWidthCol_${fn:length(schools)}">
-                            <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
-                                                          schoolsString="${schoolsString}" page="${page}"
-                                                          omniturePageName="${omniturePageName}"/>
+                        </div>
+                    </td>
+                </c:forEach>
+            </tr>
+            <tr>
+                <c:forEach items="${schools}" var="school">
+                    <td class="cs_schools">
+                        <div class="td-compareContainer-splitBottom td-compareContainerWidthCol_${fn:length(schools)}">
+                            <div class="cs_school_bottom">
+                                <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
+                                                              schoolsString="${schoolsString}" page="${page}"
+                                                              omniturePageName="${omniturePageName}"/>
                             </div>
-                        </td>
-                    </c:forEach>
-                </tr>
+                        </div>
+                    </td>
+                </c:forEach>
+            </tr>
             </tbody>
             <tbody class="striped">
                 <tr>
@@ -110,13 +116,17 @@
                     </c:forEach>
                 </tr>
                 <tr>
-                    <th scope="row"><div class="th-compareContainer">Recent reviews</div></th>
+                    <th scope="row">
+                        <div class="th-compareContainer">Recent reviews</div>
+                    </th>
                     <c:forEach items="${schools}" var="school">
                         <td class="cs_rReviews">
                             <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                            <compare:schoolRecentReview school="${school.school}"
-                                                        recentReview="${school.recentReview}"
-                                                        numReviews="${school.numReviews}"/>
+                                <div class="cs_rReview">
+                                    <compare:schoolRecentReview school="${school.school}"
+                                                                recentReview="${school.recentReview}"
+                                                                numReviews="${school.numReviews}"/>
+                                </div>
                             </div>
                         </td>
                     </c:forEach>
