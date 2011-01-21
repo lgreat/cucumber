@@ -72,29 +72,6 @@ public class TestLandingControllerTest extends BaseControllerTestCase {
         assertEquals("State and tid parameters are required", "/test/landing", mAndV.getViewName());
     }
 
-    public void testSubmitAchievementForm() throws Exception {
-
-        School school = new School();
-        school.setDatabaseState(State.CA);
-        school.setId(1);
-
-        getRequest().setMethod("POST");
-        getRequest().setParameter("type", "achievement");
-        getRequest().setParameter("sid", String.valueOf(school.getId()));
-        getRequest().setParameter("state", school.getDatabaseState().getAbbreviationLowerCase());
-        
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
-        RedirectView view = (RedirectView)mAndV.getView();
-        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
-        assertEquals (builder.asSiteRelative(getRequest()), view.getUrl());
-
-        getRequest().setParameter("type", "compare");
-        mAndV = _controller.handleRequest(getRequest(), getResponse());
-        view = (RedirectView)mAndV.getView();
-        assertEquals ("/cgi-bin/cs_compare/ca?area=m&city=null&level=null&sortby=distance&tab=over", view.getUrl());
-    }
-
-
     public void testRequestForm() throws Exception {
         getRequest().setMethod("GET");
         getRequest().setParameter("state", "FL");
