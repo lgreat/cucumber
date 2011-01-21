@@ -90,55 +90,25 @@
 <form:form name="manage" commandName="emailCmd" method="post" onsubmit="return checkForm();">
 <input name="userId" type="hidden" value="${emailCmd.userId}"/>
 
-<fieldset class="newsletterHeader">
+<!--<fieldset class="newsletterHeader">
     <ol>
         <li>
             <label for="firstName">First name</label>
-            <!--form:input path="firstName" id="firstName" maxlength="24"/-->
+            &lt;!&ndash;form:input path="firstName" id="firstName" maxlength="24"/&ndash;&gt;
             <form:input id="firstName" path="firstName" maxlength="24"/>
 
             <p id="firstNameError" class="formErrorText"><span
-                    class="sprite i-alert"><!-- alert icon --></span> First name must be 2-24 characters</p>
+                    class="sprite i-alert">&lt;!&ndash; alert icon &ndash;&gt;</span> First name must be 2-24 characters</p>
         </li>
     </ol>
-    <div class="spacer_5"><!-- do not collapse --></div>
+    <div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>
     <div class="formContentGS clearfix">
         <div class="formBarGS col">&amp;nbsp;</div>
         <div class="formMainGS col">
             <p class="formHelperText">This is how we'll address you in our newsletters.</p>
         </div>
     </div>
-</fieldset>
-
-<fieldset id="communityPosts">
-    <div class="formContentGS clearfix">
-
-        <div class="formBarGS col">
-            <img src="/res/img/email/community_faces.jpg" width="83" height="65" alt="boy with dad"
-                 class="newsletterImage"/>
-        </div>
-
-        <div class="formMainGS col">
-            <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold">Replies to community posts</p>
-
-                <p class="newsletterDescription text2">Get notified whenever someone replies to a conversation or a comment you have posted.</p>
-                <ol>
-                    <li>
-                        <fieldset>
-                            <ol>
-                                <li>
-                                    <form:checkbox path="repliesToCommunityPosts" cssClass="newsletterCheckbox"
-                                           id="repliesToCommunityPosts"/>
-                                    <label for="repliesToCommunityPosts">Send me emails when someone replies to my post</label></li>
-                            </ol>
-                        </fieldset>
-                    </li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</fieldset>
+</fieldset>-->
 
 <fieldset>
     <div class="formContentGS clearfix">
@@ -263,32 +233,111 @@
 
 </fieldset>
 
-<fieldset id="learningDifficulties">
-    <div class="formContentGS clearfix">
-
-        <div class="formBarGS col">
-            <img src="/res/img/email/boy_with_dad.jpg" width="83" height="65" alt="boy with dad"
-                 class="newsletterImage"/>
+<fieldset>
+    <div class="mediaExt1">
+        <div class="img">
+            <img src="/res/img/email/teacher.jpg" width="83" height="65" alt="teacher" class="newsletterImage"/>
         </div>
-
-        <div class="formMainGS col">
+        <div class="bd">
             <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold">Monthly Special Education Updates<a name="sed_anchor">&amp;nbsp;</a></p>
+                <c:if test="${emailCmd.tooManySchoolsError}">
+                    <div class="error">You have subscribed to the maximum number
+                        of school updates
+                    </div>
+                </c:if>
 
-                <p class="newsletterDescription text2">Get the resources you need to support your child with a learning disability or an attention problem.</p>
-                <ol>
-                    <li>
-                        <fieldset>
-                            <ol>
-                                <li>
-                                    <form:checkbox path="learning_dis" cssClass="newsletterCheckbox"
-                                           id="learning_dis_checkbox"/>
-                                    <label for="learning_dis_checkbox">Subscribe to this newsletter</label></li>
-                            </ol>
-                        </fieldset>
-                    </li>
-                    <form:hidden path="learning_disId"/></ol>
+                <p class="newsletterHeader text2bold">My School Stats<a name="mystat_anchor">&amp;nbsp;</a></p>
+
+                <p class="newsletterDescription text2">
+                    Track your child's school stats &amp;#8212; from test scores to teacher quality.
+                    (Available for public schools only)
+                </p>
             </div>
+
+            <div class="spacer_10"><!-- do not collapse --></div>
+
+            <div class="mssInfo">
+                <p class="text2">Subscribe to school updates on:</p>
+
+                <input type="hidden" id="numMssSchools"
+                       name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
+
+                <div id="mssSchoolSection">
+                    <c:if test="${emailCmd.school1}">
+                        <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
+                            <div class="mssSchoolLine">
+                                <form:checkbox path="school${schoolCounter.count}" id="mssSchool${schoolCounter.count}"
+                                               cssClass="newsletterCheckbox"
+                                               onclick="removeMssSchool(${schoolCounter.count});"/>
+                                <label for="mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
+                                <input type="hidden" name="id${schoolCounter.count}"
+                                       value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
+                                <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
+                                <input type="hidden" name="uniqueStateId"
+                                       value="${school.stateAbbreviation}${school.id}"/>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                </div>
+
+
+                <c:set var="addSectionDisplayStyle" value="block"/>
+                <c:if test="${fn:length(emailCmd.myStatIds) ge 4}">
+                    <c:set var="addSectionDisplayStyle" value="none"/>
+                </c:if>
+
+                <div class="spacer_10"><!-- do not collapse --></div>
+                <div id="mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
+                    <p class="text2bold">Add a school<span class="text2"> (four schools maximum)</span></p>
+                    <ol>
+                        <li>
+                            <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="stateAdd"
+                                                 onChange="emailStateChange(this);" name="stateAdd"
+                                                 noStateLabel="1. Choose state"
+                                                 allowNoState="true"
+                                    />
+                        </li>
+
+                        <li id="city">
+                            <select id="citySelect" name="city" onchange="emailCityChange(this);">
+                                <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
+                                    <option selected="selected" value="">2. Choose city</option>
+                                </c:if>
+                                <c:forEach var="cityOption" items="${emailCmd.cityList}">
+                                    <![CDATA[<option ]]>
+                                    <c:if test="${emailCmd.city eq cityOption.name}">
+                                        selected="selected"
+                                    </c:if>
+                                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                </c:forEach>
+                            </select>
+                        </li>
+                        <gsml:feedbackMessage command="emailCmd" field="city" styleClass="ajaxMessage ajaxError"/>
+
+                        <li id="schoolsInCity">
+                            <select name="school" id="school" class="selectChildSchool">
+                                <option selected="selected" value="0">3. Choose school</option>
+                                <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
+                                    <![CDATA[<option ]]>
+                                    <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                                </c:forEach>
+                            </select>
+                        </li>
+                    </ol>
+                    <div class="spacer_10"><!-- do not collapse --></div>
+                    <!--<button type="add" id="add" name="Add" value="Add" onclick="try {addMssSchool();} catch (e) {} return false;" class="btn25 fltlft">
+                        <span class="lftDoor25"><span class="rtDoor25">Add</span></span>
+                    </button>-->
+                    <button class="button-1 fltlft" type="add" id="add" name="Add" value="Add" onclick="try {addMssSchool();} catch (e) {} return false;">Add</button>
+
+                    <!--<input type="image" id="add" value="Add" src="/res/img/button/button_add.gif"
+              onclick="try {addMssSchool();} catch (e) {} return false;"/>-->
+
+
+                </div>
+                <!-- end .mssAddSchoolSection -->
+            </div>
+            <!-- end .mssInfo -->
         </div>
     </div>
 </fieldset>
@@ -388,113 +437,6 @@
         </div>
     </div>
     <!-- end #chooser -->
-</fieldset>
-
-<fieldset>
-    <div class="formContentGS clearfix">
-        <div class="formBarGS col">
-            <img src="/res/img/email/teacher.jpg" width="83" height="65" alt="teacher" class="newsletterImage"/>
-        </div>
-        <a name="mystat_anchor">&amp;nbsp;</a>
-        <div class="formMainGS col">
-            <div class="newsletterInfo">
-                <c:if test="${emailCmd.tooManySchoolsError}">
-                    <div class="error">You have subscribed to the maximum number
-                        of school updates
-                    </div>
-                </c:if>
-
-                <p class="newsletterHeader text2bold">How does your school measure up?</p>
-
-                <p class="newsletterDescription text2">
-                    Track your child's school stats &amp;#8212; from test scores to teacher quality.
-                    (Available for public schools only)
-                </p>
-            </div>
-
-            <div class="mssInfo">
-                <p class="text2">Subscribe to school updates on:</p>
-
-                <input type="hidden" id="numMssSchools"
-                       name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
-
-                <div id="mssSchoolSection">
-                    <c:if test="${emailCmd.school1}">
-                        <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
-                            <div class="mssSchoolLine">
-                                <form:checkbox path="school${schoolCounter.count}" id="mssSchool${schoolCounter.count}"
-                                               cssClass="newsletterCheckbox"
-                                               onclick="removeMssSchool(${schoolCounter.count});"/>
-                                <label for="mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
-                                <input type="hidden" name="id${schoolCounter.count}"
-                                       value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
-                                <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
-                                <input type="hidden" name="uniqueStateId"
-                                       value="${school.stateAbbreviation}${school.id}"/>
-                            </div>
-                        </c:forEach>
-                    </c:if>
-                </div>
-
-
-                <c:set var="addSectionDisplayStyle" value="block"/>
-                <c:if test="${fn:length(emailCmd.myStatIds) ge 4}">
-                    <c:set var="addSectionDisplayStyle" value="none"/>
-                </c:if>
-
-                <div id="mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
-                    <p class="text2bold">Add a school<span class="text2"> (four schools maximum)</span></p>
-                    <ol>
-                        <li>
-                            <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="stateAdd"
-                                                 onChange="emailStateChange(this);" name="stateAdd"
-                                                 noStateLabel="1. Choose state"
-                                                 allowNoState="true"
-                                    />
-                        </li>
-
-                        <li id="city">
-                            <select id="citySelect" name="city" onchange="emailCityChange(this);">
-                                <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
-                                    <option selected="selected" value="">2. Choose city</option>
-                                </c:if>
-                                <c:forEach var="cityOption" items="${emailCmd.cityList}">
-                                    <![CDATA[<option ]]>
-                                    <c:if test="${emailCmd.city eq cityOption.name}">
-                                        selected="selected"
-                                    </c:if>
-                                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                                </c:forEach>
-                            </select>
-                        </li>
-                        <gsml:feedbackMessage command="emailCmd" field="city" styleClass="ajaxMessage ajaxError"/>
-
-                        <li id="schoolsInCity">
-                            <select name="school" id="school" class="selectChildSchool">
-                                <option selected="selected" value="0">3. Choose school</option>
-                                <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
-                                    <![CDATA[<option ]]>
-                                    <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
-                                </c:forEach>
-                            </select>
-                        </li>
-                    </ol>
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                    <!--<button type="add" id="add" name="Add" value="Add" onclick="try {addMssSchool();} catch (e) {} return false;" class="btn25 fltlft">
-                        <span class="lftDoor25"><span class="rtDoor25">Add</span></span>
-                    </button>-->
-                    <button class="button-1 fltlft" type="add" id="add" name="Add" value="Add" onclick="try {addMssSchool();} catch (e) {} return false;">Add</button>
-
-                    <!--<input type="image" id="add" value="Add" src="/res/img/button/button_add.gif"
-              onclick="try {addMssSchool();} catch (e) {} return false;"/>-->
-
-
-                </div>
-                <!-- end .mssAddSchoolSection -->
-            </div>
-            <!-- end .mssInfo -->
-        </div>
-    </div>
 </fieldset>
 
 <!-- GS-10514 2010 BTS Tip of the Day -->
@@ -609,19 +551,79 @@
     </fieldset>
 </div>
 
-
-<fieldset>
+<fieldset id="learningDifficulties">
     <div class="formContentGS clearfix">
+
         <div class="formBarGS col">
-            <img src="/res/img/email/savvy_owl.gif" width="83" height="65" alt="pencils" class="newsletterImage"/>
+            <img src="/res/img/email/boy_with_dad.jpg" width="83" height="65" alt="boy with dad"
+                 class="newsletterImage"/>
         </div>
 
         <div class="formMainGS col">
             <div class="newsletterInfo">
+                <p class="newsletterHeader text2bold">Monthly Special Education Updates<a name="sed_anchor">&amp;nbsp;</a></p>
+
+                <p class="newsletterDescription text2">Get the resources you need to support your child with a learning disability or an attention problem.</p>
+                <ol>
+                    <li>
+                        <fieldset>
+                            <ol>
+                                <li>
+                                    <form:checkbox path="learning_dis" cssClass="newsletterCheckbox"
+                                           id="learning_dis_checkbox"/>
+                                    <label for="learning_dis_checkbox">Subscribe to this newsletter</label></li>
+                            </ol>
+                        </fieldset>
+                    </li>
+                    <form:hidden path="learning_disId"/></ol>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset id="communityPosts">
+    <div class="formContentGS clearfix">
+
+        <div class="formBarGS col">
+            <img src="/res/img/email/community_faces.jpg" width="83" height="65" alt="boy with dad"
+                 class="newsletterImage"/>
+        </div>
+
+        <div class="formMainGS col">
+            <div class="newsletterInfo">
+                <p class="newsletterHeader text2bold">Replies to community posts</p>
+
+                <p class="newsletterDescription text2">Get notified whenever someone replies to a conversation or a comment you have posted.</p>
+                <ol>
+                    <li>
+                        <fieldset>
+                            <ol>
+                                <li>
+                                    <form:checkbox path="repliesToCommunityPosts" cssClass="newsletterCheckbox"
+                                           id="repliesToCommunityPosts"/>
+                                    <label for="repliesToCommunityPosts">Send me emails when someone replies to my post</label></li>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <div class="mediaExt1">
+        <div class="img">
+            <img src="/res/img/email/savvy_owl.gif" width="83" height="65" alt="pencils" class="newsletterImage"/>
+        </div>
+
+        <div class="bd">
+            <div class="newsletterInfo">
                 <p class="newsletterHeader text2bold">${requestScope.context.savvyEmailSubscriptionName}<a name="savvy_anchor">&amp;nbsp;</a></p>
                 <p class="newsletterDescription text2">
-                    Save money on great family and learning activities,
-                    and help schools and children in the process.
+                    Save money on fantastic local activities for the entire
+                    family. With each offer, we give 5% of your purchase
+                    to a school of your choice.
                 </p>
                 <ol>
                     <li>
