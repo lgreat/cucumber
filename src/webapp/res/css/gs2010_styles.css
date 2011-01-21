@@ -6910,6 +6910,29 @@ table#compareTable .td-compareContainerWidthCol_1{
     width:627px;
 }
 
+#compareTable .td-compareContainerWidthCol_4 .schoolThumbnailMap,
+#compareTable .td-compareContainerWidthCol_3 .schoolThumbnailMap,
+#compareTable .td-compareContainerWidthCol_2 .schoolThumbnailMap,
+#compareTable .td-compareContainerWidthCol_1 .schoolThumbnailMap{
+    height: 110px;
+    border: 1px solid #c6c6c6;
+    margin-bottom:5px;
+}
+
+#compareTable .td-compareContainerWidthCol_2 .cs_school_top,
+#compareTable .td-compareContainerWidthCol_2 .cs_school_bottom,
+#compareTable .td-compareContainerWidthCol_1 .cs_school_top,
+#compareTable .td-compareContainerWidthCol_1 .cs_school_bottom{
+    width:193px;
+    margin:0 auto;
+}
+
+#compareTable .td-compareContainerWidthCol_2 .cs_rReview,
+#compareTable .td-compareContainerWidthCol_1 .cs_rReview{
+    width:193px;
+    margin:0 auto;
+}
+
 table#compareTable .compareSchoolName{
     word-wrap: break-word;
     display:block;
@@ -7038,14 +7061,6 @@ ul.schoolList div p {
 
 #compareTable td.center, #compareTable p.center {
     text-align: center;
-}
-
-#compareTable .schoolThumbnailMap {
-    width: 139px;
-    height: 110px;
-    border: 1px solid #c6c6c6;
-    /*margin: 0 auto 5px;*/
-    margin-bottom:5px;
 }
 
 .cs_gsRating .smallText1 {
