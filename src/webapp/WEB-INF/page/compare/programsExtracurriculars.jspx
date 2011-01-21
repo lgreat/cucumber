@@ -28,37 +28,44 @@
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Programs">
             <tbody>
             <tr>
-                <th scope="row" rowspan="2">School</th>
+                <th scope="row" rowspan="2"><div class="th-compareContainer">School</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_schools" style="border-bottom: 0;">
+                        <div class="td-compareContainer-splitTop td-compareContainerWidthCol_${fn:length(schools)}">
                         <compare:schoolOverviewTop school="${school}" tab="${tab}"
                                                    schoolsString="${schoolsString}" page="${page}"/>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_schools">
+                        <div class="td-compareContainer-splitBottom td-compareContainerWidthCol_${fn:length(schools)}">
                         <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
                                                       schoolsString="${schoolsString}" page="${page}"
                                                       omniturePageName="${omniturePageName}"/>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             </tbody>
             <tbody class="striped">
             <tr>
-                <th scope="row">School type</th>
+                <th scope="row"><div class="th-compareContainer">School type</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_type center text3">
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         ${school.type} ${school.gradeLevels}
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <tr>
-                <th scope="row">Source</th>
+                <th scope="row"><div class="th-compareContainer">Source</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td>
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         <c:choose>
                             <c:when test="${school.programSource eq 'Principal'}">
                                 <p>
@@ -77,14 +84,16 @@
                                 </p>
                             </c:otherwise>
                         </c:choose>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
             <c:forEach var="category" items="${categories}">
                 <tr>
-                    <th scope="row">${category}</th>
+                    <th scope="row"><div class="th-compareContainer">${category}</div></th>
                     <c:forEach var="school" items="${schools}">
                         <td>
+                            <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                             <c:choose>
                                 <c:when test="${fn:length(school.categoryResponses[category]) gt 0}">
                                     <ul>
@@ -99,14 +108,16 @@
                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
+                            </div>
                         </td>
                     </c:forEach>
                 </tr>
             </c:forEach>
             <tr>
-                <th scope="row">&amp;nbsp;</th>
+                <th scope="row"><div class="th-compareContainer">&amp;nbsp;</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="center text2">
+                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         <c:choose>
                             <c:when test="${school.programSource eq 'Principal'}">
                                 <link:schoolProfilePrincipalView school="${school.school}">
@@ -119,6 +130,7 @@
                                 </link:startSurveyResults>
                             </c:otherwise>
                         </c:choose>
+                        </div>
                     </td>
                 </c:forEach>
             </tr>
