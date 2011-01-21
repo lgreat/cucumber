@@ -1935,6 +1935,10 @@ body.cobranded #pageGS {
     line-height: 25px;
 }
 
+.lineheight-32 {
+    line-height: 32px;
+}
+
 .dotted {
     border: 1px dotted #333;
 }

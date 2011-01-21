@@ -6,6 +6,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -26,20 +27,24 @@
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Teachers_Students">
             <tbody>
                 <tr>
-                    <th scope="row" rowspan="2">School</th>
+                    <th scope="row" rowspan="2"><div class="th-compareContainer">School</div></th>
                     <c:forEach items="${schools}" var="school">
                         <td class="cs_schools" style="border-bottom: 0;">
+                            <div class="td-compareContainer-splitTop td-compareContainerWidthCol_${fn:length(schools)}">
                             <compare:schoolOverviewTop school="${school}" tab="${tab}"
                                                        schoolsString="${schoolsString}" page="${page}"/>
+                            </div>
                         </td>
                     </c:forEach>
                 </tr>
                 <tr>
                     <c:forEach items="${schools}" var="school">
                         <td class="cs_schools">
+                            <div class="td-compareContainer-splitBottom td-compareContainerWidthCol_${fn:length(schools)}">
                             <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
                                                           schoolsString="${schoolsString}" page="${page}"
                                                           omniturePageName="${omniturePageName}"/>
+                            </div>
                         </td>
                     </c:forEach>
                 </tr>
@@ -47,10 +52,12 @@
 
             <tbody class="striped">
                 <tr>
-                    <th scope="row">School type</th>
+                    <th scope="row"><div class="th-compareContainer">School type</div></th>
                     <c:forEach items="${schools}" var="school">
                         <td class="cs_type center text3">
+                            <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                             ${school.type} ${school.gradeLevels}
+                            </div>
                         </td>
                     </c:forEach>
                 </tr>
