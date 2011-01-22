@@ -1,6 +1,5 @@
 package gs.web.search;
 
-import gs.data.search.Searcher;
 import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.DistrictIndexer;
 import gs.data.state.State;
@@ -11,14 +10,11 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.params.CommonParams;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService implements DistrictSearchService {
-
-    Searcher _searcher;
 
     private SolrConnectionManager _solrConnectionManager;
 
@@ -75,23 +71,17 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
         SolrQuery query = new SolrQuery();
         query.addFilterQuery(DistrictIndexer.DOCUMENT_TYPE + ":" + DistrictIndexer.DOCUMENT_TYPE_DISTRICT);
 
+        String q = "";
         if (searchString != null) {
-            query.add(CommonParams.Q, DistrictIndexer.DISTRICT_NAME + ":" + searchString);
+            q += "+" + DistrictIndexer.DISTRICT_NAME + ":" + searchString + " ";
         }
         
         if (state != null) {
-            query.add(CommonParams.Q, DistrictIndexer.STATE + ":" + searchString);
+            q += "+" + DistrictIndexer.STATE + ":" + searchString;
         }
 
+        query.setQuery(q);
         return query;
-    }
-
-    public Searcher getSearcher() {
-        return _searcher;
-    }
-
-    public void setSearcher(Searcher searcher) {
-        _searcher = searcher;
     }
 
     public SolrConnectionManager getSolrConnectionManager() {

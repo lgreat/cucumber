@@ -1,7 +1,6 @@
 package gs.web.search;
 
 import gs.data.search.GSQueryParser;
-import gs.data.search.Searcher;
 import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.SchoolIndexer;
 import org.apache.commons.lang.StringUtils;
@@ -14,7 +13,6 @@ import java.util.*;
 
 public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService implements SchoolSearchService {
 
-    private Searcher _searcher;
     private GSQueryParser _queryParser;
     private SolrConnectionManager _solrConnectionManager;
 
@@ -145,8 +143,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
 
         StringBuilder query = new StringBuilder();
         SolrQuery solrQuery = new SolrQuery();
-        query.append(SchoolIndexer.DOCUMENT_TYPE + ":" + SchoolIndexer.DOCUMENT_TYPE_SCHOOL).append(" ");
-
+        solrQuery.addFilterQuery(SchoolIndexer.DOCUMENT_TYPE + ":" + SchoolIndexer.DOCUMENT_TYPE_SCHOOL);
 
         if (!StringUtils.isBlank(searchString)) {
             // Check for zipcode searches
@@ -198,14 +195,6 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         }
 
         return subFilters;
-    }
-
-    public Searcher getSearcher() {
-        return _searcher;
-    }
-
-    public void setSearcher(Searcher searcher) {
-        _searcher = searcher;
     }
 
     public GSQueryParser getQueryParser() {
