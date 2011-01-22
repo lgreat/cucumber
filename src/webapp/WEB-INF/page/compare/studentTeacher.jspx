@@ -93,6 +93,7 @@
                                         <c:otherwise>
                                             <td>
                                                 <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
+                                                    <div class="cs_rReview">
                                                 <c:choose>
                                                     <c:when test="${empty censusCell}">
                                                         <p class="center">-</p>
@@ -111,6 +112,7 @@
                                                 <c:if test="${not empty censusCell and censusCell.year ne rowYear}">
                                                     <div class="year">Note: ${censusCell.year} data</div>
                                                 </c:if>
+                                                        </div>
                                                 </div>
                                             </td>
                                         </c:otherwise>
