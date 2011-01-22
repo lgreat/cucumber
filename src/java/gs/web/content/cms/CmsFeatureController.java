@@ -185,7 +185,7 @@ public class CmsFeatureController extends AbstractController {
         UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
 
         // insert current page into model
-        model.put("currentPage", insertSpansIntoListItems(insertSidebarIntoPage(feature.getCurrentPage(), feature)));
+        model.put("currentPage", insertVibrantExcludes(insertSpansIntoListItems(insertSidebarIntoPage(feature.getCurrentPage(), feature))));
         model.put("answer", insertSpansIntoListItems(feature.getAnswer()));
 
         List<String> authorBios = feature.getAuthorBios();
@@ -293,6 +293,15 @@ public class CmsFeatureController extends AbstractController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    protected String insertVibrantExcludes(String originalPage) {
+        if (originalPage != null) {
+            return originalPage.replaceAll("<h1>","<h1 class=\"vibrantExclude\">").
+                    replaceAll("<h2>","<h2 class=\"vibrantExclude\">").
+                    replaceAll("<h3>","<h3 class=\"vibrantExclude\">");
+        }
+        return originalPage;
     }
 
     /**

@@ -362,6 +362,15 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
 
     }
 
+    public void testInsertVibrantExcludes() {
+        CmsFeature feature = getSampleFeature();
+        feature.setBody("<h1>first</h1><h2>second</h2><h3>third</h4>");
+        feature.setCurrentPageNum(-1); // single page view
+
+        String currentPage = _controller.insertVibrantExcludes(feature.getCurrentPage());
+        assertEquals("<h1 class=\"vibrantExclude\">first</h1><h2 class=\"vibrantExclude\">second</h2><h3 class=\"vibrantExclude\">third</h4>", currentPage);
+    }
+
     public void testInsertSidebarIntoPageSinglePageThreeParagraphBody() {
         CmsFeature feature = getSampleFeature();
         feature.setBody("<p>first</p><p>second</p><p>third</p>");
