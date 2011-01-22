@@ -1,7 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.Searcher;
-import gs.data.search.SolrService;
+import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.CityIndexer;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
@@ -19,7 +19,7 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
 
     private Searcher _searcher;
 
-    private SolrService _solrService;
+    private SolrConnectionManager _solrConnectionManager;
 
     private Logger _log = Logger.getLogger(CitySearchServiceImpl.class);
 
@@ -37,7 +37,7 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
         QueryResponse response = null;
 
         try {
-            SolrServer server = getSolrService().getReadOnlySolrServer();
+            SolrServer server = getSolrConnectionManager().getReadOnlySolrServer();
             SolrQuery query = buildQuery(searchString, state);
 
             if (query != null) {
@@ -93,11 +93,11 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
         _searcher = searcher;
     }
 
-    public SolrService getSolrService() {
-        return _solrService;
+    public SolrConnectionManager getSolrConnectionManager() {
+        return _solrConnectionManager;
     }
 
-    public void setSolrService(SolrService solrService) {
-        _solrService = solrService;
+    public void setSolrConnectionManager(SolrConnectionManager solrConnectionManager) {
+        _solrConnectionManager = solrConnectionManager;
     }
 }

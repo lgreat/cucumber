@@ -2,7 +2,7 @@ package gs.web.search;
 
 import gs.data.search.GSQueryParser;
 import gs.data.search.Searcher;
-import gs.data.search.SolrService;
+import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.SchoolIndexer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -16,7 +16,8 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
 
     private Searcher _searcher;
     private GSQueryParser _queryParser;
-    private SolrService _solrService;
+    private SolrConnectionManager _solrConnectionManager;
+
     public static final Logger _log = Logger.getLogger(SchoolSearchServiceSolrImpl.class);
 
     private Map<String,String> _filters;
@@ -96,7 +97,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         }
 
         try {
-            SolrServer server = getSolrService().getReadOnlySolrServer();
+            SolrServer server = getSolrConnectionManager().getReadOnlySolrServer();
 
             if (query != null) {
 
@@ -223,12 +224,12 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         _resultsBuilder = resultsBuilder;
     }
 
-    public SolrService getSolrService() {
-        return _solrService;
+    public SolrConnectionManager getSolrConnectionManager() {
+        return _solrConnectionManager;
     }
 
-    public void setSolrService(SolrService solrService) {
-        _solrService = solrService;
+    public void setSolrConnectionManager(SolrConnectionManager solrConnectionManager) {
+        _solrConnectionManager = solrConnectionManager;
     }
 }
 
