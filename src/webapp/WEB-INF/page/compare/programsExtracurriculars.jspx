@@ -28,12 +28,16 @@
         <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Programs">
             <tbody>
             <tr>
-                <th scope="row" rowspan="2"><div class="th-compareContainer">School</div></th>
+                <th scope="row" rowspan="2">
+                    <div class="th-compareContainer">School</div>
+                </th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_schools" style="border-bottom: 0;">
                         <div class="td-compareContainer-splitTop td-compareContainerWidthCol_${fn:length(schools)}">
-                        <compare:schoolOverviewTop school="${school}" tab="${tab}"
-                                                   schoolsString="${schoolsString}" page="${page}"/>
+                            <div class="cs_school_top">
+                                <compare:schoolOverviewTop school="${school}" tab="${tab}"
+                                                           schoolsString="${schoolsString}" page="${page}"/>
+                            </div>
                         </div>
                     </td>
                 </c:forEach>
@@ -42,9 +46,11 @@
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_schools">
                         <div class="td-compareContainer-splitBottom td-compareContainerWidthCol_${fn:length(schools)}">
-                        <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
-                                                      schoolsString="${schoolsString}" page="${page}"
-                                                      omniturePageName="${omniturePageName}"/>
+                            <div class="cs_school_bottom">
+                                <compare:schoolOverviewBottom school="${school}" tab="${tab}" showMap="${false}"
+                                                              schoolsString="${schoolsString}" page="${page}"
+                                                              omniturePageName="${omniturePageName}"/>
+                            </div>
                         </div>
                     </td>
                 </c:forEach>
@@ -62,74 +68,89 @@
                 </c:forEach>
             </tr>
             <tr>
-                <th scope="row"><div class="th-compareContainer">Source</div></th>
+                <th scope="row">
+                    <div class="th-compareContainer">Source</div>
+                </th>
                 <c:forEach items="${schools}" var="school">
                     <td>
                         <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                        <c:choose>
-                            <c:when test="${school.programSource eq 'Principal'}">
-                                <p>
-                                    This information is based on a survey by the <strong>principal</strong>.
-                                </p>
-                            </c:when>
-                            <c:when test="${school.numResponses gt 0}">
-                                <p>
-                                    This information is based on surveys from
-                                    <strong>${school.numResponses} ${gsweb:pluralize(school.numResponses, 'parent')}</strong>.
-                                </p>
-                            </c:when>
-                            <c:otherwise>
-                                <p class="smallText1-italic">
-                                    No program information available. Parents, update this <link:schoolStartSurvey school="${school.school}">school's information</link:schoolStartSurvey>.
-                                </p>
-                            </c:otherwise>
-                        </c:choose>
+                            <div class="cs_rReview">
+                                <c:choose>
+                                    <c:when test="${school.programSource eq 'Principal'}">
+                                        <p>
+                                            This information is based on a survey by the <strong>principal</strong>.
+                                        </p>
+                                    </c:when>
+                                    <c:when test="${school.numResponses gt 0}">
+                                        <p>
+                                            This information is based on surveys from
+                                            <strong>${school.numResponses} ${gsweb:pluralize(school.numResponses, 'parent')}</strong>.
+                                        </p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p class="smallText1-italic">
+                                            No program information available. Parents, update this
+                                            <link:schoolStartSurvey
+                                                    school="${school.school}">school's information</link:schoolStartSurvey>.
+                                        </p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </td>
                 </c:forEach>
             </tr>
             <c:forEach var="category" items="${categories}">
                 <tr>
-                    <th scope="row"><div class="th-compareContainer">${category}</div></th>
+                    <th scope="row">
+                        <div class="th-compareContainer">${category}</div>
+                    </th>
                     <c:forEach var="school" items="${schools}">
                         <td>
                             <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                            <c:choose>
-                                <c:when test="${fn:length(school.categoryResponses[category]) gt 0}">
-                                    <ul>
-                                        <c:forEach var="answerValue" items="${school.categoryResponses[category]}">
-                                            <li>${answerValue}</li>
-                                        </c:forEach>
-                                    </ul>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:if test="${school.programSource ne 'Principal'}">
-                                        <div class="center smallText1">Parents have not submitted information about these programs.</div>
-                                    </c:if>
-                                </c:otherwise>
-                            </c:choose>
+                                <div class="cs_rReview">
+                                    <c:choose>
+                                        <c:when test="${fn:length(school.categoryResponses[category]) gt 0}">
+                                            <ul>
+                                                <c:forEach var="answerValue"
+                                                           items="${school.categoryResponses[category]}">
+                                                    <li class="disc-list-d61"><span class="text3">${answerValue}</span></li>
+                                                </c:forEach>
+                                            </ul>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:if test="${school.programSource ne 'Principal'}">
+                                                <div class="center smallText1">Parents have not submitted information about these programs.</div>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
                             </div>
                         </td>
                     </c:forEach>
                 </tr>
             </c:forEach>
             <tr>
-                <th scope="row"><div class="th-compareContainer">&amp;nbsp;</div></th>
+                <th scope="row">
+                    <div class="th-compareContainer">&amp;nbsp;</div>
+                </th>
                 <c:forEach items="${schools}" var="school">
                     <td class="center text2">
                         <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                        <c:choose>
-                            <c:when test="${school.programSource eq 'Principal'}">
-                                <link:schoolProfilePrincipalView school="${school.school}">
-                                    View more programs &amp;amp; extracurriculars
-                                </link:schoolProfilePrincipalView>
-                            </c:when>
-                            <c:otherwise>
-                                <link:startSurveyResults school="${school.school}">
-                                    View more programs &amp;amp; extracurriculars
-                                </link:startSurveyResults>
-                            </c:otherwise>
-                        </c:choose>
+                            <div class="cs_rReview">
+                                <c:choose>
+                                    <c:when test="${school.programSource eq 'Principal'}">
+                                        <link:schoolProfilePrincipalView school="${school.school}">
+                                            View more programs &amp;amp; extracurriculars
+                                        </link:schoolProfilePrincipalView>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <link:startSurveyResults school="${school.school}">
+                                            View more programs &amp;amp; extracurriculars
+                                        </link:startSurveyResults>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </td>
                 </c:forEach>

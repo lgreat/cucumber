@@ -6933,6 +6933,12 @@ table#compareTable .td-compareContainerWidthCol_1{
     margin:0 auto;
 }
 
+#compareTable .disc-list-d61{
+    list-style:disc outside none;
+    color:#d61;
+    margin-left:15px;
+}
+
 table#compareTable .compareSchoolName{
     word-wrap: break-word;
     display:block;
