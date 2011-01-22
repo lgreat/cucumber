@@ -246,5 +246,17 @@
         <property name="searcher" ref="searcher" />
     </bean>
 
+    <bean id="solrSchoolSearchService" class="gs.web.search.SchoolSearchServiceSolrImpl">
+        <property name="searcher" ref="searcher" />
+    </bean>
+
+    <bean id="solrCitySearchService" class="gs.web.search.CitySearchServiceSolrImpl">
+        <property name="searcher" ref="searcher" />
+    </bean>
+
+    <bean id="solrDistrictSearchService" class="gs.web.search.DistrictSearchServiceSolrImpl">
+        <property name="searcher" ref="searcher" />
+    </bean>
+
     
 </beans>
