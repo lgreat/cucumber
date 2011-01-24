@@ -114,7 +114,15 @@
                                             <ul>
                                                 <c:forEach var="answerValue"
                                                            items="${school.categoryResponses[category]}">
-                                                    <li class="disc-list-d61"><span class="text3">${answerValue}</span></li>
+                                                    <c:choose>
+                                                        <c:when test="${school.programSource eq 'Principal' and category eq 'Other special programs'}">
+                                                            <div class="smallText1">${answerValue}</div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <li class="disc-list-d61"><span
+                                                                    class="text3">${answerValue}</span></li>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </c:forEach>
                                             </ul>
                                         </c:when>
