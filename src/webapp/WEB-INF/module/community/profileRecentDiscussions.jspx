@@ -126,27 +126,38 @@
                             </div>
                             <div class="unit size1of2 lastUnit lastColGutter-20">
                                 <div class="spacer_15"><!-- do not collapse --></div>
+                                <div class="line">
+                                    <div class="unit size1of1 lastUnit">
                                 <p class="text1bold-d61">Got a question about ${requestScope.discussionTopic}
                                     <c:choose><c:when
                                             test="${requestScope.discussionTopic eq 'preschool'}">s</c:when><c:otherwise> schools</c:otherwise></c:choose>?
                                 </p>
+                                    </div>
+                                    </div>
 
                                 <div class="spacer_10"><!-- do not collapse --></div>
-                                <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="20"
-                                          class="textarea bg-ebebeb text2"
-                                          onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); GS_prd_checklogin();"
-                                          onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>
+
+                                <div class="line">
+                                    <div class="unit size1of1 lastUnit">
+                                        <textarea id="jq_profileRecentDiscussionsTitleBox" rows="2" cols="40"
+                                                  class="textarea-parentReviews bg-ebebeb text2"
+                                                  onclick="GS_textSwitch(this, '', '[Ask your community and get an answer]'); GS_prd_checklogin();"
+                                                  onblur="GS_textSwitch(this, '[Ask your community and get an answer]', '');">[Ask your community and get an answer]</textarea>
+                                    </div>
+                                </div>
+
 
                                 <div class="spacer_10"><!-- do not collapse --></div>
                                 <div>
 
                                     <button class="button-1 jq_startADiscussion" type="submit">Submit</button>
 
-                                    <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                                     openElementJQuerySelector=".jq_startADiscussion"
-                                                                     topicCenterId="${requestScope.discussionBoard.topicCenterId}"
-                                                                     discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
-                                                                     getTitleFunc="GS_getProfileDiscussionTitle()"/>
+                                    <community:startADiscussionHover
+                                            loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                            openElementJQuerySelector=".jq_startADiscussion"
+                                            topicCenterId="${requestScope.discussionBoard.topicCenterId}"
+                                            discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
+                                            getTitleFunc="GS_getProfileDiscussionTitle()"/>
                                 </div>
                             </div>
                         </div>

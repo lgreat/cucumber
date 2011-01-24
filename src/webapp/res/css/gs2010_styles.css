@@ -6424,8 +6424,7 @@ body.nocol #schoolChoicePackPromo-2009 .mod_bd h4 {
     padding: 4px;
 }
 
-#profileRecentDiscussions-parentReviews .textarea{
-    width: 100%;
+#profileRecentDiscussions-parentReviews .textarea-parentReviews{
     height: 120px;
     padding: 4px;
 }
