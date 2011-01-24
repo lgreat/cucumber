@@ -148,7 +148,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         categories.add(ROW_LABEL_LEARNING_DISABILITIES);
         categories.add(ROW_LABEL_VOCATIONAL);
 
-        model.put("categories", categories);
+        Map<String, Boolean> categoryHasResults = new HashMap<String, Boolean>();
 
         for (ComparedSchoolBaseStruct baseStruct: schools) {
             ComparedSchoolProgramsExtracurricularsStruct struct =
@@ -180,7 +180,19 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                 }
                 processSurveyResults(struct, allResultsForSchool);
             }
+            for (String category: categories) {
+                if (struct.getCategoryResponses().get(category).size() > 0) {
+                    categoryHasResults.put(category, true);
+                }
+            }
         }
+        List<String> categoriesForDisplay = new ArrayList<String>();
+        for (String category: categories) {
+            if (categoryHasResults.get(category) != null) {
+                categoriesForDisplay.add(category);
+            }
+        }
+        model.put("categories", categoriesForDisplay);
     }
 
     protected void processPQResults(ComparedSchoolProgramsExtracurricularsStruct school, PQ pq) {
@@ -220,11 +232,11 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
             _log.warn("  Processing survey results with " + results.getTotalResponses() + " response(s)");
             school.setNumResponses(school.getNumResponses() + results.getTotalResponses());
             for (SurveyResultPage page: results.getPages()) {
-                _log.warn("    Processing page " + page.getName());
+//                _log.warn("    Processing page " + page.getName());
                 for (SurveyResultGroup group: page.getGroups()) {
-                    _log.warn("      Processing group " + group.getDisplayText());
+//                    _log.warn("      Processing group " + group.getDisplayText());
                     for (SurveyResultQuestion question: group.getQuestions()) {
-                        _log.warn("        Processing question " + question.getQuestion().getId());
+//                        _log.warn("        Processing question " + question.getQuestion().getId());
                         try {
                             if ("COMPLEX".equals(question.getDisplayType())) {
                                 for (Answer answer: question.getQuestion().getAnswers()) {

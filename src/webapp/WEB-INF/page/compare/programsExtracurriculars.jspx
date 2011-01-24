@@ -118,10 +118,13 @@
                                                 </c:forEach>
                                             </ul>
                                         </c:when>
-                                        <c:otherwise>
+                                        <c:when test="${school.numResponses gt 0}">
                                             <c:if test="${school.programSource ne 'Principal'}">
                                                 <div class="center smallText1">Parents have not submitted information about these programs.</div>
                                             </c:if>
+                                        </c:when>
+                                        <c:otherwise>
+                                            &amp;nbsp;
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
@@ -130,31 +133,38 @@
                     </c:forEach>
                 </tr>
             </c:forEach>
-            <tr>
-                <th scope="row">
-                    <div class="th-compareContainer">&amp;nbsp;</div>
-                </th>
-                <c:forEach items="${schools}" var="school">
-                    <td class="center text2">
-                        <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                            <div class="cs_rReview">
-                                <c:choose>
-                                    <c:when test="${school.programSource eq 'Principal'}">
-                                        <link:schoolProfilePrincipalView school="${school.school}">
-                                            View more programs &amp;amp; extracurriculars
-                                        </link:schoolProfilePrincipalView>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <link:startSurveyResults school="${school.school}">
-                                            View more programs &amp;amp; extracurriculars
-                                        </link:startSurveyResults>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </div>
-                    </td>
-                </c:forEach>
-            </tr>
+            <c:choose>
+                <c:when test="${fn:length(categories) gt 0}">
+                    <tr>
+                        <th scope="row">
+                            <div class="th-compareContainer">&amp;nbsp;</div>
+                        </th>
+                        <c:forEach items="${schools}" var="school">
+                            <td class="center text2">
+                                <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
+                                    <div class="cs_rReview">
+                                        <c:choose>
+                                            <c:when test="${school.programSource eq 'Principal'}">
+                                                <link:schoolProfilePrincipalView school="${school.school}">
+                                                    View more programs &amp;amp; extracurriculars
+                                                </link:schoolProfilePrincipalView>
+                                            </c:when>
+                                            <c:when test="${school.numResponses gt 0}">
+                                                <link:startSurveyResults school="${school.school}">
+                                                    View more programs &amp;amp; extracurriculars
+                                                </link:startSurveyResults>
+                                            </c:when>
+                                            <c:otherwise>
+                                                &amp;nbsp;
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </c:when>
+            </c:choose>
             </tbody>
         </compare:compareTemplate>
     </gsml:body>
