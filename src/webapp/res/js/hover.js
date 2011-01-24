@@ -163,8 +163,16 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover div.hoverTitle h2').html(title);
     };
     this.setSubTitle = function(subTitle, subTitleText) {
+        // GS-11161
+        /*
         jQuery('#joinHover .introTxt h3').html(subTitle);
         jQuery('#joinHover .introTxt p').html(subTitleText);
+        */
+        jQuery('#joinHover .introTxt span.title').html(subTitle);
+        if (subTitleText && subTitleText.charAt(0) != ',') {
+            subTitleText = " " + subTitleText;
+        }
+        jQuery('#joinHover .introTxt span.subtitle').html(subTitleText);
     };
     this.configAndShowEmailTipsMssLabel = function(includeWeeklyEmails, includeTips, includeMss)
     {
@@ -190,9 +198,21 @@ GSType.hover.JoinHover = function() {
 
         //choose whether to display nth grader checkboxes flyout
         if (includeTips) {
+            // GS-11161
+            /*
             jQuery('#joinHover li.grades p').show();
             jQuery('#joinHover li.grades ul').show();
+            */
         }
+
+        jQuery('#joinHover li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
+    };
+    // GS-11161
+    this.configAndShowEmailTipsMssLabelNew = function()
+    {
+        var labelTextPrefix = "Sign me up for";
+        var labelPhrases = " GreatSchools Weekly &ndash; our popular series gives you " +
+                    "education news, practical parenting tips, and grade-by-grade information and advice.";
 
         jQuery('#joinHover li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
     };
@@ -308,10 +328,13 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
-        GSType.hover.joinHover.setSubTitle("Keep tabs on " + GSType.hover.joinHover.schoolName,
-                "Be the first to know when school performance data is released that affects your child.");
+        // GS-11161
+        GSType.hover.joinHover.setSubTitle("Get timely updates for " + GSType.hover.joinHover.schoolName,
+                ", including performance data and recently posted user reviews.");
         // show nth / MSS
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
+        // GS-11161
+        //GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabelNew();
 
         GSType.hover.joinHover.setJoinHoverType("Auto");
 
@@ -568,7 +591,7 @@ GSType.hover.JoinHover = function() {
         return false;
     };
 };
-GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover',680);
+GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover',595);
 
 //SignInHover hover
 GSType.hover.SignInHover = function() {
@@ -1169,7 +1192,8 @@ GS.joinHover_passesValidationResponse = function(data) {
     var usernameValid = jQuery('#joinGS .joinHover_username .valid');
     var passwordError = jQuery('#joinGS .joinHover_password .invalid');
     var confirmPasswordError = jQuery('#joinGS .joinHover_confirmPassword .invalid');
-    var termsError = jQuery('#joinGS #joinHover_termsNotChecked');
+    // GS-11161
+    //var termsError = jQuery('#joinGS #joinHover_termsNotChecked');
     var locationError = jQuery('#joinGS #joinHover_chooseLocation');
 
     firstNameError.hide();
@@ -1178,7 +1202,8 @@ GS.joinHover_passesValidationResponse = function(data) {
     usernameValid.hide();
     passwordError.hide();
     confirmPasswordError.hide();
-    termsError.hide();
+    // GS-11161
+    //termsError.hide();
     locationError.hide();
 
     var objCount = 0;
@@ -1187,9 +1212,12 @@ GS.joinHover_passesValidationResponse = function(data) {
     if (objCount > 0) {
         jQuery('#joinGS #process_error').show();
 
+        /*
+        // GS-11161
         if (data.terms) {
             termsError.html(data.terms).show();
         }
+        */
 
         if (data.state) {
             locationError.html(data.state).show();

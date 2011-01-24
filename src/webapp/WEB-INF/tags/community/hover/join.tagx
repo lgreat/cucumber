@@ -16,11 +16,12 @@
 
         <div class="dialog_intro">
             <div class="introTxt col">
-                <h3>Join GreatSchools</h3>
-
-                <p>to participate in the parent community and other discussions on our site.</p>
+                <!-- GS-11161 -->
+                <p>
+                    <span class="title text2bold">Join GreatSchools</span>
+                    <span class="subtitle text3">to participate in the parent community and other discussions on our site.</span>
+                </p>
             </div>
-            <img id="joinHover_stockPhoto" class="stockPhoto col" src="/res/img/pixel.gif" alt="young boy and mother stock photo"/>
         </div>
 
         <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
@@ -149,10 +150,15 @@
                         </li>
                         </ul>
                     </li>
-                    <li class="joinHover_partners"><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/>
-                        <label for="opt3">Send me valuable offers from GreatSchools' Partners.</label></li>
-                    <li class="joinHover_terms"><input type="checkbox" name="terms" value="true" id="touy"/>
-                        <label for="touy">I agree to the
+                    <li class="joinHover_partners"><c:choose>
+                        <c:when test="${requestScope.context.partnerOptInCheckedByDefault}"><input type="checkbox" name="partnerNewsletter" value="true" id="opt3" checked="checked"/></c:when>
+                        <c:otherwise><input type="checkbox" name="partnerNewsletter" value="true" id="opt3"/></c:otherwise>
+                    </c:choose>
+                        <label for="opt3">Send me offers to save on family activities and special
+                            promotions from our carefully chosen partners.</label></li>
+                    <li class="joinHover_terms">
+                        <label for="touy">
+                        By joining GreatSchools, you agree to our
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Terms of Use"
                             href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>
@@ -160,9 +166,6 @@
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                             title="GreatSchools Community Standards"
                             href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>. *</label>
-                        <div class="errors">
-                            <span class="error invalid" id="joinHover_termsNotChecked"><!-- not empty --></span>
-                        </div>
                     </li>
                 </ul>
                 <div class="hlpTxt col">
@@ -175,9 +178,6 @@
                 </div>
             </fieldset>
             <fieldset class="btns">
-                <!--<button class="btn25" type="submit" name="joinBtn" id="joinBtn">
-                    <span class="lftDoor25"><span class="rtDoor25">Join now</span></span>
-                </button>-->
                 <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
                 <a href="#" id="joinHover_cancel">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
             </fieldset>

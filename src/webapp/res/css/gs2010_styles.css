@@ -3771,11 +3771,33 @@ a.ui-dialog-titlebar-close .ui-icon {
     overflow: hidden;
 }
 
+/* GS-11161 */
+#joinHover .dialog_intro {
+    padding: 0;
+}
+
 .introTxt {
     padding: 0 20px 0 0;
     border: dotted #999;
     border-width: 1px 0;
     height: 154px;
+}
+
+/* GS-11161 */
+#joinHover .introTxt {
+    padding: 0;
+    height: auto;
+    margin: 10px 0;
+    border: dotted #999;
+    border-width: 1px 0 0 0;
+}
+
+/* GS-11161 */
+#joinHover .introTxt span.title {
+}
+
+/* GS-11161 */
+#joinHover .introTxt span.subtitle {
 }
 
 .introTxt h3 {
@@ -3871,6 +3893,11 @@ p.hlpTxt {
     margin: 0 15px 0 0;
     width: 220px;
     display: inline;
+}
+
+/* GS-11161 */
+#joinHover .contactPw input {
+    width: 200px;
 }
 
 .errors {
