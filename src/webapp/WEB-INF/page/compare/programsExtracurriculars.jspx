@@ -25,7 +25,7 @@
     <ad:setSlotPrefix slotPrefix="Compare_Page"/>
 
     <gsml:body adPageName="compare" pageLayout="leftside">
-        <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Ratings_Programs">
+        <compare:compareTemplate pageName="${omniturePageName}" hier1="Compare,Programs">
             <tbody>
             <tr>
                 <th scope="row" rowspan="2">
@@ -126,13 +126,8 @@
                                                 </c:forEach>
                                             </ul>
                                         </c:when>
-                                        <c:when test="${school.numResponses gt 0}">
-                                            <c:if test="${school.programSource ne 'Principal'}">
-                                                <div class="center smallText1">Parents have not submitted information about these programs.</div>
-                                            </c:if>
-                                        </c:when>
                                         <c:otherwise>
-                                            &amp;nbsp;
+                                            <p class="center">-</p>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>

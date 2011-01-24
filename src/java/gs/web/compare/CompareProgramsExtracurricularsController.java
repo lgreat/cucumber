@@ -45,8 +45,10 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
             put("q1a2", ROW_LABEL_LANGUAGES);
             put("q34a2", ROW_LABEL_LANGUAGES);
 
-            put("q1a4", ROW_LABEL_SPECIAL_PROGRAMS);
-            put("q34a4", ROW_LABEL_SPECIAL_PROGRAMS);
+            put("q1a4", ROW_LABEL_ARTS);
+            put("q34a4", ROW_LABEL_ARTS);
+//            put("q1a4", ROW_LABEL_SPECIAL_PROGRAMS);
+//            put("q34a4", ROW_LABEL_SPECIAL_PROGRAMS);
 
             put("q1a5", ROW_LABEL_VOCATIONAL);
 
@@ -144,7 +146,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         categories.add(ROW_LABEL_SPORTS);
         categories.add(ROW_LABEL_LANGUAGES);
         categories.add(ROW_LABEL_ARTS);
-        categories.add(ROW_LABEL_SPECIAL_PROGRAMS);
+//        categories.add(ROW_LABEL_SPECIAL_PROGRAMS);
         categories.add(ROW_LABEL_LEARNING_DISABILITIES);
         categories.add(ROW_LABEL_VOCATIONAL);
 
@@ -157,7 +159,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
 
             Map<String, Set<String>> categoryResponses = new HashMap<String, Set<String>>();
             for (String category: categories) {
-                categoryResponses.put(category, new LinkedHashSet<String>());
+                categoryResponses.put(category, new TreeSet<String>());
             }
             struct.setCategoryResponses(categoryResponses);
 
@@ -206,7 +208,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         if (StringUtils.equals("checked", pq.getAftercare())) {
             school.getCategoryResponses().get(ROW_LABEL_BEFORE_AFTER_SCHOOL).add("After-school care");
         }
-        school.getCategoryResponses().get(ROW_LABEL_SPECIAL_PROGRAMS).add("See " + ROW_LABEL_ARTS);
+//        school.getCategoryResponses().get(ROW_LABEL_SPECIAL_PROGRAMS).add("See " + ROW_LABEL_ARTS);
         parsePQValues(school.getCategoryResponses(), ROW_LABEL_LEARNING_DISABILITIES, pq.getSpecialEdPrograms(),
                       _pqSpecialEdMap);
     }
