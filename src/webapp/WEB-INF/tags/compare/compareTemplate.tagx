@@ -82,31 +82,42 @@
             </c:otherwise>
         </c:choose>
         <compare:navigation tab="${tab}" schoolsString="${schoolsString}" page="${page}" alignment="bottom"/>
+
         <div class="footerInfo clearBoth">
-            <p class="contactUs fltlft">
-                <c:choose>
-                    <c:when test="${tab eq 'programsExtracurriculars'}">
-                        Program information provided by parent surveys may not be completely accurate.
-                    </c:when>
-                    <c:otherwise>
-                        Notice an inaccuracy?
-                        <link:schoolFeedback>Let us know</link:schoolFeedback>
-                    </c:otherwise>
-                </c:choose>
-            </p>
-        <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
-                                  startIndex="${startIndex}" endIndex="${endIndex}"
-                                  totalSchools="${totalSchools}" pageSize="${pageSize}"/>
+            <div class="line">
+                <div class="unit size2of3">
+                    <c:choose>
+                        <c:when test="${tab eq 'programsExtracurriculars'}">
+                            <p class="text3italic">
+                                Program information provided by parent surveys may not be completely accurate.
+                            </p>
+                        </c:when>
+                        <c:otherwise>
+                            <p class="text3">
+                                Notice an inaccuracy?
+                                <link:schoolFeedback>Let us know</link:schoolFeedback>
+                            </p>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="unit size1of3 lastUnit">
+                    <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
+                                        startIndex="${startIndex}" endIndex="${endIndex}"
+                                        totalSchools="${totalSchools}" pageSize="${pageSize}"/>
+                </div>
+            </div>
             <!--<div class="howWeGather clearBoth">-->
-                <!--<a href="#" onclick="return false;">-->
-                    <!--<span class="alertDoubleArrow">&amp;#187;</span> How we gather our data-->
-                <!--</a>-->
+            <!--<a href="#" onclick="return false;">-->
+            <!--<span class="alertDoubleArrow">&amp;#187;</span> How we gather our data-->
+            <!--</a>-->
             <!--</div>-->
             <!-- GS-10783 Following code depends on vars exposed by CompareTestScoresController -->
             <c:if test="${tab eq 'testScores' and not empty testRows}">
-                <p class="text3 clearBoth">
-                    <em>Test score data reflects the percentage of students at the school meeting or exceeding standards.</em>
-                </p>
+                <div class="line">
+                    <div class="unit size1of1 lastUnit">
+                        <p class="text3italic">Test score data reflects the percentage of students at the school meeting or exceeding standards.</p>
+                    </div>
+                </div>
             </c:if>
         </div>
     </div>
