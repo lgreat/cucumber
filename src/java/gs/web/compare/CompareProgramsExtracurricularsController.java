@@ -256,10 +256,20 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                             } else if ("LINKED".equals(question.getDisplayType())) {
                                 SurveyResultLinkedQuestion linkedQuestion = (SurveyResultLinkedQuestion) question;
                                 String key = "q" + linkedQuestion.getQuestion1().getId();
-                                if (_questionAnswerToLabelMap.get(key) != null) {
+                                if (StringUtils.equals(_questionAnswerToLabelMap.get(key), ROW_LABEL_BEFORE_AFTER_SCHOOL)) {
                                     _log.warn("          Found " + key);
                                     if (linkedQuestion.isShowResponses()) {
-                                        school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add(linkedQuestion.getDisplayText());
+                                        for (String answerValue: linkedQuestion.getQuestion1ResponseValuesAsMap().keySet()) {
+                                            if (linkedQuestion.getQuestion1ResponseValuesAsMap().get(answerValue) > 0) {
+                                                if (StringUtils.equalsIgnoreCase("before school", answerValue)) {
+                                                    school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add("Before-school care");
+                                                } else if (StringUtils.equalsIgnoreCase("after school", answerValue)) {
+                                                    school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add("After-school care");
+                                                } else if (StringUtils.equalsIgnoreCase("none", answerValue)) {
+                                                    school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add("No extended care");
+                                                }
+                                            }
+                                        }
                                     }
                                 } else {
                                     key = "q" + linkedQuestion.getQuestion2().getId();
