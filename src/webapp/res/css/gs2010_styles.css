@@ -3776,20 +3776,9 @@ a.ui-dialog-titlebar-close .ui-icon {
     padding: 0;
 }
 
-.introTxt {
-    padding: 0 20px 0 0;
-    border: dotted #999;
-    border-width: 1px 0;
-    height: 154px;
-}
-
-/* GS-11161 */
-#joinHover .introTxt {
-    padding: 0;
-    height: auto;
-    margin: 10px 0;
-    border: dotted #999;
-    border-width: 1px 0 0 0;
+#joinHover .textInput,
+#joinHover .passwordInput{
+    width:185px;
 }
 
 /* GS-11161 */
@@ -3877,32 +3866,10 @@ a.ui-dialog-titlebar-close .ui-icon {
     width: 210px;
 }
 
-.hlpTxt {
-    font: 11px Arial, sans-serif;
-    color: #777;
-}
-
-p.hlpTxt {
-    margin: 0 0 0 132px;
-    font-style: italic;
-    width: 220px;
-}
-
 .contactPw input {
     float: left;
     margin: 0 15px 0 0;
     width: 220px;
-    display: inline;
-}
-
-/* GS-11161 */
-#joinHover .contactPw input {
-    width: 200px;
-}
-
-.errors {
-    float: left;
-    width: 300px;
     display: inline;
 }
 
@@ -3926,6 +3893,7 @@ p.hlpTxt {
     border: 1px solid #c03;
     background: #f4f4f4 url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 8px 8px no-repeat;
     padding: 8px 8px 8px 24px;
+    margin-bottom:9px;
 }
 
 .valid {
@@ -4184,11 +4152,11 @@ body.nocol #moreGrades_SCPP  li {
     left: 5px;
 }
 
-.prefs div.hlpTxt {
+/*.prefs div.hlpTxt {
     width: 132px;
     margin: 0 0 0 -100%;
     right: 132px;
-}
+}*/
 
 div.hlpTxt  p {
     margin: 1em 3em 1em 0;

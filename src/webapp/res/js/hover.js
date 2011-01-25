@@ -134,18 +134,14 @@ GSType.hover.JoinHover = function() {
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
         // hide nth / MSS
-        jQuery('#joinHover li.grades p').hide();
-        jQuery('#joinHover li.grades ul').hide();
+        jQuery('#joinHover div .grades p').hide();
+        jQuery('#joinHover div .grades ul').hide();
         // hide LD newsletter
-        jQuery('#joinHover li.joinHover_ld').hide();
+        jQuery('#joinHover div.joinHover_ld').hide();
         // hide BTS tip
-        jQuery('#joinHover li.joinHover_btstip').hide();
+        jQuery('#joinHover div.joinHover_btstip').hide();
         //check checkbox for greatnews
         jQuery('#joinHover #opt1').attr('checked', true);
-        var stockPhotoUrl = '/res/img/discussion_boards/db_jnStock1_ph.jpg';
-        if (jQuery('#joinHover_stockPhoto').attr('src') != stockPhotoUrl) {
-            jQuery('#joinHover_stockPhoto').attr('src', stockPhotoUrl);
-        }
     };
     //sets a notification message on the join form - can be used to explain why this hover was launched
     this.addMessage = function(text) {
@@ -205,7 +201,7 @@ GSType.hover.JoinHover = function() {
             */
         }
 
-        jQuery('#joinHover li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
+        jQuery('#joinHover div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
     };
     // GS-11161
     this.configAndShowEmailTipsMssLabelNew = function()
@@ -214,7 +210,7 @@ GSType.hover.JoinHover = function() {
         var labelPhrases = " GreatSchools Weekly &ndash; our popular series gives you " +
                     "education news, practical parenting tips, and grade-by-grade information and advice.";
 
-        jQuery('#joinHover li.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
+        jQuery('#joinHover div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
     };
     this.parseCities = function(data) {
         var citySelect = jQuery('#joinHover #joinCity');
@@ -591,7 +587,7 @@ GSType.hover.JoinHover = function() {
         return false;
     };
 };
-GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover',595);
+GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover',555);
 
 //SignInHover hover
 GSType.hover.SignInHover = function() {
