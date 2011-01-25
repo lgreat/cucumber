@@ -268,7 +268,7 @@ GSType.hover.JoinHover = function() {
     };
     this.showNthHoverOnExit = function() {
         this.showHoverOnExit(GSType.hover.joinHover.showJoinNth);
-    }
+    };
     this.showHoverOnExit = function(showHoverFunction) {
         var arr = getElementsByCondition(
                 function(el) {
@@ -393,7 +393,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("Learning Difficulties newsletter");
+        GSType.hover.joinHover.setTitle("Special Education newsletter");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
                 "to get the resources you need to support your child with a learning difficulty or attention problem");
         // show nth / MSS
@@ -473,7 +473,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Is your child on track?");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-                "to get the grade-by-grade tips you need to make smart choices about your child's education.");
+                "to get grade-by-grade tips and practical advice to help you guide your child to educational success.");
         // show nth / MSS
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
@@ -788,7 +788,7 @@ GSType.hover.SchoolReviewThankYou = function() {
         pageTracking.hierarchy = this.getHierarchy();
         pageTracking.server = "www.greatschools.org";
         pageTracking.send();
-    }
+    };
     this.onClose = function() {
     };
     //override in specific hovers!
@@ -889,7 +889,7 @@ GSType.hover.PrincipalConfirmation = function() {
         jQuery('#' + this.hoverId).dialog('open');
         return false;
     };
-}
+};
 GSType.hover.PrincipalConfirmation.prototype = new GSType.hover.HoverDialog("principalConfirmationHover",640);
 
 GSType.hover.PrincipalReviewSubmitted = function() {
