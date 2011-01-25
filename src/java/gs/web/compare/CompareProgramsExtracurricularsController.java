@@ -29,7 +29,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     public static final String ROW_LABEL_ARTS = "Arts &amp; activities";
     public static final String ROW_LABEL_SPORTS = "Sports";
     public static final String ROW_LABEL_LANGUAGES = "Languages taught";
-    public static final String ROW_LABEL_SPECIAL_PROGRAMS = "Other special programs";
+//    public static final String ROW_LABEL_SPECIAL_PROGRAMS = "Other special programs";
     public static final String ROW_LABEL_VOCATIONAL = "Vocational programs";
     public static final String ROW_LABEL_BEFORE_AFTER_SCHOOL = "Before/After school care";
     public static final String ROW_LABEL_LEARNING_DISABILITIES = "Learning disabilities";
@@ -140,7 +140,8 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                                         List<ComparedSchoolBaseStruct> schools,
                                         Map<String, Object> model) {
         model.put(MODEL_TAB, TAB_NAME);
-        
+
+        // these are the potential categories to collect data into
         List<String> categories = new ArrayList<String>();
         categories.add(ROW_LABEL_BEFORE_AFTER_SCHOOL);
         categories.add(ROW_LABEL_SPORTS);
@@ -155,7 +156,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         for (ComparedSchoolBaseStruct baseStruct: schools) {
             ComparedSchoolProgramsExtracurricularsStruct struct =
                     (ComparedSchoolProgramsExtracurricularsStruct) baseStruct;
-            _log.warn("Processing " + baseStruct.getName() + " (" + baseStruct.getUniqueIdentifier() + ")");
+//            _log.warn("Processing " + baseStruct.getName() + " (" + baseStruct.getUniqueIdentifier() + ")");
 
             Map<String, Set<String>> categoryResponses = new HashMap<String, Set<String>>();
             for (String category: categories) {
@@ -165,16 +166,17 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
 
             School school = baseStruct.getSchool();
             PQ pq = _PQDao.findBySchool(school);
+            // PQ takes precedence over parent surveys
             if (pq != null) {
-                _log.warn("  Found PQ");
+//                _log.warn("  Found PQ");
                 struct.setProgramSource(Principal);
                 processPQResults(struct, pq);
             } else {
-                _log.warn("  Did not find PQ, checking for survey results");
+//                _log.warn("  Did not find PQ, checking for survey results");
                 Set<LevelCode.Level> levels = school.getLevelCode().getIndividualLevelCodes();
                 List<SurveyResults> allResultsForSchool = new ArrayList<SurveyResults>();
                 for (LevelCode.Level level: levels) {
-                    _log.warn("  Looking for " + level.getLongName() + " surveys");
+//                    _log.warn("  Looking for " + level.getLongName() + " surveys");
                     SurveyResults results = _surveyDao.getSurveyResultsForSchool(level.getName(), baseStruct.getSchool());
                     if (results != null && results.getTotalResponses() > 0) {
                         allResultsForSchool.add(results);
@@ -182,12 +184,15 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                 }
                 processSurveyResults(struct, allResultsForSchool);
             }
+            // now determine which categories have results for this school
             for (String category: categories) {
                 if (struct.getCategoryResponses().get(category).size() > 0) {
                     categoryHasResults.put(category, true);
                 }
             }
         }
+        // any categories that results for any of the schools should be displayed
+        // others are not shown
         List<String> categoriesForDisplay = new ArrayList<String>();
         for (String category: categories) {
             if (categoryHasResults.get(category) != null) {
@@ -242,10 +247,10 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
 
     protected void processSurveyResults(ComparedSchoolProgramsExtracurricularsStruct school,
                                         List<SurveyResults> allResultsForSchool) {
-        _log.warn("  Found " + allResultsForSchool.size() + " survey result(s)");
+//        _log.warn("  Found " + allResultsForSchool.size() + " survey result(s)");
 
         for (SurveyResults results: allResultsForSchool) {
-            _log.warn("  Processing survey results with " + results.getTotalResponses() + " response(s)");
+//            _log.warn("  Processing survey results with " + results.getTotalResponses() + " response(s)");
             school.setNumResponses(school.getNumResponses() + results.getTotalResponses());
             for (SurveyResultPage page: results.getPages()) {
 //                _log.warn("    Processing page " + page.getName());
@@ -258,12 +263,12 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                                 for (Answer answer: question.getQuestion().getAnswers()) {
                                     String key = "q" + question.getQuestion().getId() + "a" + answer.getId();
                                     if (_questionAnswerToLabelMap.get(key) != null) {
-                                        _log.warn("          Found " + key);
+//                                        _log.warn("          Found " + key);
                                         Map<Object, Integer> responseValuesMap = question.getResponseValuesAsMap();
                                         for (AnswerValue answerValue: answer.getAnswerValues()) {
                                             Integer numPositiveResponses = responseValuesMap.get(answerValue.getSymbol());
                                             if (numPositiveResponses != null && numPositiveResponses > 0) {
-                                                _log.warn("            Adding \"" + answerValue.getDisplay() + "\" to " + _questionAnswerToLabelMap.get(key));
+//                                                _log.warn("            Adding \"" + answerValue.getDisplay() + "\" to " + _questionAnswerToLabelMap.get(key));
                                                 school.getCategoryResponses().get(_questionAnswerToLabelMap.get(key)).add(answerValue.getDisplay());
                                             }
                                         }
@@ -273,7 +278,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                                 SurveyResultLinkedQuestion linkedQuestion = (SurveyResultLinkedQuestion) question;
                                 String key = "q" + linkedQuestion.getQuestion1().getId();
                                 if (StringUtils.equals(_questionAnswerToLabelMap.get(key), ROW_LABEL_BEFORE_AFTER_SCHOOL)) {
-                                    _log.warn("          Found " + key);
+//                                    _log.warn("          Found " + key);
                                     if (linkedQuestion.isShowResponses()) {
                                         for (String answerValue: linkedQuestion.getQuestion1ResponseValuesAsMap().keySet()) {
                                             if (linkedQuestion.getQuestion1ResponseValuesAsMap().get(answerValue) > 0) {
@@ -290,10 +295,10 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                                 } else {
                                     key = "q" + linkedQuestion.getQuestion2().getId();
                                     if (_questionAnswerToLabelMap.get(key) != null) {
-                                        _log.warn("          Found " + key);
+//                                        _log.warn("          Found " + key);
                                         if (linkedQuestion.isShowResponses()) {
                                             for (NameValuePair<String, Integer> answerValue: linkedQuestion.getResponseValuesAsList()) {
-                                                _log.warn("            " + answerValue.getKey() + ":" + answerValue.getValue());
+//                                                _log.warn("            " + answerValue.getKey() + ":" + answerValue.getValue());
                                                 if (answerValue.getValue() > 0) {
                                                     if (StringUtils.contains(answerValue.getKey(), "self-contained")) {
                                                         school.getCategoryResponses()
