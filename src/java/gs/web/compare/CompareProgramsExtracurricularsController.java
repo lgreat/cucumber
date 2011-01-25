@@ -198,10 +198,13 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     }
 
     protected void processPQResults(ComparedSchoolProgramsExtracurricularsStruct school, PQ pq) {
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_ARTS, pq.getArts(), _pqArtsMap);
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_SPORTS, pq.getBoysSports(), _pqSportsMap);
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_SPORTS, pq.getGirlsSports(), _pqSportsMap);
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_LANGUAGES, pq.getForeignLanguageClasses(), _pqLanguagesMap);
+        parsePQValues(school.getCategoryResponses(), ROW_LABEL_ARTS, pq.getArts(), pq.getArtsOther(), _pqArtsMap);
+        parsePQValues(school.getCategoryResponses(), ROW_LABEL_SPORTS, pq.getBoysSports(), pq.getBoysSportsOther(),
+                      _pqSportsMap);
+        parsePQValues(school.getCategoryResponses(), ROW_LABEL_SPORTS, pq.getGirlsSports(), pq.getGirlsSportsOther(),
+                      _pqSportsMap);
+        parsePQValues(school.getCategoryResponses(), ROW_LABEL_LANGUAGES, pq.getForeignLanguageClasses(),
+                      pq.getForeignLanguageClassesOther(), _pqLanguagesMap);
         if (StringUtils.equals("checked", pq.getBeforecare())) {
             school.getCategoryResponses().get(ROW_LABEL_BEFORE_AFTER_SCHOOL).add("Before-school care");
         }
@@ -214,8 +217,12 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     }
 
     protected void parsePQValues(Map<String, Set<String>> categoryResponses, String categoryName, String pqValues, Map<String, String> valueMap) {
+        parsePQValues(categoryResponses, categoryName, pqValues, null, valueMap);
+    }
+
+    protected void parsePQValues(Map<String, Set<String>> categoryResponses, String categoryName, String pqValues, String pqOtherValue, Map<String, String> valueMap) {
         if (StringUtils.isNotBlank(pqValues)) {
-            for (String value:pqValues.split(":")) {
+            for (String value: pqValues.split(":")) {
                 if (valueMap.get(value) != null) {
                     categoryResponses.get(categoryName).add(valueMap.get(value));
                 } else {
@@ -223,7 +230,11 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
                 }
             }
         }
-
+        if (StringUtils.isNotBlank(pqOtherValue)) {
+            for (String value: pqOtherValue.split(",")) {
+                categoryResponses.get(categoryName).add(value);
+            }
+        }
     }
 
     protected void processSurveyResults(ComparedSchoolProgramsExtracurricularsStruct school,
