@@ -112,10 +112,12 @@
                 GS_compareMapInfoWindow.open(map, marker);
             });
             if (preSelect) {
-                var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
-                GS_compareMapInfoWindow.setContent('<div style="width:325px;">'+infowindowElement.html()+'</div>');
-                GS_compareMapInfoWindow.open(map, marker);
-                GS_compareMapCurrentOpenSchool = schoolIdentifier;
+                jQuery(function() {
+                    var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
+                    GS_compareMapInfoWindow.setContent('<div style="width:325px;">'+infowindowElement.html()+'</div>');
+                    GS_compareMapInfoWindow.open(map, marker);
+                    GS_compareMapCurrentOpenSchool = schoolIdentifier;
+                });
             }
         }
 
