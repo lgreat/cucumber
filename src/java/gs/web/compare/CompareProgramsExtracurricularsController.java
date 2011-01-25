@@ -232,7 +232,10 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         }
         if (StringUtils.isNotBlank(pqOtherValue)) {
             for (String value: pqOtherValue.split(",")) {
-                categoryResponses.get(categoryName).add(StringUtils.capitalize(value));
+                String cleanedUpValue = StringUtils.capitalize(StringUtils.trim(value));
+                if (StringUtils.isNotBlank(cleanedUpValue)) {
+                    categoryResponses.get(categoryName).add(cleanedUpValue);
+                }
             }
         }
     }
