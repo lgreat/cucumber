@@ -138,7 +138,7 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
         verify(row);
     }
 
-    public void xtestIsTemplated_LinkTextTrue(){
+    public void testIsTemplated_LinkTextTrue(){
         String textWithoutTarget = "this is text without a target";
         String linkWithoutTarget = "/someURLBase/with/some/more" ;
         String linkTextWithoutTarget = "This is link text with <state>";
