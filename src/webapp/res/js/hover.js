@@ -134,8 +134,8 @@ GSType.hover.JoinHover = function() {
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
         // hide nth / MSS
-        jQuery('#joinHover div .grades p').hide();
-        jQuery('#joinHover div .grades ul').hide();
+        jQuery('#joinHover div.grades2').hide();
+        //jQuery('#joinHover div .grades ul').hide();
         // hide LD newsletter
         jQuery('#joinHover div.joinHover_ld').hide();
         // hide BTS tip
@@ -195,10 +195,7 @@ GSType.hover.JoinHover = function() {
         //choose whether to display nth grader checkboxes flyout
         if (includeTips) {
             // GS-11161
-            /*
-            jQuery('#joinHover li.grades p').show();
-            jQuery('#joinHover li.grades ul').show();
-            */
+            jQuery('#joinHover div.grades2').show();
         }
 
         jQuery('#joinHover div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);

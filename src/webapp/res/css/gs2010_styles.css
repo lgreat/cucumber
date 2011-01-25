@@ -3908,6 +3908,30 @@ a.ui-dialog-titlebar-close .ui-icon {
     overflow: visible;
 }
 
+#joinGS #joinCity{
+    width:120px;
+}
+
+#joinGS #pickGrade{
+    margin:0;
+}
+
+#joinGS #moreGrades{
+    height:auto;
+    width:300px;
+    padding:3px 5px;
+    border:1px solid #2092c4;
+}
+
+#joinGS #moreGrades li{
+    padding:0;
+    margin:auto;
+}
+
+#joinGS .grades2{
+    padding:0 0 0 30px;
+}
+
 .prefs .col {
     position: relative;
     float: left;
