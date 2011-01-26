@@ -332,7 +332,10 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
     protected String getValueAsText(SchoolTestValue value) {
         TestDataType valueType = _testDataTypeDao.getDataType(value.getDataSet().getDataTypeId());
         if (value.getValueText() != null) {
-            if (valueType.isPercent() && !StringUtils.endsWith(value.getValueText(), "%")) {
+            if (valueType.isPercent()
+                    && StringUtils.isNumeric(value.getValueText())
+                    && !StringUtils.endsWith(value.getValueText(), "%")) {
+                // Fix for GS-11283
                 return value.getValueText() + "%";
             }
             return value.getValueText();
