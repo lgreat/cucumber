@@ -76,7 +76,7 @@
             <span class="error invalid"><!--not empty--></span>
         </div>
     </div>
-    <div class="spacer_10"><!-- do not collapse --></div>
+    <div class="spacer_7"><!-- do not collapse --></div>
 </div>
 <!--<p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>-->
 
@@ -94,7 +94,7 @@
             <span class="error invalid" id="pw_invalid"><!-- not empty --></span>
         </div>
     </div>
-    <div class="spacer_10"><!-- do not collapse --></div>
+    <div class="spacer_7"><!-- do not collapse --></div>
 </div>
 
 <div class="line joinHover_confirmPassword">

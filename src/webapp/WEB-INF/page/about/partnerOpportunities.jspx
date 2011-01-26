@@ -17,8 +17,6 @@
 
     <jsp:directive.page contentType="text/html"/>
     <pageHelper:hideFooterAd/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
-    <pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -29,117 +27,199 @@
 
         <mod:tracking pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
 
-        <div id="contentFAQ" class="contentFAQ">
-            <h1>Partner with GreatSchools</h1>
+        <h1>Partner with GreatSchools</h1>
+
+        <div id="mainGS">
+
             <ul class="pageNav">
                 <li><a href="#advertise">Advertise on GreatSchools</a></li>
                 <li><a href="#license">License our Content</a></li>
                 <li><a href="#related">Agreement Forms and Related Information</a></li>
             </ul>
 
-            <![CDATA[ <a name="advertise"></a> ]]>
 
-            <h2>Advertise on GreatSchools</h2>
+            <div class="mod partnerOps">
+                <div class="inner">
+                    <div class="hd">
+                        <a name="advertise"><!-- do not collapse --></a>
 
-            <p>Advertise on GreatSchools and get your message in front of our large
-                audience of active, educated and affluent parents. GreatSchools can
-                target your campaign by state or grade level; we offer all traditional
-                ad units as well as newsletter sponsorships. Advertisers include Shutterfly,
-                Kellogg's, Sylvan Learning Systems, Microsoft, K-12, Kindercare, Realtor.com
-                and many more. </p>
+                        <h2>Advertise on GreatSchools</h2>
+                    </div>
+                    <div class="bd">
 
-            <p>
-                For advertising information and opportunities, you can download our ad sales media kit here: <a href="http://www.greatschools.org/catalog/pdf/GreatSchoolsAdvertisingMediaKit.pdf" target="_blank">GreatSchools Advertising Media Kit</a><a href="http://get.adobe.com/reader/" target="blank"><img class="adobeImg" src ="/res/img/about/pressroom/requiresadobe_18x18.png" alt="Adobe Reader is required to view these files" title="Adobe Reader is required to view these files.Click to download."></img></a><br/><br/>
+                        <p>Advertise on GreatSchools and get your message in front of our large
+                            audience of active, educated and affluent parents. GreatSchools can
+                            target your campaign by state or grade level; we offer all traditional
+                            ad units as well as newsletter sponsorships. Advertisers include Shutterfly,
+                            Kellogg's, Sylvan Learning Systems, Microsoft, K-12, Kindercare, Realtor.com
+                            and many more. </p>
 
-               For additional questions or to get started today, please contact:<br />
-Advertising Sales Team<br />
-Lauren Guetz: West and East Coast Sales Manager, <a href="mailto:lguetz@greatschools.org">lguetz@greatschools.org</a>, 415.983.3815  <br/>
-MaryEllen McLaughlin: New York City Regional Sales Manager, <a href="mailto:memclaughlin@greatschools.org">memclaughlin@greatschools.org</a>, 646.643.5493 <br />
-             </p>
-            <![CDATA[ <a name="license"></a> ]]>
+                        <p>
+                            For advertising information and opportunities, you can download our ad sales media kit here:
+                            <a
+                                    href="http://www.greatschools.org/catalog/pdf/GreatSchoolsAdvertisingMediaKit.pdf"
+                                    target="_blank">GreatSchools Advertising Media Kit </a><a
+                                href="http://get.adobe.com/reader/"
+                                target="blank"><img class="adobeImg"
+                                                    width="18"
+                                                    height="18"
+                                                    src="/res/img/about/pressroom/requiresadobe_18x18.png"
+                                                    alt="Adobe Reader is required to view these files"
+                                                    title="Adobe Reader is required to view these files.Click to download."/></a>
+                        </p>
 
-            <h2>License our Content</h2>
-	    
-	    <p>
-	    	Last year, more than 37 million people turned to GreatSchools as their trusted source to find the right school and
-		support their children's education. That's 1 out of 3 K-12 households in the U.S.</p>
-		
-	    <p>
-	    	With a national database of over 200,000 pre-K – 12th grade schools and 2,000 expert articles, our content helps power some of the web’s leading media organizations.
-		We constantly refresh our site with the latest available data from district, state, and national sources.</p>
-		
-	    <p>
-	    	Greatschools offers co-branding of our website content, data feeds for school data and opportunities to republish articles from <a href="http://www.greatschools.org">www.GreatSchools.org</a>.
-		Whether your goals are to build a content rich site vertical, increase page stickiness, or generate additional page views, there are a number of ways we can add value.</p>
-		
-            <p>For more details, our licensing media kit is available here: <a href="http://www.greatschools.org/catalog/pdf/GreatSchoolsLicensingMediaKit.pdf" target="_blank">GreatSchools Licensing Solutions</a><a href="http://get.adobe.com/reader/" target="blank"><img class="adobeImg" src ="/res/img/about/pressroom/requiresadobe_18x18.png" alt="Adobe Reader is required to view these files" title="Adobe Reader is required to view these files.Click to download."></img></a></p>
+                        For additional questions or to get started today, please contact:<br/>
 
-            <p>For more information and pricing please contact:<br/>
-	    Jennifer Leibick, Business Development Manager<br/>
-	    <a href="mailto:jleibick@greatschools.org">jleibick@greatschools.org</a></p>
-           
+                        <ul>Advertising Sales Team
+                            <li>Lauren Guetz: West and East Coast Sales Manager, <a
+                                    href="mailto:lguetz@greatschools.org">lguetz@greatschools.org</a>, 415.983.3815
+                            </li>
+                            <li>MaryEllen McLaughlin: New York City Regional Sales Manager, <a
+                                    href="mailto:memclaughlin@greatschools.org">memclaughlin@greatschools.org</a>, 646.643.5493
+                            </li>
+                            <li>Shannon Ong: Midwest and New York City Sales Manager, <a
+                                    href="mailto:song@greatschools.org">song@greatschools.org</a>, 415.983.3816
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-            <![CDATA[ <a name="related"></a> ]]>
-            <h2>Agreement Forms and Related Information</h2>
-	    <p>
-	    	<b>School Finder Web Service API</b><br/>
-            Integrate our school data into your application or website. Our web service provides developers access to our high-quality, comprehensive school data.
-		</p>
-            <p>
-		Click <a href="/api/registration.page">here</a> to visit the GreatSchools API page or click <a href="mailto:jleibick@greatschools.org">here</a> to contact our team for more information. 
-	    </p>
+            <div class="mod partnerOps">
+                <div class="inner">
+                    <div class="hd">
+                        <a name="license"><!-- do not collapse --></a>
 
-	    <p>
-	    	<b>Data Feeds</b><br/>
-            Utilize our feeds, which are available in various formats (XML, Excel), or integrate links and search boxes
-            for our school profiles, test scores, census data and more. <a href="mailto:jleibick@greatschools.org">Contact us</a>
-            for pricing information.
-		</p>
-            <p>
-		Please click on the link to see a current partner example: <a href="http://realestate.yahoo.com/California/San_Francisco/Schools/result.html;_ylt=Ai39MTtQVmo9M6O8YIaSwdxB5YV4?p=94123&amp;search=Search&amp;level=all&amp;type=all&amp;redir=1%20" target="_blank">Yahoo! Real Estate</a>
-	    </p>
-	    <p>
-	    	<b>Branding and Licensing</b><br/>
-		Get your very own co-branded URL for each web property.  This will allow you to increase page stickiness and keep your users
-		on your site throughout their entire experience.  Use our expert articles to augment your local education content – host entire
-		articles on your site or just teaser headlines that link to your co-branded page.  Additionally, you can provide your own ad tag
-		and continue to monetize your high value impressions.  Co-brand prices start at $2000/year.
-		</p>
-        <p>
-		Please click on the link to see a current partner example: <a href="http://ocregister.greatschools.org/" target="_blank">Orange County Register</a>
-	    </p>
-	    <p>
-	    	<b>Framed Version of GreatSchools</b><br/>
-		GreatSchools can work with you through an advertising free framed version of our site.  Your company can frame
-		the school search finder, the Research and Compare pages and the City Overview pages. The license fee for a framed solution
-		is only $500/year.  Please see below for a few examples on this.</p>
-	    <p>
-	    	School search framed example: <a href="http://www.marinhighendhomes.com/Marin-School-Information.php" target="_blank">Marin High End Homes</a><br/>
-		Research and compare example: <a href="http://www.mikemay.com/Chesterfield_Cty_Schools/page_2188676.html" target="_blank">Mike May Realty</a><br/>
-		City overview page example: <a href="http://www.greatschools.org/city/San_Francisco/CA" target="_blank">San Francisco City Overview</a>
-	    </p>
+                        <h2>License our Content</h2>
+                    </div>
+                    <div class="bd">
 
-	    <p>
-            <a href="/catalog/pdf/GreatSchoolsRealtorLicensingAgreement.doc">Click here</a> for the framed solution Agreement.
-            Complete the form, submit your payment and fax back to 888-316-6975.
-            We will then email you your unique url. <a href="/catalog/pdf/FramedSolutionFAQ.pdf">Click here</a> to review our FAQ.
-	    </p>
+                        <p>
+                            Last year, more than 37 million people turned to GreatSchools as their trusted source to find the right school and
+                            support their children's education. That's 1 out of 3 K-12 households in the U.S.</p>
 
-	    <p>
-                <b>Articles</b><br/>
-            GreatSchools licenses all articles found on the GreatSchools site. Licensing starts at a minimum of 5 articles for a fee of $375/year.
-            Larger volume discounts are also available, please <a href="mailto:jleibick@greatschools.org">contact us</a> for more information.
-            Please <a href="/catalog/pdf/GreatSchoolsReprintAgreement.doc" target="_blank">click here</a> for the Re-Print Permissions Form.
-            Complete the form, submit your payment and fax back to us at 888-316-6975.
-        </p>
-	    
-            <p>
-                <gsml:a href="/about/sponsors.page">View our current partners</gsml:a>
+                        <p>
+                            With a national database of over 200,000 pre-K – 12th grade schools and 2,000 expert articles, our content helps power some of the web’s leading media organizations.
+                            We constantly refresh our site with the latest available data from district, state, and national sources.</p>
 
-                <br/><gsml:a href="/about/linkToUs.page">Link to GreatSchools.org</gsml:a>
+                        <p>
+                            Greatschools offers co-branding of our website content, data feeds for school data and opportunities to republish articles from
+                            <a href="http://www.greatschools.org">www.GreatSchools.org</a>.
+                            Whether your goals are to build a content rich site vertical, increase page stickiness, or generate additional page views, there are a number of ways we can add value.
+                        </p>
 
-                <br/><gsml:a href="/about/aboutUs.page">About GreatSchools</gsml:a>
-            </p>
+                        <p>For more details, our licensing media kit is available here: <a
+                                href="http://www.greatschools.org/catalog/pdf/GreatSchoolsLicensingMediaKit.pdf"
+                                target="_blank">GreatSchools Licensing Solutions </a><a
+                                href="http://get.adobe.com/reader/"
+                                target="blank"><img class="adobeImg"
+                                                    width="18"
+                                                    height="18"
+                                                    src="/res/img/about/pressroom/requiresadobe_18x18.png"
+                                                    alt="Adobe Reader is required to view these files"
+                                                    title="Adobe Reader is required to view these files.Click to download."/></a>
+                        </p>
+
+                        <ul>For more information and pricing please contact:
+                            <li>Jennifer Leibick, Business Development Manager, <a
+                                    href="mailto:jleibick@greatschools.org">jleibick@greatschools.org</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mod partnerOps">
+                <div class="inner">
+                    <div class="hd">
+                        <a name="related"><!-- do not collapse --></a>
+
+                        <h2>Agreement Forms and Related Information</h2>
+                    </div>
+                    <div class="bd">
+
+                        <p><span class="text2bold">School Finder Web Service API</span><br/>
+                            Integrate our school data into your application or website. Our web service provides developers access to our high-quality, comprehensive school data.
+                        </p>
+
+                        <p>
+                            Click <a href="/api/registration.page">here</a> to visit the GreatSchools API page or click
+                            <a
+                                    href="mailto:jleibick@greatschools.org">here</a> to contact our team for more information.
+                        </p>
+
+
+                        <p><span class="text2bold">Data Feeds</span><br/>
+                            Utilize our feeds, which are available in various formats (XML, Excel), or integrate links and search boxes
+                            for our school profiles, test scores, census data and more. <a
+                                    href="mailto:jleibick@greatschools.org">Contact us</a>
+                            for pricing information.
+                        </p>
+
+                        <p>
+                            Please click on the link to see a current partner example: <a
+                                href="http://realestate.yahoo.com/California/San_Francisco/Schools/result.html;_ylt=Ai39MTtQVmo9M6O8YIaSwdxB5YV4?p=94123&amp;search=Search&amp;level=all&amp;type=all&amp;redir=1%20"
+                                target="_blank">Yahoo! Real Estate</a>
+                        </p>
+
+
+                        <p><span class="text2bold">Branding and Licensing</span><br/>
+                            Get your very own co-branded URL for each web property. This will allow you to increase page stickiness and keep your users
+                            on your site throughout their entire experience. Use our expert articles to augment your local education content – host entire
+                            articles on your site or just teaser headlines that link to your co-branded page. Additionally, you can provide your own ad tag
+                            and continue to monetize your high value impressions. Co-brand prices start at $2000/year.
+                        </p>
+
+                        <p>
+                            Please click on the link to see a current partner example: <a
+                                href="http://ocregister.greatschools.org/"
+                                target="_blank">Orange County Register</a>
+                        </p>
+
+
+                        <p><span class="text2bold">Framed Version of GreatSchools</span><br/>
+                            GreatSchools can work with you through an advertising free framed version of our site. Your company can frame
+                            the school search finder, the Research and Compare pages and the City Overview pages. The license fee for a framed solution
+                            is only $500/year. Please see below for a few examples on this.</p>
+
+                        <ul>
+                            <li>School search framed example: <a
+                                    href="http://www.marinhighendhomes.com/Marin-School-Information.php"
+                                    target="_blank">Marin High End Homes</a></li>
+                            <li>Research and compare example: <a
+                                    href="http://www.mikemay.com/Chesterfield_Cty_Schools/page_2188676.html"
+                                    target="_blank">Mike May Realty</a></li>
+                            <li>City overview page example: <a href="http://www.greatschools.org/city/San_Francisco/CA"
+                                                               target="_blank">San Francisco City Overview</a></li>
+                        </ul>
+
+                        <p>
+                            <a href="/catalog/pdf/GreatSchoolsRealtorLicensingAgreement.doc"
+                               target="_blank">Click here</a> for the framed solution Agreement.
+                            Complete the form, submit your payment and fax back to 888-316-6975.
+                            We will then email you your unique url. <a href="/catalog/pdf/FramedSolutionFAQ.pdf"
+                                                                       target="_blank">Click here</a> to review our FAQ.
+                        </p>
+
+
+                        <p><span class="text2bold">Articles</span><br/>
+                            GreatSchools licenses all articles found on the GreatSchools site. Licensing starts at a minimum of 5 articles for a fee of $375/year.
+                            Larger volume discounts are also available, please <a
+                                    href="mailto:jleibick@greatschools.org">contact us</a> for more information.
+                            Please <a href="/catalog/pdf/GreatSchoolsReprintAgreement.doc"
+                                      target="_blank">click here</a> for the Re-Print Permissions Form.
+                            Complete the form, submit your payment and fax back to us at 888-316-6975.
+                        </p>
+
+                        <ul>
+                            <li><gsml:a href="/about/sponsors.page">View our current partners</gsml:a></li>
+
+                            <li><gsml:a href="/about/linkToUs.page">Link to GreatSchools.org</gsml:a></li>
+
+                            <li><gsml:a href="/about/aboutUs.page">About GreatSchools</gsml:a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </gsml:body>
     </html>

@@ -76,6 +76,7 @@ General comments:
 =4n-1 school search results
 =4o promo savvysource
 =4p parent review landing page
+=4q FAQ
 =5 icons
 =6 editorialFooter
 =7 communitySidebar
@@ -1696,6 +1697,18 @@ body.cobranded #pageGS {
     padding:10px 15px 0;
 }
 
+/* **************** BLOCK STRUCTURES ***************** */
+/* mod */
+.mod{margin:0;}
+.hd,.bd,.ft{display: inline-block; width:100%; *display:block; *width:auto; zoom:1;}
+.inner{position:relative;}
+
+/* **************** BLOCK SKINS ***************** */
+/* ----- partnerOps (extends mod) ----- */
+.partnerOps .inner{border-top:2px dotted #ccc;margin:15px 0;padding:0;}
+.partnerOps .hd h2{margin:15px 0;}
+.partnerOps .bd p, .partnerOps .bd ul{margin:0 0 15px;line-height:22px;}
+
 .mod_hd {
     position: relative;
 }
@@ -1961,6 +1974,10 @@ body.cobranded #pageGS {
 
 .brdbtm_dotted-fff {
     border-bottom: 1px dotted #fff;
+}
+
+.brdbtm_dotted-ccc {
+    border-bottom: 2px dotted #ccc;
 }
 
 .brdrt_dotted {
@@ -7214,6 +7231,14 @@ body.ie8 #savvysource span.arrow-right {
 
 #addParentReviewForm .parentReviewEmail {
     width: 50%;
+}
+
+/* =4q FAQ
+-------------------------------------------------------------------------------------------*/
+
+#mainGS .pageNav li {
+    padding-left: 15px;
+    background: #fff url(/res/img/content/article/greenarrow.gif) no-repeat left 6px;
 }
 
 /* =5 icons

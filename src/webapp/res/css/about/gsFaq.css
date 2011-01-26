@@ -1,95 +1,95 @@
 .leftside #contentGS {
     background: none;
 }
+
 .contentFAQ {
-	text-align: left;
-	padding: 10px 25px;
-	line-height: 22px;
+    text-align: left;
+    padding: 10px 25px;
+    line-height: 22px;
 }
 
 /* Typography sizing, etc. */
 
 .contentFAQ h1 {
-	margin: 0 0 15px;
+    margin: 0 0 15px;
 }
 
 .contentFAQ h2 {
     border-top: 2px dotted #CCCCCC;
-	font-size: 17px;
+    font-size: 17px;
     padding-top: 15px;
-	margin: 0 0 15px;
+    margin: 0 0 15px;
 }
 
 .contentFAQ h3 {
-	font-size: 15px;
+    font-size: 15px;
     font-weight: bold;
     margin: 0 0 15px;
 }
 
 .contentFAQ p, .contentFAQ ol, .contentFAQ ul {
-	font-size: 13px;
-	margin: 0 0 15px;
+    font-size: 13px;
+    margin: 0 0 15px;
 }
 
 .contentFAQ ol, .contentFAQ ul {
-	padding: 0 0 0 25px;
+    padding: 0 0 0 25px;
 }
 
 /* Questions formatting */
 
 .questions li {
-	margin: 0 0 25px;
+    margin: 0 0 25px;
 }
 
 .questions li li {
-	margin: 0;
+    margin: 0;
 }
 
 .contentFAQ .questions li ol li {
-	list-style-type: decimal;
+    list-style-type: decimal;
     font-size: 13px;
 }
 
 .contentFAQ .questions li ul li {
-	list-style-type: disc;
+    list-style-type: disc;
     font-size: 13px;
 }
 
 .contentFAQ .questions {
-	padding: 0;
-	list-style-type: none;
+    padding: 0;
+    list-style-type: none;
 }
 
 .contentFAQ .question {
-	margin: 0;
-	font-weight: bold;
+    margin: 0;
+    font-weight: bold;
 }
 
 .contentFAQ .emphasis-right {
-	text-align: right;
-	font-style: italic;
+    text-align: right;
+    font-style: italic;
 }
 
 /* Navigation styling */
 
 .contentFAQ .pageNav {
-	padding-left: 10px;
-	list-style-type: none;
+    padding-left: 10px;
+    list-style-type: none;
 }
 
 .contentFAQ .pageNav li {
-	padding-left: 15px;
-	background: #fff url(/res/img/content/article/greenarrow.gif) no-repeat left 6px;
+    padding-left: 15px;
+    background: #fff url(/res/img/content/article/greenarrow.gif) no-repeat left 6px;
 }
 
-
 .contentFAQ .sectionNav li {
-	list-style-type: disc;
+    list-style-type: disc;
     font-size: 13px;
 }
 
-.adobeImg{
-    margin-left:10px;
-    position:relative;
-    top:5px;
+.adobeImg {
+    margin-left: 10px;
+    position: relative;
+    top: 5px;
 }
