@@ -330,10 +330,13 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
      * Converts a value to a display format.
      */
     protected String getValueAsText(SchoolTestValue value) {
+        TestDataType valueType = _testDataTypeDao.getDataType(value.getDataSet().getDataTypeId());
         if (value.getValueText() != null) {
+            if (valueType.isPercent() && !StringUtils.endsWith(value.getValueText(), "%")) {
+                return value.getValueText() + "%";
+            }
             return value.getValueText();
         } else {
-            TestDataType valueType = _testDataTypeDao.getDataType(value.getDataSet().getDataTypeId());
             if (valueType.isPercent()) {
                 if (value.getValueFloat() >= 1f) {
                     return String.valueOf(Math.round(value.getValueFloat())) + "%";
