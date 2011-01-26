@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.17 2010/01/27 20:18:14 droy Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.18 2011/01/26 21:40:41 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -66,6 +66,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         expect(schoolDao.countSchools(State.AK, null, LevelCode.MIDDLE, "Anchorage")).andReturn(3);
         expect(schoolDao.countSchools(State.AK, null, LevelCode.HIGH, "Anchorage")).andReturn(4);
         expect(schoolDao.countSchools(State.AK, SchoolType.PUBLIC, null, "Anchorage")).andReturn(4);
+        expect(schoolDao.countSchools(State.AK, SchoolType.CHARTER, null, "Anchorage")).andReturn(2);
         expect(schoolDao.countSchools(State.AK, SchoolType.PRIVATE, null, "Anchorage")).andReturn(6);
         replay(schoolDao);
 
@@ -98,7 +99,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals(" (4)", highAnchor.getAfter());
 
         Anchor publicAnchor = (Anchor) list.get(4);
-        assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC), null)).asSiteRelative(null),
+        assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC, SchoolType.CHARTER), null)).asSiteRelative(null),
                 publicAnchor.getHref());
 
         Anchor privateAnchor = (Anchor) list.get(5);
