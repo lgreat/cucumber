@@ -1707,7 +1707,7 @@ body.cobranded #pageGS {
 /* ----- partnerOps (extends mod) ----- */
 .partnerOps .inner{border-top:2px dotted #ccc;margin:15px 0;padding:0;}
 .partnerOps .hd h2{margin:15px 0;}
-.partnerOps .bd p, .partnerOps .bd ul{margin:0 0 15px;line-height:22px;}
+.partnerOps .bd p, .partnerOps .bd ul{margin:0 0 15px;line-height:1.9;}
 
 .mod_hd {
     position: relative;
