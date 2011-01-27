@@ -14,6 +14,12 @@
         <title>Lead Gen Demo Page</title>
     </head>
     <body>
+    <p>Multiple forms on one page are not usually expected, but the code should allow it.</p>
+
+    <h1>First form goes here</h1>
+    <promo:leadGen/>
+
+    <h1>Second form goes here</h1>
     <promo:leadGen/>
     </body>
     </html>

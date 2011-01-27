@@ -3,40 +3,54 @@
           xmlns:jsp="http://java.sun.com/JSP/Page">
     <jsp:directive.tag body-content="empty"/>
 
-    <![CDATA[<script type="text/javascript" src="/res/js/leadGen.js"></script>]]>
+    <!-- RANDALL/SAMSON:
+       When providing the code to Albert, remove the <![CDATA[ and ]]> and
+       do not double-escape any character entities, e.g. change &amp;amp; back to &amp;
+       Please merge any changes and new files to both currel and nextrel, and deploy on clone.
+    -->
 
-    <div class="introText">
-        Interested in more information?
-    </div>
-    <div class="spacer_5"><!-- do not collapse --></div>
-    <div class="text3">
-        Submit your name and email and we
-        will contact you soon about tuition, availability and programs
-        for your child.
-    </div>
-    <div class="spacer_5"><!-- do not collapse --></div>
+    <div class="jq-leadGenWrapper">
+        <![CDATA[<script type="text/javascript" src="/res/js/promo/leadGen.js"></script>]]>
 
-    <form id="leadGenForm" action="#" method="POST">
-        <fieldset class="contact">
-            <ol class="smallAlertText">
-                <li><label for="leadGenFirstName">First name:</label>
-                    <input id="leadGenFirstName" name="firstName"/>
-                </li>
-                <li><label for="leadGenLastName">Last name:</label>
-                    <input id="leadGenLastName" name="lastName"/>
-                </li>
-                <li><label for="leadGenEmail">Email:</label>
-                    <input id="leadGenEmail" name="email"/>
-                </li>
-            </ol>
-        </fieldset>
+        <div class="jq-leadGenIntroText">
+            Interested in more information?
+        </div>
         <div class="spacer_5"><!-- do not collapse --></div>
-        <fieldset class="submit">
-            <button class="button-1" id="leadGenSubmit" type="submit">Submit</button>
-        </fieldset>
-    </form>
-    <div id="leadGenThankYou" class="hidden text1">
-        Thanks for submitting your information!
+        <div class="text3">
+            Submit your name and email and we
+            will contact you soon about tuition, availability and programs
+            for your child.
+        </div>
+        <div class="spacer_5"><!-- do not collapse --></div>
+
+        <div class="hidden text3 jq-leadGenError">
+            Please fill out the form completely.
+        </div>
+
+        <form class="jq-leadGenForm" action="#" method="POST">
+            <input type="hidden" class="jq-leadGenCampaign" name="campaign" value="primrose"/>
+            <fieldset class="contact">
+                <ol class="smallAlertText">
+                    <li>First name:
+                        <input type="text" class="jq-leadGenFirstName" name="firstName"/>
+                    </li>
+                    <li>Last name:
+                        <input type="text" class="jq-leadGenLastName" name="lastName"/>
+                    </li>
+                    <li>Email:
+                        <input type="text" class="jq-leadGenEmail" name="email"/>
+                    </li>
+                </ol>
+            </fieldset>
+            <div class="spacer_5"><!-- do not collapse --></div>
+            <fieldset class="submit">
+                <button class="button-1 jq-leadGenSubmit" type="submit">Submit</button>
+            </fieldset>
+        </form>
+        <div class="hidden text1 jq-leadGenThankYou">
+            Thanks for submitting your information!
+        </div>
+
     </div>
 
 </jsp:root>

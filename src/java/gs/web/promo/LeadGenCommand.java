@@ -3,9 +3,20 @@ package gs.web.promo;
 import org.apache.commons.lang.StringUtils;
 
 public class LeadGenCommand {
+    private String _campaign;
     private String _firstName;
     private String _lastName;
     private String _email;
+
+    public String getCampaign() {
+        return _campaign;
+    }
+
+    public void setCampaign(String campaign) {
+        if (StringUtils.isNotBlank(campaign)) {
+            _campaign = campaign.trim();
+        }
+    }
 
     public String getFirstName() {
         return _firstName;
@@ -41,7 +52,8 @@ public class LeadGenCommand {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("PrimroseGenCommand");
-        sb.append("{_firstName='").append(_firstName).append('\'');
+        sb.append("{_campaign='").append(_campaign).append('\'');
+        sb.append(", _firstName='").append(_firstName).append('\'');
         sb.append(", _lastName='").append(_lastName).append('\'');
         sb.append(", _email='").append(_email).append('\'');
         sb.append('}');

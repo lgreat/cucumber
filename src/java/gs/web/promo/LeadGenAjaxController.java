@@ -2,8 +2,6 @@ package gs.web.promo;
 
 import gs.data.promo.ILeadGenDao;
 import gs.data.promo.LeadGen;
-import gs.data.school.School;
-import gs.web.school.KindercareLeadGenCommand;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -26,31 +24,29 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
     public static final String SUCCESS = "1";
     public static final String FAILURE = "0";
 
-    public static final String CAMPAIGN_PRIMROSE = "primrose";
-
     private ILeadGenDao _leadGenDao;
 
-    @RequestMapping(value = "/promo/primroseLeadGenAjax.page", method = RequestMethod.POST)
-    public void generatePrimroseLead(@ModelAttribute("command") LeadGenCommand command,
+    @RequestMapping(value = "/promo/leadGenAjax.page", method = RequestMethod.POST)
+    public void generateLead(@ModelAttribute("command") LeadGenCommand command,
                                HttpServletRequest request, HttpServletResponse response) throws Exception {
         _log.info(command.toString());
 
-        if (validatePrimrose(command)) {
+        if (validate(command)) {
             // log data
-            logData(CAMPAIGN_PRIMROSE, command);
+            logData(command);
 
             response.getWriter().print(SUCCESS);
             return;
         }
 
-        _log.warn("Failure generating lead for " + CAMPAIGN_PRIMROSE + ": " + command.getEmail());
+        _log.warn("Failure generating lead for " + command.getCampaign() + ": " + command.getEmail());
         response.getWriter().print(FAILURE);
     }
 
     /**
      * Returns true if the command seems valid
      */
-    protected boolean validatePrimrose(LeadGenCommand command) {
+    protected boolean validate(LeadGenCommand command) {
 
         // validate not null firstname, lastname, email
         if (StringUtils.isBlank(command.getFirstName())
@@ -68,9 +64,9 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
         return true;
     }
 
-    private void logData(String campaign, LeadGenCommand command) {
+    private void logData(LeadGenCommand command) {
         LeadGen leadGen =
-                new LeadGen(campaign, new Date(), command.getFirstName(),
+                new LeadGen(command.getCampaign(), new Date(), command.getFirstName(),
                                       command.getLastName(), command.getEmail());
         _leadGenDao.save(leadGen);
     }
