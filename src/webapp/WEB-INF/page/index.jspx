@@ -136,7 +136,11 @@
 <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
 <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
-<pageHelper:externalJavascript file="/res/js/carousel/carousel.js"/>
+    <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
+    <c:set var="isIE6" value="${fn:contains(agent, 'msie 6')}"/>
+    <c:if test="${not isIE6}">
+        <pageHelper:externalJavascript file="/res/js/carousel/carousel.js"/>
+    </c:if>
 <pageHelper:addOnLoadHandler handler="hoverHome();showLatestTools();"/>
 <pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
@@ -146,76 +150,112 @@
 
 <div id="mainGS" class="col">
 
-    <div id="carousel">
-        <div id="image">
-            <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                <c:choose>
-                    <c:when test="${featureLink.newWindow}">
-                        <c:set var="featureLinkTarget" value="_blank"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="featureLinkTarget" value="_self"/>
-                    </c:otherwise>
-                </c:choose>
-                <a href="${fn:escapeXml(featureLink.url)}" target="${featureLinkTarget}">
-                    <img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
-                         class="carousel-image"
-                         width="584"
-                         height="288"
-                         alt="${homepage.featureLinks[status.index].imageAltText}"/>
-                </a>
-            </c:forEach>
-        </div>
-        <!--image -->
-        <div id="banner"><!--do not collapse --></div>
-        <!--banner -->
-        <div id="info">
-            <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                <c:choose>
-                    <c:when test="${featureLink.newWindow}">
-                        <c:set var="featureLinkTarget" value="_blank"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="featureLinkTarget" value="_self"/>
-                    </c:otherwise>
-                </c:choose>
+    <!--<p>Is IE6: <c:out value="${isIE6}"/></p>-->
 
-                <h2 class="headline">
-                    <a href="${fn:escapeXml(featureLink.url)}"
-                       target="${featureLinkTarget}">${featureLink.title}</a>
-                </h2>
-
-                <p class="teaser">
-                    <a class="text3"
-                       href="${fn:escapeXml(featureLink.url)}"
-                       target="${featureLinkTarget}">${featureLink.description}</a>
-                    <a class="link"
-                       href="${fn:escapeXml(featureLink.url)}"
-                       target="${featureLinkTarget}"> ${featureLink.linkText} <span
-                            class="alertdblarrow">&amp;raquo;</span></a>
-                </p>
-            </c:forEach>
-
-            <c:if test="${fn:length(homepage.featureLinks) gt 1}">
-                <div id="nav">
-                    <ul class="button-holder">
-                        <li id="prev" class="button prev-position"><!--do not collapse --></li>
-                    </ul>
-                    <ul id="buttons" class="button-holder">
-                        <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
-                            <li id="carouselSlide${status.index + 1}" class="button off">${status.index + 1}</li>
-                        </c:forEach>
-                    </ul>
-                    <ul class="button-holder">
-                        <li id="next" class="button next-position"><!--do not collapse --></li>
-                    </ul>
+    <c:choose>
+        <c:when test="${not isIE6}">
+            <div id="carousel">
+                <div id="image">
+                    <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
+                        <c:choose>
+                            <c:when test="${featureLink.newWindow}">
+                                <c:set var="featureLinkTarget" value="_blank"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="featureLinkTarget" value="_self"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <a href="${fn:escapeXml(featureLink.url)}" target="${featureLinkTarget}">
+                            <img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
+                                 class="carousel-image"
+                                 width="584"
+                                 height="288"
+                                 alt="${homepage.featureLinks[status.index].imageAltText}"/>
+                        </a>
+                    </c:forEach>
                 </div>
-                <!--nav -->
-            </c:if>
-        </div>
-        <!--info -->
-    </div>
-    <!-- carousel -->
+                <!--image -->
+                <div id="banner"><!--do not collapse --></div>
+                <!--banner -->
+                <div id="info">
+                    <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
+                        <c:choose>
+                            <c:when test="${featureLink.newWindow}">
+                                <c:set var="featureLinkTarget" value="_blank"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="featureLinkTarget" value="_self"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <h2 class="headline">
+                            <a href="${fn:escapeXml(featureLink.url)}"
+                               target="${featureLinkTarget}">${featureLink.title}</a>
+                        </h2>
+
+                        <p class="teaser">
+                            <a class="text3"
+                               href="${fn:escapeXml(featureLink.url)}"
+                               target="${featureLinkTarget}">${featureLink.description}</a>
+                            <a class="link"
+                               href="${fn:escapeXml(featureLink.url)}"
+                               target="${featureLinkTarget}"> ${featureLink.linkText} <span
+                                    class="alertdblarrow">&amp;raquo;</span></a>
+                        </p>
+                    </c:forEach>
+
+                    <c:if test="${fn:length(homepage.featureLinks) gt 1}">
+                        <div id="nav">
+                            <ul class="button-holder">
+                                <li id="prev" class="button prev-position"><!--do not collapse --></li>
+                            </ul>
+                            <ul id="buttons" class="button-holder">
+                                <c:forEach items="${homepage.featureLinks}" var="featureLink" varStatus="status">
+                                    <li id="carouselSlide${status.index + 1}"
+                                        class="button off">${status.index + 1}</li>
+                                </c:forEach>
+                            </ul>
+                            <ul class="button-holder">
+                                <li id="next" class="button next-position"><!--do not collapse --></li>
+                            </ul>
+                        </div>
+                        <!--nav -->
+                    </c:if>
+                </div>
+                <!--info -->
+            </div>
+            <!-- carousel -->
+        </c:when>
+        <c:otherwise>
+            <div id="carousel_no">
+                <c:set var="myRandomNumber" value="${gsweb:randomNumber(4)}"/>
+                <!--<c:out value="${myRandomNumber}"/>-->
+                <c:choose>
+                    <c:when test="${myRandomNumber eq 0}">
+                        <c:set var="myRandomImgSrc" value="/res/img/carousel_no/Home_1.jpg"/>
+                    </c:when>
+                    <c:when test="${myRandomNumber eq 1}">
+                        <c:set var="myRandomImgSrc" value="/res/img/carousel_no/Home_2.jpg"/>
+                    </c:when>
+                    <c:when test="${myRandomNumber eq 2}">
+                        <c:set var="myRandomImgSrc" value="/res/img/carousel_no/Home_3.jpg"/>
+                    </c:when>
+                    <c:when test="${myRandomNumber eq 3}">
+                        <c:set var="myRandomImgSrc" value="/res/img/carousel_no/Home_4.jpg"/>
+                    </c:when>
+                    <c:otherwise>
+                        <p>Error: Unable to set image source.</p>
+                    </c:otherwise>
+                </c:choose>
+
+                <div id="image_static">
+                    <link:research state="${requestScope.context.state}">
+                        <gsml:img src="${myRandomImgSrc}" alt="no carousel" width="584" height="288"/>
+                    </link:research>
+                </div>
+            </div>
+        </c:otherwise>
+    </c:choose>
 
     <!-- GS-9920 moved to directly below carousel during BTS season -->
     <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
@@ -232,7 +272,7 @@
 <!-- end mainGS -->
 
 <div id="sidebarGS" class="col">
-    
+
     <school:findOrCompare
             isHomePage="${true}"
             />

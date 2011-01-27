@@ -2170,7 +2170,8 @@ body.ie6 .clearfix {
 /* =4a- home page carousel
 -------------------------------------------------------------------------------------------*/
 
-#carousel {
+#carousel,
+#carousel_no {
     margin: 15px 0;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -2199,7 +2200,8 @@ body.ie6 .clearfix {
     text-decoration: none;
 }
 
-#carousel {
+#carousel,
+#carousel_no{
     position: relative;
     width: 586px;
     height: 290px;
@@ -2208,7 +2210,8 @@ body.ie6 .clearfix {
     display: block;
 }
 
-#carousel #image {
+#carousel #image,
+#carousel_no #image_static{
     position: absolute;
     left: 1px;
     top: 1px;
