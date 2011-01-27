@@ -15,6 +15,7 @@
     <context:component-scan base-package="gs.web.school" />
     <context:component-scan base-package="gs.web.backToSchool" />
     <context:component-scan base-package="gs.web.community" />
+    <context:component-scan base-package="gs.web.promo" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -2627,6 +2628,13 @@
           class="gs.web.compare.CompareMapController"
           autowire="byName" lazy-init="true">
         <property name="successView" value="/compare/map"/>
+    </bean>
+
+    <bean name="/leadGenDemo.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/promo/leadGen</value>
+        </property>
     </bean>
 
 </beans>

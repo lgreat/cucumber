@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.tag body-content="empty"/>
+
+    <![CDATA[<script type="text/javascript" src="/res/js/leadGen.js"></script>]]>
+
+    <div class="introText">
+        Interested in more information?
+    </div>
+    <div class="spacer_5"><!-- do not collapse --></div>
+    <div class="text3">
+        Submit your name and email and we
+        will contact you soon about tuition, availability and programs
+        for your child.
+    </div>
+    <div class="spacer_5"><!-- do not collapse --></div>
+
+    <form id="leadGenForm" action="#" method="POST">
+        <fieldset class="contact">
+            <ol class="smallAlertText">
+                <li><label for="leadGenFirstName">First name:</label>
+                    <input id="leadGenFirstName" name="firstName"/>
+                </li>
+                <li><label for="leadGenLastName">Last name:</label>
+                    <input id="leadGenLastName" name="lastName"/>
+                </li>
+                <li><label for="leadGenEmail">Email:</label>
+                    <input id="leadGenEmail" name="email"/>
+                </li>
+            </ol>
+        </fieldset>
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <fieldset class="submit">
+            <button class="button-1" id="leadGenSubmit" type="submit">Submit</button>
+        </fieldset>
+    </form>
+    <div id="leadGenThankYou" class="hidden text1">
+        Thanks for submitting your information!
+    </div>
+
+</jsp:root>
