@@ -1,13 +1,15 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.31 2010/06/02 17:59:54 ssprouse Exp $
+ * $Id: CityControllerTest.java,v 1.32 2011/01/27 18:08:37 aroy Exp $
  */
 
 package gs.web.geo;
 
+import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
+import gs.data.school.School;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -26,9 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Tests CityController.
@@ -293,4 +293,52 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertNull("path shouldnt exist in model if city doesnt exist", path);
     }
 
+    public void testBuildTopRatedSchoolCompareString() {
+        List<ISchoolDao.ITopRatedSchool> topRatedSchools = new ArrayList<ISchoolDao.ITopRatedSchool>();
+
+        assertNull(_controller.buildTopRatedSchoolCompareString(null, null));
+        assertNull(_controller.buildTopRatedSchoolCompareString(State.CA, null));
+        assertNull(_controller.buildTopRatedSchoolCompareString(State.CA, topRatedSchools));
+
+        topRatedSchools.add(createTopRatedSchool(2));
+        topRatedSchools.add(createTopRatedSchool(1));
+        topRatedSchools.add(createTopRatedSchool(3));
+
+        String rval = _controller.buildTopRatedSchoolCompareString(State.CA, topRatedSchools);
+        assertNotNull(rval);
+        assertEquals("CA2,CA1,CA3", rval);
+    }
+    
+    public void testFindTopRatedSchoolsForCompare() {
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        _controller.findTopRatedSchoolsForCompare(_controller.getGeoDao().findCity(State.CA, "Alameda"), model);
+
+        assertNotNull(model.get(CityController.MODEL_TOP_RATED_E_SCHOOLS));
+        assertEquals("CA2,CA4,CA5,CA7,CA8", model.get(CityController.MODEL_TOP_RATED_E_SCHOOLS));
+        assertNotNull(model.get(CityController.MODEL_TOP_RATED_M_SCHOOLS));
+        assertEquals("CA10,CA1,CA3", model.get(CityController.MODEL_TOP_RATED_M_SCHOOLS));
+        assertNotNull(model.get(CityController.MODEL_TOP_RATED_H_SCHOOLS));
+        assertEquals("CA1,CA6,CA9", model.get(CityController.MODEL_TOP_RATED_H_SCHOOLS));
+    }
+
+    private ISchoolDao.ITopRatedSchool createTopRatedSchool(final int id) {
+        return new ISchoolDao.ITopRatedSchool() {
+            public String getName() {
+                return "Top rated school";
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public int getRating() {
+                return 0;
+            }
+
+            public School getSchool() {
+                return new School();
+            }
+        };
+    }
 }

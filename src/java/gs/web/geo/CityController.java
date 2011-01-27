@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.69 2011/01/27 17:55:35 aroy Exp $
+ * $Id: CityController.java,v 1.70 2011/01/27 18:08:37 aroy Exp $
  */
 
 package gs.web.geo;
@@ -256,7 +256,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
     }
 
     protected String buildTopRatedSchoolCompareString(State state, List<ISchoolDao.ITopRatedSchool> topRatedSchools) {
-        if (topRatedSchools == null || state == null) {
+        if (topRatedSchools == null || topRatedSchools.isEmpty() || state == null) {
             return null;
         }
         String[] identifierArray = new String[topRatedSchools.size()];
