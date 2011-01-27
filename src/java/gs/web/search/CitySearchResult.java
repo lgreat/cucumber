@@ -1,13 +1,14 @@
 package gs.web.search;
 
+import gs.data.search.indexers.documentBuilders.CityDocumentBuilder;
 import gs.data.state.State;
 import org.apache.solr.client.solrj.beans.Field;
 
 public class CitySearchResult implements ICitySearchResult {
-    @Field("city_name")
+    @Field(CityDocumentBuilder.CITY_NAME)
     private String _city;
 
-    @Field("city_state")
+    @Field(CityDocumentBuilder.STATE)
     private State _state;
 
     public String getCity() {

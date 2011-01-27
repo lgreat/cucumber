@@ -2,7 +2,7 @@ package gs.web.search;
 
 import gs.data.search.GSQueryParser;
 import gs.data.search.SolrConnectionManager;
-import gs.data.search.indexers.SchoolIndexer;
+import gs.data.search.indexers.documentBuilders.SchoolDocumentBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -143,18 +143,18 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
 
         StringBuilder query = new StringBuilder();
         SolrQuery solrQuery = new SolrQuery();
-        solrQuery.addFilterQuery(SchoolIndexer.DOCUMENT_TYPE + ":" + SchoolIndexer.DOCUMENT_TYPE_SCHOOL);
+        solrQuery.addFilterQuery(SchoolDocumentBuilder.DOCUMENT_TYPE + ":" + SchoolDocumentBuilder.DOCUMENT_TYPE_SCHOOL);
 
         if (!StringUtils.isBlank(searchString)) {
             // Check for zipcode searches
             if (searchString.length() == 5 && StringUtils.isNumeric(searchString)) {
                 searchString = "zip:" + searchString;
-                query.append(SchoolIndexer.ADDRESS_ZIP + ":" + searchString).append(" ");
+                query.append(SchoolDocumentBuilder.ADDRESS_ZIP + ":" + searchString).append(" ");
             }
-            query.append(SchoolIndexer.SCHOOL_NAME + ":" + searchString).append(" ");
-            query.append(SchoolIndexer.ADDRESS_CITY_KEYWORD + ":" + searchString + "^3.0").append(" ");
-            query.append("+" + SchoolIndexer.TEXT + ":" + searchString).append(" ");
-            query.append(SchoolIndexer.TEXT + ":\"" + searchString + "\"").append(" ");
+            query.append(SchoolDocumentBuilder.SCHOOL_NAME + ":" + searchString).append(" ");
+            query.append(SchoolDocumentBuilder.ADDRESS_CITY_KEYWORD + ":" + searchString + "^3.0").append(" ");
+            query.append("+" + SchoolDocumentBuilder.TEXT + ":" + searchString).append(" ");
+            query.append(SchoolDocumentBuilder.TEXT + ":\"" + searchString + "\"").append(" ");
         }
 
         if (fieldConstraints != null && fieldConstraints.size() > 0) {

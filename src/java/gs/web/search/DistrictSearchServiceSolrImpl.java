@@ -1,7 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.SolrConnectionManager;
-import gs.data.search.indexers.DistrictIndexer;
+import gs.data.search.indexers.documentBuilders.DistrictDocumentBuilder;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -69,15 +69,15 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
         }
 
         SolrQuery query = new SolrQuery();
-        query.addFilterQuery(DistrictIndexer.DOCUMENT_TYPE + ":" + DistrictIndexer.DOCUMENT_TYPE_DISTRICT);
+        query.addFilterQuery(DistrictDocumentBuilder.DOCUMENT_TYPE + ":" + DistrictDocumentBuilder.DOCUMENT_TYPE_DISTRICT);
 
         String q = "";
         if (searchString != null) {
-            q += "+" + DistrictIndexer.DISTRICT_NAME + ":" + searchString + " ";
+            q += "+" + DistrictDocumentBuilder.DISTRICT_NAME + ":" + searchString + " ";
         }
         
         if (state != null) {
-            q += "+" + DistrictIndexer.STATE + ":" + searchString;
+            q += "+" + DistrictDocumentBuilder.STATE + ":" + searchString;
         }
 
         query.setQuery(q);

@@ -5,6 +5,7 @@ import gs.data.school.Grades;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.indexers.SchoolIndexer;
+import gs.data.search.indexers.documentBuilders.SchoolDocumentBuilder;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
@@ -61,7 +62,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _id;
     }
 
-    @Field(SchoolIndexer.ID)
+    @Field(SchoolDocumentBuilder.SCHOOL_ID)
     public void setId(Integer id) {
         _id = id;
     }
@@ -71,7 +72,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return getStateManager().getState(_databaseState);
     }
 
-    @Field(SchoolIndexer.SCHOOL_DATABASE_STATE)
+    @Field(SchoolDocumentBuilder.SCHOOL_DATABASE_STATE)
     public void setDatabaseState(String state) {
         _databaseState = state;
     }
@@ -81,7 +82,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _name;
     }
 
-    @Field(SchoolIndexer.SCHOOL_NAME)
+    @Field(SchoolDocumentBuilder.SCHOOL_NAME)
     public void setName(String name) {
         _name = name;
     }
@@ -138,7 +139,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _phone;
     }
 
-    @Field(SchoolIndexer.SCHOOL_PHONE)
+    @Field(SchoolDocumentBuilder.SCHOOL_PHONE)
     public void setPhone(String phone) {
         _phone = phone;
     }
@@ -154,7 +155,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return latLon;
     }
 
-    @Field(SchoolIndexer.LATITUDE)
+    @Field(SchoolDocumentBuilder.LATITUDE)
     public void setLatitude(Float latitude) {
         _latitude = latitude;
     }
@@ -163,7 +164,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _latitude;
     }
 
-    @Field(SchoolIndexer.LONGITUDE)
+    @Field(SchoolDocumentBuilder.LONGITUDE)
     public void setLongitude(Float longitude) {
         _longitude = longitude;
     }
@@ -177,7 +178,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _commaSeparatedlevelCodes;
     }
 
-    @Field(SchoolIndexer.GRADE_LEVEL)
+    @Field(SchoolDocumentBuilder.GRADE_LEVEL)
     public void setLevelCode(String[] levelCodeArray) {
         if (levelCodeArray != null) {
             levelCodeArray = (String[])ArrayUtils.removeElement((String[])levelCodeArray,"junior");
@@ -197,7 +198,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _grades;
     }
 
-    @Field(SchoolIndexer.GRADES)
+    @Field(SchoolDocumentBuilder.GRADES)
     public void setGrades(String[] gradeArray) {
         Grades grades = null;
 
@@ -212,7 +213,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _schoolType;
     }
 
-    @Field(SchoolIndexer.SCHOOL_TYPE)
+    @Field(SchoolDocumentBuilder.SCHOOL_TYPE)
     public void setSchoolType(String schoolType) {
         SchoolType type = null;
         if (schoolType != null) {
@@ -226,7 +227,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _greatSchoolsRating;
     }
 
-    @Field(SchoolIndexer.OVERALL_RATING)
+    @Field(SchoolDocumentBuilder.OVERALL_RATING)
     public void setGreatSchoolsRating(Integer rating) {
         _greatSchoolsRating = rating;
     }
@@ -236,7 +237,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _parentRating;
     }
 
-    @Field(SchoolIndexer.COMMUNITY_RATING_SORTED_ASC)
+    @Field(SchoolDocumentBuilder.COMMUNITY_RATING_SORTED_ASC)
     public void setParentRating(Integer rating) {
         if (99 == rating.intValue()) {
             rating = null;

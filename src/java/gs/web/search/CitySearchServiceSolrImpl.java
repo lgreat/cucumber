@@ -1,7 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.SolrConnectionManager;
-import gs.data.search.indexers.CityIndexer;
+import gs.data.search.indexers.documentBuilders.CityDocumentBuilder;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -68,15 +68,15 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
         }
 
         SolrQuery query = new SolrQuery();
-        query.addFilterQuery(CityIndexer.DOCUMENT_TYPE + ":" + CityIndexer.DOCUMENT_TYPE_CITY);
+        query.addFilterQuery(CityDocumentBuilder.DOCUMENT_TYPE + ":" + CityDocumentBuilder.DOCUMENT_TYPE_CITY);
 
         String q = "";
         if (searchString != null) {
-            q += "+" + CityIndexer.CITY_NAME + ":" + searchString + "^3.0 ";
+            q += "+" + CityDocumentBuilder.CITY_NAME + ":" + searchString + "^3.0 ";
         }
 
         if (state != null) {
-            q += "+" + CityIndexer.STATE + ":" + searchString + " ";
+            q += "+" + CityDocumentBuilder.STATE + ":" + searchString + " ";
         }
 
         query.setQuery(q);
