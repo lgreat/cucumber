@@ -39,6 +39,10 @@
                         <c:set var="back_custom_name" value="Compare_Back_to_School_Reviews_Link"/>
                         <c:set var="back_link_text" value="Back to school reviews"/>
                     </c:when>
+                    <c:when test="${not empty source and fn:startsWith(source, 'city')}">
+                        <c:set var="back_custom_name" value="Compare_Back_to_School_Reviews_Link"/>
+                        <c:set var="back_link_text" value="Back to ${returnLinkExtra} schools"/>
+                    </c:when>
                     <c:otherwise>
                         <c:set var="back_custom_name" value="Compare_Back_to_Search_Results_Link"/>
                         <c:set var="back_link_text" value="Back to search results"/>

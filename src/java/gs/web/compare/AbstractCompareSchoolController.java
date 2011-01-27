@@ -50,6 +50,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final String MODEL_PAGE_NUMBER = "page";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_RETURN_LINK = "returnLink";
+    public static final String MODEL_RETURN_LINK_EXTRA = "returnLinkExtra";
     public static final int DEFAULT_PAGE_SIZE = 4;
     public static final int MIN_SCHOOLS = 0;
     public static final int MAX_SCHOOLS = 8;
@@ -156,6 +157,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     try {
                         City city = _geoDao.findCityById(Integer.parseInt(source.substring(4)));
                         urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
+                        model.put(MODEL_RETURN_LINK_EXTRA, city.getDisplayName());
                     } catch (Exception e) {
                         _log.warn("Can't find city from source string \"" + source + "\"", e);
                     }
