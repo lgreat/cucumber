@@ -39,15 +39,6 @@
             var url = "/wisconsin/milwaukee/" + level + "/";
             window.location.href = decodeURIComponent(url);
         }
-        function gotoComparePage() {
-            var url = "/cgi-bin/cs_compare/wi/?sortby=distance%26tab=over%26area=m%26zip=";
-            url += document.getElementById('zip').value;
-            url += "%26miles=";
-            url += document.getElementById('miles').value;
-            url += "%26level=";
-            url += document.getElementById('compareLevel').value;
-            window.location.href = decodeURIComponent(url);
-        }
     </script>
 </head>
 
@@ -135,41 +126,6 @@
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" type="image"
                                onclick="gotoMilwaukeeSchoolsPage()"/>
-                    </div>
-
-                    <input type="hidden" name="sortby" value="distance" />
-                    <input type="hidden" name="tab" value="over" />
-                    <input type="hidden" name="area" value="m" />
-                    <input type="hidden" name="form" value="address" />
-                    <input type="hidden" name="foo" value="bar" />
-
-                    <div class="row">
-                        <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
-                        Compare Milwaukee
-                        <select id="compareLevel" name="level">
-                            <option value="e">elementary schools</option>
-                            <option value="m">middle schools</option>
-                            <option value="h">high schools</option>
-                        </select>
-                    </div>
-
-                    <div class="row" id="within">
-                        <span>within</span>
-                        <select id="miles" name="miles" class="miles formText">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="25">25</option>
-                            <option value="30">30</option>
-                        </select>
-                        <span>miles of</span>
-                        <input id="zip" type="text" name="zip" class="zip formText" value="53233" size="7"/>
-
-                        <input src="/res/img/splash/go.gif" alt="Compare Milwaukee Schools" style="width: 41px; height: 26px;"
-                           class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                           onmouseout="this.src='/res/img/splash/go.gif';" type="image"
-                           onclick="gotoComparePage()"/>
                     </div>
                 </div>
             </div>

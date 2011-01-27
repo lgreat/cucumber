@@ -43,15 +43,6 @@
             url += document.getElementById('findAllLevel').value;
             window.location.href = url;
         }
-        function gotoComparePage() {
-            var url = "/cgi-bin/cs_compare/dc/?sortby=distance%26tab=over%26area=m%26zip=";
-            url += document.getElementById('zip').value;
-            url += "%26miles=";
-            url += document.getElementById('miles').value;
-            url += "%26level=";
-            url += document.getElementById('compareLevel').value;
-            window.location.href = decodeURIComponent(url);
-        }
     </script>
 </head>
 
@@ -143,33 +134,6 @@
                         <input type="image" class="button" style="width: 41px; height: 26px;"
                                onclick="gotoDCSchoolsPage();return false" onmouseover="this.src='/res/img/splash/goOver.gif';"
                                onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"/>
-                    </form>
-                    <form class="forms treb12 tint777">
-                        <div>
-                            <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow"/>&amp;nbsp;
-                            <label for="level">Compare D.C.</label>&amp;nbsp;
-                            <select id="compareLevel" class="inputs tint666" name="level">
-                                <option value="e">elementary schools</option>
-                                <option value="m">middle schools</option>
-                                <option value="h">high schools</option>
-                            </select></div>
-                        <div class="spacer_4"><!-- do not collapse --></div>
-                        <div>
-                            <label for="miles">within</label>&amp;nbsp;
-                            <select id="miles" name="miles" class="inputs tint666">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="25">25</option>
-                                <option value="30">30</option>
-                            </select>&amp;nbsp;
-                            <label for="zip">miles of</label>&amp;nbsp;
-                            <input id="zip" type="text" name="zip" class="inputs tint666" value="20500" size="7"/>&amp;nbsp;
-                            <input type="image" class="button" style="width: 41px; height: 26px;"
-                                   onclick="gotoComparePage();return false" onmouseover="this.src='/res/img/splash/goOver.gif';"
-                                   onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"/>
-                        </div>
                     </form>
                 </div>
                 <!--end unit content -->
