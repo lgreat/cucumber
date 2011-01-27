@@ -12,9 +12,9 @@ public enum FieldConstraint {
 
 
     //after solr migration
-    /*DISTRICT_ID(SchoolIndexer.DISTRICT),
-    CITY(SchoolIndexer.ADDRESS_CITY_KEYWORD),
-    STATE(SchoolIndexer.PHYSICAL_STATE);*/
+    /*DISTRICT_ID(SchoolDocumentBuilder.DISTRICT),
+    CITY(SchoolDocumentBuilder.ADDRESS_CITY_KEYWORD),
+    STATE(SchoolDocumentBuilder.PHYSICAL_STATE);*/
     //
 
     private String _fieldName;

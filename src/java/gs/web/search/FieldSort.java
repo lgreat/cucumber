@@ -14,12 +14,12 @@ public enum FieldSort {
 
 
     //after solr migration
-    /*SCHOOL_NAME_DESCENDING(SchoolIndexer.SORTABLE_NAME, true),
-    SCHOOL_NAME_ASCENDING(SchoolIndexer.SORTABLE_NAME, false),
-    GS_RATING_DESCENDING(SchoolIndexer.OVERALL_RATING, true),
-    GS_RATING_ASCENDING(SchoolIndexer.OVERALL_RATING_SORTED_ASC, false),
-    PARENT_RATING_DESCENDING(SchoolIndexer.PARENT_RATINGS_AVG_QUALITY, true),
-    PARENT_RATING_ASCENDING(SchoolIndexer.COMMUNITY_RATING_SORTED_ASC, false);*/
+    /*SCHOOL_NAME_DESCENDING(SchoolDocumentBuilder.SCHOOL_SORTABLE_NAME, true),
+    SCHOOL_NAME_ASCENDING(SchoolDocumentBuilder.SCHOOL_SORTABLE_NAME, false),
+    GS_RATING_DESCENDING(SchoolDocumentBuilder.OVERALL_RATING, true),
+    GS_RATING_ASCENDING(SchoolDocumentBuilder.OVERALL_RATING_SORTED_ASC, false),
+    PARENT_RATING_DESCENDING(SchoolDocumentBuilder.PARENT_RATINGS_AVG_QUALITY, true),
+    PARENT_RATING_ASCENDING(SchoolDocumentBuilder.COMMUNITY_RATING_SORTED_ASC, false);*/
     //
 
     private String _field;
