@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.68 2010/12/15 01:53:02 yfan Exp $
+ * $Id: CityController.java,v 1.69 2011/01/27 17:55:35 aroy Exp $
  */
 
 package gs.web.geo;
@@ -9,6 +9,8 @@ import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
+import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
@@ -53,6 +55,10 @@ public class CityController extends AbstractController  implements IDirectoryStr
     public static final String MODEL_SCHOOLS = "schools"; // list of local schools, either a sample or top-rated
     public static final String MODEL_SCHOOL_COUNT = "schoolCount"; // number of schools in the city
     public static final String MODEL_TOP_RATED_SCHOOLS = "topRatedSchools"; // List of ITopRatedSchool objects
+
+    public static final String MODEL_TOP_RATED_E_SCHOOLS = "topRatedSchools_e"; // List of ITopRatedSchool objects
+    public static final String MODEL_TOP_RATED_M_SCHOOLS = "topRatedSchools_m"; // List of ITopRatedSchool objects
+    public static final String MODEL_TOP_RATED_H_SCHOOLS = "topRatedSchools_h"; // List of ITopRatedSchool objects
 
     public static final String MODEL_CITY = "cityObject"; // City BpCensus object
     public static final String MODEL_CITY_NAME = "displayName"; // name of the city, correctly capitalized
@@ -150,7 +156,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
             return new ModelAndView(redirectView);
         }
 
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
 
         if (!StringUtils.isEmpty(cityNameParam) && city != null && state != null) {
             model.put(PARAM_CITY_CANONICAL_PATH, "http://" + request.getServerName() + ((request.getServerPort() != 80) ? ":" + request.getServerPort() : "") + DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, city.getName()));
@@ -166,7 +172,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
         }
 
         int schoolCount = _schoolDao.countSchools(state, null, null, city.getName());
-        model.put(MODEL_SCHOOL_COUNT, new Integer(schoolCount));
+        model.put(MODEL_SCHOOL_COUNT, schoolCount);
 
         if (schoolCount > 0) {
             AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, cityNameParam, cityDisplayName, request);
@@ -184,7 +190,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
         if (topRatedSchools.size() > 0) {
             model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
 
-            List schools = new ArrayList(topRatedSchools.size());
+            List<School> schools = new ArrayList<School>(topRatedSchools.size());
             for (ListIterator iter = topRatedSchools.listIterator(); iter.hasNext();) {
                 ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) iter.next();
                 schools.add(s.getSchool());
@@ -203,12 +209,15 @@ public class CityController extends AbstractController  implements IDirectoryStr
             }
         }
 
+        findTopRatedSchoolsForCompare(city, model);
+
         Integer cityRatingValue = 0;
         String strCityRating = "no";
         try {
             CityRating cityRating = _cityRatingDao.getCityRatingByCity(state,city.getName());
             cityRatingValue = cityRating.getRating();
         } catch (ObjectRetrievalFailureException e) {
+            // ignore
         }
         strCityRating = cityRatingValue > 0 ? cityRatingValue.toString() : strCityRating;
         String cityRatingAlt = cityRatingValue > 0 ? "out of 10" : "rating available";
@@ -220,6 +229,42 @@ public class CityController extends AbstractController  implements IDirectoryStr
         _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
         
         return new ModelAndView("geo/city", model);
+    }
+
+    protected void findTopRatedSchoolsForCompare(ICity city, Map<String, Object> model) {
+        List<ISchoolDao.ITopRatedSchool> topRatedElem =
+                _schoolDao.findTopRatedSchoolsInCity(city, 1,
+                                                     LevelCode.Level.ELEMENTARY_LEVEL,
+                                                     8);
+        if (topRatedElem != null && topRatedElem.size() > 1) {
+            model.put(MODEL_TOP_RATED_E_SCHOOLS, buildTopRatedSchoolCompareString(city.getState(), topRatedElem));
+        }
+        List<ISchoolDao.ITopRatedSchool> topRatedMiddle =
+                _schoolDao.findTopRatedSchoolsInCity(city, 1,
+                                                     LevelCode.Level.MIDDLE_LEVEL,
+                                                     8);
+        if (topRatedMiddle != null && topRatedMiddle.size() > 1) {
+            model.put(MODEL_TOP_RATED_M_SCHOOLS, buildTopRatedSchoolCompareString(city.getState(), topRatedMiddle));
+        }
+        List<ISchoolDao.ITopRatedSchool> topRatedHigh =
+                _schoolDao.findTopRatedSchoolsInCity(city, 1,
+                                                     LevelCode.Level.HIGH_LEVEL,
+                                                     8);
+        if (topRatedHigh != null && topRatedHigh.size() > 1) {
+            model.put(MODEL_TOP_RATED_H_SCHOOLS, buildTopRatedSchoolCompareString(city.getState(), topRatedHigh));
+        }
+    }
+
+    protected String buildTopRatedSchoolCompareString(State state, List<ISchoolDao.ITopRatedSchool> topRatedSchools) {
+        if (topRatedSchools == null || state == null) {
+            return null;
+        }
+        String[] identifierArray = new String[topRatedSchools.size()];
+        int counter = 0;
+        for (ISchoolDao.ITopRatedSchool topRatedSchool: topRatedSchools) {
+            identifierArray[counter++] = state.getAbbreviation() + topRatedSchool.getId();
+        }
+        return StringUtils.join(identifierArray, ",");
     }
 
     // required to implement IDirectoryStructureUrlController

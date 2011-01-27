@@ -2,6 +2,8 @@ package gs.web.compare;
 
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
+import gs.data.geo.City;
+import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -55,6 +57,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     private ISchoolDao _schoolDao;
     private IRatingsConfigDao _ratingsConfigDao;
     private IReviewDao _reviewDao;
+    private IGeoDao _geoDao;
     private TestManager _testManager;
     private String _errorView = "/compare/error";
     private int _pageSize = DEFAULT_PAGE_SIZE;
@@ -129,6 +132,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                 model.put(MODEL_RETURN_LINK, source);
             } else {
                 UrlBuilder urlBuilder = null;
+                boolean maintainSelection = true;
                 if (StringUtils.startsWith(source, "msl")) {
                     urlBuilder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
                 } else if (StringUtils.startsWith(source, "spoverview")) {
@@ -147,9 +151,19 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     } catch (Exception e) {
                         _log.warn("Can't find school from source string \"" + source + "\"", e);
                     }
+                } else if (StringUtils.startsWith(source, "city")) {
+                    maintainSelection = false;
+                    try {
+                        City city = _geoDao.findCityById(Integer.parseInt(source.substring(4)));
+                        urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
+                    } catch (Exception e) {
+                        _log.warn("Can't find city from source string \"" + source + "\"", e);
+                    }
                 }
                 if (urlBuilder != null) {
-                    urlBuilder.setParameter("compareSchools", schoolsString);
+                    if (maintainSelection) {
+                        urlBuilder.setParameter("compareSchools", schoolsString);
+                    }
                     model.put(MODEL_RETURN_LINK, urlBuilder.asSiteRelative(request));
                 }
             }
@@ -473,6 +487,14 @@ public abstract class AbstractCompareSchoolController extends AbstractController
 
     public void setReviewDao(IReviewDao reviewDao) {
         this._reviewDao = reviewDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 
     public String getErrorView() {

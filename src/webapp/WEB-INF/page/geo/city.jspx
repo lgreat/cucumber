@@ -220,6 +220,38 @@
 
     </td>
 </tr>
+<c:if test="${fn:length(topRatedSchools_e) gt 0 || fn:length(topRatedSchools_m) gt 0 || fn:length(topRatedSchools_h) gt 0}">
+    <tr>
+        <td colspan="2">
+            <div class="topRatedSchoolCompare">
+                Compare the top-rated
+                <select id="jq_compareTopRatedLC">
+                    <c:if test="${fn:length(topRatedSchools_e) gt 0}">
+                        <option value="${topRatedSchools_e}">Elementary schools</option>
+                    </c:if>
+                    <c:if test="${fn:length(topRatedSchools_m) gt 0}">
+                        <option value="${topRatedSchools_m}">Middle schools</option>
+                    </c:if>
+                    <c:if test="${fn:length(topRatedSchools_h) gt 0}">
+                        <option value="${topRatedSchools_h}">High schools</option>
+                    </c:if>
+                </select>
+                <button class="button-1" type="submit" id="jq_compareTopRatedButton">GO</button>
+                <script type="text/javascript">
+                    (function() {
+                        jQuery('#jq_compareTopRatedButton').click(function() {
+                            var select = document.getElementById('jq_compareTopRatedLC');
+                            var url = '/school-comparison-tool/results.page?schools=' + select.value;
+                            url += '&amp;source=city${cityObject.id}';
+                            document.location=url;
+                        });
+                    }())
+                </script>
+            </div>
+        </td>
+    </tr>
+</c:if>
+
 </table>
 <c:if test="${not empty requestScope.topRatedSchools}">
 
