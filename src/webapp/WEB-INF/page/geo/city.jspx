@@ -224,8 +224,8 @@
     <tr>
         <td colspan="2">
             <div class="topRatedSchoolCompare">
-                Compare the top-rated
-                <select id="jq_compareTopRatedLC">
+                <span class="text1 lineheight-35">Compare the top-rated</span>
+                <select id="jq_compareTopRatedLC" class="mhm">
                     <c:if test="${fn:length(topRatedSchools_e) gt 0}">
                         <option value="${topRatedSchools_e}">Elementary schools</option>
                     </c:if>
