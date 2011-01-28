@@ -21,7 +21,7 @@
                                  remove="${school.uniqueIdentifier}"
                     ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
         </div>
-        <div class="bd text2">
+        <div class="bk text2">
             <p class="text2bold">
                 <link:schoolProfileOverview
                         school="${school.school}"

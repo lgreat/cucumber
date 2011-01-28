@@ -665,7 +665,7 @@
                 <div class="smallAlertText mediaExt2">
                     <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                    <div class="bd">Select two or more to compare</div>
+                    <div class="bk">Select two or more to compare</div>
                 </div>
             </div>
         </div>

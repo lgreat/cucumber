@@ -83,7 +83,7 @@
                     <div class="form-error formErrorText mediaExt1-1">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                        <div class="bd">Please select a star rating for this school.</div>
+                        <div class="bk">Please select a star rating for this school.</div>
                     </div>
 
                 </div>
@@ -159,12 +159,12 @@
                     <div class="formErrorText mediaExt1-1 form-error">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                        <div class="bd">Please enter your email.</div>
+                        <div class="bk">Please enter your email.</div>
                     </div>
                     <div class="formErrorText mediaExt1-1 form-alert">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                        <div class="bd">You will need to verify your email address when you submit your review.</div>
+                        <div class="bk">You will need to verify your email address when you submit your review.</div>
                     </div>
 
                 </div>
@@ -192,7 +192,7 @@
                     <div class="form-error formErrorText mediaExt1-1">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                        <div class="bd">Please let us know how you are affiliated with this school.</div>
+                        <div class="bk">Please let us know how you are affiliated with this school.</div>
                     </div>
                 </div>
 
@@ -335,7 +335,7 @@
                         <div class="form-error formErrorText mediaExt1-1">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                            <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
+                            <div class="bk">Please read and accept our Terms of Use to join GreatSchools.</div>
                         </div>
                     </div>
                 </div>
@@ -346,7 +346,7 @@
                 </button>
                 <div class="helperMessage formText1 media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
-                    <div class="bd iblock">Indicates a required field</div>
+                    <div class="bk iblock">Indicates a required field</div>
                 </div>
             </fieldset>
         </gsweb:form>

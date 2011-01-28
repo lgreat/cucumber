@@ -142,12 +142,12 @@
     <div class="unit size3of19">
         <div class="mediaExt1-1 formHelperText">
             <div class="img">*</div>
-            <div class="bd">Indicates a required field.</div>
+            <div class="bk">Indicates a required field.</div>
         </div>
         <div class="spacer_10"><!-- do not collapse --></div>
         <div class="mediaExt1-1 formHelperText">
             <div class="img">&amp;nbsp;</div>
-            <div class="bd">Your privacy is important to us.
+            <div class="bk">Your privacy is important to us.
                 <gsml:popupWindow width="800" height="600" left="50" top="50"
                                   title="GreatSchools Privacy Policy"
                                   href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow>
@@ -162,7 +162,7 @@
             <div class="img">
                 <input type="checkbox" name="newsletter" value="true" id="opt1"/>
             </div>
-            <div class="bd">
+            <div class="bk">
                 <label for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
                     <strong>Lowell High School</strong>.</label>
             </div>
@@ -232,7 +232,7 @@
             <div class="img">
                 <input type="checkbox" name="ldNewsletter" value="true" id="opt2"/>
             </div>
-            <div class="bd">
+            <div class="bk">
                 <label for="opt2">Send me monthly emails about Learning Difficulties.</label>
             </div>
         </div>
@@ -242,7 +242,7 @@
             <div class="img">
                 <input type="checkbox" name="btsTip" value="true" id="opt4"/>
             </div>
-            <div class="bd">
+            <div class="bk">
                 <label for="opt4">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>
                 <ul class="inner-row">
                     <li class="btstip_version">
@@ -272,7 +272,7 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <div class="bd">
+            <div class="bk">
                 <label for="opt3">Send me offers to save on family activities and special
                     promotions from our carefully chosen partners.</label>
             </div>

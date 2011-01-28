@@ -38,7 +38,7 @@
                                         class="sprite cpareColClose"><!-- do not collapse --></span>
                                 </link:compareSchools>
                             </div>
-                            <div class="bd">
+                            <div class="bk">
                                 <p>
                                     <link:schoolProfileOverview school="${school.school}"
                                                                 styleClass="schoolName">${school.name}</link:schoolProfileOverview>
@@ -61,7 +61,7 @@
                                     </c:choose>
                                 </link:schoolProfileRating2010>
                             </div>
-                            <div class="bd brdlft-solid communityRating">
+                            <div class="bk brdlft-solid communityRating">
                                 <link:schoolProfileParentReview anchor="schoolReviewSubmitForm"
                                                                 school="${school.school}">
                                     <c:choose>

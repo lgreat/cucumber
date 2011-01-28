@@ -238,7 +238,7 @@
         <div class="img">
             <img src="/res/img/email/teacher.jpg" width="83" height="65" alt="teacher" class="newsletterImage"/>
         </div>
-        <div class="bd">
+        <div class="bk">
             <div class="newsletterInfo">
                 <c:if test="${emailCmd.tooManySchoolsError}">
                     <div class="error">You have subscribed to the maximum number
@@ -617,7 +617,7 @@
             <img src="/res/img/email/savvy_owl.gif" width="83" height="65" alt="pencils" class="newsletterImage"/>
         </div>
 
-        <div class="bd">
+        <div class="bk">
             <div class="newsletterInfo">
                 <p class="newsletterHeader text2bold">${requestScope.context.savvyEmailSubscriptionName}<a name="savvy_anchor">&amp;nbsp;</a></p>
                 <p class="newsletterDescription text2">

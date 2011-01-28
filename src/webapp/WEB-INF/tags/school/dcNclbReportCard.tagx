@@ -35,7 +35,7 @@
                     <li class="media">
                         <span class="sprite pdf_sm img"><!-- do not collapse --></span>
 
-                        <div class="bd">
+                        <div class="bk">
                             <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
                                     target="_blank"> School Report Card
                             </gsml:a>
@@ -47,7 +47,7 @@
                     <li class="media">
                         <span class="sprite pdf_sm img"><!-- do not collapse --></span>
 
-                        <div class="bd">
+                        <div class="bk">
                             <gsml:a
                                     href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
                                     target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
@@ -58,7 +58,7 @@
                 <li class="media">
                     <span class="sprite pdf_sm img"><!-- do not collapse --></span>
 
-                    <div class="bd">
+                    <div class="bk">
                         <gsml:a
                                 href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
                                 target="_blank"> Washington, DC Report Card

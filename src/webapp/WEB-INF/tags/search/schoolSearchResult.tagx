@@ -110,7 +110,7 @@
                                 <div class="mediaExt1-1">
                                     <span class="sprite i-add-sm mrgtop_2 img"><!-- do not collapse --></span>
 
-                                    <div class="msl-text bd">
+                                    <div class="msl-text bk">
                                         <a href="#" class="js-add-msl-link"
                                            id="js-add-msl-link-${school.databaseState}${school.id}"
                                            onclick="if (s.tl) {s.tl(this,'o', 'Add_to_MSL_Link_${pageScope.omniturePageName}');} return true;">

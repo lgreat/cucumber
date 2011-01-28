@@ -100,7 +100,7 @@
                                         <li class="mediaExt2-4">
                                             <span class="sprite discussion img"><!-- do not collapse --></span>
 
-                                            <div class="bd">
+                                            <div class="bk">
                                                 <p class="text3bold">
                                                     <link:discussion discussionId="${discussion.id}"
                                                                      fullUri="${fullUri}">${discussion.title}</link:discussion>
@@ -190,7 +190,7 @@
                                     <li class="media">
                                         <span class="sprite discussion img"><!-- do not collapse --></span>
 
-                                        <div class="bd">
+                                        <div class="bk">
                                             <p class="text3bold">
                                                 <link:discussion discussionId="${discussion.id}"
                                                                  fullUri="${fullUri}">${discussion.title}</link:discussion>

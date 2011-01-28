@@ -55,7 +55,7 @@
                   alt="Parent Review Image"/>
     </div>
 
-    <div class="bd">
+    <div class="bk">
         <p>A few minutes of your time can make a difference. Rate and review your child's school so other parents can make the right choice for their family.</p>
 
         <div class="spacer_10"><!-- do not collapse --></div>
@@ -153,7 +153,7 @@
                 <div class="mediaExt1-1">
                     <span class="img sprite badge_sm_na" id="gs-rating-badge"><!-- do not collapse --></span>
 
-                    <div class="bd smallAlertTextBold-999">GreatSchools <br/>Rating out of 10</div>
+                    <div class="bk smallAlertTextBold-999">GreatSchools <br/>Rating out of 10</div>
                 </div>
             </div>
             <div class="unit size8of11 lastColGutter-10 lastUnit">
@@ -162,7 +162,7 @@
                 <div class="mediaExt1">
                     <span id="community-rating-badge"><!-- do not collapse --></span>
 
-                    <div class="bd formHelperText" id="number-of-ratings">Be the first to rate!</div>
+                    <div class="bk formHelperText" id="number-of-ratings">Be the first to rate!</div>
                 </div>
             </div>
         </div>
@@ -236,7 +236,7 @@
         <div class="mediaExt1-1 form-error hidden">
             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-            <div class="bd formErrorText">Please enter a review and overall rating.</div>
+            <div class="bk formErrorText">Please enter a review and overall rating.</div>
         </div>
     </div>
 
@@ -294,12 +294,12 @@
             <div class="mediaExt1-1 form-error hidden">
                 <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                <div class="bd formErrorText">Please enter your email address.</div>
+                <div class="bk formErrorText">Please enter your email address.</div>
             </div>
             <div class="formErrorText mediaExt1-1 form-alert hidden">
                 <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                <div class="bd">You will need to verify your email address when you submit your review.</div>
+                <div class="bk">You will need to verify your email address when you submit your review.</div>
             </div>
 
         </div>
@@ -320,7 +320,7 @@
             <div class="mediaExt1-1 form-error hidden">
                 <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                <div class="bd formErrorText">Please read and accept our Terms of Use to join GreatSchools.</div>
+                <div class="bk formErrorText">Please read and accept our Terms of Use to join GreatSchools.</div>
             </div>
         </div>
     </div>

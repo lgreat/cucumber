@@ -221,7 +221,7 @@
                     <div class="mediaExt1">
                     <span class="js-trigger sprite info img"><!-- do not collapse --></span>
 
-                    <div class="bd">About these ratings</div>
+                    <div class="bk">About these ratings</div>
                     </div>
                     <div class="js-popup">
                         <!--<div id="popup-contents-1" class="box-shadow text3">-->
@@ -468,7 +468,7 @@
                                       title="${curStarRating} star rating"><!-- do not collapse --></span>
                     </c:if>
 
-                    <div class="bd">
+                    <div class="bk">
                         <p class="author smallText1">
                             Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
@@ -499,7 +499,7 @@
                         <div class="reportReview mediaExt2 smallText1">
                             <span class="sprite reportIt-nbg img"><!-- do not collapse --></span>
 
-                            <div class="bd">
+                            <div class="bk">
                                 <a class="reportIt" href="${loginRedirectUrl}"
                                    onclick="return false;"
                                    id="report_schoolReview_${review.id}">Report it</a>
