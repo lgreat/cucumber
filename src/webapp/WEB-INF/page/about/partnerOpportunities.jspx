@@ -27,16 +27,22 @@
 
         <mod:tracking pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
 
-        <h1>Partner with GreatSchools</h1>
-
         <div id="mainGS">
 
-            <ul class="pageNav">
-                <li><a href="#advertise">Advertise on GreatSchools</a></li>
-                <li><a href="#license">License our Content</a></li>
-                <li><a href="#related">Agreement Forms and Related Information</a></li>
-            </ul>
-
+            <div class="mod pageNav">
+                <div class="inner">
+                    <div class="hd">
+                        <h1>Partner with GreatSchools</h1>
+                    </div>
+                    <div class="bd">
+                        <ul class="pageNav">
+                            <li><a href="#advertise">Advertise on GreatSchools</a></li>
+                            <li><a href="#license">License our Content</a></li>
+                            <li><a href="#related">Agreement Forms and Related Information</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
             <div class="mod partnerOps">
                 <div class="inner">

@@ -1269,324 +1269,85 @@ body.cobranded #pageGS {
   </div>
 </div>
 */
-/* original version
-    margin: 10px;
-    gutter: 10px;
-*/
-.media {
-    margin: 10px;
-}
+/* original version margin: 10px; gutter: 10px; */
+.media{margin: 10px;}
+.media,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.media .img{float: left;margin-right: 10px;}
+.media .img img {display: block;}
+.media .imgExt{float: right;margin-left: 10px;}
 
-.media,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
+/* Ext1: No margin */
+/* Ext1 margin: 0; gutter: 10px; */
+.mediaExt1{margin: 0;}
+.mediaExt1,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt1 .img{float: left;margin-right: 10px;}
+.mediaExt1 .img img{display: block;}
+.mediaExt1 .imgExt{float: right;margin-left: 10px;}
 
-.media .img {
-    float: left;
-    margin-right: 10px;
-}
+/* Ext1-1 margin: 0; gutter: 5px; */
+.mediaExt1-1{margin: 0;}
+.mediaExt1-1,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt1-1 .img{float: left;margin-right: 5px;}
+.mediaExt1-1 .img img{display: block;}
+.mediaExt1-1 .imgExt{float: right;margin-left: 5px;}
 
-.media .img img {
-    display: block;
-}
+/* Ext2: No left and right margin */
+/* Ext2 margin: 10px 0; gutter: 10px; */
+.mediaExt2{margin: 10px 0;}
+.mediaExt2,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2 .img{float: left;margin-right: 10px;}
+.mediaExt2 .img img{display: block;}
+.mediaExt2 .imgExt{float: right;margin-left: 10px;}
 
-.media .imgExt {
-    float: right;
-    margin-left: 10px;
-}
+/* Ext2-1 margin: 5px 0; gutter: 10px; */
+.mediaExt2-1{margin: 5px 0;}
+.mediaExt2-1,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-1 .img{float: left;margin-right: 10px;}
+.mediaExt2-1 .img img{display: block;}
+.mediaExt2-1 .imgExt{float: right;margin-left: 10px;}
 
-/* Ext1
-    margin: 0;
-    gutter: 10px;
-*/
-.mediaExt1 {
-    margin: 0;
-}
+/* Ext2-2 margin: 20px 0; gutter: 10px; */
+.mediaExt2-2 {margin: 20px 0;}
+.mediaExt2-2,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-2 .img{float: left;margin-right: 10px;}
+.mediaExt2-2 .img img{display: block;}
+.mediaExt2-2 .imgExt{float: right;margin-left: 10px;}
 
-.mediaExt1,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
+/* Ext2-3 margin: 20px 0; gutter: 20px; */
+.mediaExt2-3{margin: 20px 0;}
+.mediaExt2-3,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-3 .img{float: left;margin-right: 20px;}
+.mediaExt2-3 .img img{display: block;}
+.mediaExt2-3 .imgExt{float: right;margin-left: 20px;}
 
-.mediaExt1 .img {
-    float: left;
-    margin-right: 10px;
-}
+/* Ext2-4 margin: 15px 0; gutter: 5px; */
+.mediaExt2-4{margin: 15px 0;}
+.mediaExt2-4,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-4 .img{float: left;margin-right: 5px;}
+.mediaExt2-4 .img img{display: block;}
+.mediaExt2-4 .imgExt{float: right;margin-left: 5px;}
 
-.mediaExt1 .img img {
-    display: block;
-}
+/* Ext2-5 margin: 8px 0; gutter: 4px; */
+.mediaExt2-5{margin: 8px 0;}
+.mediaExt2-5,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-5 .img{float: left;margin-right: 4px;}
+.mediaExt2-5 .img img{display: block;}
+.mediaExt2-5 .imgExt{float: right;margin-left: 4px;}
 
-.mediaExt1 .imgExt {
-    float: right;
-    margin-left: 10px;
-}
+/* Ext2-6 margin: 4px 0; gutter: 5px; */
+.mediaExt2-6{margin: 4px 0;}
+.mediaExt2-6,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-6 .img{float: left;margin-right: 5px;}
+.mediaExt2-6 .img img{display: block;}
+.mediaExt2-6 .imgExt{float: right;margin-left: 5px;}
 
-/* Ext1-1
-    margin: 0;
-    gutter: 5px;
-*/
-.mediaExt1-1 {
-    margin: 0;
-}
-
-.mediaExt1-1,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt1-1 .img {
-    float: left;
-    margin-right: 5px;
-}
-
-.mediaExt1-1 .img img {
-    display: block;
-}
-
-.mediaExt1-1 .imgExt {
-    float: right;
-    margin-left: 5px;
-}
-
-/* Ext2
-    margin: 10px 0;
-    gutter: 10px;
-*/
-.mediaExt2 {
-    margin: 10px 0;
-}
-
-.mediaExt2,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt2 .img {
-    float: left;
-    margin-right: 10px;
-}
-
-.mediaExt2 .img img {
-    display: block;
-}
-
-.mediaExt2 .imgExt {
-    float: right;
-    margin-left: 10px;
-}
-
-/* Ext2-1
-    margin: 5px 0;
-    gutter: 10px;
-*/
-.mediaExt2-1 {
-    margin: 5px 0;
-}
-
-.mediaExt2-1,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt2-1 .img {
-    float: left;
-    margin-right: 10px;
-}
-
-.mediaExt2-1 .img img {
-    display: block;
-}
-
-.mediaExt2-1 .imgExt {
-    float: right;
-    margin-left: 10px;
-}
-
-/* Ext2-2
-    margin: 20px 0;
-    gutter: 10px;
-*/
-.mediaExt2-2 {
-    margin: 20px 0;
-}
-
-.mediaExt2-2,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt2-2 .img {
-    float: left;
-    margin-right: 10px;
-}
-
-.mediaExt2-2 .img img {
-    display: block;
-}
-
-.mediaExt2-2 .imgExt {
-    float: right;
-    margin-left: 10px;
-}
-
-/* Ext2-3
-    margin: 20px 0;
-    gutter: 20px;
-*/
-.mediaExt2-3 {
-    margin: 20px 0;
-}
-
-.mediaExt2-3,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt2-3 .img {
-    float: left;
-    margin-right: 20px;
-}
-
-.mediaExt2-3 .img img {
-    display: block;
-}
-
-.mediaExt2-3 .imgExt {
-    float: right;
-    margin-left: 20px;
-}
-
-/* Ext2-4
-    margin: 15px 0;
-    gutter: 5px;
-*/
-.mediaExt2-4 {
-    margin: 15px 0;
-}
-
-.mediaExt2-4,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt2-4 .img {
-    float: left;
-    margin-right: 5px;
-}
-
-.mediaExt2-4 .img img {
-    display: block;
-}
-
-.mediaExt2-4 .imgExt {
-    float: right;
-    margin-left: 5px;
-}
-
-/* Ext2-5
-    margin: 8px 0;
-    gutter: 4px;
-*/
-.mediaExt2-5 {
-    margin: 8px 0;
-}
-
-.mediaExt2-5,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt2-5 .img {
-    float: left;
-    margin-right: 4px;
-}
-
-.mediaExt2-5 .img img {
-    display: block;
-}
-
-.mediaExt2-5 .imgExt {
-    float: right;
-    margin-left: 4px;
-}
-
-/* Ext2-6
-    margin: 4px 0;
-    gutter: 5px;
-*/
-.mediaExt2-6 {
-    margin: 4px 0;
-}
-
-.mediaExt2-6,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt2-6 .img {
-    float: left;
-    margin-right: 5px;
-}
-
-.mediaExt2-6 .img img {
-    display: block;
-}
-
-.mediaExt2-6 .imgExt {
-    float: right;
-    margin-left: 5px;
-}
-
-/* Ext3
-    margin: 0 10px;
-    gutter: 10px;
-*/
-.mediaExt3 {
-    margin: 0 10px;
-}
-
-.mediaExt3,
-.bd {
-    overflow: hidden;
-    _overflow: visible;
-    zoom: 1;
-}
-
-.mediaExt3 .img {
-    float: left;
-    margin-right: 10px;
-}
-
-.mediaExt3 .img img {
-    display: block;
-}
-
-.mediaExt3 .imgExt {
-    float: right;
-    margin-left: 10px;
-}
+/* Ext3: No top and bottom margin */
+/* Ext3 margin:0 10px; gutter:10px; */
+.mediaExt3{margin: 0 10px;}
+.mediaExt3,.bd{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt3 .img{float: left;margin-right: 10px;}
+.mediaExt3 .img img{display: block;}
+.mediaExt3 .imgExt{float: right;margin-left: 10px;}
 
 /* ==== end media block ==== */
 
@@ -1704,10 +1465,23 @@ body.cobranded #pageGS {
 .inner{position:relative;}
 
 /* **************** BLOCK SKINS ***************** */
+/* ------ pageNav (extends mod) ------- */
+.pageNav .inner{margin:0;padding:0;}
+.pageNav .hd h1{margin:0 0 0.50em;}
+.pageNav .hd h2{margin:0 0 0.50em;}
+.pageNav .bd p{margin:0 0 0.75em;}
+.pageNav .bd li {padding-left: 15px;background: #fff url(/res/img/content/article/greenarrow.gif) no-repeat left 6px;}
 /* ----- partnerOps (extends mod) ----- */
 .partnerOps .inner{border-top:2px dotted #ccc;margin:15px 0;padding:0;}
 .partnerOps .hd h2{margin:15px 0;}
 .partnerOps .bd p, .partnerOps .bd ul{margin:0 0 15px;line-height:1.9;}
+/* ------ sponsors (extends mod) ------- */
+.sponsors .inner{margin:1em 0}
+.sponsors .hd h3{margin:0 0 0.25em}
+.sponsors .bd p{margin:0 0 0.75em;}
+.sponsors .bd ul{margin:0 0 0.75em;padding: 0 1em;}
+.sponsors .bd li{list-style: disc;}
+.sponsors .bd img{margin:0 0 0.75em;}
 
 .mod_hd {
     position: relative;
@@ -4619,9 +4393,9 @@ body.hover #uploadAvatarHover form {
 
 /* =4e- about pages
 -------------------------------------------------------------------------------------------*/
-.leftside #contentGS h1 {
+/*.leftside #contentGS h1 {
     margin: 0 0 14px 20px;
-}
+}*/
 
 p.breadcrumbs {
     margin: 10px 0 14px 20px;
@@ -4664,14 +4438,14 @@ p.breadcrumbs {
 /* =4e-5 about sponsors
 -------------------------------------------------------------------------------------------*/
 
-#sponsors ul.singleSpacedList {
+/*#sponsors ul.singleSpacedList {
     margin: 1em;
     padding: 0 1em;
 }
 
 #sponsors ul.singleSpacedList li {
     list-style: disc;
-}
+}*/
 
 /*
 =4e-6 data and widgets
