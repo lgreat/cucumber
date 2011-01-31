@@ -48,7 +48,7 @@ public class LeadGenCommand {
 
     public void setEmail(String email) {
         if (StringUtils.isNotBlank(email)) {
-            _email = email;
+            _email = email.trim();
         } else {
             _email = null;
         }
