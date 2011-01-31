@@ -13,18 +13,18 @@
         <![CDATA[<script type="text/javascript" src="/res/js/promo/leadGen.js"></script>]]>
 
         <div class="jq-leadGenIntroText">
-            Interested in more information?
-        </div>
-        <div class="spacer_5"><!-- do not collapse --></div>
-        <div class="text3">
-            Submit your name and email and we
-            will contact you soon about tuition, availability and programs
-            for your child.
+            Let us tell you more about Primrose Schools!
         </div>
         <div class="spacer_5"><!-- do not collapse --></div>
 
-        <div class="hidden text3 jq-leadGenError">
-            Please fill out the form completely.
+        <div class="hidden text3 jq-leadGenError jq-leadGenError-firstName">
+            Please enter a first name
+        </div>
+        <div class="hidden text3 jq-leadGenError jq-leadGenError-lastName">
+            Please enter a last name
+        </div>
+        <div class="hidden text3 jq-leadGenError jq-leadGenError-email">
+            Please enter an email address
         </div>
 
         <form class="jq-leadGenForm" action="#" method="POST">
@@ -48,7 +48,8 @@
             </fieldset>
         </form>
         <div class="hidden text1 jq-leadGenThankYou">
-            Thanks for submitting your information!
+            <p>Thanks for submitting your information!</p>
+            <p>Someone from Primrose will be contacting you soon.</p>
         </div>
 
     </div>

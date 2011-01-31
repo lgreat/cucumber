@@ -25,6 +25,8 @@ public class LeadGenCommand {
     public void setFirstName(String firstName) {
         if (StringUtils.isNotBlank(firstName)) {
             _firstName = firstName.trim();
+        } else {
+            _firstName = null;
         }
     }
 
@@ -34,7 +36,9 @@ public class LeadGenCommand {
 
     public void setLastName(String lastName) {
         if (StringUtils.isNotBlank(lastName)) {
-            _lastName = lastName;
+            _lastName = lastName.trim();
+        } else {
+            _lastName = null;
         }
     }
 
@@ -45,6 +49,8 @@ public class LeadGenCommand {
     public void setEmail(String email) {
         if (StringUtils.isNotBlank(email)) {
             _email = email;
+        } else {
+            _email = null;
         }
     }
 

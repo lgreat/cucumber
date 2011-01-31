@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Young Fan <mailto:yfan@greatschools.org>
@@ -21,7 +23,7 @@ import java.util.Date;
 @org.springframework.stereotype.Controller
 public class LeadGenAjaxController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
-    public static final String SUCCESS = "1";
+    public static final String SUCCESS = "OK";
     public static final String FAILURE = "0";
 
     private ILeadGenDao _leadGenDao;
@@ -31,7 +33,8 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
                                HttpServletRequest request, HttpServletResponse response) throws Exception {
         _log.info(command.toString());
 
-        if (validate(command)) {
+        String errors = validate(command);
+        if (StringUtils.isBlank(errors)) {
             // log data
             logData(command);
 
@@ -40,28 +43,34 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
         }
 
         _log.warn("Failure generating lead for " + command.getCampaign() + ": " + command.getEmail());
-        response.getWriter().print(FAILURE);
+        response.getWriter().print(errors);
     }
 
     /**
-     * Returns true if the command seems valid
+     * Returns empty string if the command seems valid; otherwise, comma-separated list of fields with errors
      */
-    protected boolean validate(LeadGenCommand command) {
+    protected String validate(LeadGenCommand command) {
+        List<String> errorList = new ArrayList<String>();
 
         // validate not null firstname, lastname, email
-        if (StringUtils.isBlank(command.getFirstName())
-                || StringUtils.isBlank(command.getLastName())
-                || StringUtils.isBlank(command.getEmail())) {
-            return false;
+        if (StringUtils.isBlank(command.getFirstName())) {
+            errorList.add("firstName");
         }
-        // validate format email
-        EmailValidator emailValidator = EmailValidator.getInstance();
-        if (!emailValidator.isValid(command.getEmail())) {
-            _log.warn("Lead gen submitted with invalid email: " + command.getEmail());
-            return false;
+        if (StringUtils.isBlank(command.getLastName())) {
+            errorList.add("lastName");
+        }
+        if (StringUtils.isBlank(command.getEmail())) {
+            errorList.add("email");
+        } else {
+            // validate format email
+            EmailValidator emailValidator = EmailValidator.getInstance();
+            if (!emailValidator.isValid(command.getEmail())) {
+                _log.warn("Lead gen submitted with invalid email: " + command.getEmail());
+                errorList.add("email");
+            }
         }
 
-        return true;
+        return StringUtils.join(errorList, ',');
     }
 
     private void logData(LeadGenCommand command) {
