@@ -280,6 +280,7 @@
 
         <div class="joinHover_terms">
             <div class="spacer_10"><!-- do not collapse --></div>
+            <input type="checkbox" name="terms" value="true" class="hidden" checked="checked"/>
             <label for="touy">
                 By joining GreatSchools, you agree to our
                 <gsml:popupWindow width="800" height="600" left="50" top="50"
