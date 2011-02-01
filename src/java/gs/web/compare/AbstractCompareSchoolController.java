@@ -161,11 +161,11 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     } catch (Exception e) {
                         _log.warn("Can't find city from source string \"" + source + "\"", e);
                     }
-                } else if (StringUtils.startsWith(source, "dist")) {
+                } else if (StringUtils.startsWith(source, "distprof")) {
                     maintainSelection = false;
                     try {
-                        State state = State.fromString(source.substring(4, 6));
-                        urlBuilder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, state, source.substring(6));
+                        State state = State.fromString(source.substring(8, 10));
+                        urlBuilder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, state, source.substring(10));
                     } catch (Exception e) {
                         _log.warn("Can't find city from source string \"" + source + "\"", e);
                     }
