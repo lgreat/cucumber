@@ -2269,6 +2269,14 @@ additional icons on the sprite.
 .media .img img {display: block;}
 .media .imgExt{float: right;margin-left: 10px;}
 
+/* ------ Ext0-1 (extends media) ------- */
+/* Ext0-1 version margin: 2px 13px; gutter: 5px; */
+.mediaExt0-1{margin: 2px 13px;}
+.mediaExt0-1,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt0-1 .img{float: left;margin-right: 5px;}
+.mediaExt0-1 .img img {display: block;}
+.mediaExt0-1 .imgExt{float: right;margin-left: 5px;}
+
 /* Ext1: No margin */
 /* Ext1 margin: 0; gutter: 10px; */
 .mediaExt1{margin: 0;}
@@ -2369,6 +2377,16 @@ additional icons on the sprite.
 .sponsors .bd ul{margin:0 0 0.75em;padding: 0 1em;}
 .sponsors .bd li{list-style: disc;}
 .sponsors .bd img{margin:0 0 0.75em;}
+/* ------ primrose (extends mod) ------- */
+.primrose .inner {margin:0;padding:0;width:300px;height:250px;}
+.primrose .hd {width:300px; height:44px; background: #566522 url(/res/img/primrose/primrose_hd-1.gif) no-repeat;}
+.primrose .bd {width:300px; height:206px; background: #ebd720 url(/res/img/primrose/primrose_bd-1.jpg) no-repeat;}
+.primrose .bd p{font:normal 15px/1.2 Arial, Helvetica, sans-serif; color: black;margin:15px 0 0;}
+.primrose .bd label{text-align:right;line-height:25px;}
+.primrose .bd input{margin:1px 3px;padding:0;}
+.primrose .bd button{margin:5px 0 0 72px;}
+.primrose .leadGenIntroText{width:187px; margin:0 14px;}
+.primrose .leadGenThankYou{width:165px;margin:30px 0 0 20px;}
 
 .mod_hd {
     position: relative;
@@ -2958,31 +2976,30 @@ body.ie6 .clearfix {
     margin: 0 0 0 -30px;
 }
 
+#AboveFold_300x250,
+#AboveFold_300x600,
 #BelowFold_Top_300x125,
 #BelowFold_Bottom_300x125,
-#AboveFold_300x600,
-#AboveFold_300x250,
 #BelowFold_300x250,
 #BelowFold2_300x250 {
     width: 300px;
 }
 
 /* top border, padding, and margin for school profile ads */
-#nearbyWrapper,
-#nthGraderAd,
 .cobrandAd,
-#financialAidPlanner,
+#AboveFold_300x250,
+#AboveFold_300x600,
 #BelowFold_Top_300x125,
 #BelowFold_Bottom_300x125,
-#AboveFold_300x600,
-#AboveFold_300x250,
 #BelowFold_300x250,
-#BelowFold2_300x250 {
-    /*margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #ccc;*/
-
-    margin: 0 auto 20px;
+#BelowFold2_300x250,
+#financialAidPlanner,
+#House_Ad_300x137,
+#nearbyWrapper,
+#nthGraderAd,
+#Promo_300x250 {
+    text-align: center;
+    margin: 0 auto 1em;
 }
 
 /* text ads */
@@ -9009,13 +9026,6 @@ ul.srchSuggest li span {
     color: #d61;
 }
 
-#sidebarGS #AboveFold_300x250,
-#sidebarGS #House_Ad_300x137,
-#sidebarGS #Promo_300x250 {
-    text-align: center;
-    margin: 0 auto 1em;
-}
-
 /* =16a recentLocalDiscussions
 -------------------------------------------------------------------------------------------*/
 
@@ -9510,6 +9520,50 @@ Extends button-1 by changing:
 /* Firefox: remove outline of text on focus within button */
 .button-1Ext-2::-moz-focus-inner,
 .button-1Ext-2-inactive::-moz-focus-inner {
+    border: none;
+}
+
+/* primrose button GS-11293 */
+
+.button-2 {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 11px;
+    height: 24px;
+    color: white;
+    text-decoration: none;
+    font: bold 14px/23px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline: none; /* Background Gradients */
+    background: #86101a; /* for non-css3 browsers */
+
+/* Border Radius */
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+
+    border: none;
+}
+
+.button-2:hover {
+    text-decoration: none; /* Background Gradients */
+    background: #86101a; /* for non-css3 browsers */
+}
+
+.button-2:active {
+    background: #86101a; /* for non-css3 browsers */
+}
+
+/* IE7 bug: vertical centering */
+*+html button.button-2 {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-2::-moz-focus-inner {
     border: none;
 }
 

@@ -77,6 +77,10 @@ jQuery(document).ready(function() {
     jQuery('.button-1').disableSelection();
     // disable selection of button-1-inactive class
     jQuery('.button-1-inactive').disableSelection();
+    // disable selection of button-2 class
+    jQuery('.button-2').disableSelection();
+    // disable selection of button-2-inactive class
+    jQuery('.button-2-inactive').disableSelection();
 });
 
 /* =2 popup
