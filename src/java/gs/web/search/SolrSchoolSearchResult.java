@@ -4,7 +4,6 @@ import gs.data.geo.LatLon;
 import gs.data.school.Grades;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
-import gs.data.search.indexers.SchoolIndexer;
 import gs.data.search.indexers.documentBuilders.SchoolDocumentBuilder;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -102,7 +101,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _street;
     }
 
-    @Field(SchoolIndexer.ADDRESS_STREET)
+    @Field(SchoolDocumentBuilder.ADDRESS_STREET)
     public void setStreet(String street) {
         _street = street;
     }
@@ -111,7 +110,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _city;
     }
 
-    @Field(SchoolIndexer.ADDRESS_CITY)
+    @Field(SchoolDocumentBuilder.ADDRESS_CITY)
     public void setCity(String city) {
         _city = city;
     }
@@ -120,7 +119,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _state;
     }
 
-    @Field(SchoolIndexer.ADDRESS_STATE)
+    @Field(SchoolDocumentBuilder.ADDRESS_STATE)
     public void setState(String state) {
         _state = _stateManager.getState(state);
     }
@@ -129,7 +128,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _zip;
     }
 
-    @Field(SchoolIndexer.ADDRESS_ZIP)
+    @Field(SchoolDocumentBuilder.ADDRESS_ZIP)
     public void setZip(String zip) {
         _zip = zip;
     }
