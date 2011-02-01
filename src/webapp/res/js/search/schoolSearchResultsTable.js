@@ -334,31 +334,6 @@ GS.search.SchoolSearchResultsTable = function() {
         return checkedSchools;
     };
 
-    this.onClickAddMslLink = function() {
-
-        var statePlusId = jQuery(this).attr('id');
-        
-        statePlusId = statePlusId.replace("js-add-msl-link-", "");
-        var state = statePlusId.substring(0,2).toLowerCase();
-        var id = statePlusId.substring(2, statePlusId.length);
-
-        var memId = subCookie.getObject("MEMID");
-
-        var mslHelper = new GS.community.MySchoolListHelper();
-
-        if (memId !== undefined && memId !== null) {
-            mslHelper.addSchool(state, id, function() {
-                jQuery('#js-add-msl-' + statePlusId).find('.msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
-                jQuery('#js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
-            }, function() {});
-        } else {
-            //show hover, create msl, save school to msl, round trip to log user in
-            mslHelper.showHover(state,id);
-        }
-
-        return false;
-    };
-
     this.sendToCompare = function() {
         if (checkedSchools !== undefined && checkedSchools.length > 0) {
             var encodedCurrentUrl = encodeURIComponent(window.location.pathname + buildQueryString(window.location.search));
@@ -390,7 +365,6 @@ GS.search.SchoolSearchResultsTable = function() {
         jQuery('#sort-by').change(this.onSortChanged);
         jQuery('.js-compareButton').click(this.sendToCompare.gs_bind(this));
         jQuery('.js-num-checked-send-to-compare').click(this.sendToCompare.gs_bind(this));
-        jQuery('.js-add-msl-link').click(this.onClickAddMslLink);
         jQuery('.js-compare-uncheck-all').click(this.onCompareUncheckAllClicked);
     };
 

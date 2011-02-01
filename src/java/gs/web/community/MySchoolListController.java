@@ -86,6 +86,14 @@ public class MySchoolListController extends AbstractController implements ReadWr
 
         Map<String, Object> model = null;
 
+        if (!PageHelper.isMemberAuthorized(request)) {
+            System.err.println("Member rejected!");
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, (String)null);
+            urlBuilder.setParameter("redirect", BEAN_ID);
+            //urlBuilder.setParameter("message", "Please login or register to access My School List");
+            return new ModelAndView("redirect:" + urlBuilder.asSiteRelative(request));
+        }
+
         if (StringUtils.isBlank(command)) {
             // GS-7601 Anonymous users from reg welcome email redirected to community login
             if (StringUtils.equals(request.getParameter("cpn"), "gssu_welcome")) {

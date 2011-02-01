@@ -3,6 +3,7 @@ package gs.web.community;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.FavoriteSchool;
+import gs.data.community.UserProfile;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
@@ -11,6 +12,7 @@ import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -50,6 +53,14 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         _user = new User();
         _user.setId(1);
         _user.setEmail("aroy@greatschools.org");
+
+        Set<FavoriteSchool> favorites = new HashSet<FavoriteSchool>();
+        favorites.add(createStubFavoriteSchool(1, _user));
+        favorites.add(createStubFavoriteSchool(2, _user));
+        favorites.add(createStubFavoriteSchool(3, _user));
+        favorites.add(createStubFavoriteSchool(4, _user));
+        _user.setFavoriteSchools(favorites);
+
     }
 
     public void testBasics() {
@@ -63,7 +74,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
     public void testRequestFromUnknownUserNoSchoolsAdded() throws Exception {
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-        assertEquals("User should see MSL Intro page", MySchoolListController.INTRO_VIEW_NAME, mAndV.getViewName());
+        assertEquals("User should see login page", "redirect:/community/loginOrRegister.page?redirect=%2FmySchoolList.page", mAndV.getViewName());
     }
 
     public void testRequestFromUnknownUserSchoolsAdded() throws Exception {
@@ -71,15 +82,13 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "123,456");
         getRequest().setParameter(MySchoolListController.PARAM_STATE, "CA");
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-        RedirectView v = (RedirectView)mAndV.getView();
-        assertEquals("User should see MSL Login page",
-                "/mySchoolListLogin.page?command=add&ids=123,456&state=CA",
-                v.getUrl());
+        assertEquals("User should see login page", "redirect:/community/loginOrRegister.page?redirect=%2FmySchoolList.page", mAndV.getViewName());
     }
 
     public void testRequestFromKnownUserNoSchoolsAdded() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setMemberId(1);
+        authorizeUser();
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool()).times(4);
         replay(_schoolDao);
         expect(_geoDao.findCity(State.NJ, "Beirut")).andReturn(createStubCity());
@@ -88,6 +97,22 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         verify(_schoolDao);
         verify(_geoDao);
         assertEquals("User should see the main MSL page", MySchoolListController.LIST_VIEW_NAME, mAndV.getViewName());
+    }
+
+    void authorizeUser() {
+        _user.setEmail("aroy@greatschools.org");
+        try {
+            _user.setPlaintextPassword("foobar");
+            _user.setUserProfile(new UserProfile());
+            PageHelper.setMemberAuthorized(getRequest(), getResponse(), _user);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        getRequest().setCookies(getResponse().getCookies());
+
+        SessionContextUtil.getSessionContext(getRequest()).setUser(_user);
+
     }
 
     City createStubCity() {
@@ -139,6 +164,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
     public void testRequestFromKnownUserSchoolsAdded() throws Exception {
         SessionContext sc = SessionContextUtil.getSessionContext(getRequest());
         sc.setMemberId(1);
+        authorizeUser();
         sc.setCity(createStubCity());
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool()).times(4);
         replay(_schoolDao);
@@ -157,19 +183,8 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("ids", "1");
         getRequest().setParameter("state", "ca");
 
-        User user = new User();
-        user.setId(1);
-        user.setEmail("eford@greatschools.org");
-        Set<FavoriteSchool> favorites = new HashSet<FavoriteSchool>();
-        favorites.add(createStubFavoriteSchool(1, user));
-        favorites.add(createStubFavoriteSchool(2, user));
-        favorites.add(createStubFavoriteSchool(3, user));
-        favorites.add(createStubFavoriteSchool(4, user));
-        user.setFavoriteSchools(favorites);
+        authorizeUser();
 
-        getSessionContext().setUser(user);
-
-        _userDao.updateUser(user);
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool2()).times(3);
         replay(_schoolDao);
         expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(createStubCity());
@@ -186,19 +201,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("ids", "9,10");
         getRequest().setParameter("state", "ca");
 
-        User user = new User();
-        user.setId(1);
-        user.setEmail("eford@greatschools.org");
-        Set<FavoriteSchool> favorites = new HashSet<FavoriteSchool>();
-        favorites.add(createStubFavoriteSchool(1, user));
-        favorites.add(createStubFavoriteSchool(2, user));
-        favorites.add(createStubFavoriteSchool(3, user));
-        favorites.add(createStubFavoriteSchool(4, user));
-        user.setFavoriteSchools(favorites);
-
-        getSessionContext().setUser(user);
-
-        _userDao.updateUser(user);
+        authorizeUser();
 
         expect(_schoolDao.getSchoolById(isA(State.class), isA(Integer.class))).andReturn(createStubSchool2()).anyTimes();
         replay(_schoolDao);

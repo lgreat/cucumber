@@ -478,6 +478,23 @@ GSType.hover.JoinHover = function() {
 
         GSType.hover.joinHover.show();
     };
+    this.showJoinMsl = function() {
+        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+//        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.joinHover.baseFields();
+        GSType.hover.joinHover.setTitle("My School List (TEMPORARY)");
+        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
+                "to view your MSL (TEMPORARY COPY)");
+        // show nth / MSS
+        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
+
+        GSType.hover.joinHover.setJoinHoverType("MSL");
+
+        GSType.hover.joinHover.configureOmniture('MSL Join Hover', 'Hovers,Join,MSL Join Hover');
+
+        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinMsl;
+        GSType.hover.joinHover.show();
+    };
     this.validateFirstName = function() {
         jQuery.getJSON(
                 '/community/registrationValidationAjax.page',
@@ -1109,6 +1126,34 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
             GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinAuto);
         } else {
             GSType.hover.joinHover.showJoinAuto();
+        }
+    }
+    return false;
+};
+
+GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, schoolState) {
+    if (omniturePageName && s.tl) {
+        s.tl(true, 'o', 'Add_to_MSL_Link_' + omniturePageName);
+    }
+
+    var statePlusId = schoolState + schoolId;
+    var mslHelper = new GS.community.MySchoolListHelper();
+    if (GS.isSignedIn()) {
+        mslHelper.addSchool(schoolState, schoolId, function() {
+            jQuery('.js-add-msl-' + statePlusId).find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
+            jQuery('.js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
+        }, function() {});
+    } else {
+        var mslSuccessCallback = function(email, formId) {
+            mslHelper.addSchool(schoolState, schoolId, function() {}, function() {}, email);
+            jQuery('#' + formId).submit();
+        };
+        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
+        if (GS.isMember()) {
+            GSType.hover.signInHover.showHover('', window.location.href, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
+        } else {
+            GSType.hover.joinHover.showJoinMsl();
         }
     }
     return false;

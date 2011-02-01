@@ -1,15 +1,12 @@
 package gs.web.community.registration.popup;
 
 import gs.data.state.State;
-import gs.web.util.NewSubscriberDetector;
-import gs.web.util.SitePrefCookie;
-import gs.web.util.UrlUtil;
+import gs.web.util.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import gs.web.util.ReadWriteController;
 import gs.web.community.registration.RegistrationController;
 import gs.web.community.registration.UserCommand;
 import gs.web.tracking.OmnitureTracking;
@@ -19,9 +16,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -126,6 +121,11 @@ public class RegistrationHoverController extends RegistrationController implemen
                 emailRedirectUrl = "/";
             }
 
+            if (RegistrationHoverCommand.JoinHoverType.MSL == userCommand.getJoinHoverType()) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
+                emailRedirectUrl = urlBuilder.asSiteRelative(request);
+            }
+
             sendValidationEmail(request, user, emailRedirectUrl,
                                 RegistrationHoverCommand.JoinHoverType.SchoolReview == userCommand.getJoinHoverType());
         }
@@ -227,6 +227,8 @@ public class RegistrationHoverController extends RegistrationController implemen
                 return "hover_review";
             case BTSTip:
                 return "hover_btstip";
+            case MSL:
+                return "hover_msl";
         }
         return null;
     }

@@ -40,7 +40,7 @@
                 <span class="sprite i-add-sm"><!-- do not collapse --></span>&amp;nbsp;
                 <span class="js-msl-text">
                     <link:mySchoolList school="${school.school}"
-                                       onclick="compare_onClickAddMslLink(this,'${gsweb:escapeJavaScript(pageScope.omniturePageName)}'); return false;"
+                                       onclick="GS.showAddMslJoinHover('${gsweb:escapeJavaScript(pageScope.omniturePageName)}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.state}'); return false;"
                                        styleClass="js-add-msl-link"
                                        styleId="js-add-msl-link-${school.state}${school.id}">Add to My School List</link:mySchoolList>
                 </span>

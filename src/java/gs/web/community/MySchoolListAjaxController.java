@@ -92,8 +92,12 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
                 } else {
                     _log.debug("School to add to MSL was null, so add was skipped");
                 }
-                PageHelper.setMemberCookie(request, response, user);
-                return referer(command, request); // Early exit
+                if (StringUtils.isNotBlank(command.getRedirectUrl())) {
+                    PageHelper.setMemberCookie(request, response, user);
+                    return referer(command, request); // Early exit
+                }
+                jsonResponse(response, "success", true);
+                return null;
             } else if (email != null) {
                 Map<Object,Object> data = new HashMap<Object,Object>();
                 data.put("success", false);

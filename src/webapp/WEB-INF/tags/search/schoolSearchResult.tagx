@@ -98,7 +98,7 @@
                         </c:if>
                     </c:forEach>
 
-                    <div class="js-add-msl" id="js-add-msl-${school.databaseState}${school.id}">
+                    <div class="js-add-msl-${school.databaseState}${school.id}">
                         <c:choose>
                             <c:when test="${mslHasSchool}">
                                 <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
@@ -110,10 +110,10 @@
                                 <div class="mediaExt1-1">
                                     <span class="sprite i-add-sm mrgtop_2 img"><!-- do not collapse --></span>
 
-                                    <div class="msl-text bk">
+                                    <div class="js-msl-text bk">
                                         <a href="#" class="js-add-msl-link"
                                            id="js-add-msl-link-${school.databaseState}${school.id}"
-                                           onclick="if (s.tl) {s.tl(this,'o', 'Add_to_MSL_Link_${pageScope.omniturePageName}');} return true;">
+                                           onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');">
                                             Add to My School List
                                         </a>
                                     </div>
