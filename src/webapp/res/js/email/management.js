@@ -18,18 +18,20 @@ GS.form.EmailManagement = function() {
         jQuery('#jq-mssAddSchoolSection').show();
     };
 
-    this.stateChange = function(stateSelect, citySelect) {
+    this.stateChange = function(stateSelect, citySelect, updateSchoolSelect) {
         var params = {
             state: stateSelect.val(),
             type: 'city',
             notListedOption: '2. Choose city'
         };
 
-        jQuery('#jq-school').html('<option value="0">3. Choose school</option>');
+        if (updateSchoolSelect) {
+            jQuery('#jq-school').html('<option value="0">3. Choose school</option>');
+        }
         citySelect.html('<option value="0">Loading ...</option>');
 
         jQuery.get('/util/ajax/ajaxCity.page', params, function(data) {
-            citySelect.html(data);
+            citySelect.html(data.replace('</select>',''));
         });
     };
 
@@ -47,7 +49,7 @@ GS.form.EmailManagement = function() {
         school.html('<option value="0">Loading ...</option>');
 
         jQuery.get('/util/ajax/ajaxCity.page', params, function(data) {
-            school.html(data);
+            school.html(data.replace('</select>',''));
         });
     };
 
@@ -133,11 +135,11 @@ jQuery(function() {
     });
 
     jQuery('#jq-userState').change(function() {
-        GS.form.emailManagement.stateChange(jQuery(this), jQuery('#jq-yourLocationCitySelect'));
+        GS.form.emailManagement.stateChange(jQuery(this), jQuery('#jq-yourLocationCitySelect'), false);
     });
 
     jQuery('#jq-stateAdd').change(function() {
-        GS.form.emailManagement.stateChange(jQuery(this), jQuery('#jq-citySelect'));
+        GS.form.emailManagement.stateChange(jQuery(this), jQuery('#jq-citySelect'), true);
     });
 
     jQuery('#jq-citySelect').change(function() {
