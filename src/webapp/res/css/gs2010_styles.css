@@ -6902,10 +6902,6 @@ p.breadcrumbs {
     overflow: hidden;
 }
 
-#manageNewsletters #firstNameError {
-    display: none;
-}
-
 #manageNewsletters .showIt {
     display: block;
 }

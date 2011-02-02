@@ -23,6 +23,7 @@
 
 <head>
     <title>Emails &amp;amp; Free Newsletters - GreatSchools</title>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/livequery/1.0.3/jquery.livequery.js"/>
     <pageHelper:externalJavascript file="/res/js/email/management.js"/>
     <jsp:scriptlet>
         String comHost =
@@ -85,28 +86,8 @@
 <div class="spacer_5"><!-- do not collapse --></div>
 <p class="text3">To subscribe, check the box. To unsubscribe, uncheck the box. Click "Save settings" when you are finished.</p>
 
-<form:form name="manage" commandName="emailCmd" method="post" onsubmit="return checkForm();">
+<form:form name="manage" commandName="emailCmd" method="post">
 <input name="userId" type="hidden" value="${emailCmd.userId}"/>
-
-<!--<fieldset class="newsletterHeader">
-    <ol>
-        <li>
-            <label for="firstName">First name</label>
-            &lt;!&ndash;form:input path="firstName" id="firstName" maxlength="24"/&ndash;&gt;
-            <form:input id="firstName" path="firstName" maxlength="24"/>
-
-            <p id="firstNameError" class="formErrorText"><span
-                    class="sprite i-alert">&lt;!&ndash; alert icon &ndash;&gt;</span> First name must be 2-24 characters</p>
-        </li>
-    </ol>
-    <div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>
-    <div class="formContentGS clearfix">
-        <div class="formBarGS col">&amp;nbsp;</div>
-        <div class="formMainGS col">
-            <p class="formHelperText">This is how we'll address you in our newsletters.</p>
-        </div>
-    </div>
-</fieldset>-->
 
 <fieldset>
     <div class="formContentGS clearfix">
@@ -125,10 +106,9 @@
                         <fieldset>
                             <ol>
                                 <li>
-                                    <form:checkbox path="greatnews" id="greatnews"
-                                           onclick="toggleNthGraderNewsletters();"
+                                    <form:checkbox path="greatnews" id="jq-greatnews"
                                            cssClass="newsletterCheckbox"/>
-                                    <label for="greatnews">Subscribe to this newsletter</label></li>
+                                    <label for="jq-greatnews">Subscribe to this newsletter</label></li>
                             </ol>
                         </fieldset>
                     </li>
@@ -138,7 +118,7 @@
 
             <c:set var="showMynth" value="${ emailCmd.greatnews ? 'showIt' : 'hideIt' }"/>
 
-            <div id="mynth" class="mynth ${showMynth}">
+            <div id="jq-mynth" class="mynth ${showMynth}">
                 <p class="text2">Personalize your weekly updates by indicating your<a name="mynth_anchor">&amp;nbsp;</a> <br/>child(ren)'s grade level(s) for 2010-2011:</p>
                 <ol class="horizontal">
                         <li>
@@ -260,14 +240,19 @@
                 <input type="hidden" id="numMssSchools"
                        name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
 
-                <div id="mssSchoolSection">
+                <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
+                    <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox" checked="checked"/>
+                    <label for="jq-mssSchoolX">REPLACE-ME</label>
+                    <input type="hidden" name="uniqueStateId" value="REPLACE-ME"/>
+                </div>
+
+                <div id="jq-mssSchoolSection">
                     <c:if test="${emailCmd.school1}">
                         <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
                             <div class="mssSchoolLine">
-                                <form:checkbox path="school${schoolCounter.count}" id="mssSchool${schoolCounter.count}"
-                                               cssClass="newsletterCheckbox"
-                                               onclick="removeMssSchool(${schoolCounter.count});"/>
-                                <label for="mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
+                                <form:checkbox path="school${schoolCounter.count}" id="jq-mssSchool${schoolCounter.count}"
+                                               cssClass="newsletterCheckbox"/>
+                                <label for="jq-mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
                                 <input type="hidden" name="id${schoolCounter.count}"
                                        value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
                                 <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
@@ -285,19 +270,19 @@
                 </c:if>
 
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div id="mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
+                <div id="jq-mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
                     <p class="text2bold">Add a school<span class="text2"> (four schools maximum)</span></p>
                     <ol>
                         <li>
-                            <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="stateAdd"
-                                                 onChange="emailStateChange(this);" name="stateAdd"
+                            <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="jq-stateAdd"
+                                                 name="stateAdd"
                                                  noStateLabel="1. Choose state"
                                                  allowNoState="true"
                                     />
                         </li>
 
                         <li id="city">
-                            <select id="citySelect" name="city" onchange="emailCityChange(this);">
+                            <select id="jq-citySelect" name="city">
                                 <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
                                     <option selected="selected" value="">2. Choose city</option>
                                 </c:if>
@@ -313,7 +298,7 @@
                         <gsml:feedbackMessage command="emailCmd" field="city" styleClass="ajaxMessage ajaxError"/>
 
                         <li id="schoolsInCity">
-                            <select name="school" id="school" class="selectChildSchool">
+                            <select name="school" id="jq-school" class="selectChildSchool">
                                 <option selected="selected" value="0">3. Choose school</option>
                                 <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
                                     <![CDATA[<option ]]>
@@ -324,10 +309,10 @@
                     </ol>
                     <div class="spacer_10"><!-- do not collapse --></div>
 
-                    <button class="button-1 fltlft" type="add" id="add" name="Add" value="Add" onclick="try {addMssSchool();} catch (e) {} return false;">Add</button>
+                    <button class="button-1 fltlft" type="add" id="jq-addMssSchool" name="Add" value="Add">Add</button>
 
                 </div>
-                <!-- end .mssAddSchoolSection -->
+                <!-- end #jq-mssAddSchoolSection -->
             </div>
             <!-- end .mssInfo -->
         </div>
@@ -401,15 +386,15 @@
                     <p class="newsletterHeader text2bold">Your location</p>
                     <ol id="yourLocation">
                         <li>
-                            <gsweb:stateSelector state="${emailCmd.userState}" styleId="userState"
-                                                 onChange="yourLocationStateChange(this);" name="userState"
+                            <gsweb:stateSelector state="${emailCmd.userState}" styleId="jq-userState"
+                                                 name="userState"
                                                  noStateLabel="1. Choose state"
                                                  allowNoState="true"
                                     />
                         </li>
 
                         <li id="yourLocationCity">
-                            <select id="yourLocationCitySelect" name="userCity">
+                            <select id="jq-yourLocationCitySelect" name="userCity">
                                 <c:if test="${emailCmd.userCityList ne null and (emailCmd.userCity eq null or emailCmd.userCity eq '')}">
                                     <option selected="selected" value="">2. Choose city</option>
                                 </c:if>
@@ -477,71 +462,6 @@
     </div>
 </fieldset>
 -->
-
-
-<!-- GS-8784 -->
-<!-- 2009 BTS newsletter? -->
-<c:set var="showBrainDrain" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }"/>
-
-<div class="${showBrainDrain}">
-    <fieldset>
-        <div class="formContentGS clearfix">
-            <div class="formBarGS col">
-                <img src="/res/img/email/boy_with_book.jpg" width="83" height="65" alt="boy with book"
-                     class="newsletterImage"/>
-            </div>
-
-            <div class="formMainGS col">
-                <div class="newsletterInfo">
-                    <p class="newsletterHeader text2bold">Back-to-school countdown tips<a name="seasonal_anchor">&amp;nbsp;</a></p>
-
-                    <p class="newsletterDescription text2">
-                        Engage your child in learning over the break and ease him into
-                        the next school year with our daily tips and activities.
-                    </p>
-
-                    <ol>
-                        <li>
-                            <fieldset>
-                                <ol>
-                                    <li>
-                                        <form:checkbox path="seasonal"
-                                               onclick="toggleSummerBrainDrain();"
-                                               id="seasonalCheckbox" cssClass="newsletterCheckbox"/>
-                                        <label for="seasonalCheckbox">Subscribe to this newsletter</label></li>
-                                </ol>
-                            </fieldset>
-
-                            <c:set var="showWeeks" value="${ emailCmd.seasonal ? 'showIt' : 'hideIt' }"/>
-
-                            <div id="weeks" class="${showWeeks}">
-                                <p class="text2">Tell us when your child's school starts so we can personalize your newsletter!</p>
-                                <fieldset>
-                                    <ol>
-                                        <li>
-                                            <label for="startweek">School starts the week of:</label>
-                                            <form:select path="startweek" id="startweek">
-                                                <option value="">Choose one</option>
-                                                <option value="summer1">July 19</option>
-                                                <option value="summer2">July 26</option>
-                                                <option value="summer3">August 2</option>
-                                                <option value="summer4">August 9</option>
-                                                <option value="summer5">August 16</option>
-                                                <option value="summer6">August 23</option>
-                                                <option value="summer7">August 30</option>
-                                                <option value="summer8">September 6</option>
-                                            </form:select></li>
-                                    </ol>
-                                    <form:hidden path="seasonalId"/>
-                                </fieldset>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
 
 <fieldset id="learningDifficulties">
     <div class="formContentGS clearfix">

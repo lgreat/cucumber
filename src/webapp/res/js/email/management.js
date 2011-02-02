@@ -1,187 +1,147 @@
-jQuery(function() {
-    jQuery('#firstName').blur(function() {
-        if (isValidFirstName(jQuery(this).val())) {
-            jQuery('#firstNameError').hide();            
+GS = GS || {};
+GS.form = GS.form || {};
+GS.form.EmailManagement = function() {
+    this.toggleNthGraderNewsletters = function(greatNewsCheckbox) {
+        var elem = jQuery('#jq-mynth');
+        if (greatNewsCheckbox.is(':checked')) {
+            elem.show();
         } else {
-            jQuery('#firstNameError').show();
+            elem.hide();
         }
-    });
-});
+    };
 
-function toggleNthGraderNewsletters(){
-    var elem = jQuery('#mynth');
-    if (jQuery('#greatnews').is(':checked')) {
-        elem.show();
-    } else{
-        elem.hide();
-    }
-}
+    this.removeMssSchool = function(schoolCheckbox) {
+        schoolCheckbox.parent().remove();
 
-function toggleSummerBrainDrain(){
-    var elem = jQuery('#weeks');
-    if (jQuery('#seasonalCheckbox').is(':checked')) {
-        elem.show();
-    } else{
-        elem.hide();
-    }
-}
+        var numMssSchools = parseInt(jQuery('#jq-numMssSchools').val());
+        jQuery('#jq-numMssSchools').val(numMssSchools-1);
+        jQuery('#jq-mssAddSchoolSection').show();
+    };
 
-function isValidFirstName(firstName) {
-    return (firstName.length >= 2 && firstName.length <= 24);
-}
+    this.stateChange = function(stateSelect, citySelect) {
+        var params = {
+            state: stateSelect.val(),
+            type: 'city',
+            notListedOption: '2. Choose city'
+        };
 
-function checkForm(){
-    if (!isValidFirstName(jQuery('#firstName').val())) {
-        alert('First name must be 2-24 characters.');
-        return false;
-    }
-    if(jQuery('#seasonalCheckbox').is(':checked') && jQuery('#startweek').val() == ""){
-        alert("Please select a start week for your school so we can personalize your emails.");
-        return false;
-    }
-    return true;
-}
+        jQuery('#jq-school').html('<option value="0">3. Choose school</option>');
+        citySelect.html('<option value="0">Loading ...</option>');
 
-function yourLocationStateChange(stateSelect) {
-    var url = '/util/ajax/ajaxCity.page';
-    var pars = 'state=' + stateSelect.value + "&type=city&notListedOption=2. Choose city";
-    var citySelect = $('yourLocationCitySelect');
-    $('school').update('<option value="0">3. Choose school</option>');
-    citySelect.update('<option value="0">Loading ...</option>');
-    new Ajax.Updater(
-            'yourLocationCitySelect',
-            url,
-    {
-        method: 'get',
-        parameters: pars,
-        onComplete: function() {
-            emailUpdateElementContents('yourLocationCity', citySelect);
-        }
-    });
-}
+        jQuery.get('/util/ajax/ajaxCity.page', params, function(data) {
+            citySelect.html(data);
+        });
+    };
 
-function emailStateChange(stateSelect) {
-    var url = '/util/ajax/ajaxCity.page';
-    var pars = 'state=' + stateSelect.value + "&type=city&notListedOption=2. Choose city";
-    var citySelect = $('citySelect');
-    $('school').update('<option value="0">3. Choose school</option>');
-    citySelect.update('<option value="0">Loading ...</option>');
-    new Ajax.Updater(
-            'citySelect',
-            url,
-    {
-        method: 'get',
-        parameters: pars,
-        onComplete: function() {
-            emailUpdateElementContents('city', citySelect);
-        }
-    });
-}
+    this.emailCityChange = function(citySelect) {
+        var parentState = jQuery('#jq-stateAdd').val();
+        var parentCity = citySelect.val();
+        var school = jQuery('#jq-school');
 
-function emailUpdateElementContents(elemIdToUpdate, elemToAdd) {
-    Element.remove(elemToAdd);
-    $(elemIdToUpdate).update(elemToAdd);
-    elemToAdd.show();
-}
+        var params = {
+            state: parentState,
+            city: parentCity,
+            notListedOption: '3. Choose school'
+        };
 
-/*
- schoolDiv${child} -> schoolsInCity
- school${child} -> schoolAdd
- selectChildSchool -> selectSchool
- userCmd.studentRows[child-1].schools -> emailCmd.schoolsToAdd
- forget schoolVal
- */
+        school.html('<option value="0">Loading ...</option>');
 
-function emailCityChange(citySelect) {
-    var parentState = $('stateAdd').value;
-    var parentCity = citySelect.value;
-    var url = '/util/ajax/ajaxCity.page';
-    var pars = 'state=' + parentState;
-    pars += '&city=' + parentCity;
-    pars += '&notListedOption=3. Choose school';
-    var schoolSelect = $('school');
-    schoolSelect.update('<option value="0">Loading ...</option>');
-    new Ajax.Updater(
-            'school',
-            url,
-    {
-        method: 'get',
-        parameters: pars,
-        onComplete: function() {
-            emailUpdateElementContents('schoolsInCity', schoolSelect);
-        }
-    });
-}
+        jQuery.get('/util/ajax/ajaxCity.page', params, function(data) {
+            school.html(data);
+        });
+    };
 
-// don't allow duplicates
-// don't allow more than 4
-// don't allow invalid options
-function addMssSchool() {
-    // validate numSchools
-    var numMssSchools = parseInt($('numMssSchools').value);
-    if (numMssSchools == 4) {
-        alert('You can track a maximum of four schools.');
-        $('mssAddSchoolSection').hide(); // how'd they get here? Better hide this control
-        return;
-    }
-    var schoolSelect = $('school');
-    // validate valid options
-    if (parseInt(schoolSelect.value) < 1) {
-        alert('Please select a school.');
-        return;
-    }
-    // pull some data
-    var selectedSchoolName = schoolSelect.options[schoolSelect.selectedIndex].text;
-    var citySelect = $('citySelect');
-    var selectedCityName = citySelect.options[citySelect.selectedIndex].text;
-    var stateSelect = $('stateAdd');
-    var selectedStateName = stateSelect.options[stateSelect.selectedIndex].text;
-    var myStateId = selectedStateName + schoolSelect.value;
-
-    // validate duplicates
-    var form = $('emailCmd');
-    var uniqueStateIds = form.getInputs('hidden', 'uniqueStateId');
-    for (var x=0; x < uniqueStateIds.length; x++) {
-        var uniqueStateId = uniqueStateIds[x];
-        if (uniqueStateId.value == myStateId) {
-            alert("You are already subscribed to that school.");
+    // don't allow duplicates
+    // don't allow more than 4
+    // don't allow invalid options
+    this.addMssSchool = function() {
+        // validate numSchools
+        var numMssSchools = parseInt(jQuery('#jq-numMssSchools').val());
+        if (numMssSchools == 4) {
+            alert('You can track a maximum of four schools.');
+            jQuery('#jq-mssAddSchoolSection').hide(); // how'd they get here? Better hide this control
             return;
         }
-    }
+        var schoolSelect = jQuery('#jq-school');
+        // validate valid options
+        if (parseInt(schoolSelect.val()) < 1) {
+            alert('Please select a school.');
+            return;
+        }
+        // pull some data
+        var selectedSchoolName = schoolSelect.find('option:selected').text();
+        var citySelect = jQuery('#jq-citySelect');
+        var selectedCityName = citySelect.find('option:selected').text();
+        var stateSelect = jQuery('#jq-stateAdd');
+        var selectedStateName = stateSelect.find('option:selected').text();
+        var myStateId = selectedStateName + schoolSelect.val();
 
-    numMssSchools = numMssSchools + 1;
+        // validate duplicates
+        jQuery('#jq-mssSchoolSection input[name=uniqueStateId').each(function() {
+            if (jQuery(this).val() == myStateId) {
+                alert("You are already subscribed to that school.");
+                return;
+            }
+        });
 
-    // construct checkbox
-    // have to use defautChecked for IE, as it doesn't respect the value of checked before element is in dom
-    var schoolCheckbox = new Element("input", {'type':'checkbox', 'checked':'checked',
-        'defaultChecked':'true', 'class':'newsletterCheckbox',
-        'id':'mssSchool' + numMssSchools, 'onclick':'removeMssSchool(' + numMssSchools + ');'});
-    // construct label
-    var schoolNameLabel = new Element("label", {'for':'mssSchool' + numMssSchools});
-    schoolNameLabel.update(selectedSchoolName + ', ' + selectedCityName + ', ' + selectedStateName);
-    // construct hidden input
-    var uniqueHiddenValue = new Element("input", {'type':'hidden', 'name':'uniqueStateId',
-        'value':myStateId});
-    // construct containing div
-    var containingDiv = new Element("div", {'class':'mssSchoolLine'});
-    containingDiv.insert({bottom: schoolCheckbox});
-    containingDiv.insert({bottom: schoolNameLabel});
-    containingDiv.insert({bottom: uniqueHiddenValue});
-    // insert into dom
-    $('mssSchoolSection').insert({bottom: containingDiv});
-    // increment numSchools
-    $('numMssSchools').value = numMssSchools;
-    if (numMssSchools >= 4) {
-        $('mssAddSchoolSection').hide();
-    }
-}
+        numMssSchools = numMssSchools + 1;
 
-function removeMssSchool(schoolCounter) {
-    var schoolCheckbox = $('mssSchool' + schoolCounter);
-    Element.extend(schoolCheckbox.parentNode).remove();
+        // construct containing div
+        var newMssSchoolLine = jQuery('#jq-mssSchoolLineTemplate').clone();
+        newMssSchoolLine.removeAttr('id');
+        newMssSchoolLine.removeClass('hidden');
 
-    var numMssSchools = parseInt($('numMssSchools').value);
-    $('numMssSchools').value = numMssSchools-1;
-    $('mssAddSchoolSection').show();
-}
+        // construct checkbox
+        var schoolCheckbox = newMssSchoolLine.find('input[type=checkbox]');
+        // have to use defaultChecked for IE, as it doesn't respect the value of checked before element is in dom
+        schoolCheckbox.attr('defaultChecked','true');
+        schoolCheckbox.attr('id','jq-mssSchool' + numMssSchools);
+
+        // construct label
+        var schoolNameLabel = newMssSchoolLine.find('label');
+        schoolNameLabel.attr('for','jq-mssSchool' + numMssSchools);
+        schoolNameLabel.text(selectedSchoolName + ', ' + selectedCityName + ', ' + selectedStateName);
+
+        // construct hidden input
+        var uniqueHiddenValue = newMssSchoolLine.find('input[name=uniqueStateId]');
+        uniqueHiddenValue.val(myStateId);
+
+        // insert into dom
+        jQuery('#jq-mssSchoolSection').append(newMssSchoolLine);
+        // increment numSchools
+        jQuery('#jq-numMssSchools').val(numMssSchools);
+        if (numMssSchools >= 4) {
+            jQuery('#jq-mssAddSchoolSection').hide();
+        }
+    };
+};
+
+jQuery(function() {
+    GS.form.emailManagement = GS.form.emailManagement || new GS.form.EmailManagement();
+
+    jQuery('#jq-greatnews').click(function() {
+        GS.form.emailManagement.toggleNthGraderNewsletters(jQuery(this));
+    });
+
+    jQuery('#jq-mssSchoolSection input[type=checkbox]').livequery('click', function() {
+        GS.form.emailManagement.removeMssSchool(jQuery(this));
+    });
+
+    jQuery('#jq-addMssSchool').click(function() {
+        GS.form.emailManagement.addMssSchool();
+        return false;
+    });
+
+    jQuery('#jq-userState').change(function() {
+        GS.form.emailManagement.stateChange(jQuery(this), jQuery('#jq-yourLocationCitySelect'));
+    });
+
+    jQuery('#jq-stateAdd').change(function() {
+        GS.form.emailManagement.stateChange(jQuery(this), jQuery('#jq-citySelect'));
+    });
+
+    jQuery('#jq-citySelect').change(function() {
+        GS.form.emailManagement.emailCityChange(jQuery(this));
+    });
+});
 
