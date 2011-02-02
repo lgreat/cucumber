@@ -226,7 +226,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _greatSchoolsRating;
     }
 
-    @Field(SchoolDocumentBuilder.OVERALL_RATING)
+    @Field(SchoolDocumentBuilder.OVERALL_GS_RATING)
     public void setGreatSchoolsRating(Integer rating) {
         _greatSchoolsRating = rating;
     }
@@ -236,11 +236,8 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
         return _parentRating;
     }
 
-    @Field(SchoolDocumentBuilder.COMMUNITY_RATING_SORTED_ASC)
+    @Field(SchoolDocumentBuilder.COMMUNITY_RATING)
     public void setParentRating(Integer rating) {
-        if (99 == rating.intValue()) {
-            rating = null;
-        }
 
         _parentRating = rating;
     }
