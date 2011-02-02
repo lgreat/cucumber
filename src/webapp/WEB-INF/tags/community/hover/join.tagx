@@ -26,106 +26,114 @@
 </div>
 
 <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
-<p class="error messBox" id="process_error">Please correct the errors below to continue.</p>
-
-<p class="error messBox message"><!-- not empty --></p>
-
-<div class="line joinHover_firstName">
-    <div class="unit size4of19">
-        <label for="fName">First name *</label>
+<div class="line">
+    <div id="process_error" class="unit size1of1 lastUnit error messBox">
+        Please correct the errors below to continue.
     </div>
-    <div class="unit size5of14">
-        <input type="text" id="fName" class="textInput" name="firstName"/>
-    </div>
-    <div class="unit size3of7 lastUnit">
-        <div class="errors">
-            <span class="error valid">&amp;nbsp;</span>
-            <span class="error invalid"><!-- not empty --></span>
-        </div>
-    </div>
-    <div class="spacer_15"><!-- do not collapse --></div>
+    <div class="clearfloat"><!-- do not collapse --></div>
 </div>
 
-<div class="line joinHover_email">
-    <div class="unit size4of19">
-        <label for="jemail">Email address *</label>
-    </div>
-    <div class="unit size5of14">
-        <input type="text" id="jemail" class="textInput" name="email"/>
-    </div>
-    <div class="unit size3of7 lastUnit">
-        <div class="errors">
-            <span class="error valid">&amp;nbsp;</span>
-            <span class="error invalid"><!-- not empty --></span>
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="line joinHover_firstName">
+            <div class="unit size4of19">
+                <label for="fName">First name *</label>
+            </div>
+            <div class="unit size5of14">
+                <input type="text" id="fName" class="textInput" name="firstName"/>
+            </div>
+            <div class="unit size3of7 lastUnit">
+                <div class="errors">
+                    <span class="error valid">&amp;nbsp;</span>
+                    <span class="error invalid"><!-- not empty --></span>
+                </div>
+            </div>
+            <div class="spacer_15"><!-- do not collapse --></div>
         </div>
-    </div>
-    <div class="spacer_15"><!-- do not collapse --></div>
-</div>
 
-<div class="line joinHover_username">
-    <div class="unit size4of19">
-        <label for="uName">Username * <br/>
-            <span class="formHelperText">6-14 characters</span></label>
-    </div>
-    <div class="unit size5of14">
-        <input type="text" id="uName" class="textInput" name="screenName"/>
-    </div>
-    <div class="unit size3of7 lastUnit">
-        <div class="errors">
-            <span class="error valid">Your username is available</span>
-            <span class="error invalid"><!--not empty--></span>
+        <div class="line joinHover_email">
+            <div class="unit size4of19">
+                <label for="jemail">Email address *</label>
+            </div>
+            <div class="unit size5of14">
+                <input type="text" id="jemail" class="textInput" name="email"/>
+            </div>
+            <div class="unit size3of7 lastUnit">
+                <div class="errors">
+                    <span class="error valid">&amp;nbsp;</span>
+                    <span class="error invalid"><!-- not empty --></span>
+                </div>
+            </div>
+            <div class="spacer_15"><!-- do not collapse --></div>
         </div>
-    </div>
-    <div class="spacer_7"><!-- do not collapse --></div>
-</div>
-<!--<p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>-->
 
-<div class="line joinHover_password">
-    <div class="unit size4of19">
-        <label for="jpword">Password * <br/>
-            <span class="formHelperText">6-14 characters</span></label>
-    </div>
-    <div class="unit size5of14">
-        <input type="password" id="jpword" class="passwordInput" name="password"/>
-    </div>
-    <div class="unit size3of7 lastUnit">
-        <div class="errors">
-            <span class="error valid" id="pw">&amp;nbsp;</span>
-            <span class="error invalid" id="pw_invalid"><!-- not empty --></span>
+        <div class="line joinHover_username">
+            <div class="unit size4of19">
+                <label for="uName">Username * <br/>
+                    <span class="formHelperText">6-14 characters</span></label>
+            </div>
+            <div class="unit size5of14">
+                <input type="text" id="uName" class="textInput" name="screenName"/>
+            </div>
+            <div class="unit size3of7 lastUnit">
+                <div class="errors">
+                    <span class="error valid">Your username is available</span>
+                    <span class="error invalid"><!--not empty--></span>
+                </div>
+            </div>
+            <div class="spacer_7"><!-- do not collapse --></div>
         </div>
-    </div>
-    <div class="spacer_7"><!-- do not collapse --></div>
-</div>
+        <!--<p class="hlpTxt">Choose carefully &amp;#151; this will be your public identity on GreatSchools</p>-->
 
-<div class="line joinHover_confirmPassword">
-    <div class="unit size4of19">
-        <label for="cpword">Retype password *</label>
-    </div>
-    <div class="unit size5of14">
-        <input type="password" id="cpword" class="passwordInput" name="confirmPassword"/>
-    </div>
-    <div class="unit size3of7 lastUnit">
-        <div class="errors">
-            <span class="error valid" id="pwmatch">&amp;nbsp;</span>
-            <span class="error invalid" id="pwnomatch"><!-- not empty --></span>
+        <div class="line joinHover_password">
+            <div class="unit size4of19">
+                <label for="jpword">Password * <br/>
+                    <span class="formHelperText">6-14 characters</span></label>
+            </div>
+            <div class="unit size5of14">
+                <input type="password" id="jpword" class="passwordInput" name="password"/>
+            </div>
+            <div class="unit size3of7 lastUnit">
+                <div class="errors">
+                    <span class="error valid" id="pw">&amp;nbsp;</span>
+                    <span class="error invalid" id="pw_invalid"><!-- not empty --></span>
+                </div>
+            </div>
+            <div class="spacer_7"><!-- do not collapse --></div>
         </div>
-    </div>
-</div>
 
-<div class="line joinHover_location">
-    <div class="spacer_15"><!-- do not collapse --></div>
-    <div class="unit size4of19">
-        <label for="joinState">Where do you live?</label>
-    </div>
-    <div class="unit size5of14">
-        <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="joinState"/>
-        <select name="city" id="joinCity">
-            <option>Loading...</option>
-        </select>
-    </div>
-    <div class="unit size3of7 lastUnit">
-        <div class="errors">
-            <span class="error invalid" id="joinHover_chooseLocation"><!-- not empty --></span>
+        <div class="line joinHover_confirmPassword">
+            <div class="unit size4of19">
+                <label for="cpword">Retype password *</label>
+            </div>
+            <div class="unit size5of14">
+                <input type="password" id="cpword" class="passwordInput" name="confirmPassword"/>
+            </div>
+            <div class="unit size3of7 lastUnit">
+                <div class="errors">
+                    <span class="error valid" id="pwmatch">&amp;nbsp;</span>
+                    <span class="error invalid" id="pwnomatch"><!-- not empty --></span>
+                </div>
+            </div>
+            <div class="clearfloat"><!-- do not collapse --></div>
+        </div>
+
+        <div class="line joinHover_location">
+            <div class="spacer_15"><!-- do not collapse --></div>
+            <div class="unit size4of19">
+                <label for="joinState">Where do you live?</label>
+            </div>
+            <div class="unit size5of14">
+                <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="joinState"/>
+                <select name="city" id="joinCity">
+                    <option>Loading...</option>
+                </select>
+            </div>
+            <div class="unit size3of7 lastUnit">
+                <div class="errors">
+                    <span class="error invalid" id="joinHover_chooseLocation"><!-- not empty --></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -160,7 +168,7 @@
     <div class="unit size15of19 lastUnit btstips">
         <div class="mediaExt1 grades">
             <div class="img">
-                <input type="checkbox" name="newsletter" value="true" id="opt1"/>
+                <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1"/>
             </div>
             <div class="bk">
                 <label for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
