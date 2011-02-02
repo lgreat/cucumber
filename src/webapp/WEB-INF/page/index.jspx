@@ -133,8 +133,6 @@
 <!--<pageHelper:externalCss file="/res/css/home/module_base.css"/>-->
 <pageHelper:externalCss file="/res/css/home/blue_module.css"/>
 <!--<pageHelper:externalCss file="/res/css/home/adbox.css"/>-->
-<pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-<pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>
     <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
     <c:set var="isIE6" value="${fn:contains(agent, 'msie 6')}"/>
@@ -142,7 +140,6 @@
         <pageHelper:externalJavascript file="/res/js/carousel/carousel.js"/>
     </c:if>
 <pageHelper:addOnLoadHandler handler="hoverHome();showLatestTools();"/>
-<pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
 <c:set var="showAd"
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>

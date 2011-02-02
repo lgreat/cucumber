@@ -1,5 +1,4 @@
 // GS-8291
-// depends on submodal.js
 var mssAutoHoverInterceptor = {
     interceptPercent: 0,
     hoverName: '',
@@ -39,7 +38,7 @@ var mssAutoHoverInterceptor = {
         this.hoverName = 'mssAutoHover';
         this.cookieName = 'mssAutoHover';
         this.cookieProperty = 'GS-8290';
-        this.userIsLoggedIn = GSType.submodal.interceptor.userIsLoggedIn;
+        this.userIsLoggedIn = GS_userIsLoggedIn;
         this.userLoggedInCookieName = 'MEMID';
     },
     userShouldSeeAlternateHover: function(){return false;},

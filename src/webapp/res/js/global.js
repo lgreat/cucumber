@@ -474,3 +474,10 @@ var subCookie = {
         subCookie.setObject(cookieName,cookieObj,days);
     }
 };
+
+GS_userIsLoggedIn = function(cookieName){
+    // if cookie MEMID exists, the user is logged in
+    var value = readCookie(cookieName);
+
+    return value != undefined && value.length > 0;
+};

@@ -77,8 +77,6 @@
         ]]></jsp:scriptlet>
 
     <c:if test="${!requestScope.context.crawler}">
-        <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
         <c:if test="${showNLHover}">
             <c:choose>
@@ -105,6 +103,8 @@
             </c:choose>
         </c:if>
         <c:if test="${showSurvey}">
+            <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+            <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
             <script type="text/javascript">
                 function launchSurveyHover() {
                     if (!hasCookie("survey_seen_popup")) {
