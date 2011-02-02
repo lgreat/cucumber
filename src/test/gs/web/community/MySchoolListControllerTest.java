@@ -74,7 +74,8 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
     public void testRequestFromUnknownUserNoSchoolsAdded() throws Exception {
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-        assertEquals("User should see login page", "redirect:/community/loginOrRegister.page?redirect=%2FmySchoolList.page", mAndV.getViewName());
+        assertEquals("User should see login page",
+                     "redirect:/community/loginOrRegister.page?redirect=%2FmySchoolList.page", mAndV.getViewName());
     }
 
     public void testRequestFromUnknownUserSchoolsAdded() throws Exception {
@@ -82,7 +83,8 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
         getRequest().setParameter(MySchoolListController.PARAM_SCHOOL_IDS, "123,456");
         getRequest().setParameter(MySchoolListController.PARAM_STATE, "CA");
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-        assertEquals("User should see login page", "redirect:/community/loginOrRegister.page?redirect=%2FmySchoolList.page", mAndV.getViewName());
+        assertEquals("User should see login page with command preserved",
+                     "redirect:/community/loginOrRegister.page?redirect=%2FmySchoolList.page%3Fcommand%3Dadd%26ids%3D123%252C456%26state%3DCA", mAndV.getViewName());
     }
 
     public void testRequestFromKnownUserNoSchoolsAdded() throws Exception {

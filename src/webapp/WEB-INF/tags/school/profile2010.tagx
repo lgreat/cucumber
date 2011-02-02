@@ -158,7 +158,9 @@
             <ul class="smallAlertText">
             <li>
                 <span class="sprite add2"><!-- do not collapse --></span>
-                <link:mySchoolList school="${school}" anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+                <link:mySchoolList school="${school}"
+                                   onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
+                                   anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
             </li>
             <li>
                 <span class="sprite rate2"><!-- do not collapse --></span>

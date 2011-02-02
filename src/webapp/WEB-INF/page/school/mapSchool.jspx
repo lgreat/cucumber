@@ -59,6 +59,7 @@
                         <div class="header">
                             <h2>${school.name}</h2>
                             <link:mySchoolList styleClass="save"
+                                               onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
                                                school="${school}"
                                                title="Save">
                                 Save
@@ -92,6 +93,7 @@
                                             Miles&amp;#160;&amp;#160;|&amp;#160;&amp;#160;
                                         </c:if>
                                         <link:mySchoolList styleClass="saveLink"
+                                                           onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(nearbySchool.neighbor.name)}', ${nearbySchool.neighbor.id}, '${nearbySchool.neighbor.databaseState}', this);"
                                                            school="${nearbySchool.neighbor}"
                                                            title="Save">
                                             Save

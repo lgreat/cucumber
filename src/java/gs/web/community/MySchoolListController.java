@@ -89,7 +89,17 @@ public class MySchoolListController extends AbstractController implements ReadWr
         if (!PageHelper.isMemberAuthorized(request)) {
             System.err.println("Member rejected!");
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, (String)null);
-            urlBuilder.setParameter("redirect", BEAN_ID);
+            UrlBuilder mslUrl = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
+            if (StringUtils.isNotBlank(request.getParameter(PARAM_COMMAND))) {
+                mslUrl.addParameter(PARAM_COMMAND, request.getParameter(PARAM_COMMAND));
+            }
+            if (StringUtils.isNotBlank(request.getParameter(PARAM_SCHOOL_IDS))) {
+                mslUrl.addParameter(PARAM_SCHOOL_IDS, request.getParameter(PARAM_SCHOOL_IDS));
+            }
+            if (StringUtils.isNotBlank(request.getParameter(PARAM_STATE))) {
+                mslUrl.addParameter(PARAM_STATE, request.getParameter(PARAM_STATE));
+            }
+            urlBuilder.setParameter("redirect", mslUrl.asSiteRelative(request));
             //urlBuilder.setParameter("message", "Please login or register to access My School List");
             return new ModelAndView("redirect:" + urlBuilder.asSiteRelative(request));
         }

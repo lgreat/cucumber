@@ -7,6 +7,7 @@ if (GSType == undefined) {
 if (GSType.hover == undefined) {
     GSType.hover = {};
 }
+GS.community = GS.community || {};
 
 Function.prototype.gs_bind = function(obj) {
     var method = this;
@@ -482,9 +483,9 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("My School List (TEMPORARY)");
+        GSType.hover.joinHover.setTitle("Welcome to My School List");
         GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-                "to view your MSL (TEMPORARY COPY)");
+                "to save one or more schools of interest to your personalized list.");
         // show nth / MSS
         GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, false);
 
@@ -1131,7 +1132,7 @@ GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     return false;
 };
 
-GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, schoolState) {
+GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, schoolState, elem) {
     if (omniturePageName && s.tl) {
         s.tl(true, 'o', 'Add_to_MSL_Link_' + omniturePageName);
     }
@@ -1139,19 +1140,28 @@ GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, school
     var statePlusId = schoolState + schoolId;
     var mslHelper = new GS.community.MySchoolListHelper();
     if (GS.isSignedIn()) {
-        mslHelper.addSchool(schoolState, schoolId, function() {
-            jQuery('.js-add-msl-' + statePlusId).find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
-            jQuery('.js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
-        }, function() {});
+        if (omniturePageName) {
+            mslHelper.addSchool(schoolState, schoolId, function() {
+                jQuery('.js-add-msl-' + statePlusId).find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
+                jQuery('.js-add-msl-' + statePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
+            }, function() {});
+        } else {
+            return true;
+        }
     } else {
+        var redirect = window.location.href;
+        if (!omniturePageName && elem) {
+            redirect = elem.href;
+        }
         var mslSuccessCallback = function(email, formId) {
             mslHelper.addSchool(schoolState, schoolId, function() {}, function() {}, email);
+            GSType.hover.signInHover.setRedirect(redirect);
             jQuery('#' + formId).submit();
         };
-        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+//        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
         if (GS.isMember()) {
-            GSType.hover.signInHover.showHover('', window.location.href, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
+            GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
         } else {
             GSType.hover.joinHover.showJoinMsl();
         }
@@ -1294,6 +1304,36 @@ GS.joinHover_passesValidationResponse = function(data) {
     } else {
         return true;
     }
+};
+
+GS.community.MySchoolListHelper = function() {
+
+    this.addSchool = function(state, id, successCallback, failCallback, email) {
+        var url = "/mySchoolListAjax.page";
+        var data = {};
+        data.schoolDatabaseState = state;
+        data.schoolId = id;
+        if (email) {
+            data.email = email;
+            data.redirectUrl = '';
+        }
+
+        jQuery.post(url, data, function(data) {
+            if (data.success !== undefined && data.success === true) {
+                successCallback();
+                this.incrementCountInHeader();
+            } else {
+                failCallback();
+            }
+        }.gs_bind(this), "json");
+    };
+
+    this.incrementCountInHeader = function() {
+        var mslCountInHeader = jQuery('#utilLinks .last a');
+        var mslCount = Number(mslCountInHeader.html().replace(/[^0-9]/g,''));
+        mslCount = mslCount + 1;
+        mslCountInHeader.html("My School List (" + mslCount + ")");
+    };
 };
 
 jQuery(function() {
