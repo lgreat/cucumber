@@ -102,9 +102,7 @@ ClickCapture.prototype.getEVar = function( index, overrideValue){
 ClickCapture.prototype.getEvents = function(pageEvents){
     // if pageEvents isn't null, merge it into the ones captured
     var events = this.getVariable("events", "") ;
-    var result = this.mergeStringList(events, pageEvents);
-    return result;
-
+    return this.mergeStringList(events, pageEvents);
 } ;
 
 ClickCapture.prototype.arrayToString = function (a){
@@ -179,7 +177,7 @@ ClickCapture.prototype.containsInArray = function (array, item){
         }
     }
     return false;
-}
+};
 
 
 var customInsight9ClickEventHandler = function (e) {
@@ -200,12 +198,8 @@ var customInsight9ClickEventHandler = function (e) {
      clickCapture.capture("eVar5",   mostSignificantPart);
  };
 
-
-
-
  //register the object click handlers...
  function registerMyEventHandlers() {
-
      registerClickHandlers(customInsight9ClickEventHandler,'GS_CI9_');
      registerClickHandlers(evar5ClickEventHandler,'GS_EV5_');
  }
@@ -214,31 +208,31 @@ var customInsight9ClickEventHandler = function (e) {
  * registers click handler, customClickHandler, to each element that has a class with className in it
  */
 function registerClickHandlers(customClickHandler, className){
-    //alert("registerClickHandlers");
     var elements = document.getElementsByClassName(className);
 
     for(var i = 0; i < elements.length; i++) {
-        var res = null;
-
-        if (elements[i].id != undefined && elements[i].id.length > 0) {
-             res = registerEventHandler(elements[i],"click", customClickHandler);
-         }
+        if (elements[i].id != null && elements[i].id.length > 0) {
+            registerEventHandler(elements[i], "click", customClickHandler);
+        }
     }
 }
 
 /*
  * from http://javascript.about.com/library/bldom08.htm
  */
-document.getElementsByClassName = function(cl) {
-    var retnode = [];
-    var myclass = new RegExp('\\b'+cl+'\\b');
-    var elem = this.getElementsByTagName('*');
-    for (var i = 0; i < elem.length; i++) {
-        var classes = elem[i].className;
-        if (myclass.test(classes)) retnode.push(elem[i]);
-    }
-    return retnode;
-};
+if (!document.getElementsByClassName) {
+    document.getElementsByClassName = function(cl) {
+        var retnode = [];
+        var myclass = new RegExp('\\b'+cl+'\\b');
+        var elem = this.getElementsByTagName('*');
+        for (var i = 0; i < elem.length; i++) {
+            var classes = elem[i].className;
+            if (myclass.test(classes)) retnode.push(elem[i]);
+        }
+        return retnode;
+    };
+}
+
 /*
  * create an instance of ClickCapture
  */
