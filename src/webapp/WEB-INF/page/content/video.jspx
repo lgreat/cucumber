@@ -66,9 +66,6 @@
                     function displayCompanionBanners(banners) {
                         tmDisplayBanner(banners, "adCompanionBanner", 300, 250);
                     }
-                    function hideCompanionBanners(banners) {
-                        tmHideBanner("adCompanionBanner");
-                    }
                 </script>
                  <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/> 
             </div>
