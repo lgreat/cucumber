@@ -151,7 +151,6 @@
 <communityHover:emailValidatedSchoolReview/>
 <school:principalConfirmHover/>
 <school:principalReviewSubmitted/>
-<communityHover:mslHover/>
 <compare:compareSchoolsLimitReachedHover/>
 
 <div id="marginGS">

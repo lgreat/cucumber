@@ -919,51 +919,6 @@ GSType.hover.PrincipalReviewSubmitted = function() {
 };
 GSType.hover.PrincipalReviewSubmitted.prototype = new GSType.hover.HoverDialog("principalReviewSubmittedHover",640);
 
-GSType.hover.MslHover = function() {
-    var form = jQuery("#msl-form");
-
-    var schoolDatabaseState = '';
-    var schoolId = '';
-    var redirectUrl = '';
-
-    this.loadDialog = function() {
-        jQuery('#msl-hover').bind('dialogclose', this.onClose.gs_bind(this));
-        this.pageName='Add_to_MSL_Ajax_Hover';
-    };
-
-    this.onClose = function() {
-
-    };
-
-
-    this.setSchoolDatabaseState = function(state) {
-        schoolDatabaseState = state;
-    };
-    this.setSchoolId = function(id) {
-        schoolId = id;
-    };
-    this.setRedirectUrl = function(url) {
-        redirectUrl = url;
-    };
-
-    this.onSubmit = function() {
-
-        var email = jQuery('#msl-email').val();
-
-        var emailPattern = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (!emailPattern.test(email)) {
-            alert("Please enter a valid email address.");
-            return false;
-        }
-
-    }.gs_bind(this);
-
-    
-
-};
-
-GSType.hover.MslHover.prototype = new GSType.hover.HoverDialog("msl-hover", 615);
-
 // May only compare 8 schools hover
 GSType.hover.CompareSchoolsLimitReached = function() {
     this.loadDialog = function() {};
@@ -1025,7 +980,6 @@ GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolR
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
-GSType.hover.mslHover = new GSType.hover.MslHover();
 
 GSType.hover.compareSchoolsLimitReached = new GSType.hover.CompareSchoolsLimitReached();
 
@@ -1355,7 +1309,6 @@ jQuery(function() {
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.principalConfirmation.loadDialog();
     GSType.hover.principalReviewSubmitted.loadDialog();
-    GSType.hover.mslHover.loadDialog();
 
     GSType.hover.compareSchoolsLimitReached.loadDialog();
 
