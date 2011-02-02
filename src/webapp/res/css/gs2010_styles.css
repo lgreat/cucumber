@@ -2361,7 +2361,7 @@ additional icons on the sprite.
 
 /* **************** BLOCK SKINS ***************** */
 /* ------ pageNav (extends mod) ------- */
-.pageNav .inner{margin:0;padding:0;}
+.pageNav .inner{margin:0 0 1em;padding:0;}
 .pageNav .hd h1{margin:0 0 0.50em;}
 .pageNav .hd h2{margin:0 0 0.50em;}
 .pageNav .bd p{margin:0 0 0.75em;}
@@ -2371,8 +2371,8 @@ additional icons on the sprite.
 .partnerOps .hd h2{margin:15px 0;}
 .partnerOps .bd p, .partnerOps .bd ul{margin:0 0 15px;line-height:1.9;}
 /* ------ sponsors (extends mod) ------- */
-.sponsors .inner{margin:1em 0}
-.sponsors .hd h3{margin:0 0 0.25em}
+.sponsors .inner{margin:0 0 1em;}
+.sponsors .hd h3{margin:0 0 0.25em;}
 .sponsors .bd p{margin:0 0 0.75em;}
 .sponsors .bd ul{margin:0 0 0.75em;padding: 0 1em;}
 .sponsors .bd li{list-style: disc;}

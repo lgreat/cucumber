@@ -26,283 +26,299 @@
 <gsml:body adPageName="sponsors" pageLayout="leftside">
 <div id="mainGS">
 
-    <mod:tracking pageName="sponsors" hier1="Home,Corporate,AboutUs,SponsorsAndPartners"/>
+<mod:tracking pageName="sponsors" hier1="Home,Corporate,AboutUs,SponsorsAndPartners"/>
 
 
-    <div class="line">
-        <div class="unit size1of2">
-            <div class="mod pageNav">
-                <div class="inner">
-                    <div class="hd">
-                        <h2>Sponsors and Partners</h2>
-                    </div>
-                    <div class="bd">
-                        <p>
-                            A range of foundations and business partners have been critical to GreatSchools' success. We are grateful to these
-                            partners, a sampling of which can be found below: </p>
-
-                        <ul>
-                            <li><a href="#foundations">Foundations</a></li>
-                            <li><a href="#media">Media &amp;amp; Licensing Partners</a></li>
-                            <li><a href="#education">Education Partners</a></li>
-                            <li><a href="#outreach">Outreach Partners</a></li>
-                            <li><a href="#corporate">Corporate In-Kind Donations</a></li>
-                            <li><a href="#realestate">Real Estate &amp;amp; Web Developer Partners</a></li>
-                            <li><a href="#advertising">Advertising Partners</a></li>
-                            <li><a href="#data">School Data Partnerships</a></li>
-                        </ul>
-                    </div>
+<div class="line">
+    <div class="unit size11of18">
+        <div class="mod pageNav">
+            <div class="inner">
+                <div class="hd">
+                    <h2>Sponsors and Partners</h2>
                 </div>
-            </div>
-        </div>
-        <div class="unit size1of2"><!-- do not collapse --></div>
-    </div>
+                <div class="bd">
+                    <p>
+                        A range of foundations and business partners have been critical to GreatSchools' success. We are grateful to these
+                        partners, a sampling of which can be found below: </p>
 
-    <div class="line">
-        <div class="unit size1of3 firstColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="foundations"><!-- do not collapse --></a>
-
-                        <h3>Foundations</h3>
-                    </div>
-                    <div class="bd">
-                        <ul>
-
-                            <li>Annie E. Casey Foundation</li>
-                            <li>The William H. Donner Foundation</li>
-                            <li>Fordham Foundation</li>
-                            <li>Bill <![CDATA[&amp;]]> Melinda Gates Foundation</li>
-                            <li>William and Flora Hewlett Foundation</li>
-                            <li>New Schools Venture Fund</li>
-                            <li>Pisces Foundation</li>
-                            <li>Robertson Foundation</li>
-                            <li>San Francisco Foundation</li>
-                            <li>The Stuart Foundation</li>
-                            <li>Walton Family Foundation</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="unit size1of3 middleColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="media"><!-- do not collapse --></a>
-
-                        <h3>Media &amp;amp; Licensing Partners</h3>
-                    </div>
-                    <div class="bd">
-                        <ul>
-
-                            <li>Bank of America</li>
-                            <li>BrainPop</li>
-                            <li><a href="http://www.cafemom.com" target="_blank">CafeMom</a></li>
-                            <li><a href="http://www.commonsensemedia.com" target="_blank">Common Sense Media</a></li>
-                            <li><a href="http://dallasnews.greatschools.org" target="_blank">Dallas Morning News</a>
-                            </li>
-                            <li><a href="http://www.donorschoose.org" target="_blank">Donor's Choose</a></li>
-                            <li><a href="http://www.hearst.com/" target="_blank">Hearst Coorporation</a></li>
-                            <li><a href="http://www.medianewsgroup.com/Pages/default.aspx"
-                                   target="_blank">Media News Group</a></li>
-                            <li>Michael &amp;amp; Susan Dell Foundation</li>
-                            <li><a href="http://momshomeroom.msn.greatschools.org/"
-                                   target="_blank">Microsoft, Mom's Homeroom</a></li>
-                            <li><a href="http://mysanantonio.greatschools.org" target="_blank">MySanAntonio.com</a></li>
-                            <li><a href="http://ocregister.greatschools.org" target="_blank">OCRegister</a></li>
-                            <li>Optum Health</li>
-                            <li><a href="http://www.policymap.com" target="_blank">Policy Map</a></li>
-                            <li><a href="http://mercurynews.greatschools.org" target="_blank">San Jose Mercury News</a>
-                            </li>
-                            <li><a href="http://sfgate.greatschools.org" target="_blank">SFGate.com</a></li>
-                            <li>
-                                <a href="http://realestate.yahoo.com/California/San_Francisco/Schools/San_Francisco_Unified_School_District"
-                                   target="_blank">Yahoo! Real Estate</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="unit size1of3 lastUnit lastColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="education"><!-- do not collapse --></a>
-
-                        <h3>Education Partners</h3>
-                    </div>
-                    <div class="bd">
-                        <ul>
-
-                            <li>Care2</li>
-                            <li>The College Board<![CDATA[&reg;]]></li>
-                            <li><i>Education Week</i></li>
-                            <li>Just for the Kids</li>
-                            <li>Fund for Public Schools</li>
-                            <li>Partnership for Learning</li>
-                            <li>Scholastic</li>
-                            <li>United States Department of Education</li>
-                        </ul>
-                    </div>
+                    <ul>
+                        <li><a href="#foundations">Foundations</a></li>
+                        <li><a href="#media">Media &amp;amp; Licensing Partners</a></li>
+                        <li><a href="#education">Education Partners</a></li>
+                        <li><a href="#outreach">Outreach Partners</a></li>
+                        <li><a href="#corporate">Corporate In-Kind Donations</a></li>
+                        <li><a href="#realestate">Real Estate &amp;amp; Web Developer Partners</a></li>
+                        <li><a href="#advertising">Advertising Partners</a></li>
+                        <li><a href="#data">School Data Partnerships</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+    <div class="unit size7of18"><!-- do not collapse --></div>
+</div>
 
-    <div class="line">
-        <div class="unit size1of3 firstColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="outreach"><!-- do not collapse --></a>
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="foundations"><!-- do not collapse --></a>
 
-                        <h3>Outreach Partners</h3>
-                    </div>
-                    <div class="bd">
-                        <ul>
-
-                            <li>One Economy Corp.</li>
-                            <li>National Council of La Raza</li>
-                            <li>National Hispanic Caucus</li>
-                            <li>Univision</li>
-                        </ul>
-                    </div>
+                    <h3>Foundations</h3>
                 </div>
-            </div>
-        </div>
+                <div class="bd">
+                    <ul>
 
-        <div class="unit size1of3 middleColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="corporate"><!-- do not collapse --></a>
-
-                        <h3>Corporate In-Kind Donations</h3>
-                    </div>
-                    <div class="bd">
-                        <ul>
-
-                            <li>Adobe</li>
-                            <li><a href="http://www.automatedqa.com/products/testcomplete/"
-                                   target="_blank">AutomatedQA: TestComplete</a></li>
-                            <li><a href="http://www.atlassian.com/software/jira/" target="_blank">Atlassian: Jira</a>
-                            </li>
-                            <li><a href="http://www.atlassian.com/software/clover/"
-                                   target="_blank">Atlassian: Clover</a></li>
-                            <li><a href="http://www.atlassian.com/software/fisheye/"
-                                   target="_blank">Atlassian: FishEye</a></li>
-                            <li>Covington <![CDATA[&amp;]]> Burling</li>
-                            <li><a href="http://www.jetbrains.com/idea/" target="_blank">Jetbrains: IntelliJ IDEA</a>
-                            </li>
-                            <li>Microsoft</li>
-                            <li>Orrick, Herrington and Sutcliffe</li>
-                            <li><a href="http://www.sixapart.com/products/#typepad"
-                                   target="_blank">Six Apart: TypePad</a></li>
-                            <li>Symantec</li>
-                            <li><a href="http://www.zeus.com/products/zxtm/" target="_blank">Zeus: ZXTM</a> (<a
-                                    href="http://www.zeus.com/library/case_studies/greatschools.html">Case Study</a>)
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="unit size1of3 lastUnit lastColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="realestate"><!-- do not collapse --></a>
-
-                        <h3>Real Estate &amp;amp;<br/>Web Developer Partners</h3>
-                    </div>
-                    <div class="bd">
-                        <ul>
-
-                            <li>#1 Best Expert</li>
-                            <li>Alan Pinel Realtors</li>
-                            <li>Connecting Neighbors</li>
-                            <li>HomeGain</li>
-                            <li>Move Sales, Inc.</li>
-                            <li>Myers</li>
-                            <li>OnBoard, LLC</li>
-                            <li>Realtor Association of Greater Miami</li>
-                            <li>Realtors Property Resource</li>
-                        </ul>
-                    </div>
+                        <li>Annie E. Casey Foundation</li>
+                        <li>The William H. Donner Foundation</li>
+                        <li>Fordham Foundation</li>
+                        <li>Bill &amp;amp; Melinda Gates Foundation</li>
+                        <li>William and Flora Hewlett Foundation</li>
+                        <li>New Schools Venture Fund</li>
+                        <li>Pisces Foundation</li>
+                        <li>Robertson Foundation</li>
+                        <li>San Francisco Foundation</li>
+                        <li>The Stuart Foundation</li>
+                        <li>Walton Family Foundation</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="line">
-        <div class="unit size1of3 firstColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="advertising"><!-- do not collapse --></a>
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="media"><!-- do not collapse --></a>
 
-                        <h3>Advertising Partners</h3>
-                    </div>
-                    <div class="bd">
-                        <ul>
+                    <h3>Media &amp;amp; Licensing Partners</h3>
+                </div>
+                <div class="bd">
+                    <ul>
 
-                            <li><a href="http://www.chevrolet.com/" target="_blank">Chevrolet</a></li>
-                            <li><a href="http://www.claritin.com/claritin/home/index.jspa" target="_blank">Claritin</a></li>
-                            <li><gsml:a href="http://www.criminaljusticedegreeschools.com/criminal-justice-schools/"
-                                        target="_blank">Criminal Justice Schools</gsml:a></li>
-                            <li><a href="http://www.fishhawkranch.com/" target="_blank">Fishhawk Ranch</a></li>
-                            <li><a href="http://www.k12.com/" target="_blank">K-12</a></li>
-                            <li><a href="http://www2.kelloggs.com/" target="_blank">Kellogg's</a></li>
-                            <li><a href="http://www.kindercare.com/" target="_blank">KinderCare</a></li>
-                            <li><a href="http://www.bing.com/" target="_blank">Microsoft</a></li>
-                            <li><a href="http://www.pampers.com/en_US/easy-ups-potty-training" target="_blank">Pampers EasyUps</a></li>
-                            <li><a href="http://www2.scholastic.com/browse/index.jsp" target="_blank">Scholastic</a></li>
-                            <li><a href="http://www.shutterfly.com/" target="_blank">Shutterfly</a></li>
-                            <li><a href="http://stratfordschools.com" target="_blank">Strattford</a></li>
-                            <li><a href="http://tutoring.sylvanlearning.com/index.cfm" target="_blank">Sylvan Learning Systems</a></li>
-                            <li><a href="http://www.target.com/" target="_blank">Target</a></li>
-                        </ul>
-                    </div>
+                        <li>Bank of America</li>
+                        <li>BrainPop</li>
+                        <li><a href="http://www.cafemom.com" target="_blank">CafeMom</a></li>
+                        <li><a href="http://www.commonsensemedia.com" target="_blank">Common Sense Media</a></li>
+                        <li><a href="http://dallasnews.greatschools.org" target="_blank">Dallas Morning News</a>
+                        </li>
+                        <li><a href="http://www.donorschoose.org" target="_blank">Donor's Choose</a></li>
+                        <li><a href="http://www.hearst.com/" target="_blank">Hearst Coorporation</a></li>
+                        <li><a href="http://www.medianewsgroup.com/Pages/default.aspx"
+                               target="_blank">Media News Group</a></li>
+                        <li>Michael &amp;amp; Susan Dell Foundation</li>
+                        <li><a href="http://momshomeroom.msn.greatschools.org/"
+                               target="_blank">Microsoft, Mom's Homeroom</a></li>
+                        <li><a href="http://mysanantonio.greatschools.org" target="_blank">MySanAntonio.com</a></li>
+                        <li><a href="http://ocregister.greatschools.org" target="_blank">OCRegister</a></li>
+                        <li>Optum Health</li>
+                        <li><a href="http://www.policymap.com" target="_blank">Policy Map</a></li>
+                        <li><a href="http://mercurynews.greatschools.org" target="_blank">San Jose Mercury News</a>
+                        </li>
+                        <li><a href="http://sfgate.greatschools.org" target="_blank">SFGate.com</a></li>
+                        <li>
+                            <a href="http://realestate.yahoo.com/California/San_Francisco/Schools/San_Francisco_Unified_School_District"
+                               target="_blank">Yahoo! Real Estate</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="unit size1of3 middleColGutter-15">
-            <div class="mod sponsors">
-                <div class="inner">
-                    <div class="hd">
-                        <a name="data"><!-- do not collapse --></a>
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="education"><!-- do not collapse --></a>
 
-                        <h3>School Data Partnerships</h3>
-                    </div>
-                    <div class="bd">
-                        <gsml:a href="http://www.DataQualityCampaign.org" target="_blank">
-                            <gsml:img src="/res/img/about/dqc_logo_200.jpg" width="200" height="68" alt="Data Quality Campaign" id="dqc_icon"/>
-                        </gsml:a>
-                        <ul>
-                            <li>Data Quality Campaign
-                                <div id="dqc">
-                                    GreatSchools is an endorsing partner of the Data Quality Campaign, to provide our users with the highest quality of
-                                    information about schools.
+                    <h3>Education Partners</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+
+                        <li>Care2</li>
+                        <li>The College Board<![CDATA[&reg;]]></li>
+                        <li><i>Education Week</i></li>
+                        <li>Just for the Kids</li>
+                        <li>Fund for Public Schools</li>
+                        <li>Partnership for Learning</li>
+                        <li>Scholastic</li>
+                        <li>United States Department of Education</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="outreach"><!-- do not collapse --></a>
+
+                    <h3>Outreach Partners</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+
+                        <li>One Economy Corp.</li>
+                        <li>National Council of La Raza</li>
+                        <li>National Hispanic Caucus</li>
+                        <li>Univision</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="corporate"><!-- do not collapse --></a>
+
+                    <h3>Corporate In-Kind Donations</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+
+                        <li>Adobe</li>
+                        <li><a href="http://www.automatedqa.com/products/testcomplete/"
+                               target="_blank">AutomatedQA: TestComplete</a></li>
+                        <li><a href="http://www.atlassian.com/software/jira/" target="_blank">Atlassian: Jira</a>
+                        </li>
+                        <li><a href="http://www.atlassian.com/software/clover/"
+                               target="_blank">Atlassian: Clover</a></li>
+                        <li><a href="http://www.atlassian.com/software/fisheye/"
+                               target="_blank">Atlassian: FishEye</a></li>
+                        <li>Covington <![CDATA[&amp;]]> Burling</li>
+                        <li><a href="http://www.jetbrains.com/idea/" target="_blank">Jetbrains: IntelliJ IDEA</a>
+                        </li>
+                        <li>Microsoft</li>
+                        <li>Orrick, Herrington and Sutcliffe</li>
+                        <li><a href="http://www.sixapart.com/products/#typepad"
+                               target="_blank">Six Apart: TypePad</a></li>
+                        <li>Symantec</li>
+                        <li><a href="http://www.zeus.com/products/zxtm/" target="_blank">Zeus: ZXTM</a> (<a
+                                href="http://www.zeus.com/library/case_studies/greatschools.html">Case Study</a>)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="realestate"><!-- do not collapse --></a>
+
+                    <h3>Real Estate &amp;amp;<br/>Web Developer Partners</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+
+                        <li>#1 Best Expert</li>
+                        <li>Alan Pinel Realtors</li>
+                        <li>Connecting Neighbors</li>
+                        <li>HomeGain</li>
+                        <li>Move Sales, Inc.</li>
+                        <li>Myers</li>
+                        <li>OnBoard, LLC</li>
+                        <li>Realtor Association of Greater Miami</li>
+                        <li>Realtors Property Resource</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="advertising"><!-- do not collapse --></a>
+
+                    <h3>Advertising Partners</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+
+                        <li><a href="http://www.chevrolet.com/" target="_blank">Chevrolet</a></li>
+                        <li><a href="http://www.claritin.com/claritin/home/index.jspa" target="_blank">Claritin</a></li>
+                        <li><gsml:a href="http://www.criminaljusticedegreeschools.com/criminal-justice-schools/"
+                                    target="_blank">Criminal Justice Schools</gsml:a></li>
+                        <li><a href="http://www.fishhawkranch.com/" target="_blank">Fishhawk Ranch</a></li>
+                        <li><a href="http://www.k12.com/" target="_blank">K-12</a></li>
+                        <li><a href="http://www2.kelloggs.com/" target="_blank">Kellogg's</a></li>
+                        <li><a href="http://www.kindercare.com/" target="_blank">KinderCare</a></li>
+                        <li><a href="http://www.bing.com/" target="_blank">Microsoft</a></li>
+                        <li><a href="http://www.pampers.com/en_US/easy-ups-potty-training"
+                               target="_blank">Pampers EasyUps</a></li>
+                        <li><a href="http://www2.scholastic.com/browse/index.jsp" target="_blank">Scholastic</a></li>
+                        <li><a href="http://www.shutterfly.com/" target="_blank">Shutterfly</a></li>
+                        <li><a href="http://stratfordschools.com" target="_blank">Strattford</a></li>
+                        <li><a href="http://tutoring.sylvanlearning.com/index.cfm"
+                               target="_blank">Sylvan Learning Systems</a></li>
+                        <li><a href="http://www.target.com/" target="_blank">Target</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="line">
+    <div class="unit size11of18">
+        <div class="mod sponsors">
+            <div class="inner">
+                <div class="hd">
+                    <a name="data"><!-- do not collapse --></a>
+
+                    <h3>School Data Partnerships</h3>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li>
+                            <div class="mediaExt1-1">
+                                <div class="imgExt">
+                                    <gsml:a href="http://www.DataQualityCampaign.org" target="_blank">
+                                        <gsml:img src="/res/img/about/dqc_logo_200.jpg" width="200" height="68"
+                                                  alt="Data Quality Campaign" id="dqc_icon"/>
+                                    </gsml:a>
                                 </div>
-                            </li>
-                            <li>National Center for Education Statistics</li>
-                            <li>State departments of education for all 50 states and Washington, D.C.</li>
-                        </ul>
-                    </div>
+                                <div class="bk">Data Quality Campaign<br/>
+                                    <span class="iblock pvm phl">GreatSchools is an endorsing partner of the Data Quality Campaign, to provide our users with the highest quality of
+                                    information about schools.</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>National Center for Education Statistics</li>
+                        <li>State departments of education for all 50 states and Washington, D.C.</li>
+                    </ul>
                 </div>
             </div>
         </div>
-
-        <div class="unit size1of3 lastUnit lastColGutter-15">
-            <!-- do not collapse -->
-        </div>
     </div>
+    <div class="unit size7of18"><!-- do not collapse --></div>
+</div>
+
 
 </div>
 </gsml:body>
