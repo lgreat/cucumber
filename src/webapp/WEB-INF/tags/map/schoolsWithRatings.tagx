@@ -309,7 +309,7 @@ function panUpABit() {
 
 function addBubbleListener(marker, school) {
   GEvent.addListener(marker, "click", function() {
-      if (s.tl &amp;&amp; s.pageName != undefined) {
+      if (window.s &amp;&amp; s.tl &amp;&amp; s.pageName != undefined) {
           s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
       }
       marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
@@ -318,7 +318,7 @@ function addBubbleListener(marker, school) {
 
 function addClickListener(marker, link) {
   GEvent.addListener(marker, "click", function() {
-      if (s.tl &amp;&amp; s.pageName != undefined) {
+      if (window.s &amp;&amp; s.tl &amp;&amp; s.pageName != undefined) {
           s.tl(this, 'o', 'Map_pin_click_' + s.pageName);
       }
       location = link;
