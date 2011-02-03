@@ -245,12 +245,12 @@ var validateFirstName = function(cleanUp) {
 
 var setGoInactive = function(){
     $("#joinBtn").addClass("disable");
-    $("#process_error").show();
+    $("#process_error").show("fast");
 };
 
 var setGoActive= function(){
     $("#joinBtn").removeClass("disable");
-    $("#process_error").hide();
+    $("#process_error").hide("fast");
 };
 
 

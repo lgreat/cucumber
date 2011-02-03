@@ -1212,7 +1212,7 @@ GS.joinHover_passesValidationResponse = function(data) {
     for (_obj in data) objCount++;
 
     if (objCount > 0) {
-        jQuery('#joinGS #process_error').show();
+        jQuery('#joinGS #process_error').show("fast");
 
         /*
         // GS-11161
