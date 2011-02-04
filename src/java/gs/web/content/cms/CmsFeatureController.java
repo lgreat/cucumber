@@ -161,7 +161,7 @@ public class CmsFeatureController extends AbstractController {
         // GS-11227
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         if (sessionContext != null) {
-            model.put("showContextualAds", getShowContextualAds(feature, sessionContext.getABVersion()));
+            model.put("showContextualAds", getShowContextualAds(feature, sessionContext.getABVersion(), sessionContext.getContextualAdsContentExcludes()));
         }
 
         // note: "referer" is a typo in the HTTP spec -- don't fix it here
@@ -219,12 +219,18 @@ public class CmsFeatureController extends AbstractController {
         //return new ModelAndView(getViewName(feature), model);
     }
 
-    static boolean getShowContextualAds(CmsFeature feature, String abVersion) {
+    static boolean getShowContextualAds(CmsFeature feature, String abVersion, String contentExcludes) {
+        Set<String> excludeIds = new HashSet<String>();
+        if (contentExcludes != null) {
+            excludeIds.addAll(Arrays.asList(StringUtils.split(contentExcludes, ',')));
+        }
+
         Set<Long> breadcrumbCategoryIds = new HashSet<Long>();
         for (CmsCategory category : feature.getUniqueKategoryBreadcrumbs()) {
             breadcrumbCategoryIds.add(category.getId());
         }
         return CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) &&
+                !excludeIds.contains(String.valueOf(feature.getContentKey().getIdentifier())) &&
                 CollectionUtils.containsAny(CATEGORIES_FOR_CONTEXTUAL_ADS, breadcrumbCategoryIds) &&
                 "b".equals(abVersion);
     }

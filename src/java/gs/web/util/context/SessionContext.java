@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.48 2011/02/03 00:18:03 yfan Exp $
+ * $Id: SessionContext.java,v 1.49 2011/02/04 19:00:06 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -288,6 +288,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public boolean isPartnerOptInCheckedByDefault() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.PARTNER_OPT_IN_CHECKED_BY_DEFAULT, "true"));
+    }
+
+    public String getContextualAdsContentExcludes() {
+        return _propertyDao.getProperty(IPropertyDao.CONTEXTUAL_ADS_CONTENT_EXCLUDES, "");
     }
 
     public boolean isInterstitialEnabled() {
