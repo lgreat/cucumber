@@ -30,7 +30,6 @@
     <meta name="keywords"
           content="${stateOrDefault.abbreviation} ${displayname} Test Scores, ${stateOrDefault} ${longname} Test Results, ${stateOrDefault.abbreviation} ${longname} Test Scores, ${displayname}, ${longname} testing, ${stateOrDefault.longName} Standardized testing, ${stateOrDefault.abbreviation} Standardized testing "/>
     <title>${title}</title>
-    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
     <pageHelper:externalCss file="/res/css/test/landing.css"/>
     <ad:setSlotPrefix slotPrefix="Test_Score_Landing_Page"/>
@@ -42,7 +41,7 @@
                 if (this[i]==v) return true;
             }
             return false;
-        }
+        };
                 
         function adjustLeftColIE6() {
             if(navigator.userAgent.toLowerCase().indexOf('msie 6') != -1) {
@@ -63,20 +62,18 @@
         }
 
         function changeFindCity(citySelect, state, levels, selectId) {
-            $(selectId).innerHTML = '<select name="city" class="selectCity"><option value="">Loading ...</option></select>';
-            new Ajax.Updater ( selectId, '/test/schoolsInCity.page', {
-                method: 'get',
-                parameters: {state : state, city : citySelect.value, levels: levels },
-                onComplete: function(transport) {
-                    if (transport.responseText.lastIndexOf("option") < 100) {
-                        cityHasSchoolsInCorrectLevel = false;
-                        var levs = buildLevels(levels);
-                        alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
-                    } else {
-                        cityHasSchoolsInCorrectLevel = true;
-                    }
-                }
-            });
+            jQuery('#' + selectId).html('<select name="city" class="selectCity"><option value="">Loading ...</option></select>');
+            jQuery('#' + selectId).load('/test/schoolsInCity.page',
+                        {state : state, city : citySelect.value, levels: levels },
+                        function(responseText) {
+                            if (responseText.lastIndexOf("option") < 100) {
+                                cityHasSchoolsInCorrectLevel = false;
+                                var levs = buildLevels(levels);
+                                alert('No ' + levs + ' schools found in this city. Please choose again.');
+                            } else {
+                                cityHasSchoolsInCorrectLevel = true;
+                            }
+                        });
         }
 
         function checkSchoolSelected(elem) {
@@ -89,24 +86,19 @@
         }
 
         function changeCompareCity(citySelect, state, levels) {
-            new Ajax.Request ('/test/schoolLevelsInCity.page', {
-                method: 'get',
-                parameters: {state : state, city : citySelect.value, levels: levels },
-                onSuccess: function(transport) {
-                    var json = transport.responseText.evalJSON();
-                    levelsInCity = json.levels;
-                },
-                onComplete: function(transport) {
-                    var json = transport.responseText.evalJSON();
-                    if (json.levels.length < 1) {
-                        cityHasSchoolsInCorrectLevel = false;
-                        var levs = buildLevels(levels);
-                        alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
-                    } else {
-                        cityHasSchoolsInCorrectLevel = true;
-                    }                
-                }
-            });
+            jQuery.get('/test/schoolLevelsInCity.page',
+                       {state : state, city : citySelect.value, levels: levels},
+                       function(data) {
+                           if (data.levels.length < 1) {
+                               cityHasSchoolsInCorrectLevel = false;
+                               var levs = buildLevels(levels);
+                               alert('No ' + levs + ' schools found in this city. Please choose again.');
+                           } else {
+                               levelsInCity = data.levels;
+                               cityHasSchoolsInCorrectLevel = true;
+                           }
+                       },
+                       'json');
         }
 
         function checkCompareFields(elem, levels) {
@@ -116,13 +108,14 @@
                 alert("Please select a city and grade level.");
                 return false;
             }
+            var levs;
             if (!cityHasSchoolsInCorrectLevel) {
-                var levs = buildLevels(levels);
+                levs = buildLevels(levels);
                 alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
                 return false;
             }
             if (!levelsInCity.has(levelVal)) {
-                var levs = buildLevels(levelVal);
+                levs = buildLevels(levelVal);
                 alert( 'No ' + levs + ' schools found in this city. Please choose again.' );
                 return false;
             }
