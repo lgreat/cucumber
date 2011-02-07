@@ -28,7 +28,6 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Submit a Parent Survey about ${school.name} in ${school.city}, ${school.databaseState}"/>
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
-    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
     <script type="text/javascript">
         var countWords = makeCountWords(150, "Survey answers are limited to 150 words.");
     </script>
