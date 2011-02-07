@@ -268,7 +268,7 @@ GSType.hover.JoinHover = function() {
         this.showHoverOnExit(GSType.hover.joinHover.showJoinNth);
     };
     this.showHoverOnExit = function(showHoverFunction) {
-        var arr = getElementsByCondition(
+        var arr = GS.getElementsByCondition(
                 function(el) {
                     if (el.tagName == "A") {
                         if (el.target || el.onclick)
@@ -1289,6 +1289,23 @@ GS.community.MySchoolListHelper = function() {
         mslCountInHeader.html("My School List (" + mslCount + ")");
     };
 };
+
+GS.getElementsByCondition = function(condition,container) {
+    container = container||document;
+    var all = container.all||container.getElementsByTagName('*');
+
+    var arr = [];
+    for(var k=0;k<all.length;k++)
+    {
+        var elm = all[k];
+        if(condition(elm,k)) {
+            arr[arr.length] = elm
+        }
+    }
+    all = null;
+    return arr;
+};
+
 
 jQuery(function() {
     GSType.hover.editEmailValidated.loadDialog();
