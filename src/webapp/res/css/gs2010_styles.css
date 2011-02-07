@@ -595,24 +595,32 @@ h4.subhead2 a {
 /* =2 icons
 -------------------------------------------------------------------------------------------*/
 
+/* implementation pattern eg */
+/*
+<span class="sprite discussion"><!-- do not collapse --></span>
+*/
+
 /*
 NOTE:
-If space is required around an icon, please use the CSS margin property.
-Defined margin classes can be found in the "=4 page layouts" section.
+If space is required around an icon, please use a CSS margin property.
+Defined margin classes can be found in the "=6 spacing" section.
 
 WARNING:
 The padding property will increase the size of the viewport and reveal
 additional icons on the sprite.
 
-1) Viewport: the defined width and height of each icon
+Viewport: the defines width and height of each icon
 */
 
-/* column 0 */
+/* **************** SPRITE ***************** */
+
 .sprite {
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2011-01-06.png);
 }
 
+/* **************** VIEWPORT ***************** */
+/* column 0 */
 .reportIt-nbg {
 /* nbg = no background (i.e., transparent) */
     width: 14px;
@@ -1666,6 +1674,36 @@ additional icons on the sprite.
 /* =3 grids
 -------------------------------------------------------------------------------------------*/
 
+/* implementation pattern eg1 (no gutters) */
+/*
+<div class="line">
+  <div class="unit size2of3">
+    Line content goes here.
+  </div>
+  <div class="unit size1of3 lastUnit">
+    More line content goes here.
+  </div>
+</div>
+*/
+
+/* implementation pattern eg2 (10px gutters) */
+/*
+<div class="line">
+  <div class="unit size1of5 firstColGutter-10">
+    Line content goes here.
+  </div>
+  <div class="unit size2of5 middleColGutter-10">
+    More line content goes here.
+  </div>
+  <div class="unit size1of5 middleColGutter-10">
+    Some more line content goes here.
+  </div>
+  <div class="unit size1of5 lastColGutter-10 lastUnit">
+    Even more line content goes here.
+  </div>
+</div>
+*/
+
 .line,
 .lastUnit {
     overflow: hidden;
@@ -2257,11 +2295,12 @@ additional icons on the sprite.
   <a href="http://website.com/" class="img">
     <img src="http://website.com/profile_image.jpg" alt="me" />
   </a>
-  <div class="bd">
+  <div class="bk">
     Media block body content goes here.
   </div>
 </div>
 */
+
 /* original version margin: 10px; gutter: 10px; */
 .media{margin: 10px;}
 .media,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
@@ -2352,6 +2391,20 @@ additional icons on the sprite.
 
 /* =5 modules
 -------------------------------------------------------------------------------------------*/
+
+/* implementation pattern eg */
+/*
+<div class="mod attribution">
+  <div class="inner">
+    <div class="hd">
+      Module block header content goes here.
+    </div>
+    <div class="bd">
+      Module block body content goes here.
+    </div>
+  </div>
+</div>
+*/
 
 /* **************** BLOCK STRUCTURES ***************** */
 /* mod */
