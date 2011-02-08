@@ -8746,6 +8746,11 @@ ul.schoolList div p {
     margin-left: 10px;
     border-bottom: 1px dotted #999;
     overflow: auto;
+    background-color:white;
+}
+
+.schoolList li.highlight {
+    background-color:#f4fafd;
 }
 
 .communityRating {

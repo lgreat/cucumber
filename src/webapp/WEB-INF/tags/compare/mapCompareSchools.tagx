@@ -141,8 +141,9 @@
         });
 
         function GS_highlightCompareMapRow(listItemElement) {
+            //debug(listItemElement);
             jQuery('.js-mouseover-open-bubble').removeClass('highlight');
-            jQuery(this).addClass('highlight');
+            jQuery(listItemElement).addClass('highlight');
         }
 
         GS_initializeCompareMap();
