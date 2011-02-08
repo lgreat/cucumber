@@ -714,7 +714,7 @@
     </c:choose>
 </div>
 
-<c:if test="${showContextualAds and !requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
+<c:if test="${showContextualAds}">
     <!-- start Vibrant Media IntelliTXT script section -->
     <![CDATA[
     <script type="text/javascript" src="http://greatschools.us.intellitxt.com/intellitxt/front.asp?ipid=25436"></script>
