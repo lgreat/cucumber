@@ -141,7 +141,39 @@
         });
 
         function GS_highlightCompareMapRow(listItemElement) {
-            //debug(listItemElement);
+            
+            // reset all sprite icons to white background color
+            jQuery('.communityRating .sprite').each(function() {
+                var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
+                var communityRatingClass = jQuery(this).attr('class');
+                var whiteCommunityRatingClass = communityRatingClass.match(patternWhiteCommunityRating)[0];
+                jQuery(this).removeClass(communityRatingClass).addClass(whiteCommunityRatingClass);
+            });
+            jQuery('.gsRating .sprite').each(function() {
+                var patternWhiteGsRating = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
+                var gsRatingClass = jQuery(this).attr('class');
+                var whiteGsRatingClass = gsRatingClass.match(patternWhiteGsRating)[0];
+                jQuery(this).removeClass(gsRatingClass).addClass(whiteGsRatingClass);
+            });
+
+            // set mouseovered list item sprite icons to blue background color
+            var isWhite = null;
+            var patternBlueClassMarker = /_b/gi;
+            var communityRatingToHighlight = jQuery(listItemElement).find('.communityRating .sprite');
+            var gsRatingToHighlight = jQuery(listItemElement).find('.gsRating .sprite');
+            var communityRatingToHighlightClass = communityRatingToHighlight.attr('class');
+            var gsRatingToHighlightClass = gsRatingToHighlight.attr('class');
+
+            (communityRatingToHighlightClass.match(patternBlueClassMarker) === null) ? isWhite = true : isWhite = false;
+
+            if(isWhite){
+                var blueCommunityRatingClass = communityRatingToHighlightClass + '_b';
+                var blueGsRatingClass = gsRatingToHighlightClass + '_b';
+                communityRatingToHighlight.removeClass(communityRatingToHighlightClass).addClass(blueCommunityRatingClass);
+                gsRatingToHighlight.removeClass(gsRatingToHighlightClass).addClass(blueGsRatingClass);
+            }
+
+            // set appropriate list item background color
             jQuery('.js-mouseover-open-bubble').removeClass('highlight');
             jQuery(listItemElement).addClass('highlight');
         }
