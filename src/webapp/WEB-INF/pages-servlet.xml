@@ -460,13 +460,13 @@
             <value>gs.web.search.SchoolSearchCommand</value>
         </property>
         <property name="schoolSearchService">
-            <ref bean="solrSchoolSearchService"/>
+            <ref bean="luceneSchoolSearchService"/>
         </property>
         <property name="citySearchService">
-            <ref bean="solrCitySearchService"/>
+            <ref bean="luceneCitySearchService"/>
         </property>
         <property name="districtSearchService">
-            <ref bean="solrDistrictSearchService"/>
+            <ref bean="luceneDistrictSearchService"/>
         </property>
     </bean>
 
