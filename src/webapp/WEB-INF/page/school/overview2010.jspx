@@ -90,6 +90,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <school:profile2010ShareThisJavaScript/> 
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
+
+<div class="hreview-aggregate">
+
 <c:set var="adSlotPrefix" value="School_Profile_Page_Overview"/>
 <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
 
@@ -109,8 +112,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div id="overviewColumn1">
 
     <!-- overall school rating box -->
-    <div id="overallRating" class="hreview-aggregate">
+    <div id="overallRating">
 
+        <!-- TODO-11273 -->
+        <!--
         <span style="position:absolute; left:-9999px;">
             <span class="item">
                 <span class="fn">${school.name}</span>
@@ -125,6 +130,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <content:ratingsSummary school="${school}"/>
             </span>
         </span>
+        -->
+        <!-- TODO-11273 -->
 
         <c:if test="${not empty gs_rating}">
             <p class="text3">GreatSchools Rating</p>
@@ -166,7 +173,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
                     <c:choose>
                         <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
-                        <c:otherwise>Read all <span class="count">${numberOfReviews}</span> reviews</c:otherwise>
+                        <c:otherwise>Read all ${numberOfReviews} reviews</c:otherwise>
                     </c:choose>
                 </link:schoolProfileParentReview>
 
@@ -480,6 +487,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                   hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
                   school="${school}"/>
 </div>
+
+</div>
+
 </gsml:body>
 </html>
 </jsp:root>

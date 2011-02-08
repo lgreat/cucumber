@@ -30,7 +30,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         writeOpeningDiv();
 
-        writeParagraph(builder.buildFirstSentence(command) + "  " + builder.buildSecondSentence(command));
+        writeParagraph(builder.buildFirstSentence(command) + "  " + builder.buildSecondSentence(command), "summary");
 
         String p = "";
         if (builder.getClass().isAssignableFrom(PreschoolMessageBuilder.class)){
@@ -95,7 +95,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
     public void writeParagraph(String s, String styleClass) throws JspException, IOException {
 
-        final String OPEN_PARAGRAPH = "<p class='" + styleClass + "'>";
+        final String OPEN_PARAGRAPH = "<p class=\"" + styleClass + "\">";
         final String CLOSE_PARAGRAPH = "</p>";
 
         getJspContext().getOut().write(OPEN_PARAGRAPH + s + CLOSE_PARAGRAPH);
