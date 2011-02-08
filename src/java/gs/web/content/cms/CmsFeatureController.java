@@ -160,10 +160,11 @@ public class CmsFeatureController extends AbstractController {
 
         // GS-11227
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        String contentExcludes = sessionContext.getContextualAdsContentExcludes();
         boolean isAdFree = pageHelper.isAdFree();
-        boolean isAdServedByCobrand = pageHelper.isAdServedByCobrand();
+        boolean isCobrand = sessionContext.isCobranded();
         if (sessionContext != null) {
-            model.put("showContextualAds", getShowContextualAds(feature, sessionContext.getABVersion(), sessionContext.getContextualAdsContentExcludes(), isAdFree, isAdServedByCobrand));
+            model.put("showContextualAds", getShowContextualAds(feature, sessionContext.getABVersion(), contentExcludes, isAdFree, isCobrand));
         }
 
         // note: "referer" is a typo in the HTTP spec -- don't fix it here
@@ -221,8 +222,8 @@ public class CmsFeatureController extends AbstractController {
         //return new ModelAndView(getViewName(feature), model);
     }
 
-    static boolean getShowContextualAds(CmsFeature feature, String abVersion, String contentExcludes, boolean isAdFree, boolean isAdServedByCobrand) {
-        if (isAdFree || isAdServedByCobrand) {
+    static boolean getShowContextualAds(CmsFeature feature, String abVersion, String contentExcludes, boolean isAdFree, boolean isCobrand) {
+        if (isAdFree || isCobrand) {
             return false;
         }
 
