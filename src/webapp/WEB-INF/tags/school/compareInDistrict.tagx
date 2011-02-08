@@ -14,8 +14,6 @@
 <jsp:directive.attribute name="state" required="true" description="2-letter state abbrev" type="java.lang.String"/>
 <jsp:directive.attribute name="levelCode" required="true" description="level codes available in district" type="java.lang.String"/>
 
-    <pageHelper:externalJavascript file="/res/js/prototype.js"/>
-
     <script type="text/javascript">
         <![CDATA[
         //<!--
@@ -25,15 +23,13 @@
             path += state.toLowerCase();
             path += "/?tab=over&area=d&district=";
             var level = "e"; // default
-            var levelRadios = $$('input.level');
-            path += "${district}"
+            path += "${district}";
             path += "&level=";
-            for(var i = 0; i < levelRadios.length; i++) {
-                var inp = levelRadios[i];
-                if (inp.checked) {
-                     level = inp.value;
+            jQuery('#level_radios input.level').each(function() {
+                if (this.checked) {
+                     level = this.value;
                 }
-            }
+            });
             path += level;
             window.location.href = path;
         }
