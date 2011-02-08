@@ -108,7 +108,7 @@
                     <ul id="extraLinks">
                         <c:if test="${hasNearby and (school.levelCode != 'p')}">
                             <li id="nearMore"><link:schoolCompareSchool
-                                    school="${school}">More nearby schools&amp;nbsp;&amp;gt;</link:schoolCompareSchool></li>
+                                    school="${school}">More ${stateName} schools&amp;nbsp;&amp;gt;</link:schoolCompareSchool></li>
                         </c:if>
 
                         <li id="topRatedSchools"><link:city city="${city}"
