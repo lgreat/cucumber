@@ -1,7 +1,4 @@
-// JavaScript Document
-
-jQuery(document).ready(function() {
-
+GS_loadSubnav = function() {
     /* Subnav menus */
     var srchArtTab = jQuery('#srch2').hasClass('active');
     if(srchArtTab){
@@ -21,12 +18,8 @@ jQuery(document).ready(function() {
         jQuery(this).removeClass('over');
     });
 
-    /* My Account menu */
-
-
-    /* search tab click functions */
     jQuery('#topnav_search .radLabel').click(function(){
         jQuery(this).parent('li').removeClass('inactive').addClass('active');
         jQuery(this).parent('li').siblings().removeClass('active').addClass('inactive');
     });
-});
+};

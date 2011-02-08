@@ -341,7 +341,9 @@
             </c:otherwise>
         </c:choose>
 
-
+<script type="text/javascript">
+    GS_loadSubnav();
+</script>
 </div>
 <jsp:scriptlet>
     // GS-9975
