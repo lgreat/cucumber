@@ -114,25 +114,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <!-- overall school rating box -->
     <div id="overallRating">
 
-        <!-- TODO-11273 -->
-        <!--
-        <span style="position:absolute; left:-9999px;">
-            <span class="item">
-                <span class="fn">${school.name}</span>
-            </span>
-            <span class="rating">
-                <span class="average">${overallRating}</span> out of
-                <span class="best">5</span>
-            </span>
-            <span class="votes">${ratings.count}</span> ratings.
-            <span class="count">${numberOfReviews}</span> user reviews.
-            <span class="summary">
-                <content:ratingsSummary school="${school}"/>
-            </span>
-        </span>
-        -->
-        <!-- TODO-11273 -->
-
         <c:if test="${not empty gs_rating}">
             <p class="text3">GreatSchools Rating</p>
 
