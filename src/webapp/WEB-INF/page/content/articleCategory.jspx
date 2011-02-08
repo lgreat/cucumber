@@ -27,7 +27,7 @@
     <meta name="robots" content="follow,noindex"/>
 </head>
 
-<gsml:body adPageName="articleCategory" pageLayout="nocol">
+<gsml:body adPageName="articleCategory">
 <pageHelper:setPathway pathway="LIBRARY"/>
 <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 <pageHelper:externalCss file="/res/css/brand.css"/>
@@ -50,11 +50,13 @@
     <c:set var="px" value="${(page * pageSize)}"/>
 </c:if>
 
-<gsml:equalizeColumns ids="'col_left','col_right'"/>
+<!--<gsml:equalizeColumns ids="'col_left','col_right'"/>-->
 
-<div id="contentLeft">
+<div id="mainGS" class="col">
+
+<!--<div id="contentLeft">-->
     <content:librarySidebar cssClass="white" />
-</div>
+<!--</div>-->
 
 <c:set var="isALearningDisabilityCategory" value="${requestScope.isAnLDCategory}"/>
 
@@ -119,7 +121,9 @@
 
 </div>
 
-<div id="col_right">
+</div>
+
+<div id="sidebarGS" class="col">
     <ad:setSlotPrefix slotPrefix="Browse_Articles"/>
     <!-- aroy: GS-7191 comment out related posts module until further notice -->
     <!--<jsp:include page="/community/relatedPostsCategoryBrowse.module">-->

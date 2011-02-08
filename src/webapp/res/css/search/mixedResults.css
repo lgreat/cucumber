@@ -1,9 +1,9 @@
-#col_left {
+/*#col_left {
     width: 525px;
     float: left;
     border-right: 1px solid #ccc;
     padding: 0 10px 0 17px;
-}
+}*/
 
 #col_right {
     width: 300px;
@@ -155,7 +155,7 @@ div.phone {
 }
 
 #searchResultsList .article {
-    width: 500px;
+    /*width: 500px;*/
 }
 
 #searchResultsList .rating {

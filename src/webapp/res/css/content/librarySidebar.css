@@ -2,11 +2,11 @@
 #librarySidebar {
 	width: 164px;
 	float: left;
-	margin-left: 10px;
-    display: inline;
+	/*margin-left: 10px;*/
+    display: block;
 }
 #librarySidebar.white {
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
 
 .cmsArticleLeftNav #librarySidebar {

@@ -3051,7 +3051,7 @@ body.ie6 .clearfix {
 #nearbyWrapper,
 #nthGraderAd,
 #Promo_300x250 {
-    text-align: center;
+    width:300px;
     margin: 0 auto 1em;
 }
 

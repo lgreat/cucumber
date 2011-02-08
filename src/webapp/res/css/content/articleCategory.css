@@ -11,13 +11,19 @@
     margin-left: 5px; /* GS-7616: IE6 only */
 }
 
-#col_left {
+/*#col_left {
     padding-left: 10px;
     width:440px;
 }
 
 * html #col_left {
-    padding-right: 5px; /* GS-7616: IE6 only */
+    padding-right: 5px; *//* GS-7616: IE6 only *//*
+}*/
+
+#col_left{
+    display:block;
+    float:left;
+    padding-left:20px;
 }
 
 #col_left h1 {
@@ -140,7 +146,11 @@ div.abstract {
     left: 313px;
 }
 
-#searchResultsList .article, #searchResults {
-    width:440px;
+#searchResults {
+    width:414px;
+    /*padding-left:20px;*/
 }
 
+#searchResultsList .article{
+    display:block;
+}
