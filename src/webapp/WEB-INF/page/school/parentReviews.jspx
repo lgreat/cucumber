@@ -145,7 +145,6 @@
                             not empty cmd.ratings.avgPrincipal
                          or not empty cmd.ratings.avgTeachers
                          or not empty cmd.ratings.avgParents}"/>
-<!--<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>-->
 
 <!--<p>the new redesign code goes here</p>-->
 <!--<p>Overall rating is: <c:out value="${cmd.ratings.overall}" default="not set"/></p>-->

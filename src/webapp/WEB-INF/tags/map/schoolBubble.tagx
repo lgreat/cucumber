@@ -53,7 +53,7 @@ height += heightMultiplier * 13;-->
                         <c:choose>
                             <c:when test="${not empty parentRating}">
                                 <!-- do not split this into a separate line; it will break the map -->
-                                <div class="smallText1-333"><c:choose><c:when test="${requestScope.context.showReviewsPageRedesign}">Community Rating</c:when><c:otherwise>Overall Parent Rating</c:otherwise></c:choose></div>
+                                <div class="smallText1-333">Community Rating</div>
                                 <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
                             </c:when>
                             <c:otherwise>

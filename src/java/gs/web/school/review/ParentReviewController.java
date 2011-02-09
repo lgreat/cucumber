@@ -171,85 +171,70 @@ public class ParentReviewController extends AbstractController {
                 model.put("loginRedirectUrl", "#");                
             }
 
-            if (sessionContext.isShowReviewsPageRedesign()) {
-                if (numReviewsBy != null) {
-                    model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
-                    model.put("numStudentReviews", numReviewsBy.get(Poster.STUDENT));
+            if (numReviewsBy != null) {
+                model.put("numParentReviews", numReviewsBy.get(Poster.PARENT));
+                model.put("numStudentReviews", numReviewsBy.get(Poster.STUDENT));
 
-                    int numTeacherStaffReviews = 0;
-                    Integer numTeacherReviews = numReviewsBy.get(Poster.TEACHER);
-                    if (numTeacherReviews != null) {
-                        numTeacherStaffReviews += numTeacherReviews;
-                    }
-                    Integer numStaffReviews = numReviewsBy.get(Poster.STAFF);
-                    if (numStaffReviews != null) {
-                        numTeacherStaffReviews += numStaffReviews;
-                    }
-                    Integer numAdminReviews = numReviewsBy.get(Poster.ADMINISTRATOR);
-                    if (numAdminReviews != null) {
-                        numTeacherStaffReviews += numAdminReviews;
-                    }
-
-                    model.put("numTeacherStaffReviews", numTeacherStaffReviews);
+                int numTeacherStaffReviews = 0;
+                Integer numTeacherReviews = numReviewsBy.get(Poster.TEACHER);
+                if (numTeacherReviews != null) {
+                    numTeacherStaffReviews += numTeacherReviews;
                 }
-                model.put("reviewsByCsv", getReviewsByCsv(reviewsBy));
-                model.put(MODEL_URI, request.getRequestURI());
-
-                model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
-                model.put("param_reviewsby", PARAM_REVIEWS_BY);
-
-                processSubcategoryRatings(model, school, ratings);
-
-                // reviews to show
-                List<Review> reviewsToShow;
-                int page = 1;
-                if (reviews.size() == 0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
-                    reviewsToShow = reviews;
-                } else {
-                    String pageParam = request.getParameter(PARAM_PAGE);
-                    if (pageParam != null) {
-                        try {
-                            page = Integer.parseInt(pageParam);
-                        } catch (Exception e) {
-                            // do nothing
-                        }
-                    }
-                    int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
-                    int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
-
-                    if ("principal".equals(reviews.get(0).getWho())) {
-                        fromIndex++;
-                        toIndex++;
-                    }
-
-                    toIndex = Math.min(toIndex, reviews.size());
-
-                    reviewsToShow = reviews.subList(fromIndex, toIndex);
+                Integer numStaffReviews = numReviewsBy.get(Poster.STAFF);
+                if (numStaffReviews != null) {
+                    numTeacherStaffReviews += numStaffReviews;
                 }
-                model.put("reviewsToShow", reviewsToShow);
-                model.put("page", page);
-                model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(cmd.getTotalReviews(), reviewsBy, paramSortBy));
-
-                // GS-10709
-                UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
-                model.put("relCanonical", builder.asFullUrlXml(request));
-
-                // GS-10633
-                processOverallRatingsByYear(model, school);
-            } else {
-                if (sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
-                    cmd.setMaxReviewsPerPage(reviews.size());
-                } else {
-                    cmd.setMaxReviewsPerPage(MAX_REVIEWS_PER_PAGE);
+                Integer numAdminReviews = numReviewsBy.get(Poster.ADMINISTRATOR);
+                if (numAdminReviews != null) {
+                    numTeacherStaffReviews += numAdminReviews;
                 }
 
-                String pagerOffset = request.getParameter(PARAM_PAGER_OFFSET);
-                if (StringUtils.isBlank(pagerOffset) || "0".equals(pagerOffset)) {
-                    cmd.setShowParentReviewForm(true);
-                } else {
-                    cmd.setShowParentReviewForm(false);
-                }
+                model.put("numTeacherStaffReviews", numTeacherStaffReviews);
             }
+            model.put("reviewsByCsv", getReviewsByCsv(reviewsBy));
+            model.put(MODEL_URI, request.getRequestURI());
+
+            model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
+            model.put("param_reviewsby", PARAM_REVIEWS_BY);
+
+            processSubcategoryRatings(model, school, ratings);
+
+            // reviews to show
+            List<Review> reviewsToShow;
+            int page = 1;
+            if (reviews.size() == 0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
+                reviewsToShow = reviews;
+            } else {
+                String pageParam = request.getParameter(PARAM_PAGE);
+                if (pageParam != null) {
+                    try {
+                        page = Integer.parseInt(pageParam);
+                    } catch (Exception e) {
+                        // do nothing
+                    }
+                }
+                int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
+                int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
+
+                if ("principal".equals(reviews.get(0).getWho())) {
+                    fromIndex++;
+                    toIndex++;
+                }
+
+                toIndex = Math.min(toIndex, reviews.size());
+
+                reviewsToShow = reviews.subList(fromIndex, toIndex);
+            }
+            model.put("reviewsToShow", reviewsToShow);
+            model.put("page", page);
+            model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(cmd.getTotalReviews(), reviewsBy, paramSortBy));
+
+            // GS-10709
+            UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            model.put("relCanonical", builder.asFullUrlXml(request));
+
+            // GS-10633
+            processOverallRatingsByYear(model, school);
 
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);

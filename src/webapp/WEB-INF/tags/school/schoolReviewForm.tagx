@@ -30,11 +30,6 @@
     request.setAttribute("schoolReviewShowStudent", showStudent);
 </jsp:scriptlet>
 
-<!--<p>Review page redesign scope is: <c:out value="${requestScope.context.showReviewsPageRedesign}" default="not set"/></p>-->
-
-
-        <!--<p>the new redesign code goes here</p>-->
-
         <div class="spacer_10"><!-- do not collapse --></div>
         <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
             <fieldset>

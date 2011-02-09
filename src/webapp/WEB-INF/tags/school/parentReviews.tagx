@@ -69,14 +69,7 @@
             <div id="overallRating2">
                 <c:if test="${not empty ratings.overall}">
                     <p class="text2bold">
-                        <c:choose>
-                            <c:when test="${requestScope.context.showReviewsPageRedesign}">
-                                Community Rating
-                            </c:when>
-                            <c:otherwise>
-                                Overall Parent Rating
-                            </c:otherwise>
-                        </c:choose>
+                        Community Rating
                     </p>
 
                     <div class="spacer_5"><!-- do not collapse --></div>

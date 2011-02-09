@@ -96,14 +96,7 @@
             <th class="text-align-lft">SCHOOL</th>
             <th align="center">GREATSCHOOLS RATING</th>
             <th align="center">
-                <c:choose>
-                    <c:when test="${requestScope.context.showReviewsPageRedesign}">
-                        COMMUNITY RATING
-                    </c:when>
-                    <c:otherwise>
-                        PARENT RATING
-                    </c:otherwise>
-                </c:choose>
+                COMMUNITY RATING
             </th>
             <th><!-- do not collapse --></th>
         </tr>
@@ -283,14 +276,7 @@
             <th><!-- do not collapse --></th>
             <th class="text-align-lft">SCHOOL</th>
             <th align="center">
-                <c:choose>
-                    <c:when test="${requestScope.context.showReviewsPageRedesign}">
-                        COMMUNITY RATING
-                    </c:when>
-                    <c:otherwise>
-                        PARENT RATING
-                    </c:otherwise>
-                </c:choose>
+                COMMUNITY RATING
             </th>
             <th><!-- do not collapse --></th>
         </tr>

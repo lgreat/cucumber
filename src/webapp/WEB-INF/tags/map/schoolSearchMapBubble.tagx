@@ -58,24 +58,6 @@ height += heightMultiplier * 13;
                     </c:if>
                 </div>
             </div>
-
-            <!--<div class="unit size3of7 lastUnit">
-                <div class="schoolRatings">
-                    &lt;!&ndash;<link:schoolProfileParentReview anchor="schoolReviewSubmitForm" school="${school}">&ndash;&gt;
-                        <c:choose>
-                            <c:when test="${not empty parentRating}">
-                                &lt;!&ndash; do not split this into a separate line; it will break the map &ndash;&gt;
-                                <div class="smallText1-333"><c:choose><c:when test="${requestScope.context.showReviewsPageRedesign}">Community Rating</c:when><c:otherwise>Overall Parent Rating</c:otherwise></c:choose></div>
-                                <span class="sprite stars_sm_${parentRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>
-                                <span class="sprite stars_sm_rate_it">&lt;!&ndash; do not collapse &ndash;&gt;</span>
-                            </c:otherwise>
-                        </c:choose>
-                    &lt;!&ndash;</link:schoolProfileParentReview>&ndash;&gt;
-                </div>
-            </div>-->
         </div>
         <div class="spacer_5"><!-- do not collapse --></div>
 
@@ -94,14 +76,6 @@ height += heightMultiplier * 13;
                        onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions</a>
                 </div>
             </div>
-            <!--<div class="unit size1of3 lastUnit">
-                <div class="homesForSale">
-                <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
-                <a href="http://www.realtor.com/realestateandhomes-search/${school.address.zip}?gate=gs&amp;amp;source=a28956"
-                   onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
-                   rel="nofollow">Homes for sale</a>
-                </div>
-            </div>-->
         </div>
     </div>
 </jsp:root>

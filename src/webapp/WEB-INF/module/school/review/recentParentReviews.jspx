@@ -10,10 +10,7 @@
 <c:if test="${not empty reviews}">
 <div class="recentParentReviews">
 
-    <h2><c:choose>
-            <c:when test="${requestScope.context.showReviewsPageRedesign}">Recent Reviews</c:when>
-            <c:otherwise>Recent Parent Reviews</c:otherwise>
-        </c:choose></h2>
+    <h2>Recent Reviews</h2>
     <div class="recentParentReviewsContent">
     <table cellpadding="0" cellspacing="0" width="100%">
 

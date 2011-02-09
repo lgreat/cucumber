@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.50 2011/02/09 00:53:34 yfan Exp $
+ * $Id: SessionContext.java,v 1.51 2011/02/09 01:40:18 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -271,10 +271,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public String getDcNclbYearRange() {
         return _propertyDao.getProperty(IPropertyDao.DC_NCLB_YEAR_RANGE_KEY, "");
-    }
-
-    public boolean isShowReviewsPageRedesign() {
-        return "true".equals(_propertyDao.getProperty(IPropertyDao.SHOW_REVIEWS_PAGE_REDESIGN_KEY, "false"));
     }
 
     public String getSavvyEmailSubscriptionName() {

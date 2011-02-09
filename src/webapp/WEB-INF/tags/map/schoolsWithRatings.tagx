@@ -159,16 +159,8 @@ function initSchoolInfo() {
                     school="${curSchool}"><img src="/res/img/school/ratings/rateit_01.gif" alt="Rate this school!" onmouseover="this.src=\\'/res/img/school/ratings/rateit_03.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/rateit_01.gif\\'"/></link:schoolProfileParentReview>';
        </c:when>
        <c:otherwise>
-           <c:choose>
-               <c:when test="${requestScope.context.showReviewsPageRedesign}">
-                   mySchool.parentRatingHtml += '<div>Community Rating</div>'
-                   mySchool.parentRatingHtml += '<gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Community rating ${parent_rating}"/>';
-               </c:when>
-               <c:otherwise>
-                   mySchool.parentRatingHtml += '<div>Parent Rating</div>'
-                   mySchool.parentRatingHtml += '<gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/>';
-               </c:otherwise>
-           </c:choose>
+            mySchool.parentRatingHtml += '<div>Community Rating</div>'
+            mySchool.parentRatingHtml += '<gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Community rating ${parent_rating}"/>';
        </c:otherwise>
 
     </c:choose>

@@ -130,15 +130,7 @@
     </p>
     <ul>
         <li><span>Easily assess the academic performance of a school</span></li>
-        <li><span>See how other
-            <c:choose>
-                <c:when test="${requestScope.context.showReviewsPageRedesign}">
-                    school community members
-                </c:when>
-                <c:otherwise>
-                    parents
-                </c:otherwise>
-            </c:choose>
+        <li><span>See how other school community members
              rate and review specific schools</span></li>
         <li><span>Map schools by address, zip code or city</span></li>
     </ul>
