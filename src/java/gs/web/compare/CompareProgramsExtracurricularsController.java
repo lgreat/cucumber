@@ -32,7 +32,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
 //    public static final String ROW_LABEL_SPECIAL_PROGRAMS = "Other special programs";
     public static final String ROW_LABEL_VOCATIONAL = "Vocational programs";
     public static final String ROW_LABEL_BEFORE_AFTER_SCHOOL = "Before/After school care";
-    public static final String ROW_LABEL_LEARNING_DISABILITIES = "Learning disabilities";
+    public static final String ROW_LABEL_LEARNING_DISABILITIES = "Special education";
 
     private static Map<String, String> _questionAnswerToLabelMap = new HashMap<String, String>() {
         {
