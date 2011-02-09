@@ -3,13 +3,13 @@ package gs.web.school;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.util.PageHelper;
 import gs.web.util.google.GoogleSpreadsheetDaoFactory;
 import gs.data.util.table.ITableDao;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
@@ -30,6 +30,8 @@ public class ResearchControllerTest extends BaseControllerTestCase {
         _controller.setTableDao(tableDao);
         _controller.setStateSpecificFooterHelper(org.easymock.classextension.EasyMock.createMock(
                 StateSpecificFooterHelper.class));
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
     }
 
     public void testLoadCache() throws Exception {
@@ -46,6 +48,26 @@ public class ResearchControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
         assertNotNull (mAndV);
+    }
+
+    public void testGamAttributes() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
+
+        PageHelper referencePageHelper = new PageHelper(_sessionContext, _request);
+        referencePageHelper.addAdKeywordMulti("editorial", "Find a School");
+
+        PageHelper pageHelper = (PageHelper) getRequest().getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+
+        Collection referenceEditorialKeywords = (Collection)referencePageHelper.getAdKeywords().get("editorial");
+        Collection actualEditorialKeywords = (Collection)pageHelper.getAdKeywords().get("editorial");
+        assertEquals(referenceEditorialKeywords.size(), actualEditorialKeywords.size());
+
+        SortedSet referencedEditorialKeywordsSorted = new TreeSet();
+        referencedEditorialKeywordsSorted.addAll(referenceEditorialKeywords);
+        SortedSet actualEditorialKeywordsSorted = new TreeSet();
+        actualEditorialKeywordsSorted.addAll(actualEditorialKeywords);
+        assertEquals("Expected identical ad keywords", referencedEditorialKeywordsSorted, actualEditorialKeywordsSorted);
     }
 
     public void testFindTopRatedSchoolsForm() throws Exception {

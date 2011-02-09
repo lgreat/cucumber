@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.util.PageHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -161,6 +162,12 @@ public class ResearchController extends AbstractController implements IDirectory
         }
 
         _stateSpecificFooterHelper.placePopularCitiesInModel(state, mAndV.getModel());
+
+        // Google Ad Manager ad keywords
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.addAdKeywordMulti("editorial", "Find a School");
+        }
 
         return mAndV;
     }

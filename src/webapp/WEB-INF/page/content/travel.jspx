@@ -44,7 +44,8 @@
 <jsp:scriptlet>
     PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
     if (pageHelper != null) {
-        pageHelper.addAdKeyword("editorial", "Travel");
+        pageHelper.addAdKeywordMulti("editorial", "Travel");
+        pageHelper.addAdKeywordMulti("editorial", "Academics &amp; Activities");
     }
 </jsp:scriptlet>
 
