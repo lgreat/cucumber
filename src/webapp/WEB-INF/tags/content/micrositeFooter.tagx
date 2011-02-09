@@ -15,9 +15,6 @@
                              description="Key for content in final box" required="true"/>
 
     <pageHelper:externalCss file="/res/css/content/micrositeFooter.css"/>
-    <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-    <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-    <pageHelper:addOnLoadHandler handler="initPopUp('newsletterHover');"/>
 
     <jsp:scriptlet>
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);

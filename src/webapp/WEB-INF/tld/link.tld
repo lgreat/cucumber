@@ -3964,30 +3964,6 @@
     </tag>
 
     <tag>
-        <name>holidayGiving</name>
-        <tag-class>gs.web.jsp.link.HolidayGivingTagHandler</tag-class>
-        <body-content>JSP</body-content>
-        <display-name>holidayGiving</display-name>
-        <description>
-            <![CDATA[Link to the holiday giving page.]]>
-        </description>
-        <attribute>
-            <name>styleClass</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>CSS class name(s)</description>
-        </attribute>
-        <attribute>
-            <name>id</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>CSS id</description>
-        </attribute>
-    </tag>
-
-    <tag>
         <name>schoolFinderCustomization</name>
         <tag-class>gs.web.jsp.link.SchoolFinderCustomizationTagHandler</tag-class>
         <body-content>JSP</body-content>

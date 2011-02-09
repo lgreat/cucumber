@@ -86,7 +86,6 @@
                 <entry key="/middle-school/**" value="/content/cms/topicCenter.page"/>
                 <entry key="/high-school/**" value="/content/cms/topicCenter.page"/>
                 <entry key="/education-topics/**" value="/content/library.page"/>
-                <entry key="/holiday-giving/**" value="/content/holidayGiving.page"/>
                 <entry key="/school-choice/**" value="/content/schoolChoice.page"/>
                 <entry key="/badges/**" value="/school/topHighSchoolsBadges.page"/>
                 <entry key="/pledge/**" value="/backToSchool/pledgeLanding.page"/>
@@ -1226,12 +1225,6 @@
         <property name="viewName" value="/content/holidayLearning"/>
     </bean>
 
-    <bean name="/content/holidayGiving.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/holidayGiving"/>
-    </bean>
-
     <bean name="/content/movingWithKids.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
@@ -1242,34 +1235,6 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/mediaChoices"/>
-    </bean>
-
-    <bean name="/content/actionForEducation.page"
-          class="gs.web.content.Election2008Controller"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="formView" value="/content/election2008"/>
-        <property name="successView" value="/content/election2008Confirm"/>
-        <property name="commandName" value="edin08Cmd"/>
-        <property name="commandClass" value="gs.web.content.Election2008Command"/>
-    </bean>
-
-    <bean name="/content/actionForEducationEmail.page"
-          class="gs.web.content.Election2008EmailConfirmController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="formView" value="/content/election2008Confirm"/>
-        <property name="successView" value="/content/election2008Confirm"/>
-        <property name="commandName" value="edin08Cmd"/>
-        <property name="commandClass" value="gs.web.content.Election2008EmailCommand"/>
-        <property name="mailSender" ref="mailSender"/>
-
-    </bean>
-
-    <bean name="/content/actionForEducationQuiz.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/content/election2008Quiz"/>
     </bean>
 
     <bean id="gradeLevelLandingPageLinksFactory"
@@ -1459,63 +1424,6 @@
     </bean>
 
     <!--My School stats newsletter popups-->
-    <bean name="/community/newsletters/popup/mss/page1.page"
-          class="gs.web.community.newsletters.popup.MssPaController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="newsCmd"/>
-        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
-        <property name="formView" value="/community/newsletters/popup/mss/page1"/>
-        <property name="successView" value="redirect:/community/newsletters/popup/mss/page2.page"/>
-        <property name="onLoadValidators">
-            <list>
-                <ref bean="stateValidator"/>
-                <ref bean="schoolIdValidator"/>
-            </list>
-        </property>
-        <property name="validators">
-            <list>
-                <ref bean="schoolIdValidator"/>
-                <ref bean="emailValidator"/>
-                <ref bean="newsCheckBoxValidator"/>
-            </list>
-        </property>
-    </bean>
-    <bean name="/community/newsletters/popup/mss/page2.page"
-          class="gs.web.community.newsletters.popup.NthGraderController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="newsCmd"/>
-        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
-        <property name="formView" value="/community/newsletters/popup/mss/page2"/>
-        <property name="successView" value="redirect:/community/newsletters/popup/mss/page3.page"/>
-        <property name="onLoadValidators">
-            <list>
-                <ref bean="emailValidator"/>
-                <ref bean="stateValidator"/>
-                <ref bean="schoolIdValidator"/>
-            </list>
-        </property>
-        <property name="validators">
-            <list>
-                <ref bean="emailValidator"/>
-            </list>
-        </property>
-    </bean>
-    <bean name="/community/newsletters/popup/mss/page3.page"
-          class="gs.web.community.newsletters.popup.SubscriptionSummaryController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="newsCmd"/>
-        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
-        <property name="formView" value="/community/newsletters/popup/mss/page3"/>
-        <property name="successView" value="/community/newsletters/popup/mss/page3"/>
-        <property name="onLoadValidators">
-            <list>
-                <ref bean="emailValidator"/>
-            </list>
-        </property>
-    </bean>
     <bean name="/community/newsletters/popup/mss/coreg.page"
           class="gs.web.community.newsletters.popup.SubscriptionSummaryController"
           autowire="byName" lazy-init="true">
@@ -1524,11 +1432,6 @@
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
         <property name="formView" value="/community/newsletters/popup/mss/coreg"/>
         <property name="successView" value="/community/newsletters/popup/mss/coreg"/>
-    </bean>
-    <bean name="/community/newsletters/popup/community.page"
-          class="gs.web.community.newsletters.popup.CommunitySubscriptionController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/community/newsletters/popup/community"/>
     </bean>
     <!--End Myschool stats newsletter popups -->
 
@@ -2159,14 +2062,6 @@
 
     <!-- XML feed related web services -->
     <bean name="/util/feed/city.page" class="gs.web.util.feed.CityFeedController" autowire="byName" lazy-init="true"/>
-
-    <bean name="/content/btsQuiz.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>content/btsQuiz</value>
-        </property>
-    </bean>
 
     <!-- schwab learning redirects -->
     <bean name="/content/schwabArticle.page"
