@@ -60,6 +60,7 @@
             var numSchools = 0;
             GS_compareMapInfoWindow = new google.maps.InfoWindow();
             google.maps.event.addListener(GS_compareMapInfoWindow, 'closeclick', function() {
+                GS_resetCompareMapRows();
                 GS_compareMapCurrentOpenSchool = null;
             });
             bounds.extend(latlng);
@@ -105,6 +106,9 @@
                     s.tl(true, 'o', 'Map_pin_click_' + s.pageName);
                 }
                 var infowindowElement = jQuery('#mapBubble_' + schoolIdentifier);
+
+                GS_highlightCompareMapRowFromPin(schoolIdentifier);
+
                 GS_compareMapInfoWindow.setContent(
                         '<div style="width:325px;">'+infowindowElement.html()+'</div>'
                         );
@@ -118,6 +122,7 @@
                     GS_compareMapInfoWindow.open(map, marker);
                     GS_compareMapCurrentOpenSchool = schoolIdentifier;
                 });
+                GS_highlightCompareMapRowFromPin(schoolIdentifier);
             }
         }
 
@@ -141,20 +146,8 @@
         });
 
         function GS_highlightCompareMapRow(listItemElement) {
-            
-            // reset all sprite icons to white background color
-            jQuery('.communityRating .sprite').each(function() {
-                var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
-                var communityRatingClass = jQuery(this).attr('class');
-                var whiteCommunityRatingClass = communityRatingClass.match(patternWhiteCommunityRating)[0];
-                jQuery(this).removeClass(communityRatingClass).addClass(whiteCommunityRatingClass);
-            });
-            jQuery('.gsRating .sprite').each(function() {
-                var patternWhiteGsRating = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
-                var gsRatingClass = jQuery(this).attr('class');
-                var whiteGsRatingClass = gsRatingClass.match(patternWhiteGsRating)[0];
-                jQuery(this).removeClass(gsRatingClass).addClass(whiteGsRatingClass);
-            });
+            //debug(listItemElement);
+            GS_resetCompareMapRows();
 
             // set mouseovered list item sprite icons to blue background color
             var isWhite = null;
@@ -174,8 +167,47 @@
             }
 
             // set appropriate list item background color
-            jQuery('.js-mouseover-open-bubble').removeClass('highlight');
             jQuery(listItemElement).addClass('highlight');
+        }
+
+        function GS_highlightCompareMapRowFromPin(schoolIdentifier) {
+            GS_resetCompareMapRows();
+            //debug(schoolIdentifier);
+
+            var isWhite = null;
+            var patternBlueClassMarker = /_b/gi;
+            var communityRatingToHighlight = jQuery('#school-listitem-' + schoolIdentifier).find('.communityRating .sprite');
+            var gsRatingToHighlight = jQuery('#school-listitem-' + schoolIdentifier).find('.gsRating .sprite');
+            var communityRatingToHighlightClass = communityRatingToHighlight.attr('class');
+            var gsRatingToHighlightClass = gsRatingToHighlight.attr('class');
+
+            (communityRatingToHighlightClass.match(patternBlueClassMarker) === null) ? isWhite = true : isWhite = false;
+
+            if(isWhite){
+                var blueCommunityRatingClass = communityRatingToHighlightClass + '_b';
+                var blueGsRatingClass = gsRatingToHighlightClass + '_b';
+                communityRatingToHighlight.removeClass(communityRatingToHighlightClass).addClass(blueCommunityRatingClass);
+                gsRatingToHighlight.removeClass(gsRatingToHighlightClass).addClass(blueGsRatingClass);
+            }
+
+            jQuery('#school-listitem-' + schoolIdentifier).addClass('highlight');
+        }
+
+        function GS_resetCompareMapRows() {
+            jQuery('.js-mouseover-open-bubble').removeClass('highlight');
+            // reset all sprite icons to white background color
+            jQuery('.communityRating .sprite').each(function() {
+                var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
+                var communityRatingClass = jQuery(this).attr('class');
+                var whiteCommunityRatingClass = communityRatingClass.match(patternWhiteCommunityRating)[0];
+                jQuery(this).removeClass(communityRatingClass).addClass(whiteCommunityRatingClass);
+            });
+            jQuery('.gsRating .sprite').each(function() {
+                var patternWhiteGsRating = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
+                var gsRatingClass = jQuery(this).attr('class');
+                var whiteGsRatingClass = gsRatingClass.match(patternWhiteGsRating)[0];
+                jQuery(this).removeClass(gsRatingClass).addClass(whiteGsRatingClass);
+            });
         }
 
         GS_initializeCompareMap();
