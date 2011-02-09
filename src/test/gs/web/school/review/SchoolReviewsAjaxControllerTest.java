@@ -14,10 +14,11 @@ import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.IReportContentService;
-import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -132,6 +133,41 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         verify(_exactTargetAPI);
         verify(_heldSchoolDao);
         verify(_emailVerificationEmail);
+    }
+
+    public void testSubmitDuplicateKey() throws Exception {
+        User user = new User();
+        user.setEmail("ssprouse@greatschools.org");
+        user.setId(1);
+
+        _command.setComments("safe safe safe safe safe safe safe safe safe safe safe safe.");
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        replay(_userDao);
+
+        expect(_reviewDao.findReview(_user, _school)).andReturn(null);
+        _reviewDao.saveReview((Review) anyObject());
+        expectLastCall().andThrow(new DataIntegrityViolationException("testSubmitDuplicateKey"));
+
+        //should not send "review posted email" on duplicate exception
+
+        replay(_reviewDao);
+        replay(_exactTargetAPI);
+
+        replay(_subscriptionDao);
+        expect(_heldSchoolDao.isSchoolOnHoldList(_school)).andReturn(false);
+        replay(_heldSchoolDao);
+        replay(_emailVerificationEmail);
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        ModelAndView rval = _controller.handle(_request, _response, _command, _errors);
+        verify(_userDao);
+        verify(_reviewDao);
+        verify(_subscriptionDao);
+        verify(_exactTargetAPI);
+        verify(_heldSchoolDao);
+        verify(_emailVerificationEmail);
+        assertNull("Expect empty response on exception", rval);
     }
 
     public void testSubmitExistingUserWithPasswordNoExistingReview() throws Exception {

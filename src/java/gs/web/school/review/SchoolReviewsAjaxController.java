@@ -6,9 +6,7 @@ import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
 import gs.data.school.IHeldSchoolDao;
 import gs.data.school.ISchoolDao;
-import gs.data.school.LevelCode;
 import gs.data.school.School;
-import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Review;
@@ -26,6 +24,7 @@ import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
@@ -202,7 +201,14 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         }
 
         //save the review
-        getReviewDao().saveReview(review);
+        try {
+            getReviewDao().saveReview(review);
+        } catch (DataIntegrityViolationException dive) {
+            _log.warn("Ignoring duplicate review attempt: " + review.getMemberId() + "-" +
+                              review.getSchool().getStateAbbreviation() + "-" + review.getSchool().getId());
+            ThreadLocalTransactionManager.setRollbackOnly();
+            return null;
+        }
 
         // Before any reports are created, we should check something:
         // if this review existed before (if the user is overwriting an existing review)
