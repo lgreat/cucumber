@@ -9,7 +9,6 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.school.AbstractSchoolController;
 import gs.web.util.MockSessionContext;
 import gs.web.util.context.SessionContext;
-import org.easymock.MockControl;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
@@ -23,10 +22,17 @@ import static org.easymock.EasyMock.*;
 public class ParentReviewControllerTest extends BaseControllerTestCase {
     private ParentReviewController _controller;
 
-    private IReviewDao reviewDao = createMock(IReviewDao.class);
+    private IReviewDao _reviewDao;
+
+    private void replayAllMocks() {
+        replayMocks(_reviewDao);
+    }
+
+    private void verifyAllMocks() {
+        verifyMocks(_reviewDao);
+    }
     
     public void setUp() throws Exception {
-        
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         List<Review> reviews = new ArrayList<Review>();
         Review r1 = new Review();
@@ -72,36 +78,49 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         Map numReviewsBy = new HashMap<Poster,Integer>();
 
         super.setUp();
+
         _controller = (ParentReviewController)getApplicationContext().getBean(ParentReviewController.BEAN_ID);
 
         Ratings ratings = new Ratings();
         ratings.setCount(10);
 
-        expect(reviewDao.getPublishedReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(reviews).times(1,3);
+        _reviewDao = createStrictMock(IReviewDao.class);
+        _controller.setReviewDao(_reviewDao);
 
-        expect(reviewDao.getNumPublishedReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(numReviewsBy).times(1,3);
+        expect(_reviewDao.getPublishedReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(reviews);
+
+        expect(_reviewDao.getNumPublishedReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(numReviewsBy);
         
-        expect(reviewDao.findRatingsBySchool(isA(School.class))).andReturn(ratings).times(1,3);
+        expect(_reviewDao.findRatingsBySchool(isA(School.class))).andReturn(ratings);
 
-        expect(reviewDao.countPublishedNonPrincipalReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(new Long(4l)).times(1,3);
+        expect(_reviewDao.countPublishedNonPrincipalReviewsBySchool(isA(School.class), isA(Set.class))).andReturn(new Long(4l));
+    }
 
-        _controller.setReviewDao(reviewDao);
+    private void setUpHelperNonKindercare() {
         School school = new School();
         school.setDatabaseState(State.CA);
         school.setId(1);
         school.setName("Alameda High School");
-        _request.setAttribute("school", school);
 
-        replay(reviewDao);
+        Calendar cal = Calendar.getInstance();
+        int currentYear = cal.get(Calendar.YEAR);
+        SortedSet<RatingsForYear> ratingsByYear = new TreeSet<RatingsForYear>();
+        expect(_reviewDao.findOverallRatingsByYear(school, currentYear, 4)).andReturn(ratingsByYear);
+
+        _request.setAttribute("school", school);
     }
 
-    public void xtestHandleRequestSortPrincipalDateDescDefaultCase() throws Exception {
+    public void testHandleRequestSortPrincipalDateDescDefaultCase() throws Exception {
+        setUpHelperNonKindercare();
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
         request.setMethod("GET");
 
+        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        verifyAllMocks();
+
         ParentReviewController.ParentReviewCommand cmd =
                 (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
@@ -121,14 +140,17 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(1), reviews.get(5).getId());
     }
 
-    public void xtestHandleRequestSortPrincipalDateAsc() throws Exception {
+    public void testHandleRequestSortPrincipalDateAsc() throws Exception {
+        setUpHelperNonKindercare();
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
         request.setParameter(ParentReviewController.PARAM_SORT_BY, "da");
         request.setMethod("GET");
 
+        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        verifyAllMocks();
         ParentReviewController.ParentReviewCommand cmd =
                 (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
@@ -144,21 +166,23 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
     }
 
-    public void xtestHandleRequestSortPrincipalRatingDesc() throws Exception {
+    public void testHandleRequestSortPrincipalRatingDesc() throws Exception {
+        setUpHelperNonKindercare();
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
         request.setParameter(ParentReviewController.PARAM_SORT_BY, "rd");
         request.setMethod("GET");
 
+        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        verifyAllMocks();
         ParentReviewController.ParentReviewCommand cmd =
                 (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
         assertEquals(6, reviews.size());
-        assertEquals("not a crawler so don't get all ratings on one page",ParentReviewController.MAX_REVIEWS_PER_PAGE, cmd.getMaxReviewsPerPage());
 
         assertEquals(new Integer(6), reviews.get(0).getId());
         assertEquals(new Integer(4), reviews.get(1).getId());
@@ -169,14 +193,17 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
     }
 
-    public void xtestHandleRequestSortPrincipalRatingAsc() throws Exception {
+    public void testHandleRequestSortPrincipalRatingAsc() throws Exception {
+        setUpHelperNonKindercare();
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
         request.setParameter(ParentReviewController.PARAM_SORT_BY, "ra");
         request.setMethod("GET");
 
+        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        verifyAllMocks();
         ParentReviewController.ParentReviewCommand cmd =
                 (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
@@ -192,7 +219,8 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
 
     }
 
-    public void xtestCrawlerShowsAllReviewsOnPage() throws Exception {
+    public void testCrawlerShowsAllReviewsOnPage() throws Exception {
+        setUpHelperNonKindercare();
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
@@ -203,14 +231,16 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         context.setState(State.CA);
         request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
 
+        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        verifyAllMocks();
         ParentReviewController.ParentReviewCommand cmd =
                 (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
         assertNotNull(cmd);
-        assertTrue("crawler should get all ratings on one page", cmd.getMaxReviewsPerPage() > ParentReviewController.MAX_REVIEWS_PER_PAGE);
     }
 
-    public void xtestShowAllParameter() throws Exception {
+    public void testShowAllParameter() throws Exception {
+        setUpHelperNonKindercare();
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
@@ -218,45 +248,15 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         request.setMethod("GET");
         request.setParameter(ParentReviewController.PARAM_VIEW_ALL, "");
 
+        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        verifyAllMocks();
         ParentReviewController.ParentReviewCommand cmd =
                 (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
         assertNotNull(cmd);
-        assertEquals("show all on one page", ParentReviewController.MAX_REVIEWS_PER_PAGE, cmd.getMaxReviewsPerPage());        
     }
 
-    public void xtestShowParentReviewModuleFormOnlyAppearsOnFirstPage() throws Exception {
-        GsMockHttpServletRequest request = getRequest();
-        request.setAttribute("state", State.CA);
-        request.setParameter("id", "1");
-        request.setParameter(ParentReviewController.PARAM_SORT_BY, "ra");
-        request.setMethod("GET");
-        request.setParameter(ParentReviewController.PARAM_PAGER_OFFSET, "1");
-        MockSessionContext context = new MockSessionContext();
-        context.setCrawler(true);
-        context.setState(State.CA);
-        request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
-
-        ModelAndView mAndV = _controller.handleRequest(request, getResponse());
-        ParentReviewController.ParentReviewCommand cmd =
-                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
-        assertNotNull(cmd);
-        assertFalse("not on first page since offset is not zero so don't show form", cmd.isShowParentReviewForm());
-
-        request.setParameter(ParentReviewController.PARAM_PAGER_OFFSET, "0");
-        mAndV = _controller.handleRequest(request, getResponse());
-        cmd = (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
-        assertNotNull(cmd);
-        assertTrue("on first page since offset is zero so show form", cmd.isShowParentReviewForm());
-
-        request.removeParameter(ParentReviewController.PARAM_PAGER_OFFSET);
-        mAndV = _controller.handleRequest(request, getResponse());
-        cmd = (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
-        assertNotNull(cmd);
-        assertTrue("on first page since offset is not set so show form", cmd.isShowParentReviewForm());
-    }
-
-    public void xtestKindercareLeadGen() throws Exception {
+    public void testKindercareLeadGen() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
@@ -266,9 +266,17 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         school.setPreschoolSubtype(SchoolSubtype.create("kindercare"));
         school.setDatabaseState(State.CA);
         school.setId(1);
-        request.setAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE, school);
 
+        Calendar cal = Calendar.getInstance();
+        int currentYear = cal.get(Calendar.YEAR);
+        SortedSet<RatingsForYear> ratingsByYear = new TreeSet<RatingsForYear>();
+        expect(_reviewDao.findOverallRatingsByYear(school, currentYear, 4)).andReturn(ratingsByYear);
+
+        request.setAttribute("school", school);
+
+        replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        verifyAllMocks();
         ParentReviewController.ParentReviewCommand cmd =
                 (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
         assertNotNull(cmd);
@@ -277,6 +285,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetReviewsFilterSortTracking() throws Exception {
+        setUpHelperNonKindercare();
         Set<Poster> reviewsBy = new HashSet<Poster>();
         int numReviews = 0;
         assertEquals("", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "dd"));

@@ -510,8 +510,6 @@ public class ParentReviewController extends AbstractController {
         private int _totalReviews = 0;
         private String _sortBy;
         private Ratings _ratings;
-        private int _maxReviewsPerPage;
-        private boolean _showParentReviewForm;
 
         public School getSchool() {
             return _school;
@@ -560,22 +558,6 @@ public class ParentReviewController extends AbstractController {
 
         public void setRatings(Ratings ratings) {
             _ratings = ratings;
-        }
-
-        public int getMaxReviewsPerPage() {
-            return _maxReviewsPerPage;
-        }
-
-        public void setMaxReviewsPerPage(int maxReviewsPerPage) {
-            _maxReviewsPerPage = maxReviewsPerPage;
-        }
-
-        public boolean isShowParentReviewForm() {
-            return _showParentReviewForm;
-        }
-
-        public void setShowParentReviewForm(boolean showParentReviewForm) {
-            _showParentReviewForm = showParentReviewForm;
         }
     }
 
