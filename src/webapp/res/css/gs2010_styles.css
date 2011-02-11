@@ -530,12 +530,12 @@ a.smallAlertText {
     color: #c03;
 }
 .alertDoubleArrow {
-    font: 15px Arial, Helvetica, sans-serif;
+    font: 15px/11px Arial, Helvetica, sans-serif;
     color: #d61;
 }
 
 .alertDoubleArrow-fff {
-    font: 15px Arial, Helvetica, sans-serif;
+    font: 15px/11px Arial, Helvetica, sans-serif;
     color: #fff;
 }
 
@@ -8705,8 +8705,8 @@ ul.schoolList div p {
     margin-right: 4px;
 }
 
-.cs_rReviews .reviewSubmittedBy {
-    margin-bottom: 5px;
+.cs_rReviews .reviewComments {
+    line-height:1.3;
 }
 #compareTable .censusBreakdown li {
     text-align: right;

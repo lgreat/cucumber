@@ -18,14 +18,14 @@
 
     <c:choose>
         <c:when test="${recentReview ne null}">
-            <p class="reviewComments smallText1-333">
+            <p class="mbs reviewComments smallText1-333">
                 ${gsweb:abbreviateAtWhitespace(recentReview.comments, 70)}
                 <link:schoolProfileParentReview school="${school}" anchor="ps${recentReview.id}">
                     More&amp;nbsp;<span class="alertDoubleArrow">&amp;raquo;</span>
                 </link:schoolProfileParentReview>
             </p>
             <c:if test="${not empty recentReview.who and recentReview.who ne 'other'}">
-                <p class="reviewSubmittedBy smallText2italic">
+                <p class="mbs smallText2italic">
                     - Submitted by
                     ${gsweb:createParentReviewDisplayName('', '', recentReview.who)}
                 </p>
