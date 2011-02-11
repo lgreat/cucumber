@@ -181,7 +181,7 @@
                 <gslink:realtorDotComLink school="${school}" customLinkSuffix="inlinelinkheader">Homes for sale</gslink:realtorDotComLink>
             </li>-->
             <li>
-                <a href="javascript:void(0);" onclick="null"><span class="st_sharethis_custom sprite i-sharethis-2"><!-- do not collapse --></span><span class="st_sharethis_custom"> Share</span></a>
+                <a href="#" onclick="return false;"><span class="st_sharethis_custom sprite i-sharethis-2"><!-- do not collapse --></span><span class="st_sharethis_custom"> Share</span></a>
             </li>
                 <c:set var="customLinkValue" value="Care2_SPP_Promo"/>
                 <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
