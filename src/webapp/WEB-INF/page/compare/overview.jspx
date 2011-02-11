@@ -102,15 +102,19 @@
                 <th scope="row"><div class="th-compareContainer">District name</div></th>
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_dName center text3">
-                        <c:if test="${not empty school.district}">
-                            <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                            <p>
-                                <link:districtHome district="${school.district}" title="District information" styleClass="compareDistrictName">
-                                    <c:out value="${school.district.name}" escapeXml="true"/>
-                                </link:districtHome>
-                            </p>
-                            </div>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${not empty school.district}">
+                                <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
+                                    <p>
+                                        <link:districtHome district="${school.district}" title="District information"
+                                                           styleClass="compareDistrictName">
+                                            <c:out value="${school.district.name}" escapeXml="true"/>
+                                        </link:districtHome>
+                                    </p>
+                                </div>
+                            </c:when>
+                            <c:otherwise>&amp;nbsp;</c:otherwise>
+                        </c:choose>
                     </td>
                 </c:forEach>
             </tr>
