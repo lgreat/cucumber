@@ -45,7 +45,7 @@
 </div>
 
 <div id="parentReviewsHeader" class="brdbtm_dotted line">
-    <div class="unit size1of3">
+    <div class="unit size3of10">
         <div id="shareExperience">
             <p class="text2bold">Share your experience</p>
 
@@ -65,7 +65,7 @@
 
         <community:reportContentHover openingElementSelector=".reportIt" reporterId="${validUser.id}"/>
 
-        <div class="unit size1of3">
+        <div class="unit size3of10">
             <div id="overallRating2">
                 <c:if test="${not empty ratings.overall}">
                     <p class="text2bold">
@@ -88,7 +88,7 @@
         </div>
         <!-- end: rating_parent -->
 
-        <div class="unit size1of3 lastUnit">
+        <div class="unit size4of10 lastUnit">
             <div id="categoryRatings">
                 <c:choose>
                     <c:when test="${ratings.preschool}">
