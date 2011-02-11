@@ -113,6 +113,17 @@
                                         totalSchools="${totalSchools}" pageSize="${pageSize}"/>
                 </div>
             </div>
+            <c:if test="${tab eq 'programsExtracurriculars'}">
+                <div class="line mtm">
+                    <div class="unit size1of2">
+                        <div class="alertBox2">
+                            <span class="sprite pencil_med"><!-- do not collapse --></span>Are you the Pricipal? <a
+                                href="http://www.greatschools.org/cgi-bin/pq_start.cgi/">Complete your school's profile</a>
+                        </div>
+                    </div>
+                    <div class="unit size1of2 lastUnit"><!-- do not collapse --></div>
+                </div>
+            </c:if>
             <!--<div class="howWeGather clearBoth">-->
             <!--<a href="#" onclick="return false;">-->
             <!--<span class="alertDoubleArrow">&amp;#187;</span> How we gather our data-->
