@@ -35,7 +35,8 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
 
         try {
             SolrServer server = getSolrConnectionManager().getReadOnlySolrServer();
-            SolrQuery query = buildQuery(searchString, state);
+            SolrQuery query = buildQuery(searchString);
+            query.addFilterQuery(DistrictDocumentBuilder.STATE + ":" + state.getAbbreviationLowerCase());
 
             if (query != null) {
                 query.setStart(offset);
@@ -56,9 +57,9 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
     }
 
 
-    public SolrQuery buildQuery(String searchString, State state) throws ParseException {
-        if (StringUtils.isBlank(searchString) && state == null) {
-            throw new IllegalArgumentException("Cannot find cities without a searchString or a state");
+    public SolrQuery buildQuery(String searchString) throws ParseException {
+        if (StringUtils.isBlank(searchString)) {
+            throw new IllegalArgumentException("Cannot find cities without a searchString");
         }
 
         if (!StringUtils.isBlank(searchString)) {
@@ -70,14 +71,11 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
 
         SolrQuery query = new SolrQuery();
         query.addFilterQuery(DistrictDocumentBuilder.DOCUMENT_TYPE + ":" + DistrictDocumentBuilder.DOCUMENT_TYPE_DISTRICT);
-
+        query.setQueryType("standard");
+        
         String q = "";
         if (searchString != null) {
-            q += "+" + DistrictDocumentBuilder.DISTRICT_NAME + ":" + searchString + " ";
-        }
-        
-        if (state != null) {
-            q += "+" + DistrictDocumentBuilder.STATE + ":" + searchString;
+            q += "+" + DistrictDocumentBuilder.DISTRICT_NAME + ":(" + searchString + ")";
         }
 
         query.setQuery(q);
