@@ -456,6 +456,7 @@ ul.horizontal li {
 
 #cmsArticleForm .captcha {
     margin: 10px 0 10px -4px;
+    padding:0;
 }
 
 #cmsArticleForm input.btn {
