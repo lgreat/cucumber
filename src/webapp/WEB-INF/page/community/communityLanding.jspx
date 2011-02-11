@@ -31,22 +31,31 @@
     <c:set var="localCommunityCityName" value="${requestScope.cityName}"/>
 
     <div id="community-landing">
-        <img src="/res/img/community/landing/communityLanding-1.png" width="69" height="78" alt="Community"/>
-        <h1>Community</h1>
-        <p class="introText">
-            <strong>Welcome to the GreatSchools Community.</strong>
-            Join other parents to discuss schools, education, and parenting.
-        </p>
+        <div class="mediaExt1-2">
+            <div class="img">
+                <img src="/res/img/community/landing/communityLanding-1.png" width="69" height="78" alt="Community"/>
+            </div>
+            <div class="bk">
+                <h1>Community</h1>
+
+                <p class="introText">
+                    <strong>Welcome to the GreatSchools Community.</strong>
+                    Join other parents to discuss schools, education, and parenting.
+                </p>
+            </div>
+        </div>
     </div>
 
     <c:set var="recentDiscussions">
         <c:import
                 url="/community/recentDiscussions.module?limit=4&amp;title=Recent%20conversations&amp;moreText=See%20more&amp;showLargeFirstAvatar=false"/>
     </c:set>
+    
     <c:if test="${!empty recentDiscussions}">
-        <div class="spacer_10"><!-- don't collapse --></div>
-        <div id="recentDiscussions" class="mod">
-            ${recentDiscussions}
+        <div id="recentDiscussions" class="mod recentDiscussions">
+            <div class="inner">
+                ${recentDiscussions}
+            </div>
         </div>
     </c:if>
 

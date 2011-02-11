@@ -2331,6 +2331,13 @@ Viewport: the defines width and height of each icon
 .mediaExt1-1 .img img{display: block;}
 .mediaExt1-1 .imgExt{float: right;margin-left: 5px;}
 
+/* Ext1-2 margin: 0; gutter: 15px; */
+.mediaExt1-2{margin: 0;}
+.mediaExt1-2,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt1-2 .img{float: left;margin-right: 15px;}
+.mediaExt1-2 .img img{display: block;}
+.mediaExt1-2 .imgExt{float: right;margin-left: 15px;}
+
 /* Ext2: No left and right margin */
 /* Ext2 margin: 10px 0; gutter: 10px; */
 .mediaExt2{margin: 10px 0;}
@@ -2441,6 +2448,9 @@ Viewport: the defines width and height of each icon
 .primrose .leadGenIntroText{width:187px; margin:0 14px;}
 .primrose .leadGenThankYou{width:165px;margin:30px 0 0 20px;}
 
+.recentDiscussions .hd h3 {padding: 0;background: none;color: #d61;font: 20px/1.7 Georgia, "Times New Roman", Times, serif;}
+.recentDiscussions .ft p{margin:0 0 10px;}
+
 .mod_hd {
     position: relative;
 }
@@ -2468,13 +2478,6 @@ Viewport: the defines width and height of each icon
     background: #149 url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
     color: #fff;
     font: normal 20px Georgia, "Times New Roman", Times, serif;
-}
-
-.mod_hd_alt h3 {
-    padding: 0;
-    background: none;
-    color: #d61;
-    font: 20px / 1.7 Georgia, "Times New Roman", Times, serif;
 }
 
 .mod_bd {
@@ -4717,12 +4720,11 @@ body.cobranded #pageGS {
     height: 80px;
     border-bottom: 1px dotted #999;
     padding: 15px 0;
+    margin-bottom: 10px;
 }
 
 #community-landing img {
-    margin-right: 15px;
     border: 1px solid #777;
-    float: left;
 }
 
 /* =12c- topic centers

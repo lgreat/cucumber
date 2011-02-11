@@ -9,31 +9,31 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:gsweb="gstaglib">
 
-    <c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
-        <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
+<c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
+<c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
-        <c:choose>
-            <c:when test="${style eq 'fall2009'}">
+<c:choose>
+<c:when test="${style eq 'fall2009'}">
 
-                <div id="recentDiscussions" class="box">
-                    <div class="inner cleared">
-                        <div class="content gainlayout">
-                            <h2>${requestScope.discussionBoard.title}</h2>
-                            <c:forEach var="discussion" items="${requestScope.discussions}">
-                                <div class="discussionHolder sdrb clearfix">
-                                    <div class="avatar fltlft">
-                                        <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
-                                            <community:avatar user="${discussion.user}" width="48" height="48"
-                                                              cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"
-                                                              anonymous="${discussion.anonymous}"/>
-                                        </link:userProfile>
-                                    </div>
-                                    <!-- end avatar -->
-                                    <div class="discussionTopic fltlft">
-                                        <h4 class="text3"><link:discussion discussionId="${discussion.id}"
-                                                                           fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
-                                                                           styleClass="text3">${discussion.title}</link:discussion>
-                                        </h4>
+    <div id="recentDiscussions" class="box">
+        <div class="inner cleared">
+            <div class="content gainlayout">
+                <h2>${requestScope.discussionBoard.title}</h2>
+                <c:forEach var="discussion" items="${requestScope.discussions}">
+                    <div class="discussionHolder sdrb clearfix">
+                        <div class="avatar fltlft">
+                            <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                                <community:avatar user="${discussion.user}" width="48" height="48"
+                                                  cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"
+                                                  anonymous="${discussion.anonymous}"/>
+                            </link:userProfile>
+                        </div>
+                        <!-- end avatar -->
+                        <div class="discussionTopic fltlft">
+                            <h4 class="text3"><link:discussion discussionId="${discussion.id}"
+                                                               fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
+                                                               styleClass="text3">${discussion.title}</link:discussion>
+                            </h4>
 
                                         <span class="smallAlertTextBoldNeutral">
                                         <link:userProfile user="${discussion.user}"
@@ -43,152 +43,127 @@
                                         </link:userProfile>
                                         </span>
 
-                                        <c:if test="${not empty discussion.discussionBoard}">
-                                            in
+                            <c:if test="${not empty discussion.discussionBoard}">
+                                in
                                             <span>
-                                                <link:cmsContent styleClass="smallAlertText" contentKey="${discussion.discussionBoard.contentKey}"
+                                                <link:cmsContent styleClass="smallAlertText"
+                                                                 contentKey="${discussion.discussionBoard.contentKey}"
                                                                  fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
                                             </span>
-                                        </c:if>
+                            </c:if>
 
-                                        <c:choose>
-                                            <c:when test="${discussion.totalReplies == 0}">
-                                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="latestReply"> Latest reply:</span> <span
-                                                    class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
-                                            </c:otherwise>
-                                        </c:choose>
+                            <c:choose>
+                                <c:when test="${discussion.totalReplies == 0}">
+                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="latestReply"> Latest reply:</span> <span
+                                        class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
+                                </c:otherwise>
+                            </c:choose>
 
-                                        <p>
-                                            <community:userContentTeaserText
-                                                    textToDisplay="${discussion.body}"
-                                                    minLength="143" maxLength="163"
-                                                    discussionId="${discussion.id}"
-                                                    discussionFullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
-                                                    numReplies="${discussion.totalReplies}"
-                                                    textSpanClass="text3"
-                                                    linkClass="text3"/>
-                                        </p>
-                                    </div>
-                                    <!-- end discussionTopic -->
-                                    <br class="clearfloat"/>
-                                </div>
-                                <!-- end discussionHolder -->
-                            </c:forEach>
+                            <p>
+                                <community:userContentTeaserText
+                                        textToDisplay="${discussion.body}"
+                                        minLength="143" maxLength="163"
+                                        discussionId="${discussion.id}"
+                                        discussionFullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
+                                        numReplies="${discussion.totalReplies}"
+                                        textSpanClass="text3"
+                                        linkClass="text3"/>
+                            </p>
+                        </div>
+                        <!-- end discussionTopic -->
+                        <br class="clearfloat"/>
+                    </div>
+                    <!-- end discussionHolder -->
+                </c:forEach>
 
-                            <div class="fltlft">
-                                <a class="btn25 jqRecentDiscussions_startADiscussion" href="#" onclick="this.blur();return false">
+                <div class="fltlft">
+                    <a class="btn25 jqRecentDiscussions_startADiscussion" href="#" onclick="this.blur();return false">
             <span class="lftDoor25">
                 <span class="rtDoor25">
                     <span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</span>
             </span>
-                                </a>
-                                <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                                 openElementJQuerySelector=".jqRecentDiscussions_startADiscussion"
-                                                                 topicCenterId="${requestScope.discussionBoard.topicCenterId}"
-                                                                 discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
-                                                                 selectGeneralParentingBoard="${requestScope.discussionBoard.contentKey.identifier == 2420}"
-                                        />
-                            </div>
-                            <!-- end start a discussion button -->
-
-                            <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                                              fullUri="${fullUri}">
-                                <span class="text3_230">More conversations </span>
-                                <span class="alertDoubleArrow">&amp;raquo;</span>
-                            </link:cmsContent></p>
-                            <br class="clearfloat"/>
-                        </div>
-                        <!-- end content -->
-                    </div>
-                    <!-- end inner -->
-                </div>
-                <!-- end recentDiscussions -->
-
-            </c:when>
-            <c:otherwise>
-                <!--<p>title = <c:out value="${title}" default="don't know"/></p>-->
-                <!--<p>moreText = <c:out value="${moreText}" default="don't know"/></p>-->
-                <!--<p>showLargeFirstAvatar = <c:out value="${showLargeFirstAvatar}" default="don't know"/></p>-->
-
-                <div class="mod_hd_alt">
-                    <c:choose>
-                        <c:when test="${showLargeFirstAvatar}">
-                            <h3 class="title2-d61 fltlft">Talk about it</h3>
-                        </c:when>
-                        <c:otherwise>
-                            <h3 class="title2-d61 fltlft">${title}</h3>
-                        </c:otherwise>
-                    </c:choose>
-                    <a class="text3bold fltrt jqRecentDiscussions_startADiscussion" href="#" onclick="this.blur();return false">
-                        <span class="sprite community mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</a>
+                    </a>
                     <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
                                                      openElementJQuerySelector=".jqRecentDiscussions_startADiscussion"
                                                      topicCenterId="${requestScope.discussionBoard.topicCenterId}"
                                                      discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
-                                                     selectGeneralParentingBoard="${requestScope.discussionBoard.contentKey.identifier == 2420}"/>
-
-                    <br class="clearfloat"/>
+                                                     selectGeneralParentingBoard="${requestScope.discussionBoard.contentKey.identifier == 2420}"
+                            />
                 </div>
+                <!-- end start a discussion button -->
 
-                <div class="mod_bd">
-                    <c:forEach var="discussion" items="${requestScope.discussions}" varStatus="status">
-                        <c:set var="avatarSize" value="48"/>
-                        <c:set var="textSize" value="text3-06b"/>
-                        <c:set var="avatar" value="avatar_48"/>
-                        <c:choose>
-                        <c:when test="${showLargeFirstAvatar}">
-                        <c:set var="discussionTopic" value="discussionTopic_363"/>
-                        </c:when>
-                        <c:otherwise>
-                        <c:set var="discussionTopic" value="discussionTopic_540"/>
-                        </c:otherwise>
-                        </c:choose>
-                        <!--<c:choose>-->
-                            <!--<c:when test="${showLargeFirstAvatar}">-->
-                                <!--<c:choose>-->
-                                    <!--<c:when test="${status.first}">-->
-                                        <!--<c:set var="avatarSize" value="80"/>-->
-                                        <!--<c:set var="textSize" value="subhead2"/>-->
-                                        <!--<c:set var="avatar" value="avatar_80"/>-->
-                                        <!--<c:set var="discussionTopic" value="discussionTopic_331"/>-->
-                                    <!--</c:when>-->
-                                    <!--<c:otherwise>-->
-                                        <!--<c:set var="avatarSize" value="48"/>-->
-                                        <!--<c:set var="textSize" value="text3"/>-->
-                                        <!--<c:set var="avatar" value="avatar_48"/>-->
-                                        <!--<c:set var="discussionTopic" value="discussionTopic_363"/>-->
-                                    <!--</c:otherwise>-->
-                                <!--</c:choose>-->
-                            <!--</c:when>-->
-                            <!--<c:otherwise>-->
-                                <!--<c:set var="avatarSize" value="48"/>-->
-                                <!--<c:set var="textSize" value="text3"/>-->
-                                <!--<c:set var="avatar" value="avatar_48"/>-->
-                                <!--<c:set var="discussionTopic" value="discussionTopic_rc"/>-->
-                            <!--</c:otherwise>-->
-                        <!--</c:choose>-->
+                <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                                  fullUri="${fullUri}">
+                    <span class="text3_230">More conversations </span>
+                    <span class="alertDoubleArrow">&amp;raquo;</span>
+                </link:cmsContent></p>
+                <br class="clearfloat"/>
+            </div>
+            <!-- end content -->
+        </div>
+        <!-- end inner -->
+    </div>
+    <!-- end recentDiscussions -->
 
+</c:when>
+<c:otherwise>
+    <!--<p>title = <c:out value="${title}" default="don't know"/></p>-->
+    <!--<p>moreText = <c:out value="${moreText}" default="don't know"/></p>-->
+    <!--<p>showLargeFirstAvatar = <c:out value="${showLargeFirstAvatar}" default="don't know"/></p>-->
 
-                        <div class="discussionHolder clearfix">
+    <div class="hd">
+        <c:choose>
+            <c:when test="${showLargeFirstAvatar}">
+                <h3 class="title2-d61 fltlft">Talk about it</h3>
+            </c:when>
+            <c:otherwise>
+                <h3 class="title2-d61 fltlft">${title}</h3>
+            </c:otherwise>
+        </c:choose>
+        <a class="text3bold fltrt jqRecentDiscussions_startADiscussion" href="#" onclick="this.blur();return false">
+            <span class="sprite community mrgtop_2 mrgrt_5"><!-- do not collapse --></span>Start a conversation</a>
+        <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
+                                         openElementJQuerySelector=".jqRecentDiscussions_startADiscussion"
+                                         topicCenterId="${requestScope.discussionBoard.topicCenterId}"
+                                         discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
+                                         selectGeneralParentingBoard="${requestScope.discussionBoard.contentKey.identifier == 2420}"/>
+    </div>
+    <!-- end hd -->
+    <div class="bd">
+        <c:forEach var="discussion" items="${requestScope.discussions}" varStatus="status">
+            <c:set var="avatarSize" value="48"/>
+            <c:set var="textSize" value="text3-06b"/>
+            <c:set var="avatar" value="avatar_48"/>
+            <c:choose>
+                <c:when test="${showLargeFirstAvatar}">
+                    <c:set var="discussionTopic" value="discussionTopic_363"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="discussionTopic" value="discussionTopic_540"/>
+                </c:otherwise>
+            </c:choose>
 
-                            <div class="${avatar} fltlft">
-                                <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
-                                    <community:avatar user="${discussion.user}"
-                                                      width="${avatarSize}"
-                                                      height="${avatarSize}"
-                                                      cssStyle="border: 1px solid #c6c6c6;"
-                                                      anonymous="${discussion.anonymous}"/>
-                                </link:userProfile>
-                            </div>
-                            <!-- end avatar -->
-                            <div class="${discussionTopic} text3">
-                                <h4><link:discussion discussionId="${discussion.id}"
-                                                     fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
-                                                     styleClass="${textSize}">${discussion.title}</link:discussion>
-                                </h4>
+            <div class="discussionHolder clearfix">
+
+                <div class="mediaExt1">
+                    <div class="img">
+                        <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
+                            <community:avatar user="${discussion.user}"
+                                              width="${avatarSize}"
+                                              height="${avatarSize}"
+                                              cssStyle="border: 1px solid #c6c6c6;"
+                                              anonymous="${discussion.anonymous}"/>
+                        </link:userProfile>
+                    </div>
+                    <!-- end avatar -->
+                    <div class="bk text3">
+                        <h4><link:discussion discussionId="${discussion.id}"
+                                             fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
+                                             styleClass="${textSize}">${discussion.title}</link:discussion>
+                        </h4>
 
                                     <span class="smallAlertTextBoldNeutral">
                                     <link:userProfile user="${discussion.user}"
@@ -198,71 +173,66 @@
                                     </link:userProfile>
                                     </span>
 
-                                <c:if test="${not empty discussion.discussionBoard}">
-                                    in
+                        <c:if test="${not empty discussion.discussionBoard}">
+                            in
                                     <span>
-                                        <link:cmsContent styleClass="smallAlertText" contentKey="${discussion.discussionBoard.contentKey}"
-                                                              fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
+                                        <link:cmsContent styleClass="smallAlertText"
+                                                         contentKey="${discussion.discussionBoard.contentKey}"
+                                                         fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
                                     </span>
-                                </c:if>
+                        </c:if>
 
-                                <c:choose>
-                                    <c:when test="${discussion.totalReplies == 0}">
-                                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="latestReply"> Latest reply:</span> <span
-                                            class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
-                                    </c:otherwise>
-                                </c:choose>
-
-                                <p>
-                                    <community:userContentTeaserText
-                                            textToDisplay="${discussion.body}"
-                                            minLength="143" maxLength="163"
-                                            discussionId="${discussion.id}"
-                                            discussionFullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
-                                            numReplies="${discussion.totalReplies}"
-                                            textSpanClass="text3"
-                                            linkClass="text3"/>
-                                </p>
-                            </div>
-                            <!-- end discussionTopic -->
-                            <br class="clearfloat"/>
-                        </div>
-                        <!-- end discussionHolder -->
-                    </c:forEach>
-
-                    <c:set var="moreHtml">
-                        <span class="text3_230">${moreText} </span>
-                        <span class="alertDoubleArrow">&amp;raquo;</span>
-                    </c:set>
-
-                    <p class="fltrt">
                         <c:choose>
-                            <c:when test="${not empty moreUrl}">
-                                <a href="${moreUrl}">${moreHtml}</a>
+                            <c:when test="${discussion.totalReplies == 0}">
+                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                             </c:when>
                             <c:otherwise>
-                                <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                                 fullUri="${fullUri}">${moreHtml}</link:cmsContent>
+                                <span class="latestReply"> Latest reply:</span> <span
+                                    class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
                             </c:otherwise>
                         </c:choose>
-                    </p>
 
-                    <c:choose>
-                        <c:when test="${showLargeFirstAvatar}">
-                            <div class="spacer_10"><!-- do not collapse --></div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="spacer_10"><!-- do not collapse --></div>
-                        </c:otherwise>
-                    </c:choose>
+                        <p>
+                            <community:userContentTeaserText
+                                    textToDisplay="${discussion.body}"
+                                    minLength="143" maxLength="163"
+                                    discussionId="${discussion.id}"
+                                    discussionFullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
+                                    numReplies="${discussion.totalReplies}"
+                                    textSpanClass="text3"
+                                    linkClass="text3"/>
+                        </p>
+                    </div>
                 </div>
-                <!-- end mod_bd -->
+                <!-- end discussionTopic -->
+            </div>
+            <!-- end discussionHolder -->
+        </c:forEach>
+    </div>
+    <!-- end bd -->
+    <div class="ft">
+        <c:set var="moreHtml">
+            <span class="text3_230">${moreText} </span>
+            <span class="alertDoubleArrow">&amp;raquo;</span>
+        </c:set>
 
-            </c:otherwise>
-        </c:choose>
+        <p class="fltrt">
+            <c:choose>
+                <c:when test="${not empty moreUrl}">
+                    <a href="${moreUrl}">${moreHtml}</a>
+                </c:when>
+                <c:otherwise>
+                    <link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
+                                     fullUri="${fullUri}">${moreHtml}</link:cmsContent>
+                </c:otherwise>
+            </c:choose>
+        </p>
 
-    </c:if>
+    </div>
+    <!-- end ft -->
+
+</c:otherwise>
+</c:choose>
+
+</c:if>
 </jsp:root>
