@@ -146,7 +146,7 @@
 
             <!-- Parent Rating -->
             <td class="brdbtm_dotted stars-column bg-color-fff" align="center" valign="top">
-                <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}">
+                <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" styleClass="block">
                     <c:choose>
                         <c:when test="${not empty school.parentRating}">
                             <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
@@ -156,6 +156,9 @@
                         </c:otherwise>
                     </c:choose>
                 </link:schoolProfileParentReview2010>
+                <c:if test="${not empty school.parentRating}">
+                    <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" styleClass="smallAlertText mtm block">Read reviews</link:schoolProfileParentReview2010>
+                </c:if>
             </td>
         </tr>
 
