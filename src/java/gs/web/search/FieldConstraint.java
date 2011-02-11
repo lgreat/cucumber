@@ -1,20 +1,18 @@
 package gs.web.search;
 
-import gs.data.search.IndexField;
-import gs.data.search.Indexer;
+import gs.data.search.indexers.documentBuilders.SchoolDocumentBuilder;
 
 public enum FieldConstraint {
     //before solr migration
-    DISTRICT_ID(IndexField.DISTRICT),
+    /*DISTRICT_ID(IndexField.DISTRICT),
     CITY(Indexer.CITY_KEYWORD),
-    STATE(Indexer.STATE);
+    STATE(Indexer.STATE);*/
     //
 
-
     //after solr migration
-    /*DISTRICT_ID(SchoolDocumentBuilder.DISTRICT),
-    CITY(SchoolDocumentBuilder.ADDRESS_CITY_KEYWORD),
-    STATE(SchoolDocumentBuilder.PHYSICAL_STATE);*/
+    DISTRICT_ID(SchoolDocumentBuilder.SCHOOL_DISTRICT_ID),
+    CITY(SchoolDocumentBuilder.ADDRESS_CITY),
+    STATE(SchoolDocumentBuilder.ADDRESS_STATE);
     //
 
     private String _fieldName;
