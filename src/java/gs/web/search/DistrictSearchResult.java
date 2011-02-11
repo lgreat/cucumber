@@ -1,12 +1,17 @@
 package gs.web.search;
 
+import gs.data.search.indexers.documentBuilders.DistrictDocumentBuilder;
 import gs.data.state.State;
+import org.apache.solr.client.solrj.beans.Field;
 
 public class DistrictSearchResult implements IDistrictSearchResult {
 
     private Integer _id;
+    @Field(DistrictDocumentBuilder.STATE)
     private State _state;
+    @Field(DistrictDocumentBuilder.DISTRICT_NAME)
     private String _name;
+    @Field(DistrictDocumentBuilder.CITY)
     private String _city;
 
     public Integer getId() {
