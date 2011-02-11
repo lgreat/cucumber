@@ -163,11 +163,14 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
                 query.setStart(offset);
                 query.setRows(count);
                 response = server.query(query);
-
-                if (response != null && response.getResults().size() > 0) {
-                    results = response.getBeans(SolrSchoolSearchResult.class);
+                totalResults = (int) response.getResults().getNumFound();
+                if (offset > totalResults) {
+                    query.setStart(0);
+                    response = server.query(query);
                     totalResults = (int) response.getResults().getNumFound();
                 }
+
+                results = response.getBeans(SolrSchoolSearchResult.class);
 
             }
 
