@@ -126,12 +126,12 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
      */
     public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
 
-        QueryResponse response = null;
+        QueryResponse response;
         int totalResults = 0;
         List<SolrSchoolSearchResult> results = new ArrayList<SolrSchoolSearchResult>();
         SearchResultsPage<SolrSchoolSearchResult> searchResults;
 
-        SolrQuery query = null;
+        SolrQuery query;
         try {
             query = buildQuery(queryString);
         } catch (ParseException e) {
@@ -189,9 +189,10 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
      */
     protected SolrQuery buildQuery(String searchString) throws ParseException {
 
-        if (StringUtils.isBlank(searchString)) {
-            throw new IllegalArgumentException("Cannot build query with no search string");
-        }
+        SolrQuery solrQuery = new SolrQuery();
+        solrQuery.setQueryType("standard");
+        solrQuery.setQuery("*:*");
+        solrQuery.addFilterQuery(SchoolDocumentBuilder.DOCUMENT_TYPE + ":" + SchoolDocumentBuilder.DOCUMENT_TYPE_SCHOOL);
 
         if (!StringUtils.isBlank(searchString)) {
             searchString = cleanseSearchString(searchString);
@@ -199,11 +200,6 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
                 return null; //Provided search string was garbage, early exit
             }
         }
-
-        SolrQuery solrQuery = new SolrQuery();
-        solrQuery.setQueryType("school-search");
-
-        solrQuery.addFilterQuery(SchoolDocumentBuilder.DOCUMENT_TYPE + ":" + SchoolDocumentBuilder.DOCUMENT_TYPE_SCHOOL);
 
         if (!StringUtils.isBlank(searchString)) {
             if (_queryParser != null) {
