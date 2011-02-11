@@ -42,7 +42,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         Document document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Alameda High School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "alameda", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "alameda", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "94501", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -57,7 +57,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Lowell High School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "san francisco", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "san francisco", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "94132", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -72,7 +72,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Lowell Elementary School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "san Jose", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "san Jose", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "95112", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -87,7 +87,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Lowell Elementary School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "santa Ana", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "santa Ana", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "92703", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -102,7 +102,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Lowell Pre-School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "fresno", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "fresno", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.CA.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "93721", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.PRESCHOOL.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -117,7 +117,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Lowell Junior/Senior High School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.OR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "97452", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.MIDDLE.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -134,7 +134,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Lundy Elementary School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.OR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "97452", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -149,7 +149,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Southwest Charter School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "portland", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "portland", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.OR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "97239", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -164,7 +164,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Portland Adventist Academy", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "portland", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "portland", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.OR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "97216", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.HIGH.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -179,7 +179,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Lowell Elementary School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.AR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "72745", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -194,7 +194,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Hummingbird Day Care", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "lowell", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.AR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "72745", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.PRESCHOOL.toString(), Field.Store.YES, Field.Index.TOKENIZED));
@@ -209,7 +209,7 @@ public class SchoolSearchServiceImplTest extends BaseTestCase {
 
         document = new Document();
         document.add(new Field(Indexer.SCHOOL_NAME, "Portland Elementary School", Field.Store.YES, Field.Index.TOKENIZED));
-        document.add(new Field(Indexer.CITY_KEYWORD, "portland", Field.Store.YES, Field.Index.UN_TOKENIZED));
+        document.add(new Field("city", "portland", Field.Store.YES, Field.Index.UN_TOKENIZED));
         document.add(new Field(Indexer.STATE, State.AR.getAbbreviationLowerCase(), Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(Indexer.ZIP, "71663", Field.Store.YES, Field.Index.TOKENIZED));
         document.add(new Field(IndexField.GRADE_LEVEL, LevelCode.ELEMENTARY.toString(), Field.Store.YES, Field.Index.TOKENIZED));
