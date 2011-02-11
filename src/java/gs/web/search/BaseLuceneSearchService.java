@@ -72,7 +72,7 @@ public abstract class BaseLuceneSearchService {
                 }
                 f += filterToAdd;
             }
-            subFilters[j++] = f;
+            subFilters[j++] = "+(" + f + ")";
         }
 
         return subFilters;

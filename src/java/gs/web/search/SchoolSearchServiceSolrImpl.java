@@ -146,7 +146,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         if (fieldConstraints != null && fieldConstraints.size() > 0) {
             Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
             for (Map.Entry<FieldConstraint, String> entry : entrySet) {
-                query.addFilterQuery(entry.getKey().getFieldName() + ":" + StringUtils.lowerCase(entry.getValue()));
+                query.addFilterQuery("+" + entry.getKey().getFieldName() + ":\"" + StringUtils.lowerCase(entry.getValue()) + "\"");
             }
         }
 
