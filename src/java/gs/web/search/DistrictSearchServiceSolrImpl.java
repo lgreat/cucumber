@@ -38,7 +38,7 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
             SolrQuery query = buildQuery(searchString);
 
 
-            query.addFilterQuery(DistrictDocumentBuilder.STATE + ":" + state.getAbbreviationLowerCase());
+            query.addFilterQuery(DistrictDocumentBuilder.ADDRESS_STATE + ":" + state.getAbbreviationLowerCase());
 
             if (query != null) {
                 query.setStart(offset);
