@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.73 2010/11/05 00:07:11 droy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.74 2011/02/14 16:11:57 aroy Exp $
  */
 
 package gs.web.util;
@@ -394,9 +394,6 @@ public class UrlUtilSaTest extends TestCase {
                 UrlUtil.isCommunityContentLink("http://community.greatschools.org/"));
         assertFalse("Expected false for non-content-creation URL on community",
                 UrlUtil.isCommunityContentLink("http://community.greatschools.org/q-and-a/"));
-
-        assertTrue("Expected true for MSL forward link", UrlUtil.isCommunityContentLink("http://dev.greatschools.org/mySchoolList.page"));
-        assertTrue("Expected true for MSL forward link", UrlUtil.isCommunityContentLink("/mySchoolList.page"));
 
         assertTrue("Expected true for community discussion", UrlUtil.isCommunityContentLink("http://localhost/aroy-local-board-2/community.gs?content=21"));
         assertTrue("Expected true for community discussion", UrlUtil.isCommunityContentLink("/aroy-local-board-2/community.gs?content=21"));

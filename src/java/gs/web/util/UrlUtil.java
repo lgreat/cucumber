@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.100 2010/12/13 18:49:08 droy Exp $
+ * $Id: UrlUtil.java,v 1.101 2011/02/14 16:11:58 aroy Exp $
  */
 
 package gs.web.util;
@@ -422,8 +422,6 @@ public final class UrlUtil {
                         ) {
                     rval = true;
                 }
-            } else if (StringUtils.contains(url, "/mySchoolList.page")) {
-                rval = true;
             } else if (StringUtils.contains(url, "community.gs") || StringUtils.contains(url, "discussion.gs")) {
                 rval = true;
             }
