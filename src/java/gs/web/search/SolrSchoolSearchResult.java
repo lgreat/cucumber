@@ -248,7 +248,7 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
 
     @XmlElement
     public String getReviewBlurb() {
-        return _name;
+        return _schoolReviewBlurb;
     }
 
     @Field(SchoolDocumentBuilder.SCHOOL_REVIEW_BLURB)
