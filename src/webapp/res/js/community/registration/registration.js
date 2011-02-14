@@ -144,7 +144,7 @@ function childStateChange(stateSelect, childNum) {
 
 function validateFirstName() {
     var url = '/community/registrationAjax.page';
-    var pars = 'fn=' + $('firstName').value;
+    var pars = 'fn=' + encodeURIComponent($(jQuery('#firstName')[0]).value);
     var notice = $('firstNameMessage');
     var myAjax = new Ajax.Request(
             url,
@@ -176,7 +176,7 @@ function validateFirstName() {
 
 function validateEmail() {
     var url = '/community/registrationAjax.page';
-    var pars = 'email=' + $('email').value;
+    var pars = 'email=' + encodeURIComponent($(jQuery('#email')[0]).value);
     var notice = $('emailMessage');
     var myAjax = new Ajax.Request(
             url,
@@ -205,7 +205,7 @@ function validateEmail() {
 
 function validateUN() {
     var url = '/community/registrationAjax.page';
-    var pars = 'un=' + $('screenName').value;
+    var pars = 'un=' + encodeURIComponent($(jQuery('#screenName')[0]).value);
     var notice = $('usernameMessage');
     var myAjax = new Ajax.Request(
             url,
@@ -240,7 +240,7 @@ function validateUN() {
 
 function validatePW() {
     var notice = $('passwordMessage');
-    var pw = $('password').value;
+    var pw = $(jQuery('#password')[0]).value;
 
     if (pw.length < 6 || pw.length > 14) {
         notice.update('Password should be 6-14 characters.').style.display = '';
@@ -255,10 +255,10 @@ function validatePW() {
 
 function validateConfirmPW() {
     var notice = $('confirmPWMessage');
-    var pw = $('confirmPassword').value;
+    var pw = $(jQuery('#confirmPassword')[0]).value;
 
     if (pw != '') {
-        if (pw != $('password').value) {
+        if (pw != $(jQuery('#password')[0]).value) {
             notice.update('Passwords do not match.').style.display = '';
             notice.className = "ajaxMessage ajaxError";
         } else {
