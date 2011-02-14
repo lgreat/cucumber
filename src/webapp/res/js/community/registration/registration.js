@@ -23,7 +23,7 @@ function childSchoolChange(childNum, hideOnly) {
 }
 
 function makeChildSchoolSelect(childNum, optionText) {
-    return '<select name="school' + childNum + '" id="school' + i +
+    return '<select name="school' + childNum + '" id="school' + childNum +
            '" class="selectChildSchool" onclick="childSchoolChange(' + childNum + ', false);"><option value="">' +
            optionText + '</option></select>';
 }
