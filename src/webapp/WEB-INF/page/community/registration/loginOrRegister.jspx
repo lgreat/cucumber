@@ -117,7 +117,6 @@
 
                 <div class="mod_bd">
 
-                    <!--I believe the commented code below to be deprecated. GS-9159 RANDALL
                     <c:if test="${param.message ne null and param.message gt ''}">
                         <c:set var="message" value="${gsweb:escapeHtml(param.message)}"/>
                     </c:if>
@@ -125,11 +124,11 @@
                     <c:if test="${message ne null and message gt ''}">
                         <c:set var="messageClass" value="hasMessage"/>
 
-                        <p class="infoMessage">
-                            <gsml:img src="/res/img/community/registration/check.gif" alt="Check mark"/>
+                        <p class="warning infoMessage">
+                            <span class="sprite i-alert"><!-- not empty --></span>
                             <span>${message}</span>
                         </p>
-                    </c:if>-->
+                    </c:if>
 
                     <h4 class="introTextbold">Yes! I'm already a member</h4>
 
