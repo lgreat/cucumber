@@ -155,6 +155,18 @@ public class LuceneSchoolSearchResult implements ISchoolSearchResult {
         return iRating;
     }
 
+    public Integer getReviewCount() {
+        String reviewCountStr = _document.get("reviewCount");
+        if (reviewCountStr != null) {
+            return Integer.valueOf(reviewCountStr);
+        }
+        return 0;
+    }
+
+    public String getReviewBlurb() {
+        return _document.get("reviewBlurb");
+    }
+
     @XmlTransient
     public StateManager getStateManager() {
         return _stateManager;

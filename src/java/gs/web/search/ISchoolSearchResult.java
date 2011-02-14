@@ -30,4 +30,8 @@ public interface ISchoolSearchResult extends ISearchResult, ILocation {
 
     public Grades getGrades();
 
+    public Integer getReviewCount();
+
+    public String getReviewBlurb();
+
 }

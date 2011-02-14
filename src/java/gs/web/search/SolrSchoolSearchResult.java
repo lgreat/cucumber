@@ -51,6 +51,10 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
 
     private String _zip;
 
+    private Integer _schoolReviewCount;
+
+    private String _schoolReviewBlurb;
+
     public SolrSchoolSearchResult() {
         // empty constructor required by JAXB
         _stateManager = new StateManager();
@@ -240,6 +244,26 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
     public void setParentRating(Integer rating) {
 
         _parentRating = rating;
+    }
+
+    @XmlElement
+    public String getReviewBlurb() {
+        return _name;
+    }
+
+    @Field(SchoolDocumentBuilder.SCHOOL_REVIEW_BLURB)
+    public void setReviewBlurb(String schoolReviewBlurb) {
+        _schoolReviewBlurb = schoolReviewBlurb;
+    }
+
+    @XmlElement
+    public Integer getReviewCount() {
+        return _schoolReviewCount;
+    }
+
+    @Field(SchoolDocumentBuilder.SCHOOL_REVIEW_COUNT)
+    public void setReviewCount(Integer schoolReviewCount) {
+        _schoolReviewCount = schoolReviewCount;
     }
 
     @XmlTransient

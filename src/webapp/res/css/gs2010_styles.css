@@ -8335,6 +8335,10 @@ body.ie7 #frmPRModule .helperMessage {
     width: 50px;
 }
 
+#school-search-results-table-body .reviewsBlurb {
+    text-align: left;
+}
+
 #school-search-results-table-body .js-compareHelperMessage,
 #school-search-results-table-body .js-compareButton {
     display: none;
