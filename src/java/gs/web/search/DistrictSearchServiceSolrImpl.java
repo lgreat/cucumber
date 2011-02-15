@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.documentBuilders.DistrictDocumentBuilder;
+import gs.data.search.parsing.IGsQueryParser;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -19,6 +20,8 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
     private SolrConnectionManager _solrConnectionManager;
 
     private Logger _log = Logger.getLogger(DistrictSearchServiceImpl.class);
+
+    private IGsQueryParser _queryParser;
 
     public DistrictSearchServiceSolrImpl() {
 
@@ -73,7 +76,12 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
         
         String q = "*:*";
         if (!StringUtils.isBlank(searchString)) {
-            q = "+" + DistrictDocumentBuilder.DISTRICT_NAME + ":(" + searchString + ")";
+            if (_queryParser != null) {
+                q = getQueryParser().parse(searchString).toString();
+                query.setQueryType("standard"); //use our already-parsed query
+            } else {
+                q = "+" + DistrictDocumentBuilder.DISTRICT_NAME + ":(" + searchString + ")";
+            }
         }
 
         query.setQuery(q);
@@ -86,5 +94,13 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
 
     public void setSolrConnectionManager(SolrConnectionManager solrConnectionManager) {
         _solrConnectionManager = solrConnectionManager;
+    }
+
+    public IGsQueryParser getQueryParser() {
+        return _queryParser;
+    }
+
+    public void setQueryParser(IGsQueryParser queryParser) {
+        _queryParser = queryParser;
     }
 }
