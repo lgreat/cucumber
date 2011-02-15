@@ -5487,7 +5487,8 @@ a.ui-dialog-titlebar-close .ui-icon {
     clear: both;
 }
 
-.error {
+#joinGS .error,
+.error{
     font: 11px / 1.3 Arial, Helvetica, sans-serif;
     color: #c03;
     padding: 0 0 3px 15px;
@@ -5495,7 +5496,8 @@ a.ui-dialog-titlebar-close .ui-icon {
     display: none;
 }
 
-.messBox {
+#joinGS .messBox,
+.messBox{
     border: 1px solid #c03;
     background: #f4f4f4 url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 8px 8px no-repeat;
     padding: 8px 8px 8px 24px;
