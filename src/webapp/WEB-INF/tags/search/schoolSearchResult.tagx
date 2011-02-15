@@ -145,7 +145,7 @@
             </td>
 
             <!-- Parent Rating -->
-            <td class="brdbtm_dotted stars-column bg-color-fff" align="center" valign="top">
+            <td class="brdbtm_dotted stars-column bg-color-fff" align="left" valign="top">
                 <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" styleClass="block">
                     <c:choose>
                         <c:when test="${not empty school.parentRating}">
