@@ -65,58 +65,6 @@
                 <!-- end mod -->
             </c:when>
 
-            <c:when test="${style eq 'fall2009'}">
-
-                <div class="mod">
-                    <div class="mod_hd">
-                        <h3>Most popular</h3>
-                    </div>
-                    <!-- end header -->
-
-                    <!--<img src="/res/img/mostPopularContent/most_popular_sm_thumb.jpg" alt="Smiling girl with book"/>-->
-
-                    <c:set var="numResults" value="${fn:length(links)}"/>
-                    <!-- maxResults can be changed to cap the number of articles to display -->
-                    <c:set var="maxResults" value="${10}"/>
-
-                    <c:choose>
-                        <c:when test="${numResults lt maxResults}">
-                            <c:set var="actualMax" value="${numResults}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="actualMax" value="${maxResults}"/>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <div class="mod_bd body2bg">
-                        <ul class="mostpop text3 bullet">
-                            <c:forEach var="link" items="${links}" varStatus="status">
-
-                                <c:if test="${status.count le actualMax}">
-
-                                    <c:choose>
-                                        <c:when test="${status.count eq actualMax}">
-                                            <c:set var="className" value="lastone"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="className" value=""/>
-                                        </c:otherwise>
-                                    </c:choose>
-
-                                    <li class="mostpopItem tint_f4891d ${className}">
-                                        <span><a href="${link.url}" class="link"><c:out value="${link.linkText}"/></a></span>
-                                    </li>
-
-                                </c:if>
-
-                            </c:forEach>
-                        </ul>
-                    </div>
-                    <!-- end body2bg -->
-                </div>
-                <!-- end module -->
-            </c:when>
-
             <c:otherwise>
                 <div id="cmsMostPopular" class="mod">
                     <div class="mod_hd">

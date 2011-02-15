@@ -12,104 +12,6 @@
 <c:if test="${!empty requestScope.discussionBoard and !empty requestScope.discussions}">
 <c:set var="fullUri" value="${requestScope.discussionBoard.fullUri}"/>
 
-<c:choose>
-<c:when test="${style eq 'fall2009'}">
-
-    <div id="recentDiscussions" class="box">
-        <div class="inner cleared">
-            <div class="content gainlayout">
-                <h2>${requestScope.discussionBoard.title}</h2>
-                <c:forEach var="discussion" items="${requestScope.discussions}">
-                    <div class="discussionHolder sdrb clearfix">
-                        <div class="avatar fltlft">
-                            <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
-                                <community:avatar user="${discussion.user}" width="48" height="48"
-                                                  cssClass="fltlft" cssStyle="border: 1px solid #c6c6c6;"
-                                                  anonymous="${discussion.anonymous}"/>
-                            </link:userProfile>
-                        </div>
-                        <!-- end avatar -->
-                        <div class="discussionTopic fltlft">
-                            <h4 class="text3"><link:discussion discussionId="${discussion.id}"
-                                                               fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
-                                                               styleClass="text3">${discussion.title}</link:discussion>
-                            </h4>
-
-                                        <span class="smallAlertTextBoldNeutral">
-                                        <link:userProfile user="${discussion.user}"
-                                                          styleClass="smallAlertTextBoldNeutral"
-                                                          anonymous="${discussion.anonymous}">
-                                            <community:screenName userContent="${discussion}"/>
-                                        </link:userProfile>
-                                        </span>
-
-                            <c:if test="${not empty discussion.discussionBoard}">
-                                in
-                                            <span>
-                                                <link:cmsContent styleClass="smallAlertText"
-                                                                 contentKey="${discussion.discussionBoard.contentKey}"
-                                                                 fullUri="${fullUri}">${discussion.discussionBoard.title}</link:cmsContent>
-                                            </span>
-                            </c:if>
-
-                            <c:choose>
-                                <c:when test="${discussion.totalReplies == 0}">
-                                    <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="latestReply"> Latest reply:</span> <span
-                                        class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.mostRecentReplyDateCreated,requestScope.currentDate)}</span>
-                                </c:otherwise>
-                            </c:choose>
-
-                            <p>
-                                <community:userContentTeaserText
-                                        textToDisplay="${discussion.body}"
-                                        minLength="143" maxLength="163"
-                                        discussionId="${discussion.id}"
-                                        discussionFullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
-                                        numReplies="${discussion.totalReplies}"
-                                        textSpanClass="text3"
-                                        linkClass="text3"/>
-                            </p>
-                        </div>
-                        <!-- end discussionTopic -->
-                        <br class="clearfloat"/>
-                    </div>
-                    <!-- end discussionHolder -->
-                </c:forEach>
-
-                <div class="fltlft">
-                    <a class="btn25 jqRecentDiscussions_startADiscussion" href="#" onclick="this.blur();return false">
-            <span class="lftDoor25">
-                <span class="rtDoor25">
-                    <span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</span>
-            </span>
-                    </a>
-                    <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
-                                                     openElementJQuerySelector=".jqRecentDiscussions_startADiscussion"
-                                                     topicCenterId="${requestScope.discussionBoard.topicCenterId}"
-                                                     discussionBoardId="${requestScope.discussionBoard.contentKey.identifier}"
-                                                     selectGeneralParentingBoard="${requestScope.discussionBoard.contentKey.identifier == 2420}"
-                            />
-                </div>
-                <!-- end start a discussion button -->
-
-                <p class="fltrt"><link:cmsContent contentKey="${requestScope.discussionBoard.contentKey}"
-                                                  fullUri="${fullUri}">
-                    <span class="text3_230">More conversations </span>
-                    <span class="alertDoubleArrow">&amp;raquo;</span>
-                </link:cmsContent></p>
-                <br class="clearfloat"/>
-            </div>
-            <!-- end content -->
-        </div>
-        <!-- end inner -->
-    </div>
-    <!-- end recentDiscussions -->
-
-</c:when>
-<c:otherwise>
     <!--<p>title = <c:out value="${title}" default="don't know"/></p>-->
     <!--<p>moreText = <c:out value="${moreText}" default="don't know"/></p>-->
     <!--<p>showLargeFirstAvatar = <c:out value="${showLargeFirstAvatar}" default="don't know"/></p>-->
@@ -230,9 +132,6 @@
 
     </div>
     <!-- end ft -->
-
-</c:otherwise>
-</c:choose>
 
 </c:if>
 </jsp:root>
