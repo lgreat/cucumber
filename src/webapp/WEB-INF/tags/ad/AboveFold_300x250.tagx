@@ -7,6 +7,6 @@
     <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
     <c:set var="pos" value="${not empty position ? position : 'AboveFold_300x250'}" />
     <gsweb:adTagGenerator position="${pos}">
-        <span style="display:block; margin-bottom: 2px;">SUPPORT FOR GREATSCHOOLS IS PROVIDED BY:</span>$AD
+        <span style="display:block; margin-bottom: 2px;">ADVERTISEMENT</span>$AD
     </gsweb:adTagGenerator>
 </jsp:root>

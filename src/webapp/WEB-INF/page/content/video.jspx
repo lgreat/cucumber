@@ -58,7 +58,7 @@
             </div>
             <div id="sidebarGS" class="col vids">
                 <ad:Top_300x137/>
-                <div id="adCompanionBanner" style="visibility:hidden"><span>Support for GreatSchools is provided by:</span></div>
+                <div id="adCompanionBanner"><span>ADVERTISEMENT</span></div>
                 <script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js">
                     // i had to put something here to avoid the tag collapsing which breaks the ad
                 </script>

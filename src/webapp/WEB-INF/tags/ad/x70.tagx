@@ -6,7 +6,7 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <gsweb:adTagGenerator position="x70">
-        <span style="display:block;">AD</span>
+        <span style="display:block;">ADVERTISEMENT</span>
         $AD
     </gsweb:adTagGenerator>
 </jsp:root>

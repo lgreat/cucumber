@@ -5,6 +5,6 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <gsweb:adTagGenerator position="AboveFold_300x600">
-        <span style="display:block; margin-bottom: 2px;">SUPPORT FOR GREATSCHOOLS IS PROVIDED BY:</span>$AD
+        <span style="display:block; margin-bottom: 2px;">ADVERTISEMENT</span>$AD
     </gsweb:adTagGenerator>
 </jsp:root>

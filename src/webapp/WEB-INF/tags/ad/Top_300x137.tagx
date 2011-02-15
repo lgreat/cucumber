@@ -10,7 +10,6 @@
     <c:choose>
         <c:when test="${requestScope.context.cobranded}">
             <div id="Top_300x137">
-                <span>Support for GreatSchools is provided by:</span>
                 <link:schoolChoiceCenter absolute="true">
                     <gsml:img src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
                               alt="School Choice Tips: Choose a great school for your family"

@@ -10,7 +10,7 @@
 			<div class="wrapper-inner">
 				<div class="wrapper-content">
 					<gsweb:adTagGenerator position="Homepage_300x250">
-                        <span style="display:block; margin: 4px 0 6PX;">SUPPORT FOR GREATSCHOOLS IS PROVIDED BY:</span>$AD
+                        <span style="display:block; margin: 4px 0 6PX;">ADVERTISEMENT</span>$AD
                     </gsweb:adTagGenerator>
 				</div>
 			</div>
