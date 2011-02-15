@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsweb="gstaglib"
+        >
+    <div class="mod standard">
+        <div class="inner">
+            <div class="hd">
+                <h3>The Low-Down on School Choice</h3>
+            </div>
+            <div class="bd">
+                <div class="bd-inner">
+                    <div class="mediaExt2">
+                        <span class="img sprite cms"><!-- do not collapse --></span>
+
+                        <div class="bk">
+                            <p><span class="text2bold">Insider tricks to assessing a school</span><br/>
+                                For
+                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-preschools.gs?content=1627">preschool</a>,
+                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-elementary-schools.gs?content=1628">elementary school</a>,
+                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-middle-schools.gs?content=1629">middle school</a>, and
+                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-high-schools.gs?content=1630">high school</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mediaExt2">
+                        <span class="img sprite cms"><!-- do not collapse --></span>
+
+                        <div class="bk">
+                            <p><span class="text2bold"><a
+                                    href="#http://www.greatschools.org/find-a-school/defining-your-ideal/private-vs-public-schools.gs?content=59">Private versus public</a></span><br/>
+                                Should you go private? It all comes down to understanding what the differences really are.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mediaExt2">
+                        <span class="img sprite cms"><!-- do not collapse --></span>
+
+                        <div class="bk">
+                            <p><span class="text2bold"><a
+                                    href="http://www.greatschools.org/find-a-school/defining-your-ideal/seven-facts-about-charter-schools.gs?content=192">Seven essentials about charter schools</a></span><br/>
+                                Tempted to go charter? These facts and factors will help you make an informed decision.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mediaExt2">
+                        <span class="img sprite cms"><!-- do not collapse --></span>
+
+                        <div class="bk">
+                            <p><span class="text2bold"><a
+                                    href="http://www.greatschools.org/students/media-kids/slideshows/why-online-education-is-taking-off.gs?content=2080">Is online education the future?</a></span><br/>
+                                More students are opting for digital learning. Find out why.</p>
+                        </div>
+                    </div>
+                    <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</jsp:root>
