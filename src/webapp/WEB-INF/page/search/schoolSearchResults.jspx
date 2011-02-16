@@ -359,7 +359,7 @@
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
 
     <!-- Low Down module -->
-    <content:theLowDownOnSchoolChoice/>
+    <content:makingSenseOfSchoolChoice/>
 
     <!-- Community module -->
     <c:set var="recentDiscussions" value=""/>
