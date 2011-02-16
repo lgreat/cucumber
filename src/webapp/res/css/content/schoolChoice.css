@@ -3,12 +3,11 @@
 #contentLeft {
     float: left;
     width: 174px;
+    padding:0 5px;
 }
 
 #skyscraper {
     padding-top: 10px;
-    margin-left: 10px;
-    clear: both;
 }
 
 /* Center Content */

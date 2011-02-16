@@ -3046,6 +3046,11 @@ body.ie6 .clearfix {
     margin: 0 0 0 -30px;
 }
 
+#AboveFold_Left_160x600{
+    width:160px;
+    margin:0 auto;
+}
+
 #AboveFold_300x250,
 #AboveFold_300x600,
 #BelowFold_Top_300x125,

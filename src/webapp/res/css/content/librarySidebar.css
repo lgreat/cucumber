@@ -1,8 +1,7 @@
 /* Left Sidebar */
 #librarySidebar {
 	width: 164px;
-	float: left;
-	/*margin-left: 10px;*/
+	margin: 0 auto;
     display: block;
 }
 #librarySidebar.white {
