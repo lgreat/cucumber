@@ -111,7 +111,7 @@
             <content:librarySidebar/>
 
             <div id="skyscraper">
-                <ad:adTag position="AboveFold_Left_160x600"/> 
+                <ad:AboveFold_Left_160x600/>
             </div>
         </div>
 

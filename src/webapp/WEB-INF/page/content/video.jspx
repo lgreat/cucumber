@@ -58,7 +58,10 @@
             </div>
             <div id="sidebarGS" class="col vids">
                 <ad:Top_300x137/>
-                <div id="adCompanionBanner"><span>ADVERTISEMENT</span></div>
+
+                <div class="ad">
+                    <div id="adCompanionBanner"><span class="jq-ghostText">ADVERTISEMENT</span></div>
+                </div>
                 <script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js">
                     // i had to put something here to avoid the tag collapsing which breaks the ad
                 </script>

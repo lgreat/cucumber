@@ -13,7 +13,7 @@
     <c:choose>
         <c:when test="${showAdWord}">
             <gsweb:adTagGenerator position="BelowFold_300x250">
-                <span style="display:block; margin-bottom: 2px;">ADVERTISEMENT</span>$AD
+                <span class="jq-ghostText">ADVERTISEMENT</span>$AD
             </gsweb:adTagGenerator>
         </c:when>
         <c:otherwise>

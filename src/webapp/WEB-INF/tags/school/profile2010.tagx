@@ -530,17 +530,8 @@
                     <ad:BelowFold_300x250/>
 
                     <gsweb:adTagGenerator position="BelowFold_Top_300x125">
-                        <span style="display:block; margin-bottom: 2px;"
-                              id="messageBelowFold_Top_300x125">ADVERTISEMENT</span>$AD
+                        <span class="jq-ghostText">ADVERTISEMENT</span>$AD
                     </gsweb:adTagGenerator>
-                    <script type="text/javascript">
-                        jQuery(function () {
-                            if (jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125').length == 0 &amp;&amp;
-                                    jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125_ad_container').length == 0) {
-                                jQuery('#messageBelowFold_Top_300x125').hide();
-                            }
-                        });
-                    </script>
                 </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
@@ -581,17 +572,8 @@
                     <ad:BelowFold_300x250/>
 
                     <gsweb:adTagGenerator position="BelowFold_Top_300x125">
-                        <span style="display:block; margin-bottom: 2px;"
-                              id="messageBelowFold_Top_300x125">ADVERTISEMENT</span>$AD
+                        <span class="jq-ghostText">ADVERTISEMENT</span>$AD
                     </gsweb:adTagGenerator>
-                    <script type="text/javascript">
-                        jQuery(function () {
-                            if (jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125').length == 0 &amp;&amp;
-                                    jQuery('#google_ads_div_${gsweb:escapeJavaScript(adSlotPrefix)}_BelowFold_Top_300x125_ad_container').length == 0) {
-                                jQuery('#messageBelowFold_Top_300x125').hide();
-                            }
-                        });
-                    </script>
 
                 </c:otherwise>
             </c:choose>

@@ -5,6 +5,6 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <gsweb:adTagGenerator position="AboveFold_300x600">
-        <span style="display:block; margin-bottom: 2px;">ADVERTISEMENT</span>$AD
+        <span class="jq-ghostText">ADVERTISEMENT</span>$AD
     </gsweb:adTagGenerator>
 </jsp:root>

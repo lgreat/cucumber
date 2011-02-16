@@ -60,10 +60,6 @@
         }
     </script>
 
-    <!-- The function showLatestTools() is for GS-6999. Only show the last list item (4th bullet) in
-         The Latest Tools module if no ad slot is targeted within that module. Do this by checking for
-         the presence of the element google_ads_div_Homepage_185x28 and only make the last list item
-         visible if it is not there. -->
     <script type="text/javascript" language="javascript">
         function hoverHome() {
             if (getState() != '') {
@@ -80,14 +76,6 @@
         function toggleStateSelector(thisItem) {
             if (thisItem) {
                 showStateWidget('${stateWidgetUrl}', 250, 300);
-            }
-        }
-        function showLatestTools() {
-            if (document.getElementById('google_ads_div_Homepage_185x28') == null) {
-                var listItem = document.getElementById('latestToolsLast1');
-                if (listItem != null) {
-                    listItem.style.display = 'block';
-                }
             }
         }
     </script>
@@ -139,7 +127,7 @@
     <c:if test="${not isIE6}">
         <pageHelper:externalJavascript file="/res/js/carousel/carousel.js"/>
     </c:if>
-<pageHelper:addOnLoadHandler handler="hoverHome();showLatestTools();"/>
+<pageHelper:addOnLoadHandler handler="hoverHome();"/>
 
 <c:set var="showAd"
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>

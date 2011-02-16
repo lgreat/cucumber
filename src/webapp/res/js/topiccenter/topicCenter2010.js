@@ -247,15 +247,6 @@ $j(document).ready(function() {
     });
 
     /* ------------------------------------------------ */
-    /* -- TOPIC CENTER AND GRADE LEVEL SKYSCRAPER AD -- */
-    /* ------------------------------------------------ */
-
-    // GS-9690 - show 160x600 ad (and AD word above the ad), only if ad is running
-    if ($j('#google_ads_div_Library_Article_Page_AboveFold_Left_160x600').length > 0) {
-        $j('.skyscraperAd').show();
-    }
-
-    /* ------------------------------------------------ */
     /* -- TOPIC CENTER AND GRADE LEVEL FIND A SCHOOL -- */
     /* ------------------------------------------------ */
 
