@@ -20,10 +20,15 @@
     padding-right: 5px; *//* GS-7616: IE6 only *//*
 }*/
 
+#contentLeft {
+    float: left;
+    width: 174px;
+    padding:0 5px;
+}
+
 #col_left{
     display:block;
     float:left;
-    padding-left:20px;
 }
 
 #col_left h1 {

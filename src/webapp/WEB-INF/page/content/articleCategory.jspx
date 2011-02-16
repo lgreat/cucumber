@@ -54,9 +54,9 @@
 
 <div id="mainGS" class="col">
 
-<!--<div id="contentLeft">-->
+<div id="contentLeft">
     <content:librarySidebar cssClass="white" />
-<!--</div>-->
+</div>
 
 <c:set var="isALearningDisabilityCategory" value="${requestScope.isAnLDCategory}"/>
 
