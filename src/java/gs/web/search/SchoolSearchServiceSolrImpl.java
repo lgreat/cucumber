@@ -210,7 +210,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
                 solrQuery.setQuery(parsed);
                 solrQuery.setQueryType("standard"); //use our already-parsed query
             } else {
-                solrQuery.setQuery(searchString);
+                solrQuery.setQuery(requireNonOptionalWords(searchString));
                 solrQuery.setQueryType("school-search"); //solr will parse our query for us
             }
         }

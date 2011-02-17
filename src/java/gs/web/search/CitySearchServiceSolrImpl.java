@@ -2,9 +2,11 @@ package gs.web.search;
 
 import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.documentBuilders.CityDocumentBuilder;
+import gs.data.search.parsing.IGsQueryParser;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.lucene.queryParser.ParseException;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -18,6 +20,8 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
     private SolrConnectionManager _solrConnectionManager;
 
     private Logger _log = Logger.getLogger(CitySearchServiceImpl.class);
+
+    private IGsQueryParser _queryParser;
 
     public CitySearchServiceSolrImpl() {
         //_queryParser = new QueryParser("city", new GSAnalyzer());
@@ -56,7 +60,7 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
         return resultList;
     }
 
-    public SolrQuery buildQuery(String searchString) {
+    public SolrQuery buildQuery(String searchString) throws ParseException {
         SolrQuery query = new SolrQuery();
         query.addFilterQuery(CityDocumentBuilder.DOCUMENT_TYPE + ":" + CityDocumentBuilder.DOCUMENT_TYPE_CITY);
         query.setQueryType("standard");
@@ -70,7 +74,12 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
 
         String q = "*:*";
         if (!StringUtils.isBlank(searchString)) {
-            q = "+" + CityDocumentBuilder.CITY_NAME + ":(" + searchString + ")^3.0";
+            if (_queryParser != null) {
+                q = getQueryParser().parse(searchString).toString();
+                query.setQueryType("standard"); //use our already-parsed query
+            } else {
+                q = "+" + CityDocumentBuilder.CITY_NAME + ":(" + searchString + ")^3.0";
+            }
         }
 
         query.setQuery(q);
@@ -83,5 +92,13 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
 
     public void setSolrConnectionManager(SolrConnectionManager solrConnectionManager) {
         _solrConnectionManager = solrConnectionManager;
+    }
+
+    public IGsQueryParser getQueryParser() {
+        return _queryParser;
+    }
+
+    public void setQueryParser(IGsQueryParser queryParser) {
+        _queryParser = queryParser;
     }
 }
