@@ -28,10 +28,6 @@
         <pattern>*/sandbox/*</pattern>
     </decorator>
 
-    <decorator name="communityAdDecorator" page="communityAdDecorator.jspx">
-        <pattern>/ads/serveAds.page*</pattern>
-    </decorator>
-
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator2010.jspx">
         <pattern>/*</pattern>
         <pattern>/sandbox/hoverTest.page</pattern>

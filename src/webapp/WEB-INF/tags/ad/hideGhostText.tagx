@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.tag body-content="empty"
+                       description="Generates JavaScript to hide ghost text of untargeted ads. Generally you will not call this directly, but it will be called by the page decorator."/>
+    <!-- GAMadNames is set by xGAMSetup.tagx, which should be called before this tag is called -->
+    <!-- only generate the javascript below if this page is not ad-free and there is ad least one ad on this page -->
+    <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
+
+            <script type="text/javascript">
+                jQuery(function() {
+                    <!-- repeat for each ad slot used on this page -->
+                    <c:forEach var="slotName" items="${GAMadNames}">
+                        <!-- only consider the ones with 300x or x600 or 728x90 in the ad slot name -->
+                        <c:if test="${fn:contains(slotName,'300x') or fn:contains(slotName,'x600') or fn:contains(slotName,'728x90')}">
+                            <!-- escape the slot name string to be safe for JavaScript, just in case -->
+                            <c:set var="jsEscapedSlotName" value="${gsweb:escapeJavaScript(slotName)}"/>
+                            <!-- strip out the prepended ad slot prefix, if it exists -->
+                            <c:set var="slotPosition" value="${not empty gamSlotPrefix ? fn:replace(jsEscapedSlotName,gamSlotPrefix,'') : jsEscapedSlotName}"/>
+                            <!-- check for existence of element inserted by GAM when an ad is targeted;
+                                 note that the div id may or may not have '_ad_container' at the end, so check for both -->
+                     <![CDATA[
+                            if (jQuery('#google_ads_div_${jsEscapedSlotName}').length == 0 &&
+                                jQuery('#google_ads_div_${jsEscapedSlotName}_ad_container').length == 0) {
+                     ]]>
+                                <c:choose>
+                                        <!-- hide header ad ghost text if header ad is not targeted -->
+                                        <c:when test="${fn:contains(slotName,'Header_728x90')}">
+                                            jQuery('#jq-ghostText-Header_728x90').hide();
+                                            jQuery('#jq-ghostText-Header_728x90-clear').show();
+                                        </c:when>
+                                        <!-- hide footer ad ghost text if header ad is not targeted -->
+                                        <c:when test="${fn:contains(slotName,'Footer_728x90')}">
+                                            jQuery('#jq-ghostText-Footer_728x90').hide();
+                                        </c:when>
+                                        <!-- hide other ad's ghost text if ad is not targeted -->
+                                        <c:otherwise>
+                                            jQuery('#ad${slotPosition} .jq-ghostText').hide();
+                                        </c:otherwise>
+                                </c:choose>
+                            }
+                        </c:if>
+                    </c:forEach>
+                });
+            </script>
+        </c:if>
+</jsp:root>

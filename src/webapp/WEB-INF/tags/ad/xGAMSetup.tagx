@@ -149,22 +149,5 @@
                 GA_googleUseSyncSRARendering();
                 GA_googleFetchAds();
             </script>
-
-            <script type="text/javascript">
-                jQuery(function() {
-                    <c:forEach var="slotName" items="${GAMadNames}">
-                        <c:if test="${fn:contains(slotName,'300x')or fn:contains(slotName,'x600')}">
-                            <c:set var="jsEscapedSlotName" value="${gsweb:escapeJavaScript(slotName)}"/>
-                            <c:set var="slotPosition" value="${fn:replace(jsEscapedSlotName,gamSlotPrefix,'')}"/>
-                     <![CDATA[
-                            if (jQuery('#google_ads_div_${jsEscapedSlotName}').length == 0 &&
-                                jQuery('#google_ads_div_${jsEscapedSlotName}_ad_container').length == 0) {
-                                jQuery('#ad${slotPosition} .jq-ghostText').hide();
-                            }
-                    ]]>
-                        </c:if>
-                    </c:forEach>
-                });
-            </script>
         </c:if>
 </jsp:root>

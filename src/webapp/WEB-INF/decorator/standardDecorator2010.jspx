@@ -176,6 +176,7 @@
     <div style="text-align:center"><cobrand:footer/></div>
 </div>
 ${modTracking}
+<ad:hideGhostText/>
 <div id="deferredContent" style="display:none;">
     ${deferredContent}
 </div>

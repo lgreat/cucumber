@@ -9,7 +9,7 @@
         <tr>
             <td>
                 <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical2.gif"/>
-                <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="13" height="90"/>
+                <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="13" height="90" id="jq-ghostText-Footer_728x90"/>
             </td>
             <td style="text-align:left;width:728px;height:90px" class="ad">
                 <gsweb:adTagGenerator position="Footer_728x90"/>
