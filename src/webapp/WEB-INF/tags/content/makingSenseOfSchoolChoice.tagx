@@ -19,10 +19,10 @@
                         <div class="bk">
                             <p><span class="text2bold">Insider tricks to assessing a school</span><br/>
                                 For
-                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-preschools.gs?content=1627">preschool</a>,
-                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-elementary-schools.gs?content=1628">elementary school</a>,
-                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-middle-schools.gs?content=1629">middle school</a>, and
-                                <a href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-high-schools.gs?content=1630">high school</a>
+                                <a id="SearchResults_SchoolChoiceModule_1627" class="GS_CI9_" href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-preschools.gs?content=1627">preschool</a>,
+                                <a id="SearchResults_SchoolChoiceModule_1628" class="GS_CI9_" href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-elementary-schools.gs?content=1628">elementary school</a>,
+                                <a id="SearchResults_SchoolChoiceModule_1629" class="GS_CI9_" href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-middle-schools.gs?content=1629">middle school</a>, and
+                                <a id="SearchResults_SchoolChoiceModule_1630" class="GS_CI9_" href="http://www.greatschools.org/find-a-school/defining-your-ideal/insider-tricks-for-assessing-high-schools.gs?content=1630">high school</a>
                             </p>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <span class="img sprite cms"><!-- do not collapse --></span>
 
                         <div class="bk">
-                            <p><span class="text2bold"><a
+                            <p><span class="text2bold"><a id="SearchResults_SchoolChoiceModule_59" class="GS_CI9_"
                                     href="http://www.greatschools.org/find-a-school/defining-your-ideal/private-vs-public-schools.gs?content=59">Private versus public</a></span><br/>
                                 Should you go private? It all comes down to understanding what the differences really are.
                             </p>
@@ -40,7 +40,7 @@
                         <span class="img sprite cms"><!-- do not collapse --></span>
 
                         <div class="bk">
-                            <p><span class="text2bold"><a
+                            <p><span class="text2bold"><a id="SearchResults_SchoolChoiceModule_192" class="GS_CI9_"
                                     href="http://www.greatschools.org/find-a-school/defining-your-ideal/seven-facts-about-charter-schools.gs?content=192">Seven essentials about charter schools</a></span><br/>
                                 Tempted to go charter? These facts and factors will help you make an informed decision.
                             </p>
@@ -50,7 +50,7 @@
                         <span class="img sprite cms"><!-- do not collapse --></span>
 
                         <div class="bk">
-                            <p><span class="text2bold"><a
+                            <p><span class="text2bold"><a id="SearchResults_SchoolChoiceModule_2080" class="GS_CI9_"
                                     href="http://www.greatschools.org/students/media-kids/slideshows/why-online-education-is-taking-off.gs?content=2080">Is online education the future?</a></span><br/>
                                 More students are opting for digital learning. Find out why.</p>
                         </div>
