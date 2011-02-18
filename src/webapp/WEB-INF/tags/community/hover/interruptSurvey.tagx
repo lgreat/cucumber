@@ -8,8 +8,15 @@
         <h2>Want to help every child succeed?</h2>
 
         <p class="introText">Please help us to improve our site so we can help parents guide their children's education.
-           The survey will only take a couple of minutes.</p>
+            The survey will only take a couple of minutes.</p>
 
-        <button class="button-1 regDone_hideHover" type="button">Take survey</button>
+        <div class="line">
+            <div class="unit size1of2">
+                <button class="button-3 regDone_hideHover" type="button">Take survey</button>
+            </div>
+            <div class="unit size1of2 lastUnit">
+                <div class="logo"><!-- do not collapse --></div>
+            </div>
+        </div>
     </div>
 </jsp:root>
