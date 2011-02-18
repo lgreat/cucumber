@@ -18,6 +18,7 @@ http://docs.jquery.com/Tutorials#Plugin_Development
 =2 popup - for informational popup bubbles
 =3 table stripping plugin
 =4 debug messaging
+=5 textarea character count
 */
 
 /* =0 template
@@ -268,3 +269,49 @@ function debug(what) {
         alert(what);
     }
 }
+
+/* =5 textarea character count
+---------------------------------------------------------------------------*/
+
+(function($){
+
+    //Attach this new method to jQuery
+    $.fn.extend({
+
+        //This is where you write your plugin's name
+        characterCounter: function(options) {
+
+            var defaults = {
+                charLimit: 250
+            };
+
+            var options = $.extend(defaults, options);
+
+            //Iterate over the current set of matched elements
+            return this.each(function() {
+                // options
+                var o = options;
+                var obj = $(this);
+
+                // controls character input/counter
+                obj.keyup(function() {
+                    var charLimit = o.charLimit;
+                    var charLength = obj.val().length;
+                    var charFeedback = $('#charCount');
+                    var plural = 's';
+                    (((charLimit - charLength)===1) || ((charLength - charLimit)===1)) ? plural = '' : plural = 's';
+                    // Displays count
+                    charFeedback.html((charLimit - charLength) + ' character' + plural + ' remaining');
+                    // Alerts when character limit is reached
+                    if(obj.val().length > charLimit){
+                        charFeedback.html('<span class="formErrorText">' + (charLength - charLimit) + ' character' + plural + ' over limit</span>');
+                        $('> span', charFeedback).show();
+                    }
+                });
+
+            });
+        }
+    });
+
+// end of closure
+})(jQuery);

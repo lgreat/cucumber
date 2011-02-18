@@ -147,7 +147,7 @@
                     </c:choose>
 
                     <div class="unit size3of7 lastUnit">
-                        &amp;nbsp;
+                        <div id="charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
                     </div>
                     <div class="clearfloat"><!-- do not collapse --></div>
 
@@ -352,6 +352,7 @@
                 jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
                 jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
                 jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
+                jQuery('#reviewText').characterCounter({charLimit:1200});
             });
         </script>
 
