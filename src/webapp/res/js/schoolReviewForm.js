@@ -78,7 +78,7 @@ GS.review.Validator = function() {
 
         if (reviewText.length > 1200) {
             validationResult.setValid(false);
-            validationResult.addError('Please keep your comments to 1200 characters or less.');
+            validationResult.addError('Please keep your comments under 1200 characters.');
         }
         if (this.countWords(reviewText) < 15) {
             validationResult.setValid(false);
