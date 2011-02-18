@@ -887,6 +887,18 @@ GSType.hover.EmailToFriend = function() {
 };
 GSType.hover.EmailToFriend.prototype = new GSType.hover.HoverDialog("emailToFriendHover",640);
 
+// TODO-11411
+GSType.hover.InterruptSurvey = function() {
+    this.loadDialog = function () {
+        // TODO-11411
+        var omniturePageName = '';
+        // TODO-11411
+        var origin = 'Overview'; // or Articles
+        this.pageName='Survey Interrupt Hover ' + origin;
+        this.hier1='Surveys,Auto Hover,' + omniturePageName;
+    }
+};
+GSType.hover.InterruptSurvey.prototype = new GSType.hover.HoverDialog('interruptSurvey',465);
 
 GSType.hover.PrincipalConfirmation = function() {
     this.loadDialog = function() {
@@ -978,6 +990,10 @@ GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPos
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
 
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
+
+// TODO-11411
+GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
+
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
 
@@ -1324,6 +1340,9 @@ jQuery(function() {
     GSType.hover.emailValidatedSchoolReview.loadDialog();
 
     GSType.hover.emailToFriend.loadDialog();
+
+    // TODO-11411
+    GSType.hover.interruptSurvey.loadDialog();
     GSType.hover.principalConfirmation.loadDialog();
     GSType.hover.principalReviewSubmitted.loadDialog();
 

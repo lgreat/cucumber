@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <div id="interruptSurvey" class="dialog_white" style="display:none;">
+        <h2>Want to help every child succeed?</h2>
+
+        <p class="introText">Please help us to improve our site so we can help parents guide their children's education.
+           The survey will only take a couple of minutes.</p>
+
+        <button class="button-1 regDone_hideHover" type="button">Take survey</button>
+    </div>
+</jsp:root>

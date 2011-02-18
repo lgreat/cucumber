@@ -5,6 +5,7 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
           xmlns:gsweb="gstaglib"
@@ -96,6 +97,8 @@
     </c:if>
 </head>
 <body>
+
+<communityHover:interruptSurvey/>
 
 <div id="main">
 <c:choose>
