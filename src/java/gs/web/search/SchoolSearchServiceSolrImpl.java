@@ -129,7 +129,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         QueryResponse response;
         int totalResults = 0;
         List<SolrSchoolSearchResult> results = new ArrayList<SolrSchoolSearchResult>();
-        SearchResultsPage<SolrSchoolSearchResult> searchResults;
+        SearchResultsPage<SolrSchoolSearchResult> searchResults = new SearchResultsPage<SolrSchoolSearchResult>(0, results);
 
         SolrQuery query;
         try {
@@ -138,50 +138,54 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
             throw new SchoolSearchService.SearchException("Problem parsing query.", e);
         }
 
-        if (filters.size() > 0) {
-            String[] filterQueries = createFilterQueries(filters);
-            query.addFilterQuery(filterQueries);
-        }
+        if (query != null) {
 
-        if (fieldConstraints != null && fieldConstraints.size() > 0) {
-            Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
-            for (Map.Entry<FieldConstraint, String> entry : entrySet) {
-                query.addFilterQuery("+" + entry.getKey().getFieldName() + ":\"" + StringUtils.lowerCase(entry.getValue()) + "\"");
+            if (filters.size() > 0) {
+                String[] filterQueries = createFilterQueries(filters);
+                query.addFilterQuery(filterQueries);
             }
-        }
 
-        if (fieldSort != null) {
-            SolrQuery.ORDER order = fieldSort.isDescending() ? SolrQuery.ORDER.desc : SolrQuery.ORDER.asc;
-            query.addSortField(fieldSort.getField(), order);
-        }
+            if (fieldConstraints != null && fieldConstraints.size() > 0) {
+                Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
+                for (Map.Entry<FieldConstraint, String> entry : entrySet) {
+                    query.addFilterQuery("+" + entry.getKey().getFieldName() + ":\"" + StringUtils.lowerCase(entry.getValue()) + "\"");
+                }
+            }
 
-        try {
-            SolrServer server = getSolrConnectionManager().getReadOnlySolrServer();
+            if (fieldSort != null) {
+                SolrQuery.ORDER order = fieldSort.isDescending() ? SolrQuery.ORDER.desc : SolrQuery.ORDER.asc;
+                query.addSortField(fieldSort.getField(), order);
+            }
 
-            if (query != null) {
+            try {
+                SolrServer server = getSolrConnectionManager().getReadOnlySolrServer();
 
-                query.setStart(offset);
-                query.setRows(count);
-                response = server.query(query);
-                totalResults = (int) response.getResults().getNumFound();
-                if (offset > totalResults) {
-                    query.setStart(0);
+                if (query != null) {
+
+                    query.setStart(offset);
+                    query.setRows(count);
                     response = server.query(query);
                     totalResults = (int) response.getResults().getNumFound();
+                    if (offset > totalResults) {
+                        query.setStart(0);
+                        response = server.query(query);
+                        totalResults = (int) response.getResults().getNumFound();
+                    }
+
+                    results = response.getBeans(SolrSchoolSearchResult.class);
+
                 }
 
-                results = response.getBeans(SolrSchoolSearchResult.class);
-
+            } catch (IllegalArgumentException e) {
+                _log.debug("Error building query", e);
+                //search string or field constraints contained bad data, eat exception and return no hits
+            } catch (Exception e) {
+                throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
             }
 
-        } catch (IllegalArgumentException e) {
-            _log.debug("Error building query", e);
-            //search string or field constraints contained bad data, eat exception and return no hits
-        } catch (Exception e) {
-            throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
+            searchResults = new SearchResultsPage<SolrSchoolSearchResult>(totalResults, results);
         }
-
-        searchResults = new SearchResultsPage<SolrSchoolSearchResult>(totalResults, results);
+        
         return searchResults;
     }
 
