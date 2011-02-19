@@ -74,6 +74,10 @@
         request.setAttribute("seenInterstitial", seenInterstitial);
         // End GS-7445
 
+        // TODO-11411
+        request.setAttribute("showNLHover", false);
+        request.setAttribute("showSurvey", true);
+
         ]]></jsp:scriptlet>
 
     <c:if test="${!requestScope.context.crawler}">
@@ -103,16 +107,20 @@
             </c:choose>
         </c:if>
         <c:if test="${showSurvey}">
+            <!--
             <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
             <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+            -->
             <script type="text/javascript">
+                /*
                 function launchSurveyHover() {
                     if (!hasCookie("survey_seen_popup")) {
                         createCookie("survey_seen_popup", "1", 15);
                         showPopWin('/promo/surveyPromoHover.page', 520, 350, null, 'surveyHover');
                     }
                 }
-                setTimeout("launchSurveyHover()", 7000);
+                */
+                setTimeout("GSType.hover.interruptSurvey.show()", 7000);
             </script>
         </c:if>
     </c:if>

@@ -92,7 +92,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 
-<communityHover:interruptSurvey/>
+<communityHover:interruptSurvey type="overview"/>
 
 <div class="hreview-aggregate">
 

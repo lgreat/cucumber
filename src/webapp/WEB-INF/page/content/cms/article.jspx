@@ -98,7 +98,7 @@
 </head>
 <body>
 
-<communityHover:interruptSurvey/>
+<communityHover:interruptSurvey type="article"/>
 
 <div id="main">
 <c:choose>

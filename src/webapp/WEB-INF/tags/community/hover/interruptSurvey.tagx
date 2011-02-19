@@ -3,12 +3,53 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.data.json.JSONObject"/>
+    <jsp:directive.tag import="gs.data.json.JSONException"/>
+    <jsp:directive.tag import="gs.web.jsp.Util"/>
+    <jsp:directive.attribute name="type" required="true" description="The survey to show, 'overview' or 'article'" type="java.lang.String"/>
+
+    <jsp:scriptlet><![CDATA[
+        String surveyType = (String) jspContext.getAttribute("type");
+        SessionContext context = (SessionContext) request.getAttribute(gs.web.util.context.SessionContext.REQUEST_ATTRIBUTE_NAME);
+
+        JSONObject obj = null;
+        if ("overview".equals(surveyType)) {
+            obj = context.getSurveyDetailsOverview();
+        } else if ("article".equals(surveyType)) {
+            obj = context.getSurveyDetailsArticle();
+        }
+
+        boolean showSurveyHover = false;
+
+        if (obj != null) {
+            try {
+                String title = obj.getString("title");
+                String body = obj.getString("body");
+                String url = obj.getString("url");
+                Integer percent = obj.getInt("percent");
+
+                int randomNumber = Util.randomNumber(100);
+                //if (percent != null && randomNumber < percent) {
+                    jspContext.setAttribute("surveyTitle", title);
+                    jspContext.setAttribute("surveyBody", body);
+                    jspContext.setAttribute("surveyUrl", url);
+                    jspContext.setAttribute("surveyPercent", percent);
+                    showSurveyHover = true;
+                //}
+
+            } catch (JSONException e) {
+                showSurveyHover = false;
+            }
+        }
+
+
+        ]]></jsp:scriptlet>
 
     <div id="interruptSurvey" class="dialog_white" style="display:none;">
-        <h2>Want to help every child succeed?</h2>
+        <h2>${surveyTitle}</h2>
 
-        <p class="introText">Please help us to improve our site so we can help parents guide their children's education.
-            The survey will only take a couple of minutes.</p>
+        <p class="introText">${surveyBody}${surveyUrl}${surveyPercent}</p>
 
         <div class="line">
             <div class="unit size1of2">

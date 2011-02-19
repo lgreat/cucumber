@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.51 2011/02/09 01:40:18 yfan Exp $
+ * $Id: SessionContext.java,v 1.52 2011/02/19 00:38:30 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -9,6 +9,8 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
@@ -24,6 +26,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -284,6 +287,26 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public String getContextualAdsContentExcludes() {
         return _propertyDao.getProperty(IPropertyDao.CONTEXTUAL_ADS_CONTENT_EXCLUDES, "");
+    }
+
+    public JSONObject getSurveyDetailsOverview() {
+        try {
+            return new JSONObject(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_OVERVIEW, null), "UTF-8");
+        } catch (JSONException e) {
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
+    }
+
+    public JSONObject getSurveyDetailsArticle() {
+        try {
+            return new JSONObject(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_ARTICLE, null), "UTF-8");
+        } catch (JSONException e) {
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
     }
 
     public boolean isInterstitialEnabled() {
