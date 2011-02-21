@@ -887,15 +887,25 @@ GSType.hover.EmailToFriend = function() {
 };
 GSType.hover.EmailToFriend.prototype = new GSType.hover.HoverDialog("emailToFriendHover",640);
 
-// TODO-11411
 GSType.hover.InterruptSurvey = function() {
-    this.loadDialog = function () {
+    var surveyUrl = '';
+    this.loadDialog = function() { };
+    this.showHover = function (hier1Last, pageType, url) {
         // TODO-11411
-        var omniturePageName = '';
-        // TODO-11411
-        var origin = 'Overview'; // or Articles
-        this.pageName='Survey Interrupt Hover ' + origin;
-        this.hier1='Surveys,Auto Hover,' + omniturePageName;
+        //if (!hasCookie("survey_seen_popup")) {
+            createCookie("survey_seen_popup", "1", 15);
+            createCookie("survey_hover_seen_this_session", "1");
+            jQuery('#interruptSurvey .takeSurveyButton').click(GSType.hover.interruptSurvey.clickSubmitHandler);
+            this.pageName = 'Survey Interrupt Hover ' + pageType;
+            this.hier1 = 'Surveys,Auto Hover,' + hier1Last;
+            surveyUrl = url;
+            GSType.hover.interruptSurvey.show();
+        //}
+    };
+    this.clickSubmitHandler = function() {
+        window.open(surveyUrl);
+        GSType.hover.interruptSurvey.hide();
+        return false;
     }
 };
 GSType.hover.InterruptSurvey.prototype = new GSType.hover.HoverDialog('interruptSurvey',465);
@@ -988,10 +998,7 @@ GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
 GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPostedThankYou();
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
-
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
-
-// TODO-11411
 GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
 
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
@@ -1338,10 +1345,7 @@ jQuery(function() {
     GSType.hover.schoolReviewPostedThankYou.loadDialog();
     GSType.hover.schoolReviewNotPostedThankYou.loadDialog();
     GSType.hover.emailValidatedSchoolReview.loadDialog();
-
     GSType.hover.emailToFriend.loadDialog();
-
-    // TODO-11411
     GSType.hover.interruptSurvey.loadDialog();
     GSType.hover.principalConfirmation.loadDialog();
     GSType.hover.principalReviewSubmitted.loadDialog();

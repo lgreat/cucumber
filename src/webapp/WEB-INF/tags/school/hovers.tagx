@@ -9,6 +9,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:gsweb="gstaglib"
         >
@@ -20,6 +21,17 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
+
+    <c:if test="${tab eq 'overview'}">
+        <communityHover:interruptSurvey surveyType="overview"/>
+    </c:if>
+    <!-- TODO-11411
+    Don't include survey code if survey_seen_popup cookie found, optional since already checked in hover.js. (same with article page)
+    Don't show MSS hover if survey_hover_seen_this_session cookie found.
+    Unravel old logic on this hovers.tagx.
+
+    -->
+
     <jsp:scriptlet><![CDATA[
         SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
         ApplicationContext ac = context.getApplicationContext();
@@ -74,10 +86,6 @@
         request.setAttribute("seenInterstitial", seenInterstitial);
         // End GS-7445
 
-        // TODO-11411
-        request.setAttribute("showNLHover", false);
-        request.setAttribute("showSurvey", true);
-
         ]]></jsp:scriptlet>
 
     <c:if test="${!requestScope.context.crawler}">
@@ -96,9 +104,6 @@
                             <pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showNthHoverOnExit();"/>
                         </c:when>
                         <c:otherwise>
-                            <!--<pageHelper:addOnLoadHandler handler="DisplayPopUp('${school.databaseState}','${school.id}',0,'${tab}')"/>-->
-                            <!-- to (potentially) trigger MSS modal on exit -->
-                            <!-- GS-8864 Replacing new MSS hover with newer MSS hover, see hover.js and join.tagx -->
                             <pageHelper:addOnLoadHandler
                                     handler="GSType.hover.joinHover.showMssAutoHoverOnExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');"/>
                         </c:otherwise>
@@ -106,21 +111,9 @@
                 </c:otherwise>
             </c:choose>
         </c:if>
-        <c:if test="${showSurvey}">
-            <!--
-            <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-            <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-            -->
+        <c:if test="${tab eq 'overview' and not empty surveyDetails and surveyDetails['showSurveyHover']}">
             <script type="text/javascript">
-                /*
-                function launchSurveyHover() {
-                    if (!hasCookie("survey_seen_popup")) {
-                        createCookie("survey_seen_popup", "1", 15);
-                        showPopWin('/promo/surveyPromoHover.page', 520, 350, null, 'surveyHover');
-                    }
-                }
-                */
-                setTimeout("GSType.hover.interruptSurvey.show()", 7000);
+                setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${surveyDetails["url"]}')", 7000);
             </script>
         </c:if>
     </c:if>

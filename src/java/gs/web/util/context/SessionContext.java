@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.52 2011/02/19 00:38:30 yfan Exp $
+ * $Id: SessionContext.java,v 1.53 2011/02/21 02:22:56 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -14,6 +14,7 @@ import gs.data.json.JSONObject;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
+import gs.web.jsp.Util;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
@@ -289,24 +290,52 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         return _propertyDao.getProperty(IPropertyDao.CONTEXTUAL_ADS_CONTENT_EXCLUDES, "");
     }
 
-    public JSONObject getSurveyDetailsOverview() {
+    private JSONObject getSurveyDetailsJson(String property) {
         try {
-            return new JSONObject(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_OVERVIEW, null), "UTF-8");
+            return new JSONObject(_propertyDao.getProperty(property, null), "UTF-8");
         } catch (JSONException e) {
-            return null;
+            _log.warn("JSONException parsing survey details for " + property + ": " + e.getMessage());
         } catch (UnsupportedEncodingException e) {
-            return null;
+            _log.warn("UnsupportedEncodingException parsing for " + property + ": " + e.getMessage());
         }
+        return null;
     }
 
-    public JSONObject getSurveyDetailsArticle() {
-        try {
-            return new JSONObject(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_ARTICLE, null), "UTF-8");
-        } catch (JSONException e) {
-            return null;
-        } catch (UnsupportedEncodingException e) {
-            return null;
+    public Map<String,Object> getSurveyDetails(String surveyType) {
+        Map<String,Object> surveyDetails = new HashMap<String,Object>();
+        boolean showSurveyHover = false;
+
+        String property = null;
+        if ("overview".equals(surveyType)) {
+            property = IPropertyDao.SURVEY_DETAILS_OVERVIEW;
+        } else if ("article".equals(surveyType)) {
+            property = IPropertyDao.SURVEY_DETAILS_ARTICLE;
         }
+
+        JSONObject obj = null;
+        if (property != null) {
+            obj = getSurveyDetailsJson(property);
+        }
+
+        if (obj != null) {
+            try {
+                Integer percent = obj.getInt("percent");
+                // TODO-11411
+                //if (percent != null && Util.randomNumber(100) < percent) {
+                    surveyDetails.put("title", obj.getString("title"));
+                    surveyDetails.put("body", obj.getString("body"));
+                    surveyDetails.put("url", obj.getString("url"));
+                    showSurveyHover = true;
+                //}
+            } catch (JSONException e) {
+                _log.warn("JSONException getting survey details: " + e.getMessage());
+                showSurveyHover = false;
+            }
+        }
+
+        surveyDetails.put("showSurveyHover", showSurveyHover);
+
+        return surveyDetails;
     }
 
     public boolean isInterstitialEnabled() {

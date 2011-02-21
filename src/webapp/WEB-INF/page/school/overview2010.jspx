@@ -11,7 +11,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
@@ -91,8 +90,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <school:profile2010ShareThisJavaScript/> 
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
-
-<communityHover:interruptSurvey type="overview"/>
 
 <div class="hreview-aggregate">
 
