@@ -14,79 +14,34 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-    <jsp:directive.tag import="gs.data.admin.IPropertyDao"/>
-    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
     <jsp:directive.tag import="gs.web.util.CookieUtil"/>
-    <jsp:directive.tag import="gs.web.jsp.Util"/>
+    <jsp:directive.tag import="java.util.Map"/>
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
 
-    <c:if test="${tab eq 'overview'}">
+    <jsp:scriptlet>
+        request.setAttribute("surveyHoverSeen", CookieUtil.hasCookie(request, "survey_hover_seen"));
+    </jsp:scriptlet>
+    <c:if test="${tab eq 'overview' and not surveyHoverSeen and !requestScope.context.cobranded}">
         <communityHover:interruptSurvey surveyType="overview"/>
     </c:if>
-    <!-- TODO-11411
-    Don't include survey code if survey_seen_popup cookie found, optional since already checked in hover.js. (same with article page)
-    Don't show MSS hover if survey_hover_seen_this_session cookie found.
-    Unravel old logic on this hovers.tagx.
-
-    -->
 
     <jsp:scriptlet><![CDATA[
         SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-        ApplicationContext ac = context.getApplicationContext();
-        // Note: there are 2 survey hovers:
-        // The X seconds delayed survey hover below which gets triggered by the survey_hover_pct database property, see below
-        // The exit survey hover which gets triggered by the surveyHoverInterceptConfig database property, see submodal.js
-        // Both trigger /promo/surveyPromoHover.page and should probably not be run on the site at the same time
-        boolean showNLHover = true;
-        boolean showSurvey = false;
-        boolean surveyEligible = false;
-        int cookieLife = 15 * 60 * 60 * 24; // 15 days
-        int surveyHoverPct = 0;
-        boolean seenInterstitial = CookieUtil.hasCookie(request, "gs_interstitial");
-        try {
-            surveyHoverPct = Integer.parseInt(((IPropertyDao) ac.getBean(IPropertyDao.BEAN_ID)).getProperty(IPropertyDao.SURVEY_HOVER_PCT));
-        } catch (Exception e) {
-            // do nothing
+
+        // surveyDetails is inserted into request by communityHover:interruptSurvey
+        Map<String,Object> surveyDetails = (Map<String,Object>)request.getAttribute("surveyDetails");
+        boolean showSurvey = (surveyDetails != null && Boolean.TRUE.equals(surveyDetails.get("showSurveyHover")));
+        if (showSurvey) {
+            request.setAttribute("surveyUrl", surveyDetails.get("url"));
         }
-        // False condition is set to disable the survey
-        if (surveyHoverPct > 0 && !context.isCobranded()) {
-            if (!CookieUtil.hasCookie(request, "survey_seen_popup")) {
-                Cookie surveyEligableCookie = CookieUtil.getCookie(request, "survey_eligible");
-                if (surveyEligableCookie != null) {
-                    // User has the survey_eligible cookie so determine if they are eligable
-                    surveyEligible = "true".equals(surveyEligableCookie.getValue());
-                } else {
-                    // We need to determine eligability
-                    if (Util.randomNumber(100) < surveyHoverPct) {
-                        surveyEligible = true;
-                    }
-                    CookieUtil.setCookie(response, "survey_eligible", String.valueOf(surveyEligible), cookieLife);
-                }
-                // If they've seen a hover recently we want to delay showing the survey by one click
-                if (surveyEligible && (CookieUtil.hasCookie(request, "hover") || CookieUtil.hasCookie(request, "mssAutoHover")) && !CookieUtil.hasCookie(request, "hover_delay")) {
-                    CookieUtil.setCookie(response, "hover_delay", "1", cookieLife);
-                    showSurvey = false;
-                } else {
-                    showSurvey = surveyEligible && (request.getRequestURL().indexOf("school/overview") > -1);
-                }
-                showNLHover = !showSurvey;
-            } else {
-                // They have seen the popup survey, so now we want to make sure we skip launching the NL hover once
-                Cookie surveyDelayCookie = CookieUtil.getCookie(request, "survey_delay");
-                if (surveyDelayCookie == null) {
-                    CookieUtil.setCookie(response, "survey_delay", "1", cookieLife);
-                    showNLHover = false;
-                }
-            }
-        }
+        boolean showNLHover = !showSurvey && !CookieUtil.hasCookie(request, "survey_hover_seen_this_session");
+
         request.setAttribute("showNLHover", showNLHover);
         request.setAttribute("showSurvey", showSurvey);
-        request.setAttribute("seenInterstitial", seenInterstitial);
-        // End GS-7445
-
-        ]]></jsp:scriptlet>
+        request.setAttribute("seenInterstitial", CookieUtil.hasCookie(request, "gs_interstitial"));
+    ]]></jsp:scriptlet>
 
     <c:if test="${!requestScope.context.crawler}">
         <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
@@ -111,9 +66,9 @@
                 </c:otherwise>
             </c:choose>
         </c:if>
-        <c:if test="${tab eq 'overview' and not empty surveyDetails and surveyDetails['showSurveyHover']}">
+        <c:if test="${showSurvey and not empty surveyUrl}">
             <script type="text/javascript">
-                setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${surveyDetails["url"]}')", 7000);
+                setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${surveyUrl}')", 7000);
             </script>
         </c:if>
     </c:if>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.53 2011/02/21 02:22:56 yfan Exp $
+ * $Id: SessionContext.java,v 1.54 2011/02/21 06:55:58 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -320,13 +320,12 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         if (obj != null) {
             try {
                 Integer percent = obj.getInt("percent");
-                // TODO-11411
-                //if (percent != null && Util.randomNumber(100) < percent) {
+                if (percent != null && Util.randomNumber(100) < percent) {
                     surveyDetails.put("title", obj.getString("title"));
                     surveyDetails.put("body", obj.getString("body"));
                     surveyDetails.put("url", obj.getString("url"));
                     showSurveyHover = true;
-                //}
+                }
             } catch (JSONException e) {
                 _log.warn("JSONException getting survey details: " + e.getMessage());
                 showSurveyHover = false;
