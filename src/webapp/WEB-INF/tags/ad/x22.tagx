@@ -13,9 +13,9 @@
             <div id="adLeaderboard">
                 <table cellpadding="0" cellspacing="0">
                     <tr>
-                        <td>
-                            <img alt="Ad" class="adSponsorImage" src="/res/img/ad/sponsor_vertical3.gif" width="20" height="96" id="jq-ghostText-Header_728x90"/>
-                            <img class="hidden" src="/res/img/pixel.gif" width="20" height="96" id="jq-ghostText-Header_728x90-clear"/>
+                        <td class="jq-ghostTextWrapper">
+                            <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical3.gif"/>
+                            <img alt="Advertisement" class="adSponsorImage" src="${sponsorImage}" width="20" height="96" id="jq-ghostText-Header_728x90"/>
                         </td>
                         <td style="text-align:left;width:728px;height:90px;padding-right: 7px;" class="ad">
                             <ad:Header_728x90 position="${position}"/>
