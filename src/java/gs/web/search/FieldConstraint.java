@@ -2,7 +2,7 @@ package gs.web.search;
 
 import gs.data.search.indexers.documentBuilders.SchoolDocumentBuilder;
 
-public enum FieldConstraint {
+public enum FieldConstraint implements IFieldConstraint{
     //before solr migration
     /*DISTRICT_ID(IndexField.DISTRICT),
     CITY(Indexer.CITY_KEYWORD),

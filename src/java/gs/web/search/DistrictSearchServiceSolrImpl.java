@@ -4,6 +4,7 @@ import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.documentBuilders.DistrictDocumentBuilder;
 import gs.data.search.parsing.IGsQueryParser;
 import gs.data.state.State;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.queryParser.ParseException;
@@ -14,8 +15,9 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService implements DistrictSearchService {
+public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService<IDistrictSearchResult> implements DistrictSearchService {
 
     private SolrConnectionManager _solrConnectionManager;
 
@@ -27,12 +29,17 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
 
     }
 
-    public List<? extends IDistrictSearchResult> search(String searchString, State state) throws SchoolSearchService.SearchException {
+    @Override
+    public SearchResultsPage<IDistrictSearchResult> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public List<IDistrictSearchResult> search(String searchString, State state) throws SearchException {
         return search(searchString, state, 0, 0);
     }
 
-    public List<? extends IDistrictSearchResult> search(String searchString, State state, int offset, int count) throws SchoolSearchService.SearchException {
-        List<DistrictSearchResult> resultList = new ArrayList<DistrictSearchResult>();
+    public List<IDistrictSearchResult> search(String searchString, State state, int offset, int count) throws SearchException {
+        List<IDistrictSearchResult> resultList = new ArrayList<IDistrictSearchResult>();
 
         QueryResponse response = null;
 
@@ -50,12 +57,14 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
             }
 
             if (response != null && response.getResults().size() > 0) {
-                resultList = response.getBeans(DistrictSearchResult.class);
+                List<DistrictSearchResult> r = response.getBeans(DistrictSearchResult.class);
+                resultList = ListUtils.typedList(r, IDistrictSearchResult.class);
+                resultList = response.getBeans(IDistrictSearchResult.class);
             }
         } catch (SolrServerException e) {
-            throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
+            throw new SearchException("Problem accessing search results.", e);
         } catch (Exception e) {
-            throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
+            throw new SearchException("Problem accessing search results.", e);
         }
 
         return resultList;
@@ -103,4 +112,5 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService imple
     public void setQueryParser(IGsQueryParser queryParser) {
         _queryParser = queryParser;
     }
+
 }

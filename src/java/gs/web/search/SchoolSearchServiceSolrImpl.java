@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.documentBuilders.SchoolDocumentBuilder;
 import gs.data.search.parsing.IGsQueryParser;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.queryParser.ParseException;
@@ -12,8 +13,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 
 import java.util.*;
 
-public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService implements SchoolSearchService {
-
+public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService<ISchoolSearchResult> implements SchoolSearchService {
 
     private SolrConnectionManager _solrConnectionManager;
     private IGsQueryParser _queryParser;
@@ -86,56 +86,24 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         _optionalTerms.put("west", new Float(0.5));
     }
 
-    //TODO: best way to get correct builder?
-    SchoolSearchResultBuilder _resultsBuilder = new SchoolSearchResultBuilder();
-
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), null);
-    }
-
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, int offset, int count) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), null, offset, count);
-    }
-
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, FieldSort fieldSort) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), fieldSort);
-    }
-
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, FieldSort fieldSort, int offset, int count) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), fieldSort, offset, count);
-    }
-
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), filterGroups, fieldSort);
-    }
-
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort, int offset, int count) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), filterGroups, fieldSort, offset, count);
-    }
-
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort) throws SearchException {
-        return search(queryString, fieldConstraints, filters, fieldSort, 0, 0);
-    }
-
-
     /**
      * @param queryString
      * @param filters     An array of filters to OR together, so that results within any filter's bitset will be returned
      * @param fieldSort
      * @return
      */
-    public SearchResultsPage<? extends ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
 
         QueryResponse response;
         int totalResults = 0;
-        List<SolrSchoolSearchResult> results = new ArrayList<SolrSchoolSearchResult>();
-        SearchResultsPage<SolrSchoolSearchResult> searchResults = new SearchResultsPage<SolrSchoolSearchResult>(0, results);
+        List<ISchoolSearchResult> results = new ArrayList<ISchoolSearchResult>();
+        SearchResultsPage<ISchoolSearchResult> searchResults = new SearchResultsPage<ISchoolSearchResult>(0, results);
 
         SolrQuery query;
         try {
             query = buildQuery(queryString);
         } catch (ParseException e) {
-            throw new SchoolSearchService.SearchException("Problem parsing query.", e);
+            throw new SearchException("Problem parsing query.", e);
         }
 
         if (query != null) {
@@ -146,8 +114,8 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
             }
 
             if (fieldConstraints != null && fieldConstraints.size() > 0) {
-                Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
-                for (Map.Entry<FieldConstraint, String> entry : entrySet) {
+                Set<? extends Map.Entry<? extends IFieldConstraint,String>> entrySet = fieldConstraints.entrySet();
+                for (Map.Entry<? extends IFieldConstraint, String> entry : entrySet) {
                     query.addFilterQuery("+" + entry.getKey().getFieldName() + ":\"" + StringUtils.lowerCase(entry.getValue()) + "\"");
                 }
             }
@@ -172,7 +140,8 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
                         totalResults = (int) response.getResults().getNumFound();
                     }
 
-                    results = response.getBeans(SolrSchoolSearchResult.class);
+                    List<SolrSchoolSearchResult> r = response.getBeans(SolrSchoolSearchResult.class);
+                    results = ListUtils.typedList(r, SolrSchoolSearchResult.class);
 
                 }
 
@@ -180,10 +149,10 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
                 _log.debug("Error building query", e);
                 //search string or field constraints contained bad data, eat exception and return no hits
             } catch (Exception e) {
-                throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
+                throw new SearchException("Problem accessing search results.", e);
             }
 
-            searchResults = new SearchResultsPage<SolrSchoolSearchResult>(totalResults, results);
+            searchResults = new SearchResultsPage<ISchoolSearchResult>(totalResults, results);
         }
         
         return searchResults;
@@ -242,14 +211,6 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         _queryParser = queryParser;
     }
 
-    public SchoolSearchResultBuilder getResultsBuilder() {
-        return _resultsBuilder;
-    }
-
-    public void setResultsBuilder(SchoolSearchResultBuilder resultsBuilder) {
-        _resultsBuilder = resultsBuilder;
-    }
-
     public SolrConnectionManager getSolrConnectionManager() {
         return _solrConnectionManager;
     }
@@ -258,6 +219,23 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService impleme
         _solrConnectionManager = solrConnectionManager;
     }
 
+    enum SchoolSearchFieldConstraints  implements IFieldConstraint {
+        DISTRICT_ID(SchoolDocumentBuilder.SCHOOL_DISTRICT_ID),
+        CITY(SchoolDocumentBuilder.ADDRESS_CITY),
+        STATE(SchoolDocumentBuilder.ADDRESS_STATE);
 
+        private String _fieldName;
+        SchoolSearchFieldConstraints(String fieldName) {
+            _fieldName = fieldName;
+        }
+
+        public String getFieldName() {
+            return _fieldName;
+        }
+
+        public void setFieldName(String fieldName) {
+            _fieldName = fieldName;
+        }
+    }
 }
 

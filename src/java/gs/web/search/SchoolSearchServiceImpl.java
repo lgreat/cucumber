@@ -12,7 +12,7 @@ import org.apache.lucene.search.*;
 import java.io.IOException;
 import java.util.*;
 
-public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements SchoolSearchService {
+public class SchoolSearchServiceImpl extends BaseLuceneSearchService<ISchoolSearchResult> implements SchoolSearchService {
 
     private Searcher _searcher;
     private GSQueryParser _queryParser;
@@ -25,34 +25,6 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
     //TODO: best way to get correct builder?
     SchoolSearchResultBuilder _resultsBuilder = new SchoolSearchResultBuilder();
 
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), null);
-    }
-
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, int offset, int count) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), null, offset, count);
-    }
-
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, FieldSort fieldSort) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), fieldSort);
-    }
-
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, FieldSort fieldSort, int offset, int count) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), new ArrayList<FilterGroup>(), fieldSort, offset, count);
-    }
-
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), filterGroups, fieldSort);
-    }
-    
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort, int offset, int count) throws SearchException {
-        return search(queryString, new HashMap<FieldConstraint, String>(), filterGroups, fieldSort, offset, count);
-    }
-    
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort) throws SearchException {
-        return search(queryString, fieldConstraints, filters, fieldSort, 0, 0);
-    }
-
 
     /**
      * @param queryString
@@ -60,7 +32,7 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
      * @param fieldSort
      * @return
      */
-    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
 
         ChainedFilter luceneFilter = null;
         if (filters.size() > 0) {
@@ -95,7 +67,7 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
         return searchResults;
     }
 
-    public Hits searchLucene(String queryString, Map<FieldConstraint, String> fieldConstraints, Filter luceneFilter, Sort luceneSort) throws SearchException {
+    public Hits searchLucene(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, Filter luceneFilter, Sort luceneSort) throws SearchException {
 
         //for now, we'll just search using the "old" method of searching, by passing a SearchCommand to Searcher.
         //This should be rewritten, and probably will when we move to solr
@@ -126,7 +98,7 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
      * @return
      * @throws Exception
      */
-    protected Query buildQuery(String searchString, Map<FieldConstraint, String> fieldConstraints) throws ParseException {
+    protected Query buildQuery(String searchString, Map<? extends IFieldConstraint, String> fieldConstraints) throws ParseException {
         BooleanQuery mixedQuery = null;
 
         if (StringUtils.isBlank(searchString) && (fieldConstraints == null || fieldConstraints.size() == 0)) {
@@ -153,8 +125,8 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService implements 
         }
 
         if (fieldConstraints != null && fieldConstraints.size() > 0) {
-            Set<Map.Entry<FieldConstraint, String>> entrySet = fieldConstraints.entrySet();
-            for (Map.Entry<FieldConstraint, String> entry : entrySet) {
+            Set<? extends Map.Entry<? extends IFieldConstraint,String>> entrySet = fieldConstraints.entrySet();
+            for (Map.Entry<? extends IFieldConstraint, String> entry : entrySet) {
                 PhraseQuery phraseQuery = new PhraseQuery();
                 phraseQuery.add(new Term(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue())));
                 mixedQuery.add(phraseQuery, BooleanClause.Occur.MUST);

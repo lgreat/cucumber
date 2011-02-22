@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface DistrictSearchService {
 
-    public List<? extends IDistrictSearchResult> search(String query, State state) throws SchoolSearchService.SearchException;
+    public List<IDistrictSearchResult> search(String query, State state) throws SearchException;
 
-    public List<? extends IDistrictSearchResult> search(String query, State state, int offset, int count) throws SchoolSearchService.SearchException;
+    public List<IDistrictSearchResult> search(String query, State state, int offset, int count) throws SearchException;
 
 }

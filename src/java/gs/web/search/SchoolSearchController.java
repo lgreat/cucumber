@@ -168,8 +168,6 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(state, city, district);
 
-
-
         //If we have school types, create a filter group for it
         if (commandAndFields.hasSchoolTypes()) {
             FilterGroup filterGroup = new FilterGroup();
@@ -196,7 +194,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
-        SearchResultsPage<? extends ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
+        SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
         if (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) {
             try {
                 searchResultsPage = getSchoolSearchService().search(
@@ -207,7 +205,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                         schoolSearchCommand.getStart(),
                         schoolSearchCommand.getPageSize()
                 );
-            } catch (SchoolSearchService.SearchException ex) {
+            } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use SchoolSearchService. Eating exception", e);
             }
         }
@@ -217,19 +215,19 @@ public class SchoolSearchController extends AbstractCommandController implements
             schoolSearchCommand.setStart(0);
         }
 
-        List<? extends ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
-        List<? extends IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
+        List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+        List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
         if (schoolSearchCommand.getSearchString() != null) {
             try {
                 citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state, 0, 33);
-            } catch (SchoolSearchService.SearchException ex) {
+            } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", e);
             }
             model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
 
             try {
                 districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 11);
-            } catch (SchoolSearchService.SearchException ex) {
+            } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
             }
             model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
@@ -393,7 +391,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected static String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults,
                                                 boolean isCityBrowse, boolean isDistrictBrowse,
-                                                List<? extends ICitySearchResult> citySearchResults, List<? extends IDistrictSearchResult> districtSearchResults) {
+                                                List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
         String pageName = "";
 
         String paramMap = request.getParameter("map");
@@ -428,7 +426,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected static String getOmnitureHierarchy(int currentPage, int totalResults,
                                                 boolean isCityBrowse, boolean isDistrictBrowse,
-                                                List<? extends ICitySearchResult> citySearchResults, List<? extends IDistrictSearchResult> districtSearchResults) {
+                                                List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
         String hierarchy = "";
 
         boolean hasCityResults = (citySearchResults != null && citySearchResults.size() > 0);
@@ -693,7 +691,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected void addGamAttributes(HttpServletRequest request, HttpServletResponse response, PageHelper pageHelper,
                                     Map<FieldConstraint,String> constraints, List<FilterGroup> filterGroups, String searchString,
-                                    List<? extends ISchoolSearchResult> schoolResults,
+                                    List<ISchoolSearchResult> schoolResults,
                                     City city, District district) {
         if (pageHelper == null || constraints == null || filterGroups == null || schoolResults == null) {
             // search string can be null
@@ -802,7 +800,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     // rel canonical
     //-------------------------------------------------------------------------
 
-    protected String getRelCanonical(HttpServletRequest request, State state, List<? extends ICitySearchResult> citySearchResults, City city, District district,
+    protected String getRelCanonical(HttpServletRequest request, State state, List<ICitySearchResult> citySearchResults, City city, District district,
                                      List<FilterGroup> filterGroups, LevelCode levelCode, String searchString) {
         if (request == null || state == null) {
             throw new IllegalArgumentException("Request and state must not be null");

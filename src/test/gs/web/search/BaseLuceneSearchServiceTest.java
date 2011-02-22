@@ -2,9 +2,18 @@ package gs.web.search;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+import java.util.Map;
+
 public class BaseLuceneSearchServiceTest extends TestCase {
 
-    BaseLuceneSearchService abc = new BaseLuceneSearchService() {};
+    BaseLuceneSearchService abc = new BaseLuceneSearchService<SolrSchoolSearchResult>() {
+
+        @Override
+        public SearchResultsPage<SolrSchoolSearchResult> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+            return null; 
+        }
+    };
 
     public void testCleanseSearchString() throws Exception {
 

@@ -15,8 +15,9 @@ import org.apache.lucene.search.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class DistrictSearchServiceImpl extends BaseLuceneSearchService implements DistrictSearchService {
+public class DistrictSearchServiceImpl extends BaseLuceneSearchService<IDistrictSearchResult> implements DistrictSearchService {
 
     Searcher _searcher;
 
@@ -28,11 +29,33 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
         _queryParser = new GSQueryParser();
     }
 
-    public List<IDistrictSearchResult> search(String searchString, State state) throws SchoolSearchService.SearchException {
+
+    @Override
+    public SearchResultsPage<IDistrictSearchResult> search(String searchString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+        State state = null;
+        if (fieldConstraints != null) {
+            String s = fieldConstraints.get(SchoolSearchServiceSolrImpl.SchoolSearchFieldConstraints.STATE);
+            if (s != null) {
+                state = new StateManager().getState(s);
+            }
+        }
+
+        List<IDistrictSearchResult> results = search(searchString, state, offset, count);
+        SearchResultsPage page;
+        if (results != null && results.size() > 0) {
+            page = new SearchResultsPage(results.size(), results);
+        } else {
+            page = new SearchResultsPage(0, new ArrayList<IDistrictSearchResult>());
+        }
+
+        return page;
+    }
+
+    public List<IDistrictSearchResult> search(String searchString, State state) throws SearchException {
         return search(searchString, state, 0, 0);
     }
 
-    public List<IDistrictSearchResult> search(String searchString, State state, int offset, int count) throws SchoolSearchService.SearchException {
+    public List<IDistrictSearchResult> search(String searchString, State state, int offset, int count) throws SearchException {
         List<IDistrictSearchResult> resultList = new ArrayList<IDistrictSearchResult>();
 
         Hits hits = null;
@@ -48,9 +71,9 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
             }
         } catch (ParseException e) {
             _log.debug("Parse exception: ", e);
-            throw new SchoolSearchService.SearchException("Problem when performing search ", e);
+            throw new SearchException("Problem when performing search ", e);
         } catch (IOException e) {
-            throw new SchoolSearchService.SearchException("Problem processing results.", e);
+            throw new SearchException("Problem processing results.", e);
         }
 
         return resultList;
@@ -90,6 +113,7 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService implement
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
     }
+
 }
 
 class DistrictResultBuilder extends AbstractLuceneResultBuilder<IDistrictSearchResult> {

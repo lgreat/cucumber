@@ -3,11 +3,12 @@ package gs.web.search;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.queryParser.QueryParser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class BaseLuceneSearchService {
+public abstract class BaseLuceneSearchService<T extends ISearchResult> {
     protected static final String PUNCTUATION_AND_WHITESPACE_PATTERN = "^[\\p{Punct}\\s]*$";
 
     private Map<String,String> _filters;
@@ -78,5 +79,34 @@ public abstract class BaseLuceneSearchService {
         return subFilters;
     }
 
+    public SearchResultsPage<T> search(String queryString) throws SearchException {
+        return search(queryString, 0, 0);
+    }
+
+    public SearchResultsPage<T> search(String queryString, int offset, int count) throws SearchException {
+        return search(queryString, new HashMap<IFieldConstraint, String>(), new ArrayList<FilterGroup>(), null, offset, count);
+    }
+
+    public SearchResultsPage<T> search(String queryString, FieldSort fieldSort) throws SearchException {
+        return search(queryString, fieldSort, 0, 0);
+    }
+
+    public SearchResultsPage<T> search(String queryString, FieldSort fieldSort, int offset, int count) throws SearchException {
+        return search(queryString, new HashMap<IFieldConstraint, String>(), new ArrayList<FilterGroup>(), fieldSort, offset, count);
+    }
+
+    public SearchResultsPage<T> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort) throws SearchException {
+        return search(queryString, filterGroups, fieldSort, 0, 0);
+    }
     
+    public SearchResultsPage<T> search(String queryString, List<FilterGroup> filterGroups, FieldSort fieldSort, int offset, int count) throws SearchException {
+        return search(queryString, new HashMap<IFieldConstraint, String>(), filterGroups, fieldSort, offset, count);
+    }
+
+    public SearchResultsPage<T> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort) throws SearchException {
+        return search(queryString, fieldConstraints, filters, fieldSort, 0, 0);
+    }
+
+    public abstract SearchResultsPage<T> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException;
+
 }

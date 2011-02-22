@@ -16,8 +16,9 @@ import org.apache.lucene.search.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class CitySearchServiceImpl extends BaseLuceneSearchService implements CitySearchService {
+public class CitySearchServiceImpl extends BaseLuceneSearchService<ICitySearchResult> implements CitySearchService {
 
     private Searcher _searcher;
 
@@ -31,11 +32,32 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
         _queryParser = new QueryParser("city", new GSAnalyzer());
     }
 
-    public List<ICitySearchResult> search(String searchString, State state) throws SchoolSearchServiceImpl.SearchException {
+    @Override
+    public SearchResultsPage<ICitySearchResult> search(String searchString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+        State state = null;
+        if (fieldConstraints != null) {
+            String s = fieldConstraints.get(SchoolSearchServiceSolrImpl.SchoolSearchFieldConstraints.STATE);
+            if (s != null) {
+                state = new StateManager().getState(s);
+            }
+        }
+
+        List<ICitySearchResult> results = search(searchString, state, offset, count);
+        SearchResultsPage page;
+        if (results != null && results.size() > 0) {
+            page = new SearchResultsPage(results.size(), results);
+        } else {
+            page = new SearchResultsPage(0, new ArrayList<ICitySearchResult>());
+        }
+
+        return page;
+    }
+
+    public List<ICitySearchResult> search(String searchString, State state) throws SearchException {
         return search(searchString, state, 0, 0);
     }
 
-    public List<ICitySearchResult> search(String searchString, State state, int offset, int count) throws SchoolSearchServiceImpl.SearchException {
+    public List<ICitySearchResult> search(String searchString, State state, int offset, int count) throws SearchException {
         List<ICitySearchResult> resultList = new ArrayList<ICitySearchResult>();
 
         Hits hits = null;
@@ -51,9 +73,9 @@ public class CitySearchServiceImpl extends BaseLuceneSearchService implements Ci
             }
         } catch (ParseException e) {
             _log.debug("Parse exception: ", e);
-            throw new SchoolSearchService.SearchException("Problem when performing search ", e);
+            throw new SearchException("Problem when performing search ", e);
         } catch (IOException e) {
-            throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
+            throw new SearchException("Problem accessing search results.", e);
         }
 
         return resultList;

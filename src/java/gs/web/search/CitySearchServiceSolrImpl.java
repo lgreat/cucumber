@@ -4,6 +4,7 @@ import gs.data.search.SolrConnectionManager;
 import gs.data.search.indexers.documentBuilders.CityDocumentBuilder;
 import gs.data.search.parsing.IGsQueryParser;
 import gs.data.state.State;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.queryParser.ParseException;
@@ -14,8 +15,9 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implements CitySearchService {
+public class CitySearchServiceSolrImpl extends BaseLuceneSearchService<ICitySearchResult> implements CitySearchService {
 
     private SolrConnectionManager _solrConnectionManager;
 
@@ -27,12 +29,17 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
         //_queryParser = new QueryParser("city", new GSAnalyzer());
     }
 
-    public List<? extends ICitySearchResult> search(String searchString, State state) throws SchoolSearchServiceImpl.SearchException {
+    public List<ICitySearchResult> search(String searchString, State state) throws SearchException {
         return search(searchString, state, 0, 0);
     }
 
-    public List<? extends CitySearchResult> search(String searchString, State state, int offset, int count) throws SchoolSearchServiceImpl.SearchException {
-        List<CitySearchResult> resultList = new ArrayList<CitySearchResult>();
+    @Override
+    public SearchResultsPage<ICitySearchResult> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public List<ICitySearchResult> search(String searchString, State state, int offset, int count) throws SearchException {
+        List<ICitySearchResult> resultList = new ArrayList<ICitySearchResult>();
 
         QueryResponse response = null;
 
@@ -48,13 +55,14 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService implement
             }
 
             if (response != null && response.getResults().size() > 0) {
-                resultList = response.getBeans(CitySearchResult.class);
+                List<CitySearchResult> r = response.getBeans(CitySearchResult.class);
+                resultList = ListUtils.typedList(r, ICitySearchResult.class);
                 //resultList = new CityResultBuilder().build(hits, offset, count);//TODO: find better way to get result builder
             }
         } catch (SolrServerException e) {
-            throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
+            throw new SearchException("Problem accessing search results.", e);
         } catch (Exception e) {
-            throw new SchoolSearchService.SearchException("Problem accessing search results.", e);
+            throw new SearchException("Problem accessing search results.", e);
         }
 
         return resultList;
