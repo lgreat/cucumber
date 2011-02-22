@@ -7144,13 +7144,11 @@ p.breadcrumbs {
 
 #schoolProfileLeftColumn {
     width: 614px;
-    z-index: 1;
 }
 
 #schoolProfileRightColumn {
     width: 300px;
     padding: 10px 17px 0;
-    z-index: 0;
 }
 
 #schoolProfileTabsWrapper {
