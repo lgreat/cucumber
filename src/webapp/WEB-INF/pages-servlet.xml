@@ -1412,12 +1412,6 @@
         <property name="viewName" value="/promo/ldTeenGuide"/>
     </bean>
 
-    <bean name="/promo/surveyPromoHover.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/promo/surveyPromoHover"/>
-    </bean>
-
     <!--My School stats newsletter popups-->
     <bean name="/community/newsletters/popup/mss/coreg.page"
           class="gs.web.community.newsletters.popup.SubscriptionSummaryController"
