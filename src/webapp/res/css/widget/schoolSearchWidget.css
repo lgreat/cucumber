@@ -67,6 +67,10 @@ div#searchTabBody h2, div#schoolSearchWidget h3 {
     color: #d61;
 }
 
+div#searchTabBody h2.hasError {
+    margin-top: 25px;
+}
+
 div#searchTabBody p {
     padding: 0;
     margin: 0 0 15px 0;
@@ -310,4 +314,15 @@ div#helpTabBody h3 {
 
 p#noQuery, p#noResults {
     display:none;
+}
+
+.sprite {
+    display: inline-block;
+    background-image: url(/res/img/sprites/iconSprite_2011-01-06.png);
+}
+
+.i-alert {
+    width: 13px;
+    height: 13px;
+    background-position: -20px -160px;
 }

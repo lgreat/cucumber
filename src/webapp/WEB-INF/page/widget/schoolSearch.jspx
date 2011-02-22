@@ -253,7 +253,18 @@
 
         <!-- Begin Search Tab-->
         <div id="searchTabBody" class="tabBody ${searchTabClass}">
-            <h2>Find Schools</h2>
+            <spring:hasBindErrors name="command">
+                <spring:bind path="command.displayTab">
+                    <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                        <c:set var="searchH2Class" value="hasError"/>
+                        <p class="warning">
+                            ${status.errorMessage}
+                        </p>
+                    </c:if>
+                </spring:bind>
+            </spring:hasBindErrors>
+
+            <h2 class="${searchH2Class}">Find Schools</h2>
 
             <p>Find the top schools in a city or near an address or zip code</p>
 

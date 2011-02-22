@@ -166,7 +166,13 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             if (command.getLat() != 0 && command.getLon() != 0 &&
                     StringUtils.isNotBlank(command.getState()) &&
                     StringUtils.isNotBlank(command.getNormalizedAddress())) {
-                parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), command, request, errors);
+                try {
+                    parseSearchQuery(request.getParameter(SEARCH_QUERY_PARAM), command, request, errors);
+                } catch (Exception e) {
+                    _log.error("An unexpected error occurred with the widget customization: " + e, e);
+                    errors.rejectValue("displayTab", null,
+                                       "An error occurred while creating this widget. Please check the parameters and try again.");
+                }
             }
             // otherwise, no more processing; fall through to showing schoolSearch.jspx which then does client-side
             // geocoding on page load, and then automatically re-submits the search that includes info

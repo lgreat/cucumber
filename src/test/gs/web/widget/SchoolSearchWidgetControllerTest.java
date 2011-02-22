@@ -261,4 +261,27 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         assertEquals("Expect map tab to display when results", "map", _command.getDisplayTab());
 
     }
+
+    public void testHardExceptionIsCaught() {
+        expect(_stateManager.getState("CD")).andThrow(new IllegalArgumentException("No such state: CD"));
+
+        getRequest().setParameter("searchQuery", "Somewhere");
+        getRequest().setParameter("state", "CD"); // invalid
+        getRequest().setParameter("lat", "37.57");
+        getRequest().setParameter("lon", "-121.98");
+        getRequest().setParameter("normalizedAddress", "Somewhere, CD");
+
+        expect(_geoDao.findUniqueCity("Somewhere")).andReturn(null);
+        replayAll();
+        try {
+            _controller.onBindOnNewForm(getRequest(), _command, _errors);
+        } catch (Exception e) {
+            fail("Exception should not bubble out to view");
+        }
+        verifyAll();
+
+        assertTrue("Always expect errors", _errors.hasErrors());
+        assertEquals("Expect search tab to display when error", "search", _command.getDisplayTab());
+
+    }
 }
