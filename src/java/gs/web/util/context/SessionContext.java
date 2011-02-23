@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.55 2011/02/23 01:13:27 yfan Exp $
+ * $Id: SessionContext.java,v 1.56 2011/02/23 01:35:05 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -290,7 +290,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         return _propertyDao.getProperty(IPropertyDao.CONTEXTUAL_ADS_CONTENT_EXCLUDES, "");
     }
 
-    private JSONObject getSurveyDetailsJson(String property) {
+    protected JSONObject getSurveyDetailsJson(String property) {
         try {
             String surveyDetails = _propertyDao.getProperty(property, null);
             if (surveyDetails != null) {

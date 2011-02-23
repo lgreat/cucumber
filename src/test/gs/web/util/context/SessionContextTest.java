@@ -4,6 +4,7 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.geo.IGeoDao;
+import gs.data.json.JSONObject;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
@@ -17,6 +18,7 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 /**
  * Tests for the SessionContext object
@@ -564,5 +566,72 @@ public class SessionContextTest extends BaseTestCase {
     public void testIsFramed() {
         _sessionContext.setCobrand("test");
         assertTrue("test.greatschools.org should be a framed cobrand", _sessionContext.isFramed());
+    }
+
+    public void testGetSurveyDetailsJson() {
+        reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_ARTICLE, null)).andReturn(null);
+        replay(_propertyDao);
+        assertNull(_sessionContext.getSurveyDetailsJson(IPropertyDao.SURVEY_DETAILS_ARTICLE));
+        verify(_propertyDao);
+
+        String s = "{\"title\":\"title goes here\",\n" +
+                "      \"body\":\"body goes here\",\n" +
+                "      \"url\":\"http://www.greatschools.org\",\n" +
+                "      \"percent\":33\n" +
+                "     }";
+
+        reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_ARTICLE, null)).andReturn(s);
+        replay(_propertyDao);
+        assertNotNull(_sessionContext.getSurveyDetailsJson(IPropertyDao.SURVEY_DETAILS_ARTICLE));
+        verify(_propertyDao);
+    }
+
+    public void testGetSurveyDetails() {
+        String s = "{\"title\":\"title goes here\",\n" +
+                "      \"body\":\"body goes here\",\n" +
+                "      \"url\":\"http://www.greatschools.org\",\n" +
+                "      \"percent\":100\n" +
+                "     }";
+
+        reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_ARTICLE, null)).andReturn(s);
+        replay(_propertyDao);
+        Map<String,Object> map = _sessionContext.getSurveyDetails("article");
+        assertNotNull(map);
+        assertTrue((Boolean)map.get("showSurveyHover"));
+        assertEquals("title goes here", map.get("title"));
+        assertEquals("body goes here", map.get("body"));
+        assertEquals("http://www.greatschools.org", map.get("url"));
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_OVERVIEW, null)).andReturn(s);
+        replay(_propertyDao);
+        map = _sessionContext.getSurveyDetails("overview");
+        assertNotNull(map);
+        assertTrue((Boolean)map.get("showSurveyHover"));
+        assertEquals("title goes here", map.get("title"));
+        assertEquals("body goes here", map.get("body"));
+        assertEquals("http://www.greatschools.org", map.get("url"));
+        verify(_propertyDao);
+
+        s = "{\"title\":\"title goes here\",\n" +
+                "      \"body\":\"body goes here\",\n" +
+                "      \"url\":\"http://www.greatschools.org\",\n" +
+                "      \"percent\":0\n" +
+                "     }";
+
+        reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.SURVEY_DETAILS_ARTICLE, null)).andReturn(s);
+        replay(_propertyDao);
+        map = _sessionContext.getSurveyDetails("article");
+        assertNotNull(map);
+        assertFalse((Boolean)map.get("showSurveyHover"));
+        assertFalse(map.containsKey("title"));
+        assertFalse(map.containsKey("body"));
+        assertFalse(map.containsKey("url"));
+        verify(_propertyDao);
     }
 }
