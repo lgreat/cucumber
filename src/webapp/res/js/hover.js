@@ -290,6 +290,8 @@ GSType.hover.JoinHover = function() {
                     //the same functionality as existing "mss auto hover on exit", but displays depending on school type
                     //Therefore, use the same cookie and don't mess too much with existing code at this time.
                     if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
+                        var threeMinuteDuration = getCookieExpiresDate(0,0,3);
+                        createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
                         window.destUrl = gRedirectAnchor.href;
                         // show hover
                         GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
@@ -891,9 +893,13 @@ GSType.hover.InterruptSurvey = function() {
     var surveyUrl = '';
     this.loadDialog = function() { };
     this.showHover = function (hier1Last, pageType, url) {
-        if (!hasCookie("survey_seen_popup")) {
+        if (pageType == "Overview" && hasCookie("seenHoverOnExitRecently")) {
+            return;
+        } else if (!hasCookie("survey_hover_seen")) {
             createCookie("survey_hover_seen", "1", 15);
-            createCookie("survey_hover_seen_this_session", "1");
+            if (pageType == "Overview") {
+                createCookie("survey_hover_seen_this_session", "1");
+            }
             jQuery('#interruptSurvey .takeSurveyButton').click(GSType.hover.interruptSurvey.clickSubmitHandler);
             this.pageName = 'Survey Interrupt Hover ' + pageType;
             this.hier1 = 'Surveys,Auto Hover,' + hier1Last;

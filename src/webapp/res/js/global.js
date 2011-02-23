@@ -14,12 +14,29 @@ function hasCookie(cookieName) {
     return (document.cookie.length > 0 && document.cookie.indexOf(cookieName+"=") >= 0);  
 }
 
-// create a cookie with name=value and optional "days" expiration
-function createCookie(name, value, days) {
-    var expires = "";
+function getCookieExpiresDate(days,hours,minutes,seconds) {
+    var date = new Date();
+    var offset = 0;
     if (days) {
-		var date = new Date();
-		date.setTime(date.getTime() + (days*24*60*60*1000));
+        offset += (days*24*60*60*1000);
+    }
+    if (hours) {
+        offset += (hours*60*60*1000);
+    }
+    if (minutes) {
+        offset += (minutes*60*1000);
+    }
+    if (seconds) {
+        offset += (seconds*1000);
+    }
+    date.setTime(date.getTime() + offset);
+    return date;
+}
+
+// create a cookie with name=value and optional "days" expiration
+function createCookieWithExpiresDate(name, value, date) {
+    var expires = "";
+    if (date && date.toGMTString) {
 		expires = "; expires=" + date.toGMTString();
 	}
 
@@ -30,6 +47,11 @@ function createCookie(name, value, days) {
         var domain = "; domain=greatschools.org";
     }
     document.cookie = name + "=" + escape(value) + expires + "; path=/" + domain;
+}
+
+// create a cookie with name=value and optional "days" expiration
+function createCookie(name, value, days) {
+    createCookieWithExpiresDate(name, value, getCookieExpiresDate(days));
 }
 
 /* Finds the HTML element specified by the ID and switches it between

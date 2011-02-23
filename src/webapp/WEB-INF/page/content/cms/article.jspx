@@ -731,7 +731,6 @@
               omitAlmondNet="${true}"
         />
 
-<!-- GS-11411 -->
 <communityHover:interruptSurvey surveyType="article"/>
 <c:if test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover']}">
     <script type="text/javascript">
