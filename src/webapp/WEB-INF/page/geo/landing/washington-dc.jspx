@@ -52,17 +52,19 @@
             <div class="module"><span class="m_title treb15 tint5bc">Meet Our Team</span>
 
                 <div class="m_content">
-                    <img class="m_img" name="team" src="/res/img/geo/landing/dc_mot.png" width="174" height="103"
-                         alt="Nadia, Natanya, Pamela, Hasaani"/>
+                    <img class="m_img" name="team" src="/res/img/geo/landing/110223_dc_mot.png" width="174" height="103"
+                         alt="Natanya, Pamela, Kelli, Jocelyn, Tamika"/>
 
-                    <div class="m_list treb12B tint5bc">Nadia Washington<br/>
-                        <span class="treb12 tint666">Community Outreach Coordinator</span></div>
                     <div class="m_list treb12B tint5bc">Natanya Levioff<br/>
                         <span class="treb12 tint666">Program Director</span></div>
                     <div class="m_list treb12B tint5bc">Pamela Prudencio<br/>
                         <span class="treb12 tint666">Bilingual Community Outreach Coordinator</span></div>
-                    <div class="m_list treb12B tint5bc">Hasaani Hylton<br/>
+                    <div class="m_list treb12B tint5bc">Kelli Anderson<br/>
                         <span class="treb12 tint666">Community Outreach Coordinator</span></div>
+                    <div class="m_list treb12B tint5bc">Jocelyn Bush<br/>
+                        <span class="treb12 tint666">Coach Corps &amp;amp; Community Outreach Coordinator</span></div>
+                    <div class="m_list treb12B tint5bc">Tamika Joyner<br/>
+                        <span class="treb12 tint666">Project Manager</span></div>
                 </div>
                 <!--end module content -->
             </div>
