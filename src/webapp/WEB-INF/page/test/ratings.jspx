@@ -117,7 +117,7 @@
 
     <mod:tracking pageName="${pageName}"
                   hier1="School,Ratings"
-            school="${school}"
+            school="${school}"  schoolGSRating="${gs_rating}"
             />
 </gsml:body>
 </html>

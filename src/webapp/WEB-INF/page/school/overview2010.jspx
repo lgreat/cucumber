@@ -459,7 +459,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div style="display:none">
     <mod:tracking pageName="${pageName}"
                   hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                  school="${school}"/>
+                  school="${school}" schoolGSRating="${gs_rating}"/>
 </div>
 
 </div>

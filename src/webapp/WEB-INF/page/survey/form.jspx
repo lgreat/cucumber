@@ -411,7 +411,7 @@
 <br class="clearfloat"/>
 </school:profile2010>
 <mod:tracking pageName="${pagename}"
-              hier1="School,Parent Survey,Question,Page ${requestScope.currentPage}"/>
+              hier1="School,Parent Survey,Question,Page ${requestScope.currentPage}" schoolGSRating="${gs_rating}"/>
 </gsml:body>
 </html>
 </jsp:root>

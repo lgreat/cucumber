@@ -126,7 +126,7 @@
         </school:profile2010>
 
         <mod:tracking pageName="${pagename}"
-                      hier1="School,Parent Survey,School Level Select Page"/>
+                      hier1="School,Parent Survey,School Level Select Page"  schoolGSRating="${gs_rating}"/>
     </gsml:body>
     </html>
 </jsp:root>
