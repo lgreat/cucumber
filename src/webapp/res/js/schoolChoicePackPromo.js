@@ -75,7 +75,8 @@ $j(function() {
         $j.get("/util/isValidEmail.page", {email : emailVal},
                 function (data) {
                     if (data == 'true') {
-                        if (GS.showChooserTipSheetHover(emailVal, window.location.href)) {
+                        // GS-11425 Remove join requirement from Chooser Pack email
+//                        if (GS.showChooserTipSheetHover(emailVal, window.location.href)) {
                             $j.post("/promo/schoolChoicePackPromo.page",
                             {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : window.location.href},
                                     function(datax) {
@@ -100,7 +101,7 @@ $j(function() {
                                         }
 
                                     }, "json");
-                        }
+//                        }
 
                     } else {
                         jQuery('#scpp_form .emailError').show();
