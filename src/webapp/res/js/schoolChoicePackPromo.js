@@ -92,13 +92,13 @@ $j(function() {
                                         omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
                                         omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
                                         omnitureEventNotifier.send();
-                                        if (datax.showRegistration == 'y') {
-                                            //storeHrefOpenHover(datax.redirectEncoded,'/community/registration/popup/sendToDestination.page',datax.emailEncoded);
-                                            //GSType.hover.joinHover.showJoinChooserTipSheet(emailVal);
-                                        } else {
+//                                        if (datax.showRegistration == 'y') {
+//                                            storeHrefOpenHover(datax.redirectEncoded,'/community/registration/popup/sendToDestination.page',datax.emailEncoded);
+//                                            GSType.hover.joinHover.showJoinChooserTipSheet(emailVal);
+//                                        } else {
                                             $j("#form_panel").hide();
                                             $j("#confirm_panel").show();
-                                        }
+//                                        }
 
                                     }, "json");
 //                        }
