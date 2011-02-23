@@ -251,7 +251,7 @@
     </bean>
 
     <bean id="solrCitySearchService" class="gs.web.search.CitySearchServiceSolrImpl">
-        <property name="queryParser" ref="preSolrSchoolSearchQueryParser" />
+        
     </bean>
 
     <bean id="solrDistrictSearchService" class="gs.web.search.DistrictSearchServiceSolrImpl">

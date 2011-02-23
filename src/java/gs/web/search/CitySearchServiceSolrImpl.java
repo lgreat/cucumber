@@ -86,7 +86,8 @@ public class CitySearchServiceSolrImpl extends BaseLuceneSearchService<ICitySear
                 q = getQueryParser().parse(searchString).toString();
                 query.setQueryType("standard"); //use our already-parsed query
             } else {
-                q = "+" + CityDocumentBuilder.CITY_NAME + ":(" + searchString + ")^3.0";
+                //q = "+" + CityDocumentBuilder.CITY_NAME + ":(" + searchString + ")^3.0";
+                q = searchString;
             }
         }
 
