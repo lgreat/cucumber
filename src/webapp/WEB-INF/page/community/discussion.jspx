@@ -544,8 +544,11 @@
                         <p class="fltrt reported smallAlertTextBold">You've reported this conversation.</p>
                     </c:when>
                     <c:otherwise>
-                        <p class="fltrt"><a class="smallText1 reportIt link" href="${loginRedirectUrl}"
-                                    id="report_discussion_${discussion.id}">Report it</a></p>
+                        <div class="mediaExt1-1 fltrt">
+                            <div class="img sprite reportIt-nbg"><!-- do not collapse --></div>
+                            <a class="bk smallText1 reportIt link" href="${loginRedirectUrl}"
+                               id="report_discussion_${discussion.id}">Report it</a>
+                        </div>
                     </c:otherwise>
                 </c:choose>
                 <br class="clearfloat"/>
