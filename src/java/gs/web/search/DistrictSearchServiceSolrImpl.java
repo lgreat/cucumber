@@ -59,7 +59,6 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService<IDist
             if (response != null && response.getResults().size() > 0) {
                 List<DistrictSearchResult> r = response.getBeans(DistrictSearchResult.class);
                 resultList = ListUtils.typedList(r, IDistrictSearchResult.class);
-                resultList = response.getBeans(IDistrictSearchResult.class);
             }
         } catch (SolrServerException e) {
             throw new SearchException("Problem accessing search results.", e);
