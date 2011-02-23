@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.54 2011/02/21 06:55:58 yfan Exp $
+ * $Id: SessionContext.java,v 1.55 2011/02/23 01:13:27 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -292,7 +292,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     private JSONObject getSurveyDetailsJson(String property) {
         try {
-            return new JSONObject(_propertyDao.getProperty(property, null), "UTF-8");
+            String surveyDetails = _propertyDao.getProperty(property, null);
+            if (surveyDetails != null) {
+                return new JSONObject(surveyDetails, "UTF-8");
+            }
         } catch (JSONException e) {
             _log.warn("JSONException parsing survey details for " + property + ": " + e.getMessage());
         } catch (UnsupportedEncodingException e) {
