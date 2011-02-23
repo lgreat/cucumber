@@ -108,8 +108,8 @@
         <!-- end: breadcrumbs -->
 
         <!-- School name -->
-        <div id="schoolName">
-            <h1 class="item">
+        <div id="schoolName" class="item">
+            <h1>
                 <c:choose>
                     <c:when test="${tab eq 'overview'}">
                         <span class="fn org">${school.name}</span>
