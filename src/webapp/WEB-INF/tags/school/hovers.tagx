@@ -47,7 +47,7 @@
         </c:if>
         <c:if test="${showSurvey and not empty surveyUrl}">
             <script type="text/javascript">
-                setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${surveyUrl}')", 7000);
+                setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${gsweb:escapeJavaScript(surveyUrl)}')", 7000);
             </script>
         </c:if>
     </c:if>

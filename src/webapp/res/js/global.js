@@ -51,7 +51,11 @@ function createCookieWithExpiresDate(name, value, date) {
 
 // create a cookie with name=value and optional "days" expiration
 function createCookie(name, value, days) {
-    createCookieWithExpiresDate(name, value, getCookieExpiresDate(days));
+    if (days) {
+        createCookieWithExpiresDate(name, value, getCookieExpiresDate(days));
+    } else {
+        createCookieWithExpiresDate(name, value);
+    }
 }
 
 /* Finds the HTML element specified by the ID and switches it between
