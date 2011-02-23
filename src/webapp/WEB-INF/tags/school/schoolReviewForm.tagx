@@ -124,7 +124,11 @@
                         </div>
                 </div>
 
-                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="line">
+                    <div class="unit size1of1 lastUnit">
+                        <div id="charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
+                    </div>
+                </div>
                 <div class="line email">
 
                     <label for="frmPRModule-email" class="unit size1of7">Email:
@@ -147,7 +151,7 @@
                     </c:choose>
 
                     <div class="unit size3of7 lastUnit">
-                        <div id="charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
+                        <!-- do not collapse -->
                     </div>
                     <div class="clearfloat"><!-- do not collapse --></div>
 
