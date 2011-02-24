@@ -497,4 +497,40 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
 
         CmsUtil.disableCms();
     }
+
+    public void testCompanionAd() {
+        CmsUtil.enableCms();
+
+        getRequest().setRequestURI("/blah/blah/blah.gs");
+        getRequest().setParameter("content", "23");
+
+        CmsFeature feature = getSampleFeature();
+        feature.setTitle("title with \"double quotes\", and commas");
+        feature.setBody("Some text with a link to a video http://assets.delvenetworks.com/player/loader.swf");
+
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAll();
+
+        assertNotNull(mAndV.getModel().get("showCompanionAd"));
+        assertEquals(true, mAndV.getModel().get("showCompanionAd"));
+
+
+        resetAll();
+
+        feature.setBody("Some text without a link to a video.");
+        expect(_cmsFeatureDao.get(23L)).andReturn(feature);
+        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
+
+        replayAll();
+        mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAll();
+
+        assertNull(mAndV.getModel().get("showCompanionAd"));
+        CmsUtil.disableCms();
+    }
+    
 }
