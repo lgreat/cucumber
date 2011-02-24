@@ -59,6 +59,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService<ISchool
         _optionalTerms.put("junior", new Float(0.7));
         _optionalTerms.put("k", new Float(0.5));
         _optionalTerms.put("kindergarten", new Float(0.5));
+        _optionalTerms.put("magnet", new Float(0.7));
         _optionalTerms.put("middle", new Float(0.7));
         _optionalTerms.put("middl", new Float(0.7));  // stemmed
         _optionalTerms.put("montessori", new Float(1.0));
@@ -78,6 +79,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService<ISchool
         _optionalTerms.put("primar", new Float(1.0));
         _optionalTerms.put("pt", new Float(0.5));
         _optionalTerms.put("school", new Float(0.0));
+        _optionalTerms.put("schools", new Float(0.0));
         _optionalTerms.put("road", new Float(0.5));
         _optionalTerms.put("saint", new Float(0.5));
         _optionalTerms.put("senior", new Float(1.0));
