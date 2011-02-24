@@ -1,5 +1,6 @@
 package gs.web.api.admin;
 
+import gs.data.integration.exacttarget.ClickEvent;
 import gs.web.api.ApiAccountCommandValidator;
 import gs.web.util.UrlBuilder;
 import org.springframework.validation.BindingResult;
@@ -170,6 +171,11 @@ public class AccountController implements ReadWriteAnnotationController {
             String value = account.getApiKey() != null ? account.getApiKey() : "";
             message.append("Your request has been approved and your API key is: ").append(value);
             message.append("<br/><br/>");
+            String apiTermsOfUse = "http://www.greatschools.org/api/docs/terms.page";
+            message.append("<a href=").append(apiTermsOfUse).append(" target=\"_blank\">Click here</a>");
+            message.append(" to review our terms of use document. ");
+            message.append("Please use this as a reference for your rights of usage and attribution requirements.");
+            message.append("<br/><br/>");
             message.append("For instructions on getting started, please ");
             UrlBuilder docsMainLink = new UrlBuilder(UrlBuilder.API_DOCS_MAIN, null);
             message.append(docsMainLink.asAbsoluteAnchor(request, "click here").asATag()).append(". ");
@@ -181,6 +187,11 @@ public class AccountController implements ReadWriteAnnotationController {
             message.append("4,501-6,000 calls: $0.03/call").append("<br/>");
             message.append(">6,000 calls: You will be contacted by a GreatSchools representative directly.").append("<br/>");
             message.append("<br/>");
+            String apiPartnersPage = "http://www.greatschools.org/cgi-bin/api-billing";
+            message.append("To monitor your usage, please visit our ");
+            message.append("<a href=").append(apiPartnersPage).append(" target=\"_blank\">API Partners Page</a>. ");
+            message.append("Log in using your api key above.");
+            message.append("<br/><br/>");
             message.append("Please save this email for future reference. ");
             message.append("If you have any questions or feedback on the API, email: ");
             String supportEmail = "API-support@greatschools.org";
