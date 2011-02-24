@@ -35,7 +35,7 @@
 
 <div id="schoolProfileGS" class="${(tab eq 'overview')? 'overview' : ''}">
 
-    <div id="schoolProfileHeaderGS" class="clearfix">
+    <div id="schoolProfileHeaderGS" class="clearfix vcard">
         <div id="schoolHeaderInfoLeft" class="col">
         <!--<gslink:backToSearchResults/>-->
             <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
@@ -109,7 +109,7 @@
 
         <!-- School name -->
         <div id="schoolName">
-            <h1 class="item vcard">
+            <h1>
                 <c:choose>
                     <c:when test="${tab eq 'overview'}">
                         <span class="fn org">${school.name}</span>
