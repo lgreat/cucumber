@@ -298,18 +298,18 @@ function debug(what) {
                 var obj = $(this);
 
                 // controls character input/counter
-                obj.keyup(function() {
+                obj.bind('keyup paste mouseup click input', function() {
                     var charLimit = o.charLimit;
                     var charLength = obj.val().length;
                     var charFeedback = $('#charCount');
-                    var plural = 's';
-                    (((charLimit - charLength)===1) || ((charLength - charLimit)===1)) ? plural = '' : plural = 's';
-                    // Displays count
-                    charFeedback.html((charLimit - charLength) + ' character' + plural + ' remaining');
+                    var plural = (((charLimit - charLength)===1) || ((charLength - charLimit)===1)) ? '' : 's';
                     // Alerts when character limit is reached
                     if(obj.val().length > charLimit){
                         charFeedback.html('<span class="formErrorText">' + (charLength - charLimit) + ' character' + plural + ' over limit</span>');
                         $('> span', charFeedback).show();
+                    } else {
+                        // Displays count
+                        charFeedback.html((charLimit - charLength) + ' character' + plural + ' remaining');
                     }
                 });
 
