@@ -8266,7 +8266,8 @@ body.ie7 #frmPRModule .helperMessage {
     width: 155px;
 }
 
-#frmPRModule .formErrorText {
+#frmPRModule .form-error,
+#frmPRModule .form-alert{
     display: none;
 }
 

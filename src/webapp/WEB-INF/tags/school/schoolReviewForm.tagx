@@ -75,11 +75,14 @@
                         <!-- end star ratings -->
                     </div>
 
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="spacer_15">
                     <div class="form-error formErrorText mediaExt1-1">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                         <div class="bk">Please select a star rating for this school.</div>
                     </div>
+                        </div>
 
                 </div>
 
@@ -88,7 +91,7 @@
                 <input type="hidden" name="source" value="${pageName}"/>
 
 
-                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="spacer_5"><!-- do not collapse --></div>
                 <div id="js-bubbleInfo-6" class="text3">
                 <div class="js-trigger line review-text">
                     <div class="unit size1of1 lastUnit">
@@ -130,45 +133,53 @@
                     </div>
                 </div>
                 <div class="line email">
+                    <div class="unit size4of7">
 
-                    <label for="frmPRModule-email" class="unit size1of7">Email:
-                        <em class="sprite i-required"><!-- do not collapse --></em>
-                    </label>
+                        <div class="line">
+                            <label for="frmPRModule-email" class="unit size1of4">Email:
+                                <em class="sprite i-required"><!-- do not collapse --></em>
+                            </label>
 
-                    <c:choose>
-                        <c:when test="${validUser.email eq null}">
-                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
-                                   type="text"
-                                   value="[Enter email address]"
-                                   onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                                   onblur="if(this.value==''){this.value='[Enter email address]';}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size3of7"
-                                   type="text"
-                                   value="${validUser.email}" disabled="disabled"/>
-                        </c:otherwise>
-                    </c:choose>
+                            <c:choose>
+                                <c:when test="${validUser.email eq null}">
+                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
+                                           type="text"
+                                           value="[Enter email address]"
+                                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                                           onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
+                                           type="text"
+                                           value="${validUser.email}" disabled="disabled"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="spacer_5"><!-- do not collapse --></div>
+
+                        <div class="spacer_15">
+                            <div class="formErrorText mediaExt1-1 form-error">
+                                <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                                <div class="bk">Please enter your email.</div>
+                            </div>
+                        </div>
+
+                    </div>
 
                     <div class="unit size3of7 lastUnit">
-                        <!-- do not collapse -->
-                    </div>
-                    <div class="clearfloat"><!-- do not collapse --></div>
+                        <div class="smallText1-333 mediaExt1-1 form-alert">
+                            <span class="sprite i-confirm-sm img"><!-- do not collapse --></span>
 
-                    <div class="formErrorText mediaExt1-1 form-error">
-                        <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                        <div class="bk">Please enter your email.</div>
-                    </div>
-                    <div class="formErrorText mediaExt1-1 form-alert">
-                        <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                        <div class="bk">You will need to verify your email address when you submit your review.</div>
+                            <div class="bk">You will need to verify your email address when you submit your review.</div>
+                        </div>
                     </div>
 
                 </div>
 
-                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="spacer_5"><!-- do not collapse --></div>
                 <div class="line role">
                     <label for="affiliation" class="unit size1of7">I am a:
                         <em class="sprite i-required"><!-- do not collapse --></em>
@@ -187,16 +198,18 @@
                     <div class="unit size3of7 lastUnit">
                         &amp;nbsp;
                     </div>
-                    <div class="clearfloat"><!-- do not collapse --></div>
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="spacer_15">
                     <div class="form-error formErrorText mediaExt1-1">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                         <div class="bk">Please let us know how you are affiliated with this school.</div>
                     </div>
+                    </div>
                 </div>
 
                 <div class="subStarRatings" style="display:none;">
-                    <div class="spacer_10"><!-- do not collapse --></div>
+                    <div class="spacer_5"><!-- do not collapse --></div>
                     <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
                     <div class="spacer_10"><!-- do not collapse --></div>
                     <div id="js-bubbleInfo-2" class="text3 teacher">
@@ -317,9 +330,10 @@
                             </div>
                         </div>
                     </c:if>
+                    <div class="spacer_15"><!-- do not collapse --></div>
                 </div>
 
-                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="spacer_5"><!-- do not collapse --></div>
 
                 <div class="line terms">
                     <div class="unit size1of1 lastUnit">
@@ -331,11 +345,14 @@
                             <em class="sprite i-required"><!-- do not collapse --></em>
                         </label>
 
+                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <div class="spacer_15">
                         <div class="form-error formErrorText mediaExt1-1">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                             <div class="bk">Please read and accept our Terms of Use to join GreatSchools.</div>
                         </div>
+                            </div>
                     </div>
                 </div>
 
