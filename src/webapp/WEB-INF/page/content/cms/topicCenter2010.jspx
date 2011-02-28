@@ -159,7 +159,7 @@
 
         <div id="topicMainGS" class="col">
 
-            <div id="featured">
+            <!--<div id="featured">
 
                 <div id="featured-image">
                     <a href="${topicCenter.mainFeatureLink.url}">
@@ -172,7 +172,7 @@
                         <h3 class="title2"><a
                                 href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
 
-                        <div class="spacer_10"><!--do not collapse--></div>
+                        <div class="spacer_10">&lt;!&ndash;do not collapse&ndash;&gt;</div>
                         <p class="featured-copy text3">
                             ${topicCenter.mainFeatureLink.description}
                                 <span class="smallAlertText more-features">
@@ -183,7 +183,7 @@
                     </c:if>
                 </div>
 
-            </div>
+            </div>-->
             <!-- end #featured -->
 <div class="spacer_10"><!--do not collapse--></div>
             <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
@@ -386,7 +386,7 @@
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:when>
         <c:otherwise>
-            <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+            <!--<jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>-->
         </c:otherwise>
     </c:choose>
 
