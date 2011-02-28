@@ -1020,14 +1020,14 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 
 *html .sprite { /* for IE 6 iframe hovers */
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-01-06.gif);
+    background-image: url(/res/img/sprites/iconSprite_2011-02-28.gif);
     _zoom:1;
     cursor: pointer;
 }
 
 body.ie6 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-01-06.gif);
+    background-image: url(/res/img/sprites/iconSprite_2011-02-28.gif);
     _zoom:1;
     cursor: pointer;
 }
