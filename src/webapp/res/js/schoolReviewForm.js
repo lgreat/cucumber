@@ -196,7 +196,7 @@ GS.form.SchoolReviewForm = function(id) {
                 if (GS.isCookieSet('emailVerified')) {
                     alertText = null;
                 } else {
-                    this.setAlert('You will need to verify your email <br/>address when you submit your review.');
+                    this.setAlert('You will need to verify your email address on submit.');
                 }
                 emailTaken = false;
                 this.updateErrorDisplay();
@@ -239,7 +239,7 @@ GS.form.SchoolReviewForm = function(id) {
             if (message !== undefined) {
                 this.setError(message);
             }
-            errorElement.html(error);
+            //errorElement.html(error);
             errorElement.show();
         };
         this.hideError = function() {

@@ -156,7 +156,7 @@
 
                             <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                         </div>
-                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <div class="spacer_8"><!-- do not collapse --></div>
                     </div>
 
                     <div class="unit size3of7 lastUnit"><!-- do not collapse -->
@@ -168,7 +168,7 @@
                         <div class="smallText1-333 mediaExt1-1 form-alert">
                             <span class="sprite i-confirm-sm img"><!-- do not collapse --></span>
 
-                            <div class="bk">You will need to verify your email address when you submit your review.</div>
+                            <div class="bk">You will need to verify your email address on submit.</div>
                         </div>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                             </select>
                             <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                         </div>
-                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <div class="spacer_8"><!-- do not collapse --></div>
                     </div>
                     <div class="unit size3of7 lastUnit"><!-- do not collapse -->
                         <div class="formErrorText mediaExt1-1 form-error">
