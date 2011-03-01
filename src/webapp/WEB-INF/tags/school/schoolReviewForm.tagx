@@ -132,14 +132,13 @@
                         <div id="charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
                     </div>
                 </div>
+
                 <div class="line email">
                     <div class="unit size4of7">
-
                         <div class="line">
                             <label for="frmPRModule-email" class="unit size1of4">Email:
                                 <em class="sprite i-required"><!-- do not collapse --></em>
                             </label>
-
                             <c:choose>
                                 <c:when test="${validUser.email eq null}">
                                     <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
@@ -154,58 +153,54 @@
                                            value="${validUser.email}" disabled="disabled"/>
                                 </c:otherwise>
                             </c:choose>
+
                             <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                         </div>
-
                         <div class="spacer_5"><!-- do not collapse --></div>
-
-                        <div class="spacer_15">
-                            <div class="formErrorText mediaExt1-1 form-error">
-                                <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                                <div class="bk">Please enter your email.</div>
-                            </div>
-                        </div>
-
                     </div>
 
-                    <div class="unit size3of7 lastUnit">
+                    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
+                        <div class="formErrorText mediaExt1-1 form-error">
+                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                            <div class="bk">Please enter your email.</div>
+                        </div>
                         <div class="smallText1-333 mediaExt1-1 form-alert">
                             <span class="sprite i-confirm-sm img"><!-- do not collapse --></span>
 
                             <div class="bk">You will need to verify your email address when you submit your review.</div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <div class="line role">
-                    <label for="affiliation" class="unit size1of7">I am a:
-                        <em class="sprite i-required"><!-- do not collapse --></em>
-
-                    </label>
-                    <select id="affiliation" name="posterAsString" class="unit size3of7">
-                        <option value="" selected="selected">- Select one -</option>
-                        <option value="parent">parent</option>
-                        <c:if test="${schoolReviewShowStudent}">
-                            <option value="student">student</option>
-                        </c:if>
-                        <option value="teacher">teacher/staff member</option>
-                        <option value="other">other</option>
-                    </select>
-
-                    <div class="unit size3of7 lastUnit">
-                        &amp;nbsp;
+                    <div class="unit size4of7">
+                        <div class="line">
+                            <label for="affiliation" class="unit size1of4">I am a:
+                                <em class="sprite i-required"><!-- do not collapse --></em>
+                            </label>
+                            <select id="affiliation" name="posterAsString" class="unit size7of10">
+                                <option value="" selected="selected">- Select one -</option>
+                                <option value="parent">parent</option>
+                                <c:if test="${schoolReviewShowStudent}">
+                                    <option value="student">student</option>
+                                </c:if>
+                                <option value="teacher">teacher/staff member</option>
+                                <option value="other">other</option>
+                            </select>
+                            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+                        </div>
+                        <div class="spacer_5"><!-- do not collapse --></div>
                     </div>
-                    <div class="spacer_5"><!-- do not collapse --></div>
-                    <div class="spacer_15">
-                    <div class="form-error formErrorText mediaExt1-1">
-                        <span class="sprite i-alert img"><!-- do not collapse --></span>
+                    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
+                        <div class="formErrorText mediaExt1-1 form-error">
+                            <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                        <div class="bk">Please let us know how you are affiliated with this school.</div>
+                            <div class="bk">Please let us know how you are affiliated with this school.</div>
+                        </div>
                     </div>
-                    </div>
+
                 </div>
 
                 <div class="subStarRatings" style="display:none;">
@@ -347,12 +342,12 @@
 
                         <div class="spacer_5"><!-- do not collapse --></div>
                         <div class="spacer_15">
-                        <div class="form-error formErrorText mediaExt1-1">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+                            <div class="form-error formErrorText mediaExt1-1">
+                                <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                            <div class="bk">Please read and accept our Terms of Use to join GreatSchools.</div>
-                        </div>
+                                <div class="bk">Please read and accept our Terms of Use to join GreatSchools.</div>
                             </div>
+                        </div>
                     </div>
                 </div>
 
