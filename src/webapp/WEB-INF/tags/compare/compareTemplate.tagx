@@ -8,6 +8,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
         >
 
     <pageHelper:externalJavascript file="/res/js/compare/compare.js"/>
@@ -55,6 +56,27 @@
                    href="${requestScope.returnLink}" ><span class="alertDoubleArrow">&#171;</span>
                     ${back_link_text}
                 </a>
+            </c:if>
+            <c:if test="${totalSchools gt 0}">
+                <c:choose>
+                    <c:when test="${schoolIdsString eq ''}">
+                        <p class="smallText1 fltrt">
+                            <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
+                            <span class="js-msl-text">
+                                Added to <link:mySchoolList>My School List</link:mySchoolList>
+                            </span>
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="js-add-all-msl smallText1 fltrt">
+                            <span class="sprite i-add-sm"><!-- do not collapse --></span>&amp;nbsp;
+                            <span class="js-msl-text">
+                                <link:mySchoolList onclick="GS.showAddMslJoinHoverAllSchools('${schoolIdsString}', '${state}'); return false;"
+                                        >Add all schools to My School List</link:mySchoolList>
+                            </span>
+                        </p>
+                    </c:otherwise>
+                </c:choose>
             </c:if>
             <compare:pagination tab="${tab}" schoolsString="${schoolsString}" page="${page}"
                                       startIndex="${startIndex}" endIndex="${endIndex}"

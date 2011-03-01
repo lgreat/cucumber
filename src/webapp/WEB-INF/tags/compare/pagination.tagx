@@ -20,7 +20,7 @@
     <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer"
                              description="Page number for linking"/>
 
-    <div class="pagination text3">
+    <div class="pagination text3 clearRgt">
         <c:choose>
             <c:when test="${page eq 1}">
                 <c:set var="nextPage" value="2"/>

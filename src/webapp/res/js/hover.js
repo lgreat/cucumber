@@ -1151,6 +1151,48 @@ GS.showAddMslJoinHover = function(omniturePageName, schoolName, schoolId, school
     return false;
 };
 
+GS.showAddMslJoinHoverAllSchools = function(schoolIdList, schoolState) {
+    if (s.tl) {
+        s.tl(true, 'o', 'Add_to_MSL_Link_Compare_Allschools');
+    }
+
+    var mslHelper = new GS.community.MySchoolListHelper();
+    if (GS.isSignedIn()) {
+        var idsArr = schoolIdList.split(",");
+        var counter;
+        for (counter=0; counter < idsArr.length; counter++) {
+            (function() {
+                var myId = idsArr[counter];
+                var myStatePlusId = schoolState + myId;
+                mslHelper.addSchool(schoolState, myId, function() {
+                    jQuery('.js-add-msl-' + myStatePlusId).find('.js-msl-text').html("Added to <a href=\"/mySchoolList.page\">My School List</a>");
+                    jQuery('.js-add-msl-' + myStatePlusId).find('.sprite').attr("class", "sprite i-checkmark-sm img");
+                }, function() {});
+            }());
+        }
+        jQuery('.js-add-all-msl').find('.js-msl-text').html("Added all schools to <a href=\"/mySchoolList.page\">My School List</a>");
+        jQuery('.js-add-all-msl').find('.sprite').attr("class", "sprite i-checkmark-sm img");
+    } else {
+        var redirect = window.location.href;
+        var mslSuccessCallback = function(email, formId) {
+            var idsArr = schoolIdList.split(",");
+            var counter;
+            for (counter=0; counter < idsArr.length; counter++) {
+                mslHelper.addSchool(schoolState, idsArr[counter], function() {}, function() {});
+            }
+            GSType.hover.signInHover.setRedirect(redirect);
+            window.setTimeout(function() {jQuery('#' + formId).submit()}, 100); // give MSL time to commit
+        };
+        GSType.hover.joinHover.onSubmitCallback = mslSuccessCallback;
+        if (GS.isMember()) {
+            GSType.hover.signInHover.showHover('', redirect, GSType.hover.joinHover.showJoinMsl, mslSuccessCallback);
+        } else {
+            GSType.hover.joinHover.showJoinMsl();
+        }
+    }
+    return false;
+};
+
 //validates response for chooser tip sheet join hover. If validation passes, makes an ajax request to have tips email sent out, then submits join form so controller creates user
 GS.chooserHover_checkValidationResponse = function(data) {
 

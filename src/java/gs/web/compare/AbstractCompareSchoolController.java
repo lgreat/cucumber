@@ -41,7 +41,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final String PARAM_PAGE = "p";
     public static final String PARAM_SOURCE = "source";
     public static final String MODEL_SOURCE = "source";
+    public static final String MODEL_STATE = "state";
     public static final String MODEL_SCHOOLS_STRING = "schoolsString";
+    public static final String MODEL_SCHOOL_IDS_STRING = "schoolIdsString";
     public static final String MODEL_SCHOOLS = "schools";
     public static final String MODEL_START_INDEX = "startIndex";
     public static final String MODEL_END_INDEX = "endIndex";
@@ -81,7 +83,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             model.put(MODEL_SCHOOLS, schools);
             handleAdKeywords(request, schools);
             handleReturnLink(request, response, model);
-            handleMSL(request, schools);
+            handleMSL(request, schools, model);
         } catch (Exception e) {
             _log.error(e, e);
             return getErrorResponse("unknown exception");
@@ -89,10 +91,24 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         return new ModelAndView(getSuccessView(), model);
     }
 
-    protected void handleMSL(HttpServletRequest request, List<ComparedSchoolBaseStruct> schools) {
+    protected void handleMSL(HttpServletRequest request, List<ComparedSchoolBaseStruct> schools, Map<String, Object> model) {
+        if (schools == null || schools.size() == 0) {
+            return;
+        }
+        // default msl list to every school
+        String schoolIds = (String) model.get(MODEL_SCHOOLS_STRING);
+        String mslSchoolIds = "";
+        for (String schoolId: schoolIds.split(",")) {
+          mslSchoolIds += schoolId.substring(2) + ",";
+        }
+        if (mslSchoolIds.length() > 0) {
+            mslSchoolIds = mslSchoolIds.substring(0, mslSchoolIds.length()-1);
+        }
+        model.put(MODEL_SCHOOL_IDS_STRING, mslSchoolIds);
+        model.put(MODEL_STATE, schools.get(0).getState());
         SessionContext sc = SessionContextUtil.getSessionContext(request);
         User user = sc.getUser();
-        if (user == null || schools == null || schools.size() == 0) {
+        if (user == null) {
             return;
         }
         Map<Integer, Boolean> schoolIdToInMsl = new HashMap<Integer, Boolean>();
@@ -110,6 +126,16 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         for (ComparedSchoolBaseStruct school: schools) {
             school.setInMsl(schoolIdToInMsl.get(school.getId()) != null);
         }
+        mslSchoolIds = "";
+        for (String schoolId: schoolIds.split(",")) { // for each school being compared
+           if (schoolIdToInMsl.get(Integer.valueOf(schoolId.substring(2))) == null) {
+               mslSchoolIds += schoolId.substring(2) + ","; // if it isn't in msl, add it to the eligibility list
+           }
+        }
+        if (mslSchoolIds.length() > 0) {
+            mslSchoolIds = mslSchoolIds.substring(0, mslSchoolIds.length()-1);
+        }
+        model.put(MODEL_SCHOOL_IDS_STRING, mslSchoolIds);
     }
 
     protected void handleReturnLink(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) {

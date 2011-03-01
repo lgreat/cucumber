@@ -397,17 +397,18 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
     public void testHandleMsl() {
         replayAllMocks();
 
-        _controller.handleMSL(getRequest(), null);
+        _model.put("schoolsString", "");
+        _controller.handleMSL(getRequest(), null, _model);
 
         List<ComparedSchoolBaseStruct> schools = new ArrayList<ComparedSchoolBaseStruct>();
-        _controller.handleMSL(getRequest(), schools);
+        _controller.handleMSL(getRequest(), schools, _model);
 
         User user = new User();
         user.setEmail("aroy@greatschools.org"); // needed for hashCode on FavoriteSchool
 
         getSessionContext().setUser(user);
 
-        _controller.handleMSL(getRequest(), schools);
+        _controller.handleMSL(getRequest(), schools, _model);
 
         ComparedSchoolBaseStruct struct1 = new ComparedSchoolBaseStruct();
         School school1 = new School();
@@ -415,18 +416,21 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
         school1.setId(5);
         struct1.setSchool(school1);
         schools.add(struct1);
+        _model.put("schoolsString", "ca5");
 
         assertFalse(struct1.isInMsl());
-        _controller.handleMSL(getRequest(), schools);
+        _controller.handleMSL(getRequest(), schools, _model);
         assertFalse(struct1.isInMsl());
+        assertEquals("5", _model.get("schoolIdsString"));
 
         FavoriteSchool faveSchool1 = new FavoriteSchool(school1, user);
         Set<FavoriteSchool> faveSchools = new HashSet<FavoriteSchool>();
         faveSchools.add(faveSchool1);
         user.setFavoriteSchools(faveSchools);
 
-        _controller.handleMSL(getRequest(), schools);
+        _controller.handleMSL(getRequest(), schools, _model);
         assertTrue(struct1.isInMsl());
+        assertEquals("", _model.get("schoolIdsString"));
 
         struct1.setInMsl(false);
 
@@ -443,14 +447,22 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
         school3.setId(11);
         struct3.setSchool(school3);
         schools.add(struct3);
+        _model.put("schoolsString", "ca5,ca7,ca11");
+
+        _controller.handleMSL(getRequest(), schools, _model);
+        assertTrue(struct1.isInMsl());
+        assertFalse(struct2.isInMsl());
+        assertFalse(struct3.isInMsl());
+        assertEquals("7,11", _model.get("schoolIdsString"));
 
         FavoriteSchool faveSchool3 = new FavoriteSchool(school3, user);
         faveSchools.add(faveSchool3);
 
-        _controller.handleMSL(getRequest(), schools);
+        _controller.handleMSL(getRequest(), schools, _model);
         assertTrue(struct1.isInMsl());
         assertFalse(struct2.isInMsl());
         assertTrue(struct3.isInMsl());
+        assertEquals("7", _model.get("schoolIdsString"));
 
         verifyAllMocks();
     }
