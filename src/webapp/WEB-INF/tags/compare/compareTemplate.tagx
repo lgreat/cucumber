@@ -63,7 +63,7 @@
                         <p class="smallText1 fltrt">
                             <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
                             <span class="js-msl-text">
-                                Added to <link:mySchoolList>My School List</link:mySchoolList>
+                                Added all schools to <link:mySchoolList>My School List</link:mySchoolList>
                             </span>
                         </p>
                     </c:when>
