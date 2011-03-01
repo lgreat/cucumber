@@ -86,6 +86,10 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService<ISchool
         _optionalTerms.put("south", new Float(0.5));
         _optionalTerms.put("street", new Float(0.5));
         _optionalTerms.put("west", new Float(0.5));
+
+        _optionalTerms.put("and", new Float(0.0));
+        _optionalTerms.put("or", new Float(0.0));
+        _optionalTerms.put("of", new Float(0.0));
     }
 
     /**
@@ -197,7 +201,7 @@ public class SchoolSearchServiceSolrImpl extends BaseLuceneSearchService<ISchool
 
         for (int i = 0; i < tokens.length; i++) {
             String lctoken = tokens[i].toLowerCase();
-            if (!_optionalTerms.containsKey(lctoken)) {
+            if (lctoken.length() > 1 && !_optionalTerms.containsKey(lctoken) && !lctoken.matches((PUNCTUATION_AND_WHITESPACE_PATTERN))) {
                 tokens[i] = "+" + tokens[i];
             }
         }

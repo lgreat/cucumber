@@ -88,7 +88,9 @@ public class DistrictSearchServiceSolrImpl extends BaseLuceneSearchService<IDist
                 q = getQueryParser().parse(searchString).toString();
                 query.setQueryType("standard"); //use our already-parsed query
             } else {
-                q = "+" + DistrictDocumentBuilder.DISTRICT_NAME + ":(" + searchString + ")";
+                query.add("df","district_name");
+                //q = "+" + DistrictDocumentBuilder.DISTRICT_NAME + ":(" + searchString + ")";
+                q = searchString;
             }
         }
 
