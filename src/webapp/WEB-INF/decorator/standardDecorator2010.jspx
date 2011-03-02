@@ -105,10 +105,6 @@
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
         </c:otherwise>
     </c:choose>
-    <variant:b>
-        <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-        <![CDATA[<script type="text/javascript" src="${meebojs}"></script>]]>
-    </variant:b>
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -139,6 +135,10 @@
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
       onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
 <cobrand:framebuster/>
+<variant:b>
+    <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+    <![CDATA[<script type="text/javascript" src="${meebojs}"></script>]]>
+</variant:b>
 
 <communityHover:validateEmail/>
 <communityHover:validateEmailSchoolReview/>
