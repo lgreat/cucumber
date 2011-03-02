@@ -280,7 +280,7 @@
     <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
 </div>
 <!-- end reviewColumn2 -->
-<div class="spacer_10"><!-- do not collapse --></div>
+<div class="spacer_15"><!-- do not collapse --></div>
 
 <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
 <c:if test="${not empty principalReview}">
