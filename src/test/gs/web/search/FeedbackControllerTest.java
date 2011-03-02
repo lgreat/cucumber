@@ -1,7 +1,7 @@
 package gs.web.search;
 
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.context.SessionContextUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -13,12 +13,9 @@ import javax.mail.Message;
  */
 public class FeedbackControllerTest extends BaseControllerTestCase {
 
-    private SessionContextUtil _sessionContextUtil;
 
     protected void setUp() throws Exception {
         super.setUp();
-        _sessionContextUtil =
-                (SessionContextUtil) (getApplicationContext().getBean(SessionContextUtil.BEAN_ID));
     }
 
     public void testOnSubmit() throws Exception {
@@ -62,11 +59,13 @@ public class FeedbackControllerTest extends BaseControllerTestCase {
     public void testNevadaNebraska() throws Exception {
         FeedbackController controller = new FeedbackController();
         FeedbackCommand command = new FeedbackCommand();
+        command.test = true;
         getRequest().setParameter("state", "nv");
-        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        _sessionContext.setState(State.NV);
         ModelAndView mAndV = controller.onSubmit(getRequest(), getResponse(),
                 command, null);
         RedirectView view = (RedirectView)mAndV.getView();
         assertEquals("/search/feedbackSubmit.page?state=nv", view.getUrl());
+        _sessionContext.setState(State.CA);
     }
 }
