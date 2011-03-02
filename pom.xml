@@ -67,6 +67,11 @@
         <!-- Plugins -->
         <plugins>
             <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-scm-plugin</artifactId>
+              <version>1.4</version>
+            </plugin>
+            <plugin>
                 <artifactId>maven-idea-plugin</artifactId>
                 <configuration>
                     <jdkLevel>1.5</jdkLevel>
