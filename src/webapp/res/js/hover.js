@@ -1178,7 +1178,7 @@ GS.showAddMslJoinHoverAllSchools = function(schoolIdList, schoolState) {
             var idsArr = schoolIdList.split(",");
             var counter;
             for (counter=0; counter < idsArr.length; counter++) {
-                mslHelper.addSchool(schoolState, idsArr[counter], function() {}, function() {});
+                mslHelper.addSchool(schoolState, idsArr[counter], function() {}, function() {}, email);
             }
             GSType.hover.signInHover.setRedirect(redirect);
             window.setTimeout(function() {jQuery('#' + formId).submit()}, 100); // give MSL time to commit

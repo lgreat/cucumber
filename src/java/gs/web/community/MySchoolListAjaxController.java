@@ -103,11 +103,13 @@ public class MySchoolListAjaxController implements ReadWriteAnnotationController
                 data.put("success", false);
                 data.put("error", "invalid email");
                 jsonResponse(response, data);  // Early exit
+                return null;
             } else {
                 Map<Object,Object> data = new HashMap<Object,Object>();
                 data.put("success", false);
                 data.put("error", "unauthorized");
                 jsonResponse(response, data);  // Early exit
+                return null;
             }
         }
 
