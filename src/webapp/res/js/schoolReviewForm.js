@@ -178,7 +178,7 @@ GS.form.SchoolReviewForm = function(id) {
                 var errors = validationResult.getErrors();
                 var emailErrorMessage = errors[0];
                 if (emailErrorMessage.indexOf('This email address is already registered') != -1) {
-                    this.setAlert('You will need to sign in when you submit your review.');
+                    this.setAlert('You will need to sign in when you submit.');
                     this.removeError();
                     emailTaken = true;
                 } else {
@@ -196,7 +196,7 @@ GS.form.SchoolReviewForm = function(id) {
                 if (GS.isCookieSet('emailVerified')) {
                     alertText = null;
                 } else {
-                    this.setAlert('You will need to verify your email address on submit.');
+                    this.setAlert('You must verify your email address on submit.');
                 }
                 emailTaken = false;
                 this.updateErrorDisplay();
@@ -257,7 +257,7 @@ GS.form.SchoolReviewForm = function(id) {
         };
         this.validate = function() {
             if (element.val() === '' || element.val() === defaultValue) {
-                error = 'Please let us know how you are affiliated with this school.';
+                error = 'Please indicate your relationship to the school.';
             } else {
                 error = null;
                 this.updateErrorDisplay();

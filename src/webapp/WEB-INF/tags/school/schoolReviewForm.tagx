@@ -168,7 +168,7 @@
                         <div class="smallText1-333 mediaExt1-1 form-alert">
                             <span class="sprite i-confirm-sm img"><!-- do not collapse --></span>
 
-                            <div class="bk">You will need to verify your email address on submit.</div>
+                            <div class="bk">You must verify your email address on submit.</div>
                         </div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                         <div class="formErrorText mediaExt1-1 form-error">
                             <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                            <div class="bk">Please let us know how you are affiliated with this school.</div>
+                            <div class="bk">Please indicate your relationship to the school.</div>
                         </div>
                     </div>
 
