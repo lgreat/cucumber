@@ -67,6 +67,72 @@
                 </p>
 
                 <div class="spacer_20">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+
+
+
+                <!-- nearby cities box -->
+                <div class="text3">
+                    <c:if test="${fn:length(citySearchResults) gt 0}">
+                        <p class="text1bold">Search for schools in the city of:</p>
+                        <link:schools cityName="${citySearchResults[0].city}" state="${citySearchResults[0].state}">
+                            ${citySearchResults[0].city}, ${citySearchResults[0].state}</link:schools>
+                    </c:if>
+                    <c:if test="${fn:length(citySearchResults) gt 1}">
+                        | <link:schools cityName="${citySearchResults[1].city}" state="${citySearchResults[1].state}">
+                            ${citySearchResults[1].city}, ${citySearchResults[1].state}</link:schools>
+                    </c:if>
+                    <c:if test="${fn:length(citySearchResults) gt 2}">
+                        | <link:schools cityName="${citySearchResults[2].city}" state="${citySearchResults[2].state}">
+                            ${citySearchResults[2].city}, ${citySearchResults[2].state}</link:schools>
+                    </c:if>
+                    <c:if test="${fn:length(citySearchResults) gt 3}">
+                        | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">more cities <span
+                            class="alertDoubleArrow">&amp;raquo;</span></span>
+
+                        <div id="nearby-cities" class="js-popup">
+                            <div id="popup-contents-8">
+                                <span class="arrow-outline-top"><!-- do not collapse --></span>
+                                <span class="arrow-top"><!-- do not collapse --></span>
+                                <c:set var="openCloseTr">
+                                    <![CDATA[</tr><tr>]]>
+                                </c:set>
+                                <c:choose>
+                                    <c:when test="${fn:length(citySearchResults) lt 11}">
+                                        <c:set var="cityTableColumns" value="${1}"/>
+                                    </c:when>
+                                    <c:when test="${fn:length(citySearchResults) ge 11 and fn:length(citySearchResults) lt 21}">
+                                        <c:set var="cityTableColumns" value="${2}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="cityTableColumns" value="${3}"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:set var="tableWidth" value="${132 * cityTableColumns}"/>
+                                <c:if test="${fn:length(citySearchResults) > 0}">
+                                    <table cellspacing="0" width="${tableWidth}">
+                                        <tbody>
+                                        <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
+                                        <tr>
+                                            <c:forEach var="city" items="${citySearchResults}" begin="3"
+                                                       end="${fn:length(citySearchResults)-1}" varStatus="status">
+                                                <td><link:schools cityName="${city.city}"
+                                                               state="${city.state}">${city.city}, ${city.state}</link:schools></td>
+                                                <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
+                                                    ${openCloseTr}
+                                                </c:if>
+                                            </c:forEach>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                    </c:if>
+                </div>
+
+                <br/>
+
                 <p class="text1bold">Suggestion:</p>
 
                 <div class="spacer_5"><!-- do not collapse --></div>
