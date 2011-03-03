@@ -3568,6 +3568,7 @@ body.cobranded #pageGS {
     height: 18px;
     width: auto;
     padding: 3px 15px 3px 10px;
+    color:#06b;
 }
 
 #topnav_menusubnav a.arrow {
@@ -3581,10 +3582,6 @@ body.cobranded #pageGS {
 #topnav_menusubnav li.over a.over {
     color: #fff;
     background-position: 100% -222px;
-}
-
-#topnav_menusubnav .topnav_subnav_active .GS_CI9_ {
-    color: #333;
 }
 
 #topnav_menusubnav ul.nav_group_items {

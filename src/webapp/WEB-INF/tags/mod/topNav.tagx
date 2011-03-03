@@ -193,10 +193,9 @@
                     class="nav_group_heading GS_CI9_ "
                     >Great Gifts</a>
             </li>-->
-            <li id="topnav_hd" class="nav_menu ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')}"><a href="/parenting.topic?content=1539"
-                    id="GlobalNav_HealthAndDevelopmentButton"
-                    class="arrow nav_group_heading GS_CI9_ "
-                    >Browse by Grade</a>
+            <li id="topnav_hd" class="nav_menu topnav_subnav_active"><a href="#"
+                    id="GlobalNav_BrowseByGradeButton"
+                    class="arrow nav_group_heading GS_CI9_ ">Browse by Grade</a>
                 <ul class="nav_group_items">
                     <li class="first nav-group-item">
                         <a href="/preschool/"
