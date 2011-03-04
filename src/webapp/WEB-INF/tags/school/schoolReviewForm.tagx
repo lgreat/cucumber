@@ -75,7 +75,6 @@
                         <!-- end star ratings -->
                     </div>
 
-                    <div class="spacer_5"><!-- do not collapse --></div>
                     <div class="spacer_15">
                     <div class="form-error formErrorText mediaExt1-1">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
