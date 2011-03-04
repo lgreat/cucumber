@@ -204,7 +204,7 @@
                             </tr>
 
                             <tr>
-                                <td class="label"
+                                <td class="label wide"
                                     colspan="3">What data requests are you interested in and what is your intended use of this web service? *
                                 </td>
                             </tr>

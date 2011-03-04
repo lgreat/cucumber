@@ -63,7 +63,9 @@ div#api_reg td.label {
     text-align:left;
     width: 130px;
 }
-
+div#api_reg td.wide {
+    width: 100%;
+}
 div#api_reg td.tou {
     text-align: left;
 }
