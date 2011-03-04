@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -56,6 +58,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final int DEFAULT_PAGE_SIZE = 4;
     public static final int MIN_SCHOOLS = 0;
     public static final int MAX_SCHOOLS = 8;
+    public static final Pattern SPHEAD_SOURCE_PATTERN = Pattern.compile("sphead_([a-zA-Z\\-]+)_([a-zA-Z]{2})(\\d+)");
 
     private ISchoolDao _schoolDao;
     private IRatingsConfigDao _ratingsConfigDao;
@@ -138,6 +141,58 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         model.put(MODEL_SCHOOL_IDS_STRING, mslSchoolIds);
     }
 
+    protected UrlBuilder handleSchoolProfileHeaderReturnLink(String source) {
+        UrlBuilder urlBuilder = null;
+        Matcher m = SPHEAD_SOURCE_PATTERN.matcher(source);
+        if (!m.matches()) {
+            _log.warn("Invalid format for source string \"" + source + "\"");
+            return null;
+        }
+        try {
+            String sourceCode = m.group(1);
+            State state = State.fromString(m.group(2));
+            Integer id = Integer.parseInt(m.group(3));
+            School school = _schoolDao.getSchoolById(state, id);
+
+            String subtab = "";
+            if (sourceCode.indexOf("-") > -1) {
+                subtab = sourceCode.substring(sourceCode.indexOf("-")+1);
+                sourceCode = sourceCode.substring(0, sourceCode.indexOf("-"));
+            }
+
+            if (StringUtils.equals("overview", sourceCode)) {
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+            } else if (StringUtils.equals("parentReviews", sourceCode)) {
+                urlBuilder = new UrlBuilder(state, id, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            } else if (StringUtils.equals("esp", sourceCode)) {
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP);
+            } else if (StringUtils.equals("schoolMap", sourceCode)) {
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_MAP);
+            } else if (StringUtils.equals("schoolStats", sourceCode) && StringUtils.isNotBlank(subtab)) {
+                if (StringUtils.equals("teachersStudents", subtab)) {
+                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_CENSUS);
+                } else if (StringUtils.equals("testScores", subtab)) {
+                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
+                } else if (StringUtils.equals("rating", subtab)) {
+                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+                } else if (StringUtils.equals("survey", subtab)) {
+                    urlBuilder = new UrlBuilder(school, UrlBuilder.START_SURVEY_RESULTS);
+                }
+            } else if (StringUtils.equals("survey", sourceCode)) {
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_START_SURVEY);
+            }
+            if (urlBuilder == null) {
+                _log.warn("Unknown school profile source page to compare, defaulting to overview: " + source);
+                // default to overview
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+            }
+        } catch (Exception e) {
+            _log.warn("Can't find school, or other error from source string \"" + source + "\"", e);
+        }
+
+        return urlBuilder;
+    }
+
     protected void handleReturnLink(HttpServletRequest request, HttpServletResponse response, Map<String, Object> model) {
         String source = request.getParameter(PARAM_SOURCE);
         if (source != null) {
@@ -178,6 +233,9 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     } catch (Exception e) {
                         _log.warn("Can't find school from source string \"" + source + "\"", e);
                     }
+                } else if (StringUtils.startsWith(source, "sphead_")) {
+                    maintainSelection=false;
+                    urlBuilder = handleSchoolProfileHeaderReturnLink(source);
                 } else if (StringUtils.startsWith(source, "city")) {
                     maintainSelection = false;
                     try {

@@ -19,6 +19,8 @@ import gs.data.util.NameValuePair;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.util.VariantConfiguration;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +45,7 @@ public class SchoolProfileHeaderHelper {
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
     private IRatingsConfigDao _ratingsConfigDao;
     private TestManager _testManager;
+    private ISchoolDao _schoolDao;
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
@@ -54,6 +57,7 @@ public class SchoolProfileHeaderHelper {
     public static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
     public static final String IS_LOCAL = "isLocal";
     public static final String SURVEY_LEVEL_CODE = "surveyLevelCode";
+    public static final String COMPARE_NEARBY_STRING = "compareNearbyString";
 
     private void logDuration(long durationInMillis, String eventName) {
         _log.info(eventName + " took " + durationInMillis + " milliseconds");
@@ -107,11 +111,38 @@ public class SchoolProfileHeaderHelper {
                 startTime = System.currentTimeMillis();
                 handleStateSpecificFooter(request, school);
                 logDuration(System.currentTimeMillis() - startTime, "Handling state specific footer");
+
+                if (StringUtils.equals("b", SessionContextUtil.getSessionContext(request).getABVersion())) {
+                    startTime = System.currentTimeMillis();
+                    handleCompareNearbyString(school, model);
+                    logDuration(System.currentTimeMillis() - startTime, "Handling compare nearby string");
+                }
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
         logDuration(System.currentTimeMillis() - totalTime, "Entire SchoolProfileHeaderHelper");
+    }
+
+    protected void handleCompareNearbyString(School school, Map<String, Object> model) {
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            return; // no preschools on compare
+        }
+        List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 7);
+        String compareNearbyString = school.getDatabaseState().getAbbreviation() + school.getId() + ",";
+        for (NearbySchool nearbySchool: nearbySchools) {
+            if (LevelCode.PRESCHOOL.equals(nearbySchool.getNeighbor().getLevelCode())
+                    || nearbySchool.getNeighbor().getDatabaseState() != school.getDatabaseState()) {
+                continue;
+            }
+            compareNearbyString += nearbySchool.getNeighbor().getDatabaseState().getAbbreviation()
+                    + nearbySchool.getNeighbor().getId()
+                    + ",";
+        }
+        compareNearbyString = compareNearbyString.substring(0, compareNearbyString.length()-1); // strip comma
+        if (compareNearbyString.indexOf(",") > -1) { // must have at least 2 schools to compare
+            model.put(COMPARE_NEARBY_STRING, compareNearbyString);
+        }
     }
 
     protected void handleGSRating(HttpServletRequest request, School school) throws IOException {
@@ -330,5 +361,13 @@ public class SchoolProfileHeaderHelper {
 
     public void setTestManager(TestManager testManager) {
         this._testManager = testManager;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

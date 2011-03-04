@@ -12,7 +12,9 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.UrlBuilder;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -465,5 +467,54 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
         assertEquals("7", _model.get("schoolIdsString"));
 
         verifyAllMocks();
+    }
+
+    public void testHandleSchoolProfileHeaderReturnLink() {
+        UrlBuilder rval;
+
+        replayAllMocks();
+        assertNull(_controller.handleSchoolProfileHeaderReturnLink("garbage"));
+        assertNull(_controller.handleSchoolProfileHeaderReturnLink("sphead_overview_foo1"));
+        assertNull(_controller.handleSchoolProfileHeaderReturnLink("sphead_overview_cafoo"));
+        assertNull(_controller.handleSchoolProfileHeaderReturnLink("sphead_overview_xx1"));
+        verifyAllMocks();
+
+        resetAllMocks();
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setName("Alameda High School");
+        school.setPhysicalAddress(new Address("street", "Alameda", State.CA, "94612"));
+
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        replayAllMocks();
+        rval = _controller.handleSchoolProfileHeaderReturnLink("sphead_stillgarbage_ca1");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        replayAllMocks();
+        rval = _controller.handleSchoolProfileHeaderReturnLink("sphead_overview_ca1");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        replayAllMocks();
+        rval = _controller.handleSchoolProfileHeaderReturnLink("sphead_parentReviews_ca1");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(school);
+        replayAllMocks();
+        rval = _controller.handleSchoolProfileHeaderReturnLink("sphead_schoolStats-survey_ca1");
+        verifyAllMocks();
+        assertNotNull(rval);
     }
 }

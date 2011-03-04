@@ -2,10 +2,7 @@ package gs.web.school;
 
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.geo.IGeoDao;
-import gs.data.school.IPQDao;
-import gs.data.school.PQ;
-import gs.data.school.School;
-import gs.data.school.SchoolType;
+import gs.data.school.*;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
@@ -17,7 +14,9 @@ import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.BaseTestCase;
 import gs.web.geo.StateSpecificFooterHelper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static gs.web.school.SchoolProfileHeaderHelper.*;
@@ -37,6 +36,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
     private IRatingsConfigDao _ratingsConfigDao;
     private TestManager _testManager;
+    private ISchoolDao _schoolDao;
     
     private Map<String, Object> _model;
     private School _school;
@@ -56,6 +56,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         _stateSpecificFooterHelper = createStrictMock(StateSpecificFooterHelper.class);
         _ratingsConfigDao = createStrictMock(IRatingsConfigDao.class);
         _testManager = createStrictMock(TestManager.class);
+        _schoolDao = createStrictMock(ISchoolDao.class);
 
         _helper.setPQDao(_PQDao);
         _helper.setTestDataSetDao(_testDataSetDao);
@@ -65,6 +66,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         _helper.setStateSpecificFooterHelper(_stateSpecificFooterHelper);
         _helper.setRatingsConfigDao(_ratingsConfigDao);
         _helper.setTestManager(_testManager);
+        _helper.setSchoolDao(_schoolDao);
 
         _model = new HashMap<String, Object>();
 
@@ -73,11 +75,11 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     }
     
     private void replayAllMocks() {
-        replayMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager);
+        replayMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager);
+        verifyMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
     }
 
     public void testBasics() {
@@ -86,6 +88,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         assertSame(_surveyDao, _helper.getSurveyDao());
         assertSame(_localBoardDao, _helper.getLocalBoardDao());
         assertSame(_geoDao, _helper.getGeoDao());
+        assertSame(_schoolDao, _helper.getSchoolDao());
     }
     
     public void testDeterminePQNone() {
@@ -200,5 +203,116 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         verifyAllMocks();
 
         assertEquals(true, _model.get(HAS_TEST_SCORES));
+    }
+
+    public void testHandleCompareNearbyStringPreschool() {
+        _school.setLevelCode(LevelCode.PRESCHOOL);
+        
+        replayAllMocks();
+        _helper.handleCompareNearbyString(_school, _model);
+        verifyAllMocks();
+        assertNull(_model.get(COMPARE_NEARBY_STRING));
+    }
+
+    public void testHandleCompareNearbyStringNoNearby() {
+        _school.setLevelCode(LevelCode.ELEMENTARY);
+        _school.setDatabaseState(State.CA);
+        _school.setId(1);
+
+        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(new ArrayList<NearbySchool>());
+        replayAllMocks();
+        _helper.handleCompareNearbyString(_school, _model);
+        verifyAllMocks();
+        assertNull(_model.get(COMPARE_NEARBY_STRING));
+    }
+
+    public void testHandleCompareNearbyString() {
+        _school.setLevelCode(LevelCode.ELEMENTARY);
+        _school.setDatabaseState(State.CA);
+        _school.setId(1);
+
+        List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
+        NearbySchool nearbySchool1 = new NearbySchool();
+        School school1 = new School();
+        school1.setDatabaseState(State.CA);
+        school1.setId(2);
+        school1.setLevelCode(LevelCode.MIDDLE);
+        nearbySchool1.setNeighbor(school1);
+        nearbySchool1.setSchool(_school);
+        nearbySchools.add(nearbySchool1);
+        NearbySchool nearbySchool2 = new NearbySchool();
+        School school2 = new School();
+        school2.setDatabaseState(State.CA);
+        school2.setId(3);
+        school2.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        nearbySchool2.setNeighbor(school2);
+        nearbySchool2.setSchool(_school);
+        nearbySchools.add(nearbySchool2);
+        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(nearbySchools);
+        replayAllMocks();
+        _helper.handleCompareNearbyString(_school, _model);
+        verifyAllMocks();
+        assertNotNull(_model.get(COMPARE_NEARBY_STRING));
+        assertEquals("CA1,CA2,CA3", _model.get(COMPARE_NEARBY_STRING));
+    }
+
+    public void testHandleCompareNearbyStringPreschoolNearby() {
+        _school.setLevelCode(LevelCode.ELEMENTARY);
+        _school.setDatabaseState(State.CA);
+        _school.setId(1);
+
+        List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
+        NearbySchool nearbySchool1 = new NearbySchool();
+        School school1 = new School();
+        school1.setDatabaseState(State.CA);
+        school1.setId(2);
+        school1.setLevelCode(LevelCode.PRESCHOOL); // expect this to be skipped
+        nearbySchool1.setNeighbor(school1);
+        nearbySchool1.setSchool(_school);
+        nearbySchools.add(nearbySchool1);
+        NearbySchool nearbySchool2 = new NearbySchool();
+        School school2 = new School();
+        school2.setDatabaseState(State.CA);
+        school2.setId(3);
+        school2.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        nearbySchool2.setNeighbor(school2);
+        nearbySchool2.setSchool(_school);
+        nearbySchools.add(nearbySchool2);
+        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(nearbySchools);
+        replayAllMocks();
+        _helper.handleCompareNearbyString(_school, _model);
+        verifyAllMocks();
+        assertNotNull(_model.get(COMPARE_NEARBY_STRING));
+        assertEquals("CA1,CA3", _model.get(COMPARE_NEARBY_STRING));
+    }
+
+    public void testHandleCompareNearbyStringDifferentState() {
+        _school.setLevelCode(LevelCode.ELEMENTARY);
+        _school.setDatabaseState(State.CA);
+        _school.setId(1);
+
+        List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
+        NearbySchool nearbySchool1 = new NearbySchool();
+        School school1 = new School();
+        school1.setDatabaseState(State.WY); // expect this to be skipped
+        school1.setId(2);
+        school1.setLevelCode(LevelCode.ELEMENTARY);
+        nearbySchool1.setNeighbor(school1);
+        nearbySchool1.setSchool(_school);
+        nearbySchools.add(nearbySchool1);
+        NearbySchool nearbySchool2 = new NearbySchool();
+        School school2 = new School();
+        school2.setDatabaseState(State.CA);
+        school2.setId(3);
+        school2.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        nearbySchool2.setNeighbor(school2);
+        nearbySchool2.setSchool(_school);
+        nearbySchools.add(nearbySchool2);
+        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(nearbySchools);
+        replayAllMocks();
+        _helper.handleCompareNearbyString(_school, _model);
+        verifyAllMocks();
+        assertNotNull(_model.get(COMPARE_NEARBY_STRING));
+        assertEquals("CA1,CA3", _model.get(COMPARE_NEARBY_STRING));
     }
 }
