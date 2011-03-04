@@ -61,6 +61,7 @@ div#api_reg div.note {
 
 div#api_reg td.label {
     text-align:left;
+    width: 130px;
 }
 
 div#api_reg td.tou {
