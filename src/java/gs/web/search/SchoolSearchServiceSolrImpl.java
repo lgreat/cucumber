@@ -26,6 +26,8 @@ public class SchoolSearchServiceSolrImpl extends BaseSingleFieldSolrSearchServic
 
     public static final Logger _log = Logger.getLogger(SchoolSearchServiceSolrImpl.class);
 
+    public static final String BEAN_ID = "solrSchoolSearchService";
+    
     public void init() {
         this.setOptionalTerms();
     }

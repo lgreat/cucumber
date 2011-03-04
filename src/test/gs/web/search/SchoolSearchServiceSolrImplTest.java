@@ -1,13 +1,17 @@
 package gs.web.search;
 
-import junit.framework.TestCase;
+import gs.web.BaseTestCase;
+import gs.web.community.registration.LoginController;
+import org.springframework.context.ApplicationContext;
 
 
-public class SchoolSearchServiceSolrImplTest extends TestCase {
+public class SchoolSearchServiceSolrImplTest extends BaseTestCase {
     SchoolSearchServiceSolrImpl _schoolSearchServiceSolr;
 
     public void setUp() {
-        _schoolSearchServiceSolr = new SchoolSearchServiceSolrImpl();
+        ApplicationContext appContext = getApplicationContext();
+        _schoolSearchServiceSolr = (SchoolSearchServiceSolrImpl) appContext.getBean(SchoolSearchServiceSolrImpl.BEAN_ID);
+
     }
     public void testRequireNonOptionalWords() throws Exception {
         String qs = "Alameda High School";
