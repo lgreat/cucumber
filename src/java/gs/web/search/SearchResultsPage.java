@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import org.apache.solr.client.solrj.response.SpellCheckResponse;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,8 @@ public class SearchResultsPage<SR extends ISearchResult> {
     private int _totalResults;
 
     private List<SR> _searchResults;
+
+    private SpellCheckResponse _spellCheckResponse;
 
     public SearchResultsPage(int totalResults, List<SR> searchResults) {
         _totalResults = totalResults;
@@ -32,5 +36,13 @@ public class SearchResultsPage<SR extends ISearchResult> {
 
     public void setSearchResults(List<SR> searchResults) {
         _searchResults = searchResults;
+    }
+
+    public SpellCheckResponse getSpellCheckResponse() {
+        return _spellCheckResponse;
+    }
+
+    public void setSpellCheckResponse(SpellCheckResponse spellCheckResponse) {
+        _spellCheckResponse = spellCheckResponse;
     }
 }

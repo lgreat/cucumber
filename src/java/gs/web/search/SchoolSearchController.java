@@ -25,6 +25,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
+import org.apache.solr.client.solrj.response.SpellCheckResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
@@ -42,6 +43,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     private IGeoDao _geoDao;
 
     private SchoolSearchService _schoolSearchService;
+    
+    private SchoolSearchService _looseSchoolSearchService;
 
     private CitySearchService _citySearchService;
 
@@ -97,6 +100,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public static final String MODEL_STATE = "state";
 
+    public static final String MODEL_DID_YOU_MEAN = "didYouMean";
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -197,7 +201,12 @@ public class SchoolSearchController extends AbstractCommandController implements
         SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
         if (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) {
             try {
-                searchResultsPage = getSchoolSearchService().search(
+                SchoolSearchService service = getSchoolSearchService();
+                if (schoolSearchCommand.getSearchType() == SchoolSearchType.LOOSE) {
+                    service = getLooseSchoolSearchService();
+                }
+                
+                searchResultsPage = service.search(
                         schoolSearchCommand.getSearchString(),
                         fieldConstraints,
                         filterGroups,
@@ -205,6 +214,10 @@ public class SchoolSearchController extends AbstractCommandController implements
                         schoolSearchCommand.getStart(),
                         schoolSearchCommand.getPageSize()
                 );
+
+                if (searchResultsPage.getTotalResults() == 0 && searchResultsPage.getSpellCheckResponse() != null) {
+                    model.put(MODEL_DID_YOU_MEAN, getSearchSuggestion(schoolSearchCommand.getSearchString(), searchResultsPage.getSpellCheckResponse()));
+                }
             } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use SchoolSearchService. Eating exception", e);
             }
@@ -219,14 +232,20 @@ public class SchoolSearchController extends AbstractCommandController implements
         List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
         if (schoolSearchCommand.getSearchString() != null) {
             try {
-                citySearchResults = getCitySearchService().search(schoolSearchCommand.getSearchString(), state, 0, 33);
+                Map<IFieldConstraint,String> cityConstraints = new HashMap<IFieldConstraint,String>();
+                cityConstraints.put(CitySearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
+                SearchResultsPage<ICitySearchResult> cityPage  = getCitySearchService().search(schoolSearchCommand.getSearchString(), cityConstraints, null, null, 0, 33);
+                citySearchResults = cityPage.getSearchResults();
             } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", e);
             }
             model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
 
             try {
-                districtSearchResults = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), state, 0, 11);
+                Map<IFieldConstraint,String> districtConstraints = new HashMap<IFieldConstraint,String>();
+                districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
+                SearchResultsPage<IDistrictSearchResult> districtPage  = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), districtConstraints, null, null, 0, 33);
+                districtSearchResults = districtPage.getSearchResults();
             } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
             }
@@ -298,6 +317,22 @@ public class SchoolSearchController extends AbstractCommandController implements
                 return new ModelAndView("/search/schoolSearchResults", model);
             }
         }
+    }
+
+    public String getSearchSuggestion(String searchString, SpellCheckResponse spellCheckResponse) {
+        String suggestedSearch = searchString;
+
+        Map<String,SpellCheckResponse.Suggestion> suggestionMap = spellCheckResponse.getSuggestionMap();
+
+        String[] tokens = StringUtils.splitPreserveAllTokens(suggestedSearch);
+
+        for (int i = 0; i < tokens.length; i++) {
+            if (suggestionMap.containsKey(tokens[i])) {
+                tokens[i] = suggestionMap.get(tokens[i]).getAlternatives().get(0);
+            }
+        }
+
+        return StringUtils.join(tokens, ' ');
     }
 
     protected class MetaDataHelper {
@@ -986,6 +1021,14 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public void setSchoolSearchService(SchoolSearchService schoolSearchService) {
         _schoolSearchService = schoolSearchService;
+    }
+
+    public SchoolSearchService getLooseSchoolSearchService() {
+        return _looseSchoolSearchService;
+    }
+
+    public void setLooseSchoolSearchService(SchoolSearchService looseSchoolSearchService) {
+        _looseSchoolSearchService = looseSchoolSearchService;
     }
 
     public CitySearchService getCitySearchService() {

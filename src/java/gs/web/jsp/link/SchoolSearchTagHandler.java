@@ -13,6 +13,7 @@ public class SchoolSearchTagHandler extends LinkTagHandler {
     private String _levelCode;
     private String _query;
     private Integer _page;
+    private String _schoolSearchType;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_SEARCH, getState(), getQuery());
@@ -28,6 +29,9 @@ public class SchoolSearchTagHandler extends LinkTagHandler {
                 String token = tok.nextToken();
                 urlBuilder.addParameter("st", token);
             }
+        }
+        if (_schoolSearchType != null) {
+            urlBuilder.setParameter("schoolSearchType", _schoolSearchType);
         }
         return urlBuilder;
     }
@@ -71,4 +75,16 @@ public class SchoolSearchTagHandler extends LinkTagHandler {
     public void setPage(Integer page) {
         _page = page;
     }
+
+    public String getSchoolSearchType() {
+        return _schoolSearchType;
+    }
+
+    public void setSchoolSearchType(String schoolSearchType) {
+        _schoolSearchType = schoolSearchType;
+    }
+
+    /*public void setSchoolSearchType(SchoolSearchType schoolSearchType) {
+        _schoolSearchType = schoolSearchType;
+    }*/
 }

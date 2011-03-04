@@ -11,6 +11,12 @@ public class SchoolSearchCommand {
     private String _state;
     private String[] _schoolTypes;
     private String _requestType = "html";
+
+    /**
+     * The type of school search that will be performed
+     */
+    private SchoolSearchType _schoolSearchType;
+    
     /**
      * Valid values are: [p e m h]
      */
@@ -33,6 +39,7 @@ public class SchoolSearchCommand {
 
     public SchoolSearchCommand() {
         _pageSize = DEFAULT_PAGE_SIZE;
+        _schoolSearchType = SchoolSearchType.TIGHT;
     }
 
     public void setQ(String q) {
@@ -159,4 +166,15 @@ public class SchoolSearchCommand {
         return (_gradeLevels != null && _gradeLevels.length > 0);
     }
 
+    public SchoolSearchType getSearchType() {
+        return _schoolSearchType;
+    }
+
+    public void setSchoolSearchType(String schoolSearchType) {
+        _schoolSearchType = SchoolSearchType.valueOf(schoolSearchType);
+    }
+
+    /*public void setSchoolSearchType(SchoolSearchType schoolSearchType) {
+        _schoolSearchType = schoolSearchType;
+    }*/
 }

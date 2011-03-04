@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.eq;
 
 public class SchoolSearchControllerTest extends BaseControllerTestCase {
     private SchoolSearchController _controller;
@@ -91,12 +92,19 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
             listResults.add(new LuceneSchoolSearchResult(new Document()));
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
+        SearchResultsPage cityPage = new SearchResultsPage(0, null);
 
+        FieldSort nullFieldSort = null;
+        List<FilterGroup> nullFilterGroup = null;
         expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(5))).andReturn(page);
-        replay(_schoolSearchService);
+        expect(_citySearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
+        expect(_districtSearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
+
+        replay(_schoolSearchService, _citySearchService, _districtSearchService);
+
         BindException errors = new BindException(schoolSearchCommand, "");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
-        verify(_schoolSearchService);
+        verify(_schoolSearchService,_citySearchService,_districtSearchService);
 
         assertEquals("Model should contain correct view name", "/search/schoolSearchResults", modelAndView.getViewName());
     }
@@ -123,12 +131,19 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
             listResults.add(new LuceneSchoolSearchResult(new Document()));
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
+        SearchResultsPage cityPage = new SearchResultsPage(0, null);
 
+        FieldSort nullFieldSort = null;
+        List<FilterGroup> nullFilterGroup = null;
+        
         expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(5))).andReturn(page);
-        replay(_schoolSearchService);
+        expect(_citySearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
+        expect(_districtSearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
+
+        replay(_schoolSearchService,_citySearchService,_districtSearchService);
         BindException errors = new BindException(schoolSearchCommand, "");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
-        verify(_schoolSearchService);
+        verify(_schoolSearchService,_citySearchService,_districtSearchService);
 
         assertNotNull("Model should be no longer", modelAndView);
     }
@@ -155,13 +170,19 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
             listResults.add(new LuceneSchoolSearchResult(new Document()));
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
+        SearchResultsPage cityPage = new SearchResultsPage(0, null);
 
+        FieldSort nullFieldSort = null;
+        List<FilterGroup> nullFilterGroup = null;
         expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(SchoolSearchCommand.DEFAULT_PAGE_SIZE))).andReturn(page);
-        replay(_schoolSearchService);
+        expect(_citySearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
+        expect(_districtSearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
+
+        replay(_schoolSearchService,_citySearchService,_districtSearchService);
         BindException errors = new BindException(schoolSearchCommand, "");
         errors.rejectValue("pageSize","pageSize");
         ModelAndView modelAndView = _controller.handle(getRequest(), getResponse(), schoolSearchCommand, errors);
-        verify(_schoolSearchService);
+        verify(_schoolSearchService,_citySearchService,_districtSearchService);
 
         assertNotNull("Model should be no longer", modelAndView);
     }

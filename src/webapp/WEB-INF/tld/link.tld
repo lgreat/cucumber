@@ -1462,6 +1462,13 @@
             <description>School type</description>
         </attribute>
         <attribute>
+            <name>schoolSearchType</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>School search type</description>
+        </attribute>
+        <attribute>
             <name>levelCode</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

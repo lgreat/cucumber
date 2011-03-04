@@ -461,6 +461,9 @@
         <property name="schoolSearchService">
             <ref bean="solrSchoolSearchService"/>
         </property>
+        <property name="looseSchoolSearchService">
+            <ref bean="looseSolrSchoolSearchService"/>
+        </property>
         <property name="citySearchService">
             <ref bean="solrCitySearchService"/>
         </property>

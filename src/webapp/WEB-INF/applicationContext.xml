@@ -246,8 +246,10 @@
         <property name="searcher" ref="searcher" />
     </bean>
 
-    <bean id="solrSchoolSearchService" class="gs.web.search.SchoolSearchServiceSolrImpl">
-        
+    <bean id="solrSchoolSearchService" class="gs.web.search.SchoolSearchServiceSolrImpl" init-method="init">
+    </bean>
+    
+    <bean id="looseSolrSchoolSearchService" class="gs.web.search.LooseSchoolSearchServiceSolrImpl" init-method="init">
     </bean>
 
     <bean id="solrCitySearchService" class="gs.web.search.CitySearchServiceSolrImpl">

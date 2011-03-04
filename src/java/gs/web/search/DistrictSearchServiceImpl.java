@@ -34,7 +34,7 @@ public class DistrictSearchServiceImpl extends BaseLuceneSearchService<IDistrict
     public SearchResultsPage<IDistrictSearchResult> search(String searchString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
         State state = null;
         if (fieldConstraints != null) {
-            String s = fieldConstraints.get(SchoolSearchServiceSolrImpl.SchoolSearchFieldConstraints.STATE);
+            String s = fieldConstraints.get(SchoolSearchFieldConstraints.STATE);
             if (s != null) {
                 state = new StateManager().getState(s);
             }
