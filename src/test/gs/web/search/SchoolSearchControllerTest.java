@@ -96,7 +96,10 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         FieldSort nullFieldSort = null;
         List<FilterGroup> nullFilterGroup = null;
-        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(5))).andReturn(page);
+        Double lat = null;
+        Double lon = null;
+        Float distance = null;
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(lat), eq(lon), eq(distance), eq(10), eq(5))).andReturn(page);
         expect(_citySearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
         expect(_districtSearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
 
@@ -135,8 +138,11 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         FieldSort nullFieldSort = null;
         List<FilterGroup> nullFilterGroup = null;
-        
-        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(5))).andReturn(page);
+
+        Double lat = null;
+        Double lon = null;
+        Float distance = null;
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(lat), eq(lon), eq(distance), eq(10), eq(5))).andReturn(page);
         expect(_citySearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
         expect(_districtSearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
 
@@ -174,7 +180,10 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         FieldSort nullFieldSort = null;
         List<FilterGroup> nullFilterGroup = null;
-        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(10), eq(SchoolSearchCommand.DEFAULT_PAGE_SIZE))).andReturn(page);
+        Double lat = null;
+        Double lon = null;
+        Float distance = null;
+        expect(_schoolSearchService.search(eq(schoolSearchCommand.getSearchString()), eq(fieldConstraints), isA(List.class), eq(FieldSort.GS_RATING_DESCENDING), eq(lat), eq(lon), eq(distance), eq(10), eq(SchoolSearchCommand.DEFAULT_PAGE_SIZE))).andReturn(page);
         expect(_citySearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
         expect(_districtSearchService.search(eq(schoolSearchCommand.getSearchString()), isA(Map.class), eq(nullFilterGroup), eq(nullFieldSort), eq(0), eq(33))).andReturn(cityPage);
 

@@ -76,7 +76,12 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
         if (lat != null && lon != null && distanceInMiles != null && distanceInMiles > 0.0f) {
             // convert distanceInMiles to distanceInKilometers;
             float distanceInKilometers = distanceInMiles * 1.6f;
-            query.addFilterQuery("{!spatial circles=" + lat + "," + lon + "," + distanceInKilometers + "}");
+            String q = query.getQuery();
+            if (q == null) {
+                q = "";
+            }
+            q = "{!spatial circles=" + lat + "," + lon + "," + distanceInKilometers + "}" + q;
+            query.setQuery(q);
         }
 
         try {

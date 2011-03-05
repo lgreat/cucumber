@@ -13,6 +13,7 @@ public class NearbySchoolSearchCommand {
 
     public NearbySchoolSearchCommand() {
         _schoolSearchCommand = new SchoolSearchCommand();
+        setSortBy(FieldSort.DISTANCE.name());
     }
 
     public SchoolSearchCommand getSchoolSearchCommand() {
