@@ -348,9 +348,11 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         String[] tokens = StringUtils.splitPreserveAllTokens(suggestedSearch);
 
-        for (int i = 0; i < tokens.length; i++) {
-            if (suggestionMap.containsKey(tokens[i])) {
-                tokens[i] = suggestionMap.get(tokens[i]).getAlternatives().get(0);
+        if (tokens != null) {
+            for (int i = 0; i < tokens.length; i++) {
+                if (suggestionMap.containsKey(tokens[i])) {
+                    tokens[i] = suggestionMap.get(tokens[i]).getAlternatives().get(0);
+                }
             }
         }
 
