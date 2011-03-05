@@ -16,54 +16,105 @@
         checkStateSelection
     -->
 
-    <div id="find-compare">
-
-        <div id="find" class="clearfix">
+    <div class="mod findCompare">
+        <div class="inner">
             <c:if test="${isHomePage}">
                 <div id="fc-bigArrow-f4891d"><!--do not collapse--></div>
                 <div id="fc-bigArrow-fc6"><!--do not collapse--></div>
             </c:if>
-            <c:choose>
-                <c:when test="${isHomePage}">
-                    <h3 id="find-title" class="title2bold-333">Start here: <span class="title2-333">Find a school</span>
-                    </h3>
-                </c:when>
-                <c:otherwise>
-                    <h3 id="find-title" class="title2-333">Find a school</h3>
-                </c:otherwise>
-            </c:choose>
 
-            <h3 class="title2bold">Start here: <span class="title2">Find a school</span></h3>
+            <div class="hd">
+                <c:choose>
+                    <c:when test="${isHomePage}">
+                        <h3 id="find-title" class="title2bold-333">Start here: <span
+                                class="title2-333">Find a school</span>
+                        </h3>
+                    </c:when>
+                    <c:otherwise>
+                        <h3 id="find-title" class="title2-333">Find a school</h3>
+                    </c:otherwise>
+                </c:choose>
 
-            <div class="spacer_10"><!--do not collapse--></div>
-            <gsweb:form method="get"
-                        action="/stateLauncher.page"
-                        onsubmit="return findAndCompareCheck('q', 'splashStateSelector', 'p')">
-                <input name="p" id="p" type="hidden" value="search_single"/>
-                <input name="type" type="hidden" value="school"/>
-                <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                    <input type="hidden" name="st" value="charter"/>
-                </c:if>
+                <h3 class="title2bold">Start here: <span class="title2">Find a school</span></h3>
+            </div>
+            <div class="bd">
+                <gsweb:form method="get"
+                            action="/stateLauncher.page"
+                            onsubmit="return findAndCompareCheck('q', 'splashStateSelector', 'p')">
+                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                        <input type="hidden" name="st" value="charter"/>
+                    </c:if>
+                    <input name="p" id="p" type="hidden" value="search_single"/>
+                    <input name="type" type="hidden" value="school"/>
 
-                <input type="text" value="Enter school, city, or zipcode" name="q" id="q" size="21"
-                       class="text2 fltlft"
-                       onfocus="textSwitch(this, '', 'Enter school, city, or zipcode');"
-                       onblur="textSwitch(this, 'Enter school, city, or zipcode', '');"/>
+                    <div class="line form">
+                        <input type="text" value="Enter school, city, or zipcode" name="q" id="q"
+                               class="text2 unit size10of17"
+                               onfocus="textSwitch(this, '', 'Enter school, city, or zipcode');"
+                               onblur="textSwitch(this, 'Enter school, city, or zipcode', '');"/>
 
-                <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
-                                     useNoState="${not requestScope.context.hasSearched}"
-                                     styleId="splashStateSelector"
-                                     styleClass="text2 fltlft"
-                                     noStateLabel="--"/>
-                <!--<button class="btn25 fltlft" type="submit" onclick="s_objectID='splash_schools_go';">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">GO</span>
-                    </span>
-                </button>-->
-                <button class="button-1 fltlft" type="submit" onclick="s_objectID='splash_schools_go';">GO</button>
-            </gsweb:form>
-            <br class="clearfloat"/>
+                        <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
+                                             useNoState="${not requestScope.context.hasSearched}"
+                                             styleId="splashStateSelector"
+                                             styleClass=" unit size3of16"
+                                             noStateLabel="--"/>
 
+                        <button class="button-1 unit size3of17" type="submit"
+                                onclick="s_objectID='splash_schools_go';">GO
+                        </button>
+                        <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+                    </div>
+                </gsweb:form>
+            </div>
+        </div>
+    </div>
+    <div class="mod findCompare">
+        <div class="inner">
+            <div class="hd pts">
+                <h3 class="title2-333">Search for schools <span class="introText">near an address</span></h3>
+            </div>
+            <div class="bd">
+                <gsweb:form action="get" method="#">
+                    <div class="line formExt1">
+                        <label for="schoolType" class="introText unit">Show me:</label>
+                        <select id="schoolType" class="unit size1of2 mhs">
+                            <option>Preschools</option>
+                            <option selected="selected">Elementary Schools</option>
+                            <option>Middle Schools</option>
+                            <option>High Schools</option>
+                        </select>
+                        <label for="schoolRange" class="introText unit">within</label>
+                        <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+                    </div>
+                    <div class="line form">
+                        <select id="schoolRange" class="unit">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option selected="selected">5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                            <option>25</option>
+                        </select>
+                        <label for="zipCode" class="introText unit mhs"> miles of </label>
+                        <input type="text" value="Zip code" id="zipCode" class="unit size5of18 mls mrl text2"
+                               onfocus="textSwitch(this, '', 'Zip code');"
+                               onblur="textSwitch(this, 'Zip code', '');"/>
+                        <button class="button-1 unit" type="submit">GO</button>
+                        <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <div class="spacer_15">
+                            <div class="form-error formErrorText mediaExt1-1">
+                                <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                                <div class="bk">Please enter a proper zip code.</div>
+                            </div>
+                        </div>
+                    </div>
+                </gsweb:form>
+            </div>
         </div>
     </div>
 

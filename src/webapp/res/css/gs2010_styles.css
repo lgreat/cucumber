@@ -2423,8 +2423,8 @@ Viewport: the defines width and height of each icon
 /* **************** BLOCK STRUCTURES ***************** */
 /* mod */
 .mod{margin:0;}
-.hd,.bd,.ft{display: inline-block; width:100%; *display:block; *width:auto; zoom:1;}
 .inner{position:relative;}
+.hd,.bd,.ft{display: inline-block; width:100%; *display:block; *width:auto; zoom:1;}
 
 /* **************** BLOCK SKINS ***************** */
 /* ------ standard (extends mod) ------- */
@@ -2458,9 +2458,14 @@ Viewport: the defines width and height of each icon
 .primrose .bd button{margin:5px 0 0 72px;}
 .primrose .leadGenIntroText{width:187px; margin:0 14px;}
 .primrose .leadGenThankYou{width:165px;margin:30px 0 0 20px;}
-
+/* ------ recentDiscussions (extends mod) ------- */
 .recentDiscussions .hd h3 {padding: 0;background: none;color: #d61;font: 20px/1.7 Georgia, "Times New Roman", Times, serif;}
 .recentDiscussions .ft p{margin:0 0 10px;}
+/* ------ findSchool (extends mod) ------- */
+.findCompare .inner{background-color:#fc6;border-bottom:1px solid white;}
+.findCompare .hd h3{margin:10px 15px;}
+.findCompare .bd .form{margin:0 15px 20px;}
+.findCompare .bd .formExt1{margin:5px 15px 15px;}
 
 .mod_hd {
     position: relative;
@@ -3942,7 +3947,7 @@ body.cobranded #pageGS {
     width: 0;
     position: absolute;
     top: 0;
-    left: 2px;
+    left: -1px;
     background: none;
     border-top: 23px solid rgba(255, 255, 255, 0.0);
     border-left: 33px solid rgba(244, 137, 29, 0.6);
@@ -3957,7 +3962,7 @@ body.cobranded #pageGS {
     width: 0;
     position: absolute;
     top: 14px;
-    left: 2px;
+    left: -1px;
     background: none;
     border-top: 9px solid rgba(255, 255, 255, 0.0);
     border-left: 13px solid #fc6;

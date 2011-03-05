@@ -193,7 +193,7 @@
                     class="nav_group_heading GS_CI9_ "
                     >Great Gifts</a>
             </li>-->
-            <li id="topnav_hd" class="nav_menu topnav_subnav_active"><a href="javascript:void(0);"
+            <li id="topnav_hd" class="nav_menu topnav_subnav_active"><a href="javascript:void(0)"
                     id="GlobalNav_BrowseByGradeButton"
                     class="arrow nav_group_heading GS_CI9_ ">Browse by Grade</a>
                 <ul class="nav_group_items">
