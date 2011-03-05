@@ -26,14 +26,18 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
     public void setQueryType(SolrQuery query) {
         query.setQueryType("standard");
     }
-    
+
+    public SearchResultsPage<RESULT_TYPE> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+        return search(queryString, fieldConstraints, filters, fieldSort, null, null, null, offset, count);
+    }
+
     /**
      * @param queryString
      * @param filters     An array of filters to OR together, so that results within any filter's bitset will be returned
      * @param fieldSort
      * @return
      */
-    public SearchResultsPage<RESULT_TYPE> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, int offset, int count) throws SearchException {
+    public SearchResultsPage<RESULT_TYPE> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, Double lat, Double lon, Float distanceInMiles, int offset, int count) throws SearchException {
 
         QueryResponse response;
         int totalResults = 0;
@@ -67,6 +71,12 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
         if (fieldSort != null) {
             SolrQuery.ORDER order = fieldSort.isDescending() ? SolrQuery.ORDER.desc : SolrQuery.ORDER.asc;
             query.addSortField(fieldSort.getField(), order);
+        }
+
+        if (lat != null && lon != null && distanceInMiles != null && distanceInMiles > 0.0f) {
+            // convert distanceInMiles to distanceInKilometers;
+            float distanceInKilometers = distanceInMiles * 1.6f;
+            query.addFilterQuery("{!spatial circles=" + lat + "," + lon + "," + distanceInKilometers + "}");
         }
 
         try {
@@ -103,7 +113,7 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
     }
 
     public String buildQuery (String searchString) {
-        String defaultQuery = "*:*";
+        String defaultQuery = " ";
         if (!StringUtils.isBlank(searchString)) {
             searchString = cleanseSearchString(searchString);
             if (searchString == null) {

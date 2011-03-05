@@ -11,6 +11,9 @@ public class SchoolSearchCommand {
     private String _state;
     private String[] _schoolTypes;
     private String _requestType = "html";
+    private Double _lat;
+    private Double _lon;
+    private String _distance;
 
     /**
      * The type of school search that will be performed
@@ -174,7 +177,39 @@ public class SchoolSearchCommand {
         _schoolSearchType = SchoolSearchType.valueOf(schoolSearchType);
     }
 
-    /*public void setSchoolSearchType(SchoolSearchType schoolSearchType) {
-        _schoolSearchType = schoolSearchType;
-    }*/
+    public Double getLat() {
+        return _lat;
+    }
+
+    public void setLat(Double lat) {
+        _lat = lat;
+    }
+
+    public Double getLon() {
+        return _lon;
+    }
+
+    public void setLon(Double lon) {
+        _lon = lon;
+    }
+
+    public String getDistance() {
+        return _distance;
+    }
+
+    public Float getDistanceAsFloat() {
+        if (_distance != null) {
+            return Float.parseFloat(_distance);
+        }
+        return null;
+    }
+
+    public void setDistance(String distance) {
+        _distance = distance;
+    }
+
+    public boolean isNearbySearch() {
+        return getLat() != null && getLon() != null &&
+                getDistance() != null && getDistanceAsFloat() > 0.0f;
+    }
 }

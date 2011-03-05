@@ -249,6 +249,8 @@
           autowire="byName" lazy-init="true"/>
     <bean id="schoolSearchCommandValidator" class="gs.web.search.SchoolSearchCommandValidator"
           autowire="byName" lazy-init="true"/>
+    <bean id="nearbySchoolSearchCommandValidator" class="gs.web.search.NearbySchoolSearchCommandValidator"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/index.page"
           class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
@@ -469,6 +471,22 @@
         </property>
         <property name="districtSearchService">
             <ref bean="solrDistrictSearchService"/>
+        </property>
+    </bean>
+
+    <bean name="/search/nearbySearch.page"
+          class="gs.web.search.NearbySchoolSearchController" autowire="byName" lazy-init="true">
+        <property name="schoolSearchController" ref="/search/search.page"/>
+        <property name="commandName">
+            <value>nearbySchoolSearchCommand</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref local="nearbySchoolSearchCommandValidator"/>
+            </list>
+        </property>
+        <property name="commandClass">
+            <value>gs.web.search.NearbySchoolSearchCommand</value>
         </property>
     </bean>
 

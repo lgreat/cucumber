@@ -123,6 +123,18 @@
                     <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
                 </c:otherwise>
             </c:choose>
+
+            <c:if test="${isNearbySearch}">
+                <c:choose>
+                    <c:when test="${sort eq 'DISTANCE'}">
+                        <option value="DISTANCE" selected="selected">Distance
+                        </option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="DISTANCE">Distance</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
         </select>
     </div>
 

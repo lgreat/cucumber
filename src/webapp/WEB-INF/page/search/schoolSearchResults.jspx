@@ -62,8 +62,18 @@
         </c:choose>
     </c:set>
     <c:if test="${isSearch}">
-        <div class="title2-333">School results for <span
-                class="title2-d61">&amp;ldquo;${schoolResultsFor}&amp;rdquo;</span></div>
+        <div class="title2-333">
+            <c:choose>
+                <c:when test="${isNearbySearch}">
+                    TODO-11405 School results for <span
+                        class="title2-d61">&amp;ldquo;${param.zipCode}&amp;rdquo;</span>
+                </c:when>
+                <c:otherwise>
+                    School results for <span
+                        class="title2-d61">&amp;ldquo;${schoolResultsFor}&amp;rdquo;</span>
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
         <div class="spacer_10"><!-- do not collapse --></div>
     </c:if>

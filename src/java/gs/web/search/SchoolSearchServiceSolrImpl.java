@@ -48,17 +48,18 @@ public class SchoolSearchServiceSolrImpl extends BaseSingleFieldSolrSearchServic
 
     @Override
     public String buildQuery(String searchString) {
-        String defaultQuery = "*:*";
+        String defaultQuery = "";
         if (!StringUtils.isBlank(searchString)) {
             searchString = cleanseSearchString(searchString);
             if (searchString == null) {
                 return defaultQuery; //Provided search string was garbage, early exit
             }
+            searchString = requireNonOptionalWords(searchString);
         } else {
             return defaultQuery;
         }
 
-        return requireNonOptionalWords(searchString);
+        return searchString;
     }
 
     public void setOptionalTerms() {

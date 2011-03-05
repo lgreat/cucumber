@@ -15,7 +15,7 @@ import org.apache.solr.client.solrj.beans.Field;
 import javax.xml.bind.annotation.*;
 
 /* http://jackson-users.ning.com/forum/topics/jaxb-xmlelement-replacement */
-@XmlType(propOrder={"id","databaseState","name","address","phone","latLon","levelCode","schoolType","greatSchoolsRating","parentRating"})
+@XmlType(propOrder={"id","databaseState","name","address","phone","latLon","levelCode","schoolType","greatSchoolsRating","parentRating","distance"})
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class SolrSchoolSearchResult implements ISchoolSearchResult {
 
@@ -29,9 +29,9 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
 
     private String _phone;
 
-    private Float _latitude;
+    private Double _latitude;
 
-    private Float _longitude;
+    private Double _longitude;
 
     private String _schoolType;
 
@@ -54,6 +54,8 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
     private Integer _schoolReviewCount;
 
     private String _schoolReviewBlurb;
+
+    private Double _distance;
 
     public SolrSchoolSearchResult() {
         // empty constructor required by JAXB
@@ -149,30 +151,30 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
 
     @XmlElement
     public LatLon getLatLon() {
-        Float latitude = getLatitude();
-        Float longitude = getLongitude();
+        Double latitude = getLatitude();
+        Double longitude = getLongitude();
         LatLon latLon = null;
         if (latitude != null && longitude != null) {
-            latLon = new LatLon(latitude,longitude);
+            latLon = new LatLon(latitude.floatValue(),longitude.floatValue());
         }
         return latLon;
     }
 
     @Field(SchoolDocumentBuilder.LATITUDE)
-    public void setLatitude(Float latitude) {
+    public void setLatitude(Double latitude) {
         _latitude = latitude;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return _latitude;
     }
 
     @Field(SchoolDocumentBuilder.LONGITUDE)
-    public void setLongitude(Float longitude) {
+    public void setLongitude(Double longitude) {
         _longitude = longitude;
     }
 
-    public Float getLongitude() {
+    public Double getLongitude() {
         return _longitude;
     }
 
@@ -264,6 +266,16 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
     @Field(SchoolDocumentBuilder.SCHOOL_REVIEW_COUNT)
     public void setReviewCount(Integer schoolReviewCount) {
         _schoolReviewCount = schoolReviewCount;
+    }
+
+    @XmlElement
+    public Double getDistance() {
+        return _distance;
+    }
+
+    @Field("distance")
+    public void setDistance(Double distance) {
+        _distance = distance;
     }
 
     @XmlTransient

@@ -25,6 +25,9 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService<ISchoolSear
     //TODO: best way to get correct builder?
     SchoolSearchResultBuilder _resultsBuilder = new SchoolSearchResultBuilder();
 
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, Double lat, Double lon, Float distance, int offset, int count) {
+        throw new UnsupportedOperationException("Lucene search does not permit geospatial search");
+    }
 
     /**
      * @param queryString

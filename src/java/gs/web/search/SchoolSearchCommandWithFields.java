@@ -41,7 +41,7 @@ class SchoolSearchCommandWithFields {
 
     public LevelCode getLevelCode() {
         LevelCode levelCode = null;
-        if (_command != null && _command.hasSchoolTypes()) {
+        if (_command != null && _command.hasGradeLevels()) {
             levelCode = LevelCode.createLevelCode(_command.getGradeLevels());
         }
         if (levelCode == null && _fields != null) {
@@ -117,12 +117,14 @@ class SchoolSearchCommandWithFields {
                 state = State.fromString(_command.getState());
             } catch (IllegalArgumentException iae) {
                 // invalid state, use default
-                state = State.CA;
+                // TODO-11405 - get rid of CA as default state, allow null state
+                //state = State.CA;
             }
         } else if (_fields != null && _fields.getState() != null) {
             state = _fields.getState();
         } else {
-            state = State.CA;
+            // TODO-11405 - get rid of CA as default state, allow null state
+            //state = State.CA;
         }
         return state;
     }

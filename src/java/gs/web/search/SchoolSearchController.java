@@ -43,7 +43,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     private IGeoDao _geoDao;
 
     private SchoolSearchService _schoolSearchService;
-    
+
     private SchoolSearchService _looseSchoolSearchService;
 
     private CitySearchService _citySearchService;
@@ -55,6 +55,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     private StateManager _stateManager;
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
+    public static final String BEAN_ID = "/search/search.page";
 
     public static final String MODEL_SCHOOL_TYPE = "schoolType";
     public static final String MODEL_LEVEL_CODE = "levelCode";
@@ -97,6 +98,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
     public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
     public static final String MODEL_IS_SEARCH = "isSearch";
+
+    public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
 
     public static final String MODEL_STATE = "state";
 
@@ -156,9 +159,10 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_IS_CITY_BROWSE, isCityBrowse);
         model.put(MODEL_IS_DISTRICT_BROWSE, isDistrictBrowse);
         model.put(MODEL_IS_SEARCH, isSearch);
+        model.put(MODEL_IS_NEARBY_SEARCH, schoolSearchCommand.isNearbySearch());
 
-        //if user did not enter search term, redirect to state browse
-        if (isSearch && StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
+        //if user did not enter search term (and this is not a nearby search), redirect to state browse
+        if (!schoolSearchCommand.isNearbySearch() && isSearch && StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
             return stateBrowseRedirect(request, sessionContext);
         }
 
@@ -205,12 +209,15 @@ public class SchoolSearchController extends AbstractCommandController implements
                 if (schoolSearchCommand.getSearchType() == SchoolSearchType.LOOSE) {
                     service = getLooseSchoolSearchService();
                 }
-                
+
                 searchResultsPage = service.search(
                         schoolSearchCommand.getSearchString(),
                         fieldConstraints,
                         filterGroups,
                         sort,
+                        schoolSearchCommand.getLat(),
+                        schoolSearchCommand.getLon(),
+                        schoolSearchCommand.getDistanceAsFloat(),
                         schoolSearchCommand.getStart(),
                         schoolSearchCommand.getPageSize()
                 );
@@ -297,7 +304,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                         isCityBrowse, isDistrictBrowse,
                         citySearchResults, districtSearchResults)
         );
-        
+
         String omnitureQuery = isSearch? getOmnitureQuery(schoolSearchCommand.getSearchString()) : null;
         model.put(MODEL_OMNITURE_QUERY, omnitureQuery);
         model.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
@@ -698,7 +705,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     /**
      * Calculates paging info and adds it to model. Paging is zero-based. First search result has start=0
-     * 
+     *
      * @param start
      * @param pageSize
      * @param totalResults
@@ -1083,7 +1090,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (fields.hasState() && fields.hasCityName() && fields.hasDistrictName() && fields.hasSchoolsLabel()) {
             schoolsController =  true;
         }
-        
+
         return schoolsController || cityController || districtController;
 
     }

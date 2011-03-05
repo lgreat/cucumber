@@ -18,7 +18,8 @@ public enum FieldSort {
     GS_RATING_DESCENDING(SchoolDocumentBuilder.OVERALL_GS_RATING, true),
     GS_RATING_ASCENDING(SchoolDocumentBuilder.OVERALL_GS_RATING_SORTED_ASC, false),
     PARENT_RATING_DESCENDING(SchoolDocumentBuilder.COMMUNITY_RATING, true),
-    PARENT_RATING_ASCENDING(SchoolDocumentBuilder.COMMUNITY_RATING, false);
+    PARENT_RATING_ASCENDING(SchoolDocumentBuilder.COMMUNITY_RATING, false),
+    DISTANCE("distance",false);
     //
 
     private String _field;

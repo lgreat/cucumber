@@ -28,6 +28,10 @@ public interface SchoolSearchService {
             throws SearchException;
 
     public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<? extends IFieldConstraint,String> fieldConstraints,
+            List<FilterGroup> filterGroups, FieldSort fieldSort, Double lat, Double lon, Float distance, int offset, int count)
+            throws SearchException;
+
+    public SearchResultsPage<ISchoolSearchResult> search(String queryString, Map<? extends IFieldConstraint,String> fieldConstraints,
             List<FilterGroup> filterGroups, FieldSort fieldSort, int offset, int count)
             throws SearchException;
 }
