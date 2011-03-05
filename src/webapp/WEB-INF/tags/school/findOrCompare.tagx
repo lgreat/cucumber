@@ -78,10 +78,10 @@
                     <div class="line formExt1">
                         <label for="gradeLevels" class="introText unit">Show me:</label>
                         <select id="gradeLevels" class="unit size1of2 mhs" name="gradeLevels">
-                            <option value="p">Preschools</option>
-                            <option value="e" selected="selected">Elementary Schools</option>
-                            <option value="m">Middle Schools</option>
-                            <option value="h">High Schools</option>
+                            <option value="p">preschools</option>
+                            <option value="e" selected="selected">elementary schools</option>
+                            <option value="m">middle schools</option>
+                            <option value="h">high schools</option>
                         </select>
                         <label for="schoolRange" class="introText unit">within</label>
                         <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
@@ -110,7 +110,7 @@
                             <div class="form-error formErrorText mediaExt1-1">
                                 <span class="sprite i-alert img"><!-- do not collapse --></span>
 
-                                <div class="bk">Please enter a proper zip code.</div>
+                                <div class="bk">Please enter a valid zip code.</div>
                             </div>
                         </div>
                     </div>
