@@ -269,13 +269,15 @@ public class SolrSchoolSearchResult implements ISchoolSearchResult {
     }
 
     @XmlElement
+    // distance in miles
     public Double getDistance() {
         return _distance;
     }
 
     @Field("distance")
+    // note that this is in kilometers
     public void setDistance(Double distance) {
-        _distance = distance;
+        _distance = distance / 1.6f;
     }
 
     @XmlTransient

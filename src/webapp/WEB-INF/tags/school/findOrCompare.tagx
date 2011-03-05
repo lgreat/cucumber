@@ -74,32 +74,33 @@
                 <h3 class="title2-333">Search for schools <span class="introText">near an address</span></h3>
             </div>
             <div class="bd">
-                <gsweb:form action="get" method="#">
+                <gsweb:form action="/search/nearbySearch.page" method="get">
                     <div class="line formExt1">
-                        <label for="schoolType" class="introText unit">Show me:</label>
-                        <select id="schoolType" class="unit size1of2 mhs">
-                            <option>Preschools</option>
-                            <option selected="selected">Elementary Schools</option>
-                            <option>Middle Schools</option>
-                            <option>High Schools</option>
+                        <label for="gradeLevels" class="introText unit">Show me:</label>
+                        <select id="gradeLevels" class="unit size1of2 mhs" name="gradeLevels">
+                            <option value="p">Preschools</option>
+                            <option value="e" selected="selected">Elementary Schools</option>
+                            <option value="m">Middle Schools</option>
+                            <option value="h">High Schools</option>
                         </select>
                         <label for="schoolRange" class="introText unit">within</label>
                         <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                     </div>
                     <div class="line form">
-                        <select id="schoolRange" class="unit">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option selected="selected">5</option>
-                            <option>10</option>
-                            <option>15</option>
-                            <option>20</option>
-                            <option>25</option>
+                        <select id="schoolRange" class="unit" name="distance">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected="selected">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
                         </select>
                         <label for="zipCode" class="introText unit mhs"> miles of </label>
                         <input type="text" value="Zip code" id="zipCode" class="unit size5of18 mls mrl text2"
+                               name="zipCode"
                                onfocus="textSwitch(this, '', 'Zip code');"
                                onblur="textSwitch(this, 'Zip code', '');"/>
                         <button class="button-1 unit" type="submit">GO</button>

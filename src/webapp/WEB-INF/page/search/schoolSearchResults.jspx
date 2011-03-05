@@ -65,8 +65,8 @@
         <div class="title2-333">
             <c:choose>
                 <c:when test="${isNearbySearch}">
-                    TODO-11405 School results for <span
-                        class="title2-d61">&amp;ldquo;${param.zipCode}&amp;rdquo;</span>
+                    ${nearbySearchTitlePrefix} near <span
+                        class="title2-d61">${param.zipCode}</span>
                 </c:when>
                 <c:otherwise>
                     School results for <span

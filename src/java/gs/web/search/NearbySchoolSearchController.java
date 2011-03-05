@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
+import gs.data.school.LevelCode;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,8 +30,9 @@ public class NearbySchoolSearchController extends AbstractCommandController {
         NearbySchoolSearchCommand nearbyCommand = (NearbySchoolSearchCommand)command;
         BpZip zip;
 
+        boolean invalidZipCode = false;
         if (e.hasErrors()) {
-            if (e.hasFieldErrors("level")) {
+            if (e.hasFieldErrors("gradeLevels")) {
                 nearbyCommand.setGradeLevels(new String[] {"e"});
             }
 
@@ -39,13 +41,29 @@ public class NearbySchoolSearchController extends AbstractCommandController {
             }
 
             if (e.hasFieldErrors("zipCode")) {
-                return new ModelAndView(new RedirectView("/?invalidZipCode=true"));
+                invalidZipCode = true;
             }
         }
 
         zip = _geoDao.findZip(nearbyCommand.getZipCode());
         if (zip == null) {
-            return new ModelAndView(new RedirectView("/?invalidZipCode=true"));
+            invalidZipCode = true;
+        }
+
+        if (invalidZipCode) {
+            String selectedGradeLevel = null;
+
+            if (nearbyCommand.hasGradeLevels()) {
+                String[] gradeLevels = nearbyCommand.getGradeLevels();
+                if (gradeLevels.length == 1) {
+                    LevelCode levelCode = LevelCode.createLevelCode(gradeLevels[0]);
+                    if (levelCode != null) {
+                        selectedGradeLevel = levelCode.getLowestLevel().getName();
+                    }
+                }
+            }
+            return new ModelAndView(new RedirectView("/?invalidZipCode=true&distance=" + nearbyCommand.getDistance() +
+                    (selectedGradeLevel != null ? "&gradeLevels=" + selectedGradeLevel : "")));
         }
 
         SchoolSearchCommand searchCommand = nearbyCommand.getSchoolSearchCommand();
