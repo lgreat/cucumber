@@ -410,7 +410,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 
 <div id="submit-review-link-box" class="alertBox3 text3bold">
-    <p>Share your own experience with ${school.name}.
+    <p>Share your own experience with <span class="item"><span class="fn">${school.name}</span></span>.
     <span class="smallAlertText"><link:schoolProfileParentReview school="${school}">Submit a review <span
             class="alertDoubleArrow">&amp;#187;</span></link:schoolProfileParentReview></span></p>
 </div>
