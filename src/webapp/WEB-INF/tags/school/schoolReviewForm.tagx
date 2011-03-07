@@ -172,7 +172,6 @@
                     </div>
                 </div>
 
-                <div class="spacer_5"><!-- do not collapse --></div>
                 <div class="line role">
                     <div class="unit size4of7">
                         <div class="line">
@@ -327,8 +326,6 @@
                     <div class="spacer_15"><!-- do not collapse --></div>
                 </div>
 
-                <div class="spacer_5"><!-- do not collapse --></div>
-
                 <div class="line terms">
                     <div class="unit size1of1 lastUnit">
                         <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
@@ -339,7 +336,6 @@
                             <em class="sprite i-required"><!-- do not collapse --></em>
                         </label>
 
-                        <div class="spacer_5"><!-- do not collapse --></div>
                         <div class="spacer_15">
                             <div class="form-error formErrorText mediaExt1-1">
                                 <span class="sprite i-alert img"><!-- do not collapse --></span>
