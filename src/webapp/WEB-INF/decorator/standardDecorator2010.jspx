@@ -135,10 +135,10 @@
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
       onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
 <cobrand:framebuster/>
-<variant:b>
+<variant:c>
     <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
     <![CDATA[<script type="text/javascript" src="${meebojs}"></script>]]>
-</variant:b>
+</variant:c>
 
 <communityHover:validateEmail/>
 <communityHover:validateEmailSchoolReview/>
