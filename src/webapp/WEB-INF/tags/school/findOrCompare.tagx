@@ -96,10 +96,10 @@
                             <c:forEach var="gradeLevel" items="${allGradeLevels}">
                                 <c:choose>
                                     <c:when test="${gradeLevel.name eq 'p'}">
-                                        <c:set var="scrubbedGradeName" value="${fn:toLowerCase(gradeLevel.longName)}"/>
+                                        <c:set var="scrubbedGradeName" value="${gradeLevel.longName}s"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <c:set var="scrubbedGradeName" value="${fn:toLowerCase(gradeLevel.longName)} school"/>
+                                        <c:set var="scrubbedGradeName" value="${gradeLevel.longName} schools"/>
                                     </c:otherwise>
                                 </c:choose>
                                 <c:choose>
