@@ -93,10 +93,12 @@
 
 
                 <!-- nearby cities box -->
+
                 <div class="text3">
                     <c:if test="${fn:length(citySearchResults) gt 0}">
                         <c:if test="${fn:length(citySearchResults) gt 1}">
-                            <p class="text1bold">Search for schools in the city of:</p>
+                            <div class="text1bold">Search for schools in the city of:</div>
+                            <div class="spacer_5"><!-- do not collapse --></div>
                         </c:if>
                         <c:if test="${fn:length(citySearchResults) eq 1}">
                             <span class="text1bold">Search for schools in the city of:</span>
@@ -158,6 +160,8 @@
                     </div>
                     </c:if>
                 </div>
+
+                <div class="spacer_25"><!-- do not collapse --></div>
 
 
             </div>
