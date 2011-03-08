@@ -128,7 +128,7 @@ public class SchoolProfileHeaderHelper {
         if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
             return; // no preschools on compare
         }
-        List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 7);
+        List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchoolsNoRating(school, 7);
         String compareNearbyString = school.getDatabaseState().getAbbreviation() + school.getId() + ",";
         for (NearbySchool nearbySchool: nearbySchools) {
             if (LevelCode.PRESCHOOL.equals(nearbySchool.getNeighbor().getLevelCode())

@@ -219,7 +219,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         _school.setDatabaseState(State.CA);
         _school.setId(1);
 
-        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(new ArrayList<NearbySchool>());
+        expect(_schoolDao.findNearbySchoolsNoRating(_school, 7)).andReturn(new ArrayList<NearbySchool>());
         replayAllMocks();
         _helper.handleCompareNearbyString(_school, _model);
         verifyAllMocks();
@@ -248,7 +248,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         nearbySchool2.setNeighbor(school2);
         nearbySchool2.setSchool(_school);
         nearbySchools.add(nearbySchool2);
-        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(nearbySchools);
+        expect(_schoolDao.findNearbySchoolsNoRating(_school, 7)).andReturn(nearbySchools);
         replayAllMocks();
         _helper.handleCompareNearbyString(_school, _model);
         verifyAllMocks();
@@ -278,7 +278,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         nearbySchool2.setNeighbor(school2);
         nearbySchool2.setSchool(_school);
         nearbySchools.add(nearbySchool2);
-        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(nearbySchools);
+        expect(_schoolDao.findNearbySchoolsNoRating(_school, 7)).andReturn(nearbySchools);
         replayAllMocks();
         _helper.handleCompareNearbyString(_school, _model);
         verifyAllMocks();
@@ -308,7 +308,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         nearbySchool2.setNeighbor(school2);
         nearbySchool2.setSchool(_school);
         nearbySchools.add(nearbySchool2);
-        expect(_schoolDao.findNearbySchools(_school, 7)).andReturn(nearbySchools);
+        expect(_schoolDao.findNearbySchoolsNoRating(_school, 7)).andReturn(nearbySchools);
         replayAllMocks();
         _helper.handleCompareNearbyString(_school, _model);
         verifyAllMocks();
