@@ -13,7 +13,8 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"          
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
         >
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
@@ -121,6 +122,60 @@
             </h1>
         </div>
         <!-- End School name -->
+        <!-- GS-11456 TEMP DEMO CODE -->
+        <variant:c>
+            <script type="text/javascript">
+                Meebo('makeSharable', {
+                    element:'schoolName',
+                    type:'link',
+                    url:document.href,
+                    title:"${gsweb:escapeJavaScript(school.name)}",
+                    description:"${gsweb:escapeJavaScript(school.name)} information on greatschools.org"
+                });
+                jQuery(function() {
+                    Meebo('addButton', {
+                        id: "schoolSummary",
+                        type: "widget",
+                        label: "View School Summary",
+                        width: 200,
+                        height: 150,
+                        onCreate: function(widget, element) {
+                            jQuery(element).html(jQuery('#meeboSchoolSummary').html());
+                        }
+                    });
+                });
+            </script>
+            <div id="meeboSchoolSummary" style="display:none;">
+                <content:ratingsSummary school="${school}"/>
+            </div>
+            <c:if test="${not empty requestScope.context.memberId}">
+                <script type="text/javascript">
+                    jQuery(function() {
+                        Meebo('addButton', {
+                            id: "addToMSL",
+                            type: "action",
+                            label: "Add to My School List",
+                            onClick: function(){
+                                var mslHelper = new GS.community.MySchoolListHelper();
+                                mslHelper.addSchool('${school.databaseState}', '${school.id}', function() {}, function() {});
+                                alert("${gsweb:escapeJavaScript(school.name)} has been added to My School List");
+                                Meebo('removeButton', {id: "addToMSL"});
+                                Meebo('addButton', {
+                                    id: "msl",
+                                    type: "action",
+                                    label: "View My School List",
+                                    onClick: function(){
+                                        if (GS.showJoinHover('', '/mySchoolList.page', GSType.hover.joinHover.showJoinMsl)) {
+                                            parent.location.href='/mySchoolList.page';
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                </script>
+            </c:if>
+        </variant:c>
 
         <p id="schoolTypeInfo">
             <!-- School Type -->
