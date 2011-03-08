@@ -291,12 +291,14 @@
                     <cssSourceDir>/res/css</cssSourceDir>
                     <cssSourceFiles>
                         <param>gs2010_styles.css</param>
+                        <param>jquery.autocomplete.css</param>
                     </cssSourceFiles>
                     <cssFinalFile>gs2010_styles.combined.css</cssFinalFile>
                     <jsSourceDir>/res/js</jsSourceDir>
                     <jsSourceFiles>
                         <param>jquery/jquery-1.3.2.min.js</param>
                         <param>jquery/jquery-ui-1.7.2.min.js</param>
+                        <param>jquery/jquery.autocomplete.js</param>
                         <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js</param>
                         <param>global.js</param>
                         <param>topnavpromo.js</param>

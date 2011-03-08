@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class SearchResultsPage<SR extends ISearchResult> {
     private List<SR> _searchResults;
 
     private SpellCheckResponse _spellCheckResponse;
+
+    private List<FacetField> _facetFields;
 
     public SearchResultsPage(int totalResults, List<SR> searchResults) {
         _totalResults = totalResults;
@@ -44,5 +47,13 @@ public class SearchResultsPage<SR extends ISearchResult> {
 
     public void setSpellCheckResponse(SpellCheckResponse spellCheckResponse) {
         _spellCheckResponse = spellCheckResponse;
+    }
+
+    public List<FacetField> getFacetFields() {
+        return _facetFields;
+    }
+
+    public void setFacetFields(List<FacetField> facetFields) {
+        _facetFields = facetFields;
     }
 }

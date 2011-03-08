@@ -39,12 +39,6 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
      */
     public SearchResultsPage<RESULT_TYPE> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, Double lat, Double lon, Float distanceInMiles, int offset, int count) throws SearchException {
 
-        QueryResponse response;
-        int totalResults = 0;
-        List<RESULT_TYPE> results = new ArrayList<RESULT_TYPE>();
-        SpellCheckResponse spellCheckResponse = null;
-        SearchResultsPage<RESULT_TYPE> searchResults = new SearchResultsPage<RESULT_TYPE>(0, results);
-
         SolrQuery query = new SolrQuery();
 
         setQueryType(query);
@@ -72,7 +66,7 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
             SolrQuery.ORDER order = fieldSort.isDescending() ? SolrQuery.ORDER.desc : SolrQuery.ORDER.asc;
             query.addSortField(fieldSort.getField(), order);
         }
-
+        
         if (lat != null && lon != null && distanceInMiles != null && distanceInMiles > 0.0f) {
             // convert distanceInMiles to distanceInKilometers;
             float distanceInKilometers = distanceInMiles * 1.6f;
@@ -84,6 +78,18 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
             query.setQuery(q);
         }
 
+        SearchResultsPage<RESULT_TYPE> searchResults = search(query);
+
+        return searchResults;
+    }
+
+    public SearchResultsPage<RESULT_TYPE> search(SolrQuery query) throws SearchException {
+        SearchResultsPage<RESULT_TYPE> searchResults = new SearchResultsPage<RESULT_TYPE>(0, new ArrayList<RESULT_TYPE>());
+        QueryResponse response;
+        int totalResults;
+        List<RESULT_TYPE> results;
+        SpellCheckResponse spellCheckResponse;
+
         try {
             SolrServer server = getSolrConnectionManager().getReadOnlySolrServer();
 
@@ -93,7 +99,7 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
 
             //if a starting result is requested (via paging) that is greater than total number of results
             //search again with start of zero
-            if (offset > totalResults) {
+            if (query.getStart() > totalResults) {
                 query.setStart(0);
                 response = server.query(query);
                 totalResults = (int) response.getResults().getNumFound();
@@ -104,7 +110,9 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
             spellCheckResponse = response.getSpellCheckResponse();
 
             searchResults = new SearchResultsPage<RESULT_TYPE>(totalResults, results);
-            
+
+            searchResults.setFacetFields(response.getFacetFields());
+
             searchResults.setSpellCheckResponse(spellCheckResponse);
 
         } catch (IllegalArgumentException e) {
@@ -113,7 +121,6 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
         } catch (Exception e) {
             throw new SearchException("Problem accessing search results.", e);
         }
-
         return searchResults;
     }
 

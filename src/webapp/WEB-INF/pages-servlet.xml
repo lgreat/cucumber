@@ -13,6 +13,7 @@
 
     <context:component-scan base-package="gs.web.api" />
     <context:component-scan base-package="gs.web.school" />
+    <context:component-scan base-package="gs.web.search" />
     <context:component-scan base-package="gs.web.backToSchool" />
     <context:component-scan base-package="gs.web.community" />
     <context:component-scan base-package="gs.web.promo" />

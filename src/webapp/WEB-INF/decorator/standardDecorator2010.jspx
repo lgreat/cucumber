@@ -59,7 +59,9 @@
     <c:choose>
         <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.209' or pageContext.request.serverName eq '172.18.1.149' or pageContext.request.serverName eq '172.18.1.129' or pageContext.request.serverName eq '127.0.0.1') and empty param.compressedScripts}">
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -82,6 +84,7 @@
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.3.2.min.js" allowCdn="true"/>
             <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.7.2.min.js" allowCdn="true"/>
+            <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
             <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js" allowCdn="true"/>
             <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -91,6 +94,7 @@
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${jqueryautocomplete}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
