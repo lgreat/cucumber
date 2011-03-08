@@ -3971,7 +3971,7 @@ body.cobranded #pageGS {
     z-index: 10;
 }
 
-#find-compare {
+/*#find-compare {
     background: #fc6;
 }
 
@@ -3980,7 +3980,7 @@ body.cobranded #pageGS {
 }
 
 #find button {
-/*margin-top: -4px;*/
+*//*margin-top: -4px;*//*
 }
 
 #find {
@@ -3992,13 +3992,13 @@ body.cobranded #pageGS {
     padding: 15px 20px;
     position: relative;
 }
-
+*/
 #find-title {
     position: absolute;
     height: 26px;
     z-index: 20;
 }
-
+/*
 #splashStateSelector {
     margin: 0 4px;
 }
@@ -4020,7 +4020,7 @@ body.cobranded #pageGS {
 }
 #compareSchoolsLimitReachedHover .jq_compareSchoolsLimitReachedHover_uncheckAll_div {
     padding: 8px 0;
-}
+}*/
 /* =12a-2 most popular
 -------------------------------------------------------------------------------------------*/
 

@@ -674,7 +674,7 @@ body.ie6 #carousel .next-position {
     width: 0;
     position: absolute;
     top: 0;
-    left: 2px;
+    left: -1px;
     background: none;
     border-top: 23px solid #fc6;
     border-left: 33px solid #f4891d;
@@ -689,7 +689,7 @@ body.ie6 #carousel .next-position {
     width: 0;
     position: absolute;
     top: 14px;
-    left: 2px;
+    left: -1px;
     background: none;
     border-top: 9px dashed black;
     border-left: 13px solid #fc6;
@@ -698,13 +698,13 @@ body.ie6 #carousel .next-position {
     z-index: 10;
 }
 
-#find input {
+/*#find input {
     width: 172px;                                   
 }
 
 #compare button {
     margin-top: -4px;
-}
+}*/
 
 /* =4a-4 raise your hand
 -------------------------------------------------------------------------------------------*/

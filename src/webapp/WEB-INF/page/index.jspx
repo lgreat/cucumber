@@ -260,6 +260,9 @@
 
     <school:findOrCompare
             isHomePage="${true}"
+            inValidZipCode="${false}"
+            distance="5"
+            gradeLevels="e"
             />
 
     <gsweb:adTagGenerator position="Homepage_House_Ad_328x150"/>
