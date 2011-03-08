@@ -76,7 +76,7 @@
                 <div class="spacer_20">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
                 <span class="text1bold">
-                    Did you mean: <link:schoolSearch query="${didYouMean}" schoolType="${stOmniture}" styleClass="noInterstitial" schoolSearchType="LOOSE">${didYouMean}</link:schoolSearch>
+                    Did you mean: <link:schoolSearch query="${didYouMean}" schoolType="${stOmniture}" styleClass="noInterstitial" schoolSearchType="LOOSE"><span style="text-decoration: underline;">${didYouMean}</span></link:schoolSearch>
                 </span>
 
                 <div class="spacer_25"><!-- do not collapse --></div>
