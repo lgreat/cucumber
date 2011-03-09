@@ -144,7 +144,7 @@
         </div>
 
             <c:if test="${showArticles}">
-                <h3 class="srchCat">Articles</h3>
+                <h3 class="srchCat">Articles and Videos</h3>
 
                 <ul class="srchRslts srchCatArticles">
                     <c:forEach var="result" items="${requestScope.articleResults}" varStatus="status">
