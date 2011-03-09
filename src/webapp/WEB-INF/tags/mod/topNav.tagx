@@ -132,17 +132,12 @@
                                          state="${requestScope.context.state}"
                                          styleClass="stateSelect"
                                          style="${searchStateStyle}"
-                                         styleId="searchStateSelect"
+                                         styleId="stateSelector"
                             />
                     <button type="submit" class="button-1">Search</button>
                     <script type="text/javascript">
-                        jQuery('#qNew').autocomplete(window.location.origin + "/search/schoolAutocomplete.page", {
-                           extraParams: {
-                               state: function() { return jQuery('#searchStateSelect').val(); }
-                           }
-                        });
-                        jQuery('#searchStateSelect').blur(function() {
-                            jQuery('#qNew').flushCache();
+                        jQuery(function() {
+                            GS.attachSchoolAutocomplete("qNew");
                         });
                     </script>
                 </fieldset>

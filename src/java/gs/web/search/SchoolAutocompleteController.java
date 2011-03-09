@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.web.util.HttpCacheInterceptor;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,15 @@ public class SchoolAutocompleteController {
 
     SchoolSearchServiceSolrImpl _solrSchoolSearchService;
 
+    HttpCacheInterceptor cacheInterceptor = new HttpCacheInterceptor();
+
     @RequestMapping(method= RequestMethod.GET)
     public void handleRequestInternal(@RequestParam("q") String searchString, @RequestParam("state") String state, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         List<String> suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 6);
 
         response.setContentType("application/json");
+        cacheInterceptor.setCacheHeaders(response);
         try {
             PrintWriter writer = response.getWriter();
             for (String suggestion : suggestions) {
