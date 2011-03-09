@@ -136,12 +136,13 @@
                             />
                     <button type="submit" class="button-1">Search</button>
                     <script type="text/javascript">
-                        var selectedState = jQuery('#searchStateSelect').val();
-                        jQuery('#qNew').autocomplete(window.location.origin + "/search/schoolAutocomplete.page?state=" + selectedState, {cacheLength: 0});
+                        jQuery('#qNew').autocomplete(window.location.origin + "/search/schoolAutocomplete.page", {
+                           extraParams: {
+                               state: function() { return jQuery('#searchStateSelect').val(); }
+                           }
+                        });
                         jQuery('#searchStateSelect').blur(function() {
-                            jQuery('#qNew').val('');
-                            var selectedState = jQuery('#searchStateSelect').val();
-                            jQuery('#qNew').autocomplete("http://localhost:8080/search/schoolAutocomplete.page?state=" + selectedState, {cacheLength: 0});
+                            jQuery('#qNew').flushCache();
                         });
                     </script>
                 </fieldset>
