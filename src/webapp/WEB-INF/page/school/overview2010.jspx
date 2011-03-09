@@ -56,16 +56,11 @@
     <!-- SearchMonkey eRDF support-->
     <link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/"/>
     <link rel="schema.sioc" href="http://rdfs.org/sioc/ns#"/>
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
 
-    <c:set var="start" value="${param.start}"/>
-    <c:choose>
-        <c:when test="${empty start}">
-            <c:set var="start" value="${0}"/>
-        </c:when>
-        <c:when test="${not empty relCanonical}">
-            <link rel="canonical" href="${relCanonical}"/>
-        </c:when>
-    </c:choose>
+    <c:set var="start" value="${empty param.start ? 0 : param.start}"/>
     <!-- TODO: Is the following necessary? -->
     <![CDATA[
 <!--[if IE 7]>
@@ -87,7 +82,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <pageHelper:addOnLoadHandler handler="doInterstitial('pkSchool')"/>
         </c:if>
     </c:if>
-    <school:profile2010ShareThisJavaScript/> 
+    <school:profile2010ShareThisJavaScript/>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 
