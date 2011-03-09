@@ -142,25 +142,6 @@
 <variant:c>
     <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
     <![CDATA[<script type="text/javascript" src="${meebojs}"></script>]]>
-    <script type="text/javascript">
-        jQuery(function() {
-            Meebo('addButton', {
-                id: "siteTopicNavigation",
-                icon: "favicon.ico",
-                type: "menu",
-                label: "Topics",
-                items: [
-                    {value: "/preschool/", text: "Preschool"},
-                    {value: "/elementary-school/", text: "Elementary School"},
-                    {value: "/middle-school/", text: "Middle School"},
-                    {value: "/high-school/", text: "High School"}
-                ],
-                onSelect: function(value){
-                    parent.location.href=value;
-                }
-            });
-        });
-    </script>
     <c:if test="${empty requestScope.context.memberId}">
         <script type="text/javascript">
         jQuery(function() {
