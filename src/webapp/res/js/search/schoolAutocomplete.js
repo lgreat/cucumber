@@ -6,7 +6,9 @@ GS.attachSchoolAutocomplete = function(domId) {
     var url = window.location.protocol + '//' + window.location.host + "/search/schoolAutocomplete.page";
     searchBox.autocomplete(url, {
        extraParams: {
-           state: searchStateSelect.val()
+           state: function() {
+               return searchStateSelect.val();
+           }
        }
     });
 
