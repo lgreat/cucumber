@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.search.indexers.documentBuilders.SchoolDocumentBuilder;
 import org.apache.commons.collections.ListUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -60,6 +61,58 @@ public class SchoolSearchServiceSolrImpl extends BaseSingleFieldSolrSearchServic
         }
 
         return searchString;
+    }
+
+    public List<String> suggest(String queryString, String state, int offset, int count) throws SearchException {
+
+        SolrQuery query = buildAutosuggestQuery(queryString, state, offset, count);
+
+        SearchResultsPage<ISchoolSearchResult> searchResults = search(query);
+
+        return searchResults.getSuggestionsForFirstFacetField();
+    }
+
+    SolrQuery buildAutosuggestQuery(String queryString, String state, int offset, int count) {
+        SolrQuery query = new SolrQuery();
+        addDocumentTypeFilter(query);
+        setQueryType(query);
+        query.setStart(offset);
+        query.setFacet(true);
+        query.addFacetField("school_autosuggest");
+        query.setFacetMinCount(1);
+        if (count > 0) {
+           query.setFacetLimit(count);
+        }
+
+        if (state != null && state.length() > 0) {
+            query.addFilterQuery(SchoolDocumentBuilder.ADDRESS_STATE + ":" + state);
+        }
+
+        String[] tokens = StringUtils.split(queryString);
+
+        //extract the last word from the string
+        String partialWord = tokens[tokens.length-1];
+
+        tokens = (String[]) ArrayUtils.remove(tokens, tokens.length - 1);
+
+        //join all the completed words from beginning of the string
+        String completedPhrase = StringUtils.join(tokens);
+
+        String q = "";
+        if (completedPhrase != null && completedPhrase.length() > 0) {
+            q = buildQuery(completedPhrase);
+        }
+
+        if (q != null && q.length() > 0) {
+            query.setQuery(q);
+        }
+
+        //since we're faceting on a non-tokenized field, set the facet prefix to the entire query string instead
+        //of just the last (incomplete) word in the query string
+        //query.setFacetPrefix(partialWord);
+        query.setFacetPrefix(queryString);
+
+        return query;
     }
 
     public void setOptionalTerms() {

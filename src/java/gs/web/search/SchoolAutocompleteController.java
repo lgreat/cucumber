@@ -19,13 +19,12 @@ import java.util.List;
 public class SchoolAutocompleteController {
     protected final Logger _log = Logger.getLogger(SchoolAutocompleteController.class);
 
-    @Autowired
-    CitySearchServiceSolrImpl _solrCitySearchService;
+    SchoolSearchServiceSolrImpl _solrSchoolSearchService;
 
     @RequestMapping(method= RequestMethod.GET)
     public void handleRequestInternal(@RequestParam("q") String searchString, @RequestParam("state") String state, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        List<String> suggestions = _solrCitySearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 6);
+        List<String> suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 6);
 
         response.setContentType("application/json");
         try {
@@ -39,11 +38,12 @@ public class SchoolAutocompleteController {
         }
     }
 
-    public CitySearchServiceSolrImpl getSolrCitySearchService() {
-        return _solrCitySearchService;
+    public SchoolSearchServiceSolrImpl getSolrSchoolSearchService() {
+        return _solrSchoolSearchService;
     }
 
-    public void setSolrCitySearchService(CitySearchServiceSolrImpl solrCitySearchService) {
-        _solrCitySearchService = solrCitySearchService;
+    @Autowired
+    public void setSolrSchoolSearchService(SchoolSearchServiceSolrImpl solrSchoolSearchService) {
+        _solrSchoolSearchService = solrSchoolSearchService;
     }
 }

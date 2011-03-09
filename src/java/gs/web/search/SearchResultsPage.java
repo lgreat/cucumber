@@ -3,6 +3,7 @@ package gs.web.search;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,26 @@ public class SearchResultsPage<SR extends ISearchResult> {
     public SearchResultsPage(int totalResults, List<SR> searchResults) {
         _totalResults = totalResults;
         _searchResults = searchResults;
+    }
+
+    public List<String> getSuggestionsForFirstFacetField() {
+
+        List<String> suggestions = new ArrayList<String>();
+
+        if (_facetFields != null && _facetFields.size() > 0) {
+            FacetField facetField = _facetFields.get(0);
+
+            List<FacetField.Count> counts = facetField.getValues();
+
+            if (counts != null && counts.size() > 0) {
+                suggestions = new ArrayList<String>(counts.size());
+
+                for (FacetField.Count c : counts) {
+                    suggestions.add(c.getName());
+                }
+            }
+        }
+        return suggestions;
     }
 
     public int getTotalResults() {
