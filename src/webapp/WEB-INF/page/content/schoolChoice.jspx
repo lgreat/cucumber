@@ -69,7 +69,7 @@
             var queryVal = document.getElementById(queryId).value;
             var stateVal = document.getElementById(stateSelectorId).value;
 
-            var noSearchTerms = (queryVal == 'Search for school, district or city');
+            var noSearchTerms = (queryVal == 'Search for school, city or zipcode');
             var noState = (stateVal == ("-" + "-") || stateVal == "");
 
             if (noSearchTerms && noState) {
