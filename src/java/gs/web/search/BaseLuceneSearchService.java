@@ -24,6 +24,10 @@ public abstract class BaseLuceneSearchService<T extends ISearchResult> {
         _filters.put("private", "school_type:private");
         _filters.put("public", "school_type:public");
         _filters.put("charter", "school_type:charter");
+
+        //using the range * TO * prevents null/empty values from being included
+        _filters.put("religious", "+(!affiliation:Nonsectarian AND !affiliation:Non-Sectarian AND affiliation:[* TO *])");
+        _filters.put("nonsectarian", "+affiliation:(Non-Sectarian || Nonsectarian)");
     }
 
     static String padCommasAndNormalizeExtraSpaces(String s) {
