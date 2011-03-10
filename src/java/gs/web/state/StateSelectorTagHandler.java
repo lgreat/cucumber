@@ -188,6 +188,10 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
             if (_size > 0) {
                 out.print(" size=\"" + _size + "\"");
             }
+        } else {
+            if (_size > 1) {
+                out.print(" size=\"" + _size + "\"");
+            }
         }
         if (_tabIndex > -1) {
             out.print(" tabindex=\"" + _tabIndex + "\"");

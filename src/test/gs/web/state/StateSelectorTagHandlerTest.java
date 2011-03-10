@@ -39,6 +39,7 @@ public class StateSelectorTagHandlerTest extends TestCase {
 
         // Single select with longnames disabled
         _jspContext = new MockPageContext();
+        _tag.setSize(1);
         _tag.setJspContext(_jspContext);
         _tag.setMultiple(false);
         _tag.setUsingLongNames(false);

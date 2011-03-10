@@ -36,8 +36,6 @@
     request.setAttribute("showExtendedFooter", true);
 </jsp:scriptlet>
 
-<gsml:url var="stateWidgetUrl" value="/miniSelectAState.page"/>
-
 <head>
     <title>GreatSchools - Public and Private School Ratings, Reviews and Parent Community</title>
 
@@ -62,20 +60,14 @@
 
     <!-- showStateWidget requires submodal.js and submodal.css -->
     <script type="text/javascript" language="javascript">
-        function hoverHome() {
-            if (getState() != '') {
-                return;
+        jQuery(function() {
+            if (getState() == '') {
+                jQuery('#GlobalNav_ResearchButton').click(function () {
+                    GSType.hover.miniStateLauncher.show();
+                    return false;
+                });
             }
-            jQuery('#GlobalNav_ResearchButton').click(function () {
-                toggleStateSelector(this);
-                return false;
-            });
-        }
-        function toggleStateSelector(thisItem) {
-            if (thisItem) {
-                showStateWidget('${stateWidgetUrl}', 250, 300);
-            }
-        }
+        });
     </script>
 
     <![CDATA[
@@ -91,7 +83,7 @@
 
             if (noSearchTerms && noState) {
                 // show state laumcher hover
-                showStateWidget('${stateWidgetUrl}', 250, 300);
+                GSType.hover.miniStateLauncher.show();
                 returnVal = false;
             } else if (!noSearchTerms && noState) {
                 // show javascript alert
@@ -125,10 +117,8 @@
     <c:if test="${not isIE6}">
         <pageHelper:externalJavascript file="/res/js/carousel/carousel.js"/>
     </c:if>
-<pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-<pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
-<pageHelper:addOnLoadHandler handler="hoverHome();"/>
 
+<school:miniStateLauncherHover/>
 <c:set var="showAd"
        value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
 

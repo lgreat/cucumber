@@ -989,6 +989,15 @@ GSType.hover.CompareSchoolsLimitReached = function() {
 };
 GSType.hover.CompareSchoolsLimitReached.prototype = new GSType.hover.HoverDialog("compareSchoolsLimitReachedHover", 640);
 
+//Mini state launcher hover
+GSType.hover.MiniStateLauncher = function() {
+    this.loadDialog = function () {
+        this.pageName='State Selection Hover';
+        this.hier1='Search,State select page,Hover';
+    }
+};
+GSType.hover.MiniStateLauncher.prototype = new GSType.hover.HoverDialog('miniStateLauncherHover',250);
+
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
@@ -1010,6 +1019,8 @@ GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
 
 GSType.hover.compareSchoolsLimitReached = new GSType.hover.CompareSchoolsLimitReached();
+
+GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -1398,6 +1409,8 @@ jQuery(function() {
     GSType.hover.principalReviewSubmitted.loadDialog();
 
     GSType.hover.compareSchoolsLimitReached.loadDialog();
+
+    GSType.hover.miniStateLauncher.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON('/community/forgotPasswordValidator.page',
