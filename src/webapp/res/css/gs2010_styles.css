@@ -2431,6 +2431,8 @@ Viewport: the defines width and height of each icon
 .standard .inner{margin:0 0 1em;padding:0;}
 .standard .hd h3{background: #149;/* for non-css3 browsers */background: -moz-linear-gradient(top, #276ab3, #143e90);/* FF3.6 */background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90));/* Saf4+, Chrome */-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#276ab3', EndColorStr='#143e90')";/* IE8 */filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#276ab3', endColorStr = '#143e90');/* IE6,IE7 */color: #fff;font: normal 20px Georgia, "Times New Roman", Times, serif;padding: 6px 15px;}
 .standard .bd .bd-inner{padding: 10px 15px 0;}
+.standard .bd li{list-style:disc outside none;margin-left:15px;padding:5px 0;color:#d61;line-height:1.3;}
+.standard .bd p{margin-left:15px;padding:5px 0;line-height:1.3;}
 /* ------ pageNav (extends mod) ------- */
 .pageNav .inner{margin:0 0 1em;padding:0;}
 .pageNav .hd h1{margin:0 0 0.50em;}
@@ -2465,6 +2467,7 @@ Viewport: the defines width and height of each icon
 .findCompare .inner{background-color:#fc6;border-bottom:1px solid white;}
 .findCompare .hd h3{margin:10px 15px;}
 .findCompare .bd .form{margin:0 15px 20px;}
+.findCompare .bd .formExt2{margin:0 15px 10px;}
 .findCompare .bd .formExt1{margin:5px 15px 15px;}
 
 .mod_hd {

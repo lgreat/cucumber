@@ -225,14 +225,6 @@ body.ie6 .module {
 .body3bg .db_select_label{
     padding:0 10px 0 0;
 }
-#sidebarGS .morein, #sidebarGS .mostpop {
-    padding:0 20px 0 0;
-}
-#sidebarGS .moreinItem, #sidebarGS .mostpopItem{
-    margin:0 0 0 15px;
-    padding:5px 0;
-    list-style:disc outside;
-}
 .ie6 #sidebarGS .body1bg form button, .ie7 #sidebarGS .body1bg form button{
     width:80px; /* set to mitigate the "box model bug" in IE6 & 7 */
 }
