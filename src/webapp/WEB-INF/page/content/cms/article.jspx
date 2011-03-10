@@ -486,7 +486,7 @@
         </c:forEach>
 
         <c:if test="${hasPublishedRelatedArticles}">
-            <h4>Related Articles and Videos</h4>
+            <h4>Related Stories</h4>
             <div>
                 <ul>
                     <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
