@@ -8357,6 +8357,8 @@ body.ie7 #frmPRModule .helperMessage {
 
 #school-search-results-table-body .reviewBlurb {
     text-align: left;
+    width:89px;
+    word-wrap:break-word;
 }
 
 #school-search-results-table-body .js-compareHelperMessage,
