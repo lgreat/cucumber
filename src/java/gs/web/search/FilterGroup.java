@@ -1,13 +1,14 @@
 package gs.web.search;
 
-public class FilterGroup {
-    private FieldFilter[] _fieldFilters;
+public class FilterGroup<FILTER_TYPE extends FieldFilter> {
+    
+    private FILTER_TYPE[] _fieldFilters;
 
-    public FieldFilter[] getFieldFilters() {
+    public FILTER_TYPE[] getFieldFilters() {
         return _fieldFilters;
     }
 
-    public void setFieldFilters(FieldFilter[] fieldFilters) {
+    public void setFieldFilters(FILTER_TYPE[] fieldFilters) {
         _fieldFilters = fieldFilters;
     }
 }
