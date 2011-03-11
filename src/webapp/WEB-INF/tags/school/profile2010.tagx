@@ -214,6 +214,7 @@
             <c:if test="${not empty compareNearbyString}">
                 <c:set var="compareSource" value="${tab}${(not empty subtab)?'-':''}${subtab}"/>
                 <li>
+                    <span class="sprite i-compare"><!-- do not collapse --></span>
                     <link:compareSchools schools="${compareNearbyString}" source="sphead_${compareSource}_${school.databaseState}${school.id}"
                                          tab="overview">Compare this school</link:compareSchools>
                 </li>
