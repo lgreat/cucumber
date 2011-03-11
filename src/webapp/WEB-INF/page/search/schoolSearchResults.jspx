@@ -314,17 +314,52 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'private')}">
+                        <c:when test="${!isDistrictBrowse and (schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'private'))}">
                             <input type="checkbox" checked="checked" name="st" id="school-type-private" value="private"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="st" id="school-type-private" value="private"/>
+                            <c:choose>
+                                <c:when test="${isDistrictBrowse}">
+                                    <input type="checkbox" name="st" id="school-type-private" value="private" disabled="true"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" name="st" id="school-type-private" value="private"/>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
                     <label for="school-type-private">Private</label>
                 </div>
             </div>
         </div>
+
+        <div id="js-affiliations">
+            <div>
+                <div>
+                    <c:choose>
+                        <c:when test="${affiliation eq null or fn:length(affiliation) eq 0 or fn:contains(affiliation,'religioius')}">
+                            <input type="checkbox" checked="checked" name="affiliation" id="affiliation-religious" value="religioius"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="st" id="affiliation-religious" value="religioius"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <label for="affiliation-religious">Religious</label>
+                </div>
+                <div>
+                    <c:choose>
+                        <c:when test="${affiliation eq null or fn:length(affiliation) eq 0 or fn:contains(affiliation,'nonsectarian')}">
+                            <input type="checkbox" checked="checked" name="affiliation" id="affiliation-nonsectarian" value="nonsectarian"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" name="st" id="affiliation-nonsectarian" value="nonsectarian"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <label for="affiliation-nonsectarian">Nonsectarian</label>
+                </div>
+            </div>
+        </div>
+
         </form>
 
         <div class="spacer_15"><!-- do not collapse --></div>

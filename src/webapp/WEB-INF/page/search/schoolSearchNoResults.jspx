@@ -68,18 +68,14 @@
                 </c:choose>
 
                 <div class="spacer_25"><!-- do not collapse --></div>
-                <!-- The "Did You Mean..." is commented out because we don't support this yet. -->
-                <!--c:set var="bestGuess" value="San Francisco"/-->
-                <!--<p class="introText">Did you mean: <span class="introTextitalic"><a href="#">${bestGuess}</a></span>
-                </p>
 
-                <div class="spacer_20">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                <c:if test="${didYouMean ne null}">
+                    <p class="introText">
+                        Did you mean: <span class="introTextitalic"><link:schoolSearch query="${didYouMean}" schoolType="${stOmniture}" styleClass="noInterstitial" schoolSearchType="LOOSE"><span style="text-decoration: underline;">${didYouMean}</span></link:schoolSearch></span>
+                    </p>
+                    <div class="spacer_20"><!-- do not collapse --></div>
+                </c:if>
 
-                <span class="text1bold">
-                    Did you mean: <link:schoolSearch query="${didYouMean}" schoolType="${stOmniture}" styleClass="noInterstitial" schoolSearchType="LOOSE"><span style="text-decoration: underline;">${didYouMean}</span></link:schoolSearch>
-                </span>
-
-                <div class="spacer_25"><!-- do not collapse --></div>
 
                 <p class="text1bold">Suggestions:</p>
 

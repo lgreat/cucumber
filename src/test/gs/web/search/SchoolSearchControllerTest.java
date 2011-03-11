@@ -484,7 +484,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertTrue(filters.contains(FieldFilter.GradeLevelFilter.HIGH));
     }
 
-    public void testGetSchoolTypeFilters() {
+    /*public void testGetSchoolTypeFilters() {
         String[] gradeLevels = new String[] {"public", "private", "charter", "blah"};
 
         List<FieldFilter> filters = _controller.getSchoolTypeFilters(gradeLevels);
@@ -494,7 +494,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertTrue(filters.contains(FieldFilter.SchoolTypeFilter.PUBLIC));
         assertTrue(filters.contains(FieldFilter.SchoolTypeFilter.PRIVATE));
         assertTrue(filters.contains(FieldFilter.SchoolTypeFilter.CHARTER));
-    }
+    }*/    
 
     public void testGetSchoolTypeFilterNull() throws Exception {
         try {

@@ -30,4 +30,13 @@ public class FilterFactoryTest extends TestCase {
 
         assertEquals("FilterFactory should return correct filter", FieldFilter.SchoolTypeFilter.PRIVATE, f);
     }
+    
+    public void testValueOf3() throws Exception {
+
+        Class c = FieldFilter.SchoolTypeFilter.class;
+
+        FieldFilter f = _filterFactory.valueOf(c, "private");
+
+        assertEquals("FilterFactory should return correct filter", FieldFilter.SchoolTypeFilter.PRIVATE, f);
+    }
 }

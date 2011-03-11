@@ -14,6 +14,7 @@ public class SchoolSearchCommand {
     private Double _lat;
     private Double _lon;
     private String _distance;
+    private String[] _affiliations;
 
     /**
      * The type of school search that will be performed
@@ -211,5 +212,17 @@ public class SchoolSearchCommand {
     public boolean isNearbySearch() {
         return getLat() != null && getLon() != null &&
                 getDistance() != null && getDistanceAsFloat() > 0.0f;
+    }
+
+    public String[] getAffiliations() {
+        return _affiliations;
+    }
+
+    public void setAffiliations(String[] affiliations) {
+        _affiliations = affiliations;
+    }
+
+    public boolean hasAffiliations() {
+        return (_affiliations != null && _affiliations.length > 0);
     }
 }

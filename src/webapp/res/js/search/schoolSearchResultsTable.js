@@ -36,6 +36,7 @@ GS.search.SchoolSearcher = function() {
         var data = {};
         var gradeLevels = [];
         var schoolTypes = [];
+        var affiliations = [];
 
         data.requestType = "ajax";
         data.decorator="emptyDecorator";
@@ -50,12 +51,19 @@ GS.search.SchoolSearcher = function() {
         jQuery('#js-schoolTypes :checked').each(function() {
             schoolTypes[i++] = jQuery(this).val();
         });
+
+        i=0;
+        jQuery('#js-affiliations :checked').each(function() {
+           affiliations[i++] = jQuery(this).val();
+        });
         data["gradeLevels"] = gradeLevels;
         data["st"] = schoolTypes;
+        data["affiliations"] = affiliations;
 
         var queryString = window.location.search;
         queryString = removeFromQueryString(queryString, "gradeLevels");
         queryString = removeFromQueryString(queryString, "st");
+        queryString = removeFromQueryString(queryString, "affiliations");
 
         jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
     };
@@ -392,6 +400,8 @@ GS.search.FilterTracking = function() {
             } else if (cssIdPrefix == 'grade-level') {
                 customLinkName = 'Search_filter_grade_' + gradeLevel[filter];
             }
+
+            //TODO: track affiliation filter
 
             if (customLinkName != undefined) {
                 if (s.tl) {

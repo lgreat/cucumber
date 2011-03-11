@@ -148,4 +148,16 @@ class SchoolSearchCommandWithFields {
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
     }
+
+    public String[] getAffiliations() {
+        return _command.getAffiliations();
+    }
+
+    public void setAffiliations(String[] affiliations) {
+        _command.setAffiliations(affiliations);
+    }
+
+    public boolean hasAffiliations() {
+        return _command.hasAffiliations();
+    }
 }

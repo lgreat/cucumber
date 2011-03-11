@@ -119,6 +119,12 @@ GS.search.onMapMarkerClick = function(state, id) {
             overwriteSchoolTypes = false;
         });
 
+        var checkedAffiliations = jQuery('#js-affiliations :checked');
+        var overwriteAffiliations = true;
+        checkedAffiliations.each(function() {
+            queryString = putIntoQueryString(queryString, "affiliations", jQuery(this).val(), overwriteAffiliations);
+            overwriteAffiliations = false;
+        });
 
         if (jQuery('#sort-by').val() !== '') {
             queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
