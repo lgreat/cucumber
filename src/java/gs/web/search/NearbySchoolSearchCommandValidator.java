@@ -22,13 +22,6 @@ public class NearbySchoolSearchCommandValidator implements Validator {
     public void validate(Object o, Errors errors) {
         NearbySchoolSearchCommand command = ((NearbySchoolSearchCommand)o);
 
-        LevelCode levelCode = LevelCode.createLevelCode(command.getGradeLevels());
-        if (levelCode != null && !levelCode.equals(LevelCode.ELEMENTARY)
-            && !levelCode.equals(LevelCode.MIDDLE)
-            && !levelCode.equals(LevelCode.HIGH)) {
-            errors.rejectValue("gradeLevels", "gradeLevels", "Invalid level");
-        }
-
         try {
             int distance = Integer.parseInt(command.getDistance());
             if (distance <= 0) {

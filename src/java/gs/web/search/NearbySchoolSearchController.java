@@ -32,10 +32,6 @@ public class NearbySchoolSearchController extends AbstractCommandController {
 
         boolean invalidZipCode = false;
         if (e.hasErrors()) {
-            if (e.hasFieldErrors("gradeLevels")) {
-                nearbyCommand.setGradeLevels(new String[] {"e"});
-            }
-
             if (e.hasFieldErrors("distance")) {
                 nearbyCommand.setDistance("5");
             }
@@ -62,7 +58,8 @@ public class NearbySchoolSearchController extends AbstractCommandController {
                     }
                 }
             }
-            return new ModelAndView(new RedirectView("/?invalidZipCode=true&distance=" + nearbyCommand.getDistance() +
+            return new ModelAndView(new RedirectView("/?invalidZipCode=true" +
+                    (nearbyCommand.getDistance() != null ? "&distance=" + nearbyCommand.getDistance() : "") +
                     (selectedGradeLevel != null ? "&gradeLevels=" + selectedGradeLevel : "")));
         }
 
