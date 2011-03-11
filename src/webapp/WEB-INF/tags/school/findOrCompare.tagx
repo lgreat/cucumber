@@ -72,118 +72,120 @@
         </div>
     </div>
 
-    <c:choose>
-        <c:when test="${param.gradeLevels ne null}">
-            <c:set var="gradeLevels" value="${param.gradeLevels}"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="gradeLevels" value="e"/>
-        </c:otherwise>
-    </c:choose>
-    <c:choose>
-        <c:when test="${param.distance ne null}">
-            <c:set var="distance" value="${param.distance}"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="distance" value="5"/>
-        </c:otherwise>
-    </c:choose>
-    <c:choose>
-        <c:when test="${param.invalidZipCode ne null}">
-            <c:set var="invalidZipCode" value="${param.invalidZipCode}"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="invalidZipCode" value="false"/>
-        </c:otherwise>
-    </c:choose>
+    <c:if test="${isHomePage}">
+        <c:choose>
+            <c:when test="${param.gradeLevels ne null}">
+                <c:set var="gradeLevels" value="${param.gradeLevels}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="gradeLevels" value="e"/>
+            </c:otherwise>
+        </c:choose>
+        <c:choose>
+            <c:when test="${param.distance ne null}">
+                <c:set var="distance" value="${param.distance}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="distance" value="5"/>
+            </c:otherwise>
+        </c:choose>
+        <c:choose>
+            <c:when test="${param.invalidZipCode ne null}">
+                <c:set var="invalidZipCode" value="${param.invalidZipCode}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="invalidZipCode" value="false"/>
+            </c:otherwise>
+        </c:choose>
 
-    <!--<p>invalidZipCode: <c:out value="${invalidZipCode}"/></p>-->
-    <!--<p>distance: <c:out value="${distance}"/></p>-->
-    <!--<p>gradeLevels: <c:out value="${gradeLevels}"/></p>-->
-    <!--<p>param.invalidZipCode: <c:out value="${param.invalidZipCode}"/></p>-->
-    <!--<p>param.distance: <c:out value="${param.distance}"/></p>-->
-    <!--<p>param.gradeLevels: <c:out value="${param.gradeLevels}"/></p>-->
-    <jsp:scriptlet>
-        request.setAttribute("allGradeLevels", LevelCode.ALL_LEVELS.getIndividualLevelCodes());
+        <!--<p>invalidZipCode: <c:out value="${invalidZipCode}"/></p>-->
+        <!--<p>distance: <c:out value="${distance}"/></p>-->
+        <!--<p>gradeLevels: <c:out value="${gradeLevels}"/></p>-->
+        <!--<p>param.invalidZipCode: <c:out value="${param.invalidZipCode}"/></p>-->
+        <!--<p>param.distance: <c:out value="${param.distance}"/></p>-->
+        <!--<p>param.gradeLevels: <c:out value="${param.gradeLevels}"/></p>-->
+        <jsp:scriptlet>
+            request.setAttribute("allGradeLevels", LevelCode.ALL_LEVELS.getIndividualLevelCodes());
 
-        int[] allDistance = new int[]{1, 2, 3, 4, 5, 10, 15, 20, 25};
-        request.setAttribute("allDistance", allDistance);
-    </jsp:scriptlet>
-    <div class="mod findCompare">
-        <div class="inner">
-            <div class="hd pts">
-                <h3 class="title2-333">Search for schools <span class="introText">near an address</span></h3>
-            </div>
-            <div class="bd">
-                <gsweb:form action="/search/nearbySearch.page" method="get">
-                    <div class="line formExt1">
-                        <label for="gradeLevels" class="introText unit">Show me:</label>
-                        <select id="gradeLevels" class="unit size1of2 mhs" name="gradeLevels">
-                            <c:forEach var="gradeLevel" items="${allGradeLevels}">
-                                <c:choose>
-                                    <c:when test="${gradeLevel.name eq 'p'}">
-                                        <c:set var="scrubbedGradeName" value="${gradeLevel.longName}s"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="scrubbedGradeName" value="${gradeLevel.longName} schools"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <c:choose>
-                                    <c:when test="${gradeLevels eq gradeLevel.name}">
-                                        <option value="${gradeLevel.name}"
-                                                selected="selected">${scrubbedGradeName}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${gradeLevel.name}">${scrubbedGradeName}</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </select>
-                        <label for="schoolRange" class="introText unit">within</label>
+            int[] allDistance = new int[]{1, 2, 3, 4, 5, 10, 15, 20, 25};
+            request.setAttribute("allDistance", allDistance);
+        </jsp:scriptlet>
+        <div class="mod findCompare">
+            <div class="inner">
+                <div class="hd pts">
+                    <h3 class="title2-333">Search for schools <span class="introText">near an address</span></h3>
+                </div>
+                <div class="bd">
+                    <gsweb:form action="/search/nearbySearch.page" method="get">
+                        <div class="line formExt1">
+                            <label for="gradeLevels" class="introText unit">Show me:</label>
+                            <select id="gradeLevels" class="unit size1of2 mhs" name="gradeLevels">
+                                <c:forEach var="gradeLevel" items="${allGradeLevels}">
+                                    <c:choose>
+                                        <c:when test="${gradeLevel.name eq 'p'}">
+                                            <c:set var="scrubbedGradeName" value="${gradeLevel.longName}s"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="scrubbedGradeName" value="${gradeLevel.longName} schools"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${gradeLevels eq gradeLevel.name}">
+                                            <option value="${gradeLevel.name}"
+                                                    selected="selected">${scrubbedGradeName}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${gradeLevel.name}">${scrubbedGradeName}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                            <label for="schoolRange" class="introText unit">within</label>
 
-                        <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
-                    </div>
-
-                    <div class="line formExt2">
-                        <select id="schoolRange" class="unit" name="distance">
-                            <c:forEach var="aDistance" items="${allDistance}">
-                                <c:choose>
-                                    <c:when test="${distance eq aDistance}">
-                                        <option value="${aDistance}" selected="selected">${aDistance}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${aDistance}">${aDistance}</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </select>
-                        <label for="zipCode" class="introText unit mhs"> miles of </label>
-                        <input type="text" value="Zip code" id="zipCode" class="unit size5of18 mls mrl text2"
-                               name="zipCode"
-                               onfocus="textSwitch(this, '', 'Zip code');"
-                               onblur="textSwitch(this, 'Zip code', '');"/>
-                        <button class="button-1 unit" type="submit">GO</button>
-                        <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
-                        <div class="spacer_5"><!-- do not collapse --></div>
-                        <div class="spacer_15">
-                            <!--<c:set var="invalidZipCode" value="${true}"/>-->
-                            <c:choose>
-                                <c:when test="${param.invalidZipCode eq 'true'}">
-                                    <div class="form-error formErrorText mediaExt1-1">
-                                        <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-                                        <div class="bk">Please enter a valid zip code.</div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <!-- do not collapse -->
-                                </c:otherwise>
-                            </c:choose>
+                            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                         </div>
-                    </div>
-                </gsweb:form>
+
+                        <div class="line formExt2">
+                            <select id="schoolRange" class="unit" name="distance">
+                                <c:forEach var="aDistance" items="${allDistance}">
+                                    <c:choose>
+                                        <c:when test="${distance eq aDistance}">
+                                            <option value="${aDistance}" selected="selected">${aDistance}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${aDistance}">${aDistance}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                            <label for="zipCode" class="introText unit mhs"> miles of </label>
+                            <input type="text" value="Zip code" id="zipCode" class="unit size5of18 mls mrl text2"
+                                   name="zipCode"
+                                   onfocus="textSwitch(this, '', 'Zip code');"
+                                   onblur="textSwitch(this, 'Zip code', '');"/>
+                            <button class="button-1 unit" type="submit">GO</button>
+                            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                            <div class="spacer_15">
+                                <!--<c:set var="invalidZipCode" value="${true}"/>-->
+                                <c:choose>
+                                    <c:when test="${param.invalidZipCode eq 'true'}">
+                                        <div class="form-error formErrorText mediaExt1-1">
+                                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+                                            <div class="bk">Please enter a valid zip code.</div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- do not collapse -->
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </gsweb:form>
+                </div>
             </div>
         </div>
-    </div>
+    </c:if>
 
 </jsp:root>
