@@ -2465,10 +2465,12 @@ Viewport: the defines width and height of each icon
 .recentDiscussions .ft p{margin:0 0 10px;}
 /* ------ findSchool (extends mod) ------- */
 .findCompare .inner{background-color:#fc6;border-bottom:1px solid white;}
+.findCompare .hd {position:relative;z-index:10;}
 .findCompare .hd h3{margin:10px 15px;}
-.findCompare .bd .form{margin:0 15px 20px;}
-.findCompare .bd .formExt2{margin:0 15px 10px;}
-.findCompare .bd .formExt1{margin:5px 15px 15px;}
+.findCompare .bd {position:relative;z-index:100;}
+.findCompare .bd .form{padding:0 15px 20px;}
+.findCompare .bd .formExt1{padding:5px 15px 15px;}
+.findCompare .bd .formExt2{padding:0 15px 10px;}
 
 .mod_hd {
     position: relative;
@@ -3956,7 +3958,7 @@ body.cobranded #pageGS {
     border-left: 33px solid rgba(244, 137, 29, 0.6);
     border-bottom: 23px solid rgba(255, 255, 255, 0.0);
     filter: alpha(opacity = 100);
-    z-index: 9;
+    z-index: 1;
 }
 
 #fc-bigArrow-fc6 {
@@ -3971,7 +3973,7 @@ body.cobranded #pageGS {
     border-left: 13px solid #fc6;
     border-bottom: 9px solid rgba(255, 255, 255, 0.0);
     filter: alpha(opacity = 100);
-    z-index: 10;
+    z-index: 2;
 }
 
 /*#find-compare {
@@ -3996,11 +3998,11 @@ body.cobranded #pageGS {
     position: relative;
 }
 */
-#find-title {
+/*#find-title {
     position: absolute;
     height: 26px;
     z-index: 20;
-}
+}*/
 /*
 #splashStateSelector {
     margin: 0 4px;

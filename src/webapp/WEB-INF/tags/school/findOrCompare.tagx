@@ -37,10 +37,10 @@
                         <h3 id="find-title" class="title2-333">Find a school</h3>
                     </c:otherwise>
                 </c:choose>
-
-                <h3 class="title2bold">Start here: <span class="title2">Find a school</span></h3>
+                <!--<h3 class="title2bold">Start here: <span class="title2">Find a school</span></h3>-->
             </div>
-            <div class="bd">
+
+            <div class="bd clearfix">
                 <gsweb:form method="get"
                             action="/stateLauncher.page"
                             onsubmit="return findAndCompareCheck('q', 'splashStateSelector', 'p')">
