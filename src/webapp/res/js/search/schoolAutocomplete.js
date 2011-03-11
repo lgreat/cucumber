@@ -5,11 +5,13 @@ GS.attachSchoolAutocomplete = function(domId) {
     var searchStateSelect = jQuery('#stateSelector');
     var url = window.location.protocol + '//' + window.location.host + "/search/schoolAutocomplete.page";
     searchBox.autocomplete(url, {
-       extraParams: {
-           state: function() {
-               return searchStateSelect.val();
-           }
-       }
+        extraParams: {
+            state: function() {
+                return searchStateSelect.val();
+            }
+        },
+        minChars: 4,
+        selectFirst: false
     });
 
     searchStateSelect.blur(function() {
