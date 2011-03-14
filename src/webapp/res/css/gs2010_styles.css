@@ -2670,6 +2670,10 @@ Viewport: the defines width and height of each icon
     vertical-align: middle;
 }
 
+.wsnw{
+    white-space:nowrap;
+}
+
 .fltlft {
 /* this class can be used to float an element left in your page */
     float: left;
@@ -6149,8 +6153,8 @@ body.hover #startADiscussion .submit li {
     padding-left: 50px;
 }
 
-body.hover #startADiscussion .sd_InnerLayout {
-    margin: 0 10px 10px 50px;
+body.hover #startADiscussion .submit {
+    margin: 0 0 0 50px;
 }
 
 #discussionSubmissionForm .sd_InnerLayout {

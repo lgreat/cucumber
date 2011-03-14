@@ -235,75 +235,80 @@
             </fieldset>
 
             <fieldset class="submit">
-                <ul>
-                    <li>
-                        <c:choose>
-                            <c:when test="${discussionId gt 0}">
-                            </c:when>
-                            <c:otherwise>
-                                <!--<button class="btn25 previewButton fltlft" type="submit" name="preview" value="Preview">
-                                    <span class="lftDoor25">
-                                        <span class="rtDoor25">Preview</span>
-                                    </span>
-                                </button>-->
-                                <button class="button-1 previewButton fltlft" type="submit" name="preview" value="Preview">Preview</button>
-                            </c:otherwise>
-                        </c:choose>
+                <div class="line">
+                    <c:choose>
+                        <c:when test="${discussionId gt 0}">
+                        </c:when>
+                        <c:otherwise>
+                            <div class="unit prm">
+                                <button class="button-1 previewButton" type="submit" name="preview"
+                                        value="Preview">Preview
+                                </button>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
 
-                        <c:choose>
-                            <c:when test="${discussionId gt 0}">
-                                <c:set var="submitButtonText" value="Save"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="submitButtonText" value="Post conversation"/>
-                            </c:otherwise>
-                        </c:choose>
+                    <c:choose>
+                        <c:when test="${discussionId gt 0}">
+                            <c:set var="submitButtonText" value="Save"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="submitButtonText" value="Post conversation"/>
+                        </c:otherwise>
+                    </c:choose>
 
-                        <c:choose>
-                            <c:when test="${discussionId gt 0}">
-                                <c:set var="submitButtonStyle" value="button-1 fltlft submitButton sd_SaveLayout"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="submitButtonStyle" value="button-1 fltlft submitButton sd_InnerLayout"/>
-                            </c:otherwise>
-                        </c:choose>
+                    <c:choose>
+                        <c:when test="${discussionId gt 0}">
+                            <c:set var="submitButtonStyle" value="button-1 submitButton sd_SaveLayout"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="submitButtonStyle" value="button-1 submitButton"/>
+                        </c:otherwise>
+                    </c:choose>
 
+                    <div class="unit pls prl">
                         <c:choose>
                             <c:when test="${discussionId gt 0}">
-                                <button class="${submitButtonStyle}" type="submit" name="post">${submitButtonText}</button>
+
+                                <button class="${submitButtonStyle}" type="submit"
+                                        name="post">${submitButtonText}</button>
+
                             </c:when>
                             <c:otherwise>
 
                                 <c:choose>
                                     <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
-                                        <!-- DONE-RANDALL - do use image -->
                                         <button class="${submitButtonStyle}" type="submit" name="post">
-                                            <span class="sprite community mrgtop_2 mrgrt_5"><!-- icon --></span>${submitButtonText}
+                                            <div class="mediaExt1">
+                                                <div class="img">
+                                                    <span class="sprite community"><!-- icon --></span>
+                                                </div>
+                                                <div class="bk fltlft wsnw"><c:out value="${submitButtonText}"/></div>
+                                            </div>
                                         </button>
                                     </c:when>
                                     <c:otherwise>
                                         <!-- DONE-RANDALL - don't use image -->
-                                        <button class="${submitButtonStyle}" type="submit" name="post">${submitButtonText}</button>
+                                        <button class="${submitButtonStyle}" type="submit"
+                                                name="post">${submitButtonText}</button>
                                     </c:otherwise>
                                 </c:choose>
 
                             </c:otherwise>
                         </c:choose>
+                    </div>
 
-                        <!--<button class="btn25 fltlft dialogCancelButton" type="button" value="Cancel">
-                            <span class="lftDoor25">
-                                <span class="rtDoor25">Cancel</span>
-                            </span>
-                        </button>-->
-                        <button class="button-1 fltlft dialogCancelButton" type="button" value="Cancel">Cancel</button>
-                    </li>
-                </ul>
+                    <div class="unit plm">
+                        <button class="button-1 dialogCancelButton" type="button" value="Cancel">Cancel</button>
+                    </div>
+
+                </div>
             </fieldset>
             <!-- end submit -->
         </form>
-        <c:if test="${empty useImageForSubmitButton or useImageForSubmitButton}">
-        <div class="spacer_40"><!-- do not collapse --></div>
-        </c:if>
+        <!--<c:if test="${empty useImageForSubmitButton or useImageForSubmitButton}">-->
+        <!--<div class="spacer_40">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!--</c:if>-->
     </div>
     <!-- end startADiscussion -->
 
