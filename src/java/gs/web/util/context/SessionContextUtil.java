@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.80 2010/12/27 20:16:59 ssprouse Exp $
+ * $Id: SessionContextUtil.java,v 1.81 2011/03/14 22:06:21 yfan Exp $
  */
 
 package gs.web.util.context;
@@ -537,6 +537,13 @@ public class SessionContextUtil implements ApplicationContextAware {
 
             updateStateHelper(context, httpServletRequest, httpServletResponse, currState, state);
         }
+    }
+
+    public void updateState(SessionContext context,
+                                   HttpServletRequest httpServletRequest,
+                                   HttpServletResponse httpServletResponse,
+                                   State newState) {
+        updateStateHelper(context, httpServletRequest, httpServletResponse, null, newState);
     }
 
     private void updateStateHelper(SessionContext context,

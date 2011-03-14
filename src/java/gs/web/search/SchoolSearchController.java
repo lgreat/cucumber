@@ -148,6 +148,9 @@ public class SchoolSearchController extends AbstractCommandController implements
             nearbySearchInfo = (Map)request.getAttribute("nearbySearchInfo");
             if (nearbySearchInfo != null && nearbySearchInfo.get("state") != null && nearbySearchInfo.get("state") instanceof State) {
                 state = (State)nearbySearchInfo.get("state");
+                if (state != null) {
+                    sessionContext.getSessionContextUtil().updateState(sessionContext, request, response, state);
+                }
             }
         }
 
@@ -253,7 +256,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                         schoolSearchCommand.getPageSize()
                 );
 
-                if (searchResultsPage.getTotalResults() == 0 && searchResultsPage.getSpellCheckResponse() != null) {
+                if (searchResultsPage.getTotalResults() == 0 && searchResultsPage.getSpellCheckResponse() != null &&
+                    !schoolSearchCommand.isNearbySearch()) {
                     String didYouMean = getSearchSuggestion(schoolSearchCommand.getSearchString(), searchResultsPage.getSpellCheckResponse());
                     if (didYouMean != null) {
                         model.put(MODEL_DID_YOU_MEAN, didYouMean);
