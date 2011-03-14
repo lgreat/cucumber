@@ -9941,7 +9941,10 @@ button {
 /* =19 forms
 -------------------------------------------------------------------------------------------*/
 
-/* error box styles */
+/* message box styles */
+.noticeBox { padding: 0.6em; margin-bottom: 1em; border: 1px solid #ddd; }
+.noticeBox { background: #f9eccd; border-color: #d61; }
+
 .alertBox1 {
     display: block;
     padding: 12px;

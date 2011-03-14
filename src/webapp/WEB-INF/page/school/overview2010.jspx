@@ -271,9 +271,13 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <!-- principal link box -->
             <c:if test="${school.levelCode != 'p'}">
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div id="js-esp-principal-link" class="alertBox2 text2">
-                    <p><span class="sprite pencil_med"><!-- do not collapse --></span>Are you the principal? <a
-                            href="#" class="no_interrupt">Complete your school's profile</a></p>
+                <div id="js-esp-principal-link" class="noticeBox">
+                    <div class="mediaExt1">
+                        <span class="sprite pencil_med img"><!-- do not collapse --></span>
+                        <div class="bk"><strong>Are you the principal? </strong><a
+                            href="javascript:void(0);" class="no_interrupt">Complete your school's profile</a>
+                        </div>
+                    </div>
                 </div>
             </c:if>
             <!-- end profile link box-->
@@ -291,7 +295,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     </c:choose>
 </c:if>
 
-<div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+<div class="clearfloat brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_15"><!-- do not collapse --></div>
 
 <!-- begin map -->
