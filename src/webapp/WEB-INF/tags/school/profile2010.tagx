@@ -216,6 +216,7 @@
                 <li>
                     <span class="sprite i-compare"><!-- do not collapse --></span>
                     <link:compareSchools schools="${compareNearbyString}" source="sphead_${compareSource}_${school.databaseState}${school.id}"
+                                         onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
                                          tab="overview">Compare this school</link:compareSchools>
                 </li>
             </c:if>
