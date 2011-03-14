@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Created by IntelliJ IDEA.
  * User: youngfan
@@ -25,7 +27,7 @@ public class NearbySchoolSearchCommand {
     }
 
     public void setZipCode(String zipCode) {
-        _zipCode = zipCode;
+        _zipCode = StringUtils.trim(zipCode);
     }
 
     public void setQ(String q) {
