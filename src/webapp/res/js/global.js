@@ -401,16 +401,17 @@ function GS_addPledgeCookie() {
 
 if (GS == undefined) {
     var GS = {};
-    GS.closeDialogHandlers = [];
-    GS.registerCloseDialogHandler = function(f) {
-        GS.closeDialogHandlers.push(f);
-    };
-    GS.closeDialogs = function() {
-        for (var i=0; i < GS.closeDialogHandlers.length; i++) {
-            GS.closeDialogHandlers[i]();
-        }
-    };
 }
+
+GS.closeDialogHandlers = [];
+GS.registerCloseDialogHandler = function(f) {
+    GS.closeDialogHandlers.push(f);
+};
+GS.closeDialogs = function() {
+    for (var i=0; i < GS.closeDialogHandlers.length; i++) {
+        GS.closeDialogHandlers[i]();
+    }
+};
 
 //read cookie, return "" if cookie not found or cookie not set
 function readEscapedCookie(cookieName) {
