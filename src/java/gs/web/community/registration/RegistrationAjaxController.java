@@ -227,7 +227,7 @@ public class RegistrationAjaxController implements Controller {
         String jsonpParam = request.getParameter(JSONP_CALLBACK_PARAM);
         if ( StringUtils.isEmpty(jsonpParam)) return null;
         if ( StringUtils.length(jsonpParam) > 128 ) return null;
-        if ( !jsonpParam.matches("^jsonp\\d+$")) return null;
+        if ( !StringUtils.startsWithIgnoreCase(jsonpParam,"jsonp") && !StringUtils.startsWithIgnoreCase(jsonpParam,"jQuery")) return null;
         return jsonpParam;
     }
 
