@@ -42,6 +42,7 @@
 
     <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
+<pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
 
     <div id="mainGS" class="col">
@@ -156,6 +157,12 @@
                     </div>
                     </c:if>
                 </div>
+
+                <script type="text/javascript">
+                    jQuery(function () {
+                        jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-15,topPosition:8});
+                    });
+                </script>
 
                 <div class="spacer_25"><!-- do not collapse --></div>
 
