@@ -101,6 +101,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
     public static final String MODEL_NEARBY_SEARCH_TITLE_PREFIX = "nearbySearchTitlePrefix";
+    public static final String MODEL_NEARBY_SEARCH_ZIP_CODE = "nearbySearchZipCode";
 
     public static final String MODEL_STATE = "state";
 
@@ -141,6 +142,14 @@ public class SchoolSearchController extends AbstractCommandController implements
         boolean isCityBrowse = commandAndFields.isCityBrowse();
         boolean isDistrictBrowse = commandAndFields.isDistrictBrowse();
         boolean isSearch = !isCityBrowse && !isDistrictBrowse;
+
+        Map nearbySearchInfo = null;
+        if (schoolSearchCommand.isNearbySearch()) {
+            nearbySearchInfo = (Map)request.getAttribute("nearbySearchInfo");
+            if (nearbySearchInfo != null && nearbySearchInfo.get("state") != null && nearbySearchInfo.get("state") instanceof State) {
+                state = (State)nearbySearchInfo.get("state");
+            }
+        }
 
         City city = null;
         District district = null;
@@ -313,11 +322,17 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.putAll(new CityMetaDataHelper().getMetaData(commandAndFields));
         } else if (commandAndFields.isDistrictBrowse()) {
             model.putAll(new DistrictMetaDataHelper().getMetaData(commandAndFields));
+        } else if (schoolSearchCommand.isNearbySearch()) {
+            model.putAll(new NearbyMetaDataHelper().getMetaData(nearbySearchInfo));
         } else {
             model.putAll(new MetaDataHelper().getMetaData(commandAndFields));
         }
 
         model.put(MODEL_STATE, state);
+
+        if (schoolSearchCommand.isNearbySearch()) {
+            model.put(MODEL_NEARBY_SEARCH_ZIP_CODE, nearbySearchInfo.get("zipCode"));
+        }
 
         model.put(MODEL_OMNITURE_PAGE_NAME,
                 getOmniturePageName(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
@@ -382,6 +397,21 @@ public class SchoolSearchController extends AbstractCommandController implements
             String searchString = commandWithFields.getSearchString();
             Map<String,Object> model = new HashMap<String,Object>();
             model.put(MODEL_TITLE, getTitle(searchString));
+            return model;
+        }
+    }
+
+    protected class NearbyMetaDataHelper {
+        public Map<String,Object> getMetaData(Map nearbySearchInfo) {
+            Map<String,Object> model = new HashMap<String,Object>();
+
+            if (nearbySearchInfo != null) {
+                Object zipCodeObj = nearbySearchInfo.get("zipCode");
+                if (zipCodeObj != null && zipCodeObj instanceof String) {
+                    model.put(MODEL_TITLE, getTitle((String) zipCodeObj));
+                }
+            }
+
             return model;
         }
     }
@@ -869,6 +899,25 @@ public class SchoolSearchController extends AbstractCommandController implements
             // GS-9323 zip code
             if (searchString.trim().matches("^\\d{5}$")) {
                 pageHelper.addAdKeyword("zipcode", searchString.trim());
+            }
+        }
+
+        // GS-11511 - nearby search by zip code
+        if (request.getAttribute("nearbySearchInfo") != null && request.getAttribute("nearbySearchInfo") instanceof Map) {
+            Map nearbySearchInfo = (Map) request.getAttribute("nearbySearchInfo");
+            Object nearbyZipCode = nearbySearchInfo.get("zipCode");
+            Object nearbyState = nearbySearchInfo.get("state");
+            Object nearbyCity = nearbySearchInfo.get("city");
+
+            if (nearbyZipCode != null && nearbyZipCode instanceof String) {
+                pageHelper.addAdKeyword("zipcode", (String)nearbyZipCode);
+            }
+            if (nearbyState != null && nearbyState instanceof State) {
+                // this overrides the state GAM attribute
+                pageHelper.addAdKeyword("state", ((State)nearbyState).getAbbreviation());
+            }
+            if (nearbyCity != null && nearbyCity instanceof String) {
+                pageHelper.addAdKeywordMulti("city", (String)nearbyCity);
             }
         }
     }

@@ -431,6 +431,7 @@
               schoolType="${omnitureSchoolType}"
               schoolLevel="${omnitureSchoolLevel}"
               sortSelection="${omnitureSortSelection}"
+              nearbySearchZipCode="${nearbySearchZipCode}"
         />
 
 </jsp:root>

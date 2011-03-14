@@ -11,6 +11,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -62,6 +64,13 @@ public class NearbySchoolSearchController extends AbstractCommandController {
                     (nearbyCommand.getDistance() != null ? "&distance=" + nearbyCommand.getDistance() : "") +
                     (selectedGradeLevel != null ? "&gradeLevels=" + selectedGradeLevel : "")));
         }
+
+        // GS-11511 - nearby search by zip code
+        Map<String,Object> nearbySearchInfo = new HashMap<String,Object>();
+        nearbySearchInfo.put("zipCode", zip.getZip());
+        nearbySearchInfo.put("state", zip.getState());
+        nearbySearchInfo.put("city", zip.getName());
+        request.setAttribute("nearbySearchInfo", nearbySearchInfo);
 
         SchoolSearchCommand searchCommand = nearbyCommand.getSchoolSearchCommand();
         searchCommand.setLat((double)zip.getLat());

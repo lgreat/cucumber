@@ -99,6 +99,11 @@
         name="schoolGSRating" type="java.lang.String"
         description="GS Rating of the school being viewed"
         required="false"/>
+    <!-- See GS-11511 for nearbySearchZipCode -->
+    <jsp:directive.attribute
+        name="nearbySearchZipCode" type="java.lang.String"
+        description="Zip code for a nearby search"
+        required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -200,6 +205,7 @@
             s.prop28 = clickCapture.getProp(28,"${empty requestScope.reviewsFilterSortTracking ? '' : requestScope.reviewsFilterSortTracking}");
             s.prop30 = clickCapture.getProp(30,"${compareNumSchools}");
             s.prop31 = clickCapture.getProp(31,"${schoolGSRating}");
+            s.prop32 = clickCapture.getProp(32,"${nearbySearchZipCode}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
