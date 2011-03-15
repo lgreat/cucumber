@@ -140,11 +140,11 @@
 
         </school:profile2010>
 
-        <script type="text/javascript">
+<!--        <script type="text/javascript">
             jQuery(function() {
                 document.title = 'Parent Reviews of ${school.name} - ${addr}';
             });
-        </script>
+        </script>-->
 
         <mod:tracking pageName="${pageName}"
                       hier1="School,Map"

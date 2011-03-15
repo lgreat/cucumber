@@ -651,5 +651,10 @@
 <!-- end schoolProfile -->
 <br class="clearfloat"/>
 
+<script type="text/javascript">
+    jQuery(function() {
+        document.title = 'Parent Reviews of ${school.name} - ${addr}';
+    });
+</script>
 
 </jsp:root>

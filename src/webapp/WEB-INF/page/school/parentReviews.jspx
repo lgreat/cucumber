@@ -117,7 +117,7 @@
                 jQuery('#studentRatingsToggle').css('color','black').css('cursor','default');
             });
             jQuery('#studentRatingsToggle').css('color','#06b').css('cursor','pointer');
-            document.title = 'Parent Reviews of ${school.name} - ${addr}';
+//            document.title = 'Parent Reviews of ${school.name} - ${addr}';
         });
         // TODO-10495 - Randall - END subcategory ratings toggle
     </script>
