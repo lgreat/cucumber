@@ -450,6 +450,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             return false;
         });
 
+        document.title = 'Parent Reviews of ${school.name} - ${addr}';
+
     });
 
 </script>
