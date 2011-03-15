@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
+import gs.data.school.Grades;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -143,12 +144,15 @@ public class Registration2AjaxController implements Controller {
         out.print("</select>");
     }
 
-    protected void outputSchoolJson(State state, String city,String grade, PrintWriter out,HttpServletRequest request) {
+    protected void outputSchoolJson(State state, String city, String grades, PrintWriter out, HttpServletRequest request) {
         List<School> schools = null;
         JSONObject rval = new JSONObject();
         if (state != null && !StringUtils.isBlank(city)) {
-            if (StringUtils.isNotBlank(grade)) {
-                schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+            if (StringUtils.isNotBlank(grades)) {                 
+                //We have to convert the passed in string into a Grades object so
+                // that if 'k' is passed in its converted to 'KG'.
+                Grades gs = new Grades(grades);
+                schools = _schoolDao.findSchoolsInCityByGrades(state, city, gs);
             } else {
                 schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
             }
@@ -163,7 +167,7 @@ public class Registration2AjaxController implements Controller {
             chooseSchool.put("name", "- Choose school -");
             chooseSchool.put("id", "-1");
             schoolList.add(chooseSchool);
-            for (School school: schools) {
+            for (School school : schools) {
                 JSONObject cityJson = new JSONObject();
                 cityJson.put("name", school.getName());
                 cityJson.put("id", String.valueOf(school.getId()));
@@ -175,10 +179,10 @@ public class Registration2AjaxController implements Controller {
         }
 
         String jsonCallbackParam = getSanitizedJsonpParam(request);
-        if(jsonCallbackParam != null){
-            String res= jsonCallbackParam+"("+rval+");";
+        if (jsonCallbackParam != null) {
+            String res = jsonCallbackParam + "(" + rval + ");";
             out.print(res);
-        }else{
+        } else {
             out.print(rval.toString());
         }
     }
