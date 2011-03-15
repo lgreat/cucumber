@@ -259,8 +259,23 @@ public class SchoolSearchController extends AbstractCommandController implements
                 if (searchResultsPage.getTotalResults() == 0 && searchResultsPage.getSpellCheckResponse() != null &&
                     !schoolSearchCommand.isNearbySearch()) {
                     String didYouMean = getSearchSuggestion(schoolSearchCommand.getSearchString(), searchResultsPage.getSpellCheckResponse());
+
                     if (didYouMean != null) {
-                        model.put(MODEL_DID_YOU_MEAN, didYouMean);
+                        SearchResultsPage<ISchoolSearchResult> didYouMeanResultsPage = service.search(
+                                didYouMean,
+                                fieldConstraints,
+                                filterGroups,
+                                sort,
+                                schoolSearchCommand.getLat(),
+                                schoolSearchCommand.getLon(),
+                                schoolSearchCommand.getDistanceAsFloat(),
+                                schoolSearchCommand.getStart(),
+                                schoolSearchCommand.getPageSize()
+                        );
+
+                        if(didYouMeanResultsPage != null && didYouMeanResultsPage.getTotalResults() > 0) {
+                            model.put(MODEL_DID_YOU_MEAN, didYouMean);
+                        }
                     }
                 }
             } catch (SearchException ex) {
