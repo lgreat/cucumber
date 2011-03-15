@@ -250,6 +250,7 @@
 
     <school:findOrCompare
             isHomePage="${true}"
+            nearbySearchRedirectUrl="/"
             />
 
     <gsweb:adTagGenerator position="Homepage_House_Ad_328x150"/>

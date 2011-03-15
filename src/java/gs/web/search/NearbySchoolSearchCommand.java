@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 public class NearbySchoolSearchCommand {
     private SchoolSearchCommand _schoolSearchCommand;
     private String _zipCode;
+    private String _redirectUrl;
 
     public NearbySchoolSearchCommand() {
         _schoolSearchCommand = new SchoolSearchCommand();
@@ -28,6 +29,14 @@ public class NearbySchoolSearchCommand {
 
     public void setZipCode(String zipCode) {
         _zipCode = StringUtils.trim(zipCode);
+    }
+
+    public String getRedirectUrl() {
+        return _redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        _redirectUrl = redirectUrl;
     }
 
     public void setQ(String q) {

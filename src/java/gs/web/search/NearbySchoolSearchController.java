@@ -60,9 +60,8 @@ public class NearbySchoolSearchController extends AbstractCommandController {
                     }
                 }
             }
-            return new ModelAndView(new RedirectView("/?invalidZipCode=true" +
-                    (nearbyCommand.getDistance() != null ? "&distance=" + nearbyCommand.getDistance() : "") +
-                    (selectedGradeLevel != null ? "&gradeLevels=" + selectedGradeLevel : "")));
+            return new ModelAndView(new RedirectView(buildRedirectUrl(nearbyCommand.getRedirectUrl(),
+                    nearbyCommand.getDistance(), selectedGradeLevel)));
         }
 
         // GS-11511 - nearby search by zip code
@@ -78,6 +77,18 @@ public class NearbySchoolSearchController extends AbstractCommandController {
         searchCommand.setState(zip.getState().getAbbreviationLowerCase());
 
         return _schoolSearchController.handle(request, response, searchCommand, e);
+    }
+
+    private static String buildRedirectUrl(String redirectUrl, String distance, String selectedGradeLevel) {
+        if (redirectUrl == null || !redirectUrl.startsWith("/")) {
+            // default to home page
+            redirectUrl = "/";
+        }
+        return redirectUrl +
+                (redirectUrl.contains("?") ? "&" : "?") +
+                "invalidZipCode=true" +
+                (distance != null ? "&distance=" + distance : "") +
+                (selectedGradeLevel != null ? "&gradeLevels=" + selectedGradeLevel : "");
     }
 
     public SchoolSearchController getSchoolSearchController() {

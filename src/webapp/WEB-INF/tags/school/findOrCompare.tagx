@@ -12,6 +12,7 @@
     <jsp:directive.attribute name="isHomePage" required="true"
                              description="To display the appropriate design and copy between the homepage and grade level landing pages and K-5 topic center pages."/>
     <jsp:directive.attribute name="levelCode" required="false" description="To display the appropriate input select in compare module."/>
+    <jsp:directive.attribute name="nearbySearchRedirectUrl" required="true" description="URL to redirect to if nearby search validation fails (request URI and query string only, no hostname)"/>
 
     <!--
         Requires javascript methods
@@ -72,10 +73,12 @@
         </div>
     </div>
 
-    <c:if test="${isHomePage}">
         <c:choose>
             <c:when test="${param.gradeLevels ne null}">
                 <c:set var="gradeLevels" value="${param.gradeLevels}"/>
+            </c:when>
+            <c:when test="${not empty levelCode}">
+                <c:set var="gradeLevels" value="${levelCode}"/>
             </c:when>
             <c:otherwise>
                 <c:set var="gradeLevels" value="e"/>
@@ -163,6 +166,7 @@
                                    name="zipCode"
                                    onfocus="textSwitch(this, '', 'Zip code');"
                                    onblur="textSwitch(this, 'Zip code', '');"/>
+                            <input type="hidden" name="redirectUrl" value="${nearbySearchRedirectUrl}"/>
                             <button class="button-1 unit" type="submit">GO</button>
                             <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                             <div class="spacer_5"><!-- do not collapse --></div>
@@ -186,6 +190,5 @@
                 </div>
             </div>
         </div>
-    </c:if>
 
 </jsp:root>

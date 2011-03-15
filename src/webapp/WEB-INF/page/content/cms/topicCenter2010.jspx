@@ -315,6 +315,7 @@
             <school:findOrCompare
                     isHomePage="${false}"
                     levelCode="${levelCode}"
+                    nearbySearchRedirectUrl="${uri}"
                     />
         </c:when>
         <c:when test="${topicCenter.stateOfEducationTopicCenter}">
