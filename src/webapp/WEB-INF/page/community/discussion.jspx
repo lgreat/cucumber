@@ -686,10 +686,11 @@
                                     <p class="fltrt reported smallAlertTextBold">You've reported this reply.</p>
                                 </c:when>
                                 <c:otherwise>
-                                    <p class="fltrt">
+                                    <div class="mediaExt1-1 fltrt">
+                                        <div class="img sprite reportIt-nbg"><!-- do not collapse --></div>
                                         <a class="smallText1 reportIt link" href="${loginRedirectUrl}"
-                                                        id="report_reply_${reply.id}">Report it</a>
-                                    </p>
+                                           id="report_reply_${reply.id}">Report it</a>
+                                    </div>
                                 </c:otherwise>
                             </c:choose>
                             <br class="clearfloat"/>
