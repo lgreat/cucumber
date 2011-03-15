@@ -85,6 +85,8 @@ function gsGeocode(searchInput, callbackFunction) {
                 }
                 if (results[0].address_components[i].types.contains('locality')) {
                     geocodeResult['city'] = results[0].address_components[i].short_name;
+                } else if (!('city' in geocodeResult) && results[0].address_components[i].types.contains('administrative_area_level_3')) {
+                    geocodeResult['city'] = results[0].address_components[i].short_name;
                 }
                 if (results[0].address_components[i].types.contains('country')) {
                     geocodeResult['country'] = results[0].address_components[i].short_name;
