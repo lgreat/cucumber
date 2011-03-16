@@ -56,21 +56,21 @@
 
                     <div id="engagedContent">
                         <img src="/res/img/backToSchool/b2s_gp_engage_photo.jpg" alt="engaged photo"/>
-                        <p class="gamePlanBoldText">Stop summer brain drain! </p> <a href="/back-to-school/summer-activities/stop-brain-drain.gs?content=1510"><span class="underlineText"> Don't let the livin' be too easy</span></a> this summer &amp;mdash; or your child will fall behind.
+                        <p class="gamePlanBoldText">Stop summer brain drain! </p> <a href="/back-to-school/summer-activities/1510-stop-brain-drain.gs"><span class="underlineText"> Don't let the livin' be too easy</span></a> this summer &amp;mdash; or your child will fall behind.
                     </div>
                     <div id="prepContent">
                         <img src="/res/img/backToSchool/b2s_gp_prep_photo.jpg" alt="prep photo"/>
                         <p class="gamePlanBoldText">Ready (or not) for school? </p> <a href="#quiz" ><span class="underlineText">Find out</span></a>
-                        <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71"><span class="underlineText">Nine steps</span></a> to a smart start.
+                        <p class="gamePlanBoldText" id="almostHere"> Eeek! School's almost here.</p> <a href="/back-to-school/preparation/71-back-to-school-blues.gs"><span class="underlineText">Nine steps</span></a> to a smart start.
                     </div>
                     <div id="smartContent">
-                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg" alt="smart photo"/><div class="smartText">Dollars <div>and sense</div><a href="/back-to-school/supplies/budget-shopping.gs?content=1515" class="underlineText">Bargain <br/>school buys</a></div>
+                        <img src="/res/img/backToSchool/b2s_gp_smart_photo.jpg" alt="smart photo"/><div class="smartText">Dollars <div>and sense</div><a href="/back-to-school/supplies/1515-budget-shopping.gs" class="underlineText">Bargain <br/>school buys</a></div>
                         <p class="shopText">Stock up on the right supplies</p>
                         <select onchange="gotoLanding()" id="suppliesArticles">
                             <option value="">Choose grade level</option>
-                            <option value="/back-to-school/supplies/k-2-back-to-school-supply-list.gs?content=1082">Elementary</option>
-                            <option value="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084">Middle</option>
-                            <option value="/back-to-school/supplies/back-to-school-supply-list.gs?content=1085">High</option>
+                            <option value="/back-to-school/supplies/1082-k-2-back-to-school-supply-list.gs">Elementary</option>
+                            <option value="/back-to-school/supplies/1084-middle-school-back-to-school-supply-list.gs">Middle</option>
+                            <option value="/back-to-school/supplies/1085-back-to-school-supply-list.gs">High</option>
                         </select>
                         <div id="shopSmartSponsor"><gsweb:adTagGenerator position="sponsor_210x37"/></div>
                     </div>

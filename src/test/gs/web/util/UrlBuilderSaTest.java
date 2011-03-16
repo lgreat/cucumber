@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.131 2010/12/07 02:55:13 ssprouse Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.132 2011/03/16 00:50:13 yfan Exp $
  */
 
 package gs.web.util;
@@ -94,7 +94,7 @@ public class UrlBuilderSaTest extends TestCase {
             }
         };
 
-        assertEquals("/Topic/Category/Title.gs?content=35", builder.asSiteRelative(null));
+        assertEquals("/Topic/Category/35-Title.gs", builder.asSiteRelative(null));
 
         CmsUtil.setCmsEnabled(cmsEnabled);
     }

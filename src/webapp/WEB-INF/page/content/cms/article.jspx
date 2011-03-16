@@ -101,10 +101,10 @@
 <div id="main">
 <c:choose>
     <c:when test="${feature.numPages == 1 or fromPage eq '1'}">
-        <c:set var="featureLink" value="${uri}"/>
+        <c:set var="featureLink" value="${contentUrl}"/>
     </c:when>
     <c:otherwise>
-        <c:set var="featureLink" value="${uri}&amp;page=${fromPage}"/>
+        <c:set var="featureLink" value="${contentUrl}?page=${fromPage}"/>
     </c:otherwise>
 </c:choose>
 <div class="printViewLinks">
@@ -215,7 +215,7 @@
         </c:if>
         <c:if test="${empty feature.pdfUri}">
             <li>
-                <a href="${uri}&amp;print=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}"><img src="/res/img/icons/printIcon.gif" alt="Print"/>&amp;nbsp;<span>Print</span></a>
+                <a href="${contentUrl}?print=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}"><img src="/res/img/icons/printIcon.gif" alt="Print"/>&amp;nbsp;<span>Print</span></a>
             </li>
         </c:if>
         <li>
@@ -247,7 +247,7 @@
                 <c:choose>
                     <c:when test="${hasNextSlide}">
                         <div class="next"><a
-                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}#slide"><img
+                                href="${contentUrl}?page=${pageNum + 1}#slide"><img
                                 src="/res/img/slideShow/next.png" width="60" height="17" alt="next"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -264,7 +264,7 @@
                 <c:choose>
                     <c:when test="${hasPreviousSlide}">
                         <div class="prev"><a
-                                href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum - 1}#slide"><img
+                                href="${contentUrl}?page=${pageNum - 1}#slide"><img
                                 src="/res/img/slideShow/prev.png" width="60" height="17" alt="previous"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -284,7 +284,7 @@
                             <ul>
                                 <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
                                     <li>
-                                        <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${status.count}#slide">
+                                        <a href="${contentUrl}?page=${status.count}#slide">
                                             <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
                                             <c:choose>
                                                 <c:when test="${hasSlidePromo}">
@@ -321,7 +321,7 @@
 
                     <c:if test="${param.print ne 'true' and hasNextSlide}">
                         <p class="ss_text ss_next">Next:&amp;nbsp;
-                            <a href="${articleSlideshow.fullUri}.gs?content=${articleSlideshow.contentKey.identifier}&amp;amp;page=${pageNum + 1}#slide">
+                            <a href="${contentUrl}?page=${pageNum + 1}#slide">
                                 <c:set var="nextSlideHasPromo" value="${not empty articleSlideshow.nextSlide.promo}"/>
                                 <c:choose>
                                     <c:when test="${nextSlideHasPromo}">
@@ -410,7 +410,7 @@
                         <span class="active">${pageNum}</span>
                     </c:when>
                     <c:otherwise>
-                        <a href="${uri}&amp;page=${pageNum}">${pageNum}</a>
+                        <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -419,7 +419,7 @@
                     <span class="active">Single Page</span>
                 </c:when>
                 <c:otherwise>
-                    <a href="${uri}&amp;page=all">Single Page</a>
+                    <a href="${contentUrl}?page=all">Single Page</a>
                 </c:otherwise>
             </c:choose>
         </div>

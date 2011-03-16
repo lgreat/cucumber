@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.89 2011/01/14 01:35:21 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.90 2011/03/16 00:50:12 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -307,7 +307,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setContentKey(new ContentKey("Article", 25L).toString());
 
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/topic/category/title.gs?content=25", builder.asSiteRelative(null));
+        assertEquals("/topic/category/25-title.gs", builder.asSiteRelative(null));
 
         CmsUtil.setCmsEnabled(cmsEnabled);
     }

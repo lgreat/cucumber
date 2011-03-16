@@ -109,10 +109,10 @@
                     <td class="btsChecklistCol1"><img alt="Step 3" src="/res/img/backToSchool/step_3.gif"/></td>
                     <td class="btsChecklistCol2">Review one of the following Back-to-School supply lists:
                         <ul id="btsSp3Items">
-                            <li><a href="/back-to-school/supplies/supply-list-to-get-you-started.gs?content=109" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> A school supply list to get you started (all grades)</a></li>
-                            <li><a href="/back-to-school/supplies/k-2-back-to-school-supply-list.gs?content=1082" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for elementary school</a></li>
-                            <li><a href="/back-to-school/supplies/middle-school-back-to-school-supply-list.gs?content=1084" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for middle school</a></li>
-                            <li><a href="/back-to-school/supplies/back-to-school-supply-list.gs?content=1085" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for high school</a></li>
+                            <li><a href="/back-to-school/supplies/109-supply-list-to-get-you-started.gs" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> A school supply list to get you started (all grades)</a></li>
+                            <li><a href="/back-to-school/supplies/1082-k-2-back-to-school-supply-list.gs" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for elementary school</a></li>
+                            <li><a href="/back-to-school/supplies/1084-middle-school-back-to-school-supply-list.gs" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for middle school</a></li>
+                            <li><a href="/back-to-school/supplies/1085-back-to-school-supply-list.gs" class="btsSupplyList"><span class="alertDoubleArrow">&amp;#187;</span> Back to basics: A supply list for high school</a></li>
                         </ul>
                     </td>
 
@@ -122,12 +122,12 @@
                 </tr>
                 <tr>
                     <td class="btsChecklistCol1"><img alt="Step 4" src="/res/img/backToSchool/step_4.gif"/></td>
-                    <td class="btsChecklistCol2">Read <a href="/students/summer-activities/stop-brain-drain.gs?content=1510" id="btsArticle1">Stop summer brain drain</a></td>
+                    <td class="btsChecklistCol2">Read <a href="/students/summer-activities/1510-stop-brain-drain.gs" id="btsArticle1">Stop summer brain drain</a></td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE1'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
                 <tr class="last">
                     <td class="btsChecklistCol1"><img alt="Step 5" src="/res/img/backToSchool/step_5.gif"/></td>
-                    <td class="btsChecklistCol2">Read <a href="/back-to-school/preparation/back-to-school-blues.gs?content=71" id="btsArticle2">Nine steps to a smart start</a></td>
+                    <td class="btsChecklistCol2">Read <a href="/back-to-school/preparation/71-back-to-school-blues.gs" id="btsArticle2">Nine steps to a smart start</a></td>
                     <td class="btsChecklistCol3"><span class="${(not empty backToSchoolChecklistCompletedItems and fn:contains(backToSchoolChecklistCompletedItems, 'ARTICLE2'))? 'sprite checked':'sprite unchecked'}"><!-- not empty--></span></td>
                 </tr>
             </table>

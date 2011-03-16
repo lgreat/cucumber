@@ -321,7 +321,7 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
 
         assertNotNull("ModelAndView should not be null", mAndV);
         assertTrue("ModelAndView should be a 301 redirect", mAndV.getView() instanceof RedirectView301);
-        assertEquals("Redirect view should be canonical url", "/blah/blah/blah.gs?content=23", ((RedirectView301) mAndV.getView()).getUrl());
+        assertEquals("Redirect view should be canonical url", "/blah/blah/23-blah.gs", ((RedirectView301) mAndV.getView()).getUrl());
 
         // Now test fetching all pages
         resetAll();

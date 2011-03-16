@@ -146,7 +146,7 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         _controller.onBindOnNewForm(getRequest(), command, errors);
 
         assertTrue(command.getMessage().indexOf("helpful resource") > -1);
-        assertTrue(command.getMessage().indexOf("/full/uri.gs?content=1") > -1);
+        assertTrue(command.getMessage().indexOf("/full/1-uri.gs") > -1);
 
         CmsUtil.setCmsEnabled(cmsEnabled);
     }

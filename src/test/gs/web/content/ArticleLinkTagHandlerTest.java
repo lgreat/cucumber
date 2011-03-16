@@ -128,7 +128,7 @@ public class ArticleLinkTagHandlerTest extends TestCase {
         verify(_publicationDao);
         verify(_articleDao);
 
-        assertEquals("<a href=\"/Topic/Category/Title.gs?content=102\">Title</a>", _out.getOutputBuffer().toString());
+        assertEquals("<a href=\"/Topic/Category/102-Title.gs\">Title</a>", _out.getOutputBuffer().toString());
     }
 
     public void testLinkByArticleIdFallbackBehavior() throws IOException {

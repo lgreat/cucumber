@@ -61,14 +61,52 @@ public class CmsFeatureController extends AbstractController {
         boolean showSampleSlideshow = uri.contains("slideshows/sample-slideshow");
 
         if (!showSampleSlideshow) {
-            Long contentId;
-            try {
-                contentId = new Long(request.getParameter("content"));
-            } catch (Exception e) {
+            Long contentId = null;
+
+            boolean notFound = false;
+            String contentIdParam = request.getParameter("content");
+            if (contentIdParam != null) {
+                // GS-11495 - this is the old version of article urls, that have foo-bar.gs?content=[content ID] as the url
+                // let's grab the content ID and allow code further down to do the 301-redirect
+                try {
+                    contentId = new Long(contentIdParam);
+                } catch (Exception e) {
+                    notFound = true;
+                }
+            } else {
+                // this is the new version of article urls, that have [content ID]-foo-bar.gs as the url
+                try {
+                    // first hyphen after last slash in uri
+                    int firstHyphenIndex = -1;
+                    // index of last slash in uri
+                    int lastSlashIndex = uri.lastIndexOf("/");
+                    // part of uri after last slash
+                    String lastComponent = null;
+                    if (lastSlashIndex > -1) {
+                        lastComponent = uri.substring(lastSlashIndex + 1);
+                        // the part of the lastComponent before the first hyphen would be the content ID
+                        firstHyphenIndex = lastComponent.indexOf("-");
+                        if (lastComponent != null && firstHyphenIndex > -1) {
+                            String contentIdStr = lastComponent.substring(0, firstHyphenIndex);
+                            contentId = new Long(contentIdStr);
+                        } else {
+                            notFound = true;
+                        }
+                    } else {
+                        // shouldn't ever get here because request uri always begins with a slash
+                        notFound = true;
+                    }
+                } catch (Exception e) {
+                    notFound = true;
+                }
+            }
+
+            if (notFound) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
             }
 
+            // some content should be 301 redirected because the original articles were replaced with new ones
             UrlBuilder redirect = get301Redirect(contentId);
             if (redirect != null) {
                 return new ModelAndView(new RedirectView301(redirect.asSiteRelative(request)));
@@ -80,7 +118,7 @@ public class CmsFeatureController extends AbstractController {
                 // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
                 UrlBuilder builder = new UrlBuilder(feature.getContentKey());
                 // make sure no endless loops ever happen
-                if (!StringUtils.equals(builder.asSiteRelative(request), uri + "?content=" + contentId)) {
+                if (!StringUtils.equals(builder.asSiteRelative(request), uri)) {
                     return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
                 }
             }
