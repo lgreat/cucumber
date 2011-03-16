@@ -6137,12 +6137,12 @@ body.hover #startADiscussion label {
 }
 
 body.hover #startADiscussion input {
-    width: 350px;
+    width: 397px;
 }
 
 body.hover #startADiscussion textarea {
-    width: 540px;
-    height: 250px
+    width: 400px;
+    height: 150px
 }
 
 body.hover #startADiscussion .communityGuidelines {
@@ -6159,6 +6159,11 @@ body.hover #startADiscussion .submit {
 
 #discussionSubmissionForm .sd_InnerLayout {
     margin: 0 3px;
+}
+
+#discussionSubmissionForm .submitButtonContent{
+    *width:175px;
+    _width:175px;
 }
 
 /* =12d-3 community avatar hover

@@ -279,7 +279,7 @@
                                 <c:choose>
                                     <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
                                         <button class="${submitButtonStyle}" type="submit" name="post">
-                                            <div class="mediaExt1">
+                                            <div class="mediaExt1 submitButtonContent">
                                                 <div class="img">
                                                     <span class="sprite community"><!-- icon --></span>
                                                 </div>
