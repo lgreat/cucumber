@@ -21,6 +21,7 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
     private CmsFeature getSampleFeature() {
         CmsFeature feature = new CmsFeature();
         feature.setContentKey(new ContentKey("Article", 23L));
+        feature.setFullUri("/blah/blah/blah");
 
         feature.setBody("Hello! Visit us " +
                 "<a href=\"gs://home?foo=bar&taz=whatcomesnext\">here</a>." +

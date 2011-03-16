@@ -164,6 +164,8 @@ public class CmsFeatureController extends AbstractController {
             model.put("currentSlides", slides);
         }
 
+        UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
+
         // paginate after transforms have been done on entire body
         if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
             String pageNum = request.getParameter("page");
@@ -177,7 +179,7 @@ public class CmsFeatureController extends AbstractController {
                 } catch (NumberFormatException e) {
                     _log.warn("Invalid page number " + pageNum + " for feature uri " + uri);
                 } catch(IllegalArgumentException iae) {
-                    return new ModelAndView(new RedirectView301(uri + "?content=" + feature.getContentKey().getIdentifier()));
+                    return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                 }
             }
         }
@@ -221,9 +223,7 @@ public class CmsFeatureController extends AbstractController {
             } else if (referrer.endsWith("/high-school/")) {
                 pageHelper.addAdKeyword(GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID, String.valueOf(CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID));
             }
-        } 
-
-        UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
+        }
 
         // insert current page into model
         model.put("currentPage", insertSpansIntoListItems(insertSidebarIntoPage(feature.getCurrentPage(), feature)));
