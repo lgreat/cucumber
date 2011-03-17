@@ -191,29 +191,44 @@
                     <h3>Corporate In-Kind Donations</h3>
                 </div>
                 <div class="bd">
-                    <ul>
+                    <div class="line">
+                        <div class="unit size1of5">
+                            <ul>
 
-                        <li>Adobe</li>
-                        <li><a href="http://www.automatedqa.com/products/testcomplete/"
-                               target="_blank">AutomatedQA: TestComplete</a></li>
-                        <li><a href="http://www.atlassian.com/software/jira/" target="_blank">Atlassian: Jira</a>
-                        </li>
-                        <li><a href="http://www.atlassian.com/software/clover/"
-                               target="_blank">Atlassian: Clover</a></li>
-                        <li><a href="http://www.atlassian.com/software/fisheye/"
-                               target="_blank">Atlassian: FishEye</a></li>
-                        <li>Covington <![CDATA[&amp;]]> Burling</li>
-                        <li><a href="http://www.jetbrains.com/idea/" target="_blank">Jetbrains: IntelliJ IDEA</a>
-                        </li>
-                        <li>Microsoft</li>
-                        <li>Orrick, Herrington and Sutcliffe</li>
-                        <li><a href="http://www.sixapart.com/products/#typepad"
-                               target="_blank">Six Apart: TypePad</a></li>
-                        <li>Symantec</li>
-                        <li><a href="http://www.zeus.com/products/zxtm/" target="_blank">Zeus: ZXTM</a> (<a
-                                href="http://www.zeus.com/library/case_studies/greatschools.html">Case Study</a>)
-                        </li>
-                    </ul>
+                                <li>Adobe</li>
+                                <li><a href="http://www.automatedqa.com/products/testcomplete/"
+                                       target="_blank">AutomatedQA: TestComplete</a></li>
+                                <li><a href="http://www.atlassian.com/software/jira/"
+                                       target="_blank">Atlassian: Jira</a>
+                                </li>
+                                <li><a href="http://www.atlassian.com/software/clover/"
+                                       target="_blank">Atlassian: Clover</a></li>
+                                <li><a href="http://www.atlassian.com/software/fisheye/"
+                                       target="_blank">Atlassian: FishEye</a></li>
+                                <li>Covington <![CDATA[&amp;]]> Burling</li>
+                                <li><a href="http://www.jetbrains.com/idea/"
+                                       target="_blank">Jetbrains: IntelliJ IDEA</a><p class="pts"><a
+                                        href="http://www.jetbrains.com/idea/"
+                                        style="position: relative;display:block; width:120px; height:30px; border:0; margin:0;padding:0;text-decoration:none;text-indent:0;"><span
+                                        style="margin: 0;padding: 0;position: absolute;top: -1px;left: 29px;font-size: 9px;cursor:pointer; background-image:none;border:0;color: #acc4f9; font-family: trebuchet ms,arial,sans-serif;font-weight: normal;text-align:left;">Developed with</span><img
+                                        src="http://www.jetbrains.com/idea/opensource/img/all/banners/idea120x30_blue.gif"
+                                        alt="The best Java IDE" border="0"/></a></p></li>
+                            </ul>
+                        </div>
+                        <div class="unit size1of5">
+                            <ul>
+                                <li>Microsoft</li>
+                                <li>Orrick, Herrington and Sutcliffe</li>
+                                <li><a href="http://www.sixapart.com/products/#typepad"
+                                       target="_blank">Six Apart: TypePad</a></li>
+                                <li>Symantec</li>
+                                <li><a href="http://www.zeus.com/products/zxtm/" target="_blank">Zeus: ZXTM</a> (<a
+                                        href="http://www.zeus.com/library/case_studies/greatschools.html">Case Study</a>)
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="unit size3of5 lastUnit"><!-- do not collapse --></div>
+                    </div>
                 </div>
             </div>
         </div>
