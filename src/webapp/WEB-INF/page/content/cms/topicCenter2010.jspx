@@ -159,7 +159,7 @@
 
         <div id="topicMainGS" class="col">
 
-          <c:if test="${requestScope.topicCenter.contentKey.identifier ne '2545'}">
+          <c:if test="${!topicCenter.k12SponsorshipPage}">
             <div id="featured">
 
                 <div id="featured-image">
@@ -394,7 +394,7 @@
             <ad:adTag position="Promo_300x250"/>
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:when>
-        <c:when test="${requestScope.topicCenter.contentKey.identifier ne '2545'}">
+        <c:when test="${!topicCenter.k12SponsorshipPage}">
             <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
         </c:when>
     </c:choose>
