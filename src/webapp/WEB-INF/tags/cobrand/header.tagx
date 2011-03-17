@@ -18,8 +18,6 @@
             <!-- Backup the onload function because some cobrands overwrite it -->
             <script type="text/javascript" language="javascript">
                 oldonload = window.onload;
-                // // TODO-11466
-                // http://${requestScope.context.hostName}/templates/local/nav/topnav.insrt
             </script>
             <!-- We use a table here to box in the header, otherwise poorly written cobrand headers
                 can have very unpredictable interactions with our page body. E.g. azcentral -->
@@ -33,8 +31,6 @@
                         <jsp:scriptlet>
                             } catch (Exception e) {
                                 // Do nothing
-                                // TODO-11466
-                                e.printStackTrace();
                             }
                         </jsp:scriptlet>
                     </td>
