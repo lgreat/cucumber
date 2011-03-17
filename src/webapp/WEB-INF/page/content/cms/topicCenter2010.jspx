@@ -159,7 +159,8 @@
 
         <div id="topicMainGS" class="col">
 
-            <!--<div id="featured">
+          <c:if test="${requestScope.topicCenter.contentKey.identifier ne '2545'}">
+            <div id="featured">
 
                 <div id="featured-image">
                     <a href="${topicCenter.mainFeatureLink.url}">
@@ -183,8 +184,9 @@
                     </c:if>
                 </div>
 
-            </div>-->
+            </div>
             <!-- end #featured -->
+          </c:if>
 <div class="spacer_10"><!--do not collapse--></div>
             <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <div class="inlineAd">
@@ -392,9 +394,9 @@
             <ad:adTag position="Promo_300x250"/>
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:when>
-        <c:otherwise>
-            <!--<jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>-->
-        </c:otherwise>
+        <c:when test="${requestScope.topicCenter.contentKey.identifier ne '2545'}">
+            <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+        </c:when>
     </c:choose>
 
     <!-- DONE-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
