@@ -431,6 +431,11 @@ h3.srchCat {
     color: #06b;
 }
 
+.smallText1bold-d61 {
+    font: bold 11px Arial, Helvetica, sans-serif;
+    color: #d61;
+}
+
 .smallText1-italic {
     font: italic 11px Arial, Helvetica, sans-serif;
     color: #777;
