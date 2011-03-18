@@ -108,6 +108,11 @@
             }
         </script>
     </c:if>
+
+    <!-- GS-11485 -->
+    <c:if test="${type eq 'article'}">
+        <link rel="canonical" href="${contentUrl}"/>
+    </c:if>
 </head>
 <body>
 

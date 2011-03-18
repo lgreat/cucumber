@@ -1,5 +1,6 @@
 package gs.web.content.cms;
 
+import gs.web.util.CookieUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.CollectionUtils;
@@ -22,6 +23,7 @@ import gs.data.cms.IPublicationDao;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
+import org.springframework.web.servlet.view.RedirectView;
 
 public class CmsFeatureController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
@@ -134,6 +136,20 @@ public class CmsFeatureController extends AbstractController {
             return new ModelAndView("/status/error404.page");
         }
 
+        UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
+
+        // GS-11485
+        // if the user has already been on the website during this browser session,
+        boolean showAll = false;
+        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) && request.getParameter("page") == null) {
+            if (CookieUtil.hasCookie(request, SessionContextUtil.TRACKING_NUMBER)) {
+                String queryString = request.getQueryString();
+                return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request) +
+                        (queryString != null ? "?" + queryString + "&page=1" : "?page=1")));
+            }
+            showAll = true;
+        }
+
         try {
             _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(feature);
         } catch(Exception e) {
@@ -164,12 +180,11 @@ public class CmsFeatureController extends AbstractController {
             model.put("currentSlides", slides);
         }
 
-        UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
-
         // paginate after transforms have been done on entire body
         if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
             String pageNum = request.getParameter("page");
-            if (StringUtils.equals("all", pageNum) || print) {
+            // GS-11485
+            if (StringUtils.equals("all", pageNum) || print || showAll) {
                 pageNum = "-1";
             }
             if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum) ||
