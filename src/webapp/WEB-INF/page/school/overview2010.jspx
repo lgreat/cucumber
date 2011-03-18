@@ -28,6 +28,8 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
 <c:set var="pageName" value="Overview" scope="request"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
 <!-- determine the page name that is reported to omniture -->
 <c:choose>
     <c:when test="${school.levelCode == 'p'}">
@@ -450,7 +452,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             return false;
         });
 
-        document.title = 'Parent Reviews of ${school.name} - ${addr}';
+        document.title = '${school.name} - ${addr} - School overview';
 
     });
 
