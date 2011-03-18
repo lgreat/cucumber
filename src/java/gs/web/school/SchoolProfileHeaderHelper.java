@@ -52,6 +52,7 @@ public class SchoolProfileHeaderHelper {
     public static final String HAS_SCHOOL_STATS = "hasSchoolStats";
     public static final String HAS_TEST_SCORES = "hasTestScores";
     public static final String HAS_SURVEY_DATA = "hasSurveyData";
+    public static final String HAS_PQ = "hasPq";
     public static final String DISCUSSION_BOARD_ID = "discussionBoardId";
     public static final String DISCUSSION_TOPIC = "discussionTopic";
     public static final String DISCUSSION_TOPIC_FULL = "discussionTopicFull";
@@ -240,6 +241,7 @@ public class SchoolProfileHeaderHelper {
 
     protected void determinePQ(School school, Map<String, Object> model) {
         PQ pq = _PQDao.findBySchool(school);
+        model.put(HAS_PQ, pq != null);
         if (pq != null) {
             if (StringUtils.isNotBlank(pq.getStartTime()) && StringUtils.isNotBlank(pq.getEndTime())) {
                 model.put(PQ_START_TIME, pq.getStartTime());

@@ -436,7 +436,7 @@
                                     <span class="pipes">|</span>
                                 </li>
                             </c:if>
-                            <c:if test="${true}">
+                            <c:if test="${hasPq}">
                                 <li id="spstab5" class="${(subtab eq 'ratings')?'active smallText1bold-d61':'inactive smallText1-06b'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'ratings'}">Official Info</c:when>
