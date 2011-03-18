@@ -433,6 +433,17 @@
                                                                 styleClass="GS_CI9_">${spstab4_name}</link:surveyResults>
                                         </c:otherwise>
                                     </c:choose>
+                                    <span class="pipes">|</span>
+                                </li>
+                            </c:if>
+                            <c:if test="${true}">
+                                <li id="spstab5" class="${(subtab eq 'ratings')?'active smallText1bold-d61':'inactive smallText1-06b'}">
+                                    <c:choose>
+                                        <c:when test="${subtab eq 'ratings'}">Official Info</c:when>
+                                        <c:otherwise>
+                                            <link:enhancedSchoolProfile school="${school}">Official Info</link:enhancedSchoolProfile>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </li>
                             </c:if>
                         </ul>
