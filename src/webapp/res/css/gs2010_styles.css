@@ -8318,8 +8318,8 @@ body.ie7 #frmPRModule .helperMessage {
 
 #schoolProfileSubTabsWrapper {
     clear: both;
-    height: 27px;
-    padding-top: 6px;
+    height: 18px;
+    padding-top: 8px;
     _padding-top: 14px;
     background-color: #f4fafd;
     border-right: 1px solid #83bbd9;
@@ -8327,8 +8327,8 @@ body.ie7 #frmPRModule .helperMessage {
 }
 
 #schoolProfileSubTabs {
-    line-height: 27px;
-    padding-left: 15px;
+    /*line-height: 27px;*/
+    padding-left: 10px;
 }
 
 #schoolProfileSubTabs li {
