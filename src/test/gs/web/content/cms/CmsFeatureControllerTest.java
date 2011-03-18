@@ -257,8 +257,7 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         feature.setBody("First page<hr class=\"page-break\"/>Second page");
         feature.setTitle("The title");
 
-        getRequest().setRequestURI("/blah/blah/blah.gs");
-        getRequest().setParameter("content", "23");
+        getRequest().setRequestURI("/blah/blah/23-blah.gs");
 
         // Test fetching the 1st page (the default)
         expect(_cmsFeatureDao.get(23L)).andReturn(feature);
@@ -271,8 +270,8 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         verifyAll();
 
         Object currentPage = mAndV.getModel().get("currentPage");
-        assertNotNull("Expect current article page to be injected into model", currentPage);
-        assertEquals("First page", currentPage);
+        assertNotNull("Expect entire article to be injected into model", currentPage);
+        assertEquals("First pageSecond page", currentPage);
 
         // Test fetching the 1st page explicitly  
         resetAll();
