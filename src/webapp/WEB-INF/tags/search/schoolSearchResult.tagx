@@ -150,7 +150,7 @@
 
             <!-- Parent Rating -->
             <td class="brdbtm_dotted stars-column bg-color-fff" align="left" valign="top">
-                <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" styleClass="block">
+                <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
                     <c:choose>
                         <c:when test="${not empty school.parentRating}">
                             <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
@@ -163,7 +163,7 @@
                 <c:if test="${school.reviewCount gt 0 and not empty school.reviewBlurb}">
                     <div class="mtm smallAlertText reviewBlurb">
                     ${school.reviewBlurb}...<br/>
-                    <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}">Read more (${school.reviewCount})&amp;#187;</link:schoolProfileParentReview2010>
+                    <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" anchor="revPagination">Read more (${school.reviewCount})&amp;#187;</link:schoolProfileParentReview2010>
                     </div>
                 </c:if>
             </td>
