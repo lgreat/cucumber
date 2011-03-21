@@ -3,6 +3,8 @@ package gs.web.community;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
+import gs.data.util.CommunityUtil;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
@@ -71,6 +73,11 @@ public class CommunityLandingController extends AbstractController {
                 // 301 redirect to the Community Landing without id
                 return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
             }
+        }
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
         }
 
         return new ModelAndView(_viewName, model);
