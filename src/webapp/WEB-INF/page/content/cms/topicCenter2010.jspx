@@ -72,6 +72,7 @@
 
 <gsml:body adPageName="${pageName}">
 
+<school:miniStateLauncherHover/>
 
     <div id="mainGS" class="col">
     <c:choose>

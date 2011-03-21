@@ -15,10 +15,50 @@
     <jsp:directive.attribute name="nearbySearchRedirectUrl" required="true" description="URL to redirect to if nearby search validation fails (request URI and query string only, no hostname)"/>
 
     <!--
-        Requires javascript methods
-        textSwitch
-        checkStateSelection
+    REQUIREMENT:
+    - Any page that includes this tag must call:
+    <school:miniStateLauncherHover/>
     -->
+
+    <![CDATA[
+    <script type="text/javascript" charset="utf-8">
+    <!-- //
+        function textSwitch(el, target, replace) {
+            if (el.value == replace) {
+                el.value = target;
+            }
+        }
+
+        function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
+            var returnVal = true;
+            var queryVal = document.getElementById(queryId).value;
+            var stateVal = document.getElementById(stateSelectorId).value;
+
+            var noSearchTerms = (queryVal == 'Enter school, city, or zipcode');
+            var noState = (stateVal == ("-" + "-") || stateVal == "");
+
+            if (noSearchTerms && noState) {
+                // show state laumcher hover
+                GSType.hover.miniStateLauncher.show();
+                returnVal = false;
+            } else if (!noSearchTerms && noState) {
+                // show javascript alert
+                alert("Please select a state.");
+                returnVal = false;
+            } else if (!noSearchTerms && !noState) {
+                // go to search page
+                document.getElementById(pathwaysId).value = 'search_single';
+                returnVal = true;
+            } else if (noSearchTerms && !noState) {
+                // go to R and C page
+                document.getElementById(pathwaysId).value = 'pathway4';
+                returnVal = true;
+            }
+            return returnVal;
+        }
+        // -->
+    </script>
+    ]]>
 
     <div class="mod findCompare">
         <div class="inner">

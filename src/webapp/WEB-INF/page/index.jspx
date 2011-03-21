@@ -50,14 +50,6 @@
         PageHelper.hideLeaderboard(request);
     </jsp:scriptlet>
 
-    <script type="text/javascript" charset="utf-8">
-        function textSwitch(el, target, replace) {
-            if (el.value == replace) {
-                el.value = target;
-            }
-        }
-    </script>
-
     <!-- showStateWidget requires submodal.js and submodal.css -->
     <script type="text/javascript" language="javascript">
         jQuery(function() {
@@ -69,41 +61,6 @@
             }
         });
     </script>
-
-    <![CDATA[
-    <script type="text/javascript" language="javascript">
-    <!--
-        function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
-            var returnVal = true;
-            var queryVal = document.getElementById(queryId).value;
-            var stateVal = document.getElementById(stateSelectorId).value;
-
-            var noSearchTerms = (queryVal == 'Enter school, city, or zipcode');
-            var noState = (stateVal == ("-" + "-") || stateVal == "");
-
-            if (noSearchTerms && noState) {
-                // show state laumcher hover
-                GSType.hover.miniStateLauncher.show();
-                returnVal = false;
-            } else if (!noSearchTerms && noState) {
-                // show javascript alert
-                alert("Please select a state.");
-                returnVal = false;
-            } else if (!noSearchTerms && !noState) {
-                // go to search page
-                document.getElementById(pathwaysId).value = 'search_single';
-                returnVal = true;
-            } else if (noSearchTerms && !noState) {
-                // go to R and C page
-                document.getElementById(pathwaysId).value = 'pathway4';
-                returnVal = true;
-            }
-            return returnVal;
-        }
-        -->
-    </script>
-    ]]>
-
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
 </head>
 
