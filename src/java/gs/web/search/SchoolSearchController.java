@@ -624,6 +624,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                 return "GS Rating";
             } else if (sort.name().startsWith("PARENT_RATING")) {
                 return "Parent Rating";
+            } else if (sort.name().startsWith("DISTANCE")) {
+                return "Distance";
             } else {
                 return null;
             }
