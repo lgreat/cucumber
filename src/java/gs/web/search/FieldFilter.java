@@ -2,56 +2,38 @@ package gs.web.search;
 
 public interface FieldFilter {
 
-    public String getFilterName();
-    public String getFilterType();
+    public enum LowestAgeAccepted implements FieldFilter {
+        UNDER_ONE,
+        ONE,
+        TWO,
+        THREE,
+        FOUR_AND_ABOVE
+    }
+
+    public enum SchoolSize implements FieldFilter {
+        UNDER_20,
+        UNDER_50,
+        UNDER_200,
+        UNDER_500,
+        UNDER_1000
+    }
+
+    public enum StudentTeacherRatio implements FieldFilter {
+        UNDER_10,
+        UNDER_15,
+        UNDER_20,
+        UNDER_25
+    }
 
     public enum AffiliationFilter implements FieldFilter {
-        RELIGOUS("religious"),
-        NONSECTARIAN("nonsectarian");
-
-        private String _filterName;
-        private static String _filterType = "Affiliation";
-
-        AffiliationFilter(String filterName) {
-            _filterName = filterName;
-}
-
-        public String getFilterName() {
-            return _filterName;
-        }
-
-        public void setFilterName(String filterName) {
-            _filterName = filterName;
-        }
-
-        public String getFilterType() {
-            return _filterType;
-        }
+        RELIGIOUS,
+        NONSECTARIAN
     }
 
     public enum SchoolTypeFilter implements FieldFilter {
-        PRIVATE("private"),
-        CHARTER("charter"),
-        PUBLIC("public");
-
-        private String _filterName;
-        private static String _filterType = "SchoolType";
-
-        SchoolTypeFilter(String filterName) {
-            _filterName = filterName;
-        }
-
-        public String getFilterName() {
-            return _filterName;
-        }
-
-        public void setFilterName(String filterName) {
-            _filterName = filterName;
-        }
-
-        public String getFilterType() {
-            return _filterType;
-        }
+        PRIVATE,
+        CHARTER,
+        PUBLIC
     }
 
     public enum GradeLevelFilter implements FieldFilter {

@@ -59,11 +59,15 @@ GS.search.SchoolSearcher = function() {
         data["gradeLevels"] = gradeLevels;
         data["st"] = schoolTypes;
         data["affiliations"] = affiliations;
+        data["studentTeacherRatio"] = jQuery('#studentTeacherRatioSelect').val();
+        data["schoolSize"] = jQuery('#schoolSizeSelect').val();
 
         var queryString = window.location.search;
         queryString = removeFromQueryString(queryString, "gradeLevels");
         queryString = removeFromQueryString(queryString, "st");
         queryString = removeFromQueryString(queryString, "affiliations");
+        queryString = removeFromQueryString(queryString, "studentTeacherRatio");
+        queryString = removeFromQueryString(queryString, "schoolSize");
 
         jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
     };
@@ -417,6 +421,12 @@ jQuery(function() {
     GS.search.filterTracking = new GS.search.FilterTracking();
 
     jQuery('#topicbarGS input').click(function() {
+        var cssId = jQuery(this).attr('id');
+        GS.search.filterTracking.track(cssId);
+        GS.search.schoolSearchResultsTable.update();
+    });
+
+    jQuery('#topicbarGS select').change(function() {
         var cssId = jQuery(this).attr('id');
         GS.search.filterTracking.track(cssId);
         GS.search.schoolSearchResultsTable.update();

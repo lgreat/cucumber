@@ -147,7 +147,7 @@ public class SchoolSearchServiceImpl extends BaseLuceneSearchService<ISchoolSear
             FieldFilter[] filters = filterGroup.getFieldFilters();
             Filter[] filtersToAdd = new Filter[filters.length];
             for (int i = 0; i < filters.length; i++) {
-                Filter filterToAdd = Searcher.getFilters().get(filters[i].getFilterName());
+                Filter filterToAdd = Searcher.getFilters().get(filters[i].toString());
                 filtersToAdd[i] = filterToAdd;
             }
             subFilters[j++] = new ChainedFilter(filtersToAdd, ChainedFilter.OR);

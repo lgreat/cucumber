@@ -15,6 +15,8 @@ public class SchoolSearchCommand {
     private Double _lon;
     private String _distance;
     private String[] _affiliations;
+    private String _studentTeacherRatio;
+    private String _schoolSize;
 
     /**
      * The type of school search that will be performed
@@ -224,5 +226,21 @@ public class SchoolSearchCommand {
 
     public boolean hasAffiliations() {
         return (_affiliations != null && _affiliations.length > 0);
+    }
+
+    public String getStudentTeacherRatio() {
+        return _studentTeacherRatio;
+    }
+
+    public void setStudentTeacherRatio(String studentTeacherRatio) {
+        _studentTeacherRatio = studentTeacherRatio;
+    }
+
+    public String getSchoolSize() {
+        return _schoolSize;
+    }
+
+    public void setSchoolSize(String schoolSize) {
+        _schoolSize = schoolSize;
     }
 }

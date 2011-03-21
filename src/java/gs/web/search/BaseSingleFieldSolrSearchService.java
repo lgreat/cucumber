@@ -40,7 +40,8 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
     public SearchResultsPage<RESULT_TYPE> search(String queryString, Map<? extends IFieldConstraint, String> fieldConstraints, List<FilterGroup> filters, FieldSort fieldSort, Double lat, Double lon, Float distanceInMiles, int offset, int count) throws SearchException {
 
         SolrQuery query = new SolrQuery();
-
+        query.setParam("spellcheck.q", queryString);
+        
         setQueryType(query);
 
         query.setQuery(buildQuery(queryString));
@@ -55,7 +56,9 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
 
         if (filters != null && filters.size() > 0) {
             String[] filterQueries = createFilterQueries(filters);
-            query.addFilterQuery(filterQueries);
+            if (filterQueries != null && filterQueries.length > 0) {
+                query.addFilterQuery(filterQueries);
+            }
         }
 
         if (fieldConstraints != null && fieldConstraints.size() > 0) {

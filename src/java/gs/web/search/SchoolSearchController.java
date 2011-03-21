@@ -123,6 +123,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         Map<String,Object> model = new HashMap<String,Object>();
+        model.put("schoolSearchCommand", schoolSearchCommand);
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
@@ -226,6 +227,16 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (commandAndFields.hasAffiliations()) {
             FilterGroup affiliationGroup = filterFactory.createFilterGroup(FieldFilter.AffiliationFilter.class, commandAndFields.getAffiliations());
             filterGroups.add(affiliationGroup);
+        }
+
+        if (commandAndFields.getStudentTeacherRatio() != null) {
+            FilterGroup studentTeacherRatioGroup = filterFactory.createFilterGroup(FieldFilter.StudentTeacherRatio.class, new String[] {commandAndFields.getStudentTeacherRatio()});
+            filterGroups.add(studentTeacherRatioGroup);
+        }
+
+        if (commandAndFields.getSchoolSize() != null) {
+            FilterGroup schoolSizeGroup = filterFactory.createFilterGroup(FieldFilter.SchoolSize.class, new String[] {commandAndFields.getSchoolSize()});
+            filterGroups.add(schoolSizeGroup);
         }
 
         FieldSort sort = schoolSearchCommand.getSortBy() == null ? ((isCityBrowse || isDistrictBrowse) && !"true".equals(request.getParameter("sortChanged")) ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(schoolSearchCommand.getSortBy());

@@ -21,15 +21,6 @@ public class FilterFactoryTest extends TestCase {
 
         assertEquals("FilterFactory should return correct filter", FieldFilter.SchoolTypeFilter.PRIVATE, f);
     }
-
-    public void testValueOf2() throws Exception {
-
-        String name = "SchoolTypeFilter";
-
-        FieldFilter f = _filterFactory.valueOf(name, "private");
-
-        assertEquals("FilterFactory should return correct filter", FieldFilter.SchoolTypeFilter.PRIVATE, f);
-    }
     
     public void testValueOf3() throws Exception {
 

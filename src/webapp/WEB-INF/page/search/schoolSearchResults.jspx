@@ -285,80 +285,120 @@
                 </div>
             </div>
         </div>
-        <div id="js-schoolTypes" class="mod">
+        <div class="mod">
             <div class="filter-hd">
                 <h5>SCHOOL TYPE</h5>
             </div>
             <div class="filter-bd smallAlertText">
-                <div>
-                    <c:choose>
-                        <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'public')}">
-                            <input type="checkbox" checked="checked" name="st" id="school-type-public" value="public"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="checkbox" name="st" id="school-type-public" value="public"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <label for="school-type-public">Public</label>
-                </div>
-                <div>
-                    <c:choose>
-                        <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'charter')}">
-                            <input type="checkbox" checked="checked" name="st" id="school-type-charter" value="charter"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="checkbox" name="st" id="school-type-charter" value="charter"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <label for="school-type-charter">Public Charter</label>
-                </div>
-                <div>
-                    <c:choose>
-                        <c:when test="${!isDistrictBrowse and (schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'private'))}">
-                            <input type="checkbox" checked="checked" name="st" id="school-type-private" value="private"/>
-                        </c:when>
-                        <c:otherwise>
+                <div id="js-schoolTypes">
+                    <div>
+                        <c:choose>
+                            <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'public')}">
+                                <input type="checkbox" checked="checked" name="st" id="school-type-public" value="public"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" name="st" id="school-type-public" value="public"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <label for="school-type-public">Public</label>
+                    </div>
+                    <div>
+                        <c:choose>
+                            <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'charter')}">
+                                <input type="checkbox" checked="checked" name="st" id="school-type-charter" value="charter"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" name="st" id="school-type-charter" value="charter"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <label for="school-type-charter">Public Charter</label>
+                    </div>
+                    <c:if test="${!isDistrictBrowse}">
+                        <div>
                             <c:choose>
-                                <c:when test="${isDistrictBrowse}">
-                                    <input type="checkbox" name="st" id="school-type-private" value="private" disabled="true"/>
+                                <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'private')}">
+                                    <input type="checkbox" checked="checked" name="st" id="school-type-private" value="private"/>
                                 </c:when>
                                 <c:otherwise>
                                     <input type="checkbox" name="st" id="school-type-private" value="private"/>
                                 </c:otherwise>
                             </c:choose>
-                        </c:otherwise>
-                    </c:choose>
-                    <label for="school-type-private">Private</label>
+                            <label for="school-type-private">Private</label>
+                        </div>
+                    </c:if>
                 </div>
+                <!--<div id="js-affiliations">
+                    <div>
+                        <c:choose>
+                            <c:when test="${affiliation eq null or fn:length(affiliation) eq 0 or fn:contains(affiliation,'religious')}">
+                                <input type="checkbox" checked="checked" name="affiliation" id="affiliation-religious" value="religious"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" name="st" id="affiliation-religious" value="religious"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <label for="affiliation-religious">Religious</label>
+                    </div>
+                    <div>
+                        <c:choose>
+                            <c:when test="${affiliation eq null or fn:length(affiliation) eq 0 or fn:contains(affiliation,'nonsectarian')}">
+                                <input type="checkbox" checked="checked" name="affiliation" id="affiliation-nonsectarian" value="nonsectarian"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" name="st" id="affiliation-nonsectarian" value="nonsectarian"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <label for="affiliation-nonsectarian">Nonsectarian</label>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <div class="mod">
+            <div class="filter-hd">
+                <h5>STUDENT/TEACHER RATIO</h5>
+            </div>
+            <div class="filter-bd smallAlertText">
+                <form:select path="schoolSearchCommand.studentTeacherRatio" id="studentTeacherRatioSelect"  >
+                    <form:option value="" label="All"/>
+                    <form:option value="UNDER_10" label="Under 10"/>
+                    <form:option value="UNDER_15" label="Under 15"/>
+                    <form:option value="UNDER_20" label="Under 20"/>
+                    <form:option value="UNDER_25" label="Under 25"/>
+                </form:select>
             </div>
         </div>
 
-        <div id="js-affiliations">
-            <div>
-                <div>
-                    <c:choose>
-                        <c:when test="${affiliation eq null or fn:length(affiliation) eq 0 or fn:contains(affiliation,'religioius')}">
-                            <input type="checkbox" checked="checked" name="affiliation" id="affiliation-religious" value="religioius"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="checkbox" name="st" id="affiliation-religious" value="religioius"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <label for="affiliation-religious">Religious</label>
-                </div>
-                <div>
-                    <c:choose>
-                        <c:when test="${affiliation eq null or fn:length(affiliation) eq 0 or fn:contains(affiliation,'nonsectarian')}">
-                            <input type="checkbox" checked="checked" name="affiliation" id="affiliation-nonsectarian" value="nonsectarian"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="checkbox" name="st" id="affiliation-nonsectarian" value="nonsectarian"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <label for="affiliation-nonsectarian">Nonsectarian</label>
-                </div>
+        <div class="mod">
+            <div class="filter-hd">
+                <h5>SCHOOL SIZE</h5>
+            </div>
+            <div class="filter-bd smallAlertText">
+                <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect">
+                    <form:option value="" label="All"/>
+                    <form:option value="UNDER_20" label="Under 20"/>
+                    <form:option value="UNDER_50" label="Under 50"/>
+                    <form:option value="UNDER_200" label="Under 200"/>
+                    <form:option value="UNDER_500" label="Under 500"/>
+                    <form:option value="UNDER_1000" label="Under 1000"/>
+                </form:select>
             </div>
         </div>
+
+        <!--<div class="mod">
+            <div class="filter-hd">
+                <h5>PRESCHOOLS</h5>
+            </div>
+            <div class="filter-bd smallAlertText">
+                <select name="lowestAge" id="lowestAgeSelect">
+                    <option selected="${!lowestAge}">All</option>
+                    <option value="UNDER_ONE" selected="${lowestAge eq 'UNDER_ONE'}">Under one year</option>
+                    <option value="ONE" selected="${lowestAge eq 'ONE'}">One year</option>
+                    <option value="TWO" selected="${lowestAge eq 'TWO'}">Two years</option>
+                    <option value="THREE" selected="${lowestAge eq 'THREE'}">Three years</option>
+                    <option value="FOUR_AND_ABOVE">Four years and up</option>
+                </select>
+            </div>
+        </div>-->
 
         </form>
 

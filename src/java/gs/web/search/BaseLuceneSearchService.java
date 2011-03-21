@@ -11,23 +11,41 @@ import java.util.Map;
 public abstract class BaseLuceneSearchService<T extends ISearchResult> {
     protected static final String PUNCTUATION_AND_WHITESPACE_PATTERN = "^[\\p{Punct}\\s]*$";
 
-    private Map<String,String> _filters;
+    private Map<FieldFilter,String> _filters;
     
     {
-        _filters = new HashMap<String,String>();
+        _filters = new HashMap<FieldFilter,String>();
 
-        _filters.put("preschool", "school_grade_level:p");
-        _filters.put("elementary", "school_grade_level:e");
-        _filters.put("middle", "school_grade_level:m");
-        _filters.put("high", "school_grade_level:h");
+        _filters.put(FieldFilter.GradeLevelFilter.PRESCHOOL, "school_grade_level:p");
+        _filters.put(FieldFilter.GradeLevelFilter.ELEMENTARY, "school_grade_level:e");
+        _filters.put(FieldFilter.GradeLevelFilter.MIDDLE, "school_grade_level:m");
+        _filters.put(FieldFilter.GradeLevelFilter.HIGH, "school_grade_level:h");
 
-        _filters.put("private", "school_type:private");
-        _filters.put("public", "school_type:public");
-        _filters.put("charter", "school_type:charter");
+        _filters.put(FieldFilter.SchoolTypeFilter.PRIVATE, "school_type:private");
+        _filters.put(FieldFilter.SchoolTypeFilter.PUBLIC, "school_type:public");
+        _filters.put(FieldFilter.SchoolTypeFilter.CHARTER, "school_type:charter");
 
         //using the range * TO * prevents null/empty values from being included
-        _filters.put("religious", "+(!affiliation:Nonsectarian AND !affiliation:Non-Sectarian AND affiliation:[* TO *])");
-        _filters.put("nonsectarian", "+affiliation:(Non-Sectarian || Nonsectarian)");
+        _filters.put(FieldFilter.AffiliationFilter.RELIGIOUS, "+(-school_affiliation:Non-Sectarian OR school_affiliation:None)");
+        //http://stackoverflow.com/questions/1343794/searching-for-date-range-or-null-no-field-in-solr
+        _filters.put(FieldFilter.AffiliationFilter.NONSECTARIAN, "+(school_affiliation:Non-Sectarian OR school_affiliation:Nonsectarian OR school_affiliation:None)");
+
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_10, "school_student_teacher_ratio:[1 TO 10]");
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_15, "school_student_teacher_ratio:[1 TO 15]");
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_20, "school_student_teacher_ratio:[1 TO 20]");
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_25, "school_student_teacher_ratio:[1 TO 25]");
+
+        _filters.put(FieldFilter.SchoolSize.UNDER_20, "school_student_teacher_ratio:[1 TO 20]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_50, "school_student_teacher_ratio:[1 TO 50]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_200, "school_student_teacher_ratio:[1 TO 200]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_500, "school_student_teacher_ratio:[1 TO 500]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_1000, "school_student_teacher_ratio:[1 TO 1000]");
+
+        _filters.put(FieldFilter.LowestAgeAccepted.UNDER_ONE, "school_student_lowest_age_accepted:[0 TO 0]");
+        _filters.put(FieldFilter.LowestAgeAccepted.ONE, "school_student_lowest_age_accepted:[0 TO 1]");
+        _filters.put(FieldFilter.LowestAgeAccepted.TWO, "school_student_lowest_age_accepted:[0 TO 2]");
+        _filters.put(FieldFilter.LowestAgeAccepted.THREE, "school_student_lowest_age_accepted:[0 TO 3]");
+        _filters.put(FieldFilter.LowestAgeAccepted.FOUR_AND_ABOVE, "school_student_lowest_age_accepted:[0 TO *]");
     }
 
     static String padCommasAndNormalizeExtraSpaces(String s) {
@@ -57,15 +75,19 @@ public abstract class BaseLuceneSearchService<T extends ISearchResult> {
     }
 
     public String[] createFilterQueries(List<FilterGroup> filterGroups) {
-        String[] subFilters = new String[filterGroups.size()];
+        List<String> subFilters = new ArrayList<String>();
 
         int j = 0;
 
         for (FilterGroup filterGroup : filterGroups) {
+            if (filterGroup == null || filterGroup.getFieldFilters() == null || filterGroup.getFieldFilters().length == 0) {
+                continue;
+            }
+            
             FieldFilter[] filters = filterGroup.getFieldFilters();
             String[] filtersToAdd = new String[filters.length];
             for (int i = 0; i < filters.length; i++) {
-                String filterToAdd = _filters.get(filters[i].getFilterName());
+                String filterToAdd = _filters.get(filters[i]);
                 filtersToAdd[i] = filterToAdd;
             }
 
@@ -77,10 +99,10 @@ public abstract class BaseLuceneSearchService<T extends ISearchResult> {
                 }
                 f += filterToAdd;
             }
-            subFilters[j++] = "+(" + f + ")";
+            subFilters.add("+(" + f + ")");
         }
 
-        return subFilters;
+        return subFilters.toArray(new String[0]);
     }
 
     public SearchResultsPage<T> search(String queryString) throws SearchException {

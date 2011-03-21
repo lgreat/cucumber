@@ -153,11 +153,15 @@ class SchoolSearchCommandWithFields {
         return _command.getAffiliations();
     }
 
-    public void setAffiliations(String[] affiliations) {
-        _command.setAffiliations(affiliations);
-    }
-
     public boolean hasAffiliations() {
         return _command.hasAffiliations();
+    }
+
+    public String getStudentTeacherRatio() {
+        return _command.getStudentTeacherRatio();
+    }
+
+    public String getSchoolSize() {
+        return _command.getSchoolSize();
     }
 }
