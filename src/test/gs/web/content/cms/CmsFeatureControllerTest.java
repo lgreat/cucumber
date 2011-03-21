@@ -100,8 +100,6 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
     }
 
     public void testShowContextualAds() {
-        getSessionContext().setAbVersion("b");
-
         CmsFeature feature = getSampleFeature();
         feature.setContentKey(ContentKey.valueOf("Article#123"));
         CmsCategory first = new CmsCategory();
@@ -112,13 +110,12 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         second.setId(CmsConstants.COLLEGE_PREP_CATEGORY_ID);
         List<CmsCategory> breadcrumbs = Arrays.asList(first, second);
         feature.setPrimaryKategoryBreadcrumbs(breadcrumbs);
-        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b", "", false, false));
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "a", "", false, false));
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, "", false, false));
 
         feature.setContentKey(ContentKey.valueOf("ArticleSlideshow#123"));
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b", "", false, false));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "", false, false));
         feature.setContentKey(ContentKey.valueOf("AskTheExperts#123"));
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b", "", false, false));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "", false, false));
 
         feature.setContentKey(ContentKey.valueOf("Article#123"));
         first = new CmsCategory();
@@ -129,7 +126,7 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         second.setId(CmsConstants.COLLEGE_PREP_CATEGORY_ID);
         breadcrumbs = Arrays.asList(first, second);
         feature.setPrimaryKategoryBreadcrumbs(breadcrumbs);
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b", "", false, false));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "", false, false));
 
         first = new CmsCategory();
         first.setName("First, with a comma");
@@ -141,21 +138,21 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         List<List<CmsCategory>> secondaryKategoryBreadcrumbs = new ArrayList<List<CmsCategory>>();
         secondaryKategoryBreadcrumbs.add(breadcrumbs);
         feature.setSecondaryKategoryBreadcrumbs(secondaryKategoryBreadcrumbs);
-        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b", "", false, false));
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, "", false, false));
 
         feature.setContentKey(ContentKey.valueOf("Article#123"));
-        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b", null, false, false));
-        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b", "", false, false));
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b", "123", false, false));
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, null, false, false));
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, "", false, false));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "123", false, false));
         feature.setContentKey(ContentKey.valueOf("Article#123"));
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b", "890,123,456", false, false));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "890,123,456", false, false));
         feature.setContentKey(ContentKey.valueOf("Article#123"));
-        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b", "890, 123, 456", false, false));
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, "890, 123, 456", false, false));
         feature.setContentKey(ContentKey.valueOf("Article#12"));
-        assertTrue(CmsFeatureController.getShowContextualAds(feature, "b", "890,123,456", false, false));
+        assertTrue(CmsFeatureController.getShowContextualAds(feature, "890,123,456", false, false));
 
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b", "890,123,456", true, false));
-        assertFalse(CmsFeatureController.getShowContextualAds(feature, "b", "890,123,456", false, true));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "890,123,456", true, false));
+        assertFalse(CmsFeatureController.getShowContextualAds(feature, "890,123,456", false, true));
     }
 
     public void testOmnitureTracking() {

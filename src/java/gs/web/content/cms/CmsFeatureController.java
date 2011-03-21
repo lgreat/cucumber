@@ -219,7 +219,7 @@ public class CmsFeatureController extends AbstractController {
         boolean isAdFree = pageHelper.isAdFree();
         boolean isCobrand = sessionContext.isCobranded();
         if (sessionContext != null) {
-            model.put("showContextualAds", getShowContextualAds(feature, sessionContext.getABVersion(), contentExcludes, isAdFree, isCobrand));
+            model.put("showContextualAds", getShowContextualAds(feature, contentExcludes, isAdFree, isCobrand));
         }
 
         // note: "referer" is a typo in the HTTP spec -- don't fix it here
@@ -280,7 +280,7 @@ public class CmsFeatureController extends AbstractController {
         //return new ModelAndView(getViewName(feature), model);
     }
 
-    static boolean getShowContextualAds(CmsFeature feature, String abVersion, String contentExcludes, boolean isAdFree, boolean isCobrand) {
+    static boolean getShowContextualAds(CmsFeature feature, String contentExcludes, boolean isAdFree, boolean isCobrand) {
         if (isAdFree || isCobrand) {
             return false;
         }
@@ -296,8 +296,7 @@ public class CmsFeatureController extends AbstractController {
         }
         return CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) &&
                 !excludeIds.contains(String.valueOf(feature.getContentKey().getIdentifier())) &&
-                CollectionUtils.containsAny(CATEGORIES_FOR_CONTEXTUAL_ADS, breadcrumbCategoryIds) &&
-                "b".equals(abVersion);
+                CollectionUtils.containsAny(CATEGORIES_FOR_CONTEXTUAL_ADS, breadcrumbCategoryIds);
     }
 
     protected UrlBuilder get301Redirect(Long contentId) {
