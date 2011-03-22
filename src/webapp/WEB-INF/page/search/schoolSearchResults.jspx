@@ -472,6 +472,7 @@
               schoolLevel="${omnitureSchoolLevel}"
               sortSelection="${omnitureSortSelection}"
               nearbySearchZipCode="${nearbySearchZipCode}"
+              resultsPerPage="${omnitureResultsPerPage}"
         />
 
 </jsp:root>

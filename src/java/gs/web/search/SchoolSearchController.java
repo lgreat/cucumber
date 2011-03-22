@@ -94,6 +94,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_OMNITURE_SCHOOL_TYPE = "omnitureSchoolType";
     public static final String MODEL_OMNITURE_SCHOOL_LEVEL = "omnitureSchoolLevel";
     public static final String MODEL_OMNITURE_SORT_SELECTION = "omnitureSortSelection";
+    public static final String MODEL_OMNITURE_RESULTS_PER_PAGE = "omnitureResultsPerPage";
 
     public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
     public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
@@ -380,6 +381,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
         model.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(levelCode));
         model.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sort));
+        model.put(MODEL_OMNITURE_RESULTS_PER_PAGE, getOmnitureResultsPerPage(schoolSearchCommand.getPageSize(), searchResultsPage.getTotalResults()));
 
         if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
@@ -641,6 +643,24 @@ public class SchoolSearchController extends AbstractCommandController implements
                 return null;
             }
         }
+    }
+
+    protected static String getOmnitureResultsPerPage(int pageSize, int totalResults) {
+        String resultsPerPage = "";
+        // ignore pageSize = 25 per GS-11563
+        switch (pageSize) {
+            case 50:
+                resultsPerPage = "50";
+                break;
+            case 100:
+                if (totalResults <= 100) {
+                    resultsPerPage = "100";
+                } else {
+                    resultsPerPage = "All";
+                }
+                break;
+        }
+        return resultsPerPage;
     }
 
     //-------------------------------------------------------------------------

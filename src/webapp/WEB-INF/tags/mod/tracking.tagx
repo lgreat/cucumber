@@ -104,6 +104,11 @@
         name="nearbySearchZipCode" type="java.lang.String"
         description="Zip code for a nearby search"
         required="false"/>
+    <!-- See GS-11563 for resultsPerPage -->
+    <jsp:directive.attribute
+        name="resultsPerPage" type="java.lang.String"
+        description="Results per page for browse/search results"
+        required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -206,6 +211,7 @@
             s.prop30 = clickCapture.getProp(30,"${compareNumSchools}");
             s.prop31 = clickCapture.getProp(31,"${schoolGSRating}");
             s.prop32 = clickCapture.getProp(32,"${nearbySearchZipCode}");
+            s.prop33 = clickCapture.getProp(33,"${resultsPerPage}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

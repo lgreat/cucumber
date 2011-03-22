@@ -573,6 +573,32 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertFalse("Result should be escaped.", StringUtils.contains(result, '<'));
     }
 
+    public void testGetOmnitureResultsPerPage() {
+        int pageSize = 25;
+        int totalResults = 100;
+        assertEquals("", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+
+        pageSize = 50;
+        totalResults = 100;
+        assertEquals("50", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+
+        pageSize = 100;
+        totalResults = 100;
+        assertEquals("100", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+
+        pageSize = 25;
+        totalResults = 101;
+        assertEquals("", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+
+        pageSize = 50;
+        totalResults = 101;
+        assertEquals("50", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+
+        pageSize = 100;
+        totalResults = 101;
+        assertEquals("All", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+    }
+
     public void testAddPagingDataToModel() {
         int start = 11;
         int pageSize = 3;
