@@ -102,7 +102,7 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
 
             //if a starting result is requested (via paging) that is greater than total number of results
             //search again with start of zero
-            if (query.getStart() > totalResults) {
+            if (query.getStart() >= totalResults) {
                 query.setStart(0);
                 response = server.query(query);
                 totalResults = (int) response.getResults().getNumFound();
