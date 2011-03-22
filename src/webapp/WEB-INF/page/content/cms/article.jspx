@@ -390,21 +390,7 @@
                 <c:when test="${type eq 'article'}">
                     <!-- the currentPage variable might contain a sidebar inside <div id="cmsArticleSidebar">...</div>;
                   see CmsFeatureController.java -->
-                    <!--${currentPage}-->
-
-                    <object width="480" height="411" id="limelight_player_167258o"
-                            classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
-                        <param name="movie" value="http://assets.delvenetworks.com/player/loader.swf"/>
-                        <param name="wmode" value="window"/>
-                        <param name="allowScriptAccess" value="always"/>
-                        <param name="allowFullScreen" value="true"/>
-                        <param name="flashvars"
-                               value="mediaId=3fdb3fc920fc458e94372149b65c96a3&amp;playerForm=DelvePlayer&amp;adConfigurationChannelId=4d2ffc1969c74ae0bc356bce29422461"/>
-                        <embed src="http://assets.delvenetworks.com/player/loader.swf" name="limelight_player_167258e"
-                               wmode="window" width="480" height="411" allowScriptAccess="always" allowFullScreen="true"
-                               type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer"
-                               flashvars="mediaId=3fdb3fc920fc458e94372149b65c96a3&amp;playerForm=DelvePlayer&amp;adConfigurationChannelId=4d2ffc1969c74ae0bc356bce29422461"></embed>
-                    </object>
+                    ${currentPage}
                 </c:when>
                 <c:when test="${type eq 'askTheExperts'}">
                     <div id="cmsAskTheExpertsAnswer"><h3 class="text-uppercase">Answer:</h3></div>
