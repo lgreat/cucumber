@@ -242,7 +242,9 @@ public class SchoolSearchController extends AbstractCommandController implements
             filterGroups.add(schoolSizeGroup);
         }
 
-        FieldSort sort = schoolSearchCommand.getSortBy() == null ? ((isCityBrowse || isDistrictBrowse) && !"true".equals(request.getParameter("sortChanged")) ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(schoolSearchCommand.getSortBy());
+        boolean sortChanged = "true".equals(request.getParameter("sortChanged"));
+
+        FieldSort sort = schoolSearchCommand.getSortBy() == null ? ((isCityBrowse || isDistrictBrowse) && !sortChanged ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(schoolSearchCommand.getSortBy());
         if (sort != null) {
             schoolSearchCommand.setSortBy(sort.name());
         } else {
@@ -382,7 +384,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_OMNITURE_QUERY, omnitureQuery);
         model.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
         model.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(levelCode));
-        model.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sort));
+        model.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sortChanged ? sort : null));
         model.put(MODEL_OMNITURE_RESULTS_PER_PAGE, getOmnitureResultsPerPage(schoolSearchCommand.getPageSize(), searchResultsPage.getTotalResults()));
 
         if (schoolSearchCommand.isAjaxRequest()) {
