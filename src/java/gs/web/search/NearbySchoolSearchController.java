@@ -55,7 +55,7 @@ public class NearbySchoolSearchController extends AbstractCommandController {
                 String[] gradeLevels = nearbyCommand.getGradeLevels();
                 if (gradeLevels.length == 1) {
                     LevelCode levelCode = LevelCode.createLevelCode(gradeLevels[0]);
-                    if (levelCode != null) {
+                    if (levelCode != null && !levelCode.hasNoLevelCodes()) {
                         selectedGradeLevel = levelCode.getLowestLevel().getName();
                     }
                 }

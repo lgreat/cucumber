@@ -208,6 +208,7 @@
     <school:findOrCompare
             isHomePage="${true}"
             nearbySearchRedirectUrl="/"
+            levelCode="e"
             />
 
     <gsweb:adTagGenerator position="Homepage_House_Ad_328x150"/>

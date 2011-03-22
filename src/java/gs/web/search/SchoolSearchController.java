@@ -186,7 +186,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                 String[] gradeLevels = schoolSearchCommand.getGradeLevels();
                 if (gradeLevels.length == 1) {
                     LevelCode levelCode = LevelCode.createLevelCode(gradeLevels[0]);
-                    if (levelCode != null) {
+                    if (levelCode != null && !levelCode.hasNoLevelCodes()) {
                         nearbySearchTitlePrefix = levelCode.getLowestLevel().getLongName() + " schools";
                     }
                 }
