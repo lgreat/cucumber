@@ -119,6 +119,8 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         FilterFactory filterFactory = new FilterFactory();
 
+        boolean foundDidYouMeanSuggestions = false;
+
         if (e.hasErrors()) {
             handleErrors(e, schoolSearchCommand);
         }
@@ -230,12 +232,12 @@ public class SchoolSearchController extends AbstractCommandController implements
             filterGroups.add(affiliationGroup);
         }
 
-        if (commandAndFields.getStudentTeacherRatio() != null) {
+        if (!StringUtils.isEmpty(commandAndFields.getStudentTeacherRatio())) {
             FilterGroup studentTeacherRatioGroup = filterFactory.createFilterGroup(FieldFilter.StudentTeacherRatio.class, new String[] {commandAndFields.getStudentTeacherRatio()});
             filterGroups.add(studentTeacherRatioGroup);
         }
 
-        if (commandAndFields.getSchoolSize() != null) {
+        if (!StringUtils.isEmpty(commandAndFields.getSchoolSize())) {
             FilterGroup schoolSizeGroup = filterFactory.createFilterGroup(FieldFilter.SchoolSize.class, new String[] {commandAndFields.getSchoolSize()});
             filterGroups.add(schoolSizeGroup);
         }
@@ -368,7 +370,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_OMNITURE_PAGE_NAME,
                 getOmniturePageName(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
                         isCityBrowse, isDistrictBrowse,
-                        citySearchResults, districtSearchResults)
+                        citySearchResults, districtSearchResults, foundDidYouMeanSuggestions)
         );
         model.put(MODEL_OMNITURE_HIERARCHY,
                 getOmnitureHierarchy(schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
@@ -530,7 +532,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected static String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults,
                                                 boolean isCityBrowse, boolean isDistrictBrowse,
-                                                List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
+                                                List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults, boolean foundDidYouMeanSuggestions) {
         String pageName = "";
 
         String paramMap = request.getParameter("map");
@@ -555,7 +557,11 @@ public class SchoolSearchController extends AbstractCommandController implements
                 if (hasDistrictResults) {
                     pageNamePartTwo = "District Only";
                 } else {
-                    pageNamePartTwo = "noresults";
+                    if (foundDidYouMeanSuggestions) {
+                        pageNamePartTwo = "noresults_Didyoumean";
+                    } else {
+                        pageNamePartTwo = "noresults";
+                    }
                 }
             }
             pageName = "School Search:" + pageNamePartTwo;
