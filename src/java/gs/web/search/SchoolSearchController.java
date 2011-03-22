@@ -654,9 +654,9 @@ public class SchoolSearchController extends AbstractCommandController implements
                 break;
             case 100:
                 if (totalResults <= 100) {
-                    resultsPerPage = "100";
-                } else {
                     resultsPerPage = "All";
+                } else {
+                    resultsPerPage = "100";
                 }
                 break;
         }

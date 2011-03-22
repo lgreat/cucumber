@@ -584,7 +584,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         pageSize = 100;
         totalResults = 100;
-        assertEquals("100", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+        assertEquals("All", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
 
         pageSize = 25;
         totalResults = 101;
@@ -596,7 +596,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         pageSize = 100;
         totalResults = 101;
-        assertEquals("All", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
+        assertEquals("100", SchoolSearchController.getOmnitureResultsPerPage(pageSize, totalResults));
     }
 
     public void testAddPagingDataToModel() {
