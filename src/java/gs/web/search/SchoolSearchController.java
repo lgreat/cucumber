@@ -318,7 +318,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             try {
                 Map<IFieldConstraint,String> districtConstraints = new HashMap<IFieldConstraint,String>();
                 districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
-                SearchResultsPage<IDistrictSearchResult> districtPage  = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), districtConstraints, null, null, 0, 33);
+                SearchResultsPage<IDistrictSearchResult> districtPage  = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), districtConstraints, null, null, 0, 11);
                 districtSearchResults = districtPage.getSearchResults();
             } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
