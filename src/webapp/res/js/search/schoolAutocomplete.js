@@ -10,7 +10,7 @@ GS.attachSchoolAutocomplete = function(domId) {
                 return searchStateSelect.val();
             }
         },
-        minChars: 4,
+        minChars: 3,
         selectFirst: false
     });
 
