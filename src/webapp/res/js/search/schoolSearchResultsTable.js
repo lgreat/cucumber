@@ -414,6 +414,23 @@ GS.search.FilterTracking = function() {
             }
         }
     };
+
+    this.trackSelectBox = function(cssId) {
+        var $selectBox = jQuery('#' + cssId);
+        var value = $selectBox.val();
+        var customLinkName;
+        if (cssId === 'schoolSizeSelect') {
+            customLinkName = 'Search_filter_size_' + value.toLowerCase();
+        } else if (cssId === 'studentTeacherRatioSelect') {
+            customLinkName = 'Search_filter_stratio_' + value.toLowerCase();
+        }
+        
+        if (customLinkName != undefined) {
+            if (s.tl) {
+                s.tl(true, 'o', customLinkName);
+            }
+        }
+    }
 };
 
 jQuery(function() {
@@ -428,7 +445,7 @@ jQuery(function() {
 
     jQuery('#topicbarGS select').change(function() {
         var cssId = jQuery(this).attr('id');
-        GS.search.filterTracking.track(cssId);
+        GS.search.filterTracking.trackSelectBox(cssId);
         GS.search.schoolSearchResultsTable.update();
     });
 
