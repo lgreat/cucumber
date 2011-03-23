@@ -291,6 +291,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
                         if(didYouMeanResultsPage != null && didYouMeanResultsPage.getTotalResults() > 0) {
                             model.put(MODEL_DID_YOU_MEAN, didYouMean);
+                            foundDidYouMeanSuggestions = true;
                         }
                     }
                 }
