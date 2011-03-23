@@ -2570,6 +2570,12 @@ Viewport: the defines width and height of each icon
     color: white;
 }
 
+.filter-hd h6 {
+    padding: 3px 10px;
+    font: bold 10px/1.1 Arial, Helvetica, sans-serif;
+    color: white;
+}
+
 .filter-hd span {
     color: white;
     padding-right: 10px;

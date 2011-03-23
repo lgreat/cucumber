@@ -355,7 +355,7 @@
         </div>
         <div class="mod">
             <div class="filter-hd">
-                <h5>STUDENT/TEACHER RATIO</h5>
+                <h6>STUDENT/TEACHER RATIO</h6>
             </div>
             <div class="filter-bd smallAlertText">
                 <form:select path="schoolSearchCommand.studentTeacherRatio" id="studentTeacherRatioSelect"  >
