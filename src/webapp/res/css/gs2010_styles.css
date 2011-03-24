@@ -8871,6 +8871,20 @@ body.ie8 #savvysource span.arrow-right {
 /* =12p parent review landing page
 -------------------------------------------------------------------------------------------*/
 
+#morganStanleyHeader {
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+#morganStanleyHeader img {
+    clear: both;
+}
+
+#morganStanleyHeader .text {
+    font: 14.45px / 1.3 Arial, Helvetica, sans-serif;
+    color: #555;
+}
+
 #addParentReviewForm .reviewText {
     width: 100%;
     height: 120px;

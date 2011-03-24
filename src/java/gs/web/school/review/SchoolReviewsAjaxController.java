@@ -254,7 +254,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         User user;
         user = new User();
         user.setEmail(reviewCommand.getEmail());
-        user.setHow("review_only");
+        String how;
+        if ("morganstanley".equals(reviewCommand.getHow())) {
+            how = "morganstanley";
+        } else {
+            how = "review_only";
+        }
+        user.setHow(how);
         getUserDao().saveUser(user);
         // Because of hibernate caching, it's possible for a list_active record
         // (with list_member id) to be commited before the list_member record is

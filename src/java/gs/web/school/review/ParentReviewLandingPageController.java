@@ -21,7 +21,9 @@ import java.util.*;
 public class ParentReviewLandingPageController extends AbstractController {
 
     public static final String BEAN_ID = "parentReview";
+    private static final String MODEL_MORGAN_STANLEY = "morganStanley";
     private String _viewName;
+    private boolean _morganStanley = false;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String,Object> model = new HashMap<String,Object>();
@@ -33,6 +35,7 @@ public class ParentReviewLandingPageController extends AbstractController {
                 model.put("validUser", user);
             }
         }
+        model.put(MODEL_MORGAN_STANLEY, isMorganStanley());
         return new ModelAndView(getViewName(), model);
     }
 
@@ -44,4 +47,11 @@ public class ParentReviewLandingPageController extends AbstractController {
         _viewName = viewName;
     }
 
+    public boolean isMorganStanley() {
+        return _morganStanley;
+    }
+
+    public void setMorganStanley(boolean morganStanley) {
+        _morganStanley = morganStanley;
+    }
 }

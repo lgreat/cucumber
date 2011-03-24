@@ -2213,14 +2213,19 @@
         </property>
     </bean>
 
-    <!--<bean name="/morgan-stanley/"
-          please copy bean definition used for /school/parentReview.page (landing page)
+    <bean name="/morgan-stanley/"
+          class="gs.web.school.review.ParentReviewLandingPageController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/parentReview</value>
+        </property>
+        <property name="morganStanley" value="true"/>
     </bean>
     <bean name="/morgan-stanley"
           class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
         <property name="redirectPath" value="/morgan-stanley/"/>
-    </bean>-->
+    </bean>
 
     <bean id="apiAccountValidator" class="gs.web.api.ApiAccountCommandValidator"
           autowire="byName" lazy-init="true"/>

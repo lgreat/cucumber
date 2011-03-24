@@ -16,6 +16,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private String _client;
     private String _output;
     private String jobTitle;
+    private String _how;
 
     private CategoryRating _teacher = CategoryRating.DECLINE_TO_STATE;
     private CategoryRating _parent = CategoryRating.DECLINE_TO_STATE;
@@ -410,5 +411,13 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
+    }
+
+    public String getHow() {
+        return _how;
+    }
+
+    public void setHow(String how) {
+        _how = how;
     }
 }
