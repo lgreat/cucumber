@@ -8,7 +8,8 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:search="http://java.sun.com/jsp/jstl/core" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+          xmlns:search="http://java.sun.com/jsp/jstl/core" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
 <jsp:directive.tag import="gs.web.util.PageHelper"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
@@ -135,11 +136,20 @@
                                          styleId="stateSelector"
                             />
                     <button type="submit" class="button-1">Search</button>
-                    <script type="text/javascript">
-                        jQuery(function() {
-                            GS.attachSchoolAutocomplete("qNew");
-                        });
-                    </script>
+                    <variant:b>
+                        <script type="text/javascript">
+                            jQuery(function() {
+                                GS.attachSchoolAutocomplete("qNew");
+
+                                jQuery('#srch2 label').click(function() {
+                                    GS.detachSchoolAutocomplete("qNew");
+                                });
+                                jQuery('#srch1 label').click(function() {
+                                    GS.attachSchoolAutocomplete("qNew");
+                                });
+                            });
+                        </script>
+                    </variant:b>
                 </fieldset>
                 <fieldset id="radBtns">
                     <gsml:radio name="c" styleId="topnavSchoolRadio" value="school" onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
