@@ -353,33 +353,35 @@
                 </div>-->
             </div>
         </div>
-        <div class="mod">
-            <div class="filter-hd">
-                <h6>STUDENT/TEACHER RATIO</h6>
-            </div>
-            <div class="filter-bd smallAlertText">
-                <form:select path="schoolSearchCommand.studentTeacherRatio" id="studentTeacherRatioSelect"  >
-                    <form:option value="" label="All"/>
-                    <form:option value="UNDER_10" label="Under 10"/>
-                    <form:option value="UNDER_15" label="Under 15"/>
-                    <form:option value="UNDER_20" label="Under 20"/>
-                    <form:option value="UNDER_25" label="Under 25"/>
-                </form:select>
-            </div>
-        </div>
-
+        
         <div class="mod">
             <div class="filter-hd">
                 <h5>SCHOOL SIZE</h5>
             </div>
             <div class="filter-bd smallAlertText">
                 <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect">
-                    <form:option value="" label="All"/>
+                    <form:option value="All" label="All"/>
                     <form:option value="UNDER_20" label="Under 20"/>
                     <form:option value="UNDER_50" label="Under 50"/>
                     <form:option value="UNDER_200" label="Under 200"/>
                     <form:option value="UNDER_500" label="Under 500"/>
                     <form:option value="UNDER_1000" label="Under 1000"/>
+                    <form:option value="OVER_1000" label="1000 or more"/>
+                </form:select>
+            </div>
+        </div>
+
+        <div class="mod">
+            <div class="filter-hd">
+                <h5>STUDENTS PER TEACHER</h5>
+            </div>
+            <div class="filter-bd smallAlertText">
+                <form:select path="schoolSearchCommand.studentTeacherRatio" id="studentTeacherRatioSelect"  >
+                    <form:option value="All" label="All"/>
+                    <form:option value="UNDER_10" label="Under 10"/>
+                    <form:option value="UNDER_15" label="Under 15"/>
+                    <form:option value="UNDER_20" label="Under 20"/>
+                    <form:option value="UNDER_25" label="Under 25"/>
                 </form:select>
             </div>
         </div>

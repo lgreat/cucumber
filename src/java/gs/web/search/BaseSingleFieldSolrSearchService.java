@@ -96,6 +96,7 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
         try {
             SolrServer server = getSolrConnectionManager().getReadOnlySolrServer();
 
+            _log.debug("performing search with query " + query.toString());
             response = server.query(query);
 
             totalResults = (int) response.getResults().getNumFound();
@@ -107,6 +108,8 @@ public abstract class BaseSingleFieldSolrSearchService<RESULT_TYPE extends ISear
                 response = server.query(query);
                 totalResults = (int) response.getResults().getNumFound();
             }
+
+            _log.debug("got " + totalResults + " Solr results from previous query");
 
             results = getResultBeans(response);
 

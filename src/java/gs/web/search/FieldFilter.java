@@ -15,7 +15,8 @@ public interface FieldFilter {
         UNDER_50,
         UNDER_200,
         UNDER_500,
-        UNDER_1000
+        UNDER_1000,
+        OVER_1000
     }
 
     public enum StudentTeacherRatio implements FieldFilter {

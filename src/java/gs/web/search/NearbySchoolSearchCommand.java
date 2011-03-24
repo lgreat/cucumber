@@ -166,4 +166,32 @@ public class NearbySchoolSearchCommand {
     public boolean isNearbySearch() {
         return _schoolSearchCommand.isNearbySearch();
     }
+
+    public void setStudentTeacherRatio(String studentTeacherRatio) {
+        _schoolSearchCommand.setStudentTeacherRatio(studentTeacherRatio);
+    }
+
+    public String getStudentTeacherRatio() {
+        return _schoolSearchCommand.getStudentTeacherRatio();
+    }
+
+    public String[] getAffiliations() {
+        return _schoolSearchCommand.getAffiliations();
+    }
+
+    public void setAffiliations(String[] affiliations) {
+        _schoolSearchCommand.setAffiliations(affiliations);
+    }
+
+    public boolean hasAffiliations() {
+        return _schoolSearchCommand.hasAffiliations();
+    }
+
+    public String getSchoolSize() {
+        return _schoolSearchCommand.getSchoolSize();
+    }
+
+    public void setSchoolSize(String schoolSize) {
+        _schoolSearchCommand.setSchoolSize(schoolSize);
+    }
 }

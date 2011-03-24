@@ -30,16 +30,17 @@ public abstract class BaseLuceneSearchService<T extends ISearchResult> {
         //http://stackoverflow.com/questions/1343794/searching-for-date-range-or-null-no-field-in-solr
         _filters.put(FieldFilter.AffiliationFilter.NONSECTARIAN, "+(school_affiliation:Non-Sectarian OR school_affiliation:Nonsectarian OR school_affiliation:None)");
 
-        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_10, "school_student_teacher_ratio:[1 TO 10]");
-        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_15, "school_student_teacher_ratio:[1 TO 15]");
-        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_20, "school_student_teacher_ratio:[1 TO 20]");
-        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_25, "school_student_teacher_ratio:[1 TO 25]");
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_10, "school_student_teacher_ratio:[1 TO 9]");
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_15, "school_student_teacher_ratio:[1 TO 14]");
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_20, "school_student_teacher_ratio:[1 TO 19]");
+        _filters.put(FieldFilter.StudentTeacherRatio.UNDER_25, "school_student_teacher_ratio:[1 TO 24]");
 
-        _filters.put(FieldFilter.SchoolSize.UNDER_20, "school_student_teacher_ratio:[1 TO 20]");
-        _filters.put(FieldFilter.SchoolSize.UNDER_50, "school_student_teacher_ratio:[1 TO 50]");
-        _filters.put(FieldFilter.SchoolSize.UNDER_200, "school_student_teacher_ratio:[1 TO 200]");
-        _filters.put(FieldFilter.SchoolSize.UNDER_500, "school_student_teacher_ratio:[1 TO 500]");
-        _filters.put(FieldFilter.SchoolSize.UNDER_1000, "school_student_teacher_ratio:[1 TO 1000]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_20, "school_student_teacher_ratio:[1 TO 19]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_50, "school_student_teacher_ratio:[1 TO 49]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_200, "school_student_teacher_ratio:[1 TO 199]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_500, "school_student_teacher_ratio:[1 TO 499]");
+        _filters.put(FieldFilter.SchoolSize.UNDER_1000, "school_student_teacher_ratio:[1 TO 999]");
+        _filters.put(FieldFilter.SchoolSize.OVER_1000, "school_student_teacher_ratio:[1000 TO *]");
 
         _filters.put(FieldFilter.LowestAgeAccepted.UNDER_ONE, "school_student_lowest_age_accepted:[0 TO 0]");
         _filters.put(FieldFilter.LowestAgeAccepted.ONE, "school_student_lowest_age_accepted:[0 TO 1]");
