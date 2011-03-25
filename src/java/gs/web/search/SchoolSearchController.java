@@ -376,8 +376,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         model.put(MODEL_OMNITURE_PAGE_NAME,
                 getOmniturePageName(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
-                        isCityBrowse, isDistrictBrowse,
-                        citySearchResults, districtSearchResults, foundDidYouMeanSuggestions)
+                        isCityBrowse, isDistrictBrowse, foundDidYouMeanSuggestions)
         );
         model.put(MODEL_OMNITURE_HIERARCHY,
                 getOmnitureHierarchy(schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
@@ -539,12 +538,10 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected static String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults,
                                                 boolean isCityBrowse, boolean isDistrictBrowse,
-                                                List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults, boolean foundDidYouMeanSuggestions) {
+                                                boolean foundDidYouMeanSuggestions) {
         String pageName = "";
 
         String paramMap = request.getParameter("map");
-        boolean hasCityResults = (citySearchResults != null && citySearchResults.size() > 0);
-        boolean hasDistrictResults = (districtSearchResults != null && districtSearchResults.size() > 0);
 
         if (isCityBrowse) {
             pageName = "schools:city:" + currentPage + ("1".equals(paramMap) ? ":map" : "");
@@ -554,22 +551,10 @@ public class SchoolSearchController extends AbstractCommandController implements
             pageName = "School Search:Page" + currentPage;
         } else {
             String pageNamePartTwo = null;
-            if (hasCityResults) {
-                if (hasDistrictResults) {
-                    pageNamePartTwo = "City and District only";
-                } else {
-                    pageNamePartTwo = "City only";
-                }
+            if (foundDidYouMeanSuggestions) {
+                pageNamePartTwo = "noresults_Didyoumean";
             } else {
-                if (hasDistrictResults) {
-                    pageNamePartTwo = "District Only";
-                } else {
-                    if (foundDidYouMeanSuggestions) {
-                        pageNamePartTwo = "noresults_Didyoumean";
-                    } else {
-                        pageNamePartTwo = "noresults";
-                    }
-                }
+                pageNamePartTwo = "noresults";
             }
             pageName = "School Search:" + pageNamePartTwo;
         }
