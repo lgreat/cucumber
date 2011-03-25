@@ -96,7 +96,7 @@ public class SchoolSearchServiceSolrImpl extends BaseSingleFieldSolrSearchServic
         tokens = (String[]) ArrayUtils.remove(tokens, tokens.length - 1);
 
         //join all the completed words from beginning of the string
-        String completedPhrase = StringUtils.join(tokens);
+        String completedPhrase = StringUtils.join(tokens, ' ');
 
         String q = "";
         if (completedPhrase != null && completedPhrase.length() > 0) {
