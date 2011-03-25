@@ -27,7 +27,7 @@ public class SchoolAutocompleteController {
     @RequestMapping(method= RequestMethod.GET)
     public void handleRequestInternal(@RequestParam("q") String searchString, @RequestParam("state") String state, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        List<String> suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 6);
+        List<String> suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 150);
 
         response.setContentType("application/json");
         cacheInterceptor.setCacheHeaders(response);

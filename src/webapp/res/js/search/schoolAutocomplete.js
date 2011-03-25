@@ -12,7 +12,10 @@ GS.attachSchoolAutocomplete = function(domId) {
         },
         minChars: 3,
         selectFirst: false,
-        cacheLength: 0
+        cacheLength: 150,
+        matchSubset: true,
+        max: 6,
+        autoFill: true
     });
 
     searchStateSelect.blur(function() {
