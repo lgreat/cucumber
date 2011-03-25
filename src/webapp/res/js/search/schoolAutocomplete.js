@@ -11,7 +11,8 @@ GS.attachSchoolAutocomplete = function(domId) {
             }
         },
         minChars: 3,
-        selectFirst: false
+        selectFirst: false,
+        cacheLength: 0
     });
 
     searchStateSelect.blur(function() {
