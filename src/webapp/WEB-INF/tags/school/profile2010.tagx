@@ -374,7 +374,7 @@
 
             </div><!-- end schoolProfileTabsWrapper -->
 
-            <!-- Display subnav iff:
+            <!-- Display subnav if:
                     * school stats tab is selected in main nav
                     and any of the following
                     * school is public or charter
@@ -385,9 +385,9 @@
                             and (school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
                             and (school.levelCode ne 'p' or (requestScope.hasSurveyData and requestScope.hasSchoolStats))}">
                     <div id="schoolProfileSubTabsWrapper">
-                        <ul id="schoolProfileSubTabs" class=".smallText1-333">
+                        <ul id="schoolProfileSubTabs" class="text3">
                             <c:if test="${requestScope.hasTestScores}">
-                                <li id="spstab1" class="${(subtab eq 'testScores')?'active smallText1bold-d61':'inactive smallText1-06b'}">
+                                <li id="spstab1" class="${(subtab eq 'testScores')?'active text3bold-d61':'inactive text3-06b'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'testScores'}">Test Scores</c:when>
                                         <c:otherwise>
@@ -398,7 +398,7 @@
                                 </li>
                             </c:if>
                             <c:if test="${school.type.name ne 'private'}">
-                                <li id="spstab2" class="${(subtab eq 'ratings')?'active smallText1bold-d61':'inactive smallText1-06b'}">
+                                <li id="spstab2" class="${(subtab eq 'ratings')?'active text3bold-d61':'inactive text3-06b'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'ratings'}">GreatSchools Ratings</c:when>
                                         <c:otherwise>
@@ -409,7 +409,7 @@
                                 </li>
                             </c:if>
                             <c:if test="${school.levelCode ne 'p' or (requestScope.hasSchoolStats and requestScope.hasSurveyData)}">
-                                <li id="spstab3" class="${(subtab eq 'teachersStudents')?'active smallText1bold-d61':'inactive smallText1-06b'}">
+                                <li id="spstab3" class="${(subtab eq 'teachersStudents')?'active text3bold-d61':'inactive text3-06b'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'teachersStudents'}">Teachers &amp;amp; Students</c:when>
                                         <c:otherwise>
@@ -424,7 +424,7 @@
                                     <c:when test="${school.levelCode eq 'p'}"><c:set var="spstab4_name" value="Program Details"/></c:when>
                                     <c:otherwise><c:set var="spstab4_name" value="Programs &amp;amp; Extracurriculars"/></c:otherwise>
                                 </c:choose>
-                                <li id="spstab4" class="${(subtab eq 'survey')?'active smallText1bold-d61':'inactive smallText1-06b'}">
+                                <li id="spstab4" class="${(subtab eq 'survey')?'active text3bold-d61':'inactive text3-06b'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'survey'}">${spstab4_name}</c:when>
                                         <c:otherwise>
@@ -436,7 +436,7 @@
                                 </li>
                             </c:if>
                             <c:if test="${hasPq}">
-                                <li id="spstab5" class="${(subtab eq 'ratings')?'active smallText1bold-d61':'inactive smallText1-06b'}">
+                                <li id="spstab5" class="${(subtab eq 'ratings')?'active text3bold-d61':'inactive text3-06b'}">
                                     <span class="pipes">|</span>
                                     <c:choose>
                                         <c:when test="${subtab eq 'ratings'}">Official Info</c:when>
