@@ -39,7 +39,7 @@
         <img alt="Morgan Stanley" src="/res/img/school/parentReviews/morganstanley.png"/>
         <jsp:useBean id="now" class="java.util.Date" />
         <fmt:formatDate var="year" value="${now}" pattern="yyyy" />
-        <div class="text">Welcome Morgan Stanley employees, thank you for participating in ${year} Global Volunteer month!</div>
+        <div class="text">Welcome Morgan Stanley employees, thank you for participating in ${year} Global Volunteer Month!</div>
     </div>
 </c:if>
 
