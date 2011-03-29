@@ -371,7 +371,7 @@
             </div>
         </div>
 
-        <div class="mod">
+        <!--<div class="mod">
             <div class="filter-hd">
                 <h5>STUDENTS PER TEACHER</h5>
             </div>
@@ -384,7 +384,7 @@
                     <form:option value="UNDER_25" label="Under 25"/>
                 </form:select>
             </div>
-        </div>
+        </div>-->
 
         <!--<div class="mod">
             <div class="filter-hd">
