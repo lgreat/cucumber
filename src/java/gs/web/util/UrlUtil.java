@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.101 2011/02/14 16:11:58 aroy Exp $
+ * $Id: UrlUtil.java,v 1.102 2011/03/29 17:33:13 yfan Exp $
  */
 
 package gs.web.util;
@@ -103,7 +103,8 @@ public final class UrlUtil {
         if (isCobrand) {
             cobrandName = hostName.substring(0, hostName.indexOf("."));
             // Need special cases for greatschools.cobrand.com like babycenter
-            if (hostName.startsWith("greatschools.")) {
+            // or schoolrankings.nj.com (GS-11466)
+            if (hostName.startsWith("greatschools.") || hostName.startsWith("schoolrankings.")) {
                 int firstDot = hostName.indexOf(".");
                 int lastDot = hostName.lastIndexOf(".");
                 if (lastDot > firstDot) {

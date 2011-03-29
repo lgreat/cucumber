@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.74 2011/02/14 16:11:57 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.75 2011/03/29 17:33:13 yfan Exp $
  */
 
 package gs.web.util;
@@ -177,6 +177,20 @@ public class UrlUtilSaTest extends TestCase {
 
         // This doesn't work, but it's not a realistic case at this time.
         //assertNull(_urlUtil.cobrandFromUrl("greatschools.org"));
+
+        // GS-11466
+        assertEquals("al", _urlUtil.cobrandFromUrl("schoolrankings.al.com"));
+        assertEquals("syracuse", _urlUtil.cobrandFromUrl("schoolrankings.syracuse.com"));
+        assertEquals("cleveland", _urlUtil.cobrandFromUrl("schoolrankings.cleveland.com"));
+        assertEquals("mlive", _urlUtil.cobrandFromUrl("schoolrankings.mlive.com"));
+        assertEquals("nj", _urlUtil.cobrandFromUrl("schoolrankings.nj.com"));
+        assertEquals("nola", _urlUtil.cobrandFromUrl("schoolrankings.nola.com"));
+        assertEquals("oregonlive", _urlUtil.cobrandFromUrl("schoolrankings.oregonlive.com"));
+        assertEquals("pennlive", _urlUtil.cobrandFromUrl("schoolrankings.pennlive.com"));
+        assertEquals("silive", _urlUtil.cobrandFromUrl("schoolrankings.silive.com"));
+        assertEquals("masslive", _urlUtil.cobrandFromUrl("schoolrankings.masslive.com"));
+        assertEquals("gulflive", _urlUtil.cobrandFromUrl("schoolrankings.gulflive.com"));
+        assertEquals("lehighvalleylive", _urlUtil.cobrandFromUrl("schoolrankings.lehighvalleylive.com"));
     }
 
     public void testBuildPerlHostname() {
