@@ -420,11 +420,12 @@
                                 </li>
                             </c:if>
                             <c:if test="${requestScope.hasSurveyData}">
-                                <c:choose>
-                                    <c:when test="${school.levelCode eq 'p'}"><c:set var="spstab4_name" value="Program Details"/></c:when>
-                                    <c:otherwise><c:set var="spstab4_name" value="Programs &amp;amp; Extracurriculars"/></c:otherwise>
-                                </c:choose>
-                                <li id="spstab4" class="${(subtab eq 'survey')?'active text3bold-d61':'inactive text3-06b'}">
+
+                                <c:set var="spstab4_name"
+                                       value="${school.levelCode eq 'p' ? 'Program Details' : 'Programs &amp;amp; Extracurriculars'}"/>
+
+                                <li id="spstab4"
+                                    class="${(subtab eq 'survey')?'active text3bold-d61':'inactive text3-06b'}">
                                     <c:choose>
                                         <c:when test="${subtab eq 'survey'}">${spstab4_name}</c:when>
                                         <c:otherwise>
@@ -436,10 +437,10 @@
                                 </li>
                             </c:if>
                             <c:if test="${hasPq}">
-                                <li id="spstab5" class="${(subtab eq 'ratings')?'active text3bold-d61':'inactive text3-06b'}">
+                                <li id="spstab5" class="${(subtab eq 'official')?'active text3bold-d61':'inactive text3-06b'}">
                                     <span class="pipes">|</span>
                                     <c:choose>
-                                        <c:when test="${subtab eq 'ratings'}">Official Info</c:when>
+                                        <c:when test="${subtab eq 'official'}">Official Info</c:when>
                                         <c:otherwise>
                                             <link:enhancedSchoolProfile school="${school}">Official Info</link:enhancedSchoolProfile>
                                         </c:otherwise>
