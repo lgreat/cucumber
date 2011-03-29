@@ -7,7 +7,7 @@ public class EmailSignUpAjaxControllerTest extends BaseControllerTestCase {
 
     }
 
-    void testHandleEmailSignUp() {
+    public void testHandleEmailSignUp() {
         // TODO-11567
     }
 }
