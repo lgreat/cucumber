@@ -235,38 +235,30 @@
             </fieldset>
 
             <fieldset class="submit">
+
+                <c:set var="previewButtonSpacing" value="${topicCenterId gt 0 ? 'prs' : 'prm'}"/>
+
                 <div class="line">
                     <c:choose>
                         <c:when test="${discussionId gt 0}">
                         </c:when>
                         <c:otherwise>
-                            <div class="unit prm">
+
+                            <div class="unit ${previewButtonSpacing}">
                                 <button class="button-1 previewButton" type="submit" name="preview"
                                         value="Preview">Preview
                                 </button>
                             </div>
+
                         </c:otherwise>
                     </c:choose>
 
-                    <c:choose>
-                        <c:when test="${discussionId gt 0}">
-                            <c:set var="submitButtonText" value="Save"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="submitButtonText" value="Post conversation"/>
-                        </c:otherwise>
-                    </c:choose>
+                    <c:set var="postButtonSpacing" value="${topicCenterId gt 0 ? 'phs' : 'pls prl'}"/>
+                    <c:set var="submitButtonText" value="${discussionId gt 0 ? '*Save' : 'Post conversation'}"/>
+                    <c:set var="submitButtonStyle"
+                           value="${discussionId gt 0 ? 'button-1 submitButton sd_SaveLayout' : 'button-1 submitButton'}"/>
 
-                    <c:choose>
-                        <c:when test="${discussionId gt 0}">
-                            <c:set var="submitButtonStyle" value="button-1 submitButton sd_SaveLayout"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="submitButtonStyle" value="button-1 submitButton"/>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <div class="unit pls prl">
+                    <div class="unit ${postButtonSpacing}">
                         <c:choose>
                             <c:when test="${discussionId gt 0}">
 
@@ -298,7 +290,9 @@
                         </c:choose>
                     </div>
 
-                    <div class="unit plm">
+                    <c:set var="cancelButtonSpacing" value="${topicCenterId gt 0 ? 'pls' : 'plm'}"/>
+
+                    <div class="unit ${cancelButtonSpacing}">
                         <button class="button-1 dialogCancelButton" type="button" value="Cancel">Cancel</button>
                     </div>
 
