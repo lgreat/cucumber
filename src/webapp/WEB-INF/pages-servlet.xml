@@ -2545,4 +2545,11 @@
         </property>
     </bean>
 
+    <bean name="/demo/emailSignUp.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/demo/emailSignUp</value>
+        </property>
+    </bean>
+
 </beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.tag body-content="empty"/>
+
+    <div class="mod emailSignUp jq-emailSignUpWrapper">
+        <![CDATA[<script type="text/javascript" src="/res/js/promo/emailSignUp.js"></script>]]>
+        <div class="inner">
+            <div class="hd"><!-- do not collapse --></div>
+            <div class="bd">
+
+                <div class="jq-emailSignUpIntroText emailSignUpIntroText">
+                    <p>Sign up for our newsletter!</p>
+                </div>
+
+                <div class="hidden mediaExt0-1 jq-emailSignUpError jq-emailSignUpError-email">
+                    <div class="img sprite i-alert"><!-- do not collapse --></div>
+                    <div class="bk formErrorText">Please enter an email address</div>
+                </div>
+
+                <form class="jq-emailSignUpForm" action="#" method="POST">
+                    <fieldset class="email">
+                            <label class="unit size3of13 smallText2">Email:</label>
+                            <input type="text" class="jq-emailSignUpEmail unit size4of11 formText2" name="email"/>
+
+                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                    </fieldset>
+                    <fieldset class="submit">
+                        <button class="button-2 jq-emailSignUpSubmit" type="submit">SUBMIT</button>
+                    </fieldset>
+                </form>
+                <div class="hidden jq-emailSignUpThankYou emailSignUpThankYou">
+                    <p>Thanks for submitting your information!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>
