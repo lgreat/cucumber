@@ -47,11 +47,8 @@
 
                 if (pageHelper.isShowingBannerAd() && pageHelper.isShowingLeaderboard()) {
                     adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
-                    adNames.add(slotPrefix + AdPosition.Header_212x96.getName());
                 }
 
-                adNames.add(AdPosition.Global_Nav_Promo_865x24.getName());
-                adNames.add(AdPosition.Global_Nav_Promo_952x24.getName());
                 adNames.add(AdPosition.Global_NavPromo_968x30.getName());
             }
 

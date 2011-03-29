@@ -346,16 +346,6 @@
                     <!--<a href="http://twitter.com/greatschools" title="Twitter" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'GlobalNav_Twitter');} return true;"><span class="sprite twitter-x19">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>-->
             <!--</li>-->
         </ul>
-        <c:choose>
-            <c:when test="${fn:contains(pageContext.request.requestURI,'index')
-            or fn:contains(pageContext.request.requestURI,'backToSchool')
-            or fn:endsWith(pageContext.request.requestURI,'/pledge/')}">
-            </c:when>
-            <c:otherwise>
-                <div id="global_nav_promo_865"><ad:Global_Nav_Promo_865x24/></div>
-                <div id="global_nav_promo_952"><ad:Global_Nav_Promo_952x24/></div>
-            </c:otherwise>
-        </c:choose>
 
 <script type="text/javascript">
     GS_loadSubnav();

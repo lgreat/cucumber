@@ -20,10 +20,6 @@
                         <td style="text-align:left;width:728px;height:90px;padding-right: 7px;" class="ad">
                             <ad:Header_728x90 position="${position}"/>
                         </td>
-                        <td class="ad">
-                            <ad:Header_212x96 />
-                        </td>
-                    
                     </tr>
                 </table>
             </div>
