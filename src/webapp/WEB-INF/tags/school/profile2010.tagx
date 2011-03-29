@@ -394,29 +394,28 @@
                                             <link:schoolProfileTestscore school="${school}" anchor="${headerLinkAnchor}">Test Scores</link:schoolProfileTestscore>
                                         </c:otherwise>
                                     </c:choose>
-                                    <span class="pipes">|</span>
                                 </li>
                             </c:if>
                             <c:if test="${school.type.name ne 'private'}">
                                 <li id="spstab2" class="${(subtab eq 'ratings')?'active text3bold-d61':'inactive text3-06b'}">
+                                    <span class="pipes">|</span>
                                     <c:choose>
                                         <c:when test="${subtab eq 'ratings'}">GreatSchools Ratings</c:when>
                                         <c:otherwise>
                                             <link:schoolProfileRating school="${school}" anchor="${headerLinkAnchor}">GreatSchools Ratings</link:schoolProfileRating>
                                         </c:otherwise>
                                     </c:choose>
-                                    <span class="pipes">|</span>
                                 </li>
                             </c:if>
                             <c:if test="${school.levelCode ne 'p' or (requestScope.hasSchoolStats and requestScope.hasSurveyData)}">
                                 <li id="spstab3" class="${(subtab eq 'teachersStudents')?'active text3bold-d61':'inactive text3-06b'}">
+                                    <span class="pipes">|</span>
                                     <c:choose>
                                         <c:when test="${subtab eq 'teachersStudents'}">Teachers &amp;amp; Students</c:when>
                                         <c:otherwise>
                                             <link:schoolProfileCensus school="${school}" anchor="${headerLinkAnchor}">Teachers &amp;amp; Students</link:schoolProfileCensus>
                                         </c:otherwise>
                                     </c:choose>
-                                    <span class="pipes">|</span>
                                 </li>
                             </c:if>
                             <c:if test="${requestScope.hasSurveyData}">
@@ -426,6 +425,7 @@
 
                                 <li id="spstab4"
                                     class="${(subtab eq 'survey')?'active text3bold-d61':'inactive text3-06b'}">
+                                    <span class="pipes">|</span>
                                     <c:choose>
                                         <c:when test="${subtab eq 'survey'}">${spstab4_name}</c:when>
                                         <c:otherwise>
