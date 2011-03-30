@@ -144,12 +144,6 @@
                 </c:otherwise>
             </c:choose>
 
-            <c:if test="${topicCenter.gradeLevelTopicCenter}">
-                <div class="skyscraperHouseAd">
-                    <ad:adTag position="House_Ad_160x425"/>
-                </div>
-            </c:if>
-
             <div class="skyscraperAd">
                 <ad:AboveFold_Left_160x600/>
             </div>
@@ -197,8 +191,6 @@
             <c:if test="${topicCenter.healthAndDevelopmentTopicCenter}">
                 <div class="spacer_15"><!-- do not collapse --></div>
             </c:if>
-
-            <ad:adTag position="House_Ad_423x230"/>
 
             <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
                                   items="${requestScope.carouselItems}"/>
