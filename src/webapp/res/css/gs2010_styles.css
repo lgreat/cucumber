@@ -3221,15 +3221,6 @@ body.cobranded #pageGS {
     zoom: 1;
 }
 
-#Sponsor_90x32 {
-/* GS-10167 */
-    width: 90px;
-    clear: both;
-    float: right;
-    margin: 10px 20px 0 0;
-    zoom: 1;
-}
-
 #scpp #Chooser_Sponsor_162x50 {
 /* GS-10184 */
     width: 162px;
@@ -4595,10 +4586,6 @@ body.cobranded #pageGS {
     text-transform: uppercase;
 }
 
-#Homepage_House_Ad_598x102 {
-    margin-bottom: 20px;
-}
-
 /* =12a-6 find your school top cities and states module (fstcas)
 -------------------------------------------------------------------------------------*/
 
@@ -4861,11 +4848,6 @@ body.cobranded #pageGS {
 
 #findASchool .topRatedSchools img.ratingImage {
     float: right;
-}
-
-#findASchool #google_ads_div_Library_Article_Page_FindSchoolSponsor_Bottom_287x30 {
-    padding-top: 4px;
-    padding-left: 0.3em;
 }
 
 /* =12c-1 featured

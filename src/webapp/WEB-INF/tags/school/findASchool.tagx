@@ -59,11 +59,6 @@
                         </span>
                             </button>-->
                             <button class="button-1 fltlt" type="submit">GO</button>
-
-                            <!-- DONE-10167-RANDALL -->
-                            <!-- Randall, please style this ad slot so that the module will look fine
-             with the ad slot both targeted with an ad, and not targeted with an ad. -->
-                            <ad:adTag position="Sponsor_90x32"/>
                         </gsweb:form>
                     </div>
                 </div>
@@ -202,8 +197,6 @@
                     </td>
                 </tr>
             </table>
-
-            <ad:adTag position="FindSchoolSponsor_Bottom_287x30"/>
         </div>
     </div>
 

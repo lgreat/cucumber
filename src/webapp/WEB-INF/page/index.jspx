@@ -195,8 +195,6 @@
         <moreContent:gradeByGrade/>
     </c:if>
 
-    <!-- GS-9920 move 598x102 back to here after BTS season -->
-
 </div>
 <!-- end mainGS -->
 

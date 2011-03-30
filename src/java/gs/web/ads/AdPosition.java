@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.80 2011/03/29 21:33:37 yfan Exp $
+ * $Id: AdPosition.java,v 1.81 2011/03/30 01:00:31 yfan Exp $
  */
 package gs.web.ads;
 
@@ -70,7 +70,6 @@ public class AdPosition extends Enum {
     public static final AdPosition House_Ad_300x137_Special = new AdPosition("House_ad_300x137", true, House_Ad_300x137);
     public static final AdPosition House_Ad_300x137_B2S = new AdPosition("House_Ad_300x137_B2S", true);
     public static final AdPosition House_Ad_370x158 = new AdPosition("House_Ad_370x158", true);
-    public static final AdPosition House_Ad_160x425 = new AdPosition("House_Ad_160x425", true);
     public static final AdPosition Badge_100x69 = new AdPosition("Badge_100x69", true);
     public static final AdPosition Header_728x90 = new AdPosition("Header_728x90", true);
     public static final AdPosition Header_728x90_A_Test = new AdPosition("Header_728x90_A_Test", true, Header_728x90);
@@ -87,7 +86,6 @@ public class AdPosition extends Enum {
     public static final AdPosition Homepage_Left_300x250 = new AdPosition("Homepage_Left_300x250", true);
     public static final AdPosition Homepage_185x28 = new AdPosition("Homepage_185x28", true); // GS-6479
     public static final AdPosition Homepage_Footer_728x90 = new AdPosition("Homepage_Footer_728x90", true); // GS-6583
-    public static final AdPosition Homepage_House_Ad_598x102 = new AdPosition("Homepage_House_Ad_598x102", true);
     public static final AdPosition Homepage_House_Ad_328x150 = new AdPosition("Homepage_House_Ad_328x150", true);
     public static final AdPosition AboveFold_300x600 = new AdPosition("AboveFold_300x600", true);
     public static final AdPosition BelowFold_300x250 = new AdPosition("BelowFold_300x250", true);
@@ -130,13 +128,10 @@ public class AdPosition extends Enum {
     public static final AdPosition Inline_423x60 = new AdPosition("Inline_423x60", true);
     public static final AdPosition SponsoredSearch_Top_542x60 = new AdPosition("SponsoredSearch_Top_542x60", true); // GS-9967
     public static final AdPosition SponsoredSearch_Bottom_542x60 = new AdPosition("SponsoredSearch_Bottom_542x60", true); // GS-9967
-    public static final AdPosition FindSchoolSponsor_Bottom_287x30 = new AdPosition("FindSchoolSponsor_Bottom_287x30", true); // GS-9968
     public static final AdPosition TopRatedSponsor_310x40 = new AdPosition("TopRatedSponsor_310x40", true); // GS-9999
     public static final AdPosition Global_NavPromo_968x30 = new AdPosition("Global_NavPromo_968x30", true); // GS-9975
-    public static final AdPosition House_Ad_423x230 = new AdPosition("House_Ad_423x230", true); // GS-9920
     public static final AdPosition Inline_598x50 = new AdPosition("Inline_598x50", true); // GS-10041
     public static final AdPosition RYH_Sponsor_90x32 = new AdPosition("RYH_Sponsor_90x32", true); // GS-10166
-    public static final AdPosition Sponsor_90x32 = new AdPosition("Sponsor_90x32", true); // GS-10167
     public static final AdPosition Homepage_61x47 = new AdPosition("Homepage_61x47", true); // GS-10165
     public static final AdPosition CompareSchools_61x47 = new AdPosition("CompareSchools_61x47", true); // GS-10275
     public static final AdPosition Chooser_Sponsor_162x50 = new AdPosition("Chooser_Sponsor_162x50", true); // GS-10184
