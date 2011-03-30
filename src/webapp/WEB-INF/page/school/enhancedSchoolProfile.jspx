@@ -21,7 +21,7 @@
 <gsml:body adPageName="overview" pageLayout="nocol">
     <c:set var="adSlotPrefix" value="School_Profile_Page_Academic_Performance"/>
     <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
-    <school:profile2010 school="${school}" tab="esp" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
+    <school:profile2010 school="${school}" tab="schoolStats" subtab="official" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
         <link:schoolProfileOverview school="${school}">Back to school overview <span class="alertDoubleArrow">&amp;raquo;</span></link:schoolProfileOverview>
         <div>
             ${perlHtml}
