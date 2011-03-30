@@ -177,6 +177,8 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
                 } else if (StringUtils.equals("survey", subtab)) {
                     urlBuilder = new UrlBuilder(school, UrlBuilder.START_SURVEY_RESULTS);
+                } else if (StringUtils.equals("official", subtab)) {
+                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_PRINCIPAL_VIEW);
                 }
             } else if (StringUtils.equals("survey", sourceCode)) {
                 urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_START_SURVEY);
