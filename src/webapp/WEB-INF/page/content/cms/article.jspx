@@ -728,15 +728,19 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <c:choose>
-                <c:when test="${type eq 'articleSlideshow'}">
-                </c:when>
-                <c:otherwise>
-                    <div id="b2sHouseAd">
-                        <gsweb:adTagGenerator position="BelowFold2_300x250"/>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+
+            <div id="articleBottomRightAd">
+                <c:choose>
+                    <c:when test="${type eq 'articleSlideshow'}">
+                        <ad:BelowFold_Top_300x125/>
+                    </c:when>
+                    <c:otherwise>
+                        <gsweb:adTagGenerator position="BelowFold2_300x250">
+                            <span class="jq-ghostText">ADVERTISEMENT</span>$AD
+                        </gsweb:adTagGenerator>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </c:otherwise>
     </c:choose>
 </div>
