@@ -7,4 +7,5 @@ import java.util.List;
 public interface CmsCategorySearchService {
     public SearchResultsPage<ICmsCategorySearchResult> search(String queryString) throws SearchException;
     public List<CmsCategory> getCategoriesFromIds(String ids);
+    public CmsCategory getCategoryFromURI(String requestURI);
 }

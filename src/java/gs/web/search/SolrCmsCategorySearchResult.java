@@ -11,8 +11,9 @@ public class SolrCmsCategorySearchResult implements ICmsCategorySearchResult {
     private String _categoryName;
     private String _categoryType;
     private String _categoryFullUri;
+
+    // empty constructor required by JAXB
     public SolrCmsCategorySearchResult(){
-        
     }
 
     @XmlElement
