@@ -533,6 +533,8 @@
                     ${recentDiscussions}
 
                     <ad:BelowFold_300x250/>
+
+                    <ad:BelowFold_Top_300x125/>
                 </c:when>
                 <c:when test="${tab eq 'parentReviews'}">
                     <ad:AboveFold_300x250/>
@@ -607,9 +609,7 @@
 
                     <ad:BelowFold_300x250/>
 
-                    <gsweb:adTagGenerator position="BelowFold_Top_300x125">
-                        <span class="jq-ghostText">ADVERTISEMENT</span>$AD
-                    </gsweb:adTagGenerator>
+                    <ad:BelowFold_Top_300x125/>
                 </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
@@ -649,9 +649,7 @@
 
                     <ad:BelowFold_300x250/>
 
-                    <gsweb:adTagGenerator position="BelowFold_Top_300x125">
-                        <span class="jq-ghostText">ADVERTISEMENT</span>$AD
-                    </gsweb:adTagGenerator>
+                    <ad:BelowFold_Top_300x125/>
 
                 </c:otherwise>
             </c:choose>

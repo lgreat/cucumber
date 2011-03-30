@@ -461,9 +461,7 @@
 
     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
-    <gsweb:adTagGenerator position="BelowFold_Top_300x125">
-        <span class="jq-ghostText">ADVERTISEMENT</span>$AD
-    </gsweb:adTagGenerator>
+    <ad:BelowFold_Top_300x125/>
 
 </div>
 
