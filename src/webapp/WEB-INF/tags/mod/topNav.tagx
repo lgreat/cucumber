@@ -137,10 +137,15 @@
                             />
                     <button type="submit" class="button-1">Search</button>
                     <variant:b>
-                        <script type="text/javascript">
-                            jQuery(function() {
-                                GS.attachSchoolAutocomplete("qNew");
-
+                        <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
+                            <script type="text/javascript">
+                                jQuery(function() {
+                                    GS.attachSchoolAutocomplete("qNew");
+                                });
+                            </script>
+                        </c:if>
+                         <script type="text/javascript">
+                             jQuery(function() {
                                 jQuery('#srch2 label').click(function() {
                                     GS.detachSchoolAutocomplete("qNew");
                                 });
