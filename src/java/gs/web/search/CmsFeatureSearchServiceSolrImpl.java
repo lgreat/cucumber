@@ -1,6 +1,5 @@
 package gs.web.search;
 
-import gs.data.content.ArticleCategory;
 import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.ContentKey;
 import org.apache.commons.collections.ListUtils;
