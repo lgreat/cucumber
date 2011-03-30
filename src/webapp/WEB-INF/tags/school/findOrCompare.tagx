@@ -92,20 +92,30 @@
                     <input name="type" type="hidden" value="school"/>
 
                     <div class="line form">
-                        <input type="text" value="Enter school, city, or zipcode" name="q" id="q"
-                               class="text2 unit size4of7"
-                               onfocus="textSwitch(this, '', 'Enter school, city, or zipcode');"
-                               onblur="textSwitch(this, 'Enter school, city, or zipcode', '');"/>
+                        <div class="unit size4of7 mrs">
+                            <input type="text"
+                                   value="Enter school, city, or zipcode"
+                                   name="q"
+                                   id="q"
+                                   class="text2"
+                                   onfocus="textSwitch(this, '', 'Enter school, city, or zipcode');"
+                                   onblur="textSwitch(this, 'Enter school, city, or zipcode', '');"/>
+                        </div>
 
-                        <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
-                                             useNoState="${not requestScope.context.hasSearched}"
-                                             styleId="splashStateSelector"
-                                             styleClass="unit size2of11 mls mrm"
-                                             noStateLabel="--"/>
+                        <div class="unit size2of11 mhs">
+                            <gsweb:stateSelector usingLongNames="false"
+                                                 state="${requestScope.context.state}"
+                                                 useNoState="${not requestScope.context.hasSearched}"
+                                                 styleId="splashStateSelector"
+                                                 noStateLabel="--"/>
+                        </div>
 
-                        <button class="button-1 unit" type="submit"
-                                onclick="s_objectID='splash_schools_go';">GO
-                        </button>
+                        <div class="unit size3of17 mls">
+                            <button class="button-1"
+                                    type="submit"
+                                    onclick="s_objectID='splash_schools_go';">GO
+                            </button>
+                        </div>
                         <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                     </div>
                 </gsweb:form>

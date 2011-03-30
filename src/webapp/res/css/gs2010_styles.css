@@ -2483,6 +2483,7 @@ Viewport: the defines width and height of each icon
 .findCompare .bd .form{padding:0 15px 20px;}
 .findCompare .bd .formExt1{padding:5px 15px 15px;}
 .findCompare .bd .formExt2{padding:0 15px 10px;}
+.findCompare .bd #q{width:100%;}
 
 .mod_hd {
     position: relative;
