@@ -189,9 +189,6 @@
         </c:otherwise>
     </c:choose>
 
-    <!-- GS-9920 moved to directly below carousel during BTS season -->
-    <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
-
     <school:findSchoolTopCitesAndStates />
 
     <c:if test="${requestScope.recentCmsContent ne null}">
