@@ -8358,6 +8358,7 @@ body.ie7 #frmPRModule .helperMessage {
 
 #school-search-results-table-body td {
     padding: 10px 0;
+    vertical-align:top;
 }
 #school-search-results-table-body td.center {
     text-align: center;
