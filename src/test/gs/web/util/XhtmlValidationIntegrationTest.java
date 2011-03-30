@@ -113,13 +113,6 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
         assertValidXhtml(INTEGRATION_HOST + "/school-choice/");
     }
 
-    /*
-    // commented out due to dependence on live CMS-driven data not available with unit test data
-    public void testCountdownToCollege() {
-        assertValidXhtml(INTEGRATION_HOST + "/content/countdownToCollege.page");
-    }
-    */
-
     public void xtestSummerReading() {
         assertValidXhtml(INTEGRATION_HOST + "/content/summerReading.page");
     }
@@ -127,13 +120,6 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     public void xtestSummerPlanning() {
         assertValidXhtml(INTEGRATION_HOST + "/content/summerPlanning.page");
     }
-
-    /*
-    // commented out due to dependence on live CMS-driven data not available with unit test data
-    public void testSpecialNeeds() {
-        assertValidXhtml(INTEGRATION_HOST + "/content/specialNeeds.page");
-    }
-    */
 
     public void xtestMediaChoices() {
         assertValidXhtml(INTEGRATION_HOST + "/content/mediaChoices.page");
@@ -170,13 +156,6 @@ public class XhtmlValidationIntegrationTest extends BaseHtmlUnitIntegrationTestC
     public void xtestLibraryPage() {
         assertValidXhtml(INTEGRATION_HOST + "/education-topics/");
     }
-
-    /*
-    // commented out due to dependence on live CMS-driven data not available with unit test data
-    public void testPreschoolLandingPage() {
-        assertValidXhtml(INTEGRATION_HOST + "/preschool/");
-    }
-    */
 
     public void xtestSubmitPreschoolReviewPage() {
         assertValidXhtml(INTEGRATION_HOST + "/school/parentReviews/submit.page");
