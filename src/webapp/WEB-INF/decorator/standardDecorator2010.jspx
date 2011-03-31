@@ -21,7 +21,7 @@
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
-<c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}</c:set>
+<c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'msie 9') ? "ie9 " : ""}${fn:contains(agent, 'firefox') ? "ff " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}${fn:contains(agent, 'firefox/4') ? "ff4 " : ""}</c:set>
 
 <c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout} ${browserClass}</c:set>
 
@@ -140,6 +140,7 @@
 
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
       onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${bodyClass}">
+<!--<p>User agent is: <c:out value="${agent}" default="not set"/>.</p>-->
 <cobrand:framebuster/>
 <variant:c>
     <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
