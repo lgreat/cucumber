@@ -1,6 +1,8 @@
 package gs.web.search;
 
 import gs.data.content.cms.CmsCategory;
+import gs.data.search.SearchException;
+import gs.data.search.SearchResultsPage;
 
 import java.util.List;
 

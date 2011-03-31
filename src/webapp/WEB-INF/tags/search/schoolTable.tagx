@@ -14,7 +14,7 @@
 <jsp:directive.tag import="java.util.ArrayList"/>
 <jsp:directive.tag import="java.util.List"/>
 <jsp:directive.tag import="gs.data.school.School"/>
-<jsp:directive.tag import="gs.web.search.SchoolSearchResult"/>
+<jsp:directive.tag import="gs.data.search.SchoolSearchResult"/>
 <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="schools" required="true" type="java.util.Collection"/>
     <jsp:directive.attribute name="checkedSchools" required="false" type="java.util.Collection"/>

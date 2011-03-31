@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import gs.data.search.FieldFilter;
+import gs.data.search.FilterFactory;
 import junit.framework.TestCase;
 
 public class FilterFactoryTest extends TestCase {

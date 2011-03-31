@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.IndexField;
+import gs.data.search.SearchResult;
 import junit.framework.TestCase;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.document.Document;

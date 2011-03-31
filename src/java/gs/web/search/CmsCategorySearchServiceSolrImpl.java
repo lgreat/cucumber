@@ -1,6 +1,9 @@
 package gs.web.search;
 
 import gs.data.content.cms.CmsCategory;
+import gs.data.search.BaseSingleFieldSolrSearchService;
+import gs.data.search.SearchException;
+import gs.data.search.SearchResultsPage;
 import gs.data.search.indexers.documentBuilders.CmsCategoryDocumentBuilder;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;

@@ -2,26 +2,19 @@ package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.util.PageHelper;
-import gs.web.search.SearchResult;
 import gs.data.content.IArticleCategoryDao;
-import gs.data.content.ArticleCategory;
 import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.CmsFeature;
 import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.ICmsCategoryDao;
 import gs.data.search.Searcher;
 import gs.data.search.Indexer;
 import gs.data.search.IndexDir;
 
 import static org.easymock.classextension.EasyMock.*;
-import org.easymock.IArgumentMatcher;
-import org.apache.lucene.search.*;
-import org.apache.lucene.index.Term;
+
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 

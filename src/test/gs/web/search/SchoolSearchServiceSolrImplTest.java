@@ -1,7 +1,7 @@
 package gs.web.search;
 
+import gs.data.search.SchoolSearchServiceSolrImpl;
 import gs.web.BaseTestCase;
-import gs.web.community.registration.LoginController;
 import org.springframework.context.ApplicationContext;
 
 

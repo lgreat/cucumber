@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.99 2010/12/27 20:02:11 aroy Exp $
+ * $Id: SchoolsController.java,v 1.100 2011/03/31 00:34:24 ssprouse Exp $
  */
 
 package gs.web.school;
@@ -13,16 +13,13 @@ import gs.data.school.SchoolType;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
-import gs.data.search.Indexer;
-import gs.data.search.SchoolComparatorFactory;
-import gs.data.search.SearchCommand;
-import gs.data.search.Searcher;
+import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.search.ResultsPager;
-import gs.web.search.SchoolSearchResult;
+import gs.data.search.SchoolSearchResult;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;

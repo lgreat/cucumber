@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.search.SchoolSearchServiceSolrImpl;
 import gs.web.util.HttpCacheInterceptor;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;

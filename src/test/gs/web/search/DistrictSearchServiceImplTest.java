@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.search.DistrictSearchServiceImpl;
 import gs.data.state.State;
 import junit.framework.TestCase;
 import org.apache.lucene.search.Query;

@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import gs.data.search.ISearchResult;
+
 import java.util.List;
 
 public interface ICmsFeatureSearchResult extends ISearchResult {

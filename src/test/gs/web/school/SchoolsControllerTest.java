@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.59 2010/11/09 03:27:25 droy Exp $
+ * $Id: SchoolsControllerTest.java,v 1.60 2011/03/31 00:34:24 ssprouse Exp $
  */
 
 package gs.web.school;
@@ -12,6 +12,7 @@ import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.search.SchoolSearchResult;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.util.Address;
@@ -20,7 +21,6 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
-import gs.web.search.SchoolSearchResult;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.RedirectView301;
 import static org.easymock.classextension.EasyMock.*;

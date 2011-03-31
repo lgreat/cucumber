@@ -2,6 +2,8 @@ package gs.web.search;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.search.SchoolSearchResult;
+import gs.data.search.SearchResult;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;

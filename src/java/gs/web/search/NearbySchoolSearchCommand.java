@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.search.FieldSort;
 import org.apache.commons.lang.StringUtils;
 
 /**

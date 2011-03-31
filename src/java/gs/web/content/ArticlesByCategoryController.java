@@ -1,26 +1,28 @@
 package gs.web.content;
 
-import gs.web.search.*;
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
+import gs.data.content.cms.CmsCategory;
+import gs.data.content.cms.ContentKey;
+import gs.data.search.GSAnalyzer;
+import gs.data.search.Indexer;
+import gs.data.search.SearchResultsPage;
+import gs.data.util.CmsUtil;
+import gs.web.content.cms.CmsContentUtils;
+import gs.web.search.CmsCategorySearchService;
+import gs.web.search.CmsFeatureSearchService;
+import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.queryParser.QueryParser;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-
-import gs.data.content.cms.CmsCategory;
-import gs.data.content.cms.ContentKey;
-import gs.data.search.Indexer;
-import gs.data.search.GSAnalyzer;
-import gs.data.util.CmsUtil;
-import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
-import gs.web.util.RedirectView301;
-import gs.web.content.cms.CmsContentUtils;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>

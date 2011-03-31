@@ -234,29 +234,29 @@
         <property name="reviewDao" ref="reviewDao"/>
     </bean>
 
-    <bean id="luceneSchoolSearchService" class="gs.web.search.SchoolSearchServiceImpl">
+    <bean id="luceneSchoolSearchService" class="gs.data.search.SchoolSearchServiceImpl">
         <property name="searcher" ref="searcher" />
     </bean>
 
-    <bean id="luceneCitySearchService" class="gs.web.search.CitySearchServiceImpl">
+    <bean id="luceneCitySearchService" class="gs.data.search.CitySearchServiceImpl">
         <property name="searcher" ref="searcher" />
     </bean>
 
-    <bean id="luceneDistrictSearchService" class="gs.web.search.DistrictSearchServiceImpl">
+    <bean id="luceneDistrictSearchService" class="gs.data.search.DistrictSearchServiceImpl">
         <property name="searcher" ref="searcher" />
     </bean>
 
-    <bean id="solrSchoolSearchService" class="gs.web.search.SchoolSearchServiceSolrImpl" init-method="init">
+    <bean id="solrSchoolSearchService" class="gs.data.search.SchoolSearchServiceSolrImpl" init-method="init">
     </bean>
     
     <bean id="looseSolrSchoolSearchService" class="gs.web.search.LooseSchoolSearchServiceSolrImpl" init-method="init">
     </bean>
 
-    <bean id="solrCitySearchService" class="gs.web.search.CitySearchServiceSolrImpl">
+    <bean id="solrCitySearchService" class="gs.data.search.CitySearchServiceSolrImpl">
         
     </bean>
 
-    <bean id="solrDistrictSearchService" class="gs.web.search.DistrictSearchServiceSolrImpl">
+    <bean id="solrDistrictSearchService" class="gs.data.search.DistrictSearchServiceSolrImpl">
         <property name="queryParser" ref="preSolrSchoolSearchQueryParser" />
     </bean>
 

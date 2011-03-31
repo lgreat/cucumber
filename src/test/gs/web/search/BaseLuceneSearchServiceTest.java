@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.search.*;
 import junit.framework.TestCase;
 
 import java.util.List;

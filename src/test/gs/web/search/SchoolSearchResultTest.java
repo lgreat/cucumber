@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
 import gs.data.search.Indexer;
+import gs.data.search.SchoolSearchResult;
 import junit.framework.TestCase;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;

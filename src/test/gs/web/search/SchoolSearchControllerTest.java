@@ -6,7 +6,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
-import gs.data.search.Indexer;
+import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;

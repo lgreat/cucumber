@@ -9,7 +9,7 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 
-    <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult" description="The search result this map is centered on"/>
+    <jsp:directive.attribute name="school" required="true" type="gs.data.search.ISchoolSearchResult" description="The search result this map is centered on"/>
     <jsp:directive.attribute name="jsVariableName" required="true" description="Variable name of the MapSchool that will get instantiated" />
     <jsp:directive.attribute name="useBubbles" required="false" type="java.lang.Boolean" description="Whether or not to show bubbles when clicking map marker"/>
 

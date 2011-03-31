@@ -9,9 +9,9 @@
         >
 <jsp:directive.tag import="gs.data.school.School"/>
 <jsp:directive.tag import="java.util.ArrayList"/>
-<jsp:directive.tag import="gs.web.search.SchoolSearchResult"/>
 <jsp:directive.tag import="java.util.Collections"/>
 <jsp:directive.tag import="java.util.Comparator"/>
+<jsp:directive.tag import="gs.data.search.SchoolSearchResult"/>
 <jsp:directive.attribute name="schools" required="false"
                          description="List of schools. Only provide one of schools or schoolSearchResults."
                          type="java.util.List"/>

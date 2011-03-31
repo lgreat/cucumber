@@ -12,7 +12,7 @@
         >
 
     <jsp:directive.tag body-content="empty" description="Display the bubble (InfoWindow) for google maps marker."/>
-    <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult"
+    <jsp:directive.attribute name="school" required="true" type="gs.data.search.ISchoolSearchResult"
                              description="The search result to display within the bubble"/>
     <jsp:directive.attribute name="greatSchoolsRating" required="false" description="GreatSchools school rating"/>
     <jsp:directive.attribute name="parentRating" required="false" description="School's parent rating"/>

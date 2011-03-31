@@ -10,6 +10,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.search.*;
 import gs.data.seo.SeoUtil;
 import gs.data.state.State;
 import gs.data.state.StateManager;

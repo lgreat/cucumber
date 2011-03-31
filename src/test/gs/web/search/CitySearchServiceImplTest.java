@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
+import gs.data.search.CitySearchServiceImpl;
 import gs.data.search.IndexDir;
 import gs.data.search.IndexField;
 import gs.data.search.Indexer;

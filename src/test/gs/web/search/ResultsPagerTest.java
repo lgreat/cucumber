@@ -4,6 +4,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.search.Indexer;
 import gs.data.search.SchoolComparatorFactory;
+import gs.data.search.SchoolSearchResult;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import junit.framework.TestCase;

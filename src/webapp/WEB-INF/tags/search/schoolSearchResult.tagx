@@ -10,7 +10,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
-    <jsp:directive.attribute name="school" required="true" type="gs.web.search.ISchoolSearchResult"/>
+    <jsp:directive.attribute name="school" required="true" type="gs.data.search.ISchoolSearchResult"/>
     <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
     <c:choose>

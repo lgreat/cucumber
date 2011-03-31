@@ -9,11 +9,11 @@
         >
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
-<jsp:directive.tag import="gs.web.search.SchoolSearchResult"/>
 <jsp:directive.tag import="java.util.List"/>
 <jsp:directive.tag import="java.util.ArrayList"/>
 <jsp:directive.tag import="gs.data.school.School"/>
 <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
+<jsp:directive.tag import="gs.data.search.SchoolSearchResult"/>
 <jsp:directive.tag body-content="empty" description="Draw a map of schools." />
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
 <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
