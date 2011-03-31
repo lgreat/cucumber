@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.242 2011/03/16 00:50:12 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.243 2011/03/31 01:06:10 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -1019,6 +1019,57 @@ public class UrlBuilder {
             // when switching from Lucene to Solr, or don't remove the Lucene dependency till that's done
             _path = ISOLatin1AccentFilter.removeAccents(path.toString());
         }
+    }
+
+    /**
+     * URL creation logic took from gs.api.LinkApiService / UrlBuilder.handleSchoolProfile
+     * @param city
+     * @param databaseState
+     * @param schoolName
+     * @param levelCode
+     * @param schoolId
+     * @return
+     */
+    public static String getOverviewPath(Integer schoolId, String schoolName, String city, State databaseState, LevelCode levelCode) {
+        String path;
+        // TODO: Copied from gs.web.util.UrlBuilder and gs.api.LinkApiService
+        if (LevelCode.PRESCHOOL.equals(levelCode)) {
+            path = DirectoryStructureUrlFactory.createNewCityBrowseURI(databaseState, city, new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
+                WordUtils.capitalize(schoolName.replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", ""), new char[]{'-'}) +
+                "/" + schoolId + "/";
+        } else {
+            StringBuffer path2 = new StringBuffer
+                    (DirectoryStructureUrlFactory.createNewCityBrowseURIRoot
+                            (databaseState, city));
+            path2.append(schoolId).append("-");
+            path2.append(WordUtils.capitalize(schoolName.replaceAll(" ", "-").replaceAll("/", "-").replaceAll("`", "").replaceAll("#", ""), new char[]{'-'}));
+            path2.append("/");
+            path = path2.toString();
+
+        }
+        return path;
+    }
+
+    /**
+     * URL creation logic took from gs.api.LinkApiService
+     * @param schoolId
+     * @param databaseState
+     * @return
+     */
+    public static String getParentReviewsPath(Integer schoolId, State databaseState) {
+        String parentReviewsPath = "/school/parentReviews.page?state=" + databaseState.getAbbreviation() + "&id=" + schoolId;
+        return parentReviewsPath;
+    }
+
+    /**
+     * URL creation logic took from gs.api.LinkApiService
+     * @param schoolId
+     * @param databaseState
+     * @return
+     */
+    public static String getRatingsPath(Integer schoolId, State databaseState) {
+        String ratings = "/school/rating.page?state=" + databaseState.getAbbreviation() + "&id=" + schoolId;
+        return ratings;
     }
 
     public UrlBuilder(VPage page, boolean showConfirmation, School school) {
