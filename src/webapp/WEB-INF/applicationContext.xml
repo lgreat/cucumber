@@ -243,4 +243,15 @@
     <bean id="solrCmsFeatureSearchService" class="gs.web.search.CmsFeatureSearchServiceSolrImpl" init-method="init">
     </bean>
 
+    <bean id="solrSchoolSearchService" class="gs.data.search.SchoolSearchServiceSolrImpl" init-method="init">
+    </bean>
+
+    <bean id="solrCitySearchService" class="gs.data.search.CitySearchServiceSolrImpl">
+
+    </bean>
+
+    <bean id="solrDistrictSearchService" class="gs.data.search.DistrictSearchServiceSolrImpl">
+        <property name="queryParser" ref="preSolrSchoolSearchQueryParser" />
+    </bean>
+
 </beans>
