@@ -63,7 +63,7 @@ public class VariantConfiguration {
                 while (tok.hasMoreTokens()) {
                     int num = Integer.valueOf(tok.nextToken());
                     // check for invalid values
-                    if (num < 1 || num > 99) {
+                    if (num < 0 || num > 99) {
                         _log.error("Invalid value " + num + " found in AB configuration: " + abConfiguration);
                         _abCutoffs = null;
                         break;

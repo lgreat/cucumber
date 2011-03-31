@@ -63,32 +63,38 @@ public class VariantConfigurationTest extends BaseControllerTestCase {
 
         VariantConfiguration._abCutoffs = null;
         VariantConfiguration.convertABConfigToArray("70/20/20");
+        ar = VariantConfiguration._abCutoffs;
         assertEquals(1, ar.length);
         assertEquals(1, ar[0]);
         assertEquals(1, VariantConfiguration._cutoffTotal);
 
         VariantConfiguration._abCutoffs = null;
         VariantConfiguration.convertABConfigToArray("110/5/5");
+        ar = VariantConfiguration._abCutoffs;
         assertEquals(1, ar.length);
         assertEquals(1, ar[0]);
         assertEquals(1, VariantConfiguration._cutoffTotal);
 
         VariantConfiguration._abCutoffs = null;
         VariantConfiguration.convertABConfigToArray("0/5/5");
-        assertEquals(1, ar.length);
-        assertEquals(1, ar[0]);
-        assertEquals(1, VariantConfiguration._cutoffTotal);
+        ar = VariantConfiguration._abCutoffs;
+        assertEquals(3, ar.length);
+        assertEquals(0, ar[0]);
+        assertEquals(5, ar[1]);
+        assertEquals(5, ar[2]);
+        assertEquals(10, VariantConfiguration._cutoffTotal);
 
         VariantConfiguration._abCutoffs = null;
         VariantConfiguration.convertABConfigToArray("1/2/1/2/1/2/1/2/1/2/1/2/1/2/1/2/1/2/1/2/1/2/1/2/1/2/1");
+        ar = VariantConfiguration._abCutoffs;
         assertEquals(1, ar.length);
         assertEquals(1, ar[0]);
         assertEquals(1, VariantConfiguration._cutoffTotal);
 
         VariantConfiguration._abCutoffs = null;
         VariantConfiguration.convertABConfigToArray(null); // no crash on null
-        assertEquals(1, ar.length);
-        assertEquals(1, ar[0]);
+        ar = VariantConfiguration._abCutoffs;
+        assertNull(ar);
         assertEquals(1, VariantConfiguration._cutoffTotal);
     }
 
