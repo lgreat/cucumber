@@ -223,14 +223,15 @@ public class ArticlesByCategoryController extends AbstractController {
      */
     protected Map<String, Object> handleCmsCategoryRequest(HttpServletRequest request, int page) {
         Map<String, Object> model = new HashMap<String, Object>();
+
         String language = request.getParameter(PARAM_LANGUAGE);
-
-        boolean strict = false;
-        ContentKey excludeContentKey = null;
-
         String type = request.getParameter(PARAM_EXCLUDE_TYPE);
         String contentId = request.getParameter(PARAM_EXCLUDE_CONTENT_ID);
         String strictStr = request.getParameter(PARAM_STRICT);
+        String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
+        
+        boolean strict = false;
+        ContentKey excludeContentKey = null;
 
         if (StringUtils.isNotBlank(strictStr)) {
             strict = Boolean.parseBoolean(strictStr);
@@ -245,8 +246,6 @@ public class ArticlesByCategoryController extends AbstractController {
         List<CmsCategory> topics = service.getCategoriesFromIds(request.getParameter(PARAM_TOPICS));
         List<CmsCategory> grades = service.getCategoriesFromIds(request.getParameter(PARAM_GRADES));
         List<CmsCategory> subjects = service.getCategoriesFromIds(request.getParameter(PARAM_SUBJECTS));
-
-        String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
 
         if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
             List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language, maxResultsParam);
@@ -321,8 +320,8 @@ public class ArticlesByCategoryController extends AbstractController {
             categories.addAll(subjects);
         }
 
+        // search for articles in the particular category
         CmsFeatureSearchService service = getCmsFeatureSearchService();
-
         SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeatures(topics, grades, subjects,strict, excludeContentKey, language, PAGE_SIZE,page);
 
         if (searchResultsPage != null && searchResultsPage.getTotalResults() > 0) {
@@ -365,11 +364,12 @@ public class ArticlesByCategoryController extends AbstractController {
         while (searchResults.size() < maxResults && searchResults.size() < totalResults) {
             Random rand = new Random();
             int n = rand.nextInt(totalResults);
+
             if (picked.contains(n)) {
                 continue;
             }
-            picked.add(n);
 
+            picked.add(n);
             searchResults.add((searchResultsPage.getSearchResults().get(n)));
         }
 

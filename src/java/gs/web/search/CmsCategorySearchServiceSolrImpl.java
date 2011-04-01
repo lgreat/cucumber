@@ -29,9 +29,13 @@ public class CmsCategorySearchServiceSolrImpl extends BaseSingleFieldSolrSearchS
     }
 
     public CmsCategory getCategoryFromURI(String requestURI) {
+
         if (StringUtils.isNotBlank(requestURI)) {
+
             String categoryUri = requestURI.replaceAll("/gs-web", "").replaceAll("/articles/", "");
+
             if (StringUtils.isNotBlank(categoryUri)) {
+
                 try {
                     SearchResultsPage<ICmsCategorySearchResult> searchResultsPage = search(CmsCategoryDocumentBuilder.FIELD_FULL_URI + ":" + categoryUri);
                     if (searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() == 1) {

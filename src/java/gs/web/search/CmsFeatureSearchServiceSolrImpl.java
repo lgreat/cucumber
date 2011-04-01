@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchService<ICmsFeatureSearchResult> implements CmsFeatureSearchService {
+
     public void init() {
     }
 
@@ -36,35 +37,48 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         return searchString;
     }
 
+    /**
+     * Searches the indexed cms features.
+     *
+     * @param topics            list of topic categories
+     * @param grades            list of grade categories
+     * @param subjects          list of subject categories
+     * @param strict            boolean to check for topic id in feature
+     * @param excludeContentKey ContentKey to exclude from search
+     * @param language          two-character language code, e.g "EN"
+     * @param pageSize          number of rows to return
+     * @param pageNumber        page number to set the offset for pagination
+     * @return SearchResultsPage of type CmsFeatureSearchResult
+     */
     public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeatures(List<CmsCategory> topics, List<CmsCategory> grades,
-                                                             List<CmsCategory> subjects,
-                                                             boolean strict,
-                                                             ContentKey excludeContentKey, String language,int pageSize,int offset) {
+                                                                     List<CmsCategory> subjects,
+                                                                     boolean strict,
+                                                                     ContentKey excludeContentKey, String language, int pageSize, int pageNumber) {
 
+        //Give primary category precedence OR articles can just be tagged with the particular category
         String searchStr = "";
         for (CmsCategory category : topics) {
-
             if (!strict) {
-                 searchStr += buildEitherOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID,String.valueOf(category.getId()),new Float(0.9),CmsFeatureDocumentBuilder.FIELD_CMS_TOPIC_ID,String.valueOf(category.getId()),null);
-            }else{
-                 searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID,String.valueOf(category.getId()),new Float(0.9));
+                searchStr += buildEitherOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId()), new Float(0.9), CmsFeatureDocumentBuilder.FIELD_CMS_TOPIC_ID, String.valueOf(category.getId()), null);
+            } else {
+                searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId()), new Float(0.9));
             }
         }
 
         for (CmsCategory category : grades) {
-            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID,String.valueOf(category.getId()),null);
+            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID, String.valueOf(category.getId()), null);
         }
 
         for (CmsCategory category : subjects) {
-            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_SUBJECT_ID,String.valueOf(category.getId()),null);
+            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_SUBJECT_ID, String.valueOf(category.getId()), null);
         }
 
         if (excludeContentKey != null) {
-            searchStr += buildMustExcludeQuery(CmsFeatureDocumentBuilder.FIELD_CONTENT_KEY,excludeContentKey.toString());
+            searchStr += buildMustExcludeQuery(CmsFeatureDocumentBuilder.FIELD_CONTENT_KEY, excludeContentKey.toString());
         }
 
         if (language != null) {
-            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_LANGUAGE,language,null);
+            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_LANGUAGE, language, null);
         }
 
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
@@ -77,21 +91,24 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         if (subjects != null) {
             categories.addAll(subjects);
         }
+
+        // This should give higher placement to articles with terms from the category name in their title
         for (CmsCategory category : categories) {
             String typeDisplay = category.getName();
             if (StringUtils.isNotBlank(typeDisplay)) {
-                searchStr += buildOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_TITLE,typeDisplay,new Float(0.6));
+                searchStr += buildOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_TITLE, typeDisplay, new Float(0.6));
             }
         }
 
-        if(offset > 1 && pageSize >0 ){
-            offset = (offset * pageSize) - pageSize;
+        //Given the page number set the offset for the solr query.Offset is 0 based in solr.
+        int offset = pageNumber - 1;
+        if (offset > 0 && pageSize > 0) {
+            offset = (offset * pageSize);
         }
 
         try {
-            SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = search(searchStr,offset,pageSize);
 
-            return searchResultsPage;
+            return search(searchStr, offset, pageSize);
 
         } catch (SearchException ex) {
             _log.debug("Search Exception in CmsFeatureSearch.", ex);
@@ -100,42 +117,53 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         return null;
     }
 
-    private String buildMustIncludeQuery(String field,String value,Float boost){
-      String searchStr = "";
-        if(boost != null && boost > 0.0){
-            searchStr += " +(" + field + ":" + value + ")^"+boost;
-        }else{
+
+    /**
+     * Builds query that is equivalent to AND
+     */
+    private String buildMustIncludeQuery(String field, String value, Float boost) {
+        String searchStr = "";
+        if (boost != null && boost > 0.0) {
+            searchStr += " +(" + field + ":" + value + ")^" + boost;
+        } else {
             searchStr += " +(" + field + ":" + value + ")";
         }
 
-      return searchStr;
+        return searchStr;
     }
 
-    private String buildOrIncludeQuery(String field,String value,Float boost){
-      String searchStr = "";
-        if(boost != null && boost > 0.0){
-            searchStr += " OR (" + field + ":" + value + ")^"+boost;
-        }else{
+    /**
+     * Builds query that is equivalent to OR
+     */
+    private String buildOrIncludeQuery(String field, String value, Float boost) {
+        String searchStr = "";
+        if (boost != null && boost > 0.0) {
+            searchStr += " OR (" + field + ":" + value + ")^" + boost;
+        } else {
             searchStr += " OR (" + field + ":" + value + ")";
         }
 
-      return searchStr;
+        return searchStr;
     }
 
+
+    /**
+     * Builds query that is checks for existence of at least one of the given fields.
+     */
     private String buildEitherOrIncludeQuery(String field1, String value1, Float boost1,
-                                             String field2,String value2,Float boost2) {
-        String searchStr = "";
-        searchStr = "+((" + field1 + ":" + value1 + ")^"+boost1;
-            searchStr += buildOrIncludeQuery(field2,value2,boost2);
+                                             String field2, String value2, Float boost2) {
+        String searchStr = "+((" + field1 + ":" + value1 + ")^" + boost1;
+        searchStr += buildOrIncludeQuery(field2, value2, boost2);
         searchStr = searchStr + ")";
 
         return searchStr;
     }
 
+    /**
+     * Builds query that excludes a field.
+     */
     private String buildMustExcludeQuery(String field, String value) {
-        String searchStr = "";
-        searchStr += " -(" + field + ":" + value + ")";
-        return searchStr;
+        return " -(" + field + ":" + value + ")";
     }
 
 }
