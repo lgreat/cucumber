@@ -13,7 +13,6 @@ import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchService<ICmsFeatureSearchResult> implements CmsFeatureSearchService {
     public void init() {
@@ -37,38 +36,35 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         return searchString;
     }
 
-    public SearchResultsPage<ICmsFeatureSearchResult> search(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language) {
+    public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeatures(List<CmsCategory> topics, List<CmsCategory> grades,
+                                                             List<CmsCategory> subjects,
+                                                             boolean strict,
+                                                             ContentKey excludeContentKey, String language,int pageSize,int offset) {
 
         String searchStr = "";
         for (CmsCategory category : topics) {
-//            searchStr = "+((" + CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID + ":" + category.getId() + ")^0.9";
+
             if (!strict) {
                  searchStr += buildEitherOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID,String.valueOf(category.getId()),new Float(0.9),CmsFeatureDocumentBuilder.FIELD_CMS_TOPIC_ID,String.valueOf(category.getId()),null);
-//                searchStr += " OR " + CmsFeatureDocumentBuilder.FIELD_CMS_TOPIC_ID + ":" + category.getId();
             }else{
                  searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID,String.valueOf(category.getId()),new Float(0.9));
             }
-//            searchStr = searchStr + ")";
         }
 
         for (CmsCategory category : grades) {
             searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID,String.valueOf(category.getId()),null);
-//            searchStr += " +(" + CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID + ":" + category.getId() + ")";
         }
 
         for (CmsCategory category : subjects) {
             searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_SUBJECT_ID,String.valueOf(category.getId()),null);
-//            searchStr += " +(" + CmsFeatureDocumentBuilder.FIELD_CMS_SUBJECT_ID + ":" + category.getId() + ")";
         }
 
         if (excludeContentKey != null) {
-            searchStr += buildMustExcludeQuery(CmsFeatureDocumentBuilder.FIELD_CONTENT_ID,excludeContentKey.toString());
-//            searchStr += " -(" + CmsFeatureDocumentBuilder.FIELD_CONTENT_ID + ":" + excludeContentKey.toString() + ")";
+            searchStr += buildMustExcludeQuery(CmsFeatureDocumentBuilder.FIELD_CONTENT_KEY,excludeContentKey.toString());
         }
 
         if (language != null) {
             searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_LANGUAGE,language,null);
-//            searchStr += " +(" + CmsFeatureDocumentBuilder.FIELD_LANGUAGE + ":" + language + ")";
         }
 
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
@@ -85,12 +81,15 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
             String typeDisplay = category.getName();
             if (StringUtils.isNotBlank(typeDisplay)) {
                 searchStr += buildOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_TITLE,typeDisplay,new Float(0.6));
-//                searchStr += " OR (" + CmsFeatureDocumentBuilder.FIELD_TITLE + ":" + typeDisplay + ")^0.6";
             }
         }
 
+        if(offset > 1 && pageSize >0 ){
+            offset = (offset * pageSize) - pageSize;
+        }
+
         try {
-            SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = search(searchStr);
+            SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = search(searchStr,offset,pageSize);
 
             return searchResultsPage;
 
