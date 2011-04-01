@@ -3448,8 +3448,8 @@ body.cobranded #pageGS {
     padding: 0 5px;
     height: 68px;
     background: url(/res/img/gs_content_bg.png) repeat-y;
-    z-index: 3;
-    position:relative;
+    z-index: 2;
+    /*position:relative;*/
 }
 
 #globalnav {
@@ -3544,8 +3544,8 @@ body.cobranded #pageGS {
     height: 34px;
     list-style: none;
     padding: 0 0 0 10px;
-    z-index: 2;
-    position:relative;
+    z-index: 3;
+    /*position:relative;*/
 }
 
 #topnav_menusubnav li {
@@ -3554,9 +3554,9 @@ body.cobranded #pageGS {
     text-align: center;
     width: auto;
     margin-right: 9px;
-    position: relative;
+    /*position: relative;*/
     font-size: 12px;
-    z-index: 1;
+    z-index: 4;
 }
 
 #topnav_menusubnav  #topnav_sm {
