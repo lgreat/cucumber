@@ -410,6 +410,12 @@
        <property name="showAdTargeting" value="false"/>
        <property name="randomResults" value="true"/>
        <property name="maxResults" value="5"/>
+       <property name="cmsCategorySearchService">
+            <ref bean="solrCmsCategorySearchService"/>
+        </property>
+        <property name="cmsFeatureSearchService">
+            <ref bean="solrCmsFeatureSearchService"/>
+        </property>
    </bean>
 
     <bean name="/content/cms/mostPopularContent.module"

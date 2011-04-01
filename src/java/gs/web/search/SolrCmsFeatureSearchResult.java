@@ -1,12 +1,14 @@
 package gs.web.search;
 
+import gs.data.content.cms.ContentKey;
 import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
 import org.apache.solr.client.solrj.beans.Field;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlType(propOrder={"primaryCategoryId","topicId","secondaryCategoryId","gradeId","subjectId","locationId"})
+@XmlType(propOrder={"primaryCategoryId","topicId","secondaryCategoryId","gradeId","subjectId",
+        "locationId","contentType","contentId","fullUri","title","summary","contentKey"})
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
 
@@ -17,10 +19,11 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     private List<Long> _subjectId;
     private List<Long> _locationId;
     private String _contentType;
-    private String _contentKey;
+    private Long _contentId;
     private String _fullUri;
     private String _title;
     private String _summary;
+
 
     // empty constructor required by JAXB
     public SolrCmsFeatureSearchResult(){
@@ -33,6 +36,15 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     @Field(CmsFeatureDocumentBuilder.FIELD_CONTENT_TYPE)
     public void setContentType(String contentType) {
         _contentType = contentType;
+    }
+
+    @XmlElement
+    public Long getContentId() {
+        return _contentId;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_CONTENT_ID)
+    public void setContentId(Long contentId) {
+        _contentId = contentId;
     }
 
    @XmlElement
@@ -84,15 +96,7 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     public void setLocationId(List<Long> locationId) {
         _locationId = locationId;
     }
-    @XmlElement
-    public String getContentKey() {
-        return _contentKey;
-    }
-    @Field(CmsFeatureDocumentBuilder.FIELD_CONTENT_KEY)
-    public void setContentKey(String contentKey) {
-        _contentKey = contentKey;
-    }
-    
+
     @XmlElement
     public String getFullUri() {
         return _fullUri;
@@ -121,5 +125,11 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     public void setSummary(String summary) {
         _summary = summary;
     }
+
+    @XmlTransient
+    public ContentKey getContentKey() {
+        return new ContentKey(_contentType,_contentId);
+    }
+
 
 }

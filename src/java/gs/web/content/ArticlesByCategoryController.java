@@ -2,8 +2,6 @@ package gs.web.content;
 
 import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.ContentKey;
-import gs.data.search.GSAnalyzer;
-import gs.data.search.Indexer;
 import gs.data.search.SearchResultsPage;
 import gs.data.util.CmsUtil;
 import gs.web.content.cms.CmsContentUtils;
@@ -16,7 +14,6 @@ import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.queryParser.QueryParser;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -30,7 +27,6 @@ import java.util.*;
 public class ArticlesByCategoryController extends AbstractController {
     private static final Log _log = LogFactory.getLog(ArticlesByCategoryController.class);
 
-    protected static final String MODEL_SUBCATEGORY = "subcategory";
     protected static final String MODEL_PAGE = "p";
     protected static final String MODEL_PAGE_SIZE = "pageSize";
     protected static final String MODEL_RESULTS = "mainResults";
@@ -51,8 +47,6 @@ public class ArticlesByCategoryController extends AbstractController {
 
     /** Page number */
     public static final String PARAM_PAGE = "p";
-    /** Allow override of category id */
-    public static final String PARAM_ID = "id";
 
     // CMS features only:
     /** CMS topic IDs, comma-separated */
@@ -89,24 +83,10 @@ public class ArticlesByCategoryController extends AbstractController {
 
     private CmsFeatureSearchService _cmsFeatureSearchService;
     private CmsCategorySearchService _cmsCategorySearchService;
-
-    // GS-7210: Used to boost articles by relevance.
-    private QueryParser _titleParser;
-
-    public ArticlesByCategoryController() {
-        _titleParser = new QueryParser(Indexer.ARTICLE_TITLE, new GSAnalyzer());
-        _titleParser.setDefaultOperator(QueryParser.Operator.OR);
-    }
+    
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
-        String categoryId = null;
-        String requestUri = request.getRequestURI().
-                replaceAll("/gs-web", "").
-                replaceAll("/articles/", "");
-        String[] rs = StringUtils.split(requestUri, "/");
-        if (rs.length >= 1) {
-            categoryId = rs[0];
-        }
+
         Map<String, Object> model;
 
         int page = 1;
@@ -120,37 +100,37 @@ public class ArticlesByCategoryController extends AbstractController {
             }
         }
 
-            // GS-8546 - handle old-style browse urls
-            CmsCategorySearchService service = getCmsCategorySearchService();
-            CmsCategory category = service.getCategoryFromURI(request.getRequestURI());
+        // GS-8546 - handle old-style browse urls
+        CmsCategorySearchService service = getCmsCategorySearchService();
+        CmsCategory category = service.getCategoryFromURI(request.getRequestURI());
 
-            if (category != null && CmsCategory.TYPE_TOPIC.equals(category.getType())) {
-                UrlBuilder redirectUrlBuilder =
-                        new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), (String)null, (String)null, request.getParameter("language"));
-                return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
-            }
+        if (category != null && CmsCategory.TYPE_TOPIC.equals(category.getType())) {
+            UrlBuilder redirectUrlBuilder =
+                    new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), (String) null, (String) null, request.getParameter("language"));
+            return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
+        }
 
-            // GS-9397 handle old Campaigns and LD browse urls
-            UrlBuilder redirectUrlBuilder = ArticlesByCategoryController.getGs9397RedirectUrlBuilder(
-                    request.getParameter(PARAM_TOPICS),
-                    request.getParameter(PARAM_GRADES),
-                    request.getParameter(PARAM_SUBJECTS),
-                    request.getParameter(PARAM_LANGUAGE));
-            if (redirectUrlBuilder != null) {
-                return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
-            }
+        // GS-9397 handle old Campaigns and LD browse urls
+        UrlBuilder redirectUrlBuilder = ArticlesByCategoryController.getGs9397RedirectUrlBuilder(
+                request.getParameter(PARAM_TOPICS),
+                request.getParameter(PARAM_GRADES),
+                request.getParameter(PARAM_SUBJECTS),
+                request.getParameter(PARAM_LANGUAGE));
+        if (redirectUrlBuilder != null) {
+            return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
+        }
 
-            model = handleCmsCategoryRequest(request, page);
-            List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
-            if (isShowAdTargeting()) {
-                setAdTargetingForCmsCategories(request, categories);
-            }
+        model = handleCmsCategoryRequest(request, page);
+        List<CmsCategory> categories = (List<CmsCategory>) model.get(MODEL_CATEGORIES);
+        if (isShowAdTargeting()) {
+            setAdTargetingForCmsCategories(request, categories);
+        }
 
         model.put(MODEL_PAGE, page);
         model.put(PARAM_LANGUAGE, request.getParameter(PARAM_LANGUAGE));
         model.put(MODEL_PAGE_SIZE, PAGE_SIZE); // results per page
-        model.put(MODEL_ISA_LD_CATEGORY,isAnLDCategory(request.getRequestURI()));
-        
+        model.put(MODEL_ISA_LD_CATEGORY, isAnLDCategory(request.getRequestURI()));
+
         return new ModelAndView(_viewName, model);
     }
 
@@ -216,7 +196,7 @@ public class ArticlesByCategoryController extends AbstractController {
      * @param paramGrades comma-separated list of grade IDs
      * @param paramSubjects comma-separated list of subject IDs
      * @param paramLanguage two-character language code, e.g "EN"
-     * @return
+     * @return UrlBuilder
      */
     private static UrlBuilder getGs9397RedirectUrlBuilder(String paramTopics, String paramGrades, String paramSubjects, String paramLanguage) {
         boolean needsRedirect = false;
@@ -269,7 +249,7 @@ public class ArticlesByCategoryController extends AbstractController {
         String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
 
         if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
-            List<CmsCategory> categories = storeResultsForCmsCategoriesNew(topics, grades, subjects, model, page, strict, excludeContentKey, language, maxResultsParam);
+            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language, maxResultsParam);
 
             if (categories.size() == 1) {
                 List<CmsCategory> breadcrumbs = getCmsCategoryBreadcrumbs(categories.get(0));
@@ -328,7 +308,7 @@ public class ArticlesByCategoryController extends AbstractController {
     }
 
 
-    protected List<CmsCategory> storeResultsForCmsCategoriesNew(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
+    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
 
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
         if (topics != null) {
@@ -341,9 +321,9 @@ public class ArticlesByCategoryController extends AbstractController {
             categories.addAll(subjects);
         }
 
-        CmsFeatureSearchService ser = getCmsFeatureSearchService();
+        CmsFeatureSearchService service = getCmsFeatureSearchService();
 
-        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = ser.search(topics, grades, subjects, model, page, strict, excludeContentKey, language);
+        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeatures(topics, grades, subjects,strict, excludeContentKey, language, PAGE_SIZE,page);
 
         if (searchResultsPage != null && searchResultsPage.getTotalResults() > 0) {
             int totalResults = searchResultsPage.getTotalResults();
@@ -369,8 +349,9 @@ public class ArticlesByCategoryController extends AbstractController {
 
 
      private static List<ICmsFeatureSearchResult> getRandomResults(SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage, int maxResults) {
+        int totalResults = searchResultsPage.getSearchResults().size();
 
-        if (searchResultsPage == null || searchResultsPage.getTotalResults() == 0) {
+        if (searchResultsPage == null || totalResults == 0) {
             throw new IllegalArgumentException("Hits cannot be null or have 0 length");
         }
 
@@ -381,9 +362,9 @@ public class ArticlesByCategoryController extends AbstractController {
         List<ICmsFeatureSearchResult> searchResults = new ArrayList<ICmsFeatureSearchResult>();
         Set<Integer> picked = new HashSet<Integer>();
 
-        while (searchResults.size() < maxResults && searchResults.size() < searchResultsPage.getTotalResults()) {
+        while (searchResults.size() < maxResults && searchResults.size() < totalResults) {
             Random rand = new Random();
-            int n = rand.nextInt(searchResultsPage.getTotalResults());
+            int n = rand.nextInt(totalResults);
             if (picked.contains(n)) {
                 continue;
             }

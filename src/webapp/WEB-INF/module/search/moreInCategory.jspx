@@ -48,9 +48,9 @@
                                     </c:choose>
 
                                     <li class="moreinItem tint_f4891d ${className}">
-                                        <link:cmsContent contentKey="${result.id}" fullUri="${result.fullUri}"
+                                        <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}"
                                                          styleClass="link">
-                                            <c:out value="${result.headline}" escapeXml="false"/>
+                                            <c:out value="${result.title}" escapeXml="false"/>
                                         </link:cmsContent>
                                     </li>
 
