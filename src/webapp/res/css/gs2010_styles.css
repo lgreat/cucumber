@@ -3449,6 +3449,7 @@ body.cobranded #pageGS {
     height: 68px;
     background: url(/res/img/gs_content_bg.png) repeat-y;
     z-index: 2;
+    position:relative;
 }
 
 #globalnav {
@@ -3544,6 +3545,7 @@ body.cobranded #pageGS {
     list-style: none;
     padding: 0 0 0 10px;
     z-index: 1;
+    position:relative;
 }
 
 #topnav_menusubnav li {

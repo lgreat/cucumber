@@ -193,6 +193,7 @@ ul.horizontal li {
 
 #cmsArticleText {
     margin-bottom: 10px;
+    position:relative;;
 }
 
 #cmsArticleText .mainImage {
