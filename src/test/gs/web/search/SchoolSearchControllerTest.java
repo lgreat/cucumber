@@ -12,6 +12,8 @@ import gs.data.search.beans.LuceneSchoolSearchResult;
 import gs.data.search.filters.FilterGroup;
 import gs.data.search.filters.SchoolFilters;
 import gs.data.search.services.CitySearchService;
+import gs.data.search.services.DistrictSearchService;
+import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;

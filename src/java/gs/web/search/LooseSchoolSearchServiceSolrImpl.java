@@ -1,6 +1,6 @@
 package gs.web.search;
 
-import gs.data.search.SchoolSearchServiceSolrImpl;
+import gs.data.search.services.SchoolSearchServiceSolrImpl;
 import org.apache.commons.lang.StringUtils;
 
 public class LooseSchoolSearchServiceSolrImpl extends SchoolSearchServiceSolrImpl {

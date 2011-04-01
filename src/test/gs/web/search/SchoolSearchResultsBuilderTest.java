@@ -4,6 +4,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.*;
 import gs.data.search.beans.ISchoolSearchResult;
+import gs.data.search.services.SchoolSearchServiceLuceneImpl;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import org.apache.lucene.analysis.Analyzer;
@@ -21,13 +22,13 @@ import java.util.Map;
 
 public class SchoolSearchResultsBuilderTest extends BaseTestCase {
     SchoolSearchResultBuilder _builder;
-    SchoolSearchServiceImpl _schoolSearchService;
+    SchoolSearchServiceLuceneImpl _schoolSearchService;
     Searcher _searcher;
 
     public void setUp() throws Exception {
         _builder = new SchoolSearchResultBuilder();
 
-        _schoolSearchService = (SchoolSearchServiceImpl) getApplicationContext().getBean("luceneSchoolSearchService");
+        _schoolSearchService = (SchoolSearchServiceLuceneImpl) getApplicationContext().getBean("luceneSchoolSearchService");
         _searcher = getRamDirectorySearcher();
         _schoolSearchService.setSearcher(_searcher);
         _schoolSearchService.setQueryParser(new GSQueryParser());
