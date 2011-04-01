@@ -3545,7 +3545,7 @@ body.cobranded #pageGS {
     list-style: none;
     padding: 0 0 0 10px;
     z-index: 3;
-    /*position:relative;*/
+    position:relative;
 }
 
 #topnav_menusubnav li {
@@ -3554,7 +3554,7 @@ body.cobranded #pageGS {
     text-align: center;
     width: auto;
     margin-right: 9px;
-    /*position: relative;*/
+    position: relative;
     font-size: 12px;
     z-index: 4;
 }
