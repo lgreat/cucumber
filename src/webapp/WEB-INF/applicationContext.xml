@@ -246,7 +246,7 @@
     <bean id="solrSchoolSearchService" class="gs.data.search.SchoolSearchServiceSolrImpl" init-method="init">
     </bean>
 
-    <bean id="solrCitySearchService" class="gs.data.search.CitySearchServiceSolrImpl">
+    <bean id="solrCitySearchService" class="gs.data.search.services.CitySearchServiceSolrImpl">
 
     </bean>
 

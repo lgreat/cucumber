@@ -7,6 +7,11 @@ import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.*;
+import gs.data.search.beans.ISchoolSearchResult;
+import gs.data.search.beans.LuceneSchoolSearchResult;
+import gs.data.search.filters.FilterGroup;
+import gs.data.search.filters.SchoolFilters;
+import gs.data.search.services.CitySearchService;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -199,7 +204,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     public void testAddGamAttributes() throws Exception {
         Map<FieldConstraint,String> constraints = new HashMap<FieldConstraint,String>();
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
-        List<FieldFilter> filters = new ArrayList<FieldFilter>();
+        List<SchoolFilters> filters = new ArrayList<SchoolFilters>();
         String searchString = null;
         List<ISchoolSearchResult> schoolResults = new ArrayList<ISchoolSearchResult>();
         PageHelper referencePageHelper;
@@ -232,10 +237,10 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         searchString = null;
         schoolResults.clear();
 
-        filters.add(FieldFilter.SchoolTypeFilter.PUBLIC);
-        filters.add(FieldFilter.SchoolTypeFilter.CHARTER);
+        filters.add(SchoolFilters.SchoolTypeFilter.PUBLIC);
+        filters.add(SchoolFilters.SchoolTypeFilter.CHARTER);
         FilterGroup filterGroup = new FilterGroup();
-        filterGroup.setFieldFilters(filters.toArray(new FieldFilter[0]));
+        filterGroup.setFieldFilters(filters.toArray(new SchoolFilters[0]));
         filterGroups.add(filterGroup);
 
         resetAllMocks();
@@ -279,9 +284,9 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         searchString = null;
         schoolResults.clear();
 
-        filters.add(FieldFilter.GradeLevelFilter.ELEMENTARY);
-        filters.add(FieldFilter.GradeLevelFilter.HIGH);
-        filterGroup.setFieldFilters(filters.toArray(new FieldFilter[0]));
+        filters.add(SchoolFilters.GradeLevelFilter.ELEMENTARY);
+        filters.add(SchoolFilters.GradeLevelFilter.HIGH);
+        filterGroup.setFieldFilters(filters.toArray(new SchoolFilters[0]));
         filterGroups.add(filterGroup);
 
         resetAllMocks();
@@ -476,12 +481,12 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     public void testGetGradeLevelFilters() {
         String[] gradeLevels = new String[] {"p","h", "blah"};
 
-        List<FieldFilter> filters = _controller.getGradeLevelFilters(gradeLevels);
+        List<SchoolFilters> filters = _controller.getGradeLevelFilters(gradeLevels);
 
         assertEquals("Filters list should contain two filters", 2, filters.size());
 
-        assertTrue(filters.contains(FieldFilter.GradeLevelFilter.PRESCHOOL));
-        assertTrue(filters.contains(FieldFilter.GradeLevelFilter.HIGH));
+        assertTrue(filters.contains(SchoolFilters.GradeLevelFilter.PRESCHOOL));
+        assertTrue(filters.contains(SchoolFilters.GradeLevelFilter.HIGH));
     }
 
     /*public void testGetSchoolTypeFilters() {
@@ -498,7 +503,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
     public void testGetSchoolTypeFilterNull() throws Exception {
         try {
-            FieldFilter filter = _controller.getSchoolTypeFilter(null);
+            SchoolFilters filter = _controller.getSchoolTypeFilter(null);
             fail("getSchoolTypeFilter() should have thrown exception");
         } catch(Exception e) {
             
@@ -507,7 +512,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
     public void testGetGradeLevelFilterNull() throws Exception {
         try {
-            FieldFilter filter = _controller.getGradeLevelFilter(null);
+            SchoolFilters filter = _controller.getGradeLevelFilter(null);
             fail("getGradeLevelFilter() should have thrown exception");
         } catch (Exception e) {
 

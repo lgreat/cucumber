@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.*;
+import gs.data.search.beans.ISchoolSearchResult;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import org.apache.lucene.analysis.Analyzer;

@@ -11,6 +11,13 @@ import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.*;
+import gs.data.search.beans.ICitySearchResult;
+import gs.data.search.beans.IDistrictSearchResult;
+import gs.data.search.beans.ISchoolSearchResult;
+import gs.data.search.filters.FilterFactory;
+import gs.data.search.filters.FilterGroup;
+import gs.data.search.filters.SchoolFilters;
+import gs.data.search.services.CitySearchService;
 import gs.data.seo.SeoUtil;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -216,7 +223,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         //If we have school types, create a filter group for it
         if (commandAndFields.hasSchoolTypes()) {
-            FilterGroup filterGroup = filterFactory.createFilterGroup(FieldFilter.SchoolTypeFilter.class,commandAndFields.getSchoolTypes());
+            FilterGroup filterGroup = filterFactory.createFilterGroup(SchoolFilters.SchoolTypeFilter.class,commandAndFields.getSchoolTypes());
             filterGroups.add(filterGroup);
         }
 
@@ -224,7 +231,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         LevelCode levelCode = commandAndFields.getLevelCode();
         if (levelCode != null) {
             FilterGroup filterGroup = new FilterGroup();
-            FieldFilter[] filters = getGradeLevelFilters(levelCode).toArray(new FieldFilter[0]);
+            SchoolFilters[] filters = getGradeLevelFilters(levelCode).toArray(new SchoolFilters[0]);
             if (filters != null && filters.length > 0) {
                 filterGroup.setFieldFilters(filters);
                 filterGroups.add(filterGroup);
@@ -233,17 +240,17 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         //Create a filter group for the Affiliation filters (currently Religious or Nonsectarian)
         if (commandAndFields.hasAffiliations()) {
-            FilterGroup affiliationGroup = filterFactory.createFilterGroup(FieldFilter.AffiliationFilter.class, commandAndFields.getAffiliations());
+            FilterGroup affiliationGroup = filterFactory.createFilterGroup(SchoolFilters.AffiliationFilter.class, commandAndFields.getAffiliations());
             filterGroups.add(affiliationGroup);
         }
 
         if (!StringUtils.isEmpty(commandAndFields.getStudentTeacherRatio())) {
-            FilterGroup studentTeacherRatioGroup = filterFactory.createFilterGroup(FieldFilter.StudentTeacherRatio.class, new String[] {commandAndFields.getStudentTeacherRatio()});
+            FilterGroup studentTeacherRatioGroup = filterFactory.createFilterGroup(SchoolFilters.StudentTeacherRatio.class, new String[] {commandAndFields.getStudentTeacherRatio()});
             filterGroups.add(studentTeacherRatioGroup);
         }
 
         if (!StringUtils.isEmpty(commandAndFields.getSchoolSize())) {
-            FilterGroup schoolSizeGroup = filterFactory.createFilterGroup(FieldFilter.SchoolSize.class, new String[] {commandAndFields.getSchoolSize()});
+            FilterGroup schoolSizeGroup = filterFactory.createFilterGroup(SchoolFilters.SchoolSize.class, new String[] {commandAndFields.getSchoolSize()});
             filterGroups.add(schoolSizeGroup);
         }
 
@@ -856,29 +863,29 @@ public class SchoolSearchController extends AbstractCommandController implements
             throw new IllegalArgumentException("PageHelper, constraints, filters, and school results must not be null");
         }
 
-        Set<FieldFilter> filtersSet = new HashSet<FieldFilter>();
+        Set<SchoolFilters> filtersSet = new HashSet<SchoolFilters>();
         for (FilterGroup filterGroup : filterGroups) {
             filtersSet.addAll(Arrays.asList(filterGroup.getFieldFilters()));
         }
 
         // GS-10003 - school type
-        for (FieldFilter.SchoolTypeFilter schoolTypeFilter : FieldFilter.SchoolTypeFilter.values()) {
+        for (SchoolFilters.SchoolTypeFilter schoolTypeFilter : SchoolFilters.SchoolTypeFilter.values()) {
             if (filtersSet.contains(schoolTypeFilter)) {
                 pageHelper.addAdKeywordMulti("type", schoolTypeFilter.toString().toLowerCase());
             }
         }
 
         // GS-6875 - level
-        Set<FieldFilter.GradeLevelFilter> gradeLevelFilters = new HashSet<FieldFilter.GradeLevelFilter>();
-        for (FieldFilter.GradeLevelFilter gradeLevelFilter : FieldFilter.GradeLevelFilter.values()) {
+        Set<SchoolFilters.GradeLevelFilter> gradeLevelFilters = new HashSet<SchoolFilters.GradeLevelFilter>();
+        for (SchoolFilters.GradeLevelFilter gradeLevelFilter : SchoolFilters.GradeLevelFilter.values()) {
             if (filtersSet.contains(gradeLevelFilter)) {
                 gradeLevelFilters.add(gradeLevelFilter);
             }
         }
         if (gradeLevelFilters.size() == 0) {
-            gradeLevelFilters.addAll(Arrays.asList(FieldFilter.GradeLevelFilter.values()));
+            gradeLevelFilters.addAll(Arrays.asList(SchoolFilters.GradeLevelFilter.values()));
         }
-        for (FieldFilter.GradeLevelFilter gradeLevelFilter : gradeLevelFilters) {
+        for (SchoolFilters.GradeLevelFilter gradeLevelFilter : gradeLevelFilters) {
             pageHelper.addAdKeywordMulti("level", String.valueOf(gradeLevelFilter.name().toLowerCase().charAt(0)));
         }
 
@@ -1012,7 +1019,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else {
             // GS-10144, GS-10400 - browse pages
 
-            Set<FieldFilter> filtersSet = new HashSet<FieldFilter>();
+            Set<SchoolFilters> filtersSet = new HashSet<SchoolFilters>();
             if (filterGroups != null) {
                 for (FilterGroup filterGroup : filterGroups) {
                     filtersSet.addAll(Arrays.asList(filterGroup.getFieldFilters()));
@@ -1025,9 +1032,9 @@ public class SchoolSearchController extends AbstractCommandController implements
                 url = urlBuilder.asFullUrl(request) + (levelCode != null ? "?lc=" + levelCode : "");
             } else if (city != null) {
                 // city browse
-                boolean publicSelected = filtersSet.contains(FieldFilter.SchoolTypeFilter.PUBLIC);
-                boolean charterSelected = filtersSet.contains(FieldFilter.SchoolTypeFilter.CHARTER);
-                boolean privateSelected = filtersSet.contains(FieldFilter.SchoolTypeFilter.PRIVATE);
+                boolean publicSelected = filtersSet.contains(SchoolFilters.SchoolTypeFilter.PUBLIC);
+                boolean charterSelected = filtersSet.contains(SchoolFilters.SchoolTypeFilter.CHARTER);
+                boolean privateSelected = filtersSet.contains(SchoolFilters.SchoolTypeFilter.PRIVATE);
 
                 HashSet<SchoolType> schoolTypeSet = new HashSet<SchoolType>(1);
                 if (publicSelected && !charterSelected && !privateSelected) {
@@ -1071,14 +1078,14 @@ public class SchoolSearchController extends AbstractCommandController implements
         return fieldConstraints;
     }
 
-    protected List<FieldFilter> getGradeLevelFilters(String[] gradeLevelStrings) {
-        List<FieldFilter> filters = new ArrayList<FieldFilter>();
+    protected List<SchoolFilters> getGradeLevelFilters(String[] gradeLevelStrings) {
+        List<SchoolFilters> filters = new ArrayList<SchoolFilters>();
 
         if (gradeLevelStrings != null) {
             for (String levelCode : gradeLevelStrings) {
                 LevelCode.Level level = LevelCode.Level.getLevelCode(levelCode);
                 if (level != null) {
-                    FieldFilter filter = getGradeLevelFilter(level);
+                    SchoolFilters filter = getGradeLevelFilter(level);
                     if (filter != null) {
                         filters.add(filter);
                     }
@@ -1089,12 +1096,12 @@ public class SchoolSearchController extends AbstractCommandController implements
         return filters;
     }
 
-    protected List<FieldFilter> getGradeLevelFilters(LevelCode levelCode) {
-        List<FieldFilter> filters = new ArrayList<FieldFilter>();
+    protected List<SchoolFilters> getGradeLevelFilters(LevelCode levelCode) {
+        List<SchoolFilters> filters = new ArrayList<SchoolFilters>();
 
         if (levelCode != null) {
             for (LevelCode.Level level : levelCode.getIndividualLevelCodes()) {
-                FieldFilter filter = getGradeLevelFilter(level);
+                SchoolFilters filter = getGradeLevelFilter(level);
                 if (filter != null) {
                     filters.add(filter);
                 }
@@ -1104,18 +1111,18 @@ public class SchoolSearchController extends AbstractCommandController implements
         return filters;
     }
 
-    protected FieldFilter getSchoolTypeFilter(SchoolType schoolType) {
+    protected SchoolFilters getSchoolTypeFilter(SchoolType schoolType) {
         if (schoolType == null) {
             throw new IllegalArgumentException("Cannot get filter for null SchoolType");
         }
-        FieldFilter filter = FieldFilter.SchoolTypeFilter.valueOf(StringUtils.upperCase(schoolType.getName()));
+        SchoolFilters filter = SchoolFilters.SchoolTypeFilter.valueOf(StringUtils.upperCase(schoolType.getName()));
         return filter;
     }
-    protected FieldFilter getGradeLevelFilter(LevelCode.Level level) {
+    protected SchoolFilters getGradeLevelFilter(LevelCode.Level level) {
         if (level == null) {
             throw new IllegalArgumentException("Cannot get filter for null LevelCode");
         }
-        FieldFilter filter = FieldFilter.GradeLevelFilter.valueOf(StringUtils.upperCase(level.getLongName()));
+        SchoolFilters filter = SchoolFilters.GradeLevelFilter.valueOf(StringUtils.upperCase(level.getLongName()));
         return filter;
     }
 
