@@ -194,6 +194,7 @@ ul.horizontal li {
 #cmsArticleText {
     margin-bottom: 10px;
     position:relative;
+    z-index:1;
 }
 
 #cmsArticleText object, #cmsArticleText embed{
