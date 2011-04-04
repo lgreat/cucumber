@@ -99,7 +99,7 @@ public class AccountController implements ReadWriteAnnotationController {
 
         account.setName(acct.getName());
         account.setOrganization(acct.getOrganization());
-        account.setEmail(acct.getEmail());        
+        account.setEmail(acct.getEmail());
         account.setWebsite(acct.getWebsite());
         account.setPhone(acct.getPhone());
         account.setIndustry(acct.getIndustry());
@@ -109,7 +109,7 @@ public class AccountController implements ReadWriteAnnotationController {
         account.setType(type);
         String opts;
         if ("f".equals(type)) {
-            account.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, "");            
+            account.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, "");
         } else if (acct.getPremiumOptions() != null) {
             opts = StringUtils.join(acct.getPremiumOptions(), ",");
             account.getConfig().set(ApiAccount.AccountConfig.PREMIUM_OPTIONS, opts);
@@ -179,13 +179,13 @@ public class AccountController implements ReadWriteAnnotationController {
             message.append("For instructions on getting started, please ");
             UrlBuilder docsMainLink = new UrlBuilder(UrlBuilder.API_DOCS_MAIN, null);
             message.append(docsMainLink.asAbsoluteAnchor(request, "click here").asATag()).append(". ");
-            message.append("Please keep in mind that our API has a 1,500 call limit per day. ");
-            message.append("Should you make more than 1,500 calls in a day, you will be charged per the overage schedule below:");
+            message.append("Please keep in mind that our API has a 3,000 call limit per day. ");
+            message.append("Should you make more than 3,000 calls in a day, you will be charged per the overage schedule below:");
             message.append("<br/><br/>");
-            message.append("1,501-3,000 calls: $0.08/call").append("<br/>");
-            message.append("3,001-4,500 calls: $0.05/call").append("<br/>");
-            message.append("4,501-6,000 calls: $0.03/call").append("<br/>");
-            message.append(">6,000 calls: You will be contacted by a GreatSchools representative directly.").append("<br/>");
+            message.append("3,001-6,000 calls: $0.08/call").append("<br/>");
+            message.append("6,001-9,000 calls: $0.05/call").append("<br/>");
+            message.append("9,001-12,000 calls: $0.03/call").append("<br/>");
+            message.append(">12,000 calls: You will be contacted by a GreatSchools representative directly.").append("<br/>");
             message.append("<br/>");
             String apiPartnersPage = "http://www.greatschools.org/cgi-bin/api-billing";
             message.append("To monitor your usage, please visit our ");
