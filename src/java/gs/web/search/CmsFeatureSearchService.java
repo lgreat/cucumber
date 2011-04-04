@@ -12,4 +12,5 @@ public interface CmsFeatureSearchService {
                                                                      List<CmsCategory> subjects,
                                                                      boolean strict, ContentKey excludeContentKey,
                                                                      String language, int pageSize, int offset);
+    public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeaturesSortByDate(Long GradeId, int pageSize, int pageNumber);
 }

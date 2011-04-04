@@ -5,6 +5,7 @@ import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
 import org.apache.solr.client.solrj.beans.Field;
 
 import javax.xml.bind.annotation.*;
+import java.util.Date;
 import java.util.List;
 
 @XmlType(propOrder={"primaryCategoryId","topicId","secondaryCategoryId","gradeId","subjectId",
@@ -23,7 +24,7 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     private String _fullUri;
     private String _title;
     private String _summary;
-
+    private Date _dateCreated;
 
     // empty constructor required by JAXB
     public SolrCmsFeatureSearchResult(){
@@ -124,6 +125,16 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     @Field(CmsFeatureDocumentBuilder.FIELD_RESULT_SUMMARY)
     public void setSummary(String summary) {
         _summary = summary;
+    }
+    
+    @XmlElement
+    public Date getDateCreated() {
+        return _dateCreated;
+    }
+
+    @Field(CmsFeatureDocumentBuilder.FIELD_CMS_DATE_CREATED)
+    public void setDateCreated(Date dateCreated) {
+        _dateCreated = dateCreated;
     }
 
     @XmlTransient

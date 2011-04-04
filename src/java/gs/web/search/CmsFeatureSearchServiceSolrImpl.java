@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.ContentKey;
 import gs.data.search.services.BaseSingleFieldSolrSearchService;
+import gs.data.search.FieldSort;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import org.apache.commons.collections.ListUtils;
@@ -117,18 +118,45 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         return null;
     }
 
+    /**
+     * Searches the indexed cms features and sorts by date created.
+     *
+     * @param gradeId    list of topic categories
+     * @param pageSize   number of rows to return
+     * @param pageNumber page number to set the offset for pagination
+     * @return SearchResultsPage of type CmsFeatureSearchResult
+     */
+    public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeaturesSortByDate(Long gradeId, int pageSize, int pageNumber) {
+        String searchStr = buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID, String.valueOf(gradeId), null);
+        FieldSort sort = FieldSort.valueOf("CMS_DATE_CREATED");
+
+        //Given the page number set the offset for the solr query.Offset is 0 based in solr.
+        int offset = pageNumber - 1;
+        if (offset > 0 && pageSize > 0) {
+            offset = (offset * pageSize);
+        }
+        try {
+            return search(searchStr, sort, offset, pageSize);
+        } catch (SearchException ex) {
+            _log.debug("Search Exception in CmsFeatureSearch.", ex);
+        }
+
+        return null;
+    }
+
 
     /**
      * Builds query that is equivalent to AND
      */
     private String buildMustIncludeQuery(String field, String value, Float boost) {
         String searchStr = "";
-        if (boost != null && boost > 0.0) {
-            searchStr += " +(" + field + ":" + value + ")^" + boost;
-        } else {
-            searchStr += " +(" + field + ":" + value + ")";
+        if (StringUtils.isNotBlank(field) && StringUtils.isNotBlank(value)) {
+            if (boost != null && boost > 0.0) {
+                searchStr += " +(" + field + ":" + value + ")^" + boost;
+            } else {
+                searchStr += " +(" + field + ":" + value + ")";
+            }
         }
-
         return searchStr;
     }
 
@@ -137,10 +165,12 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
      */
     private String buildOrIncludeQuery(String field, String value, Float boost) {
         String searchStr = "";
-        if (boost != null && boost > 0.0) {
-            searchStr += " OR (" + field + ":" + value + ")^" + boost;
-        } else {
-            searchStr += " OR (" + field + ":" + value + ")";
+        if (StringUtils.isNotBlank(field) && StringUtils.isNotBlank(value)) {
+            if (boost != null && boost > 0.0) {
+                searchStr += " OR (" + field + ":" + value + ")^" + boost;
+            } else {
+                searchStr += " OR (" + field + ":" + value + ")";
+            }
         }
 
         return searchStr;
@@ -152,10 +182,13 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
      */
     private String buildEitherOrIncludeQuery(String field1, String value1, Float boost1,
                                              String field2, String value2, Float boost2) {
-        String searchStr = "+((" + field1 + ":" + value1 + ")^" + boost1;
-        searchStr += buildOrIncludeQuery(field2, value2, boost2);
-        searchStr = searchStr + ")";
-
+        String searchStr = "";
+        if (StringUtils.isNotBlank(field1) && StringUtils.isNotBlank(value1) &&
+                (StringUtils.isNotBlank(field2) && StringUtils.isNotBlank(value2))) {
+            searchStr = "+((" + field1 + ":" + value1 + ")^" + boost1;
+            searchStr += buildOrIncludeQuery(field2, value2, boost2);
+            searchStr = searchStr + ")";
+        }
         return searchStr;
     }
 
@@ -163,7 +196,11 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
      * Builds query that excludes a field.
      */
     private String buildMustExcludeQuery(String field, String value) {
-        return " -(" + field + ":" + value + ")";
+        String searchStr = "";
+        if (StringUtils.isNotBlank(field) && StringUtils.isNotBlank(value)) {
+            searchStr = " -(" + field + ":" + value + ")";
+        }
+        return searchStr;
     }
 
 }
