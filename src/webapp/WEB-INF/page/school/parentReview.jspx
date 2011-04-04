@@ -47,7 +47,7 @@
 
 <div class="mediaExt2-3">
     <div class="img">
-        <gsml:img src="/res/img/school/parentReviews/parent_reviews.jpg"
+        <gsml:img src="/res/img/school/parentReviews/${morganStanley ? 'ms_parentreview.jpg' : 'parent_reviews.jpg'}"
                   width="220"
                   height="167"
                   alt="Parent Review Image"/>
