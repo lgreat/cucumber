@@ -107,6 +107,8 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
             offset = (offset * pageSize);
         }
 
+        System.out.println("---searchStr-----------------------"+searchStr);
+
         try {
 
             return search(searchStr, offset, pageSize);
@@ -152,9 +154,9 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         String searchStr = "";
         if (StringUtils.isNotBlank(field) && StringUtils.isNotBlank(value)) {
             if (boost != null && boost > 0.0) {
-                searchStr += " +(" + field + ":" + value + ")^" + boost;
+                searchStr += "+(" + field + ":" + value + ")^" + boost;
             } else {
-                searchStr += " +(" + field + ":" + value + ")";
+                searchStr += "+(" + field + ":" + value + ")";
             }
         }
         return searchStr;
@@ -167,9 +169,9 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         String searchStr = "";
         if (StringUtils.isNotBlank(field) && StringUtils.isNotBlank(value)) {
             if (boost != null && boost > 0.0) {
-                searchStr += " OR (" + field + ":" + value + ")^" + boost;
+                searchStr += " OR(" + field + ":(" + value + "))^" + boost ;
             } else {
-                searchStr += " OR (" + field + ":" + value + ")";
+                searchStr += " OR(" + field + ":(" + value + "))";
             }
         }
 
@@ -198,7 +200,7 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
     private String buildMustExcludeQuery(String field, String value) {
         String searchStr = "";
         if (StringUtils.isNotBlank(field) && StringUtils.isNotBlank(value)) {
-            searchStr = " -(" + field + ":" + value + ")";
+            searchStr = "-(" + field + ":" + value + ")";
         }
         return searchStr;
     }
