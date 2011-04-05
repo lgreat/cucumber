@@ -29,13 +29,10 @@ import static org.easymock.classextension.EasyMock.*;
  */
 public class CmsHomepageControllerTest extends BaseControllerTestCase {
     private CmsHomepageController _controller;
-//    private ICmsCategoryDao _cmsCategoryDao;
     private IDiscussionDao _discussionDao;
     private IPublicationDao _publicationDao;
     private IRaiseYourHandDao _raiseYourHandDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoarDao;
-//    private IRoleDao _roleDao;
-//    private Searcher _searcher;
 
     private CmsFeatureSearchService _cmsFeatureSearchService;
     private CmsCategorySearchService _cmsCategorySearchService;
@@ -46,8 +43,6 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
 
         _controller = new CmsHomepageController();
 
-//        _cmsCategoryDao = createStrictMock(ICmsCategoryDao.class);
-//        _searcher = createStrictMock(Searcher.class);
         _cmsFeatureSearchService = createMock(CmsFeatureSearchService.class);
         _cmsCategorySearchService = createMock(CmsCategorySearchService.class);
         _controller.setCmsFeatureSearchService(_cmsFeatureSearchService);
@@ -63,21 +58,22 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoarDao);
         _controller.setRaiseYourHandDao(_raiseYourHandDao);
 
-//        _roleDao = new RoleDaoHibernate();
     }
 
     public void testBasics() {
+        assertSame(_cmsCategorySearchService, _controller.getCmsCategorySearchService());
+        assertSame(_cmsFeatureSearchService, _controller.getCmsFeatureSearchService());
         assertSame(_discussionDao, _controller.getDiscussionDao());
         assertSame(_publicationDao, _controller.getPublicationDao());
         assertSame(_cmsDiscussionBoarDao, _controller.getCmsDiscussionBoardDao());
     }
 
     public void replayAllMocks() {
-        super.replayMocks(_cmsFeatureSearchService, _cmsCategorySearchService, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
+        super.replayMocks(_cmsFeatureSearchService, _cmsCategorySearchService, _discussionDao, _publicationDao, _cmsDiscussionBoarDao, _raiseYourHandDao);
     }
 
     public void verifyAllMocks() {
-        super.verifyMocks(_cmsFeatureSearchService, _cmsCategorySearchService, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
+        super.verifyMocks(_cmsFeatureSearchService, _cmsCategorySearchService, _discussionDao, _publicationDao, _cmsDiscussionBoarDao, _raiseYourHandDao);
     }
 
     protected CmsCategory getCategory(int id, String name) {
@@ -105,49 +101,6 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         return feature;
     }
 
-    private Searcher setupNoResultsSearcher() throws Exception {
-        RAMDirectory dir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(), true);
-
-        List<CmsFeature> features = new ArrayList<CmsFeature>();
-        Indexer indexer = new Indexer();
-        indexer.indexCategories(indexer.indexCmsFeatures(features, writer), writer);
-        writer.close();
-
-        IndexDir indexDir = new IndexDir(dir, null);
-        return new Searcher(indexDir);
-    }
-
-    private Searcher setupSomeResultsSearcher() throws Exception {
-        RAMDirectory dir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(dir, new StandardAnalyzer(), true);
-
-        List<CmsFeature> features = new ArrayList<CmsFeature>();
-        CmsFeature feature = getFeature(1);
-        CmsCategory cat = getCategory(198, "p");
-        feature.setPrimaryKategory(cat);
-        feature.setPrimaryKategoryBreadcrumbs(Arrays.asList(cat));
-        feature.setSecondaryKategories(Arrays.asList(cat));
-        feature.setSecondaryKategoryBreadcrumbs(Arrays.asList(Arrays.asList(cat)));
-        features.add(feature);
-        Indexer indexer = new Indexer();
-        indexer.indexCategories(indexer.indexCmsFeatures(features, writer), writer);
-        writer.close();
-
-        IndexDir indexDir = new IndexDir(dir, null);
-
-        return new Searcher(indexDir);
-    }
-
-    public void testPopulateModelWithRecentCMSContentNoCategories() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        expect(_cmsCategorySearchService.getCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(null);
-        replayAllMocks();
-        _controller.populateModelWithRecentCMSContent(model);
-        verifyAllMocks();
-        assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
-    }
-
     public void testInsertRaiseYourHandDiscussionsIntoModel() {
         Map<String, Object> model = new HashMap<String, Object>();
 
@@ -164,13 +117,22 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         getSessionContext().setUser(user);
 
         List<RaiseYourHandFeature> result = new ArrayList<RaiseYourHandFeature>();
-        
-        expect(_raiseYourHandDao.getFeatures(new ContentKey("TopicCenter",2077l),CmsHomepageController.MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN)).andReturn(result);
+
+        expect(_raiseYourHandDao.getFeatures(new ContentKey("TopicCenter", 2077l), CmsHomepageController.MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN)).andReturn(result);
 
         replayAllMocks();
-        _controller.insertRaiseYourHandDiscussionsIntoModel(getRequest(),model);
+        _controller.insertRaiseYourHandDiscussionsIntoModel(getRequest(), model);
         verifyAllMocks();
         assertNotNull("MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC should not be null!", model.get(CmsHomepageController.MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC));
+    }
+
+    public void testPopulateModelWithRecentCMSContentNoCategories() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        expect(_cmsCategorySearchService.getCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(null);
+        replayAllMocks();
+        _controller.populateModelWithRecentCMSContent(model);
+        verifyAllMocks();
+        assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
     }
 
     public void testPopulateModelWithRecentCMSContentSomeCategories() {
@@ -178,6 +140,34 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         List<CmsCategory> categories = new ArrayList<CmsCategory>(9);
         categories.add(getCategory(198, "p"));
         expect(_cmsCategorySearchService.getCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
+        replayAllMocks();
+        _controller.populateModelWithRecentCMSContent(model);
+        verifyAllMocks();
+        assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
+    }
+
+
+    public void testPopulateModelWithRecentCMSContentAllCategories() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        List<CmsCategory> categories = new ArrayList<CmsCategory>(9);
+        categories.add(getCategory(198, "p"));
+        categories.add(getCategory(199, "k"));
+        categories.add(getCategory(200, "1"));
+        categories.add(getCategory(201, "2"));
+        categories.add(getCategory(202, "3"));
+        categories.add(getCategory(203, "4"));
+        categories.add(getCategory(204, "5"));
+        categories.add(getCategory(205, "6"));
+        categories.add(getCategory(206, "7"));
+        expect(_cmsCategorySearchService.getCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
+        for (CmsCategory cat : categories) {
+            expect(_cmsFeatureSearchService.getCmsFeaturesSortByDate(cat.getId(), _controller.GRADE_BY_GRADE_NUM_CMS_CONTENT, _controller.GRADE_BY_GRADE_PAGE_NUM)).andReturn(null);
+        }
+        expect(_publicationDao.populateByContentId(eq(1573L), isA(CmsTopicCenter.class))).andReturn(null);
+        expect(_publicationDao.populateByContentId(eq(1574L), isA(CmsTopicCenter.class))).andReturn(null).times(6);
+        expect(_publicationDao.populateByContentId(eq(1575L), isA(CmsTopicCenter.class))).andReturn(null);
+        expect(_publicationDao.populateByContentId(eq(1576L), isA(CmsTopicCenter.class))).andReturn(null);
+
         replayAllMocks();
         _controller.populateModelWithRecentCMSContent(model);
         verifyAllMocks();

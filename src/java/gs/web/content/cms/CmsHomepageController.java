@@ -28,6 +28,7 @@ public class CmsHomepageController extends AbstractController {
 
     public static final int GRADE_BY_GRADE_NUM_CATEGORIES = 9;
     public static final int GRADE_BY_GRADE_NUM_CMS_CONTENT = 6;
+    public static final int GRADE_BY_GRADE_PAGE_NUM = 1;
     public static final int GRADE_BY_GRADE_NUM_ITEMS = 6;
     public static final int GRADE_BY_GRADE_NUM_DISCUSSIONS = 2;
     public static final int GRADE_BY_GRADE_MIN_NUM_REPLIES = 3;
@@ -188,7 +189,8 @@ public class CmsHomepageController extends AbstractController {
 
     protected List<ICmsFeatureSearchResult> getCmsContentForCategory(CmsCategory category) {
         CmsFeatureSearchService service = getCmsFeatureSearchService();
-        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeaturesSortByDate(category.getId(),GRADE_BY_GRADE_NUM_CMS_CONTENT,1);
+        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeaturesSortByDate(category.getId(),
+                GRADE_BY_GRADE_NUM_CMS_CONTENT,GRADE_BY_GRADE_PAGE_NUM);
         if (searchResultsPage != null && searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() > 0) {
             return searchResultsPage.getSearchResults();
         } else {
