@@ -229,7 +229,7 @@ public class ArticlesByCategoryController extends AbstractController {
         String contentId = request.getParameter(PARAM_EXCLUDE_CONTENT_ID);
         String strictStr = request.getParameter(PARAM_STRICT);
         String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
-        
+
         boolean strict = false;
         ContentKey excludeContentKey = null;
 
@@ -347,16 +347,18 @@ public class ArticlesByCategoryController extends AbstractController {
     }
 
 
-     private static List<ICmsFeatureSearchResult> getRandomResults(SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage, int maxResults) {
-        int totalResults = searchResultsPage.getSearchResults().size();
+    private static List<ICmsFeatureSearchResult> getRandomResults(SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage, int maxResults) {
 
-        if (searchResultsPage == null || totalResults == 0) {
+        if (searchResultsPage == null || searchResultsPage.getSearchResults() == null
+                || searchResultsPage.getSearchResults().size() == 0) {
             throw new IllegalArgumentException("Hits cannot be null or have 0 length");
         }
 
         if (maxResults <= 0) {
             throw new IllegalArgumentException("MaxResults must be 1 or higher");
         }
+
+        int totalResults = searchResultsPage.getSearchResults().size();
 
         List<ICmsFeatureSearchResult> searchResults = new ArrayList<ICmsFeatureSearchResult>();
         Set<Integer> picked = new HashSet<Integer>();

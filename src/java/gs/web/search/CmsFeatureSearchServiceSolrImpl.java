@@ -58,20 +58,26 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
 
         //Give primary category precedence OR articles can just be tagged with the particular category
         String searchStr = "";
-        for (CmsCategory category : topics) {
-            if (!strict) {
-                searchStr += buildEitherOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId()), new Float(0.9), CmsFeatureDocumentBuilder.FIELD_CMS_TOPIC_ID, String.valueOf(category.getId()), null);
-            } else {
-                searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId()), new Float(0.9));
+        if (topics != null) {
+            for (CmsCategory category : topics) {
+                if (!strict) {
+                    searchStr += buildEitherOrIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId()), new Float(0.9), CmsFeatureDocumentBuilder.FIELD_CMS_TOPIC_ID, String.valueOf(category.getId()), null);
+                } else {
+                    searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId()), new Float(0.9));
+                }
             }
         }
 
-        for (CmsCategory category : grades) {
-            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID, String.valueOf(category.getId()), null);
+        if (grades != null) {
+            for (CmsCategory category : grades) {
+                searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID, String.valueOf(category.getId()), null);
+            }
         }
 
-        for (CmsCategory category : subjects) {
-            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_SUBJECT_ID, String.valueOf(category.getId()), null);
+        if (subjects != null) {
+            for (CmsCategory category : subjects) {
+                searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_SUBJECT_ID, String.valueOf(category.getId()), null);
+            }
         }
 
         if (excludeContentKey != null) {
@@ -106,8 +112,6 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         if (offset > 0 && pageSize > 0) {
             offset = (offset * pageSize);
         }
-
-        System.out.println("---searchStr-----------------------"+searchStr);
 
         try {
 
