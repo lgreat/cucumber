@@ -14,6 +14,8 @@ import gs.data.security.Permission;
 import gs.data.security.Role;
 import gs.data.security.RoleDaoHibernate;
 import gs.web.BaseControllerTestCase;
+import gs.web.search.CmsCategorySearchService;
+import gs.web.search.CmsFeatureSearchService;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.RAMDirectory;
@@ -27,13 +29,16 @@ import static org.easymock.classextension.EasyMock.*;
  */
 public class CmsHomepageControllerTest extends BaseControllerTestCase {
     private CmsHomepageController _controller;
-    private ICmsCategoryDao _cmsCategoryDao;
+//    private ICmsCategoryDao _cmsCategoryDao;
     private IDiscussionDao _discussionDao;
     private IPublicationDao _publicationDao;
     private IRaiseYourHandDao _raiseYourHandDao;
     private ICmsDiscussionBoardDao _cmsDiscussionBoarDao;
-    private IRoleDao _roleDao;
-    private Searcher _searcher;
+//    private IRoleDao _roleDao;
+//    private Searcher _searcher;
+
+    private CmsFeatureSearchService _cmsFeatureSearchService;
+    private CmsCategorySearchService _cmsCategorySearchService;
 
     @Override
     public void setUp() throws Exception {
@@ -41,8 +46,13 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
 
         _controller = new CmsHomepageController();
 
-        _cmsCategoryDao = createStrictMock(ICmsCategoryDao.class);
-        _searcher = createStrictMock(Searcher.class);
+//        _cmsCategoryDao = createStrictMock(ICmsCategoryDao.class);
+//        _searcher = createStrictMock(Searcher.class);
+        _cmsFeatureSearchService = createMock(CmsFeatureSearchService.class);
+        _cmsCategorySearchService = createMock(CmsCategorySearchService.class);
+        _controller.setCmsFeatureSearchService(_cmsFeatureSearchService);
+        _controller.setCmsCategorySearchService(_cmsCategorySearchService);
+
         _discussionDao = createStrictMock(IDiscussionDao.class);
         _publicationDao = createStrictMock(IPublicationDao.class);
         _cmsDiscussionBoarDao = createStrictMock(ICmsDiscussionBoardDao.class);
@@ -53,7 +63,7 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoarDao);
         _controller.setRaiseYourHandDao(_raiseYourHandDao);
 
-        _roleDao = new RoleDaoHibernate();
+//        _roleDao = new RoleDaoHibernate();
     }
 
     public void testBasics() {
@@ -63,11 +73,11 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
     }
 
     public void replayAllMocks() {
-        super.replayMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
+        super.replayMocks(_cmsFeatureSearchService, _cmsCategorySearchService, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
     }
 
     public void verifyAllMocks() {
-        super.verifyMocks(_cmsCategoryDao, _searcher, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
+        super.verifyMocks(_cmsFeatureSearchService, _cmsCategorySearchService, _discussionDao, _publicationDao, _cmsDiscussionBoarDao,_raiseYourHandDao);
     }
 
     protected CmsCategory getCategory(int id, String name) {
@@ -131,7 +141,7 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
 
     public void testPopulateModelWithRecentCMSContentNoCategories() {
         Map<String, Object> model = new HashMap<String, Object>();
-        expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(null);
+        expect(_cmsCategorySearchService.getCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(null);
         replayAllMocks();
         _controller.populateModelWithRecentCMSContent(model);
         verifyAllMocks();
@@ -167,7 +177,7 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         Map<String, Object> model = new HashMap<String, Object>();
         List<CmsCategory> categories = new ArrayList<CmsCategory>(9);
         categories.add(getCategory(198, "p"));
-        expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
+        expect(_cmsCategorySearchService.getCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
         replayAllMocks();
         _controller.populateModelWithRecentCMSContent(model);
         verifyAllMocks();
