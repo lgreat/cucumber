@@ -189,7 +189,7 @@ public class CmsHomepageController extends AbstractController {
     protected List<ICmsFeatureSearchResult> getCmsContentForCategory(CmsCategory category) {
         CmsFeatureSearchService service = getCmsFeatureSearchService();
         SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeaturesSortByDate(category.getId(),GRADE_BY_GRADE_NUM_CMS_CONTENT,1);
-        if (searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() > 0) {
+        if (searchResultsPage != null && searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() > 0) {
             return searchResultsPage.getSearchResults();
         } else {
             _log.warn("Can't find any search results for category " + category.getName());
