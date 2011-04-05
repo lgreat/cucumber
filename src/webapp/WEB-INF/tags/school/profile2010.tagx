@@ -376,15 +376,14 @@
 
             <!-- Display subnav if:
                 * school stats tab is selected in main nav and any of the following
-                    - school is public or charter
-                    - school is private and has survey data or test scores
+                    - school is public or charter OR private and has either survay data or test scores
                     - school is preschool and has survey data AND school stats
                     - school has principal questionaire data
             -->
                 <c:if test="${tab eq 'schoolStats'
-                            and (school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
-                            and (school.levelCode ne 'p' or (requestScope.hasSurveyData and requestScope.hasSchoolStats))
-                            and hasPq}">
+                            and ((school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
+                                or (school.levelCode ne 'p' or (requestScope.hasSurveyData and requestScope.hasSchoolStats))
+                                or hasPq)}">
                     <div id="schoolProfileSubTabsWrapper">
                         <ul id="schoolProfileSubTabs" class="text3">
                             <c:if test="${requestScope.hasTestScores}">
