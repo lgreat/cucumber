@@ -48,8 +48,6 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         _cmsDiscussionBoarDao = createStrictMock(ICmsDiscussionBoardDao.class);
         _raiseYourHandDao = createStrictMock(IRaiseYourHandDao.class);
 
-        _controller.setCmsCategoryDao(_cmsCategoryDao);
-        _controller.setSearcher(_searcher);
         _controller.setDiscussionDao(_discussionDao);
         _controller.setPublicationDao(_publicationDao);
         _controller.setCmsDiscussionBoardDao(_cmsDiscussionBoarDao);
@@ -59,8 +57,6 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
     }
 
     public void testBasics() {
-        assertSame(_cmsCategoryDao, _controller.getCmsCategoryDao());
-        assertSame(_searcher, _controller.getSearcher());
         assertSame(_discussionDao, _controller.getDiscussionDao());
         assertSame(_publicationDao, _controller.getPublicationDao());
         assertSame(_cmsDiscussionBoarDao, _controller.getCmsDiscussionBoardDao());
@@ -177,54 +173,5 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
         assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
     }
-
-    public void testPopulateModelWithRecentCMSContentNoResults() throws Exception {
-        Map<String, Object> model = new HashMap<String, Object>();
-        List<CmsCategory> categories = new ArrayList<CmsCategory>(9);
-        categories.add(getCategory(198, "p"));
-        categories.add(getCategory(199, "k"));
-        categories.add(getCategory(200, "1"));
-        categories.add(getCategory(201, "2"));
-        categories.add(getCategory(202, "3"));
-        categories.add(getCategory(203, "4"));
-        categories.add(getCategory(204, "5"));
-        categories.add(getCategory(205, "m"));
-        categories.add(getCategory(206, "h"));
-        expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
-        _controller.setSearcher(setupNoResultsSearcher());
-        expect(_publicationDao.populateByContentId(eq(1573L), isA(CmsTopicCenter.class))).andReturn(null);
-        expect(_publicationDao.populateByContentId(eq(1574L), isA(CmsTopicCenter.class))).andReturn(null).times(6);
-        expect(_publicationDao.populateByContentId(eq(1575L), isA(CmsTopicCenter.class))).andReturn(null);
-        expect(_publicationDao.populateByContentId(eq(1576L), isA(CmsTopicCenter.class))).andReturn(null);
-        replayAllMocks();
-        _controller.populateModelWithRecentCMSContent(model);
-        verifyAllMocks();
-        assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
-    }
-
-    public void testPopulateModelWithRecentCMSContentSomeResults() throws Exception {
-        Map<String, Object> model = new HashMap<String, Object>();
-        List<CmsCategory> categories = new ArrayList<CmsCategory>(9);
-        categories.add(getCategory(198, "p"));
-        categories.add(getCategory(199, "k"));
-        categories.add(getCategory(200, "1"));
-        categories.add(getCategory(201, "2"));
-        categories.add(getCategory(202, "3"));
-        categories.add(getCategory(203, "4"));
-        categories.add(getCategory(204, "5"));
-        categories.add(getCategory(205, "m"));
-        categories.add(getCategory(206, "h"));
-        expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(categories);
-        _controller.setSearcher(setupSomeResultsSearcher());
-        expect(_publicationDao.populateByContentId(eq(1573L), isA(CmsTopicCenter.class))).andReturn(null);
-        expect(_publicationDao.populateByContentId(eq(1574L), isA(CmsTopicCenter.class))).andReturn(null).times(6);
-        expect(_publicationDao.populateByContentId(eq(1575L), isA(CmsTopicCenter.class))).andReturn(null);
-        expect(_publicationDao.populateByContentId(eq(1576L), isA(CmsTopicCenter.class))).andReturn(null);
-        replayAllMocks();
-        _controller.populateModelWithRecentCMSContent(model);
-        verifyAllMocks();
-        assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
-    }
-
 
 }

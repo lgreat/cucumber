@@ -255,6 +255,12 @@
         <property name="viewName">
             <value>index</value>
         </property>
+        <property name="cmsCategorySearchService">
+            <ref bean="solrCmsCategorySearchService"/>
+        </property>
+        <property name="cmsFeatureSearchService">
+            <ref bean="solrCmsFeatureSearchService"/>
+        </property>
     </bean>
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
