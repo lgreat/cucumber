@@ -38,7 +38,7 @@ public class CmsCategorySearchServiceSolrImpl extends BaseSingleFieldSolrSearchS
 
                 try {
                     SearchResultsPage<ICmsCategorySearchResult> searchResultsPage = search(CmsCategoryDocumentBuilder.FIELD_FULL_URI + ":" + categoryUri);
-                    if (searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() == 1) {
+                    if (searchResultsPage != null && searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() == 1) {
                         ICmsCategorySearchResult result = searchResultsPage.getSearchResults().get(0);
                         CmsCategory category = buildCmsCategory(result);
                         return category;
@@ -70,7 +70,7 @@ public class CmsCategorySearchServiceSolrImpl extends BaseSingleFieldSolrSearchS
     public CmsCategory getCmsCategoryFromId(long categoryId) {
         try {
             SearchResultsPage<ICmsCategorySearchResult> searchResultsPage = search(CmsCategoryDocumentBuilder.FIELD_CONTENT_ID + ":" + categoryId);
-            if (searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() == 1) {
+            if (searchResultsPage != null && searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() == 1) {
                 ICmsCategorySearchResult result = searchResultsPage.getSearchResults().get(0);
                 CmsCategory category = buildCmsCategory(result);
                 return category;
