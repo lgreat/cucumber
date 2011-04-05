@@ -1,5 +1,7 @@
 package gs.web.content;
 
+import gs.data.search.ISearchResult;
+import gs.data.search.SearchResultsPage;
 import gs.web.BaseControllerTestCase;
 import gs.web.search.*;
 import gs.web.util.PageHelper;
@@ -132,5 +134,32 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_TOTAL_HITS));
         assertNull(mAndV.getModel().get(ArticlesByCategoryController.MODEL_RESULTS));
     }
+
+     /**
+     * Test with nulls
+     */
+    public void testStoreResultsForCmsCategoriesNoFeatures(){
+        expect(_cmsFeatureSearchService.getCmsFeatures(null,null,null,false,null,null,10,1)).andReturn(null);
+        replay(_cmsFeatureSearchService);
+        _controller.setRandomResults(true);
+        _controller.storeResultsForCmsCategories(null,null,null,null,1,false,null,null,String.valueOf(10));
+        verify(_cmsFeatureSearchService);
+    }
+
+     /**
+     * Test with returning one search result.
+     */
+    public void testStoreResultsForCmsCategoriesFewFeature(){
+        SolrCmsCategorySearchResult cmsFeature= new SolrCmsCategorySearchResult();
+        List<ISearchResult> searchResults =  new ArrayList();
+        searchResults.add(cmsFeature);
+        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = new SearchResultsPage(1,searchResults);
+        expect(_cmsFeatureSearchService.getCmsFeatures(null,null,null,false,null,null,10,1)).andReturn(searchResultsPage);
+        replay(_cmsFeatureSearchService);
+        _controller.setRandomResults(true);
+        _controller.storeResultsForCmsCategories(null,null,null,new HashMap(),1,false,null,null,String.valueOf(10));
+        verify(_cmsFeatureSearchService);
+    }
+
 
 }
