@@ -2477,9 +2477,8 @@ Viewport: the defines width and height of each icon
 .recentDiscussions .ft p{margin:0 0 10px;}
 /* ------ findSchool (extends mod) ------- */
 .findCompare .inner{background-color:#fc6;border-bottom:1px solid white;}
-.findCompare .hd {position:relative;z-index:10;}
+.findCompare .hd {position:relative;z-index:1;}
 .findCompare .hd h3{margin:10px 15px;}
-.findCompare .bd {position:relative;z-index:100;}
 .findCompare .bd .form{padding:0 15px 20px;}
 .findCompare .bd .formExt1{padding:5px 15px 15px;}
 .findCompare .bd .formExt2{padding:0 15px 10px;}
