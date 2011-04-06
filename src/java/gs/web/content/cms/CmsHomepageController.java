@@ -2,18 +2,22 @@ package gs.web.content.cms;
 
 import gs.data.cms.IPublicationDao;
 import gs.data.content.cms.*;
-import gs.data.search.SearchResultsPage;
+import gs.data.search.Indexer;
+import gs.data.search.SearchResult;
+import gs.data.search.Searcher;
 import gs.data.security.Permission;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.web.school.SchoolOverviewController;
-import gs.web.search.*;
+import gs.web.search.ResultsPager;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -28,7 +32,6 @@ public class CmsHomepageController extends AbstractController {
 
     public static final int GRADE_BY_GRADE_NUM_CATEGORIES = 9;
     public static final int GRADE_BY_GRADE_NUM_CMS_CONTENT = 6;
-    public static final int GRADE_BY_GRADE_PAGE_NUM = 1;
     public static final int GRADE_BY_GRADE_NUM_ITEMS = 6;
     public static final int GRADE_BY_GRADE_NUM_DISCUSSIONS = 2;
     public static final int GRADE_BY_GRADE_MIN_NUM_REPLIES = 3;
@@ -47,10 +50,10 @@ public class CmsHomepageController extends AbstractController {
     private IDiscussionDao _discussionDao;
     private IDiscussionReplyDao _discussionReplyDao;
     private IUserDao _userDao;
+    private ICmsCategoryDao _cmsCategoryDao;
+    private Searcher _searcher;
     private IRaiseYourHandDao _raiseYourHandDao;
 
-    private CmsFeatureSearchService _cmsFeatureSearchService;
-    private CmsCategorySearchService _cmsCategorySearchService;
 
     static {
         // Preschool
@@ -85,7 +88,7 @@ public class CmsHomepageController extends AbstractController {
             model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
             populateModelWithRecentCMSContent(model); // GS-9160
 
-            // GS-9770 if user is authorized and is a cms admin, add raise your hand discussions to model 
+            // GS-9770 if user is authorized and is a cms admin, add raise your hand discussions to model
             if (PageHelper.isMemberAuthorized(request)) {
                 insertRaiseYourHandDiscussionsIntoModel(request, model);
             }
@@ -111,14 +114,13 @@ public class CmsHomepageController extends AbstractController {
 
     public void populateModelWithRecentCMSContent(Map<String, Object> model) {
         String idList = "198,199,200,201,202,203,204,205,206";
-        CmsCategorySearchService service = getCmsCategorySearchService();
-        List<CmsCategory> cats = service.getCategoriesFromIds(idList);
+        List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds(idList);
         if (cats != null && cats.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
             Map<String, List<RecentContent>> catToResultMap = new HashMap<String, List<RecentContent>>(GRADE_BY_GRADE_NUM_CATEGORIES);
             for (CmsCategory category : cats) {
                 // first get the cms content for the category
                 // this returns up to GRADE_BY_GRADE_NUM_CMS_CONTENT pieces of content
-                List<ICmsFeatureSearchResult> cmsContentForCat = getCmsContentForCategory(category);
+                List<Object> cmsContentForCat = getCmsContentForCategory(category);
                 // Then try to find GRADE_BY_GRADE_NUM_DISCUSSIONS discussions for that category
                 List<Discussion> discussions = getDiscussionsForCategory(category);
                 // for each discussion returned, put it in the list, replacing content if necessary
@@ -129,9 +131,8 @@ public class CmsHomepageController extends AbstractController {
                     recentContentList.add(recentContent);
                 }
                 while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && !cmsContentForCat.isEmpty()) {
-                    ICmsFeatureSearchResult r= (SolrCmsFeatureSearchResult)cmsContentForCat.remove(0);
-
-                    recentContentList.add(new RecentContent(r));
+                    SearchResult result = (SearchResult) cmsContentForCat.remove(0);
+                    recentContentList.add(new RecentContent(result));
                 }
                 if (!recentContentList.isEmpty()) {
                     Collections.shuffle(recentContentList);
@@ -187,16 +188,19 @@ public class CmsHomepageController extends AbstractController {
         return new ArrayList<Discussion>(0);
     }
 
-    protected List<ICmsFeatureSearchResult> getCmsContentForCategory(CmsCategory category) {
-        CmsFeatureSearchService service = getCmsFeatureSearchService();
-        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeaturesSortByDate(category.getId(),
-                GRADE_BY_GRADE_NUM_CMS_CONTENT,GRADE_BY_GRADE_PAGE_NUM);
-        if (searchResultsPage != null && searchResultsPage.getSearchResults() != null && searchResultsPage.getSearchResults().size() > 0) {
-            return searchResultsPage.getSearchResults();
+    protected List<Object> getCmsContentForCategory(CmsCategory category) {
+        TermQuery term = new TermQuery(new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
+        Filter filterOnlyCmsFeatures = new CachingWrapperFilter(new QueryFilter(new TermQuery(
+                new Term(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
+        Sort sortByDateCreatedDescending = new Sort(new SortField(Indexer.CMS_DATE_CREATED, SortField.STRING, true));
+        Hits hits = _searcher.search(term, sortByDateCreatedDescending, null, filterOnlyCmsFeatures);
+        if (hits != null && hits.length() > 0) {
+            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
+            return resultsPager.getResults(1, GRADE_BY_GRADE_NUM_CMS_CONTENT);
         } else {
             _log.warn("Can't find any search results for category " + category.getName());
         }
-        return new ArrayList<ICmsFeatureSearchResult>(0);
+        return new ArrayList<Object>(0);
     }
 
     // Used by gradeByGrade module (gradeByGrade.tagx and gradeByGradeList.tagx)
@@ -212,11 +216,11 @@ public class CmsHomepageController extends AbstractController {
         private String _title;
         private ContentType _contentType;
 
-        public RecentContent(ICmsFeatureSearchResult cmsResult) {
+        public RecentContent(SearchResult cmsResult) {
             _contentType = ContentType.cms;
-            _contentKey = cmsResult.getContentKey().toString();
+            _contentKey = cmsResult.getContentKey();
             _fullUri = cmsResult.getFullUri();
-            _title = cmsResult.getTitle();
+            _title = cmsResult.getHeadline();
         }
 
         public RecentContent(Discussion discussion, String fullUri) {
@@ -312,6 +316,22 @@ public class CmsHomepageController extends AbstractController {
         _userDao = userDao;
     }
 
+    public ICmsCategoryDao getCmsCategoryDao() {
+        return _cmsCategoryDao;
+    }
+
+    public void setCmsCategoryDao(ICmsCategoryDao cmsCategoryDao) {
+        _cmsCategoryDao = cmsCategoryDao;
+    }
+
+    public Searcher getSearcher() {
+        return _searcher;
+    }
+
+    public void setSearcher(Searcher searcher) {
+        _searcher = searcher;
+    }
+
     public IRaiseYourHandDao getRaiseYourHandDao() {
         return _raiseYourHandDao;
     }
@@ -319,21 +339,4 @@ public class CmsHomepageController extends AbstractController {
     public void setRaiseYourHandDao(IRaiseYourHandDao raiseYourHandDao) {
         _raiseYourHandDao = raiseYourHandDao;
     }
-
-    public CmsFeatureSearchService getCmsFeatureSearchService() {
-        return _cmsFeatureSearchService;
-    }
-
-    public void setCmsFeatureSearchService(CmsFeatureSearchService cmsFeatureSearchService) {
-        _cmsFeatureSearchService = cmsFeatureSearchService;
-    }
-
-    public CmsCategorySearchService getCmsCategorySearchService() {
-        return _cmsCategorySearchService;
-    }
-
-    public void setCmsCategorySearchService(CmsCategorySearchService cmsCategorySearchService) {
-        _cmsCategorySearchService = cmsCategorySearchService;
-    }
-
 }
