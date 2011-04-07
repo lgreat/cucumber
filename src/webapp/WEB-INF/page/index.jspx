@@ -206,7 +206,7 @@
             levelCode="e"
             />
 
-    <gsweb:adTagGenerator position="Homepage_House_Ad_328x150"/>
+    <gsweb:adTagGenerator position="Homepage_House_Ad_300x137"/>
 
     <div>
         <c:choose>
@@ -229,19 +229,14 @@
         </c:choose>
     </div>
 
-    <c:choose>
-        <c:when test="${showSchoolChooserPackPromo}">
-            <promo:schoolChoicePackPromo
-                    showBorder="${false}"
-                    showSchoolChoiceLink="${false}"
-                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                    caller="sidebar"
-                    />
-        </c:when>
-        <c:otherwise>
-            <ad:Top_300x137/>
-        </c:otherwise>
-    </c:choose>
+    <c:if test="${showSchoolChooserPackPromo}">
+        <promo:schoolChoicePackPromo
+                showBorder="${false}"
+                showSchoolChoiceLink="${false}"
+                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
+                caller="sidebar"
+                />
+    </c:if>
 
     <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
 
