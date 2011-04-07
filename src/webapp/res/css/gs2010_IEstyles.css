@@ -680,7 +680,7 @@ body.ie6 #carousel .next-position {
     border-left: 33px solid #f4891d;
     border-bottom: 23px solid #fc6;
     filter: alpha(opacity = 100);
-    z-index: 9;
+    z-index: 1;
 }
 
 #fc-bigArrow-fc6 {
@@ -695,7 +695,7 @@ body.ie6 #carousel .next-position {
     border-left: 13px solid #fc6;
     border-bottom: 9px dashed black;
     filter: alpha(opacity = 100);
-    z-index: 10;
+    z-index: 2;
 }
 
 /*#find input {
