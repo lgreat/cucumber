@@ -187,6 +187,16 @@ public class AccountController implements ReadWriteAnnotationController {
             message.append("9,001-12,000 calls: $0.03/call").append("<br/>");
             message.append(">12,000 calls: You will be contacted by a GreatSchools representative directly.").append("<br/>");
             message.append("<br/>");
+
+            message.append("For example:<br/>");
+            message.append("If you were to make a total of 10,555 calls in one single day, you would be charged as follows:<br/>");
+            message.append("- The first 3,000 would be free, leaving 7,555 calls.<br/>");
+            message.append("- The first 3,000 of the remaining 7,555 would be charged at a rate of $0.08/call (3,000 x $0.08 = $240).<br/>");
+            message.append("- The next 3,000 of the remaining 4,555 calls would be charged at a rate of $0.05/call (3,000 x $0.05 = $150).<br/>");
+            message.append("- The remaining 1,555 calls would be charged at a rate of $0.03/call (1,555 x $0.03 = $46.65).<br/>");
+            message.append("- Total charges for 10,555 calls made in one day would equal $436.65 ($240 + $150 + $46.65).<br/>");
+            message.append("<br/>");
+
             String apiPartnersPage = "http://www.greatschools.org/cgi-bin/api-billing";
             message.append("To monitor your usage, please visit our ");
             message.append("<a href=").append(apiPartnersPage).append(" target=\"_blank\">API Partners Page</a>. ");
