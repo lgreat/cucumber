@@ -388,11 +388,11 @@
             <c:set var="subtab5" value="${hasPq}"/>
             <c:set var="subtabCount" value="0"/>
 
-            ${subtab1?subtabCount+1:subtabCount+0}
-            ${subtab2?subtabCount+1:subtabCount+0}
-            ${subtab3?subtabCount+1:subtabCount+0}
-            ${subtab4?subtabCount+1:subtabCount+0}
-            ${subtab5?subtabCount+1:subtabCount+0}
+            <c:if test="${subtab1}"><c:set var="subtabCount" value="${subtabCount + 1}"/></c:if>
+            <c:if test="${subtab2}"><c:set var="subtabCount" value="${subtabCount + 1}"/></c:if>
+            <c:if test="${subtab3}"><c:set var="subtabCount" value="${subtabCount + 1}"/></c:if>
+            <c:if test="${subtab4}"><c:set var="subtabCount" value="${subtabCount + 1}"/></c:if>
+            <c:if test="${subtab5}"><c:set var="subtabCount" value="${subtabCount + 1}"/></c:if>
 
             <p>Show subtab 1: <c:out value="${subtab1}" default="not set"/></p>
             <p>Show subtab 2: <c:out value="${subtab2}" default="not set"/></p>
