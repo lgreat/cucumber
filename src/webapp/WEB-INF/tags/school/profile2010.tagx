@@ -394,14 +394,14 @@
             <c:if test="${subtab4}"><c:set var="subtabCount" value="${subtabCount + 1}"/></c:if>
             <c:if test="${subtab5}"><c:set var="subtabCount" value="${subtabCount + 1}"/></c:if>
 
-            <p>Show subtab 1: <c:out value="${subtab1}" default="not set"/></p>
-            <p>Show subtab 2: <c:out value="${subtab2}" default="not set"/></p>
-            <p>Show subtab 3: <c:out value="${subtab3}" default="not set"/></p>
-            <p>Show subtab 4: <c:out value="${subtab4}" default="not set"/></p>
-            <p>Show subtab 5: <c:out value="${subtab5}" default="not set"/></p>
-            <p>Show subtabCount: <c:out value="${subtabCount}" default="not set"/></p>
+            <!--<p>Show subtab 1: <c:out value="${subtab1}" default="not set"/></p>-->
+            <!--<p>Show subtab 2: <c:out value="${subtab2}" default="not set"/></p>-->
+            <!--<p>Show subtab 3: <c:out value="${subtab3}" default="not set"/></p>-->
+            <!--<p>Show subtab 4: <c:out value="${subtab4}" default="not set"/></p>-->
+            <!--<p>Show subtab 5: <c:out value="${subtab5}" default="not set"/></p>-->
+            <!--<p>Show subtabCount: <c:out value="${subtabCount}" default="not set"/></p>-->
 
-                <c:if test="${tab eq 'schoolStats'
+                <c:if test="${tab eq 'schoolStats' and subtabCount gt 1
                             and ((school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
                                 or (school.levelCode ne 'p' or (requestScope.hasSurveyData and requestScope.hasSchoolStats))
                                 or hasPq)}">
