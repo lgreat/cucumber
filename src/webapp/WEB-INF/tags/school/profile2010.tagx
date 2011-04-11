@@ -380,6 +380,19 @@
                     - school is preschool and has survey data AND school stats
                     - school has principal questionaire data
             -->
+
+            <c:set var="subtab1" value="${requestScope.hasTestScores}"/>
+            <c:set var="subtab2" value="${school.type.name ne 'private'}"/>
+            <c:set var="subtab3" value="${school.levelCode ne 'p' or (requestScope.hasSchoolStats and requestScope.hasSurveyData)}"
+            <c:set var="subtab4" value="${requestScope.hasSurveyData}"/>
+            <c:set var="subtab5" value="${hasPq}"/>
+
+            <p>Show subtab 1: <c:out value="${subtab1}" default="not set"/></p>
+            <p>Show subtab 2: <c:out value="${subtab2}" default="not set"/></p>
+            <p>Show subtab 3: <c:out value="${subtab3}" default="not set"/></p>
+            <p>Show subtab 4: <c:out value="${subtab4}" default="not set"/></p>
+            <p>Show subtab 5: <c:out value="${subtab5}" default="not set"/></p>
+
                 <c:if test="${tab eq 'schoolStats'
                             and ((school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
                                 or (school.levelCode ne 'p' or (requestScope.hasSurveyData and requestScope.hasSchoolStats))
