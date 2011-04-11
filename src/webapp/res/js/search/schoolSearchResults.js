@@ -132,8 +132,10 @@ GS.search.onMapMarkerClick = function(state, id) {
         var schoolSize = jQuery("#schoolSizeSelect").val();
         queryString = putIntoQueryString(queryString, "schoolSize", schoolSize, true);
 
-        var distance = jQuery("#distanceSelect").val();
-        queryString = putIntoQueryString(queryString, "distance", distance, true);
+        var distanceSelect = jQuery('#distanceSelect');
+        if (distanceSelect.size() == 1) {
+            queryString = putIntoQueryString(queryString, "distance", distanceSelect.val(), true);
+        }
 
         if (jQuery('#sort-by').val() !== '') {
             queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);

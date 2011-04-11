@@ -61,7 +61,11 @@ GS.search.SchoolSearcher = function() {
         data["affiliations"] = affiliations;
         data["studentTeacherRatio"] = jQuery('#studentTeacherRatioSelect').val();
         data["schoolSize"] = jQuery('#schoolSizeSelect').val();
-        data["distance"] = jQuery('#distanceSelect').val();
+
+        var distanceSelect = jQuery('#distanceSelect');
+        if (distanceSelect.size() == 1) {
+            data["distance"] = distanceSelect.val();
+        }
 
         var queryString = window.location.search;
         queryString = removeFromQueryString(queryString, "gradeLevels");
