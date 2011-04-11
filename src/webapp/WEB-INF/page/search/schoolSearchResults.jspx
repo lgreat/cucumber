@@ -371,6 +371,23 @@
             </div>
         </div>
 
+        <div class="mod">
+            <div class="filter-hd">
+                <h5>DISTANCE</h5>
+            </div>
+            <jsp:scriptlet>
+                int[] allDistance = new int[]{1, 2, 3, 4, 5, 10, 15, 20, 25};
+                request.setAttribute("allDistance", allDistance);
+            </jsp:scriptlet>
+            <div class="filter-bd smallAlertText">
+                <form:select path="schoolSearchCommand.distance" id="distanceSelect">
+                    <c:forEach var="aDistance" items="${allDistance}">
+                        <form:option value="${aDistance}" label="${aDistance} mile${aDistance eq '1' ? '' : 's'}"/>
+                    </c:forEach>
+                </form:select>
+            </div>
+        </div>
+
         <!--<div class="mod">
             <div class="filter-hd">
                 <h5>STUDENTS PER TEACHER</h5>

@@ -61,6 +61,7 @@ GS.search.SchoolSearcher = function() {
         data["affiliations"] = affiliations;
         data["studentTeacherRatio"] = jQuery('#studentTeacherRatioSelect').val();
         data["schoolSize"] = jQuery('#schoolSizeSelect').val();
+        data["distance"] = jQuery('#distanceSelect').val();
 
         var queryString = window.location.search;
         queryString = removeFromQueryString(queryString, "gradeLevels");
@@ -68,6 +69,7 @@ GS.search.SchoolSearcher = function() {
         queryString = removeFromQueryString(queryString, "affiliations");
         queryString = removeFromQueryString(queryString, "studentTeacherRatio");
         queryString = removeFromQueryString(queryString, "schoolSize");
+        queryString = removeFromQueryString(queryString, "distance");
 
         jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
     };
