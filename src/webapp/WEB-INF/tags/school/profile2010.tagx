@@ -386,12 +386,20 @@
             <c:set var="subtab3" value="${school.levelCode ne 'p' or (requestScope.hasSchoolStats and requestScope.hasSurveyData)}"/>
             <c:set var="subtab4" value="${requestScope.hasSurveyData}"/>
             <c:set var="subtab5" value="${hasPq}"/>
+            <c:set var="subtabCount" value="0"/>
+
+            ${subtab1?subtabCount+1:subtabCount+0}
+            ${subtab2?subtabCount+1:subtabCount+0}
+            ${subtab3?subtabCount+1:subtabCount+0}
+            ${subtab4?subtabCount+1:subtabCount+0}
+            ${subtab5?subtabCount+1:subtabCount+0}
 
             <p>Show subtab 1: <c:out value="${subtab1}" default="not set"/></p>
             <p>Show subtab 2: <c:out value="${subtab2}" default="not set"/></p>
             <p>Show subtab 3: <c:out value="${subtab3}" default="not set"/></p>
             <p>Show subtab 4: <c:out value="${subtab4}" default="not set"/></p>
             <p>Show subtab 5: <c:out value="${subtab5}" default="not set"/></p>
+            <p>Show subtabCount: <c:out value="${subtabCount}" default="not set"/></p>
 
                 <c:if test="${tab eq 'schoolStats'
                             and ((school.type.name ne 'private' or requestScope.hasSurveyData or requestScope.hasTestScores)
