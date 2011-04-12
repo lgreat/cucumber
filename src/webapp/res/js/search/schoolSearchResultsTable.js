@@ -74,6 +74,7 @@ GS.search.SchoolSearcher = function() {
         queryString = removeFromQueryString(queryString, "studentTeacherRatio");
         queryString = removeFromQueryString(queryString, "schoolSize");
         queryString = removeFromQueryString(queryString, "distance");
+        queryString = removeFromQueryString(queryString, "start");
 
         jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
     };
