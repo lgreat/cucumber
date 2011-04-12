@@ -1,5 +1,6 @@
 package gs.web.promo;
 
+import gs.data.community.ISubscriptionDao;
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
@@ -21,33 +22,24 @@ public class EmailSignUpController extends AbstractController {
     public static final String BEAN_ID = "/promo/emailSignUp.module";
 
     private String _viewName;
+    private ISubscriptionDao _subscriptionDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        model.put("userIsAlreadySignedUp", getUserIsAlreadySignedUp(request, response));
+        model.put("userIsAlreadySignedUp", getUserIsAlreadySignedUp(request));
 
         return new ModelAndView(_viewName, model);
     }
 
-    public static boolean getUserIsAlreadySignedUp(HttpServletRequest request, HttpServletResponse response) {
-        boolean alreadySignedUp = true;
+    public boolean getUserIsAlreadySignedUp(HttpServletRequest request) {
         SessionContext sc = SessionContextUtil.getSessionContext(request);
-        User u = sc.getUser();
-        if (u != null) {
-            Set<Subscription> subs = u.getSubscriptions();
-            if (subs != null && subs.size() > 0) {
-                for (Subscription sub : subs) {
-                    String prod = sub.getProduct().getName();
-                    if (prod != null && prod.equals(SubscriptionProduct.PARENT_ADVISOR.getName())) {
-                        alreadySignedUp = true;
-                        break;
-                    }
-                }
-            }
+        User user = sc.getUser();
+        if (user != null) {
+            return _subscriptionDao.isUserSubscribed(user, SubscriptionProduct.PARENT_ADVISOR, null);
         }
 
-        return alreadySignedUp;
+        return false;
     }
 
     public String getViewName() {
@@ -56,5 +48,13 @@ public class EmailSignUpController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }

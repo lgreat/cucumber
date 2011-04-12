@@ -28,9 +28,12 @@
                             <span class="">Get weekly tips</span> to support your child's education.
                         </div>
 
-                        <div class="hidden mediaExt0-1 jq-emailSignUpError jq-emailSignUpError-email">
-                            <div class="img sprite i-alert"><!-- do not collapse --></div>
+                        <div class="hidden mediaExt0-1 jq-emailSignUpError jq-emailSignUpError-emailInvalid">
                             <div class="bk formErrorText">Please enter your email address to sign up.</div>
+                        </div>
+
+                        <div class="hidden mediaExt0-1 jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
+                            <div class="bk formErrorText">The email address is already signed up.</div>
                         </div>
 
                         <form class="jq-emailSignUpForm" action="#" method="POST">
@@ -41,7 +44,7 @@
                                     />
 
                             <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
-                            <button class="button-1 jq-emailSignUpSubmit" type="submit">GO</button>
+                            <button class="button-1 jq-emailSignUpSubmit" type="submit">Sign up</button>
                         </form>
                         <div class="hidden jq-emailSignUpThankYou emailSignUpThankYou">
                             <h3>Thank you!</h3>

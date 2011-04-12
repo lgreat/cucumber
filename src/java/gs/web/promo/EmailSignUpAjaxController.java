@@ -58,13 +58,19 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
 
         // validate not null email
         if (StringUtils.isBlank(command.getEmail())) {
-            errorList.add("email");
+            errorList.add("emailInvalid");
         } else {
             // validate format email
             EmailValidator emailValidator = EmailValidator.getInstance();
             if (!emailValidator.isValid(command.getEmail())) {
                 _log.warn("Email Sign Up submitted with invalid email: " + command.getEmail());
-                errorList.add("email");
+                errorList.add("emailInvalid");
+            } else {
+                User user = _userDao.findUserFromEmailIfExists(command.getEmail());
+                if (user != null &&
+                    _subscriptionDao.isUserSubscribed(user, SubscriptionProduct.PARENT_ADVISOR, null)) {
+                    errorList.add("emailAlreadySignedUp");
+                }
             }
         }
 
@@ -83,7 +89,6 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
         }
 
         SubscriptionProduct prod = SubscriptionProduct.PARENT_ADVISOR;
-        // TODO-11567 replace deprecated method
         if (!_subscriptionDao.isUserSubscribed(user, prod, null)) {
             // save new subscription
             Subscription sub = new Subscription();

@@ -37,8 +37,10 @@ GS.form.EmailSignUp = function() {
                     wrapper.find('.jq-emailSignUpForm').hide();
                     wrapper.find('.jq-emailSignUpThankYou').show();
                 } else {
-                    if (data.indexOf('email') > -1) {
-                        wrapper.find('.jq-emailSignUpError-email').show();
+                    if (data.indexOf('emailInvalid') > -1) {
+                        wrapper.find('.jq-emailSignUpError-emailInvalid').show();
+                    } else if (data.indexOf('emailAlreadySignedUp') > -1) {
+                        wrapper.find('.jq-emailSignUpError-emailAlreadySignedUp').show();
                     }
                     submitButton.show();
                 }
