@@ -438,6 +438,12 @@
         <property name="viewName" value="/community/startADiscussionModule"/>
     </bean>
 
+    <bean name="/promo/emailSignUp.module"
+          class="gs.web.promo.EmailSignUpController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/promo/emailSignUp"/>
+    </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>
