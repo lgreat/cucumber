@@ -113,11 +113,9 @@ public class SchoolProfileHeaderHelper {
                 handleStateSpecificFooter(request, school);
                 logDuration(System.currentTimeMillis() - startTime, "Handling state specific footer");
 
-                if (StringUtils.equals("b", SessionContextUtil.getSessionContext(request).getABVersion())) {
-                    startTime = System.currentTimeMillis();
-                    handleCompareNearbyString(school, model);
-                    logDuration(System.currentTimeMillis() - startTime, "Handling compare nearby string");
-                }
+                startTime = System.currentTimeMillis();
+                handleCompareNearbyString(school, model);
+                logDuration(System.currentTimeMillis() - startTime, "Handling compare nearby string");
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
