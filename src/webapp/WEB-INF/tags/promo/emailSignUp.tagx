@@ -23,11 +23,11 @@
 
                 <c:if test="${!userIsAlreadySignedUp}">
 
-                    <div class="connectEmail">
+                    <div class="section1">
                         <div class="jq-emailSignUpIntroText text2">
                             <span class="introTextGA">Get weekly tips</span> to support your child's education.
                         </div>
-                        <div class="spacer_10"><!-- do not collapse --></div>
+                        <div class="spacer_5"><!-- do not collapse --></div>
 
                         <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
                             <div class="formErrorText">Please enter your email address to sign up.</div>
@@ -60,7 +60,7 @@
 
                 </c:if>
 
-                <div class="connectShare">
+                <div class="section2">
                     <div class="line">
                         <div class="unit size7of16">
                             <div class="mediaExt1">
