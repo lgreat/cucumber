@@ -20,48 +20,83 @@
             </div>
 
             <div class="bd">
-                <div class="bd-inner">
 
-                    <c:if test="${!userIsAlreadySignedUp}">
+                <c:if test="${!userIsAlreadySignedUp}">
 
-                        <div class="jq-emailSignUpIntroText emailSignUpIntroText">
-                            <span class="">Get weekly tips</span> to support your child's education.
+                    <div class="connectEmail">
+                        <div class="jq-emailSignUpIntroText text2">
+                            <span class="introTextGA">Get weekly tips</span> to support your child's education.
+                        </div>
+                        <div class="spacer_10"><!-- do not collapse --></div>
+
+                        <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
+                            <div class="formErrorText">Please enter your email address to sign up.</div>
                         </div>
 
-                        <div class="hidden mediaExt0-1 jq-emailSignUpError jq-emailSignUpError-emailInvalid">
-                            <div class="bk formErrorText">Please enter your email address to sign up.</div>
-                        </div>
-
-                        <div class="hidden mediaExt0-1 jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
-                            <div class="bk formErrorText">The email address is already signed up.</div>
+                        <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
+                            <div class="formErrorText">The email address is already signed up.</div>
                         </div>
 
                         <form class="jq-emailSignUpForm" action="#" method="POST">
-                            <input type="text" class="jq-emailSignUpEmail unit size4of11 formText2" name="email"
+                            <div class="line">
+                            <input type="text" class="jq-emailSignUpEmail unit size13of20 formText1" name="email"
                                    onfocus="GS_textSwitch(this, '', '[Your email address]');"
                                    onblur="GS_textSwitch(this, '[Your email address]', '');"
                                    value="[Your email address]"
                                     />
 
-                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                            <div class="unit size1of20 unit">&amp;nbsp;</div>
+                                <div class="unit size2of5 lastUnit">
                             <button class="button-1 jq-emailSignUpSubmit" type="submit">Sign up</button>
+                                </div>
+                            </div>
                         </form>
                         <div class="hidden jq-emailSignUpThankYou emailSignUpThankYou">
                             <h3>Thank you!</h3>
 
                             <p>The weekly tips you requested will arrive in your inbox shortly.</p>
                         </div>
-
-                    </c:if>
-
-                    <div>
-                        <div>Facebook Like image and code</div>
-                        <div>Twitter linked image</div>
-                        <div>Our blog linked image</div>
-                        <div>Mobile placeholder div (will be blank at launch)</div>
                     </div>
 
+                </c:if>
+
+                <div class="connectShare">
+                    <div class="line">
+                        <div class="unit size7of16 brdrt_dotted">
+                            <span class="sprite i-facebook-l"><!-- do not collapse --></span>
+                            <div class="text3">GreatSchools</div>
+                        </div>
+                        <div class="unit size9of16 lastUnit">
+                            <div class="line">
+                                <div class="unit size1of3">
+                                    <div class="mediaExt4">
+                                        <div class="img">
+                                            <span class="sprite i-twitter-l"><!-- do not collapse --></span>
+                                        </div>
+                                        <div class="bk smallText1">Twitter</div>
+                                    </div>
+                                </div>
+                                <div class="unit size1of3">
+                                    <div class="mediaExt4">
+                                        <div class="img">
+                                            <span class="sprite i-blog-l"><!-- do not collapse --></span>
+                                        </div>
+                                        <div class="bk smallText1">Our Blog</div>
+                                    </div>
+                                </div>
+                                <div class="unit size1of3 lastUnit">
+                                    <div class="mediaExt4">
+                                        <div class="img">
+                                            <span class="sprite i-iphone"><!-- do not collapse --></span>
+                                        </div>
+                                        <div class="bk smallText1">Mobile</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

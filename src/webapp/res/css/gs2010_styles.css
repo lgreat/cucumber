@@ -622,7 +622,7 @@ Viewport: the defines width and height of each icon
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-03-11.png);
+    background-image: url(/res/img/sprites/iconSprite_2011-04-12.png);
 }
 
 /* **************** VIEWPORT ***************** */
@@ -963,6 +963,12 @@ Viewport: the defines width and height of each icon
     background-position: -60px -220px;
 }
 
+.i-iphone{
+    width:18px;
+    height:34px;
+    background-position: -60px -240px;
+}
+
 /* column 80 */
 .community-fc6-lg {
     width: 50px;
@@ -1016,6 +1022,24 @@ Viewport: the defines width and height of each icon
     height: 10px;
     background-position: -80px -130px;
     _font-size: 8px;
+}
+
+.i-facebook-l {
+    width: 32px;
+    height: 32px;
+    background-position: -80px -140px;
+}
+
+.i-twitter-l {
+    width: 30px;
+    height: 32px;
+    background-position: -80px -180px;
+}
+
+.i-blog-l {
+    width: 30px;
+    height: 32px;
+    background-position: -80px -220px;
 }
 
 /* column 130 */
@@ -2414,6 +2438,12 @@ Viewport: the defines width and height of each icon
 .mediaExt3 .img img{display: block;}
 .mediaExt3 .imgExt{float: right;margin-left: 10px;}
 
+ /* Ext4: Image caption */
+.mediaExt4{margin:0 10px;}
+.mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt4 .img{float:none;margin-bottom: 5px;}
+.mediaExt4 .img img {display: block;}
+
 /* =5 modules
 -------------------------------------------------------------------------------------------*/
 
@@ -2483,6 +2513,9 @@ Viewport: the defines width and height of each icon
 .findCompare .bd .formExt1{padding:5px 15px 15px;}
 .findCompare .bd .formExt2{padding:0 15px 10px;}
 .findCompare .bd #q{width:100%;}
+/* ------ emailSignUp (extends standard) ------ */
+.emailSignUp .bd .connectEmail{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 10px;}
+.emailSignUp .bd .connectShare{background-color:#ebebeb;border-bottom:1px solid #c6c6c6;padding:15px 10px;}
 
 .mod_hd {
     position: relative;
