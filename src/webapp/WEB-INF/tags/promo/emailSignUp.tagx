@@ -26,8 +26,8 @@
                     <div class="section1">
                         <div class="jq-emailSignUpIntroText text2">
                             <span class="introTextGA">Get weekly tips</span> to support your child's education.
+                            <div class="spacer_5"><!-- do not collapse --></div>
                         </div>
-                        <div class="spacer_5"><!-- do not collapse --></div>
 
                         <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
                             <div class="formErrorText">Please enter your email address to sign up.</div>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="hidden jq-emailSignUpThankYou emailSignUpThankYou">
+                        <div class="hidden jq-emailSignUpThankYou">
                             <h3>Thank you!</h3>
 
                             <p>The weekly tips you requested will arrive in your inbox shortly.</p>
