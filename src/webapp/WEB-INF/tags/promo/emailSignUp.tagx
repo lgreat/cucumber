@@ -65,10 +65,13 @@
                         <div class="unit size7of16">
                             <div class="mediaExt1">
                                 <div class="img">
-                                    <span class="sprite i-facebook-l"><!-- do not collapse --></span>
+                                    <a href="http://facebook.com/greatschools" target="_blank">
+                                        <span class="sprite i-facebook-l"><!-- do not collapse --></span>
+                                    </a>
                                 </div>
                                 <div class="bk text3">
-                                    <p>GreatSchools</p>
+                                    <p><a href="http://facebook.com/greatschools" target="_blank">GreatSchools</a></p>
+
                                     <div>Like button goes here.</div>
                                 </div>
                             </div>
@@ -78,26 +81,34 @@
                                 <div class="unit size1of3">
                                     <div class="mediaExt4 text-align-cen">
                                         <div class="img">
-                                            <span class="sprite i-twitter-l"><!-- do not collapse --></span>
+                                            <a href="http://twitter.com/greatschools" target="_blank">
+                                                <span class="sprite i-twitter-l"><!-- do not collapse --></span>
+                                            </a>
                                         </div>
-                                        <div class="bk smallText1 text-align-cen">Twitter</div>
+                                        <div class="bk smallText1 text-align-cen">
+                                            <a href="http://twitter.com/greatschools" target="_blank">Twitter</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="unit size1of3">
                                     <div class="mediaExt4 text-align-cen">
                                         <div class="img">
-                                            <span class="sprite i-blog-l"><!-- do not collapse --></span>
+                                            <a href="http://blogs.greatschools.org/greatschoolsblog/">
+                                                <span class="sprite i-blog-l"><!-- do not collapse --></span>
+                                            </a>
                                         </div>
-                                        <div class="bk smallText1 wsnw text-align-cen">Our Blog</div>
+                                        <div class="bk smallText1 wsnw text-align-cen">
+                                            <a href="http://blogs.greatschools.org/greatschoolsblog/">Our Blog</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="unit size1of3 lastUnit">
-                                    <div class="mediaExt4 text-align-cen">
+                                <div class="unit size1of3 lastUnit">&amp;nbsp;
+                                    <!--<div class="mediaExt4 text-align-cen">
                                         <div class="img">
-                                            <span class="sprite i-iphone"><!-- do not collapse --></span>
+                                            <span class="sprite i-iphone">&lt;!&ndash; do not collapse &ndash;&gt;</span>
                                         </div>
                                         <div class="bk smallText1 text-align-cen">Mobile</div>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
