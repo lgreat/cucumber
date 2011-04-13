@@ -2440,7 +2440,7 @@ Viewport: the defines width and height of each icon
 
  /* Ext4: Image caption */
 .mediaExt4{margin:0 auto;}
-.mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;text-align:center;}
+.mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt4 .img{float:none;margin-bottom: 5px;}
 .mediaExt4 .img img {display: block;}
 
@@ -2709,6 +2709,10 @@ Viewport: the defines width and height of each icon
 
 .text-align-lft {
     text-align: left;
+}
+
+.text-align-cen {
+    text-align: center;
 }
 
 .vert-align-mid {

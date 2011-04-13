@@ -62,34 +62,41 @@
 
                 <div class="connectShare">
                     <div class="line">
-                        <div class="unit size7of16 brdrt_dotted">
-                            <span class="sprite i-facebook-l"><!-- do not collapse --></span>
-                            <div class="text3">GreatSchools</div>
+                        <div class="unit size7of16">
+                            <div class="mediaExt1">
+                                <div class="img">
+                                    <span class="sprite i-facebook-l"><!-- do not collapse --></span>
+                                </div>
+                                <div class="bk text3">
+                                    <p>GreatSchools</p>
+                                    <div>Like button goes here.</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="unit size9of16 lastUnit">
+                        <div class="unit size9of16 lastUnit brdlft_dotted">
                             <div class="line">
                                 <div class="unit size1of3">
-                                    <div class="mediaExt4">
+                                    <div class="mediaExt4 text-align-cen">
                                         <div class="img">
                                             <span class="sprite i-twitter-l"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="bk smallText1">Twitter</div>
+                                        <div class="bk smallText1 text-align-cen">Twitter</div>
                                     </div>
                                 </div>
                                 <div class="unit size1of3">
-                                    <div class="mediaExt4">
+                                    <div class="mediaExt4 text-align-cen">
                                         <div class="img">
                                             <span class="sprite i-blog-l"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="bk smallText1 wsnw">Our Blog</div>
+                                        <div class="bk smallText1 wsnw text-align-cen">Our Blog</div>
                                     </div>
                                 </div>
                                 <div class="unit size1of3 lastUnit">
-                                    <div class="mediaExt4">
+                                    <div class="mediaExt4 text-align-cen">
                                         <div class="img">
                                             <span class="sprite i-iphone"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="bk smallText1">Mobile</div>
+                                        <div class="bk smallText1 text-align-cen">Mobile</div>
                                     </div>
                                 </div>
                             </div>
