@@ -324,6 +324,7 @@ GS.search.SchoolSearchResultsTable = function() {
         queryString = buildQueryString(queryString);
         queryString = this.persistCompareCheckboxesToQueryString(queryString);
         queryString = putIntoQueryString(queryString,"sortChanged",true, true);
+        queryString = removeFromQueryString(queryString, "start");
 
         window.location.search = queryString;
     }.gs_bind(this);
