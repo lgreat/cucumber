@@ -2439,8 +2439,8 @@ Viewport: the defines width and height of each icon
 .mediaExt3 .imgExt{float: right;margin-left: 10px;}
 
  /* Ext4: Image caption */
-.mediaExt4{margin:0 10px;}
-.mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt4{margin:0 auto;}
+.mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;text-align:center;}
 .mediaExt4 .img{float:none;margin-bottom: 5px;}
 .mediaExt4 .img img {display: block;}
 
