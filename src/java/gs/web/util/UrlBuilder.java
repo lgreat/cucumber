@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.243 2011/03/31 01:06:10 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.244 2011/04/14 01:08:37 yfan Exp $
  */
 
 package gs.web.util;
@@ -866,6 +866,8 @@ public class UrlBuilder {
             _path="/school-comparison-tool/programsExtracurriculars.page";
         } else if (COMPARE_SCHOOLS_MAP.equals(page)) {
             _path="/school-comparison-tool/map.page";
+        } else if (HOME.equals(page)) {
+            init(HOME, null, null);
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

@@ -1,11 +1,9 @@
 package gs.web.promo;
 
 import gs.data.community.*;
-import gs.data.promo.ILeadGenDao;
-import gs.data.promo.LeadGen;
+import gs.web.community.registration.EmailVerificationEmailSignUpOnlyEmail;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +29,8 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
     public static final String SUCCESS = "OK";
     public static final String FAILURE = "0";
 
+private EmailVerificationEmailSignUpOnlyEmail _emailVerificationEmailSignUpOnlyEmail;
+
     private ISubscriptionDao _subscriptionDao;
     private IUserDao _userDao;
 
@@ -40,7 +42,7 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
         String errors = validate(command);
         if (StringUtils.isBlank(errors)) {
             // log data
-            handleEmailSignUp(command);
+            handleEmailSignUp(command, request);
 
             response.getWriter().print(SUCCESS);
             return;
@@ -77,7 +79,7 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
         return StringUtils.join(errorList, ',');
     }
 
-    private void handleEmailSignUp(EmailSignUpCommand command) {
+    private void handleEmailSignUp(EmailSignUpCommand command, HttpServletRequest request) throws Exception {
         User user = _userDao.findUserFromEmailIfExists(command.getEmail());
 
         // If the user does not yet exist, add to list_member
@@ -88,6 +90,13 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
             _userDao.saveUser(user);
         }
 
+        // send email verification email
+        // TODO-11567 generate password, set first name, etc.
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
+        String redirectUrl = urlBuilder.asFullUrl(request);
+        getEmailVerificationEmailSignUpOnlyEmail().sendVerificationEmail(request, user, redirectUrl);
+
+        // add subscription to
         SubscriptionProduct prod = SubscriptionProduct.PARENT_ADVISOR;
         if (!_subscriptionDao.isUserSubscribed(user, prod, null)) {
             // save new subscription
@@ -98,6 +107,14 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
         } else {
             // user is already subscribed
         }
+    }
+
+    public EmailVerificationEmailSignUpOnlyEmail getEmailVerificationEmailSignUpOnlyEmail() {
+        return _emailVerificationEmailSignUpOnlyEmail;
+    }
+
+    public void setEmailVerificationEmailSignUpOnlyEmail(EmailVerificationEmailSignUpOnlyEmail emailVerificationEmailSignUpOnlyEmail) {
+        _emailVerificationEmailSignUpOnlyEmail = emailVerificationEmailSignUpOnlyEmail;
     }
 
     public ISubscriptionDao getSubscriptionDao() {
