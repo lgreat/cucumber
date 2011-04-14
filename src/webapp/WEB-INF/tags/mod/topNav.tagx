@@ -69,7 +69,8 @@
             /></gsml:a>
             </div>
 
-
+        <!-- TODO-11618 Randall FIXME -->
+        <ad:Global_HeaderPromo_88x31/>
 
         <!-- variables holding the search form actions for local and community searches -->
         <c:set var="localSearchAction" value="/search/search.page"/>

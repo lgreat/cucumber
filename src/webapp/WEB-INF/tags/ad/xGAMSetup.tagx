@@ -50,6 +50,7 @@
                 }
 
                 adNames.add(AdPosition.Global_NavPromo_968x30.getName());
+                adNames.add(AdPosition.Global_HeaderPromo_88x31.getName());
             }
 
             for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
