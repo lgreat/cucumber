@@ -432,6 +432,8 @@ GS.search.FilterTracking = function() {
             customLinkName = 'Search_filter_size_' + value.toLowerCase();
         } else if (cssId === 'studentTeacherRatioSelect') {
             customLinkName = 'Search_filter_stratio_' + value.toLowerCase();
+        } else if (cssId === 'distanceSelect') {
+            customLinkName = 'Search_filter_distance_' + value.toLowerCase();
         }
         
         if (customLinkName != undefined) {
