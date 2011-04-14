@@ -4,7 +4,7 @@ import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
-import gs.web.util.google.GoogleSpreadsheetDaoFactory;
+import gs.data.util.google.GoogleSpreadsheetDaoFactory;
 import gs.data.util.table.ITableDao;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;

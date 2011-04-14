@@ -3,12 +3,10 @@ package gs.web.test;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
-import gs.web.util.google.GoogleSpreadsheetDaoFactory;
-import gs.data.school.School;
+import gs.data.util.google.GoogleSpreadsheetDaoFactory;
 import gs.data.state.State;
 import gs.data.util.table.ITableDao;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Map;

@@ -1,20 +1,18 @@
 package gs.web.community;
 
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
+import gs.data.util.google.GoogleSpreadsheetDao;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableRow;
+import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.util.Map;
 import java.util.HashMap;
-
-import gs.web.util.UrlUtil;
-import gs.data.util.table.ITableRow;
-import gs.data.util.table.ITableDao;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.util.google.GoogleSpreadsheetDao;
+import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>

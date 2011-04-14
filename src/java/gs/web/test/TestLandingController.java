@@ -4,7 +4,7 @@ import gs.data.school.SchoolType;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
-import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.data.util.google.GoogleSpreadsheetDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
@@ -29,7 +29,6 @@ import org.joda.time.DateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URL;
 import java.util.*;
 
 /**

@@ -1,8 +1,8 @@
 package gs.web.about;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.google.GoogleSpreadsheetDao;
-import gs.web.util.google.GoogleSpreadsheetInfo;
+import gs.data.util.google.GoogleSpreadsheetDao;
+import gs.data.util.google.GoogleSpreadsheetInfo;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
 import gs.data.util.table.HashMapTableRow;

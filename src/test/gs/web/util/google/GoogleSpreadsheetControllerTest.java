@@ -1,18 +1,16 @@
 package gs.web.util.google;
 
-import gs.web.BaseControllerTestCase;
-import gs.web.GsMockHttpServletRequest;
+import gs.data.util.google.GoogleSpreadsheetDao;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
-
-import static org.easymock.classextension.EasyMock.createMock;
-import static org.easymock.classextension.EasyMock.replay;
-import static org.easymock.classextension.EasyMock.verify;
-import static org.easymock.classextension.EasyMock.expect;
+import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * @author thuss

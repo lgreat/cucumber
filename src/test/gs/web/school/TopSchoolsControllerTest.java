@@ -5,7 +5,7 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.RedirectView301;
-import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.data.util.google.GoogleSpreadsheetDao;
 import gs.data.util.table.ITableRow;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;

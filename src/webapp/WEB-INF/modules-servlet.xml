@@ -38,7 +38,7 @@
     </bean>
 
     <bean id="backToSchoolPopularArticlesFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBg00sVO5gBNGw"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -46,7 +46,7 @@
 
 
     <bean id="communityQuestionPromoTableFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pmY-74KD4CbXrSKtrPdEnSg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -150,7 +150,7 @@
     </bean>
 
     <bean id="testScoreLandingLinksTableFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -167,7 +167,7 @@
     </bean>
 
     <bean id="linksFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBhDBlR3glRcMg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -184,7 +184,7 @@
     </bean>
 
     <bean id="splashLinksFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBggU-ztR9LgTw"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -201,7 +201,7 @@
     </bean>
 
     <bean id="editorialLinksFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBg00sVO5gBNGw"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -218,7 +218,7 @@
     </bean>
 
     <bean id="pressClippingsFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgQGIlLNGtLQw"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -234,7 +234,7 @@
     </bean>
 
     <bean id="pressReleasesFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBggoZaQ0BWuQw"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>

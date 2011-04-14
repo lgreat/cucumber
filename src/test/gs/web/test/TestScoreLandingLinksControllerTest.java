@@ -1,17 +1,13 @@
 package gs.web.test;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.google.GoogleSpreadsheetDao;
 import gs.web.util.list.Anchor;
-import gs.web.community.CommunityQuestionPromoController;
-import static gs.web.community.CommunityQuestionPromoController.WORKSHEET_PRIMARY_ID_COL;
 import gs.data.util.table.ITableDao;
 import gs.data.util.table.HashMapTableRow;
 import gs.data.util.table.ITableRow;
 import gs.data.state.StateManager;
 import static org.easymock.classextension.EasyMock.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;

@@ -1,8 +1,8 @@
 package gs.web.content;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.google.GoogleSpreadsheetDao;
-import gs.web.util.google.GoogleSpreadsheetInfo;
+import gs.data.util.google.GoogleSpreadsheetDao;
+import gs.data.util.google.GoogleSpreadsheetInfo;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.Anchor;
 import gs.data.util.table.ITableDao;

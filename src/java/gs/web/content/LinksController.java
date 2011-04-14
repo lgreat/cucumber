@@ -9,7 +9,7 @@ import gs.data.util.table.ITableRow;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.UrlUtil;
-import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.data.util.google.GoogleSpreadsheetDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

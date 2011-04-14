@@ -1,20 +1,19 @@
 package gs.web.community;
 
-import gs.web.BaseControllerTestCase;
-import gs.data.util.table.ITableDao;
-import gs.web.util.google.GoogleSpreadsheetDao;
-import gs.web.util.google.GoogleSpreadsheetInfo;
+import gs.data.util.google.GoogleSpreadsheetDao;
+import gs.data.util.google.GoogleSpreadsheetInfo;
 import gs.data.util.table.HashMapTableRow;
+import gs.data.util.table.ITableDao;
 import gs.data.util.table.ITableRow;
-
-import java.util.Map;
-import java.util.HashMap;
-
-import static gs.web.community.CommunityQuestionPromoController.*;
-import static org.easymock.classextension.EasyMock.*;
+import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+
+import static gs.web.community.CommunityQuestionPromoController.*;
+import static org.easymock.classextension.EasyMock.*;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>

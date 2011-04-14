@@ -1,50 +1,48 @@
 package gs.web.district;
 
+import gs.data.geo.City;
+import gs.data.geo.ICounty;
+import gs.data.geo.IGeoDao;
+import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
+import gs.data.school.School;
+import gs.data.school.census.CensusDataType;
+import gs.data.school.census.CensusInfoFactory;
+import gs.data.school.census.DistrictCensusValue;
+import gs.data.school.census.ICensusDataSetDao;
+import gs.data.school.district.District;
+import gs.data.school.district.IDistrictDao;
+import gs.data.state.State;
+import gs.data.test.rating.DistrictRating;
+import gs.data.test.rating.IDistrictRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
+import gs.data.util.table.ITableDao;
+import gs.data.util.table.ITableRow;
 import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.path.DirectoryStructureUrlFields;
+import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.BadRequestLogger;
+import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.orm.ObjectRetrievalFailureException;
+import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.data.util.google.GoogleSpreadsheetDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.HashMap;
-
-import gs.data.school.district.District;
-import gs.data.school.district.IDistrictDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
-import gs.data.school.LevelCode;
-import gs.data.school.census.CensusInfoFactory;
-import gs.data.school.census.ICensusDataSetDao;
-import gs.data.school.census.CensusDataType;
-import gs.data.school.census.DistrictCensusValue;
-import gs.data.state.State;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
-
-import gs.data.util.table.ITableRow;
-import gs.data.util.table.ITableDao;
-import gs.data.geo.City;
-import gs.data.geo.IGeoDao;
-import gs.data.geo.ICounty;
-import gs.data.test.rating.DistrictRating;
-import gs.data.test.rating.IDistrictRatingDao;
-import gs.web.util.google.GoogleSpreadsheetDao;
-import gs.web.util.UrlUtil;
-import gs.web.util.BadRequestLogger;
-import gs.web.util.PageHelper;
-import gs.web.path.IDirectoryStructureUrlController;
-import gs.web.path.DirectoryStructureUrlFields;
-import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.*;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author droy@greatschools.org
@@ -64,12 +62,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
     private IDistrictRatingDao _districtRatingDao;
     private ICensusDataSetDao _censusDataSetDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
-    public static final String DEV_DISTRICT_BOILERPLATE_TAB = "od6";
-    public static final String STAGING_DISTRICT_BOILERPLATE_TAB = "odb";
-    public static final String LIVE_DISTRICT_BOILERPLATE_TAB = "od9";
-    public static final String DEV_STATE_BOILERPLATE_TAB = "od4";
-    public static final String STAGING_STATE_BOILERPLATE_TAB = "od8";
-    public static final String LIVE_STATE_BOILERPLATE_TAB = "ocy";
+
     public boolean _isDistrictBoilerplatePresent;
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
@@ -171,7 +164,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         }
         processSchoolData(school, pageModel);
 
-        getBoilerPlateForDistrict(state.getAbbreviation(),district.getId().toString(),pageModel,request);
+        getBoilerPlateForDistrict(state.getAbbreviation(),district.getId(),pageModel,request);
         getBoilerPlateForState(state.getAbbreviation(),pageModel,request);
         if(pageModel.get("acronym")!= null && !"".equals(pageModel.get("acronym"))){
             pageModel.put("acronymOrName", pageModel.get("acronym"));
@@ -204,41 +197,30 @@ public class DistrictHomeController extends AbstractController  implements IDire
         return new ModelAndView(getViewName(), model);
     }
 
-    protected void getBoilerPlateForDistrict(String state,String districtId, Map<String, Object> model,HttpServletRequest request){
+    protected void getBoilerPlateForDistrict(String state,Integer districtId, Map<String, Object> model,HttpServletRequest request){
+
         GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
-        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,true));
 
-        _isDistrictBoilerplatePresent = false;
-        List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("id",districtId);
-        if(rows!= null &&rows.size() > 0){
-            for(ITableRow row :rows){
-                if(row.get("state") != null && (state).equals(row.get("state"))){
-                    for (Object columnName : row.getColumnNames()) {
-                        model.put(columnName.toString(),(row.get(columnName)) == null ? "":row.get(columnName));
-                    }
-                    if(model.get("boilerplate") != null){
-                        model.put("boilerplate",model.get("boilerplate").toString().replaceAll("\n","<br/>"));
-                        _isDistrictBoilerplatePresent = true;
-                    }
-                }
-            }
-        }else{
-            model.put("id","");
-            model.put("state","");
-            model.put("name","");
-            model.put("acronym","");
-            model.put("choicelink","");
-            model.put("locatorlink","");
-            model.put("superintendent","");
-            model.put("boilerplate","");
-            model.put("distrctBoilerplateHeading","");
-        }
+        Map<String,Object> row = boilerPlateCastDao.getBoilerPlateForDistrict(
+                state, districtId, UrlUtil.isDevEnvironment(request.getServerName()),
+                UrlUtil.isStagingServer(request.getServerName())
+        );
 
+        String boilerplate = (String) row.get("boilerplate");
+
+        _isDistrictBoilerplatePresent = !StringUtils.isEmpty(boilerplate);
+
+        model.putAll(row);
     }
 
     protected void getBoilerPlateForState(String state, Map<String, Object> model,HttpServletRequest request){
         GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
-        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(getWorksheetForBoilerPlates(request,false));
+        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(
+                boilerPlateCastDao.getWorksheetForBoilerPlates(
+                        UrlUtil.isDevEnvironment(request.getServerName()),
+                        UrlUtil.isStagingServer(request.getServerName())
+                )
+        );
 
         List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
         if(rows != null && rows.size() >0){
@@ -304,29 +286,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
            }
        }
 
-    protected String getWorksheetForBoilerPlates(HttpServletRequest request,boolean isDistrict) {
-        String worksheetName ="";
-        if (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isStagingServer(request.getServerName())) {
-            if(isDistrict){
-                worksheetName = DEV_DISTRICT_BOILERPLATE_TAB;
-            }else{
-                worksheetName = DEV_STATE_BOILERPLATE_TAB;
-            }
-        } else if (UrlUtil.isStagingServer(request.getServerName())) {
-            if(isDistrict){
-                worksheetName = STAGING_DISTRICT_BOILERPLATE_TAB;
-            }else{
-                worksheetName = STAGING_STATE_BOILERPLATE_TAB;
-            }
-        } else {
-            if(isDistrict){
-                worksheetName = LIVE_DISTRICT_BOILERPLATE_TAB;
-            }else{
-                worksheetName = LIVE_STATE_BOILERPLATE_TAB;
-            }
-        }
-        return worksheetName;
-    }
 
     protected void processSchoolData(School school, Map<String, Object> model) {
         if (school == null) {

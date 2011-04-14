@@ -543,7 +543,7 @@
         </property>
     </bean>
 
-    <bean name="pollFactory" class="gs.web.util.google.GoogleSpreadsheetDaoFactory">
+    <bean name="pollFactory" class="gs.data.util.google.GoogleSpreadsheetDaoFactory">
         <property name="googleKey" value="pouqRkV5D_eZrSoQkrDCwBA"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -1066,7 +1066,7 @@
         </property>
     </bean>
 
-    <bean name="topSchoolsFactory" class="gs.web.util.google.GoogleSpreadsheetDaoFactory">
+    <bean name="topSchoolsFactory" class="gs.data.util.google.GoogleSpreadsheetDaoFactory">
         <property name="googleKey" value="pouqRkV5D_eZtLbVwDRFtHQ"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -1257,7 +1257,7 @@
     </bean>
 
     <bean id="gradeLevelLandingPageLinksFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgGszopBhMGYQ"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -1445,7 +1445,7 @@
 
     <!-- Factory to be used by /community/registration.page -->
     <bean id="communityRegistrationTableFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCKLqeupJ7WqXA"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -1736,7 +1736,7 @@
     </bean>
 
     <bean id="testScoreLandingPageTableFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pYwV1uQwaOCJGhxtFDPHjTg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -2259,7 +2259,7 @@
     </bean>
 
     <bean id="districtHomePageBoilerPlateFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBgUJrAsFa4uEw"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>
@@ -2354,7 +2354,7 @@
     </bean>
 
      <bean id="backToSchoolCommunityFactory"
-          class="gs.web.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
+          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
         <property name="googleKey" value="pHIaC-TrslBhDBlR3glRcMg"/>
         <property name="visibility" value="public"/>
         <property name="projection" value="values"/>

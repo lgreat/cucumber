@@ -1,12 +1,10 @@
 package gs.web.school;
 
-import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.validation.Errors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.joda.time.format.DateTimeFormatter;
@@ -20,7 +18,7 @@ import java.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
-import gs.web.util.google.GoogleSpreadsheetDao;
+import gs.data.util.google.GoogleSpreadsheetDao;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.data.state.State;
