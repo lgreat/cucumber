@@ -126,8 +126,10 @@ GS.search.onMapMarkerClick = function(state, id) {
             overwriteAffiliations = false;
         });
 
-        var studentTeacherRatio = jQuery('#studentTeacherRatioSelect').val();
-        queryString = putIntoQueryString(queryString, "studentTeacherRatio", studentTeacherRatio, true);
+        var studentTeacherRatio = jQuery('#studentTeacherRatioSelect');
+        if (studentTeacherRatio.size() == 1) {
+            queryString = putIntoQueryString(queryString, "studentTeacherRatio", studentTeacherRatio.val(), true);
+        }
 
         var schoolSize = jQuery("#schoolSizeSelect").val();
         queryString = putIntoQueryString(queryString, "schoolSize", schoolSize, true);
