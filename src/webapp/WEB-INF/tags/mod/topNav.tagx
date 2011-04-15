@@ -81,10 +81,9 @@
             <div class="unit size1of6">
                 <div class="mediaExt4 phl">
                     <div class="img">
-                        <img src="#" width="88" height="31" alt="test"/>
+                        <!--<img src="#" width="88" height="31" alt="test"/>-->
                     </div>
                     <div class="bk">
-                        Hello Randall
                         <ad:Global_HeaderPromo_88x31/>
                     </div>
                 </div>
