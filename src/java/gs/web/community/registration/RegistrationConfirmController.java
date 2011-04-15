@@ -1,8 +1,6 @@
 package gs.web.community.registration;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.WelcomeMessageStatus;
+import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -40,6 +38,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     private IReviewDao _reviewDao;
     private ExactTargetAPI _exactTargetAPI;
     private ReviewService _reviewService;
+    private ISubscriptionDao _subscriptionDao;
 
     protected enum UserState {
         EMAIL_ONLY,
@@ -203,6 +202,38 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailVerified);
+
+        // GS-11567
+        // convert existing PARENT_ADVISOR_NOT_VERIFIED subscription to PARENT_ADVISOR subscription, if it exists
+        boolean alreadySubscribedToParentAdvisor = false;
+        Integer prodNotVerifiedId = null;
+        // get subscription id for not-verified version, if it exists, and find out if already subscribed to regular version
+        List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user);
+        if(subscriptions != null){
+            for (Subscription subscription : subscriptions) {
+                if (subscription.getProduct().equals(SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED)) {
+                    prodNotVerifiedId = subscription.getId();
+                } else if (subscription.getProduct().equals(SubscriptionProduct.PARENT_ADVISOR)) {
+                    alreadySubscribedToParentAdvisor = true;
+                }
+            }
+        }
+        if (prodNotVerifiedId != null) {
+            if (!alreadySubscribedToParentAdvisor) {
+                // subscribe user to greatnews
+                Subscription sub = new Subscription();
+                sub.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+                sub.setUser(user);
+                _subscriptionDao.saveSubscription(sub);
+
+                // TODO-11567 rename/renumber success event as appropriate
+                // add success event to track having signed up for emails
+                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailSignedUp);
+            }
+            // unsubscribe user from greatnews_notverified
+            _subscriptionDao.removeSubscription(prodNotVerifiedId);
+        }
+
         _log.info("Email confirmed, forwarding user to " + viewName);
         return new ModelAndView(viewName);
 
@@ -305,5 +336,11 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         _reviewService = reviewService;
     }
 
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
 
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
+    }
 }

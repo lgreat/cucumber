@@ -1,7 +1,9 @@
 package gs.web.promo;
 
 import gs.data.community.*;
-import gs.web.community.registration.EmailVerificationEmailSignUpOnlyEmail;
+import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.tracking.JsonBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
@@ -16,8 +18,9 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,36 +29,108 @@ import java.util.List;
 @org.springframework.stereotype.Controller
 public class EmailSignUpAjaxController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
-    public static final String SUCCESS = "OK";
-    public static final String FAILURE = "0";
+    public static final String STATUS_ERROR = "Error";
+    public static final String STATUS_SUCCESS_EMAIL_SENT = "OK-emailSent";
+    public static final String STATUS_SUCCESS_NO_EMAIL_SENT = "OK-noEmailSent";
 
-private EmailVerificationEmailSignUpOnlyEmail _emailVerificationEmailSignUpOnlyEmail;
+private EmailVerificationEmail _emailVerificationEmail;
 
     private ISubscriptionDao _subscriptionDao;
     private IUserDao _userDao;
+    private static final SubscriptionProduct PARENT_ADVISOR = SubscriptionProduct.PARENT_ADVISOR;
+    private static final SubscriptionProduct PARENT_ADVISOR_NOT_VERIFIED = SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED;
 
     @RequestMapping(value = "/promo/emailSignUpAjax.page", method = RequestMethod.POST)
-    public void generateLead(@ModelAttribute("command") EmailSignUpCommand command,
+    public void handleEmailSignUp(@ModelAttribute("command") EmailSignUpCommand command,
                                HttpServletRequest request, HttpServletResponse response) throws Exception {
-        _log.info(command.toString());
+        // user/subscription info needed for validation and business logic
+        User user = (StringUtils.isNotBlank(command.getEmail()) ? _userDao.findUserFromEmailIfExists(command.getEmail()) : null);
+        boolean subscribedToProd = (user != null) && _subscriptionDao.isUserSubscribed(user, PARENT_ADVISOR, null);
+        boolean subscribedToProdNotVerified = (user != null) && _subscriptionDao.isUserSubscribed(user, PARENT_ADVISOR_NOT_VERIFIED, null);
 
-        String errors = validate(command);
+        // variables needed for json response
+        String errors = validate(command, (user != null), subscribedToProd);
+        String status;
+        JsonBasedOmnitureTracking omnitureTracking = null;
+
         if (StringUtils.isBlank(errors)) {
-            // log data
-            handleEmailSignUp(command, request);
+            boolean isNewMember = false;
+            boolean sendVerificationEmail = false;
 
-            response.getWriter().print(SUCCESS);
-            return;
+            // If the user does not yet exist, add to list_member
+            if (user == null) {
+                user = new User();
+                user.setEmail(command.getEmail());
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                _userDao.saveUser(user);
+                isNewMember = true;
+                sendVerificationEmail = true;
+            }
+
+            // add subscription - use PARENT_ADVISOR_NOT_VERIFIED instead of PARENT_ADVISOR
+            // if we just created the user. this will let us keep track of that fact that they
+            // want to be subscribed to PARENT_ADVISOR but not actually subscribe them until
+            // they've verified their email
+            if (!subscribedToProd && !subscribedToProdNotVerified) {
+                // save new subscription
+                Subscription sub = new Subscription();
+                if (isNewMember) {
+                    sub.setProduct(PARENT_ADVISOR_NOT_VERIFIED);
+                    sendVerificationEmail = true;
+                } else {
+                    sub.setProduct(PARENT_ADVISOR);
+
+                    // TODO-11567 rename/renumber success event as appropriate
+                    // add success event to track having signed up for emails
+                    omnitureTracking = new JsonBasedOmnitureTracking();
+                    omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailSignedUp);
+                }
+                sub.setUser(user);
+                _subscriptionDao.saveSubscription(sub);
+            } else if (subscribedToProdNotVerified) {
+                // user already tried to sign up, but haven't verified email yet;
+                // send another verification email to make it easy for them to confirm their email
+                sendVerificationEmail = true;
+            }
+
+            if (sendVerificationEmail) {
+                // send email verification email
+                sendVerificationEmail(request, user);
+                status = STATUS_SUCCESS_EMAIL_SENT;
+            } else {
+                status = STATUS_SUCCESS_NO_EMAIL_SENT;
+            }
+        } else {
+            status = STATUS_ERROR;
         }
 
-        _log.warn("Failure generating email sign-up for: " + command.getEmail());
-        response.getWriter().print(errors);
+        sendJsonResponse(response, errors, status, omnitureTracking);
+    }
+
+    private void sendJsonResponse(HttpServletResponse response, String errors, String status, JsonBasedOmnitureTracking omnitureTracking) throws IOException {
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.println("{");
+        out.println("\"status\":\"" + status + "\",");
+        if (omnitureTracking != null) {
+            out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
+        }
+        if (StringUtils.isNotBlank(errors)) {
+            out.println("\"errors\":\"" + errors + "\"");
+        }
+        out.println("}");
+    }
+
+    private void sendVerificationEmail(HttpServletRequest request, User user) throws IOException, MessagingException, NoSuchAlgorithmException {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
+        String redirectUrl = urlBuilder.asFullUrl(request);
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
     }
 
     /**
      * Returns empty string if the command seems valid; otherwise, comma-separated list of fields with errors
      */
-    protected String validate(EmailSignUpCommand command) {
+    protected String validate(EmailSignUpCommand command, boolean userExists, boolean subscribedToProd) {
         List<String> errorList = new ArrayList<String>();
 
         // validate not null email
@@ -65,12 +140,9 @@ private EmailVerificationEmailSignUpOnlyEmail _emailVerificationEmailSignUpOnlyE
             // validate format email
             EmailValidator emailValidator = EmailValidator.getInstance();
             if (!emailValidator.isValid(command.getEmail())) {
-                _log.warn("Email Sign Up submitted with invalid email: " + command.getEmail());
                 errorList.add("emailInvalid");
             } else {
-                User user = _userDao.findUserFromEmailIfExists(command.getEmail());
-                if (user != null &&
-                    _subscriptionDao.isUserSubscribed(user, SubscriptionProduct.PARENT_ADVISOR, null)) {
+                if (userExists && subscribedToProd) {
                     errorList.add("emailAlreadySignedUp");
                 }
             }
@@ -79,42 +151,12 @@ private EmailVerificationEmailSignUpOnlyEmail _emailVerificationEmailSignUpOnlyE
         return StringUtils.join(errorList, ',');
     }
 
-    private void handleEmailSignUp(EmailSignUpCommand command, HttpServletRequest request) throws Exception {
-        User user = _userDao.findUserFromEmailIfExists(command.getEmail());
-
-        // If the user does not yet exist, add to list_member
-        if (user == null) {
-            user = new User();
-            user.setEmail(command.getEmail());
-            user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-            _userDao.saveUser(user);
-        }
-
-        // send email verification email
-        // TODO-11567 generate password, set first name, etc.
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
-        String redirectUrl = urlBuilder.asFullUrl(request);
-        getEmailVerificationEmailSignUpOnlyEmail().sendVerificationEmail(request, user, redirectUrl);
-
-        // add subscription to
-        SubscriptionProduct prod = SubscriptionProduct.PARENT_ADVISOR;
-        if (!_subscriptionDao.isUserSubscribed(user, prod, null)) {
-            // save new subscription
-            Subscription sub = new Subscription();
-            sub.setProduct(prod);
-            sub.setUser(user);
-            _subscriptionDao.saveSubscription(sub);
-        } else {
-            // user is already subscribed
-        }
+    public EmailVerificationEmail getEmailVerificationEmail() {
+        return _emailVerificationEmail;
     }
 
-    public EmailVerificationEmailSignUpOnlyEmail getEmailVerificationEmailSignUpOnlyEmail() {
-        return _emailVerificationEmailSignUpOnlyEmail;
-    }
-
-    public void setEmailVerificationEmailSignUpOnlyEmail(EmailVerificationEmailSignUpOnlyEmail emailVerificationEmailSignUpOnlyEmail) {
-        _emailVerificationEmailSignUpOnlyEmail = emailVerificationEmailSignUpOnlyEmail;
+    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
+        _emailVerificationEmail = emailVerificationEmail;
     }
 
     public ISubscriptionDao getSubscriptionDao() {

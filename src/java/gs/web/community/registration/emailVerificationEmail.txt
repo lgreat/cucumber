@@ -1,4 +1,4 @@
-<p>Hi $FIRST_NAME,</p>
+<p>$GREETING,</p>
 
 <p>Thanks for joining GreatSchools! We're really excited you're here.</p>
 

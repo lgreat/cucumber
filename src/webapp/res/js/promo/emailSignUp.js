@@ -32,19 +32,28 @@ GS.form.EmailSignUp = function() {
             };
 
             jQuery.post('/promo/emailSignUpAjax.page', params, function(data) {
-                if (data == "OK") {
+                if (data.status.indexOf('OK') > -1) {
                     wrapper.find('.jq-emailSignUpIntroText').hide();
                     wrapper.find('.jq-emailSignUpForm').hide();
-                    wrapper.find('.jq-emailSignUpThankYou').show();
+                    if (data.status == 'OK-emailSent') {
+                        wrapper.find('.jq-emailSignUpEmailSentThankYou').show();
+                    } else {
+                        if (data.omnitureTracking != undefined) {
+                            omnitureEventNotifier.clear();
+                            omnitureEventNotifier.successEvents = data.omnitureTracking.successEvents;
+                            omnitureEventNotifier.send();
+                        }
+                        wrapper.find('.jq-emailSignUpNoEmailSentThankYou').show();
+                    }
                 } else {
-                    if (data.indexOf('emailInvalid') > -1) {
+                    if (data.errors.indexOf('emailInvalid') > -1) {
                         wrapper.find('.jq-emailSignUpError-emailInvalid').show();
-                    } else if (data.indexOf('emailAlreadySignedUp') > -1) {
+                    } else if (data.errors.indexOf('emailAlreadySignedUp') > -1) {
                         wrapper.find('.jq-emailSignUpError-emailAlreadySignedUp').show();
                     }
                     submitButton.show();
                 }
-            });
+            }, "json");
         }
 
         return false;

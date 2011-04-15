@@ -1,4 +1,4 @@
-<p>Hi $FIRST_NAME,</p>
+<p>$GREETING,</p>
 
 <p>You recently changed your GreatSchools email address to $NEW_EMAIL.
 To complete this change, please click on the verification link below:</p>

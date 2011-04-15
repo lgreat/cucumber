@@ -80,7 +80,11 @@ public class EmailVerificationEmail extends AbstractSendEmailBean {
         emailHelper.setToEmail(user.getEmail());
         emailHelper.readHtmlFromResource(emailLocation);
 
-        emailHelper.addInlineReplacement("FIRST_NAME", user.getFirstName());
+        if (user.getFirstName() != null) {
+            emailHelper.addInlineReplacement("GREETING", "Hi " + user.getFirstName());
+        } else {
+            emailHelper.addInlineReplacement("GREETING", "Hi");
+        }
         emailHelper.addInlineReplacement("VERIFICATION_LINK", verificationLink);
         emailHelper.addInlineReplacement("NEW_EMAIL", user.getEmail());
 
