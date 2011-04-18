@@ -86,8 +86,7 @@ public abstract class  OmnitureTracking {
         CBTipReplyPost(31),
         CBAdviceDiscussionPost(32),
         CBAdviceReplyPost(33),
-        // TODO-11567 rename/renumber success event as appropriate
-        EmailSignedUp(34);
+        EmailModuleSignup(37);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

@@ -234,9 +234,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 sub.setUser(user);
                 _subscriptionDao.saveSubscription(sub);
 
-                // TODO-11567 rename/renumber success event as appropriate
                 // add success event to track having signed up for emails
-                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailSignedUp);
+                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
             }
             // unsubscribe user from greatnews_notverified
             _subscriptionDao.removeSubscription(prodNotVerifiedId);

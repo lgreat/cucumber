@@ -80,10 +80,9 @@ private EmailVerificationEmail _emailVerificationEmail;
                 } else {
                     sub.setProduct(PARENT_ADVISOR);
 
-                    // TODO-11567 rename/renumber success event as appropriate
                     // add success event to track having signed up for emails
                     omnitureTracking = new JsonBasedOmnitureTracking();
-                    omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailSignedUp);
+                    omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
                 }
                 sub.setUser(user);
                 _subscriptionDao.saveSubscription(sub);
