@@ -1,14 +1,12 @@
 package gs.web.community.registration;
 
-import gs.data.community.WelcomeMessageStatus;
+import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.data.community.IUserDao;
-import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
 import gs.web.school.review.ReviewService;
@@ -46,12 +44,15 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
     private SitePrefCookie _sitePrefCookie;
 
+    private ISubscriptionDao _subscriptionDao;
+
     public void setUp() throws Exception {
         super.setUp();
         _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
         _reviewService = createStrictMock(ReviewService.class);
         _controller = new RegistrationConfirmController();
         _sitePrefCookie = createStrictMock(SitePrefCookie.class);
+        _subscriptionDao = createStrictMock(ISubscriptionDao.class);
 
         _userDao = createStrictMock(IUserDao.class);
         _reviewDao = createStrictMock(IReviewDao.class);
@@ -60,10 +61,14 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         _controller.setViewName("/room/with/a/view");
         _controller.setExactTargetAPI(_exactTargetAPI);
         _controller.setReviewService(_reviewService);
+        _controller.setSubscriptionDao(_subscriptionDao);
 
         Map<String,String> map = new HashMap<String,String>();
         MapBindingResult mapBindingResult = new MapBindingResult(map, "emailVerificationLink");
         _errors = new BindException(mapBindingResult);
+
+        List<Subscription> subscriptions = new ArrayList<Subscription>();
+        expect(_subscriptionDao.getUserSubscriptions(isA(User.class))).andReturn(subscriptions);
     }
 
     public void testBasics() {
@@ -237,6 +242,9 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
         resetAllMocks();
 
+        List<Subscription> subscriptions = new ArrayList<Subscription>();
+        expect(_subscriptionDao.getUserSubscriptions(isA(User.class))).andReturn(subscriptions);
+
         getRequest().setParameter("redirect", "/path?foo=bar");
         setupForRedirect(user);
         replayAllMocks();
@@ -245,6 +253,8 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         assertEquals("redirect:/path?foo=bar", mAndV.getViewName());
 
         resetAllMocks();
+
+        expect(_subscriptionDao.getUserSubscriptions(isA(User.class))).andReturn(subscriptions);
 
         getRequest().setParameter("redirect", "/path?foo=bar#anchor");
         setupForRedirect(user);
@@ -477,15 +487,15 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
 
     public void replayAllMocks() {
-        replayMocks(_userDao, _reviewDao, _reviewService);
+        replayMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao);
     }
 
     public void resetAllMocks() {
-        resetMocks(_userDao, _reviewDao, _reviewService);
+        resetMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_userDao, _reviewDao, _reviewService);
+        verifyMocks(_userDao, _reviewDao, _reviewService, _subscriptionDao);
     }
 }
 

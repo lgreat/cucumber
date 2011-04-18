@@ -202,7 +202,15 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailVerified);
+        processPendingParentAdvisorSubscriptions(user, ot);
 
+
+        _log.info("Email confirmed, forwarding user to " + viewName);
+        return new ModelAndView(viewName);
+
+    }
+
+    public void processPendingParentAdvisorSubscriptions(User user, OmnitureTracking ot) {
         // GS-11567
         // convert existing PARENT_ADVISOR_NOT_VERIFIED subscription to PARENT_ADVISOR subscription, if it exists
         boolean alreadySubscribedToParentAdvisor = false;
@@ -233,10 +241,6 @@ public class RegistrationConfirmController extends AbstractCommandController imp
             // unsubscribe user from greatnews_notverified
             _subscriptionDao.removeSubscription(prodNotVerifiedId);
         }
-
-        _log.info("Email confirmed, forwarding user to " + viewName);
-        return new ModelAndView(viewName);
-
     }
 
     protected UserState getUserState(User user) {
