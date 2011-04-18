@@ -716,6 +716,8 @@
                 <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0"/>
             </c:if>
 
+            <jsp:include page="/promo/emailSignUp.module"/>
+
             <div id="seasonalPromo">
                 <c:choose>
                     <c:when test="${requestScope.context.cobranded}">

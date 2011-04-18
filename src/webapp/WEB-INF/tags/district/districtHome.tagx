@@ -202,6 +202,8 @@
         <c:set var="rdcCity" value="${district.physicalAddress.city}, ${district.physicalAddress.state}"/>
         <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" defaultCity="${rdcCity}" pageAdRatioKey="RDC_PCT_DISTRICT_HOME" showAdPct="0"/>
 
+        <jsp:include page="/promo/emailSignUp.module"/>
+
         <div id="ad">
             <ad:House_Ad_300x137  referredBy="${pageName}"/>
         </div>

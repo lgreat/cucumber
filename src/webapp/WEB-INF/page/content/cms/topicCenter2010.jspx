@@ -317,6 +317,7 @@
             <div class="spacer_10"><!-- don't collapse --></div>
         </c:when>
         <c:otherwise>
+            <jsp:include page="/promo/emailSignUp.module"/>
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:otherwise>
     </c:choose>
@@ -385,6 +386,7 @@
     <c:choose>
         <c:when test="${topicCenter.stateOfEducationTopicCenter}">
             <ad:adTag position="Promo_300x250"/>
+            <jsp:include page="/promo/emailSignUp.module"/>
             <ad:House_Ad_300x137 referredBy="${pageName}"/>
         </c:when>
         <c:when test="${!topicCenter.k12SponsorshipPage}">

@@ -98,6 +98,8 @@
             </div>
         </c:if>
 
+        <jsp:include page="/promo/emailSignUp.module"/>
+
         <gsweb:adTagGenerator position="House_Ad_300x137"/>
         <!--<c:set var="content" value=""/>-->
         <c:choose>

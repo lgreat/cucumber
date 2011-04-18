@@ -546,6 +546,8 @@
                 <c:when test="${tab eq 'overview'}">
                     <ad:AboveFold_300x250/>
 
+                    <jsp:include page="/promo/emailSignUp.module"/>
+
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
                     ${savvySource}
@@ -569,6 +571,8 @@
                 </c:when>
                 <c:when test="${tab eq 'parentReviews'}">
                     <ad:AboveFold_300x250/>
+
+                    <jsp:include page="/promo/emailSignUp.module"/>
 
                     <ad:House_Ad_300x137 referredBy="${pageName}"/>
 
@@ -656,6 +660,8 @@
                 </c:when>
                 <c:otherwise>
                     <ad:AboveFold_300x250/>
+
+                    <jsp:include page="/promo/emailSignUp.module"/>
 
                     <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 

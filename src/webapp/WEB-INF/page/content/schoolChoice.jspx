@@ -290,6 +290,8 @@
 
                 <ad:AboveFold_300x600/>
 
+                <jsp:include page="/promo/emailSignUp.module"/>
+
                 <div id="houseAd">
                     <ad:adTag position="House_Ad_300x137"/>
                 </div>
