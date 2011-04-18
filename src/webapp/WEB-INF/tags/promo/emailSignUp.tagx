@@ -76,7 +76,12 @@
                                 <div class="bk text3">
                                     <p><a href="http://facebook.com/greatschools" target="_blank">GreatSchools</a></p>
 
-                                    <div>Like button goes here.</div>
+                                    <div>
+                                        <![CDATA[
+                                        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+                                        <fb:like href="http://www.facebook.com/greatschools" layout="button_count" show_faces="false" width="90" font=""></fb:like>
+                                        ]]>
+                                    </div>
                                 </div>
                             </div>
                         </div>
