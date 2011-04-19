@@ -38,6 +38,10 @@
     <c:if test="${not empty relCanonical}">
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
+
+    <c:if test="${isSearch}">
+        <meta name="robots" content="follow,noindex"/>
+    </c:if>
 </head>
 
     <ad:setSlotPrefix slotPrefix="Search_Site"/>
