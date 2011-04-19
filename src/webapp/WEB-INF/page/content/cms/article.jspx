@@ -731,18 +731,6 @@
                 </c:choose>
             </div>
 
-            <div id="seasonalPromo">
-                <c:choose>
-                    <c:when test="${requestScope.context.cobranded}">
-                        <link:schoolChoiceCenter styleClass="more"><gsml:img
-                                src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
-                                alt="School Choice Tips"/></link:schoolChoiceCenter>
-                    </c:when>
-                    <c:otherwise>
-                        <gsweb:adTagGenerator position="House_Ad_300x137"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
         </c:otherwise>
     </c:choose>
 </div>

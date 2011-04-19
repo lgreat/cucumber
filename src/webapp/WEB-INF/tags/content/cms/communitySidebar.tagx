@@ -119,8 +119,6 @@
             </c:otherwise>
         </c:choose>
 
-        <gsweb:adTagGenerator position="House_Ad_300x137"/>
-
     </div>
     <!-- end sideBar -->
 

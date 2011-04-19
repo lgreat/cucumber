@@ -215,11 +215,6 @@
             </div>
         </div>
         </c:if>
-
-        <div id="ad">
-            <ad:House_Ad_300x137  referredBy="${pageName}"/>
-        </div>
-
     </div>
 
 </jsp:root>
