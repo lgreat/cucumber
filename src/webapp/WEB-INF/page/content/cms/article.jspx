@@ -718,19 +718,6 @@
 
             <jsp:include page="/promo/emailSignUp.module"/>
 
-            <div id="seasonalPromo">
-                <c:choose>
-                    <c:when test="${requestScope.context.cobranded}">
-                        <link:schoolChoiceCenter styleClass="more"><gsml:img
-                                src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
-                                alt="School Choice Tips"/></link:schoolChoiceCenter>
-                    </c:when>
-                    <c:otherwise>
-                        <gsweb:adTagGenerator position="House_Ad_300x137"/>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
             <div id="articleBottomRightAd">
                 <c:choose>
                     <c:when test="${type eq 'articleSlideshow'}">
@@ -740,6 +727,19 @@
                         <gsweb:adTagGenerator position="BelowFold2_300x250">
                             <span class="jq-ghostText">ADVERTISEMENT</span>$AD
                         </gsweb:adTagGenerator>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+
+            <div id="seasonalPromo">
+                <c:choose>
+                    <c:when test="${requestScope.context.cobranded}">
+                        <link:schoolChoiceCenter styleClass="more"><gsml:img
+                                src="/res/img/content/schoolChoiceTips/schoolChoiceTips_300x137.jpg"
+                                alt="School Choice Tips"/></link:schoolChoiceCenter>
+                    </c:when>
+                    <c:otherwise>
+                        <gsweb:adTagGenerator position="House_Ad_300x137"/>
                     </c:otherwise>
                 </c:choose>
             </div>

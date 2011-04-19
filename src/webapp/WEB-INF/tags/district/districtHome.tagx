@@ -204,10 +204,6 @@
 
         <jsp:include page="/promo/emailSignUp.module"/>
 
-        <div id="ad">
-            <ad:House_Ad_300x137  referredBy="${pageName}"/>
-        </div>
-
         <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">
         <div id="citySnapShot">
             <div class="outer">
@@ -219,6 +215,10 @@
             </div>
         </div>
         </c:if>
+
+        <div id="ad">
+            <ad:House_Ad_300x137  referredBy="${pageName}"/>
+        </div>
 
     </div>
 

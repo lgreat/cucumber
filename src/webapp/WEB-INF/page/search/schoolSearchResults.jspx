@@ -484,10 +484,9 @@
 
     <jsp:include page="/promo/emailSignUp.module"/>
 
-    <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
-
     <ad:BelowFold_Top_300x125/>
 
+    <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 </div>
 
 <mod:tracking pageName="${omniturePageName}"

@@ -210,8 +210,6 @@
 
     <jsp:include page="/promo/emailSignUp.module"/>
 
-    <gsweb:adTagGenerator position="Homepage_House_Ad_300x137"/>
-
     <div>
         <c:choose>
             <c:when test="${showAd}">
@@ -259,6 +257,8 @@
                     class="alertDoubleArrow">&amp;raquo;</span></a>
         </div>
     </div>
+
+    <gsweb:adTagGenerator position="Homepage_House_Ad_300x137"/>
 </div>
 
 

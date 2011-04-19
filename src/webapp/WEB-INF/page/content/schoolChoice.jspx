@@ -292,10 +292,6 @@
 
                 <jsp:include page="/promo/emailSignUp.module"/>
 
-                <div id="houseAd">
-                    <ad:adTag position="House_Ad_300x137"/>
-                </div>
-
                 <div id="moving" class="box">
                     <div class="inner">
                         <h3>Moving with kids</h3>
@@ -326,6 +322,10 @@
                         </div>
                         
                     </div>
+                </div>
+
+                <div id="houseAd">
+                    <ad:adTag position="House_Ad_300x137"/>
                 </div>
             </div>
         </div>
