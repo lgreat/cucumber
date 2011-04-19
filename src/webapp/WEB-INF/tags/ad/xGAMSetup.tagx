@@ -49,11 +49,9 @@
                     adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
                 }
 
-                if (!pageHelper.isAdFree() && !pageHelper.isAdServedByCobrand()) {
+                if (!pageHelper.isAdFree() && !pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
                     adNames.add(AdPosition.Global_NavPromo_968x30.getName());
-                    if (!pageHelper.isFramed()) {
-                        adNames.add(AdPosition.Global_HeaderPromo_88x31.getName());
-                    }
+                    adNames.add(AdPosition.Global_HeaderPromo_88x31.getName());
                 }
             }
 
