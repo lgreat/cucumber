@@ -83,9 +83,11 @@
                     <div class="img">
                         <!--<img src="#" width="88" height="31" alt="test"/>-->
                     </div>
-                    <div class="bk">
-                        <ad:Global_HeaderPromo_88x31/>
-                    </div>
+                    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
+                        <div class="bk">
+                            <ad:Global_HeaderPromo_88x31/>
+                        </div>
+                    </c:if>
                 </div>
             </div>
 
@@ -383,17 +385,7 @@
     GS_loadSubnav();
 </script>
 </div>
-<jsp:scriptlet>
-    // GS-9975
-    gs.web.util.PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-    if (pageHelper != null) {
-        String schoolId = pageHelper.getAdKeywordValue("school_id");
-        if (schoolId != null) {
-            request.setAttribute("showGlobalNavPromo968x30", true);
-        }
-    }
-</jsp:scriptlet>
-<c:if test="${showGlobalNavPromo968x30}">
+<c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
     <ad:adTag position="Global_NavPromo_968x30"/>
 </c:if>
 </jsp:root>
