@@ -457,12 +457,12 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     height: 18px;
 }
 
-#contentRight h3{
+/*#contentRight h3{
     margin-top:8px;
     margin-bottom:6px;
     color:#D66671;
     font-size:18px;
-}
+}*/
 
 #citySnapShot {
     background:#fff url(/res/img/district/district_page_rightbox_bottom.gif) 0 100% no-repeat;

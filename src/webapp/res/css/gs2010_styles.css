@@ -2514,9 +2514,9 @@ Viewport: the defines width and height of each icon
 .findCompare .bd .formExt2{padding:0 15px 10px;}
 .findCompare .bd #q{width:100%;}
 /* ------ emailSignUp (extends standard) ------ */
-.emailSignUp .section1{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 10px;}
-.emailSignUp .section2{background-color:#ebebeb;border-bottom:1px solid #c6c6c6;padding:15px 10px 20px;}
-.emailSignUp .bd p{margin:auto;}
+.emailSignUp .section1{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 0 15px 10px;}
+.emailSignUp .section2{background-color:#ebebeb;border-bottom:1px solid #c6c6c6;padding:15px 0 20px 10px;}
+.emailSignUp .bd p{margin:auto;padding:0 0 15px;}
 .emailSignUp h3{font: 18px Georgia, "Times New Roman", Times, serif;}
 
 .mod_hd {

@@ -316,7 +316,7 @@ p#noQuery, p#noResults {
     display:none;
 }
 
-.sprite {
+/*.sprite {
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2011-01-06.png);
 }
@@ -325,4 +325,4 @@ p#noQuery, p#noResults {
     width: 13px;
     height: 13px;
     background-position: -20px -160px;
-}
+}*/

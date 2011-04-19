@@ -23,10 +23,10 @@
                 <c:if test="${!userIsAlreadySignedUp}">
 
                     <div class="section1">
-                        <div class="jq-emailSignUpIntroText text2">
-                            <span class="introTextGA">Get weekly tips</span> to support your child's education.
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                        </div>
+                        <p class="jq-emailSignUpIntroText text2">
+                            <strong>Get weekly tips</strong> to support your child's education.
+                            <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                        </p>
 
                         <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
                             <div class="formErrorText">Please enter your email address to sign up.</div>
@@ -38,7 +38,7 @@
 
                         <form class="jq-emailSignUpForm" action="#" method="POST">
                             <div class="line">
-                            <input type="text" class="jq-emailSignUpEmail unit size13of20 formText1" name="email"
+                            <input type="text" class="jq-emailSignUpEmail unit size11of20 formText1" name="email"
                                    onfocus="GS_textSwitch(this, '', '[Your email address]');"
                                    onblur="GS_textSwitch(this, '[Your email address]', '');"
                                    value="[Your email address]"
@@ -66,7 +66,7 @@
 
                 <div class="section2">
                     <div class="line">
-                        <div class="unit size7of16">
+                        <div class="unit size7of16 prl">
                             <div class="mediaExt1">
                                 <div class="img">
                                     <a href="http://facebook.com/greatschools" target="_blank">
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="unit size9of16 lastUnit brdlft_dotted">
+                        <div class="unit size9of16 lastUnit brdlft_dotted plm">
                             <div class="line">
                                 <div class="unit size1of3">
                                     <div class="mediaExt4 text-align-cen">
@@ -107,7 +107,7 @@
                                             </a>
                                         </div>
                                         <div class="bk smallText1 wsnw text-align-cen">
-                                            <a href="http://blogs.greatschools.org/greatschoolsblog/" target="_blank">Our Blog</a>
+                                            <a href="http://blogs.greatschools.org/greatschoolsblog/" target="_blank">Blog</a>
                                         </div>
                                     </div>
                                 </div>
