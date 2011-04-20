@@ -76,7 +76,6 @@ Disallow: /modperl/support
 Disallow: /pdf
 Disallow: /proxy/
 Disallow: /school/addComments.page
-Disallow: /school/mapSchool
 Disallow: /school/thankYouHover.page
 Disallow: /school/updateRatings.page
 Disallow: /search/feedback.page
