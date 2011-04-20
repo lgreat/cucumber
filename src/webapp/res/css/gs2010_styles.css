@@ -3192,12 +3192,12 @@ body.ie6 .clearfix {
     width: 968px;
     height: 96px;
     text-align: left;
-    background: #2f85eb;
+    /*background: #2f85eb;*/
 }
 
 #adLeaderboard table {
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     width: 738px;
 }
 
