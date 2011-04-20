@@ -2,14 +2,14 @@ package gs.web.school;
 
 import gs.data.community.Subscription;
 import gs.data.community.User;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.bestplaces.BpCensus;
 import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.survey.*;
-import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
-import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
@@ -45,6 +45,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private ISurveyDao _surveyDao;
     private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
+    private IGeoDao _geoDao;
 
     private IPQDao _PQDao;
 
@@ -95,6 +96,14 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             model.put("numberOfReviews", numberOfReviews);
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
+
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && numberOfReviews < 1) {
+                BpCensus bpCensus = _geoDao.findBpCity(school.getStateAbbreviation(), school.getCity());
+                if (bpCensus == null || bpCensus.getPopulation() < 8000) {
+                    // Preschool with no reviews and low population, so deindex from google per GS-11676
+                    model.put("noIndexFlag", true);
+                }
+            }
 
             /*
              * get PQ data to find quote if it exists
@@ -380,5 +389,13 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setRatingHelper(RatingHelper ratingHelper) {
         _ratingHelper = ratingHelper;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }
