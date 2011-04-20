@@ -49,6 +49,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     private IPQDao _PQDao;
 
+    protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
     public static String SCHOOL_HIGHLIGHTS_ATTRIBUTE = "schoolHighlights";
 
@@ -97,13 +98,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
 
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && numberOfReviews < 1) {
-                BpCensus bpCensus = _geoDao.findBpCity(school.getStateAbbreviation(), school.getCity());
-                if (bpCensus == null || bpCensus.getPopulation() < 8000) {
-                    // Preschool with no reviews and low population, so deindex from google per GS-11676
-                    model.put("noIndexFlag", true);
-                }
-            }
+            model.put("noIndexFlag", !shouldIndex(school, numberOfReviews));
 
             /*
              * get PQ data to find quote if it exists
@@ -174,6 +169,26 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    protected boolean shouldIndex(School school, Long numberOfReviews) {
+        if (school == null) {
+            return false;
+        }
+
+        if (numberOfReviews == null) {
+            numberOfReviews = 0L;
+        }
+
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && numberOfReviews < 1) {
+            BpCensus bpCensus = _geoDao.findBpCity(school.getStateAbbreviation(), school.getCity());
+            if (bpCensus == null || bpCensus.getPopulation() < PRESCHOOL_CITY_POPULATION_BOUNDARY) {
+                // Preschool with no reviews and low population, so deindex from google per GS-11676
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void populateModelWithSchoolHighlights(School school, Map<String, Object> model) {
