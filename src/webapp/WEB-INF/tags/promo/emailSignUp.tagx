@@ -84,8 +84,7 @@
                                             request.setAttribute("domainUrl", domainUrl);
                                         </jsp:scriptlet>
                                         <script type="text/javascript">
-                                            var gsFbRoot = document.getElementById('fb-root');
-                                            if (gsFbRoot == null) {
+                                            if (document.getElementById('fb-root') == null) {
                                                 <![CDATA[
                                                 document.write("<div id=\"fb-root\" class=\"hidden\"><!-- empty --></div>");
                                                 ]]>
