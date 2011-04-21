@@ -20,13 +20,9 @@
 
     <div id="sidebarGS" class="col">
         <jsp:include page="/promo/emailSignUp.module"/>
-
         <jsp:include page="/promo/emailSignUp.module"/>
     </div>
-<!--
-    <h1>Second form goes here</h1>
-    <promo:emailSignUp/>
--->
+
     </body>
     </html>
 </jsp:root>
