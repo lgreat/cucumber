@@ -1746,9 +1746,25 @@ Viewport: the defines width and height of each icon
 </div>
 */
 
-.line,
+/*.line,
 .lastUnit {
     overflow: hidden;
+}*/
+
+.line:after,
+.lastUnit:after{
+    clear:both;
+    display:block;
+    visibility:hidden;
+    overflow:hidden;
+    height:0 !important;
+    line-height:0;
+    font-size:xx-large;
+    content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";
+}
+
+.line{
+    *zoom:1;
 }
 
 .unit {
@@ -2275,10 +2291,21 @@ Viewport: the defines width and height of each icon
     width: 63%;
 }
 
-.lastUnit {
+.lastUnit{
+    display:table-cell;
+    float:none;
+    width:auto;
+    *display:block;
+    *zoom:1;
+    _position:relative;
+    _left:-3px;
+    _margin-right:-3px;
+}
+
+/*.lastUnit {
     float: none;
     width: auto;
-}
+}*/
 
 .firstColGutter-10 {
     margin-right: 10px;
@@ -2516,7 +2543,8 @@ Viewport: the defines width and height of each icon
 /* ------ emailSignUp (extends standard) ------ */
 .emailSignUp .section1{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 0 15px 10px;}
 .emailSignUp .section2{background-color:#ebebeb;border-bottom:1px solid #c6c6c6;padding:15px 0 20px 10px;}
-.emailSignUp .bd p{margin:auto;padding:0 0 15px;}
+.emailSignUp .section1 p{margin:auto;padding:0 0 15px;*margin:0;}
+.emailSignUp .section2 p{margin:auto;padding:0;*margin:0;}
 .emailSignUp h3{font: 18px Georgia, "Times New Roman", Times, serif;}
 
 .mod_hd {
