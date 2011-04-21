@@ -1,5 +1,6 @@
 package gs.web.school;
 
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.web.util.UrlUtil;
@@ -12,6 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 public class TeachersStudentsController extends PerlFetchController {
     private String _privateSchoolContentPath;
     private String _publicSchoolContentPath;
+
+    @Override
+    protected boolean shouldIndex(School school, String perlResponse) {
+        if (school.getLevelCode().equals(LevelCode.PRESCHOOL) &&
+                perlResponse.contains("Student data was not reported for this school.") &&
+                perlResponse.contains("Teacher data was not reported for this school.")) {
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
     protected String getAbsoluteHref(School school, HttpServletRequest request) {

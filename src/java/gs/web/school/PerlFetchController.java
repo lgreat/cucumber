@@ -60,6 +60,9 @@ public class PerlFetchController extends AbstractSchoolController {
 
             if (StringUtils.isNotBlank(perlResponse)) {
                 model.put(HTML_ATTRIBUTE, perlResponse);
+                if (!shouldIndex(school, perlResponse)) {
+                    model.put("noIndexFlag", true);
+                }
             } else {
                 _log.error("Empty response received from perl at " + href);
                 response.sendError(500);
@@ -81,6 +84,18 @@ public class PerlFetchController extends AbstractSchoolController {
         }
 
         return new ModelAndView(view, model);
+    }
+
+
+    /**
+     * Determine if data from this controller should be indexed by crawlers or not.  Implemented for GS-11686.
+     * @param school School object for this page
+     * @param perlResponse The perl response used in the body of the page
+     * @return true if the page should be indexed.  false otherwise.
+     */
+    protected boolean shouldIndex(School school, String perlResponse) {
+        // Always index by default, subclasses can override.
+        return true;
     }
 
     protected String getAbsoluteHref(School school, HttpServletRequest request) {
