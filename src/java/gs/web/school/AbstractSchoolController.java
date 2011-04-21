@@ -51,10 +51,10 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
      * @throws Exception
      */
     public final ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+            throws Exception {
 
         // delegate to WebContentGenerator for checking and preparing
-		checkAndPrepare(request, response, this instanceof LastModified);
+        checkAndPrepare(request, response, this instanceof LastModified);
 
         // make sure we have a valid school
         State state = SessionContextUtil.getSessionContext(request).getState();
