@@ -214,31 +214,30 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         // GS-11567
         // convert existing PARENT_ADVISOR_NOT_VERIFIED subscription to PARENT_ADVISOR subscription, if it exists
         boolean alreadySubscribedToParentAdvisor = false;
-        Integer prodNotVerifiedId = null;
+        Subscription pendingSubscription = null;
         // get subscription id for not-verified version, if it exists, and find out if already subscribed to regular version
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user);
         if(subscriptions != null){
             for (Subscription subscription : subscriptions) {
                 if (subscription.getProduct().equals(SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED)) {
-                    prodNotVerifiedId = subscription.getId();
+                    pendingSubscription = subscription;
                 } else if (subscription.getProduct().equals(SubscriptionProduct.PARENT_ADVISOR)) {
                     alreadySubscribedToParentAdvisor = true;
                 }
             }
         }
-        if (prodNotVerifiedId != null) {
+        if (pendingSubscription != null) {
             if (!alreadySubscribedToParentAdvisor) {
-                // subscribe user to greatnews
-                Subscription sub = new Subscription();
-                sub.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-                sub.setUser(user);
-                _subscriptionDao.saveSubscription(sub);
+                // change greatnews_notverified subscription to greatnews subscription
+                pendingSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+                _subscriptionDao.saveSubscription(pendingSubscription);
 
                 // add success event to track having signed up for emails
                 ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
+            } else {
+                // unsubscribe user from greatnews_notverified -- just in case they already had a regular greatnews subscription
+                _subscriptionDao.removeSubscription(pendingSubscription.getId());
             }
-            // unsubscribe user from greatnews_notverified
-            _subscriptionDao.removeSubscription(prodNotVerifiedId);
         }
     }
 
