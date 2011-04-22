@@ -3489,6 +3489,7 @@ body.cobranded #pageGS {
     z-index: 2;
     position:relative;
     top:1px;
+    *top:2px;
     _top:13px;
 }
 
