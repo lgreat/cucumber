@@ -39,19 +39,18 @@
 
                         <form class="jq-emailSignUpForm" action="#" method="POST">
                             <div class="line">
-                            <input type="text" class="jq-emailSignUpEmail unit size11of20 formText1" name="email"
+                            <input type="text" class="jq-emailSignUpEmail unit size3of5 formText1 mrm" name="email"
                                    onfocus="GS_textSwitch(this, '', '[Your email address]');"
                                    onblur="GS_textSwitch(this, '[Your email address]', '');"
                                    value="[Your email address]"
                                     />
 
-                            <div class="unit size1of20 unit">&amp;nbsp;</div>
                                 <div class="unit size2of5 lastUnit">
                             <button class="button-1 jq-emailSignUpSubmit" type="submit">Sign up</button>
                                 </div>
                             </div>
                         </form>
-                        <div class="hidden jq-emailSignUpEmailSentThankYou">
+                        <div class="hidden jq-emailSignUpEmailSentThankYou prm">
                             <h3>Thank you</h3>
 
                             <p>Please confirm your subscription by clicking the link in the email we just sent you.</p>
@@ -68,40 +67,42 @@
                 <div class="section2">
                     <div class="line">
                         <div class="unit size7of16 prl">
-                            <div class="fltlft prm">
-                                <a href="http://facebook.com/greatschools" target="_blank">
-                                    <span class="sprite i-facebook-l"><!-- do not collapse --></span>
-                                </a>
-                            </div>
-                            <div class="fltlft text3">
-                                <p><a href="http://facebook.com/greatschools" target="_blank">GreatSchools</a></p>
+                            <div class="line">
+                                <div class="unit size1of4 prm">
+                                    <a href="http://facebook.com/greatschools" target="_blank">
+                                        <span class="sprite i-facebook-l"><!-- do not collapse --></span>
+                                    </a>
+                                </div>
+                                <div class="unit size3of4 lastUnit text3">
+                                    <p><a href="http://facebook.com/greatschools" target="_blank">GreatSchools</a></p>
 
-                                <div>
-                                    <jsp:scriptlet>
-                                        UrlBuilder urlBuilder = new UrlBuilder("home");
-                                        String domainUrl = urlBuilder.asFullUrlXml(request);
-                                        request.setAttribute("domainUrl", domainUrl);
-                                    </jsp:scriptlet>
-                                    <script type="text/javascript">
-                                        if (document.getElementById('fb-root') == null) {
-                                            <![CDATA[
-                                            document.write("<div id=\"fb-root\" class=\"hidden\"><!-- empty --></div>");
-                                            ]]>
-                                            window.fbAsyncInit = function() {
-                                                FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl: '${domainUrl}res/channel.html'});
-                                            };
+                                    <div>
+                                        <jsp:scriptlet>
+                                            UrlBuilder urlBuilder = new UrlBuilder("home");
+                                            String domainUrl = urlBuilder.asFullUrlXml(request);
+                                            request.setAttribute("domainUrl", domainUrl);
+                                        </jsp:scriptlet>
+                                        <script type="text/javascript">
+                                            if (document.getElementById('fb-root') == null) {
+                                                <![CDATA[
+                                                document.write("<div id=\"fb-root\" class=\"hidden\"><!-- empty --></div>");
+                                                ]]>
+                                                window.fbAsyncInit = function() {
+                                                    FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl: '${domainUrl}res/channel.html'});
+                                                };
 
-                                            (function() {
-                                                var e = document.createElement('script');
-                                                e.async = true;
-                                                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                                                document.getElementById('fb-root').appendChild(e);
-                                            }());
-                                        }
-                                    </script>
-                                    <![CDATA[
+                                                (function() {
+                                                    var e = document.createElement('script');
+                                                    e.async = true;
+                                                    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                                                    document.getElementById('fb-root').appendChild(e);
+                                                }());
+                                            }
+                                        </script>
+                                        <![CDATA[
                                         <fb:like href="http://www.facebook.com/greatschools" layout="button_count" show_faces="false" width="90" font=""></fb:like>
                                         ]]>
+                                    </div>
                                 </div>
                             </div>
                         </div>
