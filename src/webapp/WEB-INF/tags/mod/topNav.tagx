@@ -130,66 +130,68 @@
                 }
             </script>
             <div class="unit size7of16 lastUnit">
-                <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
-                            action="${articlesAndCommunitySearchAction}">
-                    <input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>
-                </gsweb:form>
-                <gsweb:form method="get" id="topnav_search" action="${localSearchAction}"
-                            onsubmit="return topNavNewCommunitySubmitSearch(this)">
-                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                        <input type="hidden" name="st" value="charter"/>
-                    </c:if>
-                    <input type="hidden" name="search_type" value="0"/>
-                    <fieldset>
-                        <ul>
-                            <li id="srch1" class="${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
-                                <label for="topnavSchoolRadio" class="radLabel">Schools</label>
-                            </li>
-                            <li id="srch2" class="${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
-                                <label for="topnavArticlesAndCommunityRadio"
-                                       class="radLabel">Articles &amp;amp; Community</label></li>
-                        </ul>
-                        <input type="text" name="q" id="qNew"
-                               value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
-                        <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                             noStateLabel="--"
-                                             usingLongNames="false"
-                                             state="${requestScope.context.state}"
-                                             styleClass="stateSelect"
-                                             style="${searchStateStyle}"
-                                             styleId="stateSelector"
-                                />
-                        <button type="submit" class="button-1">Search</button>
-                        <variant:b>
-                            <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
+                <div class="topnav_search_container">
+                    <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
+                                action="${articlesAndCommunitySearchAction}">
+                        <input type="hidden" name="q" id="articlesAndCommunityQ" value=""/>
+                    </gsweb:form>
+                    <gsweb:form method="get" id="topnav_search" action="${localSearchAction}"
+                                onsubmit="return topNavNewCommunitySubmitSearch(this)">
+                        <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                            <input type="hidden" name="st" value="charter"/>
+                        </c:if>
+                        <input type="hidden" name="search_type" value="0"/>
+                        <fieldset>
+                            <ul>
+                                <li id="srch1" class="${(!searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
+                                    <label for="topnavSchoolRadio" class="radLabel">Schools</label>
+                                </li>
+                                <li id="srch2" class="${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
+                                    <label for="topnavArticlesAndCommunityRadio"
+                                           class="radLabel">Articles &amp;amp; Community</label></li>
+                            </ul>
+                            <input type="text" name="q" id="qNew"
+                                   value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
+                            <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                                 noStateLabel="--"
+                                                 usingLongNames="false"
+                                                 state="${requestScope.context.state}"
+                                                 styleClass="stateSelect"
+                                                 style="${searchStateStyle}"
+                                                 styleId="stateSelector"
+                                    />
+                            <button type="submit" class="button-1">Search</button>
+                            <variant:b>
+                                <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
+                                    <script type="text/javascript">
+                                        jQuery(function() {
+                                            GS.attachSchoolAutocomplete("qNew");
+                                        });
+                                    </script>
+                                </c:if>
                                 <script type="text/javascript">
                                     jQuery(function() {
-                                        GS.attachSchoolAutocomplete("qNew");
+                                        jQuery('#srch2 label').click(function() {
+                                            GS.detachSchoolAutocomplete("qNew");
+                                        });
+                                        jQuery('#srch1 label').click(function() {
+                                            GS.attachSchoolAutocomplete("qNew");
+                                        });
                                     });
                                 </script>
-                            </c:if>
-                            <script type="text/javascript">
-                                jQuery(function() {
-                                    jQuery('#srch2 label').click(function() {
-                                        GS.detachSchoolAutocomplete("qNew");
-                                    });
-                                    jQuery('#srch1 label').click(function() {
-                                        GS.attachSchoolAutocomplete("qNew");
-                                    });
-                                });
-                            </script>
-                        </variant:b>
-                    </fieldset>
-                    <fieldset id="radBtns">
-                        <gsml:radio name="c" styleId="topnavSchoolRadio" value="school"
-                                    onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
-                                    checked="${searchRadioSchoolChecked}"/>
-                        <gsml:radio name="c" styleId="topnavArticlesAndCommunityRadio" value="articlesAndCommunity"
-                                    onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');"
-                                    checked="${searchRadioArticlesAndCommunityChecked}"/>
+                            </variant:b>
+                        </fieldset>
+                        <fieldset id="radBtns">
+                            <gsml:radio name="c" styleId="topnavSchoolRadio" value="school"
+                                        onclick="topNavNewCommunitySelectSchoolSearch(this, '${localSearchAction}');"
+                                        checked="${searchRadioSchoolChecked}"/>
+                            <gsml:radio name="c" styleId="topnavArticlesAndCommunityRadio" value="articlesAndCommunity"
+                                        onclick="topNavSelectArticlesAndCommunitySearch(this, '${articlesAndCommunitySearchAction}');"
+                                        checked="${searchRadioArticlesAndCommunityChecked}"/>
 
-                    </fieldset>
-                </gsweb:form>
+                        </fieldset>
+                    </gsweb:form>
+                </div>
             </div>
             <script type="text/javascript">document.forms['topnav_search'].reset();</script>
             <!-- GS-3713 -->
