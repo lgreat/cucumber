@@ -7071,6 +7071,7 @@ p.breadcrumbs {
 
 #userActivity .mod.theActivities li p {
     margin-left: 25px;
+    word-wrap:break-word;
 }
 
 #userActivity .split {
