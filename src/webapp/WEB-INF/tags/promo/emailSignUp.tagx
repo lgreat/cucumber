@@ -68,14 +68,14 @@
                     <div class="line">
                         <div class="unit size7of16">
                             <div class="prl">
-                                <div class="line">
-                                    <div class="unit size1of4">
+                                <div class="mediaExt1-1">
+                                    <div class="img">
                                         <a href="http://facebook.com/greatschools" target="_blank">
                                             <span class="sprite i-facebook-l"><!-- do not collapse --></span>
                                         </a>
                                     </div>
-                                    <div class="unit size3of4 lastUnit text3">
-                                        <div class="text3 plm">
+                                    <div class="bk">
+                                        <div class="text3">
                                             <p><a href="http://facebook.com/greatschools"
                                                   target="_blank">GreatSchools</a>
                                             </p>
