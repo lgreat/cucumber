@@ -296,7 +296,8 @@ body.ie6 #mainWrap,
 body.ie6 #footerAd,
 body.ie6 #footer,
 body.ie6 #footer .copyright,
-body.ie6 #homepageFooterAd {
+body.ie6 #homepageFooterAd,
+body.ie6 #Global_NavPromo_968x30{
     background-image: url(/res/img/gs_contentIE6_bg.png);
 }
 
@@ -306,7 +307,8 @@ body.ie6 #homepageFooterAd {
 *html #footer,
 *html #footer .copyright,
 *html #homepageFooterAd,
-*html #footerFrm {
+*html #footerFrm,
+*html #Global_NavPromo_968x30{
     background-image: url(/res/img/gs_contentIE6_bg.png);
 }
 

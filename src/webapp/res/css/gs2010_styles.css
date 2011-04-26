@@ -3280,7 +3280,7 @@ body.cobranded #pageGS {
     margin-bottom: 20px;
 }
 
-/*#Global_NavPromo_968x30{
+#Global_NavPromo_968x30{
     padding:0 5px;
     background: url(/res/img/gs_content_bg.png) repeat-y;
 }
@@ -3288,7 +3288,7 @@ body.cobranded #pageGS {
 .ie #Global_NavPromo_968x30{
     padding:0;
     background: url(/res/img/gs_content_bg.png) repeat-y;
-}*/
+}
 
 /* =11 header/primary navigation
 -------------------------------------------------------------------------------------------*/
