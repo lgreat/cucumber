@@ -3505,7 +3505,7 @@ body.cobranded #pageGS {
     position:relative;
     top:1px;
     *top:2px;
-    _top:13px;
+    _top:0;
 }
 
 #globalnav {
