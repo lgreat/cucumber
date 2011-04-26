@@ -110,12 +110,12 @@ private EmailVerificationEmail _emailVerificationEmail;
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         out.println("{");
-        out.println("\"status\":\"" + status + "\",");
+        out.println("\"status\":\"" + status + "\"");
         if (omnitureTracking != null) {
-            out.println("\"omnitureTracking\":" + omnitureTracking.toJsonObject());
+            out.println("," + "\"omnitureTracking\":" + omnitureTracking.toJsonObject());
         }
         if (StringUtils.isNotBlank(errors)) {
-            out.println("\"errors\":\"" + errors + "\"");
+            out.println("," + "\"errors\":\"" + errors + "\"");
         }
         out.println("}");
     }
