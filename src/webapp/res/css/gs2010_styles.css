@@ -2466,9 +2466,9 @@ Viewport: the defines width and height of each icon
 .mediaExt3 .imgExt{float: right;margin-left: 10px;}
 
  /* Ext4: Image caption */
-.mediaExt4{margin:0 auto;}
+.mediaExt4{margin:0 auto;_display:inline;}
 .mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
-.mediaExt4 .img{float:none;margin-bottom: 5px;_display:inline;}
+.mediaExt4 .img{float:none;margin-bottom: 5px;}
 .mediaExt4 .img img {display: block;}
 
 /* =5 modules
@@ -2544,7 +2544,7 @@ Viewport: the defines width and height of each icon
 .emailSignUp .section1{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 0 15px 10px;}
 .emailSignUp .section2{background-color:#ebebeb;border-bottom:1px solid #c6c6c6;padding:15px 0 20px 10px;}
 .emailSignUp .section1 p{margin:auto;padding:0 0 15px;*margin:0;}
-.emailSignUp .section2 p{margin:auto;padding:0;*margin:0;_display:inline;}
+.emailSignUp .section2 p{margin:auto;padding:0;*margin:0;}
 .emailSignUp h3{font: 18px Georgia, "Times New Roman", Times, serif;}
 
 .mod_hd {
@@ -3279,6 +3279,16 @@ body.cobranded #pageGS {
 #Homepage_House_Ad_598x102 {
     margin-bottom: 20px;
 }
+
+/*#Global_NavPromo_968x30{
+    padding:0 5px;
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+}
+
+.ie #Global_NavPromo_968x30{
+    padding:0;
+    background: url(/res/img/gs_content_bg.png) repeat-y;
+}*/
 
 /* =11 header/primary navigation
 -------------------------------------------------------------------------------------------*/
