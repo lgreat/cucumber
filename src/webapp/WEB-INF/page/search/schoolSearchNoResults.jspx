@@ -206,8 +206,6 @@
     <ad:AboveFold_300x600/>
 
     <jsp:include page="/promo/emailSignUp.module"/>
-    
-    <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
 
 </div>
 
