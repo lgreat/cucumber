@@ -66,7 +66,7 @@
 
                 <div class="section2">
                     <div class="line">
-                        <div class="unit size7of16">
+                        <div class="unit size1of2">
                             <div class="prm">
                                 <div class="mediaExt1-1">
                                     <div class="img">
@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="unit size9of16 lastUnit">
+                        <div class="unit size1of2 lastUnit">
                             <div class="brdlft_dotted plm">
                                 <div class="line">
                                     <div class="unit size1of3">
