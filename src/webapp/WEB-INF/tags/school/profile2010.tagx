@@ -566,8 +566,6 @@
                     <ad:BelowFold_300x250/>
 
                     <ad:BelowFold_Top_300x125/>
-
-                    <ad:House_Ad_300x137 referredBy="${omniturePageName}"/>
                 </c:when>
                 <c:when test="${tab eq 'parentReviews'}">
                     <ad:AboveFold_300x250/>
@@ -643,8 +641,6 @@
                     <ad:BelowFold_300x250/>
 
                     <ad:BelowFold_Top_300x125/>
-
-                    <ad:House_Ad_300x137 referredBy="${pageName}"/>
                 </c:when>
                 <c:when test="${tab eq 'schoolMap'}">
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
