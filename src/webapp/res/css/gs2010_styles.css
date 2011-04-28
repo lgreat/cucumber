@@ -3220,7 +3220,7 @@ body.ie6 .clearfix {
     width: 968px;
     height: 96px;
     text-align: left;
-    /*background: #2f85eb;*/
+    background: transparent;
 }
 
 #adLeaderboard table {
