@@ -26,5 +26,5 @@ GS.attachSchoolAutocomplete = function(domId) {
 GS.detachSchoolAutocomplete = function(domId) {
     var searchBox = jQuery('#' + domId);
     //jquery autocomplete plugin documentation sucks. .unautocomplete() and autocomplete("disable") don't work.
-    //searchBox.unbind(".autocomplete");
+    searchBox.unbind(".autocomplete");
 };
