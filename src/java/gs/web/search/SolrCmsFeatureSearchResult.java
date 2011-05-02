@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @XmlType(propOrder={"primaryCategoryId","topicId","secondaryCategoryId","gradeId","subjectId",
-        "locationId","contentType","contentId","fullUri","title","summary","contentKey"})
+        "locationId","contentType","contentId","fullUri","promo","title","summary","contentKey"})
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
 
@@ -22,6 +22,7 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     private String _contentType;
     private Long _contentId;
     private String _fullUri;
+    private String _promo;
     private String _title;
     private String _summary;
     private Date _dateCreated;
@@ -105,6 +106,11 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     @Field(CmsFeatureDocumentBuilder.FIELD_FULL_URI)
     public void setFullUri(String fullUri) {
         _fullUri = fullUri;
+    }
+
+    @XmlElement
+    public String getPromo() {
+        return _promo;
     }
 
     @XmlElement

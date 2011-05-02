@@ -16,6 +16,7 @@ public interface ICmsFeatureSearchResult extends ISearchResult {
     public Long getContentId();
     public ContentKey getContentKey();
     public String getFullUri();
+    public String getPromo();
     public String getTitle();
     public String getSummary();
     public Date getDateCreated();

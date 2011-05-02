@@ -220,7 +220,7 @@ public class CmsHomepageController extends AbstractController {
             _contentType = ContentType.cms;
             _contentKey = cmsResult.getContentKey();
             _fullUri = cmsResult.getFullUri();
-            _title = cmsResult.getHeadline();
+            _title = cmsResult.getPromoOrTitle();
         }
 
         public RecentContent(Discussion discussion, String fullUri) {
