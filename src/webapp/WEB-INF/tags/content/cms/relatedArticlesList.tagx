@@ -1,0 +1,18 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0">
+    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
+    
+    <h4>Related Stories</h4>
+    <div>
+        <ul>
+            <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
+                <c:if test="${not empty relatedArticle.url}">
+                    <li><a href="${relatedArticle.url}" class="GS_EV5_"
+                           id="moreonA__${status.count}">${relatedArticle.linkText}</a></li>
+                </c:if>
+            </c:forEach>
+        </ul>
+    </div>
+</jsp:root>

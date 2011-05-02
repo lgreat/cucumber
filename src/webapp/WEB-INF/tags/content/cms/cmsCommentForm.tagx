@@ -1,0 +1,75 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          version="2.0">
+    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
+    <jsp:directive.attribute name="contentUrl" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="type" required="false" type="java.lang.String"/>
+  
+    <div id="cmsArticleForm">
+        <form action="/cgi-bin/feedback_submit" method="post"
+              onsubmit="captchaChallenge.value = Recaptcha.$('recaptcha_challenge_field').value;captchaResponse.value = Recaptcha.$('recaptcha_response_field').value;description.value = wrapCommentWithDelimiter(comment.value);">
+            <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
+            <input type="hidden" name="type" value="${type}"/>
+            <c:if test="${not empty feature.legacyId}">
+                <input type="hidden" name="id" value="${feature.legacyId}"/>
+            </c:if>
+            <input type="hidden" name="contentType" value="${feature.contentKey.type}"/>
+            <input type="hidden" name="contentIdentifier" value="${feature.contentKey.identifier}"/>
+            <input type="hidden" name="contentUrl" value="${contentUrl}"/>
+            <input type="hidden" name="captchaChallenge" value="the Challenge"/>
+            <input type="hidden" name="captchaResponse" value="the Response"/>
+            <input type="hidden" name="description" value=""/>
+
+            <div>
+                <h4><img src="/res/img/icons/commentBubbleSm.gif" alt="comment"/>
+                    Post a comment on this article</h4>
+            </div>
+            <div>
+                <label for="name">Name (optional): </label>
+                <input name="name" id="name" size="25" type="text" class="txt"/>
+            </div>
+            <div>
+                <label for="email">Email (optional): </label>
+                <input name="email" id="email" size="25" type="text" class="txt"/>
+            </div>
+            <div>
+                <label for="commenttextarea">Comment:</label><br />
+                <![CDATA[<textarea name="comment" id="commenttextarea" cols="50" rows="5"></textarea>]]>
+            </div>
+            <div class="captcha">
+                <script type="text/javascript">
+                    var RecaptchaOptions = {theme:'white', tabindex: 0};
+                </script>
+                <script type="text/javascript"
+                        src="http://api.recaptcha.net/challenge?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL">
+                    /* this comment keeps the tag from collapsing */
+                </script>
+
+                <![CDATA[
+                                <noscript>
+                                   <iframe src="http://api.recaptcha.net/noscript?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL"
+                                       height="300" width="500" frameborder="0"></iframe><br/>
+                                   <textarea name="recaptcha_challenge_field"
+                                             rows="3" cols="40" style="height: 60px;">
+                                   </textarea>
+                                   <input type="hidden" name="recaptcha_response_field"
+                                       value="manual_challenge"/>
+                                </noscript>
+                                ]]>
+            </div>
+            <div class="float left"><input name="permit" type="checkbox" checked="checked"/></div>
+            <div>
+                <p>Yes, I agree to the
+                    <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
+                    permission to post my comments for other parents to read.</p>
+
+                <p>Note: Your email address is
+                    required if you would like a response from GreatSchools.org.</p>
+            </div>
+
+            <div><input type="image" src="/res/img/button/btn_post.gif" /></div>
+        </form>
+    </div>
+</jsp:root>

@@ -1,29 +1,28 @@
 package gs.web.content.cms;
 
+import gs.data.cms.IPublicationDao;
+import gs.data.content.ArticleComment;
+import gs.data.content.IArticleDao;
+import gs.data.content.cms.*;
 import gs.web.util.CookieUtil;
+import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
-import org.apache.log4j.Logger;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import gs.data.content.IArticleDao;
-import gs.data.content.ArticleComment;
-import gs.data.content.cms.*;
-import gs.data.cms.IPublicationDao;
-import gs.web.util.UrlBuilder;
-import gs.web.util.PageHelper;
-import gs.web.util.RedirectView301;
-import org.springframework.web.servlet.view.RedirectView;
 
 public class CmsFeatureController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
@@ -47,6 +46,7 @@ public class CmsFeatureController extends AbstractController {
         CATEGORIES_FOR_CONTEXTUAL_ADS.add(CmsConstants.FIND_A_SCHOOL_CATEGORY_ID);
     }
 
+    private CmsVideoController _cmsVideoController;
     private ICmsFeatureDao _featureDao;
     private IArticleDao _legacyArticleDao;
     private IPublicationDao _publicationDao;
@@ -115,6 +115,10 @@ public class CmsFeatureController extends AbstractController {
             }
 
             feature = _featureDao.get(contentId);
+
+            if (feature != null && CmsConstants.VIDEO_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+                return _cmsVideoController.handleRequestInternal(request,response); //EARLY EXIT
+            }
 
             if (!_unitTest && feature != null) {
                 // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
@@ -568,4 +572,13 @@ public class CmsFeatureController extends AbstractController {
     public void setUnitTest(boolean unitTest) {
         _unitTest = unitTest;
     }
+
+    public CmsVideoController getCmsVideoController() {
+        return _cmsVideoController;
+    }
+
+    public void setCmsVideoController(CmsVideoController cmsVideoController) {
+        _cmsVideoController = cmsVideoController;
+    }
+    
 }

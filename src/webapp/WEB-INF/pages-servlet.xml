@@ -574,6 +574,12 @@
         <property name="viewName" value="/content/cms/article"/>
     </bean>
 
+    <bean name="cmsVideoController"
+          class="gs.web.content.cms.CmsVideoController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/cms/video"/>    
+    </bean>
+
     <bean name="/content/cms/topicCenter.page"
           class="gs.web.content.cms.CmsTopicCenterController2010"
           autowire="byName" lazy-init="true">

@@ -15,7 +15,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          version="2.0">
+          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
@@ -505,36 +505,10 @@
         </c:forEach>
 
         <c:if test="${hasPublishedRelatedArticles}">
-            <h4>Related Stories</h4>
-            <div>
-                <ul>
-                    <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
-                        <c:if test="${not empty relatedArticle.url}">
-                            <li><a href="${relatedArticle.url}" class="GS_EV5_" id="moreonA__${status.count}">${relatedArticle.linkText}</a></li>
-                        </c:if>
-                    </c:forEach>
-                </ul>
-            </div>
+            <cms:relatedArticlesList feature="${feature}"/>
         </c:if>
         <c:if test="${not empty feature.externalLinks}">
-            <h4>Related Links</h4>
-            <div>
-                <ul>
-                    <c:forEach var="externalLink" items="${feature.externalLinks}">
-                        <c:if test="${not empty externalLink.url}">
-                            <c:choose>
-                                <c:when test="${fn:startsWith(externalLink.url, '/')}">
-                                    <c:set var="externalLinkTarget" value="_self"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="externalLinkTarget" value="_blank"/>
-                                </c:otherwise>
-                            </c:choose>
-                            <li><a href="${externalLink.url}" target="${externalLinkTarget}">${externalLink.linkText}</a></li>
-                        </c:if>
-                    </c:forEach>
-                </ul>
-            </div>
+            <cms:relatedLinksList feature="${feature}"/>
         </c:if>
     </div>
 </c:if> <!-- end .relatedLinks -->
@@ -551,89 +525,12 @@
                 }
             </script>
             <!-- Article comment form -->
-            <div id="cmsArticleForm">
-                <form action="/cgi-bin/feedback_submit" method="post"
-                      onsubmit="captchaChallenge.value = Recaptcha.$('recaptcha_challenge_field').value;captchaResponse.value = Recaptcha.$('recaptcha_response_field').value;description.value = wrapCommentWithDelimiter(comment.value);">
-                    <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
-                    <input type="hidden" name="type" value="article"/>
-                    <c:if test="${not empty feature.legacyId}">
-                        <input type="hidden" name="id" value="${feature.legacyId}"/>
-                    </c:if>
-                    <input type="hidden" name="contentType" value="${feature.contentKey.type}"/>
-                    <input type="hidden" name="contentIdentifier" value="${feature.contentKey.identifier}"/>
-                    <input type="hidden" name="contentUrl" value="${contentUrl}"/>
-                    <input type="hidden" name="captchaChallenge" value="the Challenge"/>
-                    <input type="hidden" name="captchaResponse" value="the Response"/>
-                    <input type="hidden" name="description" value=""/>
-
-                    <div>
-                        <h4><img src="/res/img/icons/commentBubbleSm.gif" alt="comment"/>
-                            Post a comment on this article</h4>
-                    </div>
-                    <div>
-                        <label for="name">Name (optional): </label>
-                        <input name="name" id="name" size="25" type="text" class="txt"/>
-                    </div>
-                    <div>
-                        <label for="email">Email (optional): </label>
-                        <input name="email" id="email" size="25" type="text" class="txt"/>
-                    </div>
-                    <div>
-                        <label for="commenttextarea">Comment:</label><br />
-                        <![CDATA[<textarea name="comment" id="commenttextarea" cols="50" rows="5"></textarea>]]>
-                    </div>
-                    <div class="captcha">
-                        <script type="text/javascript">
-                            var RecaptchaOptions = {theme:'white', tabindex: 0};
-                        </script>
-                        <script type="text/javascript"
-                                src="http://api.recaptcha.net/challenge?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL">
-                            /* this comment keeps the tag from collapsing */
-                        </script>
-
-                        <![CDATA[
-                                        <noscript>
-                                           <iframe src="http://api.recaptcha.net/noscript?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL"
-                                               height="300" width="500" frameborder="0"></iframe><br/>
-                                           <textarea name="recaptcha_challenge_field"
-                                                     rows="3" cols="40" style="height: 60px;">
-                                           </textarea>
-                                           <input type="hidden" name="recaptcha_response_field"
-                                               value="manual_challenge"/>
-                                        </noscript>
-                                        ]]>
-                    </div>
-                    <div class="float left"><input name="permit" type="checkbox" checked="checked"/></div>
-                    <div>
-                        <p>Yes, I agree to the
-                            <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
-                            permission to post my comments for other parents to read.</p>
-
-                        <p>Note: Your email address is
-                            required if you would like a response from GreatSchools.org.</p>
-                    </div>
-
-                    <div><input type="image" src="/res/img/button/btn_post.gif" /></div>
-                </form>
-            </div><!-- end #cmsArticleForm -->
+            <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
         </div>
         <div class="divider"><hr /></div>
-        <div id="cmsArticleComments">
-            <c:if test="${not empty comments and fn:length(comments) gt 0}">
-                <!--<hr width="100%" class="commentDivider"/>-->
-                <h4>Comments from GreatSchools.org readers</h4>
-                <div id="comments">
-                    <c:forEach var="comment" items="${comments}">
-                        <div class="comment">
-                            <div class="comment-date"><fmt:formatDate value="${comment.posted}"
-                                                                      pattern="MM/d/yyyy"/>:</div>
 
-                            <div class="comment-text">"${comment.text}"</div>
-                        </div>
-                    </c:forEach>
-                </div>
-            </c:if>
-        </div>
+        <!-- display comments for this article -->
+        <cms:comments comments="${comments}"/>
     </div>
 </div>
 </div> <!-- end #content -->
