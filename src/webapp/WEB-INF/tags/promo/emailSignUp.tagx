@@ -81,31 +81,9 @@
                                             </p>
 
                                             <div>
-                                                <jsp:scriptlet>
-                                                    UrlBuilder urlBuilder = new UrlBuilder("home");
-                                                    String domainUrl = urlBuilder.asFullUrlXml(request);
-                                                    request.setAttribute("domainUrl", domainUrl);
-                                                </jsp:scriptlet>
-                                                <script type="text/javascript">
-                                                    if (document.getElementById('fb-root') == null) {
-                                                        <![CDATA[
-                                                        document.write("<div id=\"fb-root\" class=\"hidden\"><!-- empty --></div>");
-                                                        ]]>
-                                                        window.fbAsyncInit = function() {
-                                                            FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl: '${domainUrl}res/channel.html'});
-                                                        };
-
-                                                        (function() {
-                                                            var e = document.createElement('script');
-                                                            e.async = true;
-                                                            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                                                            document.getElementById('fb-root').appendChild(e);
-                                                        }());
-                                                    }
-                                                </script>
                                                 <![CDATA[
-                                        <fb:like href="http://www.facebook.com/greatschools" layout="button_count" show_faces="false" width="90" font=""></fb:like>
-                                        ]]>
+                                                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fgreatschools&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+                                                ]]>
                                             </div>
                                         </div>
                                     </div>
