@@ -1,13 +1,3 @@
-jQuery('#srch2').click(function() {
-    jQuery('#srch1').removeClass('active');
-    jQuery(this).addClass('active');
-});
-jQuery('#srch1').click(function() {
-    jQuery('#srch12').removeClass('active');
-    jQuery(this).addClass('active');
-});
-
-
 var GS = GS || {};
 
 GS.attachSchoolAutocomplete = function(domId) {
