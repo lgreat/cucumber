@@ -161,25 +161,23 @@
                                                  styleId="stateSelector"
                                     />
                             <button type="submit" class="button-1">Search</button>
-                            <variant:b>
-                                <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
-                                    <script type="text/javascript">
-                                        jQuery(function() {
-                                            GS.attachSchoolAutocomplete("qNew");
-                                        });
-                                    </script>
-                                </c:if>
+                            <c:if test="${(!searchRadioArticlesAndCommunityChecked)}">
                                 <script type="text/javascript">
                                     jQuery(function() {
-                                        jQuery('#srch2 label').click(function() {
-                                            GS.detachSchoolAutocomplete("qNew");
-                                        });
-                                        jQuery('#srch1 label').click(function() {
-                                            GS.attachSchoolAutocomplete("qNew");
-                                        });
+                                        GS.attachSchoolAutocomplete("qNew");
                                     });
                                 </script>
-                            </variant:b>
+                            </c:if>
+                            <script type="text/javascript">
+                                jQuery(function() {
+                                    jQuery('#srch2 label').click(function() {
+                                        GS.detachSchoolAutocomplete("qNew");
+                                    });
+                                    jQuery('#srch1 label').click(function() {
+                                        GS.attachSchoolAutocomplete("qNew");
+                                    });
+                                });
+                            </script>
                         </fieldset>
                         <fieldset id="radBtns">
                             <gsml:radio name="c" styleId="topnavSchoolRadio" value="school"
