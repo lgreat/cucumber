@@ -15,7 +15,7 @@ GS.form.EmailSignUp = function() {
         var passed = true;
 
         if (wrapper.find('.jq-emailSignUpEmail').val() == '') {
-            wrapper.find('.jq-emailSignUpError-email').show();
+            wrapper.find('.jq-emailSignUpError-emailInvalid').show();
             passed = false;
         }
 
