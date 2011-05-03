@@ -37,12 +37,13 @@
                             <div class="formErrorText">The email address is already signed up.</div>
                         </div>
 
-                        <form class="jq-emailSignUpForm" action="#" method="POST">
+                        <form class="jq-emailSignUpForm" action="#" method="POST" autocomplete="off">
                             <div class="line">
                             <input type="text" class="jq-emailSignUpEmail unit size3of5 formText1 mrm" name="email"
                                    onfocus="GS_textSwitch(this, '', '[Your email address]');"
                                    onblur="GS_textSwitch(this, '[Your email address]', '');"
                                    value="[Your email address]"
+                                   autocomplete="off"
                                     />
 
                                 <div class="unit size2of5 lastUnit">
