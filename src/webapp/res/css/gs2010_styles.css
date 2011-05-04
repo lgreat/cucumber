@@ -266,6 +266,11 @@ h3.srchCat {
     color: #d61;
 }
 
+.subhead1-333 {
+    font: bold 18px Georgia, "Times New Roman", Times, serif;
+    color: #333;
+}
+
 /* classes applied to h4 */
 .subhead2,
 .subhead3,
@@ -2546,6 +2551,13 @@ Viewport: the defines width and height of each icon
 .emailSignUp .section1 p{margin:auto;padding:0 0 15px;*margin:0;}
 .emailSignUp .section2 p{margin:auto;padding:0;*margin:0;}
 .emailSignUp h3{font: 18px Georgia, "Times New Roman", Times, serif;}
+
+/* ------ btsSponsor (extends standard) ------ */
+/* ---------------- GS-11664 ----------------- */
+.btsSponsor .inner{background-color:#f9eccd;}
+.btsSponsor .hd h3{margin:15px;}
+.btsSponsor .bd ul{margin:3px 15px 25px;}
+.btsSponsor .bd li{list-style:disc;margin:0 0 13px 15px;}
 
 .mod_hd {
     position: relative;
