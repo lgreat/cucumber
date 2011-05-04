@@ -1,8 +1,6 @@
 package gs.web.school;
 
-import gs.data.school.LevelCode;
-import gs.data.school.School;
-import gs.data.school.SchoolType;
+import gs.data.school.*;
 import gs.web.util.UrlUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +14,11 @@ public class TeachersStudentsController extends PerlFetchController {
 
     @Override
     protected boolean shouldIndex(School school, String perlResponse) {
-        if (school.getLevelCode().equals(LevelCode.PRESCHOOL) &&
-                perlResponse.contains("Student data was not reported for this school.") &&
-                perlResponse.contains("Teacher data was not reported for this school.")) {
+        if ((school.getLevelCode().equals(LevelCode.PRESCHOOL) ||
+                (school.getGradeLevels().containsOnly(Grade.KINDERGARTEN) &&
+                 school.getType().equals(SchoolType.PRIVATE))) &&
+                (perlResponse.contains("Student data was not reported for this school.") &&
+                perlResponse.contains("Teacher data was not reported for this school."))) {
             return false;
         }
 
