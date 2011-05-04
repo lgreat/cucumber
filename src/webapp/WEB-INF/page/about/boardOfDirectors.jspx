@@ -12,6 +12,11 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
         >
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.page import="gs.data.school.ISchoolDao"/>
+<jsp:directive.page import="gs.data.state.State"/>
     <html lang="en">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -25,6 +30,18 @@
         <meta name="keywords" content="GreatSchools board of directors, Leanna Landsmann"/>
 
         <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
+        <jsp:scriptlet>
+            try {
+                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                ApplicationContext ac = sessionContext.getApplicationContext();
+
+                ISchoolDao _schoolDao = (ISchoolDao) ac.getBean(ISchoolDao.BEAN_ID);
+
+                request.setAttribute("phillips_school", _schoolDao.getSchoolById(State.NH, 552));
+            } catch (Exception e) {
+                // ignore
+            }
+        </jsp:scriptlet>
     </head>
 
     <gsml:body adPageName="aboutUs" pageLayout="leftside boardOfDirectors">
@@ -112,20 +129,16 @@
                 from UCLA where she was a Danforth Fellow, a Chancellor’s Fellow, Outstanding Graduate Student of Year,
                 and was named the Tom Bradley Outstanding Alumnus of the Year Award in 2007.
             </div>
-            <div class="text3boldOrange">Bill Jackson, Founder, President and CEO</div>
+            <div class="text3boldOrange">Bill Jackson, Founder and CEO, GreatSchools</div>
             <div class="text3">
-                As a teacher in the United States and China in the late 1980s, Jackson came to recognize the
-                extraordinary influence parents have over their children's education. Then, as an Internet
-                entrepreneur in the 1990s, he recognized the extraordinary potential of the Internet as a
-                communications medium to engage and support parents. He founded GreatSchools in 1998 to tap the
-                power of this new medium to help parents be more effectively involved in their children's education.
-                An avid school volunteer, Jackson is a member of the California P-16 Council and serves as secretary
-                of the Parent Association Council at Chinese American International School and a volunteer at
-                Miraloma Elementary School. He has also served as a director of the San Francisco Education Fund and
-                as treasurer for two San Francisco school financing measures and a school board campaign. Jackson
-                holds a degree in mechanical engineering from Yale University and is a graduate of the San Francisco
-                Coro Fellows Program. As the former president of the Scientific Society at Phillips Exeter Academy,
-                he loves hearing about his two daughters' elementary school science experiments.
+                Bill Jackson is the Founder and Chief Executive Officer of GreatSchools, an independent, non-profit organization that helps parents be champions of their children's education. A former teacher in China and the U.S., Bill also spent time as a high-tech entrepreneur. He later felt the need to harness digital media to engage parents in their children's education by founding GreatSchools. Under his leadership, GreatSchools has become the premier source of education and parenting information on PreK-12th schools for parents nationally. He's deeply involved in the education of his own children, always seeking out the best new technology applications to help his children learn and serving as a member of the Parent Association at his children's school. He also serves on the board of directors of the Mandarin Institute and the Yale-China Association. Bill holds a degree in mechanical engineering from Yale University and is a graduate of the San Francisco Coro Fellows Program. As a high school student, Bill was the president of the Scientific Society at
+                <c:choose>
+                    <c:when test="${phillips_school ne null}">
+                        <link:schoolProfileOverview
+                                school="${phillips_school}">Phillips Exeter Academy</link:schoolProfileOverview>.
+                    </c:when>
+                    <c:otherwise>Phillips Exeter Academy.</c:otherwise>
+                </c:choose>
             </div>
 
             <div class="text3boldOrange">Larry Kane, Director</div>
