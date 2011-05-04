@@ -360,11 +360,11 @@
         
         <div class="mod">
             <div class="filter-hd">
-                <h5>SCHOOL SIZE</h5>
+                <h5>ENROLLMENT</h5>
             </div>
             <div class="filter-bd smallAlertText">
                 <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect">
-                    <form:option value="All" label="All"/>
+                    <form:option value="All" label="All school sizes"/>
                     <form:option value="UNDER_20" label="Under 20"/>
                     <form:option value="UNDER_50" label="Under 50"/>
                     <form:option value="UNDER_200" label="Under 200"/>
