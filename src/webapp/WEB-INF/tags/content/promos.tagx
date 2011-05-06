@@ -23,11 +23,6 @@
                       usemap="#specialNeedsContentProvidedBy"/>
         </gsml:a>
     </c:if>
-    <c:if test="${fn:contains(pageContext.request.requestURI,'holidayLearning') or fn:contains(pageContext.request.requestURI,'mediaChoices')}">
-        <div style="width:295px;text-align:center;padding-left:5px;border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
-            <ad:commonSenseMedia/>
-        </div>
-    </c:if>
 
     <c:if test="${fn:contains(pageContext.request.requestURI,'tutoring') }">
         <ad:multiTextAd blurb="Advertiser links"/>

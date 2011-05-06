@@ -1,47 +1,35 @@
 package gs.web.jsp;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
  * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
+// yfan: As of 5/5/2011, this class no longer supports deferred content.
+//       I did this to simplify embedding ad code in a Java string, outside the context of a jsp. (needed for GS-11664)
+//       GAM ads don't support deferred content anyway, so i went ahead and completed a to-do that said to get rid of it
+//       I'm keeping the class name the same because cvs doesn't recognize file name changes, and I want people to be
+//       able to see the diff.
 public abstract class AbstractDeferredContentTagHandler extends SimpleTagSupport {
 
-    public static final String REQUEST_ATTRIBUTE_NAME = "deferredContent";
-
     public void doTag() throws JspException, IOException {
-        String nonDeferredContent = "";
-
-        // Write out the place holder
-        if (isDeferred()) {
-            PageContext pageContext = (PageContext) getJspContext();
-
-            StringBuffer defer = new StringBuffer();
-
-            String deferredContent = (String) pageContext.getAttribute(REQUEST_ATTRIBUTE_NAME, PageContext.REQUEST_SCOPE);
-            if (deferredContent != null) {
-                defer.append(deferredContent);
-            }
-            defer.append("<div id=\"defer-").append(getId()).append("\">").append(getDeferredContent()).append("</div>");
-            pageContext.setAttribute("deferredContent", defer.toString(), PageContext.REQUEST_SCOPE);
-        } else {
-            nonDeferredContent = getDeferredContent();
-        }
-
-        StringBuffer xhtml = new StringBuffer();
         try {
-            xhtml.append("<div id=\"")
-                    .append(getId())
-                    .append("\">")
-                    .append(nonDeferredContent)
-                    .append("</div>");
-            writeOutput(xhtml);
+            writeOutput(getTagOutput());
         } catch (Exception e) {
             throw new JspException(e);
         }
+    }
+
+    private StringBuffer getTagOutput() throws IOException, JspException {
+        StringBuffer xhtml = new StringBuffer();
+        xhtml.append("<div id=\"")
+                .append(getId())
+                .append("\">")
+                .append(getContent())
+                .append("</div>");
+        return xhtml;
     }
 
     /**
@@ -52,16 +40,6 @@ public abstract class AbstractDeferredContentTagHandler extends SimpleTagSupport
     }
 
     /**
-     * Method to be overriden for subclasses that want to change the default
-     * deferral behavior.  A better option is to not use this tag handler
-     * if your tag does not defer content.
-     *
-     * TODO: remove method once we switch over all ads to google ad manager.
-     * @return true
-     */
-    public abstract boolean isDeferred();
-
-    /**
      *
      * @return unique id for this deferred tag
      */
@@ -70,5 +48,5 @@ public abstract class AbstractDeferredContentTagHandler extends SimpleTagSupport
     /**
      * @return Content to defer
      */
-    public abstract String getDeferredContent() throws IOException, JspException;
+    public abstract String getContent() throws IOException, JspException;
 }

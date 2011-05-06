@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.19 2009/12/04 22:27:19 chriskimm Exp $
+ * $Id: AdTagHandlerTest.java,v 1.20 2011/05/06 00:18:28 yfan Exp $
  */
 package gs.web.ads;
 
@@ -53,7 +53,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setJspContext(jspContext);
         _tag.setPosition("x22");
 
-        assertEquals("", _tag.getDeferredContent());
+        assertEquals("", _tag.getContent());
     }
 
     public void testAdFreeCobrandsWithAlwaysShowFramed() throws Exception {
@@ -69,7 +69,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setAlwaysShow(true);
 
         assertEquals("Expect ad tag even though ad free cobrand",
-                "<div id=\"adYouTube_381x311\" class=\"adYouTube_381x311 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('YouTube_381x311');</script></div>", _tag.getDeferredContent());
+                "<div id=\"adYouTube_381x311\" class=\"adYouTube_381x311 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('YouTube_381x311');</script></div>", _tag.getContent());
         _tag.setAlwaysShow(false);
     }
 
@@ -87,7 +87,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setAlwaysShow(true);
 
         assertEquals("Expect advertising offline to hide ad",
-                "", _tag.getDeferredContent());
+                "", _tag.getContent());
         _tag.setAlwaysShow(false);
         _sessionContext.setAdvertisingOnline(true);
     }
@@ -106,7 +106,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setAlwaysShow(true);
 
         assertEquals("Expect crawler to hide ad",
-                "", _tag.getDeferredContent());
+                "", _tag.getContent());
         _tag.setAlwaysShow(false);
         _sessionContext.setCrawler(false);
     }
@@ -121,7 +121,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setJspContext(jspContext);
         _tag.setPosition("x22");
 
-        String output = _tag.getDeferredContent();
+        String output = _tag.getContent();
         //_log.debug(output);
 
         assertEquals("<div id=\"adx22\" class=\"adx22 ad noprint\"><script type=\"text/javascript\">OAS_AD('x22');</script></div>", output);
@@ -130,7 +130,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         //try to set the same ad position
         try {
             _tag.setPosition("x22");
-            _tag.getDeferredContent();
+            _tag.getContent();
             fail("x22 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}
     }
@@ -145,7 +145,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setJspContext(jspContext);
         _tag.setPosition("Top_300x137");
 
-        String output = _tag.getDeferredContent();
+        String output = _tag.getContent();
         //_log.debug(output);
 
         assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
@@ -154,17 +154,9 @@ public class AdTagHandlerTest extends BaseTestCase {
         //try to set the same ad position
         try {
             _tag.setPosition("Top_300x137");
-            _tag.getDeferredContent();
+            _tag.getContent();
             fail("Top_300x137 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}        
-    }
-
-    public void testDeferredAdLoading() {
-        _tag.setPosition("Top_300x137");
-        assertFalse("Google ad slots should not be deferred", _tag.isDeferred());
-
-        _tag.setPosition("x11");
-        assertTrue("24/7 ad slots should be deferred", _tag.isDeferred());
     }
 
     public void testPrefixSlotNameGAMDeferWorks() throws Exception {
@@ -178,14 +170,14 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setPosition("Top_300x137");
         _request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "SchoolProfile_");
 
-        String output = _tag.getDeferredContent();
+        String output = _tag.getContent();
         assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfile_Top_300x137');</script></div>", output);
         assertTrue(pageHelper.getAdPositions().contains(AdPosition.Top_300x137));
 
         //try to set the same ad position
         try {
             _tag.setPosition("Top_300x137");
-            _tag.getDeferredContent();
+            _tag.getContent();
             fail("Top_300x137 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}
     }
@@ -201,7 +193,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setJspContext(jspContext);
         _tag.setPosition("AboveFold_300x250");
 
-        String output = _tag.getDeferredContent();
+        String output = _tag.getContent();
         String expectedOutput = "<div id=\"adAboveFold_300x250\" class=\"adAboveFold_300x250 ad noprint\">\n" +
                 "            <center>\n" +
                 "            <script type=\"text/javascript\" src=\"http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r\"></script>\n" +
@@ -227,7 +219,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setPosition("YouTube_381x311");
         _tag.setAlwaysShow(true);
 
-        String output = _tag.getDeferredContent();
+        String output = _tag.getContent();
         String expectedOutput = "<div id=\"adYouTube_381x311\" class=\"adYouTube_381x311 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('YouTube_381x311');</script></div>";
 
         XMLAssert.assertEquals(encode(expectedOutput), encode(output));
@@ -245,7 +237,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setJspContext(jspContext);
         _tag.setPosition("x67");
 
-        String output = _tag.getDeferredContent();
+        String output = _tag.getContent();
         assertEquals("", output);
     }
 
@@ -276,7 +268,7 @@ public class AdTagHandlerTest extends BaseTestCase {
                 "<script type=\"text/javascript\">OAS_AD('x40');</script>" +
                 "</div>";
 
-        XMLAssert.assertXMLEqual(expectedOutput, _tag.getDeferredContent());
+        XMLAssert.assertXMLEqual(expectedOutput, _tag.getContent());
     }
 
     /**
@@ -312,7 +304,7 @@ public class AdTagHandlerTest extends BaseTestCase {
                 "            </center>" +
                 "        </div>";
 
-        XMLAssert.assertXMLEqual(encode(expectedOutput), encode(_tag.getDeferredContent()));
+        XMLAssert.assertXMLEqual(encode(expectedOutput), encode(_tag.getContent()));
     }
 
     public void testExceptionThrownIfBodyContentDoesNotContainAdKeyword() {
@@ -334,7 +326,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         });
         _tag.setPosition("x40");
         try {
-            _tag.getDeferredContent();
+            _tag.getContent();
             fail("body does not contain $AD keyword");
         } catch (IllegalStateException e) {} catch (IOException e) {} catch (JspException e) {}
     }

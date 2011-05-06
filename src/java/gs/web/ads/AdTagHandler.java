@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.36 2011/04/14 17:24:18 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.37 2011/05/06 00:18:26 yfan Exp $
  */
 package gs.web.ads;
 
@@ -44,10 +44,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         return "ad" + getId();
     }
 
-    public String getDeferredContent() throws IOException, JspException {
-        SessionContext sc = (SessionContext) getJspContext().findAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-        PageContext pageContext = (PageContext) getJspContext();
-        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+    public String getContent(HttpServletRequest request, SessionContext sc, JspFragment body) throws JspException, IOException {
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
         if (pageHelper.isAdContentFree() || (!_alwaysShow && pageHelper.isAdFree())) {
@@ -65,7 +62,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append("\"")
                 .append(">");
 
-        if (!_alwaysShow && pageHelper.isAdServedByCobrand()) {
+        if (!isAlwaysShow() && pageHelper.isAdServedByCobrand()) {
             AdTagManager adManager = AdTagManager.getInstance();
             String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
             if (StringUtils.isEmpty(customAdTag)) {
@@ -97,8 +94,8 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 jsMethodName = JS_METHOD_NAME_24_7;
             }
             String adCode = "<script type=\"text/javascript\">"+ jsMethodName +"('" + slotName + "');</script>";
-            JspFragment body = getJspBody();
 
+            // TODO - currently only works from a JSP; if needed, refactor to allow extracting for non-JSP situations
             if (null != body) {
                 StringWriter bodyWriter = new StringWriter();
                 body.invoke(bodyWriter);
@@ -117,6 +114,14 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         return buffer.toString();
     }
 
+    public String getContent() throws IOException, JspException {
+        SessionContext sc = (SessionContext) getJspContext().findAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+        PageContext pageContext = (PageContext) getJspContext();
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+
+        return getContent(request, sc, getJspBody());
+    }
+
     public String getPosition() {
         return _position;
     }
@@ -124,14 +129,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     public void setPosition(String position) {
         _position = position;
         _adPosition = AdPosition.getAdPosition(_position);
-    }
-
-    /**
-     * Google Ad manager tags are not deferred.
-     * @return true is ad tag is deferred.  False otherwise.
-     */
-    public boolean isDeferred() {
-        return !_adPosition.isGAMPosition();
     }
 
     public boolean isAlwaysShow() {

@@ -4,6 +4,7 @@ import gs.data.cms.IPublicationDao;
 import gs.data.content.ArticleComment;
 import gs.data.content.IArticleDao;
 import gs.data.content.cms.*;
+import gs.web.ads.AdTagHandler;
 import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
@@ -182,6 +183,20 @@ public class CmsFeatureController extends AbstractController {
                 slides.add(feature.getCurrentSlide());
             }
             model.put("currentSlides", slides);
+        }
+
+        // GS-11664 insert BTS list ad
+        if (CmsConstants.isBtsList(feature.getContentKey().getIdentifier())) {
+            AdTagHandler adTagHandler = new AdTagHandler();
+            adTagHandler.setPosition("Sponsor_610x225");
+            try {
+                // must first set ad slot prefix
+                request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "Library_Article_Page_");
+                // then generate the ad code
+                feature.setBtsListAdCode(adTagHandler.getContent(request, SessionContextUtil.getSessionContext(request), null));
+            } catch (Exception e) {
+                _log.warn("Error setting BTS list ad code for content " + feature.getContentKey());
+            }
         }
 
         // paginate after transforms have been done on entire body
