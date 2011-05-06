@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.21 2011/05/06 00:57:07 yfan Exp $
+ * $Id: AdTagHandlerTest.java,v 1.22 2011/05/06 00:57:21 yfan Exp $
  */
 package gs.web.ads;
 
@@ -36,7 +36,6 @@ public class AdTagHandlerTest extends BaseTestCase {
     public void setUp() throws Exception {
         super.setUp();
         _tag = new AdTagHandler();
-        _tag.set
         _request = new MockHttpServletRequest();
         _sessionContext = new MockSessionContext();
         _writer = new MockJspWriter();
