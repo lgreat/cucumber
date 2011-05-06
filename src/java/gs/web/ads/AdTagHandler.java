@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.38 2011/05/06 00:47:47 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.39 2011/05/06 00:57:07 yfan Exp $
  */
 package gs.web.ads;
 
@@ -59,7 +59,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append("\" class=\"")
                 .append(getAdId()).append(" ")
                 .append("ad");
-        if (isShowOnPrintView()) {
+        if (!isShowOnPrintView()) {
             buffer.append(" noprint");
         }
         buffer.append("\"")
