@@ -1,35 +1,28 @@
 package gs.web.content;
 
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
+import gs.data.content.ArticleCategory;
+import gs.data.content.IArticleCategoryDao;
+import gs.data.content.cms.CmsCategory;
+import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.ICmsCategoryDao;
+import gs.data.search.SearchResultsPage;
+import gs.data.util.CmsUtil;
+import gs.web.content.cms.CmsContentUtils;
+import gs.web.search.CmsFeatureSearchService;
+import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.search.*;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.queryParser.ParseException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.io.IOException;
-
-import gs.data.content.IArticleCategoryDao;
-import gs.data.content.ArticleCategory;
-import gs.data.content.cms.CmsCategory;
-import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.ICmsCategoryDao;
-import gs.data.search.Searcher;
-import gs.data.search.Indexer;
-import gs.data.search.GSAnalyzer;
-import gs.data.util.CmsUtil;
-import gs.web.search.ResultsPager;
-import gs.data.search.SearchResult;
-import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
-import gs.web.util.RedirectView301;
-import gs.web.content.cms.CmsContentUtils;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -87,7 +80,6 @@ public class ArticlesByCategoryController extends AbstractController {
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
     public static final String GAM_AD_ATTRIBUTE_KEY_CATEGORY_ID = "category_id";
 
-    private Searcher _searcher;
     private IArticleCategoryDao _articleCategoryDao;
     private ICmsCategoryDao _cmsCategoryDao;
     /** Whether to look up the subcategory's parent categories */
@@ -97,13 +89,8 @@ public class ArticlesByCategoryController extends AbstractController {
     private boolean _randomResults = false;
     private int _maxResults = -1;
 
-    // GS-7210: Used to boost articles by relevance.
-    private QueryParser _titleParser;
+    private CmsFeatureSearchService _cmsFeatureSearchService;
 
-    public ArticlesByCategoryController() {
-        _titleParser = new QueryParser(Indexer.ARTICLE_TITLE, new GSAnalyzer());
-        _titleParser.setDefaultOperator(QueryParser.Operator.OR);
-    }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String categoryId = null;
@@ -127,21 +114,7 @@ public class ArticlesByCategoryController extends AbstractController {
             }
         }
 
-        if (categoryId != null && StringUtils.isNumeric(categoryId)) {
-            // legacy category
-
-            // GS-8660
-            if (GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.containsKey(categoryId)) {
-                return new ModelAndView(new RedirectView301(
-                    GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.get(categoryId).asSiteRelative(request)));
-            }
-
-            model = handleLegacyCategoryRequest(request, page);
-        } else {
-            // cms category
-
-            // GS-8546 - handle old-style browse urls
-            CmsCategory category = _cmsCategoryDao.getCmsCategoryFromURI(request.getRequestURI());
+        CmsCategory category = _cmsCategoryDao.getCmsCategoryFromURI(request.getRequestURI());
             if (category != null && CmsCategory.TYPE_TOPIC.equals(category.getType())) {
                 UrlBuilder redirectUrlBuilder =
                         new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, String.valueOf(category.getId()), (String)null, (String)null, request.getParameter("language"));
@@ -163,7 +136,6 @@ public class ArticlesByCategoryController extends AbstractController {
             if (isShowAdTargeting()) {
                 setAdTargetingForCmsCategories(request, categories);
             }
-        }
 
         model.put(MODEL_PAGE, page);
         model.put(PARAM_LANGUAGE, request.getParameter(PARAM_LANGUAGE));
@@ -173,21 +145,6 @@ public class ArticlesByCategoryController extends AbstractController {
         return new ModelAndView(_viewName, model);
     }
 
-    /**
-     * Map from legacy category IDs to CMS grade IDs for grade-level categories
-     */
-    final private static Map<String,UrlBuilder> GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP = new HashMap<String,UrlBuilder>();
-    static {
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("103", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "198", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("33", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "199", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("32", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "200", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("34", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "201", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("35", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "202", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("52", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "203", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("53", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "204", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("54", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "205", null, "EN"));
-        GRADE_LEVEL_OLD_ID_NEW_URLBUILDER_MAP.put("104", new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, null, "206", null, "EN"));
-    }
 
     final private static Map<String,String> GS_9397_RECATEGORIZATION = new HashMap<String,String>();
     static {
@@ -282,27 +239,51 @@ public class ArticlesByCategoryController extends AbstractController {
         boolean strict = false;
         ContentKey excludeContentKey = null;
 
-        String type = request.getParameter(PARAM_EXCLUDE_TYPE);
-        String contentId = request.getParameter(PARAM_EXCLUDE_CONTENT_ID);
+        String excludeType = request.getParameter(PARAM_EXCLUDE_TYPE);
+        String excludeContentId = request.getParameter(PARAM_EXCLUDE_CONTENT_ID);
         String strictStr = request.getParameter(PARAM_STRICT);
 
         if (StringUtils.isNotBlank(strictStr)) {
             strict = Boolean.parseBoolean(strictStr);
         }
-        if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(contentId)) {
+        if (StringUtils.isNotBlank(excludeType) && StringUtils.isNotBlank(excludeContentId)) {
             excludeContentKey = new ContentKey();
-            excludeContentKey.setType(type);
-            excludeContentKey.setIdentifier(Long.parseLong(contentId));
+            excludeContentKey.setType(excludeType);
+            excludeContentKey.setIdentifier(Long.parseLong(excludeContentId));
         }
 
-        List<CmsCategory> topics = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_TOPICS));
-        List<CmsCategory> grades = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_GRADES));
-        List<CmsCategory> subjects = _cmsCategoryDao.getCmsCategoriesFromIds(request.getParameter(PARAM_SUBJECTS));
+        String topicsParam = request.getParameter(PARAM_TOPICS);
+        String gradesParam = request.getParameter(PARAM_GRADES);
+        String subjectsParam = request.getParameter(PARAM_SUBJECTS);
 
+        Long[] topicCategoryIds = new Long[0];
+        Long[] gradeCategoryIds = new Long[0];
+        Long[] subjectCategoryIds = new Long[0];
+
+        if (!StringUtils.isEmpty(topicsParam)) {
+            topicCategoryIds = gs.data.util.string.StringUtils.stringOfSeparatedLongsToLongArray(topicsParam);
+        }
+        if (!StringUtils.isEmpty(gradesParam)) {
+            gradeCategoryIds = gs.data.util.string.StringUtils.stringOfSeparatedLongsToLongArray(gradesParam);
+        }
+        if (!StringUtils.isEmpty(subjectsParam)) {
+            subjectCategoryIds = gs.data.util.string.StringUtils.stringOfSeparatedLongsToLongArray(subjectsParam);
+        }
+
+        Set<Long> allIds = new HashSet<Long>();
+        CollectionUtils.addAll(allIds, topicCategoryIds);
+        CollectionUtils.addAll(allIds, gradeCategoryIds);
+        CollectionUtils.addAll(allIds, subjectCategoryIds);
+
+        List<CmsCategory> topicsAndGradesAndSubjects = _cmsCategoryDao.getCmsCategoriesFromIds(allIds.toArray(new Long[0]));
+        ICmsCategoryDao.CmsCategoryTriplet triplet = _cmsCategoryDao.separateCategories(topicsAndGradesAndSubjects);
+        List<CmsCategory> topics = triplet.topics;
+        List<CmsCategory> grades = triplet.grades;
+        List<CmsCategory> subjects = triplet.subjects;
 
         String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
 
-        if (topics.size() > 0 || grades.size() > 0 || subjects.size() > 0) {
+        if (topicsAndGradesAndSubjects.size() > 0) {
             List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language, maxResultsParam);
 
             if (categories.size() == 1) {
@@ -360,56 +341,8 @@ public class ArticlesByCategoryController extends AbstractController {
         return breadcrumbs;
     }
 
-    /**
-     * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
-     * will not populate those variables.
-     */
+
     protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
-        // set up search query
-        // articles should be in the particular category
-        BooleanQuery bq = new BooleanQuery();
-
-        for (CmsCategory category : topics) {
-            BooleanQuery innerBq = new BooleanQuery();
-            TermQuery primaryCategoryTerm = new TermQuery(
-                    new Term(Indexer.CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId())));
-            // set boost on term to give primary category precedence
-            primaryCategoryTerm.setBoost(99f); // default boost is 1.0
-            innerBq.add(primaryCategoryTerm, BooleanClause.Occur.SHOULD);
-
-            if (!strict) {
-                // OR articles can just be tagged with the particular category
-                TermQuery secondaryCategoryTerm = new TermQuery(
-                        new Term(Indexer.CMS_TOPIC_ID, String.valueOf(category.getId())));
-                innerBq.add(secondaryCategoryTerm, BooleanClause.Occur.SHOULD);
-            }
-
-            bq.add(innerBq, BooleanClause.Occur.MUST);
-        }
-
-        for (CmsCategory category : grades) {
-            TermQuery term = new TermQuery(
-                    new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
-            bq.add(term, BooleanClause.Occur.MUST);
-        }
-
-        for (CmsCategory category : subjects) {
-            TermQuery term = new TermQuery(
-                    new Term(Indexer.CMS_SUBJECT_ID, String.valueOf(category.getId())));
-            bq.add(term, BooleanClause.Occur.MUST);
-        }
-
-        if (excludeContentKey != null) {
-            TermQuery excludeContentKeyTerm = new TermQuery(
-                    new Term(Indexer.ID, excludeContentKey.toString()));
-            bq.add(excludeContentKeyTerm, BooleanClause.Occur.MUST_NOT);
-        }
-
-        if (language != null) {
-            TermQuery languageTerm = new TermQuery(
-                    new Term(Indexer.LANGUAGE, language));
-            bq.add(languageTerm, BooleanClause.Occur.MUST);
-        }
 
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
         if (topics != null) {
@@ -422,33 +355,13 @@ public class ArticlesByCategoryController extends AbstractController {
             categories.addAll(subjects);
         }
 
-        // This should give higher placement to articles with terms from the category name in their title
-        for (CmsCategory category : categories) {
-            String typeDisplay = category.getName();
-            if (StringUtils.isNotBlank(typeDisplay)) {
-                try {
-                    Query titleQuery = _titleParser.parse(typeDisplay);
-                    bq.add(titleQuery, BooleanClause.Occur.SHOULD);
-                } catch (ParseException pe) {
-                    _log.warn("Couldn't parse article category.", pe);
-                }
-            }
-        }
+        // search for articles in the particular category
+        CmsFeatureSearchService service = getSolrCmsFeatureSearchService();
+        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeatures(topics, grades, subjects,strict, excludeContentKey, language, PAGE_SIZE,page);
 
-        // Filter to only CMS features
-        Filter typeFilter;
-        typeFilter = new CachingWrapperFilter(new QueryFilter(new TermQuery(
-                    new Term("type", Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
-
-        // execute search
-        Hits hits = _searcher.search(bq, null, null, typeFilter);
-
-        // pass hits object through ResultsPager to paginate and stuff in model as MODEL_RESULTS
-        if (hits != null && hits.length() > 0) {
-            model.put(MODEL_TOTAL_HITS, hits.length());
-            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
-
-            // allow parameter override of maxResults from spring config
+        if (searchResultsPage != null && searchResultsPage.getTotalResults() > 0) {
+            int totalResults = searchResultsPage.getTotalResults();
+            model.put(MODEL_TOTAL_HITS, totalResults);
             int maxResults = getMaxResults();
             if (maxResultsParam != null) {
                 try {
@@ -457,181 +370,47 @@ public class ArticlesByCategoryController extends AbstractController {
                     // keep maxResults as value from spring config
                 }
             }
-
             if (isRandomResults() && maxResults > 0) {
-                model.put(MODEL_RESULTS, getRandomResults(hits, maxResults));
+                model.put(MODEL_RESULTS, getRandomResults(searchResultsPage, maxResults));
                 model.put(MODEL_MAX_RESULTS, maxResults);
             } else {
-                model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
+                model.put(MODEL_RESULTS, searchResultsPage.getSearchResults());
             }
         }
 
         return categories;
     }
 
-    private static List<SearchResult> getRandomResults(Hits hits, int maxResults) {
-        if (hits == null || hits.length() == 0) {
+
+    private static List<ICmsFeatureSearchResult> getRandomResults(SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage, int maxResults) {
+
+        if (searchResultsPage == null || searchResultsPage.getSearchResults() == null
+                || searchResultsPage.getSearchResults().size() == 0) {
             throw new IllegalArgumentException("Hits cannot be null or have 0 length");
         }
+
         if (maxResults <= 0) {
             throw new IllegalArgumentException("MaxResults must be 1 or higher");
         }
 
-        List<SearchResult> searchResults = new ArrayList<SearchResult>();
+        int totalResults = searchResultsPage.getSearchResults().size();
+
+        List<ICmsFeatureSearchResult> searchResults = new ArrayList<ICmsFeatureSearchResult>();
         Set<Integer> picked = new HashSet<Integer>();
 
-        try {
-
-        while (searchResults.size() < maxResults && searchResults.size() < hits.length()) {
+        while (searchResults.size() < maxResults && searchResults.size() < totalResults) {
             Random rand = new Random();
-            int n = rand.nextInt(hits.length());
+            int n = rand.nextInt(totalResults);
+
             if (picked.contains(n)) {
                 continue;
             }
-            picked.add(n);
-            searchResults.add(new SearchResult(hits.doc(n)));
-        }
 
-        } catch (IOException e) {
-            _log.warn(e);
+            picked.add(n);
+            searchResults.add((searchResultsPage.getSearchResults().get(n)));
         }
 
         return searchResults;
-    }
-
-    /**
-     * Potentially populates MODEL_TOTAL_HITS and MODEL_RESULTS with the results of the search. If no results,
-     * will not populate those variables.
-     * @param strict - if true, only return matches for primary category, not secondary category
-     */
-    protected void storeResultsForCmsCategory(CmsCategory category, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language) {
-        // Articles in the specific category should come before articles tagged (2ndary) with that category
-        // Also, articles with terms from the category name in their title are given precedence, all else equal
-        // QUESTION: Should we try to set up weights such that a single search gives us what we want? Yes
-        //           Or should we just do two searches and concatenate them? No
-
-        // set up search query
-        // articles should be in the particular category
-        BooleanQuery bq = new BooleanQuery();
-
-        BooleanQuery innerBq = new BooleanQuery();
-        TermQuery primaryCategoryTerm = new TermQuery(
-                new Term(Indexer.CMS_PRIMARY_CATEGORY_ID, String.valueOf(category.getId())));
-        // set boost on term to give primary category precedence
-        primaryCategoryTerm.setBoost(99f); // default boost is 1.0
-        innerBq.add(primaryCategoryTerm, BooleanClause.Occur.SHOULD);
-
-        if (!strict) {
-            // OR articles can just be tagged with the particular category
-            TermQuery secondaryCategoryTerm = new TermQuery(
-                    new Term(Indexer.CMS_SECONDARY_CATEGORY_ID, String.valueOf(category.getId())));
-            innerBq.add(secondaryCategoryTerm, BooleanClause.Occur.SHOULD);
-        }
-
-        bq.add(innerBq, BooleanClause.Occur.MUST);
-
-        if (excludeContentKey != null) {
-            TermQuery excludeContentKeyTerm = new TermQuery(
-                    new Term(Indexer.ID, excludeContentKey.toString()));
-            bq.add(excludeContentKeyTerm, BooleanClause.Occur.MUST_NOT);
-        }
-
-        if (language != null) {
-            TermQuery languageTerm = new TermQuery(
-                    new Term(Indexer.LANGUAGE, language));
-            bq.add(languageTerm, BooleanClause.Occur.MUST);
-        }
-
-        // This should give higher placement to articles with terms from the category name in their title
-        String typeDisplay = category.getName();
-        if (StringUtils.isNotBlank(typeDisplay)) {
-            try {
-                Query titleQuery = _titleParser.parse(typeDisplay);
-                bq.add(titleQuery, BooleanClause.Occur.SHOULD);
-            } catch (ParseException pe) {
-                _log.warn("Couldn't parse article category.", pe);
-            }
-        }
-
-        // Filter to only CMS features
-        Filter typeFilter;
-        typeFilter = new CachingWrapperFilter(new QueryFilter(new TermQuery(
-                    new Term("type", Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
-
-        // execute search
-        Hits hits = _searcher.search(bq, null, null, typeFilter);
-
-        // pass hits object through ResultsPager to paginate and stuff in model as MODEL_RESULTS
-        if (hits != null && hits.length() > 0) {
-            model.put(MODEL_TOTAL_HITS, hits.length());
-            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
-            model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
-        }
-    }
-
-    protected Map<String, Object> handleLegacyCategoryRequest(HttpServletRequest request, int page) {
-        Map<String, Object> model = new HashMap<String, Object>();
-        List<ArticleCategory> categories;
-        if (request.getParameter(PARAM_ID) == null) {
-            categories = getCategoriesFromURI(request.getRequestURI());
-        } else {
-            // allow request parameter to override URI
-            categories = getCategoriesFromId(request.getParameter(PARAM_ID));
-        }
-
-        // if we found a category, ask the searcher for results and put them in the model
-        if (categories != null && categories.size() > 0) {
-            model.put(MODEL_SUBCATEGORY, categories.get(0));
-            storeResultsForCategory(categories.get(0), model, page);
-        }
-
-        return model;
-    }
-
-    /**
-     * Queries the search indexes for any articles tagged with this category and stores the results
-     * in the model
-     *
-     * @param category Category to search for
-     * @param model Model to place results
-     * @param page the page of results
-     */
-    protected void storeResultsForCategory(ArticleCategory category, Map<String, Object> model, int page) {
-        // articles must be in the particular category
-        BooleanQuery bq = new BooleanQuery();
-        TermQuery termQuery = new TermQuery(new Term("category", category.getType()));
-        bq.add(termQuery, BooleanClause.Occur.MUST);
-
-        // Begin: GS-7210
-        // The SHOULD gives higher placement to articles with terms from the category typeDisplay in their title
-        String typeDisplay = category.getTypeDisplay();
-        if (StringUtils.isNotBlank(typeDisplay)) {
-            try {
-                Query titleQuery = _titleParser.parse(typeDisplay);
-                bq.add(titleQuery, BooleanClause.Occur.SHOULD);
-            } catch (ParseException pe) {
-                _log.warn("Couldn't parse article category.", pe);
-            }
-        }
-        // End: GS-7210
-
-        Filter typeFilter;
-        // Filter to only articles or CMS features
-        if (CmsUtil.isCmsEnabled()) {
-            typeFilter = new CachingWrapperFilter(new QueryFilter(new TermQuery(
-                        new Term("type", Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
-        } else {
-            typeFilter = new CachingWrapperFilter(new QueryFilter(new TermQuery(
-                        new Term("type", Indexer.DOCUMENT_TYPE_ARTICLE))));
-        }
-
-        Hits hits = _searcher.search(bq, null, null, typeFilter);
-
-        if (hits != null && hits.length() > 0) {
-            model.put(MODEL_TOTAL_HITS, hits.length());
-            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
-            model.put(MODEL_RESULTS, resultsPager.getResults(page, PAGE_SIZE));
-        }
     }
 
     protected List<ArticleCategory> getCategoriesFromURI(String requestURI) {
@@ -712,14 +491,6 @@ public class ArticlesByCategoryController extends AbstractController {
         _cmsCategoryDao = cmsCategoryDao;
     }
 
-    public Searcher getSearcher() {
-        return _searcher;
-    }
-
-    public void setSearcher(Searcher searcher) {
-        _searcher = searcher;
-    }
-
     public boolean isGetParents() {
         return _getParents;
     }
@@ -759,4 +530,12 @@ public class ArticlesByCategoryController extends AbstractController {
     public void setMaxResults(int maxResults) {
         _maxResults = maxResults;
     }
+
+    public CmsFeatureSearchService getSolrCmsFeatureSearchService() {
+        return _cmsFeatureSearchService;
+    }
+    public void setSolrCmsFeatureSearchService(CmsFeatureSearchService cmsFeatureSearchService) {
+        _cmsFeatureSearchService = cmsFeatureSearchService;
+    }
+
 }

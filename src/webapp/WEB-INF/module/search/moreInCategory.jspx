@@ -35,9 +35,7 @@
                     <div class="bd-inner">
                         <ul class="text3">
                             <c:forEach var="result" items="${mainResults}" varStatus="status">
-
                                 <c:if test="${status.count le actualMax}">
-
                                     <c:choose>
                                         <c:when test="${status.count eq actualMax}">
                                             <c:set var="className" value="lastone"/>
@@ -48,12 +46,11 @@
                                     </c:choose>
 
                                     <li class="moreinItem tint_f4891d ${className}">
-                                        <link:cmsContent contentKey="${result.id}" fullUri="${result.fullUri}"
+                                        <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}"
                                                          styleClass="link">
-                                            <c:out value="${result.headline}" escapeXml="false"/>
+                                            <c:out value="${result.title}" escapeXml="false"/>
                                         </link:cmsContent>
                                     </li>
-
                                 </c:if>
                             </c:forEach>
                         </ul>

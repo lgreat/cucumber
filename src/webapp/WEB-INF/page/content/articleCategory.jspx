@@ -112,7 +112,7 @@
 
     <div id="searchResults">
         <c:if test="${not empty requestScope.mainResults}">
-            <search:articleResults results="${requestScope.mainResults}"/>
+            <search:cmsFeatureResults results="${requestScope.mainResults}"/>
         </c:if>
 
         <br style="clear: left;"/>
