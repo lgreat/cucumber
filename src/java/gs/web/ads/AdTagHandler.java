@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.37 2011/05/06 00:18:26 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.38 2011/05/06 00:47:47 yfan Exp $
  */
 package gs.web.ads;
 
@@ -29,6 +29,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     private String _position;
     private AdPosition _adPosition;
     private boolean _alwaysShow = false;
+    private boolean _showOnPrintView = false;
 
     private static final Log _log = LogFactory.getLog(AdTagManager.class);
     private static final String JS_METHOD_NAME_24_7 = "OAS_AD";
@@ -57,9 +58,11 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append(getAdId())
                 .append("\" class=\"")
                 .append(getAdId()).append(" ")
-                .append("ad").append(" ")
-                .append("noprint")
-                .append("\"")
+                .append("ad");
+        if (isShowOnPrintView()) {
+            buffer.append(" noprint");
+        }
+        buffer.append("\"")
                 .append(">");
 
         if (!isAlwaysShow() && pageHelper.isAdServedByCobrand()) {
@@ -137,5 +140,13 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     public void setAlwaysShow(boolean alwaysShow) {
         this._alwaysShow = alwaysShow;
+    }
+
+    public boolean isShowOnPrintView() {
+        return _showOnPrintView;
+    }
+
+    public void setShowOnPrintView(boolean showOnPrintView) {
+        _showOnPrintView = showOnPrintView;
     }
 }

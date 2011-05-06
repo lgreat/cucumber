@@ -189,6 +189,7 @@ public class CmsFeatureController extends AbstractController {
         if (CmsConstants.isBtsList(feature.getContentKey().getIdentifier())) {
             AdTagHandler adTagHandler = new AdTagHandler();
             adTagHandler.setPosition("Sponsor_610x225");
+            adTagHandler.setShowOnPrintView(true);
             try {
                 // must first set ad slot prefix
                 request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "Library_Article_Page_");
