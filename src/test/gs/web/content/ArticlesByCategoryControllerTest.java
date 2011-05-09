@@ -38,7 +38,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
 
         _cmsCategoryDao = createStrictMock(ICmsCategoryDao.class);
         _cmsFeatureSearchService = createMock(CmsFeatureSearchService.class);
-        _controller.setCmsFeatureSearchService(_cmsFeatureSearchService);
+        _controller.setSolrCmsFeatureSearchService(_cmsFeatureSearchService);
         _controller.setCmsCategoryDao(_cmsCategoryDao);
 
         _controller.setGetParents(true);
@@ -48,7 +48,7 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
     }
 
     public void testBasics() {
-        assertSame(_cmsFeatureSearchService, _controller.getCmsFeatureSearchService());
+        assertSame(_cmsFeatureSearchService, _controller.getSolrCmsFeatureSearchService());
         assertSame(_dao, _controller.getArticleCategoryDao());
         assertTrue(_controller.isGetParents());
         assertEquals("content/articleCategory", _controller.getViewName());
