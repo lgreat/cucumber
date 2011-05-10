@@ -209,6 +209,20 @@
             <description>Comma-separated string of subject IDs</description>
         </attribute>
         <attribute>
+            <name>locationIDs</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of location IDs</description>
+        </attribute>
+        <attribute>
+            <name>outcomeIDs</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of outcome IDs</description>
+        </attribute>
+        <attribute>
             <name>language</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

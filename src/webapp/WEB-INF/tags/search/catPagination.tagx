@@ -12,6 +12,8 @@
     <jsp:directive.attribute name="topicIDs" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="gradeIDs" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="subjectIDs" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="locationIDs" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="outcomeIDs" required="false" type="java.lang.String"/>
 
     <jsp:scriptlet><![CDATA[
         if (resultCount > pageSize) {
@@ -41,9 +43,15 @@
             <c:if test="${!empty subjectIDs}">
                 <c:set var="subjectsAttr" value="&amp;subjects=${subjectIDs}"/>
             </c:if>
+            <c:if test="${!empty locationIDs}">
+                <c:set var="locationsAttr" value="&amp;locations=${locationIDs}"/>
+            </c:if>
+            <c:if test="${!empty outcomeIDs}">
+                <c:set var="outcomesAttr" value="&amp;outcomes=${outcomeIDs}"/>
+            </c:if>
             <div id="pagination">
                 <c:if test="${currentPage gt 1}">
-                    <a href="?p=${currentPage - 1}${idOverride}${topicsAttr}${gradesAttr}${subjectsAttr}${languageAttr}" class="page">&lt; Previous</a><span class="divider">|</span>
+                    <a href="?p=${currentPage - 1}${idOverride}${topicsAttr}${gradesAttr}${subjectsAttr}${locationsAttr}${outcomesAttr}${languageAttr}" class="page">&lt; Previous</a><span class="divider">|</span>
                 </c:if>
 
                 <c:forEach begin="${start}" end="${lastToDisplay}" var="count">
@@ -52,13 +60,13 @@
                             <span class="page"><c:out value="${count}"/></span>
                         </c:when>
                         <c:otherwise>
-                            <a href="?p=${count}${idOverride}${topicsAttr}${gradesAttr}${subjectsAttr}${languageAttr}" class="page"><c:out value="${count}"/></a>
+                            <a href="?p=${count}${idOverride}${topicsAttr}${gradesAttr}${subjectsAttr}${locationsAttr}${outcomesAttr}${languageAttr}" class="page"><c:out value="${count}"/></a>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
 
                 <c:if test="${currentPage lt end}">
-                    <span class="divider">|</span><a href="?p=${currentPage + 1}${idOverride}${topicsAttr}${gradesAttr}${subjectsAttr}${languageAttr}" class="page">Next &gt;</a>
+                    <span class="divider">|</span><a href="?p=${currentPage + 1}${idOverride}${topicsAttr}${gradesAttr}${subjectsAttr}${locationsAttr}${outcomesAttr}${languageAttr}" class="page">Next &gt;</a>
                 </c:if>
             </div>
         </c:when>

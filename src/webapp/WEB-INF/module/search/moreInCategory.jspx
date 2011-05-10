@@ -81,11 +81,27 @@
                                                     More <span class="alertDoubleArrow">&amp;raquo;</span>
                                                 </link:cmsCategoryBrowse>
                                             </c:when>
+                                            <c:when test="${fn:length(locations) eq 1}">
+                                                <link:cmsCategoryBrowse locationIDs="${category.id}"
+                                                                        language="${param.language}"
+                                                                        styleClass="link text3">
+                                                    More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                </link:cmsCategoryBrowse>
+                                            </c:when>
+                                            <c:when test="${fn:length(outcomes) eq 1}">
+                                                <link:cmsCategoryBrowse outcomeIDs="${category.id}"
+                                                                        language="${param.language}"
+                                                                        styleClass="link text3">
+                                                    More <span class="alertDoubleArrow">&amp;raquo;</span>
+                                                </link:cmsCategoryBrowse>
+                                            </c:when>
                                         </c:choose>
                                     </c:when>
                                     <c:otherwise>
                                         <link:cmsCategoryBrowse topicIDs="${topicIds}" subjectIDs="${subjectIds}"
-                                                                gradeIDs="${gradeIds}" language="${param.language}"
+                                                                gradeIDs="${gradeIds}" locationIDs="${locationIds}"
+                                                                outcomeIDs="${outcomeIds}"
+                                                                language="${param.language}"
                                                                 styleClass="link text3">
                                             More <span class="alertDoubleArrow">&amp;raquo;</span>
                                         </link:cmsCategoryBrowse>

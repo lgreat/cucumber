@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.244 2011/04/14 01:08:37 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.245 2011/05/10 03:00:26 yfan Exp $
  */
 
 package gs.web.util;
@@ -943,9 +943,11 @@ public class UrlBuilder {
      * @param topicIDs Comma-separated list of topic IDs
      * @param gradeIDs Comma-separated list of grade IDs
      * @param subjectIDs Comma-separated list of subject IDs
+     * @param locationIDs Comma-separated list of location IDs
+     * @param outcomeIDs Comma-separated list of outcome IDs
      * @param language
      */
-    public UrlBuilder(VPage page, String topicIDs, String gradeIDs, String subjectIDs, String language) {
+    public UrlBuilder(VPage page, String topicIDs, String gradeIDs, String subjectIDs, String locationIDs, String outcomeIDs, String language) {
         if (CMS_CATEGORY_BROWSE.equals(page)) {
             StringBuilder s = new StringBuilder();
             if (StringUtils.isNotBlank(topicIDs)) {
@@ -962,6 +964,18 @@ public class UrlBuilder {
                     s.append("&");
                 }
                 s.append("subjects=").append(subjectIDs);
+            }
+            if (StringUtils.isNotBlank(locationIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("locations=").append(locationIDs);
+            }
+            if (StringUtils.isNotBlank(outcomeIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("outcomes=").append(outcomeIDs);
             }
             _perlPage = false;
             _path = "/articles/?" + s.toString() +

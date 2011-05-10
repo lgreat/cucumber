@@ -11,9 +11,11 @@ public class CmsCategoryBrowseTagHandler extends LinkTagHandler {
     private String _topicIDs;
     private String _gradeIDs;
     private String _subjectIDs;
+    private String _locationIDs;
+    private String _outcomeIDs;
 
     protected UrlBuilder createUrlBuilder() {
-        return new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, _topicIDs, _gradeIDs, _subjectIDs, _language);
+        return new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, _topicIDs, _gradeIDs, _locationIDs, _outcomeIDs, _subjectIDs, _language);
     }
 
     public String getTopicIDs() {
@@ -38,6 +40,22 @@ public class CmsCategoryBrowseTagHandler extends LinkTagHandler {
 
     public void setSubjectIDs(String subjectIDs) {
         _subjectIDs = subjectIDs;
+    }
+
+    public String getLocationIDs() {
+        return _locationIDs;
+    }
+
+    public void setLocationIDs(String locationIDs) {
+        _locationIDs = locationIDs;
+    }
+
+    public String getOutcomeIDs() {
+        return _outcomeIDs;
+    }
+
+    public void setOutcomeIDs(String outcomeIDs) {
+        _outcomeIDs = outcomeIDs;
     }
 
     public String getLanguage() {

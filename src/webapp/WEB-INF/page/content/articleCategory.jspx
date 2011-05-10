@@ -97,6 +97,10 @@
                         language="${param.language}">${categoryName}</link:cmsCategoryBrowse></c:when>
                         <c:when test="${category.type eq 'subject'}"><link:cmsCategoryBrowse subjectIDs="${category.id}"
                         language="${param.language}">${categoryName}</link:cmsCategoryBrowse></c:when>
+                        <c:when test="${category.type eq 'location'}"><link:cmsCategoryBrowse locationIDs="${category.id}"
+                        language="${param.language}">${categoryName}</link:cmsCategoryBrowse></c:when>
+                        <c:when test="${category.type eq 'outcome'}"><link:cmsCategoryBrowse outcomeIDs="${category.id}"
+                        language="${param.language}">${categoryName}</link:cmsCategoryBrowse></c:when>
                     </c:choose><c:if test="${fn:length(categories) gt 1}"><c:choose>
                     <c:when test="${!status.last and fn:length(categories) eq 2}"> and <c:set var="almondNetTitle" value="${almondNetTitle} and "/></c:when>
                     <c:when test="${!status.last and fn:length(categories) gt 2 and status.count lt fn:length(categories)}">,<c:set var="almondNetTitle" value="${almondNetTitle},"/>
@@ -116,7 +120,7 @@
         </c:if>
 
         <br style="clear: left;"/>
-        <search:catPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}" language="${language}" topicIDs="${param.topics}" gradeIDs="${param.grades}" subjectIDs="${param.subjects}"/>
+        <search:catPagination currentPage="${(empty p) ? 1 : p}" resultCount="${total}" pageSize="${pageSize}" language="${language}" topicIDs="${param.topics}" gradeIDs="${param.grades}" subjectIDs="${param.subjects}" locationIDs="${param.locations}" outcomeIDs="${param.outcomes}"/>
     </div>
 
 </div>
