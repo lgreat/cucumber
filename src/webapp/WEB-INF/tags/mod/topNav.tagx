@@ -332,6 +332,10 @@
                         <a href="/high-school/"
                            id="GlobalNav_BBG_HighSchool"
                            class="GS_CI9_">High School</a></li>
+                    <li class="nav-group-item">
+                        <a href="/college.topic?content=1542"
+                           id="GlobalNav_BBG_College"
+                           class="GS_CI9_">College</a></li>
                 </ul>
             </li>
             <li id="topnav_hd" class="nav_menu ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')}"><a href="/parenting.topic?content=1539"
