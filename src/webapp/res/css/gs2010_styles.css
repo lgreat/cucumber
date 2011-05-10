@@ -3635,7 +3635,7 @@ body.cobranded #pageGS {
 	display:block; /* to increase the clickable area of the A tag */
 	float:left;
 	width:auto;
-	padding:0 27px;
+	padding:0 26px; /* for safari */
 	text-align:center;
 	color:white;
 	text-decoration:none;
@@ -3647,13 +3647,22 @@ body.cobranded #pageGS {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
 }
 
+.ff #globalnav a{
+    padding:0 27px;
+}
+
 .ie6 #globalnav a,
 .ie7 #globalnav a,
 .ie8 #globalnav a {
 	padding:0 28px;
 }
 
-#globalnav .lastNavUnit a{
+#globalnav .lastNavUnit a{ /* for safari */
+	border:none;
+	padding-left:30px;
+}
+
+.ff #globalnav .lastNavUnit a{
 	border:none;
 	padding-left:29px;
 }
@@ -3701,18 +3710,6 @@ body.cobranded #pageGS {
 
 	/* Text Shadow */
     text-shadow: none;
-}
-
-/* To target a safari browser issue */
-
-@media screen and (-webkit-min-device-pixel-ratio:0){
-	#globalnav a {
-		padding:0 26px;
-	}
-	#globalnav .lastNavUnit a {
-		border:none;
-		padding:0 30px;
-	}
 }
 
 /* =11e secondary navigation
