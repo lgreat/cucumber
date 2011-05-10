@@ -70,18 +70,32 @@
                        target="_blank">Get directions</a>
                 </div>
             </div>
-            <div class="unit size4of13">
-                <div class="brdlft-solid brdrt-solid homesForSale">
-                <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
-                <a href="http://www.realtor.com/realestateandhomes-search/${school.school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
-                   onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
-                   rel="nofollow">Homes for sale</a>
-                    <!--<gslink:realtorDotComLink address="${school.school.physicalAddress}"-->
-                                              <!--customLinkSuffix="inlinelinkmap">Homes for sale</gslink:realtorDotComLink>-->
+
+            <c:choose>
+                <c:when test="${requestScope.context.showRealtorDotComPromos}">
+                    <c:set var="mslDivClasses" value="unit size7of16 lastUnit"/>
+                    <c:set var="mslInnerDivClasses" value=""/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="mslDivClasses" value="unit size3of4 lastUnit"/>
+                    <c:set var="mslInnerDivClasses" value="brdlft-solid"/>
+                </c:otherwise>
+            </c:choose>
+
+            <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                <div class="unit size4of13">
+                    <div class="brdlft-solid brdrt-solid homesForSale">
+                        <c:set var="customLinkValue"
+                               value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
+                        <a href="http://www.realtor.com/realestateandhomes-search/${school.school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
+                           onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
+                           rel="nofollow">Homes for sale</a>
+                    </div>
                 </div>
-            </div>
-            <div class="unit size7of16 lastUnit">
-                <p class="msl js-add-msl smallText1 js-add-msl-${school.state}${school.id}" id="js-add-msl-${school.state}${school.id}">
+            </c:if>
+
+            <div class="${mslDivClasses}">
+                <p class="msl js-add-msl smallText1 ${mslInnerDivClasses} js-add-msl-${school.state}${school.id}" id="js-add-msl-${school.state}${school.id}">
                     <c:choose>
                         <c:when test="${school.inMsl}">
                             <!--<span class="sprite i-checkmark-sm">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->

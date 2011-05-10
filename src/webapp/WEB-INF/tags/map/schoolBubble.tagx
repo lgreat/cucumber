@@ -76,20 +76,36 @@ height += heightMultiplier * 13;-->
                 </c:choose>
                     </div>
             </div>
-            <div class="unit size1of3">
-                <div class="brdlft-solid getDirections brdrt-solid">
+
+            <c:choose>
+                <c:when test="${requestScope.context.showRealtorDotComPromos}">
+                    <c:set var="directionsDivClasses" value="unit size1of3"/>
+                    <c:set var="directionsInnerDivClasses" value="brdlft-solid getDirections brdrt-solid"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="directionsDivClasses" value="unit size2of3 lastUnit"/>
+                    <c:set var="directionsInnerDivClasses" value="brdlft-solid getDirections"/>
+                </c:otherwise>
+            </c:choose>
+
+            <div class="${directionsDivClasses}">
+                <div class="${directionsInnerDivClasses}">
                 <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.physicalAddress.street}%20${school.physicalAddress.city},%20${school.physicalAddress.state}%20${school.physicalAddress.zip}"
                    onclick="s.tl(this, 'o', 'School Map - Get Directions');" target="_blank">Get directions</a>
                     </div>
             </div>
-            <div class="unit size1of3 lastUnit">
-                <div class="homesForSale">
-                <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
-                <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
-                   onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
-                   rel="nofollow">Homes for sale</a>
+
+            <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                <div class="unit size1of3 lastUnit">
+                    <div class="homesForSale">
+                    <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
+                    <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
+                       onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
+                       rel="nofollow">Homes for sale</a>
+                    </div>
                 </div>
-            </div>
+            </c:if>
+
         </div>
     </div>
 

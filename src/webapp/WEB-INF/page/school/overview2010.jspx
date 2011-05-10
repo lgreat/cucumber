@@ -348,10 +348,12 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         </c:otherwise>
     </c:choose>
 </div>
-<div class="spacer_5"><!-- do not collapse --></div>
-<div class="smallAlertText">
-    <gslink:realtorDotComLink address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink>
-</div>
+<c:if test="${requestScope.context.showRealtorDotComPromos}">
+    <div class="spacer_5"><!-- do not collapse --></div>
+    <div class="smallAlertText">
+        <gslink:realtorDotComLink address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink>
+    </div>
+</c:if>
 
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>

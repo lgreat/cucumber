@@ -7486,7 +7486,7 @@ body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
 }
 
 .schoolInfoWindow .getDirections {
-    text-align: center;
+    padding: 0 12px;
 }
 
 .schoolInfoWindow .homesForSale {
@@ -8848,7 +8848,6 @@ ul.schoolList div p {
 }
 #compareMap .homesForSale, #compareMap .msl {
     padding: 0 12px;
-    text-align: center;
 }
 #compareMap .getDirections {
     padding-right: 12px;

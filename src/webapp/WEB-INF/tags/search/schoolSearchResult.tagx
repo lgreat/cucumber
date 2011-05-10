@@ -89,11 +89,13 @@
                         <div class="smallAlertText js-school-search-result-distance"><fmt:formatNumber value="${school.distance}" maxFractionDigits="2"/> miles</div>
                     </c:if>
 
-                    <div>
-                        <gslink:realtorDotComLink address="${school.address}"
-                                                  customLinkSuffix="inlinelinkheader"
-                                                  styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
-                    </div>
+                    <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                        <div>
+                            <gslink:realtorDotComLink address="${school.address}"
+                                                      customLinkSuffix="inlinelinkheader"
+                                                      styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
+                        </div>
+                    </c:if>
 
                     <c:set var="mslHasSchool" value="${false}"/>
                     <c:forEach items="${mslSchools}" var="mslSchool">
