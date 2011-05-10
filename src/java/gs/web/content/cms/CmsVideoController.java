@@ -173,11 +173,11 @@ public class CmsVideoController extends AbstractController {
         }
         // GS-9914
         else if (contentId == 87L || contentId == 1151L) {
-            builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, "220", (String)null, (String)null, "EN");
+            builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, "220", (String)null, (String)null, (String)null, (String)null, "EN");
         } else if (contentId == 403L) {
             builder = new UrlBuilder(new ContentKey("TopicCenter",2220L));
         } else if (contentId == 133L || contentId == 1107L) {
-            builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, "219", (String)null, (String)null, "EN");
+            builder = new UrlBuilder(UrlBuilder.CMS_CATEGORY_BROWSE, "219", (String)null, (String)null, (String)null, (String)null, "EN");
         } else if (contentId == 2078L) {
             builder = new UrlBuilder(new ContentKey("TopicCenter",1539L));
         } else if (contentId == 1192L) {
