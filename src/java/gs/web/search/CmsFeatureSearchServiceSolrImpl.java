@@ -44,6 +44,8 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
      * @param topics            list of topic categories
      * @param grades            list of grade categories
      * @param subjects          list of subject categories
+     * @param locations         list of location categories
+     * @param outcomes          list of outcome categories
      * @param strict            boolean to check for topic id in feature
      * @param excludeContentKey ContentKey to exclude from search
      * @param language          two-character language code, e.g "EN"
@@ -52,7 +54,7 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
      * @return SearchResultsPage of type CmsFeatureSearchResult
      */
     public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeatures(List<CmsCategory> topics, List<CmsCategory> grades,
-                                                                     List<CmsCategory> subjects,
+                                                                     List<CmsCategory> subjects, List<CmsCategory> locations, List<CmsCategory> outcomes,
                                                                      boolean strict,
                                                                      ContentKey excludeContentKey, String language, int pageSize, int pageNumber) {
 
@@ -80,6 +82,18 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
             }
         }
 
+        if (locations != null) {
+            for (CmsCategory category : locations) {
+                searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_LOCATION_ID, String.valueOf(category.getId()), null);
+            }
+        }
+
+        if (outcomes != null) {
+            for (CmsCategory category : outcomes) {
+                searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_OUTCOME_ID, String.valueOf(category.getId()), null);
+            }
+        }
+
         if (excludeContentKey != null) {
             searchStr += buildMustExcludeQuery(CmsFeatureDocumentBuilder.FIELD_CONTENT_KEY, excludeContentKey.toString());
         }
@@ -97,6 +111,12 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         }
         if (subjects != null) {
             categories.addAll(subjects);
+        }
+        if (locations != null) {
+            categories.addAll(locations);
+        }
+        if (outcomes != null) {
+            categories.addAll(outcomes);
         }
 
         // This should give higher placement to articles with terms from the category name in their title

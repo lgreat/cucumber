@@ -319,10 +319,10 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
      * Test with nulls
      */
     public void testStoreResultsForCmsCategoriesNoFeatures(){
-        expect(_cmsFeatureSearchService.getCmsFeatures(null,null,null,false,null,null,10,1)).andReturn(null);
+        expect(_cmsFeatureSearchService.getCmsFeatures(null,null,null,null,null,false,null,null,10,1)).andReturn(null);
         replay(_cmsFeatureSearchService);
         _controller.setRandomResults(true);
-        _controller.storeResultsForCmsCategories(null,null,null,null,1,false,null,null,String.valueOf(10));
+        _controller.storeResultsForCmsCategories(null,null,null,null,null,null,1,false,null,null,String.valueOf(10));
         verify(_cmsFeatureSearchService);
     }
 
@@ -334,10 +334,10 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
         List<ISearchResult> searchResults =  new ArrayList();
         searchResults.add(cmsFeature);
         SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = new SearchResultsPage(1,searchResults);
-        expect(_cmsFeatureSearchService.getCmsFeatures(null,null,null,false,null,null,10,1)).andReturn(searchResultsPage);
+        expect(_cmsFeatureSearchService.getCmsFeatures(null,null,null,null,null,false,null,null,10,1)).andReturn(searchResultsPage);
         replay(_cmsFeatureSearchService);
         _controller.setRandomResults(true);
-        _controller.storeResultsForCmsCategories(null, null, null, new HashMap(), 1, false, null, null, String.valueOf(10));
+        _controller.storeResultsForCmsCategories(null, null, null, null, null, new HashMap(), 1, false, null, null, String.valueOf(10));
         verify(_cmsFeatureSearchService);
     }
 

@@ -41,9 +41,13 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_TOPICS = "topics";
     protected static final String MODEL_GRADES = "grades";
     protected static final String MODEL_SUBJECTS = "subjects";
+    protected static final String MODEL_LOCATIONS = "locations";
+    protected static final String MODEL_OUTCOMES = "outcomes";
     protected static final String MODEL_TOPIC_IDS = "topicIds";
     protected static final String MODEL_GRADE_IDS = "gradeIds";
     protected static final String MODEL_SUBJECT_IDS = "subjectIds";
+    protected static final String MODEL_LOCATION_IDS = "locationIds";
+    protected static final String MODEL_OUTCOME_IDS = "outcomeIds";
     protected static final String MODEL_MAX_RESULTS = "maxResults";
     protected static final String MODEL_BREADCRUMBS = "breadcrumbs";
     protected static final String MODEL_STYLE = "style";
@@ -61,6 +65,10 @@ public class ArticlesByCategoryController extends AbstractController {
     public static final String PARAM_GRADES = "grades";
     /** CMS subject IDs, comma-separated */
     public static final String PARAM_SUBJECTS = "subjects";
+    /** CMS subject IDs, comma-separated */
+    public static final String PARAM_LOCATIONS = "locations";
+    /** CMS subject IDs, comma-separated */
+    public static final String PARAM_OUTCOMES = "outcomes";
     /** CMS feature type (i.e. article or askTheExperts) to exclude - must be used with PARAM_EXCLUDE_CONTENT_ID */
     public static final String PARAM_EXCLUDE_TYPE = "excludeType";
     /** CMS content identifier (i.e. ID number of article or askTheExperts) to exclude - must be used with PARAM_EXCLUDE_TYPE*/
@@ -255,10 +263,14 @@ public class ArticlesByCategoryController extends AbstractController {
         String topicsParam = request.getParameter(PARAM_TOPICS);
         String gradesParam = request.getParameter(PARAM_GRADES);
         String subjectsParam = request.getParameter(PARAM_SUBJECTS);
+        String locationsParam = request.getParameter(PARAM_LOCATIONS);
+        String outcomesParam = request.getParameter(PARAM_OUTCOMES);
 
         Long[] topicCategoryIds = new Long[0];
         Long[] gradeCategoryIds = new Long[0];
         Long[] subjectCategoryIds = new Long[0];
+        Long[] locationCategoryIds = new Long[0];
+        Long[] outcomeCategoryIds = new Long[0];
 
         if (!StringUtils.isEmpty(topicsParam)) {
             topicCategoryIds = gs.data.util.string.StringUtils.stringOfSeparatedLongsToLongArray(topicsParam);
@@ -269,22 +281,33 @@ public class ArticlesByCategoryController extends AbstractController {
         if (!StringUtils.isEmpty(subjectsParam)) {
             subjectCategoryIds = gs.data.util.string.StringUtils.stringOfSeparatedLongsToLongArray(subjectsParam);
         }
+        if (!StringUtils.isEmpty(locationsParam)) {
+            locationCategoryIds = gs.data.util.string.StringUtils.stringOfSeparatedLongsToLongArray(locationsParam);
+        }
+        if (!StringUtils.isEmpty(outcomesParam)) {
+            outcomeCategoryIds = gs.data.util.string.StringUtils.stringOfSeparatedLongsToLongArray(outcomesParam);
+        }
 
         Set<Long> allIds = new HashSet<Long>();
         CollectionUtils.addAll(allIds, topicCategoryIds);
         CollectionUtils.addAll(allIds, gradeCategoryIds);
         CollectionUtils.addAll(allIds, subjectCategoryIds);
+        CollectionUtils.addAll(allIds, locationCategoryIds);
+        CollectionUtils.addAll(allIds, outcomeCategoryIds);
 
-        List<CmsCategory> topicsAndGradesAndSubjects = _cmsCategoryDao.getCmsCategoriesFromIds(allIds.toArray(new Long[0]));
-        ICmsCategoryDao.CmsCategoryTriplet triplet = _cmsCategoryDao.separateCategories(topicsAndGradesAndSubjects);
+        List<CmsCategory> categoryList = _cmsCategoryDao.getCmsCategoriesFromIds(allIds.toArray(new Long[0]));
+        // TODO-11715 FIXME rename triplet
+        ICmsCategoryDao.CmsCategoryTriplet triplet = _cmsCategoryDao.separateCategories(categoryList);
         List<CmsCategory> topics = triplet.topics;
         List<CmsCategory> grades = triplet.grades;
         List<CmsCategory> subjects = triplet.subjects;
+        List<CmsCategory> locations = triplet.locations;
+        List<CmsCategory> outcomes = triplet.outcomes;
 
         String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
 
-        if (topicsAndGradesAndSubjects.size() > 0) {
-            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, model, page, strict, excludeContentKey, language, maxResultsParam);
+        if (categoryList.size() > 0) {
+            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, locations, outcomes, model, page, strict, excludeContentKey, language, maxResultsParam);
 
             if (categories.size() == 1) {
                 List<CmsCategory> breadcrumbs = getCmsCategoryBreadcrumbs(categories.get(0));
@@ -305,11 +328,15 @@ public class ArticlesByCategoryController extends AbstractController {
             model.put(MODEL_TOPICS, topics);
             model.put(MODEL_GRADES, grades);
             model.put(MODEL_SUBJECTS, subjects);
+            model.put(MODEL_LOCATIONS, locations);
+            model.put(MODEL_OUTCOMES, outcomes);
             model.put(MODEL_CATEGORIES, categories);
 
             model.put(MODEL_TOPIC_IDS, CmsUtil.getCommaSeparatedCategoryIds(topics));
             model.put(MODEL_GRADE_IDS, CmsUtil.getCommaSeparatedCategoryIds(grades));
             model.put(MODEL_SUBJECT_IDS, CmsUtil.getCommaSeparatedCategoryIds(subjects));
+            model.put(MODEL_LOCATION_IDS, CmsUtil.getCommaSeparatedCategoryIds(locations));
+            model.put(MODEL_OUTCOME_IDS, CmsUtil.getCommaSeparatedCategoryIds(outcomes));
 
             if (categories.size() == 1) {
                 model.put(MODEL_CATEGORY, categories.get(0));
@@ -342,7 +369,7 @@ public class ArticlesByCategoryController extends AbstractController {
     }
 
 
-    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
+    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, List<CmsCategory> locations, List<CmsCategory> outcomes, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
 
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
         if (topics != null) {
@@ -354,10 +381,16 @@ public class ArticlesByCategoryController extends AbstractController {
         if (subjects != null) {
             categories.addAll(subjects);
         }
+        if (locations != null) {
+            categories.addAll(locations);
+        }
+        if (outcomes != null) {
+            categories.addAll(outcomes);
+        }
 
         // search for articles in the particular category
         CmsFeatureSearchService service = getSolrCmsFeatureSearchService();
-        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeatures(topics, grades, subjects,strict, excludeContentKey, language, PAGE_SIZE,page);
+        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeatures(topics, grades, subjects, locations, outcomes, strict, excludeContentKey, language, PAGE_SIZE,page);
 
         if (searchResultsPage != null && searchResultsPage.getTotalResults() > 0) {
             int totalResults = searchResultsPage.getTotalResults();
