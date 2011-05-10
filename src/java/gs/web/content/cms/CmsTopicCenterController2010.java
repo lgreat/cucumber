@@ -1,10 +1,12 @@
 package gs.web.content.cms;
 
+import gs.data.cms.IPublicationDao;
 import gs.data.community.IRaiseYourHandDao;
 import gs.data.community.RaiseYourHandFeature;
 import gs.data.community.User;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
+import gs.data.content.cms.*;
 import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
@@ -15,23 +17,20 @@ import gs.data.school.SchoolWithRatings;
 import gs.data.school.review.IReviewDao;
 import gs.data.security.Permission;
 import gs.data.state.State;
+import gs.data.util.CmsUtil;
 import gs.web.school.SchoolOverviewController;
+import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-
-import gs.data.content.cms.*;
-import gs.data.cms.IPublicationDao;
-import gs.data.util.CmsUtil;
-import gs.web.util.PageHelper;
 
 public class CmsTopicCenterController2010 extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsTopicCenterController2010.class);
@@ -63,6 +62,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public static final String MODEL_DISCUSSION_BOARD = "discussionBoard";
     public static final String MODEL_OMNITURE_TOPIC_CENTER_NAME = "omnitureTopicCenterName";
     public static final String MODEL_CAROUSEL_ITEMS = "carouselItems";
+    public static final String MODEL_VIDEO_CAROUSEL_ITEMS = "videoCarouselItems";
     public static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
     public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
     public static final String MODEL_URI = "uri";
@@ -313,6 +313,11 @@ public class CmsTopicCenterController2010 extends AbstractController {
             List<CmsLink> carouselItems = new ArrayList<CmsLink>(topicCenter.getCarouselLinks());
             Collections.shuffle(carouselItems);
             model.put(MODEL_CAROUSEL_ITEMS, carouselItems);
+        }
+        if (topicCenter.getVideoCarouselLinks() != null && topicCenter.getVideoCarouselLinks().size() >= MIN_CAROUSEL_ITEMS) {
+            List<CmsLink> carouselItems = new ArrayList<CmsLink>(topicCenter.getVideoCarouselLinks());
+            Collections.shuffle(carouselItems);
+            model.put(MODEL_VIDEO_CAROUSEL_ITEMS, carouselItems);
         }
     }
 

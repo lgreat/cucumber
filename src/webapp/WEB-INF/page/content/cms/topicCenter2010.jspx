@@ -172,7 +172,16 @@
                         <p class="featured-copy text3">
                             ${topicCenter.mainFeatureLink.description}
                                 <span class="smallAlertText more-features">
-                                    <a href="${topicCenter.mainFeatureLink.url}">More <span
+                                    <c:choose>
+                                        <c:when test="${topicCenter.mainFeatureLink.type eq 'Video'}">
+                                            <c:set var="linkText" value="Watch video"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="linkText" value="More"/>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <a href="${topicCenter.mainFeatureLink.url}">${linkText} <span
                                             class="alertDoubleArrow">&amp;raquo;</span></a>
                                 </span>
                         </p>
@@ -194,9 +203,20 @@
 
             <ad:adTag position="House_Ad_423x230"/>
 
-            <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+            <c:choose>
+                <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.videoCarouselItems}"/>
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
                                   items="${requestScope.carouselItems}"/>
-
+                </c:when>
+                <c:otherwise>
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.carouselItems}"/>
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.videoCarouselItems}"/>
+                </c:otherwise>
+            </c:choose>
             <c:set var="raiseYourHand">
                 <c:import
                         url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
