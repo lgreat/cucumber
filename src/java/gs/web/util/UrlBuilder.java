@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.245 2011/05/10 03:00:26 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.246 2011/05/10 22:29:58 rcox Exp $
  */
 
 package gs.web.util;
@@ -259,6 +259,7 @@ public class UrlBuilder {
     public static final VPage ELEMENTARY_SCHOOL = new VPage("vpage:elementarySchool");
     public static final VPage MIDDLE_SCHOOL = new VPage("vpage:middleSchool");
     public static final VPage HIGH_SCHOOL = new VPage("vpage:highSchool");
+    public static final VPage COLLEGE = new VPage("vpage:college");
 
     /**
      * Elementary school grade topic centers
@@ -822,6 +823,9 @@ public class UrlBuilder {
         } else if (HIGH_SCHOOL.equals(page)) {
             // WARNING: if this url changes, also change the entry in CmsUtil.GRADE_LEVEL_TOPIC_CENTER_URI_MAP
             _path = "/high-school/";
+        } else if (COLLEGE.equals(page)) {
+             // WARNING: if this url changes, also change the entry in CmsUtil.GRADE_LEVEL_TOPIC_CENTER_URI_MAP
+            _path = "/college-prep.topic?content=1542";
         } else if (DONORS_CHOOSE_EXPLAINED.equals(page)) {
             _path = "/content/donorsChooseExplained.html";
         } else if (SUBMIT_PARENT_REVIEW_PRESCHOOL.equals(page)) {

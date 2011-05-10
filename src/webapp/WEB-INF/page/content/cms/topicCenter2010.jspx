@@ -45,7 +45,7 @@
             <pageHelper:setPathway pathway="LEARNING_DISABILITIES"/>
         </c:when>
         <c:when test="${topicCenter.contentKey.identifier eq 1542}">
-            <pageHelper:setPathway pathway="PREP_FOR_COLLEGE"/>
+            <pageHelper:setPathway pathway="COLLEGE"/>
         </c:when>
         <c:when test="${topicCenter.contentKey.identifier eq 1543}">
             <pageHelper:setPathway pathway="IMPROVE_YOUR_SCHOOL"/>

@@ -79,16 +79,29 @@
             </div>
 
             <div class="unit size1of6">
-                <div class="mediaExt4 phl">
-                    <div class="img">
-                        <!--<img src="#" width="88" height="31" alt="test"/>-->
-                    </div>
-                    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
-                        <div class="bk">
-                            <ad:Global_HeaderPromo_88x31/>
+                <!--<p>adFree: <c:out value="${requestScope.pageHelper.adFree}"/></p>-->
+                <!--<p>adServedByCobrand: <c:out value="${requestScope.pageHelper.adServedByCobrand}"/></p>-->
+                <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
+                    <div class="mediaExt4">
+                        <div class="img">
+                            <gsml:img id="bts-logo"
+                                      src="/res/img/backToSchool/2011/bts_header_unsponsored.png"
+                                      width="165"
+                                      height="40"
+                                      alt="Back to school logo 2011"/>
                         </div>
-                    </c:if>
-                </div>
+
+                        <div class="bk">
+                            <div class="mediaExt1">
+                                <div class="imgExt"><ad:Global_HeaderPromo_88x31/></div>
+                                <div class="bk">
+                                    <p class="smallText2-777 text-align-rt">Sponsored<br/>by:</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </c:if>
             </div>
 
             <!-- variables holding the search form actions for local and community searches -->
@@ -204,38 +217,73 @@
      "lactive" indicates that the border to the left of the tab should be displayed
      "ractive" indicates that the border to the right of the tab should be displayed
 -->
-<div class="noprint" id="navbar">
-    <ul id="globalnav" class="${navBarClass}">
-            <c:set var="pw" value="${requestScope.context.pathway}"/>
-            <!-- Numbers in comments signify the pageId in PageHelper.java -->
-            <!--#0--><li id="n1" class="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')}">
-                        <link:home
-                                styleClass=" GS_CI9_ "
-                                id="GlobalNav_HomeButton"
-                >Home</link:home></li>
-            <!--#1--><li id="n2" class="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.PRESCHOOL ? 'ractive' : '')}"><link:research
-                                styleClass=" GS_CI9_ "
-                                state="${requestScope.context.state}"
-                                id="GlobalNav_ResearchButton"
-                >Find a School</link:research></li>
-            <!--#11--><li id="n3" class="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.PRESCHOOL ? 'active' : 'inactive')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'ractive' : '') }"><link:preschool
-                                 id="GlobalNav_PreschoolButton"
-                                 styleClass=" GS_CI9_ "
-                >Preschool</link:preschool></li>
-            <!--#12--><li id="n4" class="${(pw == tabs.PRESCHOOL ? 'lactive' : '')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.MIDDLE_SCHOOL ? 'ractive' : '')}"><link:elementary-school
-                                styleClass=" GS_CI9_ "
-                                id="GlobalNav_ElementarySchoolButton"
-                >Elementary School</link:elementary-school></li>
-            <!--#13--><li id="n5" class="${(pw == tabs.ELEMENTARY_SCHOOL ? 'lactive' : '')} ${(pw == tabs.MIDDLE_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.HIGH_SCHOOL ? 'ractive' : '')}"><link:middle-school
-                                styleClass=" GS_CI9_ "
-                                id="GlobalNav_MiddleSchoolButton"
-                >Middle School</link:middle-school></li>
-            <!--#14--><li id="n6" class="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')}"><link:high-school
-                                styleClass=" GS_CI9_ "
-                                id="GlobalNav_HighSchoolButton"
-                >High School</link:high-school></li><!-- last pw check first arg would be 'ractive' -->
-            <!-- pw check first arg would be 'lactive' -->
+<div class="noprint clearfix" id="navbar">
+    <c:set var="pw" value="${requestScope.context.pathway}"/>
+    <!--<ul id="globalnav" class="${navBarClass}">
+        <c:set var="pw" value="${requestScope.context.pathway}"/>
+        &lt;!&ndash; Numbers in comments signify the pageId in PageHelper.java &ndash;&gt;
+        &lt;!&ndash;#0&ndash;&gt;
+        <li id="n1"
+            class="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')}">
+            <link:home
+                    styleClass=" GS_CI9_ "
+                    id="GlobalNav_HomeButton"
+                    >Home</link:home></li>
+        &lt;!&ndash;#1&ndash;&gt;
+        <li id="n2"
+            class="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.PRESCHOOL ? 'ractive' : '')}">
+            <link:research
+                    styleClass=" GS_CI9_ "
+                    state="${requestScope.context.state}"
+                    id="GlobalNav_ResearchButton"
+                    >Find a School</link:research></li>
+        &lt;!&ndash;#11&ndash;&gt;
+        <li id="n3"
+            class="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.PRESCHOOL ? 'active' : 'inactive')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'ractive' : '') }">
+            <link:preschool
+                    id="GlobalNav_PreschoolButton"
+                    styleClass=" GS_CI9_ "
+                    >Preschool</link:preschool></li>
+        &lt;!&ndash;#12&ndash;&gt;
+        <li id="n4"
+            class="${(pw == tabs.PRESCHOOL ? 'lactive' : '')} ${(pw == tabs.ELEMENTARY_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.MIDDLE_SCHOOL ? 'ractive' : '')}">
+            <link:elementary-school
+                    styleClass=" GS_CI9_ "
+                    id="GlobalNav_ElementarySchoolButton"
+                    >Elementary School</link:elementary-school></li>
+        &lt;!&ndash;#13&ndash;&gt;
+        <li id="n5"
+            class="${(pw == tabs.ELEMENTARY_SCHOOL ? 'lactive' : '')} ${(pw == tabs.MIDDLE_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.HIGH_SCHOOL ? 'ractive' : '')}">
+            <link:middle-school
+                    styleClass=" GS_CI9_ "
+                    id="GlobalNav_MiddleSchoolButton"
+                    >Middle School</link:middle-school></li>
+        &lt;!&ndash;#14&ndash;&gt;
+        <li id="n6"
+            class="${(pw == tabs.MIDDLE_SCHOOL ? 'lactive' : '')} ${(pw == tabs.HIGH_SCHOOL ? 'active' : 'inactive')} ${(pw == tabs.COLLEGE ? '' : '')}">
+            <link:high-school
+                    styleClass=" GS_CI9_ "
+                    id="GlobalNav_HighSchoolButton"
+                    >High School</link:high-school></li>
+        &lt;!&ndash;#14&ndash;&gt;
+        <li id="n7"
+            class="${(pw == tabs.HIGH_SCHOOL ? 'lactive' : '')} ${(pw == tabs.COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.BACK_TO_SCHOOL ? '' : '')}">
+            <link:college
+                    styleClass=" GS_CI9_ "
+                    id="GlobalNav_CollegeButton"
+                    >College</link:college></li>
+        &lt;!&ndash; last pw check first arg would be 'ractive' &ndash;&gt;
+        &lt;!&ndash; pw check first arg would be 'lactive' &ndash;&gt;
+    </ul>-->
 
+    <ul id="globalnav" class="">
+        <li><link:home id="GlobalNav_HomeButton" styleClass="${(pw == tabs.HOME ? 'selected' : '')} GS_CI9_ ">Home</link:home></li>
+        <li><link:research id="GlobalNav_ResearchButton" styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} GS_CI9_ " state="${requestScope.context.state}">Find a School</link:research></li>
+        <li><link:preschool id="GlobalNav_PreschoolButton" styleClass="${(pw == tabs.PRESCHOOL ? 'selected' : '')} GS_CI9_ ">Preschool</link:preschool></li>
+        <li><link:elementary-school id="GlobalNav_ElementarySchoolButton" styleClass="${(pw == tabs.ELEMENTARY_SCHOOL ? 'selected' : '')} GS_CI9_ ">Elementary School</link:elementary-school></li>
+        <li><link:middle-school id="GlobalNav_MiddleSchoolButton" styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} GS_CI9_ ">Middle School</link:middle-school></li>
+        <li><link:high-school id="GlobalNav_HighSchoolButton" styleClass="${(pw == tabs.HIGH_SCHOOL ? 'selected' : '')} GS_CI9_ ">High School</link:high-school></li>
+        <li class="lastNavUnit"><link:college id="GlobalNav_CollegeButton" styleClass="${(pw == tabs.COLLEGE ? 'selected' : '')} GS_CI9_ ">College</link:college></li>
     </ul>
 
         <ul id="topnav_menusubnav">

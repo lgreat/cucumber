@@ -3296,6 +3296,30 @@
     </tag>
 
     <tag>
+        <name>college</name>
+        <tag-class>gs.web.jsp.link.CollegeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>college</display-name>
+        <description>
+            <![CDATA[Link to the college landing page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>kindergarten</name>
         <tag-class>gs.web.jsp.link.KindergartenTagHandler</tag-class>
         <body-content>JSP</body-content>
