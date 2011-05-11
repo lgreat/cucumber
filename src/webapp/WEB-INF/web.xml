@@ -60,6 +60,11 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>*.videos</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/city/*</url-pattern>
     </servlet-mapping>
 
@@ -671,6 +676,11 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
+        <url-pattern>*.videos</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
         <url-pattern>/api/admin/*</url-pattern>
     </filter-mapping>
 
@@ -1223,6 +1233,15 @@
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>*.videos</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
 
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
@@ -2150,6 +2169,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>*.topic</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>*.videos</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

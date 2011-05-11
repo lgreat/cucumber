@@ -44,10 +44,23 @@
                                         <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                                gradeIDs="${subtopic.gradeIDs}"
-                                                                subjectIDs="${subtopic.subjectIDs}"
-                                                                language="EN">${subtopic.title}</link:cmsCategoryBrowse>
+                                        <c:choose>
+                                            <c:when test="${fn:toLowerCase(subtopic.title) == 'videos'}">
+                                                <link:cmsVideoGallery
+                                                        topicCenterId="${topicCenter.contentKey.identifier}"
+                                                        topicCenterUrl="${topicCenter.fullUri}"
+                                                        topicIDs="${subtopic.topicIDs}"
+                                                        gradeIDs="${subtopic.gradeIDs}"
+                                                        subjectIDs="${subtopic.subjectIDs}"
+                                                        language="EN">${subtopic.title}</link:cmsVideoGallery>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                                        gradeIDs="${subtopic.gradeIDs}"
+                                                                        subjectIDs="${subtopic.subjectIDs}"
+                                                                        language="EN">${subtopic.title}</link:cmsCategoryBrowse>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:otherwise>
                                 </c:choose>
                             </c:when>

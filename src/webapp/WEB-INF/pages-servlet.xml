@@ -60,6 +60,7 @@
                    <entry key="/members/**" value="/community/userProfile.page"/>
                    <entry key="/**/*.gs" value="/content/cms/feature.page"/>
                    <entry key="/**/*.topic" value="/content/cms/topicCenter.page"/>
+                   <entry key="/*.videos" value="/content/cms/topicCenter.page"/>
                    <entry key="/featured/questions/" value="/community/raiseYourHandFeaturedQuestionsList.page"/>
                    <entry key="/**/questions.gs" value="/community/raiseYourHandList.page"/>
                </map>
@@ -585,6 +586,9 @@
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/cms/topicCenter2010"/>
         <property name="useAdKeywords" value="true"/>
+        <property name="cmsFeatureSearchService">
+            <ref bean="solrCmsFeatureSearchService"/>
+        </property>
     </bean>
 
     <bean name="/content/cms/discussionBoard.page"

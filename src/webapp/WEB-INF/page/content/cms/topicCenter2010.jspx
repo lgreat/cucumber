@@ -152,25 +152,50 @@
         </div>
         <!-- end #topicbarGS -->
 
-        <div id="topicMainGS" class="col">
+        <c:choose>
+            <c:when test="${isVideo == true}">
+                <!-- hardcoded grades and topics for the video gallery page.GS-11651 -->
+                <select id="gradesDropdown" class="js_videoFilterDropDown type">
+                    <option value="-1">Grade Levels</option>
+                    <option value="199">Kindergarten</option>
+                    <option value="200">First Grade</option>
+                    <option value="201">Second Grade</option>
+                    <option value="202">Third Grade</option>
+                    <option value="203">Fourth Grade</option>
+                    <option value="204">Fifth Grade</option>
+                </select>
+                <select id="topicsDropdown" class="js_videoFilterDropDown type">
+                    <option value="-1">Topic</option>
+                    <option value="209">Math</option>
+                    <option value="212">English</option>
+                </select>
 
-          <c:if test="${!topicCenter.k12SponsorshipPage}">
-            <div id="featured">
-
-                <div id="featured-image">
-                    <a href="${topicCenter.mainFeatureLink.url}">
-                        <img src="${topicCenter.imageUrl}" width="421" height="213" alt="${topicCenter.imageAltText}"/>
-                    </a>
+                <div id="js_videoGalleryData">
+                    <cms:videoGalleryTable/>
                 </div>
+            </c:when>
+            <c:otherwise>
+                <div id="topicMainGS" class="col">
 
-                <div id="featured-copy" class="gradient-2 clearfix">
-                    <c:if test="${not empty topicCenter.mainFeatureLink}">
-                        <h3 class="title2"><a
-                                href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h3>
+                    <c:if test="${!topicCenter.k12SponsorshipPage}">
+                        <div id="featured">
 
-                        <div class="spacer_10"><!-- do not collapse --></div>
-                        <p class="featured-copy text3">
-                            ${topicCenter.mainFeatureLink.description}
+                            <div id="featured-image">
+                                <a href="${topicCenter.mainFeatureLink.url}">
+                                    <img src="${topicCenter.imageUrl}" width="421" height="213"
+                                         alt="${topicCenter.imageAltText}"/>
+                                </a>
+                            </div>
+
+                            <div id="featured-copy" class="gradient-2 clearfix">
+                                <c:if test="${not empty topicCenter.mainFeatureLink}">
+                                    <h3 class="title2"><a
+                                            href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a>
+                                    </h3>
+
+                                    <div class="spacer_10"><!-- do not collapse --></div>
+                                    <p class="featured-copy text3">
+                                        ${topicCenter.mainFeatureLink.description}
                                 <span class="smallAlertText more-features">
                                     <c:choose>
                                         <c:when test="${topicCenter.mainFeatureLink.type eq 'Video'}">
@@ -184,75 +209,67 @@
                                     <a href="${topicCenter.mainFeatureLink.url}">${linkText} <span
                                             class="alertDoubleArrow">&amp;raquo;</span></a>
                                 </span>
-                        </p>
+                                    </p>
+                                </c:if>
+                            </div>
+
+                        </div>
+                        <!-- end #featured -->
+                    </c:if>
+
+                    <div class="spacer_10"><!--do not collapse--></div>
+                    <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+                    <div class="inlineAd">
+                        <ad:adTag position="Inline_423x60"/>
+                    </div>
+
+                    <c:if test="${topicCenter.healthAndDevelopmentTopicCenter}">
+                        <div class="spacer_15"><!-- do not collapse --></div>
+                    </c:if>
+
+                    <ad:adTag position="House_Ad_423x230"/>
+
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                          items="${requestScope.carouselItems}"/>
+
+                    <c:set var="raiseYourHand">
+                        <c:import
+                                url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
+                    </c:set>
+                    ${raiseYourHand}
+
+                    <c:if test="${!topicCenter.stateOfEducationTopicCenter}">
+
+                        <!-- Community links -->
+                        <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+                        <c:set var="recentDiscussions">
+                            <c:import
+                                    url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
+                        </c:set>
+                        <c:if test="${!empty recentDiscussions}">
+                            <div class="spacer_10"><!-- don't collapse --></div>
+                            <div id="recentDiscussions" class="mod">
+                                ${recentDiscussions}
+                            </div>
+                        </c:if>
+
+                        <!-- GS-10042 only show Start a Conversation module if not a K12 topic center -->
+                        <c:if test="${!fn:startsWith(requestScope.topicCenter.fullUri, '/online-education')}">
+                            <div class="startAConversationModule rnd8">
+                                <div id="sac-downArrow-fc6"><!--do not collapse--></div>
+                                <c:set var="startAConversationModule">
+                                    <c:import
+                                            url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
+                                </c:set>
+                                ${pageScope.startAConversationModule}
+                            </div>
+                        </c:if>
+
                     </c:if>
                 </div>
-
-            </div>
-            <!-- end #featured -->
-          </c:if>
-<div class="spacer_10"><!--do not collapse--></div>
-            <!-- DONE-9457, DONE-9536 Randall, this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
-            <div class="inlineAd">
-                <ad:adTag position="Inline_423x60"/>
-            </div>
-
-            <c:if test="${topicCenter.healthAndDevelopmentTopicCenter}">
-                <div class="spacer_15"><!-- do not collapse --></div>
-            </c:if>
-
-            <ad:adTag position="House_Ad_423x230"/>
-
-            <c:choose>
-                <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
-                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
-                                  items="${requestScope.videoCarouselItems}"/>
-                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
-                                  items="${requestScope.carouselItems}"/>
-                </c:when>
-                <c:otherwise>
-                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
-                                  items="${requestScope.carouselItems}"/>
-                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
-                                  items="${requestScope.videoCarouselItems}"/>
-                </c:otherwise>
-            </c:choose>
-            <c:set var="raiseYourHand">
-                <c:import
-                        url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
-            </c:set>
-            ${raiseYourHand}
-
-            <c:if test="${!topicCenter.stateOfEducationTopicCenter}">
-
-                <!-- Community links -->
-                <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-                <c:set var="recentDiscussions">
-                    <c:import
-                            url="/community/recentDiscussions.module?board_id=${requestScope.topicCenter.discussionBoardId}&amp;limit=5"/>
-                </c:set>
-                <c:if test="${!empty recentDiscussions}">
-                    <div class="spacer_10"><!-- don't collapse --></div>
-                    <div id="recentDiscussions" class="mod">
-                        ${recentDiscussions}
-                    </div>
-                </c:if>
-
-                <!-- GS-10042 only show Start a Conversation module if not a K12 topic center -->
-                <c:if test="${!fn:startsWith(requestScope.topicCenter.fullUri, '/online-education')}">
-                    <div class="startAConversationModule rnd8">
-                        <div id="sac-downArrow-fc6"><!--do not collapse--></div>
-                        <c:set var="startAConversationModule">
-                            <c:import
-                                    url="/community/startDiscussion.module?topicCenterId=${requestScope.topicCenter.contentKey.identifier}&amp;discussionBoardId=${requestScope.topicCenter.discussionBoardId}&amp;callPreviewHoverTag=false"/>
-                        </c:set>
-                        ${pageScope.startAConversationModule}
-                    </div>
-                </c:if>
-
-            </c:if>
-        </div>
-        <!-- end #topicMainGS -->
+            </c:otherwise>
+            <!--end #topicMainGS -->
+        </c:choose>
 
     </div>
     <!-- end #topicContentGS -->

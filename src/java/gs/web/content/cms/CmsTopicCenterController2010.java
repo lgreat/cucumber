@@ -15,16 +15,20 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolWithRatings;
 import gs.data.school.review.IReviewDao;
+import gs.data.search.SearchResultsPage;
 import gs.data.security.Permission;
 import gs.data.state.State;
 import gs.data.util.CmsUtil;
 import gs.web.school.SchoolOverviewController;
+import gs.web.search.CmsFeatureSearchService;
+import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -51,6 +55,8 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private IReviewDao _reviewDao;
     private IGeoDao _geoDao;
     private ILocalBoardDao _localBoardDao;
+    private CmsFeatureSearchService _cmsFeatureSearchService;
+    private ICmsCategoryDao _cmsCategoryDao;
     private Boolean _useAdKeywords = true;
     private Long _topicCenterContentID;
 
@@ -66,6 +72,8 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
     public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
     public static final String MODEL_URI = "uri";
+    public static final String MODEL_IS_VIDEO = "isVideo";
+    public static final String MODEL_VIDEO_RESULTS = "videoResults";
     public static final String LOCAL_DISCUSSION_BOARD_ID = "localDiscussionBoardId";
     public static final String LOCAL_DISCUSSION_TOPIC = "localDiscussionTopic";
     public static final String LOCAL_DISCUSSION_TOPIC_FULL = "localDiscussionTopicFull";
@@ -99,8 +107,35 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 } else if (getTopicCenterContentID() == null) {
                     try {
                         contentId = new Long(request.getParameter("content"));
+                        if (contentId != null && uri.toLowerCase().contains(".videos")) {
+                            model.put(MODEL_IS_VIDEO, true);
+                            String categoryIds = "";
+                            //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
+                            //The categories for the 'videos' subtopics are entered in the cms on the topic center template.
+                            if (StringUtils.isNotBlank(request.getParameter("grades"))) {
+                                categoryIds += request.getParameter("grades");
+                            }
+                            if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
+                                if (categoryIds.length() > 0) {
+                                    categoryIds += ",";
+                                }
+                                categoryIds += request.getParameter("subjects");
+                            }
+                            if (StringUtils.isNotBlank(request.getParameter("topics"))) {
+                                if (categoryIds.length() > 0) {
+                                    categoryIds += ",";
+                                }
+                                categoryIds += request.getParameter("topics");
+                            }
+                            List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIds);
 
-                        if (contentId == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID && uri.equals("/LD.topic")) {
+                            SearchResultsPage<ICmsFeatureSearchResult> searchResults = _cmsFeatureSearchService.getCmsFeaturesByType(categories, "Video", 10, 1);
+                            if (searchResults != null && searchResults.getTotalResults() > 0) {
+                                model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
+                            } else {
+                                model.put(MODEL_VIDEO_RESULTS, new ArrayList());
+                            }
+                        } else if (contentId == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID && uri.equals("/LD.topic")) {
                             UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID));
                             if (!builder.asSiteRelative(request).startsWith("/LD.topic")) {
                                 return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
@@ -206,7 +241,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         }
 
-
+         if(isAjaxRequest(request) && StringUtils.isNotBlank(request.getParameter("requestType")) && request.getParameter("requestType").equals("ajax")){
+            return new ModelAndView("/content/cms/videoGalleryTable", model);
+         }
 
         return new ModelAndView(_viewName, model);
     }
@@ -615,6 +652,11 @@ public class CmsTopicCenterController2010 extends AbstractController {
         return sub;
     }
     // END sample topic center methods
+    
+    public static boolean isAjaxRequest(HttpServletRequest request) {
+        return "XMLHttpRequest"
+                .equals(request.getHeader("X-Requested-With"));
+    }
 
     //=========================================================================
     // spring-injected beans
@@ -698,5 +740,21 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     public void setLocalBoardDao(ILocalBoardDao _localBoardDao) {
         this._localBoardDao = _localBoardDao;
+    }
+
+    public CmsFeatureSearchService getCmsFeatureSearchService() {
+        return _cmsFeatureSearchService;
+    }
+
+    public void setCmsFeatureSearchService(CmsFeatureSearchService cmsFeatureSearchService) {
+        _cmsFeatureSearchService = cmsFeatureSearchService;
+    }
+
+    public ICmsCategoryDao getCmsCategoryDao() {
+        return _cmsCategoryDao;
+    }
+
+    public void setCmsCategoryDao(ICmsCategoryDao cmsCategoryDao) {
+        _cmsCategoryDao = cmsCategoryDao;
     }
 }

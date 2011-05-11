@@ -26,6 +26,10 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     private String _title;
     private String _summary;
     private Date _dateCreated;
+    private String _imageUrl;
+    private String _imageAltText;
+    private String _length;
+    private String _grades;
 
     // empty constructor required by JAXB
     public SolrCmsFeatureSearchResult(){
@@ -148,5 +152,40 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
         return new ContentKey(_contentType,_contentId);
     }
 
+    @XmlElement
+    public String getImageUrl() {
+        return _imageUrl;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_IMAGE_URL)
+    public void setImageUrl(String imageUrl) {
+        _imageUrl = imageUrl;
+    }
+
+    @XmlElement
+    public String getImageAltText() {
+        return _imageAltText;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_IMAGE_ALT_TEXT)
+    public void setImageAltText(String imageAltText) {
+        _imageAltText = imageAltText;
+    }
+
+    @XmlElement
+    public String getLength() {
+        return _length;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_LENGTH)
+    public void setLength(String length) {
+        _length = length;
+    }
+    
+    @XmlElement
+    public String getGrades() {
+        return _grades;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_GRADES)
+    public void setGrades(String grades) {
+        _grades = grades;
+    }
 
 }

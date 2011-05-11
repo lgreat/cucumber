@@ -20,6 +20,10 @@ public interface ICmsFeatureSearchResult extends ISearchResult {
     public String getTitle();
     public String getSummary();
     public Date getDateCreated();
+    public String getImageUrl();
+    public String getImageAltText();
+    public String getLength();
+    public String getGrades();
     public void setContentType(String contentType);
     public void setContentId(Long contentId);
     public void setFullUri(String fullUri);

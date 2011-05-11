@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.246 2011/05/10 22:29:58 rcox Exp $
+ * $Id: UrlBuilder.java,v 1.247 2011/05/11 23:09:10 npatury Exp $
  */
 
 package gs.web.util;
@@ -296,6 +296,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_FINDER_WIDGET = new VPage("vpage:schoolFinderWidget");
 
     public static final VPage CMS_CATEGORY_BROWSE = new VPage("vpage:cmsCategoryBrowse");
+    public static final VPage CMS_VIDEO_GALLERY = new VPage("vpage:cmsVideoGallery");
 
     /**
      * Api Pages
@@ -515,7 +516,7 @@ public class UrlBuilder {
         initializeForCmsContent(contentKey, fullUri, false);
     }
 
-    // unfortunately, changes to this also necessitate changes to PublicationDao.getHttpUrlForContentUrl()
+    // unfortunately, changes to this also necessitate changes to PublicationDao.populateHttpUrlForContentUrl()
     // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
     private void initializeForCmsContent(ContentKey contentKey, String fullUri, Boolean raiseYourHand) {
         _perlPage = false;
@@ -988,6 +989,49 @@ public class UrlBuilder {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
+
+    /**
+     * Url for CMS-driven browse-content-by-category page
+     * @param page Must be UrlBuilder.CMS_VIDEO_GALLERY
+     * @param topicCenterId
+     * @param topicCenterUrl
+     * @param topicIDs Comma-separated list of topic IDs
+     * @param gradeIDs Comma-separated list of grade IDs
+     * @param subjectIDs Comma-separated list of subject IDs
+     * @param language
+     */
+    public UrlBuilder(VPage page, Long topicCenterId, String topicCenterUrl, String topicIDs, String gradeIDs, String subjectIDs, String language) {
+        if (CMS_VIDEO_GALLERY.equals(page) && StringUtils.isNotBlank(topicCenterUrl) && topicCenterId != null) {
+
+            StringBuilder s = new StringBuilder();
+            s.append("?content=").append(topicCenterId);
+
+            if (StringUtils.isNotBlank(topicIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("topics=").append(topicIDs);
+            }
+            if (StringUtils.isNotBlank(gradeIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("grades=").append(gradeIDs);
+            }
+            if (StringUtils.isNotBlank(subjectIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("subjects=").append(subjectIDs);
+            }
+            _perlPage = false;
+            _path = "/" + topicCenterUrl + "-videos.videos" + s.toString() +
+                    (StringUtils.isNotBlank(language) ? "&language=" + language : "");
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
 
     public UrlBuilder(VPage page, boolean showConfirmation) {
         // GS-7917

@@ -144,25 +144,24 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
         return null;
     }
 
-    /**
-     * Searches the indexed cms features and sorts by date created.
-     *
-     * @param gradeId    list of topic categories
-     * @param pageSize   number of rows to return
-     * @param pageNumber page number to set the offset for pagination
-     * @return SearchResultsPage of type CmsFeatureSearchResult
-     */
-    public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeaturesSortByDate(Long gradeId, int pageSize, int pageNumber) {
-        String searchStr = buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_GRADE_ID, String.valueOf(gradeId), null);
-        FieldSort sort = FieldSort.valueOf("CMS_DATE_CREATED");
 
-        //Given the page number set the offset for the solr query.Offset is 0 based in solr.
+    public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeaturesByType(List<CmsCategory> categories, String contentType,
+                                                                           int pageSize, int pageNumber) {
+
+        String searchStr = buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CONTENT_TYPE, contentType, null);
+
+        for (CmsCategory category : categories) {
+            searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_CATEGORY_ID, String.valueOf(category.getId()), null);
+        }
+
         int offset = pageNumber - 1;
         if (offset > 0 && pageSize > 0) {
             offset = (offset * pageSize);
         }
+        
         try {
-            return search(searchStr, sort, offset, pageSize);
+            SearchResultsPage<ICmsFeatureSearchResult> sr = search(searchStr, offset, pageSize);
+            return sr;
         } catch (SearchException ex) {
             _log.debug("Search Exception in CmsFeatureSearch.", ex);
         }

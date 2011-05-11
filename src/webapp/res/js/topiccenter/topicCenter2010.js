@@ -273,6 +273,86 @@ $j(document).ready(function() {
             stateSelect.show();
            });
     });
+
+
+     /* ------------------------------------------------ */
+    /* -- VIDEO FILTERS -- */
+    /* ------------------------------------------------ */
+
+    //get the query params from the url
+    $.extend({
+        getUrlVars: function() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        },
+        getUrlVar: function(name) {
+            return $.getUrlVars()[name];
+        }
+    });
+
+    $j(".js_videoFilterDropDown").change(function() {
+        var data = {};
+        data.requestType = "ajax";
+        data.decorator = "emptyDecorator";
+        data.confirm = "true";
+        //Pass the topic center Id.
+        if ($.getUrlVar("content") != undefined && $.getUrlVar("content") != "") {
+            data.content = $.getUrlVar("content");
+        }
+        //Grades,subjects,topics are cms entered for the 'videos' subtopic on the topic center template.
+        //Therefore pass them through.
+        if ($.getUrlVar("grades") != undefined && $.getUrlVar("grades") != "") {
+            data.grades = $.getUrlVar("grades");
+        }
+
+        if ($.getUrlVar("subjects") != undefined && $.getUrlVar("subjects") != "") {
+            data.subjects = $.getUrlVar("subjects");
+        }
+
+        if ($.getUrlVar("topics") != undefined && $.getUrlVar("topics") != "") {
+            data.topics = $.getUrlVar("topics");
+        }
+
+        //Add the user selected grades filter to the grades params.
+        if ($("#js_gradesDropdown").val() != -1) {
+            if (data.grades != undefined && data.grades.length > 0) {
+                data.grades = data.grades +","+ $("#gradesDropdown").val();
+            }else{
+                 data.grades = $("#gradesDropdown").val();
+            }
+        }
+
+        //Add the user selected topics/subjects filter to the topics params.
+        if ($("#js_topicsDropdown").val() != -1) {
+            if (data.topics != undefined && data.topics.length > 0) {
+                data.topics = data.topics +","+ $("#topicsDropdown").val();
+            }else{
+                data.topics = $("#topicsDropdown").val();
+            }
+        }
+
+        $j('#spinner').show();
+        $j.ajax({type: "post", url: getUrl(), data: data, success: successFun, error: ErrorFun});
+
+    });
+
+    var successFun = function(data) {
+         $j("#js_videoGalleryData").html(data);
+         $j("#spinner").hide();
+        return true;
+    }
+
+    var ErrorFun = function(data) {
+        return false;
+    }
+
 });
 
 

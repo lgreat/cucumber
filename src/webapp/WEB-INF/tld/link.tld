@@ -246,6 +246,72 @@
     </tag>
 
     <tag>
+        <name>cmsVideoGallery</name>
+        <tag-class>gs.web.jsp.link.CmsVideoGalleryTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>CMS Category Browse</display-name>
+        <description>
+            <![CDATA[Link to a CMS video gallery page.]]>
+        </description>
+        <attribute>
+            <name>topicCenterId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Topic Center ID</description>
+        </attribute>
+        <attribute>
+            <name>topicCenterUrl</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>String of the topic center url</description>
+        </attribute>
+        <attribute>
+            <name>topicIDs</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of topic IDs</description>
+        </attribute>
+        <attribute>
+            <name>gradeIDs</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of grade IDs</description>
+        </attribute>
+        <attribute>
+            <name>subjectIDs</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma-separated string of subject IDs</description>
+        </attribute>
+        <attribute>
+            <name>language</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Language code</description>
+        </attribute>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>unique identifier for this link element</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>cmsContent</name>
         <tag-class>gs.web.jsp.link.CmsContentTagHandler</tag-class>
         <body-content>JSP</body-content>
