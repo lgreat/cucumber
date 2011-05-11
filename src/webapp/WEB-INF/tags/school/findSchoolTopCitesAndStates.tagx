@@ -38,7 +38,7 @@
                         <ul class="smallText1">
                             <li><a href="/new-york/new-york-city/community.gs?content=2003"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                                <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
+                                <li><a href="http://www.realtor.com/realestateandhomes-search/New-York_NY?gate=gs&amp;source=PRT300014" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                             </c:if>
                         </ul>
                     </li>
@@ -47,7 +47,7 @@
                         <ul class="smallText1">
                             <li><a href="/california/los-angeles/community.gs?content=1967"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                                <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
+                                <li><a href="http://www.realtor.com/realestateandhomes-search/Los-Angeles_CA?gate=gs&amp;source=PRT300014" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                             </c:if>
                         </ul>
                     </li>
@@ -56,7 +56,7 @@
                         <ul class="smallText1">
                             <li><a href="/georgia/atlanta/community.gs?content=1979"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                                <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
+                                <li><a href="http://www.realtor.com/realestateandhomes-search/Atlanta_GA?gate=gs&amp;source=PRT300014" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                             </c:if>
                         </ul>
                     </li>
@@ -65,7 +65,7 @@
                         <ul class="smallText1">
                             <li><a href="/illinois/chicago/community.gs?content=1983"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                                <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
+                                <li><a href="http://www.realtor.com/realestateandhomes-search/Chicago_IL?gate=gs&amp;source=PRT300014" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                             </c:if>
                         </ul>
                     </li>
@@ -74,7 +74,7 @@
                         <ul class="smallText1">
                             <li><a href="/texas/houston/community.gs?content=2016"><span class="sprite community-sm"><!-- not empty --></span>Community</a></li>
                             <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                                <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=a28956" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
+                                <li><a href="http://www.realtor.com/realestateandhomes-search/Houston_TX?gate=gs&amp;source=PRT300014" rel="nofollow" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_splash_inlinelink ');} return true;"><span class="sprite house"><!-- not empty --></span>Homes for sale</a></li>
                             </c:if>
                         </ul>
                     </li>

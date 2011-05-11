@@ -99,7 +99,7 @@ height += heightMultiplier * 13;-->
                 <div class="unit size1of3 lastUnit">
                     <div class="homesForSale">
                     <c:set var="customLinkValue" value="RealtorModule_${requestScope.omniturePageName}_inlinelinkmap"/>
-                    <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=a28956"
+                    <a href="http://www.realtor.com/realestateandhomes-search/${school.physicalAddress.zip}?gate=gs&amp;amp;source=PRT300014"
                        onclick="if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;" target="_blank"
                        rel="nofollow">Homes for sale</a>
                     </div>

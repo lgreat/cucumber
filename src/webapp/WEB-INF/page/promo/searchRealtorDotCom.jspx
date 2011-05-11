@@ -209,7 +209,7 @@
                 </select></p>
             <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank">
                 <input type="hidden" name="gate" value="gs"/>
-                <input type="hidden" name="source" value="a28956"/>
+                <input type="hidden" name="source" value="PRT300014"/>
                 <input type="hidden" name="searchtext" value="" disabled="disabled"/>
             </form>
             <p>
@@ -218,7 +218,7 @@
                 </button>-->
                 <button class="button-1" type="submit" onclick="rdcSearchSubmit(); return false;">Search</button>
             </p>
-            <a href="http://www.realtor.com/?gate=gs&amp;amp;source=a28957"
+            <a href="http://www.realtor.com/?gate=gs&amp;amp;source=PRT300015"
                onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_searchLogo');} return true;"
                target="_blank" rel="nofollow">
                 <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com"
@@ -259,11 +259,11 @@
 
             <form method="get" action="#" id="rdcSubmitForm" style="display:none;" target="_blank">
                 <input type="hidden" name="gate" value="gs"/>
-                <input type="hidden" name="source" value="a28956"/>
+                <input type="hidden" name="source" value="PRT300014"/>
                 <input type="hidden" name="searchtext" value="" disabled="disabled"/>
             </form>
 
-            <a href="http://www.realtor.com/?gate=gs&amp;amp;source=a28957"
+            <a href="http://www.realtor.com/?gate=gs&amp;amp;source=PRT300015"
                onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_browseLogo');} return true;"
                target="_blank" rel="nofollow">
                 <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_small.gif" alt="Powered by Realtor.com"
