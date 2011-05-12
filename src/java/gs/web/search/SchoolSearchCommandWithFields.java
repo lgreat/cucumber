@@ -129,6 +129,44 @@ class SchoolSearchCommandWithFields {
         return state;
     }
 
+    /**
+     * Returns the latitude from the command if already exists, otherwise tries to find a latitude in
+     * a district or city object if one exists.
+     * @return
+     */
+    public Float getLatitude() {
+        Float latitude = null;
+        if (_command.getLat() != null && _command.getLat() != null) {
+            latitude = _command.getLat().floatValue();
+        } else if (_district != null && _district.getLat() != null) {
+            latitude = _district.getLat();
+        } else if (_cityFromUrl != null && _cityFromUrl.getLat() != 0f) {
+            latitude = _cityFromUrl.getLat();
+        } else if (_cityFromSearchString != null && _cityFromSearchString.getLat() != 0f) {
+            latitude = _cityFromSearchString.getLat();
+        }
+        return latitude;
+    }
+
+    /**
+     * Returns the longitude from the command if already exists, otherwise tries to find a longitude in
+     * a district or city object if one exists.
+     * @return
+     */
+    public Float getLongitude() {
+        Float longitude = null;
+        if (_command.getLon() != null && _command.getLon() != null) {
+            longitude = _command.getLon().floatValue();
+        } else if (_district != null && _district.getLon() != null) {
+            longitude = _district.getLon();
+        } else if (_cityFromUrl != null && _cityFromUrl.getLon() != 0f) {
+            longitude = _cityFromUrl.getLon();
+        } else if (_cityFromSearchString != null && _cityFromSearchString.getLon() != 0f) {
+            longitude = _cityFromSearchString.getLon();
+        }
+        return longitude;
+    }
+
     public String getSearchString() {
         return _command.getSearchString();
     }
