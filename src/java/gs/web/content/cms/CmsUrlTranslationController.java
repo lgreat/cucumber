@@ -26,7 +26,8 @@ public class CmsUrlTranslationController extends AbstractController {
         String contentType = (String) request.getParameterNames().nextElement();
 
         if ("Article".equals(contentType) || "AskTheExperts".equals(contentType) || "TopicCenter".equals(contentType) ||
-            "ArticleSlide".equals(contentType) || "ArticleSlideshow".equals(contentType) || "DiscussionBoard".equals(contentType)) {
+            "ArticleSlide".equals(contentType) || "ArticleSlideshow".equals(contentType) || "DiscussionBoard".equals(contentType)
+             || "Video".equals(contentType)) {
             Long contentId;
 
             try {
