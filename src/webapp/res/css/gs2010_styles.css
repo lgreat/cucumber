@@ -3645,6 +3645,12 @@ body.cobranded #pageGS {
 
     /* Text Shadow */
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
+
+    /* Transition */
+    /*-webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;*/
 }
 
 .ff #globalnav a,
@@ -3676,7 +3682,9 @@ body.cobranded #pageGS {
     padding-right: 31px;
 }
 
-#globalnav a:hover {
+#globalnav a:hover,
+#globalnav a:focus,
+#globalnav a:active {
     color:#333;
     background: rgb(255,233,190); /* Old browsers */
 
@@ -3768,6 +3776,7 @@ body.cobranded #pageGS {
     width: auto;
     padding: 3px 15px 3px 10px;
     color:#06b;
+    outline: none;
 }
 
 #topnav_menusubnav a.arrow {
@@ -3849,7 +3858,7 @@ body.cobranded #pageGS {
     position: relative;
 }
 
-#topnav_menusubnav li,
+/*#topnav_menusubnav li,*/
 #myAccountMenu li {
     padding-left: 3px;
     float: left;

@@ -420,6 +420,9 @@
                                      <!--styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "-->
                                      <!--id="GlobalNav_CommunityButton">Community</gsml:a>-->
             <!--</li>-->
+            <li id="topnav_tp" class="nav_menu">
+                <a href="javascript:void(0)" class="nav_group_heading GS_CI9_" id="GlobalNav_TestPrep">Test Prep</a>
+            </li>
             <li id="topnav_comm" class="nav_menu">
                 <link:communityLanding styleClass="nav_group_heading GS_CI9_ " id="GlobalNav_CommunityButton"><span
                 class="sprite community-sm"><!-- community icon --></span>&amp;nbsp;Community</link:communityLanding>
