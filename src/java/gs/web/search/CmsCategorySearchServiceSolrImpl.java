@@ -12,7 +12,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-
+                                             
 public class CmsCategorySearchServiceSolrImpl extends BaseSingleFieldSolrSearchService<ICmsCategorySearchResult> implements CmsCategorySearchService {
     public static final String BEAN_ID = "solrCategorySearchService";
 

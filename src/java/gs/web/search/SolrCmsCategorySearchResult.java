@@ -4,7 +4,7 @@ import gs.data.search.indexers.documentBuilders.CmsCategoryDocumentBuilder;
 import org.apache.solr.client.solrj.beans.Field;
 
 import javax.xml.bind.annotation.*;
-@XmlType(propOrder={"categoryId","categoryName","categoryType","categoryFullUri"})
+@XmlType(propOrder={"categoryId","categoryName","categoryType","categoryFullUri"})      
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class SolrCmsCategorySearchResult implements ICmsCategorySearchResult {
     private Long _categoryId;
