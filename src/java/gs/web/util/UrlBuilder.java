@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.247 2011/05/11 23:09:10 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.248 2011/05/12 19:42:19 npatury Exp $
  */
 
 package gs.web.util;
@@ -1025,7 +1025,7 @@ public class UrlBuilder {
                 s.append("subjects=").append(subjectIDs);
             }
             _perlPage = false;
-            _path = "/" + topicCenterUrl + "-videos.videos" + s.toString() +
+            _path = "/videos" + topicCenterUrl + "/" + s.toString() +
                     (StringUtils.isNotBlank(language) ? "&language=" + language : "");
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);

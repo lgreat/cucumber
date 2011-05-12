@@ -107,9 +107,10 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 } else if (getTopicCenterContentID() == null) {
                     try {
                         contentId = new Long(request.getParameter("content"));
-                        if (contentId != null && uri.toLowerCase().contains(".videos")) {
+                        if (contentId != null && uri.toLowerCase().contains("/videos/")) {
                             model.put(MODEL_IS_VIDEO, true);
                             String categoryIds = "";
+                            //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
                             //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
                             //The categories for the 'videos' subtopics are entered in the cms on the topic center template.
                             if (StringUtils.isNotBlank(request.getParameter("grades"))) {
@@ -127,14 +128,17 @@ public class CmsTopicCenterController2010 extends AbstractController {
                                 }
                                 categoryIds += request.getParameter("topics");
                             }
-                            List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIds);
-
-                            SearchResultsPage<ICmsFeatureSearchResult> searchResults = _cmsFeatureSearchService.getCmsFeaturesByType(categories, "Video", 10, 1);
-                            if (searchResults != null && searchResults.getTotalResults() > 0) {
-                                model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
-                            } else {
-                                model.put(MODEL_VIDEO_RESULTS, new ArrayList());
+                            if (categoryIds.length() > 0) {
+                                List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIds);
+                                //Search for videos categorized with the grades, subjects and topics.
+                                SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 15, 1);
+                                if (searchResults != null && searchResults.getTotalResults() > 0) {
+                                    model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
+                                } else {
+                                    model.put(MODEL_VIDEO_RESULTS, new ArrayList());
+                                }
                             }
+
                         } else if (contentId == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID && uri.equals("/LD.topic")) {
                             UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID));
                             if (!builder.asSiteRelative(request).startsWith("/LD.topic")) {

@@ -60,7 +60,7 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
-        <url-pattern>*.videos</url-pattern>
+        <url-pattern>/videos/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -684,7 +684,7 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
-        <url-pattern>*.videos</url-pattern>
+        <url-pattern>/videos/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
@@ -1252,7 +1252,7 @@
 
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
-        <url-pattern>*.videos</url-pattern>
+        <url-pattern>/videos/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -2203,7 +2203,7 @@
 
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
-        <url-pattern>*.videos</url-pattern>
+        <url-pattern>/videos/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
