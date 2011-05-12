@@ -2565,7 +2565,7 @@ Viewport: the defines width and height of each icon
  /* Ext4: Image caption */
 .mediaExt4{margin:0 auto;_display:inline;}
 .mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
-.mediaExt4 .img{float:none;margin-bottom: 5px;}
+.mediaExt4 .img{float:none;margin-bottom: 5px;position:relative;}
 .mediaExt4 .img img {display: block;}
 
 /* =5 modules
@@ -11825,4 +11825,19 @@ p#btsBubbleOpts {
 #bts2010ChkLst a {
     color: #fff;
     font-size: 10px;
+}
+
+/* =Back to School 2011
+-------------------------------------------------------------------------------------------*/
+
+.bts-logo {
+    display: inline-block;
+    background-image: url(/res/img/backToSchool/2011/bts_header_unsponsored.png);
+    /* **************** VIEWPORT ***************** */
+    width: 175px;
+    height: 76px;
+    background-position: 0 0;
+    position:absolute;
+    top:-40px;
+    top:-40px;
 }

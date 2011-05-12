@@ -84,11 +84,8 @@
                 <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
                     <div class="mediaExt4">
                         <div class="img">
-                            <gsml:img id="bts-logo"
-                                      src="/res/img/backToSchool/2011/bts_header_unsponsored.png"
-                                      width="165"
-                                      height="40"
-                                      alt="Back to school logo 2011"/>
+                            <div class="spacer_40"><!-- do not collapse --></div>
+                            <span class="bts-logo"><!-- do not collapse --></span>
                         </div>
 
                         <div class="bk">
