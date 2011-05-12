@@ -574,6 +574,14 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/district-of-columbia/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>/District-of-columbia/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/west-virginia/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -1182,6 +1190,14 @@
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
         <url-pattern>/Washington-dc/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/district-of-columbia/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/District-of-columbia/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
@@ -2113,6 +2129,20 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
+        <url-pattern>/district-of-columbia/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/District-of-columbia/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
         <url-pattern>/west-virginia/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
@@ -2684,6 +2714,14 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/Washington-dc/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/district-of-columbia/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/District-of-columbia/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>sitemesh</filter-name>

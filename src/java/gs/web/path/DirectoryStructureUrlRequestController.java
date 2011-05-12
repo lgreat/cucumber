@@ -1,5 +1,6 @@
 package gs.web.path;
 
+import gs.data.url.DirectoryStructureUrlFactory;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -53,8 +54,8 @@ public class DirectoryStructureUrlRequestController extends AbstractController {
             String[] pathComponents = uri.split("/");
             if (pathComponents.length > 1) {
                 String longStateName = pathComponents[1];               
-                if (!longStateName.equals(longStateName.toLowerCase())) {
-                    uri = uri.replaceFirst("/" + longStateName + "/", "/" + longStateName.toLowerCase() + "/");
+                if (longStateName.equalsIgnoreCase("district-of-columbia") || !longStateName.equals(longStateName.toLowerCase())) {
+                    uri = uri.replaceFirst("/" + longStateName + "/", "/" + DirectoryStructureUrlFactory.getStateNameForUrl(state) + "/");
                     String queryString = request.getQueryString();
                     String redirectUrl = uri + (!StringUtils.isBlank(queryString) ? "?" + queryString : "");
                     return new ModelAndView(new RedirectView301(redirectUrl));

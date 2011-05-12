@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.81 2011/03/14 22:06:21 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.82 2011/05/12 17:40:11 droy Exp $
  */
 
 package gs.web.util.context;
@@ -503,13 +503,20 @@ public class SessionContextUtil implements ApplicationContextAware {
                                           SessionContext context) {
         Matcher matcher = getLongStateUriPattern().matcher(request.getRequestURI());
         boolean matchFound = matcher.find();
+        State state = null;
 
         if (matchFound) {
-            State state = _stateManager.getStateByLongName(matcher.group(1).replaceAll("-", " "));
-            if (state != null) {
-                final State currState = context.getState();
-                updateStateHelper(context, request, response, currState, state);
+            state = _stateManager.getStateByLongName(matcher.group(1).replaceAll("-", " "));
+        } else {
+            matcher = Pattern.compile("^/district-of-columbia", Pattern.CASE_INSENSITIVE).matcher(request.getRequestURI());
+            matchFound = matcher.find();
+            if (matchFound) {
+                state = State.DC;
             }
+        }
+        if (state != null) {
+            final State currState = context.getState();
+            updateStateHelper(context, request, response, currState, state);
         }
     }
 
@@ -777,7 +784,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public Pattern getLongStateUriPattern() {
         if (LONG_STATE_URI_PATTERN == null) {
-            StringBuffer longStatePattern = new StringBuffer("/(");
+            StringBuffer longStatePattern = new StringBuffer("^/(");
             List<State> states = _stateManager.getListByAbbreviations();
             for (int i = 0; i < states.size(); i++) {
                 if (i > 0) longStatePattern.append("|");

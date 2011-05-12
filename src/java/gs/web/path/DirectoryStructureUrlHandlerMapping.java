@@ -26,6 +26,8 @@ public class DirectoryStructureUrlHandlerMapping extends SimpleUrlHandlerMapping
             pattern = "/" + Util.capitalize(stateNameForUrl) + "/**";
             _map.put(pattern, "/directoryStructureUrlRequest.page");
         }
+        _map.put("/district-of-columbia/**", "/directoryStructureUrlRequest.page");
+        _map.put("/District-of-columbia/**", "/directoryStructureUrlRequest.page");
     }
 
     public void setUrlMap(Map urlMap) {
