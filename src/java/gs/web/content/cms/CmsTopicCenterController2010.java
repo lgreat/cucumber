@@ -109,27 +109,22 @@ public class CmsTopicCenterController2010 extends AbstractController {
                         contentId = new Long(request.getParameter("content"));
                         if (contentId != null && uri.toLowerCase().contains("/videos/")) {
                             model.put(MODEL_IS_VIDEO, true);
-                            String categoryIds = "";
+                            Set categoryIds = new TreeSet();
                             //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
                             //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
                             //The categories for the 'videos' subtopics are entered in the cms on the topic center template.
                             if (StringUtils.isNotBlank(request.getParameter("grades"))) {
-                                categoryIds += request.getParameter("grades");
+                                categoryIds.addAll(Arrays.asList(request.getParameter("grades").split(",")));
                             }
                             if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
-                                if (categoryIds.length() > 0) {
-                                    categoryIds += ",";
-                                }
-                                categoryIds += request.getParameter("subjects");
+                                categoryIds.addAll(Arrays.asList(request.getParameter("subjects").split(",")));
                             }
                             if (StringUtils.isNotBlank(request.getParameter("topics"))) {
-                                if (categoryIds.length() > 0) {
-                                    categoryIds += ",";
-                                }
-                                categoryIds += request.getParameter("topics");
+                                categoryIds.addAll(Arrays.asList(request.getParameter("topics").split(",")));
                             }
-                            if (categoryIds.length() > 0) {
-                                List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIds);
+                            if (categoryIds.size() > 0) {
+                                String categoryIdsStr = StringUtils.join(categoryIds,",");
+                                List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIdsStr);
                                 //Search for videos categorized with the grades, subjects and topics.
                                 SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 15, 1);
                                 if (searchResults != null && searchResults.getTotalResults() > 0) {
