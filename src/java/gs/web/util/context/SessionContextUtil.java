@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.83 2011/05/12 17:51:07 droy Exp $
+ * $Id: SessionContextUtil.java,v 1.84 2011/05/12 18:08:22 droy Exp $
  */
 
 package gs.web.util.context;
@@ -501,19 +501,18 @@ public class SessionContextUtil implements ApplicationContextAware {
      */
     public void updateStateFromRequestURI(HttpServletRequest request, HttpServletResponse response,
                                           SessionContext context) {
-        Matcher matcher = getLongStateUriPattern().matcher(request.getRequestURI());
-        boolean matchFound = matcher.find();
         State state = null;
-
-        if (matchFound) {
-            state = _stateManager.getStateByLongName(matcher.group(1).replaceAll("-", " "));
+        if (request.getRequestURI().toLowerCase().startsWith("/district-of-columbia")) {
+            state = State.DC;
         } else {
-            matcher = Pattern.compile("^/district-of-columbia", Pattern.CASE_INSENSITIVE).matcher(request.getRequestURI());
-            matchFound = matcher.find();
+            Matcher matcher = getLongStateUriPattern().matcher(request.getRequestURI());
+            boolean matchFound = matcher.find();
+
             if (matchFound) {
-                state = State.DC;
+                state = _stateManager.getStateByLongName(matcher.group(1).replaceAll("-", " "));
             }
         }
+
         if (state != null) {
             final State currState = context.getState();
             updateStateHelper(context, request, response, currState, state);

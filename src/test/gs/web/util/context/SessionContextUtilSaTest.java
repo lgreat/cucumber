@@ -289,11 +289,16 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
         assertEquals("Expected state of NY", State.NY, _sessionContext.getState());
 
+        _request.setRequestURI("/washington-dc/washington/schools/");
+        _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
+        assertEquals("Expected state of DC", State.DC, _sessionContext.getState());
+
         _request.setRequestURI("/Vermont/burlington/schools/");
         _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
         assertEquals("Expected state of VT", State.VT, _sessionContext.getState());
 
-        _request.setRequestURI("/washington-dc/washington/schools/");
+        // Special case for GS-11672
+        _request.setRequestURI("/district-of-columbia/washington/schools/");
         _sessionContextUtil.updateStateFromRequestURI(_request, _response, _sessionContext);
         assertEquals("Expected state of DC", State.DC, _sessionContext.getState());
 
