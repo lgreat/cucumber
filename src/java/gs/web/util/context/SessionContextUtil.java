@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.82 2011/05/12 17:40:11 droy Exp $
+ * $Id: SessionContextUtil.java,v 1.83 2011/05/12 17:51:07 droy Exp $
  */
 
 package gs.web.util.context;
@@ -784,7 +784,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public Pattern getLongStateUriPattern() {
         if (LONG_STATE_URI_PATTERN == null) {
-            StringBuffer longStatePattern = new StringBuffer("^/(");
+            StringBuffer longStatePattern = new StringBuffer("/(");
             List<State> states = _stateManager.getListByAbbreviations();
             for (int i = 0; i < states.size(); i++) {
                 if (i > 0) longStatePattern.append("|");
