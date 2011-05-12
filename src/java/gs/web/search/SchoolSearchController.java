@@ -127,6 +127,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
 
+        String searchString = schoolSearchCommand.getSearchString();
         FilterFactory filterFactory = new FilterFactory();
 
         boolean foundDidYouMeanSuggestions = false;
@@ -209,7 +210,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         //if user did not enter search term (and this is not a nearby search), redirect to state browse
-        if (!schoolSearchCommand.isNearbySearch() && isSearch && StringUtils.isBlank(schoolSearchCommand.getSearchString())) {
+        if (!schoolSearchCommand.isNearbySearch() && isSearch && StringUtils.isBlank(searchString)) {
             return stateBrowseRedirect(request, sessionContext);
         }
 
@@ -275,7 +276,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                 }
 
                 searchResultsPage = service.search(
-                        schoolSearchCommand.getSearchString(),
+                        searchString,
                         fieldConstraints,
                         filterGroups,
                         sort,
@@ -288,7 +289,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
                 if (searchResultsPage.getTotalResults() == 0 && searchResultsPage.getSpellCheckResponse() != null &&
                     !schoolSearchCommand.isNearbySearch()) {
-                    String didYouMean = getSearchSuggestion(schoolSearchCommand.getSearchString(), searchResultsPage.getSpellCheckResponse());
+                    String didYouMean = getSearchSuggestion(searchString, searchResultsPage.getSpellCheckResponse());
 
                     if (didYouMean != null) {
                         SearchResultsPage<ISchoolSearchResult> didYouMeanResultsPage = service.search(
@@ -321,27 +322,43 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
         List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
-        if (schoolSearchCommand.getSearchString() != null) {
-            try {
-                Map<IFieldConstraint,String> cityConstraints = new HashMap<IFieldConstraint,String>();
-                cityConstraints.put(CitySearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
-                SearchResultsPage<ICitySearchResult> cityPage  = getCitySearchService().search(schoolSearchCommand.getSearchString(), cityConstraints, null, null, 0, 33);
-                citySearchResults = cityPage.getSearchResults();
-            } catch (SearchException ex) {
-                _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", e);
-            }
-            model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
 
-            try {
-                Map<IFieldConstraint,String> districtConstraints = new HashMap<IFieldConstraint,String>();
-                districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
-                SearchResultsPage<IDistrictSearchResult> districtPage  = getDistrictSearchService().search(schoolSearchCommand.getSearchString(), districtConstraints, null, null, 0, 11);
-                districtSearchResults = districtPage.getSearchResults();
-            } catch (SearchException ex) {
-                _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
+        Float browseLat = commandAndFields.getLatitude();
+        Float browseLon = commandAndFields.getLongitude();
+        
+        try {
+            Map<IFieldConstraint,String> cityConstraints = new HashMap<IFieldConstraint,String>();
+            cityConstraints.put(CitySearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
+            SearchResultsPage<ICitySearchResult> cityPage;
+            if ((isCityBrowse || isDistrictBrowse) && browseLat != null && browseLon != null) {
+                cityPage  = getCitySearchService().getCitiesNear(browseLat, browseLon, 5, null, 0, 33);
+                citySearchResults = cityPage.getSearchResults();
+            } else if (searchString != null) {
+                cityPage  = getCitySearchService().search(searchString, cityConstraints, null, null, 0, 33);
+                citySearchResults = cityPage.getSearchResults();
             }
-            model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
+        } catch (SearchException ex) {
+            _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", e);
         }
+        model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
+
+
+        try {
+            Map<IFieldConstraint,String> districtConstraints = new HashMap<IFieldConstraint,String>();
+            districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
+            SearchResultsPage<IDistrictSearchResult> districtPage;
+            if ((isCityBrowse || isDistrictBrowse) && browseLat != null && browseLon != null) {
+                districtPage = getDistrictSearchService().getDistrictsNear(browseLat, browseLon, 5, null, 0, 11);
+                districtSearchResults = districtPage.getSearchResults();
+            } else if (searchString != null) {
+                districtPage = getDistrictSearchService().search(searchString, districtConstraints, null, null, 0, 11);
+                districtSearchResults = districtPage.getSearchResults();
+            }
+        } catch (SearchException ex) {
+            _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
+        }
+        model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
+
 
         PageHelper.setHasSearchedCookie(request, response);
 
@@ -351,7 +368,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(), model); //TODO: fix
-        addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, schoolSearchCommand.getSearchString(), searchResultsPage.getSearchResults(), city, district);
+        addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, searchString, searchResultsPage.getSearchResults(), city, district);
 
         City localCity = (city != null ? city : commandAndFields.getCityFromSearchString());
         if (localCity != null) {
@@ -362,11 +379,11 @@ public class SchoolSearchController extends AbstractCommandController implements
             }
         }
 
-        model.put(MODEL_SEARCH_STRING, schoolSearchCommand.getSearchString());
+        model.put(MODEL_SEARCH_STRING, searchString);
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
         model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
-                                     filterGroups, levelCode, schoolSearchCommand.getSearchString()));
+                                     filterGroups, levelCode, searchString));
 
         if (commandAndFields.isCityBrowse()) {
             model.putAll(new CityMetaDataHelper().getMetaData(commandAndFields));
@@ -394,7 +411,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                         citySearchResults, districtSearchResults)
         );
 
-        String omnitureQuery = isSearch? getOmnitureQuery(schoolSearchCommand.getSearchString()) : null;
+        String omnitureQuery = isSearch? getOmnitureQuery(searchString) : null;
         model.put(MODEL_OMNITURE_QUERY, omnitureQuery);
         model.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
         model.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(levelCode));
