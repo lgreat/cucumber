@@ -75,7 +75,7 @@
                         </c:otherwise>
                     </c:choose>
                 </li>
-                <li>
+                <!--<li>
                     <c:choose>
                         <c:when test="${pageScope.selected eq 'mobile'}">
                             <span class="text2">Mobile App</span>
@@ -84,7 +84,7 @@
                             <a href="/about/linkToUs.page">Mobile App</a>
                         </c:otherwise>
                     </c:choose>
-                </li>
+                </li>-->
                 <li>
                     <c:choose>
                         <c:when test="${pageScope.selected eq 'mediaRoom'}">
