@@ -77,6 +77,16 @@
                 </li>
                 <li>
                     <c:choose>
+                        <c:when test="${pageScope.selected eq 'mobile'}">
+                            <span class="text2">Mobile App</span>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/about/linkToUs.page">Mobile App</a>
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+                <li>
+                    <c:choose>
                         <c:when test="${pageScope.selected eq 'mediaRoom'}">
                             <span class="text2">Media Room</span>
                         </c:when>

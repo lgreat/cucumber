@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.page import="gs.data.school.ISchoolDao"/>
+<jsp:directive.page import="gs.data.state.State"/>
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Mobile iPhone App | GreatSchools</title>
+    <!-- TODO: Page description and keywords. -->
+    <meta name="description" content="TBD"/>
+    <meta name="keywords" content="TBD"/>
+
+    <!--<pageHelper:externalCss file="/res/css/about/aboutUs.css"/>-->
+
+</head>
+
+<gsml:body adPageName="aboutUs" pageLayout="leftside iPhoneApp">
+
+    <div id="mainGS">
+
+        <div class="mvm smallAlertText">
+            <link:home>Home</link:home> &amp;gt; <link:aboutUs>About Us</link:aboutUs>
+        </div>
+
+        <div id="aboutNav" class="col">
+            <about:aboutGreatSchools selected="mobile"/>
+        </div>
+
+        <div class="iPhoneAppMain col">
+            <h2>Mobile iPhone App: GreatSchools Finder</h2>
+            <p class="text1bold">Now you can use GreatSchools anytime.  Find the best schools anywhere in the country, whenever you need to.</p>
+            <p class="text1">Key features:</p>
+            <ul>
+                <li><span class="text1">Search the latest school information for K-12 schools in the U.S.</span></li>
+                <li><span class="text1">Map and compare schools for any city, based on your current location.</span></li>
+                <li><span class="text1">Filter schools by public or private, grade level, distance, GreatSchools rating, community rating or enrollment size.</span></li>
+                <li><span class="text1">Browse parent reviews, recent test scores and district info from your iPhone or iPad.</span></li>
+                <li><span class="text1">Save school search results to your personal list of favorites.</span></li>
+                <li><span class="text1">Share school and comparison info with family and friends.</span></li>
+            </ul>
+            <p class="text2">Note: This application only searches for K-12 public &amp;amp; private schools within the U.S.  It is available internationally for users who want to search within the U.S.</p>
+            <p class="text2">Requires iOS 4.0 or later.</p>
+            <a href="javascript:void(0)" class="button-3">Download Now</a>
+
+        </div>
+
+        <div class="iPhoneImage col">
+            <gsml:img src="/res/img/about/iPhoneApp/aboutiPhoneApp.png" width="258" height="568" alt="iPhone App GreatSchools Finder"/>
+        </div>
+
+    </div>
+
+<div id="tracking">
+    <ad:setSlotPrefix slotPrefix="AboutUs_Management"/>
+    <mod:tracking pageName="iPhone App" hier1="Home,Corporate,AboutUs,iPhone"/>
+</div>
+</gsml:body>
+</html>
+</jsp:root>

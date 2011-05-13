@@ -52,8 +52,6 @@ General comments:
 =12d-1 search styles
 =12d-2 community start a conversation hovers
 =12d-3 community avatar hover
-=12e about pages
-=12e-5 about sponsors
 =12e-6 data and widgets
 =12f schools
 =12f-1 school profile (deprecated: see 4k)
@@ -101,6 +99,8 @@ General comments:
 =debugging styles
 =temporary modules
 =Back to School 2010
+=Back to School 2011
+=About Us
 */
 
 /* =0 reset
@@ -2771,6 +2771,29 @@ Viewport: the defines width and height of each icon
 .search-bd {
     padding: 10px;
     background-color: #ebebeb;
+}
+
+#aboutNav {
+    width: 160px;
+}
+
+#aboutNav .mod {
+    margin: 0 0 15px;
+}
+
+#aboutNav .mod_hd h3 {
+    font: bold 13px/1.3 Arial, Helvetica, sans-serif;
+    height: 20px;
+    padding: 6px 10px 0;
+}
+
+#aboutNav .mod_bd {
+    border: 1px solid #ccc;
+    padding: 10px 12px 5px;
+}
+
+#aboutNav .mod_bd li {
+    margin-bottom: 6px;
 }
 
 /* =6 spacing
@@ -6430,62 +6453,6 @@ body.hover #uploadAvatarHover form {
     width: auto;
     height: auto;
 }
-
-/* =12e- about pages
--------------------------------------------------------------------------------------------*/
-/*.leftside #contentGS h1 {
-    margin: 0 0 14px 20px;
-}*/
-
-p.breadcrumbs {
-    margin: 10px 0 14px 20px;
-}
-
-#aboutNav {
-    width: 160px;
-}
-
-#aboutNav .mod {
-    margin: 0 0 15px;
-}
-
-#aboutNav .mod_hd h3 {
-    font: bold 13px/1.3 Arial, Helvetica, sans-serif;
-    height: 20px;
-    padding: 6px 10px 0;
-}
-
-#aboutNav .mod_bd {
-    border: 1px solid #ccc;
-    padding: 10px 12px 15px;
-}
-
-#aboutNav .mod_bd li {
-    margin-bottom: 5px;
-}
-
-#reviewGuidelines div.col_left {
-    width: 600px;
-    float: left;
-}
-
-#reviewGuidelines div.col_right {
-    width: 300px;
-    float: left;
-    padding: 20px;
-}
-
-/* =12e-5 about sponsors
--------------------------------------------------------------------------------------------*/
-
-/*#sponsors ul.singleSpacedList {
-    margin: 1em;
-    padding: 0 1em;
-}
-
-#sponsors ul.singleSpacedList li {
-    list-style: disc;
-}*/
 
 /*
 =12e-6 data and widgets
@@ -11846,4 +11813,195 @@ p#btsBubbleOpts {
     position:absolute;
     top:-40px;
     top:-40px;
+}
+
+/* =About Us
+-------------------------------------------------------------------------------------------*/
+
+.leftside #contentGS {
+    background: none;
+}
+
+div.contentLeft {
+    width: 160px;
+    float: left;
+    margin: 0 0 0 20px;
+}
+
+.ie6 div.contentLeft {
+    margin-left: 10px;
+}
+
+.contentLeft .marginTop {
+    margin-top: 15px;
+}
+.text3boldOrange {
+    color: #DD6611;
+    font: bold 12px/1.3 Arial,Helvetica,sans-serif;
+}
+
+div.main {
+    width: 753px;
+    float: left;
+    margin-left: 15px;
+}
+
+.module {
+    overflow: hidden;
+}
+.contentLeft .module .header{
+    height:26px;
+    background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
+    padding:0 10px;
+}
+.contentLeft .module .header .text2bold {
+    color: #fff;
+    padding-top: 5px;
+}
+.contentLeft .module .body {
+    border: 1px solid #ccc;
+    padding: 10px 12px 15px 12px;
+}
+.contentLeft .module span, .contentLeft .module a {
+    display: block;
+}
+.contentLeft .module .body span, .contentLeft .module .body a {
+    margin-top: 5px;
+}
+.contentLeft .module .body span.noMargin {
+    margin-top: 0;
+}
+.contentLeft .module .body span.extraMargin {
+    margin-top: 10px;
+}
+
+.main img {
+    display: block;
+}
+.main .guides .module {
+    width: 237px;
+    float: left;
+    margin: 15px 0 0 20px;
+}
+.main .guides .module.noMargin {
+    margin-left: 0;
+}
+.main .module .header {
+    margin-bottom: 5px;
+}
+
+hr.dotted {
+    border: none;
+    border-bottom: medium dotted #999;
+    width: 753px;
+    margin: 20px 0;
+}
+
+.main .thinkLocal {
+    padding-left: 181px;
+    position: relative;
+}
+.main .thinkLocal img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.ie6 .main .thinkLocal img {
+    left: -181px;
+}
+
+div#tracking {
+    clear: both;
+}
+
+
+/**********************
+ * BOARD OF DIRECTORS *
+ **********************/
+.boardOfDirectors h1 {
+    margin: 0 0 15px 20px;
+}
+
+.boardOfDirectors .main .text3 {
+    margin-bottom: 15px;
+}
+
+
+/*********************
+ * MEET OUR ADVISORS *
+ *********************/
+.meetOurAdvisors h1 {
+    margin: 0 0 15px 20px;
+}
+
+.meetOurAdvisors .main .text3 {
+    margin-bottom: 15px;
+}
+
+.meetOurAdvisors hr.dotted {
+    border-bottom: 1px dotted #999;
+    margin: 10px 0;
+}
+
+/*********************
+ * SENIOR MANAGEMENT *
+ *********************/
+.seniorManagement h1 {
+    margin: 0 0 15px 20px;
+}
+
+.seniorManagement .main .text3 {
+    margin-bottom: 20px;
+}
+
+.seniorManagement .main table tr td img {
+    margin: 3px 15px 20px 0;
+}
+
+.seniorManagement .main table tr td img.top {
+    margin-bottom: 5px;
+}
+
+/**************
+ * GUIDELINES *
+***************/
+
+#reviewGuidelines div.col_left {
+    width: 600px;
+    float: left;
+}
+
+#reviewGuidelines div.col_right {
+    width: 300px;
+    float: left;
+    padding: 20px;
+}
+
+/**************
+ * iPHONE APP *
+***************/
+
+.iPhoneAppMain{
+    width:440px;
+    margin:0 25px 0 30px;
+}
+
+.iPhoneAppMain h2 {
+    padding-bottom: 5px;
+}
+
+.iPhoneAppMain p{
+    padding-bottom: 13px;
+}
+
+.iPhoneAppMain ul{
+    padding-bottom: 20px;
+}
+
+.iPhoneAppMain li{
+    list-style:disc outside none;
+    margin-left:35px;
+    padding:1px 0;
+    color:#d61;
+    line-height:1.3;
 }

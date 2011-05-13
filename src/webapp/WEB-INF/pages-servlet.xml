@@ -90,6 +90,7 @@
                 <entry key="/pledge/**" value="/backToSchool/pledgeLanding.page"/>
                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
                 <entry key="/stateofeducation/**" value="/content/cms/topicCenter.page"/>
+                <entry key="/about/mobile/**" value="/about/mobile.page"/>
             </map>
         </property>
     </bean>
@@ -902,6 +903,14 @@
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/seniorManagement</value>
+        </property>
+    </bean>
+
+    <bean name="/about/mobile.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/mobile</value>
         </property>
     </bean>
 
