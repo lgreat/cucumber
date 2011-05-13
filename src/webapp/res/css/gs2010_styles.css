@@ -627,7 +627,7 @@ Viewport: the defines width and height of each icon
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-04-12.png);
+    background-image: url(/res/img/sprites/iconSprite_2011-05-12.png);
 }
 
 /* **************** VIEWPORT ***************** */
@@ -838,6 +838,12 @@ Viewport: the defines width and height of each icon
     width: 12px;
     height: 14px;
     background-position: -20px -270px;
+}
+
+.i-bts {
+    width: 15px;
+    height: 16px;
+    background-position: -20px -290px;
 }
 
 /* column 40 */
