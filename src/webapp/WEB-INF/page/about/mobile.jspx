@@ -57,6 +57,7 @@
             </ul>
             <p class="text2">Note: This application only searches for K-12 public &amp;amp; private schools within the U.S.  It is available internationally for users who want to search within the U.S.</p>
             <p class="text2">Requires iOS 4.0 or later.</p>
+            <!-- TODO: Need proper href. -->
             <a href="javascript:void(0)" class="button-3">Download Now</a>
 
         </div>
