@@ -167,7 +167,7 @@
                 <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
                     <option value="-1">Topic</option>
                     <option value="209">Math</option>
-                    <option value="212">English</option>
+                    <option value="211">Language Arts</option>
                 </select>
 
                 <div id="js_videoGalleryData">
