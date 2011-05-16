@@ -11351,14 +11351,13 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 }
 
 #bts2-2010 .mod_hd {
-    width: 393px;
+    width: 423px;
     height: 43px;
     background: #2772ad url(/res/img/backToSchool/2011/tod/bts_hd-2.png) no-repeat left top;
 }
 
 #bts2-2010 .mod_hd h4 {
-    text-align: right;
-    line-height: 2.7;
+    background: none;
 }
 
 #bts1-2010 .bts_hd_top {
