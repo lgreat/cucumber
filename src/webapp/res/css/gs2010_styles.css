@@ -11343,7 +11343,7 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 #bts1-2010 .mod_hd{
     width: 175px;
     height: 191px;
-    background: #2772ad url(/res/img/backToSchool/2011/tod/bts_onsite_tip_175x191.png) no-repeat left top;
+    background: #2772ad url(/res/img/backToSchool/2011/tod/bts_hd-1.png) no-repeat left top;
 }
 
 #bts1-2010 .mod_hd h3 {
@@ -11353,8 +11353,7 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
 #bts2-2010 .mod_hd {
     width: 393px;
     height: 43px;
-    background: url(/res/img/bts2010-hd/bts_hd-2.png) no-repeat left top;
-    padding: 0 15px;
+    background: #2772ad url(/res/img/backToSchool/2011/tod/bts_hd-2.png) no-repeat left top;
 }
 
 #bts2-2010 .mod_hd h4 {
