@@ -91,6 +91,7 @@
                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
                 <entry key="/stateofeducation/**" value="/content/cms/topicCenter.page"/>
                 <entry key="/about/mobile/**" value="/about/mobile.page"/>
+                <entry key="/splash/iphone/**" value="/iphone.page"/>
             </map>
         </property>
     </bean>
@@ -914,7 +915,15 @@
         </property>
     </bean>
 
-    <bean name="/privacy/"
+    <bean name="/iphone.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>iphone</value>
+        </property>
+    </bean>
+
+        <bean name="/privacy/"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">

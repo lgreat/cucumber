@@ -24,8 +24,8 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>Mobile iPhone App | GreatSchools</title>
     <!-- TODO: Page description and keywords. -->
-    <meta name="description" content="TBD"/>
-    <meta name="keywords" content="TBD"/>
+    <meta name="description" content="Mobile iPhone App: GreatSchools Finder. Now you can use GreatSchools anytime. Find the best schools anywhere in the country, whenever you need to."/>
+    <meta name="keywords" content="iPhone school finder app, school iPhone app, iPhone public schools, school app for iPhone, school search, school stats, school info, school reviews, private schools, iPhone,"/>
 
     <!--<pageHelper:externalCss file="/res/css/about/aboutUs.css"/>-->
 
@@ -70,7 +70,7 @@
 
 <div id="tracking">
     <ad:setSlotPrefix slotPrefix="AboutUs_Management"/>
-    <mod:tracking pageName="iPhone App" hier1="Home,Corporate,AboutUs,iPhone"/>
+    <mod:tracking pageName="iPhone App" hier1="About: Mobile iPhone Support"/>
 </div>
 </gsml:body>
 </html>

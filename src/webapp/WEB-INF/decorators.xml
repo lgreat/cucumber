@@ -25,6 +25,7 @@
     <decorator name="minimalDecorator" page="minimalDecorator.jspx">
         <pattern>/widget/*</pattern>
         <pattern>*/sandbox/*</pattern>
+        <pattern>*/iphone*</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator2010.jspx">
