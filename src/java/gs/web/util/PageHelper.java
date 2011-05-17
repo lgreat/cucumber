@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.100 2010/12/27 20:16:59 ssprouse Exp $
+ * $Id: PageHelper.java,v 1.101 2011/05/17 21:42:55 yfan Exp $
  */
 
 package gs.web.util;
@@ -488,6 +488,21 @@ public class PageHelper {
             sFamilyCobrand = true;
         }
         return sFamilyCobrand;
+    }
+
+    private boolean isDallasNewsCobrand() {
+        // don't need to share this function externally.
+        boolean sDallasNewsCobrand = false;
+        if (_sessionContext.getCobrand() != null &&
+                (_sessionContext.getCobrand().matches("dallasnews"))) {
+            sDallasNewsCobrand = true;
+        }
+        return sDallasNewsCobrand;
+    }
+
+    public boolean isShowingHomepageBoxAd() {
+        return (!isAdFree() && !isAdServedByCobrand()) ||
+                (isAdServedByCobrand() && isDallasNewsCobrand());
     }
 
     public boolean isLogoLinked() {

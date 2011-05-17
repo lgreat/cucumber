@@ -3210,6 +3210,16 @@ body.ie6 .clearfix {
     margin: 4px 0 6px;
 }
 
+.ad .cobrandGhostText {
+    text-align: center;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.ad #cobrandGhostText-Homepage_300x250 {
+    margin: 4px 0 6px;
+}
+
 /* BEGIN ads.css */
 .ad {
     color: #999;

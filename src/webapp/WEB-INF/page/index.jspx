@@ -76,9 +76,6 @@
     </c:if>
 
 <school:miniStateLauncherHover/>
-<c:set var="showAd"
-       value="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}"/>
-
 
 <div id="mainGS" class="col">
 
@@ -212,7 +209,7 @@
 
     <div>
         <c:choose>
-            <c:when test="${showAd}">
+            <c:when test="${requestScope.pageHelper.showingHomepageBoxAd}">
                 <ad:Homepage_300x250/>
             </c:when>
             <c:otherwise>
