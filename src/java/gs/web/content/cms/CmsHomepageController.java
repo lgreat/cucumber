@@ -91,7 +91,7 @@ public class CmsHomepageController extends AbstractController {
             // then redirect them to the iphone splash page
             if ((context.isIphone() || context.isIpod()) &&
                 context.isIphoneSplashPageEnabled() &&
-                (declinedIphoneSplashPageCookie == null || "true".equals(declinedIphoneSplashPageCookie.getValue()))) {
+                (declinedIphoneSplashPageCookie == null || !"true".equals(declinedIphoneSplashPageCookie.getValue()))) {
                 return new ModelAndView(new RedirectView("/splash/iphone.page"));
             }
         }
