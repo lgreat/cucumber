@@ -113,6 +113,7 @@
     &lt;enrollment&gt;1938&lt;/enrollment&gt;
     &lt;city&gt;Alameda&lt;/city&gt;
     &lt;state&gt;CA&lt;/state&gt;
+    &lt;districtId&gt;1&lt;/districtId&gt;
     &lt;district&gt;Alameda City Unified School District&lt;/district&gt;
     &lt;districtNCESId&gt;0601770&lt;/districtNCESId&gt;
     &lt;address&gt;2201 Encinal Ave.,

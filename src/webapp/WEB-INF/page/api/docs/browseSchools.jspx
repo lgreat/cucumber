@@ -151,6 +151,7 @@
         &amp;lt;enrollment&amp;gt;598&amp;lt;/enrollment&amp;gt;
         &amp;lt;city&amp;gt;Truckee&amp;lt;/city&amp;gt;
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+        &amp;lt;districtId&amp;gt;509&amp;lt;/districtId&amp;gt;
         &amp;lt;district&amp;gt;Tahoe-Truckee Joint Unified School District&amp;lt;/district&amp;gt;
         &amp;lt;districtNCESId&amp;gt;0638770&amp;lt;/districtNCESId&amp;gt;
         &amp;lt;address&amp;gt;10931 Alder Dr.,
@@ -173,6 +174,7 @@
         &amp;lt;enrollment&amp;gt;47&amp;lt;/enrollment&amp;gt;
         &amp;lt;city&amp;gt;Truckee&amp;lt;/city&amp;gt;
         &amp;lt;state&amp;gt;CA&amp;lt;/state&amp;gt;
+        &amp;lt;districtId&amp;gt;509&amp;lt;/districtId&amp;gt;
         &amp;lt;district&amp;gt;Tahoe-Truckee Joint Unified School District&amp;lt;/district&amp;gt;
         &amp;lt;districtNCESId&amp;gt;0638770&amp;lt;/districtNCESId&amp;gt;
         &amp;lt;address&amp;gt;11661 Donner Pass Rd.,
