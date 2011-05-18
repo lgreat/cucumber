@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.57 2011/05/10 00:48:18 yfan Exp $
+ * $Id: SessionContext.java,v 1.58 2011/05/18 02:03:49 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -106,6 +106,12 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     private boolean _isTopicPage = false;
     private String _originalRequestURI;
+
+    private boolean _iphone = false;
+    private boolean _ipad = false;
+    private boolean _ipod = false;
+    private boolean _ios = false;
+    private boolean _iosSafari = false;
 
     /**
      * Created by Spring as needed.
@@ -613,5 +619,43 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         this._cityId = cityId;
     }
 
+    public boolean isIphone() {
+        return _iphone;
+    }
 
+    public void setIphone(boolean iphone) {
+        _iphone = iphone;
+    }
+
+    public boolean isIpad() {
+        return _ipad;
+    }
+
+    public void setIpad(boolean ipad) {
+        _ipad = ipad;
+    }
+
+    public boolean isIpod() {
+        return _ipod;
+    }
+
+    public void setIpod(boolean ipod) {
+        _ipod = ipod;
+    }
+
+    public boolean isIos() {
+        return _ios;
+    }
+
+    public void setIos(boolean ios) {
+        _ios = ios;
+    }
+
+    public boolean isIosSafari() {
+        return _iosSafari;
+    }
+
+    public void setIosSafari(boolean iosSafari) {
+        _iosSafari = iosSafari;
+    }
 }

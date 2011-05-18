@@ -325,4 +325,110 @@ public class SessionContextUtilSaTest extends BaseTestCase {
         _sessionContextUtil.readCookies(_request, _sessionContext);
         assertEquals("Correct value not read from CITYID cookie", new Integer(12345), _sessionContext.getCityId());
     }
+
+    // http://blogs.sitepoint.com/identify-apple-iphone-ipod-ipad-visitors/
+    // http://p2p.wrox.com/content/articles/identifying-iphone-safari-user-agent
+    // http://www.useragentstring.com/
+    // http://www.zytrax.com/tech/web/mobile_ids.html
+
+    public void testIsIphone() {
+        assertFalse(SessionContextUtil.isIphone(null));
+        assertFalse(SessionContextUtil.isIphone(""));
+
+        // Safari - iPhone
+        assertTrue(SessionContextUtil.isIphone("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3"));
+        // Safari - iPad
+        assertFalse(SessionContextUtil.isIphone("Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) version/4.0.4 Mobile/7B367 Safari/531.21.10"));
+        // Safari - iPod
+        assertFalse(SessionContextUtil.isIphone("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A101a Safari/419.3"));
+    }
+
+    public void testIsIpad() {
+        assertFalse(SessionContextUtil.isIpad(null));
+        assertFalse(SessionContextUtil.isIpad(""));
+
+        // Safari - iPhone
+        assertFalse(SessionContextUtil.isIpad("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3"));
+        // Safari - iPad
+        assertTrue(SessionContextUtil.isIpad("Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) version/4.0.4 Mobile/7B367 Safari/531.21.10"));
+        // Safari - iPod
+        assertFalse(SessionContextUtil.isIpad("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A101a Safari/419.3"));
+    }
+
+    public void testIsIpod() {
+        assertFalse(SessionContextUtil.isIpod(null));
+        assertFalse(SessionContextUtil.isIpod(""));
+
+        // Safari - iPhone
+        assertFalse(SessionContextUtil.isIpod("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3"));
+        // Safari - iPad
+        assertFalse(SessionContextUtil.isIpod("Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) version/4.0.4 Mobile/7B367 Safari/531.21.10"));
+        // Safari - iPod
+        assertTrue(SessionContextUtil.isIpod("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A101a Safari/419.3"));
+    }
+
+    public void testIsIos() {
+        assertFalse(SessionContextUtil.isIos(null));
+        assertFalse(SessionContextUtil.isIos(""));
+
+        // Safari - iPhone
+        assertTrue(SessionContextUtil.isIos("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3"));
+        // Safari - iPad
+        assertTrue(SessionContextUtil.isIos("Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) version/4.0.4 Mobile/7B367 Safari/531.21.10"));
+        // Safari - iPod
+        assertTrue(SessionContextUtil.isIos("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A101a Safari/419.3"));
+
+        // FF4 - Windows
+        assertFalse(SessionContextUtil.isIos("Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.3) Gecko/20100401 Firefox/4.0 (.NET CLR 3.5.30729)"));
+        // IE9 - WIndows
+        assertFalse(SessionContextUtil.isIos("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; Media Center PC 6.0; InfoPath.3; MS-RTC LM 8; Zune 4.7"));
+        // Chrome - Ubuntu Linux
+        assertFalse(SessionContextUtil.isIos("Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.35 (KHTML, like Gecko) Ubuntu/10.10 Chromium/13.0.764.0 Chrome/13.0.764.0 Safari/534.35"));
+        // Safari - Mac OS X 10.6.6
+        assertFalse(SessionContextUtil.isIos("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; de-de) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27"));
+    }
+
+    public void testIsSafari() {
+        assertFalse(SessionContextUtil.isSafari(null));
+        assertFalse(SessionContextUtil.isSafari(""));
+
+        // Safari - iPhone
+        assertTrue(SessionContextUtil.isSafari("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3"));
+        // Safari - iPad
+        assertTrue(SessionContextUtil.isSafari("Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) version/4.0.4 Mobile/7B367 Safari/531.21.10"));
+        // Safari - iPod
+        assertTrue(SessionContextUtil.isSafari("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A101a Safari/419.3"));
+
+        // FF4 - Windows
+        assertFalse(SessionContextUtil.isSafari("Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.3) Gecko/20100401 Firefox/4.0 (.NET CLR 3.5.30729)"));
+        // IE9 - WIndows
+        assertFalse(SessionContextUtil.isSafari("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; Media Center PC 6.0; InfoPath.3; MS-RTC LM 8; Zune 4.7"));
+        // Chrome - Ubuntu Linux
+        assertFalse(SessionContextUtil.isSafari("Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.35 (KHTML, like Gecko) Ubuntu/10.10 Chromium/13.0.764.0 Chrome/13.0.764.0 Safari/534.35"));
+        // Safari - Mac OS X 10.6.6
+        assertTrue(SessionContextUtil.isSafari("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; de-de) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27"));
+    }
+
+    public void testIsIosSafari() {
+        assertFalse(SessionContextUtil.isIosSafari(null));
+        assertFalse(SessionContextUtil.isIosSafari(""));
+
+        // Safari - iPhone
+        assertTrue(SessionContextUtil.isIosSafari("Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543a Safari/419.3"));
+        // Safari - iPad
+        assertTrue(SessionContextUtil.isIosSafari("Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) version/4.0.4 Mobile/7B367 Safari/531.21.10"));
+        // Safari - iPod
+        assertTrue(SessionContextUtil.isIosSafari("Mozilla/5.0 (iPod; U; CPU like Mac OS X; en) AppleWebKit/420.1 (KHTML, like Gecko) Version/3.0 Mobile/3A101a Safari/419.3"));
+
+        // TODO - non-Safari iOS user agent strings -- very difficult to find!
+
+        // FF4 - Windows
+        assertFalse(SessionContextUtil.isIosSafari("Mozilla/5.0 (Windows; U; Windows NT 6.1; ru; rv:1.9.2.3) Gecko/20100401 Firefox/4.0 (.NET CLR 3.5.30729)"));
+        // IE9 - WIndows
+        assertFalse(SessionContextUtil.isIosSafari("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; Media Center PC 6.0; InfoPath.3; MS-RTC LM 8; Zune 4.7"));
+        // Chrome - Ubuntu Linux
+        assertFalse(SessionContextUtil.isIosSafari("Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.35 (KHTML, like Gecko) Ubuntu/10.10 Chromium/13.0.764.0 Chrome/13.0.764.0 Safari/534.35"));
+        // Safari - Mac OS X 10.6.6
+        assertFalse(SessionContextUtil.isIosSafari("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; de-de) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27"));
+    }
 }

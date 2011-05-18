@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.84 2011/05/12 18:08:22 droy Exp $
+ * $Id: SessionContextUtil.java,v 1.85 2011/05/18 02:03:49 yfan Exp $
  */
 
 package gs.web.util.context;
@@ -331,6 +331,30 @@ public class SessionContextUtil implements ApplicationContextAware {
         return userAgent != null && CRAWLER_USER_AGENTS.matcher(userAgent.toLowerCase()).matches();
     }
 
+    public static boolean isIphone(String userAgent) {
+        return userAgent != null && userAgent.contains("iPhone");
+    }
+
+    public static boolean isIpad(String userAgent) {
+        return userAgent != null && userAgent.contains("iPad");
+    }
+
+    public static boolean isIpod(String userAgent) {
+        return userAgent != null && userAgent.contains("iPod");
+    }
+
+    public static boolean isIos(String userAgent) {
+        return isIphone(userAgent) || isIpad(userAgent) || isIpod(userAgent);
+    }
+
+    public static boolean isSafari(String userAgent) {
+        return userAgent != null && userAgent.contains("Safari") && !userAgent.contains("Chrome");
+    }
+
+    public static boolean isIosSafari(String userAgent) {
+        return isIos(userAgent) && isSafari(userAgent);
+    }
+
     /**
      * Called at the beginning of the request; called after #readCookies is called.
      * Allows this class to do common operations for all pages.
@@ -342,6 +366,12 @@ public class SessionContextUtil implements ApplicationContextAware {
         // Determine if this is a crawler
         String userAgent = request.getHeader("User-Agent");
         context.setCrawler(SessionContextUtil.isKnownCrawler(userAgent));
+
+        context.setIphone(SessionContextUtil.isIphone(userAgent));
+        context.setIpad(SessionContextUtil.isIpad(userAgent));
+        context.setIpod(SessionContextUtil.isIpod(userAgent));
+        context.setIos(SessionContextUtil.isIos(userAgent));
+        context.setIosSafari(SessionContextUtil.isIosSafari(userAgent));
 
         updateStateFromParam(context, request, response);
 
