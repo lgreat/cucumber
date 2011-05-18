@@ -70,7 +70,7 @@
 
 <div id="tracking">
     <ad:setSlotPrefix slotPrefix="AboutUs_Management"/>
-    <mod:tracking pageName="iPhone App" hier1="About: Mobile iPhone Support"/>
+    <mod:tracking pageName="Mobile iPhone Support" hier1="About: Mobile iPhone Support"/>
 </div>
 </gsml:body>
 </html>

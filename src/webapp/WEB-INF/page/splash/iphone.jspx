@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/tags/gsml"
-          xmlns:pageHelper="urn:jsptagdir:/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:content="urn:www.greatschools.org/taglib/content"
-          xmlns:moreContent="urn:jsptagdir:/tags/content"
-          xmlns:mod="urn:jsptagdir:/tags/mod"
-          xmlns:promo="urn:jsptagdir:/tags/promo"
-          xmlns:gsweb="gstaglib"
-          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
-          xmlns:ad="urn:jsptagdir:/tags/ad"
-          xmlns:school="urn:jsptagdir:/tags/school"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:community="urn:jsptagdir:/tags/community"
-          xmlns:variant="urn:jsptagdir:/tags/variant"
-        >
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
     <html lang="en">
 
@@ -32,27 +17,33 @@
         <meta name="description" content=""/>
         <meta name="keywords" content=""/>
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
+        <link href="/res/css/iphone.css" rel="stylesheet" type="text/css" media="all" />
 
     </head>
 
     <body>
 
-    <div class="">
-        <div class="">
-            <h2 class="">Using an iPhone?<br/>Get the GreatSchools Finder App</h2>
-        </div>
-        <div class="">
-            <p class="">Map and compare<br/>schools for any city.</p>
+    <div class="mod iphone">
+        <div class="inner">
+            <div class="hd">
+                <h2 class="introTextbold">Using an iPhone?<br/>Get the GreatSchools Finder App</h2>
+            </div>
+            <div class="bd">
+                <div class="unit">
+                    <p class="text1">Map and compare<br/>schools for any city.</p>
 
-            <p class="">Browse parent reviews,<br/>and recent test scores.</p>
+                    <p class="text1">Browse parent reviews,<br/>and recent test scores.</p>
 
-            <p class="">Save schools to your<br/>personal list of favorites.</p>
-            <a href="javascript:void(0)" class="button-1">Download Now</a>
+                    <p class="text1">Save schools to your<br/>personal list of favorites.</p>
 
-            <p class=""><a href="javascript:void(0)" class="">No thanks.<br/>Take me the to web site.</a></p>
-        </div>
-        <div class="">
-            <img src="../" width="" height="" alt=""/>
+                    <p><a href="javascript:void(0)" class="button-1">Download Now</a></p>
+
+                    <p><a href="http://www.greatschools.org/">No thanks.<br/>Take me the to web site.</a></p>
+                </div>
+                <div class="unit">
+                    <img src="/res/img/splash/iPhoneSplash.png" width="128" height="276" alt="GreatSchools iPhone App"/>
+                </div>
+            </div>
         </div>
     </div>
 
