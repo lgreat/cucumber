@@ -12,6 +12,7 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.*;
 import gs.web.school.SchoolOverviewController;
 import gs.web.search.ResultsPager;
+import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -20,7 +21,9 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.search.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -37,6 +40,8 @@ public class CmsHomepageController extends AbstractController {
     public static final int GRADE_BY_GRADE_MIN_NUM_REPLIES = 3;
     public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
     public static final int MAX_RAISE_YOUR_HAND_DISCUSSIONS_FOR_CMSADMIN = 1000;
+    public static final String DECLINED_IPHONE_SPLASH_PAGE_COOKIE = "declinedIphoneSplashPage";
+    public static final int DECLINED_IPHONE_SPLASH_PAGE_COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
 
     public static final Map<Long, Long> categoryIdToTopicCenterIdMap = new HashMap<Long, Long>(GRADE_BY_GRADE_NUM_CATEGORIES);
 
@@ -72,6 +77,25 @@ public class CmsHomepageController extends AbstractController {
     }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
+        // if referrer is iPhone splash page, set 90-day cookie
+        String referrer = request.getHeader("Referer");
+        if (referrer != null && referrer.contains("/splash/iphone.page")) {
+            CookieUtil.setCookie(response,
+                    DECLINED_IPHONE_SPLASH_PAGE_COOKIE, "true",
+                    DECLINED_IPHONE_SPLASH_PAGE_COOKIE_MAX_AGE);
+        } else {
+            Cookie declinedIphoneSplashPageCookie = CookieUtil.getCookie(request, DECLINED_IPHONE_SPLASH_PAGE_COOKIE);
+            SessionContext context = SessionContextUtil.getSessionContext(request);
+            // if user is on iphone or ipod touch, and the iphone splash page is enabled,
+            // and they're not cookied to not be shown the iphone splash page,
+            // then redirect them to the iphone splash page
+            if ((context.isIphone() || context.isIpod()) &&
+                context.isIphoneSplashPageEnabled() &&
+                (declinedIphoneSplashPageCookie == null || "true".equals(declinedIphoneSplashPageCookie.getValue()))) {
+                return new ModelAndView(new RedirectView("/splash/iphone.page"));
+            }
+        }
+
         Map<String, Object> model = new HashMap<String, Object>();
         CmsHomepage homepage = new CmsHomepage();
         if (CmsUtil.isCmsEnabled()) {
