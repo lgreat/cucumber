@@ -79,7 +79,7 @@
     ${requestScope.pageHelper.headCssElements}
 
     <!-- Begin JS files.  No CSS below this point. -->
-    <pageHelper:addJavaScript uncompressedScripts="${param.uncompressedScripts}" compressedScripts="${param.compressedScripts}"/>
+    <pageHelper:addJavaScript uncompressedScripts="${param.uncompressedScripts}" compressedScripts="${param.compressedScripts}" serverName="${pageContext.request.serverName}"/>
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER" allowCdn="true"/>

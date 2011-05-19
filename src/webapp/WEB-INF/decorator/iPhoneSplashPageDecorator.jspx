@@ -25,7 +25,7 @@
     <decorator:head/>
     ${requestScope.pageHelper.headElements}
         <!-- Begin JS files.  No CSS below this point. -->
-    <pageHelper:addJavaScript uncompressedScripts="${param.uncompressedScripts}" compressedScripts="${param.compressedScripts}"/>
+    <pageHelper:addJavaScript uncompressedScripts="${param.uncompressedScripts}" compressedScripts="${param.compressedScripts}" serverName="${pageContext.request.serverName}"/>
 </head>
 
 <body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}">

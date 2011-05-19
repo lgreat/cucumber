@@ -13,9 +13,12 @@
     <jsp:directive.attribute name="compressedScripts"
                            type="java.lang.String"
                            required="true"/>
+    <jsp:directive.attribute name="serverName"
+                           type="java.lang.String"
+                           required="true"/>
 
     <c:choose>
-        <c:when test="${(not empty uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.218' or pageContext.request.serverName eq '172.18.1.149' or pageContext.request.serverName eq '172.18.1.129' or pageContext.request.serverName eq '127.0.0.1') and empty compressedScripts}">
+        <c:when test="${(not empty uncompressedScripts or serverName eq 'localhost' or serverName eq '172.18.1.218' or serverName eq '172.18.1.149' or serverName eq '172.18.1.129' or serverName eq '127.0.0.1') and empty compressedScripts}">
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.3.2.min.js" allowCdn="true"/>
             <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.7.2.min.js" allowCdn="true"/>
