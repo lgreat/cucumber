@@ -164,31 +164,6 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_lisa.jpg" width="97" height="108" alt="Lisa Fung"/>
-        </td>
-        <td valign="top">
-            <div class="text3boldOrange">Lisa Fung, Vice President of Business Development and Sales</div>
-            <div class="text3">
-                Before joining GreatSchools, Lisa led successful sales and BD teams at Ziff Davis,
-                Zip2, GoCityKids, and Homestead Technologies. She graduated from University of California
-                Berkeley with a BA in environmental science. Lisa founded the PTA at her son's
-                and daughter's preschool and now leads the communication and fundraising
-                committees at San Francisco Friends Schools. As a varsity song girl at
-                <c:choose>
-                    <c:when test="${lowell_school ne null}">
-                        <link:schoolProfileOverview
-                                school="${lowell_school}">Lowell High School</link:schoolProfileOverview>
-                    </c:when>
-                    <c:otherwise>
-                        Lowell High School
-                    </c:otherwise>
-                </c:choose>
-                &amp;mdash; one of the oldest public high schools west of the
-                Mississippi &amp;mdash; Lisa won the school's TV20 dance party.
-            </div>
-        </td>
-    </tr>
-    <tr>
         <td valign="top"><img src="/res/img/about/seniormanagement_carol.jpg" width="97" height="108" alt="Lisa Fung"/>
         </td>
         <td valign="top">
