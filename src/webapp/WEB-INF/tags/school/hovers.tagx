@@ -32,7 +32,7 @@
         request.setAttribute("showSurvey", showSurvey);
     ]]></jsp:scriptlet>
 
-    <c:if test="${!requestScope.context.crawler}">
+    <c:if test="${!requestScope.context.crawler and !requestScope.context.iosSafari}">
         <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
         <c:if test="${showNLHover}">
             <c:choose>
@@ -45,7 +45,7 @@
                 </c:otherwise>
             </c:choose>
         </c:if>
-        <c:if test="${showSurvey and not empty surveyUrl and !requestScope.context.iosSafari}">
+        <c:if test="${showSurvey and not empty surveyUrl}">
             <script type="text/javascript">
                 setTimeout("GSType.hover.interruptSurvey.showHover('School ${school.databaseState} ${school.id}','Overview','${gsweb:escapeJavaScript(surveyUrl)}')", 7000);
             </script>
