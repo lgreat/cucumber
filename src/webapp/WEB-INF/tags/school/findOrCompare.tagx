@@ -94,12 +94,12 @@
                     <div class="line form">
                         <div class="unit size4of7 mrs">
                             <input type="text"
-                                   value="Enter school, city, or zipcode"
+                                   value="Enter school, city, or district"
                                    name="q"
                                    id="q"
                                    class="text2"
-                                   onfocus="textSwitch(this, '', 'Enter school, city, or zipcode');"
-                                   onblur="textSwitch(this, 'Enter school, city, or zipcode', '');"/>
+                                   onfocus="textSwitch(this, '', 'Enter school, city, or district');"
+                                   onblur="textSwitch(this, 'Enter school, city, or district', '');"/>
                         </div>
 
                         <div class="unit size2of11 mhs">
