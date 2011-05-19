@@ -921,7 +921,15 @@
         </property>
     </bean>
 
-        <bean name="/privacy/"
+    <bean name="/testPrep/testPrepLanding.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>testPrep/testPrepLanding</value>
+        </property>
+    </bean>
+
+    <bean name="/privacy/"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
