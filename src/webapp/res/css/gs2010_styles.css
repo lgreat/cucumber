@@ -829,6 +829,11 @@ h5 {
     color: #06b;
 }
 
+.title1-333 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #333;
+}
+
 h2.title1white,
 .mod_hd h3 {
     background: url(/res/img/discussion_boards/db_bg_header.png) repeat-x;
@@ -3262,18 +3267,25 @@ Viewport: the defines width and height of each icon
 .emailSignUp .section2 p{margin:auto;padding:0;*margin:0;}
 .emailSignUp h3{font: 18px Georgia, "Times New Roman", Times, serif;}
 
-/* ------ btsSponsor (extends standard) ------ */
 /* ---------------- GS-11664 ----------------- */
+/* ------ btsSponsor (extends standard) ------ */
 .btsSponsor .inner{background-color:#f9eccd;}
 .btsSponsor .hd h3{margin:15px;}
 .btsSponsor .bd ul{margin:3px 15px 25px;}
 .btsSponsor .bd li{list-style:disc;margin:0 0 13px 15px;}
 
-/* -------- topArticles (extends mod) -------- */
 /* ---------------- GS-11708 ----------------- */
-.topArticles .inner{background-color:#f4fafd;padding:10px}
+/* -------- topArticles (extends mod) -------- */
+.topArticles .inner{background-color:#ebebeb;padding:10px}
 .topArticles .hd h3{margin-bottom: 5px;}
 .topArticles .bd li{list-style:disc;margin:0 0 5px 15px;color:#d61;}
+.topArticles .resourceImage{width:143px;}
+.topArticles .resourceImage img{margin-bottom:5px;}
+.topArticles .resourceImage p{line-height: 1.3;}
+/* --------- sponsored (extends mod) -------- */
+.sponsored .inner{border:1px solid #c6c6c6;padding:10px;}
+.sponsored .hd h3{margin-bottom: 5px;}
+.sponsored .bd li{list-style:disc;margin:16px 0 16px 5px;}
 
 /* ------------ background tints ------------- */
 .bgtint-fff{
@@ -3498,6 +3510,8 @@ Viewport: the defines width and height of each icon
 .mls,.mhs,.mas{margin-left:5px}
 .mlm,.mhm,.mam{margin-left:10px}
 .mll,.mhl,.mal{margin-left:20px}
+
+.mha{margin-right: auto;margin-left: auto;}
 
 .text-align-rt {
     text-align: right;

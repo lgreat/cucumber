@@ -86,8 +86,90 @@
                 </div>
             </div>
         </div>
-        <div class="grid_19 alpha omega mbm" style="background-color: #9acd32;height: 233px;">19-3</div>
-        <div class="grid_19 alpha omega mbm" style="background-color: yellow;height: 247px;">19-4</div>
+        <div class="grid_19 alpha omega mbm">
+            <div class="mod sponsored">
+                <div class="inner">
+                    <div class="hd">
+                        <h3 class="title1-333">Everything you need for college prep</h3>
+                    </div>
+                    <div class="bd">
+                        <div class="line">
+                            <div class="unit size1of3">
+                                <gsml:img src="/res/img/testPrep/testPrepSponsored-1.jpg"
+                                          alt="sponsored image"
+                                          width="204" height="145"/>
+                                <p class="smallText1-333">Watch our video to <a href="#">see how it works</a>.</p>
+                            </div>
+                            <div class="unit size2of3 lastUnit">
+                                <ul>
+                                    <li><strong>Online</strong> - anywhere, anytime.</li>
+                                    <li><strong>Track your progress</strong> and work with your peers for personalized feedback.</li>
+                                    <li><strong>Sign up</strong> for a free account to get started.</li>
+                                </ul>
+                                <a href="#" class="button-3">Get started</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid_19 alpha omega mbm">
+            <div class="mod topArticles">
+                <div class="inner">
+                    <div class="hd">
+                        <h3 class="title1">Additional resources: Tips and tricks for top scores</h3>
+                    </div>
+                    <div class="bd">
+                        <div class="line">
+                            <div class="unit size1of4">
+                                <div class="resourceImage">
+                                <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-1.jpg"
+                                          alt="first resource"
+                                          width="143" height="105"/>
+
+                                <p class="text2">WATCH &amp;amp; LEARN</p>
+
+                                <p class="text2"><a href="#">3 ways to help pass a multiple choice language arts tests</a></p>
+                                    </div>
+                            </div>
+                            <div class="unit size1of4">
+                                <div class="resourceImage">
+                                <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-2.jpg"
+                                          alt="second resource"
+                                          width="143" height="105"/>
+
+                                <p class="text2">NEED A TUTOR?</p>
+
+                                <p class="text2"><a href="#">Thinking of hiring a tutor? 10 smart questions to ask first</a></p>
+                                </div>
+                            </div>
+                            <div class="unit size1of4">
+                                <div class="resourceImage">
+                                <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-3.jpg"
+                                          alt="third resource"
+                                          width="143" height="105"/>
+
+                                <p class="text2">STRESS BUSTERS</p>
+
+                                <p class="text2"><a href="#">Reduce test stress with these 5 easy tips</a></p>
+                                </div>
+                            </div>
+                            <div class="unit size1of4 lastUnit">
+                                <div class="resourceImage">
+                                <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-4.jpg"
+                                          alt="fourth resource"
+                                          width="143" height="105"/>
+
+                                <p class="text2">ACE THOSE TESTS!</p>
+
+                                <p class="text2"><a href="#">SAT and ACT test prep: 6 insider secrets</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
