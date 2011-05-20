@@ -27,10 +27,67 @@
 <div class="container_24">
     <div class="grid_5 push_19 mtl" style="background-color: blue;height:650px;">4</div>
     <div class="grid_19 pull_5 mtl">
-        <div class="grid_19 alpha omega mbl" style="background-color: orange;height: 247px;">19-1</div>
-        <div class="grid_19 alpha omega mbl" style="background-color: red;height: 110px;">19-2</div>
-        <div class="grid_19 alpha omega mbl" style="background-color: #9acd32;height: 233px;">19-3</div>
-        <div class="grid_19 alpha omega mbl" style="background-color: yellow;height: 247px;">19-4</div>
+        <div class="grid_19 alpha omega mbm">
+
+            <h1 class="plm">Test Prep</h1>
+
+            <div class="line">
+                <div class="unit size9of20">
+                    <div class="plm">
+                    <p class="introText mbm">Does test prep really work? Yes.</p>
+
+                    <p class="mbm">Every middle and high schooler needs some help getting the hang of standardized tests. The right kind of
+                        <a href="#">test preparation</a> can make all the difference in your child’s scores – which can affect a student’s academic future.
+                    </p>
+
+                    <p class="">As any parent knows, the world of test prep – and <a
+                            href="#">how to best prepare for tests</a> – can be overwhelming. Fortunately, there are plenty of resources to help guide your way – whether it’s learning the
+                        <a href="#">difference between SAT and ACT scores</a> or <a href="#">finding the right tutor</a>.
+                    </p>
+                        </div>
+                </div>
+                <div class="unit size1of20"><!-- do not collapse --></div>
+                <div class="unit size1of2 lastUnit">
+                    <gsml:img src="/res/img/testPrep/testPrep-1.jpg"
+                              alt="prepared students taking a test"
+                              width="368" height="213" styleClass="fltrt"/>
+                </div>
+            </div>
+        </div>
+        <div class="grid_19 alpha omega mbm">
+            <div class="mod topArticles">
+                <div class="inner">
+                    <div class="hd">
+                        <h3 class="title1">Top articles: 6 ways to make test prep work for your child</h3>
+                    </div>
+
+                    <div class="bd">
+                        <div class="line">
+                            <div class="unit size1of2">
+                                <ul>
+                                    <li><a href="#"><strong>Stress-free SATs:</strong> 10 easy steps</a></li>
+                                    <li><a href="#"><strong>College admission tests:</strong> What you should know</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><strong>State standardized test scores:</strong> 6 surprising secrets</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="unit size1of2 lastUnit">
+                                <ul>
+                                    <li><a href="#"><strong>Tutoring:</strong> Parents’ best advice</a></li>
+                                    <li><a href="#"><strong>Expert advice:</strong> Helping a struggling teen test-taker</a>
+                                    </li>
+                                    <li><a href="#"><strong>ACT vs. SAT:</strong> What’s the difference?</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid_19 alpha omega mbm" style="background-color: #9acd32;height: 233px;">19-3</div>
+        <div class="grid_19 alpha omega mbm" style="background-color: yellow;height: 247px;">19-4</div>
     </div>
 </div>
 
