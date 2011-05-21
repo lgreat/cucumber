@@ -25,7 +25,11 @@
 <gsml:body adPageName="testPrep" pageLayout="nocol">
 
 <div class="container_24">
-    <div class="grid_5 push_19 mtl" style="background-color: blue;height:650px;">4</div>
+    <div class="grid_5 push_19 mtl">
+        <div class="skyscraperAd">
+            <ad:AboveFold_Right_160x600/>
+        </div>
+    </div>
     <div class="grid_19 pull_5 mtl">
         <div class="grid_19 alpha omega mbm">
 
