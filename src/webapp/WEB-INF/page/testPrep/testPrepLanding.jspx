@@ -37,19 +37,18 @@
                     <p class="introText mbm">Does test prep really work? Yes.</p>
 
                     <p class="mbm">Every middle and high schooler needs some help getting the hang of standardized tests. The right kind of
-                        <a href="#">test preparation</a> can make all the difference in your child’s scores – which can affect a student’s academic future.
+                        <link:article articleId="2375">test preparation</link:article> can make all the difference in your child’s scores – which can affect a student’s academic future.
                     </p>
 
-                    <p class="">As any parent knows, the world of test prep – and <a
-                            href="#">how to best prepare for tests</a> – can be overwhelming. Fortunately, there are plenty of resources to help guide your way – whether it’s learning the
-                        <a href="#">difference between SAT and ACT scores</a> or <a href="#">finding the right tutor</a>.
+                    <p class="">As any parent knows, the world of test prep – and <link:article articleId="244">how to best prepare for tests</link:article> – can be overwhelming. Fortunately, there are plenty of resources to help guide your way – whether it’s learning the
+                        <link:article articleId="1034">difference between SAT and ACT scores</link:article> or <link:article articleId="310">finding the right tutor</link:article>.
                     </p>
                         </div>
                 </div>
                 <div class="unit size1of20"><!-- do not collapse --></div>
                 <div class="unit size1of2 lastUnit">
                     <gsml:img src="/res/img/testPrep/testPrep-1.jpg"
-                              alt="prepared students taking a test"
+                              alt="Test prep"
                               width="368" height="213" styleClass="fltrt"/>
                 </div>
             </div>
@@ -65,20 +64,20 @@
                         <div class="line">
                             <div class="unit size1of2">
                                 <ul>
-                                    <li><a href="#"><strong>Stress-free SATs:</strong> 10 easy steps</a></li>
-                                    <li><a href="#"><strong>College admission tests:</strong> What you should know</a>
+                                    <li><link:cmsContent contentKey="ArticleSlideshow#3123" fullUri="preparing-for-the-sats"><strong>Stress-free SATs:</strong> 10 easy steps</link:cmsContent></li>
+                                    <li><link:article articleId="243"><strong>College admission tests:</strong> What you should know</link:article>
                                     </li>
                                     <li>
-                                        <a href="#"><strong>State standardized test scores:</strong> 6 surprising secrets</a>
+                                        <link:article articleId="1159"><strong>State standardized test scores:</strong> 6 surprising secrets</link:article>
                                     </li>
                                 </ul>
                             </div>
                             <div class="unit size1of2 lastUnit">
                                 <ul>
-                                    <li><a href="#"><strong>Tutoring:</strong> Parents’ best advice</a></li>
-                                    <li><a href="#"><strong>Expert advice:</strong> Helping a struggling teen test-taker</a>
+                                    <li><link:article articleId="1174"><strong>Tutoring:</strong> Parents’ best advice</link:article></li>
+                                    <li><link:article articleId="835"><strong>Expert advice:</strong> Helping a struggling teen test-taker</link:article>
                                     </li>
-                                    <li><a href="#"><strong>ACT vs. SAT:</strong> What’s the difference?</a></li>
+                                    <li><link:article articleId="1034"><strong>ACT vs. SAT:</strong> What’s the difference?</link:article></li>
                                 </ul>
                             </div>
                         </div>
@@ -96,7 +95,7 @@
                         <div class="line">
                             <div class="unit size1of3">
                                 <gsml:img src="/res/img/testPrep/testPrepSponsored-1.jpg"
-                                          alt="sponsored image"
+                                          alt="test prep video"
                                           width="204" height="145"/>
                                 <p class="smallText1-333">Watch our video to <a href="#">see how it works</a>.</p>
                             </div>
@@ -124,45 +123,45 @@
                             <div class="unit size1of4">
                                 <div class="resourceImage">
                                 <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-1.jpg"
-                                          alt="first resource"
+                                          alt="how to pass test video"
                                           width="143" height="105"/>
 
                                 <p class="text2">WATCH &amp;amp; LEARN</p>
 
-                                <p class="text2"><a href="#">3 ways to help pass a multiple choice language arts tests</a></p>
+                                <p class="text2"><link:cmsContent contentKey="Video#3489" fullUri="review-three-sensible-strategies-for-polishing-off-test-prep">3 ways to help pass a multiple choice language arts tests</link:cmsContent></p>
                                     </div>
                             </div>
                             <div class="unit size1of4">
                                 <div class="resourceImage">
                                 <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-2.jpg"
-                                          alt="second resource"
+                                          alt="Do you need a tutor?"
                                           width="143" height="105"/>
 
                                 <p class="text2">NEED A TUTOR?</p>
 
-                                <p class="text2"><a href="#">Thinking of hiring a tutor? 10 smart questions to ask first</a></p>
+                                <p class="text2"><link:article articleId="366">Thinking of hiring a tutor? 10 smart questions to ask first</link:article></p>
                                 </div>
                             </div>
                             <div class="unit size1of4">
                                 <div class="resourceImage">
                                 <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-3.jpg"
-                                          alt="third resource"
+                                          alt="Test stress busters"
                                           width="143" height="105"/>
 
                                 <p class="text2">STRESS BUSTERS</p>
 
-                                <p class="text2"><a href="#">Reduce test stress with these 5 easy tips</a></p>
+                                <p class="text2"><link:article articleId="366">Reduce test stress with these 5 easy tips</link:article></p>
                                 </div>
                             </div>
                             <div class="unit size1of4 lastUnit">
                                 <div class="resourceImage">
                                 <gsml:img src="/res/img/testPrep/testPrepAdditionalResources-4.jpg"
-                                          alt="fourth resource"
+                                          alt="Ace those tests"
                                           width="143" height="105"/>
 
                                 <p class="text2">ACE THOSE TESTS!</p>
 
-                                <p class="text2"><a href="#">SAT and ACT test prep: 6 insider secrets</a></p>
+                                <p class="text2"><link:article articleId="244">SAT and ACT test prep: 6 insider secrets</link:article></p>
                                 </div>
                             </div>
                         </div>
