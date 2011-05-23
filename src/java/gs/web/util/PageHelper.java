@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.101 2011/05/17 21:42:55 yfan Exp $
+ * $Id: PageHelper.java,v 1.102 2011/05/23 18:16:00 rcox Exp $
  */
 
 package gs.web.util;
@@ -53,6 +53,7 @@ public class PageHelper {
         put("CONTACT_US", "5");
         put("NEWSLETTERS", "6");
         put("SEASONAL", "7");
+        put("COLLEGE", "8");
         put("COUNTDOWN_COLLEGE", "9");
         put("COMMUNITY_LANDING", "10");
         put("PRESCHOOL", "11");
@@ -68,13 +69,12 @@ public class PageHelper {
         put("COLLEGE_PREP", "21");
         put("BACK_TO_SCHOOL", "22");
         put("TOP_NAV_PROMO", "23");
-
-        put("HEALTH_AND_DEVELOPMENT", "27");
         put("ACADEMICS_AND_ACTIVITIES", "24");
         put("LEARNING_DISABILITIES", "25");
         put("IMPROVE_YOUR_SCHOOL", "26");
-
+        put("HEALTH_AND_DEVELOPMENT", "27");
         put("GREAT_GIFTS", "28");
+        put("TEST_PREP", "29");
     }};
 
     private final SessionContext _sessionContext;
