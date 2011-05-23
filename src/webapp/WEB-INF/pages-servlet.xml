@@ -88,6 +88,7 @@
                 <entry key="/school-choice/**" value="/content/schoolChoice.page"/>
                 <entry key="/badges/**" value="/school/topHighSchoolsBadges.page"/>
                 <entry key="/pledge/**" value="/backToSchool/pledgeLanding.page"/>
+                <entry key="/test-prep/**" value="/testPrep/testPrepLanding.page"/>
                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
                 <entry key="/stateofeducation/**" value="/content/cms/topicCenter.page"/>
             </map>

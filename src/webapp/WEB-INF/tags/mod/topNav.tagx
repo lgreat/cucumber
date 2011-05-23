@@ -418,9 +418,9 @@
                                      <!--styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ "-->
                                      <!--id="GlobalNav_CommunityButton">Community</gsml:a>-->
             <!--</li>-->
-            <!-- TODO: GS-11708 Uncomment topnav_tp in 17.8 -->
+            <!-- TODO: GS-11708 Uncomment topnav_tp in 17.7 -->
             <li id="topnav_tp" class="nav_menu">
-                <a href="/testPrep/testPrepLanding.page" class="nav_group_heading ${(pw == tabs.TEST_PREP ? 'topnav_subnav_active' : '')} GS_CI9_" id="GlobalNav_TestPrep">Test Prep</a>
+                <a href="/test-prep/" class="nav_group_heading ${(pw == tabs.TEST_PREP ? 'topnav_subnav_active' : '')} GS_CI9_" id="GlobalNav_TestPrep">Test Prep</a>
             </li>
             <li id="topnav_comm" class="nav_menu">
                 <link:communityLanding styleClass="nav_group_heading ${(pw == tabs.COMMUNITY_LANDING ? 'topnav_subnav_active' : '')} GS_CI9_ " id="GlobalNav_CommunityButton"><span
