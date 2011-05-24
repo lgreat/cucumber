@@ -4370,6 +4370,11 @@ body.cobranded #pageGS {
     padding: 0 28px;
 }
 
+.win.safari #globalnav a,
+.win.chrome #globalnav a{
+    padding:0 28px;
+}
+
 #globalnav .lastNavUnit a { /* for safari */
     border: none;
     padding: 0 30px;
@@ -4386,6 +4391,12 @@ body.cobranded #pageGS {
 .ie8 #globalnav .lastNavUnit a {
     border: none;
     padding-right: 31px;
+}
+
+.win.safari #globalnav .lastNavUnit a,
+.win.chrome #globalnav .lastNavUnit a{
+    border: none;
+    padding:0 30px;
 }
 
 #globalnav a:hover,

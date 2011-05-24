@@ -21,9 +21,9 @@
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
-<c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'msie 9') ? "ie9 " : ""}${fn:contains(agent, 'firefox') ? "ff " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}${fn:contains(agent, 'firefox/4') ? "ff4 " : ""}</c:set>
-
-<c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout} ${browserClass}</c:set>
+<c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'msie 9') ? "ie9 " : ""}${fn:contains(agent, 'firefox') ? "ff " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}${fn:contains(agent, 'firefox/4') ? "ff4 " : ""}${fn:contains(agent, 'version') ? "safari " : ""}${fn:contains(agent, 'chrome') ? "chrome " : ""}</c:set>
+<c:set var="osClass">${fn:contains(agent, 'macintosh') ? "mac" : ""}${fn:contains(agent, 'windows') ? "win" : ""}</c:set>
+<c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout} ${osClass} ${browserClass}</c:set>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <jsp:output doctype-root-element="html"
