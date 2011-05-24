@@ -56,6 +56,28 @@
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
+<c:choose>
+    <c:when test="${isCityBrowse}">
+        <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
+        <c:set var="moreNearbyCitiesLabel" value="more nearby cities"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
+        <c:set var="moreNearbyCitiesLabel" value="more cities"/>
+    </c:otherwise>
+</c:choose>
+<c:choose>
+    <c:when test="${isDistrictBrowse}">
+        <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
+        <c:set var="moreNearbyDistrictsLabel" value="more nearby districts"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="nearbyDistrictsLabel" value="Schools in district:"/>
+        <c:set var="moreNearbyDistrictsLabel" value="more districts"/>
+    </c:otherwise>
+</c:choose>
+
+
 <div id="mainGS" class="col">
 
     <div class="spacer_15"><!-- do not collapse --></div>
@@ -112,7 +134,7 @@
     <!-- nearby cities box -->
     <div class="text3">
         <c:if test="${fn:length(citySearchResults) gt 0}">
-            Schools in city: <link:schools cityName="${citySearchResults[0].city}" state="${citySearchResults[0].state}">
+            ${nearbyCitiesLabel} <link:schools cityName="${citySearchResults[0].city}" state="${citySearchResults[0].state}">
                 ${citySearchResults[0].city}, ${citySearchResults[0].state}</link:schools>
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 1}">
@@ -124,7 +146,7 @@
                 ${citySearchResults[2].city}, ${citySearchResults[2].state}</link:schools>
         </c:if>
         <c:if test="${fn:length(citySearchResults) gt 3}">
-            | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">more cities <span
+            | <div id="js-bubbleInfo-8"><span id="nearby-cities-link" class="js-trigger smallAlertText">${moreNearbyCitiesLabel} <span
                 class="alertDoubleArrow">&amp;raquo;</span></span>
 
             <div id="nearby-cities" class="js-popup">
@@ -176,14 +198,14 @@
     <!-- nearby districts box -->
     <div class="text3">
         <c:if test="${fn:length(districtSearchResults) gt 0}">
-            Schools in district: <link:schools
+            ${nearbyDistrictsLabel} <link:schools
                 state="${districtSearchResults[0].state}"
                 districtId="${districtSearchResults[0].id}"
                 districtName="${districtSearchResults[0].name}"
                 cityName="${districtSearchResults[0].city}">${districtSearchResults[0].name}</link:schools>
         </c:if>
         <c:if test="${fn:length(districtSearchResults) gt 1}">
-            | <div id="js-bubbleInfo-9"><span id="nearby-districts-link" class="js-trigger smallAlertText">more districts <span
+            | <div id="js-bubbleInfo-9"><span id="nearby-districts-link" class="js-trigger smallAlertText">${moreNearbyDistrictsLabel} <span
                 class="alertDoubleArrow">&amp;raquo;</span></span>
 
             <div id="nearby-districts" class="js-popup">
