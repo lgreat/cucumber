@@ -4308,6 +4308,7 @@ body.cobranded #pageGS {
     position:relative;
     padding:0;
     margin:0;
+    zoom:1;
 }
 
 #globalnav {
