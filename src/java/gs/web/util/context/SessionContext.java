@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.60 2011/05/24 23:37:13 yfan Exp $
+ * $Id: SessionContext.java,v 1.61 2011/05/25 00:17:48 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -302,10 +302,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public boolean isIphoneSplashPageEnabled() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.IPHONE_SPLASH_PAGE_ENABLED_KEY, "false"));
-    }
-
-    public boolean isSponsoredFindASchoolModule() {
-        return "true".equals(_propertyDao.getProperty(IPropertyDao.SPONSORED_FIND_A_SCHOOL_MODULE, "false"));
     }
 
     protected JSONObject getSurveyDetailsJson(String property) {
