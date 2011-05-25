@@ -1244,7 +1244,7 @@ Viewport: the defines width and height of each icon
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-05-12.png);
+    background-image: url(/res/img/sprites/iconSprite_2011-05-25.png);
 }
 
 /* **************** VIEWPORT ***************** */
@@ -1536,16 +1536,22 @@ Viewport: the defines width and height of each icon
     background-position: -40px -220px;
 }
 
+.pencil_med {
+    width: 16px;
+    height: 18px;
+    background-position: -40px -240px;
+}
+
 .cpareColClose {
     width: 13px;
     height: 14px;
     background-position: -40px -260px;
 }
 
-.pencil_med {
-    width: 16px;
-    height: 18px;
-    background-position: -40px -240px;
+.i-play {
+    width: 15px;
+    height: 17px;
+    background-position: -40px -280px;
 }
 
 /* column 60 */

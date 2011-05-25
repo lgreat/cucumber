@@ -115,9 +115,16 @@
                                               width="204" height="145"/>
                                 </a>
 
-                                <p class="smallText1-333">Watch our video to <a href="http://www.youtube.com/grockit"
-                                                                                target="_blank">see how it works</a>.
-                                </p>
+                                <div class="mediaExt1-1 mtm">
+                                    <div class="img">
+                                        <a href="http://www.youtube.com/grockit" target="_blank">
+                                            <span class="sprite i-play"><!-- do not collapse --></span></a>
+                                    </div>
+                                    <div class="bk smallText1-333 pvs">
+                                        Watch our video to <a href="http://www.youtube.com/grockit"
+                                                              target="_blank">see how it works</a>.
+                                    </div>
+                                </div>
                             </div>
                             <div class="unit size2of3 lastUnit">
                                 <ul>
