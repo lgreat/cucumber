@@ -102,28 +102,32 @@ GS.search.onMapMarkerClick = function(state, id) {
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
         queryString = removeFromQueryString(queryString, "gradeLevels");
         var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
-        var numGradeLevels = jQuery('#js-gradeLevels input[type=checkbox]').size();
         var overwriteGradeLevels = true;
         checkedGradeLevels.each(function() {
-            queryString = putIntoQueryString(queryString, "gradeLevels", jQuery(this).val(), overwriteGradeLevels);
-            overwriteGradeLevels = false;
+            if (jQuery(this).val() !== '') {
+                queryString = putIntoQueryString(queryString, "gradeLevels", jQuery(this).val(), overwriteGradeLevels);
+                overwriteGradeLevels = false;
+            }
         });
-
 
         queryString = removeFromQueryString(queryString, "st");
         var checkedSchoolTypes = jQuery('#js-schoolTypes :checked');
-        var numSchoolTypes = jQuery('#js-schoolTypes input[type=checkbox]').size();
         var overwriteSchoolTypes = true;
         checkedSchoolTypes.each(function() {
-            queryString = putIntoQueryString(queryString, "st", jQuery(this).val(), overwriteSchoolTypes);
-            overwriteSchoolTypes = false;
+            if (jQuery(this).val() !== '') {
+                queryString = putIntoQueryString(queryString, "st", jQuery(this).val(), overwriteSchoolTypes);
+                overwriteSchoolTypes = false;
+            }
         });
 
+        queryString = removeFromQueryString(queryString, "affiliations");
         var checkedAffiliations = jQuery('#js-affiliations :checked');
         var overwriteAffiliations = true;
         checkedAffiliations.each(function() {
-            queryString = putIntoQueryString(queryString, "affiliations", jQuery(this).val(), overwriteAffiliations);
-            overwriteAffiliations = false;
+            if (jQuery(this).val() !== '') {
+                queryString = putIntoQueryString(queryString, "affiliations", jQuery(this).val(), overwriteAffiliations);
+                overwriteAffiliations = false;
+            }
         });
 
         var studentTeacherRatio = jQuery('#studentTeacherRatioSelect');

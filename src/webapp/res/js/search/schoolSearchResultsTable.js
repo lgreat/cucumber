@@ -41,20 +41,26 @@ GS.search.SchoolSearcher = function() {
         data.requestType = "ajax";
         data.decorator="emptyDecorator";
         data.confirm="true";
-        
+
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
         jQuery('#js-gradeLevels :checked').each(function() {
-            gradeLevels[i++] = jQuery(this).val();
+            if (jQuery(this).val() !== '') {
+                gradeLevels[i++] = jQuery(this).val();
+            }
         });
 
         i = 0;
         jQuery('#js-schoolTypes :checked').each(function() {
-            schoolTypes[i++] = jQuery(this).val();
+            if (jQuery(this).val() !== '') {
+                schoolTypes[i++] = jQuery(this).val();
+            }
         });
 
         i=0;
         jQuery('#js-affiliations :checked').each(function() {
-           affiliations[i++] = jQuery(this).val();
+            if (jQuery(this).val() !== '') {
+                affiliations[i++] = jQuery(this).val();
+            }
         });
         data["gradeLevels"] = gradeLevels;
         data["st"] = schoolTypes;
@@ -401,6 +407,7 @@ GS.search.FilterTracking = function() {
     gradeLevel['e'] = 'elem';
     gradeLevel['m'] = 'middle';
     gradeLevel['h'] = 'high';
+    gradeLevel['all'] = 'all';
 
     this.track = function(cssId) {
         var lastHyphenIndex = cssId.lastIndexOf('-');
@@ -450,6 +457,38 @@ jQuery(function() {
 
     jQuery('#topicbarGS input').click(function() {
         var cssId = jQuery(this).attr('id');
+
+        // may need to change checkbox checking in jQuery 1.6+
+        // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
+        if (cssId === 'grade-level-all') {
+            if (jQuery('#grade-level-all').is(':checked')) {
+                jQuery('#topicbarGS .jq-grade-level').attr('checked','checked');
+            } else {
+                jQuery('#topicbarGS .jq-grade-level').removeAttr('checked');
+            }
+        } else if (cssId === 'school-type-all') {
+            if (jQuery('#school-type-all').is(':checked')) {
+                jQuery('#topicbarGS .jq-school-type').attr('checked','checked');
+            } else {
+                jQuery('#topicbarGS .jq-school-type').removeAttr('checked');
+            }
+        }
+        var numGradeLevels = jQuery('#topicbarGS .jq-grade-level').size();
+        var numGradeLevelsChecked = jQuery('#topicbarGS .jq-grade-level:checked').size();
+        if (numGradeLevels == numGradeLevelsChecked) {
+            jQuery('#grade-level-all').attr('checked','checked');
+        } else {
+            jQuery('#grade-level-all').removeAttr('checked');
+        }
+
+        var numSchoolTypes = jQuery('#topicbarGS .jq-school-type').size();
+        var numSchoolTypesChecked = jQuery('#topicbarGS .jq-school-type:checked').size();
+        if (numSchoolTypes == numSchoolTypesChecked) {
+            jQuery('#school-type-all').attr('checked','checked');
+        } else {
+            jQuery('#school-type-all').removeAttr('checked');
+        }
+
         GS.search.filterTracking.track(cssId);
         GS.search.schoolSearchResultsTable.update();
     });
