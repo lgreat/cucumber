@@ -15,7 +15,7 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<ad:setSlotPrefix slotPrefix="CommunityLanding"/>
+<ad:setSlotPrefix slotPrefix="Test_Prep"/>
 
 <head>
     <title>Test Prep | GreatSchools</title>
@@ -92,21 +92,37 @@
         <div class="grid_19 alpha omega mbm">
             <div class="mod sponsored">
                 <div class="inner">
+                    <div class="Test_Prep_Sponsor_88x31">
+                        <div class="mediaExt1">
+                            <div class="imgExt">
+                                <ad:adTag position="Sponsor_88x31"/>
+                            </div>
+                            <div id="jq-ghostText-Test_Prep_Sponsor_88x31" class="bk iblock smallText1 ptm mts">
+                                From our sponsor
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="hd">
                         <h3 class="title1-333">Everything you need for college prep</h3>
                     </div>
                     <div class="bd">
                         <div class="line">
                             <div class="unit size1of3">
-                                <gsml:img src="/res/img/testPrep/testPrepSponsored-1.jpg"
-                                          alt="test prep video"
-                                          width="204" height="145"/>
-                                <p class="smallText1-333">Watch our video to <a href="#">see how it works</a>.</p>
+                                <a href="http://www.youtube.com/grockit" target="_blank">
+                                    <gsml:img src="/res/img/testPrep/testPrepSponsored-1.jpg"
+                                              alt="test prep video"
+                                              width="204" height="145"/>
+                                </a>
+
+                                <p class="smallText1-333">Watch our video to <a href="http://www.youtube.com/grockit"
+                                                                                target="_blank">see how it works</a>.
+                                </p>
                             </div>
                             <div class="unit size2of3 lastUnit">
                                 <ul>
-                                    <li><strong>Online</strong> - anywhere, anytime.</li>
-                                    <li><strong>Track your progress</strong> and work with your peers for personalized feedback.</li>
+                                    <li><strong>Learn online</strong> through learning games, video lessons, and interactive study groups.</li>
+                                    <li><strong>Score high</strong> and track your progress with a personalized study plan.</li>
                                     <li><strong>Sign up</strong> for a free account to get started.</li>
                                 </ul>
                                 <a href="#" class="button-3">Get started</a>
@@ -176,6 +192,18 @@
     </div>
 </div>
 
+<script type="text/javascript">
+GS = GS || {};
+GS.ads = GS.ads || {};
+GS.ads.showTestPrepSponsorLogoText = function() {
+    if (jQuery('#google_ads_div_Test_Prep_Sponsor_88x31,#google_ads_div_Test_Prep_Sponsor_88x31_ad_container').length == 0) {
+        jQuery('#jq-ghostText-Test_Prep_Sponsor_88x31').show();
+    }
+};
+jQuery(function() {
+    setTimeout("GS.ads.showTestPrepSponsorLogoText();", 1000);
+});
+</script>
 
 <mod:tracking pageName="Test Prep"
               hier1="Topic Centers,Test Prep"
