@@ -234,7 +234,7 @@
         <property name="reviewDao" ref="reviewDao"/>
     </bean>
     
-    <bean id="looseSolrSchoolSearchService" class="gs.web.search.LooseSchoolSearchServiceSolrImpl" init-method="init">
+    <bean id="looseSolrSchoolSearchService" class="gs.web.search.LooseSchoolSearchServiceSolrImpl">
     </bean>
 
     <bean id="solrCmsCategorySearchService" class="gs.web.search.CmsCategorySearchServiceSolrImpl" init-method="init">
