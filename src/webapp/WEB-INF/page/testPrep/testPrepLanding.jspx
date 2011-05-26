@@ -25,13 +25,8 @@
 <gsml:body adPageName="testPrep" pageLayout="nocol">
 
 <div class="container_24">
-    <div class="grid_5 push_19 mtl">
-        <div class="skyscraperAd mhm phs">
-            <ad:AboveFold_Right_160x600/>
-        </div>
-    </div>
-    <div class="grid_19 pull_5 mtl">
-        <div class="grid_19 alpha omega mbm">
+    <div class="grid_19 mtl">
+        <div class="mbm">
 
             <h1 class="plm">Test Prep</h1>
 
@@ -57,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid_19 alpha omega mbm">
+        <div class="mbm">
             <div class="mod topArticles">
                 <div class="inner">
                     <div class="hd">
@@ -89,15 +84,15 @@
                 </div>
             </div>
         </div>
-        <div class="grid_19 alpha omega mbm">
+        <div class="mbm">
             <div class="mod sponsored">
                 <div class="inner">
-                    <div class="Test_Prep_Sponsor_88x31">
+                    <div class="sponsor_88x31">
                         <div class="mediaExt1">
                             <div class="imgExt">
                                 <ad:adTag position="Sponsor_88x31"/>
                             </div>
-                            <div id="jq-ghostText-Test_Prep_Sponsor_88x31" class="bk iblock smallText1 ptm mts">
+                            <div id="jq-ghostText-Test_Prep_Sponsor_88x31" class="bk iblock smallText1 ptm mts hidden">
                                 From our sponsor
                             </div>
                         </div>
@@ -139,7 +134,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid_19 alpha omega mbm">
+        <div class="mbm">
             <div class="mod topArticles">
                 <div class="inner">
                     <div class="hd">
@@ -197,13 +192,18 @@
             </div>
         </div>
     </div>
+    <div class="grid_5 mtl">
+        <div class="skyscraperAd mhm phs">
+            <ad:AboveFold_Right_160x600/>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
 GS = GS || {};
 GS.ads = GS.ads || {};
 GS.ads.showTestPrepSponsorLogoText = function() {
-    if (jQuery('#google_ads_div_Test_Prep_Sponsor_88x31,#google_ads_div_Test_Prep_Sponsor_88x31_ad_container').length == 0) {
+    if (jQuery('#google_ads_div_Test_Prep_Sponsor_88x31,#google_ads_div_Test_Prep_Sponsor_88x31_ad_container').length == 1) {
         jQuery('#jq-ghostText-Test_Prep_Sponsor_88x31').show();
     }
 };
