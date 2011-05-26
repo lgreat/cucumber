@@ -67,7 +67,8 @@
         </c:when>
     </c:choose>
 
-    <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
+    <c:set var="slotPrefixName" value="Library_Article_Page"/>
+    <ad:setSlotPrefix slotPrefix="${slotPrefixName}"/>
 </head>
 
 <gsml:body adPageName="${pageName}">
@@ -350,6 +351,7 @@
                     isHomePage="${false}"
                     levelCode="${levelCode}"
                     nearbySearchRedirectUrl="${uri}"
+                    adSlotPrefix="${slotPrefixName}"
                     />
         </c:when>
         <c:when test="${topicCenter.stateOfEducationTopicCenter}">
