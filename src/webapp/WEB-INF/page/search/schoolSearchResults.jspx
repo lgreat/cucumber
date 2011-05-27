@@ -57,26 +57,19 @@
 <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
 <c:choose>
-    <c:when test="${isCityBrowse}">
+    <c:when test="${isCityBrowse || isDistrictBrowse}">
         <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
         <c:set var="moreNearbyCitiesLabel" value="more nearby cities"/>
-    </c:when>
-    <c:otherwise>
-        <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
-        <c:set var="moreNearbyCitiesLabel" value="more cities"/>
-    </c:otherwise>
-</c:choose>
-<c:choose>
-    <c:when test="${isDistrictBrowse}">
         <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
         <c:set var="moreNearbyDistrictsLabel" value="more nearby districts"/>
     </c:when>
     <c:otherwise>
+        <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
+        <c:set var="moreNearbyCitiesLabel" value="more cities"/>
         <c:set var="nearbyDistrictsLabel" value="Schools in district:"/>
         <c:set var="moreNearbyDistrictsLabel" value="more districts"/>
     </c:otherwise>
 </c:choose>
-
 
 <div id="mainGS" class="col">
 
