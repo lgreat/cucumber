@@ -72,72 +72,72 @@
 <div class="grid_16">
 
     <div class="mrm phs">
-    <div class="smallText1 mtm pts">
-        <link:home>Home</link:home> &amp;gt;
-        <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
-            <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
-            <c:if test="${!status.last}"> &amp;gt; </c:if>
-        </c:forEach>
-    </div>
-
-    <h1 class="mts">${feature.title}</h1>
-
-    <p class="introText">
-        ${fn:escapeXml(feature.summary)}
-    </p>
-
-    <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
-
-    <div class="text3 fltrt">
-        <ul>
-            <c:if test="${not empty feature.otherLanguageUri}">
-                <li><a href="${feature.otherLanguageUri}">
-                    <c:choose>
-                        <c:when test="${feature.language eq 'ES'}">
-                            <span class="bolder">Watch video in English &amp;raquo;</span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
-                        </c:otherwise>
-                    </c:choose>
-                </a></li>
-            </c:if>
-        </ul>
-    </div>
-
-    <div class="pvs">
-        ${feature.embedVideoCode}
-    </div>
-
-    <div class="pvm">
-        ${(feature.body)}
-    </div>
-
-    <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
-    <ad:adTag position="Sponsor_610x16"/>
-
-    <div class="spacer_15 brdbtm_solid-c6c6c6 mbm"><!-- do not collapse --></div>
-
-    <!-- Licensor attribution -->
-    <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
-        <div class="licensorAttributionPageBar">
-            <div class="attribution">
-                ${feature.licensorAttribution}
-            </div>
+        <div class="smallText1 mtm pts">
+            <link:home>Home</link:home> &amp;gt;
+            <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
+                <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
+                <c:if test="${!status.last}"> &amp;gt; </c:if>
+            </c:forEach>
         </div>
-    </c:if>
+
+        <h1 class="mts">${feature.title}</h1>
+
+        <p class="introText">
+            ${fn:escapeXml(feature.summary)}
+        </p>
+
+        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+
+        <div class="text3 fltrt">
+            <ul>
+                <c:if test="${not empty feature.otherLanguageUri}">
+                    <li><a href="${feature.otherLanguageUri}">
+                        <c:choose>
+                            <c:when test="${feature.language eq 'ES'}">
+                                <span class="bolder">Watch video in English &amp;raquo;</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </a></li>
+                </c:if>
+            </ul>
+        </div>
+
+        <div class="pvs">
+            ${feature.embedVideoCode}
+        </div>
+
+        <div class="pvm">
+            ${(feature.body)}
+        </div>
+
+        <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
+        <ad:adTag position="Sponsor_610x16"/>
+
+        <div class="spacer_15 brdbtm_solid-c6c6c6 mbm"><!-- do not collapse --></div>
+
+        <!-- Licensor attribution -->
+        <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+            <div class="licensorAttributionPageBar">
+                <div class="attribution">
+                    ${feature.licensorAttribution}
+                </div>
+            </div>
+        </c:if>
 
 
-    <!-- share this -->
-    <cms:communityDistribution content="${feature}"/>
+        <!-- share this -->
+        <cms:communityDistribution content="${feature}"/>
 
-    <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="spacer_10"><!-- do not collapse --></div>
 
-    <c:if test="${not empty feature.relatedVideos}">
-        <cms:relatedVideos/>
-    </c:if>
+        <c:if test="${not empty feature.relatedVideos}">
+            <cms:relatedVideos/>
+        </c:if>
 
-    <!-- Related links -->
+        <!-- Related links -->
         <c:if test="${not empty feature.relatedArticles or not empty feature.externalLinks}">
             <c:set var="hasPublishedRelatedArticles" value="${false}"/>
             <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
@@ -171,47 +171,46 @@
                 <div class="spacer_15"><!-- do not collapse --></div>
             </div>
         </div>
-         <!-- end .relatedLinks -->
+        <!-- end .relatedLinks -->
 
-        <div class="clearfloat brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
-        
-    <div class="articleCommentForm">
+        <div class="clearfloat brdbtm_dotted-ccc mbm"><!-- do not collapse --></div>
 
-        <div id="articleComments" class="noprint">
-            <div id="enterComment">
-                <script type="text/javascript">
-                    function wrapCommentWithDelimiter(comment) {
-                        return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
-                    }
-                </script>
-                <!-- Article comment form -->
-                <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-                <!-- end #cmsArticleForm -->
-            </div>
-            <div class="divider">
-                <hr/>
-            </div>
-            <div id="cmsArticleComments">
-                <c:if test="${not empty comments and fn:length(comments) gt 0}">
-                    <!--<hr width="100%" class="commentDivider"/>-->
-                    <h4>Comments from GreatSchools.org readers</h4>
+        <div class="articleCommentForm noprint">
 
-                    <div id="comments">
-                        <c:forEach var="comment" items="${comments}">
-                            <div class="comment">
-                                <div class="comment-date"><fmt:formatDate value="${comment.posted}"
-                                                                          pattern="MM/d/yyyy"/>:
+                <div id="enterComment">
+                    <script type="text/javascript">
+                        function wrapCommentWithDelimiter(comment) {
+                            return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
+                        }
+                    </script>
+                    <!-- Article comment form -->
+                    <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
+                    <!-- end #cmsArticleForm -->
+                </div>
+
+                <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+
+                <div id="cmsArticleComments">
+                    <c:if test="${not empty comments and fn:length(comments) gt 0}">
+                        <!--<hr width="100%" class="commentDivider"/>-->
+                        <h4 class="subhead2">Comments from GreatSchools.org readers</h4>
+
+                        <div id="comments">
+                            <c:forEach var="comment" items="${comments}">
+                                <div class="comment">
+                                    <div class="comment-date"><fmt:formatDate value="${comment.posted}"
+                                                                              pattern="MM/d/yyyy"/>:
+                                    </div>
+
+                                    <div class="comment-text">"${comment.text}"</div>
                                 </div>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                </div>
 
-                                <div class="comment-text">"${comment.text}"</div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </c:if>
-            </div>
         </div>
     </div>
-        </div>
 </div>
 <div class="grid_8">
     <c:choose>
