@@ -4,17 +4,31 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms">
     <c:if test="${not empty feature.relatedVideos}">
-        <div id="relatedVideos" style="background-color:#F2F0F1;" class="pam">
-            <h4 class="plm">Related Videos</h4>
-            <table width="606px">
-                <tr>
-                    <c:forEach var="relatedVideo" items="${feature.relatedVideos}" varStatus="status" begin="0" end="3">
-                        <td width="120px">
-                            <cms:relatedVideo relatedVideo="${relatedVideo}"/>
-                        </td>
-                    </c:forEach>
-                </tr>
-            </table>
+        <div class="mod relatedContent">
+            <div class="inner">
+                <div class="hd">
+                    <h4 class="subhead2">Related Videos</h4>
+                </div>
+                <div class="bd">
+                    <div class="line">
+                        <c:forEach var="relatedVideo" items="${feature.relatedVideos}" varStatus="status" begin="0"
+                                   end="3">
+                            <c:choose>
+                                <c:when test="${status.last}">
+                                    <div class="unit size1of4 lastUnit">
+                                        <cms:relatedVideo relatedVideo="${relatedVideo}"/>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="unit size1of4">
+                                        <cms:relatedVideo relatedVideo="${relatedVideo}"/>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
         </div>
     </c:if>
 </jsp:root>

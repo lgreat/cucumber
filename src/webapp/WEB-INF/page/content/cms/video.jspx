@@ -109,7 +109,7 @@
         ${feature.embedVideoCode}
     </div>
 
-    <div class="summary">
+    <div class="pvm">
         ${(feature.body)}
     </div>
 
@@ -155,9 +155,9 @@
             </c:if>
         </div>
     </c:if> <!-- end .relatedLinks -->
-    <div class="divider">
-        <hr/>
-    </div>
+
+        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+        
     <div class="articleCommentForm">
 
         <div id="articleComments" class="noprint">

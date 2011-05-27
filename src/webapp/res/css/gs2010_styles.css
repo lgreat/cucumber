@@ -3294,6 +3294,12 @@ Viewport: the defines width and height of each icon
 .sponsored .bd li{list-style:disc;margin:16px 0 16px 5px;}
 .sponsored .sponsor_88x31{position:absolute;top:10px;right:10px;}
 
+/* ---------------- GS-11644 ----------------- */
+/* ------ relatedContent (extends mod) ------- */
+.relatedContent{margin-bottom:20px;}
+.relatedContent .inner{background-color:#ebebeb;padding:20px 20px 10px}
+.relatedContent img{border: 1px solid #c6c6c6;}
+
 /* ------------ background tints ------------- */
 .bgtint-fff{
     background-color: white;
