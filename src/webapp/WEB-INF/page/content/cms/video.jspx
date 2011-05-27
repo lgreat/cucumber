@@ -71,7 +71,7 @@
 <div class="container_24">
 <div class="grid_16">
 
-    <div class="prm">
+    <div class="mrm phs">
     <div class="smallText1 mtm pts">
         <link:home>Home</link:home> &amp;gt;
         <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
