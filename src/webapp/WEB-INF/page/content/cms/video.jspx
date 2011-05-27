@@ -71,7 +71,7 @@
 <div class="container_24">
 <div class="grid_16">
 
-    <div class="smallText1 mtm">
+    <div class="smallText1 mtl pts">
         <link:home>Home</link:home> &amp;gt;
         <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
             <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
@@ -79,15 +79,15 @@
         </c:forEach>
     </div>
 
-    <h1>${feature.title}</h1>
+    <h1 class="mts">${feature.title}</h1>
 
     <p class="introText">
         ${fn:escapeXml(feature.summary)}
     </p>
 
-    <div class="clearfloat brdbtm_dotted-ccc"><!-- do not collapse --></div>
+    <div class="spacer_10 brdbtm_dotted-ccc"><!-- do not collapse --></div>
 
-    <div id="cmsArticleFunctions">
+    <div class="text3 fltrt">
         <ul>
             <c:if test="${not empty feature.otherLanguageUri}">
                 <li><a href="${feature.otherLanguageUri}">
