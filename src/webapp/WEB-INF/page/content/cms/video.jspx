@@ -71,7 +71,8 @@
 <div class="container_24">
 <div class="grid_16">
 
-    <div class="smallText1 mtl pts">
+    <div class="prm">
+    <div class="smallText1 mtm pts">
         <link:home>Home</link:home> &amp;gt;
         <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
             <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
@@ -85,7 +86,7 @@
         ${fn:escapeXml(feature.summary)}
     </p>
 
-    <div class="spacer_10 brdbtm_dotted-ccc"><!-- do not collapse --></div>
+    <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
     <div class="text3 fltrt">
         <ul>
@@ -104,7 +105,7 @@
         </ul>
     </div>
 
-    <div>
+    <div class="pts">
         ${feature.embedVideoCode}
     </div>
 
@@ -195,6 +196,7 @@
             </div>
         </div>
     </div>
+        </div>
 </div>
 <div class="grid_8">
     <c:choose>
