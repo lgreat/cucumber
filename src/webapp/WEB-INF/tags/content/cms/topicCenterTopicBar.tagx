@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
+
+    <jsp:directive.attribute name="topicCenter" required="true" type="gs.data.content.cms.CmsTopicCenter"/>
+    
+    <c:set var="moreOnThisTopic">
+        <cms:browseSidebar title="More on this topic" subtopics="${requestScope.topicCenter.subtopics}"/>
+    </c:set>
+
+    <c:set var="browseByGrade">
+        <c:if test="${
+            topicCenter.elementarySchoolTopicCenter or
+            topicCenter.academicsAndActivitiesTopicCenter or
+            topicCenter.healthAndDevelopmentTopicCenter or
+            topicCenter.specialEducationTopicCenter or
+            topicCenter.elementaryGradeTopicCenter
+        }">
+            <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}" currentUri="${uri}"/>
+        </c:if>
+    </c:set>
+
+    <c:choose>
+        <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+            ${browseByGrade}
+            ${moreOnThisTopic}
+        </c:when>
+        <c:when test="${
+            topicCenter.academicsAndActivitiesTopicCenter or
+            topicCenter.healthAndDevelopmentTopicCenter or
+            topicCenter.specialEducationTopicCenter or
+            topicCenter.elementaryGradeTopicCenter
+        }">
+            ${moreOnThisTopic}
+            ${browseByGrade}
+        </c:when>
+        <c:otherwise>
+            ${moreOnThisTopic}
+        </c:otherwise>
+    </c:choose>
+
+    <div class="skyscraperAd">
+        <ad:AboveFold_Left_160x600/>
+    </div>
+
+    <br/>
+    
+</jsp:root>
