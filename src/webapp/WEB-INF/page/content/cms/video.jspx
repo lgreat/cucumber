@@ -70,56 +70,50 @@
 
 <div class="container_24">
 <div class="grid_16">
-    <div id="bodyHeader">
 
-        <div class="smallText1 mtm">
-            <link:home>Home</link:home> &amp;gt;
-            <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
-                <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
-                <c:if test="${!status.last}"> &amp;gt; </c:if>
-            </c:forEach>
-        </div>
-
-        <h1>${feature.title}</h1>
-
-        <div class="summary">
-            ${fn:escapeXml(feature.summary)}
-        </div>
-
-        <div class="divider pt clear">
-            <hr/>
-        </div>
-
-        <div id="cmsArticleFunctions">
-            <ul>
-                <c:if test="${not empty feature.otherLanguageUri}">
-                    <li><a href="${feature.otherLanguageUri}">
-                        <c:choose>
-                            <c:when test="${feature.language eq 'ES'}">
-                                <span class="bolder">Watch video in English &amp;raquo;</span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
-                            </c:otherwise>
-                        </c:choose>
-                    </a></li>
-                </c:if>
-            </ul>
-        </div>
-
-        <div>
-            ${feature.embedVideoCode}
-        </div>
-
-        <div class="summary">
-            ${(feature.body)}
-        </div>
-
-        <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
-        <ad:adTag position="Sponsor_610x16"/>
-
+    <div class="smallText1 mtm">
+        <link:home>Home</link:home> &amp;gt;
+        <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
+            <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
+            <c:if test="${!status.last}"> &amp;gt; </c:if>
+        </c:forEach>
     </div>
-    <!-- end .bodyHeader -->
+
+    <h1>${feature.title}</h1>
+
+    <p class="introText">
+        ${fn:escapeXml(feature.summary)}
+    </p>
+
+    <div class="clearfloat brdbtm_dotted-ccc"><!-- do not collapse --></div>
+
+    <div id="cmsArticleFunctions">
+        <ul>
+            <c:if test="${not empty feature.otherLanguageUri}">
+                <li><a href="${feature.otherLanguageUri}">
+                    <c:choose>
+                        <c:when test="${feature.language eq 'ES'}">
+                            <span class="bolder">Watch video in English &amp;raquo;</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
+                        </c:otherwise>
+                    </c:choose>
+                </a></li>
+            </c:if>
+        </ul>
+    </div>
+
+    <div>
+        ${feature.embedVideoCode}
+    </div>
+
+    <div class="summary">
+        ${(feature.body)}
+    </div>
+
+    <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
+    <ad:adTag position="Sponsor_610x16"/>
 
     <div class="divider pt clear">
         <hr/>
