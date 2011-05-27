@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0">
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+<c:set var="pageName" value="${omnitureTopicCenterName} Landing Page" scope="request"/>
+
+<head>
+    <c:choose>
+        <c:when test="${not empty topicCenter.pageTitle}">
+            <c:set var="pageTitle">${topicCenter.pageTitle}</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageTitle">${topicCenter.title}</c:set>
+        </c:otherwise>
+    </c:choose>
+    <title>${pageTitle} Videos | GreatSchools</title>
+
+    <meta name="description" content="${topicCenter.metaDescription}"/>
+    <meta name="keywords" content="${topicCenter.metaKeywords}"/>
+    
+    <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter2010.js"/>
+
+    <c:choose>
+        <c:when test="${topicCenter.healthAndDevelopmentTopicCenter}">
+            <pageHelper:setPathway pathway="HEALTH_AND_DEVELOPMENT"/>
+        </c:when>
+        <c:when test="${topicCenter.academicsAndActivitiesTopicCenter}">
+            <pageHelper:setPathway pathway="ACADEMICS_AND_ACTIVITIES"/>
+        </c:when>
+        <c:when test="${topicCenter.specialEducationTopicCenter}">
+            <pageHelper:setPathway pathway="LEARNING_DISABILITIES"/>
+        </c:when>
+        <c:when test="${topicCenter.contentKey.identifier eq 1542}">
+            <pageHelper:setPathway pathway="COLLEGE"/>
+        </c:when>
+        <c:when test="${topicCenter.contentKey.identifier eq 1543}">
+            <pageHelper:setPathway pathway="IMPROVE_YOUR_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.preschoolTopicCenter}">
+            <pageHelper:setPathway pathway="PRESCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+            <pageHelper:setPathway pathway="ELEMENTARY_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.middleSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="MIDDLE_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.highSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="HIGH_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.greatGiftsTopicCenter}">
+            <pageHelper:setPathway pathway="GREAT_GIFTS"/>
+        </c:when>
+    </c:choose>
+
+    <c:set var="slotPrefixName" value="Library_Article_Page"/>
+    <ad:setSlotPrefix slotPrefix="${slotPrefixName}"/>
+</head>
+
+<gsml:body adPageName="${pageName}">
+
+<school:miniStateLauncherHover/>
+
+    <div id="mainGS" class="col">
+    
+    <cms:topicCenterBreadcrumbs topicCenter="${topicCenter}"/>
+
+    <div><h1 class="fltlft">${topicCenter.title}</h1></div>
+
+    <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+    <cms:contentProviderLogoAd topicCenter="${topicCenter}"/>
+    <!-- end logoAd -->
+
+    <div class="spacer_5"><!-- don't collapse --></div>
+    <!--<gsweb:adTagGenerator position="Inline_598x50"/>-->
+    <!-- Subtopics -->
+    <div id="topicContentGS" class="clearfix">
+
+        <div id="topicbarGS" class="col">
+            <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+        </div>
+        <!-- end #topicbarGS -->
+
+        <!-- hardcoded grades and topics for the video gallery page.GS-11651 -->
+        <select id="js_gradesDropdown" class="js_videoFilterDropDown type">
+            <option value="-1">Grade Levels</option>
+            <option value="199">Kindergarten</option>
+            <option value="200">First Grade</option>
+            <option value="201">Second Grade</option>
+            <option value="202">Third Grade</option>
+            <option value="203">Fourth Grade</option>
+            <option value="204">Fifth Grade</option>
+        </select>
+        <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
+            <option value="-1">Topic</option>
+            <option value="209">Math</option>
+            <option value="211">Language Arts</option>
+        </select>
+
+        <div id="js_videoGalleryData">
+            <cms:videoGalleryTable/>
+        </div>
+    </div>
+    <!-- end #topicContentGS -->
+
+    <div class="clear"><!-- don't collapse --></div>
+</div>
+<!-- end #mainGS -->
+
+<div id="sidebarGS" class="col">
+    <cms:topicCenterSidebar topicCenter="${topicCenter}"/>
+</div>
+<!-- end #sidebarGS -->
+
+
+<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+
+<mod:tracking pageName="${pageName}"
+              hier1="Topic Centers,${omnitureTopicCenterName}"
+              omitAlmondNet="${true}"
+        />
+
+</gsml:body>
+</html>
+</jsp:root>

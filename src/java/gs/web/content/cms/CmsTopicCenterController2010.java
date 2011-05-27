@@ -84,6 +84,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
+        boolean isVideo = false;
 
         if (CmsUtil.isCmsEnabled()) {
             String uri = request.getRequestURI();
@@ -108,7 +109,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
                     try {
                         contentId = new Long(request.getParameter("content"));
                         if (contentId != null && uri.toLowerCase().contains("/videos/")) {
+                            isVideo = true;
                             model.put(MODEL_IS_VIDEO, true);
+
                             Set categoryIds = new TreeSet();
                             //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
                             //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
@@ -244,6 +247,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
             return new ModelAndView("/content/cms/videoGalleryTable", model);
          }
 
+        if (isVideo) {
+            return new ModelAndView("/content/cms/videoGallery", model);
+        }
         return new ModelAndView(_viewName, model);
     }
 
