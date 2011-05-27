@@ -3299,6 +3299,7 @@ Viewport: the defines width and height of each icon
 .relatedContent{margin-bottom:20px;}
 .relatedContent .inner{background-color:#ebebeb;padding:20px 20px 10px}
 .relatedContent img{border: 1px solid #c6c6c6;}
+.relatedContent .bd li{list-style:disc;margin:0 0 5px 15px;color:#d61;}
 
 /* ------------ background tints ------------- */
 .bgtint-fff{

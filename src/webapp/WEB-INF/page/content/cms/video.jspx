@@ -138,25 +138,42 @@
     </c:if>
 
     <!-- Related links -->
-    <c:if test="${not empty feature.relatedArticles or not empty feature.externalLinks}">
-        <div id="relatedLinks">
+        <c:if test="${not empty feature.relatedArticles or not empty feature.externalLinks}">
             <c:set var="hasPublishedRelatedArticles" value="${false}"/>
             <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
                 <c:if test="${not empty relatedArticle.url}">
                     <c:set var="hasPublishedRelatedArticles" value="${true}"/>
                 </c:if>
             </c:forEach>
+        </c:if>
 
-            <c:if test="${hasPublishedRelatedArticles}">
-                <cms:relatedArticlesList feature="${feature}"/>
-            </c:if>
-            <c:if test="${not empty feature.externalLinks}">
-                <cms:relatedLinksList feature="${feature}"/>
-            </c:if>
+        <div class="mod relatedContent">
+            <div class="inner">
+                <div class="line">
+                    <c:choose>
+                        <c:when test="${hasPublishedRelatedArticles and not empty feature.externalLinks}">
+                            <div class="unit size46of100 prl brdrt_dotted">
+                                <cms:relatedArticlesList feature="${feature}"/>
+                            </div>
+                            <div class="unit size54of100 lastUnit pll">
+                                <cms:relatedLinksList feature="${feature}"/>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="unit size1of1 lastUnit">
+                                <c:if test="${not empty feature.externalLinks}">
+                                    <cms:relatedLinksList feature="${feature}"/>
+                                </c:if>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="spacer_15"><!-- do not collapse --></div>
+            </div>
         </div>
-    </c:if> <!-- end .relatedLinks -->
+         <!-- end .relatedLinks -->
 
-        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+        <div class="clearfloat brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
         
     <div class="articleCommentForm">
 
