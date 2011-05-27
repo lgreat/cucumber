@@ -48,8 +48,8 @@
     <pageHelper:addMetaProperty property="og:image" content="${feature.imageUrl}"/>
 
     <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
-    <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
+    <!--<pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>-->
+    <!--<pageHelper:externalCss file="/res/css/widelayout.css"/>-->
 
     <!-- GS-11430 -->
     <c:if test="${showCompanionAd}">
@@ -67,58 +67,58 @@
 
 </head>
 <body>
-<div id="main">
-    <div id="content">
-    <!-- title, licensor, summary, current page -->
-        <div id="bodyHeader">
 
-            <div id="breadcrumbs">
-                <link:home>Home</link:home> &amp;gt;
-                <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
-                    <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
-                    <c:if test="${!status.last}"> &amp;gt; </c:if>
-                </c:forEach>
-            </div>
+<div class="container_24">
+<div class="grid_16">
+    <div id="bodyHeader">
 
-            <h1>${feature.title}</h1>
-
-            <div class="summary">
-                ${fn:escapeXml(feature.summary)}
-            </div>
-
-            <div class="divider pt clear">
-                <hr/>
-            </div>
-
-            <div id="cmsArticleFunctions">
-                <ul>
-                    <c:if test="${not empty feature.otherLanguageUri}">
-                        <li><a href="${feature.otherLanguageUri}">
-                            <c:choose>
-                                <c:when test="${feature.language eq 'ES'}">
-                                    <span class="bolder">Watch video in English &amp;raquo;</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
-                                </c:otherwise>
-                            </c:choose>
-                        </a></li>
-                    </c:if>
-                </ul>
-            </div>
-
-            <div>
-                ${feature.embedVideoCode}
-            </div>
-
-            <div class="summary">
-                ${(feature.body)}
-            </div>
-
-            <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
-            <ad:adTag position="Sponsor_610x16"/>
-
+        <div id="breadcrumbs">
+            <link:home>Home</link:home> &amp;gt;
+            <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
+                <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
+                <c:if test="${!status.last}"> &amp;gt; </c:if>
+            </c:forEach>
         </div>
+
+        <h1>${feature.title}</h1>
+
+        <div class="summary">
+            ${fn:escapeXml(feature.summary)}
+        </div>
+
+        <div class="divider pt clear">
+            <hr/>
+        </div>
+
+        <div id="cmsArticleFunctions">
+            <ul>
+                <c:if test="${not empty feature.otherLanguageUri}">
+                    <li><a href="${feature.otherLanguageUri}">
+                        <c:choose>
+                            <c:when test="${feature.language eq 'ES'}">
+                                <span class="bolder">Watch video in English &amp;raquo;</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </a></li>
+                </c:if>
+            </ul>
+        </div>
+
+        <div>
+            ${feature.embedVideoCode}
+        </div>
+
+        <div class="summary">
+            ${(feature.body)}
+        </div>
+
+        <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
+        <ad:adTag position="Sponsor_610x16"/>
+
+    </div>
     <!-- end .bodyHeader -->
 
     <div class="divider pt clear">
@@ -201,17 +201,8 @@
             </div>
         </div>
     </div>
-    </div>
-<!-- end #content -->
 </div>
-<!-- end #main -->
-
-
-<c:set var="pageName" value="video"/>
-<c:set var="hier1" value="Video,${commaSeparatedPrimaryKategoryNames},Video Title: ${titleForOmniture}"/>
-
-
-<div id="rightColumn">
+<div class="grid_8">
     <c:choose>
         <!--
             GS-8341: Initial implementation
@@ -257,6 +248,8 @@
             <div id="squareadvert">
                 <ad:AboveFold_300x250/>
             </div>
+
+            <jsp:include page="/promo/emailSignUp.module"/>
             <!-- GS-11430 -->
             <c:if test="${showCompanionAd}">
                 <div class="ad">
@@ -271,7 +264,8 @@
 
             <c:set var="ckid" value="${feature.contentKey.identifier}"/>
             <c:if test="${ckid eq 2331 or ckid eq 2287 or ckid eq 2272 or ckid eq 2315 or ckid eq 2324 or ckid eq 2334 or ckid eq 2335 or ckid eq 2336 or ckid eq 2337 or ckid eq 2338 }">
-                <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE" showAdPct="0"/>
+                <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE"
+                                           showAdPct="0"/>
             </c:if>
 
             <div id="seasonalPromo">
@@ -295,6 +289,25 @@
         </c:otherwise>
     </c:choose>
 </div>
+</div>
+
+<!--<div id="main">-->
+    <!--<div id="content">-->
+    <!-- title, licensor, summary, current page -->
+
+    <!--</div>-->
+<!-- end #content -->
+<!--</div>-->
+<!-- end #main -->
+
+
+<c:set var="pageName" value="video"/>
+<c:set var="hier1" value="Video,${commaSeparatedPrimaryKategoryNames},Video Title: ${titleForOmniture}"/>
+
+
+<!--<div id="rightColumn">-->
+
+<!--</div>-->
 
 <c:if test="${showContextualAds}">
     <!-- start Vibrant Media IntelliTXT script section -->
