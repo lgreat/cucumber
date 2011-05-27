@@ -267,7 +267,8 @@
             <div class="filter-bd smallAlertText">
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or levelCode eq ''}">
+                        <c:when test="${levelCode eq null or levelCode eq '' or
+                        (fn:contains(levelCode,'p') and fn:contains(levelCode,'e') and fn:contains(levelCode,'m') and fn:contains(levelCode,'h'))}">
                             <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-all" value=""/>
                         </c:when>
                         <c:otherwise>
@@ -330,7 +331,8 @@
                 <div id="js-schoolTypes">
                     <div>
                         <c:choose>
-                            <c:when test="${schoolType eq null or fn:length(schoolType) eq 0}">
+                            <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or
+                            (fn:contains(schoolType,'public') and fn:contains(schoolType,'charter') and fn:contains(schoolType,'private'))}">
                                 <input type="checkbox" checked="checked" name="st" id="school-type-all" value=""/>
                             </c:when>
                             <c:otherwise>
