@@ -72,7 +72,7 @@
 <div class="grid_16">
     <div id="bodyHeader">
 
-        <div id="breadcrumbs">
+        <div class="smallText1 mtm">
             <link:home>Home</link:home> &amp;gt;
             <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
                 <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
