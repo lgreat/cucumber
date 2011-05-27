@@ -116,7 +116,7 @@
     <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
     <ad:adTag position="Sponsor_610x16"/>
 
-    <div class="spacer_10 brdbtm_solid-c6c6c6 mbs"><!-- do not collapse --></div>
+    <div class="spacer_15 brdbtm_solid-c6c6c6 mbm"><!-- do not collapse --></div>
 
     <!-- Licensor attribution -->
     <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
@@ -131,7 +131,7 @@
     <!-- share this -->
     <cms:communityDistribution content="${feature}"/>
 
-    <div class="clearfloat"><!-- do not collapse --></div>
+    <div class="spacer_10"><!-- do not collapse --></div>
 
     <c:if test="${not empty feature.relatedVideos}">
         <cms:relatedVideos/>
