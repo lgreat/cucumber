@@ -550,6 +550,13 @@
             <description>Optional SchoolType restriction, such as "private" or "public,charter".</description>
         </attribute>
         <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML id</description>
+        </attribute>
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

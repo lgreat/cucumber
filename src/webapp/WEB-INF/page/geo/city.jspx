@@ -3,24 +3,16 @@
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-        xmlns:spring="http://www.springframework.org/tags"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-        xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
-        xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
-        xmlns:content2="urn:www.greatschools.org/taglib/content"
-        xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-        xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.org/taglib/link"
-        xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:gsweb="gstaglib"
-        xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+        xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
         >
 <jsp:directive.page import="gs.data.geo.City"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
@@ -388,6 +380,8 @@
     <jsp:param name="state" value="${stateAbbrev}"/>
 </jsp:include>
 
+
+<meebo:localButton city="${cityObject}"/>
 
 <mod:tracking pageName="${pageName}"
               locale="${cityObject.name}"

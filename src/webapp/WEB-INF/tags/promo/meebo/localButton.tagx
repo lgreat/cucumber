@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0" xmlns:link="urn:www.greatschools.org/taglib/link">
+
+    <jsp:directive.attribute name="school" type="gs.data.school.School"
+                             description="School object" required="false"/>
+    <jsp:directive.attribute name="district" type="gs.data.school.district.District"
+                             description="District object" required="false"/>
+    <jsp:directive.attribute name="city" type="gs.data.geo.City"
+                             description="City object" required="false"/>
+
+    <variant:b>
+        <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
+
+            <c:set var="numLines" value="0"/>
+                <div id="meeboMoreLocal" style="display:none;">
+                    <c:choose>
+                        <c:when test="${not empty school}">
+                            <c:set var="city" value="${school.physicalAddress.city}"/>
+                            <c:set var="state" value="${school.physicalAddress.state}"/>
+
+                            <link:schools cityName="${city}" state="${state}"
+                                          styleId="Meebo_SchoolProfile_CityBrowse"
+                                          styleClass="GS_CI9_">Top-rated nearby schools</link:schools><br/>
+                            <link:nearbyCities city="${city}" state="${state}"
+                                               styleId="Meebo_SchoolProfile_NearbyCities"
+                                               styleClass="GS_CI9_">Cities near ${city}</link:nearbyCities><br/>
+                            <link:city city="${city}" state="${state}"
+                                       styleId="Meebo_SchoolProfile_CityHome"
+                                       styleClass="GS_CI9_">About ${city}</link:city><br/>
+                            <c:set var="numLines" value="${numLines + 3}"/>
+
+                            <c:if test="${not empty school.district}">
+                                <link:districtHome district="${school.district}"
+                                                   styleId="Meebo_SchoolProfile_DistrictHome"
+                                                   styleClass="GS_CI9_">
+                                    <c:out value="${school.district.name}" escapeXml="true"/>
+                                </link:districtHome><br/>
+                                <c:set var="numLines" value="${numLines + 1}"/>
+                            </c:if>
+                        </c:when>
+                        <c:when test="${not empty district}">
+                            <c:set var="city" value="${district.physicalAddress.city}"/>
+                            <c:set var="state" value="${district.physicalAddress.state}"/>
+
+                            <link:schools district="${district}"
+                                              styleId="Meebo_DistrictHome_DistrictBrowse"
+                                              styleClass="GS_CI9_">Top-rated schools in this district</link:schools><br/>
+                            <link:nearbyCities city="${city}" state="${state}"
+                                                   styleId="Meebo_DistrictHome_NearbyCities"
+                                                   styleClass="GS_CI9_">Cities near ${city}</link:nearbyCities><br/>
+                            <link:city city="${city}" state="${state}"
+                                           styleId="Meebo_DistrictHome_CityHome"
+                                           styleClass="GS_CI9_">About ${city}</link:city><br/>
+                            <c:set var="numLines" value="${numLines + 3}"/>
+                        </c:when>
+                        <c:when test="${not empty city}">
+                            <link:schools city="${city}"
+                                              styleId="Meebo_CityHome_CityBrowse"
+                                              styleClass="GS_CI9_">Top-rated ${city.name} schools</link:schools><br/>
+                            <link:nearbyCities city="${city.name}" state="${city.state}"
+                                                   styleId="Meebo_CityHome_NearbyCities"
+                                                   styleClass="GS_CI9_">Cities near ${city.name}</link:nearbyCities><br/>
+                            <c:set var="numLines" value="${numLines + 2}"/>
+                        </c:when>
+                    </c:choose>
+                </div>
+
+                <script type="text/javascript">
+                    jQuery(function() {
+                        Meebo('addButton', {
+                            id: "moreLocalwidget",
+                            type: "widget",
+                            label: "More Local",
+                            width: 200,
+                            height: ${14 * numLines},
+                            onCreate: function(widget, element) {
+                                jQuery(element).html(jQuery('#meeboMoreLocal').html());
+                            }
+                        });
+                    });
+                </script>
+
+        </c:if>
+    </variant:b>
+
+</jsp:root>
