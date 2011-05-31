@@ -130,13 +130,18 @@ GS.search.onMapMarkerClick = function(state, id) {
             }
         });
 
+        // GS-11789
+        /*
         var studentTeacherRatio = jQuery('#studentTeacherRatioSelect');
         if (studentTeacherRatio.size() == 1) {
             queryString = putIntoQueryString(queryString, "studentTeacherRatio", studentTeacherRatio.val(), true);
         }
+        */
 
         var schoolSize = jQuery("#schoolSizeSelect").val();
-        queryString = putIntoQueryString(queryString, "schoolSize", schoolSize, true);
+        if (schoolSize !== 'All') { // GS-11789
+            queryString = putIntoQueryString(queryString, "schoolSize", schoolSize, true);
+        }
 
         var distanceSelect = jQuery('#distanceSelect');
         if (distanceSelect.size() == 1) {

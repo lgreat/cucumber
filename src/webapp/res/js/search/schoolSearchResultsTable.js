@@ -65,8 +65,12 @@ GS.search.SchoolSearcher = function() {
         data["gradeLevels"] = gradeLevels;
         data["st"] = schoolTypes;
         data["affiliations"] = affiliations;
-        data["studentTeacherRatio"] = jQuery('#studentTeacherRatioSelect').val();
-        data["schoolSize"] = jQuery('#schoolSizeSelect').val();
+        // GS-11789
+        //data["studentTeacherRatio"] = jQuery('#studentTeacherRatioSelect').val();
+        var schoolSize = jQuery('#schoolSizeSelect').val();
+        if (schoolSize !== 'All') {
+            data["schoolSize"] = jQuery('#schoolSizeSelect').val();
+        }
 
         var distanceSelect = jQuery('#distanceSelect');
         if (distanceSelect.size() == 1) {
