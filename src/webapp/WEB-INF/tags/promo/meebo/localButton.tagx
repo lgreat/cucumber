@@ -74,7 +74,7 @@
                             id: "moreLocalwidget",
                             type: "widget",
                             label: "More Local",
-                            width: 200,
+                            width: 275,
                             height: ${14 * numLines},
                             onCreate: function(widget, element) {
                                 jQuery(element).html(jQuery('#meeboMoreLocal').html());
