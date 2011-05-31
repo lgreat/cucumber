@@ -78,6 +78,16 @@ GSType.hover.EmailValidated = function() {
 };
 GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone',640);
 
+//SubscriptionEmailValidated hover
+GSType.hover.SubscriptionEmailValidated = function() {
+    this.loadDialog = function () {
+        this.pageName='TBD';
+        this.hier1='TBD';
+        //this.dialogByWidth();
+    }
+};
+GSType.hover.SubscriptionEmailValidated.prototype = new GSType.hover.HoverDialog('subscriptionEmailValidated',640);
+
 //ForgotPasswordHover hover
 GSType.hover.ForgotPasswordHover = function() {
     this.loadOnExitUrl = null;
@@ -1001,6 +1011,7 @@ GSType.hover.MiniStateLauncher.prototype = new GSType.hover.HoverDialog('miniSta
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
+GSType.hover.subscriptionEmailValidated = new GSType.hover.SubscriptionEmailValidated();
 GSType.hover.emailNotValidated = new GSType.hover.EmailNotValidated();
 GSType.hover.validateEmail = new GSType.hover.ValidateEmailHover();
 GSType.hover.validateEmailSchoolReview = new GSType.hover.ValidateEmailSchoolReviewHover();
@@ -1389,6 +1400,7 @@ GS.getElementsByCondition = function(condition,container) {
 
 
 jQuery(function() {
+    GSType.hover.subscriptionEmailValidated.loadDialog();
     GSType.hover.editEmailValidated.loadDialog();
     GSType.hover.emailNotValidated.loadDialog();
     GSType.hover.emailValidated.loadDialog();
@@ -1556,6 +1568,8 @@ jQuery(function() {
         GSType.hover.emailValidatedSchoolReview.showPublished();
     } else if (showHover == "emailValidatedSchoolReviewQueued") {
         GSType.hover.emailValidatedSchoolReview.showQueued();
+    } else if (showHover == "subscriptionEmailValidated") {
+        GSType.hover.subscriptionEmailValidated.show();
     } else if (showHover == "principalReviewSubmitted") {
 
         pageTracking.pageName =  "School Officials Comment Thanks Hover";

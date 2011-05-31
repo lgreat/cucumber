@@ -109,6 +109,7 @@
 <cobrand:framebuster/>
 <meebo:javascriptInclude/>
 
+<communityHover:subscriptionEmailValidated/>
 <communityHover:validateEmail/>
 <communityHover:validateEmailSchoolReview/>
 <communityHover:validateEditEmail/>

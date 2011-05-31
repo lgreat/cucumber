@@ -235,8 +235,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 // add success event to track having signed up for emails
                 ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
 
-                // TODO-11484 need pagename, hierarchy, hover heading, hover text from Chuck; may need to change hover.js, create or edit a tagx file, edit HoverHelper.java
-                hoverHelper.setHoverCookie(HoverHelper.Hover.NEW_EMAIL_VERIFIED);
+                // set cookie to show confirmation hover on page load
+                hoverHelper.setHoverCookie(HoverHelper.Hover.SUBSCRIPTION_EMAIL_VERIFIED);
             } else {
                 // unsubscribe user from greatnews_notverified -- just in case they already had a regular greatnews subscription
                 _subscriptionDao.removeSubscription(pendingSubscription.getId());
