@@ -337,6 +337,16 @@ public class SchoolSearchController extends AbstractCommandController implements
                 cityPage  = getCitySearchService().search(searchString, cityConstraints, null, null, 0, 33);
                 citySearchResults = cityPage.getSearchResults();
             }
+            //if nearby city matches this city, remove it from nearby list
+            if (citySearchResults != null && city != null) {
+                Iterator<ICitySearchResult> iterator = citySearchResults.listIterator();
+                while (iterator.hasNext()) {
+                    ICitySearchResult result = iterator.next();
+                    if (result.getCity().equals(city.getName())) {
+                        iterator.remove();
+                    }
+                }
+            }
         } catch (SearchException ex) {
             _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", e);
         }
@@ -353,6 +363,16 @@ public class SchoolSearchController extends AbstractCommandController implements
             } else if (searchString != null) {
                 districtPage = getDistrictSearchService().search(searchString, districtConstraints, null, null, 0, 11);
                 districtSearchResults = districtPage.getSearchResults();
+            }
+            //if nearby district matches this district, remove it from nearby list
+            if (districtSearchResults != null && district != null) {
+                Iterator<IDistrictSearchResult> iterator = districtSearchResults.listIterator();
+                while (iterator.hasNext()) {
+                    IDistrictSearchResult result = iterator.next();
+                    if (result.getName().equals(district.getName())) {
+                        iterator.remove();
+                    }
+                }
             }
         } catch (SearchException ex) {
             _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
