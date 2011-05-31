@@ -202,7 +202,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailVerified);
-        processPendingParentAdvisorSubscriptions(user, ot);
+        processPendingParentAdvisorSubscriptions(user, ot, hoverHelper);
 
 
         _log.info("Email confirmed, forwarding user to " + viewName);
@@ -210,7 +210,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
     }
 
-    public void processPendingParentAdvisorSubscriptions(User user, OmnitureTracking ot) {
+    public void processPendingParentAdvisorSubscriptions(User user, OmnitureTracking ot, HoverHelper hoverHelper) {
         // GS-11567
         // convert existing PARENT_ADVISOR_NOT_VERIFIED subscription to PARENT_ADVISOR subscription, if it exists
         boolean alreadySubscribedToParentAdvisor = false;
@@ -234,6 +234,9 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
                 // add success event to track having signed up for emails
                 ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
+
+                // TODO-11484 need pagename, hierarchy, hover heading, hover text from Chuck; may need to change hover.js, create or edit a tagx file, edit HoverHelper.java
+                hoverHelper.setHoverCookie(HoverHelper.Hover.NEW_EMAIL_VERIFIED);
             } else {
                 // unsubscribe user from greatnews_notverified -- just in case they already had a regular greatnews subscription
                 _subscriptionDao.removeSubscription(pendingSubscription.getId());
