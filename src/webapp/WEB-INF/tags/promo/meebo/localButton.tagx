@@ -15,7 +15,6 @@
     <variant:b>
         <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
 
-            <c:set var="meeboCityName"/>
             <c:set var="numLines" value="0"/>
                 <div id="meeboLocalGuide" style="display:none;">
                     <c:choose>
