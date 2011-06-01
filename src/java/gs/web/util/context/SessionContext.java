@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.61 2011/05/25 00:17:48 yfan Exp $
+ * $Id: SessionContext.java,v 1.62 2011/06/01 22:50:53 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -302,6 +302,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public boolean isIphoneSplashPageEnabled() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.IPHONE_SPLASH_PAGE_ENABLED_KEY, "false"));
+    }
+
+    public String getIphoneAppItunesStoreUrl() {
+        return _propertyDao.getProperty(IPropertyDao.IPHONE_APP_ITUNES_STORE_URL, "");
     }
 
     protected JSONObject getSurveyDetailsJson(String property) {

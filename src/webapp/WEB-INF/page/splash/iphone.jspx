@@ -36,7 +36,7 @@
 
                     <p class="text1">Save schools to your<br/>personal list of favorites.</p>
 
-                    <p><a href="javascript:void(0)" class="button-1">Download Now</a></p>
+                    <p><a href="${requestScope.context.iphoneAppItunesStoreUrl}" class="button-1">Download Now</a></p>
 
                     <p><a href="/">No thanks.<br/>Take me the to web site.</a></p>
                 </div>
