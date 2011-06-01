@@ -81,8 +81,8 @@ GSType.hover.EmailValidated.prototype = new GSType.hover.HoverDialog('regDone',6
 //SubscriptionEmailValidated hover
 GSType.hover.SubscriptionEmailValidated = function() {
     this.loadDialog = function () {
-        this.pageName='TBD';
-        this.hier1='TBD';
+        this.pageName='Email Module Verify Email Hover';
+        this.hier1='Hovers,Verification,Email Module Verify Email Hover';
         //this.dialogByWidth();
     }
 };

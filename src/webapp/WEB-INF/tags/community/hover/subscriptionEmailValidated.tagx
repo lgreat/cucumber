@@ -4,10 +4,10 @@
         >
 
     <div id="subscriptionEmailValidated" class="dialog_white" style="display:none;">
-        <h2>TBD</h2>
+        <h2>Your subscription has been confirmed</h2>
 
-        <p>TBD</p>
+        <p>Thank you! You will begin to receive newsletters from us shortly.</p>
 
-        <button class="button-1 regDone_hideHover" type="button">TBD</button>
+        <button class="button-1 regDone_hideHover" type="button">OK</button>
     </div>
 </jsp:root>
