@@ -323,62 +323,18 @@ public class SchoolSearchController extends AbstractCommandController implements
         List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
         List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
 
-        Float browseLat = commandAndFields.getLatitude();
-        Float browseLon = commandAndFields.getLongitude();
-        
-        try {
-            Map<IFieldConstraint,String> cityConstraints = new HashMap<IFieldConstraint,String>();
-            cityConstraints.put(CitySearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
-            SearchResultsPage<ICitySearchResult> cityPage;
-            if ((isCityBrowse || isDistrictBrowse) && browseLat != null && browseLon != null) {
-                cityPage  = getCitySearchService().getCitiesNear(browseLat, browseLon, 5, null, 0, 33);
-                citySearchResults = cityPage.getSearchResults();
-            } else if (searchString != null) {
-                cityPage  = getCitySearchService().search(searchString, cityConstraints, null, null, 0, 33);
-                citySearchResults = cityPage.getSearchResults();
-            }
-            //if nearby city matches this city, remove it from nearby list
-            if (citySearchResults != null && city != null) {
-                Iterator<ICitySearchResult> iterator = citySearchResults.listIterator();
-                while (iterator.hasNext()) {
-                    ICitySearchResult result = iterator.next();
-                    if (result.getCity().equals(city.getName())) {
-                        iterator.remove();
-                    }
-                }
-            }
-        } catch (SearchException ex) {
-            _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", e);
+        //get nearby cities and districts and put into model.
+        NearbyCitiesFacade nearbyCitiesFacade = new NearbyCitiesFacade(commandAndFields);
+        NearbyDistrictsFacade nearbyDistrictsFacade = new NearbyDistrictsFacade(commandAndFields);
+        if (isCityBrowse || isDistrictBrowse) {
+            citySearchResults = nearbyCitiesFacade.getNearbyCities();
+            //districtSearchResults = nearbyDistrictsFacade.getNearbyDistricts(); commented out until we figure out why district lat/lons are inaccurate
+        } else if (searchString != null) {
+            citySearchResults = nearbyCitiesFacade.searchForCities();
+            districtSearchResults = nearbyDistrictsFacade.searchForDistricts();
         }
         model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
-
-
-        try {
-            Map<IFieldConstraint,String> districtConstraints = new HashMap<IFieldConstraint,String>();
-            districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
-            SearchResultsPage<IDistrictSearchResult> districtPage;
-            if ((isCityBrowse || isDistrictBrowse) && browseLat != null && browseLon != null) {
-                districtPage = getDistrictSearchService().getDistrictsNear(browseLat, browseLon, 5, null, 0, 11);
-                districtSearchResults = districtPage.getSearchResults();
-            } else if (searchString != null) {
-                districtPage = getDistrictSearchService().search(searchString, districtConstraints, null, null, 0, 11);
-                districtSearchResults = districtPage.getSearchResults();
-            }
-            //if nearby district matches this district, remove it from nearby list
-            if (districtSearchResults != null && district != null) {
-                Iterator<IDistrictSearchResult> iterator = districtSearchResults.listIterator();
-                while (iterator.hasNext()) {
-                    IDistrictSearchResult result = iterator.next();
-                    if (result.getName().equals(district.getName())) {
-                        iterator.remove();
-                    }
-                }
-            }
-        } catch (SearchException ex) {
-            _log.debug("something when wrong when attempting to use DistrictSearchService. Eating exception", e);
-        }
         model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
-
 
         PageHelper.setHasSearchedCookie(request, response);
 
@@ -1256,6 +1212,152 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         return schoolsController || cityController || districtController;
 
+    }
+
+    /**
+     * In the event SchoolSearchController is refactored, this class can be modified to accept as input a different
+     * class as long as it contains lat, lon, and a way of determining the current city when on a browse page.
+     */
+    class NearbyCitiesFacade {
+        public static final int DEFAULT_RADIUS = 50;
+        SchoolSearchCommandWithFields _commandAndFields;
+
+        public NearbyCitiesFacade(SchoolSearchCommandWithFields commandAndFields) {
+            this._commandAndFields = commandAndFields;
+        }
+
+        /**
+         * In the future this method should probably be decoupled from the "SchoolSearchCommandWithFields" class,
+         * but only if this SchoolSearchController is refactored as well.
+         *
+         * @return
+         */
+        public List<ICitySearchResult> getNearbyCities() {
+            Float browseLat = _commandAndFields.getLatitude();
+            Float browseLon = _commandAndFields.getLongitude();
+            City city = _commandAndFields.getCityFromUrl();
+            List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+            try {
+                SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().getCitiesNear(browseLat, browseLon, DEFAULT_RADIUS, null, 0, 33);
+
+                citySearchResults = cityPage.getSearchResults();
+
+                //if nearby city matches this city, remove it from nearby list
+                if (citySearchResults != null && city != null) {
+                    Iterator<ICitySearchResult> iterator = citySearchResults.listIterator();
+                    while (iterator.hasNext()) {
+                        ICitySearchResult result = iterator.next();
+                        if (result.getCity().equals(city.getName())) {
+                            iterator.remove();
+                        }
+                    }
+                }
+            } catch (SearchException ex) {
+                _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", ex);
+            }
+
+            return citySearchResults;
+        }
+
+        /**
+         * Try to decouple this class from "SchoolSearchCommandWithFields" if SchoolSearchController changes.
+         * Method does not actually look for "nearby" cities... just cities matching a string
+         *
+         * @return
+         */
+        public List<ICitySearchResult> searchForCities() {
+            String searchString = _commandAndFields.getSearchString();
+            State state = _commandAndFields.getState();
+            List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+
+            Map<IFieldConstraint, String> cityConstraints = new HashMap<IFieldConstraint, String>();
+            cityConstraints.put(CitySearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
+
+            try {
+                if (searchString != null) {
+                    SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().search(searchString, cityConstraints, null, null, 0, 33);
+                    citySearchResults = cityPage.getSearchResults();
+                }
+            } catch (SearchException ex) {
+                _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", ex);
+            }
+
+            return citySearchResults;
+        }
+    }
+
+
+    /**
+     * In the event SchoolSearchController is refactored, this class can be modified to accept as input a different
+     * class as long as it contains lat, lon, and a way of determining the current city when on a browse page.
+     */
+    class NearbyDistrictsFacade {
+        public static final int DEFAULT_RADIUS = 50;
+        public static final int DEFAULT_LIMIT = 11;
+        SchoolSearchCommandWithFields _commandAndFields;
+
+        public NearbyDistrictsFacade(SchoolSearchCommandWithFields commandAndFields) {
+            this._commandAndFields = commandAndFields;
+        }
+
+        /**
+         * In the future this method should probably be decoupled from the "SchoolSearchCommandWithFields" class,
+         * but only if this SchoolSearchController is refactored as well.
+         *
+         * @return
+         */
+        public List<IDistrictSearchResult> getNearbyDistricts() {
+            Float browseLat = _commandAndFields.getLatitude();
+            Float browseLon = _commandAndFields.getLongitude();
+            City city = _commandAndFields.getCityFromUrl();
+            List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
+            try {
+                SearchResultsPage<IDistrictSearchResult> districtPage = getDistrictSearchService().getDistrictsNear(browseLat, browseLon, DEFAULT_RADIUS, null, 0, DEFAULT_LIMIT);
+
+                districtSearchResults = districtPage.getSearchResults();
+
+                //if nearby city matches this city, remove it from nearby list
+                if (districtSearchResults != null && city != null) {
+                    Iterator<IDistrictSearchResult> iterator = districtSearchResults.listIterator();
+                    while (iterator.hasNext()) {
+                        IDistrictSearchResult result = iterator.next();
+                        if (result.getCity().equals(city.getName())) {
+                            iterator.remove();
+                        }
+                    }
+                }
+            } catch (SearchException ex) {
+                _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", ex);
+            }
+
+            return districtSearchResults;
+        }
+
+        /**
+         * Try to decouple this class from "SchoolSearchCommandWithFields" if SchoolSearchController changes.
+         * Method does not actually look for "nearby" cities... just cities matching a string
+         *
+         * @return
+         */
+        public List<IDistrictSearchResult> searchForDistricts() {
+            String searchString = _commandAndFields.getSearchString();
+            State state = _commandAndFields.getState();
+            List<IDistrictSearchResult> citySearchResults = new ArrayList<IDistrictSearchResult>();
+
+            Map<IFieldConstraint, String> districtConstraints = new HashMap<IFieldConstraint, String>();
+            districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
+
+            try {
+                if (searchString != null) {
+                    SearchResultsPage<IDistrictSearchResult> districtPage = getDistrictSearchService().search(searchString, districtConstraints, null, null, 0, DEFAULT_LIMIT);
+                    citySearchResults = districtPage.getSearchResults();
+                }
+            } catch (SearchException ex) {
+                _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", ex);
+            }
+
+            return citySearchResults;
+        }
     }
 }
 
