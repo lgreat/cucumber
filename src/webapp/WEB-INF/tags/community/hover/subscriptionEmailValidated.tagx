@@ -8,6 +8,6 @@
 
         <p>Thank you! You will begin to receive newsletters from us shortly.</p>
 
-        <button class="button-1 regDone_hideHover" type="button">OK</button>
+        <button class="button-1 subscriptionEmailValidated_hideHover" type="button">OK</button>
     </div>
 </jsp:root>
