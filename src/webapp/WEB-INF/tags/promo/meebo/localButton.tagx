@@ -86,9 +86,7 @@
                             label: "${not empty meeboCityName ? gsweb:escapeJavaScript(meeboCityName) : 'Local'} Guide",
                             width: 275,
                             height: ${14 * numLines},
-                            onCreate: function(widget, element) {
-                                jQuery(element).html(jQuery('#meeboLocalGuide').html());
-                            }
+                            element: "meeboLocalGuide"
                         });
                     });
                 </script>
