@@ -1067,7 +1067,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (district != null) {
             fieldConstraints.put(FieldConstraint.DISTRICT_ID, String.valueOf(district.getId()));
         } else if (city != null) {
-            fieldConstraints.put(FieldConstraint.CITY, "\"" + city.getName() + "\"");
+            fieldConstraints.put(FieldConstraint.CITY, city.getName());
         }
 
         return fieldConstraints;
