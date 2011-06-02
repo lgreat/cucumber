@@ -83,9 +83,10 @@
                         Meebo('addButton', {
                             id: "meeboLocalGuideWidget",
                             type: "widget",
+                            icon: "/res/img/promo/meebo/icon_pin.png",
                             label: "${not empty meeboCityName ? gsweb:escapeJavaScript(meeboCityName) : 'Local'} Guide",
                             width: 275,
-                            height: ${14 * numLines},
+                            height: ${14 * numLines + 6},
                             element: "meeboLocalGuide"
                         });
                     });
