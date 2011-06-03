@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.78 2011/06/03 02:10:33 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.79 2011/06/03 05:19:34 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -504,11 +504,11 @@ public class UrlUtilSaTest extends TestCase {
 
         String newUrl = UrlUtil.putQueryParamIntoQueryString(queryString, "param2","newtwo");
 
-        assertEquals("param1=one&param2=newtwo", newUrl);
+        assertTrue("param1=one&param2=newtwo".equals(newUrl) || "param2=newtwo&param1=one".equals(newUrl));
 
         newUrl = UrlUtil.putQueryParamIntoQueryString(queryString, "param1","newone");
 
-        assertEquals("param1=newone&param2=two", newUrl);
+        assertTrue("param1=newone&param2=two".equals(newUrl) || "param2=two&param1=twoone".equals(newUrl));
 
     }
 
@@ -517,7 +517,6 @@ public class UrlUtilSaTest extends TestCase {
 
         String newUrl = UrlUtil.putQueryParamIntoUrl(url, "param2","newtwo");
 
-        assertEquals("http://www.host.com/path?param1=one&param2=newtwo", newUrl);
         assertTrue("http://www.host.com/path?param1=one&param2=newtwo".equals(newUrl) || "http://www.host.com/path?param2=newtwo&param1=one".equals(newUrl));
 
         newUrl = UrlUtil.putQueryParamIntoUrl(url, "param1","newone");
