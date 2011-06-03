@@ -125,7 +125,7 @@
                 </c:when>
                 <c:otherwise>
                     <!-- Following variable is also hard-coded into global.js -->
-                    <c:set var="searchBoxValue" value="Search for school, district or city"/>
+                    <c:set var="searchBoxValue" value="Search for school, district, or city"/>
                     <c:set var="searchRadioSchoolChecked" value="true"/>
                     <!-- shorten text box and show state drop down -->
                     <c:set var="searchBoxStyle" value="width:190px;"/>
@@ -135,7 +135,7 @@
             <!-- text in following script also hard-coded into global.js -->
             <script type="text/javascript">
                 function clearValueInBox(x) {
-                    if (x.value == 'Search by keyword' || x.value == 'Search for school, district or city') {
+                    if (x.value == 'Search by keyword' || x.value == 'Search for school, district, or city') {
                         x.value = '';
                     }
                 }

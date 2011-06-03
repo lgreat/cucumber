@@ -41,9 +41,9 @@
                                     onsubmit="return findAndCompareCheck('schoolSearchText', 'findStateSelector', 'p');">
                             <input type="hidden" name="c" value="school"/>
                             <input type="text" name="q" id="schoolSearchText" class="fltlft text2" size="21"
-                                   value="Enter school, district or city"
-                                   onfocus="textSwitch(this, '', 'Enter school, district or city');"
-                                   onblur="textSwitch(this, 'Enter school, district or city', '');"/>
+                                   value="Enter school, district, or city"
+                                   onfocus="textSwitch(this, '', 'Enter school, district, or city');"
+                                   onblur="textSwitch(this, 'Enter school, district, or city', '');"/>
 
 
                             <gsweb:stateSelector useNoState="${empty requestScope.context.state}"
