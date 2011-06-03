@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.79 2011/06/03 05:19:34 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.80 2011/06/03 15:58:29 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -508,7 +508,7 @@ public class UrlUtilSaTest extends TestCase {
 
         newUrl = UrlUtil.putQueryParamIntoQueryString(queryString, "param1","newone");
 
-        assertTrue("param1=newone&param2=two".equals(newUrl) || "param2=two&param1=twoone".equals(newUrl));
+        assertTrue("param1=newone&param2=two".equals(newUrl) || "param2=two&param1=newone".equals(newUrl));
 
     }
 
