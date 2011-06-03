@@ -11,7 +11,7 @@
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
-<c:set var="pageName" value="${omnitureTopicCenterName} Landing Page" scope="request"/>
+<c:set var="pageName" value="${omnitureTopicCenterName} Videos" scope="request"/>
 
 <head>
     <c:choose>
@@ -125,7 +125,7 @@
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
 <mod:tracking pageName="${pageName}"
-              hier1="Topic Centers,${omnitureTopicCenterName}"
+              hier1="Topic Centers,${omnitureTopicCenterName},Videos"
               omitAlmondNet="${true}"
         />
 

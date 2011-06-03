@@ -25,6 +25,7 @@ import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.log4j.Logger;
@@ -72,11 +73,18 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public static final String MODEL_BROWSE_BY_GRADE_SUBTOPICS = "browseByGradeSubtopics";
     public static final String MODEL_ALL_RAISE_YOUR_HAND_FOR_TOPIC = "allRaiseYourHandDiscussions";
     public static final String MODEL_URI = "uri";
+    public static final String MODEL_FULL_URL = "fullUrl";
     public static final String MODEL_IS_VIDEO = "isVideo";
     public static final String MODEL_VIDEO_RESULTS = "videoResults";
     public static final String LOCAL_DISCUSSION_BOARD_ID = "localDiscussionBoardId";
     public static final String LOCAL_DISCUSSION_TOPIC = "localDiscussionTopic";
     public static final String LOCAL_DISCUSSION_TOPIC_FULL = "localDiscussionTopicFull";
+
+
+    public static final String MODEL_CURRENT_PAGE = "currentPage";
+    public static final String MODEL_TOTAL_PAGES = "totalPages";
+    public static final String MODEL_USE_PAGING = "usePaging";
+    public static final String MODEL_PAGE_SIZE = "pageSize";
 
     //=========================================================================
     // spring mvc methods
@@ -129,7 +137,24 @@ public class CmsTopicCenterController2010 extends AbstractController {
                                 String categoryIdsStr = StringUtils.join(categoryIds,",");
                                 List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIdsStr);
                                 //Search for videos categorized with the grades, subjects and topics.
-                                SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 15, 1);
+                                int pageNumber = 1;
+                                String pageNumberString = request.getParameter("page");
+                                if (pageNumberString != null) {
+                                    pageNumber = Integer.valueOf(pageNumberString);
+                                }
+                                String url = request.getRequestURL().toString();
+                                String queryString = request.getQueryString();
+                                Map<String,String> queryStringParams = UrlUtil.getParamsFromQueryString(queryString);
+                                queryStringParams.put("page",pageNumberString);
+                                queryString = UrlUtil.getQueryStringFromMap(queryStringParams);
+                                //queryString.r
+                                if (queryString != null) {
+                                    url += "?" + queryString;
+                                }
+                                model.put(MODEL_FULL_URL, url);
+                                SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 2, pageNumber);
+
+                                addPagingDataToModel(2, pageNumber, searchResults.getTotalResults(), model);
                                 if (searchResults != null && searchResults.getTotalResults() > 0) {
                                     model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
                                 } else {
@@ -251,6 +276,28 @@ public class CmsTopicCenterController2010 extends AbstractController {
             return new ModelAndView("/content/cms/videoGallery", model);
         }
         return new ModelAndView(_viewName, model);
+    }
+
+    /**
+     * Calculates paging info and adds it to model.
+     *
+     * @param pageSize
+     * @param totalResults
+     * @param model
+     */
+    protected void addPagingDataToModel(Integer pageSize, int currentPage, int totalResults, Map<String,Object> model) {
+
+        //TODO: perform validation to only allow no paging when results are a certain size
+        if (pageSize > 0) {
+            int numberOfPages = (int) Math.ceil(totalResults / pageSize.floatValue());
+            model.put(MODEL_CURRENT_PAGE, currentPage);
+            model.put(MODEL_TOTAL_PAGES, numberOfPages);
+            model.put(MODEL_USE_PAGING, Boolean.valueOf(true));
+        } else {
+            model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
+        }
+
+        model.put(MODEL_PAGE_SIZE, pageSize);
     }
 
     private void insertRaiseYourHandDiscussionsIntoModel(HttpServletRequest request, Map<String, Object> model, CmsTopicCenter topicCenter) {

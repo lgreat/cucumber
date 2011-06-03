@@ -161,9 +161,20 @@
 
                     <ad:adTag position="House_Ad_423x230"/>
 
+            <c:choose>
+                <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.videoCarouselItems}"/>
                     <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
                                           items="${requestScope.carouselItems}"/>
-
+                </c:when>
+                <c:otherwise>
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.carouselItems}"/>
+                    <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.videoCarouselItems}"/>
+                </c:otherwise>
+            </c:choose>
                     <c:set var="raiseYourHand">
                         <c:import
                                 url="/community/raiseYourHand.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=3&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
