@@ -331,7 +331,7 @@
 
 <mod:tracking pageName="${pageName}"
               hier1="${hier1}"
-              events="event7"
+              events="event47"
               omitAlmondNet="${true}"
         />
 
