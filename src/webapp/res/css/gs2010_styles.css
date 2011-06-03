@@ -12506,6 +12506,12 @@ p#btsBubbleOpts {
     top:-40px;
 }
 
+.stButton .facebook,
+.stButton .twitter,
+.stButton .email {
+    width:auto;
+}
+
 /* =About Us
 -------------------------------------------------------------------------------------------*/
 
