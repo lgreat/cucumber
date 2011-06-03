@@ -268,7 +268,7 @@
 <div class="line">
     <div class="unit size1of1 lastUnit">
         <div class="pagination" id="pagination">
-            <search:pagination page="${currentPage}" pageSize="${pageSize}" totalPages="${totalPages}"/>
+            <search:pagination page="${currentPage}" pageSize="${pageSize}" totalPages="${totalPages}" useJavascriptPaging="true" useOffset="true" usePageNumber="false" javascriptMethod="GS.search.schoolSearchResultsTable.page" />
         </div>
     </div>
 </div>

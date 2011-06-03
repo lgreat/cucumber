@@ -2,7 +2,8 @@
 <jsp:root version="2.0"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:link="urn:www.greatschools.org/taglib/link"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <!-- Required attributes -->
     <jsp:directive.attribute name="pageSize" required="true" type="java.lang.Integer"
@@ -12,21 +13,55 @@
     <jsp:directive.attribute name="totalPages" required="true" type="java.lang.Integer"
                              description="Total number of pages."/>
     <jsp:directive.attribute name="url" required="false" type="java.lang.String"
-                             description="URL for each pagination link. &amp;page=[page number] will be appended to the URL."/>
+                             description="URL for each pagination link. &amp;page=[page number] or &amp;start=[offset] will be appended to the URL."/>
+
+    <jsp:directive.attribute name="useOffset" required="true" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="usePageNumber" required="true" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="useJavascriptPaging" required="true" type="java.lang.Boolean"/>
+    
+    <jsp:directive.attribute name="javascriptMethod" required="false" type="java.lang.String" description="A string containing a the path to a javascript method that will be executed. Method must have signature matching (pageNumber,pageSize)"/>
+
+    <jsp:directive.attribute name="offsetParam" required="false" type="java.lang.String" description="name of the start query param (default: start)"/>
+    <jsp:directive.attribute name="pageNumberParam" required="false" type="java.lang.String" description="name of the page number query param (default: page)"/>
+
     <!-- Optional attributes for CSS class names -->
     <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"
                              description="Class for the div that wraps the pagination."/>
     <jsp:directive.attribute name="pageNumberStyleClass" required="false" type="java.lang.String"
                              description="Class for the span that wraps an individual page number."/>
 
+    <c:if test="${empty offsetParam}">
+        <c:set var="offsetParam" value="start"/>
+    </c:if>
+    <c:if test="${empty pageNumberParam}">
+        <c:set var="pageNumberParam" value="page"/>
+    </c:if>
+
     <c:if test="${pageScope.totalPages gt 1}">
         <div class="${pageScope.styleClass}">
             <c:if test="${pageScope.page gt 1}">
-                <c:set var="previousPageNum" value="${pageScope.page - 1}" scope="page"/>
-                <span class="prv_nxt" onclick="GS.search.schoolSearchResultsTable.page(${previousPageNum},${pageSize});">
-                    &amp;#171; Prev
-                    <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.previousPageNum}#revPagination">&amp;#171; Prev</a>-->
-                </span>
+                <c:set var="targetPage" value="${pageScope.page - 1}" scope="page"/>
+
+                <c:set var="newUrl" value=""/>
+                <c:if test="${useOffset}">
+                     <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,offsetParam,(targetPage-1)*pageSize)}"/>
+                </c:if>
+                <c:if test="${usePageNumber}">
+                    <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,pageNumberParam,targetPage)}"/>
+                </c:if>
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span class="prv_nxt" onclick="${javascriptMethod}(${targetPage},${pageSize});">
+                            &amp;#171; Prev
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="prv_nxt">
+                             <a href="${newUrl}">&amp;#171; Prev</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
             </c:if>
 
             <c:choose>
@@ -49,41 +84,110 @@
             </c:choose>
 
             <c:if test="${pageScope.totalPages gt 5 and page ge 5}">
-                <span onclick="GS.search.schoolSearchResultsTable.page(${1},${pageSize});">
-                    ${1}
-                    <!--<a href="${pageScope.url}&amp;amp;page=${1}#revPagination">${1}</a>-->
-                </span>
+                <c:set var="targetPage" value="${1}" scope="page"/>
+                <c:set var="newUrl" value=""/>
+                <c:if test="${useOffset}">
+                     <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,offsetParam,(targetPage-1)*pageSize)}"/>
+                </c:if>
+                <c:if test="${usePageNumber}">
+                    <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,pageNumberParam,targetPage)}"/>
+                </c:if>
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span onclick="${javascriptMethod}(${targetPage},${pageSize});">
+                            ${targetPage}
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span>
+                            <a href="${newUrl}">${targetPage}</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+
                 <span class="ellipsis">...</span>
             </c:if>
 
-            <c:forEach begin="${pageScope.firstPageInSeries}" end="${pageScope.lastPageInSeries}" var="pageNum" varStatus="status">
+            <c:forEach begin="${pageScope.firstPageInSeries}" end="${pageScope.lastPageInSeries}" var="targetPage" varStatus="status">
+                <c:set var="newUrl" value=""/>
+                <c:if test="${useOffset}">
+                     <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,offsetParam,(targetPage-1)*pageSize)}"/>
+                </c:if>
+                <c:if test="${usePageNumber}">
+                    <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,pageNumberParam,targetPage)}"/>
+                </c:if>
+
                 <c:choose>
-                    <c:when test="${pageScope.pageNum == pageScope.page}">
-                        <span class="active ${pageNumberStyleClass}">${pageScope.pageNum}</span>
+                    <c:when test="${pageScope.targetPage == pageScope.page}">
+                        <span class="active ${pageNumberStyleClass}">${pageScope.targetPage}</span>
                     </c:when>
                     <c:otherwise>
-                        <span class="${pageNumberStyleClass}" onclick="GS.search.schoolSearchResultsTable.page(${pageScope.pageNum},${pageSize});">
-                            ${pageScope.pageNum}
-                            <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.pageNum}#revPagination">${pageScope.pageNum}</a>-->
-                        </span>
+                        <c:choose>
+                            <c:when test="${useJavascriptPaging}">
+                                <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${pageScope.targetPage},${pageSize});">
+                                    ${pageScope.targetPage}
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="${pageNumberStyleClass}">
+                                    <a href="${newUrl}">${pageScope.targetPage}</a>
+                                </span>
+                            </c:otherwise>
+                        </c:choose>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <c:if test="${pageScope.totalPages gt 5 and (page lt 5 or page le pageScope.totalPages - 4)}">
+                <c:set var="targetPage" value="${pageScope.totalPages}" scope="page"/>
+
+                <c:set var="newUrl" value=""/>
+                <c:if test="${useOffset}">
+                     <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,offsetParam,(targetPage-1)*pageSize)}"/>
+                </c:if>
+                <c:if test="${usePageNumber}">
+                    <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,pageNumberParam,targetPage)}"/>
+                </c:if>
+
                 <span class="ellipsis">...</span>
-                <span class="${pageNumberStyleClass}" onclick="GS.search.schoolSearchResultsTable.page(${pageScope.totalPages},${pageSize});">
-                    ${pageScope.totalPages}
-                    <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.totalPages}#revPagination">${pageScope.totalPages}</a>-->
-                </span>
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage},${pageSize});">
+                            ${pageScope.targetPage}
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="${pageNumberStyleClass}">
+                            <a href="${newUrl}">${pageScope.targetPage}</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
             </c:if>
 
             <c:if test="${pageScope.page lt pageScope.totalPages}">
-                <c:set var="nextPageNum" value="${pageScope.page + 1}" scope="page"/>
-                <span class="prv_nxt" onclick="GS.search.schoolSearchResultsTable.page(${pageScope.nextPageNum},${pageSize});">
-                    Next &amp;#187;
-                    <!--<a href="${pageScope.url}&amp;amp;page=${pageScope.nextPageNum}#revPagination"></a>-->
-                </span>
+                <c:set var="targetPage" value="${pageScope.page + 1}" scope="page"/>
+                <c:set var="newUrl" value=""/>
+                <c:if test="${useOffset}">
+                     <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,offsetParam,(targetPage-1)*pageSize)}"/>
+                </c:if>
+                <c:if test="${usePageNumber}">
+                    <c:set var="newUrl" value="${gsweb:putQueryParamIntoUrl(url,pageNumberParam,targetPage)}"/>
+                </c:if>
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span class="prv_nxt" onclick="${javascriptMethod}(${targetPage},${pageSize});">
+                            Next &amp;#187;
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="prv_nxt">
+                            <a href="${newUrl}">Next &amp;#187;</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
             </c:if>
         </div>
     </c:if>

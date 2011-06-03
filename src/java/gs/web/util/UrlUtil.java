@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.107 2011/05/18 22:39:19 droy Exp $
+ * $Id: UrlUtil.java,v 1.108 2011/06/03 02:01:02 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -32,6 +32,43 @@ import java.io.UnsupportedEncodingException;
 public final class UrlUtil {
     private static final Log _log = LogFactory.getLog(UrlUtil.class);
 
+    public static String putQueryParamIntoQueryString(String queryString, String key, String value) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
+
+        Map<String,String> keysValues = getParamsFromQueryString(queryString);
+
+        keysValues.put(key,value);
+
+        String newQueryString = getQueryStringFromMap(keysValues);
+
+        return newQueryString;
+    }
+
+    public static String putQueryParamIntoUrl(String url, String key, String value) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
+        if (url == null) {
+            throw new IllegalArgumentException("Url cannot be null");
+        }
+
+        String[] parts = url.split("\\?");
+
+        String base = parts[0];
+        String queryString = "";
+        if (parts.length > 1) {
+            queryString = parts[1];
+        }
+
+        queryString = putQueryParamIntoQueryString(queryString, key, value);
+
+        String newUrl = base + "?" + queryString;
+
+        return newUrl;
+    }
+
     /**
      * Returns a map of param name to param value extracted from the provided query string.
      * The query string should not start with a question mark!
@@ -51,6 +88,33 @@ public final class UrlUtil {
             }
         }
         return params;
+    }
+
+    /**
+     * Creates a queryString from a map of key-value pairs. Question mark not included.
+     * @param keysAndValues
+     * @return
+     */
+    public static String getQueryStringFromMap(Map<String,String> keysAndValues) {
+        StringBuffer queryString = new StringBuffer();
+
+        for (Map.Entry<String,String> entry : keysAndValues.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            if (key != null && value != null) {
+                if (queryString.length() > 0) {
+                    queryString.append("&");
+                }
+                try {
+                    queryString.append(key).append("=").append(URLEncoder.encode(value, "UTF-8"));
+                } catch (UnsupportedEncodingException uee) {
+                    _log.warn("Can't encode value: " + value);
+                }
+            }
+        }
+
+        return queryString.toString();
     }
 
     /**

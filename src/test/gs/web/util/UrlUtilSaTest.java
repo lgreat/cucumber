@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.76 2011/05/18 22:39:19 droy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.77 2011/06/03 02:01:02 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -497,5 +497,44 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("api.clone.greatschools.org", UrlUtil.getApiHostname("sfgate.clone.greatschools.org"));
         assertEquals("api.greatschools.org", UrlUtil.getApiHostname("www.greatschools.org"));
         assertEquals("api.greatschools.org", UrlUtil.getApiHostname("sfgate.greatschools.org"));
+    }
+
+    public void testPutQueryParamIntoQueryString() {
+        String queryString = "param1=one&param2=two";
+
+        String newUrl = UrlUtil.putQueryParamIntoQueryString(queryString, "param2","newtwo");
+
+        assertEquals("param1=one&param2=newtwo", newUrl);
+
+        newUrl = UrlUtil.putQueryParamIntoQueryString(queryString, "param1","newone");
+
+        assertEquals("param1=newone&param2=two", newUrl);
+
+    }
+
+    public void testPutQueryParamIntoUrl() {
+        String url = "http://www.host.com/path?param1=one&param2=two";
+
+        String newUrl = UrlUtil.putQueryParamIntoUrl(url, "param2","newtwo");
+
+        assertEquals("http://www.host.com/path?param1=one&param2=newtwo", newUrl);
+
+        newUrl = UrlUtil.putQueryParamIntoUrl(url, "param1","newone");
+
+        assertEquals("http://www.host.com/path?param1=newone&param2=two", newUrl);
+
+    }
+
+    public void testPutQueryParamIntoUrl2() {
+        String url = "http://www.host.com/path";
+
+        String newUrl = UrlUtil.putQueryParamIntoUrl(url, "param2","newtwo");
+
+        assertEquals("http://www.host.com/path?param2=newtwo", newUrl);
+
+        newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "param1","newone");
+
+        assertEquals("http://www.host.com/path?param1=newone&param2=newtwo", newUrl);
+
     }
 }
