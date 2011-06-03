@@ -141,6 +141,8 @@ GS.search.onMapMarkerClick = function(state, id) {
         var schoolSize = jQuery("#schoolSizeSelect").val();
         if (schoolSize !== 'All') { // GS-11789
             queryString = putIntoQueryString(queryString, "schoolSize", schoolSize, true);
+        } else {
+            queryString = removeFromQueryString(queryString, "schoolSize");
         }
 
         var distanceSelect = jQuery('#distanceSelect');
