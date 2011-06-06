@@ -129,7 +129,7 @@ function topNavSubmitSearch(theForm) {
         }
     }
     var textField = document.getElementById('q');
-    if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district or city'
+    if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district, or city'
             || textField.value == 'Search community by keyword') {
         textField.value = '';
     }
@@ -144,7 +144,7 @@ function topNavSelectSchoolSearch(x, searchFormAction) {
 
     e = document.getElementById('q');
     if (e.value == 'Search by keyword' || e.value == 'Search community by keyword') {
-        e.value = 'Search for school, district or city';
+        e.value = 'Search for school, district, or city';
     }
     e.style.width = "190px";
     e.focus();
@@ -163,7 +163,7 @@ function topNavSelectTopicSearch(x, searchFormAction) {
     e.name = 'hiddenState';
 
     e = document.getElementById('q');
-    if (e.value == 'Search for school, district or city' || e.value == 'Search community by keyword') {
+    if (e.value == 'Search for school, district, or city' || e.value == 'Search community by keyword') {
         e.value = 'Search by keyword';
     }
     e.style.width = "247px";
@@ -183,7 +183,7 @@ function topNavSelectCommunitySearch(x, searchFormAction) {
     e.name = 'hiddenState';
 
     e = document.getElementById('q');
-    if (e.value == 'Search for school, district or city' || e.value == 'Search by keyword') {
+    if (e.value == 'Search for school, district, or city' || e.value == 'Search by keyword') {
         e.value = 'Search community by keyword';
     }
     e.style.width = "247px";
@@ -213,7 +213,7 @@ function topNavNewCommunitySubmitSearch(theForm) {
         articlesAndCommunity = true;
     }
     var textField = document.getElementById('qNew');
-    if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district or city') {
+    if (textField.value == 'Search by keyword' || textField.value == 'Search for school, district, or city') {
         textField.value = '';
     }
     if (articlesAndCommunity) {
@@ -234,7 +234,7 @@ function topNavNewCommunitySelectSchoolSearch(x, searchFormAction) {
 
     e = document.getElementById('qNew');
     if (e.value == 'Search by keyword' || e.value == 'Search community by keyword') {
-        e.value = 'Search for school, district or city';
+        e.value = 'Search for school, district, or city';
     }
     e.style.width = "242px";
     e.focus();
@@ -252,7 +252,7 @@ function topNavSelectArticlesAndCommunitySearch(x, searchFormAction) {
     e.name = 'hiddenState';
 
     e = document.getElementById('qNew');
-    if (e.value == 'Search for school, district or city') {
+    if (e.value == 'Search for school, district, or city') {
         e.value = 'Search by keyword';
     }
     e.style.width = "300px";

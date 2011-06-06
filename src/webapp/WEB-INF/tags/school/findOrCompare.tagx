@@ -34,7 +34,7 @@
             var queryVal = document.getElementById(queryId).value;
             var stateVal = document.getElementById(stateSelectorId).value;
 
-            var noSearchTerms = (queryVal == 'Enter school, city, or zipcode');
+            var noSearchTerms = (queryVal == 'Enter school, district, or city');
             var noState = (stateVal == ("-" + "-") || stateVal == "");
 
             if (noSearchTerms && noState) {
