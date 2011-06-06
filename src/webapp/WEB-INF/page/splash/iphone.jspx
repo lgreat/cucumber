@@ -39,7 +39,7 @@
 
                     <p><a href="${requestScope.context.iphoneAppItunesStoreUrl}" class="button-1">Download Now</a></p>
 
-                    <p><a href="/">No thanks.<br/>Take me the to web site.</a></p>
+                    <p><a href="/">No thanks.<br/>Take me to the web site.</a></p>
                 </div>
                 <div class="unit size43of100 lastUnit">
                     <img src="/res/img/splash/iPhoneSplash.png" width="128" height="276" alt="GreatSchools iPhone App"/>
