@@ -202,7 +202,8 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailVerified);
-        processPendingParentAdvisorSubscriptions(user, ot, hoverHelper);
+
+        processPendingSubscriptions(user, ot, hoverHelper);
 
 
         _log.info("Email confirmed, forwarding user to " + viewName);
@@ -210,38 +211,66 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
     }
 
-    public void processPendingParentAdvisorSubscriptions(User user, OmnitureTracking ot, HoverHelper hoverHelper) {
-        // GS-11567
-        // convert existing PARENT_ADVISOR_NOT_VERIFIED subscription to PARENT_ADVISOR subscription, if it exists
-        boolean alreadySubscribedToParentAdvisor = false;
-        Subscription pendingSubscription = null;
+    // GS-11567 GS-11799
+    // if it exists, convert existing not-verified subscription to verified subscription
+    public void processPendingSubscriptions(User user, OmnitureTracking ot, HoverHelper hoverHelper) {
+        boolean alreadySubscribedToWeeklyProd = false;
+        boolean alreadySubscribedToDailyProd = false;
+
+        Subscription pendingWeeklySubscription = null;
+        Subscription pendingDailySubscription = null;
+
+        final SubscriptionProduct WEEKLY_PROD = SubscriptionProduct.PARENT_ADVISOR;
+        final SubscriptionProduct WEEKLY_PROD_NOT_VERIFIED = SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED;
+        final SubscriptionProduct DAILY_PROD = SubscriptionProduct.DAILY_TIP;
+        final SubscriptionProduct DAILY_PROD_NOT_VERIFIED = SubscriptionProduct.DAILY_TIP_NOT_VERIFIED;
+
         // get subscription id for not-verified version, if it exists, and find out if already subscribed to regular version
         List<Subscription> subscriptions = _subscriptionDao.getUserSubscriptions(user);
         if(subscriptions != null){
             for (Subscription subscription : subscriptions) {
-                if (subscription.getProduct().equals(SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED)) {
-                    pendingSubscription = subscription;
-                } else if (subscription.getProduct().equals(SubscriptionProduct.PARENT_ADVISOR)) {
-                    alreadySubscribedToParentAdvisor = true;
+                if (subscription.getProduct().equals(WEEKLY_PROD_NOT_VERIFIED)) {
+                    pendingWeeklySubscription = subscription;
+                } else if (subscription.getProduct().equals(DAILY_PROD_NOT_VERIFIED)) {
+                    pendingDailySubscription = subscription;
+                } else if (subscription.getProduct().equals(WEEKLY_PROD)) {
+                    alreadySubscribedToWeeklyProd = true;
+                } else if (subscription.getProduct().equals(DAILY_PROD)) {
+                    alreadySubscribedToDailyProd = true;
                 }
             }
         }
+
+        // warning: order matters in the following statements because we need both processPendingSubscriptionsHelper
+        //          calls to be made -- no shortcuts!
+        boolean convertedToVerifiedSubscription =
+                processPendingSubscriptionsHelper(alreadySubscribedToWeeklyProd, pendingWeeklySubscription, WEEKLY_PROD);
+        convertedToVerifiedSubscription =
+                processPendingSubscriptionsHelper(alreadySubscribedToDailyProd, pendingDailySubscription, DAILY_PROD) ||
+                convertedToVerifiedSubscription;
+
+        if (convertedToVerifiedSubscription) {
+            // add success event to track having signed up for emails
+            ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
+
+            // set cookie to show confirmation hover on page load
+            hoverHelper.setHoverCookie(HoverHelper.Hover.SUBSCRIPTION_EMAIL_VERIFIED);
+        }
+    }
+
+    private boolean processPendingSubscriptionsHelper(boolean alreadySubscribed, Subscription pendingSubscription, SubscriptionProduct subscriptionProduct) {
         if (pendingSubscription != null) {
-            if (!alreadySubscribedToParentAdvisor) {
-                // change greatnews_notverified subscription to greatnews subscription
-                pendingSubscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+            if (!alreadySubscribed) {
+                // change not-verified subscription to verified subscription
+                pendingSubscription.setProduct(subscriptionProduct);
                 _subscriptionDao.saveSubscription(pendingSubscription);
-
-                // add success event to track having signed up for emails
-                ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
-
-                // set cookie to show confirmation hover on page load
-                hoverHelper.setHoverCookie(HoverHelper.Hover.SUBSCRIPTION_EMAIL_VERIFIED);
+                return true;
             } else {
-                // unsubscribe user from greatnews_notverified -- just in case they already had a regular greatnews subscription
+                // unsubscribe user from not-verified subscription -- just in case they already had a verified subscription
                 _subscriptionDao.removeSubscription(pendingSubscription.getId());
             }
         }
+        return false;
     }
 
     protected UserState getUserState(User user) {

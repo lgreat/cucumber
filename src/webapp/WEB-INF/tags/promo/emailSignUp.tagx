@@ -25,7 +25,7 @@
 
                     <div class="section1">
                         <p class="jq-emailSignUpIntroText text2">
-                            <strong>Get weekly tips</strong> to support your child's education.
+                            <strong>Sign up for daily tips and ideas</strong> that will enrich your child's education.
                             <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                         </p>
 
@@ -59,7 +59,7 @@
                         <div class="hidden jq-emailSignUpNoEmailSentThankYou">
                             <h3>Thank you</h3>
 
-                            <p>You've successfully subscribed to the GreatSchools weekly newsletter.</p>
+                            <p>You've successfully subscribed to the GreatSchools newsletter.</p>
                         </div>
                     </div>
 

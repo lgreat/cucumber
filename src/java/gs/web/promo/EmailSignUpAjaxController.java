@@ -33,29 +33,38 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
     public static final String STATUS_SUCCESS_EMAIL_SENT = "OK-emailSent";
     public static final String STATUS_SUCCESS_NO_EMAIL_SENT = "OK-noEmailSent";
 
-private EmailVerificationEmail _emailVerificationEmail;
+    private EmailVerificationEmail _emailVerificationEmail;
 
     private ISubscriptionDao _subscriptionDao;
     private IUserDao _userDao;
-    private static final SubscriptionProduct PARENT_ADVISOR = SubscriptionProduct.PARENT_ADVISOR;
-    private static final SubscriptionProduct PARENT_ADVISOR_NOT_VERIFIED = SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED;
+    private static final SubscriptionProduct WEEKLY_PROD = SubscriptionProduct.PARENT_ADVISOR;
+    private static final SubscriptionProduct WEEKLY_PROD_NOT_VERIFIED = SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED;
+    private static final SubscriptionProduct DAILY_PROD = SubscriptionProduct.DAILY_TIP;
+    private static final SubscriptionProduct DAILY_PROD_NOT_VERIFIED = SubscriptionProduct.DAILY_TIP_NOT_VERIFIED;
 
     @RequestMapping(value = "/promo/emailSignUpAjax.page", method = RequestMethod.POST)
     public void handleEmailSignUp(@ModelAttribute("command") EmailSignUpCommand command,
                                HttpServletRequest request, HttpServletResponse response) throws Exception {
         // user/subscription info needed for validation and business logic
-        User user = (StringUtils.isNotBlank(command.getEmail()) ? _userDao.findUserFromEmailIfExists(command.getEmail()) : null);
-        boolean subscribedToProd = (user != null) && _subscriptionDao.isUserSubscribed(user, PARENT_ADVISOR, null);
-        boolean subscribedToProdNotVerified = (user != null) && _subscriptionDao.isUserSubscribed(user, PARENT_ADVISOR_NOT_VERIFIED, null);
+        User user = (StringUtils.isNotBlank(command.getEmail()) ?
+                _userDao.findUserFromEmailIfExists(command.getEmail()) : null);
+        boolean subscribedToVerifiedWeeklyProd =
+                (user != null) && _subscriptionDao.isUserSubscribed(user, WEEKLY_PROD, null);
+        boolean subscribedToNotVerifiedWeeklyProd =
+                (user != null) && _subscriptionDao.isUserSubscribed(user, WEEKLY_PROD_NOT_VERIFIED, null);
+        boolean subscribedToVerifiedDailyProd =
+                (user != null) && _subscriptionDao.isUserSubscribed(user, DAILY_PROD, null);
+        boolean subscribedToNotVerifiedDailyProd =
+                (user != null) && _subscriptionDao.isUserSubscribed(user, DAILY_PROD_NOT_VERIFIED, null);
 
         // variables needed for json response
-        String errors = validate(command, (user != null), subscribedToProd);
+        String errors = validate(command, (user != null),
+                subscribedToVerifiedWeeklyProd, subscribedToVerifiedDailyProd);
         String status;
         JsonBasedOmnitureTracking omnitureTracking = null;
 
         if (StringUtils.isBlank(errors)) {
             boolean isNewMember = false;
-            boolean sendVerificationEmail = false;
 
             // If the user does not yet exist, add to list_member
             if (user == null) {
@@ -64,35 +73,29 @@ private EmailVerificationEmail _emailVerificationEmail;
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.saveUser(user);
                 isNewMember = true;
-                sendVerificationEmail = true;
             }
 
-            // add subscription - use PARENT_ADVISOR_NOT_VERIFIED instead of PARENT_ADVISOR
-            // if we just created the user. this will let us keep track of that fact that they
-            // want to be subscribed to PARENT_ADVISOR but not actually subscribe them until
-            // they've verified their email
-            if (!subscribedToProd && !subscribedToProdNotVerified) {
-                // save new subscription
-                Subscription sub = new Subscription();
-                if (isNewMember) {
-                    sub.setProduct(PARENT_ADVISOR_NOT_VERIFIED);
-                    sendVerificationEmail = true;
-                } else {
-                    sub.setProduct(PARENT_ADVISOR);
+            // add subscription - use not-verified subscription product instead of the regular subscription product
+            // if we just created the user. this will let us keep track of that fact that they want to be subscribed
+            // to the regular subscription product but not actually subscribe them until they've verified their email
 
-                    // add success event to track having signed up for emails
-                    omnitureTracking = new JsonBasedOmnitureTracking();
-                    omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
-                }
-                sub.setUser(user);
-                _subscriptionDao.saveSubscription(sub);
-            } else if (subscribedToProdNotVerified) {
-                // user already tried to sign up, but haven't verified email yet;
-                // send another verification email to make it easy for them to confirm their email
-                sendVerificationEmail = true;
+            // weekly email (greatnews)
+            EmailSignUpState weeklyState = processSubscription(user, isNewMember,
+                    WEEKLY_PROD_NOT_VERIFIED, WEEKLY_PROD,
+                    subscribedToNotVerifiedWeeklyProd, subscribedToVerifiedWeeklyProd);
+
+            // daily email (dailytip)
+            EmailSignUpState dailyState = processSubscription(user, isNewMember,
+                    DAILY_PROD_NOT_VERIFIED, DAILY_PROD,
+                    subscribedToNotVerifiedDailyProd, subscribedToVerifiedDailyProd);
+
+            if (weeklyState.isAddSuccessEvent() || dailyState.isAddSuccessEvent()) {
+                // add success event to track having signed up for emails
+                omnitureTracking = new JsonBasedOmnitureTracking();
+                omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
             }
 
-            if (sendVerificationEmail) {
+            if (isNewMember || weeklyState.isSendVerificationEmail() || dailyState.isSendVerificationEmail()) {
                 // send email verification email
                 sendVerificationEmail(request, user);
                 status = STATUS_SUCCESS_EMAIL_SENT;
@@ -106,7 +109,36 @@ private EmailVerificationEmail _emailVerificationEmail;
         sendJsonResponse(response, errors, status, omnitureTracking);
     }
 
-    private void sendJsonResponse(HttpServletResponse response, String errors, String status, JsonBasedOmnitureTracking omnitureTracking) throws IOException {
+    private EmailSignUpState processSubscription(User user,
+                                                 boolean isNewMember,
+                                                 SubscriptionProduct notVerifiedProduct,
+                                                 SubscriptionProduct verifiedProduct,
+                                                 boolean subscribedToNotVerifiedProd,
+                                                 boolean subscribedToVerifiedProd) {
+        boolean sendVerificationEmail = false;
+        boolean addSuccessEvent = false;
+        if (!subscribedToVerifiedProd && !subscribedToNotVerifiedProd) {
+            // save new subscription
+            Subscription sub = new Subscription();
+            if (isNewMember) {
+                sub.setProduct(notVerifiedProduct);
+                sendVerificationEmail = true;
+            } else {
+                sub.setProduct(verifiedProduct);
+                addSuccessEvent = true;
+            }
+            sub.setUser(user);
+            _subscriptionDao.saveSubscription(sub);
+        } else if (subscribedToNotVerifiedProd) {
+            // user already tried to sign up, but haven't verified email yet;
+            // send another verification email to make it easy for them to confirm their email
+            sendVerificationEmail = true;
+        }
+        return new EmailSignUpState(sendVerificationEmail, addSuccessEvent);
+    }
+
+    private void sendJsonResponse(HttpServletResponse response, String errors, String status,
+                                  JsonBasedOmnitureTracking omnitureTracking) throws IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         out.println("{");
@@ -120,7 +152,8 @@ private EmailVerificationEmail _emailVerificationEmail;
         out.println("}");
     }
 
-    private void sendVerificationEmail(HttpServletRequest request, User user) throws IOException, MessagingException, NoSuchAlgorithmException {
+    private void sendVerificationEmail(HttpServletRequest request, User user)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
         String redirectUrl = urlBuilder.asFullUrl(request);
         getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
@@ -129,7 +162,8 @@ private EmailVerificationEmail _emailVerificationEmail;
     /**
      * Returns empty string if the command seems valid; otherwise, comma-separated list of fields with errors
      */
-    protected String validate(EmailSignUpCommand command, boolean userExists, boolean subscribedToProd) {
+    protected String validate(EmailSignUpCommand command, boolean userExists,
+                              boolean subscribedToWeeklyProd, boolean subscribedToDailyProd) {
         List<String> errorList = new ArrayList<String>();
 
         // validate not null email
@@ -141,7 +175,7 @@ private EmailVerificationEmail _emailVerificationEmail;
             if (!emailValidator.isValid(command.getEmail())) {
                 errorList.add("emailInvalid");
             } else {
-                if (userExists && subscribedToProd) {
+                if (userExists && (subscribedToWeeklyProd && subscribedToDailyProd)) {
                     errorList.add("emailAlreadySignedUp");
                 }
             }
@@ -172,6 +206,24 @@ private EmailVerificationEmail _emailVerificationEmail;
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    private class EmailSignUpState {
+        private boolean _sendVerificationEmail;
+        private boolean _addSuccessEvent;
+
+        public EmailSignUpState(boolean sendVerificationEmail, boolean addSuccessEvent) {
+            _sendVerificationEmail = sendVerificationEmail;
+            _addSuccessEvent = addSuccessEvent;
+        }
+
+        public boolean isSendVerificationEmail() {
+            return _sendVerificationEmail;
+        }
+
+        public boolean isAddSuccessEvent() {
+            return _addSuccessEvent;
+        }
     }
 }
 
