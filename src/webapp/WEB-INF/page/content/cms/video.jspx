@@ -311,7 +311,7 @@
 <!-- end #main -->
 
 
-<c:set var="pageName" value="video"/>
+<c:set var="pageName" value="Video View"/>
 <c:set var="hier1" value="Video,${commaSeparatedPrimaryKategoryNames},Video Title: ${titleForOmniture}"/>
 
 
