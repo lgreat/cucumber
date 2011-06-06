@@ -4335,7 +4335,7 @@ body.cobranded #pageGS {
     padding:0;
     width:968px;
     float:left; /* Contains floated list items */
-    background: rgb(109,200,253); /* Old browsers */
+    background: rgb(32,146,196); /* Old browsers */
     background: -moz-linear-gradient(top, rgb(109,200,253) 0%, rgb(32,146,196) 33%, rgb(32,146,196) 75%, rgb(66,170,221) 95%, rgb(17,135,184) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(109,200,253)), color-stop(33%,rgb(32,146,196)), color-stop(75%,rgb(32,146,196)), color-stop(95%,rgb(66,170,221)), color-stop(100%,rgb(17,135,184))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, rgb(109,200,253) 0%,rgb(32,146,196) 33%,rgb(32,146,196) 75%,rgb(66,170,221) 95%,rgb(17,135,184) 100%); /* Chrome10+,Safari5.1+ */
@@ -4419,7 +4419,7 @@ body.cobranded #pageGS {
 #globalnav a:focus,
 #globalnav a:active {
     color:#333;
-    background: rgb(255,233,190); /* Old browsers */
+    background: rgb(255,189,0); /* Old browsers */
 
     background: -moz-linear-gradient(top, rgb(255,233,190) 0%, rgb(255,193,75) 33%, rgb(255,167,43) 75%, rgb(255,198,91) 95%, rgb(255,165,41) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(255,233,190)), color-stop(33%,rgb(255,193,75)), color-stop(75%,rgb(255,167,43)), color-stop(95%,rgb(255,198,91)), color-stop(100%,rgb(255,165,41))); /* Chrome,Safari4+ */
@@ -4436,7 +4436,7 @@ body.cobranded #pageGS {
 
 #globalnav .selected {
     color:#333;
-    background: rgb(255,233,190); /* Old browsers */
+    background: rgb(255,189,0); /* Old browsers */
 
     background: -moz-linear-gradient(top, rgb(255,233,190) 0%, rgb(255,193,75) 33%, rgb(255,167,43) 75%, rgb(255,198,91) 95%, rgb(255,165,41) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(255,233,190)), color-stop(33%,rgb(255,193,75)), color-stop(75%,rgb(255,167,43)), color-stop(95%,rgb(255,198,91)), color-stop(100%,rgb(255,165,41))); /* Chrome,Safari4+ */
@@ -10168,7 +10168,7 @@ div#YahooRealEstateLink {
     position: relative;
     cursor: pointer;
     outline: none; /* Background Gradients */
-    background: #258fb6; /* for non-css3 browsers */
+    background: #2092C4; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
@@ -10192,7 +10192,7 @@ div#YahooRealEstateLink {
 
 .button-1:hover {
     text-decoration: none; /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
@@ -10206,7 +10206,7 @@ div#YahooRealEstateLink {
 .button-1:active {
 
 /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
@@ -10281,7 +10281,7 @@ Extends button-1 by changing:
     position: relative;
     cursor: pointer;
     outline: none; /* Background Gradients */
-    background: #258fb6; /* for non-css3 browsers */
+    background: #2092C4; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
@@ -10305,7 +10305,7 @@ Extends button-1 by changing:
 
 .button-1Ext-1:hover {
     text-decoration: none; /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
@@ -10319,7 +10319,7 @@ Extends button-1 by changing:
 .button-1Ext-1:active {
 
 /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
@@ -10403,7 +10403,7 @@ Extends button-1 by changing:
     position: relative;
     cursor: pointer;
     outline: none; /* Background Gradients */
-    background: #258fb6; /* for non-css3 browsers */
+    background: #2092C4; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
@@ -10427,7 +10427,7 @@ Extends button-1 by changing:
 
 .button-1Ext-2:hover {
     text-decoration: none; /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
@@ -10441,7 +10441,7 @@ Extends button-1 by changing:
 .button-1Ext-2:active {
 
 /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
@@ -10557,7 +10557,7 @@ Extends button-1 by changing:
     position: relative;
     cursor: pointer;
     outline: none; /* Background Gradients */
-    background: #258fb6; /* for non-css3 browsers */
+    background: #2092C4; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
@@ -10581,7 +10581,7 @@ Extends button-1 by changing:
 
 .button-3:hover {
     text-decoration: none; /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
@@ -10595,7 +10595,7 @@ Extends button-1 by changing:
 .button-3:active {
 
 /* Background Gradients */
-    background: #ff9000; /* for non-css3 browsers */
+    background: #FFBD00; /* for non-css3 browsers */
 
     background: -moz-linear-gradient(top, #ff9000, #dd6611); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9000), color-stop(1, #dd6611)); /* Saf4+, Chrome */
