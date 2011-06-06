@@ -86,7 +86,8 @@ public abstract class  OmnitureTracking {
         CBTipReplyPost(31),
         CBAdviceDiscussionPost(32),
         CBAdviceReplyPost(33),
-        EmailModuleSignup(37);
+        EmailModuleSignup(37),
+        CmsVideo(47);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){
