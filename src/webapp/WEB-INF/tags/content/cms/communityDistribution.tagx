@@ -50,7 +50,7 @@
         </span>&amp;nbsp;
 
         <!-- Yahoo Buzz -->
-        <script type="text/javascript" src="http://d.yimg.com/ds/badge2.js" badgetype="text"><!--preserve layout--></script>&amp;nbsp;
+        <!--<script type="text/javascript" src="http://d.yimg.com/ds/badge2.js" badgetype="text">&lt;!&ndash;preserve layout&ndash;&gt;</script>&amp;nbsp;-->
 
         <!-- Digg -->
         <span style='background: url(http://digg.com/img/badges/16x16-digg-guy.gif) left no-repeat; padding-left: 20px;'>
