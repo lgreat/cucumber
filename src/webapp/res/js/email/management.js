@@ -14,6 +14,9 @@ GS.form.EmailManagement = function() {
         schoolCheckbox.parent().remove();
 
         var numMssSchools = parseInt(jQuery('#jq-numMssSchools').val());
+        if (numMssSchools === 1) {
+            jQuery('#jq-mssHeading').hide();
+        }
         jQuery('#jq-numMssSchools').val(numMssSchools-1);
         jQuery('#jq-mssAddSchoolSection').show();
     };
@@ -78,13 +81,19 @@ GS.form.EmailManagement = function() {
         var selectedStateName = stateSelect.find('option:selected').text();
         var myStateId = selectedStateName + schoolSelect.val();
 
+        var alreadySubscribed = false;
+
         // validate duplicates
-        jQuery('#jq-mssSchoolSection input[name=uniqueStateId').each(function() {
-            if (jQuery(this).val() == myStateId) {
+        jQuery('#jq-mssSchoolSection input[name=uniqueStateId]').each(function() {
+            if (!alreadySubscribed && jQuery(this).val() == myStateId) {
                 alert("You are already subscribed to that school.");
-                return;
+                alreadySubscribed = true;
             }
         });
+
+        if (alreadySubscribed) {
+            return;
+        }
 
         numMssSchools = numMssSchools + 1;
 
@@ -114,6 +123,11 @@ GS.form.EmailManagement = function() {
         jQuery('#jq-numMssSchools').val(numMssSchools);
         if (numMssSchools >= 4) {
             jQuery('#jq-mssAddSchoolSection').hide();
+        }
+        if (numMssSchools >= 1) {
+            jQuery('#jq-mssHeading').show();
+        } else {
+            jQuery('#jq-mssHeading').hide();
         }
     };
 };

@@ -217,11 +217,9 @@
             <div class="spacer_10"><!-- do not collapse --></div>
 
             <div class="mssInfo">
-                <c:if test="${emailCmd.school1}">
-                    <p class="text3bold">Subscribe to school updates on:</p>
-                </c:if>
+                <p class="text3bold ${emailCmd.school1 ? '' : 'hidden'}" id="jq-mssHeading">Subscribe to school updates on:</p>
 
-                <input type="hidden" id="numMssSchools"
+                <input type="hidden" id="jq-numMssSchools"
                        name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
 
                 <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
@@ -293,7 +291,7 @@
                     </ol>
                     <div class="spacer_10"><!-- do not collapse --></div>
 
-                    <button class="button-1 fltlft" type="add" id="jq-addMssSchool" name="Add" value="Add">Add</button>
+                    <button class="button-1 fltlft" type="button" id="jq-addMssSchool" name="Add" value="Add">Add</button>
                     <div class="spacer_15"><!-- do not collapse --></div>
 
                 </div>
