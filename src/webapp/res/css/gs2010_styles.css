@@ -3115,7 +3115,7 @@ Viewport: the defines width and height of each icon
 /* Ext1: No margin */
 /* Ext1 margin: 0; gutter: 10px; */
 .mediaExt1{margin: 0;}
-.mediaExt1,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt1,.bk{overflow: hidden;_overflow: visible;zoom: 1; float: right;}
 .mediaExt1 .img{float: left;margin-right: 10px;}
 .mediaExt1 .img img{display: block;}
 .mediaExt1 .imgExt{float: right;margin-left: 10px;}
