@@ -7740,20 +7740,10 @@ body.hover #uploadAvatarHover form {
     width: 423px;
 }
 
-#manageNewsletters .formBarGS {
-    width: 83px;
-}
-
-#manageNewsletters .formMainGS {
-    width: 330px;
-    padding-left: 10px;
-}
-
 #manageNewsletters fieldset {
     outline: none;
     padding-top: 15px;
     border-top: 1px dotted #999;
-    margin-top: 15px;
 }
 
 #manageNewsletters fieldset ol li {

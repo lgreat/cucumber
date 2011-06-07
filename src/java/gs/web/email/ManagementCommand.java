@@ -98,6 +98,10 @@ public class ManagementCommand {
     private boolean learning_dis;
     private int learning_disId;
 
+    //variable for daily tip
+    private boolean dailytip;
+    private int dailytipId;
+
     //variables for chooser pack
     private boolean chooser;
     private boolean chooserpack_p;
@@ -532,6 +536,22 @@ public class ManagementCommand {
 
     public void setLearning_disId(int learning_disId) {
         this.learning_disId = learning_disId;
+    }
+
+    public boolean isDailytip() {
+        return dailytip;
+    }
+
+    public void setDailytip(boolean dailytip) {
+        this.dailytip = dailytip;
+    }
+
+    public int getDailytipId() {
+        return dailytipId;
+    }
+
+    public void setDailytipId(int dailytipId) {
+        this.dailytipId = dailytipId;
     }
 
     public boolean isChooser() {

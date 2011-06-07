@@ -189,6 +189,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
                 }else if(s.getProduct().equals(SubscriptionProduct.LEARNING_DIFFERENCES)){
                     command.setLearning_dis(true);
                     command.setLearning_disId(s.getId());
+                }else if(s.getProduct().equals(SubscriptionProduct.DAILY_TIP)){
+                    command.setDailytip(true);
+                    command.setDailytipId(s.getId());
                 }else if(s.getProduct().equals(SubscriptionProduct.SCHOOL_CHOOSER_PACK_PRESCHOOL)){
                     command.setChooser(true);
                     command.setChooserpack_p(true);
@@ -394,6 +397,13 @@ public class ManagementController extends SimpleFormController implements ReadWr
             _subscriptionDao.removeSubscription(command.getLearning_disId());
         }
 
+        if((!(command.getDailytipId() >0)) && command.isDailytip()){
+            Subscription s = new Subscription(user,SubscriptionProduct.DAILY_TIP, state);
+            subscriptions.add(s);
+        }
+        if(command.getDailytipId() >0 && !command.isDailytip()){
+            _subscriptionDao.removeSubscription(command.getDailytipId());
+        }
 
         if((!(command.getChooserpack_pId() >0)) && command.isChooserpack_p()){
             Subscription s = new Subscription(user,SubscriptionProduct.SCHOOL_CHOOSER_PACK_PRESCHOOL, state);
@@ -603,7 +613,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
     protected void updateMessages(ManagementCommand command, List<String> messages) {
         messages.clear();
         if (command.getGreatnews()) {
-            messages.add("GreatSchools Weekly");
+            messages.add("Weekly Newsletter");
         }
         if (command.isSchool1()) {
             messages.add("School updates for " + command.getName1());
@@ -622,6 +632,9 @@ public class ManagementController extends SimpleFormController implements ReadWr
         }
         if (command.isLearning_dis()) {
             messages.add("Helping Kids With Learning Disabilities");
+        }
+        if (command.isDailytip()) {
+            messages.add("Daily Newsletter");
         }
         if (command.isChooserpack_p()) {
             messages.add("Preschool Tip Sheet");
