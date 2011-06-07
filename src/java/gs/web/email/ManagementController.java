@@ -524,6 +524,8 @@ public class ManagementController extends SimpleFormController implements ReadWr
         Set<String> stateIdStringSetFromPage = new HashSet<String>();
         if (stateIdStringsFromPage != null) {
             stateIdStringSetFromPage.addAll(Arrays.asList(stateIdStringsFromPage));
+            // get rid of entry from template
+            stateIdStringSetFromPage.remove("REPLACE-ME");
         }
 
         // any schools in the existing subscription set that is not represented, remove it
