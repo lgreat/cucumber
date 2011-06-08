@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          >
+    <jsp:directive.tag body-content="empty" description="Used to insert bottom copy of K12 advertiser page for specific K12 school"/>
+    <jsp:directive.attribute name="school" required="true" description="State abbreviation or INT, e.g. CA, NY, INT"/>
+
+    <c:choose>
+        <c:when test="${school eq 'AZ'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-az.html"/>
+        </c:when>
+        <c:when test="${school eq 'CA'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-ca.html"/>
+        </c:when>
+        <c:when test="${school eq 'CO'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-co.html"/>
+        </c:when>
+        <c:when test="${school eq 'ID'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-id.html"/>
+        </c:when>
+        <c:when test="${school eq 'IL'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-il.html"/>
+        </c:when>
+        <c:when test="${school eq 'KS'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-ks.html"/>
+        </c:when>
+        <c:when test="${school eq 'MN'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-mn.html"/>
+        </c:when>
+        <c:when test="${school eq 'NV'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-nv.html"/>
+        </c:when>
+        <c:when test="${school eq 'OH'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-oh.html"/>
+        </c:when>
+        <c:when test="${school eq 'PA'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-pa.html"/>
+        </c:when>
+        <c:when test="${school eq 'TX'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-tx.html"/>
+        </c:when>
+        <c:when test="${school eq 'WA'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-wa.html"/>
+        </c:when>
+        <c:when test="${school eq 'WI'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/bottomCopy/k12-bottomCopy-wi.html"/>
+        </c:when>
+    </c:choose>
+
+</jsp:root>

@@ -972,6 +972,11 @@ h3.srchCat {
     color: #333;
 }
 
+.text1italic {
+    font: italic 14px Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
 .text1bold-d61 {
     font: bold 14px Arial, Helvetica, sans-serif;
     color: #d61;
@@ -12700,4 +12705,12 @@ div#tracking {
 #meeboLocalGuide {
     font: 11px/1.25 Tahoma,Arial,sans-serif;
     padding: 3px;
+}
+
+/***********************
+ * K12 Advertiser Page *
+ ***********************/
+
+#k12AdPage p {
+    margin-bottom: 10px;
 }
