@@ -22,7 +22,6 @@ public class K12AdvertiserPageHelper {
     static {
         K12_SCHOOL_INFO.put("AR", new K12SchoolInfo("Arkansas Virtual Academy", false));
         K12_SCHOOL_INFO.put("AZ", new K12SchoolInfo("Arizona Virtual Academy"));
-
         K12_SCHOOL_INFO.put("CA", new K12SchoolInfo("California Virtual Academies"));
         K12_SCHOOL_INFO.put("CO", new K12SchoolInfo("Colorado Virtual Academy"));
         K12_SCHOOL_INFO.put("DC", new K12SchoolInfo("DC Community Academy Public Charter School", false));
