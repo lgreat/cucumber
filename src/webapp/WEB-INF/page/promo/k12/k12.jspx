@@ -15,8 +15,7 @@
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
 
-    <!-- TODO-11797: set different ad slot prefix - K12_Advertiser_Page  -->
-    <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
+    <ad:setSlotPrefix slotPrefix="K12_Advertiser_Page"/>
 
     <head>
         <title>Online Education | GreatSchools</title>
@@ -29,32 +28,36 @@
 
     </head>
 
-    <body>
+    <gsml:body adPageName="k12AdvertiserPage" pageLayout="nocol">
+
+    <!-- TODO-11797 -->
 
     <div class="container_24" id="k12AdPage">
         <div class="grid_16">
 
+            <div class="spacer_10"><!-- do not collapse --></div>
+
             <div class="mrm phs">
-                <div class="smallText1 mtm pts">
-                    <link:home>Home</link:home> &amp;gt;
-                    Featured Online School
+
+                <div class="fltrt">
+                    <div class="mediaExt1-1">
+                        <div class="imgExt">
+                            <a href="">[logo image tag]</a>
+                        </div>
+                        <div class="bk text-align-rt smallText1">
+                            Sponsored<br/>by:
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="fltlft">
-                    SPONSORED:
-                </div>
+                <div class="mbs">SPONSORED:</div>
 
-                <h1 class="mts">${schoolName}</h1>
+                <h1>${schoolName}</h1>
 
                 <div class="spacer_10"><!-- do not collapse --></div>
 
-                <div class="text3 fltrt">
-                    Sponsored by <a href="">[logo]</a>
-                </div>
-
-                <a href="#">
-                    <span class="lftDoor25"><span class="rtDoor25">Learn More Here &amp;raquo;</span></span>
-                </a>
+                <a href="#" class="button-1">Learn More Here &amp;raquo;</a>
 
                 <div class="spacer_10"><!-- do not collapse --></div>
                 <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
@@ -78,9 +81,7 @@
 
                 <div class="spacer_10"><!-- do not collapse --></div>
 
-                <a href="#">
-                    <span class="lftDoor25"><span class="rtDoor25">Learn More Here &amp;raquo;</span></span>
-                </a>
+                <a href="#" class="button-1">Learn More Here &amp;raquo;</a>
 
                 <div class="spacer_20"><!-- do not collapse --></div>
 
@@ -91,6 +92,9 @@
             </div>
         </div>
         <div class="grid_8">
+
+            <div class="spacer_10"><!-- do not collapse --></div>
+
             <div id="squareadvert">
                 <ad:AboveFold_300x250/>
             </div>
@@ -101,6 +105,6 @@
                   hier1="Topic Centers,K12"
             />
 
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
