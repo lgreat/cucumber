@@ -39,19 +39,21 @@
 
             <div class="mrm phs">
 
-                <div class="fltrt">
-                    <div class="mediaExt1-1">
-                        <div class="imgExt">
-                            <a href="">[logo image tag]</a>
-                        </div>
-                        <div class="bk text-align-rt smallText1">
-                            Sponsored<br/>by:
+                <div class="line">
+                    <div class="unit size3of5 pts">SPONSORED:</div>
+                    <div class="unit size2of5 lastUnit">
+                        <div class="fltrtt">
+                            <div class="mediaExt1-1">
+                                <div class="imgExt">
+                                    <a href="">[logo image tag]</a>
+                                </div>
+                                <div class="bk text-align-rt smallText1">
+                                    Sponsored<br/>by:
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-
-                <div class="mbs">SPONSORED:</div>
 
                 <h1>${schoolName}</h1>
 
