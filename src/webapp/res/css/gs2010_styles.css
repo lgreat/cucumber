@@ -43,7 +43,8 @@ General comments:
 =12c topic centers
 =12c-1 featured
 =12c-2 left navigation
-=12c-3 infinite carousel
+=12c-3.1 infinite carousel
+=12c-3.2 infinite video carousel
 =12c-4 browse schools by city
 =12c-5 talk about it
 =12c-5.1 start a conversation
@@ -1029,6 +1030,11 @@ h3.srchCat {
 .text3bold-d61 {
     font: bold 12px/1.3 Arial, Helvetica, sans-serif;
     color: #d61;
+}
+
+.text3bold-06b {
+    font: bold 12px Arial, Helvetica, sans-serif;
+    color: #06b;
 }
 
 .text3italic {
@@ -3120,7 +3126,7 @@ Viewport: the defines width and height of each icon
 /* Ext1: No margin */
 /* Ext1 margin: 0; gutter: 10px; */
 .mediaExt1{margin: 0;}
-.mediaExt1,.bk{overflow: hidden;_overflow: visible;zoom: 1; float: right;}
+.mediaExt1,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt1 .img{float: left;margin-right: 10px;}
 .mediaExt1 .img img{display: block;}
 .mediaExt1 .imgExt{float: right;margin-left: 10px;}
@@ -3299,6 +3305,7 @@ Viewport: the defines width and height of each icon
 .sponsored .hd h3{margin-bottom: 5px;}
 .sponsored .bd li{list-style:disc;margin:16px 0 16px 5px;}
 .sponsored .sponsor_88x31{position:absolute;top:10px;right:10px;}
+.sponsored .sponsor_88x31 .bk{*float: right;}
 
 /* ---------------- GS-11644 ----------------- */
 /* ------ relatedContent (extends mod) ------- */
@@ -5848,7 +5855,7 @@ body.cobranded #pageGS {
     outline: none;
 }
 
-/* =12c-3 infinite carousel
+/* =12c-3.1 infinite carousel
 -------------------------------------------------------------------------------------------*/
 
 .infiniteCarousel {
@@ -5856,9 +5863,10 @@ body.cobranded #pageGS {
     height: 204px;
     border: 1px solid #c6c6c6;
     position: relative;
+    margin-bottom:20px;
 }
 
-.ic_title {
+.infiniteCarousel .ic_title {
     width: 398px;
     margin: 0 12px;
     padding: 5px 0 6px 2px;
@@ -5893,15 +5901,16 @@ body.cobranded #pageGS {
     border-right: 1px solid #c6c6c6;
 }
 
-.captioned_photo img {
+.infiniteCarousel .captioned_photo img {
     margin: 0;
     padding: 0;
     display: block;
 }
 
-.captioned_photo  span {
+.infiniteCarousel .captioned_photo  span,
+.infiniteCarousel .captioned_photo  p {
     width: 100%;
-    height: 29px;
+    /*height: 29px;*/
     margin: 3px 0 0;
     padding: 0;
     text-align: center;
@@ -5936,6 +5945,11 @@ body.cobranded #pageGS {
 .infiniteCarousel .back:hover {
     text-decoration: none;
 }
+
+/* =12c-3.2 infinite video carousel
+-------------------------------------------------------------------------------------------*/
+
+
 
 /* =12c-4 browse schools by city
 -------------------------------------------------------------------------------------------*/
