@@ -92,8 +92,10 @@
                             <div class="imgExt">
                                 <ad:adTag position="Sponsor_88x31"/>
                             </div>
-                            <div id="jq-ghostText-Test_Prep_Sponsor_88x31" class="bk iblock smallText1 ptm mts hidden">
-                                From our sponsor
+                            <div class="bk iblock smallText1 ptm mts">
+                                <span id="jq-ghostText-Test_Prep_Sponsor_88x31" class="hidden">
+                                    From our sponsor
+                                </span>
                             </div>
                         </div>
                     </div>
