@@ -3,21 +3,8 @@ package gs.web.promo;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by IntelliJ IDEA.
- * User: youngfan
- * Date: 6/7/11
- * Time: 6:10 PM
- * To change this template use File | Settings | File Templates.
- */
 public class K12AdvertiserPageHelper {
-    /*
-    // TODO-11797 - no need?
-    final public static String[] VALID_K12_SCHOOLS = new String[] {
-            "AR", "AZ", "CA", "CO", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "INT", "KS", "MN", "MO", "NV", "OH", "OK",
-            "OR", "PA", "SC", "TX", "UT", "WA", "WI", "WY"
-    };
-    */
+
     final public static Map<String,K12SchoolInfo> K12_SCHOOL_INFO = new HashMap<String,K12SchoolInfo>();
     static {
         K12_SCHOOL_INFO.put("AR", new K12SchoolInfo("Arkansas Virtual Academy", false));
