@@ -15,5 +15,5 @@ public interface CmsFeatureSearchService {
                                                                      boolean strict, ContentKey excludeContentKey,
                                                                      String language, int pageSize, int offset);
     public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeaturesByType(List<CmsCategory> primaryTopics, String contentType,
-                                                                     int pageSize, int pageNumber);
+                                                                     int pageSize, int offset);
 }

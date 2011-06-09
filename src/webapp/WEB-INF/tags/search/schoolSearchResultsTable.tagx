@@ -25,15 +25,13 @@
 <!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
 <div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
 
+<c:set var="totalResults" value="${page.pager.totalItems}"/>
+
 <c:set var="searchResultsPagingSummary">
     <div class="js-search-results-paging-summary text3">
-        <c:set var="lastResultOnPage" value="${start+pageSize}"/>
-        <c:if test="${lastResultOnPage gt totalResults}">
-            <c:set var="lastResultOnPage" value="${totalResults}"/>
-        </c:if>
         <c:choose>
             <c:when test="${usePaging}">
-                Showing results ${start+1}-${lastResultOnPage} of ${totalResults}
+                Showing results ${page.offset+1}-${page.lastOffsetOnPage+1} of ${totalResults}
             </c:when>
             <c:otherwise>
                 Showing results 1-${totalResults} of ${totalResults}
@@ -223,7 +221,7 @@
     <c:set var="count" value="0"/>
 
     <c:if test="${fn:length(schoolSearchResults) gt 0}">
-        <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${fn:length(schoolSearchResults) - 1}">
+        <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${totalResults - 1}">
             <search:schoolSearchResult school="${s}" omniturePageName="${pageScope.omniturePageName}"/>
         </c:forEach>
     </c:if>
@@ -268,7 +266,7 @@
 <div class="line">
     <div class="unit size1of1 lastUnit">
         <div class="pagination" id="pagination">
-            <search:pagination page="${currentPage}" pageSize="${pageSize}" totalPages="${totalPages}" useJavascriptPaging="true" useOffset="true" usePageNumber="false" javascriptMethod="GS.search.schoolSearchResultsTable.page" />
+            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.schoolSearchResultsTable.page" />
         </div>
     </div>
 </div>

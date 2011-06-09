@@ -30,8 +30,8 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -142,24 +142,24 @@ public class CmsTopicCenterController2010 extends AbstractController {
                                 String categoryIdsStr = StringUtils.join(categoryIds,",");
                                 List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIdsStr);
                                 //Search for videos categorized with the grades, subjects and topics.
-                                int pageNumber = 1;
-                                String pageNumberString = request.getParameter("page");
-                                if (pageNumberString != null) {
-                                    pageNumber = Integer.valueOf(pageNumberString);
+                                int offset = 0;
+                                String offsetString = request.getParameter("start");
+                                if (offsetString != null) {
+                                    offset = Integer.valueOf(offsetString);
                                 }
                                 String url = request.getRequestURL().toString();
                                 String queryString = request.getQueryString();
                                 Map<String,String> queryStringParams = UrlUtil.getParamsFromQueryString(queryString);
-                                queryStringParams.put("page",pageNumberString);
+                                queryStringParams.put("start",offsetString);
                                 queryString = UrlUtil.getQueryStringFromMap(queryStringParams);
                                 //queryString.r
                                 if (queryString != null) {
                                     url += "?" + queryString;
                                 }
                                 model.put(MODEL_FULL_URL, url);
-                                SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 2, pageNumber);
+                                SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 2, offset);
 
-                                addPagingDataToModel(2, pageNumber, searchResults.getTotalResults(), model);
+                                addPagingDataToModel(offset, 2, offset, searchResults.getTotalResults(), model);
                                 if (searchResults != null && searchResults.getTotalResults() > 0) {
                                     model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
                                 } else {
@@ -290,7 +290,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
      * @param totalResults
      * @param model
      */
-    protected void addPagingDataToModel(Integer pageSize, int currentPage, int totalResults, Map<String,Object> model) {
+    protected void addPagingDataToModel(int start, Integer pageSize, int currentPage, int totalResults, Map<String,Object> model) {
 
         //TODO: perform validation to only allow no paging when results are a certain size
         if (pageSize > 0) {
@@ -301,6 +301,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
         } else {
             model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
         }
+
+        gs.web.pagination.Page page = new gs.web.pagination.Page(start, pageSize, totalResults);
+        model.put("page", page);
 
         model.put(MODEL_PAGE_SIZE, pageSize);
     }

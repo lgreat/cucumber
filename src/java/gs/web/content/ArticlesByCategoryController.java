@@ -8,6 +8,7 @@ import gs.data.content.cms.ICmsCategoryDao;
 import gs.data.search.SearchResultsPage;
 import gs.data.util.CmsUtil;
 import gs.web.content.cms.CmsContentUtils;
+import gs.web.pagination.Pagination;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
@@ -112,11 +113,13 @@ public class ArticlesByCategoryController extends AbstractController {
         Map<String, Object> model;
 
         int page = 1;
+        int offset = 1;
         // check for page number
         String p = request.getParameter(PARAM_PAGE);
         if (p != null) {
             try {
                 page = Integer.parseInt(p);
+                offset = Pagination.getOffset(PAGE_SIZE, page, true, false);
             } catch (Exception e) {
                 // ignore this and just assume the page is 1.
             }
@@ -139,7 +142,7 @@ public class ArticlesByCategoryController extends AbstractController {
                 return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
             }
 
-            model = handleCmsCategoryRequest(request, page);
+            model = handleCmsCategoryRequest(request, offset);
             List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
             if (isShowAdTargeting()) {
                 setAdTargetingForCmsCategories(request, categories);
@@ -240,7 +243,7 @@ public class ArticlesByCategoryController extends AbstractController {
     /**
      * Searches the indexes for CMS features tagged with a particular CMS category.
      */
-    protected Map<String, Object> handleCmsCategoryRequest(HttpServletRequest request, int page) {
+    protected Map<String, Object> handleCmsCategoryRequest(HttpServletRequest request, int offset) {
         Map<String, Object> model = new HashMap<String, Object>();
         String language = request.getParameter(PARAM_LANGUAGE);
 
@@ -307,7 +310,7 @@ public class ArticlesByCategoryController extends AbstractController {
         String maxResultsParam = request.getParameter(PARAM_MAX_RESULTS);
 
         if (categoryList.size() > 0) {
-            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, locations, outcomes, model, page, strict, excludeContentKey, language, maxResultsParam);
+            List<CmsCategory> categories = storeResultsForCmsCategories(topics, grades, subjects, locations, outcomes, model, offset, strict, excludeContentKey, language, maxResultsParam);
 
             if (categories.size() == 1) {
                 List<CmsCategory> breadcrumbs = getCmsCategoryBreadcrumbs(categories.get(0));
@@ -369,7 +372,7 @@ public class ArticlesByCategoryController extends AbstractController {
     }
 
 
-    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, List<CmsCategory> locations, List<CmsCategory> outcomes, Map<String, Object> model, int page, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
+    protected List<CmsCategory> storeResultsForCmsCategories(List<CmsCategory> topics, List<CmsCategory> grades, List<CmsCategory> subjects, List<CmsCategory> locations, List<CmsCategory> outcomes, Map<String, Object> model, int offset, boolean strict, ContentKey excludeContentKey, String language, String maxResultsParam) {
 
         List<CmsCategory> categories = new ArrayList<CmsCategory>();
         if (topics != null) {
@@ -390,7 +393,7 @@ public class ArticlesByCategoryController extends AbstractController {
 
         // search for articles in the particular category
         CmsFeatureSearchService service = getSolrCmsFeatureSearchService();
-        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeatures(topics, grades, subjects, locations, outcomes, strict, excludeContentKey, language, PAGE_SIZE,page);
+        SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = service.getCmsFeatures(topics, grades, subjects, locations, outcomes, strict, excludeContentKey, language, PAGE_SIZE, offset);
 
         if (searchResultsPage != null && searchResultsPage.getTotalResults() > 0) {
             int totalResults = searchResultsPage.getTotalResults();

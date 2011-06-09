@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:link="urn:www.greatschools.org/taglib/link"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:gsweb="gstaglib"
+    xmlns:pagination="pagination"
+        >
+    <jsp:directive.tag body-content="empty"/>
+    <!-- Required attributes -->
+
+    <jsp:directive.attribute name="page" required="true" type="gs.web.pagination.Page" description="Current page."/>
+
+    <jsp:directive.attribute name="url" required="false" type="java.lang.String"
+                             description="URL for each pagination link. &amp;page=[page number] or &amp;start=[offset] will be appended to the URL."/>
+
+    <jsp:directive.attribute name="useJavascriptPaging" required="true" type="java.lang.Boolean"/>
+    
+    <jsp:directive.attribute name="javascriptMethod" required="false" type="java.lang.String" description="A string containing a the path to a javascript method that will be executed. Method must have signature matching (pageNumber,pageSize)"/>
+
+    <jsp:directive.attribute name="offsetParam" required="false" type="java.lang.String" description="name of the start query param (default: start)"/>
+    <jsp:directive.attribute name="pageNumberParam" required="false" type="java.lang.String" description="name of the page number query param (default: page)"/>
+
+    <jsp:directive.attribute name="mode" required="true" type="java.lang.String" description="[offset | pageNumber] Whether to use offset or pagenumber."/>
+
+    <!-- Optional attributes for CSS class names -->
+    <jsp:directive.attribute name="styleClass" required="false" type="java.lang.String"
+                             description="Class for the div that wraps the pagination."/>
+    <jsp:directive.attribute name="pageNumberStyleClass" required="false" type="java.lang.String"
+                             description="Class for the span that wraps an individual page number."/>
+
+    <c:if test="${empty offsetParam}">
+        <c:set var="offsetParam" value="start"/>
+    </c:if>
+    <c:if test="${empty pageNumberParam}">
+        <c:set var="pageNumberParam" value="page"/>
+    </c:if>
+
+    <c:set var="totalPages" value="${page.pager.totalPages}"/>
+    <c:set var="pageSize" value="${page.pager.pageSize}"/>
+
+    <c:if test="${totalPages gt 1}">
+        <div class="${pageScope.styleClass}">
+            <c:if test="${page.pageNumber gt 1}">
+                <c:set var="targetPage" value="${page.previousPage}" />
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span class="prv_nxt" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
+                            &amp;#171; Prev
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="prv_nxt">
+                             <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">&amp;#171; Prev</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+
+            <c:set var="pageSequence" value="${page.pageSequence}"/>
+
+            <c:if test="${totalPages gt 5 and page.pageNumber ge 5}">
+                <c:set var="targetPage" value="${page.pager.firstPage}" scope="page"/>
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
+                            ${targetPage.pageNumber}
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span>
+                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">${targetPage.pageNumber}</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+
+                <span class="ellipsis">...</span>
+            </c:if>
+
+            <c:forEach items="${pageSequence}" var="targetPage" varStatus="status">
+                <c:choose>
+                    <c:when test="${targetPage.pageNumber == page.pageNumber}">
+                        <span class="active ${pageNumberStyleClass}">${targetPage.pageNumber}</span>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${useJavascriptPaging}">
+                                <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
+                                    ${targetPage.pageNumber}
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="${pageNumberStyleClass}">
+                                    <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">${targetPage.pageNumber}</a>
+                                </span>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${totalPages gt 5 and (page.pageNumber lt 5 or page.pageNumber le totalPages - 4)}">
+                <c:set var="targetPage" value="${page.pager.lastPage}"/>
+
+                <span class="ellipsis">...</span>
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
+                            ${targetPage.pageNumber}
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="${pageNumberStyleClass}">
+                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">${targetPage.pageNumber}</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+
+            <c:if test="${page.pageNumber lt totalPages}">
+                <c:set var="targetPage" value="${page.nextPage}"/>
+
+                <c:choose>
+                    <c:when test="${useJavascriptPaging}">
+                        <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
+                            Next &amp;#187;
+                        </span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="prv_nxt">
+                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">Next &amp;#187;</a>
+                        </span>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        </div>
+    </c:if>
+</jsp:root>

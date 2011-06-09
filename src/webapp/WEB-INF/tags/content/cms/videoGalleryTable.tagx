@@ -38,7 +38,7 @@
         </table>
 
         <div class="pagination" id="pagination">
-            <search:pagination page="${currentPage}" pageSize="${pageSize}" totalPages="${totalPages}" useJavascriptPaging="false" useOffset="false" usePageNumber="true" url="${fullUrl}" />
+            <search:easierPagination page="${page}" useJavascriptPaging="false" url="${fullUrl}" mode="offset" />
         </div>
     </c:if>
 </div>

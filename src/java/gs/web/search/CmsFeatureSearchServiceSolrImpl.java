@@ -2,15 +2,14 @@ package gs.web.search;
 
 import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.ContentKey;
-import gs.data.search.services.BaseSingleFieldSolrSearchService;
-import gs.data.search.FieldSort;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
+import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
+import gs.data.search.services.BaseSingleFieldSolrSearchService;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,13 +49,13 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
      * @param excludeContentKey ContentKey to exclude from search
      * @param language          two-character language code, e.g "EN"
      * @param pageSize          number of rows to return
-     * @param pageNumber        page number to set the offset for pagination
+     * @param offset            record to start at
      * @return SearchResultsPage of type CmsFeatureSearchResult
      */
     public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeatures(List<CmsCategory> topics, List<CmsCategory> grades,
                                                                      List<CmsCategory> subjects, List<CmsCategory> locations, List<CmsCategory> outcomes,
                                                                      boolean strict,
-                                                                     ContentKey excludeContentKey, String language, int pageSize, int pageNumber) {
+                                                                     ContentKey excludeContentKey, String language, int pageSize, int offset) {
 
         //Give primary category precedence OR articles can just be tagged with the particular category
         String searchStr = "";
@@ -127,12 +126,6 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
             }
         }
 
-        //Given the page number set the offset for the solr query.Offset is 0 based in solr.
-        int offset = pageNumber - 1;
-        if (offset > 0 && pageSize > 0) {
-            offset = (offset * pageSize);
-        }
-
         try {
 
             return search(searchStr, offset, pageSize);
@@ -146,17 +139,12 @@ public class CmsFeatureSearchServiceSolrImpl extends BaseSingleFieldSolrSearchSe
 
 
     public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeaturesByType(List<CmsCategory> categories, String contentType,
-                                                                           int pageSize, int pageNumber) {
+                                                                           int pageSize, int offset) {
 
         String searchStr = buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CONTENT_TYPE, contentType, null);
 
         for (CmsCategory category : categories) {
             searchStr += buildMustIncludeQuery(CmsFeatureDocumentBuilder.FIELD_CMS_CATEGORY_ID, String.valueOf(category.getId()), null);
-        }
-
-        int offset = pageNumber - 1;
-        if (offset > 0 && pageSize > 0) {
-            offset = (offset * pageSize);
         }
         
         try {
