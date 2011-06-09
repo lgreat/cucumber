@@ -102,8 +102,25 @@
         </select>
         <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
             <option value="-1">Topic</option>
-            <option value="209">Math</option>
-            <option value="211">Language Arts</option>
+            <option value="133">Academic Skills</option>
+            <option value="140">Homework Help</option>
+            <!--<option value="">Motivation &amp; Confidence</option>-->
+            <option value="241">Parental Power</option>
+            <option value="240">Understanding the System</option>
+            <option value="124">Behavior &amp; Discipline</option>
+            <option value="157">Social Skills</option>
+            <option value="149">Bullying</option>
+            <!--<option value="">Learning and Development</option>-->
+
+<!--Academic skills 133
+Homework Help 140
+Motivation & confidence (new-will be added to CMS)
+Parental power  241
+Understanding the system  240
+Behavior & discipline  124
+Social skills  157
+Bullying  149
+Learning and Development (new-will be added to CMS)  -->
         </select>
 
         <div id="js_videoGalleryData">
