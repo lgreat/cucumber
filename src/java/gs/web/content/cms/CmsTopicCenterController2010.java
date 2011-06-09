@@ -172,7 +172,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
                             return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
                         }
                     } catch (Exception e) {
-                        _log.warn("contentId \"" + request.getParameter("content") + "\" is not a Long");
+                        _log.info("contentId \"" + request.getParameter("content") + "\" is not a Long");
                         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                         return new ModelAndView("/status/error404.page");
                     }
@@ -184,7 +184,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
             }
 
             if (topicCenter == null) {
-                _log.warn("Error locating topic center with contentId=" + contentId);
+                _log.info("Error locating topic center with contentId=" + contentId);
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
             }
