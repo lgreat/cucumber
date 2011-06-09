@@ -119,7 +119,7 @@ public class ArticlesByCategoryController extends AbstractController {
         if (p != null) {
             try {
                 page = Integer.parseInt(p);
-                offset = Pagination.getOffset(PAGE_SIZE, page, true, false);
+                offset = Pagination.getOffset(PAGE_SIZE, page);
             } catch (Exception e) {
                 // ignore this and just assume the page is 1.
             }

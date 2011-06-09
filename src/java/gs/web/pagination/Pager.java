@@ -50,6 +50,12 @@ public final class Pager {
         return page;
     }
 
+    /**
+     * Copied from logic in a tagx. Assists in determining which page numbers to show in pagination area under results view
+     * 
+     * @param pageNumber
+     * @return
+     */
     public List<Page> getPageSequence(int pageNumber) {
         int fifthPageNumber = isZeroBasedPages() ? 4:5;
 

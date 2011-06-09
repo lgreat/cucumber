@@ -71,6 +71,12 @@ public class Pagination {
         return params;
     }
 
+    /**
+     * Calculate the number of pages for page size and result count
+     * @param pageSize
+     * @param numberOfResults
+     * @return
+     */
     public static int getNumberOfPages(int pageSize, int numberOfResults) {
         int numberOfPages = (int) Math.ceil(numberOfResults / ((float)pageSize));
         return numberOfPages;
@@ -89,8 +95,23 @@ public class Pagination {
         int firstOffset = zeroBasedOffset? 0 : 1;
         int firstPage = zeroBasedPages? 0 : 1;
 
-        int pageNumber = (int) Math.ceil((resultNumber+1-firstOffset) / pageSize);
-        return pageNumber + firstPage;
+        int pageNumber = (int) (Math.ceil((resultNumber+1-firstOffset) / ((float)pageSize)));
+        return firstPage + (pageNumber-1);
+    }
+
+    /**
+     * Calculates the page number that the given result exists on
+     * @param pageSize
+     * @param resultNumber
+     * @param config
+     * @return
+     */
+    public static int getPageNumber(int pageSize, int resultNumber, PaginationConfig config) {
+        return getPageNumber(pageSize, resultNumber, config.isZeroBasedOffset(), config.isZeroBasedPages());
+    }
+
+    public static int getPageNumber(int pageSize, int resultNumber) {
+        return getPageNumber(pageSize, resultNumber, DEFAULT_PAGINATION_CONFIG);
     }
 
     /**
@@ -110,8 +131,23 @@ public class Pagination {
         return offset + firstOffset;
     }
 
+    /**
+     * Gets the starting offset for the given page
+     * @param pageSize
+     * @param pageNumber
+     * @param config
+     * @return
+     */
+    public static int getOffset(int pageSize, int pageNumber, PaginationConfig config) {
+        return getOffset(pageSize, pageNumber, config.isZeroBasedOffset(), config.isZeroBasedPages());
+    }
+
+    public static int getOffset(int pageSize, int pageNumber) {
+        return getOffset(pageSize, pageNumber, DEFAULT_PAGINATION_CONFIG);
+    }
+
     public static String recordPageInUrl(Page page, String url, String mode) {
-        boolean usingOffset = !MODE_PAGE_NUMBER.equalsIgnoreCase(mode); //TODO: Figure out how to resolve this problem. take into account jstl calls
+        boolean usingOffset = !MODE_PAGE_NUMBER.equalsIgnoreCase(mode);
 
         if (usingOffset) {
             int offset = page.getOffset();

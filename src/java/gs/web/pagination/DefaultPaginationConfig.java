@@ -1,5 +1,8 @@
 package gs.web.pagination;
 
+/**
+ * A standard pagination config
+ */
 public class DefaultPaginationConfig extends PaginationConfig {
     public static final String DEFAULT_OFFSET_PARAM = "start";
     public static final String DEFAULT_PAGE_NUMBER_PARAM = "p";
