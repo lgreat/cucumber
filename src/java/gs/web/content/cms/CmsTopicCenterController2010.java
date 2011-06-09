@@ -22,8 +22,6 @@ import gs.data.util.CmsUtil;
 import gs.web.school.SchoolOverviewController;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
-import gs.web.tracking.CookieBasedOmnitureTracking;
-import gs.web.tracking.OmnitureTracking;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
@@ -121,9 +119,6 @@ public class CmsTopicCenterController2010 extends AbstractController {
                         if (contentId != null && uri.toLowerCase().contains("/videos/")) {
                             isVideo = true;
                             model.put(MODEL_IS_VIDEO, true);
-
-                            OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
-                            omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.CmsVideo);
 
                             Set categoryIds = new TreeSet();
                             //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
