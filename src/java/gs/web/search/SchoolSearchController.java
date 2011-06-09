@@ -24,6 +24,7 @@ import gs.data.seo.SeoUtil;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
+import gs.web.pagination.Page;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
@@ -82,6 +83,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_CURRENT_PAGE = "currentPage";
     public static final String MODEL_USE_PAGING = "usePaging";
+    public static final String MODEL_PAGE = "page";
 
     public static final String MODEL_CITY_ID = "cityId";
     public static final String MODEL_MSL_SCHOOLS = "mslSchools";
@@ -843,6 +845,9 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         model.put(MODEL_START, start < totalResults? start : 0);
         model.put(MODEL_PAGE_SIZE, pageSize);
+
+        Page p = new Page(start, pageSize, totalResults);
+        model.put(MODEL_PAGE, p);
     }
 
     //-------------------------------------------------------------------------
