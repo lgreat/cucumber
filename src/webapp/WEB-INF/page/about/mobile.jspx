@@ -32,35 +32,38 @@
 
 <gsml:body adPageName="aboutUs" pageLayout="leftside iPhoneApp">
 
-    <div id="mainGS">
+    <div class="container_24">
 
-        <div class="mvm smallAlertText">
+        <div class="grid_24 mvm smallAlertText">
             <link:home>Home</link:home> &amp;gt; <link:aboutUs>About Us</link:aboutUs>
         </div>
 
-        <div id="aboutNav" class="col">
+        <div class="grid_5">
             <about:aboutGreatSchools selected="mobile"/>
         </div>
 
-        <div class="iPhoneAppMain col">
+        <div class="grid_12 iPhoneAppMain">
             <h2>Mobile iPhone App: GreatSchools Finder</h2>
-            <p class="text1bold">Now you can use GreatSchools anytime.  Find the best schools anywhere in the country, whenever you need to.</p>
+            <p class="text1bold">How good are the schools in your community? Find out with the free GreatSchools Finder.</p>
+            <p class="text1">
+                Locate and map nearby elementary, middle, and high schools or search listings across the U.S. View detailed ratings, reviews, and test scores from GreatSchools - the nation's most trusted independent source of school performance information for over a decade. Now you can use GreatSchools on the go. Whether you're a parent, real estate professional, or education researcher, finding great schools is now at your fingertips. For iPhone, iPad, or iPod touch.
+            </p>
             <p class="text1">Key features:</p>
             <ul>
-                <li><span class="text1">Search the latest school information for K-12 schools in the U.S.</span></li>
+                <li><span class="text1">Search the latest school information for more than 125,000 K-12 schools in the U.S., including public, public charter, and private schools.</span></li>
                 <li><span class="text1">Map and compare schools for any city, based on your current location.</span></li>
-                <li><span class="text1">Filter schools by public or private, grade level, distance, GreatSchools rating, community rating or enrollment size.</span></li>
-                <li><span class="text1">Browse parent reviews, recent test scores and district info from your iPhone or iPad.</span></li>
-                <li><span class="text1">Save school search results to your personal list of favorites.</span></li>
-                <li><span class="text1">Share school and comparison info with family and friends.</span></li>
+                <li><span class="text1">Filter schools by public or private, grade level, distance, GreatSchools Rating, Community Rating or, enrollment size.</span></li>
+                <li><span class="text1">Browse parent reviews, recent test scores, and district info.</span></li>
+                <li><span class="text1">Save schools to your personal list of favorites for quick retrieval later.</span></li>
+                <li><span class="text1">Share schools with family and friends.</span></li>
             </ul>
-            <p class="text2">Note: This application only searches for K-12 public &amp;amp; private schools within the U.S.  It is available internationally for users who want to search within the U.S.</p>
+            <p class="text2">This application only searches for K-12 schools within the U.S. It is available internationally for users who want to search within the U.S.</p>
             <p class="text2">Requires iOS 4.0 or later.</p>
             <a href="${requestScope.context.iphoneAppItunesStoreUrl}" class="button-3">Download Now</a>
 
         </div>
 
-        <div class="iPhoneImage col">
+        <div class="grid_7 iPhoneImage">
             <gsml:img src="/res/img/about/iPhoneApp/aboutiPhoneApp.png" width="258" height="568" alt="iPhone App GreatSchools Finder"/>
         </div>
 

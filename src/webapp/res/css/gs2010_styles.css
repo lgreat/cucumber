@@ -3110,7 +3110,7 @@ Viewport: the defines width and height of each icon
 
 /* original version margin: 10px; gutter: 10px; */
 .media{margin: 10px;}
-.media,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.media,.bk{overflow: hidden;_overflow: visible;zoom: 1;} /* .bk does not need to be repeated, unless extended */
 .media .img{float: left;margin-right: 10px;}
 .media .img img {display: block;}
 .media .imgExt{float: right;margin-left: 10px;}
@@ -3118,7 +3118,7 @@ Viewport: the defines width and height of each icon
 /* ------ Ext0-1 (extends media) ------- */
 /* Ext0-1 version margin: 2px 13px; gutter: 5px; */
 .mediaExt0-1{margin: 2px 13px;}
-.mediaExt0-1,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt0-1{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt0-1 .img{float: left;margin-right: 5px;}
 .mediaExt0-1 .img img {display: block;}
 .mediaExt0-1 .imgExt{float: right;margin-left: 5px;}
@@ -3126,21 +3126,21 @@ Viewport: the defines width and height of each icon
 /* Ext1: No margin */
 /* Ext1 margin: 0; gutter: 10px; */
 .mediaExt1{margin: 0;}
-.mediaExt1,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt1{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt1 .img{float: left;margin-right: 10px;}
 .mediaExt1 .img img{display: block;}
 .mediaExt1 .imgExt{float: right;margin-left: 10px;}
 
 /* Ext1-1 margin: 0; gutter: 5px; */
 .mediaExt1-1{margin: 0;}
-.mediaExt1-1,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt1-1{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt1-1 .img{float: left;margin-right: 5px;}
 .mediaExt1-1 .img img{display: block;}
 .mediaExt1-1 .imgExt{float: right;margin-left: 5px;}
 
 /* Ext1-2 margin: 0; gutter: 15px; */
 .mediaExt1-2{margin: 0;}
-.mediaExt1-2,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt1-2{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt1-2 .img{float: left;margin-right: 15px;}
 .mediaExt1-2 .img img{display: block;}
 .mediaExt1-2 .imgExt{float: right;margin-left: 15px;}
@@ -3148,49 +3148,49 @@ Viewport: the defines width and height of each icon
 /* Ext2: No left and right margin */
 /* Ext2 margin: 10px 0; gutter: 10px; */
 .mediaExt2{margin: 10px 0;}
-.mediaExt2,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt2 .img{float: left;margin-right: 10px;}
 .mediaExt2 .img img{display: block;}
 .mediaExt2 .imgExt{float: right;margin-left: 10px;}
 
 /* Ext2-1 margin: 5px 0; gutter: 10px; */
 .mediaExt2-1{margin: 5px 0;}
-.mediaExt2-1,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-1{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt2-1 .img{float: left;margin-right: 10px;}
 .mediaExt2-1 .img img{display: block;}
 .mediaExt2-1 .imgExt{float: right;margin-left: 10px;}
 
 /* Ext2-2 margin: 20px 0; gutter: 10px; */
 .mediaExt2-2 {margin: 20px 0;}
-.mediaExt2-2,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-2{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt2-2 .img{float: left;margin-right: 10px;}
 .mediaExt2-2 .img img{display: block;}
 .mediaExt2-2 .imgExt{float: right;margin-left: 10px;}
 
 /* Ext2-3 margin: 20px 0; gutter: 20px; */
 .mediaExt2-3{margin: 20px 0;}
-.mediaExt2-3,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-3{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt2-3 .img{float: left;margin-right: 20px;}
 .mediaExt2-3 .img img{display: block;}
 .mediaExt2-3 .imgExt{float: right;margin-left: 20px;}
 
 /* Ext2-4 margin: 15px 0; gutter: 5px; */
 .mediaExt2-4{margin: 15px 0;}
-.mediaExt2-4,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-4{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt2-4 .img{float: left;margin-right: 5px;}
 .mediaExt2-4 .img img{display: block;}
 .mediaExt2-4 .imgExt{float: right;margin-left: 5px;}
 
 /* Ext2-5 margin: 8px 0; gutter: 4px; */
 .mediaExt2-5{margin: 8px 0;}
-.mediaExt2-5,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-5{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt2-5 .img{float: left;margin-right: 4px;}
 .mediaExt2-5 .img img{display: block;}
 .mediaExt2-5 .imgExt{float: right;margin-left: 4px;}
 
 /* Ext2-6 margin: 4px 0; gutter: 5px; */
 .mediaExt2-6{margin: 4px 0;}
-.mediaExt2-6,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt2-6{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt2-6 .img{float: left;margin-right: 5px;}
 .mediaExt2-6 .img img{display: block;}
 .mediaExt2-6 .imgExt{float: right;margin-left: 5px;}
@@ -3198,14 +3198,14 @@ Viewport: the defines width and height of each icon
 /* Ext3: No top and bottom margin */
 /* Ext3 margin:0 10px; gutter:10px; */
 .mediaExt3{margin: 0 10px;}
-.mediaExt3,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt3{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt3 .img{float: left;margin-right: 10px;}
 .mediaExt3 .img img{display: block;}
 .mediaExt3 .imgExt{float: right;margin-left: 10px;}
 
  /* Ext4: Image caption */
 .mediaExt4{margin:0 auto;_display:inline;}
-.mediaExt4,.bk{overflow: hidden;_overflow: visible;zoom: 1;}
+.mediaExt4{overflow: hidden;_overflow: visible;zoom: 1;}
 .mediaExt4 .img{float:none;margin-bottom: 5px;position:relative;}
 .mediaExt4 .img img {display: block;}
 
@@ -3313,6 +3313,14 @@ Viewport: the defines width and height of each icon
 .relatedContent .inner{background-color:#ebebeb;padding:20px 20px 10px}
 .relatedContent img{border: 1px solid #c6c6c6;}
 .relatedContent .bd li{list-style:disc;margin:0 0 5px 15px;color:#d61;}
+
+/* ---------------- GS-11820 ----------------- */
+/* --------- aboutNav (extends mod) ---------- */
+.aboutNav{width: 160px;margin-bottom:15px;}
+.aboutNav .hd h3{background: #149;/* for non-css3 browsers */background: -moz-linear-gradient(top, #276ab3, #143e90);/* FF3.6 */background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90));/* Saf4+, Chrome */-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#276ab3', EndColorStr='#143e90')";/* IE8 */filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#276ab3', endColorStr = '#143e90');/* IE6,IE7 */color: #fff;font: bold 13px/1.3 Arial, Helvetica, sans-serif;padding: 6px 10px 3px;}
+.aboutNav .bd{}
+.aboutNav .bd ul{border: 1px solid #ccc;padding: 10px 12px 5px;}
+.aboutNav .bd li{margin-bottom: 6px;}
 
 /* ------------ background tints ------------- */
 .bgtint-fff{
@@ -3463,29 +3471,6 @@ Viewport: the defines width and height of each icon
 .search-bd {
     padding: 10px;
     background-color: #ebebeb;
-}
-
-#aboutNav {
-    width: 160px;
-}
-
-#aboutNav .mod {
-    margin: 0 0 15px;
-}
-
-#aboutNav .mod_hd h3 {
-    font: bold 13px/1.3 Arial, Helvetica, sans-serif;
-    height: 20px;
-    padding: 6px 10px 0;
-}
-
-#aboutNav .mod_bd {
-    border: 1px solid #ccc;
-    padding: 10px 12px 5px;
-}
-
-#aboutNav .mod_bd li {
-    margin-bottom: 6px;
 }
 
 /* =6 spacing
@@ -12686,11 +12671,6 @@ div#tracking {
 /**************
  * iPHONE APP *
 ***************/
-
-.iPhoneAppMain{
-    width:440px;
-    margin:0 25px 0 30px;
-}
 
 .iPhoneAppMain h2 {
     padding-bottom: 5px;
