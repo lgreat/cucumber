@@ -3110,7 +3110,7 @@ Viewport: the defines width and height of each icon
 
 /* original version margin: 10px; gutter: 10px; */
 .media{margin: 10px;}
-.media,.bk{overflow: hidden;_overflow: visible;zoom: 1;} /* .bk does not need to be repeated, unless extended */
+.media,.bk{overflow: hidden;_overflow: visible;zoom: 1;display:inline-block;} /* .bk does not need to be repeated, unless extended */
 .media .img{float: left;margin-right: 10px;}
 .media .img img {display: block;}
 .media .imgExt{float: right;margin-left: 10px;}
@@ -5784,16 +5784,6 @@ body.cobranded #pageGS {
     border-left: 1px solid #c6c6c6;
     border-bottom: 1px solid #c6c6c6;
     border-right: 1px solid #c6c6c6;
-}
-
-#featured-copy .featured-copy {
-    position: relative;
-}
-
-#featured-copy .more-features {
-    position: absolute;
-    right: 0;
-    _right: 15px;
 }
 
 /* =12c-2 left navigation

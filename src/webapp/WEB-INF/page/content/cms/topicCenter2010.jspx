@@ -121,27 +121,33 @@
 
                             <div id="featured-copy" class="gradient-2 clearfix">
                                 <c:if test="${not empty topicCenter.mainFeatureLink}">
-                                    <h3 class="title2"><a
+                                    <h3 class="title2 mbm"><a
                                             href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a>
                                     </h3>
 
-                                    <div class="spacer_10"><!-- do not collapse --></div>
-                                    <p class="featured-copy text3">
-                                        ${topicCenter.mainFeatureLink.description}
-                                        <span class="smallAlertText more-features">
-                                            <c:choose>
-                                                <c:when test="${topicCenter.mainFeatureLink.type eq 'Video'}">
-                                                    <c:set var="linkText" value="Watch video"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="linkText" value="More"/>
-                                                </c:otherwise>
-                                            </c:choose>
+                                    <p class="featured-copy text3 mbs">${topicCenter.mainFeatureLink.description}</p>
 
-                                            <a href="${topicCenter.mainFeatureLink.url}">${linkText} <span
+                                    <c:choose>
+                                        <c:when test="${topicCenter.mainFeatureLink.type eq 'Video'}">
+                                            <div class="mediaExt1-1 fltrt">
+                                                <div class="img"><span
+                                                        class="sprite video"><!-- do not collapse --></span>
+                                                </div>
+                                                <div class="bk more-features smallText1">
+                                                    <a class="wsnw"
+                                                       href="${topicCenter.mainFeatureLink.url}">Watch video <span
+                                                            class="alertDoubleArrow">&amp;raquo;</span></a>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="fltrt smallText1">
+                                            <a href="${topicCenter.mainFeatureLink.url}">More <span
                                                     class="alertDoubleArrow">&amp;raquo;</span></a>
                                         </span>
-                                    </p>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                 </c:if>
                             </div>
 
