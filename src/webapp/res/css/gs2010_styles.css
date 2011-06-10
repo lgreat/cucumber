@@ -43,8 +43,8 @@ General comments:
 =12c topic centers
 =12c-1 featured
 =12c-2 left navigation
-=12c-3.1 infinite carousel
-=12c-3.2 infinite video carousel
+=12c-3.1 infinite carousel 1
+=12c-3.2 infinite carousel 2 (video)
 =12c-4 browse schools by city
 =12c-5 talk about it
 =12c-5.1 start a conversation
@@ -5840,70 +5840,61 @@ body.cobranded #pageGS {
     outline: none;
 }
 
-/* =12c-3.1 infinite carousel
+/* =12c-3.1 infinite carousel 1
 -------------------------------------------------------------------------------------------*/
 
-.infiniteCarousel {
+.infiniteCarousel1 {
     width: 421px;
     height: 204px;
     border: 1px solid #c6c6c6;
     position: relative;
-    margin-bottom:20px;
 }
 
-.infiniteCarousel .ic_title {
+.infiniteCarousel1 .ic_title {
     width: 398px;
     margin: 0 12px;
     padding: 5px 0 6px 2px;
     border-bottom: 1px dotted #999;
 }
 
-.infiniteCarousel .wrapper {
-    width: 353px; /* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
-/*overflow: auto;*/
-    overflow: hidden;
-    min-height: 9em;
+.infiniteCarousel1 .wrapper {
+    width: 353px; /* .infiniteCarousel1 width - (.wrapper margin-left + .wrapper margin-right) */
+    overflow: auto;
+    min-height: 144px;
     margin: 0 34px;
     position: absolute;
     top: 50px;
 }
 
-.infiniteCarousel .unordered-carousel {
+.infiniteCarousel1 ul a img {
+}
+
+.infiniteCarousel1 .wrapper ul {
     width: 9999px;
-    list-style: none outside none;
-    margin: 0 0 0 -14px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0 0 0 -15px;
     padding: 0;
     position: relative;
     top: 0;
 }
 
-.infiniteCarousel .captioned_photo {
+.infiniteCarousel1 ul li {
     display: block;
     float: left;
     padding: 0 15px;
     width: 96px;
-    height: 145px;
+    height: 139px;
     border-right: 1px solid #c6c6c6;
 }
 
-.infiniteCarousel .captioned_photo img {
-    margin: 0;
-    padding: 0;
+.infiniteCarousel1 ul li a img {
     display: block;
+    background-color: gray;
 }
 
-.infiniteCarousel .captioned_photo  span,
-.infiniteCarousel .captioned_photo  p {
-    width: 100%;
-    /*height: 29px;*/
-    margin: 3px 0 0;
-    padding: 0;
-    text-align: center;
-    display: block;
-    overflow: hidden;
-}
-
-.infiniteCarousel .arrow {
+.infiniteCarousel1 .arrow {
     display: block;
     top: 91px;
     width: 16px;
@@ -5911,30 +5902,152 @@ body.cobranded #pageGS {
     position: absolute;
     cursor: pointer;
     border: 1px solid #ccc;
-    font: bold 24px / 0.9 Arial, Helvetica, sans-serif;
+    font: bold 24px/0.9 Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
-.infiniteCarousel .forward {
+.infiniteCarousel1 .forward {
     right: 7px;
 }
 
-.infiniteCarousel .back {
+.infiniteCarousel1 .back {
     left: 7px;
 }
 
-.infiniteCarousel .forward:hover {
+.infiniteCarousel1 .forward:hover {
     text-decoration: none;
 }
 
-.infiniteCarousel .back:hover {
+.infiniteCarousel1 .back:hover {
     text-decoration: none;
 }
 
-/* =12c-3.2 infinite video carousel
+.infiniteCarousel1 .captioned_photo {
+}
+
+.infiniteCarousel1 .captioned_photo img {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: block;
+}
+
+.infiniteCarousel1 .captioned_photo span {
+    width: 100%;
+    height: 29px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+    overflow: hidden;
+}
+
+/* =12c-3.2 infinite carousel 2 (video)
 -------------------------------------------------------------------------------------------*/
 
+.infiniteCarousel2 {
+    width: 421px;
+    height: 223px;
+    border: 1px solid #c6c6c6;
+    position: relative;
+    margin-bottom:20px;
+}
 
+.infiniteCarousel2 .ic_title {
+    width: 398px;
+    margin: 0 12px;
+    padding: 5px 0 6px 2px;
+    border-bottom: 1px dotted #999;
+}
+
+.infiniteCarousel2 .wrapper {
+    width: 353px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
+    overflow: auto;
+    height: 133px;
+    margin: 0 34px;
+    position: absolute;
+    top: 50px;
+}
+
+.infiniteCarousel2 ul a img {
+}
+
+.infiniteCarousel2 .wrapper ul {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0 0 0 -15px;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.infiniteCarousel2 ul li {
+    display: block;
+    float: left;
+    padding: 15px 15px 0;
+    width: 96px;
+    height: 128px;
+    border-right: 1px solid #c6c6c6;
+}
+
+.infiniteCarousel2 ul li a img {
+    display: block;
+    background-color: green;
+}
+
+.infiniteCarousel2 .arrow {
+    display: block;
+    top: 91px;
+    width: 16px;
+    height: 26px;
+    position: absolute;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    font: bold 24px/0.9 Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.infiniteCarousel2 .forward {
+    right: 7px;
+}
+
+.infiniteCarousel2 .back {
+    left: 7px;
+}
+
+.infiniteCarousel2 .forward:hover {
+    text-decoration: none;
+}
+
+.infiniteCarousel2 .back:hover {
+    text-decoration: none;
+}
+
+.infiniteCarousel2 .captioned_photo {
+}
+
+.infiniteCarousel2 .captioned_photo img {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: block;
+}
+
+.infiniteCarousel2 .captioned_photo div {
+    width: 100%;
+    height: 59px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+    overflow: hidden;
+}
+
+.infiniteCarousel2 .moreLink {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+}
 
 /* =12c-4 browse schools by city
 -------------------------------------------------------------------------------------------*/

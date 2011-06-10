@@ -9,7 +9,7 @@
     <c:if test="${not empty pageScope.name and not empty pageScope.items}">
         <c:set var="numCarouselItems" value="${fn:length(pageScope.items)}"/>
 
-        <div class="infiniteCarousel1">
+        <div class="infiniteCarousel2">
             <h3 class="ic_title title2-d61">${pageScope.name}</h3>
 
             <div class="wrapper">
@@ -25,21 +25,37 @@
                         </c:choose>
                         <li class="captioned_photo">
                             <a href="${carouselItem.url}" target="${carouselItemTarget}">
-                                <img src="${carouselItem.imageUrl}" height="110" width="96"
+                                <img src="${carouselItem.imageUrl}" height="70" width="96"
                                      alt="${carouselItem.imageAltText}"/>
-
-                                <span class="text3-06b">${carouselItem.linkText}</span>
                             </a>
+
+                            <div>
+                                <p class="text3bold">
+                                    <a href="${carouselItem.url}"
+                                       target="${carouselItemTarget}">${carouselItem.linkText}</a>
+                                </p>
+                                <c:set var="sBreak" value="."/>
+                                <c:set var="videoMinutes"
+                                       value="${fn:substringBefore(carouselItem.length div 60,sBreak)}"/>
+                                <c:set var="videoSeconds" value="${carouselItem.length - (videoMinutes * 60)}"/>
+
+                                <p class="smallText1-999"><c:out value="${videoMinutes}"/>:<c:out
+                                        value="${videoSeconds}"/>
+                                    <c:if test="${not empty carouselItem.grades}"> Grade ${carouselItem.grades}</c:if>
+                                </p>
+                            </div>
                         </li>
                     </c:forEach>
                 </ul>
             </div>
+            <p class="smallText1 moreLink"><a href="#">More elementary school videos <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
         </div>
     </c:if>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            jQuery('.infiniteCarousel1').infiniteCarousel();
+            jQuery('.infiniteCarousel2').infiniteCarousel();
         });
     </script>
+
 </jsp:root>

@@ -19,6 +19,7 @@ http://docs.jquery.com/Tutorials#Plugin_Development
 =3 table stripping plugin
 =4 debug messaging
 =5 textarea character count
+=6 infinite carousel
 */
 
 /* =0 template
@@ -311,6 +312,104 @@ function debug(what) {
                         // Displays count
                         charFeedback.html((charLimit - charLength) + ' character' + plural + ' remaining');
                     }
+                });
+
+            });
+        }
+    });
+
+// end of closure
+})(jQuery);
+
+/* =6 infinite carousel
+---------------------------------------------------------------------------*/
+// create closure
+(function($) {
+
+    //Attach this new method to jQuery
+    $.fn.extend({
+
+        //This is where you write your plugin's name
+        infiniteCarousel: function() {
+
+            function repeat(str, num) {
+                return new Array(num + 1).join(str);
+            }
+
+            //Iterate over the current set of matched elements
+            return this.each(function() {
+
+                var $wrapper = $('> div', this).css('overflow', 'hidden'),
+                    $slider = $wrapper.find('> ul'),
+                    $items = $slider.find('> li'),
+                    $single = $items.filter(':first'),
+
+                    viewWidth = $wrapper.outerWidth();
+                    singleWidth = $single.outerWidth(),
+                    visible = Math.ceil(viewWidth / singleWidth),// note: does not include padding or border
+                    currentPage = 1,
+                    pages = Math.ceil($items.length / visible);
+
+                // console.log('viewWidth: '+viewWidth);
+                // console.log('singleWidth: '+singleWidth);
+                // console.log('visible: '+visible);
+                // console.log('pages: '+pages);
+                // console.log('length of all items: '+$items.length);
+                // console.log('(length of all items % visible): '+($items.length % visible));
+
+                // 1. Pad so that 'visible' number will always be seen, otherwise create empty items
+                if (($items.length % visible) != 0) {
+                    $slider.append(repeat('<li class="empty" />', visible - ($items.length % visible)));
+                    $items = $slider.find('> li');
+                }
+
+                // 2. Top and tail the list with 'visible' number of items, top has the last section, and tail has the first
+                $items.filter(':first').before($items.slice(- visible).clone().addClass('cloned'));
+                $items.filter(':last').after($items.slice(0, visible).clone().addClass('cloned'));
+                $items = $slider.find('> li'); // reselect
+
+                // 3. Set the left position to the first 'real' item
+                $wrapper.scrollLeft(singleWidth * visible);
+                // console.log('first item position: '+(singleWidth * visible));
+
+                // 4. paging function
+                function gotoPage(page) {
+                    var dir = page < currentPage ? -1 : 1,
+                        n = Math.abs(currentPage - page),
+                        left = singleWidth * dir * visible * n;
+
+                    $wrapper.filter(':not(:animated)').animate({
+                            scrollLeft : '+=' + left
+                        }, 500, function () {
+                        if (page == 0) {
+                            $wrapper.scrollLeft(singleWidth * visible * pages);
+                            page = pages;
+                        } else if (page > pages) {
+                            $wrapper.scrollLeft(singleWidth * visible);
+                            // reset back to start position
+                            page = 1;
+                        }
+
+                        currentPage = page;
+                    });
+
+                    return false;
+                }
+
+                $wrapper.after('<a class="arrow back rnd3">&lsaquo;</a><a class="arrow forward rnd3">&rsaquo;</a>');
+
+                // 5. Bind to the forward and back buttons
+                $('a.back', this).click(function () {
+                    return gotoPage(currentPage - 1);
+                });
+
+                $('a.forward', this).click(function () {
+                    return gotoPage(currentPage + 1);
+                });
+
+                // create a public interface to move to a specific page
+                $(this).bind('goto', function (event, page) {
+                    gotoPage(page);
                 });
 
             });
