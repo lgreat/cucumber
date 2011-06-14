@@ -159,7 +159,7 @@
                                 </li>
                                 <li id="srch2" class="${(searchRadioArticlesAndCommunityChecked)?'active':'inactive'}">
                                     <label for="topnavArticlesAndCommunityRadio"
-                                           class="radLabel">Articles &amp;amp; Community</label></li>
+                                           class="radLabel">Articles, Videos &amp;amp; Community</label></li>
                             </ul>
                             <input type="text" name="q" id="qNew"
                                    value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>

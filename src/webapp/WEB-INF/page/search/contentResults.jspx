@@ -61,7 +61,7 @@
             ${pageScope.pageTitle}
             <div class="srchCtrls">
             <ul class="searchNav">
-            <c:if test="${requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0}">
+            <c:if test="${requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0 and requestScope.numVideos gt 0}">
                 <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
                 <c:choose>
                     <c:when test="${empty requestScope.type}">
@@ -112,13 +112,34 @@
                         </li>
                     </c:otherwise>
                 </c:choose>
+
+                <c:set var="typeButtonText" value="Videos (${requestScope.numVideos})"/>
+                <c:choose>
+                    <c:when test="${requestScope.type eq 'videos' or requestScope.numArticles eq 0}">
+                        <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
+                        <c:set var="searchType" value="videos"/>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <c:choose>
+                                <c:when test="${requestScope.numVideos eq 0}">
+                                    ${typeButtonText}
+                                </c:when>
+                                <c:otherwise>
+                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="videos">${typeButtonText}</link:contentSearch>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
 
             <!-- the controller sets the type to null if there are no results for the selected type -->
             <c:set var="showCommunity" value="${requestScope.type eq 'community' or (empty requestScope.type and requestScope.numDiscussions gt 0)}"/>
             <c:set var="showArticles" value="${requestScope.type eq 'articles' or (empty requestScope.type and requestScope.numArticles gt 0)}"/>
-            <c:set var="showPagination" value="${not showCommunity or not showArticles}"/>
-            <c:set var="showSeeAllLink" value="${showCommunity and showArticles}"/>
+            <c:set var="showVideos" value="${requestScope.type eq 'videos' or (empty requestScope.type and requestScope.numVideos gt 0)}"/>
+            <c:set var="showPagination" value="${not showCommunity or not showArticles or not showVideos}"/>
+            <c:set var="showSeeAllLink" value="${showCommunity and showArticles and showVideos}"/>
 
             <c:if test="${showPagination}">
                 <c:choose>
@@ -129,6 +150,9 @@
                         <c:set var="totalResults" value="${requestScope.numDiscussions}" scope="page"/>
                     </c:when>
                     <c:when test="${requestScope.type eq 'articles'}">
+                        <c:set var="totalResults" value="${requestScope.numArticles}" scope="page"/>
+                    </c:when>
+                    <c:when test="${requestScope.type eq 'videos'}">
                         <c:set var="totalResults" value="${requestScope.numArticles}" scope="page"/>
                     </c:when>
                     <c:otherwise>INVALID</c:otherwise>
@@ -144,7 +168,7 @@
         </div>
 
             <c:if test="${showArticles}">
-                <h3 class="srchCat">Articles and Videos</h3>
+                <h3 class="srchCat">Articles</h3>
 
                 <ul class="srchRslts srchCatArticles">
                     <c:forEach var="result" items="${requestScope.articleResults}" varStatus="status">
@@ -190,6 +214,57 @@
                 <c:if test="${showSeeAllLink}">
                     <p class="moreRslts">
                         <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">See all article results <span class="go">&amp;#187;</span></link:contentSearch>
+                    </p>
+                </c:if>
+            </c:if>
+
+            <c:if test="${showVideos}">
+                <h3 class="srchCat">Videos</h3>
+
+                <ul class="srchRslts srchCatArticles">
+                    <c:forEach var="result" items="${requestScope.videoResults}" varStatus="status">
+                        <c:choose>
+                            <c:when test="${status.count == fn:length(requestScope.videoResults)}">
+                                <c:set var="srchRsltSupplClass" value="srchRsltLast"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="srchRsltSupplClass" value=""/>
+                            </c:otherwise>
+                        </c:choose>
+                        <li class="srchRslt ${srchRsltSupplClass} clearfix" >
+                            <div class="sprite video fltlft"><!-- icon --></div>
+                            <div class="results fltrt">
+                            <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
+                                <c:out value="${result.title}" escapeXml="true"/>
+                            </link:cmsContent>
+                            </p>
+
+                            <jsp:scriptlet>
+                                ContentSearchResult result = (ContentSearchResult)pageContext.getAttribute("result");
+                                int minLength = 143;
+                                int maxLength = 163;
+                                String teaserEnder = "... ";
+                                if (StringUtils.length(result.getResultSummary()) > minLength) {
+                                    String teaserBody = WordUtils.abbreviate(result.getResultSummary(), minLength, maxLength, teaserEnder);
+                                    pageContext.setAttribute("teaserBody", teaserBody);
+                                } else {
+                                    pageContext.setAttribute("teaserBody", result.getResultSummary());
+                                }
+                            </jsp:scriptlet>
+                            <p>${pageScope.teaserBody}
+
+                            <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="smallText1bold">
+                              Watch&amp;nbsp;<span class="go">&amp;#187;</span>
+                            </link:cmsContent>
+                            </p>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+
+                <c:if test="${showSeeAllLink}">
+                    <p class="moreRslts">
+                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="videos">See all video results <span class="go">&amp;#187;</span></link:contentSearch>
                     </p>
                 </c:if>
             </c:if>
@@ -322,7 +397,7 @@
 
                         <label id="stl">in
                         <select id="srchType" class="type">
-                            <option value="content">Articles &amp; Community</option>
+                            <option value="content">Articles, Videos &amp; Community</option>
                             <option value="schools">Schools</option>
                         </select>
                         </label>

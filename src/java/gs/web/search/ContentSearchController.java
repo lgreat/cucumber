@@ -1,28 +1,27 @@
 package gs.web.search;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
+import gs.data.community.CommunityConstants;
+import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.ContentKey;
+import gs.data.search.ContentSearchResult;
+import gs.data.search.SolrService;
+import gs.data.util.CommunityUtil;
+import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-
-import gs.web.util.UrlBuilder;
-import gs.web.util.PageHelper;
-import gs.data.search.ContentSearchResult;
-import gs.data.search.SolrService;
-import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.CmsConstants;
-import gs.data.community.CommunityConstants;
-import gs.data.util.CommunityUtil;
 
 /**
  * GS-8876
@@ -37,6 +36,7 @@ public class ContentSearchController extends AbstractController {
     public static final String MODEL_NUM_RESULTS = "numResults";
     public static final String MODEL_NUM_ARTICLES = "numArticles";
     public static final String MODEL_NUM_DISCUSSIONS = "numDiscussions";
+    public static final String MODEL_NUM_VIDEOS = "numVideos";
     public static final String MODEL_PAGE = "page";
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_PAGE_SIZE = "pageSize";
@@ -44,6 +44,7 @@ public class ContentSearchController extends AbstractController {
     public static final String MODEL_TYPE = "type";
     public static final String MODEL_ARTICLE_RESULTS = "articleResults";
     public static final String MODEL_COMMUNITY_RESULTS = "communityResults";
+    public static final String MODEL_VIDEO_RESULTS = "videoResults";
     public static final String MODEL_URL = "url";
     public static final String MODEL_URL_WITHOUT_PAGE_NUM = "urlWithoutPageNum";
     public static final String MODEL_CURRENT_DATE = "currentDate";
@@ -54,6 +55,7 @@ public class ContentSearchController extends AbstractController {
 
     public static final String TYPE_COMMUNITY = "community";
     public static final String TYPE_ARTICLES = "articles";
+    public static final String TYPE_VIDEO = "videos";
 
     public static final String MODEL_SAMPLE = "sample";
     public static final String PARAM_SAMPLE = "sample";
@@ -85,7 +87,7 @@ public class ContentSearchController extends AbstractController {
             searchQuery = searchQuery.trim();
             // TODO-8876 do this a better way or refactor
             // special chars: + - && || ! ( ) { } [ ] ^ " ~ * ? : \
-            // escape by preceding with \ .... how does that work with && or || 
+            // escape by preceding with \ .... how does that work with && or ||
             searchQuery = searchQuery.replace(":","").replace("(","").replace(")","");
         }
 
@@ -114,16 +116,21 @@ public class ContentSearchController extends AbstractController {
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
             pageHelper.addAdKeyword(CommunityUtil.COMMUNITY_GAM_AD_ATTRIBUTE_KEY, String.valueOf(true));
         }
+        long numVideos = (Long)model.get(MODEL_NUM_VIDEOS);
+        if (TYPE_VIDEO.equals(type) && numVideos == 0) {
+            type = null;
+        }
+
         model.put(MODEL_TYPE, type);
 
         if (isSample) {
             populateModelResultsForSample(model, numArticles, numDiscussions, type);
         }
-        
+
         model.put(MODEL_URL, getUrl(request, searchQuery, page, type, sample));
         model.put(MODEL_URL_WITHOUT_PAGE_NUM, getUrlWithoutPageNumber(request, searchQuery, type, sample));
 
-        model.put(MODEL_TOTAL_PAGES, getTotalPages(numArticles, numDiscussions, type));
+        model.put(MODEL_TOTAL_PAGES, getTotalPages(numArticles, numDiscussions, numVideos, type));
         model.put(MODEL_CURRENT_DATE, new Date());
 
         return new ModelAndView(_viewName, model);
@@ -135,12 +142,13 @@ public class ContentSearchController extends AbstractController {
      * @see http://wiki.apache.org/solr/FieldCollapsing
      * @see https://issues.apache.org/jira/browse/SOLR-236
      * @see http://osdir.com/ml/solr-dev.lucene.apache.org/2009-08/msg00303.html
-     * 
+     *
      */
     protected void populateModelForQuery(Map<String, Object> model, int page, String type, String searchQuery) {
         long numResults = 0;
         long numArticles = 0;
         long numDiscussions = 0;
+        long numVideos = 0;
         String pageTitlePrefix;
 
         if (StringUtils.isNotBlank(searchQuery)) {
@@ -160,11 +168,13 @@ public class ContentSearchController extends AbstractController {
                     CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(count.getName())) {
                     numArticles += count.getCount();
                 } else if (CommunityConstants.DISCUSSION_CONTENT_TYPE.equals(count.getName())) {
-                    numDiscussions = count.getCount(); 
+                    numDiscussions = count.getCount();
+                } else if (CmsConstants.VIDEO_CONTENT_TYPE.equals(count.getName())) {
+                    numVideos = count.getCount();
                 }
             }
 
-            numResults = numArticles + numDiscussions;
+            numResults = numArticles + numDiscussions + numVideos;
 
             if (numResults == 0) {
                 SpellCheckResponse spell = rsp.getSpellCheckResponse();
@@ -179,38 +189,46 @@ public class ContentSearchController extends AbstractController {
 
             List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
             List<ContentSearchResult> communityResults = new ArrayList<ContentSearchResult>();
+            List<ContentSearchResult> videoResults = new ArrayList<ContentSearchResult>();
 
             // subsequent queries for page results (2 queries if all results; 1 query if filtered by type)
             // these use the same query and just set rows and filterQueries, so we can take advantage of caching
 
-            if (TYPE_ARTICLES.equals(type) || (numArticles > 0 && numDiscussions == 0)) {
+            if (TYPE_ARTICLES.equals(type) || (numArticles > 0 && numDiscussions == 0 && numVideos == 0)) {
                 rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, TYPE_ARTICLES);
                 articleResults = rsp.getBeans(ContentSearchResult.class);
-            } else if (TYPE_COMMUNITY.equals(type) || (numDiscussions > 0 && numArticles == 0)) {
+            } else if (TYPE_COMMUNITY.equals(type) || (numDiscussions > 0 && numArticles == 0 && numVideos == 0)) {
                 rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, TYPE_COMMUNITY);
                 communityResults = rsp.getBeans(ContentSearchResult.class);
+            } else if (TYPE_VIDEO.equals(type) || numVideos > 0 && numDiscussions == 0 && numArticles == 0) {
+                rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, CmsConstants.VIDEO_CONTENT_TYPE);
+                videoResults = rsp.getBeans(ContentSearchResult.class);
             } else {
                 rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, TYPE_ARTICLES);
                 articleResults = rsp.getBeans(ContentSearchResult.class);
                 rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, TYPE_COMMUNITY);
                 communityResults = rsp.getBeans(ContentSearchResult.class);
+                rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, CmsConstants.VIDEO_CONTENT_TYPE);
+                videoResults = rsp.getBeans(ContentSearchResult.class);
             }
 
             model.put(MODEL_ARTICLE_RESULTS, articleResults);
             model.put(MODEL_COMMUNITY_RESULTS, communityResults);
+            model.put(MODEL_VIDEO_RESULTS, videoResults);
         } catch (Exception e) {
             _log.error("Error querying solr for query: " + searchQuery, e);
         }
         } else{
             numResults = 0;
-            
+
         }
 
-        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
+        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, numVideos, type);
 
         model.put(MODEL_NUM_RESULTS, numResults);
         model.put(MODEL_NUM_ARTICLES, numArticles);
         model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
+        model.put(MODEL_NUM_VIDEOS, numVideos);
         model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
     }
 
@@ -218,24 +236,26 @@ public class ContentSearchController extends AbstractController {
     // helper methods
     //=========================================================================
 
-    protected String getPageTitlePrefix(long numArticles, long numDiscussions, String type) {
+    protected String getPageTitlePrefix(long numArticles, long numDiscussions, long numVideos, String type) {
         long numResults = numArticles + numDiscussions;
         if (numResults == 0) {
             return null;
-        } else if (numResults == numArticles || numResults == numDiscussions) {
+        } else if (numResults == numArticles || numResults == numDiscussions || numResults == numVideos) {
             return "Results for";
         } else if (TYPE_ARTICLES.equals(type)) {
             return "Article results for";
         } else if (TYPE_COMMUNITY.equals(type)) {
             return "Community results for";
+        } else if (TYPE_VIDEO.equals(type)) {
+            return "Video results for";
         } else {
             return "Results for";
         }
     }
 
-    protected static long getTotalPages(long numArticles, long numDiscussions, String type) {
+    protected static long getTotalPages(long numArticles, long numDiscussions, long numVideos, String type) {
         long totalPages;
-        if (numArticles > 0 && numDiscussions > 0) {
+        if (numArticles > 0 && numDiscussions > 0 && numVideos > 0) {
             if (TYPE_ARTICLES.equals(type)) {
                 totalPages = numArticles / PAGE_SIZE;
                 if (numArticles % PAGE_SIZE > 0) {
@@ -244,6 +264,11 @@ public class ContentSearchController extends AbstractController {
             } else if (TYPE_COMMUNITY.equals(type)) {
                 totalPages = numDiscussions / PAGE_SIZE;
                 if (numDiscussions % PAGE_SIZE > 0) {
+                    totalPages++;
+                }
+            } else if (TYPE_VIDEO.equals(type)) {
+                totalPages = numVideos / PAGE_SIZE;
+                if (numVideos % PAGE_SIZE > 0) {
                     totalPages++;
                 }
             } else {
@@ -257,6 +282,11 @@ public class ContentSearchController extends AbstractController {
         } else if (numDiscussions > 0) {
             totalPages = numDiscussions / PAGE_SIZE;
             if (numDiscussions % PAGE_SIZE > 0) {
+                totalPages++;
+            }
+        } else if (numVideos > 0) {
+            totalPages = numVideos / PAGE_SIZE;
+            if (numVideos % PAGE_SIZE > 0) {
                 totalPages++;
             }
         } else {
@@ -301,6 +331,8 @@ public class ContentSearchController extends AbstractController {
             type = typeParam;
         } else if (TYPE_ARTICLES.equals(typeParam)) {
             type = typeParam;
+        } else if (TYPE_VIDEO.equals(typeParam)) {
+            type = typeParam;
         } else {
             type = null;
         }
@@ -315,6 +347,7 @@ public class ContentSearchController extends AbstractController {
         long numResults;
         long numArticles;
         long numDiscussions;
+        long numVideos = 0; //TODO: Figure out sample results as they pertain to videos
         String pageTitlePrefix;
         if (SAMPLE_NO_ARTICLES.equals(sample)) {
             numArticles = 0;
@@ -333,7 +366,7 @@ public class ContentSearchController extends AbstractController {
         }
 
         numResults = numArticles + numDiscussions;
-        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, type);
+        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, numVideos, type);
 
         List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
         if (!TYPE_COMMUNITY.equals(type)) {
@@ -343,13 +376,19 @@ public class ContentSearchController extends AbstractController {
         if (!TYPE_ARTICLES.equals(type)) {
             communityResults = getResultsForPage(getSampleDiscussions(numDiscussions), page);
         }
+        List<ContentSearchResult> videoResults = new ArrayList<ContentSearchResult>();
+        if (!TYPE_VIDEO.equals(type)) {
+            videoResults = getResultsForPage(getSampleDiscussions(numDiscussions), page);
+        }
 
         model.put(MODEL_ARTICLE_RESULTS, articleResults);
         model.put(MODEL_COMMUNITY_RESULTS, communityResults);
+        model.put(MODEL_VIDEO_RESULTS, videoResults);
 
         model.put(MODEL_NUM_RESULTS, numResults);
         model.put(MODEL_NUM_ARTICLES, numArticles);
         model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
+        model.put(MODEL_NUM_VIDEOS, numVideos);
         model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
     }
 
