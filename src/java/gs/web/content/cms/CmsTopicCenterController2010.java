@@ -15,20 +15,15 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolWithRatings;
 import gs.data.school.review.IReviewDao;
-import gs.data.search.SearchResultsPage;
 import gs.data.security.Permission;
 import gs.data.state.State;
 import gs.data.util.CmsUtil;
 import gs.web.school.SchoolOverviewController;
-import gs.web.search.CmsFeatureSearchService;
-import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -56,7 +51,6 @@ public class CmsTopicCenterController2010 extends AbstractController {
     private IReviewDao _reviewDao;
     private IGeoDao _geoDao;
     private ILocalBoardDao _localBoardDao;
-    private CmsFeatureSearchService _cmsFeatureSearchService;
     private ICmsCategoryDao _cmsCategoryDao;
     private Boolean _useAdKeywords = true;
     private Long _topicCenterContentID;
@@ -92,190 +86,192 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
-        boolean isVideo = false;
+        if (!CmsUtil.isCmsEnabled()) {
+            return new ModelAndView(_viewName, model);
+        }
 
-        if (CmsUtil.isCmsEnabled()) {
-            String uri = request.getRequestURI();
-            boolean showSample = (BEAN_ID.equals(uri));
-            CmsTopicCenter topicCenter;
 
-            Long contentId = null;
-            if (showSample) {
-                topicCenter = getSampleTopicCenter();
+        String uri = request.getRequestURI();
+        boolean showSample = (BEAN_ID.equals(uri));
+        CmsTopicCenter topicCenter;
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+
+        Long contentId;
+
+        //determine the correct contentId and topic center. Handle redirects and 404s
+        if (showSample) {
+            topicCenter = getSampleTopicCenter();
+        } else {
+            contentId = getContentIdFromRequest(request);
+
+            if (contentId == null) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ModelAndView("/status/error404.page");
             } else {
-                if (uri.startsWith("/preschool/")) {
-                    contentId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
-                } else if (uri.startsWith("/elementary-school/")) {
-                    contentId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
-                } else if (uri.startsWith("/middle-school/")) {
-                    contentId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
-                } else if (uri.startsWith("/high-school/")) {
-                    contentId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
-                } else if (uri.startsWith("/stateofeducation/")) {
-                    contentId = CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID;
-                } else if (getTopicCenterContentID() == null) {
-                    try {
-                        contentId = new Long(request.getParameter("content"));
-                        if (contentId != null && uri.toLowerCase().contains("/videos/")) {
-                            isVideo = true;
-                            model.put(MODEL_IS_VIDEO, true);
-
-                            Set categoryIds = new TreeSet();
-                            //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
-                            //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
-                            //The categories for the 'videos' subtopics are entered in the cms on the topic center template.
-                            if (StringUtils.isNotBlank(request.getParameter("grades"))) {
-                                categoryIds.addAll(Arrays.asList(request.getParameter("grades").split(",")));
-                            }
-                            if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
-                                categoryIds.addAll(Arrays.asList(request.getParameter("subjects").split(",")));
-                            }
-                            if (StringUtils.isNotBlank(request.getParameter("topics"))) {
-                                categoryIds.addAll(Arrays.asList(request.getParameter("topics").split(",")));
-                            }
-                            if (categoryIds.size() > 0) {
-                                String categoryIdsStr = StringUtils.join(categoryIds,",");
-                                List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIdsStr);
-                                //Search for videos categorized with the grades, subjects and topics.
-                                int offset = 0;
-                                String offsetString = request.getParameter("start");
-                                if (offsetString != null) {
-                                    offset = Integer.valueOf(offsetString);
-                                }
-                                String url = request.getRequestURL().toString();
-                                String queryString = request.getQueryString();
-                                Map<String,String> queryStringParams = UrlUtil.getParamsFromQueryString(queryString);
-                                queryStringParams.put("start",offsetString);
-                                queryString = UrlUtil.getQueryStringFromMap(queryStringParams);
-                                //queryString.r
-                                if (queryString != null) {
-                                    url += "?" + queryString;
-                                }
-                                model.put(MODEL_FULL_URL, url);
-                                SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 2, offset);
-
-                                addPagingDataToModel(offset, 2, offset, searchResults.getTotalResults(), model);
-                                if (searchResults != null && searchResults.getTotalResults() > 0) {
-                                    model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
-                                } else {
-                                    model.put(MODEL_VIDEO_RESULTS, new ArrayList());
-                                }
-                            }
-
-                        } else if (contentId == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID && uri.equals("/LD.topic")) {
-                            UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID));
-                            if (!builder.asSiteRelative(request).startsWith("/LD.topic")) {
-                                return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
-                            }
-                        } else if (contentId == CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID) {
-                            UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID));
-                            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
-                        }
-                    } catch (Exception e) {
-                        _log.info("contentId \"" + request.getParameter("content") + "\" is not a Long");
-                        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                        return new ModelAndView("/status/error404.page");
-                    }
-                } else {
-                    contentId = getTopicCenterContentID();
+                ModelAndView specialCaseRedirect = getRedirectForSpecialTopicCenters(request, contentId);
+                if (specialCaseRedirect != null) {
+                    return specialCaseRedirect;
                 }
-
-                topicCenter = _publicationDao.populateByContentId(contentId, new CmsTopicCenter());
             }
+
+            topicCenter = getPublicationDao().populateByContentId(contentId, new CmsTopicCenter());
 
             if (topicCenter == null) {
                 _log.info("Error locating topic center with contentId=" + contentId);
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
             }
+        }
+        //done getting topic center
 
-            if (topicCenter.getDiscussionBoardId() != null) {
-                model.put(MODEL_DISCUSSION_BOARD, _cmsDiscussionBoardDao.get(topicCenter.getDiscussionBoardId()));
-            }
+        //general things needed for topic center sidebars/content to work
+        addOmnitureDataToModel(model, topicCenter);
+        model.put(MODEL_TOPIC_CENTER, topicCenter);
+        UrlBuilder builder = new UrlBuilder(new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, topicCenter.getContentKey().getIdentifier()));
+        model.put(MODEL_URI, builder.asSiteRelative(request));
+        addGoogleAdKeywordsIfNeeded(request, topicCenter);
 
-            try {
-                _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(topicCenter);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-            if (isUseAdKeywords()) {
-                // Google Ad Manager ad keywords
-                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-                for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
-                    pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
-                }
-                pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
-            }
-
-            model.put(MODEL_OMNITURE_TOPIC_CENTER_NAME, topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
-
-            model.put(MODEL_BROWSE_BY_GRADE_SUBTOPICS, getBrowseByGradeForTopicCenter(topicCenter.getContentKey().getIdentifier()));
-            populateCarouselModel(topicCenter, model);
-
-            model.put(MODEL_TOPIC_CENTER, topicCenter);
-
-
-            // GS-10275
-            // Show the local community module we've built on the school overview page in place of the map IF a user is
-            // cookied to one of the 73 local cities. If the user isn't cookied to one of the cities, show the Map module
-            // (the Local Schools module)
-            boolean hasLocalCommunity = false;
-            if (!topicCenter.isPreschoolTopicCenter()) {
-                hasLocalCommunity = loadLocalCommunity(model,request);
-            }
-            if (topicCenter.isPreschoolTopicCenter() || !hasLocalCommunity) {
-                // local schools module
-                // check for a change of city
-                SessionContext context = SessionContextUtil.getSessionContext(request);
-                String cityName = request.getParameter("city");
-                if (cityName != null) {
-                    // if so update the user's cookie
-                    String stateAbbr = request.getParameter("state");
-                    City city = getGeoDao().findCity(State.fromString(stateAbbr), cityName);
-                    if (city != null) {
-                        context.getSessionContextUtil().changeCity(context, request, response, city);
-                        context.setCity(city); // saves a DB query later
-                    }
-                }
-
-                LevelCode levelCode = null;
-                if (topicCenter.isPreschoolTopicCenter()) {
-                    levelCode = LevelCode.PRESCHOOL;
-                } else if (topicCenter.isElementarySchoolTopicCenter() || topicCenter.isElementaryGradeTopicCenter()) {
-                    levelCode = LevelCode.ELEMENTARY;
-                } else if (topicCenter.isMiddleSchoolTopicCenter()) {
-                    levelCode = LevelCode.MIDDLE;
-                } else if (topicCenter.isHighSchoolTopicCenter()) {
-                    levelCode = LevelCode.HIGH;
-                } else {
-                    // default to elementary for non-grade-level topic centers
-                    levelCode = LevelCode.ELEMENTARY;
-                }
-                loadTopRatedSchools(model, context, levelCode);
-            }
-            // GS-9770 if user is authorized and is a cms admin, add raise your hand discussions to model
-            if (PageHelper.isMemberAuthorized(request)) {
-                insertRaiseYourHandDiscussionsIntoModel(request, model, topicCenter);
-            }
-
-            if (topicCenter.isGradeLevelTopicCenter()) {
-                model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
-            }
-
-            UrlBuilder builder = new UrlBuilder(new ContentKey(CmsConstants.TOPIC_CENTER_CONTENT_TYPE, topicCenter.getContentKey().getIdentifier()));
-            model.put(MODEL_URI, builder.asSiteRelative(request));
-
+        try {
+            getCmsFeatureEmbeddedLinkResolver().replaceEmbeddedLinks(topicCenter);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
-         if(isAjaxRequest(request) && StringUtils.isNotBlank(request.getParameter("requestType")) && request.getParameter("requestType").equals("ajax")){
-            return new ModelAndView("/content/cms/videoGalleryTable", model);
-         }
 
-        if (isVideo) {
-            return new ModelAndView("/content/cms/videoGallery", model);
+        //add things needed for sidebars to work
+        model.put(MODEL_BROWSE_BY_GRADE_SUBTOPICS, getBrowseByGradeForTopicCenter(topicCenter.getContentKey().getIdentifier()));
+
+        // GS-10275
+        // Show the local community module we've built on the school overview page in place of the map IF a user is
+        // cookied to one of the 73 local cities. If the user isn't cookied to one of the cities, show the Map module
+        // (the Local Schools module)
+        boolean hasLocalCommunity = false;
+        if (!topicCenter.isPreschoolTopicCenter()) {
+            hasLocalCommunity = loadLocalCommunity(model,request);
         }
+
+        if (topicCenter.isPreschoolTopicCenter() || !hasLocalCommunity) {
+            // local schools module
+            // check for a change of city
+            updateCityCookieIfNeeded(request, response);
+
+            LevelCode levelCode = getLevelCodeFromTopicCenter(topicCenter);
+
+            loadTopRatedSchools(model, context, levelCode);
+        }
+
+        if (topicCenter.isGradeLevelTopicCenter()) {
+            model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
+        }
+
+
+        //start adding content for middle area of page
+        addPageSpecificContentToModel(request, model, topicCenter);
+        
+
         return new ModelAndView(_viewName, model);
+    }
+
+    public void addPageSpecificContentToModel(HttpServletRequest request, Map<String, Object> model, CmsTopicCenter topicCenter) {
+        if (topicCenter.getDiscussionBoardId() != null) {
+            model.put(MODEL_DISCUSSION_BOARD, _cmsDiscussionBoardDao.get(topicCenter.getDiscussionBoardId()));
+        }
+
+        populateCarouselModel(topicCenter, model);
+
+        // GS-9770 if user is authorized and is a cms admin, add raise your hand discussions to model
+        if (PageHelper.isMemberAuthorized(request)) {
+            insertRaiseYourHandDiscussionsIntoModel(request, model, topicCenter);
+        }
+    }
+
+    public void addOmnitureDataToModel(Map<String, Object> model, CmsTopicCenter topicCenter) {
+        model.put(MODEL_OMNITURE_TOPIC_CENTER_NAME, topicCenter.getTitle().replaceAll(",", "").replaceAll("\"", ""));
+    }
+
+    public void addGoogleAdKeywordsIfNeeded(HttpServletRequest request, CmsTopicCenter topicCenter) {
+        if (isUseAdKeywords()) {
+            // Google Ad Manager ad keywords
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
+                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+            }
+            pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
+        }
+    }
+
+    public void updateCityCookieIfNeeded(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        String cityName = request.getParameter("city");
+        if (cityName != null) {
+            // if so update the user's cookie
+            String stateAbbr = request.getParameter("state");
+            City city = getGeoDao().findCity(State.fromString(stateAbbr), cityName);
+            if (city != null) {
+                context.getSessionContextUtil().changeCity(context, request, response, city);
+                context.setCity(city); // saves a DB query later
+            }
+        }
+    }
+
+    public LevelCode getLevelCodeFromTopicCenter(CmsTopicCenter topicCenter) {
+        LevelCode levelCode = null;
+        if (topicCenter.isPreschoolTopicCenter()) {
+            levelCode = LevelCode.PRESCHOOL;
+        } else if (topicCenter.isElementarySchoolTopicCenter() || topicCenter.isElementaryGradeTopicCenter()) {
+            levelCode = LevelCode.ELEMENTARY;
+        } else if (topicCenter.isMiddleSchoolTopicCenter()) {
+            levelCode = LevelCode.MIDDLE;
+        } else if (topicCenter.isHighSchoolTopicCenter()) {
+            levelCode = LevelCode.HIGH;
+        } else {
+            // default to elementary for non-grade-level topic centers
+            levelCode = LevelCode.ELEMENTARY;
+        }
+        return levelCode;
+    }
+
+    public ModelAndView getRedirectForSpecialTopicCenters(HttpServletRequest request, Long contentId) {
+        String uri = request.getRequestURI();
+        ModelAndView redirectView = null;
+        if (contentId == CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID && uri.equals("/LD.topic")) {
+            UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.SPECIAL_EDUCATION_TOPIC_CENTER_ID));
+            if (!builder.asSiteRelative(request).startsWith("/LD.topic")) {
+                redirectView = new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+            }
+        } else if (contentId == CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID) {
+            UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID));
+            redirectView = new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+        }
+        return redirectView;
+    }
+
+    public Long getContentIdFromRequest(HttpServletRequest request) {
+        Long contentId = null;
+        String uri = request.getRequestURI();
+
+        if (uri.startsWith("/preschool/")) {
+            contentId = CmsConstants.PRESCHOOL_TOPIC_CENTER_ID;
+        } else if (uri.startsWith("/elementary-school/")) {
+            contentId = CmsConstants.ELEMENTARY_SCHOOL_TOPIC_CENTER_ID;
+        } else if (uri.startsWith("/middle-school/")) {
+            contentId = CmsConstants.MIDDLE_SCHOOL_TOPIC_CENTER_ID;
+        } else if (uri.startsWith("/high-school/")) {
+            contentId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
+        } else if (uri.startsWith("/stateofeducation/")) {
+            contentId = CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID;
+        } else if (getTopicCenterContentID() == null) {
+            try {
+                contentId = new Long(request.getParameter("content"));
+            } catch (Exception e) {
+                _log.info("contentId \"" + request.getParameter("content") + "\" is not a Long");
+
+            }
+        } else {
+            contentId = getTopicCenterContentID();
+        }
+
+        return contentId;
     }
 
     /**
@@ -417,9 +413,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
     // browse by grade sidebar
     //=========================================================================
 
-    private static Map<Long, List<CmsSubtopic>> TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP = new HashMap<Long, List<CmsSubtopic>>();
+    public static Map<Long, List<CmsSubtopic>> TOPIC_CENTER_BROWSE_BY_GRADE_SUBTOPICS_MAP = new HashMap<Long, List<CmsSubtopic>>();
 
-    private static List<CmsSubtopic> getBrowseByGradeForTopicCenter(long topicCenterID) {
+    public static List<CmsSubtopic> getBrowseByGradeForTopicCenter(long topicCenterID) {
         List<CmsSubtopic> subtopics;
 
         // check cache
@@ -558,7 +554,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     // START sample topic center methods
 
-    private CmsTopicCenter getSampleTopicCenter() {
+    public CmsTopicCenter getSampleTopicCenter() {
         CmsTopicCenter topicCenter = new CmsTopicCenter();
         ContentKey contentKey = new ContentKey();
         contentKey.setType("TopicCenter");
@@ -797,14 +793,6 @@ public class CmsTopicCenterController2010 extends AbstractController {
         this._localBoardDao = _localBoardDao;
     }
 
-    public CmsFeatureSearchService getCmsFeatureSearchService() {
-        return _cmsFeatureSearchService;
-    }
-
-    public void setCmsFeatureSearchService(CmsFeatureSearchService cmsFeatureSearchService) {
-        _cmsFeatureSearchService = cmsFeatureSearchService;
-    }
-
     public ICmsCategoryDao getCmsCategoryDao() {
         return _cmsCategoryDao;
     }
@@ -812,4 +800,10 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public void setCmsCategoryDao(ICmsCategoryDao cmsCategoryDao) {
         _cmsCategoryDao = cmsCategoryDao;
     }
+
+    public IPublicationDao getPublicationDao() {
+        return _publicationDao;
+    }
+
+
 }
