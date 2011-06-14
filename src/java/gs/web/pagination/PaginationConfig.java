@@ -38,6 +38,7 @@ public class PaginationConfig {
         _pageNumberParam = pageNumberParam;
         _offsetParam = offsetParam;
         _defaultPageSize = defaultPageSize;
+        _maxPageSize = maxPageSize;
         _zeroBasedOffset = zeroBasedOffset;
         _zeroBasedPages = zeroBasedPages;
     }

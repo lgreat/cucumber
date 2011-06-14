@@ -7,7 +7,9 @@ import gs.data.content.cms.ContentKey;
 import gs.data.school.LevelCode;
 import gs.data.search.SearchResultsPage;
 import gs.data.util.CmsUtil;
+import gs.web.pagination.DefaultPaginationConfig;
 import gs.web.pagination.Pagination;
+import gs.web.pagination.PaginationConfig;
 import gs.web.pagination.RequestedPage;
 import gs.web.school.SchoolOverviewController;
 import gs.web.search.CmsFeatureSearchService;
@@ -38,6 +40,20 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
     private String _viewName;
 
     private CmsFeatureSearchService _cmsFeatureSearchService;
+    
+    public static final PaginationConfig VIDEO_GALLERY_PAGINATION_CONFIG;
+
+    static {
+        VIDEO_GALLERY_PAGINATION_CONFIG = new PaginationConfig(
+                DefaultPaginationConfig.DEFAULT_PAGE_SIZE_PARAM,
+                DefaultPaginationConfig.DEFAULT_PAGE_NUMBER_PARAM,
+                DefaultPaginationConfig.DEFAULT_OFFSET_PARAM,
+                15,
+                DefaultPaginationConfig.DEFAULT_MAX_PAGE_SIZE,
+                DefaultPaginationConfig.ZERO_BASED_OFFSET,
+                DefaultPaginationConfig.ZERO_BASED_PAGES
+        );
+    }
 
     //=========================================================================
     // spring mvc methods
@@ -143,9 +159,9 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
             
             model.put(MODEL_FULL_URL, url);
 
-            SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", 2, requestedPage.offset);
+            SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", requestedPage.pageSize, requestedPage.offset);
 
-            addPagingDataToModel(requestedPage.offset, 2, searchResults.getTotalResults(), model);
+            addPagingDataToModel(requestedPage.offset, requestedPage.pageSize, searchResults.getTotalResults(), model);
 
             if (searchResults != null && searchResults.getTotalResults() > 0) {
                 model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
