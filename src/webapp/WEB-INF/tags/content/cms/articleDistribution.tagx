@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo">
+    <jsp:directive.tag import="java.net.URLEncoder"/>
+    <jsp:directive.attribute name="includeFbSendBtn" required="true" type="java.lang.Boolean"
+                             description="Whether to include the facebook send button"/>
+    <jsp:directive.attribute name="includeShareBtn" required="true" type="java.lang.Boolean"
+                             description="Whether to include the share button"/>
+
+    <div class="shareThis">
+
+        <!-- Facebook -->
+        <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
+
+        <!-- Twitter -->
+        <promo:tweetButtonArticle/>
+
+        <!-- Share This -->
+        <c:if test="${includeShareBtn==true}">
+            &amp;nbsp;&amp;nbsp;&amp;nbsp;
+            <script type="text/javascript"
+                    src="http://w.sharethis.com/button/sharethis.js#publisher=b8806ac1-3e37-4089-a80b-79f28e8c2e04&amp;type=website&amp;embeds=true&amp;send_services=&amp;post_services=digg%2Cdelicious%2Cfacebook%2Ctwitter%2Ctechnorati%2Creddit%2Cnewsvine%2Cybuzz%2Cstumbleupon%2Cgoogle_bmarks%2Clinkedin%2Cbus_exchange&amp;headerbg=%2342bcce&amp;headerTitle=Share%20this%20article."><!--this comment ensure the layout doesn't break'--></script>
+        </c:if>
+
+    </div>
+
+</jsp:root>

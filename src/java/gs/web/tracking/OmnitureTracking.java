@@ -87,6 +87,9 @@ public abstract class  OmnitureTracking {
         CBAdviceDiscussionPost(32),
         CBAdviceReplyPost(33),
         EmailModuleSignup(37),
+        FacebookLike(36),
+        FacebookSend(38),
+        TwitterTweet(39),
         CmsVideo(47);
 
         private int _eventNumber;
