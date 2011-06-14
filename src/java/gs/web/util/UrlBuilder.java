@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.248 2011/05/12 19:42:19 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.249 2011/06/14 22:29:26 yfan Exp $
  */
 
 package gs.web.util;
@@ -297,6 +297,8 @@ public class UrlBuilder {
 
     public static final VPage CMS_CATEGORY_BROWSE = new VPage("vpage:cmsCategoryBrowse");
     public static final VPage CMS_VIDEO_GALLERY = new VPage("vpage:cmsVideoGallery");
+
+    public static final VPage K12_ADVERTISER_PAGE = new VPage("vpage:k12AdvertiserPage");
 
     /**
      * Api Pages
@@ -723,11 +725,16 @@ public class UrlBuilder {
         }
     }
 
-    public UrlBuilder(String username, VPage page) {
+    public UrlBuilder(String stringParam, VPage page) {
         _vPage = page;
         if (USER_PROFILE.equals(page)) {
+            // stringParam needs to be username
             _perlPage = false;
-            _path = "/members/" + username + "/";
+            _path = "/members/" + stringParam + "/";
+        } else if (K12_ADVERTISER_PAGE.equals(page)) {
+            // stringParam needs to be k12School param, e.g. CA or INT
+            _perlPage = false;
+            _path = "/online-education.page?school=" + stringParam;
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

@@ -120,6 +120,13 @@ public class CmsTopicCenterController2010 extends AbstractController {
                 _log.info("Error locating topic center with contentId=" + contentId);
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
+            } else if (topicCenter.isK12SponsorshipPage()) {
+                String k12School = topicCenter.getUri().replaceFirst("online-education-","").toUpperCase();
+                if (k12School.equals("INTL")) {
+                    k12School = "INT";
+                }
+                UrlBuilder urlBuilder = new UrlBuilder(k12School, UrlBuilder.K12_ADVERTISER_PAGE);
+                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
             }
         }
         //done getting topic center
