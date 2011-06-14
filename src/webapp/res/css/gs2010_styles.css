@@ -12811,3 +12811,11 @@ div#tracking {
 #k12AdPage p {
     margin-bottom: 10px;
 }
+
+#k12AdPage .text1 {
+    line-height: 1.3em;
+}
+
+#k12AdPage .text1italic {
+    line-height: 1.3em;
+}

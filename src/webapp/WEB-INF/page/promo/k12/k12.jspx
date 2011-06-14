@@ -35,19 +35,20 @@
     <div class="container_24" id="k12AdPage">
         <div class="grid_16">
 
-            <div class="spacer_10"><!-- do not collapse --></div>
+            <div class="mrm mtl phs">
 
-            <div class="mrm phs">
-
-                <div class="line">
-                    <div class="unit size3of5 pts">SPONSORED:</div>
+                <div class="line mbm">
+                    <div class="unit size3of5 text2-777">SPONSORED:
+                        <h1 class="pts">${schoolName}</h1>
+                    </div>
                     <div class="unit size2of5 lastUnit">
-                        <div class="fltrtt">
+                        <div class="fltrt">
                             <div class="mediaExt1-1">
                                 <div class="imgExt">
-                                    <a href="">[logo image tag]</a>
+                                    <gsml:img src="/res/img/promo/k12/k12-sponsored-by-logo.png"
+                                              alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
                                 </div>
-                                <div class="bk text-align-rt smallText1">
+                                <div class="bk text-align-rt smallText2-777">
                                     Sponsored<br/>by:
                                 </div>
                             </div>
@@ -55,15 +56,9 @@
                     </div>
                 </div>
 
-                <h1>${schoolName}</h1>
-
-                <div class="spacer_10"><!-- do not collapse --></div>
-
                 <a href="#" class="button-1">Learn More Here &amp;raquo;</a>
 
-                <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
-                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="spacer_10 brdbtm_dotted-ccc mtm mbl"><!-- do not collapse --></div>
 
                 <p class="text1">
                     <k12:summary school="${k12School}"/>
@@ -72,11 +67,13 @@
                 <k12:topCopy school="${k12School}"/>
 
                 <c:if test="${hasBottomCopy}">
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                    <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+                    <div class="spacer_10 brdbtm_dotted-ccc mtm mbs"><!-- do not collapse --></div>
+
                     <div class="spacer_10"><!-- do not collapse --></div>
 
-                    <h2>What parents are saying:</h2>
+                    <h2 class="mbs">What parents are saying:</h2>
+
+                    <div class="spacer_10"><!-- do not collapse --></div>
 
                     <k12:bottomCopy school="${k12School}"/>
                 </c:if>
@@ -85,11 +82,9 @@
 
                 <a href="#" class="button-1">Learn More Here &amp;raquo;</a>
 
-                <div class="spacer_20"><!-- do not collapse --></div>
+                <div class="clearfloat brdbtm_dotted-ccc mtl mbl"><!-- do not collapse --></div>
 
-                <div class="clearfloat brdbtm_dotted-ccc mbm"><!-- do not collapse --></div>
-
-                <div class="spacer_20"><!-- do not collapse --></div>
+                <div class="spacer_10"><!-- do not collapse --></div>
 
             </div>
         </div>
