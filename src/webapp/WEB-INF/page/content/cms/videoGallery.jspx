@@ -28,6 +28,8 @@
     <meta name="keywords" content="${topicCenter.metaKeywords}"/>
     
     <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter2010.js"/>
+    <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
+    <pageHelper:externalJavascript file="/res/js/content/cms/videoGallery.js"/>
 
     <c:choose>
         <c:when test="${topicCenter.healthAndDevelopmentTopicCenter}">
@@ -111,16 +113,6 @@
             <option value="157">Social Skills</option>
             <option value="149">Bullying</option>
             <!--<option value="">Learning and Development</option>-->
-
-<!--Academic skills 133
-Homework Help 140
-Motivation & confidence (new-will be added to CMS)
-Parental power  241
-Understanding the system  240
-Behavior & discipline  124
-Social skills  157
-Bullying  149
-Learning and Development (new-will be added to CMS)  -->
         </select>
 
         <div id="js_videoGalleryData">
@@ -142,6 +134,7 @@ Learning and Development (new-will be added to CMS)  -->
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
 <mod:tracking pageName="${pageName}"
+              events="event7"
               hier1="Topic Centers,${omnitureTopicCenterName},Videos"
               omitAlmondNet="${true}"
         />
