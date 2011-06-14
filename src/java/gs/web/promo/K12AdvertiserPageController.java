@@ -1,6 +1,7 @@
 package gs.web.promo;
 
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +24,7 @@ public class K12AdvertiserPageController {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String schoolParam = request.getParameter(PARAM_SCHOOL);
         if (!K12AdvertiserPageHelper.isValidK12School(schoolParam)) {
-            return new ModelAndView(new RedirectView("/online-education.page?school=INT"));
+            return new ModelAndView(new RedirectView301("/online-education.page?school=INT"));
         }
 
         // Google ad attribute for key "k12school" with values like "CA", "INT"
