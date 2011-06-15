@@ -360,7 +360,7 @@
                 <ul class="nav_group_items">
                     <li class="first nav-group-item"><link:cmsCategoryBrowse topicIDs="133" language="EN" styleId="GlobalNav_AA_AcademicSkills" styleClass="GS_CI9_">Academic Skills</link:cmsCategoryBrowse></li>
                     <li class="nav-group-item"><a href="/homework-help.topic?content=1544" id="GlobalNav_AA_HomeworkHelp" class="GS_CI9_">Homework Help</a></li>
-                    <li class="nav-group-item"><a href="/college-prep.topic?content=1542" id="GlobalNav_AA_PrepForCollege" class="GS_CI9_">Prep for College</a></li>
+                    <li class="nav-group-item"><a href="/college/" id="GlobalNav_AA_PrepForCollege" class="GS_CI9_">College</a></li>
                     <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book Reviews</link:cmsCategoryBrowse></li>
                     <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="156" language="EN" styleId="GlobalNav_AA_LearningActivities" styleClass="GS_CI9_">Learning Activities</link:cmsCategoryBrowse></li>
                     <li class="nav-group-item"><a href="/improvement.topic?content=1543" id="GlobalNav_AA_ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>

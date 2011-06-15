@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.132 2011/03/16 00:50:13 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.133 2011/06/15 19:43:04 pdeshwal Exp $
  */
 
 package gs.web.util;
@@ -496,7 +496,15 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/moving.topic?content=2220", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.COUNTDOWN_TO_COLLEGE);
-        assertEquals("/college-prep.topic?content=1542", builder.asSiteRelative(request));
+        assertEquals("/college/", builder.asSiteRelative(request));
+
+        // Commented out because unit test hits database
+        /*
+        CmsUtil.enableCms();
+        builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.COLLEGE_TOPIC_CENTER_ID));
+        assertEquals("/college/", builder.asSiteRelative(request));
+        CmsUtil.disableCms();
+        */
 
         builder = new UrlBuilder(UrlBuilder.HOLIDAY_LEARNING);
         assertEquals("/content/holidayLearning.page", builder.asSiteRelative(request));

@@ -89,6 +89,7 @@
                 <entry key="/badges/**" value="/school/topHighSchoolsBadges.page"/>
                 <entry key="/pledge/**" value="/backToSchool/pledgeLanding.page"/>
                 <entry key="/test-prep/**" value="/testPrep/testPrepLanding.page"/>
+                <entry key="/college/**" value="/content/cms/topicCenter.page"/>
                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
                 <entry key="/stateofeducation/**" value="/content/cms/topicCenter.page"/>
             </map>
@@ -1225,7 +1226,7 @@
     <bean name="/content/countdownToCollege.page"
           class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="redirectPath" value="/college-prep.topic?content=1542"/>
+        <property name="redirectPath" value="/college/"/>
     </bean>
 
     <bean name="/content/schoolChoiceCenter.page"

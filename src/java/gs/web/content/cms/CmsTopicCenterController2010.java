@@ -249,6 +249,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
         } else if (contentId == CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID) {
             UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID));
             redirectView = new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
+        } else if (contentId == CmsConstants.COLLEGE_TOPIC_CENTER_ID) {
+            UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.COLLEGE_TOPIC_CENTER_ID));
+            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
         }
         return redirectView;
     }
@@ -267,6 +270,8 @@ public class CmsTopicCenterController2010 extends AbstractController {
             contentId = CmsConstants.HIGH_SCHOOL_TOPIC_CENTER_ID;
         } else if (uri.startsWith("/stateofeducation/")) {
             contentId = CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID;
+        } else if (uri.startsWith("/college/")) {
+            contentId = CmsConstants.COLLEGE_TOPIC_CENTER_ID;
         } else if (getTopicCenterContentID() == null) {
             try {
                 contentId = new Long(request.getParameter("content"));

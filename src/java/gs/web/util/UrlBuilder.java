@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.249 2011/06/14 22:29:26 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.250 2011/06/15 19:43:04 pdeshwal Exp $
  */
 
 package gs.web.util;
@@ -800,7 +800,7 @@ public class UrlBuilder {
         } else if (MOVING_WITH_KIDS.equals(page)) {
             _path = "/moving.topic?content=2220";
         } else if (COUNTDOWN_TO_COLLEGE.equals(page)) {
-            _path = "/college-prep.topic?content=1542";
+            _path = "/college/";
         } else if (HOLIDAY_LEARNING.equals(page)) {
             _path = "/content/holidayLearning.page";
         } else if (STATE_STANDARDS.equals(page)) {
@@ -833,7 +833,7 @@ public class UrlBuilder {
             _path = "/high-school/";
         } else if (COLLEGE.equals(page)) {
              // WARNING: if this url changes, also change the entry in CmsUtil.GRADE_LEVEL_TOPIC_CENTER_URI_MAP
-            _path = "/college-prep.topic?content=1542";
+            _path = "/college/";
         } else if (DONORS_CHOOSE_EXPLAINED.equals(page)) {
             _path = "/content/donorsChooseExplained.html";
         } else if (SUBMIT_PARENT_REVIEW_PRESCHOOL.equals(page)) {
