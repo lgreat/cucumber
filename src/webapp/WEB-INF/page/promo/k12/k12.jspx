@@ -26,6 +26,16 @@
         <!-- TODO-11797 TODO-11730 add javascript file for GS-11730 -->
         <!--<pageHelper:externalJavascript file="/res/js/promo/k12AdvertiserPage.js"/>-->
 
+        <script type="text/javascript">
+            jQuery(function() {
+                jQuery('#k12AdPage .jq-k12ClickThrough, #Header_728x90 .jq-k12ClickThrough, #AboveFold_300x250 .jq-k12ClickThrough, #Footer_728x90 .jq-k12ClickThrough').
+                        unbind('click').click(function() {
+                            window.open(jQuery(this).attr('href') + '${k12ClickThroughUrl}', '_blank');
+                            return false;
+                        });
+            });
+        </script>
+
     </head>
 
     <gsml:body adPageName="k12AdvertiserPage" pageLayout="nocol">
@@ -56,7 +66,11 @@
                     </div>
                 </div>
 
-                <a href="#" class="button-1">Learn More Here &amp;raquo;</a>
+                <c:set var="learnMoreHereButton">
+                    <a href="#" class="button-1 jq-k12ClickThrough">Learn More Here &amp;raquo;</a>
+                </c:set>
+
+                ${learnMoreHereButton}
 
                 <div class="spacer_10 brdbtm_dotted-ccc mtm mbl"><!-- do not collapse --></div>
 
@@ -80,7 +94,7 @@
 
                 <div class="spacer_10"><!-- do not collapse --></div>
 
-                <a href="#" class="button-1">Learn More Here &amp;raquo;</a>
+                ${learnMoreHereButton}
 
                 <div class="clearfloat brdbtm_dotted-ccc mtl mbl"><!-- do not collapse --></div>
 

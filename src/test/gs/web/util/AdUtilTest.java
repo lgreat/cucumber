@@ -51,15 +51,15 @@ public class AdUtilTest extends TestCase {
         referrer = "http://www.greatschools.org/california/san-francisco/";
         assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=cp&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
         referrer = "http://www.greatschools.org/california/san-francisco/asdf";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
         referrer = "http://www.greatschools.org/community/questions/";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
 
         // research & compare
         referrer = "http://www.greatschools.org/california/";
         assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=rc&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
         referrer = "http://www.greatschools.org/back-to-school/";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
 
         referrer = "http://www.greatschools.org/search/search.page?search_type=0&q=san+francisco&state=CA&c=school";
 
@@ -81,7 +81,7 @@ public class AdUtilTest extends TestCase {
         referrer = "http://www.google.com/search/search.page?search_type=0&q=san+francisco&state=CA&c=school";
         hostname = "www.greatschools.org";
         k12School = "CA";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
         referrer = "http://localhost:8080/search/search.page?search_type=0&q=san+francisco&state=CA&c=school";
         hostname = "localhost";
         assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=sr&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
@@ -96,23 +96,23 @@ public class AdUtilTest extends TestCase {
         assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=sr&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
         referrer = "http://www.greatschools.org/search/search.page?search_type=0&q=san+francisco&state=CA&c=school";
         hostname = "qa.greatschools.org";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
 
         k12School = "CA";
 
         // no referrer
         referrer = null;
         hostname = "www.greatschools.org";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
         referrer = "";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
 
         // no hostname
         referrer = "http://www.greatschools.org/search/search.page?search_type=0&q=san+francisco&state=CA&c=school";
         hostname = null;
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
         hostname = "";
-        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=other&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
+        assertEquals("http://ww2.k12.com/cm/?affl=gr8t&page=ot&school=CA", AdUtil.getK12ClickThroughUrl(referrer, hostname, k12School));
 
         // no topic center uri
         referrer = "http://www.greatschools.org/search/search.page?search_type=0&q=san+francisco&state=CA&c=school";
