@@ -14,9 +14,19 @@
             <a href="${relatedVideo.url}">${relatedVideo.linkText}</a>
         </p>
     <c:set var="sBreak" value="."/>
+    <c:set var="zeroPrefix" value="0"/>
     <c:set var="videoMinutes" value="${fn:substringBefore(relatedVideo.length div 60,sBreak)}"/>
     <c:set var="videoSeconds" value="${relatedVideo.length - (videoMinutes * 60)}"/>
-    <p class="smallText1"><c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>
-        <c:if test="${not empty relatedVideo.grades}"> Grade ${relatedVideo.grades}</c:if></p>
+    <c:if test="${videoMinutes lt 10}">
+        <c:set var="videoMinutes" value="${zeroPrefix}${videoMinutes}"/>
+    </c:if>
+    <c:if test="${videoSeconds lt 10}">
+        <c:set var="videoSeconds" value="${zeroPrefix}${videoSeconds}"/>
+    </c:if>
+
+    <p class="smallText1">
+        <c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>
+        <c:if test="${not empty relatedVideo.grades}"> Grade ${relatedVideo.grades}</c:if>
+    </p>
 
 </jsp:root>
