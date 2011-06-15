@@ -23,13 +23,15 @@
                                 <c:set var="carouselItemTarget" value="_self"/>
                             </c:otherwise>
                         </c:choose>
-                        <li class="captioned_photo">
+                        <li>
+                            <div class="captioned_photo">
                             <a href="${carouselItem.url}" target="${carouselItemTarget}">
                                 <img src="${carouselItem.imageUrl}" height="110" width="96"
                                      alt="${carouselItem.imageAltText}"/>
 
                                 <span class="text3-06b">${carouselItem.linkText}</span>
                             </a>
+                            </div>
                         </li>
                     </c:forEach>
                 </ul>
