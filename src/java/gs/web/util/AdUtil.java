@@ -23,10 +23,10 @@ public class AdUtil {
      * Return the click-through url to use on ads to send users to specific pages of the k12.com site
      * @param referrer e.g. http://www.greatschools.org/search/search.page?search_type=0&q=san+francisco&state=CA&c=school
      * @param hostname e.g. www.greatschools.org
-     * @param topicCenterUri e.g. online-education-ca, online-education-int
+     * @param k12School e.g. CA, INT
      * @return url
      */
-    public static String getK12ClickThroughUrl(String referrer, String hostname, String topicCenterUri) {
+    public static String getK12ClickThroughUrl(String referrer, String hostname, String k12School) {
         boolean referredByAnotherSite =
                 StringUtils.isBlank(referrer) ||
                 StringUtils.isBlank(hostname) ||
@@ -35,9 +35,8 @@ public class AdUtil {
 
         Matcher cityHomeMatcher = (requestUri != null ? K12_POSSIBLE_CITY_HOME_REGEX.matcher(requestUri) : null);
         Matcher stateHomeMatcher = (requestUri != null ? K12_POSSIBLE_STATE_HOME_REGEX.matcher(requestUri) : null);
-        Matcher topicCenterMatcher = (topicCenterUri != null ? K12_TOPIC_CENTER_URI_REGEX.matcher(topicCenterUri) : null);
 
-        String page = "other";
+        String page = "ot";
         if (!referredByAnotherSite) {
             if (requestUri.equals("/search/search.page") ||
                     requestUri.equals("/search/nearbySearch.page") ||
@@ -60,9 +59,12 @@ public class AdUtil {
                     page = "rc";
                 }
             }
+            // TODO-11730 traffic driver for school overview page url
+            // e.g. http://dev.greatschools.org/california/fresno/842-Lowell-Elementary-School/
+            // use page=so
         }
 
-        String school = (topicCenterMatcher != null && topicCenterMatcher.find() ? topicCenterMatcher.group(1).toUpperCase() : "INT");
+        String school = (StringUtils.isNotBlank(k12School) ? k12School : "INT");
         if (!"INT".equals(school) && STATE_MANAGER.getState(school) == null) {
             school = "INT";
         }

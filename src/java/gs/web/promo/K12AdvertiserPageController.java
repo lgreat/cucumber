@@ -1,11 +1,11 @@
 package gs.web.promo;
 
+import gs.web.util.AdUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +19,7 @@ public class K12AdvertiserPageController {
     final public static String MODEL_K12_SCHOOL = "k12School";
     final public static String MODEL_SCHOOL_NAME = "schoolName";
     final public static String MODEL_HAS_BOTTOM_COPY = "hasBottomCopy";
+    final public static String MODEL_K12_CLICK_THROUGH_URL = "k12ClickThroughUrl";
 
     @RequestMapping(value = "/online-education.page", method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -35,6 +36,10 @@ public class K12AdvertiserPageController {
         model.put(MODEL_K12_SCHOOL, schoolParam);
         model.put(MODEL_SCHOOL_NAME, K12AdvertiserPageHelper.getK12SchoolName(schoolParam));
         model.put(MODEL_HAS_BOTTOM_COPY, K12AdvertiserPageHelper.hasBottomCopy(schoolParam));
+
+        String referrer = request.getHeader("referer");
+        model.put(MODEL_K12_CLICK_THROUGH_URL, AdUtil.getK12ClickThroughUrl(referrer, request.getServerName(), schoolParam));
+
         return new ModelAndView(VIEW_NAME, model);
     }
 }
