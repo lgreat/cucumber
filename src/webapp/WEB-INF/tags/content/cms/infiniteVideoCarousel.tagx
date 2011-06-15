@@ -2,7 +2,8 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link">
     <jsp:directive.attribute name="name" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="items" required="true" type="java.util.List"/>
 
@@ -48,7 +49,11 @@
                     </c:forEach>
                 </ul>
             </div>
-            <p class="smallText1 moreLink"><a href="#">More elementary school videos <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
+            <p class="smallText1 moreLink"><link:cmsVideoGallery
+                    topicCenterId="${topicCenter.contentKey.identifier}"
+                    topicCenterUrl="${topicCenter.fullUri}"
+                    topicIDs="${topicCenter.contentKey.identifier}"
+                    language="EN">More elementary school videos <span class="alertDoubleArrow">&amp;raquo;</span></link:cmsVideoGallery></p>
         </div>
     </c:if>
 
