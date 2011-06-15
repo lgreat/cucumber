@@ -9,19 +9,19 @@
     <jsp:directive.attribute name="includeShareBtn" required="true" type="java.lang.Boolean"
                              description="Whether to include the share button"/>
 
-    <div class="shareThis">
-
-        <!-- Facebook -->
-        <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
-
-        <!-- Twitter -->
-        <promo:tweetButtonArticle/>
+    <div class="shareThis articleDistribution">
 
         <!-- Share This -->
         <c:if test="${includeShareBtn==true}">
                 <script type="text/javascript">var switchTo5x=false;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
                 <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
         </c:if>
+        
+        <!-- Twitter -->
+        <promo:tweetButtonArticle/>
+
+        <!--Facebook -->
+        <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
 
     </div>
 

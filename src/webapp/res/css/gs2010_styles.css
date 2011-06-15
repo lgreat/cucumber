@@ -12819,3 +12819,11 @@ div#tracking {
 #k12AdPage .text1italic {
     line-height: 1.3em;
 }
+
+/******************************************************************
+ * Override style for the share this button on article distribution *
+ ******************************************************************/
+
+.articleDistribution .sharethis{
+    width:auto;
+}

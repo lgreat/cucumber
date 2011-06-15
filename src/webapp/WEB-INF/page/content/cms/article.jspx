@@ -18,22 +18,22 @@
           version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
-<!--<c:choose>-->
-    <!--<c:when test="${type eq 'askTheExperts'}">-->
-        <!--<pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.metaDescription}" title="${feature.title}"/>-->
-    <!--</c:when>-->
-    <!--<c:otherwise>-->
-        <!--<c:choose>-->
-            <!--<c:when test="${type eq 'article' and not empty feature.imageUrl}">-->
-                <!--<pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.summary}" title="${feature.title}"-->
-                                                       <!--imageUrl="${feature.imageUrl}"/>-->
-            <!--</c:when>-->
-            <!--<c:otherwise>-->
-                <!--<pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.summary}" title="${feature.title}"/>-->
-            <!--</c:otherwise>-->
-        <!--</c:choose>-->
-    <!--</c:otherwise>-->
-<!--</c:choose>-->
+<c:choose>
+    <c:when test="${type eq 'askTheExperts'}">
+        <pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.metaDescription}" title="${feature.title}"/>
+    </c:when>
+    <c:otherwise>
+        <c:choose>
+            <c:when test="${type eq 'article' and not empty feature.imageUrl}">
+                <pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.summary}" title="${feature.title}"
+                                                       imageUrl="${feature.imageUrl}"/>
+            </c:when>
+            <c:otherwise>
+                <pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.summary}" title="${feature.title}"/>
+            </c:otherwise>
+        </c:choose>
+    </c:otherwise>
+</c:choose>
 
 <c:choose>
     <c:when test="${type eq 'articleSlideshow'}">
@@ -248,8 +248,6 @@
                 </c:choose>
             </a></li>
         </c:if>
-        
-        <!--<cms:articleDistribution includeFbSendBtn="true" includeShareBtn="false"/>-->
 
         <c:if test="${empty feature.pdfUri}">
             <li>
@@ -260,6 +258,9 @@
             <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
             <gsml:a href="${mailToFriendUrl}"
                     onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"><img src="/res/img/icons/emailIcon.gif" alt="Email"/>&amp;nbsp;<span>Email</span></gsml:a>
+        </li>
+        <li>
+            <cms:articleDistribution includeFbSendBtn="true" includeShareBtn="false"/>
         </li>
     </ul>
 </div><!-- end #cmsArticleFunctions -->
@@ -381,7 +382,8 @@
             <c:if test="${param.print ne 'true'}">
                 <div id="ss_footer" class="rounded_bottom">
                     <!-- share this -->
-                    <cms:communityDistribution content="${feature}"/>
+                    <!--<cms:communityDistribution content="${feature}"/>-->
+                    <cms:articleDistribution includeFbSendBtn="false" includeShareBtn="true"/>
                     ${stepNavContent}
             <!-- TODO-10708 -->
             <ad:adTag position="Sponsor_BelowFold_610x38"/>
@@ -509,8 +511,8 @@
 
 <!-- share this -->
 <c:if test="${type eq 'askTheExperts' or type eq 'article'}">
-    <cms:communityDistribution content="${feature}"/>
-    <!--<cms:articleDistribution includeFbSendBtn="false" includeShareBtn="true"/>-->
+    <!--<cms:communityDistribution content="${feature}"/>-->
+    <cms:articleDistribution includeFbSendBtn="false" includeShareBtn="true"/>
     <div class="clear">&amp;nbsp;</div>
 </c:if>
 
