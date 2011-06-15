@@ -250,11 +250,11 @@
         </c:if>
 
         <c:if test="${empty feature.pdfUri}">
-            <li>
+            <li class="articlePrintAndEmail">
                 <a href="${contentUrl}?print=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}"><img src="/res/img/icons/printIcon.gif" alt="Print"/>&amp;nbsp;<span>Print</span></a>
             </li>
         </c:if>
-        <li>
+        <li class="articlePrintAndEmail">
             <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
             <gsml:a href="${mailToFriendUrl}"
                     onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"><img src="/res/img/icons/emailIcon.gif" alt="Email"/>&amp;nbsp;<span>Email</span></gsml:a>

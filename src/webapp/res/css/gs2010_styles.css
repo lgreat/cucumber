@@ -12827,3 +12827,12 @@ div#tracking {
 .articleDistribution .sharethis{
     width:auto;
 }
+
+.ShareAndTweet {
+    float: left;
+    margin-right: 8px;
+}
+
+.articlePrintAndEmail{
+ margin-top:7px;
+}

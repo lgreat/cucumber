@@ -13,15 +13,24 @@
 
         <!-- Share This -->
         <c:if test="${includeShareBtn==true}">
-                <script type="text/javascript">var switchTo5x=false;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
+            <div class="ShareAndTweet">
+                <script type="text/javascript">var switchTo5x = false;</script>
+                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+                <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
                 <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
+            </div>
+
         </c:if>
-        
+
         <!-- Twitter -->
-        <promo:tweetButtonArticle/>
+        <div class="ShareAndTweet">
+            <promo:tweetButtonArticle/>
+        </div>
 
         <!--Facebook -->
-        <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
+        <div class="ShareAndTweet">
+            <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
+        </div>
 
     </div>
 
