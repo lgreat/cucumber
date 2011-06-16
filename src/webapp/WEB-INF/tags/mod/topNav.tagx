@@ -429,7 +429,7 @@
             <!-- TODO: GS-11665 Uncomment topnav_bts in 17.8 -->
             <li id="topnav_bts" class="nav_menu">
                 <a href="/back-to-school/" class="nav_group_heading GS_CI9_" id="GlobalNav_BackToSchool"><span
-                class="sprite i-bts"><!-- back to school icon --></span>&amp;nbsp;Back to School</a>
+                class="sprite i-bts-12"><!-- back to school icon --></span>&amp;nbsp;Back to School</a>
             </li>
             <!--<li id="topnav_sm" class="nav_menu">-->
                 <!--<p class="socialMedia fltlft">-->
