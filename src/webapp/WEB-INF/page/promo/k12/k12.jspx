@@ -23,14 +23,17 @@
         <pageHelper:addMetaProperty property="description" content="Online education for grades K-12, providing individualized learning customized to each child's needs with award winning curriculum that engages young minds."/>
         <pageHelper:addMetaProperty property="keywords" content="online education,online resources,K-12 educational online resources,virtual academies"/>
 
-        <!-- TODO-11797 TODO-11730 add javascript file for GS-11730 -->
-        <!--<pageHelper:externalJavascript file="/res/js/promo/k12AdvertiserPage.js"/>-->
-
         <script type="text/javascript">
             jQuery(function() {
                 jQuery('#k12AdPage .jq-k12ClickThrough, #Header_728x90 .jq-k12ClickThrough, #AboveFold_300x250 .jq-k12ClickThrough, #Footer_728x90 .jq-k12ClickThrough').
                         unbind('click').click(function() {
-                            window.open(jQuery(this).attr('href') + '${k12ClickThroughUrl}', '_blank');
+                            if (s.tl) {
+                                s.tl(true, 'o', 'K12_ClickThrough_${k12School}');
+                            }
+
+                            var href = jQuery(this).attr('href');
+                            var gamClickTracking = (href !== '#' ? href : '');
+                            window.open(gamClickTracking + '${k12ClickThroughUrl}', '_blank');
                             return false;
                         });
             });

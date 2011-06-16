@@ -16,6 +16,7 @@ import java.util.Map;
 public class K12AdvertiserPageController {
     final public static String VIEW_NAME = "/promo/k12/k12";
     final public static String PARAM_SCHOOL = "school";
+    final public static String PARAM_TRAFFIC_DRIVER = "t";
     final public static String MODEL_K12_SCHOOL = "k12School";
     final public static String MODEL_SCHOOL_NAME = "schoolName";
     final public static String MODEL_HAS_BOTTOM_COPY = "hasBottomCopy";
@@ -23,6 +24,7 @@ public class K12AdvertiserPageController {
 
     @RequestMapping(value = "/online-education.page", method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String trafficDriverParam = request.getParameter(PARAM_TRAFFIC_DRIVER);
         String schoolParam = request.getParameter(PARAM_SCHOOL);
         if (!K12AdvertiserPageHelper.isValidK12School(schoolParam)) {
             return new ModelAndView(new RedirectView301("/online-education.page?school=INT"));
@@ -38,7 +40,7 @@ public class K12AdvertiserPageController {
         model.put(MODEL_HAS_BOTTOM_COPY, K12AdvertiserPageHelper.hasBottomCopy(schoolParam));
 
         String referrer = request.getHeader("referer");
-        model.put(MODEL_K12_CLICK_THROUGH_URL, AdUtil.getK12ClickThroughUrl(referrer, request.getServerName(), schoolParam));
+        model.put(MODEL_K12_CLICK_THROUGH_URL, AdUtil.getK12ClickThroughUrl(referrer, schoolParam, trafficDriverParam));
 
         return new ModelAndView(VIEW_NAME, model);
     }

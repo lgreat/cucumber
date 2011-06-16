@@ -252,6 +252,18 @@
     </function>
     
     <function>
+        <name>isValidK12School</name>
+        <function-class>gs.web.promo.K12AdvertiserPageHelper</function-class>
+        <function-signature>boolean isValidK12School(java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>getK12SchoolName</name>
+        <function-class>gs.web.promo.K12AdvertiserPageHelper</function-class>
+        <function-signature>java.lang.String getK12SchoolName(java.lang.String)</function-signature>
+    </function>
+
+    <function>
         <name>separatedListContains</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>boolean separatedListContains(java.lang.String, java.lang.String, java.lang.String)</function-signature>
