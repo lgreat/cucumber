@@ -19,6 +19,8 @@
 
     <head>
         <title>Online Education, ${schoolName} | GreatSchools</title>
+        <!-- hardcoded to www.greatschools.org instead of using hostname due to cobrand urls -->
+        <link rel="canonical" href="http://www.greatschools.org/online-education.page?school=${k12School}"/>
 
         <pageHelper:addMetaProperty property="description" content="Online education for grades K-12, providing individualized learning customized to each child's needs with award winning curriculum that engages young minds."/>
         <pageHelper:addMetaProperty property="keywords" content="online education,online resources,K-12 educational online resources,virtual academies"/>
