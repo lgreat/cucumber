@@ -45,7 +45,7 @@ GS.promo.K12.TrafficDriver = function() {
     };
 
     this.getGamStateAttr = function(classList) {
-        for (var i = 0; i < classList.length; i++) {
+        for (var i = 0, classListLength = classList.length; i < classListLength; i++) {
             if (classList[i].startsWith('k12s-')) {
                 var stateAttr = classList[i].replace(/^k12s-/, '');
                 return (stateAttr !== '' ? stateAttr : null);
@@ -67,7 +67,7 @@ GS.promo.K12.TrafficDriver = function() {
     }.k12_traffic_driver_bind(this);
 
     this.getK12TrafficDriver = function(classList) {
-        for (var i = 0; i < classList.length; i++) {
+        for (var i = 0, classListLength = classList.length; i < classListLength; i++) {
             if (classList[i].startsWith('k12t-')) {
                 var k12TrafficDriver = classList[i].replace(/^k12t-/, '');
                 if (k12TrafficDriver != null && k12TrafficDriver.length === 2) {
