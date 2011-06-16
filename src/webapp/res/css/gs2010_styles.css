@@ -3322,6 +3322,12 @@ Viewport: the defines width and height of each icon
 .aboutNav .bd ul{border: 1px solid #ccc;padding: 10px 12px 5px;}
 .aboutNav .bd li{margin-bottom: 6px;}
 
+/* ------- aboutOverview (extends mod) ------- */
+.aboutOverview{margin-top:15px;}
+.aboutOverview .inner{background: white;}
+.aboutOverview .hd h3{margin-bottom: 5px;font: 18px Georgia, "Times New Roman", Times, serif;color:#d61;}
+.aboutOverview .bd{font: 12px Arial, Helvetica, sans-serif;color: #333;}
+
 /* ------------ background tints ------------- */
 .bgtint-fff{
     background-color: white;
@@ -3673,6 +3679,10 @@ Viewport: the defines width and height of each icon
 
 .brdbtm_dotted {
     border-bottom: 1px dotted #999;
+}
+
+.brdbtm_med_dotted-999 {
+    border-bottom: medium dotted #999;
 }
 
 .brdbtm_solid {
@@ -12611,103 +12621,6 @@ p#btsBubbleOpts {
 
 /* =About Us
 -------------------------------------------------------------------------------------------*/
-
-.leftside #contentGS {
-    background: none;
-}
-
-div.contentLeft {
-    width: 160px;
-    float: left;
-    margin: 0 0 0 20px;
-}
-
-.ie6 div.contentLeft {
-    margin-left: 10px;
-}
-
-.contentLeft .marginTop {
-    margin-top: 15px;
-}
-.text3boldOrange {
-    color: #DD6611;
-    font: bold 12px/1.3 Arial,Helvetica,sans-serif;
-}
-
-div.main {
-    width: 753px;
-    float: left;
-    margin-left: 15px;
-}
-
-.module {
-    overflow: hidden;
-}
-.contentLeft .module .header{
-    height:26px;
-    background:url(/res/img/discussion_boards/db_bg_header.png) repeat-x left top;
-    padding:0 10px;
-}
-.contentLeft .module .header .text2bold {
-    color: #fff;
-    padding-top: 5px;
-}
-.contentLeft .module .body {
-    border: 1px solid #ccc;
-    padding: 10px 12px 15px 12px;
-}
-.contentLeft .module span, .contentLeft .module a {
-    display: block;
-}
-.contentLeft .module .body span, .contentLeft .module .body a {
-    margin-top: 5px;
-}
-.contentLeft .module .body span.noMargin {
-    margin-top: 0;
-}
-.contentLeft .module .body span.extraMargin {
-    margin-top: 10px;
-}
-
-.main img {
-    display: block;
-}
-.main .guides .module {
-    width: 237px;
-    float: left;
-    margin: 15px 0 0 20px;
-}
-.main .guides .module.noMargin {
-    margin-left: 0;
-}
-.main .module .header {
-    margin-bottom: 5px;
-}
-
-hr.dotted {
-    border: none;
-    border-bottom: medium dotted #999;
-    width: 753px;
-    margin: 20px 0;
-}
-
-.main .thinkLocal {
-    padding-left: 181px;
-    position: relative;
-}
-.main .thinkLocal img {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.ie6 .main .thinkLocal img {
-    left: -181px;
-}
-
-div#tracking {
-    clear: both;
-}
-
 
 /**********************
  * BOARD OF DIRECTORS *
