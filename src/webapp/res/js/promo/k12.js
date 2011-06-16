@@ -102,7 +102,9 @@ jQuery(function() {
                 s.tl(true, 'o', 'K12_TrafficDriver_${k12School}');
             }
 
-            window.open(href + 'http://' + hostname + '/online-education.page?school=' + k12School + '&t=' + k12TrafficDriver, '_blank');
+            var encodedClickThroughUrl =
+                encodeURIComponent('http://' + hostname + '/online-education.page?school=' + k12School + '&t=' + k12TrafficDriver);
+            window.open(href + encodedClickThroughUrl, '_blank');
             return false;
         }
 

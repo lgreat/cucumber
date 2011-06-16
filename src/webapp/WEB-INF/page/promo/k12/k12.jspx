@@ -33,7 +33,11 @@
 
                             var href = jQuery(this).attr('href');
                             var gamClickTracking = (href !== '#' ? href : '');
-                            window.open(gamClickTracking + '${k12ClickThroughUrl}', '_blank');
+                            if (gamClickTracking === '') {
+                                window.open('${k12ClickThroughUrl}', '_blank');
+                            } else {
+                                window.open(gamClickTracking + encodeURIComponent('${k12ClickThroughUrl}'), '_blank');
+                            }
                             return false;
                         });
             });
