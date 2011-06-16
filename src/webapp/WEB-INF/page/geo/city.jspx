@@ -7,6 +7,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+        xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
@@ -69,7 +70,7 @@
     <c:if test="${not empty requestScope.canonicalCityPath}">
         <link rel="canonical" href="${requestScope.canonicalCityPath}" />
     </c:if>
-
+    <k12:trafficDriverIncludes/>
 </head>
 
 <gsml:body adPageName="city" pageLayout="nocol">

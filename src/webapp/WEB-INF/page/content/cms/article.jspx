@@ -13,6 +13,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
@@ -130,6 +131,8 @@
     <c:if test="${type eq 'article'}">
         <link rel="canonical" href="${contentUrl}"/>
     </c:if>
+
+    <k12:trafficDriverIncludes/>
 </head>
 <body>
 

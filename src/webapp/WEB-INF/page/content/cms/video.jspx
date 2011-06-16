@@ -11,6 +11,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
@@ -64,7 +65,7 @@
             }
         </script>
     </c:if>
-
+    <k12:trafficDriverIncludes/>
 </head>
 <body>
 

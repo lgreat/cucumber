@@ -9,6 +9,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           xmlns:link="urn:www.greatschools.org/taglib/link"
@@ -65,6 +66,7 @@
     <c:if test="${not empty requestScope.canonicalStatePath}">
         <link rel="canonical" href="${requestScope.canonicalStatePath}" />
     </c:if>
+    <k12:trafficDriverIncludes/>
 </head>
 
 <ad:setSlotPrefix slotPrefix="Research_Compare_State_Home_Page"/>

@@ -13,6 +13,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
@@ -88,6 +89,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         </c:if>
     </c:if>
     <school:profile2010ShareThisJavaScript/>
+    <k12:trafficDriverIncludes/>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 
