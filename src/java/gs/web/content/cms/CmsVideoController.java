@@ -1,9 +1,11 @@
 package gs.web.content.cms;
 
 
+import gs.data.cms.IPublicationDao;
 import gs.data.content.ArticleComment;
 import gs.data.content.IArticleDao;
 import gs.data.content.cms.*;
+import gs.data.util.SpringUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,7 +123,7 @@ public class CmsVideoController extends AbstractController {
         model.put("comments", comments);
         model.put("feature", feature);
 
-        model.put("breadcrumbs", CmsContentUtils.getBreadcrumbs(feature.getPrimaryKategoryBreadcrumbs(), feature.getLanguage(), request));
+        model.put("breadcrumbs", getBreadcrumbs(feature, request));
 
         // add an "article" or "askTheExperts" variable to the model
         String type = feature.getContentKey().getType();
@@ -137,6 +140,45 @@ public class CmsVideoController extends AbstractController {
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    /*
+     *  Feel free to change this method to make it more efficient
+     */
+    protected List<CmsLink> getBreadcrumbs(final CmsFeature feature, final HttpServletRequest request) {
+        List<CmsLink> breadcrumbs = new ArrayList<CmsLink>();
+//feature.getCommaSeparatedGradeIds();
+        //breadcrumbs.add(getBreadcrumbForTopicCenterWithId(2077l, request));
+        breadcrumbs.add(getBreadcrumbForTopicCenterWithId(1574l, request));
+        breadcrumbs.add(getGalleryBreadcrumbForTopicCenterWithId(1574l, request));
+        return breadcrumbs;
+        
+    }
+
+    protected CmsLink getBreadcrumbForTopicCenterWithId(Long id, HttpServletRequest request) {
+        CmsLink link = new CmsLink();
+        ContentKey contentKey = new ContentKey("TopicCenter",id);
+        CmsTopicCenter topicCenter = getPublicationDao().populateByContentId(contentKey.getIdentifier(), new CmsTopicCenter());
+        
+        UrlBuilder builder = new UrlBuilder(contentKey);
+
+        link.setLinkText(topicCenter.getTitle());
+        link.setUrl(builder.asSiteRelative(request));
+        return link;
+    }
+
+    protected CmsLink getGalleryBreadcrumbForTopicCenterWithId(Long id, HttpServletRequest request) {
+        CmsLink link = new CmsLink();
+        ContentKey contentKey = new ContentKey("TopicCenter",id);
+        CmsTopicCenter topicCenter = getPublicationDao().populateByContentId(contentKey.getIdentifier(), new CmsTopicCenter());
+
+        String grades = "199,200,201,202,203,204";
+        
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.CMS_VIDEO_GALLERY, id, topicCenter.getFullUri(), null, null, grades, null);
+
+        link.setLinkText(topicCenter.getTitle() + " Videos");
+        link.setUrl(builder.asSiteRelative(request));
+        return link;
     }
 
     protected void addGamAttributes(HttpServletRequest request, CmsFeature feature) {
@@ -187,6 +229,10 @@ public class CmsVideoController extends AbstractController {
         }
 
         return builder;
+    }
+
+    private static IPublicationDao getPublicationDao() {
+        return (IPublicationDao) SpringUtil.getApplicationContext().getBean("publicationDao");
     }
 
     public String getViewName() {

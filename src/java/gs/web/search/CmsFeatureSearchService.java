@@ -2,7 +2,9 @@ package gs.web.search;
 
 import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.ContentKey;
+import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
+import org.apache.solr.client.solrj.SolrQuery;
 
 import java.util.List;
 
@@ -16,4 +18,5 @@ public interface CmsFeatureSearchService {
                                                                      String language, int pageSize, int offset);
     public SearchResultsPage<ICmsFeatureSearchResult> getCmsFeaturesByType(List<CmsCategory> primaryTopics, String contentType,
                                                                      int pageSize, int offset);
+    public SearchResultsPage<ICmsFeatureSearchResult> search(SolrQuery query) throws SearchException;
 }

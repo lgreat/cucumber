@@ -1,11 +1,15 @@
 package gs.web.content.cms;
 
-import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.CmsConstants;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.ICmsCategoryDao;
 import gs.data.school.LevelCode;
+import gs.data.search.GsSolrQuery;
+import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
+import gs.data.search.fields.CmsFeatureFields;
+import gs.data.search.fields.DocumentType;
 import gs.data.util.CmsUtil;
 import gs.web.pagination.DefaultPaginationConfig;
 import gs.web.pagination.Pagination;
@@ -23,7 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class should probably share code with CmsTopicCenterController2010 through composition rather than inheritance,
@@ -40,7 +47,7 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
     private String _viewName;
 
     private CmsFeatureSearchService _cmsFeatureSearchService;
-    
+
     public static final PaginationConfig VIDEO_GALLERY_PAGINATION_CONFIG;
 
     static {
@@ -142,25 +149,43 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
     }
 
     public void addPageSpecificContentToModel(HttpServletRequest request, Map<String, Object> model) {
-        Set categoryIds = getCategoryIdsFromRequest(request);
 
-        if (categoryIds.size() > 0) {
-            String categoryIdsStr = StringUtils.join(categoryIds, ",");
-            List<CmsCategory> categories = getCmsCategoryDao().getCmsCategoriesFromIds(categoryIdsStr);
-            //Search for videos categorized with the grades, subjects and topics.
+        RequestedPage requestedPage = Pagination.getPageFromRequest(request);
 
-            RequestedPage requestedPage = Pagination.getPageFromRequest(request);
+        //Search for videos categorized with the grades, subjects and topics.
 
-            String queryString = request.getQueryString();
-            String url = request.getRequestURL().toString();
-            if (queryString != null) {
-                url+= "?" + queryString;
-            }
-            
-            model.put(MODEL_FULL_URL, url);
+        GsSolrQuery query = new GsSolrQuery();
+        query.filter(DocumentType.CMS_FEATURE);
+        query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);
 
-            SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", requestedPage.pageSize, requestedPage.offset);
+        //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
+        //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
+        //The categories for the 'videos' subtopics are entered in the cms on the topic center template.
 
+        if (StringUtils.isNotBlank(request.getParameter("grades"))) {
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("grades").split(",")));
+        }
+        if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("subjects").split(",")));
+        }
+        if (StringUtils.isNotBlank(request.getParameter("topics"))) {
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("topics").split(",")));
+        }
+
+        query.page(requestedPage.offset, requestedPage.pageSize);
+
+        String queryString = request.getQueryString();
+        String url = request.getRequestURL().toString();
+        if (queryString != null) {
+            url+= "?" + queryString;
+        }
+
+        model.put(MODEL_FULL_URL, url);
+
+        //SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", requestedPage.pageSize, requestedPage.offset);
+
+        try {
+            SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
             addPagingDataToModel(requestedPage.offset, requestedPage.pageSize, searchResults.getTotalResults(), model);
 
             if (searchResults != null && searchResults.getTotalResults() > 0) {
@@ -168,26 +193,9 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
             } else {
                 model.put(MODEL_VIDEO_RESULTS, new ArrayList());
             }
+        } catch (SearchException e) {
+            _log.debug("Error when searching for cms features using categories", e);
         }
-
-
-    }
-
-    private Set getCategoryIdsFromRequest(HttpServletRequest request) {
-        Set categoryIds = new TreeSet();
-        //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
-        //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
-        //The categories for the 'videos' subtopics are entered in the cms on the topic center template.
-        if (StringUtils.isNotBlank(request.getParameter("grades"))) {
-            categoryIds.addAll(Arrays.asList(request.getParameter("grades").split(",")));
-        }
-        if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
-            categoryIds.addAll(Arrays.asList(request.getParameter("subjects").split(",")));
-        }
-        if (StringUtils.isNotBlank(request.getParameter("topics"))) {
-            categoryIds.addAll(Arrays.asList(request.getParameter("topics").split(",")));
-        }
-        return categoryIds;
     }
 
     /**
