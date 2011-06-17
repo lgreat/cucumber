@@ -344,18 +344,18 @@ function debug(what) {
                     $items = $slider.find('> li'),
                     $single = $items.filter(':first'),
 
-                    viewWidth = $wrapper.outerWidth();
+                    viewWidth = $wrapper.innerWidth(),
                     singleWidth = $single.outerWidth(),
                     visible = Math.ceil(viewWidth / singleWidth),// note: does not include padding or border
                     currentPage = 1,
                     pages = Math.ceil($items.length / visible);
 
-                // console.log('viewWidth: '+viewWidth);
-                // console.log('singleWidth: '+singleWidth);
-                // console.log('visible: '+visible);
-                // console.log('pages: '+pages);
-                // console.log('length of all items: '+$items.length);
-                // console.log('(length of all items % visible): '+($items.length % visible));
+//                console.log('viewWidth: '+viewWidth);
+//                console.log('singleWidth: '+singleWidth);
+//                console.log('visible: '+visible);
+//                console.log('pages: '+pages);
+//                console.log('length of all items: '+$items.length);
+//                console.log('(length of all items % visible): '+($items.length % visible));
 
                 // 1. Pad so that 'visible' number will always be seen, otherwise create empty items
                 if (($items.length % visible) != 0) {
@@ -364,16 +364,17 @@ function debug(what) {
                 }
 
                 // 2. Top and tail the list with 'visible' number of items, top has the last section, and tail has the first
-                $items.filter(':first').before($items.slice(- visible).clone().addClass('cloned'));
+                $items.filter(':first').before($items.slice(-visible).clone().addClass('cloned'));
                 $items.filter(':last').after($items.slice(0, visible).clone().addClass('cloned'));
                 $items = $slider.find('> li'); // reselect
 
                 // 3. Set the left position to the first 'real' item
                 $wrapper.scrollLeft(singleWidth * visible);
-                // console.log('first item position: '+(singleWidth * visible));
+//                console.log('first item position: '+(singleWidth * visible));
 
                 // 4. paging function
                 function gotoPage(page) {
+//                    console.log('Current Page: '+currentPage);
                     var dir = page < currentPage ? -1 : 1,
                         n = Math.abs(currentPage - page),
                         left = singleWidth * dir * visible * n;
@@ -396,7 +397,7 @@ function debug(what) {
                     return false;
                 }
 
-                $wrapper.after('<a class="arrow back rnd3">&lsaquo;</a><a class="arrow forward rnd3">&rsaquo;</a>');
+                pages > 1 ? $wrapper.after('<a class="arrow back rnd3">&lsaquo;</a><a class="arrow forward rnd3">&rsaquo;</a>') : $wrapper;
 
                 // 5. Bind to the forward and back buttons
                 $('a.back', this).click(function () {
