@@ -169,7 +169,7 @@
 
             <c:choose>
                 <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
-                    <cms:infiniteVideoCarousel name="${requestScope.topicCenter.carouselName}"
+                    <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
                                   items="${requestScope.videoCarouselItems}"/>
                     <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
                                           items="${requestScope.carouselItems}"/>
@@ -177,7 +177,7 @@
                 <c:otherwise>
                     <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
                                   items="${requestScope.carouselItems}"/>
-                    <cms:infiniteVideoCarousel name="${requestScope.topicCenter.carouselName}"
+                    <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
                                   items="${requestScope.videoCarouselItems}"/>
                 </c:otherwise>
             </c:choose>
