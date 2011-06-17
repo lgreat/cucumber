@@ -95,37 +95,37 @@
                             <div class="brdlft_dotted plm">
                                 <div class="line">
                                     <div class="unit size1of3">
-                                        <div class="mediaExt4 text-align-cen">
-                                            <div class="img">
+                                        <div class="text-align-cen">
+                                            <div class="mbs">
                                                 <a href="http://twitter.com/greatschools" target="_blank">
                                                     <span class="sprite i-twitter-l"><!-- do not collapse --></span>
                                                 </a>
                                             </div>
-                                            <div class="bk smallText1 text-align-cen">
+                                            <div class="smallText1">
                                                 <a href="http://twitter.com/greatschools" target="_blank">Twitter</a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="unit size1of3">
-                                        <div class="mediaExt4 text-align-cen">
-                                            <div class="img">
+                                        <div class="text-align-cen">
+                                            <div class="mbs">
                                                 <a href="http://blogs.greatschools.org/greatschoolsblog/"
                                                    target="_blank">
                                                     <span class="sprite i-blog-l"><!-- do not collapse --></span>
                                                 </a>
                                             </div>
-                                            <div class="bk smallText1 wsnw text-align-cen">
+                                            <div class="smallText1 wsnw">
                                                 <a href="http://blogs.greatschools.org/greatschoolsblog/"
                                                    target="_blank">Blog</a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="unit size1of3 lastUnit">&amp;nbsp;
-                                        <!--<div class="mediaExt4 text-align-cen">
-                                            <div class="img">
+                                        <!--<div class="text-align-cen">
+                                            <div class="mbs">
                                                 <span class="sprite i-iphone">&lt;!&ndash; do not collapse &ndash;&gt;</span>
                                             </div>
-                                            <div class="bk smallText1 text-align-cen">Mobile</div>
+                                            <div class="smallText1">Mobile</div>
                                         </div>-->
                                     </div>
                                 </div>
