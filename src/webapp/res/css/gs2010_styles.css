@@ -9280,6 +9280,8 @@ body.ie8 #reviewOverallRating {
     width: 100%;
     _width: 99%;
     height: 94px;
+    resize: none;
+    outline:none;
 }
 
 #frmPRModule .helperMessage {
