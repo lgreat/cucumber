@@ -1,9 +1,9 @@
 package gs.web.content.cms;
 
 import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.CmsSubtopic;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.content.cms.ContentKey;
-import gs.data.content.cms.ICmsCategoryDao;
 import gs.data.school.LevelCode;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
@@ -27,10 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class should probably share code with CmsTopicCenterController2010 through composition rather than inheritance,
@@ -80,10 +77,12 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
         if (contentId == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            _log.debug("Content ID is null. Returning 404.");
             return new ModelAndView("/status/error404.page");
         } else {
             ModelAndView specialCaseRedirect = getRedirectForSpecialTopicCenters(request, contentId);
             if (specialCaseRedirect != null) {
+                _log.debug("Redirecting for content ID " + String.valueOf(contentId));
                 return specialCaseRedirect;
             }
         }
@@ -138,7 +137,7 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
 
         //start adding content for middle area of page
-        addPageSpecificContentToModel(request, model);
+        addPageSpecificContentToModel(request, topicCenter, model);
 
 
         if(isAjaxRequest(request) && StringUtils.isNotBlank(request.getParameter("requestType")) && request.getParameter("requestType").equals("ajax")){
@@ -148,11 +147,19 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         }
     }
 
-    public void addPageSpecificContentToModel(HttpServletRequest request, Map<String, Object> model) {
+    public void addPageSpecificContentToModel(HttpServletRequest request, CmsTopicCenter cmsTopicCenter, Map<String, Object> model) {
 
         RequestedPage requestedPage = Pagination.getPageFromRequest(request);
 
-        //Search for videos categorized with the grades, subjects and topics.
+        //find the "videos" subtopic for the topic center we're on
+        List<CmsSubtopic> subtopics = cmsTopicCenter.getSubtopics();
+        CmsSubtopic videoSubtopic = null;
+        for (CmsSubtopic topic : subtopics) {
+            if ("videos".equals(topic.getTitle())) {
+                videoSubtopic = topic;
+                break;
+            }
+        }
 
         GsSolrQuery query = new GsSolrQuery();
         query.filter(DocumentType.CMS_FEATURE);
@@ -162,14 +169,23 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
         //The categories for the 'videos' subtopics are entered in the cms on the topic center template.
 
+        //Search for videos categorized with the grades, subjects and topics.
+        //If grades/subjects/topics parameters are requested, use them. otherwise, use whatever was configured
+        //in the cms for the videos subtopic
         if (StringUtils.isNotBlank(request.getParameter("grades"))) {
             query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("grades").split(",")));
+        } else if (videoSubtopic != null && !StringUtils.isBlank(videoSubtopic.getGradeIDs())){
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getGradeIDs().split(",")));
         }
         if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
             query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("subjects").split(",")));
+        } else if (videoSubtopic != null && !StringUtils.isBlank(videoSubtopic.getSubjectIDs())){
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getSubjectIDs().split(",")));
         }
         if (StringUtils.isNotBlank(request.getParameter("topics"))) {
             query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("topics").split(",")));
+        } else if (videoSubtopic != null && !StringUtils.isBlank(videoSubtopic.getTopicIDs())){
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getTopicIDs().split(",")));
         }
 
         query.page(requestedPage.offset, requestedPage.pageSize);
@@ -181,8 +197,6 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         }
 
         model.put(MODEL_FULL_URL, url);
-
-        //SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().getCmsFeaturesByType(categories, "Video", requestedPage.pageSize, requestedPage.offset);
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
