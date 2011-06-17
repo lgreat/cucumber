@@ -125,6 +125,9 @@ public class SchoolSearchController extends AbstractCommandController implements
     protected static final String VIEW_NOT_FOUND = "/status/error404";
 
     @Override
+    /*
+     * TODO: this method needs to be refactored. first step: switch it to use  GsSolrQuery instead of SchoolSearchServiceSolrImpl
+     */
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
@@ -270,7 +273,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
         SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
-        if (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) {
+        if (state != null && (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels()))) {
             try {
                 SchoolSearchService service = getSchoolSearchService();
                 if (schoolSearchCommand.getSearchType() == SchoolSearchType.LOOSE) {
@@ -360,8 +363,11 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_SEARCH_STRING, searchString);
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
+
+        if (state != null) {
         model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
                                      filterGroups, levelCode, searchString));
+        }
 
         if (commandAndFields.isCityBrowse()) {
             model.putAll(new CityMetaDataHelper().getMetaData(commandAndFields));
@@ -1275,6 +1281,11 @@ public class SchoolSearchController extends AbstractCommandController implements
             State state = _commandAndFields.getState();
             List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
 
+            if (state == null) {
+                //don't try to find cities without a state
+                return citySearchResults;
+            }
+
             Map<IFieldConstraint, String> cityConstraints = new HashMap<IFieldConstraint, String>();
             cityConstraints.put(CitySearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
 
@@ -1347,7 +1358,12 @@ public class SchoolSearchController extends AbstractCommandController implements
         public List<IDistrictSearchResult> searchForDistricts() {
             String searchString = _commandAndFields.getSearchString();
             State state = _commandAndFields.getState();
-            List<IDistrictSearchResult> citySearchResults = new ArrayList<IDistrictSearchResult>();
+            List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
+
+            if (state == null) {
+                //don't try to find districts without a state
+                return districtSearchResults;
+            }
 
             Map<IFieldConstraint, String> districtConstraints = new HashMap<IFieldConstraint, String>();
             districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
@@ -1355,13 +1371,13 @@ public class SchoolSearchController extends AbstractCommandController implements
             try {
                 if (searchString != null) {
                     SearchResultsPage<IDistrictSearchResult> districtPage = getDistrictSearchService().search(searchString, districtConstraints, null, null, 0, DEFAULT_LIMIT);
-                    citySearchResults = districtPage.getSearchResults();
+                    districtSearchResults = districtPage.getSearchResults();
                 }
             } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", ex);
             }
 
-            return citySearchResults;
+            return districtSearchResults;
         }
     }
 }
