@@ -6,8 +6,9 @@
     <jsp:directive.attribute name="name" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="items" required="true" type="java.util.List"/>
 
-    <c:if test="${not empty pageScope.name and not empty pageScope.items}">
-        <c:set var="numCarouselItems" value="${fn:length(pageScope.items)}"/>
+    <c:set var="numCarouselItems" value="${fn:length(pageScope.items)}"/>
+    <!--<p>Number of carousel items: <c:out value="${numCarouselItems}" default="not set"/></p>-->
+    <c:if test="${not empty pageScope.name and not empty pageScope.items and numCarouselItems ge 3}">
 
         <div class="infiniteCarousel1">
             <h3 class="ic_title title2-d61">${pageScope.name}</h3>
