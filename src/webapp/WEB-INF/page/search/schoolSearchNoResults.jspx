@@ -67,6 +67,9 @@
                     <c:when test="${isNearbySearch}">
                         <p class="introText-c03">Your search for <strong>${param.zipCode}</strong> did not match any schools.</p>
                     </c:when>
+                    <c:when test="${empty state}">
+                        <p class="introText-c03">No results were found because a state was not selected. Please choose a state and try your search again.</p>
+                    </c:when>
                     <c:otherwise>
                         <p class="introText-c03">Your search for <strong>${badSearch}</strong> did not match any schools in ${state.longName}.</p>
                     </c:otherwise>
