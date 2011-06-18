@@ -129,16 +129,22 @@
 
                                     <c:choose>
                                         <c:when test="${topicCenter.mainFeatureLink.type eq 'Video'}">
-                                            <div class="mediaExt1-1 fltrt">
-                                                <div class="img"><span
-                                                        class="sprite video"><!-- do not collapse --></span>
-                                                </div>
-                                                <div class="bk more-features smallText1">
-                                                    <a class="wsnw"
-                                                       href="${topicCenter.mainFeatureLink.url}">Watch video <span
-                                                            class="alertDoubleArrow">&amp;raquo;</span></a>
+
+                                            <div class="line">
+                                                <div class="unit size3of4">&amp;nbsp;</div>
+                                                <div class="unit size1of4 lastUnit">
+                                                    <div class="mediaExt1-1">
+                                                        <span class="img sprite video"><!-- do not collapse --></span>
+
+                                                        <div class="bk smallText1">
+                                                            <a class="wsnw"
+                                                               href="${topicCenter.mainFeatureLink.url}">Watch video <span
+                                                                    class="alertDoubleArrow">&amp;raquo;</span></a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </c:when>
                                         <c:otherwise>
                                             <span class="fltrt smallText1">
