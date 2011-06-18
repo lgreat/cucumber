@@ -93,26 +93,6 @@
                     </c:otherwise>
                 </c:choose>
 
-                <c:set var="typeButtonText" value="Community (${requestScope.numDiscussions})"/>
-                <c:choose>
-                    <c:when test="${requestScope.type eq 'community' or requestScope.numArticles eq 0}">
-                        <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
-                        <c:set var="searchType" value="community"/>
-                    </c:when>
-                    <c:otherwise>
-                        <li>
-                            <c:choose>
-                                <c:when test="${requestScope.numDiscussions eq 0}">
-                                    ${typeButtonText}
-                                </c:when>
-                                <c:otherwise>
-                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch>
-                                </c:otherwise>
-                            </c:choose>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-
                 <c:set var="typeButtonText" value="Videos (${requestScope.numVideos})"/>
                 <c:choose>
                     <c:when test="${requestScope.type eq 'videos' or requestScope.numArticles eq 0}">
@@ -127,6 +107,26 @@
                                 </c:when>
                                 <c:otherwise>
                                     <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="videos">${typeButtonText}</link:contentSearch>
+                                </c:otherwise>
+                            </c:choose>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:set var="typeButtonText" value="Community (${requestScope.numDiscussions})"/>
+                <c:choose>
+                    <c:when test="${requestScope.type eq 'community' or requestScope.numArticles eq 0}">
+                        <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
+                        <c:set var="searchType" value="community"/>
+                    </c:when>
+                    <c:otherwise>
+                        <li>
+                            <c:choose>
+                                <c:when test="${requestScope.numDiscussions eq 0}">
+                                    ${typeButtonText}
+                                </c:when>
+                                <c:otherwise>
+                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch>
                                 </c:otherwise>
                             </c:choose>
                         </li>
