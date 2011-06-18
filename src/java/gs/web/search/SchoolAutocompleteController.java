@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,11 +29,15 @@ public class SchoolAutocompleteController {
     @RequestMapping(method= RequestMethod.GET)
     public void handleRequestInternal(@RequestParam("q") String searchString, @RequestParam("state") String state, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        List<String> suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 150);
-
-        response.setContentType("application/json");
-        cacheInterceptor.setCacheHeaders(response);
         try {
+            List<String> suggestions = new ArrayList<String>();
+            if (!StringUtils.isBlank(state) && !StringUtils.isBlank(searchString)) {
+                suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 150);
+            }
+
+            response.setContentType("application/json");
+            cacheInterceptor.setCacheHeaders(response);
+
             PrintWriter writer = response.getWriter();
             for (String suggestion : suggestions) {
                 writer.println(suggestion);
@@ -40,6 +45,8 @@ public class SchoolAutocompleteController {
             writer.flush();
         } catch (IOException e) {
             _log.warn("Error when searching for suggestions for school autosuggest.",e);
+        } catch (Exception e) {
+            _log.debug("Unexpected error when searching for suggestions for school autosuggest.",e);
         }
     }
 
