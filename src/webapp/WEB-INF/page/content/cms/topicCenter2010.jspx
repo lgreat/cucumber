@@ -104,6 +104,10 @@
 
         <div id="topicbarGS" class="col">
             <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+
+            <div class="skyscraperAd">
+                <ad:AboveFold_Left_160x600/>
+            </div>
         </div>
         <!-- end #topicbarGS -->
 

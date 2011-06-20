@@ -103,7 +103,7 @@
                     <input name="type" type="hidden" value="school"/>
 
                     <div class="line form">
-                        <div class="unit size4of7 mrs">
+                        <div class="unit size57of100 mrm">
                             <input type="text"
                                    value="Enter school, district, or city"
                                    name="q"
@@ -113,7 +113,7 @@
                                    onblur="textSwitch(this, 'Enter school, district, or city', '');"/>
                         </div>
 
-                        <div class="unit size2of11 mhs">
+                        <div class="unit size18of100 mrs">
                             <gsweb:stateSelector usingLongNames="false"
                                                  state="${requestScope.context.state}"
                                                  useNoState="${not requestScope.context.hasSearched}"
@@ -121,13 +121,12 @@
                                                  noStateLabel="--"/>
                         </div>
 
-                        <div class="unit size3of17 mls">
+                        <div class="unit size25of100 lastUnit">
                             <button class="button-1"
                                     type="submit"
                                     onclick="s_objectID='splash_schools_go';">GO
                             </button>
                         </div>
-                        <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                     </div>
                 </gsweb:form>
             </div>

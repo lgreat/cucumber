@@ -42,10 +42,4 @@
         </c:otherwise>
     </c:choose>
 
-    <div class="skyscraperAd">
-        <ad:AboveFold_Left_160x600/>
-    </div>
-
-    <br/>
-    
 </jsp:root>

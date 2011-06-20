@@ -68,69 +68,76 @@
     <ad:setSlotPrefix slotPrefix="${slotPrefixName}"/>
 </head>
 
-<gsml:body adPageName="${pageName}">
+<gsml:body adPageName="${pageName}" pageLayout="nocol">
 
-<school:miniStateLauncherHover/>
+    <div class="container_24">
+        <div class="grid_16">
 
-    <div id="mainGS" class="col">
-    
-    <cms:topicCenterBreadcrumbs topicCenter="${topicCenter}"/>
+            <school:miniStateLauncherHover/>
 
-    <div><h1 class="fltlft">${topicCenter.title}</h1></div>
+            <cms:topicCenterBreadcrumbs topicCenter="${topicCenter}"/>
 
-    <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
-    <cms:contentProviderLogoAd topicCenter="${topicCenter}"/>
-    <!-- end logoAd -->
+            <h1 class="mlm pls">${topicCenter.title}</h1>
 
-    <div class="spacer_5"><!-- don't collapse --></div>
-    <!--<gsweb:adTagGenerator position="Inline_598x50"/>-->
-    <!-- Subtopics -->
-    <div id="topicContentGS" class="clearfix">
+            <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
+            <cms:contentProviderLogoAd topicCenter="${topicCenter}"/>
+            <!-- end logoAd -->
 
-        <div id="topicbarGS" class="col">
-            <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+            <div class="spacer_5"><!-- don't collapse --></div>
+            <!--<gsweb:adTagGenerator position="Inline_598x50"/>-->
+            <!-- Subtopics -->
+
+            <div class="grid_5 alpha">
+                <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+
+                <div class="skyscraperAd">
+                    <ad:AboveFold_Left_160x600/>
+                </div>
+            </div>
+
+            <div class="grid_11 omega">
+                <div class="spacer_10 brdtop_dotted"><!-- do not collapse --></div>
+                <!-- hardcoded grades and topics for the video gallery page.GS-11651 -->
+                <div class="line">
+                    <div class="unit size15of100 text3">Filtered by:</div>
+                    <div class="unit size26of100">
+                        <select id="js_gradesDropdown" class="js_videoFilterDropDown type">
+                            <option value="-1">Grade Levels</option>
+                            <option value="199">Kindergarten</option>
+                            <option value="200">First Grade</option>
+                            <option value="201">Second Grade</option>
+                            <option value="202">Third Grade</option>
+                            <option value="203">Fourth Grade</option>
+                            <option value="204">Fifth Grade</option>
+                        </select>
+                    </div>
+                    <div class="unit 59of100 lastUnit">
+                        <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
+                            <option value="-1">Topic</option>
+                            <option value="133">Academic Skills</option>
+                            <option value="140">Homework Help</option>
+                            <!--<option value="">Motivation &amp; Confidence</option>-->
+                            <option value="241">Parental Power</option>
+                            <option value="240">Understanding the System</option>
+                            <option value="124">Behavior &amp; Discipline</option>
+                            <option value="157">Social Skills</option>
+                            <option value="149">Bullying</option>
+                            <!--<option value="">Learning and Development</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+
+                <div id="js_videoGalleryData">
+                    <cms:videoGalleryTable/>
+                </div>
+            </div>
         </div>
-        <!-- end #topicbarGS -->
-
-        <!-- hardcoded grades and topics for the video gallery page.GS-11651 -->
-        <select id="js_gradesDropdown" class="js_videoFilterDropDown type">
-            <option value="-1">Grade Levels</option>
-            <option value="199">Kindergarten</option>
-            <option value="200">First Grade</option>
-            <option value="201">Second Grade</option>
-            <option value="202">Third Grade</option>
-            <option value="203">Fourth Grade</option>
-            <option value="204">Fifth Grade</option>
-        </select>
-        <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
-            <option value="-1">Topic</option>
-            <option value="133">Academic Skills</option>
-            <option value="140">Homework Help</option>
-            <!--<option value="">Motivation &amp; Confidence</option>-->
-            <option value="241">Parental Power</option>
-            <option value="240">Understanding the System</option>
-            <option value="124">Behavior &amp; Discipline</option>
-            <option value="157">Social Skills</option>
-            <option value="149">Bullying</option>
-            <!--<option value="">Learning and Development</option>-->
-        </select>
-
-        <div id="js_videoGalleryData">
-            <cms:videoGalleryTable/>
+        <div class="grid_8">
+            <cms:topicCenterSidebar topicCenter="${topicCenter}"/>
         </div>
+
     </div>
-    <!-- end #topicContentGS -->
-
-    <div class="clear"><!-- don't collapse --></div>
-</div>
-<!-- end #mainGS -->
-
-<div id="sidebarGS" class="col">
-    <cms:topicCenterSidebar topicCenter="${topicCenter}"/>
-</div>
-<!-- end #sidebarGS -->
-
-
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
 <mod:tracking pageName="${pageName}"

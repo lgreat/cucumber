@@ -42,7 +42,7 @@
 
                 <about:aboutGreatSchools selected="overview"/>
 
-                <div class="mod aboutNav">
+                <div class="mod sideNav">
                     <div class="inner">
                         <div class="hd">
                             <h3>Our Funders</h3>
