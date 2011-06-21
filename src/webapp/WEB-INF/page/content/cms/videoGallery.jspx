@@ -102,7 +102,7 @@
                     <div class="unit size15of100 text3">Filtered by:</div>
                     <div class="unit size26of100">
                         <select id="js_gradesDropdown" class="js_videoFilterDropDown type">
-                            <option value="-1">Grade Levels</option>
+                            <option value="-1">All Grades</option>
                             <option value="199">Kindergarten</option>
                             <option value="200">First Grade</option>
                             <option value="201">Second Grade</option>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="unit 59of100 lastUnit">
                         <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
-                            <option value="-1">Topic</option>
+                            <option value="-1">All Topics</option>
                             <option value="133">Academic Skills</option>
                             <option value="140">Homework Help</option>
                             <!--<option value="">Motivation &amp; Confidence</option>-->
