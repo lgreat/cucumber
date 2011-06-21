@@ -19,6 +19,7 @@
     <jsp:scriptlet>
 
         String encodedUrl = null;
+        String unEncodedUrl = null;
         String baseUrl = null;
         if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
             baseUrl = "http://www.greatschools.org";
@@ -27,7 +28,8 @@
         }
         if ((url != null) &amp;&amp; (baseUrl != null)) {
             String justUrl = url.substring(0, url.indexOf("?"));
-            encodedUrl = URLEncoder.encode(baseUrl + justUrl + "?page=1", "UTF-8");
+            unEncodedUrl = baseUrl + justUrl + "?page=1";
+            encodedUrl = URLEncoder.encode(unEncodedUrl, "UTF-8");
             request.setAttribute("pageUrlOnFacebook", encodedUrl);
         }
 
@@ -36,7 +38,7 @@
         gs.web.util.PageHelper.addMetaProperty(request, "fb:app_id", "112862918759431");
         gs.web.util.PageHelper.addMetaProperty(request, "og:image", "http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg");
         gs.web.util.PageHelper.addMetaProperty(request, "og:description", deck);
-        gs.web.util.PageHelper.addMetaProperty(request, "og:url", encodedUrl);
+        gs.web.util.PageHelper.addMetaProperty(request, "og:url", unEncodedUrl);
         gs.web.util.PageHelper.addMetaProperty(request, "og:title", title);
         if (imageUrl != null) {
             gs.web.util.PageHelper.addMetaProperty(request, "og:image", imageUrl);
