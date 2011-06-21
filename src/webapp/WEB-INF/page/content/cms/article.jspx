@@ -243,10 +243,10 @@
             <li><a href="${feature.otherLanguageUri}">
                 <c:choose>
                     <c:when test="${feature.language eq 'ES'}">
-                        <span class="bolder">Read this article in English &amp;raquo;</span>
+                        <span class="bolder">In English</span>
                     </c:when>
                     <c:otherwise>
-                        <span class="bolder">Lea este artículo en espa&amp;ntilde;ol &amp;raquo;</span>
+                        <span class="bolder">En espa&amp;ntilde;ol</span>
                     </c:otherwise>
                 </c:choose>
             </a></li>
