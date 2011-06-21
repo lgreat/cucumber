@@ -88,14 +88,13 @@
             <div class="mod sponsored">
                 <div class="inner">
                     <div class="sponsor_88x31">
-                        <div class="mediaExt1">
-                            <div class="imgExt">
-                                <ad:adTag position="Sponsor_88x31"/>
+                        <div class="line">
+                            <div id="jq-ghostText-Test_Prep_Sponsor_88x31"
+                                 class="unit size1of2 smallText1 text-align-rt prs hidden">
+                                <br/>From our sponsor
                             </div>
-                            <div class="bk iblock smallText1 ptm mts">
-                                <span id="jq-ghostText-Test_Prep_Sponsor_88x31" class="hidden">
-                                    From our sponsor
-                                </span>
+                            <div class="unit size1of2 lastUnit">
+                                <ad:adTag position="Sponsor_88x31"/>
                             </div>
                         </div>
                     </div>
