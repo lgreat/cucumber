@@ -43,6 +43,7 @@ public class StateSpecificFooterHelperTest extends BaseTestCase {
     }
 
     public void testPlacePopularCitiesInModelNull() {
+        StateSpecificFooterHelper.clearCache();
         expect(_geoDao.findTopCitiesByPopulationInState(State.CA, StateSpecificFooterHelper.NUM_CITIES))
                 .andReturn(null);
         expect(_schoolDao.getCitySchoolCountForActiveSchools(eq(State.CA))).andReturn(null);
