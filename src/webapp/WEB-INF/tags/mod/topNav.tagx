@@ -82,7 +82,7 @@
             <div class="unit size1of6">
                 <!--<p>adFree: <c:out value="${requestScope.pageHelper.adFree}"/></p>-->
                 <!--<p>adServedByCobrand: <c:out value="${requestScope.pageHelper.adServedByCobrand}"/></p>-->
-                <c:if test="${requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
+                <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
                     <div class="mediaExt4">
                         <div class="img">
                             <div class="spacer_40"><!-- do not collapse --></div>
