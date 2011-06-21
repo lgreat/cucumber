@@ -14,7 +14,7 @@
     <jsp:directive.attribute name="title" required="true" type="java.lang.String"
                              description="title for the cms feature"/>
     <jsp:directive.attribute name="imageUrl" required="false" type="java.lang.String"
-                             description="title for the cms feature"/>
+                             description="image url of the article"/>
 
     <jsp:scriptlet>
 
@@ -41,7 +41,6 @@
         if (imageUrl != null) {
             gs.web.util.PageHelper.addMetaProperty(request, "og:image", imageUrl);
         }
-        request.setAttribute("pageUrlOnFacebook", encodedUrl);
 
     </jsp:scriptlet>
 </jsp:root>
