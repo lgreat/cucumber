@@ -427,6 +427,9 @@
     <c:when test="${requestScope.type eq 'articles'}">
         <c:set var="siteSearchFilterType" value="Articles"/>
     </c:when>
+    <c:when test="${requestScope.type eq 'videos'}">
+        <c:set var="siteSearchFilterType" value="Videos"/>
+    </c:when>
     <c:otherwise>
         <c:set var="siteSearchFilterType" value="All"/>
     </c:otherwise>
