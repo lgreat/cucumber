@@ -257,7 +257,7 @@
 <!-- end #mainGS -->
 
 <div id="sidebarGS" class="col">
-    <cms:topicCenterSidebar topicCenter="${topicCenter}"/>
+    <cms:topicCenterSidebar topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}"/>
 </div>
 <!-- end #sidebarGS -->
 

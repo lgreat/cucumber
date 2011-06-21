@@ -262,30 +262,32 @@
                         </div>
                     </gsweb:form>
 
-                    <div class="prm mrs pbm">
-                        <c:choose>
-                            <c:when test="${isHomePage}">
-                                <div class="mediaExt1">
-                                    <div class="imgExt">
-                                        <ad:Homepage_FindASchool_Sponsor_88x31/>
-                                    </div>
-                                    <div id="jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31" class="bk smallText1 ptm mts fltrt hidden">
-                                        Sponsored by
-                                    </div>
+                    <c:choose>
+                        <c:when test="${isHomePage}">
+                            <div class="line">
+                                <div class="unit size48of100">&amp;nbsp;</div>
+                                <div id="jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31"
+                                     class="unit size20of100 hidden text-align-rt smallText1 prs">
+                                    Sponsored<br/>by
                                 </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="mediaExt1">
-                                    <div class="imgExt">
-                                        <ad:adTag position="FindASchool_Sponsor_88x31"/>
-                                    </div>
-                                    <div id="jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31" class="bk smallText1 ptm mts fltrt hidden">
-                                        Sponsored by
-                                    </div>
+                                <div class="unit size32of100 lastUnit">
+                                    <ad:Homepage_FindASchool_Sponsor_88x31/>
                                 </div>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="line">
+                                <div class="unit size48of100">&amp;nbsp;</div>
+                                <div id="jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31"
+                                     class="unit size20of100 hidden text-align-rt smallText1 prs">
+                                    Sponsored<br/>by
+                                </div>
+                                <div class="unit size32of100 lastUnit">
+                                    <ad:adTag position="FindASchool_Sponsor_88x31"/>
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
 
                 </div>
             </div>

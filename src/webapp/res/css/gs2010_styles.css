@@ -3322,12 +3322,9 @@ Viewport: the defines width and height of each icon
 .recentDiscussions .hd h3 {padding: 0;background: none;color: #d61;font: 20px/1.7 Georgia, "Times New Roman", Times, serif;}
 .recentDiscussions .ft p{margin:0 0 10px;}
 /* ------ findSchool (extends mod) ------- */
-.findCompare .inner{background-color:#fc6;border-bottom:1px solid white;}
-.findCompare .hd {position:relative;z-index:1;}
-.findCompare .hd h3{margin:10px 15px;}
-.findCompare .bd .form{padding:0 15px 20px;}
-.findCompare .bd .formExt1{padding:5px 15px 15px;}
-.findCompare .bd .formExt2{padding:0 15px 10px;}
+.findCompare .inner{background-color:#fc6;border-bottom:1px solid white;padding: 15px 15px 20px;}
+.findCompare .hd {position:relative;z-index:1;padding-bottom: 10px;}
+.findCompare .bd .formExt1{padding-bottom:10px;}
 .findCompare .bd #q{width:100%;}
 /* ------ emailSignUp (extends standard) ------ */
 .emailSignUp .section1{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 0 15px 10px;}
@@ -4910,7 +4907,8 @@ body.cobranded #pageGS {
     border-top: 9px solid rgba(255, 255, 255, 0.0);
     border-right: 9px solid #06b;
     border-bottom: 9px solid rgba(255, 255, 255, 0.0);
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
 }
 
 #carousel #next {
@@ -4921,7 +4919,8 @@ body.cobranded #pageGS {
     border-top: 9px solid rgba(255, 255, 255, 0.0);
     border-left: 9px solid #06b;
     border-bottom: 9px solid rgba(255, 255, 255, 0.0);
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
 }
 
 #carousel .prev-position {
@@ -4950,7 +4949,8 @@ body.cobranded #pageGS {
     border-top: 23px solid rgba(255, 255, 255, 0.0);
     border-left: 33px solid rgba(244, 137, 29, 0.6);
     border-bottom: 23px solid rgba(255, 255, 255, 0.0);
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
     z-index: 1;
 }
 
@@ -4965,7 +4965,8 @@ body.cobranded #pageGS {
     border-top: 9px solid rgba(255, 255, 255, 0.0);
     border-left: 13px solid #fc6;
     border-bottom: 9px solid rgba(255, 255, 255, 0.0);
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
     z-index: 2;
 }
 
@@ -5080,7 +5081,8 @@ body.cobranded #pageGS {
     background: none;
     border-top: 20px solid white;
     border-right: 27px solid #ebebeb;
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
 }
 
 .ryh-replyArrow-fff {
@@ -5094,7 +5096,8 @@ body.cobranded #pageGS {
     border-top: 6px solid #ebebeb;
     border-right: 10px solid white;
     border-bottom: 6px solid #ebebeb;
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
 }
 
 .ryh-replyArrow-fff-onTC {
@@ -5108,7 +5111,8 @@ body.cobranded #pageGS {
     border-top: 6px solid #ebebeb;
     border-right: 10px solid white;
     border-bottom: 6px solid #ebebeb;
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
 }
 
 #raise-your-hand {
@@ -6178,7 +6182,8 @@ body.cobranded #pageGS {
     background: none;
     border-top: 20px solid #fc6;
     border-right: 27px solid white;
-    filter: alpha(opacity = 100);
+    opacity:1;
+    *filter: alpha(opacity = 100);
 }
 
 .startAConversationModule h2 {
@@ -7294,7 +7299,8 @@ body.hover #uploadAvatarHover form {
     position: absolute;
     text-align: right;
     -moz-opacity: 0;
-    filter: alpha(opacity:0);
+    opacity:0;
+    *filter: alpha(opacity:0);
     opacity: 0;
     z-index: 2;
     left: 34px;
@@ -11741,7 +11747,7 @@ body.ie8 span.arrow-left {
 /* 25% opaque */
     opacity: 0.25; /* firefox, opera, safari, chrome */
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=25)"; /* IE8 */
-    filter: alpha(opacity = 25); /* IE 4, 5, 6 and 7 */
+    *filter: alpha(opacity = 25); /* IE 4, 5, 6 and 7 */
     zoom: 1
 }
 
@@ -11749,7 +11755,7 @@ body.ie8 span.arrow-left {
 /* 50% opaque */
     opacity: 0.50;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=50)";
-    filter: alpha(opacity = 50);
+    *filter: alpha(opacity = 50);
     zoom: 1
 }
 
@@ -11757,7 +11763,7 @@ body.ie8 span.arrow-left {
 /* 75% opaque */
     opacity: 0.75;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=75)";
-    filter: alpha(opacity = 75);
+    *filter: alpha(opacity = 75);
     zoom: 1
 }
 
@@ -11765,7 +11771,7 @@ body.ie8 span.arrow-left {
 /* fully opaque */
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=100)";
-    filter: alpha(opacity = 100);
+    *filter: alpha(opacity = 100);
     zoom: 1
 }
 
@@ -11774,7 +11780,7 @@ body.ie8 span.arrow-left {
     -webkit-box-shadow: 3px 3px 3px #999;
     box-shadow: 3px 3px 3px #999; /* x-offset y-offset radius */
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=4)"; /* For IE 8 */
-    filter: progid:DXImageTransform.Microsoft.Shadow(color = '#999999', Direction = 135, Strength = 4); /* For IE 5.5 - 7 */
+    *filter: progid:DXImageTransform.Microsoft.Shadow(color = '#999999', Direction = 135, Strength = 4); /* For IE 5.5 - 7 */
 }
 
 /* =23 star ratings
