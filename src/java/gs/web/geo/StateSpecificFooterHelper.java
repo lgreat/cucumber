@@ -2,18 +2,17 @@ package gs.web.geo;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
+import gs.data.school.ISchoolDao;
 import gs.data.search.GSAnalyzer;
-import gs.data.search.Indexer;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.*;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -28,6 +27,22 @@ public class StateSpecificFooterHelper {
     private IGeoDao _geoDao;
     private Searcher _searcher;
     private QueryParser _queryParser;
+    private static Cache _topCitiesCache;
+    private static Cache _alphaGroupsCache;
+    private ISchoolDao _schoolDao;
+
+    static {
+        _topCitiesCache = new Cache(StateSpecificFooterHelper.class.getName() + ".topCities", 51, false, false, 3 * 60 * 60, 3 * 60 * 60);
+        CacheManager.create().addCache(_topCitiesCache);
+
+        _alphaGroupsCache = new Cache(StateSpecificFooterHelper.class.getName() + ".alphaGroups", 51, false, false, 3 * 60 * 60, 3 * 60 * 60);
+        CacheManager.create().addCache(_alphaGroupsCache);
+    }
+
+    public static void clearCache() {
+        _topCitiesCache.removeAll();
+        _alphaGroupsCache.removeAll();
+    }
 
     public StateSpecificFooterHelper() {
         _queryParser = new QueryParser("text", new GSAnalyzer());
@@ -40,7 +55,17 @@ public class StateSpecificFooterHelper {
             return;
         }
         try {
-            List<City> cities = _geoDao.findTopCitiesByPopulationInState(s, NUM_CITIES);
+            List<City> cities;
+            Element element = _topCitiesCache.get(s);
+
+            if (element != null) {
+                cities = (List<City>) element.getObjectValue();
+            } else {
+                cities = _geoDao.findTopCitiesByPopulationInState(s, NUM_CITIES);
+                _topCitiesCache.put(new Element(s,cities));
+            }
+            //we want to cache the results from geo dao in all circumstances, and I don't think the time required to
+            //sort 28 strings is worth cacheing the sort result.
             if (cities != null && cities.size() == NUM_CITIES) {
                 Collections.sort(cities, new Comparator<City>()
                 {
@@ -48,44 +73,42 @@ public class StateSpecificFooterHelper {
                         return o1.getName().compareTo(o2.getName());
                     }
                 });
+
                 model.put(MODEL_TOP_CITIES, cities);
             }
-            model.put(MODEL_ALPHA_GROUPS, getAlphaGroups(getHits(s)));
+
+            List<String> alphaGroups;
+            Element alphaGroupsElement = _alphaGroupsCache.get(s);
+            if (alphaGroupsElement != null) {
+                alphaGroups = (List<String>)alphaGroupsElement.getObjectValue();
+            } else {
+                alphaGroups = getAlphaGroups(s);
+                _alphaGroupsCache.put(new Element(s,alphaGroups));
+            }
+            model.put(MODEL_ALPHA_GROUPS, alphaGroups);
+
         } catch (Exception e) {
             _log.error(e, e);
         }
     }
 
     /**
-     * Returns a Hits object containing all of the matches for cities within a state.
-     * @param state - a <code>State</code>
-     * @return a Hits containing matches or null if no matches could be found.
-     * @throws Exception if there is a parsing or searching error.
-     */
-    protected Hits getHits(State state) throws Exception {
-        BooleanQuery query = new BooleanQuery();
-        query.add(new TermQuery(new Term("type", "city")), BooleanClause.Occur.MUST);
-        query.add(new TermQuery(new Term("state", state.getAbbreviationLowerCase())), BooleanClause.Occur.MUST);
-
-        return _searcher.search(query, new Sort(Indexer.SORTABLE_NAME), null, null);
-    }
-
-    /**
      * Builds a List of Lists grouped by alpha order.  Each list should contain only
      * items that begin with the same letter.
-     * @param hits the Lucene results
-     * @return a List<String>
-     * @throws java.io.IOException - if something gets nasty.
+     * @param state - a <code>State</code>
+     * @return
      */
-    protected List<String> getAlphaGroups(Hits hits) throws IOException {
+    protected List<String> getAlphaGroups(State state) {
+        Map<String,Integer> cityCounts = _schoolDao.getCitySchoolCountForActiveSchools(state);
+
         List<String> alphaGroups = new ArrayList<String>();
-        if (hits != null && hits.length() > 0) {
+        if (cityCounts != null && cityCounts.size() > 0) {
             char currentLetter = 'a';
             boolean currentLetterHasCities = false;
-            for (int i = 0; i < hits.length(); i++) {
-                Document doc = hits.doc(i);
-                String name = doc.get(Indexer.CITY);
 
+            Set<Map.Entry<String,Integer>> entrySet = cityCounts.entrySet();
+            for (Map.Entry<String,Integer> entry : entrySet) {
+                String name = entry.getKey();
                 // Add the current letter to the alphaGroups on each letter change.
                 String lowerName = name.trim().toLowerCase();
                 if ((lowerName.length() > 0) && (currentLetter != lowerName.charAt(0))) {
@@ -99,6 +122,7 @@ public class StateSpecificFooterHelper {
                     currentLetterHasCities = true;
                 }
             }
+
             // Add the last working list.
             if (currentLetterHasCities) {
                 alphaGroups.add(String.valueOf(currentLetter).toUpperCase());
@@ -121,5 +145,13 @@ public class StateSpecificFooterHelper {
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }
