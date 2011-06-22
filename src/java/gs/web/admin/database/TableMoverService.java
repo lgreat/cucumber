@@ -165,7 +165,7 @@ public class TableMoverService {
                 sendEmail("Error copying tables with dumpcopy: " + errorText);
                 throw new RuntimeException("Error copying tables: " + errorText);
             }
-            sendEmail(copyOutput);
+            sendEmail("success: " + copyCommand);
         } catch (IOException e) {
             _log.error("Error executing dumpcopy", e);
             sendEmail("Error executing dumpcopy" + e);
