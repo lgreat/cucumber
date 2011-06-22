@@ -249,7 +249,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
         } else if (contentId == CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID) {
             UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.STATE_OF_EDUCATION_TOPIC_CENTER_ID));
             redirectView = new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
-        } else if (contentId == CmsConstants.COLLEGE_TOPIC_CENTER_ID) {
+        } else if (contentId == CmsConstants.COLLEGE_TOPIC_CENTER_ID && uri.equals("/college-prep.topic")) {
             UrlBuilder builder = new UrlBuilder(new ContentKey("TopicCenter", CmsConstants.COLLEGE_TOPIC_CENTER_ID));
             return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
         }

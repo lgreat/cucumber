@@ -16,7 +16,7 @@
         <ad:AboveFold_300x250/>
     </c:set>
 
-    <c:if test="${topicCenter.contentKey.identifier eq 1539 or topicCenter.contentKey.identifier eq 1540 or topicCenter.contentKey.identifier eq 1541}">
+    <c:if test="${topicCenter.contentKey.identifier eq 1539 or topicCenter.contentKey.identifier eq 1540 or topicCenter.contentKey.identifier eq 1541 or topicCenter.contentKey.identifier eq 1542}">
         <c:out value="${ad300x250}" escapeXml="false"/>
     </c:if>
 
@@ -72,7 +72,7 @@
         </c:otherwise>
     </c:choose>
 
-    <c:if test="${topicCenter.contentKey.identifier ne 1539 and topicCenter.contentKey.identifier ne 1540 and topicCenter.contentKey.identifier ne 1541}">
+    <c:if test="${topicCenter.contentKey.identifier ne 1539 and topicCenter.contentKey.identifier ne 1540 and topicCenter.contentKey.identifier ne 1541 and topicCenter.contentKey.identifier ne 1542}">
         <c:out value="${ad300x250}" escapeXml="false"/>
     </c:if>
 
