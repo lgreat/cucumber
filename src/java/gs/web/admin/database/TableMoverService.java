@@ -1,5 +1,7 @@
 package gs.web.admin.database;
 
+import gs.data.community.ReportedEntity;
+import gs.data.community.User;
 import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
 import gs.data.state.StateManager;
 import org.apache.commons.httpclient.HttpClient;
@@ -11,6 +13,9 @@ import org.apache.commons.collections.ListUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +26,15 @@ import java.util.regex.Pattern;
 
 
 public class TableMoverService {
+    public JavaMailSender getMailSender() {
+        return _mailSender;
+    }
+
+    public void setMailSender(JavaMailSender mailSender) {
+        _mailSender = mailSender;
+    }
+
+    private JavaMailSender _mailSender;
     public static final String LINE_BREAK = "<br />\n";
     public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.org/bin/view/Greatschools/TableToMove";
     public static final String TABLES_TO_MOVE_LINK = "<a href=\"" + TABLES_TO_MOVE_URL + "\" target=\"_blank\">" + TABLES_TO_MOVE_URL + "</a>";
@@ -139,18 +153,22 @@ public class TableMoverService {
             String errorText = parseCommandOutput(backupOutput);
             if (errorText != null) {
                 _log.error("Error backing up tables with dumpcopy: " + errorText);
+                sendEmail("Error backing up tables with dumpcopy: " + errorText);
                 throw new RuntimeException("Error backing up tables: " + errorText);
             }
 
             String copyOutput = executeCommand(copyCommand);
             _log.info("Copy command output: " + copyOutput);
-            errorText = parseCommandOutput(backupOutput);
+            errorText = parseCommandOutput(copyOutput);
             if (errorText != null) {
                 _log.error("Error copying tables with dumpcopy: " + errorText);
+                sendEmail("Error copying tables with dumpcopy: " + errorText);
                 throw new RuntimeException("Error copying tables: " + errorText);
             }
+            sendEmail(copyOutput);
         } catch (IOException e) {
             _log.error("Error executing dumpcopy", e);
+            sendEmail("Error executing dumpcopy" + e);
             throw new RuntimeException("Error copying tables: " + e.getMessage());
         }
 
@@ -448,4 +466,24 @@ public class TableMoverService {
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
     }
+
+    //protected void sendEmail(String urlToContent, ReportedEntity.ReportedEntityType contentType,
+                             //User reporter, User reportee, String reason) {
+    protected void sendEmail(String emailText) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("eford@greatschools.org");
+        message.setFrom("eford@greatschools.org");
+        message.setSentDate(new Date());
+        message.setSubject("Reported content alert");
+        message.setText(emailText);
+
+        try {
+            _mailSender.send(message);
+        }
+        catch (MailException me) {
+            _log.error("Error sending content reported email: message");
+        }
+    }
+
+
 }
