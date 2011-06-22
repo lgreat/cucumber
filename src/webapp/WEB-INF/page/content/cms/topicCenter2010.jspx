@@ -87,7 +87,7 @@
             </c:set>
         </c:if>
         <c:choose>
-            <c:when test="${not empty licensorLogo}">
+            <c:when test="${not empty licensorLogo and topicCenter.contentKey.identifier ne 1542}">
                 ${licensorLogo}
             </c:when>
             <c:otherwise>
