@@ -99,7 +99,7 @@ jQuery(function() {
             var hostname = document.URL.getHostname();
 
             if (s.tl) {
-                s.tl(true, 'o', 'K12_TrafficDriver_${k12School}');
+                s.tl(true, 'o', 'K12_TrafficDriver_' + k12School);
             }
 
             var encodedClickThroughUrl =
