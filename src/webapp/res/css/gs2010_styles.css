@@ -7657,6 +7657,16 @@ body.hover #uploadAvatarHover form {
     padding: 8px 0;
 }
 
+/* GS-11651 video gallery table */
+
+.videoGalleryTable td{
+    vertical-align: top;
+}
+
+.videoGalleryImage p{
+    width:121px;
+}
+
 /* =12h- inline sign-in
 -------------------------------------------------------------------------------------------*/
 

@@ -111,7 +111,8 @@
                             <option value="204">Fifth Grade</option>
                         </select>
                     </div>
-                    <div class="unit 59of100 lastUnit">
+                    <div class="unit size2of100">&amp;nbsp;</div>
+                    <div class="unit size57of100 lastUnit">
                         <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
                             <option value="-1">All Topics</option>
                             <option value="133">Academic Skills</option>

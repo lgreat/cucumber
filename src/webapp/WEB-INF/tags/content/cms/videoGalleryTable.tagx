@@ -13,7 +13,7 @@
 
         <c:if test="${fn:length(videoResults) gt 0}">
 
-            <table class="text3bold" width="100%">
+            <table class="videoGalleryTable text3bold" width="100%">
                 <tbody>
                 <tr>
                     <c:forEach var="result" items="${videoResults}" varStatus="status">
@@ -31,14 +31,14 @@
                         </c:if>
 
                         <td>
+                            <div class="videoGalleryImage">
                             <div class="spacer_15"><!-- do not collapse --></div>
                             <!--${status.count}-->
 
                             <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
                                 <gsml:img src="${result.imageUrl}"
                                           alt="${result.imageAltText}"
-                                          width="119" height="84"
-                                          styleClass="border-c6"/>
+                                          width="121" height="86"/>
 
                                 <p>${result.title}</p>
 
@@ -47,6 +47,7 @@
                                     <c:if test="${not empty result.grades}"> Grade ${result.grades}</c:if>
                                 </p>
                             </link:cmsContent>
+                            </div>
                         </td>
 
                     </c:forEach>
