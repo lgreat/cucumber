@@ -3123,7 +3123,7 @@ Viewport: the defines width and height of each icon
 /* original version margin: 10px; gutter: 10px; */
 .media{margin: 10px;}
 .media:after, .bk:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.media .bk{display:table-cell; zoom:1;width:100%;}
+.media .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .media .bk > :first-child{margin-top:0;}
 .media .bk > :last-child{margin-bottom:0;}
 .media .img{float:left;/*margin-right: 10px;*/}
@@ -3134,7 +3134,7 @@ Viewport: the defines width and height of each icon
 /* Ext0-1 version margin: 2px 13px; gutter: 5px; */
 .mediaExt0-1{margin: 2px 13px;}
 .mediaExt0-1:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt0-1 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt0-1 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt0-1 .bk > :first-child{margin-top:0;}
 .mediaExt0-1 .bk > :last-child{margin-bottom:0;}
 .mediaExt0-1 .img{float: left;margin-right: 5px;}
@@ -3145,7 +3145,7 @@ Viewport: the defines width and height of each icon
 /* Ext1 margin: 0; gutter: 10px; */
 .mediaExt1{margin: 0;}
 .mediaExt1:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt1 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt1 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt1 .bk > :first-child{margin-top:0;}
 .mediaExt1 .bk > :last-child{margin-bottom:0;}
 .mediaExt1 .img{float: left;margin-right: 10px;}
@@ -3155,7 +3155,7 @@ Viewport: the defines width and height of each icon
 /* Ext1-1 margin: 0; gutter: 5px; */
 .mediaExt1-1{margin: 0;}
 .mediaExt1-1:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt1-1 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt1-1 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt1-1 .bk > :first-child{margin-top:0;}
 .mediaExt1-1 .bk > :last-child{margin-bottom:0;}
 .mediaExt1-1 .img{float: left;margin-right: 5px;}
@@ -3165,7 +3165,7 @@ Viewport: the defines width and height of each icon
 /* Ext1-2 margin: 0; gutter: 15px; */
 .mediaExt1-2{margin: 0;}
 .mediaExt1-2:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt1-2 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt1-2 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt1-2 .bk > :first-child{margin-top:0;}
 .mediaExt1-2 .bk > :last-child{margin-bottom:0;}
 .mediaExt1-2 .img{float: left;margin-right: 15px;}
@@ -3176,7 +3176,7 @@ Viewport: the defines width and height of each icon
 /* Ext2 margin: 10px 0; gutter: 10px; */
 .mediaExt2{margin: 10px 0;}
 .mediaExt2:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt2 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt2 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2 .bk > :first-child{margin-top:0;}
 .mediaExt2 .bk > :last-child{margin-bottom:0;}
 .mediaExt2 .img{float: left;margin-right: 10px;}
@@ -3186,7 +3186,7 @@ Viewport: the defines width and height of each icon
 /* Ext2-1 margin: 5px 0; gutter: 10px; */
 .mediaExt2-1{margin: 5px 0;}
 .mediaExt2-1:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt2-1 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt2-1 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2-1 .bk > :first-child{margin-top:0;}
 .mediaExt2-1 .bk > :last-child{margin-bottom:0;}
 .mediaExt2-1 .img{float: left;margin-right: 10px;}
@@ -3196,7 +3196,7 @@ Viewport: the defines width and height of each icon
 /* Ext2-2 margin: 20px 0; gutter: 10px; */
 .mediaExt2-2 {margin: 20px 0;}
 .mediaExt2-2:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt2-2 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt2-2 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2-2 .bk > :first-child{margin-top:0;}
 .mediaExt2-2 .bk > :last-child{margin-bottom:0;}
 .mediaExt2-2 .img{float: left;margin-right: 10px;}
@@ -3206,7 +3206,7 @@ Viewport: the defines width and height of each icon
 /* Ext2-3 margin: 20px 0; gutter: 20px; */
 .mediaExt2-3{margin: 20px 0;}
 .mediaExt2-3:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt2-3 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt2-3 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2-3 .bk > :first-child{margin-top:0;}
 .mediaExt2-3 .bk > :last-child{margin-bottom:0;}
 .mediaExt2-3 .img{float: left;margin-right: 20px;}
@@ -3216,7 +3216,7 @@ Viewport: the defines width and height of each icon
 /* Ext2-4 margin: 15px 0; gutter: 5px; */
 .mediaExt2-4{margin: 15px 0;}
 .mediaExt2-4:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt2-4 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt2-4 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2-4 .bk > :first-child{margin-top:0;}
 .mediaExt2-4 .bk > :last-child{margin-bottom:0;}
 .mediaExt2-4 .img{float: left;margin-right: 5px;}
@@ -3226,7 +3226,7 @@ Viewport: the defines width and height of each icon
 /* Ext2-5 margin: 8px 0; gutter: 4px; */
 .mediaExt2-5{margin: 8px 0;}
 .mediaExt2-5:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt2-5 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt2-5 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2-5 .bk > :first-child{margin-top:0;}
 .mediaExt2-5 .bk > :last-child{margin-bottom:0;}
 .mediaExt2-5 .img{float: left;margin-right: 4px;}
@@ -3236,7 +3236,7 @@ Viewport: the defines width and height of each icon
 /* Ext2-6 margin: 4px 0; gutter: 5px; */
 .mediaExt2-6{margin: 4px 0;}
 .mediaExt2-6:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt2-6 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt2-6 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2-6 .bk > :first-child{margin-top:0;}
 .mediaExt2-6 .bk > :last-child{margin-bottom:0;}
 .mediaExt2-6 .img{float: left;margin-right: 5px;}
@@ -3247,7 +3247,7 @@ Viewport: the defines width and height of each icon
 /* Ext3 margin:0 10px; gutter:10px; */
 .mediaExt3{margin: 0 10px;}
 .mediaExt3:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
-.mediaExt3 .bk{display:table-cell; zoom:1;width:100%;}
+.mediaExt3 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt3 .bk > :first-child{margin-top:0;}
 .mediaExt3 .bk > :last-child{margin-bottom:0;}
 .mediaExt3 .img{float: left;margin-right: 10px;}
@@ -5863,7 +5863,8 @@ body.cobranded #pageGS {
 
 #topicbarGS ul ul {
     display: none;
-    margin-left: 30px;
+    margin-left: 10px;
+    border:none;
 }
 
 #topicbarGS ul ul li {
@@ -5886,7 +5887,7 @@ body.cobranded #pageGS {
 
 #topicbarGS .outerNavLink {
     display: inline-block;
-    width: 127px;
+    width: 125px;
 }
 
 #topicbarGS .hasNested .outerNavLink:hover {
