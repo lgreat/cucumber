@@ -46,7 +46,7 @@ public class SchoolAutocompleteController {
         } catch (IOException e) {
             _log.warn("Error when searching for suggestions for school autosuggest.",e);
         } catch (Exception e) {
-            _log.debug("Unexpected error when searching for suggestions for school autosuggest.",e);
+            _log.warn("Unexpected error when searching for suggestions for school autosuggest.",e);
         }
     }
 
