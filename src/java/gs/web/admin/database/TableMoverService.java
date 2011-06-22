@@ -470,8 +470,9 @@ public class TableMoverService {
     //protected void sendEmail(String urlToContent, ReportedEntity.ReportedEntityType contentType,
                              //User reporter, User reportee, String reason) {
     protected void sendEmail(String emailText) {
+        String[] emails = {"datateam@greatschools.org","eford@greatschools.org"};
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("datateam@greatschools.org,eford@greatschools.org");
+        message.setTo(emails);
         message.setFrom("tablemover@greatschools.org");
         message.setSentDate(new Date());
         message.setSubject("Reported content alert");
