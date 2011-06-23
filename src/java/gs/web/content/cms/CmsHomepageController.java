@@ -84,6 +84,8 @@ public class CmsHomepageController extends AbstractController {
      * to prevent further redirection for that browser.
      * @param request Used to determine page to return to
      * @param response Used to set cookies
+     * @param includeReferrer If true, instruct the splash page to
+     *        include a link back to the page they came from.  If false, link to home page.
      * @return The redirect, if needed
      */
     public static ModelAndView checkMobileTraffic(HttpServletRequest request, HttpServletResponse response, boolean includeReferrer) {
@@ -104,6 +106,8 @@ public class CmsHomepageController extends AbstractController {
      * See if the request is coming from a mobile device that supports our app and
      * redirect them to a page about the app.
      * @param request Used to determine page to return to
+     * @param includeReferrer If true, instruct the splash page to
+     *        include a link back to the page they came from.  If false, link to home page.
      * @return The redirect, if needed
      */
     public static ModelAndView redirectMobileTraffic(HttpServletRequest request, boolean includeReferrer) {
