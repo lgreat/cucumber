@@ -26,6 +26,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 public class CmsHomepageController extends AbstractController {
@@ -76,7 +78,15 @@ public class CmsHomepageController extends AbstractController {
         categoryIdToTopicCenterIdMap.put(206L, 1576L);
     }
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
+    /**
+     * See if the request is coming from a mobile device that supports our app and
+     * redirect them to a page about the app.  If returning from the app page, set a cookie
+     * to prevent further redirection for that browser.
+     * @param request Used to determine page to return to
+     * @param response Used to set cookies
+     * @return The redirect, if needed
+     */
+    public static ModelAndView checkMobileTraffic(HttpServletRequest request, HttpServletResponse response) {
         // if referrer is iPhone splash page, set 90-day cookie
         String referrer = request.getHeader("Referer");
         if (referrer != null && referrer.contains("/splash/iphone.page")) {
@@ -84,16 +94,55 @@ public class CmsHomepageController extends AbstractController {
                     DECLINED_IPHONE_SPLASH_PAGE_COOKIE, "true",
                     DECLINED_IPHONE_SPLASH_PAGE_COOKIE_MAX_AGE);
         } else {
-            Cookie declinedIphoneSplashPageCookie = CookieUtil.getCookie(request, DECLINED_IPHONE_SPLASH_PAGE_COOKIE);
-            SessionContext context = SessionContextUtil.getSessionContext(request);
-            // if user is on iphone or ipod touch, and the iphone splash page is enabled,
-            // and they're not cookied to not be shown the iphone splash page,
-            // then redirect them to the iphone splash page
-            if ((context.isIphone() || context.isIpod()) &&
-                context.isIphoneSplashPageEnabled() &&
-                (declinedIphoneSplashPageCookie == null || !"true".equals(declinedIphoneSplashPageCookie.getValue()))) {
-                return new ModelAndView(new RedirectView("/splash/iphone.page"));
+            return redirectMobileTraffic(request);
+        }
+
+        return null;
+    }
+
+    /**
+     * See if the request is coming from a mobile device that supports our app and
+     * redirect them to a page about the app.
+     * @param request Used to determine page to return to
+     * @return The redirect, if needed
+     */
+    public static ModelAndView redirectMobileTraffic(HttpServletRequest request) {
+        Cookie declinedIphoneSplashPageCookie = CookieUtil.getCookie(request, DECLINED_IPHONE_SPLASH_PAGE_COOKIE);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
+        // if user is on iphone or ipod touch, and the iphone splash page is enabled,
+        // and they're not cookied to not be shown the iphone splash page,
+        // then redirect them to the iphone splash page
+        if ((context.isIphone() || context.isIpod()) &&
+            context.isIphoneSplashPageEnabled() &&
+            (declinedIphoneSplashPageCookie == null || !"true".equals(declinedIphoneSplashPageCookie.getValue()))) {
+
+            String encodedOrigin = null;
+            String origin = request.getRequestURI();
+            if (!origin.equals("/")) {
+                if (request.getQueryString() != null) {
+                    origin += "?" + request.getQueryString();
+                }
+                try {
+                    encodedOrigin = URLEncoder.encode(origin, "UTF-8");
+                } catch(UnsupportedEncodingException uee) {
+                    // Ignore and leave encodedOrigin null
+                }
             }
+
+            String splashUrl = "/splash/iphone.page";
+            if (encodedOrigin != null) {
+                splashUrl += "?l=" + encodedOrigin;
+            }
+            return new ModelAndView(new RedirectView(splashUrl));
+        }
+
+        return null;
+    }
+
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView iPhoneRedirect = checkMobileTraffic(request, response);
+        if (iPhoneRedirect != null) {
+            return iPhoneRedirect;
         }
 
         Map<String, Object> model = new HashMap<String, Object>();

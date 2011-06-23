@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.70 2011/01/27 18:08:37 aroy Exp $
+ * $Id: CityController.java,v 1.71 2011/06/23 19:13:04 droy Exp $
  */
 
 package gs.web.geo;
@@ -20,6 +20,7 @@ import gs.data.test.rating.ICityRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
+import gs.web.content.cms.CmsHomepageController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -154,6 +155,11 @@ public class CityController extends AbstractController  implements IDirectoryStr
             UrlBuilder urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
             View redirectView = new RedirectView301(urlBuilder.asSiteRelative(request));
             return new ModelAndView(redirectView);
+        }
+
+        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response);
+        if (iPhoneRedirect != null) {
+            return iPhoneRedirect;
         }
 
         Map<String, Object> model = new HashMap<String, Object>();

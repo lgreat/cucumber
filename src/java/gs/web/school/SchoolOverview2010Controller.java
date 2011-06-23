@@ -11,6 +11,7 @@ import gs.data.school.review.Review;
 import gs.data.survey.*;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.content.cms.CmsHomepageController;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
 import gs.web.util.SitePrefCookie;
@@ -70,6 +71,11 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             if (handleNumber1ExpertLeadGen(request, response, schoolIdStr, sessionContext)) {
                 return null;
             }
+        }
+
+        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response);
+        if (iPhoneRedirect != null) {
+            return iPhoneRedirect;
         }
 
         //used to support the "Report It" links in recent reviews list

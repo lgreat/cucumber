@@ -923,7 +923,7 @@
     </bean>
 
     <bean name="/splash/iphone.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.splash.IPhoneSplashController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>splash/iphone</value>
