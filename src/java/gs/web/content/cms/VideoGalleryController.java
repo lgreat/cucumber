@@ -19,6 +19,7 @@ import gs.web.school.SchoolOverviewController;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -191,6 +192,8 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         query.page(requestedPage.offset, requestedPage.pageSize);
 
         String queryString = request.getQueryString();
+        //TODO: do we really need this, since we have isAjaxRequest()?
+        queryString = UrlUtil.removeParamsFromQueryString(queryString, "requestType","decorator");
         String url = request.getRequestURL().toString();
         if (queryString != null) {
             url+= "?" + queryString;

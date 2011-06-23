@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.80 2011/06/03 15:58:29 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.81 2011/06/23 01:50:51 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -536,5 +536,17 @@ public class UrlUtilSaTest extends TestCase {
 
         assertTrue("http://www.host.com/path?param1=newone&param2=newtwo".equals(newUrl) || "http://www.host.com/path?param2=newtwo&param1=newone".equals(newUrl));
 
+    }
+
+    public void testRemoveKeysFromQueryString() {
+        String queryString = "a=1&b=2&c=3&c=4&d=5";
+
+        String result = UrlUtil.removeParamsFromQueryString(queryString, "b", "c");
+
+        assertTrue("a=1&d=5".equals(result) || "d=5&a=1".equals(result));
+
+        result = UrlUtil.removeParamsFromQueryString(queryString, "b", "c", "a", "d");
+
+        assertEquals("", result);
     }
 }

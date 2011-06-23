@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.108 2011/06/03 02:01:02 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.109 2011/06/23 01:50:51 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -13,13 +13,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.Map;
 import java.util.HashMap;
-import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Wrapping and URL munging tools.
@@ -88,6 +90,23 @@ public final class UrlUtil {
             }
         }
         return params;
+    }
+
+    public static String removeParamsFromQueryString(String queryString, String... keys) {
+        Map<String,String> map = getParamsFromQueryString(queryString);
+
+        Set<String> keySet = map.keySet();
+        Iterator<String> iterator = keySet.iterator();
+        while (iterator.hasNext()) {
+            String mapKey = iterator.next();
+            for (String key : keys) {
+                if (mapKey.equalsIgnoreCase(key)) {
+                    iterator.remove();
+                }
+            }
+        }
+
+        return getQueryStringFromMap(map);
     }
 
     /**
