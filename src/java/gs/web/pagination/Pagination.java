@@ -47,14 +47,18 @@ public class Pagination {
         try {
             //try to get offset from request
             offset = Integer.valueOf(request.getParameter(config.getOffsetParam()));
+            if (offset < 0) {
+                //throw away offset if it's not valid. It will be set to default value later.
+                offset = null;
+            }
         } catch (NumberFormatException e) {
-            //handle this later
+            //handle this below
         }
 
         try {
             //now try to get page number from request
             pageNumber = Integer.valueOf(request.getParameter(config.getPageNumberParam()));
-            //if we succeeded but offset is null, set it based on page number
+            //if we succeeded but offset is null, set offset based on page number
             if (offset == null) {
                 Pagination.getOffset(pageSize, pageNumber, config.isZeroBasedOffset(), config.isZeroBasedPages());
             }
@@ -65,7 +69,7 @@ public class Pagination {
             }
             pageNumber = Pagination.getPageNumber(pageSize, offset, config.isZeroBasedOffset(), config.isZeroBasedPages());
         }
-
+        
         RequestedPage params = new RequestedPage(offset, pageNumber, pageSize);
 
         return params;
