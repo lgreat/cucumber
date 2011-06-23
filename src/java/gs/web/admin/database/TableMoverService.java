@@ -153,7 +153,7 @@ public class TableMoverService {
             String errorText = parseCommandOutput(backupOutput);
             if (errorText != null) {
                 _log.error("Error backing up tables with dumpcopy: " + errorText);
-                sendEmail("Error backing up tables with dumpcopy: " + errorText);
+                sendEmail("Error backing up tables with dumpcopy: " + errorText,"Error backing up tables");
                 throw new RuntimeException("Error backing up tables: " + errorText);
             }
 
@@ -162,13 +162,13 @@ public class TableMoverService {
             errorText = parseCommandOutput(copyOutput);
             if (errorText != null) {
                 _log.error("Error copying tables with dumpcopy: " + errorText);
-                sendEmail("Error copying tables with dumpcopy: " + errorText);
+                sendEmail("Error copying tables with dumpcopy: " + errorText,"Error copying tables");
                 throw new RuntimeException("Error copying tables: " + errorText);
             }
-            sendEmail("success: " + copyCommand);
+            sendEmail("success: " + copyCommand,"success copying tables");
         } catch (IOException e) {
             _log.error("Error executing dumpcopy", e);
-            sendEmail("Error executing dumpcopy" + e);
+            sendEmail("Error executing dumpcopy" + e,"Error executing dumpcopy");
             throw new RuntimeException("Error copying tables: " + e.getMessage());
         }
 
@@ -469,13 +469,13 @@ public class TableMoverService {
 
     //protected void sendEmail(String urlToContent, ReportedEntity.ReportedEntityType contentType,
                              //User reporter, User reportee, String reason) {
-    protected void sendEmail(String emailText) {
+    protected void sendEmail(String emailText,String subject) {
         String[] emails = {"datateam@greatschools.org","eford@greatschools.org"};
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(emails);
         message.setFrom("tablemover@greatschools.org");
         message.setSentDate(new Date());
-        message.setSubject("Reported content alert");
+        message.setSubject(subject);
         message.setText(emailText);
 
         try {
