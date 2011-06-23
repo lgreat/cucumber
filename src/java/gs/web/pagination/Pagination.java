@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class Pagination {
 
-    public static final String DEFAULT_OFFSET_PARAM = "start";
-    public static final String DEFAULT_PAGE_NUMBER_PARAM = "p";
-    public static final String DEFAULT_PAGE_SIZE_PARAM = "pageSize";
-
     public static final String MODE_PAGE_NUMBER = "pageNumber";
     public static final String MODE_OFFSET = "offset";
 
@@ -163,12 +159,12 @@ public class Pagination {
     }
 
     public static String recordOffsetInUrl(int offset, String url) {
-        String newUrl = UrlUtil.putQueryParamIntoUrl(url, DEFAULT_OFFSET_PARAM, String.valueOf(offset));
+        String newUrl = UrlUtil.putQueryParamIntoUrl(url, DEFAULT_PAGINATION_CONFIG.getOffsetParam(), String.valueOf(offset));
         return newUrl;
     }
 
     public static String recordPageNumberInUrl(int pageNumber, String url) {
-        String newUrl = UrlUtil.putQueryParamIntoUrl(url, DEFAULT_PAGE_NUMBER_PARAM, String.valueOf(pageNumber));
+        String newUrl = UrlUtil.putQueryParamIntoUrl(url, DEFAULT_PAGINATION_CONFIG.getPageNumberParam(), String.valueOf(pageNumber));
         return newUrl;
     }
 

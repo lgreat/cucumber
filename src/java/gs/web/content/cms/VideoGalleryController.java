@@ -149,7 +149,7 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
     public void addPageSpecificContentToModel(HttpServletRequest request, CmsTopicCenter cmsTopicCenter, Map<String, Object> model) {
 
-        RequestedPage requestedPage = Pagination.getPageFromRequest(request);
+        RequestedPage requestedPage = Pagination.getPageFromRequest(request, VIDEO_GALLERY_PAGINATION_CONFIG);
 
         //find the "videos" subtopic for the topic center we're on
         List<CmsSubtopic> subtopics = cmsTopicCenter.getSubtopics();
@@ -200,7 +200,12 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
-            addPagingDataToModel(requestedPage.offset, requestedPage.pageSize, searchResults.getTotalResults(), model);
+            addPagingDataToModel(
+                    requestedPage.getValidatedOffset(VIDEO_GALLERY_PAGINATION_CONFIG, searchResults.getTotalResults()),
+                    requestedPage.pageSize,
+                    searchResults.getTotalResults(),
+                    model
+            );
 
             if (searchResults != null && searchResults.getTotalResults() > 0) {
                 model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());

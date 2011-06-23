@@ -74,4 +74,30 @@ public class PaginationConfig {
     public int getMaxPageSize() {
         return _maxPageSize;
     }
+
+    /**
+     * Get the zero-based position for the given offset
+     * @param offset
+     * @return
+     */
+    public int getZeroBasedPosition(int offset) {
+        if (isZeroBasedOffset()) {
+            return offset;
+        } else {
+            return offset + 1;
+        }
+    }
+
+    /**
+     * Get the one-based position for the given offset
+     * @param offset
+     * @return
+     */
+    public int getOneBasedPosition(int offset) {
+        if (isZeroBasedOffset()) {
+            return offset + 1;
+        } else {
+            return offset;
+        }
+    }
 }

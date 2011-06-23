@@ -13,4 +13,20 @@ public class RequestedPage {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
     }
+
+    /**
+     * Compares requested offset with how many results were returned. Returns the first offset if requested offset does not exist
+     * @param config
+     * @param numberOfActualResults
+     */
+    public int getValidatedOffset(PaginationConfig config, int numberOfActualResults) {
+
+        int oneBasedOffset = config.getOneBasedPosition(offset);
+
+        if (oneBasedOffset > numberOfActualResults) {
+            return config.getFirstOffset();
+        } else {
+            return offset;
+        }
+    }
 }

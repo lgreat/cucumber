@@ -56,9 +56,11 @@
             </table>
             <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
 
-            <div class="pagination" id="pagination">
-                <search:easierPagination page="${page}" useJavascriptPaging="false" url="${fullUrl}" mode="offset"/>
-            </div>
+            <c:if test="${page.pager.totalPages gt 0}">
+                <div class="pagination" id="pagination">
+                    <search:easierPagination page="${page}" useJavascriptPaging="false" url="${fullUrl}" mode="offset"/>
+                </div>
+            </c:if>
         </c:if>
     </div>
 </jsp:root>
