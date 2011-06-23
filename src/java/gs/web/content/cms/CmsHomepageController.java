@@ -86,7 +86,7 @@ public class CmsHomepageController extends AbstractController {
      * @param response Used to set cookies
      * @return The redirect, if needed
      */
-    public static ModelAndView checkMobileTraffic(HttpServletRequest request, HttpServletResponse response) {
+    public static ModelAndView checkMobileTraffic(HttpServletRequest request, HttpServletResponse response, boolean includeReferrer) {
         // if referrer is iPhone splash page, set 90-day cookie
         String referrer = request.getHeader("Referer");
         if (referrer != null && referrer.contains("/splash/iphone.page")) {
@@ -94,7 +94,7 @@ public class CmsHomepageController extends AbstractController {
                     DECLINED_IPHONE_SPLASH_PAGE_COOKIE, "true",
                     DECLINED_IPHONE_SPLASH_PAGE_COOKIE_MAX_AGE);
         } else {
-            return redirectMobileTraffic(request);
+            return redirectMobileTraffic(request, includeReferrer);
         }
 
         return null;
@@ -106,7 +106,7 @@ public class CmsHomepageController extends AbstractController {
      * @param request Used to determine page to return to
      * @return The redirect, if needed
      */
-    public static ModelAndView redirectMobileTraffic(HttpServletRequest request) {
+    public static ModelAndView redirectMobileTraffic(HttpServletRequest request, boolean includeReferrer) {
         Cookie declinedIphoneSplashPageCookie = CookieUtil.getCookie(request, DECLINED_IPHONE_SPLASH_PAGE_COOKIE);
         SessionContext context = SessionContextUtil.getSessionContext(request);
         // if user is on iphone or ipod touch, and the iphone splash page is enabled,
@@ -117,8 +117,8 @@ public class CmsHomepageController extends AbstractController {
             (declinedIphoneSplashPageCookie == null || !"true".equals(declinedIphoneSplashPageCookie.getValue()))) {
 
             String encodedOrigin = null;
-            String origin = request.getRequestURI();
-            if (!origin.equals("/")) {
+            if (includeReferrer) {
+                String origin = request.getRequestURI();
                 if (request.getQueryString() != null) {
                     origin += "?" + request.getQueryString();
                 }
@@ -140,7 +140,7 @@ public class CmsHomepageController extends AbstractController {
     }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView iPhoneRedirect = checkMobileTraffic(request, response);
+        ModelAndView iPhoneRedirect = checkMobileTraffic(request, response, false);
         if (iPhoneRedirect != null) {
             return iPhoneRedirect;
         }

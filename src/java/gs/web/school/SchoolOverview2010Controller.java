@@ -73,7 +73,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             }
         }
 
-        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response);
+        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response, true);
         if (iPhoneRedirect != null) {
             return iPhoneRedirect;
         }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.71 2011/06/23 19:13:04 droy Exp $
+ * $Id: CityController.java,v 1.72 2011/06/23 21:08:52 droy Exp $
  */
 
 package gs.web.geo;
@@ -157,7 +157,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
             return new ModelAndView(redirectView);
         }
 
-        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response);
+        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response, true);
         if (iPhoneRedirect != null) {
             return iPhoneRedirect;
         }
