@@ -44,7 +44,19 @@
 
                                 <p class="smallText1-999">
                                     <c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>
-                                    <c:if test="${not empty result.grades}"> Grade ${result.grades}</c:if>
+                                    <c:if test="${not empty result.grades}">
+                                        <c:choose>
+                                            <c:when test="${fn:length(result.grades) > 1}">
+                                                Grades ${result.grades}
+                                            </c:when>
+                                            <c:when test="${fn:length(result.grades) == 1}">
+                                                Grade ${result.grades}
+                                            </c:when>
+                                            <c:otherwise>
+
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:if>
                                 </p>
                             </link:cmsContent>
                             </div>
