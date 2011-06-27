@@ -77,7 +77,9 @@ GS.uri.Uri.getFromQueryString = function(key) {
  * @param key
  */
 GS.uri.Uri.removeFromQueryString = function(queryString, key) {
-    queryString = queryString.substring(1);
+    if (queryString.substring(0,1) === '?') {
+        queryString = queryString.substring(1);
+    }
     var vars = [];
     if (queryString.length > 0) {
         vars = queryString.split("&");

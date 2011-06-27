@@ -14,6 +14,7 @@ GS.search.onMapMarkerClick = function(state, id) {
 
     /**
      * Takes a string that resembles a URL querystring in the format ?key=value&amp;key=value&amp;key=value
+     * Deprecated. Use GS.Uri
      * @param queryString
      * @param key
      * @param value
@@ -52,6 +53,7 @@ GS.search.onMapMarkerClick = function(state, id) {
 
     /**
      * Returns the value associated with a key in the current url's query string
+     * Deprecated. Use GS.Uri
      * @param key
      */
     function getFromQueryString(key) {
@@ -76,8 +78,12 @@ GS.search.onMapMarkerClick = function(state, id) {
         return result;
     }
 
+    // Deprecated. Use GS.Uri
     function removeFromQueryString(queryString, key) {
-        queryString = queryString.substring(1);
+        if (queryString.substring(0,1) === '?') {
+            queryString = queryString.substring(1);
+        }
+
         var vars = [];
         if (queryString.length > 0) {
             vars = queryString.split("&");
