@@ -17,7 +17,7 @@
         <div id="photo-gallery-viewer">
             <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                 <div id="gallery-fullsize-${index}" class="gallery-fullsize">
-                    <img src="/res/img/pixel.gif" width="500" height="500"/>
+                    <img src="/res/img/pixel.gif" width="${images[index].width}" height="${images[index].height}"/>
                 </div>
             </c:forEach>
             <br style="clear:both"/>
