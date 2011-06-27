@@ -10,10 +10,19 @@ Function.prototype.gs_bind = function(obj) {
  * Constructor
  */
 GS.photoGallery.PhotoGallery = function(id,multiSizeImageArray,debug) {
+    this.closeButtonDomId = "photo-gallery-close"; //close button
+    this.controlsDomId = "photo-gallery-controls"; //the area that has the thumbnails and scroll arrows
+    this.backButtonId = "photo-gallery-back";
+    this.nextButtonId = "photo-gallery-next";
+    this.thumbnailIdPrefix = "gallery-thumbnail";
+    this.thumbnailSelectedCssClass = "gallery-thumbnail-selected";
+    this.fullSizeImageIdPrefix = "gallery-fullsize";
+
     this.id = id;
+    this.currentFullSizeImage = 0;
+    this.numberOfImages = multiSizeImageArray.length;
     this.multiSizeImageArray = multiSizeImageArray;
-    this.thumbnailIdPrefix = "galleryThumbnail";
-    this.fullSizeImageIdPrefix = "galleryFullSize";
+
     
     this.thumbnailLoaderPosition = 0;
     this.fullSizeImageLoaderPosition = 0;
@@ -23,19 +32,40 @@ GS.photoGallery.PhotoGallery = function(id,multiSizeImageArray,debug) {
 
 GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
     var id;
+    //hide all other images
     for(var i=0; i<this.multiSizeImageArray.length; i++) {
         if (i === index) {
             continue;
         }
         id = this.fullSizeImageIdPrefix + '-' + i;
         document.getElementById(id).style.display='none';
+
+        jQuery('#' + this.thumbnailIdPrefix + '-' + i).removeClass(this.thumbnailSelectedCssClass);
     }
+    //show desired image
     id = this.fullSizeImageIdPrefix + '-' + index;
     document.getElementById(id).style.display='block';
+
+    jQuery('#' + this.thumbnailIdPrefix + '-' + index).addClass(this.thumbnailSelectedCssClass);
+
+    //track change
+    this.currentFullSizeImage = index;
 };
 
-GS.photoGallery.PhotoGallery.prototype.loadFirstFullSizeImage = function() {
-    this.loadFullSizeImage(0);
+GS.photoGallery.PhotoGallery.prototype.showNextImage = function() {
+    var targetIndex = this.currentFullSizeImage + 1;
+    if (targetIndex >= this.numberOfImages) {
+        targetIndex = 0;
+    }
+    this.showFullSizeImage(targetIndex);
+};
+
+GS.photoGallery.PhotoGallery.prototype.showPreviousImage = function() {
+    var targetIndex = this.currentFullSizeImage - 1;
+    if (targetIndex < 0) {
+        targetIndex = this.numberOfImages -1;
+    }
+    this.showFullSizeImage(targetIndex);
 };
 
 GS.photoGallery.PhotoGallery.prototype.loadThumbnail = function(index) {
@@ -54,7 +84,10 @@ GS.photoGallery.PhotoGallery.prototype.loadThumbnail = function(index) {
 };
 
 GS.photoGallery.PhotoGallery.prototype.loadThumbnails = function() {
-    var i = this.thumbnailLoaderPosition;
+    if (this.thumbnailLoaderPosition >= this.numberOfImages) {
+        return;
+    }
+
     var success = this.loadThumbnail(this.thumbnailLoaderPosition);
 
     if (success) {
@@ -86,6 +119,10 @@ GS.photoGallery.PhotoGallery.prototype.loadFullSizeImage = function(index) {
 };
 
 GS.photoGallery.PhotoGallery.prototype.loadFullSizeImages = function() {
+    if (this.fullSizeImageLoaderPosition >= this.numberOfImages) {
+        return;
+    }
+
     var success = this.loadFullSizeImage(this.fullSizeImageLoaderPosition);
 
     if (success) {
@@ -115,15 +152,42 @@ GS.photoGallery.PhotoGallery.prototype.applyThumbnailClickHandlers = function() 
         container.click(function() {
             var item = jQuery(this);
             var id = item.attr('id');
-            var index = id.split('-')[1];
+            var tokens = id.split('-');
+            var index = tokens[tokens.length-1];
             self.showFullSizeImage(index);
         });
     }
 };
 
+GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
+    jQuery('#' + this.backButtonId).click(function() {
+        this.showPreviousImage();
+    }.gs_bind(this));
+    jQuery('#' + this.nextButtonId).click(function() {
+        this.showNextImage();
+    }.gs_bind(this));
+    jQuery('#' + this.closeButtonDomId).click(function() {
+        this.hide();
+    }.gs_bind(this));
+};
+
 GS.photoGallery.PhotoGallery.prototype.show = function() {
-    this.loadFullSizeImages();
    jQuery('#' + this.id).show();
+};
+GS.photoGallery.PhotoGallery.prototype.hide = function() {
+   jQuery('#' + this.id).hide();
+};
+
+
+/**
+ * Make the gallery open when provided dom node is clicked
+ * @param id
+ */
+GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(id) {
+    jQuery('#' + id).click(function() {
+        this.loadFullSizeImages();
+        this.show();
+    }.gs_bind(this));
 };
 
 /**

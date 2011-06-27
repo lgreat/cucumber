@@ -3,10 +3,15 @@
     <head>
         <title>PhotoGallery tests</title>
         <style type="text/css">
-
-            .galleryThumbnail{ float: left; width: 70px; height: 70px; border:1px solid #333; margin: 10px; display: block;}
-            .galleryFullSize { float: left; width: 500px; height: 500px; border:1px solid #333; display: block;}
-            #photo-gallery {border: 1px solid #333; display:none;}
+            .gallery-thumbnail{ float: left; width: 70px; height: 70px; border:1px solid #333; margin-left: 10px; display: block;}
+            .gallery-fullsize { float: left; width: 500px; height: 500px; border:1px solid #333; display: block;}
+            .gallery-thumbnail-selected {border:1px solid yellow}
+            #photo-gallery {display:none;}
+            #photo-gallery-thumbnails {float:left;}
+            #photo-gallery-back {float:left;background-color:white;margin-top:20px;}
+            #photo-gallery-next {float:left;background-color:white;margin-top:20px;margin-left:10px;}
+            #photo-gallery-viewer {border: 1px solid #333; padding:10px; background-color:#333; width:500px; height:500px}
+            #photo-gallery-controls {border: 1px solid #333; padding:10px; margin-top:10px; background-color:#333; width:500px; height:70px;}
         </style>
         <script src="./minmax.js"></script>
         <script src="./jquery/jquery-1.3.2.min.js"></script>
@@ -44,6 +49,7 @@
                 gallery.loadThumbnails();
                 //gallery.loadImages();
                 gallery.applyThumbnailClickHandlers();
+                gallery.applyButtonClickHandlers();
 
             });
 
@@ -52,33 +58,43 @@
     <body>
         <div id="photo-gallery">
             <div id="photo-gallery-viewer">
-                <div id="galleryFullSize-0" class="galleryFullSize">
+                <div id="gallery-fullsize-0" class="gallery-fullsize">
                     <img src="../img/pixel.gif" width="500" height="500"/>
                 </div>
-                <div id="galleryFullSize-1" class="galleryFullSize">
+                <div id="gallery-fullsize-1" class="gallery-fullsize">
                     <img src="../img/pixel.gif" width="500" height="500"/>
                 </div>
-                <div id="galleryFullSize-2" class="galleryFullSize">
+                <div id="gallery-fullsize-2" class="gallery-fullsize">
                     <img src="../img/pixel.gif" width="500" height="500"/>
                 </div>
-                <div id="galleryFullSize-3" class="galleryFullSize">
+                <div id="gallery-fullsize-3" class="gallery-fullsize">
                     <img src="../img/pixel.gif" width="500" height="500"/>
                 </div>
+                <br style="clear:both"/>
             </div>
-            <br style="clear:both"/>
-            <div id="photo-gallery-thumbnails">
-                <div id="galleryThumbnail-0" class="galleryThumbnail">
-                    <img src="../img/pixel.gif" width="70" height="70"/>
+
+            <div id="photo-gallery-controls">
+                <div id="photo-gallery-back">
+                    Back
                 </div>
-                <div id="galleryThumbnail-1" class="galleryThumbnail">
-                    <img src="../img/pixel.gif" width="70" height="70"/>
+                <div id="photo-gallery-thumbnails">
+                    <div id="gallery-thumbnail-0" class="gallery-thumbnail">
+                        <img src="../img/pixel.gif" width="70" height="70"/>
+                    </div>
+                    <div id="gallery-thumbnail-1" class="gallery-thumbnail">
+                        <img src="../img/pixel.gif" width="70" height="70"/>
+                    </div>
+                    <div id="gallery-thumbnail-2" class="gallery-thumbnail">
+                        <img src="../img/pixel.gif" width="70" height="70"/>
+                    </div>
+                    <div id="gallery-thumbnail-3" class="gallery-thumbnail">
+                        <img src="../img/pixel.gif" width="70" height="70"/>
+                    </div>
                 </div>
-                <div id="galleryThumbnail-2" class="galleryThumbnail">
-                    <img src="../img/pixel.gif" width="70" height="70"/>
+                <div id="photo-gallery-next">
+                    Next
                 </div>
-                <div id="galleryThumbnail-3" class="galleryThumbnail">
-                    <img src="../img/pixel.gif" width="70" height="70"/>
-                </div>
+                <br style="clear:both"/>
             </div>
         </div>
 

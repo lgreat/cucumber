@@ -236,6 +236,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </c:if>
 
 <div class="text2">
+    <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+        <!-- should probably change id of this img, or attach gallery to a div containing the img -->
+        <img id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}" alt="TODO:" width="130" height="130"/>
+    </c:if>
     <content:ratingsSummary school="${school}"/>
 </div>
 
@@ -437,6 +441,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <c:set var="schoolType" value="${school.type.schoolTypeName}" />
 <c:set var="levelCode" value="${school.levelCode}" />
+
+<c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+    <school:photoGallery id="school-photo-medium" images="${photoGalleryImages}" />
+</c:if>
 
 <script type="text/javascript">
     jQuery(function() {

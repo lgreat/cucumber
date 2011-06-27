@@ -8,7 +8,10 @@ import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
-import gs.data.survey.*;
+import gs.data.survey.Answer;
+import gs.data.survey.ISurveyDao;
+import gs.data.survey.Question;
+import gs.data.survey.Survey;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.content.cms.CmsHomepageController;
@@ -16,6 +19,7 @@ import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -47,6 +51,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
     private IGeoDao _geoDao;
+    private ISchoolMediaDao _schoolMediaDao;
 
     private IPQDao _PQDao;
 
@@ -172,9 +177,30 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
                 SessionContextUtil util = sessionContext.getSessionContextUtil();
                 util.clearTempMsg(response);
             }
+
+            addSchoolPhotosToModel(request, school, model);
         }
 
         return new ModelAndView(_viewName, model);
+    }
+
+    private void addSchoolPhotosToModel(HttpServletRequest request, School school, Map<String, Object> model) {
+        List<SchoolMedia> photoGalleryImages = getSchoolPhotos(school);
+        String basePhotoPath;
+        if(UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            basePhotoPath = "http://profile.dev.greatschools.org/PHOTOS";
+        } else {
+            basePhotoPath = request.getScheme() + "://" + request.getServerName() +
+                ":" + request.getServerPort() + "/PHOTOS";
+        }
+        model.put("basePhotoPath",basePhotoPath);
+        model.put("photoGalleryImages",photoGalleryImages);
+    }
+    
+    protected List<SchoolMedia> getSchoolPhotos(School school) {
+        ISchoolMediaDao schoolMediaDao = getSchoolMediaDao();
+        List<SchoolMedia> schoolPhotos = schoolMediaDao.getAllActiveBySchool(school);
+        return schoolPhotos;
     }
 
     protected boolean shouldIndex(School school, Long numberOfReviews) {
@@ -418,5 +444,13 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public ISchoolMediaDao getSchoolMediaDao() {
+        return _schoolMediaDao;
+    }
+
+    public void setSchoolMediaDao(ISchoolMediaDao schoolMediaDao) {
+        _schoolMediaDao = schoolMediaDao;
     }
 }

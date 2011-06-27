@@ -12822,3 +12822,16 @@ p#btsBubbleOpts {
 .articlePrintAndEmail{
  margin-top:7px;
 }
+
+
+/**** samson's temporary work for GS-11784 ***/
+.gallery-thumbnail{ float: left; width: 70px; height: 70px; border:1px solid #333; margin-left: 10px; display: block;}
+.gallery-fullsize { float: left; width: 500px; height: 500px; border:1px solid #333; display: block;}
+.gallery-thumbnail-selected {border:1px solid yellow}
+#photo-gallery {display:none; position:absolute; top:100px; left: 100px; z-index: 10;}
+#photo-gallery-thumbnails {float:left;}
+#photo-gallery-back {float:left;background-color:white;margin-top:20px;}
+#photo-gallery-next {float:left;background-color:white;margin-top:20px;margin-left:10px;}
+#photo-gallery-close {float:left;background-color:white;margin-top:20px;margin-left:10px;}
+#photo-gallery-viewer {border: 1px solid #333; padding:10px; background-color:#333; width:500px; height:500px}
+#photo-gallery-controls {border: 1px solid #333; padding:10px; margin-top:10px; background-color:#333; width:500px; height:70px;}
