@@ -583,6 +583,12 @@
         <property name="viewName" value="/content/cms/video"/>    
     </bean>
 
+    <bean name="cmsWorksheetController"
+          class="gs.web.content.cms.CmsWorksheetController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/cms/worksheet"/>
+    </bean>
+
     <bean name="/content/cms/topicCenter.page"
           class="gs.web.content.cms.CmsTopicCenterController2010"
           autowire="byName" lazy-init="true">

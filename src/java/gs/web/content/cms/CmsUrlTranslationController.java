@@ -1,5 +1,6 @@
 package gs.web.content.cms;
 
+import gs.data.content.cms.CmsConstants;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -7,12 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.data.cms.IPublicationDao;
-import gs.data.content.cms.Publication;
 import gs.data.content.cms.ContentKey;
 import gs.web.util.UrlBuilder;
-
-import java.util.Map;
-import java.util.HashMap;
 
 public class CmsUrlTranslationController extends AbstractController {
     IPublicationDao _publicationDao;
@@ -25,9 +22,10 @@ public class CmsUrlTranslationController extends AbstractController {
 
         String contentType = (String) request.getParameterNames().nextElement();
 
-        if ("Article".equals(contentType) || "AskTheExperts".equals(contentType) || "TopicCenter".equals(contentType) ||
-            "ArticleSlide".equals(contentType) || "ArticleSlideshow".equals(contentType) || "DiscussionBoard".equals(contentType)
-             || "Video".equals(contentType)) {
+        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(contentType) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(contentType) ||
+            CmsConstants.TOPIC_CENTER_CONTENT_TYPE.equals(contentType) || CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(contentType) ||
+            CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(contentType) || CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE.equals(contentType) ||
+            CmsConstants.VIDEO_CONTENT_TYPE.equals(contentType) || CmsConstants.WORKSHEET_CONTENT_TYPE.equals(contentType)) {
             Long contentId;
 
             try {
@@ -42,11 +40,11 @@ public class CmsUrlTranslationController extends AbstractController {
             return new ModelAndView("redirect:" + builder.asSiteRelative(request));
         }
 
-        if ("Homepage".equals(contentType)) {
+        if (CmsConstants.HOMEPAGE_CONTENT_TYPE.equals(contentType)) {
             return new ModelAndView("redirect:/index.page");
         }
 
-        if ("MostPopularContent".equals(contentType)) {
+        if (CmsConstants.MOST_POPULAR_CONTENT_CONTENT_TYPE.equals(contentType)) {
             return new ModelAndView("redirect:/content/cms/topicCenter.page");
         }
 

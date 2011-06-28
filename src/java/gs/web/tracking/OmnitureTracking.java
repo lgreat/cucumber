@@ -90,7 +90,8 @@ public abstract class  OmnitureTracking {
         FacebookLike(36),
         FacebookSend(38),
         TwitterTweet(39),
-        CmsVideo(47);
+        CmsVideo(47),
+        WorksheetView(48);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

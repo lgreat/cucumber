@@ -48,6 +48,7 @@ public class CmsFeatureController extends AbstractController {
     }
 
     private CmsVideoController _cmsVideoController;
+    private CmsWorksheetController _cmsWorksheetController;
     private ICmsFeatureDao _featureDao;
     private IArticleDao _legacyArticleDao;
     private IPublicationDao _publicationDao;
@@ -117,8 +118,12 @@ public class CmsFeatureController extends AbstractController {
 
             feature = _featureDao.get(contentId);
 
-            if (feature != null && CmsConstants.VIDEO_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
-                return _cmsVideoController.handleRequestInternal(request,response); //EARLY EXIT
+            if (feature != null) {
+                if (CmsConstants.VIDEO_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+                    return _cmsVideoController.handleRequestInternal(request,response); //EARLY EXIT
+                } else if (CmsConstants.WORKSHEET_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
+                    return _cmsWorksheetController.handleRequestInternal(request,response); //EARLY EXIT
+                }
             }
 
             if (!_unitTest && feature != null) {
@@ -596,5 +601,12 @@ public class CmsFeatureController extends AbstractController {
     public void setCmsVideoController(CmsVideoController cmsVideoController) {
         _cmsVideoController = cmsVideoController;
     }
-    
+
+    public CmsWorksheetController getCmsWorksheetController() {
+        return _cmsWorksheetController;
+    }
+
+    public void setCmsWorksheetController(CmsWorksheetController cmsWorksheetController) {
+        _cmsWorksheetController = cmsWorksheetController;
+    }
 }

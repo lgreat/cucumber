@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.250 2011/06/15 19:43:04 pdeshwal Exp $
+ * $Id: UrlBuilder.java,v 1.251 2011/06/28 23:26:24 yfan Exp $
  */
 
 package gs.web.util;
@@ -495,7 +495,9 @@ public class UrlBuilder {
         }
 
         Publication publication = getPublicationDao().findByContentKey(contentKey);
-        initializeForCmsContent(contentKey, publication.getFullUri());
+        if (publication != null) {
+            initializeForCmsContent(contentKey, publication.getFullUri());
+        }
     }
 
     public UrlBuilder(ContentKey contentKey, String fullUri, Boolean raiseYourHand) {
