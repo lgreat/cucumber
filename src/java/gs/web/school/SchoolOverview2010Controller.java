@@ -14,12 +14,12 @@ import gs.data.survey.Question;
 import gs.data.survey.Survey;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsHomepageController;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -178,22 +178,15 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
                 util.clearTempMsg(response);
             }
 
-            addSchoolPhotosToModel(request, school, model);
+            addSchoolPhotosToModel(school, model);
         }
 
         return new ModelAndView(_viewName, model);
     }
 
-    private void addSchoolPhotosToModel(HttpServletRequest request, School school, Map<String, Object> model) {
+    private void addSchoolPhotosToModel(School school, Map<String, Object> model) {
         List<SchoolMedia> photoGalleryImages = getSchoolPhotos(school);
-        String basePhotoPath;
-        if(UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            basePhotoPath = "http://profile.dev.greatschools.org/PHOTOS";
-        } else {
-            basePhotoPath = request.getScheme() + "://" + request.getServerName() +
-                ":" + request.getServerPort() + "/PHOTOS";
-        }
-        model.put("basePhotoPath",basePhotoPath);
+        model.put("basePhotoPath",CommunityUtil.getMediaPrefix());
         model.put("photoGalleryImages",photoGalleryImages);
     }
     
@@ -201,6 +194,10 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         ISchoolMediaDao schoolMediaDao = getSchoolMediaDao();
         List<SchoolMedia> schoolPhotos = schoolMediaDao.getAllActiveBySchool(school);
         return schoolPhotos;
+    }
+
+    public static String getMediaPrefix() {
+        return CommunityUtil.getMediaPrefix();
     }
 
     protected boolean shouldIndex(School school, Long numberOfReviews) {
