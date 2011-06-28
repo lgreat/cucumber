@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:search="http://java.sun.com/jsp/jstl/core" xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant">
+<jsp:directive.tag import="gs.web.util.PageHelper"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.tag body-content="empty"/>
+<jsp:directive.attribute name="inCommunity" required="false" type="java.lang.Boolean"
+                         description="True if topnav is loaded via community iframe"/>
+
+<jsp:scriptlet>
+    request.setAttribute("tabs", PageHelper.pageIds);
+</jsp:scriptlet>
+
+    <c:set var="pw" value="${requestScope.context.pathway}"/>
+
+    <!--<ul id="globalnav" class="">
+        <li><link:home id="GlobalNav_HomeButton" styleClass="${(pw == tabs.HOME ? 'selected' : '')} GS_CI9_ ">Home</link:home></li>
+        <li><link:research id="GlobalNav_ResearchButton" styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} GS_CI9_ " state="${requestScope.context.state}">Find a School</link:research></li>
+        <li><link:preschool id="GlobalNav_PreschoolButton" styleClass="${(pw == tabs.PRESCHOOL ? 'selected' : '')} GS_CI9_ ">Preschool</link:preschool></li>
+        <li><link:elementary-school id="GlobalNav_ElementarySchoolButton" styleClass="${(pw == tabs.ELEMENTARY_SCHOOL ? 'selected' : '')} GS_CI9_ ">Elementary School</link:elementary-school></li>
+        <li><link:middle-school id="GlobalNav_MiddleSchoolButton" styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} GS_CI9_ ">Middle School</link:middle-school></li>
+        <li><link:high-school id="GlobalNav_HighSchoolButton" styleClass="${(pw == tabs.HIGH_SCHOOL ? 'selected' : '')} GS_CI9_ ">High School</link:high-school></li>
+        <li class="lastNavUnit"><link:college id="GlobalNav_CollegeButton" styleClass="${(pw == tabs.COLLEGE ? 'selected' : '')} GS_CI9_ ">College</link:college></li>
+    </ul>-->
+
+    <ul id="primary">
+        <li class="menuItem">
+          <a href="javascript:void(0);" class="menuItemAnchorText home">
+            <!--<img src="img/home_icon.png" width="35" height="32" alt="home icon" />-->
+            <span class="navSprite i-pn-home"><!-- do not collapse --></span>
+          </a>
+        </li>
+        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText drop">Find a School</a>
+          <div class="dropdown_1 text2">
+            <div class="col_1">
+              <div class="col_content brdrt_dotted">
+                <ul> <!-- bullet type: disc/square/circle-->
+                  <li><a href="javascript:void(0);">Search for Schools</a></li>
+                  <li><a href="javascript:void(0);">Guide to Choosing Schools</a></li>
+                  <li><a href="javascript:void(0);">Defining Your Ideal School</a></li>
+                  <li class="lastone"><a href="javascript:void(0);">Preparing for a School Visit</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col_1">
+              <div class="col_content">
+                <ul> <!-- bullet type: disc/square/circle-->
+                  <li><a href="javascript:void(0);">Applying &amp; Enrolling</a></li>
+                  <li><a href="javascript:void(0);">Moving with Kids</a></li>
+                  <li class="lastone"><a href="javascript:void(0);">Local School Choice Guides</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col_2">
+              <div class="ft_content clearfix">
+                <img class="fltlft" src="/res/img/primaryNav/mm-findaschool-1.jpg" width="130" height="66" alt="find a school hot topic" />
+                <p class="text3 allCaps">Hot Topic</p>
+                <p><a href="javascript:void(0);">GreatSchools guide to choosing a school</a></p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText drop">Preschool</a>
+          <div class="dropdown_2 text2">
+              <div class="col_1">
+                <div class="col_content brdrt_dotted">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Reading Readiness</a></li>
+                    <li><a href="javascript:void(0);">Math Readiness</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Worksheets</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_1">
+                <div class="col_content">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Activities</a></li>
+                    <li><a href="javascript:void(0);">Books</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Games</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_2">
+                <div class="ft_content clearfix">
+                  <img class="fltlft" src="/res/img/primaryNav/mm-preschool-1.jpg" width="130" height="66" alt="find a school hot topic" />
+                  <p class="text3 allCaps">Hot Topic</p>
+                  <p><a href="javascript:void(0);">Redshirting kindergarten</a></p>
+                </div>
+              </div>
+          </div>
+        </li>
+        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText drop">Elementary School</a>
+          <div class="dropdown_3 text2">
+              <div class="col_1">
+                <div class="col_content brdrt_dotted">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Kindergarten</a></li>
+                    <li><a href="javascript:void(0);">First Grade</a></li>
+                    <li><a href="javascript:void(0);">Second Grade</a></li>
+                    <li><a href="javascript:void(0);">Third Grade</a></li>
+                    <li><a href="javascript:void(0);">Fourth Grade</a></li>
+                    <li><a href="javascript:void(0);">Fifth Grade</a></li>
+                    <li><a href="javascript:void(0);">Math</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Reading</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_1">
+                <div class="col_content">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Videos</a></li>
+                    <li><a href="javascript:void(0);">Worksheets</a></li>
+                    <li><a href="javascript:void(0);">Activities</a></li>
+                    <li><a href="javascript:void(0);">Books</a></li>
+                    <li><a href="javascript:void(0);">Games</a></li>
+                    <li><a href="javascript:void(0);">Bullying</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Improve Your School</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_2">
+                <div class="ft_content clearfix">
+                  <img class="fltlft" src="/res/img/primaryNav/mm-elementaryschool-1.jpg" width="130" height="66" alt="find a school hot topic" />
+                  <p class="text3 allCaps">Hot Topic</p>
+                  <p><a href="javascript:void(0);">Jockeying for teachers</a></p>
+                </div>
+              </div>
+          </div>
+        </li>
+        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText drop">Middle School</a>
+          <div class="dropdown_4 text2">
+              <div class="col_1">
+                <div class="col_content brdrt_dotted">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Math</a></li>
+                    <li><a href="javascript:void(0);">Reading</a></li>
+                    <li><a href="javascript:void(0);">Writing</a></li>
+                    <li><a href="javascript:void(0);">Science</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Social Studies</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_1">
+                <div class="col_content">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Activities</a></li>
+                    <li><a href="javascript:void(0);">Books</a></li>
+                    <li><a href="javascript:void(0);">Bullying</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Improve Your School</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_2">
+                <div class="ft_content clearfix">
+                  <img class="fltlft" src="/res/img/primaryNav/mm-middleschool-1.jpg" width="130" height="66" alt="find a school hot topic" />
+                  <p class="text3 allCaps">Hot Topic</p>
+                  <p><a href="javascript:void(0);">Dealing with the mean girls</a></p>
+                </div>
+              </div>
+          </div>
+        </li>
+        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText drop">High School</a>
+          <div class="dropdown_5 text2">
+              <div class="col_1">
+                <div class="col_content brdrt_dotted">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Math</a></li>
+                    <li><a href="javascript:void(0);">Reading</a></li>
+                    <li><a href="javascript:void(0);">Writing</a></li>
+                    <li><a href="javascript:void(0);">Science</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Social Studies</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_1">
+                <div class="col_content">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Books</a></li>
+                    <li><a href="javascript:void(0);">Graduation</a></li>
+                    <li><a href="javascript:void(0);">College Prep</a></li>
+                    <li><a href="javascript:void(0);">Bullying</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Improve Your School</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_2">
+                <div class="ft_content clearfix">
+                  <img class="fltlft" src="/res/img/primaryNav/mm-highschool-1.jpg" width="130" height="66" alt="find a school hot topic" />
+                  <p class="text3 allCaps">Hot Topic</p>
+                  <p><a href="javascript:void(0);">Five ways to reduce test stress</a></p>
+                </div>
+              </div>
+          </div>
+        </li>
+        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText drop">College</a>
+          <div class="dropdown_6 text2 dropdown_align_right">
+              <div class="col_1">
+                <div class="col_content brdrt_dotted">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Planning For College</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Test Prep</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_1">
+                <div class="col_content">
+                  <ul> <!-- bullet type: disc/square/circle-->
+                    <li><a href="javascript:void(0);">Applying for College</a></li>
+                    <li class="lastone"><a href="javascript:void(0);">Paying for College</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col_2">
+                <div class="ft_content clearfix">
+                  <img class="fltlft" src="/res/img/primaryNav/mm-college-1.jpg" width="130" height="66" alt="find a school hot topic" />
+                  <p class="text3 allCaps">Hot Topic</p>
+                  <p><a href="javascript:void(0);">College reading loads &amp;ndash; is your child ready?</a></p>
+                </div>
+              </div>
+          </div>
+        </li>
+        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText noDrop"><span class="navSprite i-pn-bts"><!-- do not collapse --></span> Back to School</a></li>
+      </ul>
+
+</jsp:root>

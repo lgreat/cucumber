@@ -135,7 +135,10 @@
     <div id="pageGS">
 
         <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-            <mod:topNav/>
+            <!--<mod:topNav/>-->
+            <mod:header/>
+            <mod:primaryNav/>
+            <mod:secondaryNav/>
         </c:if>
 
         <div id="mainWrap">
