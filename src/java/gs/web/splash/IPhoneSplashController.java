@@ -1,5 +1,6 @@
 package gs.web.splash;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -30,7 +31,8 @@ public class IPhoneSplashController extends AbstractController {
 
         String referrer = request.getParameter(PARAM_REFERRER);
         if (referrer != null && referrer.startsWith("/")) {
-            model.put(MODEL_REFERRER, referrer);
+            String escapedUrl = StringEscapeUtils.escapeHtml(referrer);
+            model.put(MODEL_REFERRER, escapedUrl);
         }
 
         return new ModelAndView(_viewName, model);
