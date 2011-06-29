@@ -334,6 +334,13 @@
             <description>SEO Uri of the content to link to, without file extension. e.g. "/find-a-school/charter-schools</description>
         </attribute>
         <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>page parameter, e.g. 1, 5, or all</description>
+        </attribute>
+        <attribute>
             <name>styleId</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

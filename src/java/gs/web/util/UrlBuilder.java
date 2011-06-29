@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.251 2011/06/28 23:26:24 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.252 2011/06/29 22:30:54 rcox Exp $
  */
 
 package gs.web.util;
@@ -500,12 +500,20 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(ContentKey contentKey, String fullUri, Boolean raiseYourHand, String page) {
+        if (!CmsUtil.isCmsEnabled()) {
+            throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
+        }
+
+        initializeForCmsContent(contentKey, fullUri, raiseYourHand, page);
+    }
+
     public UrlBuilder(ContentKey contentKey, String fullUri, Boolean raiseYourHand) {
         if (!CmsUtil.isCmsEnabled()) {
             throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
         }
 
-        initializeForCmsContent(contentKey, fullUri, raiseYourHand);
+        initializeForCmsContent(contentKey, fullUri, raiseYourHand, null);
     }
 
     public UrlBuilder(ContentKey contentKey, String fullUri) {
@@ -513,22 +521,26 @@ public class UrlBuilder {
             throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
         }
 
-        initializeForCmsContent(contentKey, fullUri, false);
+        initializeForCmsContent(contentKey, fullUri, false, null);
     }
 
     private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
-        initializeForCmsContent(contentKey, fullUri, false);
+        initializeForCmsContent(contentKey, fullUri, false, null);
     }
 
     // unfortunately, changes to this also necessitate changes to PublicationDao.populateHttpUrlForContentUrl()
     // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
-    private void initializeForCmsContent(ContentKey contentKey, String fullUri, Boolean raiseYourHand) {
+    private void initializeForCmsContent(ContentKey contentKey, String fullUri, Boolean raiseYourHand, String page) {
         _perlPage = false;
         if (fullUri != null) {
             _path = CmsUtil.getUri(contentKey, fullUri, raiseYourHand);
             // GS-11495
             if (!CmsUtil.isCmsFeature(contentKey) && !CmsUtil.hasSpecialCaseUrl(contentKey)) {
                 setParameter("content", contentKey.getIdentifier().toString());
+            }
+
+            if (page != null) {
+                setParameter("page", page);
             }
         } else {
             _path = "";

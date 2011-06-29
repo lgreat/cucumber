@@ -8,9 +8,10 @@ public class CmsContentTagHandler extends LinkTagHandler {
     private ContentKey _contentKey;
     private String _fullUri;
     private Boolean _raiseYourHand;
+    private String _page;
 
     protected UrlBuilder createUrlBuilder() {
-        return new UrlBuilder(_contentKey, _fullUri, _raiseYourHand);
+        return new UrlBuilder(_contentKey, _fullUri, _raiseYourHand, _page);
     }
 
     public String getContentKey() {
@@ -35,5 +36,13 @@ public class CmsContentTagHandler extends LinkTagHandler {
 
     public void setRaiseYourHand(Boolean raiseYourHand) {
         _raiseYourHand = raiseYourHand;
+    }
+
+    public String getPage() {
+        return _page;
+    }
+
+    public void setPage(String page) {
+        _page = page;
     }
 }
