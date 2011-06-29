@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.content.cms.ContentKey;
 import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
+import gs.data.util.CmsUtil;
 import org.apache.solr.client.solrj.beans.Field;
 
 import javax.xml.bind.annotation.*;
@@ -153,8 +154,11 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     }
 
     @XmlElement
+    /**
+     * Gets the relative image URL from Solr and then uses CmsUtil to get an absolute URL
+     */
     public String getImageUrl() {
-        return _imageUrl;
+        return CmsUtil.getImageUrl(_imageUrl);
     }
     @Field(CmsFeatureDocumentBuilder.FIELD_IMAGE_URL)
     public void setImageUrl(String imageUrl) {
