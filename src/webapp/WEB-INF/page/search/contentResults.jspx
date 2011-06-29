@@ -61,7 +61,11 @@
             ${pageScope.pageTitle}
             <div class="srchCtrls">
             <ul class="searchNav">
-            <c:if test="${requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0 and requestScope.numVideos gt 0}">
+            <c:if test="${
+                (requestScope.numArticles gt 0 and requestScope.numDiscussions gt 0) or
+                (requestScope.numDiscussions gt 0 and requestScope.numVideos gt 0) or
+                (requestScope.numVideos gt 0 and requestScope.numArticles gt 0)
+            }">
                 <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
                 <c:choose>
                     <c:when test="${empty requestScope.type}">
@@ -75,7 +79,7 @@
             </c:if>
                 <c:set var="typeButtonText" value="Articles (${requestScope.numArticles})"/>
                 <c:choose>
-                    <c:when test="${requestScope.type eq 'articles' or requestScope.numDiscussions eq 0}">
+                    <c:when test="${requestScope.type eq 'articles' or (requestScope.numDiscussions eq 0 and requestScope.numVideos eq 0)}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="articles"/>
                     </c:when>
@@ -95,7 +99,7 @@
 
                 <c:set var="typeButtonText" value="Videos (${requestScope.numVideos})"/>
                 <c:choose>
-                    <c:when test="${requestScope.type eq 'videos' or requestScope.numArticles eq 0}">
+                    <c:when test="${requestScope.type eq 'videos' or (requestScope.numDiscussions eq 0 and requestScope.numArticles eq 0)}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="videos"/>
                     </c:when>
