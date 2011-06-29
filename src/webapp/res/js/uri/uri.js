@@ -50,7 +50,7 @@ GS.uri.Uri.putIntoQueryString = function(queryString, key, value, overwrite) {
  * @param key
  */
 GS.uri.Uri.getFromQueryString = function(key) {
-    queryString = window.location.search.substring(1);
+    queryString = decodeURIComponent(window.location.search.substring(1));
     var vars = [];
     var result;
 
@@ -67,7 +67,6 @@ GS.uri.Uri.getFromQueryString = function(key) {
             break;
         }
     }
-
     return result;
 };
 

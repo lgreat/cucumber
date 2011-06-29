@@ -19,7 +19,7 @@ GS.content.cms.VideoGallery = function() {};
         data.requestType = "ajax";
         data.decorator = "emptyDecorator";
         data.confirm = "true";
-        var queryString = window.location.search;
+        var queryString = decodeURIComponent(window.location.search);
         var content = GS.uri.Uri.getFromQueryString("content");
         var subjects = GS.uri.Uri.getFromQueryString("subjects");
 
@@ -52,9 +52,13 @@ GS.content.cms.VideoGallery = function() {};
 
         var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
+        if (queryString.length > 1) {
+            url = url + queryString;
+        }
+
         $j.ajax({
             type: "get",
-            url: url + queryString,
+            url: url,
             data: data,
             success: GS.content.cms.VideoGallery.onUpdateSuccess,
             error: GS.content.cms.VideoGallery.onUpdateError
