@@ -63,6 +63,9 @@
         <c:when test="${topicCenter.greatGiftsTopicCenter}">
             <pageHelper:setPathway pathway="GREAT_GIFTS"/>
         </c:when>
+        <c:when test="${topicCenter.backToSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="BACK_TO_SCHOOL"/>
+        </c:when>
     </c:choose>
 
     <c:set var="slotPrefixName" value="Library_Article_Page"/>
