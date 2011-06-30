@@ -30,7 +30,9 @@ public class IPhoneSplashController extends AbstractController {
         model.put(MODEL_REFERRER, "/");
 
         String referrer = request.getParameter(PARAM_REFERRER);
+        // Force referring url to be relative to doc root.
         if (referrer != null && referrer.startsWith("/")) {
+            // Escape HTML to prevent injection when embedded in the anchor tag
             String escapedUrl = StringEscapeUtils.escapeHtml(referrer);
             model.put(MODEL_REFERRER, escapedUrl);
         }
