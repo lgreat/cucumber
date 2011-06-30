@@ -1,9 +1,6 @@
 package gs.web.content.cms;
 
-import gs.data.content.cms.CmsConstants;
-import gs.data.content.cms.CmsSubtopic;
-import gs.data.content.cms.CmsTopicCenter;
-import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.*;
 import gs.data.school.LevelCode;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
@@ -18,6 +15,7 @@ import gs.web.pagination.RequestedPage;
 import gs.web.school.SchoolOverviewController;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
@@ -145,6 +143,19 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
            return new ModelAndView("/content/cms/videoGalleryTable", model);
         } else {
             return new ModelAndView("/content/cms/videoGallery", model);
+        }
+    }
+
+    public void addGoogleAdKeywordsIfNeeded(HttpServletRequest request, CmsTopicCenter topicCenter) {
+        if (isUseAdKeywords()) {
+            // Google Ad Manager ad keywords
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
+                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
+                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName().substring(0,4) + "Videos");
+            }
+
+            pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
         }
     }
 
