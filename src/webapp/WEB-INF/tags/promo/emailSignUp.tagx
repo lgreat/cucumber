@@ -120,13 +120,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="unit size1of3 lastUnit">&amp;nbsp;
-                                        <!--<div class="text-align-cen">
+                                    <div class="unit size1of3 lastUnit">
+                                        <div class="text-align-cen">
                                             <div class="mbs">
-                                                <span class="sprite i-iphone">&lt;!&ndash; do not collapse &ndash;&gt;</span>
+                                                <span class="sprite i-iphone"><!-- do not collapse --></span>                                            </div>
+                                            <div class="smallText1">
+                                                <a href="${requestScope.context.iphoneAppItunesStoreUrl}"
+                                                   target="_blank">Mobile</a>
                                             </div>
-                                            <div class="smallText1">Mobile</div>
-                                        </div>-->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
