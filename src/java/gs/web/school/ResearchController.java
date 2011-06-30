@@ -106,7 +106,7 @@ public class ResearchController extends AbstractController implements IDirectory
                 buf.append(stateParam.toLowerCase());
                 buf.append("/?area=d&district=").append(district);
                 buf.append("&level=").append(level);
-                mAndV.setView(new RedirectView(buf.toString()));
+                return new ModelAndView(new RedirectView(buf.toString()));
             } else if ("address".equals(form)) {
                 String level = request.getParameter(LEVEL_PARAM);
                 String miles = request.getParameter(MILES_PARAM);
@@ -147,7 +147,7 @@ public class ResearchController extends AbstractController implements IDirectory
                     buf.append("/");
                     buf.append(state.getAbbreviation());
                 }
-                mAndV.setView(new RedirectView(buf.toString()));
+                return new ModelAndView(new RedirectView(buf.toString()));
             }
         }
 
