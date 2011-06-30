@@ -4571,6 +4571,7 @@ body.cobranded #pageGS {
     padding: 3px 13px 3px 9px;
     color:#06b;
     outline: none;
+    white-space:nowrap;
 }
 
 #topnav_menusubnav a.arrow {
