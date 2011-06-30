@@ -40,7 +40,7 @@
                                           alt="${result.imageAltText}"
                                           width="121" height="86"/>
 
-                                <p>${result.title}</p>
+                                <p>${result.promo}</p>
 
                                 <p class="smallText1-999">
                                     <c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>
