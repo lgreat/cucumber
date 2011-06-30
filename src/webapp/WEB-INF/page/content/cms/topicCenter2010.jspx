@@ -284,9 +284,11 @@
               omitAlmondNet="${true}"
         />
 <script type="text/javascript">
+    GS = GS || {};
+    GS.ads = GS.ads || {};
     GS.ads.showAdSponsorLogoText = function() {
         if (jQuery('#google_ads_div_${slotPrefixName}_HeaderLogo_88x33,#google_ads_div_${slotPrefixName}_HeaderLogo_88x33_ad_container').length == 1) {
-           jQuery('#jq-ghostText-${slotPrefixName}_HeaderLogo_88x33').show();
+            jQuery('#jq-ghostText-${slotPrefixName}_HeaderLogo_88x33').show();
         }
     };
     jQuery(function() {
