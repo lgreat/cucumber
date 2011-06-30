@@ -4521,6 +4521,7 @@ body.cobranded #pageGS {
     padding: 0 0 0 10px;
     z-index: 3;
     position:relative;
+    zoom:1;
 }
 
 #topnav_menusubnav li {
