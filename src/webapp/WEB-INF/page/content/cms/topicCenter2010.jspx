@@ -94,7 +94,19 @@
                 ${licensorLogo}
             </c:when>
             <c:otherwise>
-                <ad:adTag position="HeaderLogo_88x33"/>
+                <div style="width:185px;">
+                    <div class="line">
+                        <div id="jq-ghostText-${slotPrefixName}_HeaderLogo_88x33"
+                             class="unit size1of2 hidden text-align-rt smallText1 prs">
+                            Sponsored<br/>by
+                        </div>
+                        <div class="unit size1of2 lastUnit">
+                            <ad:adTag position="HeaderLogo_88x33"/>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="">Sponsored by</div>
+                <ad:adTag position="HeaderLogo_88x33"/>-->
             </c:otherwise>
         </c:choose>
     </div>
@@ -271,7 +283,16 @@
               hier1="Topic Centers,${omnitureTopicCenterName}"
               omitAlmondNet="${true}"
         />
-
+<script type="text/javascript">
+    GS.ads.showAdSponsorLogoText = function() {
+        if (jQuery('#google_ads_div_${slotPrefixName}_HeaderLogo_88x33,#google_ads_div_${slotPrefixName}_HeaderLogo_88x33_ad_container').length == 1) {
+           jQuery('#jq-ghostText-${slotPrefixName}_HeaderLogo_88x33').show();
+        }
+    };
+    jQuery(function() {
+        setTimeout("GS.ads.showAdSponsorLogoText();", 1000);
+    });
+</script>
 </gsml:body>
 </html>
 </jsp:root>
