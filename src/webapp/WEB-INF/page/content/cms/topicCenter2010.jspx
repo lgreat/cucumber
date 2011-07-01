@@ -96,9 +96,8 @@
             <c:otherwise>
                 <div style="width:185px;">
                     <div class="line">
-                        <div id="jq-ghostText-${slotPrefixName}_HeaderLogo_88x33"
-                             class="unit size1of2 hidden text-align-rt smallText1 prs">
-                            Sponsored<br/>by
+                        <div id="jq-ghostText-${slotPrefixName}_HeaderLogo_88x33" class="unit size1of2 hidden">
+                            <p class="text-align-rt smallText1 prs">Sponsored<br/>by</p>
                         </div>
                         <div class="unit size1of2 lastUnit">
                             <ad:adTag position="HeaderLogo_88x33"/>
@@ -292,7 +291,7 @@
         }
     };
     jQuery(function() {
-        setTimeout("GS.ads.showAdSponsorLogoText();", 1000);
+        setTimeout('GS.ads.showAdSponsorLogoText();', 1000);
     });
 </script>
 </gsml:body>
