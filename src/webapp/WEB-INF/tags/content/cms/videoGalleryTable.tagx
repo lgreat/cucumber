@@ -46,10 +46,10 @@
                                     <c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>
                                     <c:if test="${not empty result.grades}">
                                         <c:choose>
-                                            <c:when test="${fn:length(result.grades) > 1}">
+                                            <c:when test="${fn:contains(result.grades,',')}">
                                                 Grades ${result.grades}
                                             </c:when>
-                                            <c:when test="${fn:length(result.grades) == 1}">
+                                            <c:when test="${not empty result.grades and not fn:contains(result.grades,',')}">
                                                 Grade ${result.grades}
                                             </c:when>
                                             <c:otherwise>
