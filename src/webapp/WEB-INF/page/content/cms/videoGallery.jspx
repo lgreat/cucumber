@@ -68,7 +68,7 @@
     <ad:setSlotPrefix slotPrefix="${slotPrefixName}"/>
 </head>
 
-<gsml:body adPageName="${pageName}" pageLayout="nocol">
+<gsml:body adPageName="${pageName}" pageLayout="">
 
     <div class="container_24">
         <div class="grid_16">
@@ -96,6 +96,7 @@
             </div>
 
             <div class="grid_11 omega">
+                <div class="prm">
                 <div class="spacer_10 brdtop_dotted"><!-- do not collapse --></div>
                 <!-- hardcoded grades and topics for the video gallery page.GS-11651 -->
                 <div class="line">
@@ -223,8 +224,9 @@
                 </div>
                 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 
-                <div id="js_videoGalleryData">
+                <div id="js_videoGalleryData" class="videoGallery">
                     <cms:videoGalleryTable/>
+                </div>
                 </div>
             </div>
         </div>

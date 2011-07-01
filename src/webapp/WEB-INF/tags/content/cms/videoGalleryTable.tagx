@@ -8,8 +8,7 @@
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
 
-    <div>
-        <div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
+        <div class="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
 
         <c:if test="${fn:length(videoResults) gt 0}">
 
@@ -67,6 +66,7 @@
                 </tbody>
             </table>
             <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+            <div class="spacer_20"><!-- do not collapse --></div>
 
             <c:if test="${page.pager.totalPages gt 0}">
                 <div class="pagination" id="pagination">
@@ -74,5 +74,4 @@
                 </div>
             </c:if>
         </c:if>
-    </div>
 </jsp:root>

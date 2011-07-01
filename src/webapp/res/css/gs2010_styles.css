@@ -107,6 +107,7 @@ General comments:
 =Back to School 2011
 =About Us
 =Meebo
+=video gallery (GS-11651)
 */
 
 /* =0 reset
@@ -13233,6 +13234,9 @@ p#btsBubbleOpts {
     line-height:1.3;
 }
 
+/* =Meebo
+-------------------------------------------------------------------------------------------*/
+
 /*****************
  * Meebo Toolbar *
  *****************/
@@ -13275,6 +13279,22 @@ p#btsBubbleOpts {
  margin-top:7px;
 }
 
+/* =video gallery (GS-11651)
+-------------------------------------------------------------------------------------------*/
+
+.videoGallery{
+    position:relative;
+}
+
+.videoGallery .spinner {
+    float: left;
+    z-index: 101;
+    position: absolute;
+    left: 195px;
+    top: -6px;
+    background-color: transparent;
+    display: none;
+}
 
 /**** samson's temporary work for GS-11784 ***/
 .gallery-thumbnail{ float: left; width: 70px; height: 70px; border:1px solid #333; margin-left: 10px; display: block;}
