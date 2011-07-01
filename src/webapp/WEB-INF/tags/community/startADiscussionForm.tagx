@@ -271,12 +271,8 @@
                                 <c:choose>
                                     <c:when test="${empty useImageForSubmitButton or useImageForSubmitButton}">
                                         <button class="${submitButtonStyle}" type="submit" name="post">
-                                            <div class="mediaExt1 submitButtonContent">
-                                                <div class="img">
-                                                    <span class="sprite community"><!-- icon --></span>
-                                                </div>
-                                                <div class="bk fltlft wsnw"><c:out value="${submitButtonText}"/></div>
-                                            </div>
+                                            <span class="sprite community vert-align-mid"><!-- icon --></span>
+                                            <span>&amp;nbsp;<c:out value="${submitButtonText}"/></span>
                                         </button>
                                     </c:when>
                                     <c:otherwise>

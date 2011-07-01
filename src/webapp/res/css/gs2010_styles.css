@@ -3707,6 +3707,10 @@ Viewport: the defines width and height of each icon
     line-height: 19px;
 }
 
+.lineheight-20 {
+    line-height: 20px;
+}
+
 .lineheight-25 {
     line-height: 25px;
 }
@@ -10792,6 +10796,7 @@ div#YahooRealEstateLink {
     cursor: pointer;
     outline: none; /* Background Gradients */
     background: #2092C4; /* for non-css3 browsers */
+    white-space: nowrap;
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
@@ -10905,6 +10910,7 @@ Extends button-1 by changing:
     cursor: pointer;
     outline: none; /* Background Gradients */
     background: #2092C4; /* for non-css3 browsers */
+    white-space: nowrap;
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
@@ -11027,6 +11033,7 @@ Extends button-1 by changing:
     cursor: pointer;
     outline: none; /* Background Gradients */
     background: #2092C4; /* for non-css3 browsers */
+    white-space: nowrap;
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
@@ -11136,6 +11143,7 @@ Extends button-1 by changing:
     cursor: pointer;
     outline: none; /* Background Gradients */
     background: #86101a; /* for non-css3 browsers */
+    white-space: nowrap;
 
 /* Border Radius */
     -moz-border-radius: 12px;
@@ -11181,6 +11189,7 @@ Extends button-1 by changing:
     cursor: pointer;
     outline: none; /* Background Gradients */
     background: #2092C4; /* for non-css3 browsers */
+    white-space: nowrap;
 
     background: -moz-linear-gradient(top, #57b8d5, #258fb6 50%, #258fb6 51%, #269acb); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #57b8d5), color-stop(.5, #258fb6), color-stop(.5, #258fb6), color-stop(1, #269acb)); /* Saf4+, Chrome */
