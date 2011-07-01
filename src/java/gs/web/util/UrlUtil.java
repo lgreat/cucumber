@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.109 2011/06/23 01:50:51 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.110 2011/07/01 20:27:39 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -82,10 +82,12 @@ public final class UrlUtil {
             String[] nameValuePairs = queryString.split("&");
             for (String nameValuePair: nameValuePairs) {
                 String[] nameAndValue = nameValuePair.split("=");
-                try {
-                    params.put(nameAndValue[0], URLDecoder.decode(nameAndValue[1], "UTF-8"));
-                } catch (UnsupportedEncodingException uee) {
-                    _log.warn("Can't decode param: " + nameValuePair);
+                if (nameAndValue.length > 1) {
+                    try {
+                        params.put(nameAndValue[0], URLDecoder.decode(nameAndValue[1], "UTF-8"));
+                    } catch (UnsupportedEncodingException uee) {
+                        _log.warn("Can't decode param: " + nameValuePair);
+                    }
                 }
             }
         }
