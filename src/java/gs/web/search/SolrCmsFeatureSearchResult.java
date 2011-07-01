@@ -113,6 +113,11 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
         _fullUri = fullUri;
     }
 
+    @Field(CmsFeatureDocumentBuilder.FIELD_PROMO)
+    public void setPromo(String promo) {
+        _promo = promo;
+    }
+
     @XmlElement
     public String getPromo() {
         return _promo;
