@@ -40,11 +40,15 @@ GS.content.cms.VideoGallery = function() {};
         if ($("#js_gradesDropdown").val() != -1) {
             data.grades = $("#js_gradesDropdown").val();
             queryString = GS.uri.Uri.removeFromQueryString(queryString, "grades");
+        } else {
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "grades");
         }
 
         //Add the user selected topics/subjects filter to the topics params.
         if ($("#js_topicsDropdown").val() != -1) {
             data.topics = $("#js_topicsDropdown").val();
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "topics");
+        } else {
             queryString = GS.uri.Uri.removeFromQueryString(queryString, "topics");
         }
 
