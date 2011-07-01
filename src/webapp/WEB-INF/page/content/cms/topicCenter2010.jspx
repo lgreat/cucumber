@@ -94,7 +94,7 @@
                 ${licensorLogo}
             </c:when>
             <c:otherwise>
-                <div style="width:185px;">
+                <!--<div style="width:185px;">
                     <div class="line">
                         <div id="jq-ghostText-${slotPrefixName}_HeaderLogo_88x33" class="unit size1of2 hidden">
                             <p class="text-align-rt smallText1 prs">Sponsored<br/>by</p>
@@ -103,9 +103,10 @@
                             <ad:adTag position="HeaderLogo_88x33"/>
                         </div>
                     </div>
+                </div>-->
+                <div class="fltrt">
+                <ad:adTag position="HeaderLogo_88x33"/>
                 </div>
-                <!--<div class="">Sponsored by</div>
-                <ad:adTag position="HeaderLogo_88x33"/>-->
             </c:otherwise>
         </c:choose>
     </div>
