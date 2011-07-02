@@ -103,133 +103,31 @@
                     <div class="unit size15of100 text3">Filtered by:</div>
                     <div class="unit size26of100">
                         <select id="js_gradesDropdown" class="js_videoFilterDropDown type">
-                            <option value="-1">All Grades</option>
-                            <c:choose>
-                                <c:when test="${param.grades==199}">
-                                    <option value="199" selected="true">Kindergarten</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="199">Kindergarten</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.grades==200}">
-                                    <option value="200" selected="true">First Grade</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="200">First Grade</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.grades==201}">
-                                    <option value="201" selected="true">Second Grade</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="201">Second Grade</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.grades==202}">
-                                    <option value="202" selected="true">Third Grade</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="202">Third Grade</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.grades==203}">
-                                    <option value="203" selected="true">Fourth Grade</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="203">Fourth Grade</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.grades==204}">
-                                    <option value="204" selected="true">Fifth Grade</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="204">Fifth Grade</option>
-                                </c:otherwise>
-                            </c:choose>
+                            <c:forEach items="${gradeChoices}" var="entry">
+                                <c:choose>
+                                    <c:when test="${param.grades==entry.key}">
+                                        <option value="${entry.key}" selected="true">${entry.value}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${entry.key}">${entry.value}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="unit size2of100">&amp;nbsp;</div>
                     <div class="unit size57of100 lastUnit">
                         <select id="js_topicsDropdown" class="js_videoFilterDropDown type">
-                            <option value="-1">All Topics</option>
-                            <c:choose>
-                                <c:when test="${param.topics==133}">
-                                    <option value="133" selected="true">Academic Skills</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="133">Academic Skills</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==140}">
-                                    <option value="140" selected="true">Homework Help</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="140">Homework Help</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==378}">
-                                    <option value="378">Motivation &amp; Confidence</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="378">Motivation &amp; Confidence</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==241}">
-                                    <option value="241" selected="true">Parental Power</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="241">Parental Power</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==240}">
-                                    <option value="240" selected="true">Understanding the System</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="240">Understanding the System</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==124}">
-                                    <option value="124" selected="true">Behavior &amp; Discipline</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="124">Behavior &amp; Discipline</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==157}">
-                                    <option value="157" selected="true">Social Skills</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="157">Social Skills</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==149}">
-                                    <option value="149" selected="true">Bullying</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="149">Bullying</option>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${param.topics==379}">
-                                    <option value="379" selected="true">Learning and Development</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="379">Learning and Development</option>
-                                </c:otherwise>
-                            </c:choose>
+                            <c:forEach items="${topicChoices}" var="entry">
+                                <c:choose>
+                                    <c:when test="${param.topics==entry.key}">
+                                        <option value="${entry.key}" selected="true">${entry.value}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${entry.key}">${entry.value}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

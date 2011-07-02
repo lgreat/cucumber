@@ -46,6 +46,12 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
     public static final PaginationConfig VIDEO_GALLERY_PAGINATION_CONFIG;
 
+    public static Map<String,String> GRADE_CHOICES = new LinkedHashMap<String,String>();
+
+    public static Map<String,String> TOPIC_CHOICES = new LinkedHashMap<String,String>();
+    public static String TOPIC_CHOICES_PARAM = "topicChoices";
+    public static String GRADE_CHOICES_PARAM = "gradeChoices";
+
     static {
         VIDEO_GALLERY_PAGINATION_CONFIG = new PaginationConfig(
                 DefaultPaginationConfig.DEFAULT_PAGE_SIZE_PARAM,
@@ -56,6 +62,26 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
                 DefaultPaginationConfig.ZERO_BASED_OFFSET,
                 DefaultPaginationConfig.ZERO_BASED_PAGES
         );
+
+        //used for dropdowns in jspx
+        GRADE_CHOICES.put("-1", "All Grades");
+        GRADE_CHOICES.put("199", "Kindergarten");
+        GRADE_CHOICES.put("200", "First Grade");
+        GRADE_CHOICES.put("201", "Second Grade");
+        GRADE_CHOICES.put("202", "Third Grade");
+        GRADE_CHOICES.put("203", "Fourth Grade");
+        GRADE_CHOICES.put("204", "Fifth Grade");
+
+        TOPIC_CHOICES.put("-1", "All Topics");
+        TOPIC_CHOICES.put("133", "Academic Skills");
+        TOPIC_CHOICES.put("140", "Homework Help");
+        TOPIC_CHOICES.put("378", "Motivation &amp; Confidence");
+        TOPIC_CHOICES.put("241", "Parental Power");
+        TOPIC_CHOICES.put("240", "Understanding the System");
+        TOPIC_CHOICES.put("124", "Behavior &amp; Discipline");
+        TOPIC_CHOICES.put("157", "Social Skills");
+        TOPIC_CHOICES.put("149", "Bullying");
+        TOPIC_CHOICES.put("379", "Learning and Development");
     }
 
     //=========================================================================
@@ -211,6 +237,9 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         }
 
         model.put(MODEL_FULL_URL, url);
+
+        model.put(TOPIC_CHOICES_PARAM, TOPIC_CHOICES);
+        model.put(GRADE_CHOICES_PARAM, GRADE_CHOICES);
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());

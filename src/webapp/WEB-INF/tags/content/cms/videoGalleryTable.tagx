@@ -10,7 +10,8 @@
 
         <div class="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
 
-        <c:if test="${fn:length(videoResults) gt 0}">
+        <c:choose>
+        <c:when test="${fn:length(videoResults) gt 0}">
 
             <table class="videoGalleryTable text3bold" width="100%">
                 <tbody>
@@ -73,5 +74,35 @@
                     <search:easierPagination page="${page}" useJavascriptPaging="false" url="${fullUrl}" mode="offset"/>
                 </div>
             </c:if>
-        </c:if>
+        </c:when>
+            
+            <c:otherwise>
+                <p class="alert pts">
+                <c:set var="gradeChoiceText" value="${gradeChoices[param.grades]}"/>
+                <c:set var="topicChoiceText" value="${topicChoices[param.topics]}"/>
+                <c:choose>
+                    <c:when test="${not empty gradeChoiceText and not empty topicChoiceText}">
+                        There are no videos for &quot;${gradeChoiceText}&quot; &amp; &quot;${topicChoiceText}&quot;
+                    </c:when>
+                    <c:when test="${empty gradeChoiceText and not empty topicChoiceText}">
+                        There are no videos for &quot;${topicChoiceText}&quot;
+                    </c:when>
+                    <c:when test="${not empty gradeChoiceText and empty topicChoiceText}">
+                        There are no videos for &quot;${gradeChoiceText}&quot;
+                    </c:when>
+                    <c:otherwise>
+                        No videos match your selection.
+                    </c:otherwise>
+                </c:choose>
+                </p>
+                <p>
+                Please select another option from one of the filter menus above or <link:cmsVideoGallery
+                    topicCenterId="${topicCenter.contentKey.identifier}"
+                    topicCenterUrl="${topicCenter.fullUri}"
+                    language="EN">view all photos</link:cmsVideoGallery>.
+                </p>
+            </c:otherwise>
+        </c:choose>
+
+   
 </jsp:root>
