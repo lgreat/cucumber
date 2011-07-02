@@ -108,6 +108,7 @@ General comments:
 =About Us
 =Meebo
 =video gallery (GS-11651)
+=samson's random stylings
 */
 
 /* =0 reset
@@ -3378,6 +3379,12 @@ Viewport: the defines width and height of each icon
 .aboutOverview .inner{background: white;}
 .aboutOverview .hd h3{margin-bottom: 5px;font: 18px Georgia, "Times New Roman", Times, serif;color:#d61;}
 .aboutOverview .bd{font: 12px Arial, Helvetica, sans-serif;color: #333;}
+
+/* --- video-popup-contents (extends mod) ---- */
+.video-popup-contents{margin-left: 15px;}
+.video-popup-contents .inner {width:218px;border:1px solid #c6c6c6;background-color: white;}
+.video-popup-contents .hd p {margin: 5px 10px 0;}
+.video-popup-contents .bd p {margin: 0 10px 5px;}
 
 /* ------------ background tints ------------- */
 .bgtint-fff{
@@ -8103,16 +8110,6 @@ body.hover #uploadAvatarHover form {
 
 #watchVid .mod_bd {
     padding: 8px 0;
-}
-
-/* GS-11651 video gallery table */
-
-.videoGalleryTable td{
-    vertical-align: top;
-}
-
-.videoGalleryImage p{
-    width:121px;
 }
 
 /* =12h- inline sign-in
@@ -13295,6 +13292,27 @@ p#btsBubbleOpts {
     background-color: transparent;
     display: none;
 }
+
+/* GS-11651 video gallery table */
+
+.videoGalleryTable td{
+    vertical-align: top;
+}
+
+.videoGalleryImage p{
+    width:121px;
+}
+
+.videoGalleryImage p{
+    word-wrap: break-word;
+}
+
+.js-videoBubbleInfo{
+    position: relative;
+}
+
+/* =samson's random stylings
+-------------------------------------------------------------------------------------------*/
 
 /**** samson's temporary work for GS-11784 ***/
 .gallery-thumbnail{ float: left; width: 70px; height: 70px; border:1px solid #333; margin-left: 10px; display: block;}

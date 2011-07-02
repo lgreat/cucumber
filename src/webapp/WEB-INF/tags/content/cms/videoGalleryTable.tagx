@@ -32,33 +32,59 @@
 
                         <td>
                             <div class="videoGalleryImage">
-                            <div class="spacer_15"><!-- do not collapse --></div>
-                            <!--${status.count}-->
+                                <div class="spacer_15"><!-- do not collapse --></div>
+                                <!--${status.count}-->
 
-                            <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
-                                <gsml:img src="${result.imageUrl}"
-                                          alt="${result.imageAltText}"
-                                          width="121" height="86"/>
+                                <div class="js-videoBubbleInfo">
+                                    <div class="js-trigger">
+                                        <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
 
-                                <p>${result.promo}</p>
+                                            <gsml:img src="${result.imageUrl}"
+                                                      alt="${result.imageAltText}"
+                                                      width="121" height="86"/>
+                                        </link:cmsContent>
+                                    </div>
+                                    <div class="js-popup">
+                                        <div class="mod video-popup-contents">
+                                            <div class="inner">
+                                                <div class="hd">
+                                                    <p class="text1bold-d61">${result.promo}Hello Randall</p>
+                                                </div>
+                                                <div class="bd">
+                                                    <p class="text2">${fn:escapeXml(result.summary)}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <p class="smallText1-999">
-                                    <c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>
-                                    <c:if test="${not empty result.grades}">
-                                        <c:choose>
-                                            <c:when test="${fn:contains(result.grades,',')}">
-                                                Grades ${result.grades}
-                                            </c:when>
-                                            <c:when test="${fn:length(result.grades) == 1 || result.grades == 'PK'}">
-                                                Grade ${result.grades}
-                                            </c:when>
-                                            <c:otherwise>
+                                </div>
 
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:if>
+                                <p>
+                                    <link:cmsContent contentKey="${result.contentKey}"
+                                                     fullUri="${result.fullUri}">${result.promo}</link:cmsContent>
                                 </p>
-                            </link:cmsContent>
+
+                                <p>
+                                    <link:cmsContent contentKey="${result.contentKey}"
+                                                     fullUri="${result.fullUri}"
+                                                     styleClass="smallText1-999">
+                                        <c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>
+                                        <c:if test="${not empty result.grades}">
+                                            <c:choose>
+                                                <c:when test="${fn:contains(result.grades,',')}">
+                                                    Grades ${result.grades}
+                                                </c:when>
+                                                <c:when test="${fn:length(result.grades) == 1 || result.grades == 'PK'}">
+                                                    Grade ${result.grades}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <!-- do not collapse -->
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:if>
+                                    </link:cmsContent>
+                                </p>
+
                             </div>
                         </td>
 
@@ -104,5 +130,10 @@
             </c:otherwise>
         </c:choose>
 
-   
+    <script type="text/javascript">
+        jQuery(function () {
+//                jQuery('#js-bubbleInfo').popup({appear:'left',leftPosition:-200,topPosition:-95});
+            jQuery('.js-videoBubbleInfo').popup({appear:'right',leftPosition:80,topPosition:23});
+        });
+    </script>
 </jsp:root>
