@@ -46,6 +46,8 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
     public static final PaginationConfig VIDEO_GALLERY_PAGINATION_CONFIG;
 
+    public static final String VIDEO_GALLERY_GAM_ATTRIBUTE_KEY = "video_gallery_topic_center_id";
+
     public static Map<String,String> GRADE_CHOICES = new LinkedHashMap<String,String>();
 
     public static Map<String,String> TOPIC_CHOICES = new LinkedHashMap<String,String>();
@@ -178,10 +180,10 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
             for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
                 pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
-                pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName().substring(0,4) + "Videos");
             }
 
             pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
+            pageHelper.addAdKeyword(VIDEO_GALLERY_GAM_ATTRIBUTE_KEY, String.valueOf(topicCenter.getContentKey().getIdentifier()));
         }
     }
 
@@ -237,9 +239,8 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         }
 
         model.put(MODEL_FULL_URL, url);
-
-        model.put(TOPIC_CHOICES_PARAM, TOPIC_CHOICES);
         model.put(GRADE_CHOICES_PARAM, GRADE_CHOICES);
+        model.put(TOPIC_CHOICES_PARAM, TOPIC_CHOICES);
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
