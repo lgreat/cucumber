@@ -1691,18 +1691,21 @@ Viewport: the defines width and height of each icon
 .i-facebook-l {
     width: 32px;
     height: 32px;
+    margin-top: 2px;
     background-position: -80px -140px;
 }
 
 .i-twitter-l {
     width: 30px;
     height: 32px;
+    margin-top: 2px;
     background-position: -80px -180px;
 }
 
 .i-blog-l {
     width: 30px;
     height: 32px;
+    margin-top: 2px;
     background-position: -80px -220px;
 }
 
