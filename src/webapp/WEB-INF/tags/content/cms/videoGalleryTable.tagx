@@ -30,7 +30,18 @@
                             <c:set var="videoSeconds" value="${zeroPrefix}${videoSeconds}"/>
                         </c:if>
 
-                        <td>
+                        <c:set var="modstatus" value="${status.count%3}"/>
+                        <c:choose>
+                            <c:when test="${modstatus eq 0}">
+                                <c:set var="myZ" value="1"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="myZ" value="${4-status.count%3}"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <!--<c:out value="${myZ}"/>-->
+                        
+                        <td class="zir-${myZ}">
                             <div class="videoGalleryImage">
                                 <div class="spacer_15"><!-- do not collapse --></div>
                                 <!--${status.count}-->
