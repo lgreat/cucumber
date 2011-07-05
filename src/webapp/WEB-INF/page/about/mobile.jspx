@@ -5,9 +5,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -52,9 +50,7 @@
             <p class="text2">This application only searches for K-12 schools within the U.S. It is available internationally for users who want to search within the U.S.</p>
             <p class="text2">Requires iOS 4.0 or later.</p>
 
-            <c:set var="iphoneAppDownloadButtonId" value="jq-iphoneAppDownloadButton"/>
-            <promo:iphoneAppDownloadTracking buttonId="${iphoneAppDownloadButtonId}"/>
-            <a href="${requestScope.context.iphoneAppItunesStoreUrl}" id="${iphoneAppDownloadButtonId}" class="button-3">Download Now</a>
+            <a href="${requestScope.context.iphoneAppItunesStoreUrl}" onclick="if(s.tl){s.tl(this,'o','Iphone_App_Download');}return true;" class="button-3">Download Now</a>
 
         </div>
 
