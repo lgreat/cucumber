@@ -71,7 +71,7 @@
 <gsml:body adPageName="${pageName}" pageLayout="">
 
     <div class="container_24">
-        <div class="grid_16">
+        <div class="grid_16 zir-2">
 
             <school:miniStateLauncherHover/>
 
@@ -139,7 +139,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid_8">
+        <div class="grid_8 zir-1">
             <cms:topicCenterSidebar topicCenter="${topicCenter}"/>
         </div>
 
