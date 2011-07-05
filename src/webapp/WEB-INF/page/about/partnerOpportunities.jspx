@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
@@ -105,11 +105,11 @@
                             support their children's education. That's 1 out of 3 K-12 households in the U.S.</p>
 
                         <p>
-                            With a national database of over 200,000 pre-K – 12th grade schools and 2,000 expert articles, our content helps power some of the web’s leading media organizations.
+                            With a national database of over 200,000 pre-K – 12th grade schools and 3,000 expert articles, our content helps power some of the web’s leading media organizations.
                             We constantly refresh our site with the latest available data from district, state, and national sources.</p>
 
                         <p>
-                            Greatschools offers co-branding of our website content, data feeds for school data and opportunities to republish articles from
+                            GreatSchools offers co-branding of our website content, data feeds for school data and opportunities to republish articles from
                             <a href="http://www.greatschools.org">www.GreatSchools.org</a>.
                             Whether your goals are to build a content rich site vertical, increase page stickiness, or generate additional page views, there are a number of ways we can add value.
                         </p>
@@ -126,10 +126,9 @@
                                                     title="Adobe Reader is required to view these files.Click to download."/></a>
                         </p>
 
-                        <ul>For more information and pricing please contact:
-                            <li>Jennifer Leibick, Business Development Manager, <a
-                                    href="mailto:jleibick@greatschools.org">jleibick@greatschools.org</a></li>
-                        </ul>
+                        <p>For more information and pricing please contact the GreatSchools Business Development team: <a
+                                    href="mailto:bizdev@greatschools.org">bizdev@greatschools.org</a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -148,16 +147,14 @@
                         </p>
 
                         <p>
-                            Click <a href="/api/registration.page">here</a> to visit the GreatSchools API page or click
-                            <a
-                                    href="mailto:jleibick@greatschools.org">here</a> to contact our team for more information.
+                            Click <a href="/api/registration.page">here</a> to visit the GreatSchools API page.
                         </p>
 
 
-                        <p><span class="text2bold">Data Feeds</span><br/>
+                        <p><span class="text2bold">Data Feeds Licensing</span><br/>
                             Utilize our feeds, which are available in various formats (XML, Excel), or integrate links and search boxes
                             for our school profiles, test scores, census data and more. <a
-                                    href="mailto:jleibick@greatschools.org">Contact us</a>
+                                    href="mailto:bizdev@greatschools.org">Contact us</a>
                             for pricing information.
                         </p>
 
@@ -168,32 +165,33 @@
                         </p>
 
 
-                        <p><span class="text2bold">Branding and Licensing</span><br/>
+                        <p><span class="text2bold">Co-branding</span><br/>
                             Get your very own co-branded URL for each web property. This will allow you to increase page stickiness and keep your users
                             on your site throughout their entire experience. Use our expert articles to augment your local education content – host entire
                             articles on your site or just teaser headlines that link to your co-branded page. Additionally, you can provide your own ad tag
                             and continue to monetize your high value impressions. Co-brand prices start at $2000/year.
+                            <a href="mailto:bizdev@greatschools.org">Contact us</a>  for pricing information.
                         </p>
 
                         <p>
                             Please click on the link to see a current partner example: <a
-                                href="http://ocregister.greatschools.org/"
-                                target="_blank">Orange County Register</a>
+                                href="http://dallasnews.greatschools.org/search/search.page?state=TX&amp;q=dallas"
+                                target="_blank">Dallas Morning News</a>
                         </p>
 
 
                         <p><span class="text2bold">Framed Version of GreatSchools</span><br/>
                             GreatSchools can work with you through an advertising free framed version of our site. Your company can frame
-                            the school search finder, the Research and Compare pages and the City Overview pages. The license fee for a framed solution
+                            the school search finder, the Find a School state pages and the City Overview pages. The license fee for a framed solution
                             is only $500/year. Please see below for a few examples on this.</p>
 
                         <ul>
                             <li>School search framed example: <a
                                     href="http://www.marinhighendhomes.com/Marin-School-Information.php"
                                     target="_blank">Marin High End Homes</a></li>
-                            <li>Research and compare example: <a
-                                    href="http://www.mikemay.com/Chesterfield_Cty_Schools/page_2188676.html"
-                                    target="_blank">Mike May Realty</a></li>
+                            <li>Find a School example: <a
+                                    href="http://www.liveparkcity.com/schools.php"
+                                    target="_blank">Live Park City</a></li>
                             <li>City overview page example: <a href="http://www.greatschools.org/city/San_Francisco/CA"
                                                                target="_blank">San Francisco City Overview</a></li>
                         </ul>
@@ -207,10 +205,10 @@
                         </p>
 
 
-                        <p><span class="text2bold">Articles</span><br/>
+                        <p><span class="text2bold">Article Licensing</span><br/>
                             GreatSchools licenses all articles found on the GreatSchools site. Licensing starts at a minimum of 5 articles for a fee of $375/year.
                             Larger volume discounts are also available, please <a
-                                    href="mailto:jleibick@greatschools.org">contact us</a> for more information.
+                                    href="mailto:bizdev@greatschools.org">contact us</a> for more information.
                             Please <a href="/catalog/pdf/GreatSchoolsReprintAgreement.doc"
                                       target="_blank">click here</a> for the Re-Print Permissions Form.
                             Complete the form, submit your payment and fax back to us at 888-316-6975.
