@@ -60,7 +60,7 @@
 
                 <c:set var="loopTimes" value="0"/>
                 <li id="gradeNewsLetters">Sign me up for weekly emails from GreatSchools with grade-by-grade tips.
-                <div>In 2010-2011 my children are in:</div>
+                <div>In 2011-2012 my children are in:</div>
                     <div id="grades">
 
                     <ol id="first">
