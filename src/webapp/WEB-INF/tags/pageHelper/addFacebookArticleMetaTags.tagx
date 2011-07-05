@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <jsp:directive.tag import="java.net.URLEncoder"/>
-    <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:directive.tag body-content="empty"
                        description="Used to add a meta tag to the document head. The meta tag will contain property and content attributes."/>
-    <jsp:directive.attribute name="url" required="true" type="java.lang.String" description="Full url for this page"/>
+    <jsp:directive.attribute name="uri" required="true" type="java.lang.String" description="Full URI for this page"/>
     <jsp:directive.attribute name="deck" required="true" type="java.lang.String"
                              description="summary for the cms feature"/>
     <jsp:directive.attribute name="title" required="true" type="java.lang.String"
@@ -18,20 +15,14 @@
 
     <jsp:scriptlet>
 
-        String encodedUrl = null;
-        String unEncodedUrl = null;
-        String baseUrl = null;
-        if (UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            baseUrl = "http://www.greatschools.org";
-        } else {
-            baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        }
-        if ((url != null) &amp;&amp; (baseUrl != null)) {
-            String justUrl = url.substring(0, url.indexOf("?"));
-            unEncodedUrl = baseUrl + justUrl + "?page=1";
-            encodedUrl = URLEncoder.encode(unEncodedUrl, "UTF-8");
-            request.setAttribute("pageUrlOnFacebook", encodedUrl);
-        }
+        // build the part of the url before the uri
+        String baseUrl = (request.getScheme() + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : ""));
+        // remove any query string that was added on as a precaution
+        String justUri = uri.substring(0, uri.indexOf("?"));
+        // add page=1 as only query parameter
+        String unEncodedUrl = baseUrl + justUri + "?page=1";
+        String encodedUrl = URLEncoder.encode(unEncodedUrl, "UTF-8");
+        request.setAttribute("pageUrlOnFacebook", encodedUrl);
 
         gs.web.util.PageHelper.addMetaProperty(request, "og:type", "article");
         gs.web.util.PageHelper.addMetaProperty(request, "og:site_name", "GreatSchools");

@@ -21,16 +21,16 @@
 <jsp:directive.page contentType="text/html"/>
 <c:choose>
     <c:when test="${type eq 'askTheExperts'}">
-        <pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.metaDescription}" title="${feature.title}"/>
+        <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.metaDescription}" title="${feature.title}"/>
     </c:when>
     <c:otherwise>
         <c:choose>
             <c:when test="${type eq 'article' and not empty feature.imageUrl}">
-                <pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.summary}" title="${feature.title}"
+                <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
                                                        imageUrl="${feature.imageUrl}"/>
             </c:when>
             <c:otherwise>
-                <pageHelper:addFacebookArticleMetaTags url="${uri}" deck="${feature.summary}" title="${feature.title}"/>
+                <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"/>
             </c:otherwise>
         </c:choose>
     </c:otherwise>
