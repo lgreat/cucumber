@@ -821,10 +821,6 @@ h5 {
     font: bold 13px / 1.3 Arial, Helvetica, sans-serif;
 }
 
-.alert {
-    color: #d61;
-}
-
 /* classes applied to h3 */
 .title1 {
     font-family: Georgia, "Times New Roman", Times, serif;
@@ -1001,6 +997,11 @@ h3.srchCat {
 .text2-d61 {
     font: 13px Arial, Helvetica, sans-serif;
     color: #d61;
+}
+
+.text2-c03 {
+    font: 13px Arial, Helvetica, sans-serif;
+    color: #c03;
 }
 
 .text2bold {
