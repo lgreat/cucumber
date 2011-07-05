@@ -37,7 +37,7 @@
 
                     <p class="text1">Save schools to your<br/>personal list of favorites.</p>
 
-                    <p><a href="${requestScope.context.iphoneAppItunesStoreUrl}" onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download');}return true;" class="button-1">Download Now</a></p>
+                    <p><a href="${requestScope.context.iphoneAppItunesStoreUrl}" onclick="if(s.tl){s.tl(this,'o','iPhone_App_Download_Splash');}return true;" class="button-1">Download Now</a></p>
 
                     <p>
                         <a href="${referrer}">No thanks.<br/>Take me to the web site.</a>
