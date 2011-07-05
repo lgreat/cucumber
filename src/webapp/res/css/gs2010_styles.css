@@ -3385,6 +3385,8 @@ Viewport: the defines width and height of each icon
 .video-popup-contents .inner {width:218px;border:1px solid #c6c6c6;background-color: white;}
 .video-popup-contents .hd p {width:auto;margin: 5px 10px 0;}
 .video-popup-contents .bd p {width:auto;margin: 0 10px 5px;}
+.video-popup-contents .inner .arrow-outline-left{position:absolute;top:1px;left:-15px;}
+.video-popup-contents .inner .arrow-left{position:absolute;top:1px;left:-13px;}
 
 /* ------------ background tints ------------- */
 .bgtint-fff{

@@ -47,8 +47,10 @@
                                     <div class="js-popup">
                                         <div class="mod video-popup-contents">
                                             <div class="inner">
+                                                <span class="arrow-outline-left"><!-- do not collapse --></span>
+                                                <span class="arrow-left"><!-- do not collapse --></span>
                                                 <div class="hd">
-                                                    <p class="text1bold-d61">${result.promo}Hello Randall</p>
+                                                    <p class="text1bold-d61">${result.promo}</p>
                                                 </div>
                                                 <div class="bd">
                                                     <p class="text2">${fn:escapeXml(result.summary)}</p>
