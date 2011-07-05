@@ -13294,7 +13294,7 @@ p#btsBubbleOpts {
     z-index: 101;
     position: absolute;
     left: 195px;
-    top: -6px;
+    top: 50px;
     background-color: transparent;
     display: none;
 }
