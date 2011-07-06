@@ -190,6 +190,8 @@
                         <div class="spacer_15"><!-- do not collapse --></div>
                     </c:if>
 
+                    <a name="tip-of-the-day"><!-- do not collapse --></a>
+                    <div class="spacer_10"><!-- do not collapse --></div>
                     <ad:adTag position="House_Ad_423x230"/>
 
             <c:choose>

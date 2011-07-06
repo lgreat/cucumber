@@ -186,6 +186,8 @@
         </c:otherwise>
     </c:choose>
 
+    <a name="tip-of-the-day"><!-- do not collapse --></a>
+    <div class="spacer_10"><!-- do not collapse --></div>
     <gsweb:adTagGenerator position="Homepage_House_Ad_598x102"/>
 
     <school:findSchoolTopCitesAndStates />
