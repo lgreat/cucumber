@@ -114,7 +114,7 @@
         <div id="colrt" class="fltrt">
             <div class="c_title treb19 tint5bc">GreatSchools D.C.</div>
             <!--end c_title -->
-            <div class="unit fltlft"><span class="u_title cent17B tintfff">Find and Compare</span>
+            <div class="dc_unit fltlft"><span class="u_title cent17B tintfff">Find and Compare</span>
 
                 <div id="u1" class="u_content">
                     <form class="forms treb12 tint777">
@@ -138,10 +138,10 @@
                                onmouseout="this.src='/res/img/splash/go.gif';" src="/res/img/splash/go.gif"/>
                     </form>
                 </div>
-                <!--end unit content -->
+                <!--end dc_unit content -->
             </div>
-            <!--end unit 1-->
-            <div class="unit fltrt"><span class="u_title cent17B tintfff">Connect and Learn</span>
+            <!--end dc_unit 1-->
+            <div class="dc_unit fltrt"><span class="u_title cent17B tintfff">Connect and Learn</span>
 
                 <div id="u2" class="u_content">
                     <ul class="u_list treb12 tint777">
@@ -159,12 +159,12 @@
                         </li>
                     </ul>
                 </div>
-                <!--end unit content -->
+                <!--end dc_unit content -->
             </div>
-            <!--end unit 2-->
+            <!--end dc_unit 2-->
             <br class="clearfloat"/>
 
-            <div class="unit fltlft"><span class="u_title cent17B tintfff">D.C. Resources</span>
+            <div class="dc_unit fltlft"><span class="u_title cent17B tintfff">D.C. Resources</span>
 
                 <div id="u3" class="u_content">
                     <ul class="u_list treb12 tint777">
@@ -192,10 +192,10 @@
                                     target="_blank">Public Charter School Board (PCSB)</gsml:a></li>
                     </ul>
                 </div>
-                <!--end unit content -->
+                <!--end dc_unit content -->
             </div>
-            <!--end unit 3-->
-            <div class="unit fltrt"><span class="u_title cent17B tintfff">GreatSchools Resources</span>
+            <!--end dc_unit 3-->
+            <div class="dc_unit fltrt"><span class="u_title cent17B tintfff">GreatSchools Resources</span>
 
                 <div id="u4" class="u_content">
                     <ul class="u_list treb12 tint777">
@@ -221,9 +221,9 @@
                                 styleClass="treb12 tint39a link">Sign up for GreatSchools newsletters</gsml:a></li>
                     </ul>
                 </div>
-                <!--end unit content -->
+                <!--end dc_unit content -->
             </div>
-            <!--end unit 4-->
+            <!--end dc_unit 4-->
             <br class="clearfloat"/>
 
             <div id="donate">
