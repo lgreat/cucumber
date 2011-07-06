@@ -45,7 +45,8 @@
     <div class="mrm phs">
         <div class="smallText1 mtm pts">
             <link:home>Home</link:home> &amp;gt;
-            <a href="">Worksheets &amp;amp; Activities</a> &amp;gt;
+            <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
+            <!-- TODO-11818 link 'Worksheets' to worksheet gallery -->
             <a href="">Worksheets</a>
         </div>
 
@@ -53,24 +54,49 @@
 
         <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
-        <div class="authorPageBar">
-            <div class="authors">By GreatSchools Staff</div>
-            <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
-        </div>
+        <!-- TODO-11818 grade and subject listing -->
 
-        <p class="introText">
+        <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
+
+        <!-- deck -->
+        <!-- TODO-11818 fix paragraph spacing, text styles and spacing between deck and optional body -->
+        <p class="text3">
             ${fn:escapeXml(feature.summary)}
         </p>
 
-        <c:if test="${not empty feature.previewImageUrl}">
-                 <gsml:img src="${feature.previewImageUrl}"
-                           title="${feature.previewImageTitle}"
-                           alt="${feature.previewImageAltText}"/>
+        <!-- body (optional) - do not escape XML due to possible intentional HTML tags -->
+        <!-- TODO-11818 fix paragraph spacing, text styles and spacing between deck and optional body -->
+        ${feature.body}
+
+        <c:if test="${not empty feature.skillsList}">
+            <!-- TODO-11818 fix Skills heading styles, text styles -->
+            <p class="text3">
+                Skills:
+                <c:forEach var="skill" items="${feature.skillsList}" varStatus="loopStatus">
+                    ${fn:escapeXml(skill)}<c:if test="${!loopStatus.last}">, </c:if>
+                </c:forEach>
+            </p>
         </c:if>
 
-        <!-- TODO-11818 grade and subject listing -->
+        <c:if test="${not empty feature.commonCoreStandardsList}">
+            <!-- TODO-11818 fix styles -->
+            <p class="text3">
+                Common core standards:
+                <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
+                    <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.name)}</a><c:if test="${!loopStatus.last}">, </c:if>
+                </c:forEach>
+            </p>
+        </c:if>
 
-        <gsml:a href="/library/${feature.pdfUri}" styleClass="button-3" target="_blank">Print Full Size</gsml:a>
+        <!-- TODO-11818 preview image not showing up??? -->
+        <c:if test="${not empty feature.previewImageUrl}">
+            <gsml:img src="${feature.previewImageUrl}"
+                      title="${feature.previewImageTitle}"
+                      alt="${feature.previewImageAltText}"/>
+        </c:if>
+
+        <!-- TODO-11818 pdf link broken??? -->
+        <gsml:a href="/library/${feature.pdfUri}" styleClass="button-2" target="_blank">Print Full Size</gsml:a>
 
         <!-- TODO-11818 acrobat reader icon -->
         <p>
@@ -96,14 +122,6 @@
             </ul>
         </div>
 
-        <div class="pvs">
-            ${feature.embedVideoCode}
-        </div>
-
-        <div class="pvm">
-            ${(feature.body)}
-        </div>
-
         <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
         <ad:adTag position="Sponsor_610x16"/>
 
@@ -115,12 +133,6 @@
 
         <div class="spacer_10"><!-- do not collapse --></div>
 
-
-
-        <c:if test="${not empty feature.relatedWorksheets}">
-            <!-- TODO-11818 related worksheets -->
-        </c:if>
-
         <!-- related worksheets -->
         <c:if test="${not empty feature.relatedWorksheets}">
             <c:set var="hasPublishedRelatedWorksheets" value="${false}"/>
@@ -129,35 +141,21 @@
                     <c:set var="hasPublishedRelatedWorksheets" value="${true}"/>
                 </c:if>
             </c:forEach>
-        </c:if>
 
-        <c:if test="${not empty feature.externalLinks}">
-            <div class="mod relatedContent">
-                <div class="inner">
-                    <div class="line">
-                        <c:choose>
-                            <c:when test="${hasPublishedRelatedArticles and not empty feature.externalLinks}">
-                                <div class="unit size46of100 prl brdrt_dotted">
-                                    <cms:relatedArticlesList feature="${feature}"/>
-                                </div>
-                                <div class="unit size54of100 lastUnit pll">
-                                    <cms:relatedLinksList feature="${feature}"/>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="unit size1of1 lastUnit">
-                                    <c:if test="${not empty feature.externalLinks}">
-                                        <cms:relatedLinksList feature="${feature}"/>
-                                    </c:if>
-                                </div>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                    <div class="spacer_15"><!-- do not collapse --></div>
-                </div>
-            </div>
+            <c:if test="${hasPublishedRelatedWorksheets}">
+                <!-- TODO-11818 related worksheets:
+                     make a new tag cms:relatedWorksheets similar to cms:relatedArticlesList
+                     but in new style and showing related worksheets instead of related articles -->
+                <!--cms:relatedWorksheets feature="${feature}"/>-->
+
+                <!-- TODO-11818 replace this forEach loop with a new tag cms:relatedWorksheets;
+                     it's just here temporarily to make sure related worksheets are showing up -->
+                <c:forEach var="relatedWorksheet" items="${feature.relatedWorksheets}" varStatus="status">
+                    <c:if test="${not empty relatedWorksheet.url}">
+                    </c:if>
+                </c:forEach>
+            </c:if>
         </c:if>
-        <!-- end .relatedLinks -->
 
         <div class="clearfloat brdbtm_dotted-ccc mbm"><!-- do not collapse --></div>
 
