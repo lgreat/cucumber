@@ -192,7 +192,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     
     protected List<SchoolMedia> getSchoolPhotos(School school) {
         ISchoolMediaDao schoolMediaDao = getSchoolMediaDao();
-        List<SchoolMedia> schoolPhotos = schoolMediaDao.getAllActiveBySchool(school);
+        List<SchoolMedia> schoolPhotos = schoolMediaDao.getActiveBySchool(school,4);
         return schoolPhotos;
     }
 
