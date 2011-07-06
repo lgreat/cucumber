@@ -780,6 +780,10 @@ body {
 /* =1 text
 -------------------------------------------------------------------------------------------*/
 
+.allCaps {
+  text-transform:uppercase;
+}
+
 a {
     color: #0066BB;
     text-decoration: none;
