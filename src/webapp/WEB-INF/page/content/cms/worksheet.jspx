@@ -96,7 +96,7 @@
         </c:if>
 
         <!-- TODO-11818 pdf link broken??? -->
-        <gsml:a href="/library/${feature.pdfUri}" styleClass="button-2" target="_blank">Print Full Size</gsml:a>
+        <gsml:a href="/library/${feature.pdfUri}" styleClass="button-1" target="_blank">Print Full Size</gsml:a>
 
         <!-- TODO-11818 acrobat reader icon -->
         <p>
