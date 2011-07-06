@@ -88,7 +88,8 @@
                         class="GS_CI9_">See all <span class="alertDoubleArrow">&amp;raquo;</span></a></li>
                 </ul>
             </li>
-            <li id="topnav_aa" class="nav_menu ${(pw == tabs.ACADEMICS_AND_ACTIVITIES ? 'topnav_subnav_active' : '')}"><a href="/students.topic?content=1540"
+            <li id="topnav_aa" class="nav_menu ${(pw == tabs.ACADEMICS_AND_ACTIVITIES ? 'topnav_subnav_active' : '')}">
+                <a href="/students.topic?content=1540"
                     id="GlobalNav_AcademicsAndActivitiesButton"
                     class="arrow nav_group_heading GS_CI9_ "
                     >Academics &amp;amp; Activities</a>
@@ -151,66 +152,65 @@
 
     <!-- Begin Secondary Navigation -->
       <ul id="secondary"> <!-- bullet type: disc/square/circle-->
-        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText">Hot Topics <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="javascript:void(0);" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">Hot Topics <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
             <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
-              <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Improve Your School<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Volunteering &amp; Fundraising<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Community Building<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Quality Teaching<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Understanding the System<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">California Watch School Funding Report<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/improvement.topic?content=1543" id="SN_HT-ImproveYourSchool" class="subMenuItemAnchorText GS_CI9_">Improve Your School<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/articles/?topics=134" id="SN_HT-VolunteeringFundraising" class="subMenuItemAnchorText GS_CI9_">Volunteering &amp; Fundraising<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/articles/?topics=134" id="SN_HT-CommunityBuilding" class="subMenuItemAnchorText GS_CI9_">Community Building<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/articles/?topics=126" id="SN_HT-QualityTeaching" class="subMenuItemAnchorText GS_CI9_">Quality Teaching<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="javascript:void(0);" id="SN_HT-UnderstandingTheSystem" class="subMenuItemAnchorText GS_CI9_">Understanding the System<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/improvement/understanding-the-system/4171-School-funding-CA-California-Watch.gs" id="SN_HT-CAWatchSchoolFundingReport" class="subMenuItemAnchorText GS_CI9_">California Watch School Funding Report<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             </ul>
         </li>
-        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText">Academics &amp; Activities <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="/students.topic?content=1540" id="SN-AcademicsActivities" class="menuItemAnchorText GS_CI9_">Academics &amp; Activities <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Academic Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Homework Help<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">College<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Book Reviews<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Learning Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Improve Your School<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Travel<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Summer Activties<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Talk About It<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=133" id="SN_AA-AcademicSkills" class="subMenuItemAnchorText GS_CI9_">Academic Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/homework-help.topic?content=1544" id="SN_AA-HomeworkHelp" class="subMenuItemAnchorText GS_CI9_">Homework Help<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/college-prep.topic?content=1542" id="SN_AA-College" class="subMenuItemAnchorText GS_CI9_">College<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=159" id="SN_AA-BookReviews" class="subMenuItemAnchorText GS_CI9_">Book Reviews<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=156" id="SN_AA-LearningActivities" class="subMenuItemAnchorText GS_CI9_">Learning Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/improvement.topic?content=1543" id="SN_AA-ImproveYourSchool" class="subMenuItemAnchorText GS_CI9_">Improve Your School<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/content/travel.page" id="SN_AA-Travel" class="subMenuItemAnchorText GS_CI9_">Travel<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=150" id="SN_AA-SummerActivties" class="subMenuItemAnchorText GS_CI9_">Summer Activties<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/students/community.gs?content=1641" id="SN_AA-TalkAboutIt" class="subMenuItemAnchorText GS_CI9_">Talk About It<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText">Homework Help <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="/homework-help.topic?content=1544" id="SN-HomeworkHelp" class="menuItemAnchorText GS_CI9_">Homework Help <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_3"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Math<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Reading<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Writing<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Study Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Tutoring<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Test Prep<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=140&amp;topics=209" id="SN_HH-Math" class="subMenuItemAnchorText GS_CI9_">Math<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=140&amp;topics=211" id="SN_HH-Reading" class="subMenuItemAnchorText GS_CI9_">Reading<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=140&amp;topics=216" id="SN_HH-Writing" class="subMenuItemAnchorText GS_CI9_">Writing<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=148" id="SN_HH-StudySkills" class="subMenuItemAnchorText GS_CI9_">Study Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=158" id="SN_HH-Tutoring" class="subMenuItemAnchorText GS_CI9_">Tutoring<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/test-prep/" id="SN_HH-TestPrep" class="subMenuItemAnchorText GS_CI9_">Test Prep<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText">Parenting Dilemmas <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="javascript:void(0);" id="SN-ParentingDilemmas" class="menuItemAnchorText GS_CI9_">Parenting Dilemmas <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_4"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Bullying<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Media &amp; TV<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Stress Management<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=149" id="SN_PD-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/media-choices.topic?content=2439" id="SN_PD-MediaTV" class="subMenuItemAnchorText GS_CI9_">Media &amp; TV<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=136" id="SN_PD-StressManagement" class="subMenuItemAnchorText GS_CI9_">Stress Management<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText">Health &amp; Behavior <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="/parenting.topic?content=1539" id="SN-HealthBehavior" class="menuItemAnchorText GS_CI9_">Health &amp; Behavior <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_5"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Health &amp; Nutrition<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Behavior &amp; Discipline<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Social Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Emotional Well-Being<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/content/healthyKids.page" id="SN_HB-HealthNutrition" class="subMenuItemAnchorText GS_CI9_">Health &amp; Nutrition<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=124" id="SN_HB-BehaviorDiscipline" class="subMenuItemAnchorText GS_CI9_">Behavior &amp; Discipline<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=157" id="SN_HB-SocialSkills" class="subMenuItemAnchorText GS_CI9_">Social Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=136" id="SN_HB-EmotionalWellBeing" class="subMenuItemAnchorText GS_CI9_">Emotional Well-Being<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText">Learning Difficulties <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="/special-education.topic?content=1541" id="SN-LearningDifficulties" class="menuItemAnchorText GS_CI9_">Learning Difficulties <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_6"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Learning Disabilities &amp; ADHD<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Volunteering &amp; Fundraising<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Autism &amp; Other Disorders<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Family Support<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Health &amp; Development<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Legal Rights &amp; Advocacy<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="javascript:void(0);" class="subMenuItemAnchorText">Assistive Technology<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=226" id="SN_LD-LearningDisabilitiesADHD" class="subMenuItemAnchorText GS_CI9_">Learning Disabilities &amp; ADHD<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=228" id="SN_LD-AutismOtherDisorders" class="subMenuItemAnchorText GS_CI9_">Autism &amp; Other Disorders<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=185" id="SN_LD-FamilySupport" class="subMenuItemAnchorText GS_CI9_">Family Support<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=231" id="SN_LD-HealthDevelopment" class="subMenuItemAnchorText GS_CI9_">Health &amp; Development<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=190" id="SN_LD-LegalRightsAdvocacy" class="subMenuItemAnchorText GS_CI9_">Legal Rights &amp; Advocacy<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=188" id="SN_LD-AssistiveTechnology" class="subMenuItemAnchorText GS_CI9_">Assistive Technology<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="javascript:void(0);" class="menuItemAnchorText">Test Prep</a></li>
+        <li class="menuItem"><a href="/test-prep/" id="SN-TestPrep" class="menuItemAnchorText GS_CI9_">Test Prep</a></li>
       </ul>
 
 <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
