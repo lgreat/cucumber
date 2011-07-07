@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.252 2011/06/29 22:30:54 rcox Exp $
+ * $Id: UrlBuilder.java,v 1.253 2011/07/07 19:22:52 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -297,6 +297,7 @@ public class UrlBuilder {
 
     public static final VPage CMS_CATEGORY_BROWSE = new VPage("vpage:cmsCategoryBrowse");
     public static final VPage CMS_VIDEO_GALLERY = new VPage("vpage:cmsVideoGallery");
+    public static final VPage CMS_WORKSHEET_GALLERY = new VPage("vpage:cmsWorksheetGallery");
 
     public static final VPage K12_ADVERTISER_PAGE = new VPage("vpage:k12AdvertiserPage");
 
@@ -648,7 +649,7 @@ public class UrlBuilder {
                     "/" + school.getId();
         } else if (SCHOOL_PROFILE_ESP.equals(page)) {
             _perlPage = false;
-            _path = "/cgi-bin/" + school.getDatabaseState().getAbbreviationLowerCase() + 
+            _path = "/cgi-bin/" + school.getDatabaseState().getAbbreviationLowerCase() +
                     "/pqview/" + school.getId();
         } else if (SCHOOL_TAKE_SURVEY.equals(page)) {
             _perlPage = false;
@@ -712,7 +713,7 @@ public class UrlBuilder {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
-    
+
     public UrlBuilder(State state, Integer districtId, String districtName, String districtCity, VPage page) {
         if (DISTRICT_HOME.equals(page)) {
             _perlPage = false;
@@ -776,7 +777,7 @@ public class UrlBuilder {
     public UrlBuilder(VPage page) {
         init(page);
     }
-    
+
     public UrlBuilder(VPage page, String fullUri, Long contentIdentifier) {
         _perlPage = false;
         if (COMMUNITY_DISCUSSION.equals(page)) {
@@ -962,7 +963,7 @@ public class UrlBuilder {
             handleSchoolProfile(id, databaseState, name, physicalAddress, levelCode, showConfirmation);
         }
     }
-    
+
     /**
      * Url for CMS-driven browse-content-by-category page
      * @param page Must be UrlBuilder.CMS_CATEGORY_BROWSE
@@ -1013,7 +1014,7 @@ public class UrlBuilder {
 
     /**
      * Url for CMS-driven browse-content-by-category page
-     * @param page Must be UrlBuilder.CMS_VIDEO_GALLERY
+     * @param page supports CMS_VIDEO_GALLERY and CMS_WORKSHEET_GALLERY
      * @param topicCenterId
      * @param topicCenterUrl
      * @param topicIDs Comma-separated list of topic IDs
@@ -1048,11 +1049,36 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/videos" + topicCenterUrl + "/" + s.toString() +
                     (StringUtils.isNotBlank(language) ? "&language=" + language : "");
+        } else if (CMS_WORKSHEET_GALLERY.equals(page) && topicCenterId != null) {
+
+            StringBuilder s = new StringBuilder();
+            s.append("?content=").append(topicCenterId);
+
+            if (StringUtils.isNotBlank(topicIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("topics=").append(topicIDs);
+            }
+            if (StringUtils.isNotBlank(gradeIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("grades=").append(gradeIDs);
+            }
+            if (StringUtils.isNotBlank(subjectIDs)) {
+                if (s.length() > 0) {
+                    s.append("&");
+                }
+                s.append("subjects=").append(subjectIDs);
+            }
+            _perlPage = false;
+            _path = "/worksheets" + topicCenterUrl + "/" + s.toString() +
+                    (StringUtils.isNotBlank(language) ? "&language=" + language : "");
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
-
 
     public UrlBuilder(VPage page, boolean showConfirmation) {
         // GS-7917
@@ -1176,7 +1202,7 @@ public class UrlBuilder {
                 this.setParameter("q", searchQuery);
             }
 
-            if (pageNum != null && pageNum > 1) {                
+            if (pageNum != null && pageNum > 1) {
                 this.setParameter("page", String.valueOf(pageNum));
             }
             if (type != null) {

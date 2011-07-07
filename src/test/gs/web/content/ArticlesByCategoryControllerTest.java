@@ -67,7 +67,6 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
 
         expect(_cmsCategoryDao.getCmsCategoryFromURI("/articles/")).andReturn(null);
         expect(_cmsCategoryDao.getCmsCategoriesFromIds(isA(Long[].class))).andReturn(new ArrayList<CmsCategory>());
-        expect(_cmsCategoryDao.separateCategories(isA(ArrayList.class))).andReturn(new ICmsCategoryDao.CmsCategoryTriplet());
 
         replay(_cmsCategoryDao);
         replay(_dao);
@@ -93,7 +92,6 @@ public class ArticlesByCategoryControllerTest extends BaseControllerTestCase {
 
         expect(_cmsCategoryDao.getCmsCategoryFromURI(eq(testURI))).andReturn(new CmsCategory());
         expect(_cmsCategoryDao.getCmsCategoriesFromIds(isA(Long[].class))).andReturn(new ArrayList<CmsCategory>());
-        expect(_cmsCategoryDao.separateCategories(isA(ArrayList.class))).andReturn(new ICmsCategoryDao.CmsCategoryTriplet());
 
         replay(_dao);
         replay(_cmsCategoryDao);

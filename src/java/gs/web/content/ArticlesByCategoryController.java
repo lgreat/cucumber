@@ -3,6 +3,7 @@ package gs.web.content;
 import gs.data.content.ArticleCategory;
 import gs.data.content.IArticleCategoryDao;
 import gs.data.content.cms.CmsCategory;
+import gs.data.content.cms.CmsFeature;
 import gs.data.content.cms.ContentKey;
 import gs.data.content.cms.ICmsCategoryDao;
 import gs.data.search.SearchResultsPage;
@@ -300,7 +301,7 @@ public class ArticlesByCategoryController extends AbstractController {
 
         List<CmsCategory> categoryList = _cmsCategoryDao.getCmsCategoriesFromIds(allIds.toArray(new Long[0]));
         // TODO-11715 FIXME rename triplet
-        ICmsCategoryDao.CmsCategoryTriplet triplet = _cmsCategoryDao.separateCategories(categoryList);
+        CmsFeature.CmsCategoryGroup triplet = CmsFeature.separateCategories(categoryList);
         List<CmsCategory> topics = triplet.topics;
         List<CmsCategory> grades = triplet.grades;
         List<CmsCategory> subjects = triplet.subjects;

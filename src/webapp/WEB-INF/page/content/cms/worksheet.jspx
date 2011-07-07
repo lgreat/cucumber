@@ -47,14 +47,29 @@
             <link:home>Home</link:home> &amp;gt;
             <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
             <!-- TODO-11818 link 'Worksheets' to worksheet gallery -->
-            <a href="">Worksheets</a>
+            <link:cmsWorksheetGallery topicCenterId="4313" topicCenterUrl="${topicCenter.fullUri}">Worksheets</link:cmsWorksheetGallery>
         </div>
 
         <h1 class="mts">${feature.title}</h1>
 
         <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
-        <!-- TODO-11818 grade and subject listing -->
+        <c:if test="${not empty feature.grades}">
+            <c:choose>
+                <c:when test="${fn:contains(feature.grades,',')}">
+                    Grades ${feature.grades} |
+                </c:when>
+                <c:when test="${fn:length(feature.grades) == 1 || feature.grades == 'PK'}">
+                    Grade ${feature.grades} |
+                </c:when>
+                <c:otherwise>
+                    <!-- do not collapse -->
+                </c:otherwise>
+            </c:choose>
+        </c:if>
+
+        ${feature.subjectCategories[0].name}
+
 
         <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
 

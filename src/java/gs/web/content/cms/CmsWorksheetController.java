@@ -23,12 +23,15 @@ import java.util.regex.Pattern;
 public class CmsWorksheetController extends AbstractController {
 
     private ICmsFeatureDao _featureDao;
+    private ICmsCategoryDao _cmsCategoryDao;
     private IArticleDao _legacyArticleDao;
     private String _viewName;
 
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
     public static final String GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID = "referring_topic_center_id";
     private static final Pattern TOPIC_CENTER_URL_PATTERN = Pattern.compile("^.*\\.topic\\?content=(\\d+)");
+
+    private static final long WORKSHEET_TOPIC_CENTER_ID = 4313l;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
@@ -75,6 +78,10 @@ public class CmsWorksheetController extends AbstractController {
 
         addGamAttributes(request, feature);
 
+        //ContentKey contentKey = new ContentKey("TopicCenter",WORKSHEET_TOPIC_CENTER_ID);
+        //ContentKey contentKey = new ContentKey("TopicCenter",contentId);
+        CmsTopicCenter topicCenter = getPublicationDao().populateByContentId(contentId, new CmsTopicCenter());
+
         UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
 
         // for Omniture tracking - commas and double quotes removed
@@ -84,6 +91,7 @@ public class CmsWorksheetController extends AbstractController {
         model.put("contentUrl", urlBuilder.asFullUrl(request));
         model.put("comments", comments);
         model.put("feature", feature);
+        model.put("topicCenter", topicCenter);
 
         // add an "article" or "askTheExperts" variable to the model
         String type = feature.getContentKey().getType();
@@ -146,5 +154,13 @@ public class CmsWorksheetController extends AbstractController {
 
     public void setArticleDao(IArticleDao legacyArticleDao) {
         _legacyArticleDao = legacyArticleDao;
+    }
+
+    public ICmsCategoryDao getCmsCategoryDao() {
+        return _cmsCategoryDao;
+    }
+
+    public void setCmsCategoryDao(ICmsCategoryDao cmsCategoryDao) {
+        _cmsCategoryDao = cmsCategoryDao;
     }
 }
