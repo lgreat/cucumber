@@ -29,4 +29,18 @@ public interface ICmsFeatureSearchResult extends ISearchResult {
     public void setFullUri(String fullUri);
     public void setTitle(String title);
 
+    public String getPreviewImageUrl();
+    public void setPreviewImageUrl(String previewImageUrl);
+    public String getPreviewImageTitle();
+    public void setPreviewImageTitle(String previewImageTitle);
+    public String getPreviewImageAltText();
+    public void setPreviewImageAltText(String previewImageAltText);
+    public String getSmallPreviewImageUrl();
+    public void setSmallPreviewImageUrl(String smallPreviewImageUrl);
+    public String getSmallPreviewImageTitle();
+    public void setSmallPreviewImageTitle(String smallPreviewImageTitle);
+    public String getSmallPreviewImageAltText();
+    public void setSmallPreviewImageAltText(String smallPreviewImageAltText);
+    public String getPdfUri();
+    public void setPdfUri(String pdfUri);
 }

@@ -32,6 +32,15 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     private String _length;
     private String _grades;
 
+    private String _previewImageUrl;
+    private String _previewImageTitle;
+    private String _previewImageAltText;
+    private String _smallPreviewImageUrl;
+    private String _smallPreviewImageTitle;
+    private String _smallPreviewImageAltText;
+
+    private String _pdfUri;
+
     // empty constructor required by JAXB
     public SolrCmsFeatureSearchResult(){
     }
@@ -197,4 +206,66 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
         _grades = grades;
     }
 
+    @XmlElement
+    public String getPreviewImageUrl() {
+        return _previewImageUrl;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_PREVIEW_IMAGE_URL)
+    public void setPreviewImageUrl(String previewImageUrl) {
+        _previewImageUrl = previewImageUrl;
+    }
+
+    @XmlElement
+    public String getPreviewImageTitle() {
+        return _previewImageTitle;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_PREVIEW_IMAGE_TITLE)
+    public void setPreviewImageTitle(String previewImageTitle) {
+        _previewImageTitle = previewImageTitle;
+    }
+
+    @XmlElement
+    public String getPreviewImageAltText() {
+        return _previewImageAltText;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_PREVIEW_IMAGE_ALT_TEXT)
+    public void setPreviewImageAltText(String previewImageAltText) {
+        _previewImageAltText = previewImageAltText;
+    }
+
+    @XmlElement
+    public String getSmallPreviewImageUrl() {
+        return _smallPreviewImageUrl;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_SMALL_PREVIEW_IMAGE_URL)
+    public void setSmallPreviewImageUrl(String smallPreviewImageUrl) {
+        _smallPreviewImageUrl = smallPreviewImageUrl;
+    }
+
+    @XmlElement
+    public String getSmallPreviewImageTitle() {
+        return _smallPreviewImageTitle;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_SMALL_PREVIEW_IMAGE_TITLE)
+    public void setSmallPreviewImageTitle(String smallPreviewImageTitle) {
+        _smallPreviewImageTitle = smallPreviewImageTitle;
+    }
+
+    @XmlElement
+    public String getSmallPreviewImageAltText() {
+        return _smallPreviewImageAltText;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_SMALL_PREVIEW_IMAGE_ALT_TEXT)
+    public void setSmallPreviewImageAltText(String smallPreviewImageAltText) {
+        _smallPreviewImageAltText = smallPreviewImageAltText;
+    }
+
+    @XmlElement
+    public String getPdfUri() {
+        return _pdfUri;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_PDF_URI)
+    public void setPdfUri(String pdfUri) {
+        _pdfUri = pdfUri;
+    }
 }
