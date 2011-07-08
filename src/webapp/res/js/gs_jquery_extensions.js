@@ -87,6 +87,10 @@ jQuery(document).ready(function() {
     jQuery('.button-3').disableSelection();
     // disable selection of button-3-inactive class
     jQuery('.button-3-inactive').disableSelection();
+    // disable selection of text in primary navigation
+    jQuery('#primary').disableSelection();
+    // disable selection of text in secondary navigation
+    jQuery('#secondary').disableSelection();
 });
 
 /* =2 popup
