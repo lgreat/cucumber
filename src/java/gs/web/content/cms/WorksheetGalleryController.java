@@ -15,6 +15,7 @@ import gs.web.pagination.RequestedPage;
 import gs.web.school.SchoolOverviewController;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.search.SolrCmsFeatureSearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -49,10 +50,12 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
 
     public static Map<String,String> GRADE_CHOICES = new LinkedHashMap<String,String>();
 
-    public static Map<String,String> TOPIC_CHOICES = new LinkedHashMap<String,String>();
-    public static String TOPIC_CHOICES_PARAM = "topicChoices";
+    public static Map<String,String> SUBJECT_CHOICES = new LinkedHashMap<String,String>();
+    public static String SUBJECT_CHOICES_PARAM = "subjectChoices";
     public static String GRADE_CHOICES_PARAM = "gradeChoices";
     public static final int WORKSHEET_DEFAULT_PAGE_SIZE = 6;
+
+    public static final String MODEL_WORKSHEET_RESULTS = "worksheetResults";
     static {
 
         WORKSHEET_GALLERY_PAGINATION_CONFIG = new PaginationConfig(
@@ -66,24 +69,23 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         );
 
         //used for dropdowns in jspx
-        GRADE_CHOICES.put("-1", "All Grades");
-        GRADE_CHOICES.put("199", "Kindergarten");
-        GRADE_CHOICES.put("200", "First Grade");
-        GRADE_CHOICES.put("201", "Second Grade");
-        GRADE_CHOICES.put("202", "Third Grade");
-        GRADE_CHOICES.put("203", "Fourth Grade");
-        GRADE_CHOICES.put("204", "Fifth Grade");
+        GRADE_CHOICES.put("-1", "All Grades Levels");
+        GRADE_CHOICES.put("198", "Preschool");
+        GRADE_CHOICES.put("217", "Elementary School");
+        GRADE_CHOICES.put("205", "Middle School");
+        GRADE_CHOICES.put("206", "High School");
 
-        TOPIC_CHOICES.put("-1", "All Topics");
-        TOPIC_CHOICES.put("133", "Academic Skills");
-        TOPIC_CHOICES.put("140", "Homework Help");
-        TOPIC_CHOICES.put("378", "Motivation &amp; Confidence");
-        TOPIC_CHOICES.put("241", "Parental Power");
-        TOPIC_CHOICES.put("240", "Understanding the System");
-        TOPIC_CHOICES.put("124", "Behavior &amp; Discipline");
-        TOPIC_CHOICES.put("157", "Social Skills");
-        TOPIC_CHOICES.put("149", "Bullying");
-        TOPIC_CHOICES.put("379", "Learning and Development");
+        SUBJECT_CHOICES.put("-1", "All Subjects");
+        SUBJECT_CHOICES.put("207", "Art");
+        SUBJECT_CHOICES.put("208", "Foreign Language");
+        SUBJECT_CHOICES.put("209", "Math");
+        SUBJECT_CHOICES.put("210", "Music");
+        SUBJECT_CHOICES.put("211", "Language Arts");
+        SUBJECT_CHOICES.put("212", "Science");
+        SUBJECT_CHOICES.put("213", "Social Studies");
+        SUBJECT_CHOICES.put("214", "Study Skills");
+        SUBJECT_CHOICES.put("215", "Tutoring");
+        SUBJECT_CHOICES.put("216", "Writing");
     }
 
     //=========================================================================
@@ -131,7 +133,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         addGoogleAdKeywordsIfNeeded(request, topicCenter);
 
         try {
-            //content creators might place a link into video's description
+            //content creators might place a link into worksheet's description
             getCmsFeatureEmbeddedLinkResolver().replaceEmbeddedLinks(topicCenter);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -226,10 +228,23 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
 
         model.put(MODEL_FULL_URL, url);
         model.put(GRADE_CHOICES_PARAM, GRADE_CHOICES);
-        model.put(TOPIC_CHOICES_PARAM, TOPIC_CHOICES);
+        model.put(SUBJECT_CHOICES_PARAM, SUBJECT_CHOICES);
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
+
+            for (int i = 0; i < 14; i++) {
+                ICmsFeatureSearchResult r = new SolrCmsFeatureSearchResult();
+                r.setContentType(CmsConstants.WORKSHEET_CONTENT_TYPE);
+                r.setPreviewImageUrl("/cms/49/4849.png");
+                r.setPreviewImageAltText("test all text");
+                r.setPreviewImageTitle("img title");
+                r.setPreviewImageUrl("/cms/49/4849.png");
+                r.setPreviewImageAltText("test all text");
+                r.setPreviewImageTitle("img title");
+
+            }
+
             addPagingDataToModel(
                     requestedPage.getValidatedOffset(WORKSHEET_GALLERY_PAGINATION_CONFIG, searchResults.getTotalResults()),
                     requestedPage.pageSize,
@@ -238,9 +253,9 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
             );
 
             if (searchResults != null && searchResults.getTotalResults() > 0) {
-                model.put(MODEL_VIDEO_RESULTS, searchResults.getSearchResults());
+                model.put(MODEL_WORKSHEET_RESULTS, searchResults.getSearchResults());
             } else {
-                model.put(MODEL_VIDEO_RESULTS, new ArrayList());
+                model.put(MODEL_WORKSHEET_RESULTS, new ArrayList());
             }
         } catch (SearchException e) {
             _log.debug("Error when searching for cms features using categories", e);

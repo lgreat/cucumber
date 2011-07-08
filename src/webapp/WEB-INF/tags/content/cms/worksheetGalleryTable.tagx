@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        >
+
+        <div class="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
+
+        <c:choose>
+        <c:when test="${fn:length(worksheetResults) gt 0}">
+
+            <table class="worksheetGalleryTable text3bold" width="100%">
+                <tbody>
+                <tr>
+                    <c:forEach var="result" items="${worksheetResults}" varStatus="status">
+                        <c:if test="${(status.count > 1)}"><![CDATA[</tr><tr>]]></c:if>
+
+                        <c:set var="modstatus" value="${status.count%1}"/>
+                        <c:choose>
+                            <c:when test="${modstatus eq 0}">
+                                <c:set var="myZ" value="1"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="myZ" value="${2-status.count%1}"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <!--<c:out value="${myZ}"/>-->
+                        
+                        <td class="zir-${myZ}">
+                            <div class="worksheetGalleryImage">
+                                <div class="spacer_15"><!-- do not collapse --></div>
+                                <!--${status.count}-->
+
+                                <div class="js-worksheetBubbleInfo">
+                                    <div class="js-trigger">
+                                        <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
+
+                                            <gsml:img src="${result.imageUrl}"
+                                                      alt="${result.imageAltText}"
+                                                      width="121" height="86"/>
+                                        </link:cmsContent>
+                                    </div>
+                                    <div class="js-popup">
+                                        <div class="mod worksheet-popup-contents">
+                                            <div class="inner">
+                                                <span class="arrow-outline-left"><!-- do not collapse --></span>
+                                                <span class="arrow-left"><!-- do not collapse --></span>
+                                                <div class="hd">
+                                                    <p class="text1bold-d61">${result.promo}</p>
+                                                </div>
+                                                <div class="bd">
+                                                    <p class="text2">${fn:escapeXml(result.summary)}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <p>
+                                    <link:cmsContent contentKey="${result.contentKey}"
+                                                     fullUri="${result.fullUri}">${result.promo}</link:cmsContent>
+                                </p>
+
+                                <p>
+                                    <link:cmsContent contentKey="${result.contentKey}"
+                                                     fullUri="${result.fullUri}"
+                                                     styleClass="smallText1-999">
+
+
+                                    </link:cmsContent>
+                                </p>
+
+                            </div>
+                        </td>
+
+                    </c:forEach>
+                </tr>
+                </tbody>
+            </table>
+            <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+            <div class="spacer_20"><!-- do not collapse --></div>
+
+            <c:if test="${page.pager.totalPages gt 0}">
+                <div class="pagination" id="pagination">
+                    <search:easierPagination page="${page}" useJavascriptPaging="false" url="${fullUrl}" mode="offset"/>
+                </div>
+            </c:if>
+        </c:when>
+            
+            <c:otherwise>
+                <p class="text2-c03 mvl">
+                <c:set var="gradeChoiceText" value="${gradeChoices[param.grades]}"/>
+                <c:set var="subjectChoiceText" value="${topicChoices[param.topics]}"/>
+                <c:choose>
+                    <c:when test="${not empty gradeChoiceText and not empty subjectChoiceText}">
+                        There are no worksheets for &quot;${gradeChoiceText}&quot; &amp; &quot;${subjectChoiceText}&quot;.
+                    </c:when>
+                    <c:when test="${empty gradeChoiceText and not empty subjectChoiceText}">
+                        There are no worksheets for &quot;${subjectChoiceText}&quot;.
+                    </c:when>
+                    <c:when test="${not empty gradeChoiceText and empty subjectChoiceText}">
+                        There are no worksheets for &quot;${gradeChoiceText}&quot;.
+                    </c:when>
+                    <c:otherwise>
+                        No worksheets match your selection.
+                    </c:otherwise>
+                </c:choose>
+                </p>
+                <p>
+                Please select another option from one of the filter menus above or <link:cmsWorksheetGallery
+                    topicCenterId="${topicCenter.contentKey.identifier}"
+                    topicCenterUrl="${topicCenter.fullUri}"
+                    language="EN"><strong>view all worksheets</strong></link:cmsWorksheetGallery>.
+                </p>
+            </c:otherwise>
+        </c:choose>
+
+    <script type="text/javascript">
+        jQuery(function () {
+//                jQuery('#js-bubbleInfo').popup({appear:'left',leftPosition:-200,topPosition:-95});
+            jQuery('.js-worksheetBubbleInfo').popup({appear:'right',leftPosition:80,topPosition:23});
+        });
+    </script>
+</jsp:root>
