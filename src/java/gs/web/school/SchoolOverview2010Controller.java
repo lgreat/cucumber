@@ -162,8 +162,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
                 model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request, response));
             }
 
-            KindercareLeadGenHelper.checkForKindercare(request, response, school, model);
-
             // TODO: is this necessary?
             String tempMsg = sessionContext.getTempMsg();
             if (StringUtils.isNotBlank(tempMsg) && tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {

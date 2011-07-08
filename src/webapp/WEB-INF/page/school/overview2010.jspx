@@ -102,10 +102,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <div id="overviewContainer">
 
-<c:if test="${requestScope.isKindercare eq true}">
-    <promo:kindercare school="${school}" format="narrow"/>
-</c:if>
-
 <c:set var="overallRating" value="${ratings.overall}"/>
 <c:if test="${empty ratings.overall}">
     <c:set var="overallRating" value="0"/>
@@ -231,9 +227,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <div class="spacer_15"><!-- do not collapse --></div>
     </c:if>
 
-<c:if test="${school.preschoolSubtype ne 'kindercare'}">
-    <ad:adTag position="CustomSponsor_407x65"/>
-</c:if>
+<ad:adTag position="CustomSponsor_407x65"/>
 
 <div class="text2">
     <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
