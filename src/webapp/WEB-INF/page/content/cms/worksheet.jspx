@@ -94,15 +94,13 @@
             </p>
         </c:if>
 
-        <!-- TODO-11818 preview image not showing up??? -->
         <c:if test="${not empty feature.previewImageUrl}">
             <gsml:img src="${feature.previewImageUrl}"
                       title="${feature.previewImageTitle}"
                       alt="${feature.previewImageAltText}"/>
         </c:if>
 
-        <!-- TODO-11818 pdf link broken??? -->
-        <gsml:a href="/library/${feature.pdfUri}" styleClass="button-1" target="_blank">Print Full Size</gsml:a>
+        <gsml:a href="${feature.pdfUri}" styleClass="button-1" target="_blank">Print Full Size</gsml:a>
 
         <!-- TODO-11818 acrobat reader icon -->
         <p>
