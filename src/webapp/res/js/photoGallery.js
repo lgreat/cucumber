@@ -166,6 +166,7 @@ GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
     }.gs_bind(this));
     jQuery('#' + this.closeButtonDomId).click(function() {
         this.hide();
+        document.getElementById("fade").style.display="none";
     }.gs_bind(this));
 };
 
@@ -184,6 +185,12 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
 GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(id) {
     jQuery('#' + id).click(function() {
         this.loadFullSizeImages();
+        document.getElementById("fade").style.display="block";
+        var browserWidth=$(window).width();
+        var leftRightMargin=browserWidth-978;
+        var pageEdge=leftRightMargin/2;
+        var leftEdge=pageEdge+174;
+        document.getElementById("photo-gallery").style.left=leftEdge+"px";
         this.show();
     }.gs_bind(this));
 };

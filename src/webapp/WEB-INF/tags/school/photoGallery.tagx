@@ -15,6 +15,12 @@
 
     <div id="photo-gallery">
         <div id="photo-gallery-viewer">
+            <div class="heading">
+                <div id="photo-gallery-schoolname">Photos of Mann Elementary school</div>
+                <div id="photo-gallery-close">
+                    Close
+                </div>
+            </div>
             <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                 <div id="gallery-fullsize-${index}" class="gallery-fullsize">
                     <img src="/res/img/pixel.gif" width="${images[index].width}" height="${images[index].height}"/>
@@ -24,22 +30,36 @@
         </div>
 
         <div id="photo-gallery-controls">
-            <div id="photo-gallery-back">
-                Back
+            <div class="line">
+                <div class="unit size1of11" id="photo-gallery-back">
+                    Back
+                </div>
+                <div class="unit size9of11" id="photo-gallery-thumbnails">
+                    <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                        <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
+                            <img src="/res/img/pixel.gif" width="70" height="70"/>
+                        </div>
+                    </c:forEach>
+                </div>
+                <div class="unit size1of11" id="photo-gallery-next">
+                    Next
+                </div>
             </div>
-            <div id="photo-gallery-thumbnails">
-                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                    <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
-                        <img src="/res/img/pixel.gif" width="70" height="70"/>
-                    </div>
-                </c:forEach>
-            </div>
-            <div id="photo-gallery-next">
-                Next
-            </div>
-            <div id="photo-gallery-close">
-                Close
-            </div>
+            <!--<div id="photo-gallery-content">
+                <div id="photo-gallery-back">
+                    Back
+                </div>
+                <div id="photo-gallery-thumbnails">
+                    <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                        <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
+                            <img src="/res/img/pixel.gif" width="70" height="70"/>
+                        </div>
+                    </c:forEach>
+                </div>
+                <div id="photo-gallery-next">
+                    Next
+                </div>
+            </div>-->
             <br style="clear:both"/>
         </div>
     </div>
@@ -56,7 +76,6 @@
             );
         </c:forEach>
         var gallery = new GS.photoGallery.PhotoGallery("photo-gallery",imageArray,true);
-
         jQuery(function() {
             gallery.showFullSizeImage(0); //load the first full size image into gallery
             gallery.attachShowEvent('${id}'); //show the gallery when this dom node clicked

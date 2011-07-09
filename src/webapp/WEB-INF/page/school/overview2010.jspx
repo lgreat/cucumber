@@ -227,15 +227,33 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <div class="spacer_15"><!-- do not collapse --></div>
     </c:if>
 
-<ad:adTag position="CustomSponsor_407x65"/>
-
-<div class="text2">
-    <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
-        <!-- should probably change id of this img, or attach gallery to a div containing the img -->
-        <img id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}" alt="TODO:" width="130" height="130"/>
-    </c:if>
-    <content:ratingsSummary school="${school}"/>
-</div>
+<c:if test="${school.preschoolSubtype ne 'kindercare'}">
+    <ad:adTag position="CustomSponsor_407x65"/>
+</c:if>
+<c:choose>
+    <c:when test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+        <div class="line">
+            <div class="unit size3of5">
+                <div class="text2">
+                    <content:ratingsSummary school="${school}"/>
+                </div>
+            </div>
+            <div class="unit size2of5 lastUnit">
+                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photo of this school</p><img
+                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                        alt="TODO:"
+                        width="130" height="130"/>
+                    <p class="smallText1-06b"><a href="#">View of photos (${fn:length(photoGalleryImages)})</a></p>
+                </div>
+            </div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="text2">
+            <content:ratingsSummary school="${school}"/>
+        </div>
+    </c:otherwise>
+</c:choose>
 
 <c:if test="${not empty school.levelCode and school.levelCode ne 'p'}">
     Learn more about this school's <link:schoolProfileCensus school="${school}"
@@ -475,7 +493,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </div>
 
 </div>
-
+<div id="fade" class="black_overlay"></div>
 </gsml:body>
 </html>
 </jsp:root>
