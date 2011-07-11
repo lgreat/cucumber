@@ -207,7 +207,7 @@
 
             <p>Search by school or district</p>
             <form name="searchByNameForm" action="/search/search.page" method="get">
-                <input type="hidden" name="search_type" id="0"/>
+                <input type="hidden" name="search_type" value="0"/>
 
                 <input type="text" name="q" class="searchInput"
                             onfocus="textSwitch(this, '', 'Search for school, district, or city');"
