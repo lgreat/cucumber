@@ -381,7 +381,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         model.put(MODEL_STATE, state);
 
-        if (schoolSearchCommand.isNearbySearch()) {
+        if (schoolSearchCommand.isNearbySearch() && nearbySearchInfo != null) {
             model.put(MODEL_NEARBY_SEARCH_ZIP_CODE, nearbySearchInfo.get("zipCode"));
         }
 
