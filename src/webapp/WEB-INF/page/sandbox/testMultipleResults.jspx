@@ -65,9 +65,9 @@
                         if (geocodeResult != null) {
                             document.getElementById('lat').value = geocodeResult['lat'];
                             document.getElementById('lon').value = geocodeResult['lon'];
-                            document.getElementById('cityName').value = geocodeResult['city'];
+//                            document.getElementById('cityName').value = geocodeResult['city'];
                             document.getElementById('state').value = geocodeResult['state'];
-                            document.getElementById('normalizedAddress').value = geocodeResult['normalizedAddress'];
+//                            document.getElementById('normalizedAddress').value = geocodeResult['normalizedAddress'];
 
                             waitForGeocode = false;
 
@@ -163,9 +163,9 @@
             function loadAddress(x) {
                 document.getElementById('lat').value = geocodeResults[x]['lat'];
                 document.getElementById('lon').value = geocodeResults[x]['lon'];
-                document.getElementById('cityName').value = geocodeResults[x]['city'];
+//                document.getElementById('cityName').value = geocodeResults[x]['city'];
                 document.getElementById('state').value = geocodeResults[x]['state'];
-                document.getElementById('normalizedAddress').value = geocodeResults[x]['normalizedAddress'];
+//                document.getElementById('normalizedAddress').value = geocodeResults[x]['normalizedAddress'];
 
                 waitForGeocode = false;
 
@@ -188,12 +188,14 @@
             <p class="warning" id="noResults" style="display:none;">No school results found for &amp;quot;<span id="noResultsSearchQuery"><!-- don't collapse --></span>&amp;quot;</p>
             <div id="multipleResults" style="display:none;"><!-- not empty --></div>
 
-            <form name="searchForm" action="/widget/schoolSearch.page" method="post" onsubmit="return submitSearch();">
+            <!--<form name="searchForm" action="/widget/schoolSearch.page" method="post" onsubmit="return submitSearch();">-->
+            <form name="searchForm" action="/search/search.page" method="get" onsubmit="return submitSearch();">
                 <input type="hidden" name="lat" id="lat"/>
                 <input type="hidden" name="lon" id="lon"/>
-                <input type="hidden" name="cityName" id="cityName"/>
+                <!--<input type="hidden" name="cityName" id="cityName"/>-->
                 <input type="hidden" name="state" id="state"/>
-                <input type="hidden" name="normalizedAddress" id="normalizedAddress"/>
+                <!--<input type="hidden" name="normalizedAddress" id="normalizedAddress"/>-->
+                <input type="hidden" name="distance" value="5"/>
 
                 <input type="text" name="searchQuery" id="searchInput" class="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
