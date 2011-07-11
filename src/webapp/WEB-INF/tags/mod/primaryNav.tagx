@@ -23,16 +23,6 @@
 
     <c:set var="pw" value="${requestScope.context.pathway}"/>
 
-    <!--<ul id="globalnav" class="">
-        <li><link:home id="GlobalNav_HomeButton" styleClass="${(pw == tabs.HOME ? 'selected' : '')} GS_CI9_ ">Home</link:home></li>
-        <li><link:research id="GlobalNav_ResearchButton" styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} GS_CI9_ " state="${requestScope.context.state}">Find a School</link:research></li>
-        <li><link:preschool id="GlobalNav_PreschoolButton" styleClass="${(pw == tabs.PRESCHOOL ? 'selected' : '')} GS_CI9_ ">Preschool</link:preschool></li>
-        <li><link:elementary-school id="GlobalNav_ElementarySchoolButton" styleClass="${(pw == tabs.ELEMENTARY_SCHOOL ? 'selected' : '')} GS_CI9_ ">Elementary School</link:elementary-school></li>
-        <li><link:middle-school id="GlobalNav_MiddleSchoolButton" styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} GS_CI9_ ">Middle School</link:middle-school></li>
-        <li><link:high-school id="GlobalNav_HighSchoolButton" styleClass="${(pw == tabs.HIGH_SCHOOL ? 'selected' : '')} GS_CI9_ ">High School</link:high-school></li>
-        <li class="lastNavUnit"><link:college id="GlobalNav_CollegeButton" styleClass="${(pw == tabs.COLLEGE ? 'selected' : '')} GS_CI9_ ">College</link:college></li>
-    </ul>-->
-
     <ul id="primary">
         <li class="${(pw == tabs.HOME ? 'selected' : '')} menuItem">
           <link:home id="PN-Home"  styleClass="menuItemAnchorText home GS_CI9_">
@@ -77,16 +67,17 @@
                   <ul> <!-- bullet type: disc/square/circle-->
                     <li><a href="/articles/?grades=198&amp;topics=211" id="PN_P_1-ReadingReadiness" class="GS_CI9_">Reading Readiness</a></li>
                     <li><a href="/articles/?grades=198&amp;topics=211" id="PN_P_1-MathReadiness" class="GS_CI9_">Math Readiness</a></li>
-                    <li class="lastone"><a href="javascript:void(0);" id="PN_P_1-Worksheets" class="GS_CI9_">Worksheets</a></li>
+                    <li class="lastone"><a href="/articles/?topics=156&amp;grades=198" id="PN_P_1-Activities" class="GS_CI9_">Activities</a></li>
+                    <!--<li class="lastone"><a href="javascript:void(0);" id="PN_P_1-Worksheets" class="GS_CI9_">Worksheets</a></li>-->
                   </ul>
                 </div>
               </div>
               <div class="col_1">
                 <div class="col_content">
                   <ul> <!-- bullet type: disc/square/circle-->
-                    <li><a href="/articles/?topics=156&amp;grades=198" id="PN_P_2-Activities" class="GS_CI9_">Activities</a></li>
                     <li><a href="/articles/?topics=159&amp;grades=198" id="PN_P_2-Books" class="GS_CI9_">Books</a></li>
-                    <li class="lastone"><a href="/articles/?topics=371&amp;grades=198" id="PN_P_2-Games" class="GS_CI9_">Games</a></li>
+                    <li><a href="/articles/?topics=371&amp;grades=198" id="PN_P_2-Games" class="GS_CI9_">Games</a></li>
+                    <li class="lastone"><a href="/preschool/community.gs?content=1636" id="PN_P_2-Community" class="GS_CI9_">Community</a></li>
                   </ul>
                 </div>
               </div>
@@ -119,12 +110,13 @@
                 <div class="col_content">
                   <ul> <!-- bullet type: disc/square/circle-->
                     <li><a href="/videos/elementary-school/?content=1574" id="PN_E_2-Videos" class="GS_CI9_">Videos</a></li>
-                    <li><a href="javascript:void(0);" id="PN_E_2-Worksheets" class="GS_CI9_">Worksheets</a></li>
+                    <!--<li><a href="javascript:void(0);" id="PN_E_2-Worksheets" class="GS_CI9_">Worksheets</a></li>-->
                     <li><a href="/articles/?topics=156&amp;grades=217" id="PN_E_2-Activities" class="GS_CI9_">Activities</a></li>
                     <li><a href="/articles/?topics=159&amp;grades=217" id="PN_E_2-Books" class="GS_CI9_">Books</a></li>
                     <li><a href="/articles/?topics=371&amp;grades=217" id="PN_E_2-Games" class="GS_CI9_">Games</a></li>
                     <li><a href="/articles/?topics=149&amp;grades=217" id="PN_E_2-Bullying" class="GS_CI9_">Bullying</a></li>
-                    <li class="lastone"><a href="/articles/?topics=125&amp;grades=217" id="PN_E_2-ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
+                    <li><a href="/articles/?topics=125&amp;grades=217" id="PN_E_2-ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
+                    <li class="lastone"><a href="/elementary-school/community.gs?content=1637" id="PN_E_2-Community" class="GS_CI9_">Community</a></li>
                   </ul>
                 </div>
               </div>
@@ -156,7 +148,8 @@
                     <li><a href="/articles/?grades=205&amp;topics=156" id="PN_M_2-Activities" class="GS_CI9_">Activities</a></li>
                     <li><a href="/articles/?grades=205&amp;topics=159" id="PN_M_2-Books" class="GS_CI9_">Books</a></li>
                     <li><a href="/articles/?topics=149&amp;grades=205" id="PN_M_2-Bullying" class="GS_CI9_">Bullying</a></li>
-                    <li class="lastone"><a href="/articles/?topics=125&amp;grades=205" id="PN_M_2-ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
+                    <li><a href="/articles/?topics=125&amp;grades=205" id="PN_M_2-ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
+                    <li class="lastone"><a href="/middle-school/community.gs?content=1638" id="PN_M_2-Community" class="GS_CI9_">Community</a></li>
                   </ul>
                 </div>
               </div>
@@ -178,18 +171,19 @@
                     <li><a href="/articles/?grades=206&amp;topics=211" id="PN_H_1-Reading" class="GS_CI9_">Reading</a></li>
                     <li><a href="/articles/?grades=206&amp;topics=216" id="PN_H_1-Writing" class="GS_CI9_">Writing</a></li>
                     <li><a href="/articles/?grades=206&amp;topics=212" id="PN_H_1-Science" class="GS_CI9_">Science</a></li>
-                    <li class="lastone"><a href="/articles/?grades=206&amp;topics=213" id="PN_H_1-SocialStudies" class="GS_CI9_">Social Studies</a></li>
+                    <li><a href="/articles/?grades=206&amp;topics=213" id="PN_H_1-SocialStudies" class="GS_CI9_">Social Studies</a></li>
+                    <li class="lastone"><a href="/articles/?grades=206&amp;topics=159" id="PN_H_1-Books" class="GS_CI9_">Books</a></li>
                   </ul>
                 </div>
               </div>
               <div class="col_1">
                 <div class="col_content">
                   <ul> <!-- bullet type: disc/square/circle-->
-                    <li><a href="/articles/?grades=206&amp;topics=159" id="PN_H_2-Books" class="GS_CI9_">Books</a></li>
                     <li><a href="/articles/?topics=372&amp;grades=206" id="PN_H_2-Graduation" class="GS_CI9_">Graduation</a></li>
                     <li><a href="/articles/?topics=152" id="PN_H_2-CollegePrep" class="GS_CI9_">College Prep</a></li>
                     <li><a href="/articles/?topics=149&amp;grades=206" id="PN_H_2-Bullying" class="GS_CI9_">Bullying</a></li>
-                    <li class="lastone"><a href="/articles/?topics=125&amp;grades=206" id="PN_H_2-ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
+                    <li><a href="/articles/?topics=125&amp;grades=206" id="PN_H_2-ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
+                    <li class="lastone"><a href="/high-school/community.gs?content=1639" id="PN_H_2-Community" class="GS_CI9_">Community</a></li>
                   </ul>
                 </div>
               </div>

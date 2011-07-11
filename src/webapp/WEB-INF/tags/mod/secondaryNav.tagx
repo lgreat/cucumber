@@ -23,133 +23,6 @@
 
     <c:set var="pw" value="${requestScope.context.pathway}"/>
 
-        <!--<ul id="topnav_menusubnav">
-
-            <li id="topnav_hd" class="nav_menu topnav_subnav_active"><a href="javascript:void(0)"
-                    id="GlobalNav_BrowseByGradeButton"
-                    class="arrow nav_group_heading GS_CI9_ ">Browse by Grade</a>
-                <ul class="nav_group_items">
-                    <li class="first nav-group-item">
-                        <a href="/preschool/"
-                           id="GlobalNav_BBG_Preschool"
-                           class="GS_CI9_">Preschool</a></li>
-                    <li class="nav-group-item">
-                        <a href="/kindergarten.topic?content=2659"
-                           id="GlobalNav_BBG_Kindergarten"
-                           class="GS_CI9_">Kindergarten</a></li>
-                    <li class="nav-group-item">
-                        <a href="/first-grade.topic?content=2660"
-                           id="GlobalNav_BBG_FirstGrade"
-                           class="GS_CI9_">First Grade</a></li>
-                    <li class="nav-group-item">
-                        <a href="/second-grade.topic?content=2661"
-                           id="GlobalNav_BBG_SecondGrade"
-                           class="GS_CI9_">Second Grade</a></li>
-                    <li class="nav-group-item">
-                        <a href="/third-grade.topic?content=2662"
-                           id="GlobalNav_BBG_ThirdGrade"
-                           class="GS_CI9_">Third Grade</a></li>
-                    <li class="nav-group-item">
-                        <a href="/fourth-grade.topic?content=2663"
-                           id="GlobalNav_BBG_FourthGrade"
-                           class="GS_CI9_">Fourth Grade</a></li>
-                    <li class="nav-group-item">
-                        <a href="/fifth-grade.topic?content=2664"
-                           id="GlobalNav_BBG_FifthGrade"
-                           class="GS_CI9_">Fifth Grade</a></li>
-                    <li class="nav-group-item">
-                        <a href="/middle-school/"
-                           id="GlobalNav_BBG_MiddleSchool"
-                           class="GS_CI9_">Middle School</a></li>
-                    <li class="nav-group-item">
-                        <a href="/high-school/"
-                           id="GlobalNav_BBG_HighSchool"
-                           class="GS_CI9_">High School</a></li>
-                    <li class="nav-group-item">
-                        <a href="/college.topic?content=1542"
-                           id="GlobalNav_BBG_College"
-                           class="GS_CI9_">College</a></li>
-                </ul>
-            </li>
-            <li id="topnav_hd" class="nav_menu ${(pw == tabs.HEALTH_AND_DEVELOPMENT ? 'topnav_subnav_active' : '')}"><a href="/parenting.topic?content=1539"
-                    id="GlobalNav_HealthAndDevelopmentButton"
-                    class="arrow nav_group_heading GS_CI9_ "
-                    >Health &amp;amp; Development</a>
-                <ul class="nav_group_items">
-                    <li class="first nav-group-item"><link:cmsCategoryBrowse topicIDs="149" language="EN" styleId="GlobalNav_HD_Bullying" styleClass="GS_CI9_">Bullying</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="124" language="EN" styleId="GlobalNav_HD_BehaviorAndDiscipline" styleClass="GS_CI9_">Behavior &amp;amp; Discipline</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="157" language="EN" styleId="GlobalNav_HD_SocialSkills" styleClass="GS_CI9_">Social Skills</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:healthyKids styleId="GlobalNav_HD_HealthAndNutrition" styleClass="GS_CI9_">Health &amp;amp; Nutrition</link:healthyKids></li>
-                    <li class="nav-group-item"><link:mediaChoices id="GlobalNav_HD_MediaMatters" styleClass="GS_CI9_">Media Matters</link:mediaChoices></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="136" language="EN" styleId="GlobalNav_HD_EmotionalWellBeing" styleClass="GS_CI9_">Emotional Well-Being</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting" styleId="GlobalNav_HD_Community" styleClass="GS_CI9_"><span class="sprite community-sm fltlft">&lt;!&ndash; small community icon &ndash;&gt;</span>&amp;nbsp;Talk About It</link:cmsContent></li>
-                    <li class="last nav-group-item"><a href="/parenting.topic?content=1539"
-                        id="GlobalNav_HealthAndDevelopmentButton__seeAll"
-                        class="GS_CI9_">See all <span class="alertDoubleArrow">&amp;raquo;</span></a></li>
-                </ul>
-            </li>
-            <li id="topnav_aa" class="nav_menu ${(pw == tabs.ACADEMICS_AND_ACTIVITIES ? 'topnav_subnav_active' : '')}">
-                <a href="/students.topic?content=1540"
-                    id="GlobalNav_AcademicsAndActivitiesButton"
-                    class="arrow nav_group_heading GS_CI9_ "
-                    >Academics &amp;amp; Activities</a>
-                <ul class="nav_group_items">
-                    <li class="first nav-group-item"><link:cmsCategoryBrowse topicIDs="133" language="EN" styleId="GlobalNav_AA_AcademicSkills" styleClass="GS_CI9_">Academic Skills</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><a href="/homework-help.topic?content=1544" id="GlobalNav_AA_HomeworkHelp" class="GS_CI9_">Homework Help</a></li>
-                    <li class="nav-group-item"><a href="/college/" id="GlobalNav_AA_PrepForCollege" class="GS_CI9_">College</a></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="159" language="EN" styleId="GlobalNav_AA_BookReviews" styleClass="GS_CI9_">Book Reviews</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="156" language="EN" styleId="GlobalNav_AA_LearningActivities" styleClass="GS_CI9_">Learning Activities</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><a href="/improvement.topic?content=1543" id="GlobalNav_AA_ImproveYourSchool" class="GS_CI9_">Improve Your School</a></li>
-                    <li class="nav-group-item"><a href="/content/travel.page" id="GlobalNav_AA_Travel" class="GS_CI9_">Travel</a></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="150" language="EN" styleId="GlobalNav_AA_SummerActivities" styleClass="GS_CI9_">Summer Activities</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students" styleId="GlobalNav_AA_Community" styleClass="GS_CI9_"><span class="sprite community-sm fltlft">&lt;!&ndash; small community icon &ndash;&gt;</span>&amp;nbsp;Talk About It</link:cmsContent></li>
-                    <li class="last nav-group-item"><a href="/students.topic?content=1540"
-                        id="GlobalNav_AcademicsAndActivitiesButton__seeAll"
-                        class="GS_CI9_">See all <span class="alertDoubleArrow">&amp;raquo;</span></a></li>
-                </ul>
-            </li>
-            <li id="topnav_ld" class="nav_menu ${(pw == tabs.LEARNING_DISABILITIES ? 'topnav_subnav_active' : '')}"><a href="/special-education.topic?content=1541"
-                    id="GlobalNav_SpecialEducationButton"
-                    class="arrow nav_group_heading GS_CI9_ "
-                    >Special Education</a>
-                <ul class="nav_group_items">
-                    <li class="first nav-group-item"><link:cmsCategoryBrowse topicIDs="226" language="EN" styleId="GlobalNav_SE_LDADHD" styleClass="GS_CI9_">Learning Disabilities &amp;amp; ADHD</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="228" language="EN" styleId="GlobalNav_SE_AutismAndOtherDisorders" styleClass="GS_CI9_">Autism &amp;amp; Other Disorders</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="185" language="EN" styleId="GlobalNav_SE_FamilySupport" styleClass="GS_CI9_">Family Support</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="231" language="EN" styleId="GlobalNav_SE_HealthAndDevelopment" styleClass="GS_CI9_">Health &amp;amp; Development</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="190" language="EN" styleId="GlobalNav_SE_LegalRightsAndAdvocacy" styleClass="GS_CI9_">Legal Rights &amp;amp; Advocacy</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="188" language="EN" styleId="GlobalNav_SE_AssistiveTechnology" styleClass="GS_CI9_">Assistive Technology</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/special-education" styleId="GlobalNav_SE_Community" styleClass="GS_CI9_"><span class="sprite community-sm fltlft">&lt;!&ndash; small community icon &ndash;&gt;</span>&amp;nbsp;Talk About It</link:cmsContent></li>
-                    <li class="last nav-group-item"><a href="/special-education.topic?content=1541"
-                        id="GlobalNav_SpecialEducationButton__seeAll"
-                        class="GS_CI9_">See all <span class="alertDoubleArrow">&amp;raquo;</span></a></li>
-                </ul>
-            </li>
-
-            <li id="topnav_ctrs" class="nav_menu ${(pw == tabs.SCHOOL_CHOICE ? 'topnav_subnav_active' : '')}"><link:schoolChoiceCenter
-                    id="GlobalNav_ChooseTheRightSchoolButton"
-                    styleClass="arrow nav_group_heading GS_CI9_ "
-                    >Choose the Right School</link:schoolChoiceCenter>
-                <ul class="nav_group_items">
-                    <li class="first nav-group-item"><link:cmsCategoryBrowse topicIDs="145" language="EN" styleId="GlobalNav_CTRS_DefiningYourIdealSchool" styleClass="GS_CI9_">Defining Your Ideal School</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="197" language="EN" styleId="GlobalNav_CTRS_PreparingForASchoolVisit" styleClass="GS_CI9_">Preparing for a School Visit</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:cmsCategoryBrowse topicIDs="195" language="EN" styleId="GlobalNav_CTRS_ApplyingAndEnrolling" styleClass="GS_CI9_">Applying &amp;amp; Enrolling</link:cmsCategoryBrowse></li>
-                    <li class="nav-group-item"><link:movingWithKids id="GlobalNav_CTRS_Moving" styleClass="GS_CI9_">Moving With Kids</link:movingWithKids></li>
-                    <li class="last nav-group-item"><link:schoolChoiceCenter id="GlobalNav_ChooseTheRightSchoolButton__seeAll" styleClass="GS_CI9_">See all <span class="alertDoubleArrow">&amp;raquo;</span></link:schoolChoiceCenter></li>
-                </ul>
-            </li>
-
-            <li id="topnav_tp" class="nav_menu">
-                <a href="/test-prep/" class="nav_group_heading ${(pw == tabs.TEST_PREP ? 'topnav_subnav_active' : '')} GS_CI9_" id="GlobalNav_TestPrep">Test Prep</a>
-            </li>
-
-            <li id="topnav_bts" class="nav_menu">
-                <a href="/back-to-school/" class="nav_group_heading GS_CI9_" id="GlobalNav_BackToSchool"><span
-                class="sprite i-bts-12">&lt;!&ndash; back to school icon &ndash;&gt;</span>&amp;nbsp;Back to School</a>
-            </li>
-
-        </ul>-->
-
     <!-- Begin Secondary Navigation -->
       <ul id="secondary"> <!-- bullet type: disc/square/circle-->
         <li class="menuItem"><a href="javascript:void(0);" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">Hot Topics <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
@@ -158,7 +31,7 @@
               <li class="subMenuItem"><a href="/articles/?topics=134" id="SN_HT-VolunteeringFundraising" class="subMenuItemAnchorText GS_CI9_">Volunteering &amp; Fundraising<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
               <li class="subMenuItem"><a href="/articles/?topics=134" id="SN_HT-CommunityBuilding" class="subMenuItemAnchorText GS_CI9_">Community Building<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
               <li class="subMenuItem"><a href="/articles/?topics=126" id="SN_HT-QualityTeaching" class="subMenuItemAnchorText GS_CI9_">Quality Teaching<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="javascript:void(0);" id="SN_HT-UnderstandingTheSystem" class="subMenuItemAnchorText GS_CI9_">Understanding the System<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <!--<li class="subMenuItem"><a href="javascript:void(0);" id="SN_HT-UnderstandingTheSystem" class="subMenuItemAnchorText GS_CI9_">Understanding the System<span class="navSprite i-sn-arrow-on">&lt;!&ndash; do not collapse &ndash;&gt;</span></a></li>-->
               <li class="subMenuItem"><a href="/improvement/understanding-the-system/4171-School-funding-CA-California-Watch.gs" id="SN_HT-CAWatchSchoolFundingReport" class="subMenuItemAnchorText GS_CI9_">California Watch School Funding Report<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             </ul>
         </li>
@@ -172,7 +45,6 @@
             <li class="subMenuItem"><a href="/improvement.topic?content=1543" id="SN_AA-ImproveYourSchool" class="subMenuItemAnchorText GS_CI9_">Improve Your School<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/content/travel.page" id="SN_AA-Travel" class="subMenuItemAnchorText GS_CI9_">Travel<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=150" id="SN_AA-SummerActivties" class="subMenuItemAnchorText GS_CI9_">Summer Activties<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/students/community.gs?content=1641" id="SN_AA-TalkAboutIt" class="subMenuItemAnchorText GS_CI9_">Talk About It<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
         <li class="menuItem"><a href="/homework-help.topic?content=1544" id="SN-HomeworkHelp" class="menuItemAnchorText GS_CI9_">Homework Help <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
@@ -185,7 +57,7 @@
             <li class="subMenuItem"><a href="/test-prep/" id="SN_HH-TestPrep" class="subMenuItemAnchorText GS_CI9_">Test Prep<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="javascript:void(0);" id="SN-ParentingDilemmas" class="menuItemAnchorText GS_CI9_">Parenting Dilemmas <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="/parenting-dilemmas.topic?content=4321" id="SN-ParentingDilemmas" class="menuItemAnchorText GS_CI9_">Parenting Dilemmas <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_4"> <!-- bullet type: disc/square/circle-->
             <li class="subMenuItem"><a href="/articles/?topics=149" id="SN_PD-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/media-choices.topic?content=2439" id="SN_PD-MediaTV" class="subMenuItemAnchorText GS_CI9_">Media &amp; TV<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
