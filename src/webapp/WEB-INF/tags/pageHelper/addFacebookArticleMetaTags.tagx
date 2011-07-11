@@ -18,7 +18,7 @@
         // build the part of the url before the uri
         String baseUrl = (request.getScheme() + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : ""));
         // remove any query string that was added on as a precaution
-        String justUri = uri.substring(0, uri.indexOf("?"));
+        String justUri = uri.indexOf("?") > -1 ? uri.substring(0, uri.indexOf("?")) : uri;
         // add page=1 as only query parameter
         String unEncodedUrl = baseUrl + justUri + "?page=1";
         String encodedUrl = URLEncoder.encode(unEncodedUrl, "UTF-8");
