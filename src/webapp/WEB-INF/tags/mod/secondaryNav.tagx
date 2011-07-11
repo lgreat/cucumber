@@ -54,6 +54,7 @@
             <li class="subMenuItem"><a href="/articles/?topics=140&amp;topics=216" id="SN_HH-Writing" class="subMenuItemAnchorText GS_CI9_">Writing<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=148" id="SN_HH-StudySkills" class="subMenuItemAnchorText GS_CI9_">Study Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=158" id="SN_HH-Tutoring" class="subMenuItemAnchorText GS_CI9_">Tutoring<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/online-learning.topic?content=4351" id="SN_HH-OnlineLearning" class="subMenuItemAnchorText GS_CI9_">Online Learning<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/test-prep/" id="SN_HH-TestPrep" class="subMenuItemAnchorText GS_CI9_">Test Prep<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
