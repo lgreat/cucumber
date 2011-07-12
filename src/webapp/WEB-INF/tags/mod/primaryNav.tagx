@@ -26,7 +26,6 @@
     <ul id="primary">
         <li class="${(pw == tabs.HOME ? 'selected' : '')} menuItem">
           <link:home id="PN-Home"  styleClass="menuItemAnchorText home GS_CI9_">
-            <!--<img src="img/home_icon.png" width="35" height="32" alt="home icon" />-->
             <span class="navSprite i-pn-home"><!-- do not collapse --></span>
           </link:home>
         </li>
@@ -37,15 +36,15 @@
                 <ul> <!-- bullet type: disc/square/circle-->
                   <li><link:research id="PN_F_1-SearchForSchools" styleClass="GS_CI9_">Search for Schools</link:research></li>
                   <li><a href="/school-choice/" id="PN_F_1-GuideToChoosingSchools" class="GS_CI9_">Guide to Choosing Schools</a></li>
-                  <li><a href="/articles/?topics=145" id="PN_F_1-DefiningYourIdealSchool" class="GS_CI9_">Defining Your Ideal School</a></li>
-                  <li class="lastone"><a href="/articles/?topics=197" id="PN_F_1-PreparingForASchoolVisit" class="GS_CI9_">Preparing for a School Visit</a></li>
+                  <li><link:cmsCategoryBrowse topicIDs="145" styleId="PN_F_1-DefiningYourIdealSchool" styleClass="GS_CI9_">Defining Your Ideal School</link:cmsCategoryBrowse><!--<a href="/articles/?topics=145" id="PN_F_1-DefiningYourIdealSchool" class="GS_CI9_">Defining Your Ideal School</a>--></li>
+                  <li class="lastone"><link:cmsCategoryBrowse topicIDs="197" styleId="PN_F_1-PreparingForASchoolVisit" styleClass="GS_CI9_">Preparing for a School Visit</link:cmsCategoryBrowse><!--<a href="/articles/?topics=197" id="PN_F_1-PreparingForASchoolVisit" class="GS_CI9_">Preparing for a School Visit</a>--></li>
                 </ul>
               </div>
             </div>
             <div class="col_1">
               <div class="col_content">
                 <ul> <!-- bullet type: disc/square/circle-->
-                  <li><a href="/articles/?topics=195" id="PN_F_2-ApplyingAndEnrolling" class="GS_CI9_">Applying &amp; Enrolling</a></li>
+                  <li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-ApplyingAndEnrolling" styleClass="GS_CI9_">Applying &amp; Enrolling</link:cmsCategoryBrowse><!--<a href="/articles/?topics=195" id="PN_F_2-ApplyingAndEnrolling" class="GS_CI9_">Applying &amp; Enrolling</a>--></li>
                   <li><a href="/moving.topic?content=2220" id="PN_F_2-MovingWIthKids" class="GS_CI9_">Moving with Kids</a></li>
                   <li class="lastone"><a href="/tips-moving-school-district.topic?content=4248" id="PN_F_2-LocalSchoolChoiceGuides" class="GS_CI9_">Guides to Local School Systems</a></li>
                 </ul>

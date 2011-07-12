@@ -4991,6 +4991,18 @@ body.cobranded #pageGS {
     margin-bottom: auto;
 }
 
+#primary .dropdown_1 .ft_content{
+    width: 415px;
+}
+
+#primary .dropdown_2 .ft_content,
+#primary .dropdown_3 .ft_content,
+#primary .dropdown_4 .ft_content,
+#primary .dropdown_5 .ft_content,
+#primary .dropdown_6 .ft_content{
+    width: 318px;
+}
+
 #primary .ft_content {
     padding: 15px 20px;
     background-color: #ececec;
