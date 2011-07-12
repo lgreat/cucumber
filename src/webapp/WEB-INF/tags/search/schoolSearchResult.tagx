@@ -85,7 +85,7 @@
                         <div class="smallAlertText js-school-search-result-phone">${school.phone}</div>
                     </c:if>-->
 
-                    <c:if test="${not empty school.distance and not empty param.zipCode}">
+                    <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
                         <div class="smallAlertText js-school-search-result-distance"><fmt:formatNumber value="${school.distance}" maxFractionDigits="2"/> miles</div>
                     </c:if>
 
