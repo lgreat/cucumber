@@ -14,7 +14,8 @@
         <title>Test Modifications to School Search Widget - GreatSchools</title>
 
         <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
-
+        <pageHelper:addJavaScript uncompressedScripts="${param.uncompressedScripts}" compressedScripts="${param.compressedScripts}" serverName="${pageContext.request.serverName}"/>
+        
         <script type="text/javascript">
             function textSwitch(el, target, replace) {
                 if (el.value == replace) {
@@ -191,6 +192,33 @@
                 return document.forms['searchForm'].submit();
 
             }
+
+            var attachSchoolAutocomplete = function(domId) {
+                var searchBox = jQuery('#' + domId);
+                var searchStateSelect = jQuery('#schoolSearchStateSelect');
+                var url = "/search/schoolAutocomplete.page";
+                searchBox.autocomplete(url, {
+                    extraParams: {
+                        state: function() {
+                            return searchStateSelect.val();
+                        }
+                    },
+                    minChars: 3,
+                    selectFirst: false,
+                    cacheLength: 150,
+                    matchSubset: true,
+                    max: 6,
+                    autoFill: false
+                });
+
+                searchStateSelect.blur(function() {
+                    searchBox.flushCache();
+                });
+            };
+
+            jQuery(function() {
+                attachSchoolAutocomplete("schoolSearchBox");
+            });
         </script>
     </head>
     <body>
@@ -220,7 +248,8 @@
 
                 <input type="text" name="searchQuery" id="searchInput" class="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
-                            onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
+                            onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"
+                            value="Enter city &amp; state or zip code"/>
                 <button class="button-1 searchSubmit" type="submit">Search</button>
             </form>
 
@@ -232,14 +261,16 @@
             <form name="searchByNameForm" action="/search/search.page" method="get">
                 <input type="hidden" name="search_type" value="0"/>
 
-                <input type="text" name="q" class="searchInput"
-                            onfocus="textSwitch(this, '', 'Search for school, district, or city');"
-                            onblur="textSwitch(this, 'Search for school, district, or city', '');"/>
+                <input type="text" name="q" class="searchInput" id="schoolSearchBox"
+                            onfocus="textSwitch(this, '', 'Search for school or district');"
+                            onblur="textSwitch(this, 'Search for school or district', '');"
+                            value="Search for school or district"/>
                 <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                                  noStateLabel="--"
                                                  usingLongNames="false"
                                                  state="${requestScope.context.state}"
                                                  styleClass="stateSelect"
+                                                 styleId="schoolSearchStateSelect"
                                     />
                 <button class="button-1 searchSubmit" type="submit">Search</button>
             </form>
