@@ -3397,13 +3397,13 @@ Viewport: the defines width and height of each icon
 .gallery-thumbnail{ float:left;width:70px;height:70px;border:1px solid #ccc;margin-left:10px;display:block;}
 .gallery-fullsize{width:500px;height:500px;display:block;margin:auto;margin-top:15px;}
 .gallery-thumbnail-selected{border:2px solid #f4891d;}
-#photo-gallery{display:none;position:fixed;top:50px;width:630px;height:594px;z-index:1002;}
+#photo-gallery{display:none;position:absolute;top:50px;width:630px;height:594px;z-index:1002;-moz-box-shadow:20px 60px 24px #333;-webkit-box-shadow:20px 60px 24px #333; box-shadow:20px 60px 24px #333;}
 #photo-gallery-schoolname{float:left;margin:10px 0px 10px 10px;font-family:Georgia;font-size:20px;color:#333;}
 #photo-gallery-thumbnails{float:left;margin:auto;}
 #photo-gallery-back{margin-top:20px;}
 #photo-gallery-next{margin-top:20px;}
 #photo-gallery-close{float:right;margin: 10px 10px 0px 0px;}
-#photo-gallery-viewer{border: 1px solid #333;background-color:#fff;width:630px;height:594px;margin-bottom:10px;border-top-left-radius:9px;border-top-right-radius: 9px;-moz-border-radius-topleft:9px;-moz-border-radius-topright:9px;-webkit-border-radius:9px;-moz-box-shadow:0px 6px 24px #333;-webkit-box-shadow:0px 6px 24px #333; box-shadow:0px 6px 24px #333;}
+#photo-gallery-viewer{border-top:1px solid #333;border-right:1px solid #333;border-left: 1px solid #333;;background-color:#fff;width:630px;height:594px;border-top-left-radius:9px;border-top-right-radius: 9px;-moz-border-radius-topleft:9px;-moz-border-radius-topright:9px;-webkit-border-radius:9px;}
 #photo-gallery-viewer .heading{height: 48px;background: rgb(244,249,252); /* Old browsers */
 background: -moz-linear-gradient(top, rgba(244,249,252,1) 15%, rgba(226,241,247,1) 100%, rgba(32,124,202,1) 100%, rgba(226,241,247,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(15%,rgba(244,249,252,1)), color-stop(100%,rgba(226,241,247,1)), color-stop(100%,rgba(32,124,202,1)), color-stop(100%,rgba(226,241,247,1))); /* Chrome,Safari4+ */
@@ -3413,7 +3413,7 @@ background: -ms-linear-gradient(top, rgba(244,249,252,1) 15%,rgba(226,241,247,1)
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f9fc', endColorstr='#e2f1f7',GradientType=0 ); /* IE6-9 */
 background: linear-gradient(top, rgba(244,249,252,1) 15%,rgba(226,241,247,1) 100%,rgba(32,124,202,1) 100%,rgba(226,241,247,1) 100%); /* W3C */
 border:2px #fff solid;border-top-left-radius:9px;border-top-right-radius:9px;-moz-border-radius-topleft:9px;-moz-border-radius-topright:9px;-webkit-border-radius:9px;}
-#photo-gallery-controls{border:1px solid #333;padding:20px 0px;background-color:#fff;width:630px;border-bottom-left-radius:9px;border-bottom-right-radius: 9px;-moz-border-radius-bottomleft:9px;-moz-border-radius-bottomright:9px;-webkit-border-radius:9px;-moz-box-shadow:0px 6px 24px #333;-webkit-box-shadow:0px 6px 24px #333; box-shadow:0px 6px 24px #333;}
+#photo-gallery-controls{border-right:1px solid #333;border-bottom:1px solid #333;border-left: 1px solid #333;padding:20px 0px;background-color:#fff;width:630px;border-bottom-left-radius:9px;border-bottom-right-radius: 9px;-moz-border-radius-bottomleft:9px;-moz-border-radius-bottomright:9px;-webkit-border-radius:9px;}
 #photo-gallery-content{width:100%;margin:auto;}
 /*----------------GS-11784 ends----------------*/
 /* --- video-popup-contents (extends mod) ---- */
