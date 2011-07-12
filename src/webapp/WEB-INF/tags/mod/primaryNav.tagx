@@ -34,7 +34,7 @@
             <div class="col_1">
               <div class="col_content brdrt_dotted">
                 <ul> <!-- bullet type: disc/square/circle-->
-                  <li><link:research id="PN_F_1-SearchForSchools" styleClass="GS_CI9_">Search for Schools</link:research></li>
+                  <li><link:research id="PN_F_1-SearchForSchools" styleClass="GS_CI9_" state="${requestScope.context.state}">Search for Schools</link:research></li>
                   <li><a href="/school-choice/" id="PN_F_1-GuideToChoosingSchools" class="GS_CI9_">Guide to Choosing Schools</a></li>
                   <li><link:cmsCategoryBrowse topicIDs="145" styleId="PN_F_1-DefiningYourIdealSchool" styleClass="GS_CI9_">Defining Your Ideal School</link:cmsCategoryBrowse><!--<a href="/articles/?topics=145" id="PN_F_1-DefiningYourIdealSchool" class="GS_CI9_">Defining Your Ideal School</a>--></li>
                   <li class="lastone"><link:cmsCategoryBrowse topicIDs="197" styleId="PN_F_1-PreparingForASchoolVisit" styleClass="GS_CI9_">Preparing for a School Visit</link:cmsCategoryBrowse><!--<a href="/articles/?topics=197" id="PN_F_1-PreparingForASchoolVisit" class="GS_CI9_">Preparing for a School Visit</a>--></li>
