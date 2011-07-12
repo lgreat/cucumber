@@ -75,7 +75,7 @@
                 )
             );
         </c:forEach>
-        var gallery = new GS.photoGallery.PhotoGallery("photo-gallery",imageArray,true);
+        var gallery = new GS.photoGallery.PhotoGallery("photo-gallery",imageArray,false);
         jQuery(function() {
             gallery.showFullSizeImage(0); //load the first full size image into gallery
             gallery.attachShowEvent('${id}'); //show the gallery when this dom node clicked

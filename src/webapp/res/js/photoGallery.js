@@ -25,7 +25,7 @@ GS.photoGallery.PhotoGallery = function(id,multiSizeImageArray,debug) {
 
     this.thumbnailLoaderPosition = 0;
     this.fullSizeImageLoaderPosition = 0;
-    this.chosenTimeout = 500;
+    this.chosenTimeout = 50; //ms
     this.debug = debug;
 };
 
