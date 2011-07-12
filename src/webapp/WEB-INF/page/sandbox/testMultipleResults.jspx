@@ -68,6 +68,7 @@
 //                            document.getElementById('cityName').value = geocodeResult['city'];
                             document.getElementById('state').value = geocodeResult['state'];
                             document.getElementById('locationType').value = geocodeResult['type'];
+                            document.getElementById('partialMatch').value = geocodeResult['partial_match'];
 //                            document.getElementById('normalizedAddress').value = geocodeResult['normalizedAddress'];
 
                             waitForGeocode = false;
@@ -182,6 +183,7 @@
 //                document.getElementById('cityName').value = geocodeResults[x]['city'];
                 document.getElementById('state').value = geocodeResults[x]['state'];
                 document.getElementById('locationType').value = geocodeResults[x]['type'];
+                document.getElementById('partialMatch').value = geocodeResults[x]['partial_match'];
 //                document.getElementById('normalizedAddress').value = geocodeResults[x]['normalizedAddress'];
 
                 waitForGeocode = false;
@@ -214,6 +216,7 @@
                 <!--<input type="hidden" name="normalizedAddress" id="normalizedAddress"/>-->
                 <input type="hidden" name="distance" value="5"/>
                 <input type="hidden" name="locationType" id="locationType" value=""/>
+                <input type="hidden" name="partialMatch" id="partialMatch" value=""/>
 
                 <input type="text" name="searchQuery" id="searchInput" class="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
