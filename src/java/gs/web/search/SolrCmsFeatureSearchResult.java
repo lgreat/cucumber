@@ -31,6 +31,9 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     private String _imageAltText;
     private String _length;
     private String _grades;
+    private List<String> _subjects;
+    private String _deck;
+    private String _body;
 
     private String _previewImageUrl;
     private String _previewImageTitle;
@@ -205,10 +208,19 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     public void setGrades(String grades) {
         _grades = grades;
     }
+    
+    @XmlElement
+    public List<String> getSubjects() {
+        return _subjects;
+    }
+    @Field(CmsFeatureDocumentBuilder.FIELD_SUBJECTS)
+    public void setSubjects(List<String> subjects) {
+        _subjects = subjects;
+    }
 
     @XmlElement
     public String getPreviewImageUrl() {
-        return _previewImageUrl;
+        return CmsUtil.getImageUrl(_previewImageUrl);
     }
     @Field(CmsFeatureDocumentBuilder.FIELD_PREVIEW_IMAGE_URL)
     public void setPreviewImageUrl(String previewImageUrl) {
@@ -235,7 +247,7 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
 
     @XmlElement
     public String getSmallPreviewImageUrl() {
-        return _smallPreviewImageUrl;
+        return CmsUtil.getImageUrl(_smallPreviewImageUrl);
     }
     @Field(CmsFeatureDocumentBuilder.FIELD_SMALL_PREVIEW_IMAGE_URL)
     public void setSmallPreviewImageUrl(String smallPreviewImageUrl) {
@@ -267,5 +279,25 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     @Field(CmsFeatureDocumentBuilder.FIELD_PDF_URI)
     public void setPdfUri(String pdfUri) {
         _pdfUri = pdfUri;
+    }
+
+    @XmlElement
+    public String getDeck() {
+        return _deck;
+    }
+
+    @Field(CmsFeatureDocumentBuilder.FIELD_DECK)
+    public void setDeck(String deck) {
+        _deck = deck;
+    }
+
+    @XmlElement
+    public String getBody() {
+        return _body;
+    }
+
+    @Field(CmsFeatureDocumentBuilder.FIELD_BODY)
+    public void setBody(String body) {
+        _body = body;
     }
 }

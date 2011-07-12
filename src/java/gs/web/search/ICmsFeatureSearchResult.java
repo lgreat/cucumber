@@ -2,6 +2,10 @@ package gs.web.search;
 
 import gs.data.search.ISearchResult;
 import gs.data.content.cms.ContentKey;
+import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
+import org.apache.solr.client.solrj.beans.Field;
+
+import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
 import java.util.Date;
 
@@ -23,7 +27,10 @@ public interface ICmsFeatureSearchResult extends ISearchResult {
     public String getImageUrl();
     public String getImageAltText();
     public String getLength();
+    public void setGrades(String grades);
     public String getGrades();
+    public List<String> getSubjects();
+    public void setSubjects(List<String> subjects);
     public void setContentType(String contentType);
     public void setContentId(Long contentId);
     public void setFullUri(String fullUri);
@@ -43,4 +50,9 @@ public interface ICmsFeatureSearchResult extends ISearchResult {
     public void setSmallPreviewImageAltText(String smallPreviewImageAltText);
     public String getPdfUri();
     public void setPdfUri(String pdfUri);
+    
+    public String getDeck();
+    public void setDeck(String deck);
+    public String getBody();
+    public void setBody(String body);
 }
