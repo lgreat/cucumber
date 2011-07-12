@@ -46,8 +46,8 @@
         <div class="smallText1 mtm pts">
             <link:home>Home</link:home> &amp;gt;
             <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
-            <!-- TODO-11818 link 'Worksheets' to worksheet gallery -->
-            <link:cmsWorksheetGallery topicCenterId="4313" topicCenterUrl="${topicCenter.fullUri}">Worksheets</link:cmsWorksheetGallery>
+            <!-- TODO-11818 link 'Worksheets' to correct topic center after it has been created -->
+            <link:cmsWorksheetGallery topicCenterId="1574" topicCenterUrl="/elementary-school">Worksheets</link:cmsWorksheetGallery>
         </div>
 
         <h1 class="mts">${feature.title}</h1>
@@ -56,7 +56,7 @@
 
         <p>
             <c:if test="${not empty feature.grades}">
-                <cms:printCmsFeatureGrades feature="${feature}" includeLabel="${true}"/>
+                <cms:printCmsFeatureGrades gradeString="${feature.grades}" includeLabel="${true}"/>
             </c:if>
 
             ${feature.subjectCategories[0].name}
@@ -200,8 +200,8 @@
 </div>
 
 <c:set var="pageName" value="WorksheetSingle"/>
-<!-- TODO-11818 Samson, the value for hier1 is TBD Jennifer's response to http://jira.greatschools.net/browse/GS-11818#action_98481 -->
-<c:set var="hier1" value="Worksheet,${gradeForOmniture},${subjectForOmniture},${titleForOmniture}"/>
+
+<c:set var="hier1" value="Worksheet,${feature.gradeCategories[0].name},${feature.subjectCategories[0].name},${titleForOmniture}"/>
 
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 

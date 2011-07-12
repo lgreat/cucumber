@@ -69,11 +69,13 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         );
 
         //used for dropdowns in jspx
-        GRADE_CHOICES.put("-1", "All Grades Levels");
-        GRADE_CHOICES.put("198", "Preschool");
-        GRADE_CHOICES.put("217", "Elementary School");
-        GRADE_CHOICES.put("205", "Middle School");
-        GRADE_CHOICES.put("206", "High School");
+        GRADE_CHOICES.put("-1", "All Grades");
+        GRADE_CHOICES.put("199", "Kindergarten");
+        GRADE_CHOICES.put("200", "First Grade");
+        GRADE_CHOICES.put("201", "Second Grade");
+        GRADE_CHOICES.put("202", "Third Grade");
+        GRADE_CHOICES.put("203", "Fourth Grade");
+        GRADE_CHOICES.put("204", "Fifth Grade");
 
         SUBJECT_CHOICES.put("-1", "All Subjects");
         SUBJECT_CHOICES.put("207", "Art");
@@ -233,17 +235,30 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
 
-            for (int i = 0; i < 14; i++) {
+            // sample data until data is indexed in Solr
+            for (int i = 0; i < 6; i++) {
                 ICmsFeatureSearchResult r = new SolrCmsFeatureSearchResult();
                 r.setContentType(CmsConstants.WORKSHEET_CONTENT_TYPE);
                 r.setPreviewImageUrl("/cms/49/4849.png");
                 r.setPreviewImageAltText("test all text");
                 r.setPreviewImageTitle("img title");
-                r.setPreviewImageUrl("/cms/49/4849.png");
-                r.setPreviewImageAltText("test all text");
-                r.setPreviewImageTitle("img title");
-
+                r.setSmallPreviewImageUrl("/cms/49/4849.png");
+                r.setSmallPreviewImageAltText("test all text");
+                r.setSmallPreviewImageTitle("img title");
+                r.setPdfUri("/cms/51/4851.pdf");
+                r.setTitle("fake title");
+                r.setDeck("Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Etiam porta sem malesuada magna mollis euismod.");
+                r.setContentId(4103l);
+                r.setFullUri("/elementary-school/worksheet-one");
+                r.setGrades("PK,K,1");
+                List<String> subjects = new ArrayList<String>();
+                subjects.add("Math");
+                subjects.add("Science");
+                r.setSubjects(subjects);
+                searchResults.getSearchResults().add(r);
             }
+            searchResults.setTotalResults(6);
+            // end sample data until data is indexed in Solr
 
             addPagingDataToModel(
                     requestedPage.getValidatedOffset(WORKSHEET_GALLERY_PAGINATION_CONFIG, searchResults.getTotalResults()),
