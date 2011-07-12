@@ -67,6 +67,7 @@
                             document.getElementById('lon').value = geocodeResult['lon'];
 //                            document.getElementById('cityName').value = geocodeResult['city'];
                             document.getElementById('state').value = geocodeResult['state'];
+                            document.getElementById('locationType').value = geocodeResult['type'];
 //                            document.getElementById('normalizedAddress').value = geocodeResult['normalizedAddress'];
 
                             waitForGeocode = false;
@@ -138,6 +139,7 @@
                         if (geocodeResults.length == 0) {
                             callbackFunction(null);
                         } else if (geocodeResults.length == 1) {
+                            alert("Found " + geocodeResults[0].normalizedAddress + " which is a " + geocodeResults[0].type + ".");
                             callbackFunction(geocodeResults[0]);
                         } else {
                             handleMultipleResults(geocodeResults);
@@ -165,6 +167,7 @@
                 document.getElementById('lon').value = geocodeResults[x]['lon'];
 //                document.getElementById('cityName').value = geocodeResults[x]['city'];
                 document.getElementById('state').value = geocodeResults[x]['state'];
+                document.getElementById('locationType').value = geocodeResults[x]['type'];
 //                document.getElementById('normalizedAddress').value = geocodeResults[x]['normalizedAddress'];
 
                 waitForGeocode = false;
@@ -196,6 +199,7 @@
                 <input type="hidden" name="state" id="state"/>
                 <!--<input type="hidden" name="normalizedAddress" id="normalizedAddress"/>-->
                 <input type="hidden" name="distance" value="5"/>
+                <input type="hidden" name="locationType" id="locationType" value=""/>
 
                 <input type="text" name="searchQuery" id="searchInput" class="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
