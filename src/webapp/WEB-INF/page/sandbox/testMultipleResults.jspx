@@ -242,15 +242,23 @@
                 <!--<input type="hidden" name="cityName" id="cityName"/>-->
                 <input type="hidden" name="state" id="state"/>
                 <!--<input type="hidden" name="normalizedAddress" id="normalizedAddress"/>-->
-                <input type="hidden" name="distance" value="5"/>
+                <!--<input type="hidden" name="distance" value="5"/>-->
                 <input type="hidden" name="locationType" id="locationType" value=""/>
                 <input type="hidden" name="partialMatch" id="partialMatch" value=""/>
 
                 <input type="text" name="searchQuery" id="searchInput" class="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"
-                            value="Enter city &amp; state or zip code"/>
-                <button class="button-1 searchSubmit" type="submit">Search</button>
+                            value="Enter city &amp; state or zip code" style="margin-right: 15px;"/>
+                <select name="distance">
+                    <option value="1">1 mile</option>
+                    <option value="2">2 miles</option>
+                    <option value="5" selected="selected">5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="25">25 miles</option>
+                </select>
+                <br/>
+                <button class="button-1 searchSubmit" type="submit" style="margin:15px 0 0 25px;">Search</button>
             </form>
 
             <hr/>
