@@ -74,7 +74,16 @@
 
                                 <p>
                                     <link:cmsContent contentKey="${result.contentKey}"
-                                                     fullUri="${result.fullUri}">${result.promo}</link:cmsContent>
+                                                     fullUri="${result.fullUri}">
+                                        <c:choose>
+                                            <c:when test="${not empty result.promo}">
+                                                ${result.promo}
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${result.title}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:cmsContent>
                                 </p>
 
                                 <p>
