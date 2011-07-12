@@ -106,6 +106,11 @@
                             geocodeResult['lon'] = results[x].geometry.location.lng();
                             geocodeResult['normalizedAddress'] = results[x].formatted_address.replace(", USA","");
                             geocodeResult['type'] = results[x].types.join();
+                            if (results[x].partial_match) {
+                                geocodeResult['partial_match'] = true;
+                            } else {
+                                geocodeResult['partial_match'] = false;
+                            }
                             for (var i = 0; i &lt; results[x].address_components.length; i++) {
                                 if (results[x].address_components[i].types.contains('administrative_area_level_1')) {
                                     geocodeResult['state'] = results[x].address_components[i].short_name;
@@ -139,7 +144,11 @@
                         if (geocodeResults.length == 0) {
                             callbackFunction(null);
                         } else if (geocodeResults.length == 1) {
-                            alert("Found " + geocodeResults[0].normalizedAddress + " which is a " + geocodeResults[0].type + ".");
+                            if (geocodeResults[0].partial_match) {
+                                alert("Found " + geocodeResults[0].normalizedAddress + " which is a " + geocodeResults[0].type + " (partial match).");
+                            } else {
+                                alert("Found " + geocodeResults[0].normalizedAddress + " which is a " + geocodeResults[0].type + " (exact match).");
+                            }
                             callbackFunction(geocodeResults[0]);
                         } else {
                             handleMultipleResults(geocodeResults);
@@ -155,7 +164,12 @@
                     htmlString += "&lt;li>Did you mean ";
                     htmlString += '&lt;a href="#" onclick="loadAddress(' + x + '); return false;">';
                     htmlString += geocodeResults[x].normalizedAddress;
-                    htmlString += '&lt;/a> (' + geocodeResults[x].type + ')?&lt;/li>';
+                    htmlString += '&lt;/a> (' + geocodeResults[x].type + ')';
+                    if (geocodeResults[x].partial_match) {
+                        htmlString += ' (partial match)?&lt;/li>';
+                    } else {
+                        htmlString += ' (exact match)?&lt;/li>';
+                    }
                 }
                 htmlString += "&lt;/ul>";
                 theDiv.innerHTML = htmlString;
