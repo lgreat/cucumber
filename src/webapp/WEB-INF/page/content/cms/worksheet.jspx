@@ -99,8 +99,8 @@
             <div class="spacer_20"><!-- don't collapse --></div>
 
             <c:if test="${not empty feature.commonCoreStandardsList}">
-                <p class="smallText1-999">
-                    Common core standards:
+                <p class="smallText1-333">
+                    Common Core Standards:
                     <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
                         <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.name)}</a><c:if test="${!loopStatus.last}">, </c:if>
                     </c:forEach>
