@@ -192,6 +192,14 @@ GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(id) {
         var leftEdge=pageEdge+174;
         document.getElementById("photo-gallery").style.left=leftEdge+"px";
         this.show();
+        $(window).resize(function() {
+            var browserWidth=$(window).width();
+            var leftRightMargin=browserWidth-978;
+            var pageEdge=leftRightMargin/2;
+            var leftEdge=pageEdge+174;
+            document.getElementById("photo-gallery").style.left=leftEdge+"px";
+        });
+
     }.gs_bind(this));
 };
 

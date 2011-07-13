@@ -231,7 +231,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <ad:adTag position="CustomSponsor_407x65"/>
 </c:if>
 <c:choose>
-    <c:when test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+    <c:when test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 1}">
         <div class="line">
             <div class="unit size3of5">
                 <div class="text2">
@@ -239,11 +239,28 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </div>
             </div>
             <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photo of this school</p><img
+                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><img
                         id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="TODO:"
                         width="130" height="130"/>
-                    <p class="smallText1-06b"><a href="#">View of photos (${fn:length(photoGalleryImages)})</a></p>
+                    <p class="smallText1-06b"><a href="#">View all photos (${fn:length(photoGalleryImages)})</a></p>
+                </div>
+            </div>
+        </div>
+    </c:when>
+    <c:when test="${fn:length(photoGalleryImages) eq 1}">
+        <div class="line">
+            <div class="unit size3of5">
+                <div class="text2">
+                    <content:ratingsSummary school="${school}"/>
+                </div>
+            </div>
+            <div class="unit size2of5 lastUnit">
+                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><img
+                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                        alt="TODO:"
+                        width="130" height="130"/>
+                    <p class="smallText1-06b"><a href="#">View photo</a></p>
                 </div>
             </div>
         </div>
@@ -455,7 +472,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:set var="levelCode" value="${school.levelCode}" />
 
 <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
-    <school:photoGallery id="school-photo-medium" images="${photoGalleryImages}" />
+    <school:photoGallery id="school-photo-medium" images="${photoGalleryImages}" school="${school}" />
 </c:if>
 
 <script type="text/javascript">

@@ -8,61 +8,69 @@
     <!-- should be parallel lists -->
     <jsp:directive.attribute name="id" required="true" description="The dom ID to attach to" type="java.lang.String"/>
     <jsp:directive.attribute name="images" required="true" description="List of image src values" type="java.util.List"/>
+    <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 
     <pageHelper:externalJavascript file="/res/js/photoGallery.js"/>
 
     <c:set var="numberOfImages" value="${fn:length(images)}"/>
-
-    <div id="photo-gallery">
-        <div id="photo-gallery-viewer">
-            <div class="heading">
-                <div id="photo-gallery-schoolname">Photos of Mann Elementary school</div>
-                <div id="photo-gallery-close">
-                    Close
-                </div>
-            </div>
-            <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                <div id="gallery-fullsize-${index}" class="gallery-fullsize">
-                    <img src="/res/img/pixel.gif" width="${images[index].width}" height="${images[index].height}"/>
-                </div>
-            </c:forEach>
-            <br style="clear:both"/>
-        </div>
-
-        <div id="photo-gallery-controls">
-            <div class="line">
-                <div class="unit size1of11" id="photo-gallery-back">
-                    Back
-                </div>
-                <div class="unit size9of11" id="photo-gallery-thumbnails">
+    <c:choose>
+        <c:when test="${fn:length(images) == 1}">
+            <div id="photo-gallery">
+                <div id="photo-gallery-viewer" class="single-photo">
+                    <div class="heading">
+                        <div id="photo-gallery-schoolname">Photos of ${school.name}</div>
+                        <div id="photo-gallery-close">
+                            <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
+                        </div>
+                    </div>
                     <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                        <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
-                            <img src="/res/img/pixel.gif" width="70" height="70"/>
+                        <div id="gallery-fullsize-${index}" class="gallery-fullsize">
+                            <img src="/res/img/pixel.gif" width="${images[index].width}"
+                                 height="${images[index].height}"/>
                         </div>
                     </c:forEach>
-                </div>
-                <div class="unit size1of11" id="photo-gallery-next">
-                    Next
+                    <br style="clear:both"/>
                 </div>
             </div>
-            <!--<div id="photo-gallery-content">
-                <div id="photo-gallery-back">
-                    Back
-                </div>
-                <div id="photo-gallery-thumbnails">
+        </c:when>
+        <c:otherwise>
+            <div id="photo-gallery">
+                <div id="photo-gallery-viewer">
+                    <div class="heading">
+                        <div id="photo-gallery-schoolname">Photos of ${school.name}</div>
+                        <div id="photo-gallery-close">
+                            <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
+                        </div>
+                    </div>
                     <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                        <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
-                            <img src="/res/img/pixel.gif" width="70" height="70"/>
+                        <div id="gallery-fullsize-${index}" class="gallery-fullsize">
+                            <img align="middle" class= "test" src="/res/img/pixel.gif" width="${images[index].width}"
+                                 height="${images[index].height}"/>
                         </div>
                     </c:forEach>
+                    <br style="clear:both"/>
                 </div>
-                <div id="photo-gallery-next">
-                    Next
+                <div id="photo-gallery-controls">
+                        <div id="photo-gallery-back">
+                            <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
+                        </div>
+                        <div id="photo-gallery-thumbnails">
+                            <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                                <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
+                                    <img src="/res/img/pixel.gif" width="70" height="70"/>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <div id="photo-gallery-next">
+                            <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
+                        </div>
+                        <br style="clear:both"/>
                 </div>
-            </div>-->
-            <br style="clear:both"/>
-        </div>
-    </div>
+            </div>
+        </c:otherwise>
+    </c:choose>
+
+
 
     <script type="text/javascript">
         var imageArray = [];
