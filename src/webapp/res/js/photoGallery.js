@@ -182,8 +182,8 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
  * Make the gallery open when provided dom node is clicked
  * @param id
  */
-GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(id) {
-    jQuery('#' + id).click(function() {
+GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
+    jQuery('.' + cssClass).click(function() {
         this.loadFullSizeImages();
         document.getElementById("fade").style.display="block";
         var browserWidth=$(window).width();

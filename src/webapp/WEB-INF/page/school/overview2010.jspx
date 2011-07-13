@@ -240,10 +240,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </div>
             <div class="unit size2of5 lastUnit">
                 <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><img
-                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                        id="school-photo-medium" class="photo-gallery-trigger" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="TODO:"
                         width="130" height="130"/>
-                    <p class="smallText1-06b"><a href="#">View all photos (${fn:length(photoGalleryImages)})</a></p>
+                    <p class="smallText1-06b"><a href="#" class="photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a></p>
                 </div>
             </div>
         </div>
@@ -257,10 +257,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             </div>
             <div class="unit size2of5 lastUnit">
                 <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><img
-                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                        id="school-photo-medium" class="photo-gallery-trigger" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="TODO:"
                         width="130" height="130"/>
-                    <p class="smallText1-06b"><a href="#">View photo</a></p>
+                    <p class="smallText1-06b"><a href="#" class="photo-gallery-trigger">View photo</a></p>
                 </div>
             </div>
         </div>
@@ -472,7 +472,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:set var="levelCode" value="${school.levelCode}" />
 
 <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
-    <school:photoGallery id="school-photo-medium" images="${photoGalleryImages}" school="${school}" />
+    <school:photoGallery cssClass="photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
 </c:if>
 
 <script type="text/javascript">
