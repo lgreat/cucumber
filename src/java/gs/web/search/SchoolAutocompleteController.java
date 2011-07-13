@@ -27,7 +27,9 @@ public class SchoolAutocompleteController {
     HttpCacheInterceptor cacheInterceptor = new HttpCacheInterceptor();
 
     @RequestMapping(method= RequestMethod.GET)
-    public void handleRequestInternal(@RequestParam("q") String searchString, @RequestParam("state") String state, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void handleRequestInternal(@RequestParam(value = "q", required = false) String searchString,
+                                      @RequestParam(value = "state", required = false) String state,
+                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         try {
             List<String> suggestions = new ArrayList<String>();
