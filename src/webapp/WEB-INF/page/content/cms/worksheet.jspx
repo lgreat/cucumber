@@ -54,58 +54,73 @@
 
         <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
-        <p>
-            <c:if test="${not empty feature.grades}">
-                <cms:printCmsFeatureGrades gradeString="${feature.grades}" includeLabel="${true}"/>
+        <div class="size54of100 unit">
+            <p class="text2">
+                <c:if test="${not empty feature.grades}">
+                    <cms:printCmsFeatureGrades gradeString="${feature.grades}" includeLabel="${true}"/> |
+                </c:if>
+
+                ${feature.subjectCategories[0].name}
+            </p>
+
+            <div class="spacer_15"><!-- don't collapse --></div>
+
+            <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
+
+            <!-- deck -->
+            <p class="text1">
+                ${fn:escapeXml(feature.summary)}
+            </p>
+
+            <div class="spacer_15"><!-- don't collapse --></div>
+
+            <!-- body (optional) - do not escape XML due to possible intentional HTML tags -->
+            <c:if test="${not empty feature.body}">
+                <p class="text2">
+                    ${feature.body}
+                </p>
             </c:if>
 
-            ${feature.subjectCategories[0].name}
-        </p>
+            <div class="spacer_15"><!-- don't collapse --></div>
 
-        <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
+            <c:if test="${not empty feature.skillsList}">
+                <p class="text2">
+                    Skills:
+                    <c:forEach var="skill" items="${feature.skillsList}" varStatus="loopStatus">
+                        ${fn:escapeXml(skill)}<c:if test="${!loopStatus.last}">, </c:if>
+                    </c:forEach>
+                </p>
+            </c:if>
 
-        <!-- deck -->
-        <!-- TODO-11818 fix paragraph spacing, text styles and spacing between deck and optional body -->
-        <p class="text3">
-            ${fn:escapeXml(feature.summary)}
-        </p>
+            <div class="spacer_15"><!-- don't collapse --></div>
 
-        <!-- body (optional) - do not escape XML due to possible intentional HTML tags -->
-        <!-- TODO-11818 fix paragraph spacing, text styles and spacing between deck and optional body -->
-        ${feature.body}
+            <gsml:a href="${feature.pdfUri}" styleClass="button-1" target="_blank">Print Full Size</gsml:a>
 
-        <c:if test="${not empty feature.skillsList}">
-            <!-- TODO-11818 fix Skills heading styles, text styles -->
-            <p class="text3">
-                Skills:
-                <c:forEach var="skill" items="${feature.skillsList}" varStatus="loopStatus">
-                    ${fn:escapeXml(skill)}<c:if test="${!loopStatus.last}">, </c:if>
-                </c:forEach>
+            <div class="spacer_20"><!-- don't collapse --></div>
+
+            <c:if test="${not empty feature.commonCoreStandardsList}">
+                <p class="smallText1-999">
+                    Common core standards:
+                    <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
+                        <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.name)}</a><c:if test="${!loopStatus.last}">, </c:if>
+                    </c:forEach>
+                </p>
+            </c:if>
+        </div>
+        <div class="size45of100 unit">
+            <div class="pll">
+            <c:if test="${not empty feature.previewImageUrl}">
+                <gsml:img src="${feature.previewImageUrl}"
+                          title="${feature.previewImageTitle}"
+                          alt="${feature.previewImageAltText}"/>
+            </c:if>
+
+            <!-- TODO-11818 acrobat reader icon -->
+            <p class="smallText1">
+                Don't have Acrobat Reader? <a href="http://get.adobe.com/reader/" target="_blank">Get it now</a>.
             </p>
-        </c:if>
-
-        <c:if test="${not empty feature.commonCoreStandardsList}">
-            <!-- TODO-11818 fix styles -->
-            <p class="text3">
-                Common core standards:
-                <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
-                    <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.name)}</a><c:if test="${!loopStatus.last}">, </c:if>
-                </c:forEach>
-            </p>
-        </c:if>
-
-        <c:if test="${not empty feature.previewImageUrl}">
-            <gsml:img src="${feature.previewImageUrl}"
-                      title="${feature.previewImageTitle}"
-                      alt="${feature.previewImageAltText}"/>
-        </c:if>
-
-        <gsml:a href="${feature.pdfUri}" styleClass="button-1" target="_blank">Print Full Size</gsml:a>
-
-        <!-- TODO-11818 acrobat reader icon -->
-        <p>
-            Don't have Acrobat Reader? <a href="http://get.adobe.com/reader/" target="_blank">Get it now</a>.
-        </p>
+                </div>
+        </div>
 
         <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
@@ -128,8 +143,6 @@
 
         <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
         <ad:adTag position="Sponsor_610x16"/>
-
-        <div class="spacer_15 brdbtm_solid-c6c6c6 mbm"><!-- do not collapse --></div>
 
         <!-- share this -->
         <!-- TODO-11818 switch to new version; see GS-11856 -->

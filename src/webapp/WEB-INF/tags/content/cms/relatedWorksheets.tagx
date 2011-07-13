@@ -9,28 +9,28 @@
     <div class="mod relatedContent">
         <div class="inner">
             <div class="hd">
-                <h4 class="subhead2">Related worksheets</h4>
+                <h4 class="subhead2 mbs">Related worksheets</h4>
             </div>
             <div class="bd">
-                <div class="line">
+                <ul>
                     <c:forEach var="relatedWorksheet" items="${feature.publishedRelatedWorksheets}" varStatus="status" begin="0"
                                end="3">
-                        <c:choose>
+                            <c:choose>
                                 <c:when test="${status.last}">
-                                    <div class="unit size1of4 lastUnit">
+                                    <li>
                                         <a href="${relatedWorksheet.url}" class="GS_EV5_"
                                         id="moreonA__${status.count}">${relatedWorksheet.linkText}</a><br/>
-                                    </div>
+                                    </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="unit size1of4">
+                                    <li>
                                         <a href="${relatedWorksheet.url}" class="GS_EV5_"
                                         id="moreonA__${status.count}">${relatedWorksheet.linkText}</a><br/>
-                                    </div>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
                     </c:forEach>
-                </div>
+                </ul>
             </div>
         </div>
     </div>
