@@ -44,6 +44,11 @@
         .filterBar {
             margin-top: 10px;
         }
+        .filterBar li {
+            display: inline;
+            float: left;
+            margin-right: 15px;
+        }
     </style>
 </head>
 
@@ -83,6 +88,25 @@
 
                     <ul class="filterBar">
                         <li>
+                            <div>School type</div>
+                            <select name="st">
+                                <option value="" selected="selected">Any type</option>
+                                <option value="public">Public</option>
+                                <option value="charter">Public charter</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </li>
+                        <li>
+                            <div>Grade level</div>
+                            <select name="gradeLevels">
+                                <option value="" selected="selected">Any grade</option>
+                                <option value="p">Preschool</option>
+                                <option value="e">Elementary School</option>
+                                <option value="m">Middle School</option>
+                                <option value="h">High School</option>
+                            </select>
+                        </li>
+                        <li>
                             <div>Distance</div>
                             <select name="distance">
                                 <option value="1">1 mile</option>
@@ -93,6 +117,7 @@
                             </select>
                         </li>
                     </ul>
+                    <br class="clear"/>
                 </form>
 
                 <div id="multipleResults" style="display:none;"><!-- not empty --></div>
