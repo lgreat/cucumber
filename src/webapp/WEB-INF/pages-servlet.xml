@@ -2598,7 +2598,7 @@
         <property name="successView" value="/compare/map"/>
     </bean>
 
-    <bean name="/leadGenDemo.page"
+    <bean name="/demo/leadGen.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>/promo/leadGen</value>

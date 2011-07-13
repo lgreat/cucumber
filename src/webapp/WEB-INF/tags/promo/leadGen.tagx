@@ -7,10 +7,12 @@
        When providing the code to Albert, remove the <![CDATA[ and ]]> and
        do not double-escape any character entities, e.g. change &amp;amp; back to &amp;
        Please merge any changes and new files to both currel and nextrel, and deploy on clone.
+
+       NOTE 7/13/2011: Remove "do not collapse" comment between javascript open and close tags before providing to ad ops
     -->
 
     <div class="mod primrose jq-leadGenWrapper">
-        <script type="text/javascript" src="/res/js/promo/leadGen.js"></script>
+        <script type="text/javascript" src="/res/js/promo/leadGen.js"><!-- do not collapse --></script>
         <div class="inner">
             <div class="hd"><!-- do not collapse --></div>
             <div class="bd">
