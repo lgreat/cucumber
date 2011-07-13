@@ -93,6 +93,7 @@
                 <entry key="/college/**" value="/content/cms/topicCenter.page"/>
                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
                 <entry key="/stateofeducation/**" value="/content/cms/topicCenter.page"/>
+                <entry key="/find-schools/**" value="/school/findASchool.page"/>
             </map>
         </property>
     </bean>
@@ -2609,6 +2610,13 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>/demo/emailSignUp</value>
+        </property>
+    </bean>
+
+    <bean name="/school/findASchool.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/school/findASchool</value>
         </property>
     </bean>
 

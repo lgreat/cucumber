@@ -1,0 +1,138 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:gsweb="gstaglib"
+          version="2.0">
+<html>
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <title>Find a School | GreatSchools</title>
+    <c:set var="omniturePageName" value="Find a School"/>
+    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
+    <pageHelper:externalJavascript file="/res/js/findASchool.js"/>
+    <style type="text/css">
+        .tabBar {
+            margin-top: 5px;
+        }
+        .tabBar li {
+            padding: 10px;
+            border: 1px solid #000;
+            border-bottom:  none;
+            display: inline;
+            margin-right: 2px;
+            cursor: pointer;
+        }
+        .tabBar li.selected {
+            background-color: #DDEFF6;
+        }
+        .tabBody {
+            padding: 25px 15px 15px 15px;
+            background-color: #DDEFF6;
+        }
+        .searchInput {
+            width: 400px;
+            margin: 5px 5px 0 0;
+        }
+        #byNameTabBody .searchInput {
+            width: 350px;
+        }
+        .filterBar {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<!--<pageHelper:addOnLoadHandler handler="attachSchoolAutocomplete('findByNameBox', 'findByNameStateSelect');"/>-->
+
+<gsml:body adPageName="findASchool">
+    <c:set var="adSlotPrefix" value="Find_A_School"/>
+    <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
+
+    <div id="mainGS" class="col">
+
+        <h1>Find a School</h1>
+
+        <div id="findASchoolTabs">
+
+            <ul class="tabBar">
+                <li id="byLocationTab" class="selected">By location</li>
+                <li id="byNameTab">By name</li>
+            </ul>
+
+            <div id="byLocationTabBody" class="tabBody">
+                <form name="findByLocationForm" id="findByLocationForm" action="/search/search.page"
+                      method="get" onsubmit="return submitSearch();">
+                    <input type="hidden" name="lat"/>
+                    <input type="hidden" name="lon"/>
+                    <input type="hidden" name="state"/>
+                    <input type="hidden" name="locationType" value=""/>
+                    <input type="hidden" name="partialMatch" value=""/>
+
+                    <p class="subhead2 subhead2-333">Search a city or address
+                        <span class="smallText1-italic">Address, city, state or zip</span></p>
+                    <input type="text" name="searchQuery" class="searchInput"
+                                onfocus="GS_textSwitch(this, '', 'Enter city &amp; state or zip code');"
+                                onblur="GS_textSwitch(this, 'Enter city &amp; state or zip code', '');"
+                                value="Enter city &amp; state or zip code"/>
+                    <button class="button-1 searchSubmit" type="submit">Search</button>
+
+                    <ul class="filterBar">
+                        <li>
+                            <div>Distance</div>
+                            <select name="distance">
+                                <option value="1">1 mile</option>
+                                <option value="2">2 miles</option>
+                                <option value="5" selected="selected">5 miles</option>
+                                <option value="10">10 miles</option>
+                                <option value="25">25 miles</option>
+                            </select>
+                        </li>
+                    </ul>
+                </form>
+
+                <div id="multipleResults" style="display:none;"><!-- not empty --></div>
+            </div>
+
+            <div id="byNameTabBody" class="tabBody" style="display:none;">
+                <form name="searchByNameForm" action="/search/search.page" method="get">
+                    <input type="hidden" name="search_type" value="0"/>
+
+                    <p class="subhead2 subhead2-333">Search by school or district</p>
+
+                    <input type="text" name="q" class="searchInput" id="findByNameBox"
+                                onfocus="GS_textSwitch(this, '', 'Search for school or district');"
+                                onblur="GS_textSwitch(this, 'Search for school or district', '');"
+                                value="Search for school or district"/>
+                    <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                                     noStateLabel="Select state"
+                                                     usingLongNames="false"
+                                                     state="${requestScope.context.state}"
+                                                     styleClass="stateSelect"
+                                                     styleId="findByNameStateSelect"
+                                        />
+                    <button class="button-1 searchSubmit" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="sidebarGS" class="col">
+        <!-- not empty -->
+        <ad:AboveFold_300x250/>
+
+        <jsp:include page="/promo/emailSignUp.module"/>
+
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}"/>
+
+    </div>
+
+
+    <mod:tracking pageName="${omniturePageName}"
+                  hier1="Find a School"/>
+</gsml:body>
+</html>
+</jsp:root>
