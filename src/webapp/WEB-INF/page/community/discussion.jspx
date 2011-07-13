@@ -365,11 +365,7 @@
 
 <!-- post a reply button -->
 <c:set var="postReplyButton">
-    <a id="upperReplyTrigger" class="btn25" href="#" onclick="this.blur();">
-                <span class="lftDoor25">
-                    <span class="rtDoor25">Post&amp;nbsp;a&amp;nbsp;Reply</span>
-                </span>
-    </a>
+    <a href="javascript:void(0);" id="upperReplyTrigger" class="button-1" onclick="this.blur();">Post a reply</a>
 </c:set>
 <!-- end post a reply button -->
 
