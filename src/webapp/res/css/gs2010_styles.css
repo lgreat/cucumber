@@ -4769,6 +4769,7 @@ body.cobranded #pageGS {
 #primary .drop:hover {
     background-color: white;
     height: 32px;
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";*/
 }
 
 #primary .menuItem.selected {
@@ -5124,13 +5125,17 @@ body.cobranded #pageGS {
 .ie7 #secondary .dropdown_5{min-width:0;width:145px;}
 .ie7 #secondary .dropdown_6{min-width:0;width:188px;}
 
-#secondary .menuItem:hover .dropdown_1,
 #secondary .menuItem:hover .dropdown_2,
 #secondary .menuItem:hover .dropdown_3,
 #secondary .menuItem:hover .dropdown_4,
 #secondary .menuItem:hover .dropdown_5,
 #secondary .menuItem:hover .dropdown_6 {
     left: auto;
+    top: auto;
+}
+
+#secondary .menuItem:hover .dropdown_1{
+    left:-1px;
     top: auto;
 }
 
