@@ -65,7 +65,6 @@
     </div>
 
     <script type="text/javascript">
-        console.log("test");
         var imageArray = [];
         <c:forEach begin="0" end="${numberOfImages-1}" var="index">
             imageArray.push(
