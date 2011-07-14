@@ -82,6 +82,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             margin: 15px 15px 5px 0;
         }
     </style>
+    <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <c:if test="${school.levelCode == 'p'}">
         <c:if test="${requestScope.context.interstitialEnabled}">
             <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
@@ -471,7 +472,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:set var="schoolType" value="${school.type.schoolTypeName}" />
 <c:set var="levelCode" value="${school.levelCode}" />
 
+<c:set var="schoolPhotosTracking" value=""/>
 <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+    <c:set var="schoolPhotosTracking" value="${fn:length(photoGalleryImages)}"/>
     <school:photoGallery cssClass="photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
 </c:if>
 
@@ -506,7 +509,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div style="display:none">
     <mod:tracking pageName="${pageName}"
                   hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                  school="${school}" schoolGSRating="${gs_rating}"/>
+                  school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
 </div>
 
 </div>

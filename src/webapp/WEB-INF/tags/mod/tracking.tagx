@@ -109,6 +109,11 @@
         name="resultsPerPage" type="java.lang.String"
         description="Results per page for browse/search results"
         required="false"/>
+    <!-- See GS-11784 -->
+    <jsp:directive.attribute
+        name="schoolPhotosTracking" type="java.lang.String"
+        description="Tracking for schools that have photos"
+        required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -212,6 +217,7 @@
             s.prop31 = clickCapture.getProp(31,"${schoolGSRating}");
             s.prop32 = clickCapture.getProp(32,"${nearbySearchZipCode}");
             s.prop33 = clickCapture.getProp(33,"${resultsPerPage}");
+            s.prop34 = clickCapture.getProp(34,"${empty schoolPhotosTracking ? '': schoolPhotosTracking}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
