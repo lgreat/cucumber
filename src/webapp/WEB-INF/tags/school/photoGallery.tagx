@@ -19,7 +19,7 @@
             <div id="photo-gallery">
                 <div id="photo-gallery-viewer" class="single-photo">
                     <div class="heading">
-                        <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,40,-1)}</div>
+                        <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>
                         <div id="photo-gallery-close">
                             <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                         </div>
@@ -38,7 +38,7 @@
             <div id="photo-gallery">
                 <div id="photo-gallery-viewer">
                     <div class="heading">
-                        <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,40,-1)}</div>
+                        <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>
                         <div id="photo-gallery-close">
                             <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                         </div>
