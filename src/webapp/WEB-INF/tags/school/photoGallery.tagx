@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
         >
     <!-- should be parallel lists -->
     <jsp:directive.attribute name="cssClass" required="true" description="The dom ID to attach to" type="java.lang.String"/>
@@ -18,7 +19,7 @@
             <div id="photo-gallery">
                 <div id="photo-gallery-viewer" class="single-photo">
                     <div class="heading">
-                        <div id="photo-gallery-schoolname">Photos of ${school.name}</div>
+                        <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,40,-1)}</div>
                         <div id="photo-gallery-close">
                             <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                         </div>
@@ -37,7 +38,7 @@
             <div id="photo-gallery">
                 <div id="photo-gallery-viewer">
                     <div class="heading">
-                        <div id="photo-gallery-schoolname">Photos of ${school.name}</div>
+                        <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,40,-1)}</div>
                         <div id="photo-gallery-close">
                             <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                         </div>
