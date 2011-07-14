@@ -300,7 +300,7 @@
                         <param>jquery/jquery-ui-1.7.2.min.js</param>
                         <param>jquery/jquery.autocomplete.js</param>
                         <param>search/schoolAutocomplete.js</param>
-                        <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js</param>
+                        <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js</param>
                         <param>global.js</param>
                         <param>topnavpromo.js</param>
                         <param>topnav.js</param>

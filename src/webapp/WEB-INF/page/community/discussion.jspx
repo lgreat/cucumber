@@ -32,7 +32,7 @@
     <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/livequery/1.0.3/jquery.livequery.js"/>
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.pack.js"/>
+    <pageHelper:externalJavascript file="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js"/>
     <!-- pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/ -->
     <script type="text/javascript">
         var $j = jQuery;
