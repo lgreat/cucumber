@@ -239,10 +239,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </div>
             </div>
             <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><img
-                        id="school-photo-medium" class="photo-gallery-trigger" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><a href="#" class="photo-gallery-trigger"><img
+                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="TODO:"
-                        width="130" height="130"/>
+                        width="130" height="130"/></a>
                     <p class="smallText1-06b"><a href="#" class="photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a></p>
                 </div>
             </div>
@@ -256,10 +256,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </div>
             </div>
             <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><img
-                        id="school-photo-medium" class="photo-gallery-trigger" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><a href="#" class="photo-gallery-trigger"><img
+                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="TODO:"
-                        width="130" height="130"/>
+                        width="130" height="130"/></a>
                     <p class="smallText1-06b"><a href="#" class="photo-gallery-trigger">View photo</a></p>
                 </div>
             </div>
