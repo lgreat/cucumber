@@ -1,9 +1,6 @@
 package gs.web.content.cms;
 
-import gs.data.content.cms.CmsCategory;
-import gs.data.content.cms.CmsConstants;
-import gs.data.content.cms.CmsTopicCenter;
-import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.*;
 import gs.data.school.LevelCode;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
@@ -169,7 +166,6 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
             model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
         }
 
-
         //start adding content for middle area of page
         addPageSpecificContentToModel(request, topicCenter, model);
 
@@ -233,6 +229,8 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         GsSolrQuery query = new GsSolrQuery();
         query.filter(DocumentType.CMS_FEATURE);
         query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.WORKSHEET_CONTENT_TYPE);
+
+        query.sort(CmsFeatureFields.FIELD_TITLE, false).sort(CmsFeatureFields.FIELD_SORTABLE_LOWEST_GRADE, false);
 
         if (requestedGrade != null) {
             query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedGrade.split(",")));
