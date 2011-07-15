@@ -3464,12 +3464,16 @@ Viewport: the defines width and height of each icon
 }
 
 .gallery-fullsize {
-    display: table-cell;
-    vertical-align: middle;
-    height:500px;
-    width:630px;
-    margin:auto;
-    text-align: center;
+    display: block;
+    /*vertical-align: middle;*/
+    height: auto;
+    width:500px;
+    /*margin:auto;*/
+    /*position: relative;*/
+    margin-left:auto;
+    margin-right: auto;
+    /*margin-top: -50%;*/
+
 }
 
 .gallery-thumbnail-selected {
@@ -3482,9 +3486,9 @@ Viewport: the defines width and height of each icon
     top: 50px;
     width: 630px;
     z-index: 1002;
-    -moz-box-shadow: 20px 60px 24px #333;
-    -webkit-box-shadow: 20px 60px 24px #333;
-    box-shadow: 20px 60px 24px #333;
+    /*-moz-box-shadow: 20px 60px 24px #333;*/
+    /*-webkit-box-shadow: 20px 60px 24px #333;*/
+    /*box-shadow: 20px 60px 24px #333;*/
 }
 
 #photo-gallery-schoolname {
@@ -3495,26 +3499,33 @@ Viewport: the defines width and height of each icon
     color: #333;
 }
 
-#photo-gallery-viewer {
-    border-top: 1px solid #333;
-    border-right: 1px solid #333;
-    border-left: 1px solid #333;;
+.photo-gallery-module{
+    /*border-top: 1px solid #333;*/
+    /*border-right: 1px solid #333;*/
+    /*border-left: 1px solid #333;*/
     background-color: #fff;
-    width: 630px;
     height: 594px;
-    -moz-border-radius-topleft: 9px;
-    -moz-border-radius-topright: 9px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
+    -moz-border-radius-topleft: 9px;
+    -moz-border-radius-topright: 9px;
+    zoom:1;
+}
+#photo-gallery-viewer {
+    width: 630px;
+    height:526px;
+    display:table-cell;
+    vertical-align: middle;
+
 }
 
-#photo-gallery-viewer.single-photo{
+.photo-gallery-module.single-photo{
     border-radius: 9px;
     -moz-border-radius: 9px;
     -webkit-border-radius: 9px;
 }
 
-#photo-gallery-viewer .heading {
+.photo-gallery-module .heading {
     height: 48px;
     background: rgb(244, 249, 252);
     margin-bottom: 15px; /* Old browsers */
@@ -3525,7 +3536,7 @@ Viewport: the defines width and height of each icon
     background: -ms-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); /* IE10+ */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f4f9fc', endColorstr = '#e2f1f7', GradientType = 0); /* IE6-9 */
     background: linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); /* W3C */
-    border: 2px #fff solid;
+    /*border: 2px #fff solid;*/
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
     -moz-border-radius-topleft: 9px;
@@ -3533,9 +3544,9 @@ Viewport: the defines width and height of each icon
 }
 
 #photo-gallery-controls {
-    border-right: 1px solid #333;
+    /*border-right: 1px solid #333;*/
     border-bottom: 1px solid #333;
-    border-left: 1px solid #333;
+    /*border-left: 1px solid #333;*/
     padding: 20px 0px;
     background-color: #fff;
     width: 630px;
@@ -3569,6 +3580,29 @@ Viewport: the defines width and height of each icon
 #photo-gallery-content {
     width: 100%;
     margin: auto;
+}
+.ie7 #photo-gallery-back{
+    width:22px;
+    float: left;
+    margin-top:24px;
+}
+.ie7 #photo-gallery-next{
+    width:22px;
+    float: left;
+    margin-top:24px;
+}
+.ie7 #photo-gallery-thumbnails{
+    width:auto;
+    float:left;
+}
+.widthWide{
+    width:384px;
+}
+.widthMedium{
+    width:304px;
+}
+.widthSmall{
+    width:224px;
 }
 /*----------------GS-11784 ends----------------*/
 /* --- video-popup-contents (extends mod) ---- */
