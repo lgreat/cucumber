@@ -39,14 +39,6 @@
 
     <!-- use this code to always show Pampers Easy Ups sponsorship of chooser pack -->
     <c:choose>
-        <c:when test="${topicCenter.preschoolTopicCenter}">
-            <promo:schoolChoicePackPromo
-                    showBorder="${false}"
-                    showSchoolChoiceLink="${false}"
-                    caller="preschool"
-                    showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                    />
-        </c:when>
         <c:when test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
             <c:if test="${topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter}">
                 <c:set var="levelCode" value="e"/>
@@ -67,13 +59,17 @@
         <c:when test="${topicCenter.stateOfEducationTopicCenter}">
             <div class="spacer_10"><!-- don't collapse --></div>
         </c:when>
-        <c:otherwise>
+        <c:when test="${!topicCenter.preschoolTopicCenter}">
             <jsp:include page="/promo/emailSignUp.module"/>
-        </c:otherwise>
+        </c:when>
     </c:choose>
 
     <c:if test="${topicCenter.contentKey.identifier ne 1539 and topicCenter.contentKey.identifier ne 1540 and topicCenter.contentKey.identifier ne 1541 and topicCenter.contentKey.identifier ne 1542}">
         <c:out value="${ad300x250}" escapeXml="false"/>
+    </c:if>
+
+    <c:if test="${topicCenter.elementarySchoolTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
+        <jsp:include page="/promo/emailSignUp.module"/>
     </c:if>
 
     <!-- Community module OR Find A School module-->

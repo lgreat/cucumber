@@ -314,6 +314,11 @@
         </tr>
         <tr>
             <td>
+                <jsp:include page="/promo/emailSignUp.module"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <div id="city_House_Ad_300x137">
                     <ad:House_Ad_300x137 referredBy="${pageName}"/>
                 </div>

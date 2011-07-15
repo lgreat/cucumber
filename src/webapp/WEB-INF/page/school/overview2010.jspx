@@ -413,38 +413,6 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
-<c:choose>
-    <c:when test="${school.levelCode eq 'p'}">
-        <c:set var="caller" value="preschool"/>
-    </c:when>
-    <c:when test="${school.levelCode eq 'e'}">
-        <c:set var="caller" value="elementary"/>
-    </c:when>
-    <c:when test="${school.levelCode eq 'm'}">
-        <c:set var="caller" value="middle"/>
-    </c:when>
-    <c:when test="${school.levelCode eq 'h'}">
-        <c:set var="caller" value="high"/>
-    </c:when>
-    <c:otherwise>
-        <!-- do not collapse -->
-    </c:otherwise>
-</c:choose>
-
-<promo:schoolChoicePackPromo
-        schoolName="${school.name}"
-        showBorder="${false}"
-        showSchoolChoiceLink="${true}"
-        schoolObjectForRedirect="${school}"
-        showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-        format="wide"
-        school="${school}"
-        caller="${caller}"
-        />
-
-<div class="spacer_15"><!-- do not collapse --></div>
-
-
 <school:parentReviews school="${school}" reviews="${reviews}" maxReviews="3" ratings="${ratings}" validUser="${validUser}"/>
 <c:if test="${numberOfReviews gt 0}">
     <div class="alertBox4 smallAlertTextBold">
