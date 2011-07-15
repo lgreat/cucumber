@@ -3473,7 +3473,7 @@ Viewport: the defines width and height of each icon
     margin-left:auto;
     margin-right: auto;
     /*margin-top: -50%;*/
-
+    text-align: center;
 }
 
 .gallery-thumbnail-selected {
@@ -3554,7 +3554,6 @@ Viewport: the defines width and height of each icon
     border-bottom-right-radius: 9px;
     -moz-border-radius-bottomleft: 9px;
     -moz-border-radius-bottomright: 9px;
-    text-align: center;
 }
 #photo-gallery-thumbnails {
     display:inline-block;
@@ -13578,7 +13577,7 @@ p#btsBubbleOpts {
 -------------------------------------------------------------------------------------------*/
 
 #aboutNav {
-	width: 160px;
+    width: 160px;
 }
 
 /**********************
