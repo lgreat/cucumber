@@ -99,7 +99,7 @@
                             <select id="js_gradesDropdown" class="js_worksheetFilterDropDown type">
                                 <c:forEach items="${gradeChoices}" var="entry">
                                     <c:choose>
-                                        <c:when test="${param.grades==entry.key}">
+                                        <c:when test="${requestedGradeName==entry.key}">
                                             <option value="${entry.key}" selected="true">${entry.value}</option>
                                         </c:when>
                                         <c:otherwise>
@@ -114,7 +114,7 @@
                             <select id="js_subjectsDropdown" class="js_worksheetFilterDropDown type">
                                 <c:forEach items="${subjectChoices}" var="entry">
                                     <c:choose>
-                                        <c:when test="${param.topics==entry.key}">
+                                        <c:when test="${requestedSubjectName==entry.key}">
                                             <option value="${entry.key}" selected="true">${entry.value}</option>
                                         </c:when>
                                         <c:otherwise>

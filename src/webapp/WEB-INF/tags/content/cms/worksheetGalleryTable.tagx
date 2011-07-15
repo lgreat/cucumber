@@ -34,10 +34,10 @@
                             ${result.title}
                             </link:cmsContent>
                         </p>
-                        <p>
+                        <p class="text1">
                             ${gsweb:generateTeaserText(result.deck,150,-1)}
                         </p>
-                        <p class="smallText1 pts">
+                        <p class="text3 pts">
                             <c:if test="${not empty result.grades}">
                                 <cms:printCmsFeatureGrades gradeString="${result.grades}" includeLabel="${true}"/> |
                             </c:if>
@@ -54,8 +54,7 @@
                                     <div class="inner">
                                         <span class="arrow-outline-left"><!-- do not collapse --></span>
                                         <span class="arrow-left"><!-- do not collapse --></span>
-                                        <div class="hd">
-                                            <p class="text1bold-d61">${result.promo}</p>
+                                        <div class="hd"><p><!-- do not collapse --></p>
                                         </div>
                                         <div class="bd">
                                             <p>

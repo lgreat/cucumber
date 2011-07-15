@@ -1,6 +1,9 @@
 package gs.web.content.cms;
 
-import gs.data.content.cms.*;
+import gs.data.content.cms.CmsCategory;
+import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.CmsTopicCenter;
+import gs.data.content.cms.ContentKey;
 import gs.data.school.LevelCode;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
@@ -15,7 +18,6 @@ import gs.web.pagination.RequestedPage;
 import gs.web.school.SchoolOverviewController;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
-import gs.web.search.SolrCmsFeatureSearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -53,9 +55,18 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
     public static Map<String,String> SUBJECT_CHOICES = new LinkedHashMap<String,String>();
     public static String SUBJECT_CHOICES_PARAM = "subjectChoices";
     public static String GRADE_CHOICES_PARAM = "gradeChoices";
+
+    public static Map<String,Long> SUBJECT_URL_COMPONENT_LOOKUP = new HashMap<String,Long>();
+    public static Map<String,Long> GRADE_URL_COMPONENT_LOOKUP = new HashMap<String,Long>();
+
     public static final int WORKSHEET_DEFAULT_PAGE_SIZE = 6;
+    //public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 4313l;
+    public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 1574l;
 
     public static final String MODEL_WORKSHEET_RESULTS = "worksheetResults";
+
+    public static final String WORKSHEETS_PATH = "/worksheets";
+    
     static {
 
         WORKSHEET_GALLERY_PAGINATION_CONFIG = new PaginationConfig(
@@ -69,25 +80,35 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         );
 
         //used for dropdowns in jspx
-        GRADE_CHOICES.put("-1", "All Grades");
-        GRADE_CHOICES.put("199", "Kindergarten");
-        GRADE_CHOICES.put("200", "First Grade");
-        GRADE_CHOICES.put("201", "Second Grade");
-        GRADE_CHOICES.put("202", "Third Grade");
-        GRADE_CHOICES.put("203", "Fourth Grade");
-        GRADE_CHOICES.put("204", "Fifth Grade");
+        GRADE_CHOICES.put("", "All Grades");
+        GRADE_CHOICES.put("preschool", "Preschool");
+        GRADE_CHOICES.put("kindergarten", "Kindergarten");
+        GRADE_CHOICES.put("first-grade", "First Grade");
+        GRADE_CHOICES.put("second-grade", "Second Grade");
+        GRADE_CHOICES.put("third-grade", "Third Grade");
+        GRADE_CHOICES.put("fourth-grade", "Fourth Grade");
+        GRADE_CHOICES.put("fifth-grade", "Fifth Grade");
+        GRADE_CHOICES.put("elementary-school", "Elementary School");
 
-        SUBJECT_CHOICES.put("-1", "All Subjects");
-        SUBJECT_CHOICES.put("207", "Art");
-        SUBJECT_CHOICES.put("208", "Foreign Language");
-        SUBJECT_CHOICES.put("209", "Math");
-        SUBJECT_CHOICES.put("210", "Music");
-        SUBJECT_CHOICES.put("211", "Language Arts");
-        SUBJECT_CHOICES.put("212", "Science");
-        SUBJECT_CHOICES.put("213", "Social Studies");
-        SUBJECT_CHOICES.put("214", "Study Skills");
-        SUBJECT_CHOICES.put("215", "Tutoring");
-        SUBJECT_CHOICES.put("216", "Writing");
+        //reverse lookup of GRADE_CHOICES. Maybe could have used a bidirectional map with string manipulation
+        GRADE_URL_COMPONENT_LOOKUP.put("preschool",CmsConstants.PRESCHOOL_CATEGORY_ID);
+        GRADE_URL_COMPONENT_LOOKUP.put("kindergarten",CmsConstants.KINDERGARTEN_CATEGORY_ID);
+        GRADE_URL_COMPONENT_LOOKUP.put("first-grade",CmsConstants.FIRST_GRADE_CATEGORY_ID);
+        GRADE_URL_COMPONENT_LOOKUP.put("second-grade",CmsConstants.SECOND_GRADE_CATEGORY_ID);
+        GRADE_URL_COMPONENT_LOOKUP.put("third-grade",CmsConstants.THIRD_GRADE_CATEGORY_ID);
+        GRADE_URL_COMPONENT_LOOKUP.put("fourth-grade",CmsConstants.FOURTH_GRADE_CATEGORY_ID);
+        GRADE_URL_COMPONENT_LOOKUP.put("fifth-grade",CmsConstants.FIFTH_GRADE_CATEGORY_ID);
+        GRADE_URL_COMPONENT_LOOKUP.put("elementary-school",CmsConstants.ELEMENTARY_SCHOOL_CATEGORY_ID);
+
+        //used for dropdowns in jspx
+        SUBJECT_CHOICES.put("", "All Subjects");
+        SUBJECT_CHOICES.put("math", "Math");
+        SUBJECT_CHOICES.put("reading", "Reading");
+        SUBJECT_CHOICES.put("writing", "Writing");
+
+        SUBJECT_URL_COMPONENT_LOOKUP.put("math",CmsConstants.MATH_CATEGORY_ID);
+        SUBJECT_URL_COMPONENT_LOOKUP.put("reading",CmsConstants.READING_CATEGORY_ID);
+        SUBJECT_URL_COMPONENT_LOOKUP.put("writing",CmsConstants.WRITING_CATEGORY_ID);
     }
 
     //=========================================================================
@@ -103,25 +124,10 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         CmsTopicCenter topicCenter;
         SessionContext context = SessionContextUtil.getSessionContext(request);
 
-        //determine the correct contentId and topic center. Handle redirects and 404s
-        Long contentId = getContentIdFromRequest(request);
-
-        if (contentId == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            _log.debug("Content ID is null. Returning 404.");
-            return new ModelAndView("/status/error404.page");
-        } else {
-            ModelAndView specialCaseRedirect = getRedirectForSpecialTopicCenters(request, contentId);
-            if (specialCaseRedirect != null) {
-                _log.debug("Redirecting for content ID " + String.valueOf(contentId));
-                return specialCaseRedirect;
-            }
-        }
-
-        topicCenter = getPublicationDao().populateByContentId(contentId, new CmsTopicCenter());
+        topicCenter = getPublicationDao().populateByContentId(WORKSHEET_TOPIC_CENTER_CONTENT_ID, new CmsTopicCenter());
 
         if (topicCenter == null) {
-            _log.info("Error locating topic center with contentId=" + contentId);
+            _log.info("Error locating topic center with contentId=" + WORKSHEET_TOPIC_CENTER_CONTENT_ID);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView("/status/error404.page");
         }
@@ -192,30 +198,47 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
 
         RequestedPage requestedPage = Pagination.getPageFromRequest(request, WORKSHEET_GALLERY_PAGINATION_CONFIG);
 
-        //find the "videos" subtopic for the topic center we're on
-        CmsSubtopic subtopic = null;
+        String requestUri = request.getRequestURI();
+        String[] pathComponents = requestUri.split("/");
 
+        String requestedGrade = null;
+        String requestedGradeName = null;
+        String requestedSubject = null;
+        String requestedSubjectName = null;
+
+        //let's just look at the last two "url components" and try to match them to grades and subjects
+        if (pathComponents.length >= 2) {
+            for (int i = pathComponents.length-2; i<pathComponents.length; i++ ) {
+                String name = pathComponents[i];
+                if (requestedGrade == null) {
+                    Long value = GRADE_URL_COMPONENT_LOOKUP.get(name);
+                    if (value != null) {
+                        requestedGrade = String.valueOf(value);
+                        requestedGradeName = name;
+                    }
+                }
+                if (requestedSubject == null) {
+                    Long value = SUBJECT_URL_COMPONENT_LOOKUP.get(name);
+                    if (value != null) {
+                        requestedSubject = String.valueOf(value);
+                        requestedSubjectName = name;
+                    }
+                }
+            }
+        } else {
+            requestedGrade = request.getParameter("grades");
+            requestedGrade = request.getParameter("subjects");
+        }
+        
         GsSolrQuery query = new GsSolrQuery();
         query.filter(DocumentType.CMS_FEATURE);
         query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.WORKSHEET_CONTENT_TYPE);
 
-        //Search for worksheets categorized with the grades, subjects and topics.
-        //If grades/subjects/topics parameters are requested, use them. otherwise, use whatever was configured
-        //in the cms for the videos subtopic
-        if (StringUtils.isNotBlank(request.getParameter("grades"))) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("grades").split(",")));
-        } else if (subtopic != null && !StringUtils.isBlank(subtopic.getGradeIDs())){
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(subtopic.getGradeIDs().split(",")));
+        if (requestedGrade != null) {
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedGrade.split(",")));
         }
-        if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("subjects").split(",")));
-        } else if (subtopic != null && !StringUtils.isBlank(subtopic.getSubjectIDs())){
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(subtopic.getSubjectIDs().split(",")));
-        }
-        if (StringUtils.isNotBlank(request.getParameter("topics"))) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("topics").split(",")));
-        } else if (subtopic != null && !StringUtils.isBlank(subtopic.getTopicIDs())){
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(subtopic.getTopicIDs().split(",")));
+        if (requestedSubject != null) {
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedSubject.split(",")));
         }
 
         query.page(requestedPage.offset, requestedPage.pageSize);
@@ -231,34 +254,12 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         model.put(MODEL_FULL_URL, url);
         model.put(GRADE_CHOICES_PARAM, GRADE_CHOICES);
         model.put(SUBJECT_CHOICES_PARAM, SUBJECT_CHOICES);
+        model.put("requestedGradeName", requestedGradeName);
+        model.put("requestedSubjectName", requestedSubjectName);
+        model.put("worksheetsPath", WORKSHEETS_PATH);
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
-
-            // sample data until data is indexed in Solr
-            for (int i = 0; i < 6; i++) {
-                ICmsFeatureSearchResult r = new SolrCmsFeatureSearchResult();
-                r.setContentType(CmsConstants.WORKSHEET_CONTENT_TYPE);
-                r.setPreviewImageUrl("/cms/49/4849.png");
-                r.setPreviewImageAltText("test all text");
-                r.setPreviewImageTitle("img title");
-                r.setSmallPreviewImageUrl("/cms/49/4849.png");
-                r.setSmallPreviewImageAltText("test all text");
-                r.setSmallPreviewImageTitle("img title");
-                r.setPdfUri("/cms/51/4851.pdf");
-                r.setTitle("fake title");
-                r.setDeck("Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Etiam porta sem malesuada magna mollis euismod.");
-                r.setContentId(4103l);
-                r.setFullUri("/elementary-school/worksheet-one");
-                r.setGrades("PK,K,1");
-                List<String> subjects = new ArrayList<String>();
-                subjects.add("Math");
-                subjects.add("Science");
-                r.setSubjects(subjects);
-                searchResults.getSearchResults().add(r);
-            }
-            searchResults.setTotalResults(6);
-            // end sample data until data is indexed in Solr
 
             addPagingDataToModel(
                     requestedPage.getValidatedOffset(WORKSHEET_GALLERY_PAGINATION_CONFIG, searchResults.getTotalResults()),
