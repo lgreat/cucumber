@@ -17,57 +17,75 @@
     <c:choose>
         <c:when test="${fn:length(images) == 1}">
             <div id="photo-gallery">
-                <div id="photo-gallery-viewer" class="single-photo">
+                <div class="photo-gallery-module single-photo">
                     <div class="heading">
                         <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>
                         <div id="photo-gallery-close">
                             <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                         </div>
                     </div>
-                    <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                        <div id="gallery-fullsize-${index}" class="gallery-fullsize">
-                            <img src="/res/img/pixel.gif" width="${images[index].width}"
-                                 height="${images[index].height}"/>
-                        </div>
-                    </c:forEach>
-                    <br style="clear:both"/>
+                    <div id="photo-gallery-viewer">
+                        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                            <div id="gallery-fullsize-${index}" class="gallery-fullsize">
+                                <img src="/res/img/pixel.gif" width="${images[index].width}"
+                                     height="${images[index].height}"/>
+                            </div>
+                        </c:forEach>
+                        <br style="clear:both"/>
+                    </div>
                 </div>
             </div>
         </c:when>
         <c:otherwise>
             <div id="photo-gallery">
-                <div id="photo-gallery-viewer">
+                <div class="photo-gallery-module">
                     <div class="heading">
                         <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>
                         <div id="photo-gallery-close">
                             <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                         </div>
-                    </div>
-                    <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                        <div id="gallery-fullsize-${index}" class="gallery-fullsize">
-                            <img align="middle" class= "test" src="/res/img/pixel.gif" width="${images[index].width}"
-                                 height="${images[index].height}"/>
                         </div>
-                    </c:forEach>
-                    <br style="clear:both"/>
-                </div>
-                <div id="photo-gallery-controls">
-                        <div id="photo-gallery-back">
-                            <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
+                        <div id="photo-gallery-viewer">
+
                         </div>
-                        <div id="photo-gallery-thumbnails">
-                            <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                                <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
-                                    <img src="/res/img/pixel.gif" width="70" height="70"/>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <div id="photo-gallery-next">
-                            <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
-                        </div>
+                        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                            <div id="gallery-fullsize-${index}" class="gallery-fullsize">
+                                <img align="middle" class="test" src="/res/img/pixel.gif" width="${images[index].width}"
+                                     height="${images[index].height}"/>
+                            </div>
+                        </c:forEach>
                         <br style="clear:both"/>
-                </div>
-            </div>
+                    </div>
+                    </div>
+
+                        <c:if test="${fn:length(images) == 4}">
+                            <c:set var="widthControl" value="widthWide"/>
+                        </c:if>
+                        <c:if test="${fn:length(images) == 3}">
+                            <c:set var="widthControl" value="widthMedium"/>
+                        </c:if>
+                        <c:if test="${fn:length(images) eq 2}">
+                            <c:set var="widthControl" value="widthSmall"/>
+                        </c:if>
+                    <div id="photo-gallery-controls">
+                        <div class="${widthControl}" style="margin: auto;text-align: center;">
+                            <div id="photo-gallery-back">
+                                <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
+                            </div>
+                            <div id="photo-gallery-thumbnails">
+                                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                                    <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
+                                        <img src="/res/img/pixel.gif" width="70" height="70"/>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <div id="photo-gallery-next">
+                                <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
+                            </div>
+                            <br style="clear:both"/>
+                        </div>
+                    </div>
+
         </c:otherwise>
     </c:choose>
 
