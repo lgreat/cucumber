@@ -260,7 +260,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </div>
             </div>
             <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb mlm"><p class="text3">Photos of this school</p><a href="javascript:scroll(0,0)" class="photo-gallery-trigger"><img
+                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><a href="javascript:scroll(0,0)" class="photo-gallery-trigger"><img
                         id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="TODO:"
                         width="130" height="130"/></a>
