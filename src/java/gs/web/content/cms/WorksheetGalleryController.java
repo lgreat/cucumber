@@ -230,7 +230,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         query.filter(DocumentType.CMS_FEATURE);
         query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.WORKSHEET_CONTENT_TYPE);
 
-        query.sort(CmsFeatureFields.FIELD_TITLE, false).sort(CmsFeatureFields.FIELD_SORTABLE_LOWEST_GRADE, false);
+        query.sort(CmsFeatureFields.FIELD_SORTABLE_TITLE, false).sort(CmsFeatureFields.FIELD_SORTABLE_LOWEST_GRADE, false);
 
         if (requestedGrade != null) {
             query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedGrade.split(",")));
