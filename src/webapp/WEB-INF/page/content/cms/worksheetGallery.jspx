@@ -8,7 +8,8 @@
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          version="2.0">
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          version="2.0" >
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 <c:set var="pageName" value="${omnitureTopicCenterName} Worksheets" scope="request"/>
@@ -75,7 +76,11 @@
 
             <school:miniStateLauncherHover/>
 
-            <cms:topicCenterBreadcrumbs topicCenter="${topicCenter}"/>
+            <div class="smallText1 mtm pts mlm">
+                <link:home>Home</link:home> &amp;gt;
+                <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
+                <link:cmsWorksheetGallery>Worksheets</link:cmsWorksheetGallery>
+            </div>
 
             <h1 class="mlm pls">Free Worksheets &amp; Printables</h1>
 

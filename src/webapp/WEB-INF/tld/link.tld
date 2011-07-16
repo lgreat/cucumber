@@ -320,39 +320,25 @@
             <![CDATA[Link to a CMS video gallery page.]]>
         </description>
         <attribute>
-            <name>topicCenterId</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Integer</type>
-            <description>Topic Center ID</description>
-        </attribute>
-        <attribute>
-            <name>topicCenterUrl</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>String of the topic center url</description>
-        </attribute>
-        <attribute>
-            <name>topicIDs</name>
+            <name>topic</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Comma-separated string of topic IDs</description>
+            <description>Topic name</description>
         </attribute>
         <attribute>
-            <name>gradeIDs</name>
+            <name>grade</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Comma-separated string of grade IDs</description>
+            <description>Grade name</description>
         </attribute>
         <attribute>
             <name>subjectIDs</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Comma-separated string of subject IDs</description>
+            <description>Subject name (e.g. first-grade)</description>
         </attribute>
         <attribute>
             <name>language</name>

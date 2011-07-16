@@ -46,8 +46,7 @@
         <div class="smallText1 mtm pts">
             <link:home>Home</link:home> &amp;gt;
             <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
-            <!-- TODO-11818 link 'Worksheets' to correct topic center after it has been created -->
-            <link:cmsWorksheetGallery topicCenterId="1574" topicCenterUrl="/elementary-school">Worksheets</link:cmsWorksheetGallery>
+            <link:cmsWorksheetGallery>Worksheets</link:cmsWorksheetGallery>
         </div>
 
         <h1 class="mts">${feature.title}</h1>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.253 2011/07/07 19:22:52 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.254 2011/07/16 02:06:00 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -893,6 +893,8 @@ public class UrlBuilder {
             _path="/school-comparison-tool/programsExtracurriculars.page";
         } else if (COMPARE_SCHOOLS_MAP.equals(page)) {
             _path="/school-comparison-tool/map.page";
+        } else if (CMS_WORKSHEET_GALLERY.equals(page)) {
+            _path="/worksheets";
         } else if (HOME.equals(page)) {
             init(HOME, null, null);
         } else {
@@ -1049,32 +1051,25 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/videos" + topicCenterUrl + "/" + s.toString() +
                     (StringUtils.isNotBlank(language) ? "&language=" + language : "");
-        } else if (CMS_WORKSHEET_GALLERY.equals(page) && topicCenterId != null) {
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
 
-            StringBuilder s = new StringBuilder();
-            s.append("?content=").append(topicCenterId);
+    public UrlBuilder(VPage page, String topic, String grade, String subject, String language) {
+        if (CMS_WORKSHEET_GALLERY.equals(page)) {
 
-            if (StringUtils.isNotBlank(topicIDs)) {
-                if (s.length() > 0) {
-                    s.append("&");
-                }
-                s.append("topics=").append(topicIDs);
+            StringBuilder s = new StringBuilder("/worksheets");
+
+            if (StringUtils.isNotBlank(grade)) {
+                s.append("/").append(grade);
             }
-            if (StringUtils.isNotBlank(gradeIDs)) {
-                if (s.length() > 0) {
-                    s.append("&");
-                }
-                s.append("grades=").append(gradeIDs);
-            }
-            if (StringUtils.isNotBlank(subjectIDs)) {
-                if (s.length() > 0) {
-                    s.append("&");
-                }
-                s.append("subjects=").append(subjectIDs);
+
+            if (StringUtils.isNotBlank(subject)) {
+                s.append("/").append(subject);
             }
             _perlPage = false;
-            _path = "/worksheets" + topicCenterUrl + "/" + s.toString() +
-                    (StringUtils.isNotBlank(language) ? "&language=" + language : "");
+            _path = s.toString() + (StringUtils.isNotBlank(language) ? "?language=" + language : "");
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

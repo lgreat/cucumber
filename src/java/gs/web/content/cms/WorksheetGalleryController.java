@@ -1,6 +1,9 @@
 package gs.web.content.cms;
 
-import gs.data.content.cms.*;
+import gs.data.content.cms.CmsCategory;
+import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.CmsTopicCenter;
+import gs.data.content.cms.ContentKey;
 import gs.data.school.LevelCode;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
@@ -48,10 +51,16 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
     public static final String WORKSHEET_GALLERY_GAM_ATTRIBUTE_KEY = "worksheet_gallery_topic_center_id";
 
     public static Map<String,String> GRADE_CHOICES = new LinkedHashMap<String,String>();
-
     public static Map<String,String> SUBJECT_CHOICES = new LinkedHashMap<String,String>();
-    public static String SUBJECT_CHOICES_PARAM = "subjectChoices";
-    public static String GRADE_CHOICES_PARAM = "gradeChoices";
+
+    public static String SUBJECT_CHOICES_KEY = "subjectChoices";
+    public static String GRADE_CHOICES_KEY = "gradeChoices";
+    public static String REQUESTED_GRADE_NAME_KEY = "requestedGrade";
+    public static String REQUESTED_SUBJECT_NAME_KEY = "requestedSubject";
+    public static String WORKSHEETS_PATH_KEY = "worksheetsPath";
+
+    public static String GRADE_ID_REQUEST_PARAM = "gradeId";
+    public static String SUBJECT_ID_REQUEST_PARAM = "subjectId";
 
     public static Map<String,Long> SUBJECT_URL_COMPONENT_LOOKUP = new HashMap<String,Long>();
     public static Map<String,Long> GRADE_URL_COMPONENT_LOOKUP = new HashMap<String,Long>();
@@ -197,33 +206,59 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         String requestUri = request.getRequestURI();
         String[] pathComponents = requestUri.split("/");
 
-        String requestedGrade = null;
+        String requestedGradeId;
         String requestedGradeName = null;
-        String requestedSubject = null;
+        String requestedSubjectId;
         String requestedSubjectName = null;
 
-        //let's just look at the last two "url components" and try to match them to grades and subjects
-        if (pathComponents.length >= 2) {
-            for (int i = pathComponents.length-2; i<pathComponents.length; i++ ) {
-                String name = pathComponents[i];
-                if (requestedGrade == null) {
-                    Long value = GRADE_URL_COMPONENT_LOOKUP.get(name);
-                    if (value != null) {
-                        requestedGrade = String.valueOf(value);
-                        requestedGradeName = name;
-                    }
+        //we need to locate requested grade and/or subject if they exist. Give priority to querystring params over URL structure
+        
+        requestedGradeId = request.getParameter(GRADE_ID_REQUEST_PARAM);
+        if (StringUtils.isNotBlank(requestedGradeId)) {
+            //TODO: should probably use a bidirectional map to do this
+            for (Map.Entry<String,Long> entry : GRADE_URL_COMPONENT_LOOKUP.entrySet()) {
+                if (requestedGradeId.equals(String.valueOf(entry.getValue()))) {
+                    requestedGradeName = entry.getKey();
                 }
-                if (requestedSubject == null) {
-                    Long value = SUBJECT_URL_COMPONENT_LOOKUP.get(name);
-                    if (value != null) {
-                        requestedSubject = String.valueOf(value);
-                        requestedSubjectName = name;
+            }
+            if (requestedGradeName == null) {
+                requestedGradeId = null;
+            }
+        }
+
+        requestedSubjectId = request.getParameter(SUBJECT_ID_REQUEST_PARAM);
+        if (StringUtils.isNotBlank(requestedSubjectId)) {
+            for (Map.Entry<String,Long> entry : SUBJECT_URL_COMPONENT_LOOKUP.entrySet()) {
+                if (requestedSubjectId.equals(String.valueOf(entry.getValue()))) {
+                    requestedSubjectName = entry.getKey();
+                }
+            }
+            if (requestedSubjectName == null) {
+                requestedSubjectId = null;
+            }
+        }
+
+        if (StringUtils.isBlank(requestedGradeId) && StringUtils.isBlank(requestedSubjectId)) {
+            //let's just look at the last two "url components" and try to match them to grades and subjects
+            if (pathComponents.length >= 2) {
+                for (int i = pathComponents.length-2; i<pathComponents.length; i++ ) {
+                    String name = pathComponents[i];
+                    if (requestedGradeId == null) {
+                        Long value = GRADE_URL_COMPONENT_LOOKUP.get(name);
+                        if (value != null) {
+                            requestedGradeId = String.valueOf(value);
+                            requestedGradeName = name;
+                        }
+                    }
+                    if (requestedSubjectId == null) {
+                        Long value = SUBJECT_URL_COMPONENT_LOOKUP.get(name);
+                        if (value != null) {
+                            requestedSubjectId = String.valueOf(value);
+                            requestedSubjectName = name;
+                        }
                     }
                 }
             }
-        } else {
-            requestedGrade = request.getParameter("grades");
-            requestedGrade = request.getParameter("subjects");
         }
         
         GsSolrQuery query = new GsSolrQuery();
@@ -232,11 +267,11 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
 
         query.sort(CmsFeatureFields.FIELD_SORTABLE_TITLE, false).sort(CmsFeatureFields.FIELD_SORTABLE_LOWEST_GRADE, false);
 
-        if (requestedGrade != null) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedGrade.split(",")));
+        if (requestedGradeId != null) {
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedGradeId.split(",")));
         }
-        if (requestedSubject != null) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedSubject.split(",")));
+        if (requestedSubjectId != null) {
+            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedSubjectId.split(",")));
         }
 
         query.page(requestedPage.offset, requestedPage.pageSize);
@@ -250,11 +285,11 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         }
 
         model.put(MODEL_FULL_URL, url);
-        model.put(GRADE_CHOICES_PARAM, GRADE_CHOICES);
-        model.put(SUBJECT_CHOICES_PARAM, SUBJECT_CHOICES);
-        model.put("requestedGradeName", requestedGradeName);
-        model.put("requestedSubjectName", requestedSubjectName);
-        model.put("worksheetsPath", WORKSHEETS_PATH);
+        model.put(GRADE_CHOICES_KEY, GRADE_CHOICES);
+        model.put(SUBJECT_CHOICES_KEY, SUBJECT_CHOICES);
+        model.put(REQUESTED_GRADE_NAME_KEY, requestedGradeName);
+        model.put(REQUESTED_SUBJECT_NAME_KEY, requestedSubjectName);
+        model.put(WORKSHEETS_PATH_KEY, WORKSHEETS_PATH);
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());

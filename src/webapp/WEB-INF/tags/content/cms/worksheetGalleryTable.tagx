@@ -99,10 +99,7 @@
                 </c:choose>
                 </p>
                 <p>
-                Please select another option from one of the filter menus above or <link:cmsWorksheetGallery
-                    topicCenterId="${topicCenter.contentKey.identifier}"
-                    topicCenterUrl="${topicCenter.fullUri}"
-                    language="EN"><strong>view all worksheets</strong></link:cmsWorksheetGallery>.
+                Please select another option from one of the filter menus above or <link:cmsWorksheetGallery><strong>view all worksheets</strong></link:cmsWorksheetGallery>.
                 </p>
             </c:otherwise>
         </c:choose>
