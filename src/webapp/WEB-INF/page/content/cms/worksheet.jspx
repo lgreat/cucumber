@@ -12,6 +12,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
@@ -98,10 +99,10 @@
             <div class="spacer_20"><!-- don't collapse --></div>
 
             <c:if test="${not empty feature.commonCoreStandardsList}">
-                <p class="smallText1-333">
+                <p class="smallText1-333" id="js-ccs-links">
                     Common Core Standards:
                     <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
-                        <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.name)}</a><c:if test="${!loopStatus.last}">, </c:if>
+                        <a href="${standard.url}" target="_blank" class="js-ccs-link">${fn:escapeXml(standard.name)}</a><c:if test="${!loopStatus.last}">, </c:if>
                     </c:forEach>
                 </p>
             </c:if>
@@ -237,6 +238,18 @@
         setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:escapeJavaScript(surveyDetails['url'])}')", 7000);
     </script>
 </c:if>
+
+<pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
+
+<script type="text/javascript">
+    //requires /res/js/omnitureEventNotifier.js
+    jQuery('#js-ccs-links .js-ccs-link').click(function() {
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event51;";
+        omnitureEventNotifier.send();
+        return false;
+    });
+</script>
 
 </body>
 </html>
