@@ -105,6 +105,14 @@
                     </c:forEach>
                 </p>
             </c:if>
+
+            <div class="spacer_15"><!-- don't collapse --></div>
+
+            <p class="smallText2">
+                <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
+                    <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.abbreviationsAsString)}</a><c:if test="${!loopStatus.last}">, </c:if>
+                </c:forEach>
+            </p>
         </div>
         <div class="size45of100 unit">
             <div class="pll">
@@ -189,6 +197,13 @@
                         </div>
                     </c:if>
                 </div>
+
+                <p class="smallText2">
+                    * Common core standards: 
+                    <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
+                        <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.abbreviationsAsString)}</a><c:if test="${!loopStatus.last}">, </c:if>
+                    </c:forEach>
+                </p>
 
         </div>
     </div>
