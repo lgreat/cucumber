@@ -19,9 +19,9 @@ function submitSearch() {
 
     $('#multipleResults').hide();
     var byLocationForm = $('#findByLocationForm');
-    var searchQuery = byLocationForm.find('input[name="searchQuery"]').val();
+    var searchQuery = byLocationForm.find('input[name="searchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
-    byLocationForm.find('input[name="searchQuery"]').val(searchQuery);
+    byLocationForm.find('input[name="searchString"]').val(searchQuery);
     if (searchQuery != '' &&
         searchQuery != 'Enter city & state or zip code') {
         gsGeocode(searchQuery, function(geocodeResult) {
