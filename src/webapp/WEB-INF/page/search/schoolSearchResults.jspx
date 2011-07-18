@@ -91,9 +91,9 @@
                     ${nearbySearchTitlePrefix} near <span
                         class="title2-d61">${param.zipCode}</span>
                 </c:when>
-                <c:when test="${isNearbySearch and param.lat}">
+                <c:when test="${isNearbySearch eq true and not empty param.normalizedAddress}">
                     ${nearbySearchTitlePrefix} near <span
-                        class="title2-d61">${searchString}</span>
+                        class="title2-d61">${param.normalizedAddress}</span>
                 </c:when>
                 <c:otherwise>
                     School results for <span

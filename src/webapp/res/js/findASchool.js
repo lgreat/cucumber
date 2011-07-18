@@ -19,9 +19,9 @@ function submitSearch() {
 
     $('#multipleResults').hide();
     var byLocationForm = $('#findByLocationForm');
-    var searchQuery = byLocationForm.find('input[name="searchQuery"]').val();
+    var searchQuery = byLocationForm.find('input[name="searchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
-    byLocationForm.find('input[name="searchQuery"]').val(searchQuery);
+    byLocationForm.find('input[name="searchString"]').val(searchQuery);
     if (searchQuery != '' &&
         searchQuery != 'Enter city & state or zip code' && !GS_isTermState(searchQuery)) {
         gsGeocode(searchQuery, function(geocodeResult) {
@@ -31,6 +31,7 @@ function submitSearch() {
                 byLocationForm.find('input[name="state"]').val(geocodeResult['state']);
                 byLocationForm.find('input[name="locationType"]').val(geocodeResult['type']);
                 byLocationForm.find('input[name="partialMatch"]').val(geocodeResult['partial_match']);
+                byLocationForm.find('input[name="normalizedAddress"]').val(geocodeResult['normalizedAddress']);
 
                 GS_waitForGeocode = false;
 
@@ -161,6 +162,7 @@ function loadAddress(x) {
     byLocationForm.find('input[name="state"]').val(GS_geocodeResults[x]['state']);
     byLocationForm.find('input[name="locationType"]').val(GS_geocodeResults[x]['locationType']);
     byLocationForm.find('input[name="partialMatch"]').val(GS_geocodeResults[x]['partialMatch']);
+    byLocationForm.find('input[name="normalizedAddress"]').val(GS_geocodeResults[x]['normalizedAddress']);
 
     GS_waitForGeocode = false;
     byLocationForm.submit();
