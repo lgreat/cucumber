@@ -3483,7 +3483,7 @@ Viewport: the defines width and height of each icon
 #photo-gallery {
     display: none;
     position: absolute;
-    top: 50px;
+    top: 130px;
     width: 630px;
     z-index: 1002;
     /*-moz-box-shadow: 20px 60px 24px #333;*/
