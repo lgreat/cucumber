@@ -81,7 +81,7 @@
 
                     <p class="subhead2 subhead2-333">Search a city or address
                         <span class="smallText1-italic">Address, city, state or zip</span></p>
-                    <input type="text" name="searchString" class="searchInput"
+                    <input type="text" name="searchQuery" class="searchInput"
                                 onfocus="GS_textSwitch(this, '', 'Enter city &amp; state or zip code');"
                                 onblur="GS_textSwitch(this, 'Enter city &amp; state or zip code', '');"
                                 value="Enter city &amp; state or zip code"/>
