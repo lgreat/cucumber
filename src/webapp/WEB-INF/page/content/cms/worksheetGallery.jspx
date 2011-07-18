@@ -101,9 +101,11 @@
                         <div class="unit size20of100 text3">Show worksheets for:</div>
                         <div class="unit size22of100">
                             <select id="js_gradesDropdown" class="js_worksheetFilterDropDown type">
+                                <c:set var="requestedGradeName" value="All Grades"/>
                                 <c:forEach items="${gradeChoices}" var="entry">
                                     <c:choose>
-                                        <c:when test="${requestedGradeName==entry.key}">
+                                        <c:when test="${requestedGrade==entry.key}">
+                                            <c:set var="requestedGradeName" value="${entry.value}"/>
                                             <option value="${entry.key}" selected="true">${entry.value}</option>
                                         </c:when>
                                         <c:otherwise>
@@ -116,9 +118,11 @@
                         <div class="unit size2of100">&amp;nbsp;</div>
                         <div class="unit size57of100 lastUnit">
                             <select id="js_subjectsDropdown" class="js_worksheetFilterDropDown type">
+                                <c:set var="requestedSubjectName" value="All Subjects"/>
                                 <c:forEach items="${subjectChoices}" var="entry">
                                     <c:choose>
-                                        <c:when test="${requestedSubjectName==entry.key}">
+                                        <c:when test="${requestedSubject==entry.key}">
+                                            <c:set var="requestedSubjectName" value="${entry.value}"/>
                                             <option value="${entry.key}" selected="true">${entry.value}</option>
                                         </c:when>
                                         <c:otherwise>
@@ -146,7 +150,7 @@
 
 <mod:tracking pageName="${pageName}"
               events="event7"
-              hier1="Topic Centers,${omnitureTopicCenterName},Worksheets"
+              hier1="Topic Centers,${omnitureTopicCenterName},Worksheets,${requestedGradeName},${requestedSubjectName}"
               omitAlmondNet="${true}"
         />
 
