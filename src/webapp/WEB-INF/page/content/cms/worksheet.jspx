@@ -197,14 +197,6 @@
                         </div>
                     </c:if>
                 </div>
-
-                <p class="smallText2">
-                    * Common core standards: 
-                    <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
-                        <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.abbreviationsAsString)}</a><c:if test="${!loopStatus.last}">, </c:if>
-                    </c:forEach>
-                </p>
-
         </div>
     </div>
 </div>
