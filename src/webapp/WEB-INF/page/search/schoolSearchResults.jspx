@@ -101,6 +101,12 @@
                 </c:otherwise>
             </c:choose>
         </div>
+        <c:if test="${nearbySearchIsEstablishment eq true and not empty param.searchQuery}">
+            <div>
+                Did you mean to search for "${param.searchQuery}"
+                <link:schoolSearch query="${param.searchQuery}" state="${state}">by name</link:schoolSearch>?
+            </div>
+        </c:if>
         <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
         <div class="spacer_10"><!-- do not collapse --></div>
     </c:if>

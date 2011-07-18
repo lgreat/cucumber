@@ -114,6 +114,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
     public static final String MODEL_NEARBY_SEARCH_TITLE_PREFIX = "nearbySearchTitlePrefix";
+    public static final String MODEL_NEARBY_SEARCH_IS_ESTABLISHMENT= "nearbySearchIsEstablishment";
     public static final String MODEL_NEARBY_SEARCH_ZIP_CODE = "nearbySearchZipCode";
 
     public static final String MODEL_STATE = "state";
@@ -212,6 +213,9 @@ public class SchoolSearchController extends AbstractCommandController implements
                 }
             }
             model.put(MODEL_NEARBY_SEARCH_TITLE_PREFIX, nearbySearchTitlePrefix);
+            if (StringUtils.contains(request.getParameter("locationType"), "establishment")) {
+                model.put(MODEL_NEARBY_SEARCH_IS_ESTABLISHMENT, true);
+            }
         }
 
         //if user did not enter search term (and this is not a nearby search), redirect to state browse

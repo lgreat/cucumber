@@ -30,8 +30,9 @@ function submitSearch() {
                 byLocationForm.find('input[name="lon"]').val(geocodeResult['lon']);
                 byLocationForm.find('input[name="state"]').val(geocodeResult['state']);
                 byLocationForm.find('input[name="locationType"]').val(geocodeResult['type']);
-                byLocationForm.find('input[name="partialMatch"]').val(geocodeResult['partial_match']);
+//                byLocationForm.find('input[name="partialMatch"]').val(geocodeResult['partial_match']);
                 byLocationForm.find('input[name="normalizedAddress"]').val(geocodeResult['normalizedAddress']);
+                byLocationForm.find('input[name="totalResults"]').val(geocodeResult['totalResults']);
 
                 GS_waitForGeocode = false;
 
@@ -130,10 +131,12 @@ function gsGeocode(searchInput, callbackFunction) {
 //                } else {
 //                    alert("Found " + GS_geocodeResults[0].normalizedAddress + " which is a " + GS_geocodeResults[0].type + " (exact match).");
 //                }
+                GS_geocodeResults[0]['totalResults'] = 1;
                 callbackFunction(GS_geocodeResults[0]);
             } else {
                 // ignore multiple results for now
                 //handleMultipleResults(GS_geocodeResults);
+                GS_geocodeResults[0]['totalResults'] = GS_geocodeResults.length;
                 callbackFunction(GS_geocodeResults[0]);
             }
       });
@@ -147,8 +150,9 @@ function handleMultipleResults(geocodeResults) {
     for (var x=0; x < geocodeResults.length; x++) {
         myLinkHtml = '<a href="#" onclick="loadAddress(' + x + '); return false;">' +
                 geocodeResults[x].normalizedAddress + '</a>';
-        myListItemHtml = "<li>Did you mean " + myLinkHtml + ' (' + geocodeResults[x].type + ') ';
-        myListItemHtml += ((geocodeResults[x].partial_match)?'(partial match)':'(exact match)') + '?</li>';
+        myListItemHtml = "<li>Did you mean " + myLinkHtml + ' (' + geocodeResults[x].type + ')';
+//        myListItemHtml += ((geocodeResults[x].partial_match)?' (partial match)':' (exact match)');
+        myListItemHtml += '?</li>';
         $(myListItemHtml).appendTo(myList);
     }
     theDiv.empty().append(myList);
@@ -161,7 +165,7 @@ function loadAddress(x) {
     byLocationForm.find('input[name="lon"]').val(GS_geocodeResults[x]['lon']);
     byLocationForm.find('input[name="state"]').val(GS_geocodeResults[x]['state']);
     byLocationForm.find('input[name="locationType"]').val(GS_geocodeResults[x]['locationType']);
-    byLocationForm.find('input[name="partialMatch"]').val(GS_geocodeResults[x]['partialMatch']);
+//    byLocationForm.find('input[name="partialMatch"]').val(GS_geocodeResults[x]['partialMatch']);
     byLocationForm.find('input[name="normalizedAddress"]').val(GS_geocodeResults[x]['normalizedAddress']);
 
     GS_waitForGeocode = false;

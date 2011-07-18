@@ -1,5 +1,6 @@
 package gs.web.jsp.link;
 
+import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 
@@ -14,6 +15,7 @@ public class SchoolSearchTagHandler extends LinkTagHandler {
     private String _query;
     private Integer _page;
     private String _schoolSearchType;
+    private State _state;
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_SEARCH, getState(), getQuery());
@@ -82,6 +84,17 @@ public class SchoolSearchTagHandler extends LinkTagHandler {
 
     public void setSchoolSearchType(String schoolSearchType) {
         _schoolSearchType = schoolSearchType;
+    }
+
+    public State getState() {
+        if (_state != null) {
+            return _state;
+        }
+        return super.getState();
+    }
+
+    public void setState(State state) {
+        _state = state;
     }
 
     /*public void setSchoolSearchType(SchoolSearchType schoolSearchType) {
