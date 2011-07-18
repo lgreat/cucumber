@@ -374,7 +374,13 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else if (commandAndFields.isDistrictBrowse()) {
             model.putAll(new DistrictMetaDataHelper().getMetaData(commandAndFields));
         } else if (schoolSearchCommand.isNearbySearch()) {
-            model.putAll(new NearbyMetaDataHelper().getMetaData(nearbySearchInfo));
+            if (nearbySearchInfo != null) {
+                // nearby zip code search
+                model.putAll(new NearbyMetaDataHelper().getMetaData(nearbySearchInfo));
+            } else {
+                // Find a School by location search
+                model.putAll(new NearbyMetaDataHelper().getMetaData(commandAndFields));
+            }
         } else {
             model.putAll(new MetaDataHelper().getMetaData(commandAndFields));
         }
@@ -453,6 +459,13 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     protected class NearbyMetaDataHelper {
+        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
+            String searchString = commandWithFields.getSearchString();
+            Map<String,Object> model = new HashMap<String,Object>();
+            model.put(MODEL_TITLE, getTitle(searchString));
+            return model;
+        }
+
         public Map<String,Object> getMetaData(Map nearbySearchInfo) {
             Map<String,Object> model = new HashMap<String,Object>();
 

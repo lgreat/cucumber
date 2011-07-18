@@ -101,14 +101,16 @@ function gsGeocode(searchInput, callbackFunction) {
             if (GS_geocodeResults.length == 0) {
                 callbackFunction(null);
             } else if (GS_geocodeResults.length == 1) {
-                if (GS_geocodeResults[0].partial_match) {
-                    alert("Found " + GS_geocodeResults[0].normalizedAddress + " which is a " + GS_geocodeResults[0].type + " (partial match).");
-                } else {
-                    alert("Found " + GS_geocodeResults[0].normalizedAddress + " which is a " + GS_geocodeResults[0].type + " (exact match).");
-                }
+//                if (GS_geocodeResults[0].partial_match) {
+//                    alert("Found " + GS_geocodeResults[0].normalizedAddress + " which is a " + GS_geocodeResults[0].type + " (partial match).");
+//                } else {
+//                    alert("Found " + GS_geocodeResults[0].normalizedAddress + " which is a " + GS_geocodeResults[0].type + " (exact match).");
+//                }
                 callbackFunction(GS_geocodeResults[0]);
             } else {
-                handleMultipleResults(GS_geocodeResults);
+                // ignore multiple results for now
+                //handleMultipleResults(GS_geocodeResults);
+                callbackFunction(GS_geocodeResults[0]);
             }
       });
     }
