@@ -41,31 +41,35 @@
 <body>
 
 <div class="container_24">
-<div class="grid_16">
+    <div class="grid_16">
 
-    <div class="mrm phs">
-        <div class="smallText1 mtm pts">
+        <div class="smallText1 mtm pbs">
             <link:home>Home</link:home> &amp;gt;
-            <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
+            <link:cmsContent contentKey="TopicCenter#4313"
+                             fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
             <link:cmsWorksheetGallery>Worksheets</link:cmsWorksheetGallery>
         </div>
 
         <h1 class="mts">${feature.title}</h1>
 
-        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+        <div class="clearfloat brdbtm_dotted-ccc mbm mrm"><!-- do not collapse --></div>
 
-        <div class="size54of100 unit">
-            <p class="text2">
-                <c:if test="${not empty feature.grades}">
-                    <cms:printCmsFeatureGrades gradeString="${feature.grades}" includeLabel="${true}"/> |
-                </c:if>
+        <p class="text2 fltlft">
+            <c:if test="${not empty feature.grades}">
+                <cms:printCmsFeatureGrades gradeString="${feature.grades}" includeLabel="${true}"/> |
+            </c:if>
 
-                ${feature.subjectCategories[0].name}
-            </p>
+            ${feature.subjectCategories[0].name}
+        </p>
 
-            <div class="spacer_15"><!-- don't collapse --></div>
+        <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
+        <div class="fltrt">
+            <cms:articleDistribution includeFbSendBtn="true" includeShareBtn="false" includeEmailBtn="true"/>
+        </div>
 
-            <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
+        <div class="spacer_15"><!-- don't collapse --></div>
+
+        <div class="grid_9 alpha">
 
             <!-- deck -->
             <p class="text1">
@@ -102,7 +106,8 @@
                 <p class="smallText1-333" id="js-ccs-links">
                     Common Core Standards:
                     <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
-                        <a href="${standard.url}" target="_blank" class="js-ccs-link">${fn:escapeXml(standard.name)}</a><c:if test="${!loopStatus.last}">, </c:if>
+                        <a href="${standard.url}" target="_blank" class="js-ccs-link">${fn:escapeXml(standard.name)}</a><c:if
+                            test="${!loopStatus.last}">, </c:if>
                     </c:forEach>
                 </p>
             </c:if>
@@ -111,26 +116,27 @@
 
             <p class="smallText2">
                 <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
-                    <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.abbreviationsAsString)}</a><c:if test="${!loopStatus.last}">, </c:if>
+                    <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.abbreviationsAsString)}</a><c:if
+                        test="${!loopStatus.last}">, </c:if>
                 </c:forEach>
             </p>
         </div>
-        <div class="size45of100 unit">
-            <div class="pll">
+        <div class="grid_7 omega">
+
             <c:if test="${not empty feature.previewImageUrl}">
                 <gsml:img src="${feature.previewImageUrl}"
                           title="${feature.previewImageTitle}"
                           alt="${feature.previewImageAltText}"/>
             </c:if>
 
-            <!-- TODO-11818 acrobat reader icon -->
-            <p class="smallText1">
-                Don't have Acrobat Reader? <a href="http://get.adobe.com/reader/" target="_blank">Get it now</a>.
+            <!-- DONE-11818 acrobat reader icon -->
+            <p class="smallText1 mtm">
+                <span class="sprite pdf_sm vert-align-mid"><!-- do not collapse --></span> Don't have Acrobat Reader? <a
+                    href="http://get.adobe.com/reader/" target="_blank">Get it now</a>.
             </p>
-                </div>
         </div>
 
-        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+        <div class="spacer_20 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
 
         <div class="text3 fltrt">
             <ul>
@@ -160,47 +166,48 @@
 
         <!-- related worksheets -->
         <c:if test="${feature.hasPublishedRelatedWorksheets}">
-            <cms:relatedWorksheets feature="${feature}" />
+            <div class="mrm">
+                <cms:relatedWorksheets feature="${feature}"/>
+            </div>
         </c:if>
 
-        <div class="clearfloat brdbtm_dotted-ccc mbm"><!-- do not collapse --></div>
+        <div class="clearfloat brdbtm_dotted-ccc mbm mrm"><!-- do not collapse --></div>
 
-        <div class="articleCommentForm noprint">
+        <div class="articleCommentForm noprint mrm">
 
-                <div id="enterComment">
-                    <script type="text/javascript">
-                        function wrapCommentWithDelimiter(comment) {
-                            return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
-                        }
-                    </script>
-                    <!-- Article comment form -->
-                    <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-                    <!-- end #cmsArticleForm -->
-                </div>
+            <div id="enterComment">
+                <script type="text/javascript">
+                    function wrapCommentWithDelimiter(comment) {
+                        return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
+                    }
+                </script>
+                <!-- Article comment form -->
+                <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
+                <!-- end #cmsArticleForm -->
+            </div>
 
-                <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+            <div class="spacer_10 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
 
-                <div id="cmsArticleComments">
-                    <c:if test="${not empty comments and fn:length(comments) gt 0}">
-                        <!--<hr width="100%" class="commentDivider"/>-->
-                        <h4 class="subhead2">Comments from GreatSchools.org readers</h4>
+            <div id="cmsArticleComments">
+                <c:if test="${not empty comments and fn:length(comments) gt 0}">
+                    <!--<hr width="100%" class="commentDivider"/>-->
+                    <h4 class="subhead2">Comments from GreatSchools.org readers</h4>
 
-                        <div id="comments">
-                            <c:forEach var="comment" items="${comments}">
-                                <div class="comment">
-                                    <div class="comment-date"><fmt:formatDate value="${comment.posted}"
-                                                                              pattern="MM/d/yyyy"/>:
-                                    </div>
-
-                                    <div class="comment-text">"${comment.text}"</div>
+                    <div id="comments">
+                        <c:forEach var="comment" items="${comments}">
+                            <div class="comment">
+                                <div class="comment-date"><fmt:formatDate value="${comment.posted}"
+                                                                          pattern="MM/d/yyyy"/>:
                                 </div>
-                            </c:forEach>
-                        </div>
-                    </c:if>
-                </div>
+
+                                <div class="comment-text">"${comment.text}"</div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:if>
+            </div>
         </div>
     </div>
-</div>
     <div class="grid_8">
         <div id="squareadvert">
             <ad:AboveFold_300x250/>
@@ -221,7 +228,8 @@
 
 <c:set var="pageName" value="WorksheetSingle"/>
 
-<c:set var="hier1" value="Worksheet,${feature.gradeCategories[0].name},${feature.subjectCategories[0].name},${titleForOmniture}"/>
+<c:set var="hier1"
+       value="Worksheet,${feature.gradeCategories[0].name},${feature.subjectCategories[0].name},${titleForOmniture}"/>
 
 <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 

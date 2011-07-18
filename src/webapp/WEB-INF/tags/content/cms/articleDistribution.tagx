@@ -8,6 +8,8 @@
                              description="Whether to include the facebook send button"/>
     <jsp:directive.attribute name="includeShareBtn" required="true" type="java.lang.Boolean"
                              description="Whether to include the share button"/>
+    <jsp:directive.attribute name="includeEmailBtn" required="false" type="java.lang.Boolean"
+                             description="Whether to include the share button"/>
 
     <div class="shareThis articleDistribution">
 
@@ -20,6 +22,16 @@
                 <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
             </div>
 
+        </c:if>
+
+        <!-- Email -->
+        <c:if test="${includeEmailBtn==true}">
+            <div class="ShareAndTweet">
+                <script type="text/javascript">var switchTo5x = false;</script>
+                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+                <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
+                <span class='st_email_button' displayText='Email'></span>
+            </div>
         </c:if>
 
         <!-- Twitter -->
