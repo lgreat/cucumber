@@ -290,11 +290,12 @@
                                                       styleClass="link">${requestScope.discussionBoard.title}</link:cmsContent></h2>
 
             <div class="fltrt">
-                <a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
+                <a href="javascript:void(0);" class="button-1 startADiscussion" onclick="this.blur(); return false;"><span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</a>
+                <!--<a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
             <span class="lftDoor25">
-                <span class="rtDoor25"><span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start&amp;nbsp;a&amp;nbsp;conversation</span>
+                <span class="rtDoor25"><span class="sprite community fltlft mrgtop_2 mrgrt_5">&lt;!&ndash; icon &ndash;&gt;</span>Start&amp;nbsp;a&amp;nbsp;conversation</span>
             </span>
-                </a>
+                </a>-->
             </div>
             <br class="clearfloat"/>
         </div>

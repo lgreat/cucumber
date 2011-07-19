@@ -116,9 +116,10 @@
                                   <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
                               </button>-->
                               <button class="button-1 fltlft" type="submit" id="submitButton" name="submit" value="Submit" tabindex="5">Save</button>
-                              <link:userAccount styleClass="btn25 fltlft" styleId="cancelButton">
+                              <!--<link:userAccount styleClass="btn25 fltlft" styleId="cancelButton">
                                   <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
-                              </link:userAccount>
+                              </link:userAccount>-->
+                              <link:userAccount styleId="cancelButton" styleClass="button-1 fltlft">Cancel</link:userAccount>
 
                           </fieldset>
 
