@@ -37,7 +37,6 @@
                 return '';
             }
         </script>
-        <!--<pageHelper:externalCss file="/res/css/_textStyles.css"/>-->
 
         <!--<p>requestScope.style = <c:out value="${requestScope.style}" default="don't know"/></p>-->
         <!--<p>requestScope.showForm = <c:out value="${requestScope.showForm}" default="don't know"/></p>-->

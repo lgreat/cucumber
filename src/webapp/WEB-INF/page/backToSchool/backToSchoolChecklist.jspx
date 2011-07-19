@@ -26,8 +26,6 @@
         <meta name="keywords" content="back to school, back to school checklist, back to school supplies"/>
 
         <title>Back-to-School Checklist | GreatSchools</title>
-        <!-- pageHelper:externalCss file="/res/css/widelayout.css"/ -->
-        <link rel="stylesheet" href="/res/css/_textStyles.css" type="text/css"/>
         <link rel="stylesheet" href="/res/css/discussionBoards/db_community.css" type="text/css"/>
     </head>
 

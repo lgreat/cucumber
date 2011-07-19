@@ -23,8 +23,6 @@
         <meta name="keywords" content="community guidelines, greatschools"/>
 
         <title>Community Guidelines | GreatSchools</title>
-        <!-- pageHelper:externalCss file="/res/css/widelayout.css"/ -->
-        <link rel="stylesheet" href="/res/css/_textStyles.css" type="text/css"/>
         <link rel="stylesheet" href="/res/css/discussionBoards/db_community.css" type="text/css"/>
     </head>
 
