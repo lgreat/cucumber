@@ -173,6 +173,11 @@ public class CmsHomepageController extends AbstractController {
             model.put("states", StateManager.getList());
         }
 
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.addAdKeywordMulti("editorial", "homepage");
+        }
+
         return new ModelAndView(_viewName, model);
     }
 
