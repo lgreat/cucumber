@@ -27,10 +27,6 @@
         <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
         <!--gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER"/-->
         <![CDATA[<!--script type="text/javascript" src="${topnavjs}"></script-->]]>
-        <c:if test="${param.community eq 'true'}">
-            <gsml:url var="widelayoutcss" value="/res/css/widelayout.css?v=$RELEASE_NUMBER"/>
-            <![CDATA[<link rel="stylesheet" type="text/css" href="${widelayoutcss}"></link>]]>
-        </c:if>
     </head>
     <body>
     <c:set var="community" value="false"/>

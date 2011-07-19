@@ -19,7 +19,6 @@
     <meta content="todo" name="description"/>
     <meta content="todo" name="keywords"/>
 
-    <pageHelper:externalCss file="/res/css/widelayout.css" />
     <pageHelper:externalCss file="/res/css/api/registration.css" />
 
 </head>

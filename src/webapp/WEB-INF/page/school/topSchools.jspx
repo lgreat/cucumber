@@ -34,7 +34,6 @@
                   name="keywords"/>
         </c:otherwise>
     </c:choose>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
     <pageHelper:externalCss file="/res/css/school/topSchools.css"/>
     <pageHelper:externalJavascript file="/res/js/compareModule.js"/>

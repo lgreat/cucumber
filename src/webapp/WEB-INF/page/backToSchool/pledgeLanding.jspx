@@ -22,7 +22,6 @@
               content="Calling all moms and dads. Make a promise to support your child's education this year. Take the Great Parents Pledge. "/>
         <meta name="keywords"
               content="great parents pledge, supporting education"/>
-        <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/backToSchool/pledgeLanding.css"/>
         <gsml:equalizeColumns ids="'main','contentRight'"/>
         <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>

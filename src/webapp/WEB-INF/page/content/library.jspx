@@ -25,7 +25,6 @@
     <meta content="Browse expert tips and articles about all things education, from an award-winning family and parenting site." name="description"/>
     <meta content="education resources, education articles, education tips, parents tips, education topics, parents resources, education advice" name="keywords"/>
 
-    <pageHelper:externalCss file="/res/css/widelayout.css" />
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css" />
     <pageHelper:externalCss file="/res/css/content/library.css" />
 

@@ -29,7 +29,6 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
 <pageHelper:hideFooterAd/>
-<pageHelper:externalCss file="/res/css/widelayout.css"/>
 <pageHelper:externalCss file="/res/css/about/gsFaq.css"/>
 
 <head>

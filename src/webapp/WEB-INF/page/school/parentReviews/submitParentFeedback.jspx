@@ -29,7 +29,6 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <title>${title}</title>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/school/parentReviews/submitParentFeedback.css"/>
     <pageHelper:externalJavascript file="/res/js/prototype.js"/>    
 

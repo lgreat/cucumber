@@ -30,7 +30,6 @@
     <meta name="keywords"
           content="${askTheExperts.metaKeywords}"/>
     <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <c:if test="${param.print eq 'true'}">
         <!-- cmsArticleSupplemental is for the screen view *and* print version of the printer-friendly version.
              We can't use the word "print" in the css file name, or else it will target media="print" only.

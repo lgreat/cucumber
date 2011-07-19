@@ -26,7 +26,6 @@
               content="Tips for the whole family that will help you stop summer brain drain, prep for success, and shop smart for back to school supplies."/>
          <meta name="keywords"
           content="back to school, back to school shopping, school supplies, supplies list"/>
-        <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/backToSchool/backToSchoolHome.css"/>
         <pageHelper:externalJavascript file="/res/js/backToSchool/backToSchoolHome.js"/>
         <pageHelper:externalJavascript file="/res/js/AC_RunActiveContent.js"/>

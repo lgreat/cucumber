@@ -30,7 +30,6 @@
     <meta content="Parent's guide to choosing a school for your child, with tips for finding, applying and enrolling at top choice public and private schools." name="description"/>
     <meta content="school choice, choosing a school, choose a school" name="keywords"/>
 
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/content/landingPageShared.css"/>
     <pageHelper:externalCss file="/res/css/content/schoolChoice.css"/>
 

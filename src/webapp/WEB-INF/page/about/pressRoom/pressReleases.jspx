@@ -25,7 +25,6 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="Description" content="GreatSchools Press Releases"/>
     <title>GreatSchools Press Releases</title>
-    <pageHelper:externalCss file="/res/css/widelayout.css"/>
     <pageHelper:externalCss file="/res/css/about/pressRoom/pressReleases.css"/>
 </head>
 

@@ -20,7 +20,6 @@
         <meta name="description" content="An introduction to the GreatSchools advisory panel."/>
         <meta name="keywords" content="GreatSchools advisors, advisory panel"/>
 
-        <pageHelper:externalCss file="/res/css/widelayout.css"/>
         <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
     </head>
 
