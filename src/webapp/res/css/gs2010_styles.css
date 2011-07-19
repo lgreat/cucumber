@@ -13707,6 +13707,10 @@ p#btsBubbleOpts {
     margin-right: 8px;
 }
 
+.lastShareAndTweet {
+    float: left;
+}
+
 .articlePrintAndEmail{
  margin-top:7px;
 }

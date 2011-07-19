@@ -13,36 +13,36 @@
 
     <div class="shareThis articleDistribution">
 
-        <!-- Share This -->
-        <c:if test="${includeShareBtn==true}">
-            <div class="ShareAndTweet">
-                <script type="text/javascript">var switchTo5x = false;</script>
-                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-                <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
-                <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
-            </div>
-
-        </c:if>
-
-        <!-- Email -->
-        <c:if test="${includeEmailBtn==true}">
-            <div class="ShareAndTweet">
-                <script type="text/javascript">var switchTo5x = false;</script>
-                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-                <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
-                <span class='st_email_button' displayText='Email'></span>
-            </div>
-        </c:if>
-
-        <!-- Twitter -->
-        <div class="ShareAndTweet">
-            <promo:tweetButtonArticle/>
-        </div>
-
         <!--Facebook -->
         <div class="ShareAndTweet">
             <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
         </div>
+
+        <!-- Share This -->
+        <c:if test="${includeShareBtn==true}">
+            <div class="ShareAndTweet">
+                <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
+                <script type="text/javascript">var switchTo5x = false;</script>
+                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+                <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
+            </div>
+
+        </c:if>
+
+        <!-- Twitter -->
+        <div class="${includeEmailBtn ? 'ShareAndTweet' : 'lastShareAndTweet'}">
+            <promo:tweetButtonArticle/>
+        </div>
+
+        <!-- Email -->
+        <c:if test="${includeEmailBtn==true}">
+            <div class="lastShareAndTweet">
+                <span class='st_email_button' displayText='Email'><!-- do not collapse --></span>
+                <script type="text/javascript">var switchTo5x = false;</script>
+                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+                <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
+            </div>
+        </c:if>
 
     </div>
 

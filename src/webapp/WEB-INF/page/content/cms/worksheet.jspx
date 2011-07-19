@@ -62,8 +62,8 @@
             ${feature.subjectCategories[0].name}
         </p>
 
-        <!-- TODO-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
-        <div class="fltrt">
+        <!-- DONE-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->
+        <div class="fltrt mrm">
             <cms:articleDistribution includeFbSendBtn="true" includeShareBtn="false" includeEmailBtn="true"/>
         </div>
 
