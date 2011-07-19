@@ -177,9 +177,6 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <!--<button class="btn25" type="submit" id="send">
-                            <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                        </button>-->
                         <button class="button-1" type="submit" id="send">GO</button>
                     </div>
 
@@ -376,9 +373,6 @@
                                 </c:otherwise>
                             </c:choose>
 
-                            <!--<button class="btn25" type="submit" id="send">
-                                <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                            </button>-->
                             <button class="button-1" type="submit" id="send">GO</button>
                         </li>
                     </ol>
@@ -591,9 +585,6 @@
                                 </c:otherwise>
                             </c:choose>
 
-                            <!--<button class="btn25" type="submit" id="send">
-                                <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                            </button>-->
                             <button class="button-1" type="submit" id="send">GO</button>
                         </li>
                     </ol>
@@ -826,9 +817,6 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <!--<button class="btn25" type="submit" id="send">
-                            <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                        </button>-->
                         <button class="button-1" type="submit" id="send">GO</button>
                     </li>
                 </ol>

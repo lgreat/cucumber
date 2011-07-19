@@ -138,17 +138,9 @@
                     <!--rows="10" cols="60" -->
 
             <div class="buttons">
-                <!--<button class="btn25 fltlft sd-btn-layout reportSendButton" type="submit">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">Send</span>
-                    </span>
-                </button>-->
+
                 <button class="button-1 fltlft sd-btn-layout reportSendButton" type="submit">Send</button>
-                <!--<button class="btn25 fltlft reportCancelButton" type="submit">
-                    <span class="lftDoor25">
-                        <span class="rtDoor25">Cancel</span>
-                    </span>
-                </button>-->
+
                 <button class="button-1 fltlft reportCancelButton" type="submit">Cancel</button>
             </div>
             <input type="hidden" id="reportContentType" name="type" value="reply"/>

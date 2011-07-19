@@ -270,13 +270,9 @@
                                           rows="0"><!-- do not collapse --></textarea>
                             </fieldset>
                             <fieldset class="submit">
-                                <!--<button type="submit" name="Save" value="Save" class="btn25 fltlft aboutMeSave">
-                                    <span class="lftDoor25"><span class="rtDoor25">Save</span></span>
-                                </button>-->
+
                                 <button class="button-1 fltlft aboutMeSave" type="submit" name="Save" value="Save">Save</button>
-                                <!--<button type="reset" name="Cancel" value="Cancel" class="btn25 fltlft aboutMeCancel">
-                                    <span class="lftDoor25"><span class="rtDoor25">Cancel</span></span>
-                                </button>-->
+
                                 <button class="button-1 fltlft aboutMeCancel" type="reset" name="Cancel" value="Cancel">Cancel</button>
                             </fieldset>
                         </form>

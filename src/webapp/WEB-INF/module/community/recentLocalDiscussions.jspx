@@ -110,11 +110,7 @@
 
                 <div class="fltlft">
                     <a href="javascript:void(0);" class="button-1 jqRecentLocalDiscussions_startADiscussion" onclick="this.blur(); return false;"><span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Post conversation</a>
-                    <!--<a class="btn25 jqRecentLocalDiscussions_startADiscussion" href="#" onclick="this.blur(); return false;">
-                        <span class="lftDoor25">
-                            <span class="rtDoor25"><span class="sprite community fltlft mrgtop_2 mrgrt_5">&lt;!&ndash; icon &ndash;&gt;</span>Post conversation</span>
-                        </span>
-                    </a>-->
+
                     <community:startADiscussionHover loginRedirectUrl="${requestScope.loginRedirectUrl}"
                                                      openElementJQuerySelector=".jqRecentLocalDiscussions_startADiscussion"
                                                      topicCenterId="${requestScope.discussionBoard.topicCenterId}"

@@ -290,9 +290,6 @@
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>
-                <!--<button type="submit" class="btn25 searchSubmit">
-                    <span class="lftDoor25"><span class="rtDoor25">GO</span></span>
-                </button>-->
                 <button class="button-1 searchSubmit" type="submit">GO</button>
             </form:form>
         </div>

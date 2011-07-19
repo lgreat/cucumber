@@ -50,9 +50,7 @@
             <p class="text2bold">Share your experience</p>
 
             <div class="spacer_10"><!-- do not collapse --></div>
-            <!--<button class="btn25-2 reviewButton" type="submit">
-                <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
-            </button>-->
+
             <button class="button-1Ext-1" type="submit">Review this school</button>
         </div>
     </div>

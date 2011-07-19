@@ -11,9 +11,7 @@
             address.
 
         </p>
-        <!--<button class="btn25 valEditEmail_hideHover" type="button">
-            <span class="lftDoor25"><span class="rtDoor25">OK</span></span>
-        </button>-->
+
         <button class="button-1 valEditEmail_hideHover" type="button">OK</button>
     </div>
 </jsp:root>

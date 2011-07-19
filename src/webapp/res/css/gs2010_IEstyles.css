@@ -1115,10 +1115,6 @@ body.ie7 #btsCount .pencil_bg {
     top: -2px;
 }
 
-#realtorDotCom .mod_bd button.btn25 {
-    margin: 2px 0 0;
-}
-
 *+html #realtorDotCom.rdc_thin .mod_bd {
     background-position: 1px 0;
 }

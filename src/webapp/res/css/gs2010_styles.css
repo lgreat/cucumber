@@ -7191,13 +7191,6 @@ a:hover .i-pn-home {
     margin: 0 20px 24px 70px;
 }
 
-#previewDiscussionDialog .btn25 {
-    font: bold 14px Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #444;
-    color: #fff;
-}
-
 /* =12c-6 elementary schools grade by grade
 -------------------------------------------------------------------------------------------*/
 
@@ -8490,12 +8483,6 @@ body.hover #uploadAvatarHover form {
     font-family: Arial, Helvetica, sans-serif;
     color: #666;
     font-weight: bold;
-}
-
-#principalConfirmationHover .btn25 {
-    float: left;
-    margin-right: 8px;
-    margin-top: 10px;
 }
 
 #principalConfirmationHover #agreeError {
@@ -11712,164 +11699,6 @@ Extends button-1 by changing:
     border: none;
 }
 
-/* ------------------- */
-/* SLIDING DOOR BUTTON */
-/* ------------------- */
-
-button {
-    overflow: visible; /*resets ie extra margin added by long strings */
-}
-
-/* ------------------- */
-/* 25 px height button */
-/* ------------------- */
-
-/* do not change */
-.btn25 {
-    cursor: pointer;
-    display: block;
-    margin: 0;
-    border: 0 none transparent;
-    padding: 0;
-    background-color: transparent; /* hide form background color in IE */
-}
-
-.btn25-inactive {
-    cursor: default;
-    display: block;
-    margin: 0;
-    border: 0 none transparent;
-    padding: 0;
-    background-color: transparent; /* hide form background color in IE */
-}
-
-.lftDoor25 {
-    display: inline-block;
-    padding: 0 0 0 15px;
-    line-height: 25px;
-    float: left;
-}
-
-.rtDoor25 {
-    display: inline-block;
-    padding: 0 15px 0 0;
-    height: 25px;
-    line-height: 25px;
-}
-
-/* skin */
-.btn25-inactive .lftDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left bottom;
-}
-
-.btn25-inactive .rtDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right bottom;
-}
-
-.lftDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
-}
-
-.rtDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
-}
-
-.btn25:active .lftDoor25,
-.btn25:hover .lftDoor25 {
-    background-position: left -25px;
-}
-
-.btn25:active .rtDoor25,
-.btn25:hover .rtDoor25 {
-    background-position: right -25px;
-    outline: none; /* hide dotted outline in Firefox */
-}
-
-/* icon */
-.lftDoor25 .rtDoor25 img {
-    margin: 0;
-    border: 0 none transparent;
-}
-
-.lftDoor25 .rtDoor25 {
-    white-space: nowrap;
-}
-
-/* font size and family */
-#marginGS .btn25,
-#marginGS .btn25-inactive,
-.ui-dialog .btn25,
-.ui-dialog .btn25-inactive {
-    font: bold 14px Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #444;
-    color: #fff;
-}
-
-/* alternate do not change */
-.btn25-2 {
-    cursor: pointer;
-    display: block;
-    margin: 0;
-    border: 0 none transparent;
-    padding: 0;
-    background-color: transparent; /* hide form background color in IE */
-}
-
-.lftDoor25 {
-    display: inline-block;
-    padding: 0 0 0 15px;
-    line-height: 25px;
-    float: left;
-    margin-top: -2px;
-}
-
-.rtDoor25 {
-    display: inline-block;
-    padding: 0 15px 0 0;
-    height: 25px;
-    line-height: 25px;
-}
-
-/* skin */
-.lftDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
-}
-
-.rtDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
-}
-
-.btn25-2:active .lftDoor25,
-.btn25-2:hover .lftDoor25 {
-    background-position: left -25px;
-}
-
-.btn25-2:active .rtDoor25,
-.btn25-2:hover .rtDoor25 {
-    background-position: right -25px;
-    outline: none; /* hide dotted outline in Firefox */
-}
-
-/* icon */
-.lftDoor25 .rtDoor25 img {
-    margin: 0;
-    border: 0 none transparent;
-}
-
-.lftDoor25 .rtDoor25 {
-    white-space: nowrap;
-}
-
-/* font size and family */
-#marginGS .btn25-2,
-.ui-dialog .btn25-2 {
-    font: bold 11px Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #444;
-    color: #fff;
-}
-
 /* =19 forms
 -------------------------------------------------------------------------------------------*/
 
@@ -13030,14 +12859,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     margin-left: 20px;
 }
 
-#realtorDotCom .mod_bd button.btn25 {
-    margin: 2px -3px 0;
-}
-
-realtorDotCom.rdc_short .mod_bd button.btn25 {
-
-}
-
 #realtorDotCom .logo {
     position: absolute;
     bottom: 8px;
@@ -13052,12 +12873,6 @@ realtorDotCom.rdc_short .mod_bd button.btn25 {
     border-top: 1px dotted #c6c6c6;
     width: 113px;
     margin: .5em auto;
-}
-
-#realtorDotCom.rdc_short .btn25 {
-    float: left;
-    padding-left: 8px;
-
 }
 
 #realtorDotCom.rdc_short label {

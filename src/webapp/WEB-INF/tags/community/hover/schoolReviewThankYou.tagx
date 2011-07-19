@@ -9,9 +9,7 @@
         <h2>Thank you for submitting a review</h2>
 
         <p><strong>Your review has been posted to GreatSchools.</strong></p>
-            <!--<button class="btn25 schoolReviewThankYou_hideHover" type="button">
-                <span class="lftDoor25"><span class="rtDoor25">OK</span></span>
-            </button>-->
+
         <button class="button-1 schoolReviewThankYou_hideHover" type="button">OK</button>
     </div>
 </jsp:root>

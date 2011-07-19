@@ -97,54 +97,8 @@ div#searchTabBody button.searchSubmit {
     text-shadow: 1px 1px 1px #444;
     color: #fff;
 }
-/* ------------------- */
-/* 25 px height button */
-/* ------------------- */
-
-/* do not change */
-.btn25 {
-    cursor: pointer;
-    display: block;
-    margin: 0;
-    border: 0 none transparent;
-    padding: 0;
-    background-color: transparent; /* hide form background color in IE */
-}
-
-.lftDoor25 {
-    display: inline-block;
-    padding: 0 0 0 15px;
-    line-height: 25px;
-    float: left;
-}
-
-.rtDoor25 {
-    display: inline-block;
-    padding: 0 15px 0 0;
-    height: 25px;
-    line-height: 25px;
-}
-
-/* skin */
-.lftDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_lft.gif) no-repeat left top;
-}
-
-.rtDoor25 {
-    background: url(/res/img/discussion_boards/db_btn_sprite_25_rt.gif) no-repeat right top;
-}
-
-.btn25:active .lftDoor25, .btn25:hover .lftDoor25 {
-    background-position: left bottom;
-}
-
-.btn25:active .rtDoor25, .btn25:hover .rtDoor25 {
-    background-position: right bottom;
-    outline: none; /* hide dotted outline in Firefox */
-}
 
 /* Map Tab */
-
 
 div#mapTabBody {
     padding: 10px 5px;

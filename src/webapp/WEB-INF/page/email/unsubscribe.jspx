@@ -38,9 +38,6 @@
                 <input name="userId" type="hidden" value="${emailCmd.userId}"/>
                 <input type="hidden" name="verified" value="yes"/>
                 <input type="hidden" name="email" value="${emailCmd.email}"/>
-                <!--<button type="submit" id="Submit" name="Yes" value="Yes" class="btn25">
-                    <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
-                </button>-->
                 <button class="button-1" type="submit" id="Submit" name="Yes" value="Yes">Submit</button>
             </form:form>
         </td></tr>

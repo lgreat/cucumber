@@ -291,11 +291,6 @@
 
             <div class="fltrt">
                 <a href="javascript:void(0);" class="button-1 startADiscussion" onclick="this.blur(); return false;"><span class="sprite community fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>Start a conversation</a>
-                <!--<a class="btn25 startADiscussion" href="#" onclick="this.blur(); return false;">
-            <span class="lftDoor25">
-                <span class="rtDoor25"><span class="sprite community fltlft mrgtop_2 mrgrt_5">&lt;!&ndash; icon &ndash;&gt;</span>Start&amp;nbsp;a&amp;nbsp;conversation</span>
-            </span>
-                </a>-->
             </div>
             <br class="clearfloat"/>
         </div>
@@ -345,17 +340,9 @@
             </div>
             <br class="clearfloat"/>
         </div>
-        <!--<button class="btn25 previewEditButton fltlft sd-btn-layout" type="submit">
-        <span class="lftDoor25">
-            <span class="rtDoor25">Edit&amp;nbsp;reply</span>
-        </span>
-        </button>-->
+
         <button class="button-1 previewEditButton fltlft sd-btn-layout" type="submit">Edit reply</button>
-        <!--<button class="btn25 previewPostButton fltlft" type="submit">
-        <span class="lftDoor25">
-            <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span>
-        </span>
-        </button>-->
+
         <button class="button-1 previewPostButton fltlft" type="submit">Post your reply</button>
 
     </div>
@@ -430,19 +417,8 @@
                                           name="body"><!-- no collapse -->${requestScope.userReply}</textarea>
                             </div>
 
-                            <!--<button class="btn25 fltlft btn_preview" type="submit">
-                                <span class="lftDoor25">
-                                    <span class="rtDoor25">Preview</span>
-                                </span>
-                            </button>-->
                             <button class="button-1 fltlft btn_preview" type="submit">Preview</button>
 
-
-                            <!--<button class="btn25 fltlft btn_postReply" type="submit">
-                                <span class="lftDoor25">
-                                    <span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span>
-                                </span>
-                            </button>-->
                             <button class="button-1 fltlft btn_postReply" type="submit">Post your reply</button>
                             <div class="smallText2 fltlft guidelines">
                                 Read our <gsml:popupWindow width="800" height="600" left="50" top="50"

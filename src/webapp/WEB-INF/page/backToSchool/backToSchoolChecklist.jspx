@@ -92,9 +92,6 @@
                                         <input type="text" name="email" id="btsEmail" value="Enter your email address"/>
                                     </c:otherwise>
                                 </c:choose>
-                                <!--<button class="btn25" type="button" name="subscribeBtn" id="subscribeBtn">
-                                        <span class="lftDoor25"><span class="rtDoor25">Subscribe</span></span>
-                                </button>-->
                                     <button class="button-1" type="button" name="subscribeBtn" id="subscribeBtn">Subscribe</button>
                                 </p>
                             </form>

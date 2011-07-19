@@ -8,9 +8,7 @@
         <h2>Your email change is complete</h2>
 
         <p>Thanks for verifying your updated email address.</p>
-        <!--<button class="btn25 valNewEmailDone_hideHover" type="button">
-            <span class="lftDoor25"><span class="rtDoor25">Finish</span></span>
-        </button>-->
+
         <button class="button-1 valNewEmailDone_hideHover" type="button">Finish</button>
     </div>
 </jsp:root>

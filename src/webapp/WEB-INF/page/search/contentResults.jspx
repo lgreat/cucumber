@@ -409,9 +409,6 @@
                         <gsweb:stateSelector name="state"
                                                  state="${requestScope.context.state}"/>
                         </label>
-                        <!--<button class="button btn25" type="submit">
-                            <span class="lftDoor25"><span class="rtDoor25">Search</span></span>
-                        </button>-->
                         <button class="button-1 button" type="submit">Search</button>
                     </form>
         </c:otherwise>

@@ -568,7 +568,6 @@
     </c:choose>
 
     <div class="${ryh_answer}">
-        <!--<form action="#">-->
 
         <c:if test="${style eq 'topicCenter'}">
             <div class="spacer_10"><!-- don't collapse --></div>
@@ -596,21 +595,14 @@
         <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
         <br class="clearfloat"/>
 
-        <!--<button type="button" id="ryhSubmit" name="Submit" value="Submit" class="btn25 fltlft ${ryhSubmitClass}">
-            <span class="lftDoor25"><span class="rtDoor25">Submit</span></span>
-        </button>-->
         <button class="button-1 fltlft ${ryhSubmitClass}" type="button" id="ryhSubmit" name="Submit"
                 value="Submit">Submit
         </button>
 
-        <!-- DONE-10166-RANDALL 15.2 HOTFIX -->
-        <!-- Randall, please style this ad slot so that the module will look fine both with and without the ad slot,
-and with the ad slot both targeted with something or not targeted with something. -->
         <c:if test="${showSponsor}">
             <ad:adTag position="RYH_Sponsor_90x32"/>
         </c:if>
 
-        <!--</form>-->
     </div>
     <!-- end ryh-reply -->
     <br class="clearfloat"/>
@@ -721,14 +713,6 @@ and with the ad slot both targeted with something or not targeted with something
 
 
 <div class="recentAnswers"><!-- don't collapse -->
-    <!--
-<div class="db_reply_topic clearfix" style="display: block; margin-left: 0pt;"><div class="fltlft"><a href="/members/chriskimm/"><img width="48" height="48" style="border: 1px solid rgb(198, 198, 198);" alt="Avatar" src="http://dev.greatschools.org/library/avatar/stock/default-48.jpg"/></a></div><div class="db_replyContainer fltlft"><b class="db_replyPointLeftTop db_replyArrowTop">&amp;nbsp;</b><b class="db_replyPointLeft db_replyArrow">&amp;nbsp;</b><div class="db_reply_full fltlft rnd8" style="display: none;"><p class="fltlft"><a href="/members/chriskimm/"><span class="smallAlertTextBoldNeutral link">
-chriskimm
-</span></a><span class="smallText1"> September 22, 2009</span>
-        | <a href="#" class="editLink link" onclick="return false;">Edit</a>
-                | <a href="#" class="deleteLink link" onclick="return false;">Delete</a></p><p class="fltrt"><a class="smallText1 reportIt link" href="#" id="report_reply_10">Report it</a></p><br class="clearfloat"/><span class="text3 replyBody">Great discussion!</span><span class="hidden replyId">10</span></div><form action="/community/discussionSubmission.page" method="POST" accept-charset="Windows-1252"><input type="hidden" name="discussionId" value="5"/><div class="db_textarea"><textarea rows="9" cols="53" class="replybox text3" name="body"></textarea></div><button class="btn25 fltlft btn_preview" type="submit"><span class="lftDoor25"><span class="rtDoor25">Preview</span></span></button><button class="btn25 fltlft btn_postReply" type="submit"><span class="lftDoor25"><span class="rtDoor25">Post&amp;nbsp;your&amp;nbsp;reply</span></span></button><div class="smallText2 fltlft guidelines">
-    Read our <a href="/terms/?state=CA#communityStandards" tabindex="18" style="" title="GreatSchools Community Standards" class="" onclick="Popup=window.open('/terms/?state=CA#communityStandards','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"><span class="link">Community Guidelines</span></a></div><input type="hidden" name="discussionReplyId" value="10"/></form></div></div>
-    -->
 
     <c:forEach var="reply" items="${replies}">
 

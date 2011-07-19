@@ -97,9 +97,6 @@
                 </select>
             </div>
 
-            <!--<button class="btn25" type="button" id="reviewThisSchoolButton" onclick="return reviewThisSchool();">
-                <span class="lftDoor25"><span class="rtDoor25">Review this school</span></span>
-            </button>-->
             <button class="button-1" type="button" id="reviewThisSchoolButton" onclick="return reviewThisSchool();">Review this school</button>
 
         </div>
@@ -205,9 +202,6 @@
                     target="_blank">Terms of Use</gsml:a></div></div>
 
                 <fieldset class="btns">
-                    <!--<button class="btn25" type="submit" name="parentReviewFormSubmit" id="parentReviewFormSubmit">
-                        <span class="lftDoor25"><span class="rtDoor25">Continue</span></span>
-                    </button>-->
                     <button class="button-1" type="submit" name="parentReviewFormSubmit" id="parentReviewFormSubmit">Continue</button>
                 </fieldset>
 
