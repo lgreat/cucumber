@@ -77,8 +77,8 @@ public class PaginationConfig {
 
     /**
      * Get the zero-based position for the given offset
-     * @param offset
-     * @return
+     * @param offset zero-based offset
+     * @return zero-based position
      */
     public int getZeroBasedPosition(int offset) {
         if (isZeroBasedOffset()) {
@@ -90,8 +90,12 @@ public class PaginationConfig {
 
     /**
      * Get the one-based position for the given offset
-     * @param offset
-     * @return
+     * e.g. offset 5 (6th item)
+     * one-based position = 5
+     * zero-based position = 6
+     * 
+     * @param offset zero-based offset
+     * @return one-based position
      */
     public int getOneBasedPosition(int offset) {
         if (isZeroBasedOffset()) {

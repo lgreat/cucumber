@@ -89,7 +89,7 @@ public class Pagination {
      * @param resultNumber
      * @param zeroBasedOffset whether or not you're using zero or one-based offsets
      * @param zeroBasedPages whether or not you're using zero or one-based page numbers
-     * @return
+     * @return page number, which depends on zeroBasedPages argument
      */
     public static int getPageNumber(int pageSize, int resultNumber, boolean zeroBasedOffset, boolean zeroBasedPages) {
         int firstOffset = zeroBasedOffset? 0 : 1;
@@ -100,7 +100,9 @@ public class Pagination {
     }
 
     /**
-     * Calculates the page number that the given result exists on
+     * Calculates the page number that the given result exists on. Integer used as starting page depends on provided
+     * PaginationConfig
+     * 
      * @param pageSize
      * @param resultNumber
      * @param config
