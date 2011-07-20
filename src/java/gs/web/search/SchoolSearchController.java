@@ -862,15 +862,14 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_CURRENT_PAGE, currentPage);
             model.put(MODEL_TOTAL_PAGES, numberOfPages);
             model.put(MODEL_USE_PAGING, Boolean.valueOf(true));
+            Page p = new Page(start, pageSize, totalResults);
+            model.put(MODEL_PAGE, p);
         } else {
             model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
         }
 
         model.put(MODEL_START, start < totalResults? start : 0);
         model.put(MODEL_PAGE_SIZE, pageSize);
-
-        Page p = new Page(start, pageSize, totalResults);
-        model.put(MODEL_PAGE, p);
     }
 
     //-------------------------------------------------------------------------
