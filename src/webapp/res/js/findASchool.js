@@ -71,6 +71,16 @@ function GS_isTermState(term) {
     return false;
 }
 
+function GS_formatNormalizedAddress(address) {
+    var newAddress = address.replace(", USA", "");
+    var zipCodePattern = /(\d\d\d\d\d)-\d\d\d\d/;
+    var matches = zipCodePattern.exec(newAddress);
+    if (matches && matches.length > 1) {
+        newAddress = newAddress.replace(zipCodePattern, matches[1]);
+    }
+    return newAddress;
+}
+
 var GS_geocodeResults;
 // also in customizeSchoolSearchWidget.js
 // requires http://maps.google.com/maps/api/js?sensor=false
@@ -86,7 +96,7 @@ function gsGeocode(searchInput, callbackFunction) {
                 var geocodeResult = new Array();
                 geocodeResult['lat'] = results[x].geometry.location.lat();
                 geocodeResult['lon'] = results[x].geometry.location.lng();
-                geocodeResult['normalizedAddress'] = results[x].formatted_address.replace(", USA","");
+                geocodeResult['normalizedAddress'] = GS_formatNormalizedAddress(results[x].formatted_address);
                 geocodeResult['type'] = results[x].types.join();
                 if (results[x].partial_match) {
                     geocodeResult['partial_match'] = true;
@@ -193,6 +203,19 @@ var attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
 
     searchStateSelect.blur(function() {
         searchBox.flushCache();
+    });
+};
+
+var attachCityAutocomplete = function(queryBoxId) {
+    var searchBox = $('#' + queryBoxId);
+    var url = "/search/cityAutocomplete.page";
+    searchBox.autocomplete(url, {
+        minChars: 3,
+        selectFirst: false,
+        cacheLength: 150,
+        matchSubset: true,
+        max: 6,
+        autoFill: false
     });
 };
 
