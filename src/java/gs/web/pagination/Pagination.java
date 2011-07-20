@@ -81,6 +81,9 @@ public class Pagination {
         if (pageSize == 0) {
             throw new IllegalArgumentException("pageSize must be greater than zero");
         }
+        if (numberOfResults == 0) {
+            return 0;
+        }
         
         int numberOfPages = (int) Math.ceil(numberOfResults / ((float)pageSize));
         return numberOfPages;
