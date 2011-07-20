@@ -2,6 +2,7 @@ package gs.web.pagination;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
 
 public class PaginationTest {
@@ -16,14 +17,14 @@ public class PaginationTest {
         assertEquals(1, Pagination.getNumberOfPages(1, 1));
 
         assertEquals(0, Pagination.getNumberOfPages(10, 0));
-        assertEquals(0, Pagination.getNumberOfPages(0, 1));
-        /*
+
+
         try {
             Pagination.getNumberOfPages(0, 1);
             fail();
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             //ok
-        }*/
+        }
     }
 
     @Test
