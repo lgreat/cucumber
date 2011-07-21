@@ -29,12 +29,17 @@ public class SchoolAutocompleteController {
     @RequestMapping(method= RequestMethod.GET)
     public void handleRequestInternal(@RequestParam(value = "q", required = false) String searchString,
                                       @RequestParam(value = "state", required = false) String state,
+                                      @RequestParam(value = "schoolDistrict", required = false) Boolean schoolDistrict,
                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         try {
             List<String> suggestions = new ArrayList<String>();
             if (!StringUtils.isBlank(state) && !StringUtils.isBlank(searchString)) {
-                suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 150);
+                if (schoolDistrict != null && schoolDistrict) {
+                    suggestions = _solrSchoolSearchService.suggestSchoolDistrict(searchString, StringUtils.lowerCase(state), 0, 150);
+                } else {
+                    suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 150);
+                }
             }
 
             response.setContentType("application/json");

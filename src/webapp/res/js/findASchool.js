@@ -191,7 +191,8 @@ var attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
         extraParams: {
             state: function() {
                 return searchStateSelect.val();
-            }
+            },
+            schoolDistrict: true
         },
         minChars: 3,
         selectFirst: false,
