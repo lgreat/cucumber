@@ -31,13 +31,12 @@ public class CityAutocompleteController {
 
     @RequestMapping(method= RequestMethod.GET)
     public void handleRequestInternal(@RequestParam(value = "q", required = false) String searchString,
-//                                      @RequestParam(value = "state", required = false) String state,
                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         try {
             List<String> suggestions = new ArrayList<String>();
             if (StringUtils.isNotBlank(searchString)) {
-                suggestions = _solrCitySearchService.suggest(searchString, 0, 150);
+                suggestions = _solrCitySearchService.suggest(StringUtils.trim(searchString), 0, 150);
             }
 
             response.setContentType("application/json");

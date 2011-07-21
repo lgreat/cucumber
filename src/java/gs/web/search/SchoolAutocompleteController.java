@@ -36,9 +36,9 @@ public class SchoolAutocompleteController {
             List<String> suggestions = new ArrayList<String>();
             if (!StringUtils.isBlank(state) && !StringUtils.isBlank(searchString)) {
                 if (schoolDistrict != null && schoolDistrict) {
-                    suggestions = _solrSchoolSearchService.suggestSchoolDistrict(searchString, StringUtils.lowerCase(state), 0, 150);
+                    suggestions = _solrSchoolSearchService.suggestSchoolDistrict(StringUtils.trim(searchString), StringUtils.lowerCase(state), 0, 150);
                 } else {
-                    suggestions = _solrSchoolSearchService.suggest(searchString, StringUtils.lowerCase(state), 0, 150);
+                    suggestions = _solrSchoolSearchService.suggest(StringUtils.trim(searchString), StringUtils.lowerCase(state), 0, 150);
                 }
             }
 
