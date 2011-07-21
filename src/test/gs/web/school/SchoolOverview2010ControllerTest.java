@@ -2,15 +2,23 @@ package gs.web.school;
 
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpCity;
+import gs.data.school.ISchoolMediaDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.SchoolMedia;
 import gs.data.state.State;
-import gs.data.survey.*;
+import gs.data.survey.Answer;
+import gs.data.survey.ISurveyDao;
+import gs.data.survey.Question;
+import gs.data.survey.Survey;
 import gs.web.BaseControllerTestCase;
 
-import static org.easymock.EasyMock.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+import static org.easymock.EasyMock.*;
 
 public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
 
@@ -19,13 +27,17 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
     private ISurveyDao _surveyDao;
     private IGeoDao _geoDao;
 
+    private ISchoolMediaDao _schoolMediaDao;
+
     public void setUp() throws Exception {
         super.setUp();
         _controller = (SchoolOverview2010Controller) getApplicationContext().getBean(SchoolOverview2010Controller.BEAN_ID);
         _surveyDao = createStrictMock(ISurveyDao.class);
         _geoDao = createStrictMock(IGeoDao.class);
+        _schoolMediaDao = createStrictMock(ISchoolMediaDao.class);
         _controller.setSurveyDao(_surveyDao);
         _controller.setGeoDao(_geoDao);
+        _controller.setSchoolMediaDao(_schoolMediaDao);
     }
 
     public void testShouldIndex() {
@@ -121,5 +133,18 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
         assertEquals(value, "o_n_e");
 
         verify(_surveyDao);
+    }
+
+    public void testGetSchoolPhotos() throws Exception {
+        School school = new School();
+        List<SchoolMedia> schoolMedias = new ArrayList<SchoolMedia>();
+
+        expect(_schoolMediaDao.getActiveBySchool(eq(school), eq(SchoolOverview2010Controller.MAX_SCHOOL_PHOTOS_IN_GALLERY))).andReturn(schoolMedias);
+        replay(_schoolMediaDao);
+
+        List<SchoolMedia> result = _controller.getSchoolPhotos(school);
+        assertEquals(schoolMedias, result);
+
+        verify(_schoolMediaDao);
     }
 }

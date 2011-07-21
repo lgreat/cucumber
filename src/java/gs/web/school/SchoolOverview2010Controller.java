@@ -58,6 +58,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
     public static String SCHOOL_HIGHLIGHTS_ATTRIBUTE = "schoolHighlights";
+    public static final int MAX_SCHOOL_PHOTOS_IN_GALLERY = 4;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -190,7 +191,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     
     protected List<SchoolMedia> getSchoolPhotos(School school) {
         ISchoolMediaDao schoolMediaDao = getSchoolMediaDao();
-        List<SchoolMedia> schoolPhotos = schoolMediaDao.getActiveBySchool(school,4);
+        List<SchoolMedia> schoolPhotos = schoolMediaDao.getActiveBySchool(school,MAX_SCHOOL_PHOTOS_IN_GALLERY);
         return schoolPhotos;
     }
 
