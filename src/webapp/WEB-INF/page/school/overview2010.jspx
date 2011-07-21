@@ -230,10 +230,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </c:if>
 <c:choose>
     <c:when test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 1}">
-        <div class="mtm mbm">
+        <div class="mvm">
         <div class="line">
             <div class="unit size3of5">
-                <div class="text2">
+                <div class="text2 mrm">
                     <content:ratingsSummary school="${school}"/>
                 </div>
             </div>
@@ -252,7 +252,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         <div class="mtm mbm">
         <div class="line">
             <div class="unit size3of5">
-                <div class="text2">
+                <div class="text2 mrm">
                     <content:ratingsSummary school="${school}"/>
                 </div>
             </div>

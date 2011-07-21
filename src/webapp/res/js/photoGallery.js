@@ -198,16 +198,16 @@ GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
         this.loadFullSizeImages();
         document.getElementById("fade").style.display="block";
         var browserWidth=$(window).width();
-        var leftRightMargin=browserWidth-978;
-        var pageEdge=leftRightMargin/2;
-        var leftEdge=pageEdge+174;
+        var leftRightMargin=browserWidth-978; //Page width = 978px
+        var pageEdge=leftRightMargin/2; //
+        var leftEdge=pageEdge+224;
         document.getElementById("photo-gallery").style.left=leftEdge+"px";
         this.show();
         $(window).resize(function() {
             var browserWidth=$(window).width();
             var leftRightMargin=browserWidth-978;
             var pageEdge=leftRightMargin/2;
-            var leftEdge=pageEdge+174;
+            var leftEdge=pageEdge+224;
             document.getElementById("photo-gallery").style.left=leftEdge+"px";
         });
         return false;
