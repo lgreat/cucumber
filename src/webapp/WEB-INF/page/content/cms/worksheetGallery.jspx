@@ -78,12 +78,12 @@
 
             <div class="smallText1 mtm pts mlm">
                 <link:home>Home</link:home> &amp;gt;
-                <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent> &amp;gt;
+                <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent>
             </div>
 
-            <h1 class="mlm pls">Free Worksheets &amp; Printables</h1>
+            <h1 class="mlm">Free Worksheets &amp; Printables</h1>
 
-            <p class="mlm prl">Support learning at home with these helpful printable worksheets. Browse by grade level or subject to find the perfect worksheet challenge for your child.</p>
+            <p class="mlm prl text1">Support learning at home with these helpful printable worksheets. Browse by grade level or subject to find the perfect worksheet challenge for your child.</p>
 
             <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <cms:contentProviderLogoAd topicCenter="${topicCenter}"/>
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                     <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
-
+                    <div class="spacer_5"><!-- do not collapse --></div>
                     <div id="js_worksheetGalleryData" class="worksheetGallery">
                         <cms:worksheetGalleryTable/>
                     </div>

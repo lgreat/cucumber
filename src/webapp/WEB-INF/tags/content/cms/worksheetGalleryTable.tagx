@@ -17,18 +17,18 @@
             <c:set var="firstRow" value="${true}"/>
             <c:forEach var="result" items="${worksheetResults}" varStatus="status">
                 <c:if test="${firstRow eq false}">
-                    <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+                    <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
                 </c:if>
                 <c:set var="firstRow" value="${false}"/>
-                <div class="spacer_15"><!-- do not collapse --></div>
+                <div class="spacer_10"><!-- do not collapse --></div>
 
-                <div class="mediaExt1-1">
+                <div class="mediaExt1-2">
                     <div class="img">
                         <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
-                        <gsml:img src="${result.smallPreviewImageUrl}" alt="loading" height="150" width="100"/>
+                        <gsml:img src="${result.smallPreviewImageUrl}" alt="loading" height="128" width="97"/>
                         </link:cmsContent>
                     </div>
-                    <div class="bk pls">
+                    <div class="bk">
                         <p class="text2bold">
                             <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
                             ${result.title}
@@ -37,7 +37,7 @@
                         <p class="text1">
                             ${gsweb:generateTeaserText(result.deck,150,-1)}
                         </p>
-                        <p class="text3 pts">
+                        <p class="text3-777 ptl">
                             <c:if test="${not empty result.grades}">
                                 <cms:printCmsFeatureGrades gradeString="${result.grades}" includeLabel="${true}"/> |
                             </c:if>
@@ -54,11 +54,12 @@
                                     <div class="inner">
                                         <span class="arrow-outline-left"><!-- do not collapse --></span>
                                         <span class="arrow-left"><!-- do not collapse --></span>
-                                        <div class="hd"><p><!-- do not collapse --></p>
+                                        <div class="hd">
+                                            <p class="text3"><!-- do not collapse --></p>
                                         </div>
                                         <div class="bd">
                                             <p>
-                                            <gsml:img src="${result.previewImageUrl}" alt="loading" width="208"/>
+                                            <gsml:img src="${result.previewImageUrl}" alt="loading" width="250" height="330"/>
                                             </p>
                                         </div>
                                     </div>
@@ -69,8 +70,8 @@
                 </div>
             </c:forEach>
 
-            <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
-            <div class="spacer_20"><!-- do not collapse --></div>
+            <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+            <div class="spacer_15"><!-- do not collapse --></div>
 
             <c:if test="${page.pager.totalPages gt 0}">
                 <div class="pagination" id="pagination">
