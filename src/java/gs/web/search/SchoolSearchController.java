@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
+import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
@@ -37,6 +38,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
+import org.apache.xpath.operations.Mod;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
@@ -140,6 +142,14 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         if (e.hasErrors()) {
             handleErrors(e, schoolSearchCommand);
+        }
+
+        if (schoolSearchCommand.isNearbySearch()) {
+            City city = getExactCityMatch(request.getParameter("searchQuery"));
+            if (city != null) {
+                UrlBuilder toCityHome = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
+                return new ModelAndView(new RedirectView(toCityHome.asFullUrl(request)));
+            }
         }
 
         Map<String,Object> model = new HashMap<String,Object>();
@@ -1146,6 +1156,47 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         SchoolFilters filter = SchoolFilters.GradeLevelFilter.valueOf(StringUtils.upperCase(level.getLongName()));
         return filter;
+    }
+
+    protected City getExactCityMatch(String searchQuery) {
+        if (StringUtils.isBlank(searchQuery)) {
+            return null;
+        }
+
+        City city = null;
+        try {
+            String trimmedQuery = StringUtils.trim(searchQuery);
+
+            // let's try pulling a State off the end of the string
+            // if that works, then we'll treat the first part of the string as a city and look for a match
+            String potentialState = StringUtils.substringAfterLast(trimmedQuery, " ");
+            try {
+                State state = State.fromString(potentialState);
+                if (state != null) {
+                    String cityStr = StringUtils.substringBeforeLast(trimmedQuery, " ");
+                    cityStr = StringUtils.trim(cityStr);
+                    // remove trailing comma, if any
+                    if (StringUtils.endsWith(cityStr, ",")) {
+                        cityStr = StringUtils.chop(cityStr);
+                        cityStr = StringUtils.trim(cityStr);
+                    }
+                    // - Exact match for Cityname, State
+                    // - Exact match for Cityname State
+                    city = _geoDao.findCity(state, cityStr);
+                }
+            } catch (IllegalArgumentException iae) {
+                // Triggers from State.fromString
+                // Since that didn't work, let's just check if the entire search string is a unique
+                // city name
+                // - Exact match for a unique Cityname (YES San Francisco, NO Lincoln)
+                city = _geoDao.findUniqueCity(trimmedQuery);
+            }
+        } catch (Exception e) {
+            // don't want errors here affecting search
+            // let's just give up on finding the exact city and proceed with regular search.
+        }
+
+        return city;
     }
 
     //-------------------------------------------------------------------------
