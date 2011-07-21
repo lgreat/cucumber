@@ -147,8 +147,13 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (schoolSearchCommand.isNearbySearch()) {
             City city = getExactCityMatch(request.getParameter("searchQuery"));
             if (city != null) {
-                UrlBuilder toCityHome = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
-                return new ModelAndView(new RedirectView(toCityHome.asFullUrl(request)));
+                Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+                schoolTypes.add(SchoolType.PRIVATE);
+                schoolTypes.add(SchoolType.PUBLIC);
+                schoolTypes.add(SchoolType.CHARTER);
+                UrlBuilder toCityBrowse = new UrlBuilder
+                        (UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), schoolTypes, null);
+                return new ModelAndView(new RedirectView(toCityBrowse.asFullUrl(request)));
             }
         }
 

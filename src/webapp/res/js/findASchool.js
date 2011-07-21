@@ -51,8 +51,8 @@ function submitSearch() {
 function GS_isTermState(term) {
     var stateTermList = new Array
         ("AK","Alaska","AL","Alabama","AR","Arkansas","AZ","Arizona",
-        "CA","California","CO","Colorado","CT","Connecticut","DC","Washington, D.C.",
-        "Washington, DC", "Washington D.C.", "Washington DC",
+        "CA","California","CO","Colorado","CT","Connecticut","DC",
+//        "Washington, D.C.", "Washington, DC", "Washington D.C.", "Washington DC",
         "DE","Delaware","FL","Florida","GA","Georgia","HI","Hawaii","IA","Iowa",
         "ID","Idaho","IL","Illinois","IN","Indiana","KS","Kansas","KY","Kentucky",
         "LA","Louisiana","MA","Massachusetts","MD","Maryland","ME","Maine","MI","Michigan",
@@ -107,22 +107,13 @@ function gsGeocode(searchInput, callbackFunction) {
                     if (results[x].address_components[i].types.contains('administrative_area_level_1')) {
                         geocodeResult['state'] = results[x].address_components[i].short_name;
                     }
-                    if (!('city' in geocodeResult)) {
-                        if (results[x].address_components[i].types.contains('sublocality')) {
-                            geocodeResult['city'] = results[x].address_components[i].short_name;
-                        } else if (results[x].address_components[i].types.contains('locality')) {
-                            geocodeResult['city'] = results[x].address_components[i].short_name;
-                        } else if (results[x].address_components[i].types.contains('administrative_area_level_3')) {
-                            geocodeResult['city'] = results[x].address_components[i].short_name;
-                        }
-                    }
                     if (results[x].address_components[i].types.contains('country')) {
                         geocodeResult['country'] = results[x].address_components[i].short_name;
                     }
                 }
                 // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
                 if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
-                      'city' in geocodeResult && 'state' in geocodeResult &&
+                      'state' in geocodeResult &&
                       'normalizedAddress' in geocodeResult &&
                       'country' in geocodeResult) ||
                     geocodeResult['country'] != 'US') {
