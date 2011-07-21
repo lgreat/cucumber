@@ -115,8 +115,8 @@
             <div class="spacer_15"><!-- don't collapse --></div>
 
             <p class="smallText2">
-                <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
-                    <a href="${standard.url}" target="_blank">${fn:escapeXml(standard.abbreviationsAsString)}</a><c:if
+                <c:forEach var="standard" items="${feature.commonCoreStandardsMap}" varStatus="loopStatus">
+                    <a href="${standard.value.url}" target="_blank">${fn:escapeXml(standard.key)}</a><c:if
                         test="${!loopStatus.last}">, </c:if>
                 </c:forEach>
             </p>
