@@ -353,7 +353,7 @@
 
 <!-- post a reply button -->
 <c:set var="postReplyButton">
-    <a href="javascript:void(0);" id="upperReplyTrigger" class="button-1" onclick="this.blur();">Post a reply</a>
+    <a href="javascript:void(0);" id="upperReplyTrigger" class="button-1 fltlft" onclick="this.blur();">Post a reply</a>
 </c:set>
 <!-- end post a reply button -->
 
@@ -366,7 +366,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div class="shareThis smallText1 clearfix">
+            <div class="shareThis smallText1 fltrt">
                 <span class="fltrt"><cms:communityDistribution title="${discussion.title}" url="${requestScope.uri}"/></span>
             </div>
         </c:otherwise>
@@ -534,7 +534,7 @@
     </div>
     <!-- end db_discussTopic -->
 
-    <div class="db_replyOrShare sdrb">
+    <div class="db_replyOrShare sdrb clearfix">
         ${postReplyButton}
         ${shareThis}
     </div>
