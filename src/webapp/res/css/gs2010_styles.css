@@ -5047,6 +5047,17 @@ body.cobranded #pageGS {
     padding: 0 17px;
 }
 
+/* FireFox4 Specific */
+
+.win.ff5 #primary .menuItem .noDrop,
+.win.ff5 #primary .menuItem .drop {
+    padding: 0 19px;
+}
+
+.win.ff5 #primary .menuItem.lastNavUnit .menuItemAnchorText{
+    padding: 0 17px;
+}
+
 /* Chrome Default */
 .mac.chrome #primary .menuItem .noDrop,
 .mac.chrome #primary .menuItem .drop {
