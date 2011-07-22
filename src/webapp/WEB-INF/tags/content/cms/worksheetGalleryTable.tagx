@@ -45,18 +45,15 @@
                             ${result.subjects[0]}
                         </p>
                         <div class="js-worksheetBubbleInfo mts">
-                            <p class="js-trigger">
-                                <gsml:img src="pixel.gif" alt="zoom" height="10" width="10"/>
-                                <span class="smallText1-06b">Zoom</span>
+                            <p class="js-trigger smallText1-06b">
+                                <span class="sprite i-zoom-glass vert-align-mid"><!--Do not collapse --></span>
+                                <span class="pls">Zoom</span>
                             </p>
                             <div class="js-popup">
                                 <div class="mod worksheet-popup-contents">
                                     <div class="inner">
                                         <span class="arrow-outline-left"><!-- do not collapse --></span>
                                         <span class="arrow-left"><!-- do not collapse --></span>
-                                        <div class="hd">
-                                            <p class="text3"><!-- do not collapse --></p>
-                                        </div>
                                         <div class="bd">
                                             <p>
                                             <gsml:img src="${result.previewImageUrl}" alt="loading" width="250" height="330"/>
@@ -108,7 +105,7 @@
     <script type="text/javascript">
         jQuery(function () {
 //                jQuery('#js-bubbleInfo').popup({appear:'left',leftPosition:-200,topPosition:-95});
-            jQuery('.js-worksheetBubbleInfo').popup({appear:'right',leftPosition:80,topPosition:-45});
+            jQuery('.js-worksheetBubbleInfo').popup({appear:'right',leftPosition:40,topPosition:-45});
         });
     </script>
 </jsp:root>
