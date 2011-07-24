@@ -167,11 +167,6 @@ public class CmsTopicCenterController2010 extends AbstractController {
             loadTopRatedSchools(model, context, levelCode);
         }
 
-        if (topicCenter.isGradeLevelTopicCenter()) {
-            model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
-        }
-
-
         //start adding content for middle area of page
         addPageSpecificContentToModel(request, model, topicCenter);
         

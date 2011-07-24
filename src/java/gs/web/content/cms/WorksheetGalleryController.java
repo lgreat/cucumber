@@ -171,10 +171,6 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
             loadTopRatedSchools(model, context, levelCode);
         }
 
-        if (topicCenter.isGradeLevelTopicCenter()) {
-            model.put("showSchoolChooserPackPromo", SchoolOverviewController.showSchoolChooserPackPromo(request, response));
-        }
-
         //start adding content for middle area of page
         addPageSpecificContentToModel(request, topicCenter, model);
 
