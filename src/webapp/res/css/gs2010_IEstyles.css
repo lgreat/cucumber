@@ -75,9 +75,7 @@ body.ie #mainWrap {
 *+html #mainWrap {
     min-height: 100%;
 }
-body.ie #pickGrade_SCPP input {
-    margin: 0 5px 3px 0;
-}
+
 body.ie7 #header, *+html #header {
     z-index: 3;
 }
@@ -192,29 +190,6 @@ body.ie7 #pickGrade, * + html #pickGrade {
     -webkit-border-radius: 3px;
     overflow: visible;
     z-index: 100;
-}
-*+html body.nocol #scpp_picker #pickGrade_SCPP{
-    height: 45px;
-}
-*+html body.nocol #pickGrade_SCPP label {
-    width: 108px;
-    margin: 3px 0 5px 5px;
-    height: 18px;
-
-}
-
-*html body.nocol #pickGrade_SCPP label {
-    width: 108px;
-    margin: 3px 0 5px 5px;
-    height: 18px;
-
-}
-*html body.nocol #scpp_picker #pickGrade_SCPP{
-    height: 54px;
-}
-body.ie7 #pickGrade label, * + html #pickGrade label {
-    width: auto;
-    font-size: 12px;
 }
 
 *+html #footerAd {

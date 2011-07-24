@@ -230,15 +230,6 @@
         </c:choose>
     </div>
 
-    <c:if test="${showSchoolChooserPackPromo}">
-        <promo:schoolChoicePackPromo
-                showBorder="${false}"
-                showSchoolChoiceLink="${false}"
-                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                caller="sidebar"
-                />
-    </c:if>
-
     <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
 
     <div class="mod">

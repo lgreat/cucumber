@@ -154,15 +154,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             populateModelWithSchoolHighlights(school, model);
 
-            // if confirm=true is passed in as a parameter to theoverview page, always show the
-            // school choice pack promo thank you
-            String confirmStr = request.getParameter("confirm");
-            if ("true".equals(confirmStr)) {
-                model.put("showSchoolChooserPackPromo", true);
-            } else {
-                model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request, response));
-            }
-
             // TODO: is this necessary?
             String tempMsg = sessionContext.getTempMsg();
             if (StringUtils.isNotBlank(tempMsg) && tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {
@@ -294,38 +285,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         }
 
         return item;
-    }
-
-    // Checks to see if the user has any "School Chooser Pack" subscription
-    // products.  Returns false if they do.
-
-    public static boolean showSchoolChooserPackPromo(HttpServletRequest request, HttpServletResponse response) {
-        boolean show = true;
-        SessionContext sc = SessionContextUtil.getSessionContext(request);
-        User u = sc.getUser();
-        if (u != null) {
-            Set<Subscription> subs = u.getSubscriptions();
-            if (subs != null && subs.size() > 0) {
-                for (Subscription sub : subs) {
-                    String prod = sub.getProduct().getName();
-                    if (prod != null && prod.startsWith("chooserpack")) {
-                        show = false;
-                        break;
-                    }
-                }
-            }
-        }
-
-        SitePrefCookie cookie = new SitePrefCookie(request, response);
-
-        String schoolChoicePackAlreadySubmitted = cookie.getProperty("schoolChoicePackAlreadySubmitted");
-        String showSchoolChoicePackConfirm = cookie.getProperty("showSchoolChoicePackConfirm");
-
-        if ("true".equals(schoolChoicePackAlreadySubmitted) && !"true".equals(showSchoolChoicePackConfirm)) {
-            show = false;
-        }
-
-        return show;
     }
 
     protected boolean handleNumber1ExpertLeadGen(HttpServletRequest request, HttpServletResponse response, String schoolIdStr, SessionContext sessionContext) throws IOException {

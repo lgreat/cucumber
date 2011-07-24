@@ -440,20 +440,6 @@
 
             <c:if test="${(tab eq 'parentReviews')}">
                 <div id="schoolReviewsContentsWrapper">
-                    <!--<c:if test="${cmd.totalReviews eq 0}">-->
-                        <div class="spacer_20"><!-- do not collapse --></div>
-                        <promo:schoolChoicePackPromo
-                                schoolName="${school.name}"
-                                showBorder="${false}"
-                                showSchoolChoiceLink="${true}"
-                                schoolObjectForRedirect="${school}"
-                                showConfirmation="${not empty param.confirm and param.confirm eq 'true'}"
-                                format="wide"
-                                school="${school}"
-                                caller="${caller}"
-                                />
-                    <!--</c:if>-->
-
                     <!-- GS-10629 Community module / Raise Your Hand -->
                     <c:choose>
                         <c:when test="${not empty localBoardId and not empty localCityName}">

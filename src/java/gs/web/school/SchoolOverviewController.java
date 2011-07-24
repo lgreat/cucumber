@@ -133,15 +133,6 @@ public class SchoolOverviewController extends AbstractSchoolController implement
             model.put("hasProgramData", hasProgramData(school));
             model.put("hasSurveyData", _surveyDao.hasSurveyData(school));
 
-            // if confirm=true is passed in as a parameter to the overview page, always show the
-            // school choice pack promo thank you
-            String confirmStr = request.getParameter("confirm");
-            if ("true".equals(confirmStr)) {
-                model.put("showSchoolChooserPackPromo", true);
-            } else {
-                model.put("showSchoolChooserPackPromo", showSchoolChooserPackPromo(request, response));
-            }
-
             if (school.getLevelCode().equals(LevelCode.PRESCHOOL)) {
                 model.put("hasTeacherData", _groupDataTypeDao.hasTeacherData(school));
                 model.put("hasStudentData", _groupDataTypeDao.hasStudentData(school));
@@ -184,38 +175,6 @@ public class SchoolOverviewController extends AbstractSchoolController implement
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
     }
-
-    // Checks to see if the user has any "School Chooser Pack" subscription
-    // products.  Resturns false if they do.
-    public static boolean showSchoolChooserPackPromo(HttpServletRequest request, HttpServletResponse response) {
-        boolean show = true;
-        SessionContext sc = SessionContextUtil.getSessionContext(request);
-        User u = sc.getUser();
-        if (u != null) {
-            Set<Subscription> subs = u.getSubscriptions();
-            if (subs != null && subs.size() > 0) {
-                for (Subscription sub : subs) {
-                    String prod = sub.getProduct().getName();
-                    if (prod != null && prod.startsWith("chooserpack")) {
-                        show = false;
-                        break;
-                    }
-                }
-            }
-        }
-
-        SitePrefCookie cookie = new SitePrefCookie(request, response);
-
-        String schoolChoicePackAlreadySubmitted = cookie.getProperty("schoolChoicePackAlreadySubmitted");
-        String showSchoolChoicePackConfirm = cookie.getProperty("showSchoolChoicePackConfirm");
-
-        if ("true".equals(schoolChoicePackAlreadySubmitted) && !"true".equals(showSchoolChoicePackConfirm)) {
-            show = false;
-        }
-
-        return show;
-    }
-
 
     boolean hasProgramData(School s) {
 
