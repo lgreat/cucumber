@@ -99,7 +99,7 @@
                         <div class="spacer_10"><!-- do not collapse --></div>
 
                         <div class="line mlm">
-                            <div class="unit size22of100 text3">Show worksheets for:&amp;nbsp;</div>
+                            <div class="unit size22of100 text3 miniMargin">Show worksheets for:&amp;nbsp;</div>
                             <div class="unit size22of100">
                                 <select id="js_gradesDropdown" class="js_worksheetFilterDropDown type">
                                     <c:set var="requestedGradeName" value="All Grades"/>

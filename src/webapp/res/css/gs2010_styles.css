@@ -3630,6 +3630,7 @@ span.i-right-photoGallery-default:hover {
     background-image: linear-gradient(top, #FDFDFD, #F0F0F0);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FDFDFD', EndColorStr = '#F0F0F0'); /* IE6–IE9 */
 }
+.miniMargin{margin-top:3px;}
 .worksheet-popup-contents{margin-left: 15px;}
 .worksheet-popup-contents .inner {width:280px;border:1px solid #ccc;background-color: #f4f4f4;color: #f4f4f4;}
 .worksheet-popup-contents .bd p {width:auto;margin: 15px;}
