@@ -14,7 +14,10 @@ var GS_waitForGeocode = true;
 
 function submitSearch() {
     if (!GS_waitForGeocode) {
-        return true;
+        var queryString = $('#findByLocationForm').serialize();
+        queryString = buildQueryString(queryString);
+        window.location.href = '/search/search.page' + queryString;
+        return false;
     }
 
     $('#multipleResults').hide();
@@ -52,6 +55,7 @@ function GS_isTermState(term) {
     var stateTermList = new Array
         ("AK","Alaska","AL","Alabama","AR","Arkansas","AZ","Arizona",
         "CA","California","CO","Colorado","CT","Connecticut","DC",
+        // Do not include state names that are identical to city names
 //        "Washington, D.C.", "Washington, DC", "Washington D.C.", "Washington DC",
         "DE","Delaware","FL","Florida","GA","Georgia","HI","Hawaii","IA","Iowa",
         "ID","Idaho","IL","Illinois","IN","Indiana","KS","Kansas","KY","Kentucky",
@@ -127,51 +131,15 @@ function gsGeocode(searchInput, callbackFunction) {
             if (GS_geocodeResults.length == 0) {
                 callbackFunction(null);
             } else if (GS_geocodeResults.length == 1) {
-//                if (GS_geocodeResults[0].partial_match) {
-//                    alert("Found " + GS_geocodeResults[0].normalizedAddress + " which is a " + GS_geocodeResults[0].type + " (partial match).");
-//                } else {
-//                    alert("Found " + GS_geocodeResults[0].normalizedAddress + " which is a " + GS_geocodeResults[0].type + " (exact match).");
-//                }
                 GS_geocodeResults[0]['totalResults'] = 1;
                 callbackFunction(GS_geocodeResults[0]);
             } else {
                 // ignore multiple results for now
-                //handleMultipleResults(GS_geocodeResults);
                 GS_geocodeResults[0]['totalResults'] = GS_geocodeResults.length;
                 callbackFunction(GS_geocodeResults[0]);
             }
       });
     }
-}
-function handleMultipleResults(geocodeResults) {
-    var theDiv = $('#multipleResults');
-    var myList = $('<ul></ul>');
-    var myListItemHtml;
-    var myLinkHtml;
-    for (var x=0; x < geocodeResults.length; x++) {
-        myLinkHtml = '<a href="#" onclick="loadAddress(' + x + '); return false;">' +
-                geocodeResults[x].normalizedAddress + '</a>';
-        myListItemHtml = "<li>Did you mean " + myLinkHtml + ' (' + geocodeResults[x].type + ')';
-//        myListItemHtml += ((geocodeResults[x].partial_match)?' (partial match)':' (exact match)');
-        myListItemHtml += '?</li>';
-        $(myListItemHtml).appendTo(myList);
-    }
-    theDiv.empty().append(myList);
-    theDiv.show();
-}
-
-function loadAddress(x) {
-    var byLocationForm = $('#findByLocationForm');
-    byLocationForm.find('input[name="lat"]').val(GS_geocodeResults[x]['lat']);
-    byLocationForm.find('input[name="lon"]').val(GS_geocodeResults[x]['lon']);
-    byLocationForm.find('input[name="state"]').val(GS_geocodeResults[x]['state']);
-    byLocationForm.find('input[name="locationType"]').val(GS_geocodeResults[x]['locationType']);
-//    byLocationForm.find('input[name="partialMatch"]').val(GS_geocodeResults[x]['partialMatch']);
-    byLocationForm.find('input[name="normalizedAddress"]').val(GS_geocodeResults[x]['normalizedAddress']);
-
-    GS_waitForGeocode = false;
-    byLocationForm.submit();
-    return false;
 }
 
 var attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
@@ -211,6 +179,31 @@ var attachCityAutocomplete = function(queryBoxId) {
     });
 };
 
+function buildQueryString(queryString) {
+    //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
+    queryString = GS.uri.Uri.removeFromQueryString(queryString, "gradeLevels");
+    var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
+    var overwriteGradeLevels = true;
+    checkedGradeLevels.each(function() {
+        if (jQuery(this).val() !== '') {
+            queryString = GS.uri.Uri.putIntoQueryString(queryString, "gradeLevels", jQuery(this).val(), overwriteGradeLevels);
+            overwriteGradeLevels = false;
+        }
+    });
+
+    queryString = GS.uri.Uri.removeFromQueryString(queryString, "st");
+    var checkedSchoolTypes = jQuery('#js-schoolTypes :checked');
+    var overwriteSchoolTypes = true;
+    checkedSchoolTypes.each(function() {
+        if (jQuery(this).val() !== '') {
+            queryString = GS.uri.Uri.putIntoQueryString(queryString, "st", jQuery(this).val(), overwriteSchoolTypes);
+            overwriteSchoolTypes = false;
+        }
+    });
+
+    return queryString;
+}
+
 $(function() {
     $("#byLocationTab").click(function() {
         $('#byLocationTab').addClass('selected');
@@ -224,4 +217,51 @@ $(function() {
         $('#byNameTab').addClass('selected');
         $('#byNameTabBody').show();
     });
+    attachCityAutocomplete('findByLocationBox');
+    attachSchoolAutocomplete('findByNameBox', 'findByNameStateSelect');
+    $('#findByLocationForm').submit(function() {
+        return submitSearch();
+    });
+
+    jQuery('ul.filterBar input').click(function() {
+        var cssId = jQuery(this).attr('id');
+
+        var gradeCheckboxes = jQuery('ul.filterBar .jq-grade-level');
+        var typeCheckboxes = jQuery('ul.filterBar .jq-school-type');
+
+        // may need to change checkbox checking in jQuery 1.6+
+        // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
+        if (cssId === 'grade-level-all') {
+            if (jQuery(this).is(':checked')) {
+                gradeCheckboxes.attr('checked','checked');
+            } else {
+                gradeCheckboxes.removeAttr('checked');
+            }
+        } else if (cssId === 'school-type-all') {
+            if (jQuery(this).is(':checked')) {
+                typeCheckboxes.attr('checked','checked');
+            } else {
+                typeCheckboxes.removeAttr('checked');
+            }
+        }
+        var numGradeLevels = gradeCheckboxes.size();
+        var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
+        if (numGradeLevels == numGradeLevelsChecked) {
+            jQuery('#grade-level-all').attr('checked','checked');
+        } else {
+            jQuery('#grade-level-all').removeAttr('checked');
+        }
+
+        var numSchoolTypes = typeCheckboxes.size();
+        var numSchoolTypesChecked = typeCheckboxes.filter(':checked').size();
+        if (numSchoolTypes == numSchoolTypesChecked) {
+            jQuery('#school-type-all').attr('checked','checked');
+        } else {
+            jQuery('#school-type-all').removeAttr('checked');
+        }
+
+//        GS.search.filterTracking.track(cssId);
+//        GS.search.schoolSearchResultsTable.update();
+    });
+
 });
