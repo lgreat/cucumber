@@ -148,11 +148,30 @@ public class SchoolSearchController extends AbstractCommandController implements
             City city = getExactCityMatch(request.getParameter("searchQuery"));
             if (city != null) {
                 Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
-                schoolTypes.add(SchoolType.PRIVATE);
-                schoolTypes.add(SchoolType.PUBLIC);
-                schoolTypes.add(SchoolType.CHARTER);
+                String[] schoolTypesStr = schoolSearchCommand.getSchoolTypes();
+                if (schoolTypesStr == null || schoolTypesStr.length == 0) {
+                    schoolTypes.add(SchoolType.PRIVATE);
+                    schoolTypes.add(SchoolType.PUBLIC);
+                    schoolTypes.add(SchoolType.CHARTER);
+                } else {
+                    for (String schoolTypeStr: schoolTypesStr) {
+                        schoolTypes.add(SchoolType.getSchoolType(schoolTypeStr));
+                    }
+                }
+                String[] gradeLevels = schoolSearchCommand.getGradeLevels();
+                LevelCode levelCode = null;
+                // for single level codes, add it as a path param
+                if (gradeLevels != null && gradeLevels.length == 1) {
+                    levelCode = LevelCode.createLevelCode(gradeLevels);
+                }
                 UrlBuilder toCityBrowse = new UrlBuilder
-                        (UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), schoolTypes, null);
+                        (UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), schoolTypes, levelCode);
+                // for multi level codes, add as query params
+                if (gradeLevels != null && gradeLevels.length > 1) {
+                    for (String levelCodeStr: gradeLevels) {
+                        toCityBrowse.addParameter("gradeLevels", levelCodeStr);
+                    }
+                }
                 return new ModelAndView(new RedirectView(toCityBrowse.asFullUrl(request)));
             }
         }
