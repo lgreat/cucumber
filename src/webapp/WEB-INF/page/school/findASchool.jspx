@@ -89,53 +89,49 @@
                     <button class="button-1 searchSubmit" type="submit">Search</button>
 
                     <ul class="filterBar">
-                        <li>
-                            <div id="js-schoolTypes">
-                                <div>School type</div>
-                                <div>
-                                    <input type="checkbox" checked="checked" name="st" id="school-type-all" value=""/>
-                                    <label for="school-type-all">All School Types</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-public" value="public"/>
-                                    <label for="school-type-public">Public</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-charter" value="charter"/>
-                                    <label for="school-type-charter">Public charter</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-private" value="private"/>
-                                    <label for="school-type-private">Private</label>
-                                </div>
+                        <li id="js-schoolTypes">
+                            <div>School type</div>
+                            <div>
+                                <input type="checkbox" checked="checked" name="st" id="school-type-all" value=""/>
+                                <label for="school-type-all">All School Types</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-public" value="public"/>
+                                <label for="school-type-public">Public</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-charter" value="charter"/>
+                                <label for="school-type-charter">Public charter</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-private" value="private"/>
+                                <label for="school-type-private">Private</label>
                             </div>
                         </li>
-                        <li>
-                            <div id="js-gradeLevels">
-                                <div>Grade level</div>
-                                <div>
-                                    <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-all" value=""/>
-                                    <label for="grade-level-all">All Grade Levels</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-p" value="p"/>
-                                    <label for="grade-level-p">Preschool</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-e" value="e"/>
-                                    <label for="grade-level-e">Elementary School (K-5)</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-m" value="m"/>
-                                    <label for="grade-level-m">Middle School (6-8)</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-h" value="h"/>
-                                    <label for="grade-level-h">High School (9-12)</label>
-                                </div>
+                        <li id="js-gradeLevels">
+                            <div>Grade level</div>
+                            <div>
+                                <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-all" value=""/>
+                                <label for="grade-level-all">All Grade Levels</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-p" value="p"/>
+                                <label for="grade-level-p">Preschool</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-e" value="e"/>
+                                <label for="grade-level-e">Elementary School (K-5)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-m" value="m"/>
+                                <label for="grade-level-m">Middle School (6-8)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-h" value="h"/>
+                                <label for="grade-level-h">High School (9-12)</label>
                             </div>
                         </li>
-                        <li>
+                        <li id="js-radius">
                             <div>Distance</div>
                             <div>
                                 <input type="radio" name="distance" value="1" id="radius-1"/>

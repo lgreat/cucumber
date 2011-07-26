@@ -15,10 +15,10 @@ Array.prototype.contains = function(obj) {
 
 var GS_waitForGeocode = true;
 
-function submitSearch() {
+GS.findASchool.submitByLocationSearch = function() {
     if (!GS_waitForGeocode) {
         var queryString = $('#findByLocationForm').serialize();
-        queryString = buildQueryString(queryString);
+        queryString = GS.findASchool.buildQueryString(queryString);
         window.location.href = '/search/search.page' + queryString;
         return false;
     }
@@ -29,8 +29,8 @@ function submitSearch() {
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
     byLocationForm.find('input[name="searchQuery"]').val(searchQuery);
     if (searchQuery != '' &&
-        searchQuery != 'Enter city & state or zip code' && !GS_isTermState(searchQuery)) {
-        gsGeocode(searchQuery, function(geocodeResult) {
+        searchQuery != 'Enter city & state or zip code' && !GS.findASchool.isTermState(searchQuery)) {
+        GS.findASchool.gsGeocode(searchQuery, function(geocodeResult) {
             if (geocodeResult != null) {
                 byLocationForm.find('input[name="lat"]').val(geocodeResult['lat']);
                 byLocationForm.find('input[name="lon"]').val(geocodeResult['lon']);
@@ -52,9 +52,9 @@ function submitSearch() {
     }
 
     return false;
-}
+};
 
-function GS_isTermState(term) {
+GS.findASchool.isTermState = function(term) {
     var stateTermList = new Array
         ("AK","Alaska","AL","Alabama","AR","Arkansas","AZ","Arizona",
         "CA","California","CO","Colorado","CT","Connecticut","DC",
@@ -76,9 +76,9 @@ function GS_isTermState(term) {
         }
     }
     return false;
-}
+};
 
-function GS_formatNormalizedAddress(address) {
+GS.findASchool.formatNormalizedAddress = function(address) {
     var newAddress = address.replace(", USA", "");
     var zipCodePattern = /(\d\d\d\d\d)-\d\d\d\d/;
     var matches = zipCodePattern.exec(newAddress);
@@ -86,24 +86,23 @@ function GS_formatNormalizedAddress(address) {
         newAddress = newAddress.replace(zipCodePattern, matches[1]);
     }
     return newAddress;
-}
+};
 
-var GS_geocodeResults;
 // also in customizeSchoolSearchWidget.js
 // requires http://maps.google.com/maps/api/js?sensor=false
-function gsGeocode(searchInput, callbackFunction) {
+GS.findASchool.gsGeocode = function(searchInput, callbackFunction) {
     var geocoder = new google.maps.Geocoder();
     if (geocoder && searchInput) {
         geocoder.geocode( { 'address': searchInput + ' US'}, function(results, status) {
             var numResults = 0;
-            GS_geocodeResults = new Array();
+            var GS_geocodeResults = new Array();
         if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
             numResults = results.length;
             for (var x = 0; x < numResults; x++) {
                 var geocodeResult = new Array();
                 geocodeResult['lat'] = results[x].geometry.location.lat();
                 geocodeResult['lon'] = results[x].geometry.location.lng();
-                geocodeResult['normalizedAddress'] = GS_formatNormalizedAddress(results[x].formatted_address);
+                geocodeResult['normalizedAddress'] = GS.findASchool.formatNormalizedAddress(results[x].formatted_address);
                 geocodeResult['type'] = results[x].types.join();
                 if (results[x].partial_match) {
                     geocodeResult['partial_match'] = true;
@@ -131,21 +130,21 @@ function gsGeocode(searchInput, callbackFunction) {
                 }
             }
         }
-            if (GS_geocodeResults.length == 0) {
-                callbackFunction(null);
-            } else if (GS_geocodeResults.length == 1) {
-                GS_geocodeResults[0]['totalResults'] = 1;
-                callbackFunction(GS_geocodeResults[0]);
-            } else {
-                // ignore multiple results for now
-                GS_geocodeResults[0]['totalResults'] = GS_geocodeResults.length;
-                callbackFunction(GS_geocodeResults[0]);
-            }
+        if (GS_geocodeResults.length == 0) {
+            callbackFunction(null);
+        } else if (GS_geocodeResults.length == 1) {
+            GS_geocodeResults[0]['totalResults'] = 1;
+            callbackFunction(GS_geocodeResults[0]);
+        } else {
+            // ignore multiple results for now
+            GS_geocodeResults[0]['totalResults'] = GS_geocodeResults.length;
+            callbackFunction(GS_geocodeResults[0]);
+        }
       });
     }
-}
+};
 
-var attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
+GS.findASchool.attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
     var searchBox = $('#' + queryBoxId);
     var searchStateSelect = $('#' + stateSelectId);
     var url = "/search/schoolAutocomplete.page";
@@ -169,7 +168,7 @@ var attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
     });
 };
 
-var attachCityAutocomplete = function(queryBoxId) {
+GS.findASchool.attachCityAutocomplete = function(queryBoxId) {
     var searchBox = $('#' + queryBoxId);
     var url = "/search/cityAutocomplete.page";
     searchBox.autocomplete(url, {
@@ -182,7 +181,7 @@ var attachCityAutocomplete = function(queryBoxId) {
     });
 };
 
-function buildQueryString(queryString) {
+GS.findASchool.buildQueryString = function(queryString) {
     //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
     queryString = GS.uri.Uri.removeFromQueryString(queryString, "gradeLevels");
     var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
@@ -205,7 +204,7 @@ function buildQueryString(queryString) {
     });
 
     return queryString;
-}
+};
 
 GS.findASchool.FilterTracking = function() {
     var gradeLevel = new Object();
@@ -221,9 +220,9 @@ GS.findASchool.FilterTracking = function() {
         if (lastHyphenIndex > 0) {
             var cssIdPrefix = cssId.substr(0,lastHyphenIndex);
             var filter = cssId.substr(lastHyphenIndex + 1);
-            if (cssIdPrefix == 'school-type') {
+            if (cssIdPrefix === 'school-type') {
                 customLinkName = 'FAS_filter_type_' + filter;
-            } else if (cssIdPrefix == 'grade-level') {
+            } else if (cssIdPrefix === 'grade-level') {
                 customLinkName = 'FAS_filter_grade_' + gradeLevel[filter];
             } else if (cssIdPrefix === 'radius') {
                 customLinkName = 'FAS_filter_distance_' + filter;
@@ -253,17 +252,15 @@ $(function() {
         $('#byNameTab').addClass('selected');
         $('#byNameTabBody').show();
     });
-    attachCityAutocomplete('findByLocationBox');
-    attachSchoolAutocomplete('findByNameBox', 'findByNameStateSelect');
+    GS.findASchool.attachCityAutocomplete('findByLocationBox');
+    GS.findASchool.attachSchoolAutocomplete('findByNameBox', 'findByNameStateSelect');
     $('#findByLocationForm').submit(function() {
-        return submitSearch();
+        return GS.findASchool.submitByLocationSearch();
     });
-
-    jQuery('ul.filterBar input').click(function() {
+    jQuery('#js-gradeLevels input').click(function () {
         var cssId = jQuery(this).attr('id');
 
         var gradeCheckboxes = jQuery('ul.filterBar .jq-grade-level');
-        var typeCheckboxes = jQuery('ul.filterBar .jq-school-type');
 
         // may need to change checkbox checking in jQuery 1.6+
         // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
@@ -272,12 +269,6 @@ $(function() {
                 gradeCheckboxes.attr('checked','checked');
             } else {
                 gradeCheckboxes.removeAttr('checked');
-            }
-        } else if (cssId === 'school-type-all') {
-            if (jQuery(this).is(':checked')) {
-                typeCheckboxes.attr('checked','checked');
-            } else {
-                typeCheckboxes.removeAttr('checked');
             }
         }
         var numGradeLevels = gradeCheckboxes.size();
@@ -288,6 +279,22 @@ $(function() {
             jQuery('#grade-level-all').removeAttr('checked');
         }
 
+        GS.findASchool.filterTracking.track(cssId);
+    });
+    jQuery('#js-schoolTypes input').click(function () {
+        var cssId = jQuery(this).attr('id');
+
+        var typeCheckboxes = jQuery('ul.filterBar .jq-school-type');
+
+        // may need to change checkbox checking in jQuery 1.6+
+        // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
+        if (cssId === 'school-type-all') {
+            if (jQuery(this).is(':checked')) {
+                typeCheckboxes.attr('checked','checked');
+            } else {
+                typeCheckboxes.removeAttr('checked');
+            }
+        }
         var numSchoolTypes = typeCheckboxes.size();
         var numSchoolTypesChecked = typeCheckboxes.filter(':checked').size();
         if (numSchoolTypes == numSchoolTypesChecked) {
@@ -297,6 +304,9 @@ $(function() {
         }
 
         GS.findASchool.filterTracking.track(cssId);
+    });
+    jQuery('#js-radius input').click(function() {
+        GS.findASchool.filterTracking.track(jQuery(this).attr('id'));
     });
 
 });
