@@ -45,7 +45,7 @@
                             ${result.subjects[0]}
                         </p>
                         <div class="js-worksheetBubbleInfo mts">
-                            <p class="js-trigger smallText1-06b">
+                            <p class="js-trigger smallText1-06b" style="width: 50px; ">
                                 <span class="sprite i-zoom-glass vert-align-mid"><!--Do not collapse --></span>
                                 <span class="pls">Zoom</span>
                             </p>
