@@ -11,7 +11,6 @@ Function.prototype.gs_bind = function(obj) {
  */
 GS.photoGallery.PhotoGallery = function(id,multiSizeImageArray,debug) {
     this.closeButtonDomId = "photo-gallery-close"; //close button
-    this.controlsDomId = "photo-gallery-controls"; //the area that has the thumbnails and scroll arrows
     this.backButtonId = "photo-gallery-back";
     this.nextButtonId = "photo-gallery-next";
     this.thumbnailIdPrefix = "gallery-thumbnail";
@@ -27,6 +26,7 @@ GS.photoGallery.PhotoGallery = function(id,multiSizeImageArray,debug) {
     this.fullSizeImageLoaderPosition = 0;
     this.chosenTimeout = 50; //ms
     this.debug = debug;
+    this.photoMargins = [];
 };
 
 GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
@@ -43,6 +43,7 @@ GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
     //show desired image
     id = this.fullSizeImageIdPrefix + '-' + index;
     jQuery('#' + id).show();
+
     jQuery('#' + this.thumbnailIdPrefix + '-' + index).addClass(this.thumbnailSelectedCssClass);
 
     //track change
@@ -193,9 +194,10 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
  * Make the gallery open when provided dom node is clicked
  * @param id
  */
-GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
-    jQuery('.' + cssClass).click(function() {
+GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssId) {
+    jQuery('#' + cssId).click(function() {
         this.loadFullSizeImages();
+
         document.getElementById("fade").style.display="block";
         var browserWidth=$(window).width();
         var leftRightMargin=browserWidth-978; //Page width = 978px
@@ -221,6 +223,7 @@ GS.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
     this.thumbnailImage = thumbnailImage;
     this.fullSizeImage = fullSizeImage;
 };
+
 
 /**
  * Constructor

@@ -3500,9 +3500,9 @@ span.i-right-photoGallery-default:hover {
 
 #photo-gallery-schoolname {
     float: left;
-    margin: 10px 0px 10px 10px;
+    margin: 11px 0px 10px 10px;
     font-family: Georgia;
-    font-size: 20px;
+    font-size: 19px;
     color: #333;
 }
 
@@ -3522,7 +3522,6 @@ span.i-right-photoGallery-default:hover {
     width: 530px;
     height:500px;
     display:table-cell;
-    vertical-align: middle;
 
 }
 
