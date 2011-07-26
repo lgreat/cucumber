@@ -1,3 +1,6 @@
+GS = GS || {};
+GS.findASchool = GS.findASchool || {};
+
 // also in customizeSchoolSearchWidget.js
 // http://stackoverflow.com/questions/237104/javascript-array-containsobj
 Array.prototype.contains = function(obj) {
@@ -204,7 +207,40 @@ function buildQueryString(queryString) {
     return queryString;
 }
 
+GS.findASchool.FilterTracking = function() {
+    var gradeLevel = new Object();
+    gradeLevel['p'] = 'PK';
+    gradeLevel['e'] = 'elem';
+    gradeLevel['m'] = 'middle';
+    gradeLevel['h'] = 'high';
+    gradeLevel['all'] = 'all';
+
+    this.track = function(cssId) {
+        var lastHyphenIndex = cssId.lastIndexOf('-');
+        var customLinkName;
+        if (lastHyphenIndex > 0) {
+            var cssIdPrefix = cssId.substr(0,lastHyphenIndex);
+            var filter = cssId.substr(lastHyphenIndex + 1);
+            if (cssIdPrefix == 'school-type') {
+                customLinkName = 'FAS_filter_type_' + filter;
+            } else if (cssIdPrefix == 'grade-level') {
+                customLinkName = 'FAS_filter_grade_' + gradeLevel[filter];
+            } else if (cssIdPrefix === 'radius') {
+                customLinkName = 'FAS_filter_distance_' + filter;
+            }
+
+            if (customLinkName != undefined) {
+                if (s.tl) {
+                    s.tl(true, 'o', customLinkName);
+                }
+            }
+        }
+    };
+};
+
 $(function() {
+    GS.findASchool.filterTracking = new GS.findASchool.FilterTracking();
+
     $("#byLocationTab").click(function() {
         $('#byLocationTab').addClass('selected');
         $('#byLocationTabBody').show();
@@ -260,8 +296,7 @@ $(function() {
             jQuery('#school-type-all').removeAttr('checked');
         }
 
-//        GS.search.filterTracking.track(cssId);
-//        GS.search.schoolSearchResultsTable.update();
+        GS.findASchool.filterTracking.track(cssId);
     });
 
 });
