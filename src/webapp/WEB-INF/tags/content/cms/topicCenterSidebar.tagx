@@ -68,7 +68,7 @@
         <c:out value="${ad300x250}" escapeXml="false"/>
     </c:if>
 
-    <c:if test="${topicCenter.elementarySchoolTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
+    <c:if test="${topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
         <jsp:include page="/promo/emailSignUp.module"/>
     </c:if>
 
