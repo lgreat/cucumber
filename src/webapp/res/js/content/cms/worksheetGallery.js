@@ -18,15 +18,21 @@ GS.content.cms.WorksheetGallery = function() {};
 
         var grade = $("#js_gradesDropdown").val();
         var subject = $("#js_subjectsDropdown").val();
+        var queryString = decodeURIComponent(window.location.search);
 
-        var pathName = '/worksheets'
+        queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+        if (queryString === '?') {
+            queryString = '';
+        }
+
+        var pathName = '/worksheets';
         if (grade.length > 0) {
             pathName = pathName + '/' + grade;
         }
         if (subject.length > 0) {
             pathName = pathName + '/' + subject;
         }
-        var url = window.location.protocol + "//" + window.location.host + pathName + window.location.search;
+        var url = window.location.protocol + "//" + window.location.host + pathName + queryString;
 
         window.location = url;
     };
