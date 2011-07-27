@@ -5,7 +5,6 @@ import gs.data.cms.IPublicationDao;
 import gs.data.community.*;
 import gs.data.content.cms.*;
 import gs.data.search.*;
-import gs.data.search.Searcher;
 import gs.data.search.fields.CmsFeatureFields;
 import gs.data.search.fields.DocumentType;
 import gs.data.security.Permission;
@@ -13,19 +12,16 @@ import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
-import gs.web.search.ResultsPager;
 import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.StringUtils;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -70,6 +66,7 @@ public class CmsHomepageController extends AbstractController {
     private CmsFeatureSearchService _cmsFeatureSearchService;
 
     protected static Cache _gradeByGradeCache;
+    protected static Cache _recentDiscussionsCache;
 
     static {
         // Preschool
@@ -86,8 +83,10 @@ public class CmsHomepageController extends AbstractController {
         // High
         categoryIdToTopicCenterIdMap.put(206L, 1576L);
 
-        _gradeByGradeCache = new Cache(CmsHomepageController.class.getName() + ".gradeByGrade", 10, false, false, 3 * 60 * 60, 3 * 60 * 60);
+        _gradeByGradeCache = new Cache(CmsHomepageController.class.getName() + ".gradeByGrade", 10, false, false, 3 * 60 * 60, 3 * 60 * 60); //three hours
+        _recentDiscussionsCache = new Cache(CmsHomepageController.class.getName() + ".recentDiscussions", 10, false, false, 10 * 60, 10 * 60); //ten minutes
         CacheManager.create().addCache(_gradeByGradeCache);
+        CacheManager.create().addCache(_recentDiscussionsCache);
     }
 
     /**
@@ -229,7 +228,7 @@ public class CmsHomepageController extends AbstractController {
         String idList = "198,199,200,201,202,203,204,205,206";
         List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds(idList);
         Map<Long,List<ICmsFeatureSearchResult>> gradeIdToFeatureMap = new HashMap<Long,List<ICmsFeatureSearchResult>>();
-        if (cats != null) {
+        if (cats != null && cats.size() > 0) {
             gradeIdToFeatureMap = getCmsContentForCategoryUsingSolr(getIdsFromCategories(cats));
         }
         if (cats != null && cats.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
@@ -264,6 +263,20 @@ public class CmsHomepageController extends AbstractController {
             _log.warn("Can't find all " + GRADE_BY_GRADE_NUM_CATEGORIES +
                     " grade level categories using id list " + idList);
         }
+    }
+
+    protected List<Discussion> getCachedDiscussionsForCategory(CmsCategory cat) {
+        List<Discussion> myDiscussions;
+
+        Element element = _recentDiscussionsCache.get(cat);
+
+        if (element != null) {
+            myDiscussions = (List<Discussion>) element.getObjectValue();
+        } else {
+            myDiscussions = getDiscussionsForCategory(cat);
+        }
+
+        return myDiscussions;
     }
 
     protected List<Discussion> getDiscussionsForCategory(CmsCategory cat) {
@@ -303,21 +316,6 @@ public class CmsHomepageController extends AbstractController {
             _log.warn("Can't find topic center id for category " + cat.getName() + ":" + cat.getId());
         }
         return new ArrayList<Discussion>(0);
-    }
-
-    protected List<Object> getCmsContentForCategory(CmsCategory category) {
-        TermQuery term = new TermQuery(new Term(Indexer.CMS_GRADE_ID, String.valueOf(category.getId())));
-        Filter filterOnlyCmsFeatures = new CachingWrapperFilter(new QueryFilter(new TermQuery(
-                new Term(Indexer.DOCUMENT_TYPE, Indexer.DOCUMENT_TYPE_CMS_FEATURE))));
-        Sort sortByDateCreatedDescending = new Sort(new SortField(Indexer.CMS_DATE_CREATED, SortField.STRING, true));
-        Hits hits = _searcher.search(term, sortByDateCreatedDescending, null, filterOnlyCmsFeatures);
-        if (hits != null && hits.length() > 0) {
-            ResultsPager resultsPager = new ResultsPager(hits, ResultsPager.ResultType.topic);
-            return resultsPager.getResults(1, GRADE_BY_GRADE_NUM_CMS_CONTENT);
-        } else {
-            _log.warn("Can't find any search results for category " + category.getName());
-        }
-        return new ArrayList<Object>(0);
     }
 
     protected Map<Long,List<ICmsFeatureSearchResult>> getCmsContentForCategoryUsingSolr(List<String> categoryIds) {

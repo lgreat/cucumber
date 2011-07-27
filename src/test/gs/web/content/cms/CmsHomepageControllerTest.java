@@ -50,6 +50,7 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
 
         _controller = new CmsHomepageController();
         CmsHomepageController._gradeByGradeCache.removeAll();
+        CmsHomepageController._recentDiscussionsCache.removeAll();
 
         _cmsCategoryDao = createStrictMock(ICmsCategoryDao.class);
         _searcher = createStrictMock(Searcher.class);
@@ -105,6 +106,16 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
     public void testPopulateModelWithRecentCMSContentNoCategories() {
         Map<String, Object> model = new HashMap<String, Object>();
         expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(null);
+        replayAllMocks();
+        _controller.populateModelWithRecentCMSContent(model);
+        verifyAllMocks();
+        assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
+    }
+
+    public void testPopulateModelWithRecentCMSContentNoCategories2() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        //no solr query should be performed if dao returned empty list
+        expect(_cmsCategoryDao.getCmsCategoriesFromIds("198,199,200,201,202,203,204,205,206")).andReturn(new ArrayList<CmsCategory>());
         replayAllMocks();
         _controller.populateModelWithRecentCMSContent(model);
         verifyAllMocks();
