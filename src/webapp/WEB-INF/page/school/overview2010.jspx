@@ -238,11 +238,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </div>
             </div>
             <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" id="photo-gallery-trigger"><img
-                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                <div class="mediumThumbnail bgtint-eb" id="school-photo-medium"><p class="text3">Photos of this school</p><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger"><img
+                        src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="Photos of this school"
                         width="130" height="130"/></a>
-                    <p class="smallText1-06b"><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" id="photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a></p>
+                    <p class="smallText1-06b"><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a></p>
                 </div>
             </div>
         </div>
@@ -257,11 +257,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 </div>
             </div>
             <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb"><p class="text3">Photos of this school</p><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" id="photo-gallery-trigger"><img
-                        id="school-photo-medium" src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                <div class="mediumThumbnail bgtint-eb" id="school-photo-medium" ><p class="text3">Photos of this school</p><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger"><img
+                        src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
                         alt="Photos of this school"
                         width="130" height="130"/></a>
-                    <p class="smallText1-06b"><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" id="photo-gallery-trigger">View photo</a></p>
+                    <p class="smallText1-06b"><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger">View photo</a></p>
                 </div>
             </div>
         </div>
@@ -444,7 +444,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:set var="schoolPhotosTracking" value=""/>
 <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
     <c:set var="schoolPhotosTracking" value="${fn:length(photoGalleryImages)}"/>
-    <school:photoGallery cssId="photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
+    <school:photoGallery cssClass="photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
 </c:if>
 
 <script type="text/javascript">

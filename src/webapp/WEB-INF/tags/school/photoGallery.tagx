@@ -7,7 +7,7 @@
           xmlns:gsweb="gstaglib"
         >
     <!-- should be parallel lists -->
-    <jsp:directive.attribute name="cssId" required="true" description="The dom ID to attach to" type="java.lang.String"/>
+    <jsp:directive.attribute name="cssClass" required="true" description="The dom ID to attach to" type="java.lang.String"/>
     <jsp:directive.attribute name="images" required="true" description="List of image src values" type="java.util.List"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 
@@ -110,7 +110,7 @@
         </c:forEach>
         jQuery(function() {
             gallery.showFullSizeImage(0); //load the first full size image into gallery
-            gallery.attachShowEvent('${cssId}'); //show the gallery when this dom node clicked
+            gallery.attachShowEvent('${cssClass}'); //show the gallery when this dom node clicked
             gallery.loadThumbnails(); //start loading the gallery thumbnails
             //gallery.loadImages(); will load thumbnails + full size images
             gallery.applyThumbnailClickHandlers(); //attach click handlers to thumbnails
