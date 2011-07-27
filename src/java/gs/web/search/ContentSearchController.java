@@ -33,18 +33,25 @@ public class ContentSearchController extends AbstractController {
 
     public static final String MODEL_SEARCH_QUERY = "searchQuery";
     public static final String MODEL_SUGGESTED_SEARCH_QUERY = "suggestedSearchQuery";
+
     public static final String MODEL_NUM_RESULTS = "numResults";
     public static final String MODEL_NUM_ARTICLES = "numArticles";
     public static final String MODEL_NUM_DISCUSSIONS = "numDiscussions";
     public static final String MODEL_NUM_VIDEOS = "numVideos";
+    public static final String MODEL_NUM_WORKSHEETS= "numWorksheets";
+    public static final String MODEL_NUM_RESULT_TYPES = "numResultTypes";
+    
     public static final String MODEL_PAGE = "page";
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_PAGE_TITLE_PREFIX = "pageTitlePrefix";
     public static final String MODEL_TYPE = "type";
+
     public static final String MODEL_ARTICLE_RESULTS = "articleResults";
     public static final String MODEL_COMMUNITY_RESULTS = "communityResults";
     public static final String MODEL_VIDEO_RESULTS = "videoResults";
+    public static final String MODEL_WORKSHEET_RESULTS = "worksheetResults";
+
     public static final String MODEL_URL = "url";
     public static final String MODEL_URL_WITHOUT_PAGE_NUM = "urlWithoutPageNum";
     public static final String MODEL_CURRENT_DATE = "currentDate";
@@ -56,6 +63,7 @@ public class ContentSearchController extends AbstractController {
     public static final String TYPE_COMMUNITY = "community";
     public static final String TYPE_ARTICLES = "articles";
     public static final String TYPE_VIDEO = "videos";
+    public static final String TYPE_WORKSHEET = "worksheets";
 
     public static final String MODEL_SAMPLE = "sample";
     public static final String PARAM_SAMPLE = "sample";
@@ -120,6 +128,10 @@ public class ContentSearchController extends AbstractController {
         if (TYPE_VIDEO.equals(type) && numVideos == 0) {
             type = null;
         }
+        long numWorksheets = (Long)model.get(MODEL_NUM_WORKSHEETS);
+        if (TYPE_WORKSHEET.equals(type) && numWorksheets == 0) {
+            type = null;
+        }
 
         model.put(MODEL_TYPE, type);
 
@@ -130,7 +142,7 @@ public class ContentSearchController extends AbstractController {
         model.put(MODEL_URL, getUrl(request, searchQuery, page, type, sample));
         model.put(MODEL_URL_WITHOUT_PAGE_NUM, getUrlWithoutPageNumber(request, searchQuery, type, sample));
 
-        model.put(MODEL_TOTAL_PAGES, getTotalPages(numArticles, numDiscussions, numVideos, type));
+        model.put(MODEL_TOTAL_PAGES, getTotalPages(numArticles, numDiscussions, numVideos, numWorksheets, type));
         model.put(MODEL_CURRENT_DATE, new Date());
 
         return new ModelAndView(_viewName, model);
@@ -149,6 +161,7 @@ public class ContentSearchController extends AbstractController {
         long numArticles = 0;
         long numDiscussions = 0;
         long numVideos = 0;
+        long numWorksheets = 0;
         String pageTitlePrefix;
 
         if (StringUtils.isNotBlank(searchQuery)) {
@@ -171,10 +184,12 @@ public class ContentSearchController extends AbstractController {
                     numDiscussions = count.getCount();
                 } else if (CmsConstants.VIDEO_CONTENT_TYPE.equals(count.getName())) {
                     numVideos = count.getCount();
+                } else if (CmsConstants.WORKSHEET_CONTENT_TYPE.equals(count.getName())) {
+                    numWorksheets = count.getCount();
                 }
             }
 
-            numResults = numArticles + numDiscussions + numVideos;
+            numResults = numArticles + numDiscussions + numVideos + numWorksheets;
 
             if (numResults == 0) {
                 SpellCheckResponse spell = rsp.getSpellCheckResponse();
@@ -190,19 +205,23 @@ public class ContentSearchController extends AbstractController {
             List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
             List<ContentSearchResult> communityResults = new ArrayList<ContentSearchResult>();
             List<ContentSearchResult> videoResults = new ArrayList<ContentSearchResult>();
+            List<ContentSearchResult> worksheetResults = new ArrayList<ContentSearchResult>();
 
             // subsequent queries for page results (2 queries if all results; 1 query if filtered by type)
             // these use the same query and just set rows and filterQueries, so we can take advantage of caching
 
-            if (TYPE_ARTICLES.equals(type) || (numArticles > 0 && numDiscussions == 0 && numVideos == 0)) {
+            if (TYPE_ARTICLES.equals(type) || (numArticles > 0 && numDiscussions == 0 && numVideos == 0 && numWorksheets == 0)) {
                 rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, TYPE_ARTICLES);
                 articleResults = rsp.getBeans(ContentSearchResult.class);
-            } else if (TYPE_COMMUNITY.equals(type) || (numDiscussions > 0 && numArticles == 0 && numVideos == 0)) {
+            } else if (TYPE_COMMUNITY.equals(type) || (numDiscussions > 0 && numArticles == 0 && numVideos == 0 && numWorksheets == 0)) {
                 rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, TYPE_COMMUNITY);
                 communityResults = rsp.getBeans(ContentSearchResult.class);
-            } else if (TYPE_VIDEO.equals(type) || numVideos > 0 && numDiscussions == 0 && numArticles == 0) {
+            } else if (TYPE_VIDEO.equals(type) || (numVideos > 0 && numDiscussions == 0 && numArticles == 0 && numWorksheets == 0)) {
                 rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, CmsConstants.VIDEO_CONTENT_TYPE);
                 videoResults = rsp.getBeans(ContentSearchResult.class);
+            } else if (TYPE_WORKSHEET.equals(type) || (numWorksheets > 0 && numDiscussions == 0 && numArticles == 0 && numVideos == 0)) {
+                rsp = _solrService.getResultsForType(solr, query, page, PAGE_SIZE, CmsConstants.WORKSHEET_CONTENT_TYPE);
+                worksheetResults = rsp.getBeans(ContentSearchResult.class);
             } else {
                 rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, TYPE_ARTICLES);
                 articleResults = rsp.getBeans(ContentSearchResult.class);
@@ -210,11 +229,14 @@ public class ContentSearchController extends AbstractController {
                 communityResults = rsp.getBeans(ContentSearchResult.class);
                 rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, CmsConstants.VIDEO_CONTENT_TYPE);
                 videoResults = rsp.getBeans(ContentSearchResult.class);
+                rsp = _solrService.getResultsForType(solr, query, 1, ALL_RESULTS_PAGE_SIZE, CmsConstants.WORKSHEET_CONTENT_TYPE);
+                worksheetResults = rsp.getBeans(ContentSearchResult.class);
             }
 
             model.put(MODEL_ARTICLE_RESULTS, articleResults);
             model.put(MODEL_COMMUNITY_RESULTS, communityResults);
             model.put(MODEL_VIDEO_RESULTS, videoResults);
+            model.put(MODEL_WORKSHEET_RESULTS, worksheetResults);
         } catch (Exception e) {
             _log.error("Error querying solr for query: " + searchQuery, e);
         }
@@ -223,12 +245,20 @@ public class ContentSearchController extends AbstractController {
 
         }
 
-        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, numVideos, type);
+        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, numVideos, numWorksheets, type);
 
+        int numberOfResultTypes = 0;
+        numberOfResultTypes += (numArticles>0)? 1:0;
+        numberOfResultTypes += (numDiscussions>0)? 1:0;
+        numberOfResultTypes += (numVideos>0)? 1:0;
+        numberOfResultTypes += (numWorksheets>0)? 1:0;
+
+        model.put(MODEL_NUM_RESULT_TYPES, numberOfResultTypes);
         model.put(MODEL_NUM_RESULTS, numResults);
         model.put(MODEL_NUM_ARTICLES, numArticles);
         model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
         model.put(MODEL_NUM_VIDEOS, numVideos);
+        model.put(MODEL_NUM_WORKSHEETS, numWorksheets);
         model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
     }
 
@@ -236,11 +266,11 @@ public class ContentSearchController extends AbstractController {
     // helper methods
     //=========================================================================
 
-    protected String getPageTitlePrefix(long numArticles, long numDiscussions, long numVideos, String type) {
+    protected String getPageTitlePrefix(long numArticles, long numDiscussions, long numVideos, long numWorksheets, String type) {
         long numResults = numArticles + numDiscussions;
         if (numResults == 0) {
             return null;
-        } else if (numResults == numArticles || numResults == numDiscussions || numResults == numVideos) {
+        } else if (numResults == numArticles || numResults == numDiscussions || numResults == numVideos || numResults == numWorksheets) {
             return "Results for";
         } else if (TYPE_ARTICLES.equals(type)) {
             return "Article results for";
@@ -248,14 +278,16 @@ public class ContentSearchController extends AbstractController {
             return "Community results for";
         } else if (TYPE_VIDEO.equals(type)) {
             return "Video results for";
+        } else if (TYPE_WORKSHEET.equals(type)) {
+            return "Worksheet results for";
         } else {
             return "Results for";
         }
     }
 
-    protected static long getTotalPages(long numArticles, long numDiscussions, long numVideos, String type) {
+    protected static long getTotalPages(long numArticles, long numDiscussions, long numVideos, long numWorksheets, String type) {
         long totalPages;
-        if (numArticles > 0 && numDiscussions > 0 && numVideos > 0) {
+        if (numArticles > 0 && numDiscussions > 0 && numVideos > 0 && numWorksheets > 0) {
             if (TYPE_ARTICLES.equals(type)) {
                 totalPages = numArticles / PAGE_SIZE;
                 if (numArticles % PAGE_SIZE > 0) {
@@ -271,22 +303,32 @@ public class ContentSearchController extends AbstractController {
                 if (numVideos % PAGE_SIZE > 0) {
                     totalPages++;
                 }
+            } else if (TYPE_WORKSHEET.equals(type)) {
+                totalPages = numWorksheets / PAGE_SIZE;
+                if (numWorksheets % PAGE_SIZE > 0) {
+                    totalPages++;
+                }
             } else {
                 totalPages = 1;
             }
-        } else if (numArticles > 0) {
+        } else if (numArticles > 0 && TYPE_ARTICLES.equals(type)) {
             totalPages = numArticles / PAGE_SIZE;
             if (numArticles % PAGE_SIZE > 0) {
                 totalPages++;
             }
-        } else if (numDiscussions > 0) {
+        } else if (numDiscussions > 0 && TYPE_COMMUNITY.equals(type)) {
             totalPages = numDiscussions / PAGE_SIZE;
             if (numDiscussions % PAGE_SIZE > 0) {
                 totalPages++;
             }
-        } else if (numVideos > 0) {
+        } else if (numVideos > 0 && TYPE_VIDEO.equals(type)) {
             totalPages = numVideos / PAGE_SIZE;
             if (numVideos % PAGE_SIZE > 0) {
+                totalPages++;
+            }
+        } else if (numWorksheets > 0 && TYPE_WORKSHEET.equals(type)) {
+            totalPages = numWorksheets / PAGE_SIZE;
+            if (numWorksheets % PAGE_SIZE > 0) {
                 totalPages++;
             }
         } else {
@@ -333,6 +375,8 @@ public class ContentSearchController extends AbstractController {
             type = typeParam;
         } else if (TYPE_VIDEO.equals(typeParam)) {
             type = typeParam;
+        } else if (TYPE_WORKSHEET.equals(typeParam)) {
+            type = typeParam;
         } else {
             type = null;
         }
@@ -347,7 +391,8 @@ public class ContentSearchController extends AbstractController {
         long numResults;
         long numArticles;
         long numDiscussions;
-        long numVideos = 0; //TODO: Figure out sample results as they pertain to videos
+        long numVideos = 0;
+        long numWorksheets = 0;
         String pageTitlePrefix;
         if (SAMPLE_NO_ARTICLES.equals(sample)) {
             numArticles = 0;
@@ -365,8 +410,8 @@ public class ContentSearchController extends AbstractController {
             model.put(MODEL_SUGGESTED_SEARCH_QUERY, "friendship");
         }
 
-        numResults = numArticles + numDiscussions;
-        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, numVideos, type);
+        numResults = numArticles + numDiscussions + numVideos + numWorksheets;
+        pageTitlePrefix = getPageTitlePrefix(numArticles, numDiscussions, numVideos, numWorksheets, type);
 
         List<ContentSearchResult> articleResults = new ArrayList<ContentSearchResult>();
         if (!TYPE_COMMUNITY.equals(type)) {
@@ -378,17 +423,23 @@ public class ContentSearchController extends AbstractController {
         }
         List<ContentSearchResult> videoResults = new ArrayList<ContentSearchResult>();
         if (!TYPE_VIDEO.equals(type)) {
-            videoResults = getResultsForPage(getSampleDiscussions(numDiscussions), page);
+            videoResults = getResultsForPage(getSampleDiscussions(numVideos), page);
+        }
+        List<ContentSearchResult> worksheetResults = new ArrayList<ContentSearchResult>();
+        if (!TYPE_WORKSHEET.equals(type)) {
+            worksheetResults = getResultsForPage(getSampleDiscussions(numWorksheets), page);
         }
 
         model.put(MODEL_ARTICLE_RESULTS, articleResults);
         model.put(MODEL_COMMUNITY_RESULTS, communityResults);
         model.put(MODEL_VIDEO_RESULTS, videoResults);
+        model.put(MODEL_WORKSHEET_RESULTS, worksheetResults);
 
         model.put(MODEL_NUM_RESULTS, numResults);
         model.put(MODEL_NUM_ARTICLES, numArticles);
         model.put(MODEL_NUM_DISCUSSIONS, numDiscussions);
         model.put(MODEL_NUM_VIDEOS, numVideos);
+        model.put(MODEL_NUM_WORKSHEETS, numWorksheets);
         model.put(MODEL_PAGE_TITLE_PREFIX, pageTitlePrefix);
     }
 
