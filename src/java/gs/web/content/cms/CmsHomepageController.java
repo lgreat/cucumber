@@ -229,7 +229,7 @@ public class CmsHomepageController extends AbstractController {
         List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds(idList);
         Map<Long,List<ICmsFeatureSearchResult>> gradeIdToFeatureMap = new HashMap<Long,List<ICmsFeatureSearchResult>>();
         if (cats != null && cats.size() > 0) {
-            gradeIdToFeatureMap = getCmsContentForCategoryUsingSolr(getIdsFromCategories(cats));
+            gradeIdToFeatureMap = getCachedCmsContentForCategoriesUsingSolr(getIdsFromCategories(cats));
         }
         if (cats != null && cats.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
             Map<String, List<RecentContent>> catToResultMap = new HashMap<String, List<RecentContent>>(GRADE_BY_GRADE_NUM_CATEGORIES);
@@ -238,7 +238,13 @@ public class CmsHomepageController extends AbstractController {
                 // this returns up to GRADE_BY_GRADE_NUM_CMS_CONTENT pieces of content
                 List<ICmsFeatureSearchResult> cmsContentForCat = gradeIdToFeatureMap.get(category.getId());
                 // Then try to find GRADE_BY_GRADE_NUM_DISCUSSIONS discussions for that category
-                List<Discussion> discussions = getDiscussionsForCategory(category);
+                List<Discussion> discussions = getCachedDiscussionsForCategory(category);
+                // randomize discussions
+                Collections.shuffle(discussions);
+                // truncate to two discussions
+                if (discussions.size() > GRADE_BY_GRADE_NUM_DISCUSSIONS) {
+                    discussions = discussions.subList(0, GRADE_BY_GRADE_NUM_DISCUSSIONS);
+                }
                 // for each discussion returned, put it in the list, replacing content if necessary
                 // to keep the total number of items at GRADE_BY_GRADE_NUM_ITEMS
                 List<RecentContent> recentContentList = new ArrayList<RecentContent>(GRADE_BY_GRADE_NUM_ITEMS);
@@ -246,8 +252,9 @@ public class CmsHomepageController extends AbstractController {
                     RecentContent recentContent = new RecentContent(d, d.getDiscussionBoard().getFullUri());
                     recentContentList.add(recentContent);
                 }
-                while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && cmsContentForCat != null && !cmsContentForCat.isEmpty()) {
-                    ICmsFeatureSearchResult result = cmsContentForCat.remove(0);
+                int i = 0;
+                while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && cmsContentForCat != null && i < cmsContentForCat.size()) {
+                    ICmsFeatureSearchResult result = cmsContentForCat.get(i++);
                     recentContentList.add(new RecentContent(result));
                 }
                 if (!recentContentList.isEmpty()) {
@@ -274,6 +281,7 @@ public class CmsHomepageController extends AbstractController {
             myDiscussions = (List<Discussion>) element.getObjectValue();
         } else {
             myDiscussions = getDiscussionsForCategory(cat);
+            _recentDiscussionsCache.put(new Element(cat, myDiscussions));
         }
 
         return myDiscussions;
@@ -292,12 +300,6 @@ public class CmsHomepageController extends AbstractController {
                                     IDiscussionDao.DiscussionSort.RECENT_ACTIVITY, false,
                                     GRADE_BY_GRADE_MIN_NUM_REPLIES);
                     if (myDiscussions != null) {
-                        // randomize discussions
-                        Collections.shuffle(myDiscussions);
-                        // truncate to two discussions
-                        if (myDiscussions.size() > GRADE_BY_GRADE_NUM_DISCUSSIONS) {
-                            myDiscussions = myDiscussions.subList(0, GRADE_BY_GRADE_NUM_DISCUSSIONS);
-                        }
                         // set the board on each discussion for URL building later
                         for (Discussion d : myDiscussions) {
                             d.setDiscussionBoard(board);
@@ -318,33 +320,37 @@ public class CmsHomepageController extends AbstractController {
         return new ArrayList<Discussion>(0);
     }
 
-    protected Map<Long,List<ICmsFeatureSearchResult>> getCmsContentForCategoryUsingSolr(List<String> categoryIds) {
-        Map<Long,List<ICmsFeatureSearchResult>> gradeCategoryIdToCmsFeatureResult
-                = new HashMap<Long, List<ICmsFeatureSearchResult>>();
+    protected Map<Long,List<ICmsFeatureSearchResult>> getCachedCmsContentForCategoriesUsingSolr(List<String> categoryIds) {
+        Map<Long,List<ICmsFeatureSearchResult>> gradeCategoryIdToCmsFeatureResult;
 
         Element element = _gradeByGradeCache.get(categoryIds);
 
         if (element != null) {
             gradeCategoryIdToCmsFeatureResult = (Map<Long,List<ICmsFeatureSearchResult>>) element.getObjectValue();
         } else {
-            GsSolrQuery query = new GsSolrQuery();
-            query.filter(DocumentType.CMS_FEATURE);
-            query.sort(CmsFeatureFields.FIELD_CMS_DATE_CREATED, true);
-            query.query(CmsFeatureFields.FIELD_CMS_GRADE_ID, categoryIds);
-            query.page(0,5000);
-
-            try {
-                SearchResultsPage<ICmsFeatureSearchResult>  searchResultsPage = _cmsFeatureSearchService.search(query.getSolrQuery());
-                if (searchResultsPage != null) {
-                    gradeCategoryIdToCmsFeatureResult = aggregateByGradeId(searchResultsPage.getSearchResults());
-                }
-            } catch (SearchException e) {
-                _log.warn("Something went wrong when trying to use CmsFeatureSearchService.", e);
-            }
-
+            gradeCategoryIdToCmsFeatureResult = getCmsContentForCategoriesUsingSolr(categoryIds);
             _gradeByGradeCache.put(new Element(categoryIds, gradeCategoryIdToCmsFeatureResult));
         }
         
+        return gradeCategoryIdToCmsFeatureResult;
+    }
+
+    private Map<Long, List<ICmsFeatureSearchResult>> getCmsContentForCategoriesUsingSolr(List<String> categoryIds) {
+        Map<Long, List<ICmsFeatureSearchResult>> gradeCategoryIdToCmsFeatureResult = new HashMap<Long, List<ICmsFeatureSearchResult>>();
+        GsSolrQuery query = new GsSolrQuery();
+        query.filter(DocumentType.CMS_FEATURE);
+        query.sort(CmsFeatureFields.FIELD_CMS_DATE_CREATED, true);
+        query.query(CmsFeatureFields.FIELD_CMS_GRADE_ID, categoryIds);
+        query.page(0,5000);
+
+        try {
+            SearchResultsPage<ICmsFeatureSearchResult> searchResultsPage = _cmsFeatureSearchService.search(query.getSolrQuery());
+            if (searchResultsPage != null) {
+                gradeCategoryIdToCmsFeatureResult = aggregateByGradeId(searchResultsPage.getSearchResults());
+            }
+        } catch (SearchException e) {
+            _log.warn("Something went wrong when trying to use CmsFeatureSearchService.", e);
+        }
         return gradeCategoryIdToCmsFeatureResult;
     }
 

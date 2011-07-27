@@ -304,7 +304,7 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         expect(_cmsFeatureSearchService.search(isA(SolrQuery.class))).andReturn(searchResultsPage);
         replay(_cmsFeatureSearchService);
 
-        assertEquals(expectedResults, _controller.getCmsContentForCategoryUsingSolr(Arrays.asList("1,2,3,4".split(","))));
+        assertEquals(expectedResults, _controller.getCachedCmsContentForCategoriesUsingSolr(Arrays.asList("1,2,3,4".split(","))));
 
         verify(_cmsFeatureSearchService);
     }
