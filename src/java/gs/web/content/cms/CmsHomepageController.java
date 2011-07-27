@@ -16,8 +16,10 @@ import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.ResultsPager;
 import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -106,7 +108,7 @@ public class CmsHomepageController extends AbstractController {
                     DECLINED_IPHONE_SPLASH_PAGE_COOKIE, "true",
                     DECLINED_IPHONE_SPLASH_PAGE_COOKIE_MAX_AGE);
         } else {
-            return redirectMobileTraffic(request, includeReferrer);
+            return redirectMobileTraffic(request, response, includeReferrer);
         }
 
         return null;
@@ -120,15 +122,23 @@ public class CmsHomepageController extends AbstractController {
      *        include a link back to the page they came from.  If false, link to home page.
      * @return The redirect, if needed
      */
-    public static ModelAndView redirectMobileTraffic(HttpServletRequest request, boolean includeReferrer) {
-        Cookie declinedIphoneSplashPageCookie = CookieUtil.getCookie(request, DECLINED_IPHONE_SPLASH_PAGE_COOKIE);
+    public static ModelAndView redirectMobileTraffic(HttpServletRequest request, HttpServletResponse response, boolean includeReferrer) {
         SessionContext context = SessionContextUtil.getSessionContext(request);
+        Cookie declinedIphoneSplashPageCookie = CookieUtil.getCookie(request, DECLINED_IPHONE_SPLASH_PAGE_COOKIE);
+        SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
+
+        boolean hoverCookieSet = !StringUtils.isBlank(sitePrefCookie.getProperty("showHover"));
+        boolean applicableDevice = context.isIphone() || context.isIpod();
+        boolean declinedAppAlready = (declinedIphoneSplashPageCookie != null && "true".equals(declinedIphoneSplashPageCookie.getValue()));
+
         // if user is on iphone or ipod touch, and the iphone splash page is enabled,
-        // and they're not cookied to not be shown the iphone splash page,
+        // and they're not cookied to not be shown the iphone splash page, and
+        // they aren't cookied to see a special hover
         // then redirect them to the iphone splash page
-        if ((context.isIphone() || context.isIpod()) &&
-            context.isIphoneSplashPageEnabled() &&
-            (declinedIphoneSplashPageCookie == null || !"true".equals(declinedIphoneSplashPageCookie.getValue()))) {
+        if (applicableDevice &&
+                context.isIphoneSplashPageEnabled() &&
+                !declinedAppAlready &&
+                !hoverCookieSet) {
 
             String encodedOrigin = null;
             if (includeReferrer) {
