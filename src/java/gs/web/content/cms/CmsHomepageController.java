@@ -230,7 +230,7 @@ public class CmsHomepageController extends AbstractController {
         List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds(idList);
         Map<Long,List<ICmsFeatureSearchResult>> gradeIdToFeatureMap = new HashMap<Long,List<ICmsFeatureSearchResult>>();
         if (cats != null) {
-            getCmsContentForCategoryUsingSolr(getIdsFromCategories(cats));
+            gradeIdToFeatureMap = getCmsContentForCategoryUsingSolr(getIdsFromCategories(cats));
         }
         if (cats != null && cats.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
             Map<String, List<RecentContent>> catToResultMap = new HashMap<String, List<RecentContent>>(GRADE_BY_GRADE_NUM_CATEGORIES);

@@ -196,7 +196,7 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         replayAllMocks();
         _controller.populateModelWithRecentCMSContent(model);
         verifyAllMocks();
-        assertNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
+        assertNotNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
     }
 
     public void testMobileRedirect() {
