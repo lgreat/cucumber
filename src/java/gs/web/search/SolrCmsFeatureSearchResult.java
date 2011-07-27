@@ -135,6 +135,14 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
         return _promo;
     }
 
+    public String getPromoOrTitle() {
+        String promoOrTitle = getPromo();
+        if (promoOrTitle == null) {
+            promoOrTitle = getTitle();
+        }
+        return promoOrTitle;
+    }
+
     @XmlElement
     public String getTitle() {
         return _title;

@@ -1,21 +1,26 @@
 package gs.web.content.cms;
 
+import gs.data.admin.IPropertyDao;
 import gs.data.cms.IPublicationDao;
+import gs.data.community.*;
 import gs.data.content.cms.*;
-import gs.data.search.Indexer;
-import gs.data.search.SearchResult;
+import gs.data.search.*;
 import gs.data.search.Searcher;
+import gs.data.search.fields.CmsFeatureFields;
+import gs.data.search.fields.DocumentType;
 import gs.data.security.Permission;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
-import gs.data.admin.IPropertyDao;
-import gs.data.community.*;
-import gs.web.school.SchoolOverviewController;
+import gs.web.search.CmsFeatureSearchService;
+import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.ResultsPager;
 import gs.web.util.CookieUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.*;
@@ -60,7 +65,9 @@ public class CmsHomepageController extends AbstractController {
     private ICmsCategoryDao _cmsCategoryDao;
     private Searcher _searcher;
     private IRaiseYourHandDao _raiseYourHandDao;
+    private CmsFeatureSearchService _cmsFeatureSearchService;
 
+    protected static Cache _gradeByGradeCache;
 
     static {
         // Preschool
@@ -76,6 +83,9 @@ public class CmsHomepageController extends AbstractController {
         categoryIdToTopicCenterIdMap.put(205L, 1575L);
         // High
         categoryIdToTopicCenterIdMap.put(206L, 1576L);
+
+        _gradeByGradeCache = new Cache(CmsHomepageController.class.getName() + ".gradeByGrade", 10, false, false, 3 * 60 * 60, 3 * 60 * 60);
+        CacheManager.create().addCache(_gradeByGradeCache);
     }
 
     /**
@@ -193,15 +203,31 @@ public class CmsHomepageController extends AbstractController {
 
     }
 
+    public List<String> getIdsFromCategories(List<CmsCategory> categories) {
+        List<String> ids = new ArrayList<String>();
+        for (CmsCategory category : categories) {
+            ids.add(String.valueOf(category.getId()));
+        }
+        return ids;
+    }
+
+    /**
+     * A version of populateModelWithRecentCMSContent that makes only one call to Solr instead of accessing Lucene nine times.
+     * @param model
+     */
     public void populateModelWithRecentCMSContent(Map<String, Object> model) {
         String idList = "198,199,200,201,202,203,204,205,206";
         List<CmsCategory> cats = _cmsCategoryDao.getCmsCategoriesFromIds(idList);
+        Map<Long,List<ICmsFeatureSearchResult>> gradeIdToFeatureMap = new HashMap<Long,List<ICmsFeatureSearchResult>>();
+        if (cats != null) {
+            getCmsContentForCategoryUsingSolr(getIdsFromCategories(cats));
+        }
         if (cats != null && cats.size() == GRADE_BY_GRADE_NUM_CATEGORIES) {
             Map<String, List<RecentContent>> catToResultMap = new HashMap<String, List<RecentContent>>(GRADE_BY_GRADE_NUM_CATEGORIES);
             for (CmsCategory category : cats) {
                 // first get the cms content for the category
                 // this returns up to GRADE_BY_GRADE_NUM_CMS_CONTENT pieces of content
-                List<Object> cmsContentForCat = getCmsContentForCategory(category);
+                List<ICmsFeatureSearchResult> cmsContentForCat = gradeIdToFeatureMap.get(category.getId());
                 // Then try to find GRADE_BY_GRADE_NUM_DISCUSSIONS discussions for that category
                 List<Discussion> discussions = getDiscussionsForCategory(category);
                 // for each discussion returned, put it in the list, replacing content if necessary
@@ -211,8 +237,8 @@ public class CmsHomepageController extends AbstractController {
                     RecentContent recentContent = new RecentContent(d, d.getDiscussionBoard().getFullUri());
                     recentContentList.add(recentContent);
                 }
-                while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && !cmsContentForCat.isEmpty()) {
-                    SearchResult result = (SearchResult) cmsContentForCat.remove(0);
+                while (recentContentList.size() < GRADE_BY_GRADE_NUM_ITEMS && cmsContentForCat != null && !cmsContentForCat.isEmpty()) {
+                    ICmsFeatureSearchResult result = cmsContentForCat.remove(0);
                     recentContentList.add(new RecentContent(result));
                 }
                 if (!recentContentList.isEmpty()) {
@@ -284,6 +310,59 @@ public class CmsHomepageController extends AbstractController {
         return new ArrayList<Object>(0);
     }
 
+    protected Map<Long,List<ICmsFeatureSearchResult>> getCmsContentForCategoryUsingSolr(List<String> categoryIds) {
+        Map<Long,List<ICmsFeatureSearchResult>> gradeCategoryIdToCmsFeatureResult
+                = new HashMap<Long, List<ICmsFeatureSearchResult>>();
+
+        Element element = _gradeByGradeCache.get(categoryIds);
+
+        if (element != null) {
+            gradeCategoryIdToCmsFeatureResult = (Map<Long,List<ICmsFeatureSearchResult>>) element.getObjectValue();
+        } else {
+            GsSolrQuery query = new GsSolrQuery();
+            query.filter(DocumentType.CMS_FEATURE);
+            query.sort(CmsFeatureFields.FIELD_CMS_DATE_CREATED, true);
+            query.query(CmsFeatureFields.FIELD_CMS_GRADE_ID, categoryIds);
+            query.page(0,5000);
+
+            try {
+                SearchResultsPage<ICmsFeatureSearchResult>  searchResultsPage = _cmsFeatureSearchService.search(query.getSolrQuery());
+                if (searchResultsPage != null) {
+                    gradeCategoryIdToCmsFeatureResult = aggregateByGradeId(searchResultsPage.getSearchResults());
+                }
+            } catch (SearchException e) {
+                _log.warn("Something went wrong when trying to use CmsFeatureSearchService.", e);
+            }
+
+            _gradeByGradeCache.put(new Element(categoryIds, gradeCategoryIdToCmsFeatureResult));
+        }
+        
+        return gradeCategoryIdToCmsFeatureResult;
+    }
+
+    protected Map<Long,List<ICmsFeatureSearchResult>> aggregateByGradeId(List<ICmsFeatureSearchResult> searchResults) {
+        Map<Long,List<ICmsFeatureSearchResult>> gradeCategoryIdToCmsFeatureResult
+                = new HashMap<Long, List<ICmsFeatureSearchResult>>();
+        if (searchResults != null && searchResults.size() > 0) {
+            for (ICmsFeatureSearchResult searchResult : searchResults) {
+                //each feature might belong to multiple grade IDs.
+                //If so we need to add it to each matching list in the map
+                List<Long> resultGradeIds = searchResult.getGradeId();
+                for (Long id : resultGradeIds) {
+                    List<ICmsFeatureSearchResult> resultsForThisId = gradeCategoryIdToCmsFeatureResult.get(id);
+                    if (resultsForThisId == null) {
+                        resultsForThisId = new ArrayList<ICmsFeatureSearchResult>();
+                        gradeCategoryIdToCmsFeatureResult.put(id, resultsForThisId);
+                    }
+                    if (resultsForThisId.size() < GRADE_BY_GRADE_NUM_CMS_CONTENT) {
+                        resultsForThisId.add(searchResult);
+                    }
+                }
+            }
+        }
+        return gradeCategoryIdToCmsFeatureResult;
+    }
+
     // Used by gradeByGrade module (gradeByGrade.tagx and gradeByGradeList.tagx)
     public static class RecentContent {
         // Used for CSS classes by gradeByGrade module (gradeByGrade.tagx and gradeByGradeList.tagx)
@@ -300,6 +379,13 @@ public class CmsHomepageController extends AbstractController {
         public RecentContent(SearchResult cmsResult) {
             _contentType = ContentType.cms;
             _contentKey = cmsResult.getContentKey();
+            _fullUri = cmsResult.getFullUri();
+            _title = cmsResult.getPromoOrTitle();
+        }
+
+        public RecentContent(ICmsFeatureSearchResult cmsResult) {
+            _contentType = ContentType.cms;
+            _contentKey = cmsResult.getContentKey().toString();
             _fullUri = cmsResult.getFullUri();
             _title = cmsResult.getPromoOrTitle();
         }
@@ -419,5 +505,12 @@ public class CmsHomepageController extends AbstractController {
 
     public void setRaiseYourHandDao(IRaiseYourHandDao raiseYourHandDao) {
         _raiseYourHandDao = raiseYourHandDao;
+    }
+
+    public CmsFeatureSearchService getSolrCmsFeatureSearchService() {
+        return _cmsFeatureSearchService;
+    }
+    public void setSolrCmsFeatureSearchService(CmsFeatureSearchService cmsFeatureSearchService) {
+        _cmsFeatureSearchService = cmsFeatureSearchService;
     }
 }
