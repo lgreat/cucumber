@@ -13,16 +13,13 @@ Array.prototype.contains = function(obj) {
   return false;
 };
 
-var GS_waitForGeocode = true;
+GS.findASchool.loadResultsPage = function() {
+    var queryString = $('#findByLocationForm').serialize();
+    queryString = GS.findASchool.buildQueryString(queryString);
+    window.location.href = '/search/search.page' + queryString;
+};
 
 GS.findASchool.submitByLocationSearch = function() {
-    if (!GS_waitForGeocode) {
-        var queryString = $('#findByLocationForm').serialize();
-        queryString = GS.findASchool.buildQueryString(queryString);
-        window.location.href = '/search/search.page' + queryString;
-        return false;
-    }
-
     $('#multipleResults').hide();
     var byLocationForm = $('#findByLocationForm');
     var searchQuery = byLocationForm.find('input[name="searchQuery"]').val();
@@ -40,9 +37,7 @@ GS.findASchool.submitByLocationSearch = function() {
                 byLocationForm.find('input[name="normalizedAddress"]').val(geocodeResult['normalizedAddress']);
                 byLocationForm.find('input[name="totalResults"]').val(geocodeResult['totalResults']);
 
-                GS_waitForGeocode = false;
-
-                byLocationForm.submit();
+                window.setTimeout(GS.findASchool.loadResultsPage, 1);
             } else {
                 alert("TODO: Take user to no results search page");
             }
