@@ -116,7 +116,7 @@
                                     </c:forEach>
                                 </select>
                             </div>
-                            <div class="unit size2of100">&amp;nbsp;</div>
+                            <div class="unit size5of100">&amp;nbsp;</div>
                             <div class="unit size57of100 lastUnit">
                                 <select id="js_subjectsDropdown" class="js_worksheetFilterDropDown type">
                                     <c:set var="requestedSubjectName" value="All Subjects"/>
