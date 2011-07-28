@@ -22,9 +22,9 @@ GS.findASchool.loadResultsPage = function() {
 GS.findASchool.submitByLocationSearch = function() {
     $('#multipleResults').hide();
     var byLocationForm = $('#findByLocationForm');
-    var searchQuery = byLocationForm.find('input[name="searchQuery"]').val();
+    var searchQuery = byLocationForm.find('input[name="searchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
-    byLocationForm.find('input[name="searchQuery"]').val(searchQuery);
+    byLocationForm.find('input[name="searchString"]').val(searchQuery);
     if (searchQuery != '' &&
         searchQuery != 'Enter city & state or zip code' && !GS.findASchool.isTermState(searchQuery)) {
         GS.findASchool.gsGeocode(searchQuery, function(geocodeResult) {

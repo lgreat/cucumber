@@ -144,37 +144,38 @@ public class SchoolSearchController extends AbstractCommandController implements
             handleErrors(e, schoolSearchCommand);
         }
 
-        if (schoolSearchCommand.isNearbySearch()) {
-            City city = getExactCityMatch(request.getParameter("searchQuery"));
-            if (city != null) {
-                Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
-                String[] schoolTypesStr = schoolSearchCommand.getSchoolTypes();
-                if (schoolTypesStr == null || schoolTypesStr.length == 0) {
-                    schoolTypes.add(SchoolType.PRIVATE);
-                    schoolTypes.add(SchoolType.PUBLIC);
-                    schoolTypes.add(SchoolType.CHARTER);
-                } else {
-                    for (String schoolTypeStr: schoolTypesStr) {
-                        schoolTypes.add(SchoolType.getSchoolType(schoolTypeStr));
-                    }
-                }
-                String[] gradeLevels = schoolSearchCommand.getGradeLevels();
-                LevelCode levelCode = null;
-                // for single level codes, add it as a path param
-                if (gradeLevels != null && gradeLevels.length == 1) {
-                    levelCode = LevelCode.createLevelCode(gradeLevels);
-                }
-                UrlBuilder toCityBrowse = new UrlBuilder
-                        (UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), schoolTypes, levelCode);
-                // for multi level codes, add as query params
-                if (gradeLevels != null && gradeLevels.length > 1) {
-                    for (String levelCodeStr: gradeLevels) {
-                        toCityBrowse.addParameter("gradeLevels", levelCodeStr);
-                    }
-                }
-                return new ModelAndView(new RedirectView(toCityBrowse.asFullUrl(request)));
-            }
-        }
+        // per GS-11928, do not redirect to city browse any more
+//        if (schoolSearchCommand.isNearbySearch()) {
+//            City city = getExactCityMatch(request.getParameter("searchQuery"));
+//            if (city != null) {
+//                Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+//                String[] schoolTypesStr = schoolSearchCommand.getSchoolTypes();
+//                if (schoolTypesStr == null || schoolTypesStr.length == 0) {
+//                    schoolTypes.add(SchoolType.PRIVATE);
+//                    schoolTypes.add(SchoolType.PUBLIC);
+//                    schoolTypes.add(SchoolType.CHARTER);
+//                } else {
+//                    for (String schoolTypeStr: schoolTypesStr) {
+//                        schoolTypes.add(SchoolType.getSchoolType(schoolTypeStr));
+//                    }
+//                }
+//                String[] gradeLevels = schoolSearchCommand.getGradeLevels();
+//                LevelCode levelCode = null;
+//                // for single level codes, add it as a path param
+//                if (gradeLevels != null && gradeLevels.length == 1) {
+//                    levelCode = LevelCode.createLevelCode(gradeLevels);
+//                }
+//                UrlBuilder toCityBrowse = new UrlBuilder
+//                        (UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), schoolTypes, levelCode);
+//                // for multi level codes, add as query params
+//                if (gradeLevels != null && gradeLevels.length > 1) {
+//                    for (String levelCodeStr: gradeLevels) {
+//                        toCityBrowse.addParameter("gradeLevels", levelCodeStr);
+//                    }
+//                }
+//                return new ModelAndView(new RedirectView(toCityBrowse.asFullUrl(request)));
+//            }
+//        }
 
         Map<String,Object> model = new HashMap<String,Object>();
         model.put("schoolSearchCommand", schoolSearchCommand);
@@ -319,7 +320,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                 }
 
                 searchResultsPage = service.search(
-                        searchString,
+                        // for nearby searches, do not search by name
+                        schoolSearchCommand.isNearbySearch()?null:searchString,
                         fieldConstraints,
                         filterGroups,
                         sort,
@@ -1382,6 +1384,13 @@ public class SchoolSearchController extends AbstractCommandController implements
 
             try {
                 if (searchString != null) {
+                    try {
+                        // when searching for "anchorage, ak", do not search for cities matching "ak"
+                        // primarily an issue with city autocomplete as implemented for GS-11928 Find a School by location
+                        if (StringUtils.endsWith(searchString.toLowerCase(), ", " + state.getAbbreviationLowerCase())) {
+                            searchString = StringUtils.substring(searchString, 0, searchString.lastIndexOf(","));
+                        }
+                    } catch (Exception e) {/* ignore */}
                     SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().search(searchString, cityConstraints, null, null, 0, 33);
                     citySearchResults = cityPage.getSearchResults();
                 }
