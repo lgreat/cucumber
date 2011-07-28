@@ -26,6 +26,10 @@ GS.form.LeadGenCampaign = function() {
             wrapper.find('.jq-leadGenError-email').show();
             passed = false;
         }
+        if (wrapper.find('.jq-leadGenZip').val() == '') {
+            wrapper.find('.jq-leadGenError-zip').show();
+            passed = false;
+        }
 
         return passed;
     };
@@ -39,7 +43,8 @@ GS.form.LeadGenCampaign = function() {
                 campaign: wrapper.find('.jq-leadGenCampaign').val(),
                 firstName: wrapper.find('.jq-leadGenFirstName').val(),
                 lastName: wrapper.find('.jq-leadGenLastName').val(),
-                email: wrapper.find('.jq-leadGenEmail').val()
+                email: wrapper.find('.jq-leadGenEmail').val(),
+                zip: wrapper.find('.jq-leadGenZip').val()
             };
 
             jQuery.post('/promo/leadGenAjax.page', params, function(data) {
@@ -56,6 +61,9 @@ GS.form.LeadGenCampaign = function() {
                     }
                     if (data.indexOf('email') > -1) {
                         wrapper.find('.jq-leadGenError-email').show();
+                    }
+                    if (data.indexOf('zip') > -1) {
+                        wrapper.find('.jq-leadGenError-zip').show();
                     }
                     submitButton.show();
                 }

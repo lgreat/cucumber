@@ -7,6 +7,7 @@ public class LeadGenCommand {
     private String _firstName;
     private String _lastName;
     private String _email;
+    private String _zip;
 
     public String getCampaign() {
         return _campaign;
@@ -54,6 +55,18 @@ public class LeadGenCommand {
         }
     }
 
+    public String getZip() {
+        return _zip;
+    }
+
+    public void setZip(String zip) {
+        if (StringUtils.isNotBlank(_zip)) {
+           _zip = zip;
+        } else {
+            _zip = null;
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -62,6 +75,7 @@ public class LeadGenCommand {
         sb.append(", _firstName='").append(_firstName).append('\'');
         sb.append(", _lastName='").append(_lastName).append('\'');
         sb.append(", _email='").append(_email).append('\'');
+        sb.append(", _zip='").append(_zip).append('\'');
         sb.append('}');
         return sb.toString();
     }

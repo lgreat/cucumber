@@ -18,7 +18,7 @@
             <div class="bd">
 
                 <div class="jq-leadGenIntroText leadGenIntroText">
-                    <p>Let us tell you more about Primrose Schools!</p>
+                    <p>TODO: Heading copy goes here!</p>
                 </div>
 
                 <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-firstName">
@@ -33,9 +33,13 @@
                     <div class="img sprite i-alert"><!-- do not collapse --></div>
                     <div class="bk formErrorText">Please enter an email address</div>
                 </div>
+                <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-zip">
+                    <div class="img sprite i-alert"><!-- do not collapse --></div>
+                    <div class="bk formErrorText">Please enter a zip code</div>
+                </div>
 
                 <form class="jq-leadGenForm" action="#" method="POST">
-                    <input type="hidden" class="jq-leadGenCampaign" name="campaign" value="primrose"/>
+                    <input type="hidden" class="jq-leadGenCampaign" name="campaign" value="kindercare082011"/>
                     <fieldset class="contact">
                         <div class="line">
                             <label class="unit size3of13 smallText2">First name:</label>
@@ -54,6 +58,13 @@
                         <div class="line">
                             <label class="unit size3of13 smallText2">Email:</label>
                             <input type="text" class="jq-leadGenEmail unit size4of11 formText2" name="email"/>
+
+                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="line">
+                            <label class="unit size3of13 smallText2">Zip code:</label>
+                            <input type="text" class="jq-leadGenEmail unit size4of11 formText2" name="zip"/>
 
                             <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
                         </div>
