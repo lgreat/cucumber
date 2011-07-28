@@ -12,10 +12,6 @@
             window.location = destination;
             return false;
         }
-        function goWindowLocationHref() {
-            window.location.href = destination;
-            return false;
-        }
         $(function() {
             $("#form2").submit(function() {
                 return goWindowLocation();
@@ -28,20 +24,20 @@
 
             $("#form4").submit(function() {
                 new google.maps.Geocoder().geocode( { 'address': '92130 US'}, function(results, status) {
-                    window.location = "/status/monitor.page";
+                    goWindowLocation();
                 });
             });
 
             $("#form5").submit(function() {
                 new google.maps.Geocoder().geocode( { 'address': '92130 US'}, function(results, status) {
-                    window.setTimeout('window.location = "/status/monitor.page";', 1);
+                    window.setTimeout(goWindowLocation, 1);
                 });
             });
         });
 
         function goGeocode() {
             new google.maps.Geocoder().geocode({ 'address': '92130 US'}, function(results, status) {
-                window.location = "/status/monitor.page";
+                goWindowLocation();
             });
         }
     </script>
@@ -67,7 +63,7 @@
     <button type="submit">Submit</button>
 </form>
 <hr/>
-<h1>Just a button with onclick (BAD) -> Google geocode callback -> window.location</h1>
+<h1>Button 1 (BAD) -> HTML onclick -> Google geocode callback -> window.location</h1>
 <button onclick="goGeocode();">Go Geocode</button>
 <hr/>
 <h1>Form 5 (SAFE) -- JQuery onsubmit -> Google geocode callback -> setTimeout -> window.location</h1>
