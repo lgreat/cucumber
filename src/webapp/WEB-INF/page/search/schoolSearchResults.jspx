@@ -548,6 +548,8 @@
               sortSelection="${omnitureSortSelection}"
               nearbySearchZipCode="${nearbySearchZipCode}"
               resultsPerPage="${omnitureResultsPerPage}"
+              findASchoolByAddress="${omnitureAddressSearch}"
+              findASchoolByName="${omnitureNameSearch}"
         />
 
 </jsp:root>

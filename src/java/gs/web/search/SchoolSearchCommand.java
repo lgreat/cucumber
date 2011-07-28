@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.school.SchoolType;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -214,6 +215,10 @@ public class SchoolSearchCommand {
     public boolean isNearbySearch() {
         return getLat() != null && getLon() != null &&
                 getDistance() != null && getDistanceAsFloat() > 0.0f;
+    }
+
+    public boolean isNearbySearchByLocation() {
+        return isNearbySearch() && StringUtils.isNotEmpty(_searchString);
     }
 
     public String[] getAffiliations() {

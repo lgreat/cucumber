@@ -114,6 +114,15 @@
         name="schoolPhotosTracking" type="java.lang.String"
         description="Tracking for schools that have photos"
         required="false"/>
+    <!-- See GS-11925 -->
+    <jsp:directive.attribute
+        name="findASchoolByAddress" type="java.lang.Boolean"
+        description="Indicates this is a search by address results page"
+        required="false"/>
+    <jsp:directive.attribute
+        name="findASchoolByName" type="java.lang.Boolean"
+        description="Indicates this is a search by name results page"
+        required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -218,6 +227,8 @@
             s.prop32 = clickCapture.getProp(32,"${nearbySearchZipCode}");
             s.prop33 = clickCapture.getProp(33,"${resultsPerPage}");
             s.prop34 = clickCapture.getProp(34,"${empty schoolPhotosTracking ? '': schoolPhotosTracking}");
+            s.prop35 = clickCapture.getProp(35,"${findASchoolByAddress ? query: ''}");
+            s.prop36 = clickCapture.getProp(36,"${findASchoolByName ? query: ''}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

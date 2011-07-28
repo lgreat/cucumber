@@ -109,6 +109,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_OMNITURE_SCHOOL_LEVEL = "omnitureSchoolLevel";
     public static final String MODEL_OMNITURE_SORT_SELECTION = "omnitureSortSelection";
     public static final String MODEL_OMNITURE_RESULTS_PER_PAGE = "omnitureResultsPerPage";
+    public static final String MODEL_OMNITURE_ADDRESS_SEARCH = "omnitureAddressSearch";
+    public static final String MODEL_OMNITURE_NAME_SEARCH = "omnitureNameSearch";
 
     public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
     public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
@@ -143,39 +145,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (e.hasErrors()) {
             handleErrors(e, schoolSearchCommand);
         }
-
-        // per GS-11928, do not redirect to city browse any more
-//        if (schoolSearchCommand.isNearbySearch()) {
-//            City city = getExactCityMatch(request.getParameter("searchQuery"));
-//            if (city != null) {
-//                Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
-//                String[] schoolTypesStr = schoolSearchCommand.getSchoolTypes();
-//                if (schoolTypesStr == null || schoolTypesStr.length == 0) {
-//                    schoolTypes.add(SchoolType.PRIVATE);
-//                    schoolTypes.add(SchoolType.PUBLIC);
-//                    schoolTypes.add(SchoolType.CHARTER);
-//                } else {
-//                    for (String schoolTypeStr: schoolTypesStr) {
-//                        schoolTypes.add(SchoolType.getSchoolType(schoolTypeStr));
-//                    }
-//                }
-//                String[] gradeLevels = schoolSearchCommand.getGradeLevels();
-//                LevelCode levelCode = null;
-//                // for single level codes, add it as a path param
-//                if (gradeLevels != null && gradeLevels.length == 1) {
-//                    levelCode = LevelCode.createLevelCode(gradeLevels);
-//                }
-//                UrlBuilder toCityBrowse = new UrlBuilder
-//                        (UrlBuilder.SCHOOLS_IN_CITY, city.getState(), city.getName(), schoolTypes, levelCode);
-//                // for multi level codes, add as query params
-//                if (gradeLevels != null && gradeLevels.length > 1) {
-//                    for (String levelCodeStr: gradeLevels) {
-//                        toCityBrowse.addParameter("gradeLevels", levelCodeStr);
-//                    }
-//                }
-//                return new ModelAndView(new RedirectView(toCityBrowse.asFullUrl(request)));
-//            }
-//        }
 
         Map<String,Object> model = new HashMap<String,Object>();
         model.put("schoolSearchCommand", schoolSearchCommand);
@@ -447,7 +416,14 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(levelCode));
         model.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sortChanged ? sort : null));
         model.put(MODEL_OMNITURE_RESULTS_PER_PAGE, getOmnitureResultsPerPage(schoolSearchCommand.getPageSize(), searchResultsPage.getTotalResults()));
+        model.put(MODEL_OMNITURE_ADDRESS_SEARCH, false);
+        model.put(MODEL_OMNITURE_NAME_SEARCH, false);
 
+        if (schoolSearchCommand.isNearbySearchByLocation()) {
+            model.put(MODEL_OMNITURE_ADDRESS_SEARCH, true);
+        } else if (StringUtils.equals(request.getParameter("search_type"), "1")) {
+            model.put(MODEL_OMNITURE_NAME_SEARCH, true);
+        }
         if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
                 return new ModelAndView("/search/schoolSearchNoResultsTable", model);
