@@ -236,19 +236,21 @@
                 </div>
             </c:if>
             <div id="schoolInfoRightColumn" class="text3 adr">
-                    <p class="street-address">${school.physicalAddress.street}</p>
-                    <p>
-                        <span class="locality">${school.physicalAddress.city}</span>,
-                        <span class="region">${school.physicalAddress.state.abbreviation} </span>
-                        <span class="postal-code">${school.physicalAddress.zip}</span>
-                    </p>
-                    <p>
-                        <c:if test="${not empty(school.county)}">
-                            <c:choose>
-                                <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
-                                <c:when test="${school.physicalAddress.state.abbreviation eq 'LA'}">${school.county} Parish</c:when>
-                                <c:otherwise>${school.county} County</c:otherwise>
-                            </c:choose>
+                <p class="street-address">${school.physicalAddress.street}</p>
+                <c:if test="${not empty school.physicalAddress.streetLine2}">
+                    <p class="street-address">${school.physicalAddress.streetLine2}</p>
+                </c:if>
+                <p>
+                    <span class="locality">${school.physicalAddress.city}</span>,
+                    <span class="region">${school.physicalAddress.state.abbreviation} </span>
+                    <span class="postal-code">${school.physicalAddress.zip}</span>
+                </p>
+                <p>
+                    <c:if test="${not empty(school.county)}">
+                        <c:choose>
+                            <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
+                            <c:when test="${school.physicalAddress.state.abbreviation eq 'LA'}">${school.county} Parish</c:when>
+                            <c:otherwise>${school.county} County</c:otherwise>
                         </c:if>
                         <c:if test="${not empty(school.county)}"> | </c:if>
                         <link:mapSchool rel="foaf.based_near" school="${school}">Map</link:mapSchool>

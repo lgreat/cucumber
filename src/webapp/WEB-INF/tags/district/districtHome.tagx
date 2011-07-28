@@ -133,6 +133,9 @@
                     <td  id="address">
                         <table>
                         <tr><td>${district.physicalAddress.street}</td></tr>
+                        <c:if test="${not empty district.physicalAddress.streetLine2}">
+                            <tr><td>${district.physicalAddress.streetLine2}</td></tr>
+                        </c:if>
                         <tr><td>${district.physicalAddress.city}, ${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>
                         <tr><td>${district.county}</td></tr>
                         <tr><td><a href="${model.googleMapLink}" target="_blank"> Map &gt;</a></td></tr>
