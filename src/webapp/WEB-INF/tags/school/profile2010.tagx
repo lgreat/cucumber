@@ -251,6 +251,7 @@
                             <c:when test="${fn:endsWith(school.county,'County')}">${school.county}</c:when>
                             <c:when test="${school.physicalAddress.state.abbreviation eq 'LA'}">${school.county} Parish</c:when>
                             <c:otherwise>${school.county} County</c:otherwise>
+                        </c:choose>
                         </c:if>
                         <c:if test="${not empty(school.county)}"> | </c:if>
                         <link:mapSchool rel="foaf.based_near" school="${school}">Map</link:mapSchool>
