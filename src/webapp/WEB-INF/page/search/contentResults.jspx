@@ -60,7 +60,7 @@
         <c:when test="${requestScope.numResults gt 0}">
             ${pageScope.pageTitle}
             <div class="srchCtrls">
-            <ul class="searchNav">
+            <ul class="searchNav mtm">
             <c:if test="${numResultTypes > 1}">
                 <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
                 <c:choose>
@@ -256,7 +256,7 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
-                            <div class="sprite worksheet fltlft"><!-- icon --></div>
+                            <div class="sprite i-worksheets fltlft"><!-- icon --></div>
                             <div class="results fltrt">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
