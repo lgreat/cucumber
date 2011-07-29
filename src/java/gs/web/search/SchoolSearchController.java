@@ -25,7 +25,10 @@ import gs.data.seo.SeoUtil;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
+import gs.web.pagination.DefaultPaginationConfig;
 import gs.web.pagination.Page;
+import gs.web.pagination.PaginationConfig;
+import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
@@ -129,6 +132,20 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected static final String VIEW_NOT_FOUND = "/status/error404";
 
+    public static final PaginationConfig SCHOOL_SEARCH_PAGINATION_CONFIG;
+    
+    static {
+        SCHOOL_SEARCH_PAGINATION_CONFIG = new PaginationConfig(
+                DefaultPaginationConfig.DEFAULT_PAGE_SIZE_PARAM,
+                DefaultPaginationConfig.DEFAULT_PAGE_NUMBER_PARAM,
+                DefaultPaginationConfig.DEFAULT_OFFSET_PARAM,
+                SchoolSearchCommand.DEFAULT_PAGE_SIZE,
+                MAX_PAGE_SIZE,
+                DefaultPaginationConfig.ZERO_BASED_OFFSET,
+                DefaultPaginationConfig.ZERO_BASED_PAGES
+        );
+    }
+
     @Override
     /*
      * TODO: this method needs to be refactored. first step: switch it to use  GsSolrQuery instead of SchoolSearchServiceSolrImpl
@@ -141,10 +158,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         FilterFactory filterFactory = new FilterFactory();
 
         boolean foundDidYouMeanSuggestions = false;
-
-        if (e.hasErrors()) {
-            handleErrors(e, schoolSearchCommand);
-        }
 
         Map<String,Object> model = new HashMap<String,Object>();
         model.put("schoolSearchCommand", schoolSearchCommand);
@@ -280,6 +293,8 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
 
+        RequestedPage requestedPage = schoolSearchCommand.getRequestedPage();
+
         SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
         if (state != null && (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels()))) {
             try {
@@ -297,8 +312,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                         schoolSearchCommand.getLat(),
                         schoolSearchCommand.getLon(),
                         schoolSearchCommand.getDistanceAsFloat(),
-                        schoolSearchCommand.getStart(),
-                        schoolSearchCommand.getPageSize()
+                        requestedPage.offset,
+                        requestedPage.pageSize
                 );
 
                 if (searchResultsPage.getTotalResults() == 0 && searchResultsPage.getSpellCheckResponse() != null &&
@@ -314,8 +329,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                                 schoolSearchCommand.getLat(),
                                 schoolSearchCommand.getLon(),
                                 schoolSearchCommand.getDistanceAsFloat(),
-                                schoolSearchCommand.getStart(),
-                                schoolSearchCommand.getPageSize()
+                                requestedPage.offset,
+                                requestedPage.pageSize
                         );
 
                         if(didYouMeanResultsPage != null && didYouMeanResultsPage.getTotalResults() > 0) {
@@ -327,11 +342,6 @@ public class SchoolSearchController extends AbstractCommandController implements
             } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use SchoolSearchService. Eating exception", e);
             }
-        }
-
-        //update command's start value once we know how many results there are, since command generates page #
-        if (schoolSearchCommand.getStart() >= searchResultsPage.getTotalResults()) {
-            schoolSearchCommand.setStart(0);
         }
 
         List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
@@ -357,7 +367,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_LEVEL_CODE, levelCode.getCommaSeparatedString());
         }
 
-        addPagingDataToModel(schoolSearchCommand.getStart(), schoolSearchCommand.getPageSize(), schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(), model); //TODO: fix
+        addPagingDataToModel(requestedPage.getValidatedOffset(SCHOOL_SEARCH_PAGINATION_CONFIG, searchResultsPage.getTotalResults()), requestedPage.pageSize, requestedPage.pageNumber, searchResultsPage.getTotalResults(), model);
         addGamAttributes(request, response, pageHelper, fieldConstraints, filterGroups, searchString, searchResultsPage.getSearchResults(), city, district);
 
         City localCity = (city != null ? city : commandAndFields.getCityFromSearchString());
@@ -401,11 +411,11 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         model.put(MODEL_OMNITURE_PAGE_NAME,
-                getOmniturePageName(request, schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
+                getOmniturePageName(request, requestedPage.pageNumber, searchResultsPage.getTotalResults(),
                         isCityBrowse, isDistrictBrowse, foundDidYouMeanSuggestions)
         );
         model.put(MODEL_OMNITURE_HIERARCHY,
-                getOmnitureHierarchy(schoolSearchCommand.getCurrentPage(), searchResultsPage.getTotalResults(),
+                getOmnitureHierarchy(requestedPage.pageNumber, searchResultsPage.getTotalResults(),
                         isCityBrowse, isDistrictBrowse,
                         citySearchResults, districtSearchResults)
         );
@@ -544,16 +554,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         final String url = builder.asSiteRelative(request);
         final RedirectView view = new RedirectView(url, false);
         return new ModelAndView(view);
-    }
-
-    protected void handleErrors(BindException e, SchoolSearchCommand schoolSearchCommand) {
-        if (e.hasFieldErrors("pageSize")) {
-            schoolSearchCommand.setPageSize(SchoolSearchCommand.DEFAULT_PAGE_SIZE);
-        }
-
-        if (e.hasFieldErrors("start")) {
-            schoolSearchCommand.setStart(0);
-        }
     }
 
     public ModelAndView redirectTo404(HttpServletResponse response) {

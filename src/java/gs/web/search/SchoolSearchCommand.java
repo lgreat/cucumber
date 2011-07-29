@@ -2,6 +2,8 @@ package gs.web.search;
 
 import gs.data.school.SchoolType;
 import org.apache.commons.lang.StringUtils;
+import gs.web.pagination.Pagination;
+import gs.web.pagination.RequestedPage;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +20,8 @@ public class SchoolSearchCommand {
     private String[] _affiliations;
     private String _studentTeacherRatio;
     private String _schoolSize;
+
+    private RequestedPage requestedPage;
 
     /**
      * The type of school search that will be performed
@@ -146,13 +150,6 @@ public class SchoolSearchCommand {
         _pageSize = pageSize;
     }
 
-    public int getCurrentPage() {
-        if (_pageSize == 0) {
-            throw new IllegalStateException("Page size cannot be 0 when asking for current page");
-        }
-        return (int) Math.ceil((_start+1) / ((float)_pageSize));
-    }
-
     public String getRequestType() {
         return _requestType;
     }
@@ -247,5 +244,16 @@ public class SchoolSearchCommand {
 
     public void setSchoolSize(String schoolSize) {
         _schoolSize = schoolSize;
+    }
+
+    public RequestedPage getRequestedPage() {
+        if (requestedPage == null) {
+            requestedPage = Pagination.getRequestedPage(getPageSize(), getStart(), null, SchoolSearchController.SCHOOL_SEARCH_PAGINATION_CONFIG);
+        }
+        return requestedPage;
+    }
+
+    public void setRequestedPage(RequestedPage requestedPage) {
+        this.requestedPage = requestedPage;
     }
 }

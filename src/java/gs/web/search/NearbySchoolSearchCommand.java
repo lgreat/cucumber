@@ -104,10 +104,6 @@ public class NearbySchoolSearchCommand {
         _schoolSearchCommand.setPageSize(pageSize);
     }
 
-    public int getCurrentPage() {
-        return _schoolSearchCommand.getCurrentPage();
-    }
-
     public String getRequestType() {
         return _schoolSearchCommand.getRequestType();
     }

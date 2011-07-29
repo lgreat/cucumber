@@ -614,7 +614,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         SchoolSearchCommand command = new SchoolSearchCommand();
         command.setStart(11);
         command.setPageSize(3);
-        int currentPage = command.getCurrentPage();
+        int currentPage = 4;
 
         List<ISchoolSearchResult> results = new ArrayList<ISchoolSearchResult>();
         results.add(new LuceneSchoolSearchResult());

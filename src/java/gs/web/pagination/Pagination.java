@@ -14,9 +14,44 @@ public class Pagination {
 
     private static final DefaultPaginationConfig DEFAULT_PAGINATION_CONFIG = new DefaultPaginationConfig();
 
+    public static RequestedPage getRequestedPage(Integer pageSize, Integer offset, Integer pageNumber) {
+        return getRequestedPage(pageSize, offset, pageNumber, DEFAULT_PAGINATION_CONFIG);
+    }
+
     public static RequestedPage getPageFromRequest(HttpServletRequest request) {
         return getPageFromRequest(request, DEFAULT_PAGINATION_CONFIG);
     }
+
+    public static RequestedPage getRequestedPage(Integer pageSize, Integer offset, Integer pageNumber, PaginationConfig config) {
+        
+        if (pageSize == null || pageSize < 1 || pageSize > config.getMaxPageSize()) {
+            pageSize = config.getDefaultPageSize();
+        }
+
+        if (offset != null && offset < 0) {
+            //throw it away if it's not valid
+            offset = null;
+        }
+
+        if (pageNumber != null && pageNumber < 0) {
+            pageNumber = null;
+        }
+
+        //if we have pageNumber but no offset, get offset from page number, and vice versa
+        if (offset == null && pageNumber != null) {
+            offset = Pagination.getOffset(pageSize, pageNumber, config.isZeroBasedOffset(), config.isZeroBasedPages());
+        } else if (offset != null && pageNumber == null) {
+            pageNumber = Pagination.getPageNumber(pageSize, offset, config.isZeroBasedOffset(), config.isZeroBasedPages());
+        } else if (offset == null && pageNumber == null) {
+            offset = config.getFirstOffset();
+            pageNumber = Pagination.getPageNumber(pageSize, offset, config.isZeroBasedOffset(), config.isZeroBasedPages());
+        }
+        
+        RequestedPage params = new RequestedPage(offset, pageNumber, pageSize);
+
+        return params;
+    }
+
 
     /**
      * Attempts to retrieve values necessary for paging from an HttpServletRequest.
@@ -27,46 +62,29 @@ public class Pagination {
      */
     public static RequestedPage getPageFromRequest(HttpServletRequest request, PaginationConfig config) {
 
-        Integer offset = null;
+        Integer offset;
         Integer pageNumber;
         Integer pageSize;
 
         try {
             pageSize = Integer.valueOf(request.getParameter(config.getPageSizeParam()));
         } catch (NumberFormatException e) {
-            pageSize = config.getDefaultPageSize();
-        }
-        if (pageSize < 1 || pageSize > config.getMaxPageSize()) {
-            pageSize = config.getDefaultPageSize();
+            pageSize = null;
         }
 
         try {
-            //try to get offset from request
             offset = Integer.valueOf(request.getParameter(config.getOffsetParam()));
-            if (offset < 0) {
-                //throw away offset if it's not valid. It will be set to default value later.
-                offset = null;
-            }
         } catch (NumberFormatException e) {
-            //handle this below
+            offset = null;
         }
 
         try {
-            //now try to get page number from request
             pageNumber = Integer.valueOf(request.getParameter(config.getPageNumberParam()));
-            //if we succeeded but offset is null, set offset based on page number
-            if (offset == null) {
-                Pagination.getOffset(pageSize, pageNumber, config.isZeroBasedOffset(), config.isZeroBasedPages());
-            }
         } catch (NumberFormatException e) {
-            //if we couldnt get a page number then set it based on offset. if offset is null, set it to first offset
-            if (offset == null) {
-                offset = config.getFirstOffset();
-            }
-            pageNumber = Pagination.getPageNumber(pageSize, offset, config.isZeroBasedOffset(), config.isZeroBasedPages());
+            pageNumber = null;
         }
         
-        RequestedPage params = new RequestedPage(offset, pageNumber, pageSize);
+        RequestedPage params = getRequestedPage(pageSize, offset, pageNumber, config);
 
         return params;
     }
