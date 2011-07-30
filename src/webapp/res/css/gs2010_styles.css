@@ -13013,6 +13013,11 @@ p#btsBubbleOpts {
     width:auto;
 }
 
+.googlePlusOne {
+    float: left;
+    margin-right: 8px;
+}
+
 .ShareAndTweet {
     float: left;
     margin-right: 8px;

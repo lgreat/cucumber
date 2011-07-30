@@ -2,7 +2,8 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo">
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community">
     <jsp:directive.tag import="java.net.URLEncoder"/>
     <jsp:directive.attribute name="includeFbSendBtn" required="true" type="java.lang.Boolean"
                              description="Whether to include the facebook send button"/>
@@ -26,9 +27,12 @@
                 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
                 <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
             </div>
-
         </c:if>
 
+        <div class="googlePlusOne">
+            <community:addGooglePlusOne url="${fullUrl}" />
+        </div>
+        
         <!-- Twitter -->
         <div class="${includeEmailBtn ? 'ShareAndTweet' : 'lastShareAndTweet'}">
             <promo:tweetButtonArticle/>
