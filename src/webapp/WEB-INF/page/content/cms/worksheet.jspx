@@ -114,7 +114,7 @@
 
             <div class="spacer_15"><!-- don't collapse --></div>
 
-            <p class="smallText2">
+            <p class="smallText2-777">
                 <c:forEach var="standard" items="${feature.commonCoreStandardsMap}" varStatus="loopStatus">
                     ${fn:escapeXml(standard.key)}<c:if
                         test="${!loopStatus.last}">, </c:if>
@@ -124,9 +124,11 @@
         <div class="grid_7 omega">
 
             <c:if test="${not empty feature.previewImageUrl}">
+                <gsml:a href="${feature.pdfUri}" target="_blank">
                 <gsml:img src="${feature.previewImageUrl}"
                           title="${feature.previewImageTitle}"
                           alt="${feature.previewImageAltText}"/>
+                </gsml:a>
             </c:if>
 
             <!-- DONE-11818 acrobat reader icon -->
