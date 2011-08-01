@@ -12423,17 +12423,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     border: 1px solid #ccc;
 }
 
-#bts2-2010 {
-    width: 423px;
-    /*height: 258px;*/
-}
-
-#bts3-2010 {
-    width: 968px;
-    height: 39px;
-    background: url(/res/img/bts2010-hd/bts_hd-3.png) no-repeat left top;
-}
-
 #bts1-2010 .mod_hd{
     width: 175px;
     height: 191px;
@@ -12442,6 +12431,31 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
 
 #bts1-2010 .mod_hd h3 {
     background: none;
+}
+
+#bts1-2010 .mod_hd ul{margin:110px 10px 0;}
+#bts1-2010 .mod_hd a{font-size: 13px;line-height:1.1;}
+
+#bts1-2010 .mod_bd {
+    width: 421px;
+    height: 191px;
+    background-color: white;
+}
+
+#bts1-2010 .mod_ft {
+    width: 407px;
+    padding: 0 7px 0 7px;
+}
+
+#bts1-2010 .bts_ft {
+    height: 31px;
+    padding: 4px 0 5px 0;
+    border-top: 1px dotted #999;
+}
+
+#bts2-2010 {
+    width: 423px;
+    /*height: 258px;*/
 }
 
 #bts2-2010 .mod_hd {
@@ -12454,36 +12468,12 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     background: none;
 }
 
-#bts1-2010 .bts_hd_top {
-    padding-bottom: 14px;
-}
-
-#bts1-2010 .bts_hd_btm {
-    padding-top: 8px;
-    border-top: 5px dotted #f4891d;
-}
-
-#bts1-2010 .mod_bd {
-    width: 421px;
-    height: 191px;
-    background-color: white;
-}
-
 #bts2-2010 .mod_bd {
     width: 421px;
     height: 142px;
     background-color: white;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
-}
-
-#bts3-2010 .mod_bd {
-    padding-left: 300px;
-}
-
-#bts1-2010 .mod_ft {
-    width: 407px;
-    padding: 0 7px 0 7px;
 }
 
 #bts2-2010 .mod_ft {
@@ -12494,16 +12484,58 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     border-left: 1px solid #ccc;
 }
 
-#bts1-2010 .bts_ft {
+#bts2-2010 .bts_ft {
     height: 31px;
     padding: 4px 0 5px 0;
     border-top: 1px dotted #999;
 }
 
-#bts2-2010 .bts_ft {
-    height: 31px;
-    padding: 4px 0 5px 0;
-    border-top: 1px dotted #999;
+#bts2-2010 .tod {
+    height: 142px;
+}
+
+#bts2-2010 .tod .wrapper {
+    top: 12px;
+}
+
+#bts3-2010 {
+    width: 968px;
+    height: 39px;
+    background: url(/res/img/bts2010-hd/bts_hd-3.png) no-repeat left top;
+}
+
+#bts3-2010 .mod_bd {
+    padding-left: 300px;
+}
+
+#bts3-2010 .mod_ft .subscribeText {
+    padding-top: 12px;
+}
+
+#bts3-2010 .mod_ft .sponsorText {
+    text-align: right;
+    line-height: 1.2;
+    padding: 16px 0 0 45px;
+}
+
+#bts3-2010 .mod_ft .sponsorLogo {
+    padding: 10px 4px 0 4px;
+}
+
+#bts3-2010 .tod {
+    width: 440px;
+    height: 39px;
+}
+
+#bts3-2010 .tod .wrapper {
+    width: 440px;
+    margin: 0;
+    height: 16px;
+    top: 16px;
+}
+
+#bts3-2010 .tod .wrapper ul {
+    margin: 0;
 }
 
 .mod_ft ul {
@@ -12517,28 +12549,14 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     padding: 0 10px 2px 0;
 }
 
-#bts3-2010 .mod_ft .subscribeText {
-    padding-top: 12px;
-}
-
 .mod_ft .sponsorText {
     text-align: right;
     line-height: 1.2;
 }
 
-#bts3-2010 .mod_ft .sponsorText {
-    text-align: right;
-    line-height: 1.2;
-    padding: 16px 0 0 45px;
-}
-
 .mod_ft .sponsorLogo {
     float: right;
     padding-left: 5px;
-}
-
-#bts3-2010 .mod_ft .sponsorLogo {
-    padding: 10px 4px 0 4px;
 }
 
 .bts_photo {
@@ -12558,15 +12576,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     position: relative;
 }
 
-#bts2-2010 .tod {
-    height: 142px;
-}
-
-#bts3-2010 .tod {
-    width: 440px;
-    height: 39px;
-}
-
 .tod .wrapper {
     width: 355px; /* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: auto;
@@ -12574,17 +12583,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     margin: 0 33px;
     position: absolute;
     top: 20px;
-}
-
-#bts2-2010 .tod .wrapper {
-    top: 12px;
-}
-
-#bts3-2010 .tod .wrapper {
-    width: 440px;
-    margin: 0;
-    height: 16px;
-    top: 16px;
 }
 
 .tod ul a img {
@@ -12597,10 +12595,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     padding: 0;
     position: relative;
     top: 0;
-}
-
-#bts3-2010 .tod .wrapper ul {
-    margin: 0;
 }
 
 .tod ul li {
