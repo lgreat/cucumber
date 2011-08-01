@@ -232,6 +232,30 @@ GS.findASchool.FilterTracking = function() {
     };
 };
 
+GS.findASchool.setAllGrades = function() {
+    var gradeCheckboxes = jQuery('ul.filterBar .jq-grade-level');
+
+    var numGradeLevels = gradeCheckboxes.size();
+    var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
+    if (numGradeLevels == numGradeLevelsChecked) {
+        jQuery('#grade-level-all').attr('checked', 'checked');
+    } else {
+        jQuery('#grade-level-all').removeAttr('checked');
+    }
+};
+
+GS.findASchool.setAllTypes = function() {
+    var typeCheckboxes = jQuery('ul.filterBar .jq-school-type');
+
+    var numSchoolTypes = typeCheckboxes.size();
+    var numSchoolTypesChecked = typeCheckboxes.filter(':checked').size();
+    if (numSchoolTypes == numSchoolTypesChecked) {
+        jQuery('#school-type-all').attr('checked', 'checked');
+    } else {
+        jQuery('#school-type-all').removeAttr('checked');
+    }
+};
+
 $(function() {
     GS.findASchool.filterTracking = new GS.findASchool.FilterTracking();
 
@@ -266,13 +290,8 @@ $(function() {
                 gradeCheckboxes.removeAttr('checked');
             }
         }
-        var numGradeLevels = gradeCheckboxes.size();
-        var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
-        if (numGradeLevels == numGradeLevelsChecked) {
-            jQuery('#grade-level-all').attr('checked','checked');
-        } else {
-            jQuery('#grade-level-all').removeAttr('checked');
-        }
+
+        GS.findASchool.setAllGrades();
 
         GS.findASchool.filterTracking.track(cssId);
     });
@@ -290,13 +309,7 @@ $(function() {
                 typeCheckboxes.removeAttr('checked');
             }
         }
-        var numSchoolTypes = typeCheckboxes.size();
-        var numSchoolTypesChecked = typeCheckboxes.filter(':checked').size();
-        if (numSchoolTypes == numSchoolTypesChecked) {
-            jQuery('#school-type-all').attr('checked','checked');
-        } else {
-            jQuery('#school-type-all').removeAttr('checked');
-        }
+        GS.findASchool.setAllTypes();
 
         GS.findASchool.filterTracking.track(cssId);
     });
@@ -304,4 +317,7 @@ $(function() {
         GS.findASchool.filterTracking.track(jQuery(this).attr('id'));
     });
 
+    // make sure the 'all' check boxes are correctly set on page load (bug from GS-11931)
+    GS.findASchool.setAllGrades();
+    GS.findASchool.setAllTypes();
 });

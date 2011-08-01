@@ -296,7 +296,9 @@ public class SchoolSearchController extends AbstractCommandController implements
         RequestedPage requestedPage = schoolSearchCommand.getRequestedPage();
 
         SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
-        if (state != null && (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels()))) {
+        // allow nearby searches to go through even if they specify no school types or grade levels, per GS-11931
+        if (state != null && (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) &&
+                (!schoolSearchCommand.isNearbySearchByLocation() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels()))) {
             try {
                 SchoolSearchService service = getSchoolSearchService();
                 if (schoolSearchCommand.getSearchType() == SchoolSearchType.LOOSE) {

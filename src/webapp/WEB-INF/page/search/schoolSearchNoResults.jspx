@@ -64,7 +64,7 @@
 
             <div id="failedSearch">
                 <c:choose>
-                    <c:when test="${isNearbySearch}">
+                    <c:when test="${isNearbySearch and param.zipCode}">
                         <p class="introText-c03">Your search for <strong>${param.zipCode}</strong> did not match any schools.</p>
                     </c:when>
                     <c:when test="${empty state}">
