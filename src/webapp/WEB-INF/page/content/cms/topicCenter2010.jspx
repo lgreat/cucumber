@@ -194,6 +194,46 @@
                     <div class="spacer_10"><!-- do not collapse --></div>
                     <ad:adTag position="House_Ad_423x230"/>
 
+                    <div class="mod btsSupplyLists">
+                        <div class="inner">
+                            <div class="bd">
+                                <div class="line">
+                                    <div class="unit size42of100">
+                                        <div class="mod btsSupplyListsTag">
+                                            <div class="inner">
+                                                <span class="arrow"><!-- do not collapse --></span>
+                                                <div class="bd">
+                                                    <p class="">Get the scoop on back<br/>to school essentials:</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="unit size36of100">
+                                        <ul class="mlm"> <!-- bullet type: disc/square/circle-->
+                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                    href="/back-to-school/supplies/109-supply-list-to-get-you-started.gs?page=1">Back to school basics</a></li>
+                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                    href="/back-to-school/supplies/1082-k-2-back-to-school-supply-list.gs?page=1">Elementary</a>
+                                            </li>
+                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                    href="/back-to-school/supplies/1084-middle-school-back-to-school-supply-list.gs?page=1">Middle School</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="unit size22of100 lastUnit">
+                                        <ul> <!-- bullet type: disc/square/circle-->
+                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                    href="/back-to-school/supplies/1085-high-school-back-to-school-supply-list.gs?page=1">High School</a>
+                                            </li>
+                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                    href="/back-to-school/supplies/4290-college-back-to-school-supply-list.gs?page=1">College</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
             <c:choose>
                 <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
                     <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
