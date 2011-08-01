@@ -13,7 +13,7 @@
         <div class="infiniteCarousel1">
             <h3 class="ic_title title2-d61">${pageScope.name}</h3>
 
-            <div class="wrapper">
+            <div class="wrapper" style="overflow:hidden;">
                 <ul class="unordered-carousel">
                     <c:forEach var="carouselItem" items="${pageScope.items}" varStatus="carouselStatus">
                         <c:choose>
