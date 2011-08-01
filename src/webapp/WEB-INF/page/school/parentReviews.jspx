@@ -275,6 +275,30 @@
         <!-- DONE-10495 - Randall - END subcategory ratings -->
 
     </div>
+    <!-- TODO: Randall style this -->
+    <div class="spacer_10"><!-- do not collapse --></div>
+    <c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
+        <div class="text2" style="border: 1px solid #A2D0E4;">
+            <p><span class="sprite emailIt"><!-- do not collapse --></span>
+                <link:newsletterManagement styleClass="text2bold-06b" schoolId="${school.id}"
+                                           schoolState="${school.databaseState}"
+                                           onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
+                    Get email updates about this school.
+                </link:newsletterManagement>
+            </p>
+        </div>
+    </c:if>
+    <div class="spacer_10"><!-- do not collapse --></div>
+    <!-- TODO: and this -->
+    <c:if test="${empty principalReview}">
+        <div class="spacer_15"><!-- do not collapse --></div>
+        <div class="smallText1">
+            <p><span class="sprite pencil_med"><!-- do not collapse --></span> Are you the principal? <a
+                    class="text3-06b" href="#" id="espLink">Complete your school's profile</a>
+            </p>
+        </div>
+    </c:if>
+
 </div>
 <!-- end reviewColumn1 -->
 <div id="reviewColumn2">
@@ -339,28 +363,7 @@
     </div>
 </c:if>
 
-<c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
-    <div class="alertBox3 text2">
-        <p><span class="sprite emailIt"><!-- do not collapse --></span> Get email updates about this school.
-            <link:newsletterManagement styleClass="text2bold-06b" schoolId="${school.id}"
-                                       schoolState="${school.databaseState}"
-                                       onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
-                Sign up now <span class="alertDoubleArrow">&amp;raquo;</span>
-            </link:newsletterManagement>
-        </p>
-    </div>
-</c:if>
-
-<c:if test="${empty principalReview}">
-
-<div class="spacer_15"><!-- do not collapse --></div>
-<div class="alertBox3 smallText1">
-    <p><span class="sprite pencil_med"><!-- do not collapse --></span> PRINCIPALS &amp;amp; SCHOOL OFFICIALS: <a
-            class="text3-06b" href="#" id="espLink">Share your point of view <span class="alertDoubleArrow">&amp;raquo;</span></a>
-    </p>
-</div>
-
-</c:if>
+<ad:adTag position="SchoolReviews_Integrated_586x30"/>
 
 <c:set var="reviewsPagination">
     <c:set var="paginationUrl"><c:choose>
