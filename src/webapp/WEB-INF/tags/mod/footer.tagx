@@ -79,7 +79,7 @@
             </p>
             ${footerCopyright}
 
-            <jsp:include page="/geo/popularCities.module?state=${stateForPopularCities}${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'hidden=true':''}" />
+            <jsp:include page="/geo/popularCities.module?state=${stateForPopularCities}${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'&amp;hidden=true':''}" />
 
         </div>
     </c:if>
