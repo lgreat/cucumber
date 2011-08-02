@@ -255,9 +255,6 @@
     height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
     <!-- End SiteCatalyst code version: H.2. -->
     ]]>
-        <c:set var="rand" value="${gsweb:randomNumber(1000)}"/>
-        <gsml:url var="tracker" value="/modperl/promos/image//${rand}/${requestScope.context.stateOrDefault.abbreviation}//3"/>
-        <img alt="tracker" src="${tracker}" />
         <c:if test="${!omitAlmondNet}">
             <mod:almondNet/>
         </c:if>
