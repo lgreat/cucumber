@@ -230,7 +230,9 @@
         </c:choose>
     </div>
 
-    <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+    <gsweb:cache key="/content/cms/mostPopularContent.module?style=reskin2010">
+        <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
+    </gsweb:cache>
 
     <div class="mod">
         <div class="mod_hd">
