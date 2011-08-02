@@ -94,7 +94,7 @@ public class StateSpecificFooterHelper {
     }
 
     public void displayPopularCitiesForState(State s, Map model) {
-        model.put(STATE_FOR_POPULAR_CITIES, model);
+        model.put(STATE_FOR_POPULAR_CITIES, s);
     }
 
     /**
