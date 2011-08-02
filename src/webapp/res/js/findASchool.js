@@ -320,4 +320,13 @@ $(function() {
     // make sure the 'all' check boxes are correctly set on page load (bug from GS-11931)
     GS.findASchool.setAllGrades();
     GS.findASchool.setAllTypes();
+
+    jQuery('form[name="searchByNameForm"]').submit(function() {
+        var stateVal = jQuery('#findByNameStateSelect').val();
+        if (stateVal == '') {
+            alert("Please select a state.");
+            return false;
+        }
+        return true;
+    });
 });
