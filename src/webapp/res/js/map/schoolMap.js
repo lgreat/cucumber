@@ -182,7 +182,9 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.expandMapToFitMarkers = function() {
         var bounds = this.getBoundsToFitMarkers();
-        map.fitBounds(bounds);
+        if (bounds !== null) {
+            map.fitBounds(bounds);
+        }
     };
 
     this.drawMarkers = function() {

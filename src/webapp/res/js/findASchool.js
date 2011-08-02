@@ -39,7 +39,7 @@ GS.findASchool.submitByLocationSearch = function() {
 
                 window.setTimeout(GS.findASchool.loadResultsPage, 1);
             } else {
-                alert("TODO: Take user to no results search page");
+                alert("Location not found. Please enter a valid address, city, or ZIP.");
             }
         });
     } else {

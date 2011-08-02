@@ -91,9 +91,9 @@
                     ${nearbySearchTitlePrefix} near <span
                         class="title2-d61">${param.zipCode}</span>
                 </c:when>
-                <c:when test="${isNearbySearch eq true and not empty param.normalizedAddress}">
+                <c:when test="${isNearbySearch eq true and not empty normalizedAddress}">
                     ${nearbySearchTitlePrefix} near <span
-                        class="title2-d61">${param.normalizedAddress}</span>
+                        class="title2-d61">${normalizedAddress}</span>
                 </c:when>
                 <c:otherwise>
                     School results for <span
@@ -267,6 +267,13 @@
 
     <div id="topicbarGS" class="col">
         <form id="filtersForm" action="">
+        <!-- FILTER CHECKED LOGIC:
+            Generally, a filter is pre-checked if there is no param specifying the filter.
+            e.g. no levelCode param means include all level codes (no param means check ALL)
+            HOWEVER, for by location searches (with lat/lon in params) we allow people to begin a search with all values
+            filtered out (don't ask). Therefore, for by location searches no param means check NONE.
+            In every case, if there is a param, then only the check boxes containing the param value are pre-checked.
+        -->
         <div id="js-gradeLevels" class="mod">
             <div class="filter-hd">
                 <h5>GRADE LEVEL</h5>
@@ -274,7 +281,7 @@
             <div class="filter-bd smallAlertText">
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or levelCode eq '' or
+                        <c:when test="${empty param.lat and (levelCode eq null or levelCode eq '') or
                         (fn:contains(levelCode,'p') and fn:contains(levelCode,'e') and fn:contains(levelCode,'m') and fn:contains(levelCode,'h'))}">
                             <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-all" value=""/>
                         </c:when>
@@ -286,7 +293,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'p')}">
+                        <c:when test="${empty param.lat and (levelCode eq null or levelCode eq '') or fn:contains(levelCode,'p')}">
                             <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-p" value="p"/>
                         </c:when>
                         <c:otherwise>
@@ -297,7 +304,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'e')}">
+                        <c:when test="${empty param.lat and (levelCode eq null or levelCode eq '') or fn:contains(levelCode,'e')}">
                             <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-e" value="e"/>
                         </c:when>
                         <c:otherwise>
@@ -308,7 +315,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'m')}">
+                        <c:when test="${empty param.lat and (levelCode eq null or levelCode eq '') or fn:contains(levelCode,'m')}">
                             <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-m" value="m"/>
                         </c:when>
                         <c:otherwise>
@@ -319,7 +326,7 @@
                 </div>
                 <div>
                     <c:choose>
-                        <c:when test="${levelCode eq null or levelCode eq '' or fn:contains(levelCode,'h')}">
+                        <c:when test="${empty param.lat and (levelCode eq null or levelCode eq '') or fn:contains(levelCode,'h')}">
                             <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-h" value="h"/>
                         </c:when>
                         <c:otherwise>
@@ -338,7 +345,7 @@
                 <div id="js-schoolTypes">
                     <div>
                         <c:choose>
-                            <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or
+                            <c:when test="${empty param.lat and (schoolType eq null or fn:length(schoolType) eq 0) or
                             (fn:contains(schoolType,'public') and fn:contains(schoolType,'charter') and fn:contains(schoolType,'private'))}">
                                 <input type="checkbox" checked="checked" name="st" id="school-type-all" value=""/>
                             </c:when>
@@ -350,7 +357,7 @@
                     </div>
                     <div>
                         <c:choose>
-                            <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'public')}">
+                            <c:when test="${empty param.lat and (schoolType eq null or fn:length(schoolType) eq 0) or fn:contains(schoolType,'public')}">
                                 <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-public" value="public"/>
                             </c:when>
                             <c:otherwise>
@@ -361,7 +368,7 @@
                     </div>
                     <div>
                         <c:choose>
-                            <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'charter')}">
+                            <c:when test="${empty param.lat and (schoolType eq null or fn:length(schoolType) eq 0) or fn:contains(schoolType,'charter')}">
                                 <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-charter" value="charter"/>
                             </c:when>
                             <c:otherwise>
@@ -373,7 +380,7 @@
                     <c:if test="${!isDistrictBrowse}">
                         <div>
                             <c:choose>
-                                <c:when test="${schoolType eq null or fn:length(schoolType) eq 0 or fn:contains(schoolType,'private')}">
+                                <c:when test="${empty param.lat and (schoolType eq null or fn:length(schoolType) eq 0) or fn:contains(schoolType,'private')}">
                                     <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-private" value="private"/>
                                 </c:when>
                                 <c:otherwise>
@@ -489,7 +496,17 @@
     <div id="topicMainGS" class="col">
         <ad:adTag position="SponsoredSearch_Top_423x68"/>
         <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
-        <search:schoolSearchResultsTable omniturePageName="${omniturePageName}"/>
+        <c:choose>
+            <c:when test="${page.pager.totalItems gt 0}">
+                <search:schoolSearchResultsTable omniturePageName="${omniturePageName}"/>
+            </c:when>
+            <c:otherwise>
+                <!-- Allow this page to load with 0 results -->
+                <div id="js-school-search-results-table">
+                    <search:schoolSearchNoResultsTable/>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 
@@ -515,6 +532,8 @@
             tooltips="true"
             schools="${schoolSearchResults}"
             ratings="${ratings}"
+            lat="${param.lat}"
+            lon="${param.lon}"
             />
 
     <!-- end map -->

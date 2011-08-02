@@ -26,10 +26,19 @@
     </c:set>
 
     <script type="text/javascript">
-            ${js2}
-            GS.map.schoolMap.removeAllSchools();
-            GS.map.schoolMap.addSchools(jsMapSchools, GS.search.onMapMarkerClick);
-            GS.map.schoolMap.drawMarkers();
+        ${js2}
+        var reZoom = false;
+        if (GS.map.schoolMap.getBoundsToFitMarkers() === null) {
+            reZoom = true;
+        }
+        GS.map.schoolMap.removeAllSchools();
+        GS.map.schoolMap.addSchools(jsMapSchools, GS.search.onMapMarkerClick);
+        GS.map.schoolMap.drawMarkers();
+        if (reZoom) {
+            // only alter map zoom if the previous display had 0 schools
+            // handles a situation where the new filters draws in schools that are completely outside the viewport
+            GS.map.schoolMap.expandMapToFitMarkers();
+        }
     </script>
 
 

@@ -16,23 +16,34 @@
     <jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom to start with, defaults to 9"/>
     <jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom to start with, defaults to 12"/>
     <jsp:directive.attribute name="ratings" type="gs.data.school.review.Ratings" required="true" description="An instance of Ratings" />
+    <jsp:directive.attribute name="lat" type="java.lang.Float" required="false" description="Optional center for map, defaults to first school's location" />
+    <jsp:directive.attribute name="lon" type="java.lang.Float" required="false" description="Optional center for map, defaults to first school's location" />
 
     <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
     <pageHelper:externalJavascript file="/res/js/map/schoolMap.js" />
 
-    <c:set var="js">
-        <map:searchResultsSchoolToJsMapSchool school="${schools[0]}" jsVariableName="jsCenterMapSchool" useBubbles="${true}"/>
-    </c:set>
-    <c:set var="js2">
-        <map:searchResultsMapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" useBubbles="${true}"/>
-    </c:set>
+    <c:if test="${not empty schools}">
+        <c:set var="js">
+            <map:searchResultsSchoolToJsMapSchool school="${schools[0]}" jsVariableName="jsCenterMapSchool" useBubbles="${true}"/>
+        </c:set>
+        <c:set var="js2">
+            <map:searchResultsMapSchoolListToJsMapSchoolArray schools="${schools}" jsArrayName="jsMapSchools" useBubbles="${true}"/>
+        </c:set>
+    </c:if>
+
+    <c:if test="${empty lat or empty lon}">
+        <c:set var="lat" value="${schools[0].latLon.lat}"/>
+        <c:set var="lon" value="${schools[0].latLon.lon}"/>
+    </c:if>
 
     <script type="text/javascript">
         jQuery(function(){
             ${js}
-            GS.map.schoolMap = new GS.map.SchoolMap('${id}','${schools[0].latLon.lat}','${schools[0].latLon.lon}', true);
+            GS.map.schoolMap = new GS.map.SchoolMap('${id}','${lat}','${lon}', true);
             ${js2}
-            GS.map.schoolMap.addSchools(jsMapSchools, GS.search.onMapMarkerClick);
+            if (typeof(jsMapSchools) !== 'undefined') {
+                GS.map.schoolMap.addSchools(jsMapSchools, GS.search.onMapMarkerClick);
+            }
         });
     </script>
 

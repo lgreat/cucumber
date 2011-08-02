@@ -20,6 +20,7 @@ public class SchoolSearchCommand {
     private String[] _affiliations;
     private String _studentTeacherRatio;
     private String _schoolSize;
+    private String _normalizedAddress;
 
     private RequestedPage requestedPage;
 
@@ -255,5 +256,16 @@ public class SchoolSearchCommand {
 
     public void setRequestedPage(RequestedPage requestedPage) {
         this.requestedPage = requestedPage;
+    }
+
+    /**
+     * The normalized address in by location searches (typically returned by a geocoder such as Google)
+     */
+    public String getNormalizedAddress() {
+        return _normalizedAddress;
+    }
+
+    public void setNormalizedAddress(String normalizedAddress) {
+        _normalizedAddress = normalizedAddress;
     }
 }
