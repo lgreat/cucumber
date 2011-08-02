@@ -784,105 +784,105 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
                 SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, LevelCode.ELEMENTARY, new String[]{"public"}));
     }
 
-    public void testGetExactCityMatch() {
-        City rval;
-
-        // expect any string that does not end with a state to go to _geoDao.findUniqueCity
-
-        expect(_geoDao.findUniqueCity("Lincoln")).andReturn(null);
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("Lincoln");
-        verifyAllMocks();
-        assertNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findUniqueCity("San Francisco")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("San Francisco");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findUniqueCity("San Francisco")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch(" San Francisco  ");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findUniqueCity("Some city, with a comma")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("Some city, with a comma");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        // expect any string that ends with a state to go to _geoDao.findCity
-
-        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("San Francisco, CA");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("San Francisco  ,  CA");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("San Francisco CA");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("San Francisco California");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("San Francisco, California");
-        verifyAllMocks();
-        assertNotNull(rval);
-
-        resetAllMocks();
-
-        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(null);
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("San Francisco, California");
-        verifyAllMocks();
-        assertNull(rval);
-
-        resetAllMocks();
-
-        // edge cases
-        replayAllMocks();
-        rval = _controller.getExactCityMatch("");
-        verifyAllMocks();
-        assertNull(rval);
-
-        resetAllMocks();
-
-        replayAllMocks();
-        rval = _controller.getExactCityMatch(null);
-        verifyAllMocks();
-        assertNull(rval);
-
-    }
+//    public void testGetExactCityMatch() {
+//        City rval;
+//
+//        // expect any string that does not end with a state to go to _geoDao.findUniqueCity
+//
+//        expect(_geoDao.findUniqueCity("Lincoln")).andReturn(null);
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("Lincoln");
+//        verifyAllMocks();
+//        assertNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findUniqueCity("San Francisco")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("San Francisco");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findUniqueCity("San Francisco")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch(" San Francisco  ");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findUniqueCity("Some city, with a comma")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("Some city, with a comma");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        // expect any string that ends with a state to go to _geoDao.findCity
+//
+//        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("San Francisco, CA");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("San Francisco  ,  CA");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("San Francisco CA");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("San Francisco California");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(new City());
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("San Francisco, California");
+//        verifyAllMocks();
+//        assertNotNull(rval);
+//
+//        resetAllMocks();
+//
+//        expect(_geoDao.findCity(State.CA, "San Francisco")).andReturn(null);
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("San Francisco, California");
+//        verifyAllMocks();
+//        assertNull(rval);
+//
+//        resetAllMocks();
+//
+//        // edge cases
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch("");
+//        verifyAllMocks();
+//        assertNull(rval);
+//
+//        resetAllMocks();
+//
+//        replayAllMocks();
+//        rval = _controller.getExactCityMatch(null);
+//        verifyAllMocks();
+//        assertNull(rval);
+//
+//    }
 }
