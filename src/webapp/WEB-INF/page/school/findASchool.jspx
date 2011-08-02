@@ -157,7 +157,7 @@
                                 <label for="radius-4">4 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="5" id="radius-5" checked="checked"/>
+                                <input type="radio" name="distance" value="5" id="radius-5"/>
                                 <label for="radius-5">5 miles</label>
                             </div>
                             <div>
@@ -173,7 +173,7 @@
                                 <label for="radius-20">20 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="25" id="radius-25"/>
+                                <input type="radio" name="distance" value="25" id="radius-25" checked="checked"/>
                                 <label for="radius-25">25 miles</label>
                             </div>
                         </li>
