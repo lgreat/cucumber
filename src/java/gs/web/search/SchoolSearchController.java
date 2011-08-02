@@ -1385,8 +1385,8 @@ public class SchoolSearchController extends AbstractCommandController implements
                     try {
                         // when searching for "anchorage, ak", do not search for cities matching "ak"
                         // primarily an issue with city autocomplete as implemented for GS-11928 Find a School by location
-                        if (StringUtils.endsWith(searchString.toLowerCase(), ", " + state.getAbbreviationLowerCase())) {
-                            searchString = StringUtils.substring(searchString, 0, searchString.lastIndexOf(","));
+                        if (StringUtils.endsWith(searchString.toLowerCase(), " " + state.getAbbreviationLowerCase())) {
+                            searchString = StringUtils.substring(searchString, 0, searchString.length()-2);
                         }
                     } catch (Exception e) {/* ignore */}
                     SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().search(searchString, cityConstraints, null, null, 0, 33);
