@@ -59,13 +59,14 @@
 
         GS = GS || {};
         GS.ads = GS.ads || {};
-        GS.ads.showAdSponsorLogoText = function() {
+        GS.ads.FindASchool_Sponsor_88x31 = GS.ads.FindASchool_Sponsor_88x31 || {};
+        GS.ads.FindASchool_Sponsor_88x31.showAdSponsorLogoText = function() {
             if (jQuery('#google_ads_div_${localSlotPrefix}_FindASchool_Sponsor_88x31,#google_ads_div_${localSlotPrefix}_FindASchool_Sponsor_88x31_ad_container').length == 1) {
                 jQuery('#jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31').show();
             }
         };
         jQuery(function() {
-            setTimeout("GS.ads.showAdSponsorLogoText();", 1000);
+            setTimeout("GS.ads.FindASchool_Sponsor_88x31.showAdSponsorLogoText();", 1000);
         });
         // -->
     </script>
