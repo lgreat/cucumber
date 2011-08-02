@@ -3,7 +3,6 @@ package gs.web.school;
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.web.geo.StateSpecificFooterHelper;
-import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
@@ -145,7 +144,7 @@ public class AllInStateController extends AbstractController {
                 request.getRequestURI();
             model.put(MODEL_REL_CANONICAL, relCanonical);
 
-            _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
+            _stateSpecificFooterHelper.displayPopularCitiesForState(state, model);
             mAndV = new ModelAndView("school/allInState", model);
         } else {
             mAndV = new ModelAndView("status/error");

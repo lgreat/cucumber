@@ -87,7 +87,7 @@ public class TestLandingController extends SimpleFormController {
                     errors.reject("Could not find test info for: " + key);
                 } else {
                     refData.putAll(testData);
-                    _stateSpecificFooterHelper.placePopularCitiesInModel(state, refData);
+                    _stateSpecificFooterHelper.displayPopularCitiesForState(state, refData);
                 }
             } else {
                 errors.reject("test id (tid) parameter is missing");

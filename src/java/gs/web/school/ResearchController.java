@@ -159,7 +159,7 @@ public class ResearchController extends AbstractController implements IDirectory
             }
         }
 
-        _stateSpecificFooterHelper.placePopularCitiesInModel(state, mAndV.getModel());
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, mAndV.getModel());
 
         // Google Ad Manager ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);

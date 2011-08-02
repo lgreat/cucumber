@@ -192,7 +192,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         pageHelper.addAdKeyword("district_name", district.getName());
         pageHelper.addAdKeyword("district_id", district.getId().toString());
 
-        _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, model);
 
         return new ModelAndView(getViewName(), model);
     }

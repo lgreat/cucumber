@@ -24,6 +24,7 @@ public class StateSpecificFooterHelper {
     public static final int NUM_CITIES = 28;
     public static final String MODEL_TOP_CITIES = "popularCitiesByState";
     public static final String MODEL_ALPHA_GROUPS = "citiesInStateAlpha";
+    public static final String STATE_FOR_POPULAR_CITIES = "stateForPopularCities";
     private IGeoDao _geoDao;
     private Searcher _searcher;
     private QueryParser _queryParser;
@@ -90,6 +91,10 @@ public class StateSpecificFooterHelper {
         } catch (Exception e) {
             _log.error(e, e);
         }
+    }
+
+    public void displayPopularCitiesForState(State s, Map model) {
+        model.put(STATE_FOR_POPULAR_CITIES, model);
     }
 
     /**

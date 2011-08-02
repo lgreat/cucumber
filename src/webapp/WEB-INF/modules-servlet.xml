@@ -444,6 +444,12 @@
         <property name="viewName" value="/promo/emailSignUp"/>
     </bean>
 
+    <bean name="/geo/popularCities.module"
+          class="gs.web.geo.PopularCitiesController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/geo/popularCities"/>
+    </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>

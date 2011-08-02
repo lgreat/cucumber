@@ -149,7 +149,7 @@
             // GS-10018
             Map dummyModel = new HashMap(1);
             StateSpecificFooterHelper _stateSpecificFooterHelper = (StateSpecificFooterHelper) ac.getBean(StateSpecificFooterHelper.BEAN_ID);
-            _stateSpecificFooterHelper.placePopularCitiesInModel(school.getDatabaseState(), dummyModel);
+            _stateSpecificFooterHelper.displayPopularCitiesForState(school.getDatabaseState(), dummyModel);
             request.setAttribute(StateSpecificFooterHelper.MODEL_TOP_CITIES,
                                  dummyModel.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
             request.setAttribute(StateSpecificFooterHelper.MODEL_ALPHA_GROUPS,

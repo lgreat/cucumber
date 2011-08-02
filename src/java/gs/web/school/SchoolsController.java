@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.100 2011/03/31 00:34:24 ssprouse Exp $
+ * $Id: SchoolsController.java,v 1.101 2011/08/02 01:10:18 ssprouse Exp $
  */
 
 package gs.web.school;
@@ -469,7 +469,7 @@ public class SchoolsController extends AbstractController implements IDirectoryS
             BadRequestLogger.logBadRequest(_log, request, "Hits object is null for SearchCommand: " + searchCommand);
         }
 
-        _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
+        _stateSpecificFooterHelper.displayPopularCitiesForState(state, model);
 
         // aroy: This class is deprecated and this code is no longer called
         SearchResultsCookie mostRecentSearchResultsCookie = new SearchResultsCookie(request, response);

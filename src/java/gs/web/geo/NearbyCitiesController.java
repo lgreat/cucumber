@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.37 2010/05/24 21:58:12 aroy Exp $
+* $Id: NearbyCitiesController.java,v 1.38 2011/08/02 01:10:18 ssprouse Exp $
 */
 
 package gs.web.geo;
@@ -134,7 +134,7 @@ public class NearbyCitiesController extends AbstractController {
                 }
                 model.put(AnchorListModel.DEFAULT, anchorListModel);
             }
-            _stateSpecificFooterHelper.placePopularCitiesInModel(state, model);
+            _stateSpecificFooterHelper.displayPopularCitiesForState(state, model);
         }
         return new ModelAndView(_viewName, model);
     }

@@ -229,7 +229,7 @@ public class CmsDiscussionBoardController extends AbstractController {
         model.put(MODEL_TITLE, title);
         
         if (board != null && board.getCity() != null && board.getCity().getState() != null) {
-            _stateSpecificFooterHelper.placePopularCitiesInModel(board.getCity().getState(), model);
+            _stateSpecificFooterHelper.displayPopularCitiesForState(board.getCity().getState(), model);
         }
 
         return new ModelAndView(_viewName, model);

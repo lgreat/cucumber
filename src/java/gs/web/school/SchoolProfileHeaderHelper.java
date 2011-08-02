@@ -15,12 +15,8 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
-import gs.data.util.NameValuePair;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
-import gs.web.util.VariantConfiguration;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -172,7 +168,7 @@ public class SchoolProfileHeaderHelper {
     protected void handleStateSpecificFooter(HttpServletRequest request, School school) {
         // GS-10018
         Map dummyModel = new HashMap(2);
-        _stateSpecificFooterHelper.placePopularCitiesInModel(school.getDatabaseState(), dummyModel);
+        _stateSpecificFooterHelper.displayPopularCitiesForState(school.getDatabaseState(), dummyModel);
         request.setAttribute(StateSpecificFooterHelper.MODEL_TOP_CITIES,
                              dummyModel.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
         request.setAttribute(StateSpecificFooterHelper.MODEL_ALPHA_GROUPS,

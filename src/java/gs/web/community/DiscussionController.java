@@ -198,7 +198,7 @@ public class DiscussionController extends AbstractController {
         }
 
         if (board != null && board.getCity() != null && board.getCity().getState() != null) {
-            _stateSpecificFooterHelper.placePopularCitiesInModel(board.getCity().getState(), model);
+            _stateSpecificFooterHelper.displayPopularCitiesForState(board.getCity().getState(), model);
         }
 
 
