@@ -975,4 +975,25 @@
     </tag>
 
 
+    <tag>
+        <name>cache</name>
+        <description>Cache the body of the tag under a given key in a given cache</description>
+        <tag-class>gs.web.jsp.util.CacheTagHandler</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>key</name>
+            <description>Cache key to get/put content into</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>cacheName</name>
+            <description>Name of cache to get/put content into (default cache if omitted)</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
 </taglib>

@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.HashMap;
 
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Statistics;
 
 /**
@@ -34,8 +35,13 @@ public class CacheController extends AbstractController {
         Map<String, Cache> caches = new HashMap<String, Cache>();
         Map<String, Statistics> stats = new HashMap<String, Statistics>();
         for (String cacheName : cacheNames) {
-            caches.put(cacheName, manager.getCache(cacheName));
-            stats.put(cacheName, manager.getCache(cacheName).getStatistics());
+            try {
+                caches.put(cacheName, manager.getCache(cacheName));
+                stats.put(cacheName, manager.getCache(cacheName).getStatistics());
+            } catch (ClassCastException e) {
+                Ehcache cache = manager.getEhcache(cacheName);
+                stats.put(cacheName, cache.getStatistics());
+            }
         }
         model.put(MODEL_CACHES, caches);
         model.put(MODEL_STATS, stats);
