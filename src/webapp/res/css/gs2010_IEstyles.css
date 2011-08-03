@@ -32,8 +32,6 @@ General comments:
 =4f-1 school profile
 =4h inline sign-in
 =4i-2 manage newsletters
-=5 icons
-=9 buttons
 =10 grids
 =debugging styles
 =temporary modules
@@ -990,34 +988,6 @@ body.ie6 #manageNewsletters .formMainGS {
 
 body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
     margin-left: auto;
-}
-
-/* =5 icons
--------------------------------------------------------------------------------------------*/
-
-*html .sprite { /* for IE 6 iframe hovers */
-    display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-07-28.gif);
-    _zoom:1;
-    cursor: pointer;
-}
-
-body.ie6 .sprite {
-    display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-07-28.gif);
-    _zoom:1;
-    cursor: pointer;
-}
-
-/* =9 buttons
--------------------------------------------------------------------------------------------*/
-
-*+html .lftDoor25 .rtDoor25.nowrap-hpc{
-    width:170px;
-}
-
-*html .lftDoor25 .rtDoor25.nowrap-hpc{
-    width:170px;
 }
 
 /* =10 grids
