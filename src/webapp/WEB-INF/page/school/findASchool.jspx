@@ -214,7 +214,7 @@
 
         <jsp:include page="/promo/emailSignUp.module"/>
 
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}"/>
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PERCENT_FIND_A_SCHOOL"/>
     </div>
 
 
