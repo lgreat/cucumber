@@ -290,10 +290,10 @@
                     <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
                     <cssSourceDir>/res/css</cssSourceDir>
                     <cssSourceFiles>
-                        <param>0_reset/reset.css</param>
-                        <param>1_960gs/grids.css</param>
-                        <param>2_text/text.css</param>
-                        <param>3_iconSprite/iconSprite.css</param>
+                        <!--<param>0_reset/reset.css</param>-->
+                        <!--<param>1_960gs/grids.css</param>-->
+                        <!--<param>2_text/text.css</param>-->
+                        <!--<param>3_iconSprite/iconSprite.css</param>-->
                         <param>gs2010_styles.css</param>
                         <param>jquery.autocomplete.css</param>
                     </cssSourceFiles>
