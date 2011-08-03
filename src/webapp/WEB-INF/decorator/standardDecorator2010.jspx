@@ -139,6 +139,7 @@
             <mod:header/>
             <mod:primaryNav/>
             <mod:secondaryNav/>
+            <mod:belowNavAds/>
         </c:if>
 
         <div id="mainWrap">

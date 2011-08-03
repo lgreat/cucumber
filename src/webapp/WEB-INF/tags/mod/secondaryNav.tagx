@@ -90,8 +90,4 @@
         </li>
         <li class="menuItem"><a href="/test-prep/" id="SN-TestPrep" class="menuItemAnchorText GS_CI9_">Test Prep</a></li>
       </ul>
-
-<c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
-    <ad:adTag position="Global_NavPromo_968x30"/>
-</c:if>
 </jsp:root>

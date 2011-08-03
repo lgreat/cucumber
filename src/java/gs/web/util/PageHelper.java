@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.102 2011/05/23 18:16:00 rcox Exp $
+ * $Id: PageHelper.java,v 1.103 2011/08/03 23:18:32 yfan Exp $
  */
 
 package gs.web.util;
@@ -291,6 +291,10 @@ public class PageHelper {
      */
     public void addAdKeywordMulti(String name, String value) {
         addAdKeyword(name, value, true);
+    }
+
+    public boolean hasAdKeyword(String name) {
+        return _adKeywords.containsKey(name);
     }
 
     /**

@@ -193,7 +193,7 @@ public class CmsHomepageController extends AbstractController {
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
-            pageHelper.addAdKeywordMulti("editorial", "homepage");
+            pageHelper.addAdKeyword("template", "homepage");
         }
 
         return new ModelAndView(_viewName, model);

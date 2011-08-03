@@ -52,6 +52,8 @@
                 if (!pageHelper.isAdFree() && !pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
                     adNames.add(AdPosition.Global_NavPromo_968x30.getName());
                     adNames.add(AdPosition.Global_HeaderPromo_88x31.getName());
+                    adNames.add(AdPosition.Custom_Peelback_Ad.getName());
+                    adNames.add(AdPosition.Custom_Welcome_Ad.getName());
                 }
             }
 
@@ -68,6 +70,14 @@
 
             if (UrlUtil.isDevEnvironment(request.getServerName())) {
                 pageHelper.addAdKeyword("env", "dev");
+            }
+
+            if (!pageHelper.hasAdKeyword("template")) {
+                // "run of site" is the default value if no other code has already set it,
+                // e.g. in a controller. note that setting this in a jspx or tagx file
+                // which gets processed after xGAMSetup.tagx will still work because
+                // adding a non-multi value replaces any existing one
+                pageHelper.addAdKeyword("template","ros");
             }
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
