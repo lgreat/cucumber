@@ -174,20 +174,16 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_MSL_SCHOOLS, mslSchools);
         }
 
-//        if (schoolSearchCommand.isNearbySearchByLocation()) {
-//            System.err.println("Checking for exact county match on " + schoolSearchCommand.getSearchString());
-//            // check for exact county match
-//            ICounty county = getExactCountyMatch(schoolSearchCommand.getSearchString());
-//            if (county != null) {
-//                System.err.println("Found " + county);
-//                System.err.println("Updating lat/lon to " + county.getLat() + "/" + county.getLon());
-//                schoolSearchCommand.setLat((double)county.getLat());
-//                schoolSearchCommand.setLon((double)county.getLon());
-//                System.err.println(schoolSearchCommand.getLat() + "/" + schoolSearchCommand.getLon());
-//                schoolSearchCommand.setNormalizedAddress(county.getName() + ", " + county.getState());
-//            }
-//        }
-//
+        if (schoolSearchCommand.isNearbySearchByLocation()) {
+            // check for exact county match
+            ICounty county = getExactCountyMatch(schoolSearchCommand.getSearchString());
+            if (county != null) {
+                schoolSearchCommand.setLat((double)county.getLat());
+                schoolSearchCommand.setLon((double)county.getLon());
+                schoolSearchCommand.setNormalizedAddress(county.getName() + ", " + county.getState());
+            }
+        }
+
         SchoolSearchCommandWithFields commandAndFields = new SchoolSearchCommandWithFields(schoolSearchCommand, fields);
         String[] schoolSearchTypes = commandAndFields.getSchoolTypes();
         commandAndFields.setDistrictDao(getDistrictDao());
@@ -1179,49 +1175,61 @@ public class SchoolSearchController extends AbstractCommandController implements
         return filter;
     }
 
-//    protected ICounty getExactCountyMatch(String searchQuery) {
-//        if (StringUtils.isBlank(searchQuery) || !StringUtils.containsIgnoreCase(searchQuery, "county")) {
-//            return null;
-//        }
-//
-//        ICounty county = null;
-//        try {
-//            String trimmedQuery = StringUtils.trim(searchQuery);
-//
-//            // let's try pulling a State off the end of the string
-//            // if that works, then we'll treat the first part of the string as a county and look for a match
-//            String potentialState = StringUtils.substringAfterLast(trimmedQuery, " ");
-//            try {
-//                State state = State.fromString(potentialState);
-//                if (state != null) {
-//                    String countyStr = StringUtils.substringBeforeLast(trimmedQuery, " ");
-//                    countyStr = StringUtils.trim(countyStr);
-//                    // remove trailing comma, if any
-//                    if (StringUtils.endsWith(countyStr, ",")) {
-//                        countyStr = StringUtils.chop(countyStr);
-//                        countyStr = StringUtils.trim(countyStr);
-//                    }
-//                    // remove trailing "county" since bpcounty names do not contain that
-//                    if (StringUtils.endsWithIgnoreCase(countyStr, "county")) {
-//                        countyStr = StringUtils.substring(countyStr, 0, countyStr.length() - "county".length());
-//                        countyStr = StringUtils.trim(countyStr);
-//                    }
-//                    // - Exact match for County, State
-//                    // - Exact match for County State
-//                    county = _geoDao.findCountyByName(countyStr, state);
-//                }
-//            } catch (IllegalArgumentException iae) {
-//                // Triggers from State.fromString
-//                // since we can't determine state, we won't be able to determine an exact county match
-//                // we'll fall through and let null be returned
-//            }
-//        } catch (Exception e) {
-//            // don't want errors here affecting search
-//            // let's just give up on finding the exact county and proceed with regular search.
-//        }
-//
-//        return county;
-//    }
+    /**
+     * Look for and return an exact county name match on search queries matching the format
+     * "[query] county, [state]"
+     * e.g. a query string "Alameda County, CA" will search for a county with the name "Alameda" in CA.
+     */
+    protected ICounty getExactCountyMatch(String searchQuery) {
+        if (StringUtils.isBlank(searchQuery) || !StringUtils.containsIgnoreCase(searchQuery, "county")) {
+            return null;
+        }
+
+        ICounty county = null;
+        try {
+            String trimmedQuery = StringUtils.trim(searchQuery);
+
+            // let's try pulling a State off the end of the string
+            String potentialState = StringUtils.substringAfterLast(trimmedQuery, " ");
+            if (StringUtils.length(potentialState) != 2) {
+                potentialState = StringUtils.substringAfterLast(trimmedQuery, ",");
+            }
+            try {
+                State state = State.fromString(potentialState);
+                if (state != null) {
+                    // that worked, so let's clean up the string and remove the word "county" from the end
+                    // county search strings must end with county per GS-11974/GS-11989
+                    String countyStr = StringUtils.substring(trimmedQuery, 0, trimmedQuery.length()-potentialState.length());
+                    countyStr = StringUtils.trim(countyStr);
+                    // remove trailing comma, if any
+                    if (StringUtils.endsWith(countyStr, ",")) {
+                        countyStr = StringUtils.chop(countyStr);
+                        countyStr = StringUtils.trim(countyStr);
+                    }
+                    // remove trailing "county" since bpcounty names do not contain that
+                    if (StringUtils.endsWithIgnoreCase(countyStr, "county")) {
+                        countyStr = StringUtils.substring(countyStr, 0, countyStr.length() - "county".length());
+                        countyStr = StringUtils.trim(countyStr);
+                    }
+                    // now check for a county by name in the state
+                    county = _geoDao.findCountyByName(countyStr, state);
+                }
+            } catch (IllegalArgumentException iae) {
+                // Triggers from State.fromString
+                // This is not an exceptional case so I am not logging anything!
+                // Since we can't determine state, we won't be able to determine an exact county match
+                // We'll fall through and let null be returned
+            }
+        } catch (Exception e) {
+            // this probably indicates a coding error or a fatal problem with the DAO.
+            // Either way this should be logged so it can get attention
+            _log.error(e, e);
+            // However, we don't want errors here affecting search
+            // Let's just give up on finding the exact county and proceed with regular search.
+        }
+
+        return county;
+    }
 
     //-------------------------------------------------------------------------
     // spring-injected accessors

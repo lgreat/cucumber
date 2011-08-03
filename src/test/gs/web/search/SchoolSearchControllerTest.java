@@ -2,7 +2,9 @@ package gs.web.search;
 
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.geo.City;
+import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.bestplaces.BpCounty;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
@@ -784,6 +786,69 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
                 SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, LevelCode.ELEMENTARY, new String[]{"public"}));
     }
 
+    public void testGetExactCountyMatch() {
+        ICounty rval;
+
+        // expect strings without "county" to do nothing
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("Some place");
+        verifyAllMocks();
+        assertNull(rval);
+
+        resetAllMocks();
+
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("Alameda, CA");
+        verifyAllMocks();
+        assertNull(rval);
+
+        resetAllMocks();
+
+        expect(_geoDao.findCountyByName("Alameda", State.CA)).andReturn(new BpCounty());
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("Alameda County, CA");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        expect(_geoDao.findCountyByName("alameda", State.CA)).andReturn(new BpCounty());
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("alameda county, ca");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        expect(_geoDao.findCountyByName("alameda", State.CA)).andReturn(new BpCounty());
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("alameda county,ca");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        expect(_geoDao.findCountyByName("alameda", State.CA)).andReturn(new BpCounty());
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("alameda county ca");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        expect(_geoDao.findCountyByName("alameda", State.CA)).andReturn(new BpCounty());
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("  alameda   county   ca  ");
+        verifyAllMocks();
+        assertNotNull(rval);
+
+        resetAllMocks();
+
+        replayAllMocks();
+        rval = _controller.getExactCountyMatch("alameda county, xx");
+        verifyAllMocks();
+        assertNull(rval);
+    }
 //    public void testGetExactCityMatch() {
 //        City rval;
 //
