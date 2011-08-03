@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.254 2011/07/16 02:06:00 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.255 2011/08/03 23:17:36 aroy Exp $
  */
 
 package gs.web.util;
@@ -143,6 +143,7 @@ public class UrlBuilder {
      * New state page: research and compare, with optional state.
      */
     public static final VPage RESEARCH = new VPage("vpage:research");
+    public static final VPage FIND_A_SCHOOL = new VPage("vpage:findASchool");
 
     public static final VPage LOGIN_OR_REGISTER = new VPage("vpage:loginOrRegister");
     public static final VPage REGISTRATION = new VPage("vpage:registration");
@@ -897,6 +898,8 @@ public class UrlBuilder {
             _path="/worksheets";
         } else if (HOME.equals(page)) {
             init(HOME, null, null);
+        } else if (FIND_A_SCHOOL.equals(page)) {
+            _path="/find-schools/";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

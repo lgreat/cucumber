@@ -50,17 +50,6 @@
         PageHelper.hideLeaderboard(request);
     </jsp:scriptlet>
 
-    <!-- showStateWidget requires submodal.js and submodal.css -->
-    <script type="text/javascript" language="javascript">
-        jQuery(function() {
-            if (getState() == '') {
-                jQuery('#GlobalNav_ResearchButton').click(function () {
-                    GSType.hover.miniStateLauncher.show();
-                    return false;
-                });
-            }
-        });
-    </script>
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
 </head>
 

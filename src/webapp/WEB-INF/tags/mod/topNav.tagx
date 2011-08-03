@@ -276,7 +276,7 @@
 
     <ul id="globalnav" class="">
         <li><link:home id="GlobalNav_HomeButton" styleClass="${(pw == tabs.HOME ? 'selected' : '')} GS_CI9_ ">Home</link:home></li>
-        <li><link:research id="GlobalNav_ResearchButton" styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} GS_CI9_ " state="${requestScope.context.state}">Find a School</link:research></li>
+        <li><link:findASchool id="GlobalNav_ResearchButton" styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} GS_CI9_ ">Find a School</link:findASchool></li>
         <li><link:preschool id="GlobalNav_PreschoolButton" styleClass="${(pw == tabs.PRESCHOOL ? 'selected' : '')} GS_CI9_ ">Preschool</link:preschool></li>
         <li><link:elementary-school id="GlobalNav_ElementarySchoolButton" styleClass="${(pw == tabs.ELEMENTARY_SCHOOL ? 'selected' : '')} GS_CI9_ ">Elementary School</link:elementary-school></li>
         <li><link:middle-school id="GlobalNav_MiddleSchoolButton" styleClass="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} GS_CI9_ ">Middle School</link:middle-school></li>

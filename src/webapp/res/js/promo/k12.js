@@ -85,7 +85,7 @@ jQuery(function() {
 
     GS.promo.K12.trafficDriver = GS.promo.K12.trafficDriver || new GS.promo.K12.TrafficDriver();
 
-    jQuery('#SponsoredSearch_Top_423x68 .jq-k12TrafficDriver, #SponsoredSearch_Bottom_423x68 .jq-k12TrafficDriver, #TopRatedSponsor_310x40 .jq-k12TrafficDriver, #House_Ad_370x158 .jq-k12TrafficDriver, #CustomSponsor_407x65 .jq-k12TrafficDriver, #Sponsor_610x16 .jq-k12TrafficDriver').
+    jQuery('#SponsoredSearch_Top_423x68 .jq-k12TrafficDriver, #SponsoredSearch_Bottom_423x68 .jq-k12TrafficDriver, #TopRatedSponsor_310x40 .jq-k12TrafficDriver, #House_Ad_370x158 .jq-k12TrafficDriver, #CustomSponsor_407x65 .jq-k12TrafficDriver, #Sponsor_610x16 .jq-k12TrafficDriver, #K12_Module_Logo_88x31 .jq-k12TrafficDriver').
             unbind('click').click(function() {
 
         var href = jQuery(this).attr('href');
@@ -108,5 +108,18 @@ jQuery(function() {
             return false;
         }
 
+    });
+
+    jQuery('#js-k12Form-fs').unbind('submit').submit(function() {
+        var selectedState = jQuery('#js-k12StateSelect-fs').val();
+        var k12School = GS.promo.K12.trafficDriver.getK12School(selectedState);
+
+        if (s.tl) {
+            s.tl(true, 'o', 'K12_TrafficDriver_' + k12School);
+        }
+
+        var link="/online-education.page?school=" + k12School + "&t=fs";
+        window.open(link, '_blank');
+        return false;
     });
 });

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.90 2011/03/16 00:50:12 yfan Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.91 2011/08/03 23:17:36 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -799,5 +799,13 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.setPage(1);
         builder = handler.createUrlBuilder();
         assertEquals("/school-comparison-tool/results.page?schools=ca2%2Cca3", builder.asSiteRelative(null));
+    }
+
+    public void testFindASchoolTagHandler() {
+        FindASchoolTagHandler handler = new FindASchoolTagHandler();
+        handler.setPageContext(new MockPageContext());
+        
+        UrlBuilder builder = handler.createUrlBuilder();
+        assertEquals("/find-schools/", builder.asSiteRelative(null));
     }
 }

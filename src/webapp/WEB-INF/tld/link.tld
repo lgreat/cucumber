@@ -4417,5 +4417,28 @@
             <description>School identifier to remove from list, as "ca1"</description>
         </attribute>
     </tag>
+    <tag>
+        <name>findASchool</name>
+        <tag-class>gs.web.jsp.link.FindASchoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Find a Schools</display-name>
+        <description>
+            <![CDATA[Find a School Home]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
+    </tag>
 
 </taglib>

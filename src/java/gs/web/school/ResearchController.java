@@ -2,6 +2,8 @@ package gs.web.school;
 
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
+import gs.web.util.Redirect301Controller;
+import gs.web.util.RedirectView301;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -81,6 +83,10 @@ public class ResearchController extends AbstractController implements IDirectory
 
         SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
+        // 301 redirect requests without a state to new find a school page
+        if (state == null || StringUtils.equals(request.getRequestURI(), "/school/research.page")) {
+            return new ModelAndView(new RedirectView301(new UrlBuilder(UrlBuilder.FIND_A_SCHOOL).asSiteRelative(request)));
+        }
 
         ModelAndView mAndV = new ModelAndView (getViewName());
 

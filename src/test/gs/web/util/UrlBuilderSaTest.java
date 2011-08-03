@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.133 2011/06/15 19:43:04 pdeshwal Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.134 2011/08/03 23:17:36 aroy Exp $
  */
 
 package gs.web.util;
@@ -476,6 +476,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.SCHOOL_FINDER_WIDGET);
         assertEquals(SchoolSearchWidgetController.BEAN_ID, builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.FIND_A_SCHOOL);
+        assertEquals("/find-schools/", builder.asSiteRelative(request));
     }
 
     public void testMicroSitePages() {
