@@ -79,7 +79,7 @@
             </ul>
 
             <div id="byLocationTabBody" class="tabBody">
-                <form name="findByLocationForm" id="findByLocationForm" action="/search/search.page"
+                <form name="findByLocationForm" id="jq-findByLocationForm" action="/search/search.page"
                       method="get" onsubmit="return false;">
                     <input type="hidden" name="lat"/>
                     <input type="hidden" name="lon"/>
@@ -92,92 +92,94 @@
 
                     <p class="subhead2 subhead2-333">Search a city or address
                         <span class="smallText1-italic">Address, city, state or zip</span></p>
-                    <input type="text" name="searchString" class="searchInput" id="findByLocationBox"
+                    <input type="text" name="searchString" class="searchInput" id="js-findByLocationBox"
                                 onfocus="GS_textSwitch(this, '', 'Enter city &amp; state or zip code');"
                                 onblur="GS_textSwitch(this, 'Enter city &amp; state or zip code', '');"
                                 value="Enter city &amp; state or zip code"/>
                     <button class="button-1 searchSubmit" type="submit">Search</button>
 
                     <ul class="filterBar">
+                        <!-- Do not modify ids of individual check boxes.
+                        They must be of the form [filter-type]-[filter-value] e.g. 'school-type-all' -->
                         <li id="js-schoolTypes">
                             <div>School type</div>
                             <div>
-                                <input type="checkbox" checked="checked" name="st" id="school-type-all" value=""/>
-                                <label for="school-type-all">All School Types</label>
+                                <input type="checkbox" checked="checked" name="st" id="js-school-type-all" value=""/>
+                                <label for="js-school-type-all">All School Types</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-public" value="public"/>
-                                <label for="school-type-public">Public</label>
+                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="js-school-type-public" value="public"/>
+                                <label for="js-school-type-public">Public</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-charter" value="charter"/>
-                                <label for="school-type-charter">Public charter</label>
+                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="js-school-type-charter" value="charter"/>
+                                <label for="js-school-type-charter">Public charter</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="school-type-private" value="private"/>
-                                <label for="school-type-private">Private</label>
+                                <input type="checkbox" class="jq-school-type" checked="checked" name="st" id="js-school-type-private" value="private"/>
+                                <label for="js-school-type-private">Private</label>
                             </div>
                         </li>
                         <li id="js-gradeLevels">
                             <div>Grade level</div>
                             <div>
-                                <input type="checkbox" checked="checked" name="gradeLevels" id="grade-level-all" value=""/>
-                                <label for="grade-level-all">All Grade Levels</label>
+                                <input type="checkbox" checked="checked" name="gradeLevels" id="js-grade-level-all" value=""/>
+                                <label for="js-grade-level-all">All Grade Levels</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-p" value="p"/>
-                                <label for="grade-level-p">Preschool</label>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="js-grade-level-p" value="p"/>
+                                <label for="js-grade-level-p">Preschool</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-e" value="e"/>
-                                <label for="grade-level-e">Elementary School (K-5)</label>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="js-grade-level-e" value="e"/>
+                                <label for="js-grade-level-e">Elementary School (K-5)</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-m" value="m"/>
-                                <label for="grade-level-m">Middle School (6-8)</label>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="js-grade-level-m" value="m"/>
+                                <label for="js-grade-level-m">Middle School (6-8)</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="grade-level-h" value="h"/>
-                                <label for="grade-level-h">High School (9-12)</label>
+                                <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels" id="js-grade-level-h" value="h"/>
+                                <label for="js-grade-level-h">High School (9-12)</label>
                             </div>
                         </li>
                         <li id="js-radius">
                             <div>Distance</div>
                             <div>
-                                <input type="radio" name="distance" value="1" id="radius-1"/>
-                                <label for="radius-1">1 mile</label>
+                                <input type="radio" name="distance" value="1" id="js-radius-1"/>
+                                <label for="js-radius-1">1 mile</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="2" id="radius-2"/>
-                                <label for="radius-2">2 miles</label>
+                                <input type="radio" name="distance" value="2" id="js-radius-2"/>
+                                <label for="js-radius-2">2 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="3" id="radius-3"/>
-                                <label for="radius-3">3 miles</label>
+                                <input type="radio" name="distance" value="3" id="js-radius-3"/>
+                                <label for="js-radius-3">3 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="4" id="radius-4"/>
-                                <label for="radius-4">4 miles</label>
+                                <input type="radio" name="distance" value="4" id="js-radius-4"/>
+                                <label for="js-radius-4">4 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="5" id="radius-5"/>
-                                <label for="radius-5">5 miles</label>
+                                <input type="radio" name="distance" value="5" id="js-radius-5"/>
+                                <label for="js-radius-5">5 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="10" id="radius-10"/>
-                                <label for="radius-10">10 miles</label>
+                                <input type="radio" name="distance" value="10" id="js-radius-10"/>
+                                <label for="js-radius-10">10 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="15" id="radius-15"/>
-                                <label for="radius-15">15 miles</label>
+                                <input type="radio" name="distance" value="15" id="js-radius-15"/>
+                                <label for="js-radius-15">15 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="20" id="radius-20"/>
-                                <label for="radius-20">20 miles</label>
+                                <input type="radio" name="distance" value="20" id="js-radius-20"/>
+                                <label for="js-radius-20">20 miles</label>
                             </div>
                             <div>
-                                <input type="radio" name="distance" value="25" id="radius-25" checked="checked"/>
-                                <label for="radius-25">25 miles</label>
+                                <input type="radio" name="distance" value="25" id="js-radius-25" checked="checked"/>
+                                <label for="js-radius-25">25 miles</label>
                             </div>
                         </li>
                     </ul>
@@ -186,13 +188,13 @@
             </div>
 
             <div id="byNameTabBody" class="tabBody" style="display:none;">
-                <form name="searchByNameForm" action="/search/search.page" method="get">
+                <form name="searchByNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
                     <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
                     <input type="hidden" name="search_type" value="1"/>
 
                     <p class="subhead2 subhead2-333">Search by school or district</p>
 
-                    <input type="text" name="q" class="searchInput" id="findByNameBox"
+                    <input type="text" name="q" class="searchInput" id="js-findByNameBox"
                                 onfocus="GS_textSwitch(this, '', 'Search for school or district');"
                                 onblur="GS_textSwitch(this, 'Search for school or district', '');"
                                 value="Search for school or district"/>
@@ -201,7 +203,7 @@
                                                      usingLongNames="false"
                                                      state="${requestScope.context.state}"
                                                      styleClass="stateSelect"
-                                                     styleId="findByNameStateSelect"
+                                                     styleId="js-findByNameStateSelect"
                                         />
                     <button class="button-1 searchSubmit" type="submit">Search</button>
                 </form>

@@ -14,14 +14,13 @@ Array.prototype.contains = function(obj) {
 };
 
 GS.findASchool.loadResultsPage = function() {
-    var queryString = $('#findByLocationForm').serialize();
+    var queryString = $('#jq-findByLocationForm').serialize();
     queryString = GS.findASchool.buildQueryString(queryString);
     window.location.href = '/search/search.page' + queryString;
 };
 
 GS.findASchool.submitByLocationSearch = function() {
-    $('#multipleResults').hide();
-    var byLocationForm = $('#findByLocationForm');
+    var byLocationForm = $('#jq-findByLocationForm');
     var searchQuery = byLocationForm.find('input[name="searchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
     byLocationForm.find('input[name="searchString"]').val(searchQuery);
@@ -215,11 +214,11 @@ GS.findASchool.FilterTracking = function() {
         if (lastHyphenIndex > 0) {
             var cssIdPrefix = cssId.substr(0,lastHyphenIndex);
             var filter = cssId.substr(lastHyphenIndex + 1);
-            if (cssIdPrefix === 'school-type') {
+            if (cssIdPrefix === 'js-school-type') {
                 customLinkName = 'FAS_filter_type_' + filter;
-            } else if (cssIdPrefix === 'grade-level') {
+            } else if (cssIdPrefix === 'js-grade-level') {
                 customLinkName = 'FAS_filter_grade_' + gradeLevel[filter];
-            } else if (cssIdPrefix === 'radius') {
+            } else if (cssIdPrefix === 'js-radius') {
                 customLinkName = 'FAS_filter_distance_' + filter;
             }
 
@@ -233,32 +232,33 @@ GS.findASchool.FilterTracking = function() {
 };
 
 GS.findASchool.setAllGrades = function() {
-    var gradeCheckboxes = jQuery('ul.filterBar .jq-grade-level');
+    var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
 
     var numGradeLevels = gradeCheckboxes.size();
     var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
     if (numGradeLevels == numGradeLevelsChecked) {
-        jQuery('#grade-level-all').attr('checked', 'checked');
+        jQuery('#js-grade-level-all').attr('checked', 'checked');
     } else {
-        jQuery('#grade-level-all').removeAttr('checked');
+        jQuery('#js-grade-level-all').removeAttr('checked');
     }
 };
 
 GS.findASchool.setAllTypes = function() {
-    var typeCheckboxes = jQuery('ul.filterBar .jq-school-type');
+    var typeCheckboxes = jQuery('#js-schoolTypes .jq-school-type');
 
     var numSchoolTypes = typeCheckboxes.size();
     var numSchoolTypesChecked = typeCheckboxes.filter(':checked').size();
     if (numSchoolTypes == numSchoolTypesChecked) {
-        jQuery('#school-type-all').attr('checked', 'checked');
+        jQuery('#js-school-type-all').attr('checked', 'checked');
     } else {
-        jQuery('#school-type-all').removeAttr('checked');
+        jQuery('#js-school-type-all').removeAttr('checked');
     }
 };
 
 $(function() {
     GS.findASchool.filterTracking = new GS.findASchool.FilterTracking();
 
+    // TEMPORARY TAB CODE. PLEASE REPLACE
     $("#byLocationTab").click(function() {
         $('#byLocationTab').addClass('selected');
         $('#byLocationTabBody').show();
@@ -271,19 +271,21 @@ $(function() {
         $('#byNameTab').addClass('selected');
         $('#byNameTabBody').show();
     });
-    GS.findASchool.attachCityAutocomplete('findByLocationBox');
-    GS.findASchool.attachSchoolAutocomplete('findByNameBox', 'findByNameStateSelect');
-    $('#findByLocationForm').submit(function() {
+    // END TEMPORARY TAB CODE
+
+    GS.findASchool.attachCityAutocomplete('js-findByLocationBox');
+    GS.findASchool.attachSchoolAutocomplete('js-findByNameBox', 'js-findByNameStateSelect');
+    $('#jq-findByLocationForm').submit(function() {
         return GS.findASchool.submitByLocationSearch();
     });
     jQuery('#js-gradeLevels input').click(function () {
         var cssId = jQuery(this).attr('id');
 
-        var gradeCheckboxes = jQuery('ul.filterBar .jq-grade-level');
+        var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
 
         // may need to change checkbox checking in jQuery 1.6+
         // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
-        if (cssId === 'grade-level-all') {
+        if (cssId === 'js-grade-level-all') {
             if (jQuery(this).is(':checked')) {
                 gradeCheckboxes.attr('checked','checked');
             } else {
@@ -298,11 +300,11 @@ $(function() {
     jQuery('#js-schoolTypes input').click(function () {
         var cssId = jQuery(this).attr('id');
 
-        var typeCheckboxes = jQuery('ul.filterBar .jq-school-type');
+        var typeCheckboxes = jQuery('#js-schoolTypes .jq-school-type');
 
         // may need to change checkbox checking in jQuery 1.6+
         // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
-        if (cssId === 'school-type-all') {
+        if (cssId === 'js-school-type-all') {
             if (jQuery(this).is(':checked')) {
                 typeCheckboxes.attr('checked','checked');
             } else {
@@ -321,8 +323,8 @@ $(function() {
     GS.findASchool.setAllGrades();
     GS.findASchool.setAllTypes();
 
-    jQuery('form[name="searchByNameForm"]').submit(function() {
-        var stateVal = jQuery('#findByNameStateSelect').val();
+    jQuery('#jq-findByNameForm').submit(function() {
+        var stateVal = jQuery('#js-findByNameStateSelect').val();
         if (stateVal == '') {
             alert("Please select a state.");
             return false;
