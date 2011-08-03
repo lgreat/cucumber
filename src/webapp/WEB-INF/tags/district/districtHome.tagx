@@ -133,7 +133,7 @@
                     <td  id="address">
                         <table>
                         <tr><td>${district.physicalAddress.street}</td></tr>
-                        <c:if test="${not empty district.physicalAddress.streetLine2}">
+                        <c:if test="${not empty district.physicalAddress.streetLine2 and district.physicalAddress.streetLine2 ne ','}">
                             <tr><td>${district.physicalAddress.streetLine2}</td></tr>
                         </c:if>
                         <tr><td>${district.physicalAddress.city}, ${district.physicalAddress.state} ${district.physicalAddress.zip}</td></tr>

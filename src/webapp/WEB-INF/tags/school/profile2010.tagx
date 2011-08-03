@@ -237,7 +237,7 @@
             </c:if>
             <div id="schoolInfoRightColumn" class="text3 adr">
                 <p class="street-address">${school.physicalAddress.street}</p>
-                <c:if test="${not empty school.physicalAddress.streetLine2}">
+                <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
                     <p class="street-address">${school.physicalAddress.streetLine2}</p>
                 </c:if>
                 <p>
