@@ -1,5 +1,7 @@
 package gs.web.pagination;
 
+import gs.data.pagination.PaginationConfig;
+
 /**
  * Contains enough information to search for results in a specific page only
  */
@@ -27,16 +29,7 @@ public class RequestedPage {
         int firstOffsetOfLastPage = offset;
 
         if (oneBasedOffset > numberOfActualResults) {
-            int lastOffset;
-            if (config.isZeroBasedOffset()) {
-                lastOffset = numberOfActualResults-1;
-            } else {
-                lastOffset = numberOfActualResults;
-            }
-
-            int lastPage = Pagination.getPageNumber(pageSize, lastOffset, config);
-
-            firstOffsetOfLastPage = Pagination.getOffset(pageSize, lastPage, config);
+            firstOffsetOfLastPage = gs.data.pagination.Pagination.getFirstOffsetOnLastPage(pageSize, numberOfActualResults, config);
         }
         
         return firstOffsetOfLastPage;

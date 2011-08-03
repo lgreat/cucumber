@@ -1,5 +1,6 @@
 package gs.web.pagination;
 
+import gs.data.pagination.PaginationConfig;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;

@@ -1,5 +1,8 @@
 package gs.web.pagination;
 
+import gs.data.pagination.DefaultPaginationConfig;
+import gs.data.pagination.PaginationConfig;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 

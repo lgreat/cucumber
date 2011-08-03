@@ -9,7 +9,6 @@ import gs.data.content.cms.ICmsCategoryDao;
 import gs.data.search.SearchResultsPage;
 import gs.data.util.CmsUtil;
 import gs.web.content.cms.CmsContentUtils;
-import gs.web.pagination.Pagination;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
@@ -120,7 +119,7 @@ public class ArticlesByCategoryController extends AbstractController {
         if (p != null) {
             try {
                 page = Integer.parseInt(p);
-                offset = Pagination.getOffset(PAGE_SIZE, page);
+                offset = gs.data.pagination.Pagination.getOffset(PAGE_SIZE, page);
             } catch (Exception e) {
                 // ignore this and just assume the page is 1.
             }

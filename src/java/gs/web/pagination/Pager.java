@@ -1,5 +1,7 @@
 package gs.web.pagination;
 
+import gs.data.pagination.PaginationConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,7 +25,7 @@ public final class Pager {
         _totalItems = totalItems;
         _pageSize = pageSize;
 
-        _totalPages = Pagination.getNumberOfPages(_pageSize, totalItems);
+        _totalPages = gs.data.pagination.Pagination.getNumberOfPages(_pageSize, totalItems);
 
         _firstOffset = paginationConfig.isZeroBasedOffset()? 0 : 1;
         _lastOffset = paginationConfig.isZeroBasedOffset()? totalItems-1 : totalItems;
@@ -87,11 +89,11 @@ public final class Pager {
     }
 
     public int getPageNumber(int resultNumber) {
-        return Pagination.getPageNumber(_pageSize, resultNumber, _paginationConfig.isZeroBasedOffset(), _paginationConfig.isZeroBasedPages());
+        return gs.data.pagination.Pagination.getPageNumber(_pageSize, resultNumber, _paginationConfig.isZeroBasedOffset(), _paginationConfig.isZeroBasedPages());
     }
 
     public int getOffset(int pageNumber) {
-        return Pagination.getOffset(_pageSize, pageNumber, _paginationConfig.isZeroBasedOffset(), _paginationConfig.isZeroBasedPages());
+        return gs.data.pagination.Pagination.getOffset(_pageSize, pageNumber, _paginationConfig.isZeroBasedOffset(), _paginationConfig.isZeroBasedPages());
     }
 
     public int getTotalItems() {

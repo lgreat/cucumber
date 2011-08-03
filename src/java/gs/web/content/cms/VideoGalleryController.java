@@ -1,6 +1,8 @@
 package gs.web.content.cms;
 
 import gs.data.content.cms.*;
+import gs.data.pagination.DefaultPaginationConfig;
+import gs.data.pagination.PaginationConfig;
 import gs.data.school.LevelCode;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.SearchException;
@@ -8,11 +10,8 @@ import gs.data.search.SearchResultsPage;
 import gs.data.search.fields.CmsFeatureFields;
 import gs.data.search.fields.DocumentType;
 import gs.data.util.CmsUtil;
-import gs.web.pagination.DefaultPaginationConfig;
 import gs.web.pagination.Pagination;
-import gs.web.pagination.PaginationConfig;
 import gs.web.pagination.RequestedPage;
-import gs.web.school.SchoolOverviewController;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
