@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 /**
  * Immutable class with info on how to control paging for a specific set of pages
  */
-public final class Pager {
+public class Pager {
     private final int _totalItems;
     private final int _pageSize;
     private final int _firstOffset;

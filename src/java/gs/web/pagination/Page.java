@@ -32,6 +32,10 @@ public class Page {
         this(offset, pageSize, totalItems, new DefaultPaginationConfig());
     }
 
+    /**
+     * @param pager
+     * @param offset the starting offset of this page
+     */
     Page(Pager pager, int offset) {
         _pager = pager;
         _offset = offset;
@@ -66,12 +70,18 @@ public class Page {
 
     public Page pageAhead(int numberOfPages) {
         int offset = _offset + (numberOfPages * _pager.getPageSize());
+        Page page;
         
         if (offset > _pager.getLastOffset()) {
-            throw new NoSuchElementException("Tried to page beyond end of results");
+            //throw new NoSuchElementException("Tried to page beyond end of results");
+            //if there are 6 results, and page size is 4, there are 2 pages. If this page starts at result 4, then this
+            //page would include all results for the next page (page 2). If this happens, just return the last page
+            //when asking for the next page. not ideal, but I don't know of better solution without more effort/risk
+            page = _pager.getLastPage();
+        } else {
+            page = new Page(_pager, offset);
         }
 
-        Page page = new Page(_pager, offset);
         return page;
     }
 
