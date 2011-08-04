@@ -180,7 +180,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             if (county != null) {
                 schoolSearchCommand.setLat((double)county.getLat());
                 schoolSearchCommand.setLon((double)county.getLon());
-                schoolSearchCommand.setNormalizedAddress(county.getName() + ", " + county.getState());
+                schoolSearchCommand.setNormalizedAddress(county.getName() + " County, " + county.getState());
             }
         }
 
