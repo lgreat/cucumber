@@ -156,7 +156,7 @@ GS.search.onMapMarkerClick = function(state, id) {
             queryString = putIntoQueryString(queryString, "distance", distanceSelect.val(), true);
         }
 
-        if (jQuery('#sort-by').val() !== '') {
+        if (jQuery('#sort-by').val() !== '' && typeof(jQuery('#sort-by').val()) !== 'undefined') {
             queryString = putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
         } else {
             queryString = removeFromQueryString(queryString, "sortBy");
