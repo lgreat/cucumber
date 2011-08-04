@@ -7,9 +7,14 @@ GS.attachSchoolAutocomplete = function(domId) {
     searchBox.autocomplete(url, {
         extraParams: {
             state: function() {
-                return searchStateSelect.val();
+                var rval = searchStateSelect.val();
+                if (rval === '') {
+                    return null;
+                }
+                return rval;
             }
         },
+        extraParamsRequired:true,
         minChars: 3,
         selectFirst: false,
         cacheLength: 150,

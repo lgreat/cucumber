@@ -145,10 +145,15 @@ GS.findASchool.attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
     searchBox.autocomplete(url, {
         extraParams: {
             state: function() {
-                return searchStateSelect.val();
+                var rval = searchStateSelect.val();
+                if (rval === '') {
+                    return null;
+                }
+                return rval;
             },
             schoolDistrict: true
         },
+        extraParamsRequired: true,
         minChars: 3,
         selectFirst: false,
         cacheLength: 150,
