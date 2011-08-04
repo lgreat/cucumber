@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:gsweb="gstaglib"
           version="2.0">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
@@ -64,7 +65,7 @@
 </head>
 
 <gsml:body adPageName="findASchool" pageLayout="nocol">
-    <c:set var="adSlotPrefix" value="Find_A_School"/>
+    <c:set var="adSlotPrefix" value="Find_Schools_Home"/>
     <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
 
     <div class="container_24">
@@ -222,7 +223,16 @@
                 Width:430px
             </div>
             <div class="grid_5 omega">
-                Width:190px
+                <k12:leadGenAd/>
+                <div>
+                    <h3>Download the school visit checklist</h3>
+                    <ul>
+                        <li><a href="/catalog/pdf/schq_visit_preschool.pdf">Preschool</a></li>
+                        <li><a href="/catalog/pdf/schq_visit_elementary.pdf">Elementary school</a></li>
+                        <li><a href="/catalog/pdf/schq_visit_middle.pdf">Middle school</a></li>
+                        <li><a href="/catalog/pdf/schq_visit_high.pdf">High school</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="grid_8">
