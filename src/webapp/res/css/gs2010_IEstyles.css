@@ -995,7 +995,7 @@ body.ie6 #manageNewsletters #add, body.ie6 #manageNewsletters #submitButton {
 /* =5 icons
 -------------------------------------------------------------------------------------------*/
 
-*html .sprite { /* for IE 6 iframe hovers */
+/**html .sprite { *//* for IE 6 iframe hovers *//*
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2011-07-28.gif);
     _zoom:1;
@@ -1007,18 +1007,18 @@ body.ie6 .sprite {
     background-image: url(/res/img/sprites/iconSprite_2011-07-28.gif);
     _zoom:1;
     cursor: pointer;
-}
+}*/
 
 /* =9 buttons
 -------------------------------------------------------------------------------------------*/
 
-*+html .lftDoor25 .rtDoor25.nowrap-hpc{
+/**+html .lftDoor25 .rtDoor25.nowrap-hpc{
     width:170px;
 }
 
 *html .lftDoor25 .rtDoor25.nowrap-hpc{
     width:170px;
-}
+}*/
 
 /* =10 grids
 -------------------------------------------------------------------------------------------*/

@@ -111,7 +111,7 @@ General comments:
 /* =0 reset
 -------------------------------------------------------------------------------------------*/
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+/*html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
     margin: 0;
     padding: 0;
     border: 0;
@@ -128,12 +128,12 @@ blockquote:before, blockquote:after, q:before, q:after {
     content: none;
 }
 
-/* remember to define focus styles! */
+*//* remember to define focus styles! *//*
 :focus {
     outline: 1px dotted;
 }
 
-/* remember to highlight inserts somehow! */
+*//* remember to highlight inserts somehow! *//*
 ins {
     text-decoration: none;
 }
@@ -146,7 +146,7 @@ ul, li {
     list-style: none;
 }
 
-/* tables still need 'cellspacing="0"' in the markup */
+*//* tables still need 'cellspacing="0"' in the markup *//*
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -160,7 +160,7 @@ body {
 
 body.cobranded {
     background: #fff;
-}
+}*/
 
 /* =960 24 column grid
 -------------------------------------------------------------------------------------------*/
@@ -173,20 +173,20 @@ body.cobranded {
   Note: IE6 works fine without this fix.
 */
 
-body {
+/*body {
   min-width: 960px;
 }
 
-/* `Container >> 24 Columns
-----------------------------------------------------------------------------------------------------*/
+*//* `Container >> 24 Columns
+----------------------------------------------------------------------------------------------------*//*
 .container_24 {
   margin-left: auto;
   margin-right: auto;
   width: 960px;
 }
 
-/* `Grid >> Global
-----------------------------------------------------------------------------------------------------*/
+*//* `Grid >> Global
+----------------------------------------------------------------------------------------------------*//*
 
 .grid_1,
 .grid_2,
@@ -244,8 +244,8 @@ body {
   position: relative;
 }
 
-/* `Grid >> Children (Alpha ~ First, Omega ~ Last)
-----------------------------------------------------------------------------------------------------*/
+*//* `Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*//*
 
 .alpha {
   margin-left: 0;
@@ -255,8 +255,8 @@ body {
   margin-right: 0;
 }
 
-/* `Grid >> 24 Columns
-----------------------------------------------------------------------------------------------------*/
+*//* `Grid >> 24 Columns
+----------------------------------------------------------------------------------------------------*//*
 
 .container_24 .grid_1 {
   width: 30px;
@@ -354,8 +354,8 @@ body {
   width: 950px;
 }
 
-/* `Prefix Extra Space >> 24 Columns
-----------------------------------------------------------------------------------------------------*/
+*//* `Prefix Extra Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*//*
 
 .container_24 .prefix_1 {
   padding-left: 40px;
@@ -449,8 +449,8 @@ body {
   padding-left: 920px;
 }
 
-/* `Suffix Extra Space >> 24 Columns
-----------------------------------------------------------------------------------------------------*/
+*//* `Suffix Extra Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*//*
 
 .container_24 .suffix_1 {
   padding-right: 40px;
@@ -544,8 +544,8 @@ body {
   padding-right: 920px;
 }
 
-/* `Push Space >> 24 Columns
-----------------------------------------------------------------------------------------------------*/
+*//* `Push Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*//*
 
 .container_24 .push_1 {
   left: 40px;
@@ -639,8 +639,8 @@ body {
   left: 920px;
 }
 
-/* `Pull Space >> 24 Columns
-----------------------------------------------------------------------------------------------------*/
+*//* `Pull Space >> 24 Columns
+----------------------------------------------------------------------------------------------------*//*
 
 .container_24 .pull_1 {
   left: -40px;
@@ -734,10 +734,10 @@ body {
   left: -920px;
 }
 
-/* `Clear Floated Elements
-----------------------------------------------------------------------------------------------------*/
+*//* `Clear Floated Elements
+----------------------------------------------------------------------------------------------------*//*
 
-/* http://sonspring.com/journal/clearing-floats */
+*//* http://sonspring.com/journal/clearing-floats *//*
 
 .clear {
   clear: both;
@@ -748,7 +748,7 @@ body {
   height: 0;
 }
 
-/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+*//* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified *//*
 
 .clearfix:before,
 .clearfix:after {
@@ -764,14 +764,14 @@ body {
   clear: both;
 }
 
-/*
+*//*
   The following zoom:1 rule is specifically for IE6 + IE7.
   Move to separate stylesheet if invalid CSS is a problem.
-*/
+*//*
 
 .clearfix {
   zoom: 1;
-}
+}*/
 
 /* =1 text
 -------------------------------------------------------------------------------------------*/
@@ -1266,29 +1266,29 @@ Viewport: the defines width and height of each icon
 
 /* **************** SPRITE ***************** */
 
-.sprite {
+/*.sprite {
     display: inline-block;
     background-image: url(/res/img/sprites/iconSprite_2011-07-28.png);
 }
 
-/* **************** VIEWPORT ***************** */
-/* column 0 */
+*//* **************** VIEWPORT ***************** *//*
+*//* column 0 *//*
 .reportIt-nbg {
-/* nbg = no background (i.e., transparent) */
+*//* nbg = no background (i.e., transparent) *//*
     width: 14px;
     height: 18px;
     background-position: 0 0;
 }
 
 .reportIt-wbg {
-/* wbg = with background (i.e., not transparent) */
+*//* wbg = with background (i.e., not transparent) *//*
     width: 14px;
     height: 18px;
     background-position: 0 -20px;
 }
 
 .cms {
-/* for articles and ask the experts content */
+*//* for articles and ask the experts content *//*
     width: 15px;
     height: 16px;
     background-position: 0 -40px;
@@ -1313,7 +1313,7 @@ Viewport: the defines width and height of each icon
 }
 
 .ryh {
-/* for raise your hand content */
+*//* for raise your hand content *//*
     width: 18px;
     height: 19px;
     background-position: 0 -120px;
@@ -1396,7 +1396,7 @@ Viewport: the defines width and height of each icon
     background-position: 0 -340px;
 }
 
-/* column 20 */
+*//* column 20 *//*
 .twitter {
     width: 16px;
     height: 16px;
@@ -1499,7 +1499,7 @@ Viewport: the defines width and height of each icon
     background-position: -20px -330px;
 }
 
-/* column 40 */
+*//* column 40 *//*
 .community {
     width: 33px;
     height: 20px;
@@ -1601,7 +1601,7 @@ Viewport: the defines width and height of each icon
     background-position: -40px -320px;
 }
 
-/* column 60 */
+*//* column 60 *//*
 .add2 {
     width: 15px;
     height: 16px;
@@ -1650,7 +1650,7 @@ Viewport: the defines width and height of each icon
     background-position: -60px -240px;
 }
 
-/* column 80 */
+*//* column 80 *//*
 .community-fc6-lg {
     width: 50px;
     height: 41px;
@@ -1726,7 +1726,7 @@ Viewport: the defines width and height of each icon
     background-position: -80px -220px;
 }
 
-/* test */
+*//* test *//*
 .i-close-photoGallery-default {
     width: 24px;
     height: 24px;
@@ -1758,7 +1758,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -80px -410px;
 }
 
-/* column 130 */
+*//* column 130 *//*
 .stars_sm_rate_it {
     width: 69px;
     height: 24px;
@@ -1885,7 +1885,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -130px -390px;
 }
 
-/* column 200 */
+*//* column 200 *//*
 .stars_lg_0 {
     width: 103px;
     height: 19px;
@@ -1994,7 +1994,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -200px -340px;
 }
 
-/* column 310 */
+*//* column 310 *//*
 
 .stars_xl_0 {
     width: 124px;
@@ -2068,7 +2068,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -310px -330px;
 }
 
-/* column 440 */
+*//* column 440 *//*
 .badge_sm_na {
     width: 22px;
     height: 22px;
@@ -2147,7 +2147,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -440px -360px;
 }
 
-/* column 470 */
+*//* column 470 *//*
 .badge_sm_na_b {
     width: 22px;
     height: 22px;
@@ -2226,7 +2226,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -470px -360px;
 }
 
-/* column 500 */
+*//* column 500 *//*
 .badge_sm_na_y {
     width: 22px;
     height: 22px;
@@ -2305,7 +2305,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -500px -360px;
 }
 
-/* column 530 */
+*//* column 530 *//*
 .badge_lg_1 {
     width: 93px;
     height: 93px;
@@ -2336,7 +2336,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -530px -400px;
 }
 
-/* column 630 */
+*//* column 630 *//*
 .badge_lg_6 {
     width: 93px;
     height: 93px;
@@ -2367,7 +2367,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -630px -400px;
 }
 
-/* column 730 */
+*//* column 730 *//*
 .badge_lg_1_b {
     width: 93px;
     height: 93px;
@@ -2398,7 +2398,7 @@ span.i-right-photoGallery-default:hover {
     background-position: -730px -400px;
 }
 
-/* column 830 */
+*//* column 830 *//*
 .badge_lg_6_b {
     width: 93px;
     height: 93px;
@@ -2427,7 +2427,7 @@ span.i-right-photoGallery-default:hover {
     width: 93px;
     height: 93px;
     background-position: -830px -400px;
-}
+}*/
 
 /* =3 grids
 -------------------------------------------------------------------------------------------*/
