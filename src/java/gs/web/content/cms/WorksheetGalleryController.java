@@ -93,7 +93,6 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         GRADE_CHOICES.put("third-grade", "Third Grade");
         GRADE_CHOICES.put("fourth-grade", "Fourth Grade");
         GRADE_CHOICES.put("fifth-grade", "Fifth Grade");
-        GRADE_CHOICES.put("elementary-school", "Elementary School");
 
         //reverse lookup of GRADE_CHOICES. Maybe could have used a bidirectional map with string manipulation
         GRADE_URL_COMPONENT_LOOKUP.put("preschool",CmsConstants.PRESCHOOL_CATEGORY_ID);
