@@ -54,8 +54,10 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
 
     public static String SUBJECT_CHOICES_KEY = "subjectChoices";
     public static String GRADE_CHOICES_KEY = "gradeChoices";
-    public static String REQUESTED_GRADE_NAME_KEY = "requestedGrade";
-    public static String REQUESTED_SUBJECT_NAME_KEY = "requestedSubject";
+    public static String REQUESTED_GRADE_KEY = "requestedGrade";
+    public static String REQUESTED_SUBJECT_KEY = "requestedSubject";
+    public static String REQUESTED_GRADE_NAME_KEY = "requestedGradeName";
+    public static String REQUESTED_SUBJECT_NAME_KEY = "requestedSubjectName";
     public static String WORKSHEETS_PATH_KEY = "worksheetsPath";
 
     public static String GRADE_ID_REQUEST_PARAM = "gradeId";
@@ -65,8 +67,8 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
     public static Map<String,Long> GRADE_URL_COMPONENT_LOOKUP = new HashMap<String,Long>();
 
     public static final int WORKSHEET_DEFAULT_PAGE_SIZE = 6;
-    //public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 4313l;
-    public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 1574l;
+    public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 4313l;
+    //public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 1574l;
 
     public static final String MODEL_WORKSHEET_RESULTS = "worksheetResults";
 
@@ -84,7 +86,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
                 DefaultPaginationConfig.ZERO_BASED_PAGES
         );
 
-        //used for dropdowns in jspx
+        //used for dropdowns, page title, hier1 in jsp
         GRADE_CHOICES.put("", "All Grades");
         GRADE_CHOICES.put("preschool", "Preschool");
         GRADE_CHOICES.put("kindergarten", "Kindergarten");
@@ -93,6 +95,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         GRADE_CHOICES.put("third-grade", "Third Grade");
         GRADE_CHOICES.put("fourth-grade", "Fourth Grade");
         GRADE_CHOICES.put("fifth-grade", "Fifth Grade");
+        GRADE_CHOICES.put("elementary-school", "Elementary School");
 
         //reverse lookup of GRADE_CHOICES. Maybe could have used a bidirectional map with string manipulation
         GRADE_URL_COMPONENT_LOOKUP.put("preschool",CmsConstants.PRESCHOOL_CATEGORY_ID);
@@ -201,9 +204,9 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         String[] pathComponents = requestUri.split("/");
 
         String requestedGradeId;
-        String requestedGradeName = null;
+        String requestedGrade = null;
         String requestedSubjectId;
-        String requestedSubjectName = null;
+        String requestedSubject = null;
 
         //we need to locate requested grade and/or subject if they exist. Give priority to querystring params over URL structure
         
@@ -212,10 +215,10 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
             //TODO: should probably use a bidirectional map to do this
             for (Map.Entry<String,Long> entry : GRADE_URL_COMPONENT_LOOKUP.entrySet()) {
                 if (requestedGradeId.equals(String.valueOf(entry.getValue()))) {
-                    requestedGradeName = entry.getKey();
+                    requestedGrade = entry.getKey();
                 }
             }
-            if (requestedGradeName == null) {
+            if (requestedGrade == null) {
                 requestedGradeId = null;
             }
         }
@@ -224,10 +227,10 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         if (StringUtils.isNotBlank(requestedSubjectId)) {
             for (Map.Entry<String,Long> entry : SUBJECT_URL_COMPONENT_LOOKUP.entrySet()) {
                 if (requestedSubjectId.equals(String.valueOf(entry.getValue()))) {
-                    requestedSubjectName = entry.getKey();
+                    requestedSubject = entry.getKey();
                 }
             }
-            if (requestedSubjectName == null) {
+            if (requestedSubject == null) {
                 requestedSubjectId = null;
             }
         }
@@ -241,14 +244,14 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
                         Long value = GRADE_URL_COMPONENT_LOOKUP.get(name);
                         if (value != null) {
                             requestedGradeId = String.valueOf(value);
-                            requestedGradeName = name;
+                            requestedGrade = name;
                         }
                     }
                     if (requestedSubjectId == null) {
                         Long value = SUBJECT_URL_COMPONENT_LOOKUP.get(name);
                         if (value != null) {
                             requestedSubjectId = String.valueOf(value);
-                            requestedSubjectName = name;
+                            requestedSubject = name;
                         }
                     }
                 }
@@ -281,8 +284,10 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         model.put(MODEL_FULL_URL, url);
         model.put(GRADE_CHOICES_KEY, GRADE_CHOICES);
         model.put(SUBJECT_CHOICES_KEY, SUBJECT_CHOICES);
-        model.put(REQUESTED_GRADE_NAME_KEY, requestedGradeName);
-        model.put(REQUESTED_SUBJECT_NAME_KEY, requestedSubjectName);
+        model.put(REQUESTED_GRADE_KEY, requestedGrade);
+        model.put(REQUESTED_SUBJECT_KEY, requestedSubject);
+        model.put(REQUESTED_GRADE_NAME_KEY,GRADE_CHOICES.get(requestedGrade));
+        model.put(REQUESTED_SUBJECT_NAME_KEY,SUBJECT_CHOICES.get(requestedSubject));
         model.put(WORKSHEETS_PATH_KEY, WORKSHEETS_PATH);
 
         try {
