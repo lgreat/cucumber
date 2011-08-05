@@ -79,9 +79,14 @@
             </p>
             ${footerCopyright}
 
-            <gsweb:cache key="/geo/popularCities.module?state=${stateForPopularCities}" cacheName="gsweb.geo.PopularCities">
-                <jsp:include page="/geo/popularCities.module?state=${stateForPopularCities}${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'&amp;hidden=true':''}" />
-            </gsweb:cache>
+            <c:set var="hidePopularCitiesModule" value="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)}"/>
+            <div id="navFooter" class="cities ${not empty stateForPopularCities? 'popularCities':''} ${hidePopularCitiesModule? 'hidden':'' }">
+                <c:set var="popularCitiesKey" value="/geo/popularCities.module?state=${stateForPopularCities}"/>
+                
+                <gsweb:cache key="${popularCitiesKey}" cacheName="gsweb.geo.PopularCities">
+                    <jsp:include page="${popularCitiesKey}" />
+                </gsweb:cache>
+            </div>
 
         </div>
     </c:if>
