@@ -227,7 +227,9 @@
         <div class="spacer_5"><!-- do not collapse --></div>
         <hr class="keyline1"/>
         <div class="line">
-            <div class="unit size28of100">&amp;nbsp;</div>
+            <div class="unit size28of100">
+                <span class="sprite i-choose"><!-- do not collapse --></span>
+            </div>
             <div class="unit size72of100 lastUnit">
                 <h6 class="bottom">How do you start?</h6>
 
@@ -260,7 +262,9 @@
         </div>
         <hr class="keyline1"/>
         <div class="line">
-            <div class="unit size28of100">&amp;nbsp;</div>
+            <div class="unit size28of100">
+                <span class="sprite i-move"><!-- do not collapse --></span>
+            </div>
             <div class="unit size72of100 lastUnit">
                 <h6 class="bottom">Moving?</h6>
 
@@ -293,7 +297,9 @@
         </div>
         <hr class="keyline1"/>
         <div class="line">
-            <div class="unit size28of100">&amp;nbsp;</div>
+            <div class="unit size28of100">
+                <span class="sprite i-assess"><!-- do not collapse --></span>
+            </div>
             <div class="unit size72of100 lastUnit">
                 <h6 class="bottom">How to assess a school</h6>
 
@@ -332,7 +338,9 @@
         </div>
         <hr class="keyline1"/>
         <div class="line">
-            <div class="unit size28of100">&amp;nbsp;</div>
+            <div class="unit size28of100">
+                <span class="sprite i-change"><!-- do not collapse --></span>
+            </div>
             <div class="unit size72of100 lastUnit">
                 <h6 class="bottom">Unhappy with your child's school?</h6>
 
