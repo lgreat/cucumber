@@ -3461,6 +3461,14 @@ body.ie8 .btsSupplyListsTag .arrow {
     border-top: 27px dashed black;
     border-bottom: 27px dashed black;
 }
+/* ---------------- GS-11926 ----------------- */
+/* -------------- fasDownload ---------------- */
+.fasDownload {margin: 10px 0;}
+.fasDownload .inner{background-color:#f3f9fd;padding:10px;}
+/* ----------------- fasK12 ------------------ */
+.fasK12{margin:10px 0;}
+.fasK12 .inner{background-color:#fcf8e1;padding:10px;}
+
 /*----------------GS-11784 start---------------*/
 .mediumThumbnail {
     width: 160px;

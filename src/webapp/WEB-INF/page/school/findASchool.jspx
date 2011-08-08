@@ -364,14 +364,20 @@
     <div class="grid_5 omega">
         <k12:leadGenAd/>
 
-        <div>
-            <h3>Download the school visit checklist</h3>
-            <ul>
-                <li><a href="/catalog/pdf/schq_visit_preschool.pdf">Preschool</a></li>
-                <li><a href="/catalog/pdf/schq_visit_elem.pdf">Elementary school</a></li>
-                <li><a href="/catalog/pdf/schq_visit_middle.pdf">Middle school</a></li>
-                <li><a href="/catalog/pdf/schq_visit_high.pdf">High school</a></li>
-            </ul>
+        <div class="mod fasDownload">
+            <div class="inner">
+                <div class="hd">
+                    <h6 class="bottom">Download the school visit checklist</h6>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li><a href="/catalog/pdf/schq_visit_preschool.pdf">Preschool</a></li>
+                        <li><a href="/catalog/pdf/schq_visit_elem.pdf">Elementary school</a></li>
+                        <li><a href="/catalog/pdf/schq_visit_middle.pdf">Middle school</a></li>
+                        <li><a href="/catalog/pdf/schq_visit_high.pdf">High school</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     </div>

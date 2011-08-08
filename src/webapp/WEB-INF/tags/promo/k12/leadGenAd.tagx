@@ -7,24 +7,31 @@
     <jsp:directive.tag body-content="empty" description="A custom module for driving traffic to the k12 page"/>
     <pageHelper:externalJavascript file="/res/js/promo/k12.js"/>
 
-    <div>
-        <h3>Online public and private schools</h3>
-        <p>K12 offers full-time, tuition-free online charter schools and virtual private schools.</p>
-        <form action="/online-education.page" method="GET" id="js-k12Form-fs">
-            <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                 noStateLabel="Select a State"
-                                 usingLongNames="false"
-                                 state="${requestScope.context.state}"
-                                 styleClass="stateSelect"
-                                 styleId="js-k12StateSelect-fs"
-                                 name="school"
-                    />
-            <input type="hidden"  name="t" value="fs"/>
-            <button class="button-1" type="submit">GO</button>
-        </form>
-        <div>
-            Sponsored by
-            <gsweb:adTagGenerator position="K12_Module_Logo_88x31"/>
+    <div class="mod fasK12">
+        <div class="inner">
+            <div class="hd">
+                <h6 class="bottom">Online public and private schools</h6>
+            </div>
+            <div class="bd">
+                <p class="small">K12 offers full-time, tuition-free online charter schools and virtual private schools.</p>
+
+                <form action="/online-education.page" method="GET" id="js-k12Form-fs">
+                    <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                         noStateLabel="Select a State"
+                                         usingLongNames="false"
+                                         state="${requestScope.context.state}"
+                                         styleClass="stateSelect"
+                                         styleId="js-k12StateSelect-fs"
+                                         name="school"
+                            />
+                    <input type="hidden" name="t" value="fs"/>
+                    <button class="button-1" type="submit">GO</button>
+                </form>
+                <div>
+                    Sponsored by
+                    <gsweb:adTagGenerator position="K12_Module_Logo_88x31"/>
+                </div>
+            </div>
         </div>
     </div>
 </jsp:root>
