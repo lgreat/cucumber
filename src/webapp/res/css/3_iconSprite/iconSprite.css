@@ -34,19 +34,19 @@ Viewport: the defines width and height of each icon
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-08-05.png);
+    background-image: url(/res/img/sprites/iconSprite_2011-08-08.png);
 }
 
 *html .sprite { /* for IE 6 iframe hovers */
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-08-05.gif);
+    background-image: url(/res/img/sprites/iconSprite_2011-08-08.gif);
     _zoom:1;
     cursor: pointer;
 }
 
 body.ie6 .sprite { /* for IE 6 generally */
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-08-05.gif);
+    background-image: url(/res/img/sprites/iconSprite_2011-08-08.gif);
     _zoom:1;
     cursor: pointer;
 }
@@ -663,6 +663,12 @@ span.i-right-photoGallery-default:hover {
     width: 70px;
     height: 14px;
     background-position: -130px -390px;
+}
+
+.i-download {
+    width: 69px;
+    height: 49px;
+    background-position: -130px -410px;
 }
 
 /* column 200 */

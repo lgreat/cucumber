@@ -367,6 +367,7 @@
         <div class="mod fasDownload">
             <div class="inner">
                 <div class="hd">
+                    <div class="sprite i-download fltrt"><!-- do not collapse --></div>
                     <h6 class="bottom">Download the school visit checklist</h6>
                 </div>
                 <div class="bd">
