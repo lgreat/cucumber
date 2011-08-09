@@ -275,24 +275,24 @@
         <!-- DONE-10495 - Randall - END subcategory ratings -->
 
     </div>
-    <!-- TODO: Randall style this -->
-    <c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
+    <!-- DONE: Randall style this -->
+<!--    <c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
         <div class="mod parentReviewRating">
             <div class="inner">
                 <div class="bd">
                     <div class="mediaExt1">
-                        <span class="sprite emailIt img"><!-- do not collapse --></span>
-                        <link:newsletterManagement styleClass="text2bold-06b bk" schoolId="${school.id}"
+                        <span class="sprite emailIt img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
+                        <link:newsletterManagement styleClass="text3bold-06b bk" schoolId="${school.id}"
                                                    schoolState="${school.databaseState}"
                                                    onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
-                            Get email updates about this school.
+                            Get email updates <span class="text3-06b">about this school.</span>
                         </link:newsletterManagement>
                     </div>
                 </div>
             </div>
         </div>
-    </c:if>
-    <!-- TODO: and this -->
+    </c:if>-->
+    <!-- DONE: and this -->
     <c:if test="${empty principalReview}">
         <div class="mod parentReviewRating">
             <div class="inner">
@@ -300,8 +300,8 @@
                     <div class="mediaExt1">
                         <span class="sprite pencil_med img"><!-- do not collapse --></span>
 
-                        <div class="bk">Are you the principal? <a
-                                class="text3-06b" href="#" id="espLink">Complete your school's profile</a>
+                        <div class="text3bold-06b bk">Are you<br/>the principal?<br/>
+                        <a class="text3-06b" href="javascript:void(0);" id="espLink">Complete your school's profile</a>
                         </div>
                     </div>
                 </div>
