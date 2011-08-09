@@ -276,7 +276,8 @@
                         </li>
                     </ul>
                     <p>
-                        <a href="javascript:void(0);" class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
+                        <a href="javascript:void(0);" onclick="if (s.tl) {s.tl(true,'o','FAS_More_How_do_you_start');}"
+                           class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
 
                     <p class="hide">
@@ -311,7 +312,8 @@
                         </li>
                     </ul>
                     <p>
-                        <a href="javascript:void(0);" class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
+                        <a href="javascript:void(0);" onclick="if (s.tl) {s.tl(true,'o','FAS_More_Moving');}"
+                           class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
 
                     <p class="hide">
@@ -352,7 +354,8 @@
                         </li>
                     </ul>
                     <p>
-                        <a href="javascript:void(0);" class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
+                        <a href="javascript:void(0);" onclick="if (s.tl) {s.tl(true,'o','FAS_More_Assess_a_School');}"
+                           class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
 
                     <p class="hide">
