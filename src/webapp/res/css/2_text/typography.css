@@ -76,6 +76,7 @@ Misc classes
 #slStylesV1-0 .small { font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 #slStylesV1-0 .smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 #slStylesV1-0 .smallest { font: normal 10px/14px Arial, Helvetica, sans-serif; margin-bottom: 14px; }
+#slStylesV1-0 .small_bold { font: bold 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 
 /*
 	These can be used to pull an image at the start of a paragraph, so

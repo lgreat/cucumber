@@ -443,7 +443,7 @@
                 <h5>DISTANCE</h5>
             </div>
             <jsp:scriptlet>
-                int[] allDistance = new int[]{1, 2, 3, 4, 5, 10, 15, 20, 25};
+                int[] allDistance = new int[]{1, 2, 3, 4, 5, 10, 15, 20, 25, 30};
                 request.setAttribute("allDistance", allDistance);
             </jsp:scriptlet>
             <div class="filter-bd smallAlertText">
