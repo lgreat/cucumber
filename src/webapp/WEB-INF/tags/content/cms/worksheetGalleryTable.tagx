@@ -25,7 +25,7 @@
                 <div class="mediaExt1-2">
                     <div class="img">
                         <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
-                        <gsml:img src="${result.smallPreviewImageUrl}" alt="loading"/>
+                        <gsml:img src="${result.smallPreviewImageUrl}" alt="loading" width="97"/>
                         </link:cmsContent>
                     </div>
                     <div class="bk">

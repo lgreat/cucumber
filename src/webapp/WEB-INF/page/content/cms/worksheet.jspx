@@ -127,7 +127,8 @@
                 <gsml:a href="${feature.pdfUri}" target="_blank">
                 <gsml:img src="${feature.previewImageUrl}"
                           title="${feature.previewImageTitle}"
-                          alt="${feature.previewImageAltText}"/>
+                          alt="${feature.previewImageAltText}"
+                        width="255"/>
                 </gsml:a>
             </c:if>
 
