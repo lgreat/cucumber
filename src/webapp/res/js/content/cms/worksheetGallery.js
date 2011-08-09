@@ -25,12 +25,12 @@ GS.content.cms.WorksheetGallery = function() {};
             queryString = '';
         }
 
-        var pathName = '/worksheets';
+        var pathName = '/worksheets/';
         if (grade.length > 0) {
-            pathName = pathName + '/' + grade;
+            pathName = pathName + grade + '/';
         }
         if (subject.length > 0) {
-            pathName = pathName + '/' + subject;
+            pathName = pathName + subject + '/';
         }
         var url = window.location.protocol + "//" + window.location.host + pathName + queryString;
 
