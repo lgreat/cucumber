@@ -750,19 +750,15 @@
     </bean>
 
     <bean name="/content/allArticles.page"
-          class="gs.web.content.AllArticlesController"
+          class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>301</value>
-        </property>
+        <property name="redirectPath" value="/find-schools/"/>
     </bean>
 
     <bean name="/content/library.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>content/library</value>
-        </property>
+        <property name="redirectPath" value="/find-schools/"/>
     </bean>
 
     <bean name="/content/articles/rss.page"
