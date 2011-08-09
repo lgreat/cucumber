@@ -3472,6 +3472,10 @@ body.ie8 .btsSupplyListsTag .arrow {
 .fasDownload {margin: 10px 0;}
 .fasDownload .inner{background-color:#f3f9fd;padding:10px;}
 .fasDownload .hd{margin-bottom:10px;}
+/* ---------------- GS-11969 ----------------- */
+/* ------------- communityRating ------------- */
+.parentReviewRating {margin: 10px 0;}
+.parentReviewRating .inner{background-color:#F4FAFD;padding:10px;border:1px solid #83BBD9;}
 
 /*----------------GS-11784 start---------------*/
 .mediumThumbnail {

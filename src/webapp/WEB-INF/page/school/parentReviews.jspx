@@ -276,26 +276,36 @@
 
     </div>
     <!-- TODO: Randall style this -->
-    <div class="spacer_10"><!-- do not collapse --></div>
     <c:if test="${(school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
-        <div class="text2" style="border: 1px solid #A2D0E4;">
-            <p><span class="sprite emailIt"><!-- do not collapse --></span>
-                <link:newsletterManagement styleClass="text2bold-06b" schoolId="${school.id}"
-                                           schoolState="${school.databaseState}"
-                                           onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
-                    Get email updates about this school.
-                </link:newsletterManagement>
-            </p>
+        <div class="mod parentReviewRating">
+            <div class="inner">
+                <div class="bd">
+                    <div class="mediaExt1">
+                        <span class="sprite emailIt img"><!-- do not collapse --></span>
+                        <link:newsletterManagement styleClass="text2bold-06b bk" schoolId="${school.id}"
+                                                   schoolState="${school.databaseState}"
+                                                   onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
+                            Get email updates about this school.
+                        </link:newsletterManagement>
+                    </div>
+                </div>
+            </div>
         </div>
     </c:if>
-    <div class="spacer_10"><!-- do not collapse --></div>
     <!-- TODO: and this -->
     <c:if test="${empty principalReview}">
-        <div class="spacer_15"><!-- do not collapse --></div>
-        <div class="smallText1">
-            <p><span class="sprite pencil_med"><!-- do not collapse --></span> Are you the principal? <a
-                    class="text3-06b" href="#" id="espLink">Complete your school's profile</a>
-            </p>
+        <div class="mod parentReviewRating">
+            <div class="inner">
+                <div class="bd">
+                    <div class="mediaExt1">
+                        <span class="sprite pencil_med img"><!-- do not collapse --></span>
+
+                        <div class="bk">Are you the principal? <a
+                                class="text3-06b" href="#" id="espLink">Complete your school's profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </c:if>
 
