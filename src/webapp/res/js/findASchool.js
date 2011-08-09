@@ -23,9 +23,9 @@ GS.findASchool.submitByLocationSearch = function() {
     var byLocationForm = $('#jq-findByLocationForm');
     var searchQuery = byLocationForm.find('input[name="searchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
-    byLocationForm.find('input[name="searchString"]').val(searchQuery);
     if (searchQuery != '' &&
-        searchQuery != 'Enter city & state or zip code' && !GS.findASchool.isTermState(searchQuery)) {
+        searchQuery != 'Search by city AND state or address..' && !GS.findASchool.isTermState(searchQuery)) {
+        byLocationForm.find('input[name="searchString"]').val(searchQuery);
         GS.findASchool.gsGeocode(searchQuery, function(geocodeResult) {
             if (geocodeResult != null) {
                 byLocationForm.find('input[name="lat"]').val(geocodeResult['lat']);
@@ -263,7 +263,6 @@ GS.findASchool.setAllTypes = function() {
 $(function() {
     GS.findASchool.filterTracking = new GS.findASchool.FilterTracking();
 
-    // TEMPORARY TAB CODE. PLEASE REPLACE
     $("#byLocationTab").click(function() {
         $('#byLocationTab').addClass('selected');
         $('#byLocationTabBody').show();
@@ -276,7 +275,6 @@ $(function() {
         $('#byNameTab').addClass('selected');
         $('#byNameTabBody').show();
     });
-    // END TEMPORARY TAB CODE
 
     GS.findASchool.attachCityAutocomplete('js-findByLocationBox');
     GS.findASchool.attachSchoolAutocomplete('js-findByNameBox', 'js-findByNameStateSelect');
