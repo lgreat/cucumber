@@ -244,7 +244,7 @@
 
         </div>
     </div>
-    <div class="grid_11 alpha">
+    <div class="grid_11 alpha js_editorialModule">
         <h3 class="bottom mtl">Choosing a great school</h3>
 
         <p class="small">Let us help you find the best school for you and your family</p>
@@ -453,6 +453,14 @@
                     $(".js-close").parent().show();
                 }
             });
+
+            // custom links for editorial module
+            $(".js_editorialModule ul li a").click(function() {
+                if (s.tl) {
+                    s.tl(this,'o',this.href);
+                }
+            });
+
             $("#category-1").click(function(){
 
                 $("#dropDown-FAS-1").toggle();
