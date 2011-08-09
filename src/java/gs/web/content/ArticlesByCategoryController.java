@@ -142,7 +142,13 @@ public class ArticlesByCategoryController extends AbstractController {
                 return new ModelAndView(new RedirectView301(redirectUrlBuilder.asSiteRelative(request)));
             }
 
-            model = handleCmsCategoryRequest(request, offset);
+            try {
+                model = handleCmsCategoryRequest(request, offset);
+            } catch (NumberFormatException e) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ModelAndView("/status/error404.page");
+            }
+
             List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
             if (isShowAdTargeting()) {
                 setAdTargetingForCmsCategories(request, categories);
