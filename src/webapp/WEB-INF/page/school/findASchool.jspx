@@ -79,7 +79,7 @@
                             </a>
                         </div>
                         <div id="dropDown-FAS-1" class="dropDown-FAS">
-                            <div class="col_2">
+                            <div class="col_2 pam">
                                 <div>
                                     <input type="checkbox" checked="checked" name="st" id="js-school-type-all"
                                            value=""/>
@@ -115,7 +115,7 @@
                             </a>
                         </div>
                         <div id="dropDown-FAS-2" class="dropDown-FAS">
-                            <div class="col_2">
+                            <div class="col_2 pam">
                                 <div>
                                     <input type="checkbox" checked="checked" name="gradeLevels" id="js-grade-level-all"
                                            value=""/>
@@ -156,7 +156,7 @@
                             </a>
                         </div>
                         <div id="dropDown-FAS-3" class="dropDown-FAS">
-                            <div class="col_2">
+                            <div class="col_2 pam">
                                 <div class="col_1">
                                     <div>
                                         <input type="radio" name="distance" value="1" id="js-radius-1"/>
@@ -198,13 +198,16 @@
                                         <label for="js-radius-25">25 miles</label>
                                     </div>
                                     <div>
-                                        <input type="radio" name="distance" value="30" id="js-radius-30"/>
+                                        <input type="radio" name="distance" value="30" id="js-radius-30"
+                                                checked="checked"/>
                                         <label for="js-radius-30">30 miles</label>
                                     </div>
                                 </div>
-                                <button class="button-1" id="hideDropDown-3" type="button"
-                                        onclick="javascript:void(0)">Done
-                                </button>
+                                <div class="col_2 mtm">
+                                    <button class="button-1" id="hideDropDown-3" type="button"
+                                            onclick="javascript:void(0)">Done
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         </div>
