@@ -3698,16 +3698,25 @@ body.ie8 .btsSupplyListsTag .arrow {
     display: inline;
     margin-left: 5px;
     cursor: pointer;
+    color: #0066BB;
+    border: 1px solid #ccc;
+    border-bottom: 0px;
+    border-radius:3px;
 }
 
 .tabBar span.selected {
-    background-color: #DDEFF6;
-
+    background-color: #E1F1F7;
+    color: #2b2b2b;
+    border: 1px solid #BBDDED;
+    border-bottom: 0px;
+    border-radius:3px;
 }
 .tabBody {
-    background-color: #DDEFF6;
+    width: 590px;
+    background-color: #E1F1F7;
     zoom:1;
-    /*height:118px;*/
+    border: 1px solid #BBDDED;
+    border-radius:3px;
 }
 .searchBarFas{
     height: 34px;
@@ -3730,12 +3739,18 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 .filterCategory{
-    background-color: white;
     height:24px;
-    width: 110px;
+    width: 111px;
 }
 .filterCategory .defaultText{
-    margin:4px 0px 0px 8px;
+    width:69px;
+    padding:3px 9px 3px 8px;
+    background-color: white;
+    border: 1px solid #A5D3E7;
+    border-radius: 3px;
+    border-right:0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 #slStylesV1-0 .filterCategory a{
     color: #777;
@@ -3750,6 +3765,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     display:none;
     position:absolute;
     z-index:100;
+    border: 1px solid #79BDDB;
     /*width:151px;*/
 }
 /*.filterBar li {*/
