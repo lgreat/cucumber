@@ -48,6 +48,7 @@
 
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);
+        PageHelper.addMetaProperty(request, "fb:page_id", "54475228539");
     </jsp:scriptlet>
 
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
