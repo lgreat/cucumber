@@ -52,10 +52,9 @@
                                                         <link:cmsVideoGallery
                                                                 topicCenterId="${topicCenter.contentKey.identifier}"
                                                                 topicCenterUrl="${topicCenter.fullUri}"
-                                                                topicIDs="${subtopic.topicIDs}"
-                                                                gradeIDs="${subtopic.gradeIDs}"
-                                                                subjectIDs="${subtopic.subjectIDs}"
-                                                                language="EN">${subtopic.title}</link:cmsVideoGallery>
+                                                                topicIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.topicIDs}"
+                                                                gradeIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.gradeIDs}"
+                                                                subjectIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.subjectIDs}">${subtopic.title}</link:cmsVideoGallery>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"

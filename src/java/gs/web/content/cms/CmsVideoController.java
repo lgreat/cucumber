@@ -172,9 +172,7 @@ public class CmsVideoController extends AbstractController {
         ContentKey contentKey = new ContentKey("TopicCenter",id);
         CmsTopicCenter topicCenter = getPublicationDao().populateByContentId(contentKey.getIdentifier(), new CmsTopicCenter());
 
-        String grades = "199,200,201,202,203,204";
-        
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.CMS_VIDEO_GALLERY, id, topicCenter.getFullUri(), null, null, grades, null);
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.CMS_VIDEO_GALLERY, id, topicCenter.getFullUri(), null, null, null, null);
 
         link.setLinkText(topicCenter.getTitle() + " Videos");
         link.setUrl(builder.asSiteRelative(request));
