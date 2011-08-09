@@ -14,11 +14,6 @@
 
     <div class="shareThis articleDistribution">
 
-        <!--Facebook -->
-        <div class="ShareAndTweet">
-            <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
-        </div>
-
         <!-- Share This -->
         <c:if test="${includeShareBtn==true}">
             <div class="ShareAndTweet">
@@ -34,8 +29,13 @@
         </div>
         
         <!-- Twitter -->
-        <div class="${includeEmailBtn ? 'ShareAndTweet' : 'lastShareAndTweet'}">
+        <div class="ShareAndTweet">
             <promo:tweetButtonArticle/>
+        </div>
+
+        <!--Facebook -->
+        <div class="${includeEmailBtn ? 'ShareAndTweet' : 'lastShareAndTweet'}">
+            <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
         </div>
 
         <!-- Email -->
