@@ -11080,7 +11080,8 @@ Extends button-1 by changing:
     border: none;
 }
 
-/* primrose button GS-11293 */
+/* kindercare button GS-11938
+ */
 
 .button-2 {
     width: auto;
@@ -11095,7 +11096,7 @@ Extends button-1 by changing:
     position: relative;
     cursor: pointer;
     outline: none; /* Background Gradients */
-    background: #86101a; /* for non-css3 browsers */
+    background: #0f6487; /* for non-css3 browsers */
     white-space: nowrap;
 
 /* Border Radius */
@@ -11108,11 +11109,11 @@ Extends button-1 by changing:
 
 .button-2:hover {
     text-decoration: none; /* Background Gradients */
-    background: #86101a; /* for non-css3 browsers */
+    background: #0f6487; /* for non-css3 browsers */
 }
 
 .button-2:active {
-    background: #86101a; /* for non-css3 browsers */
+    background: #0f6487; /* for non-css3 browsers */
 }
 
 /* IE7 bug: vertical centering */
