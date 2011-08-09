@@ -25,7 +25,7 @@
                 <div class="mediaExt1-2">
                     <div class="img">
                         <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
-                        <gsml:img src="${result.smallPreviewImageUrl}" alt="loading" height="128" width="97"/>
+                        <gsml:img src="${result.smallPreviewImageUrl}" alt="loading"/>
                         </link:cmsContent>
                     </div>
                     <div class="bk">
@@ -56,7 +56,7 @@
                                         <span class="arrow-left"><!-- do not collapse --></span>
                                         <div class="bd">
                                             <p>
-                                            <gsml:img src="${result.previewImageUrl}" alt="loading" width="250" height="330"/>
+                                            <gsml:img src="${result.previewImageUrl}" alt="loading"/>
                                             </p>
                                         </div>
                                     </div>
