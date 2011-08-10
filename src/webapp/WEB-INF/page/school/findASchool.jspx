@@ -491,20 +491,6 @@
         });
     </script>
 
-    <script type="text/javascript">
-    GS = GS || {};
-    GS.ads = GS.ads || {};
-    GS.ads.K12_Module_Logo_88x31 = GS.ads.K12_Module_Logo_88x31 || {};
-    GS.ads.K12_Module_Logo_88x31.showAdSponsorLogoText = function() {
-        if (jQuery('#google_ads_div_${adSlotPrefix}_K12_Module_Logo_88x31,#google_ads_div_${adSlotPrefix}_K12_Module_Logo_88x313_ad_container').length == 1) {
-            jQuery('#jq-ghostText-${adSlotPrefix}_K12_Module_Logo_88x31').show();
-        }
-    };
-    jQuery(function() {
-        setTimeout('GS.ads.K12_Module_Logo_88x31.showAdSponsorLogoText();', 1000);
-    });
-</script>
-
     <mod:tracking pageName="${omniturePageName}"
                   hier1="Home, Find a School Home"/>
 </gsml:body>
