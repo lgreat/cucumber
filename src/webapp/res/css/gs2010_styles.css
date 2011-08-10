@@ -3367,14 +3367,14 @@ span.i-right-photoGallery-default:hover {
 .sponsors .bd li{list-style: disc;}
 .sponsors .bd img{margin:0 0 0.75em;}
 /* ------ primrose (extends mod) ------- */
-.primrose .inner {margin:0;padding:0;width:300px;height:250px;}
-.primrose .bd {width:300px; height:250px; background: #ebd720 url(/res/img/promo/kindercare_300x250.jpg) no-repeat;}
-.primrose .bd p{font:normal 15px/1.2 Arial, Helvetica, sans-serif; color: black;margin:15px 0 0;}
-.primrose .bd label{text-align:right;line-height:18px;}
-.primrose .bd input{margin:2px 2px;padding:0; height:12px;}
-.primrose .bd button{margin:5px 0 0 72px;}
-.primrose .leadGenIntroText{width:187px; margin:0 14px;}
-.primrose .leadGenThankYou{width:165px;margin:30px 0 0 20px;}
+.kindercare .inner {margin:0;padding:0;width:300px;height:250px;}
+.kindercare .bd {width:300px; height:250px; background: #ebd720 url(/res/img/promo/kindercare_300x250.jpg) no-repeat;}
+.kindercare .bd p{font:normal 15px/1.2 Arial, Helvetica, sans-serif; color: black;margin:15px 0 0;}
+.kindercare .bd label{text-align:right;line-height:18px;}
+.kindercare .bd input{margin:2px 2px;padding:0; height:12px;}
+.kindercare .bd button{margin:5px 0 0 72px;}
+.kindercare .leadGenIntroText{width:187px; margin:0 14px;}
+.kindercare .leadGenThankYou{width:165px;margin:30px 0 0 20px;}
 /* ------ recentDiscussions (extends mod) ------- */
 .recentDiscussions .hd h3 {padding: 0;background: none;color: #d61;font: 20px/1.7 Georgia, "Times New Roman", Times, serif;}
 .recentDiscussions .ft p{margin:0 0 10px;}
@@ -8400,143 +8400,6 @@ body.hover #uploadAvatarHover form {
     right: 0;
 }
 
-#kindercareLeadGen .kindercare_logo {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-#kindercareLeadGen .left {
-    float: left;
-    height: 110px;
-    width: 265px;
-    margin-right: 25px;
-    padding-left: 135px;
-}
-
-#kindercareLeadGen .kindercareLeadGenError {
-    background: url('/res/img/bullet/icon_warning_12x12.gif') no-repeat 0 1px;
-    padding: 0 0 5px 15px;
-}
-
-#kindercareLeadGen .errorTextBold {
-    font: bold 12px Arial, Helvetica, sans-serif;
-    color: #c03;
-}
-
-#kindercareLeadGen .dotted_rule {
-    position: absolute;
-    top: 15px;
-    left: 430px;
-}
-
-#kindercareLeadGen .right {
-    position: relative;
-}
-
-#kindercareLeadGen .right form ul li {
-    padding-bottom: 3px;
-}
-
-#kindercareLeadGen .right form ul li label {
-    width: 65px;
-    float: left;
-    position: relative;
-    top: 4px;
-    text-align: right;
-    margin-right: 3px;
-    color: #333;
-}
-
-#kindercareLeadGen .right form ul li input {
-    width: 135px;
-    color: #333;
-}
-
-#kindercareLeadGen .right form ul li button {
-    position: relative;
-    left: 65px;
-}
-
-#kindercareLeadGen .right form ul li img {
-    position: relative;
-    left: 68px;
-}
-
-#kindercareLeadGen .right form .kinder_informed {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    width: 195px;
-    color: #333;
-}
-
-#kindercareLeadGen .right form .kinder_offers {
-    position: absolute;
-    top: 45px;
-    right: 0;
-    width: 195px;
-    color: #333;
-}
-
-#kindercareLeadGen .right form .kinder_informed label,
-#kindercareLeadGen .right form .kinder_offers label {
-    display: block;
-    position: absolute;
-    left: 20px;
-    top: 0;
-    width: 175px;
-}
-
-#kindercareThankYou {
-    padding: 5px;
-    margin-top: 23px;
-}
-
-#kindercareLeadGen .kinderTitle {
-    font: bold 16px Arial, Helvetica, sans-serif;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-#kindercareLeadGen .submitButton {
-    cursor: pointer;
-}
-
-*/
-/* kindercare narrower format *//*
-
-#kindercareLeadGen.narrow {
-    height:165px;
-    width:587px;
-    margin-bottom:12px;
-}
-#kindercareLeadGen.narrow .left {
-    float:left;
-    height:54px;
-    width:460px;
-    padding-left:109px;
-}
-#kindercareLeadGen.narrow .right {
-    clear:both;
-    margin-left: 99px;
-}
-#kindercareLeadGen.narrow .closeButton {
-    display:none;
-}
-#kindercareLeadGen.narrow .right form .kinder_informed {
-    width:240px;
-}
-#kindercareLeadGen.narrow .right form .kinder_offers {
-    width:240px;
-}
-#kindercareLeadGen.narrow .inner {
-    height:155px;
-    background: url("/res/img/promo/promoModule/bottom_rule.png") repeat-x scroll 0 159px #F9ECCD;
-}
-#kindercareLeadGen.narrow .dotted_rule {
-    display:none;
-}
 */
 
 /* =12f-2 parent reviews

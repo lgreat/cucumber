@@ -11,14 +11,13 @@
        NOTE 7/13/2011: Remove "do not collapse" comment between javascript open and close tags before providing to ad ops
     -->
 
-    <div class="mod primrose jq-leadGenWrapper">
+    <div class="mod kindercare jq-leadGenWrapper">
         <script type="text/javascript" src="/res/js/promo/leadGen.js"><!-- do not collapse --></script>
         <div class="inner">
             <div class="bd">
 
-                <br class="spacer_25" />
-                <br class="spacer_25" />
-                <br class="spacer_25" />
+                <br class="spacer_60" />
+                <br class="spacer_20" />
 
                 <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-firstName">
                     <div class="img sprite i-alert"><!-- do not collapse --></div>
