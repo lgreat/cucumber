@@ -3785,6 +3785,9 @@ body.ie8 .btsSupplyListsTag .arrow {
     z-index:100;
     border: 1px solid #79BDDB;
 }
+#dropDown-FAS-3{
+    width:207px;
+}
 
 /*----------------GS-11926 ends (FAS)----------------*/
 
