@@ -91,7 +91,7 @@
 
         <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
-        <div class="fltrt mrm">
+        <div class="fltrt mts mbm">
             <cms:articleDistribution includeShareBtn="false" includeFbSendBtn="true"/>
         </div>
 
