@@ -13,8 +13,7 @@
                 <h6 class="bottom">Online public and private schools</h6>
             </div>
             <div class="bd">
-                <p class="small">|${requestScope.adSlotPrefix}|${pageScope.adSlotPrefix}|${sessionScope.adSlotPrefix}|${applicationScope.adSlotPrefix}
-                    K12 offers full-time, tuition-free online charter schools and virtual private schools.</p>
+                <p class="small">K12 offers full-time, tuition-free online charter schools and virtual private schools.</p>
 
                 <form action="/online-education.page" method="GET" id="js-k12Form-fs">
                     <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
