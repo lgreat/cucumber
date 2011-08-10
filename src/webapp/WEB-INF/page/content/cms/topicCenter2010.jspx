@@ -190,44 +190,51 @@
                         <div class="spacer_15"><!-- do not collapse --></div>
                     </c:if>
 
-                    <a name="tip-of-the-day"><!-- do not collapse --></a>
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                    <ad:adTag position="House_Ad_423x230"/>
 
-                    <div class="mod btsSupplyLists">
-                        <div class="inner">
-                            <div class="bd">
-                                <div class="line">
-                                    <div class="unit size42of100">
-                                        <div class="mod btsSupplyListsTag">
-                                            <div class="inner">
-                                                <span class="arrow"><!-- do not collapse --></span>
-                                                <div class="bd">
-                                                    <p class="">Get the scoop on back<br/>to school essentials:</p>
+                        <a name="tip-of-the-day"><!-- do not collapse --></a>
+
+                        <div class="spacer_10"><!-- do not collapse --></div>
+                        <ad:adTag position="House_Ad_423x230"/>
+
+                    <div id="jq-ghostText-${slotPrefixName}_House_Ad_423x230" class="hidden">
+                        <div class="mod btsSupplyLists">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="line">
+                                        <div class="unit size42of100">
+                                            <div class="mod btsSupplyListsTag">
+                                                <div class="inner">
+                                                    <span class="arrow"><!-- do not collapse --></span>
+
+                                                    <div class="bd">
+                                                        <p class="">Get the scoop on back<br/>to school essentials:</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="unit size36of100">
-                                        <ul class="mlm"> <!-- bullet type: disc/square/circle-->
-                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
-                                                    href="/back-to-school/supplies/109-supply-list-to-get-you-started.gs?page=1">Back to school basics</a></li>
-                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
-                                                    href="/back-to-school/supplies/1082-k-2-back-to-school-supply-list.gs?page=1">Elementary</a>
-                                            </li>
-                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
-                                                    href="/back-to-school/supplies/1084-middle-school-back-to-school-supply-list.gs?page=1">Middle School</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="unit size22of100 lastUnit">
-                                        <ul> <!-- bullet type: disc/square/circle-->
-                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
-                                                    href="/back-to-school/supplies/1085-high-school-back-to-school-supply-list.gs?page=1">High School</a>
-                                            </li>
-                                            <li><span class="alertDoubleArrow">&amp;raquo; </span><a
-                                                    href="/back-to-school/supplies/4290-college-back-to-school-supply-list.gs?page=1">College</a></li>
-                                        </ul>
+                                        <div class="unit size36of100">
+                                            <ul class="mlm"> <!-- bullet type: disc/square/circle-->
+                                                <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                        href="/back-to-school/supplies/109-supply-list-to-get-you-started.gs?page=1">Back to school basics</a>
+                                                </li>
+                                                <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                        href="/back-to-school/supplies/1082-k-2-back-to-school-supply-list.gs?page=1">Elementary</a>
+                                                </li>
+                                                <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                        href="/back-to-school/supplies/1084-middle-school-back-to-school-supply-list.gs?page=1">Middle School</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="unit size22of100 lastUnit">
+                                            <ul> <!-- bullet type: disc/square/circle-->
+                                                <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                        href="/back-to-school/supplies/1085-high-school-back-to-school-supply-list.gs?page=1">High School</a>
+                                                </li>
+                                                <li><span class="alertDoubleArrow">&amp;raquo; </span><a
+                                                        href="/back-to-school/supplies/4290-college-back-to-school-supply-list.gs?page=1">College</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -334,8 +341,15 @@
             jQuery('#jq-ghostText-${slotPrefixName}_HeaderLogo_88x33').show();
         }
     };
+    GS.ads.House_Ad_423x230 = GS.ads.House_Ad_423x230 || {};
+    GS.ads.House_Ad_423x230.showAdSponsorLogoText = function() {
+        if (jQuery('#google_ads_div_${slotPrefixName}_House_Ad_423x230,#google_ads_div_${slotPrefixName}_House_Ad_423x230_ad_container').length == 1) {
+            jQuery('#jq-ghostText-${slotPrefixName}_House_Ad_423x230').show();
+        }
+    };
     jQuery(function() {
         setTimeout('GS.ads.HeaderLogo_88x33.showAdSponsorLogoText();', 1000);
+        setTimeout('GS.ads.House_Ad_423x230.showAdSponsorLogoText();', 1000);
     });
 </script>
 </gsml:body>
