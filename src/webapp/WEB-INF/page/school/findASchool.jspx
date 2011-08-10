@@ -228,8 +228,8 @@
                 <div class="searchBarFas">
                     <h6 class="fltlft bottom"><input type="text" name="q" class="searchInput mrs" id="js-findByNameBox"
                                                      onfocus="GS_textSwitch(this, '', '   Search by school or district ...');"
-                                                     onblur="GS_textSwitch(this, '   Search by school or district...', '');"
-                                                     value="   Search by school or district..."/></h6>
+                                                     onblur="GS_textSwitch(this, '   Search by school or district ...', '');"
+                                                     value="   Search by school or district ..."/></h6>
                 </div>
                 <div class="smallest fltlft pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
                 </div>
