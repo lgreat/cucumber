@@ -70,6 +70,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public static final String MODEL_FULL_URL = "fullUrl";
     public static final String MODEL_IS_VIDEO = "isVideo";
     public static final String MODEL_VIDEO_RESULTS = "videoResults";
+    public static final String MODEL_WORKSHEETS_LINKS = "worksheetsLinks";
     public static final String LOCAL_DISCUSSION_BOARD_ID = "localDiscussionBoardId";
     public static final String LOCAL_DISCUSSION_TOPIC = "localDiscussionTopic";
     public static final String LOCAL_DISCUSSION_TOPIC_FULL = "localDiscussionTopicFull";
@@ -79,6 +80,37 @@ public class CmsTopicCenterController2010 extends AbstractController {
     public static final String MODEL_TOTAL_PAGES = "totalPages";
     public static final String MODEL_USE_PAGING = "usePaging";
     public static final String MODEL_PAGE_SIZE = "pageSize";
+
+
+    //=========================================================================
+    // worksheets sidebar
+    //=========================================================================
+
+    final private static List<Map<CmsLink,List<CmsLink>>> WORKSHEETS_LINKS = new ArrayList<Map<CmsLink,List<CmsLink>>>();
+    final private static String[] WORKSHEETS_LINKS_GRADES = { "Preschool", "Kindergarten", "First Grade", "Second Grade", "Third Grade", "Fourth Grade", "Fifth Grade" };
+    final private static String[] WORKSHEETS_LINKS_SUBJECTS = { "Math", "Reading", "Writing" };
+
+    static {
+        for (int i = 0; i < WORKSHEETS_LINKS_GRADES.length; i++) {
+            UrlBuilder worksheetsLinksUrlBuilder = new UrlBuilder(UrlBuilder.CMS_WORKSHEET_GALLERY, (String) null, WORKSHEETS_LINKS_GRADES[i].toLowerCase().replaceAll(" ", "-"), (String) null, (String) null);
+            CmsLink worksheetsLinksCmsLink = new CmsLink();
+            worksheetsLinksCmsLink.setLinkText(WORKSHEETS_LINKS_GRADES[i]);
+            worksheetsLinksCmsLink.setUrl(worksheetsLinksUrlBuilder.asSiteRelative(null));
+
+            List<CmsLink> worksheetsCmsSubLinks = new ArrayList<CmsLink>();
+            for (int j = 0; j < WORKSHEETS_LINKS_SUBJECTS.length; j++) {
+                UrlBuilder worksheetsLinksSubLinkUrlBuilder = new UrlBuilder(UrlBuilder.CMS_WORKSHEET_GALLERY, (String) null, WORKSHEETS_LINKS_GRADES[i].toLowerCase().replaceAll(" ", "-"), WORKSHEETS_LINKS_SUBJECTS[j].toLowerCase(), (String) null);
+                CmsLink worksheetsLinksCmsSubLink = new CmsLink();
+                worksheetsLinksCmsSubLink.setLinkText(WORKSHEETS_LINKS_SUBJECTS[j]);
+                worksheetsLinksCmsSubLink.setUrl(worksheetsLinksSubLinkUrlBuilder.asSiteRelative(null));
+                worksheetsCmsSubLinks.add(worksheetsLinksCmsSubLink);
+            }
+
+            Map<CmsLink, List<CmsLink>> worksheetsMap = new HashMap<CmsLink, List<CmsLink>>();
+            worksheetsMap.put(worksheetsLinksCmsLink, worksheetsCmsSubLinks);
+            WORKSHEETS_LINKS.add(worksheetsMap);
+        }
+    }
 
     //=========================================================================
     // spring mvc methods
@@ -147,6 +179,10 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         //add things needed for sidebars to work
         model.put(MODEL_BROWSE_BY_GRADE_SUBTOPICS, getBrowseByGradeForTopicCenter(topicCenter.getContentKey().getIdentifier()));
+
+        if (topicCenter.isWorksheetsTopicCenter()) {
+            model.put(MODEL_WORKSHEETS_LINKS, WORKSHEETS_LINKS);
+        }
 
         // GS-10275
         // Show the local community module we've built on the school overview page in place of the map IF a user is

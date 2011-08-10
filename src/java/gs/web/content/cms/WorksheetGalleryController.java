@@ -67,8 +67,6 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
     public static Map<String,Long> GRADE_URL_COMPONENT_LOOKUP = new HashMap<String,Long>();
 
     public static final int WORKSHEET_DEFAULT_PAGE_SIZE = 6;
-    public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 4313l;
-    //public static final long WORKSHEET_TOPIC_CENTER_CONTENT_ID = 1574l;
 
     public static final String MODEL_WORKSHEET_RESULTS = "worksheetResults";
 
@@ -131,10 +129,10 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         CmsTopicCenter topicCenter;
         SessionContext context = SessionContextUtil.getSessionContext(request);
 
-        topicCenter = getPublicationDao().populateByContentId(WORKSHEET_TOPIC_CENTER_CONTENT_ID, new CmsTopicCenter());
+        topicCenter = getPublicationDao().populateByContentId(CmsConstants.WORKSHEETS_TOPIC_CENTER_ID, new CmsTopicCenter());
 
         if (topicCenter == null) {
-            _log.info("Error locating topic center with contentId=" + WORKSHEET_TOPIC_CENTER_CONTENT_ID);
+            _log.info("Error locating topic center with contentId=" + CmsConstants.WORKSHEETS_TOPIC_CENTER_ID);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ModelAndView("/status/error404.page");
         }

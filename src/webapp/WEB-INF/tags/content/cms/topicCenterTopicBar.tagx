@@ -24,6 +24,10 @@
     </c:set>
 
     <c:choose>
+        <c:when test="${topicCenter.worksheetsTopicCenter}">
+            <cms:worksheetsBrowseSidebar/>
+            <cms:browseSidebar title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
+        </c:when>
         <c:when test="${topicCenter.elementarySchoolTopicCenter}">
             ${browseByGrade}
             ${moreOnThisTopic}
