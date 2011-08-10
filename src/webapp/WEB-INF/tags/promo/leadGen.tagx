@@ -62,7 +62,7 @@
 
                         <div class="line">
                             <label class="unit size3of13 smallText2">Zip code:</label>
-                            <input type="text" class="jq-leadGenEmail unit size4of11 formText2" name="zip"/>
+                            <input type="text" class="jq-leadGenZip unit size4of11 formText2" name="zip"/>
 
                             <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
                         </div>

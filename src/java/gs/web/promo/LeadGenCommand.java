@@ -60,7 +60,7 @@ public class LeadGenCommand {
     }
 
     public void setZip(String zip) {
-        if (StringUtils.isNotBlank(_zip)) {
+        if (StringUtils.isNotBlank(zip)) {
            _zip = zip;
         } else {
             _zip = null;
