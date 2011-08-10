@@ -3688,7 +3688,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 /*----------------GS-11926 starts(FAS)----------------*/
 .tabBar {
-    /*height:30px;*/
+    margin-bottom: 2px;
 }
 
 .tabBar span {
@@ -3702,14 +3702,25 @@ body.ie8 .btsSupplyListsTag .arrow {
     border: 1px solid #ccc;
     border-bottom: 0px;
     border-radius:3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .tabBar span.selected {
     background-color: #E1F1F7;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#F3F9FD), to(#E1F1F7)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #F3F9FD, #E1F1F7); /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient(top, #F3F9FD, #E1F1F7); /* FF3.6 */
+    background-image: -ms-linear-gradient(top, #F3F9FD, #E1F1F7); /* IE10 */
+    background-image: -o-linear-gradient(top, #F3F9FD, #E1F1F7); /* Opera 11.10+ */
+    background-image: linear-gradient(top, #F3F9FD, # #E1F1F7);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#F3F9FD', EndColorStr = '#E1F1F7'); /* IE6–IE9 */
     color: #2b2b2b;
     border: 1px solid #BBDDED;
     border-bottom: 0px;
     border-radius:3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 .tabBody {
     width: 590px;
@@ -3731,6 +3742,10 @@ body.ie8 .btsSupplyListsTag .arrow {
     width: 424px;
     height: 27px;
     color: #777;
+}
+
+.win #byNameTabBody .searchInput {
+    width: 380px;
 }
 
 .filterBar {
@@ -3766,15 +3781,9 @@ body.ie8 .btsSupplyListsTag .arrow {
     position:absolute;
     z-index:100;
     border: 1px solid #79BDDB;
-    /*width:151px;*/
 }
-/*.filterBar li {*/
-    /*display: inline;*/
-    /*float: left;*/
-    /*margin-right: 15px;*/
-/*}*/
 
-/*----------------GS-11926 starts(FAS)----------------*/
+/*----------------GS-11926 ends (FAS)----------------*/
 
 
 /* ------------ background tints ------------- */

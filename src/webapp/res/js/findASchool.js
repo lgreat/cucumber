@@ -24,7 +24,7 @@ GS.findASchool.submitByLocationSearch = function() {
     var searchQuery = byLocationForm.find('input[name="searchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
     if (searchQuery != '' &&
-        searchQuery != 'Search by city AND state or address..' && !GS.findASchool.isTermState(searchQuery)) {
+        searchQuery != 'Search by city AND state or address ...' && !GS.findASchool.isTermState(searchQuery)) {
         byLocationForm.find('input[name="searchString"]').val(searchQuery);
         GS.findASchool.gsGeocode(searchQuery, function(geocodeResult) {
             if (geocodeResult != null) {

@@ -40,11 +40,12 @@
     <h1>Find a School</h1>
 
     <div id="findASchoolTabs">
-
-        <h5 class="tabBar bottom">
+    <div class="tabBar">
+        <h5 class="bottom">
             <span id="byLocationTab" class="selected">By location</span>
-            <span id="byNameTab" >By name</span>
+            <span id="byNameTab">By name</span>
         </h5>
+    </div>
 
         <div id="byLocationTabBody" class="tabBody pal">
             <form name="findByLocationForm" id="jq-findByLocationForm" action="/search/search.page"
@@ -61,9 +62,9 @@
                 <div class="searchBarFas">
                     <h6 class="fltlft bottom"><input type="text" name="searchString" class="searchInput mrs"
                                                      id="js-findByLocationBox"
-                                                     onfocus="GS_textSwitch(this, '', '   Search by city AND state or address..');"
-                                                     onblur="GS_textSwitch(this, '   Search by city AND state or address..', '');"
-                                                     value="   Search by city AND state or address.."/></h6>
+                                                     onfocus="GS_textSwitch(this, '', '   Search by city AND state or address ...');"
+                                                     onblur="GS_textSwitch(this, '   Search by city AND state or address ...', '');"
+                                                     value="   Search by city AND state or address ..."/></h6>
                     <button class="button-4 searchSubmit fltlft mlm" type="submit">Search</button>
                 </div>
                 <div class="smallest bottom fltlft pts">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
@@ -100,7 +101,7 @@
                                            id="js-school-type-private" value="private"/>
                                     <label for="js-school-type-private">Private</label>
                                 </div>
-                                <button class="button-1" type="button" id="hideDropDown-1" onclick="javascript:void(0)">Done</button>
+                                <button class="button-1 mtm" type="button" id="hideDropDown-1" onclick="javascript:void(0)">Done</button>
                             </div>
                         </div>
                             </div>
@@ -141,7 +142,7 @@
                                            id="js-grade-level-h" value="h"/>
                                     <label for="js-grade-level-h">High School (9-12)</label>
                                 </div>
-                                <button class="button-1" id="hideDropDown-2" type="button" onclick="javascript:void(0)">Done</button>
+                                <button class="button-1  mtm" id="hideDropDown-2" type="button" onclick="javascript:void(0)">Done</button>
                             </div>
                         </div>
                         </div>
@@ -194,12 +195,12 @@
                                         <label for="js-radius-20">20 miles</label>
                                     </div>
                                     <div>
-                                        <input type="radio" name="distance" value="25" id="js-radius-25"/>
+                                        <input type="radio" name="distance" value="25" id="js-radius-25"
+                                                checked="checked"/>
                                         <label for="js-radius-25">25 miles</label>
                                     </div>
                                     <div>
-                                        <input type="radio" name="distance" value="30" id="js-radius-30"
-                                                checked="checked"/>
+                                        <input type="radio" name="distance" value="30" id="js-radius-30"/>
                                         <label for="js-radius-30">30 miles</label>
                                     </div>
                                 </div>
@@ -226,11 +227,11 @@
                 <div class="fltlft">
                 <div class="searchBarFas">
                     <h6 class="fltlft bottom"><input type="text" name="q" class="searchInput mrs" id="js-findByNameBox"
-                                                     onfocus="GS_textSwitch(this, '', '   Search by school or district...');"
+                                                     onfocus="GS_textSwitch(this, '', '   Search by school or district ...');"
                                                      onblur="GS_textSwitch(this, '   Search by school or district...', '');"
                                                      value="   Search by school or district..."/></h6>
                 </div>
-                <div class="smallest fltlft pts bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
+                <div class="smallest fltlft pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
                 </div>
                 <div class="fltrt">
                 <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
