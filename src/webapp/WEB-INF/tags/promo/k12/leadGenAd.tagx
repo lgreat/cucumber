@@ -29,8 +29,10 @@
                 </form>
             </div>
             <div id="jq-ghostText-leadGenAd_K12_Module_Logo_88x31" class="ft hide">
-                <div class="vert-align-mid fltrt"><gsweb:adTagGenerator position="K12_Module_Logo_88x31"/></div>
-                <p class="smallest allCaps">Sponsored by</p>
+                <div class="ad_88x31 vert-align-mid fltrt">
+                    <gsweb:adTagGenerator position="K12_Module_Logo_88x31"/>
+                </div>
+                <p class="smallest allCaps bottom">Sponsored by</p>
                 <script type="text/javascript">
                     GS = GS || {};
                     GS.ads = GS.ads || {};

@@ -3383,6 +3383,8 @@ span.i-right-photoGallery-default:hover {
 .findCompare .hd {position:relative;z-index:1;padding-bottom: 10px;}
 .findCompare .bd .formExt1{padding-bottom:10px;}
 .findCompare .bd #q{width:100%;}
+.findCompare .ft{height:31px;}
+.findCompare .ft p{text-align:right;padding-top:5px;}
 /* ------ emailSignUp (extends standard) ------ */
 .emailSignUp .section1{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 0 15px 10px;}
 .emailSignUp .section2{background-color:#ebebeb;border-bottom:1px solid #c6c6c6;padding:15px 0 20px 10px;}
@@ -3466,7 +3468,8 @@ body.ie8 .btsSupplyListsTag .arrow {
 .fasK12 .inner{background-color:#fcf8e1;padding:10px;}
 .fasK12 .hd{margin-bottom:10px;}
 .fasK12 .bd{margin-bottom:10px;}
-.fasK12 .ft p{color:#b89652;margin-bottom: 0;text-align: right;}
+.fasK12 .ft{height:31px;}
+.fasK12 .ft p{color:#b89652;text-align:right;padding-top:15px;}
 /* -------------- fasDownload ---------------- */
 .fasDownload {margin: 10px 0;}
 .fasDownload .inner{background-color:#f3f9fd;padding:10px;}
@@ -4559,6 +4562,11 @@ body.cobranded #pageGS {
 #Global_NavPromo_968x30{
     padding:0 5px;
     background: url(/res/img/gs_content_bg.png) repeat-y;
+}
+
+.ad_88x31{
+    width:88px;
+    height:31px;
 }
 
 /* =11 header/primary navigation
