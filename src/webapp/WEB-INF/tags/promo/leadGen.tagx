@@ -14,12 +14,11 @@
     <div class="mod primrose jq-leadGenWrapper">
         <script type="text/javascript" src="/res/js/promo/leadGen.js"><!-- do not collapse --></script>
         <div class="inner">
-            <div class="hd"><!-- do not collapse --></div>
             <div class="bd">
 
-                <div class="jq-leadGenIntroText leadGenIntroText">
-                    <p>TODO: Heading copy goes here!</p>
-                </div>
+                <br class="spacer_25" />
+                <br class="spacer_25" />
+                <br class="spacer_25" />
 
                 <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-firstName">
                     <div class="img sprite i-alert"><!-- do not collapse --></div>
@@ -70,13 +69,11 @@
                         </div>
                     </fieldset>
                     <fieldset class="submit">
-                        <button class="button-2 jq-leadGenSubmit" type="submit">SUBMIT</button>
+                        <button class="button-2 jq-leadGenSubmit" type="submit">Schedule a Tour</button>
                     </fieldset>
                 </form>
                 <div class="hidden jq-leadGenThankYou leadGenThankYou">
                     <p>Thanks for submitting your information!</p>
-
-                    <p>Someone from Primrose Schools will be contacting you soon.</p>
                 </div>
             </div>
         </div>
