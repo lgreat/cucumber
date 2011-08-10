@@ -89,11 +89,11 @@
             ${fn:escapeXml(feature.summary)}
         </p>
 
+        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+
         <div class="fltrt mrm">
             <cms:articleDistribution includeShareBtn="false" includeFbSendBtn="true"/>
         </div>
-
-        <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
         <div class="text3 fltrt">
             <ul>
