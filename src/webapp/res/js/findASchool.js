@@ -334,4 +334,67 @@ $(function() {
         }
         return true;
     });
+
+    // initialize drawers
+    $(".js-cabinet > .js-drawer").hide();
+    $(".js-cabinet > .js-drawer").removeClass("hide");
+    $(".js-close").parent().hide();
+
+    // open drawer
+    $(".js-open").click(function () {
+        var anchor = $(this);
+        var parent = anchor.parent();
+        var grandparent = parent.parent();
+        var myDrawer = grandparent.find(".js-drawer");
+        //$(this).parent().parent().find(".js-drawer").show();
+        if (myDrawer.is(":hidden")) {
+            myDrawer.slideDown(400);
+            parent.hide();
+            grandparent.find(".js-close").parent().show();
+        }
+    });
+
+    // close drawer
+    $(".js-close").click(function () {
+        var anchor = $(this);
+        var parent = anchor.parent();
+        var grandparent = parent.parent();
+        var myDrawer = grandparent.find(".js-drawer");
+        //$(this).parent().parent().find(".js-drawer").show();
+        if (myDrawer.is(":visible")) {
+            myDrawer.slideUp("slow");
+            parent.hide();
+            grandparent.find(".js-open").parent().show();
+        }
+    });
+
+    // custom links for editorial module
+    $(".js_editorialModule ul li a").click(function() {
+        if (s.tl) {
+            s.tl(this,'o',this.href);
+        }
+    });
+
+    // filter drop down controls
+    $("#category-1").click(function(){
+        $("#dropDown-FAS-1").toggle();
+    });
+    $("#hideDropDown-1").click(function(){
+        $("#dropDown-FAS-1").toggle();
+    });
+    $("#category-2").click(function(){
+        $("#dropDown-FAS-2").toggle();
+    });
+    $("#hideDropDown-2").click(function(){
+        $("#dropDown-FAS-2").toggle();
+    });
+    $("#category-3").click(function(){
+        $("#dropDown-FAS-3").toggle();
+    });
+    $("#hideDropDown-3").click(function(){
+        $("#dropDown-FAS-3").toggle();
+    });
+    $(".triggerMouseLeave").mouseleave(function(){
+        $(".dropDown-FAS").hide();
+    });
 });
