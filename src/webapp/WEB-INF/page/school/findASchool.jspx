@@ -279,12 +279,12 @@
                             <a href="/find-a-school/defining-your-ideal/98-considering-your-childs-needs.gs?page=1">Choosing the right school</a>
                         </li>
                     </ul>
-                    <p>
+                    <p class="small">
                         <a href="javascript:void(0);" onclick="if (s.tl) {s.tl(true,'o','FAS_More_How_do_you_start');}"
                            class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
 
-                    <p class="hide">
+                    <p class="small hide">
                         <a href="javascript:void(0);" class="js-close">Less <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
                 </div>
@@ -315,12 +315,12 @@
                             <a href="/improvement/volunteering/490-school-finance-issues.gs?page=1">Learning what districts spend per pupil</a>
                         </li>
                     </ul>
-                    <p>
+                    <p class="small">
                         <a href="javascript:void(0);" onclick="if (s.tl) {s.tl(true,'o','FAS_More_Moving');}"
                            class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
 
-                    <p class="hide">
+                    <p class="small hide">
                         <a href="javascript:void(0);" class="js-close">Less <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
                 </div>
@@ -357,12 +357,12 @@
                             <a href="/find-a-school/1632-five-reasons-to-avoid-a-high-school.gs?page=1">5 reasons to avoid a high school</a>
                         </li>
                     </ul>
-                    <p>
+                    <p class="small">
                         <a href="javascript:void(0);" onclick="if (s.tl) {s.tl(true,'o','FAS_More_Assess_a_School');}"
                            class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
 
-                    <p class="hide">
+                    <p class="small hide">
                         <a href="javascript:void(0);" class="js-close">Less <span class="alertDoubleArrow">&amp;raquo;</span></a>
                     </p>
                 </div>
