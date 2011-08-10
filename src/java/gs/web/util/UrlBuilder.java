@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.255 2011/08/03 23:17:36 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.256 2011/08/10 20:05:09 yfan Exp $
  */
 
 package gs.web.util;
@@ -1071,6 +1071,7 @@ public class UrlBuilder {
             if (StringUtils.isNotBlank(subject)) {
                 s.append("/").append(subject);
             }
+            s.append("/");
             _perlPage = false;
             _path = s.toString() + (StringUtils.isNotBlank(language) ? "?language=" + language : "");
         } else {
