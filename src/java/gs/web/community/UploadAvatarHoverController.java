@@ -93,7 +93,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
             }
         } else {
             if (command.getAvatar().getSize() > MAX_UPLOAD_SIZE_BYTES) {
-                errors.rejectValue("avatar", null, "Maximum image size is 1 megabyte.");
+                errors.rejectValue("avatar", "maxLimit", "Maximum image size is 1 megabyte.");
             } else if (command.getAvatar().getSize() == 0) {
                 errors.rejectValue("avatar", null, "Invalid image.");
             } else if (command.getAvatar().getContentType() == null ||
@@ -107,7 +107,7 @@ public class UploadAvatarHoverController extends SimpleFormController implements
                     errors.rejectValue("avatar", null, "The file does not appear to be a valid image.");
                 } else {
                     if (incomingImage.getWidth() < MIN_IMAGE_DIMENSIONS_PIXELS || incomingImage.getHeight() < MIN_IMAGE_DIMENSIONS_PIXELS) {
-                        errors.rejectValue("avatar", null, "Minimum image dimensions are 95x95 pixels.");
+                        errors.rejectValue("avatar", "minLimit", "Minimum image dimensions are 95x95 pixels.");
                     } else {
                         // Remove the file from the command object to save memory
                         command.setAvatar(null);
