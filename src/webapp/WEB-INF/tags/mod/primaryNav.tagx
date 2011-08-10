@@ -43,7 +43,7 @@
             <div class="col_1">
               <div class="col_content">
                 <ul> <!-- bullet type: disc/square/circle-->
-                  <li><a href="/making-right-choice-schools.topic?content=4502" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a></li>
+                  <li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice" styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse><!--<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>--></li>
                   <li><a href="/moving.topic?content=2220" id="PN_F_2-MovingWIthKids" class="GS_CI9_">Moving with Kids</a></li>
                   <li class="lastone"><a href="/tips-moving-school-district.topic?content=4248" id="PN_F_2-LocalSchoolChoiceGuides" class="GS_CI9_">Guides to Local School Systems</a></li>
                 </ul>
