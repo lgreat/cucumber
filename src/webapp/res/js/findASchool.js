@@ -343,28 +343,28 @@ $(function() {
     // open drawer
     $(".js-open").click(function () {
         var anchor = $(this);
-        var parent = anchor.parent();
-        var grandparent = parent.parent();
-        var myDrawer = grandparent.find(".js-drawer");
+        var anchorContainer = anchor.parent();
+        var myCabinet = anchorContainer.parent();
+        var myDrawer = myCabinet.find(".js-drawer");
         //$(this).parent().parent().find(".js-drawer").show();
         if (myDrawer.is(":hidden")) {
             myDrawer.slideDown(400);
-            parent.hide();
-            grandparent.find(".js-close").parent().show();
+            anchorContainer.hide();
+            myCabinet.find(".js-close").parent().show();
         }
     });
 
     // close drawer
     $(".js-close").click(function () {
         var anchor = $(this);
-        var parent = anchor.parent();
-        var grandparent = parent.parent();
-        var myDrawer = grandparent.find(".js-drawer");
+        var anchorContainer = anchor.parent();
+        var myCabinet = anchorContainer.parent();
+        var myDrawer = myCabinet.find(".js-drawer");
         //$(this).parent().parent().find(".js-drawer").show();
         if (myDrawer.is(":visible")) {
             myDrawer.slideUp("slow");
-            parent.hide();
-            grandparent.find(".js-open").parent().show();
+            anchorContainer.hide();
+            myCabinet.find(".js-open").parent().show();
         }
     });
 
