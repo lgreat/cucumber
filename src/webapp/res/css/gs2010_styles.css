@@ -4465,11 +4465,11 @@ body.ie6 .clearfix {
 #nthGraderAd,
 #Promo_300x250 {
     width:300px;
-    margin: 0 auto 1em;
+    margin: 10px auto;
 }
 
 #Homepage_House_Ad_300x137 {
-    margin: 1em auto;
+    margin: 10px auto;
 }
 
 /* text ads */
