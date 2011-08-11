@@ -65,7 +65,7 @@
                   <ul> <!-- bullet type: disc/square/circle-->
                     <li><a href="/articles/?grades=198&amp;topics=211" id="PN_P_1-ReadingReadiness" class="GS_CI9_">Reading Readiness</a></li>
                     <li><a href="/articles/?grades=198&amp;topics=211" id="PN_P_1-MathReadiness" class="GS_CI9_">Math Readiness</a></li>
-                    <li><a href="/worksheets/preschool" id="PN_P_1-Worksheets" class="GS_CI9_">Worksheets</a></li>
+                    <li><a href="/worksheets/preschool/" id="PN_P_1-Worksheets" class="GS_CI9_">Worksheets</a></li>
                     <li class="lastone"><a href="/articles/?topics=156&amp;grades=198" id="PN_P_1-Activities" class="GS_CI9_">Activities</a></li>
                   </ul>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="col_content">
                   <ul> <!-- bullet type: disc/square/circle-->
                     <li><a href="/videos/elementary-school/?content=1574" id="PN_E_2-Videos" class="GS_CI9_">Videos</a></li>
-                    <li><a href="/worksheets/elementary-school" id="PN_E_2-Worksheets" class="GS_CI9_">Worksheets</a></li>
+                    <li><a href="/worksheets/elementary-school/" id="PN_E_2-Worksheets" class="GS_CI9_">Worksheets</a></li>
                     <li><a href="/articles/?topics=156&amp;grades=217" id="PN_E_2-Activities" class="GS_CI9_">Activities</a></li>
                     <li><a href="/articles/?topics=159&amp;grades=217" id="PN_E_2-Books" class="GS_CI9_">Books</a></li>
                     <li><a href="/articles/?topics=371&amp;grades=217" id="PN_E_2-Games" class="GS_CI9_">Games</a></li>

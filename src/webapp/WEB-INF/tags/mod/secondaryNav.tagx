@@ -37,9 +37,9 @@
         </li>
         <li class="menuItem"><a href="/worksheets-activities.topic?content=4313" id="SN-AcademicsActivities" class="menuItemAnchorText GS_CI9_">Worksheets &amp; Activities <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_2"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/worksheets/math" id="SN_WA-MathWorksheets" class="subMenuItemAnchorText GS_CI9_">Math Worksheets<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/worksheets/reading" id="SN_WA-ReadingWorksheets" class="subMenuItemAnchorText GS_CI9_">Reading Worksheets<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/worksheets/writing" id="SN_WA-WritingWorksheets" class="subMenuItemAnchorText GS_CI9_">Writing Worksheets<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/worksheets/math/" id="SN_WA-MathWorksheets" class="subMenuItemAnchorText GS_CI9_">Math Worksheets<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/worksheets/reading/" id="SN_WA-ReadingWorksheets" class="subMenuItemAnchorText GS_CI9_">Reading Worksheets<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/worksheets/writing/" id="SN_WA-WritingWorksheets" class="subMenuItemAnchorText GS_CI9_">Writing Worksheets<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;topics=209" id="SN_WA-MathActivities" class="subMenuItemAnchorText GS_CI9_">Math Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;topics=211" id="SN_WA-ReadingActivities" class="subMenuItemAnchorText GS_CI9_">Reading Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;topics=216" id="SN_WA-WritingActivities" class="subMenuItemAnchorText GS_CI9_">Writing Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
