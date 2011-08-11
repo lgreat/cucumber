@@ -59,8 +59,9 @@ public class SearchRealtorDotComController extends AbstractController {
 
             SessionContext context = SessionContextUtil.getSessionContext(request);
             boolean isFramed = (context != null) && context.isFramed();
+            boolean showRealtorDotComPromos = (context != null) && context.isShowRealtorDotComPromos();
             boolean showAd = false;
-            if (isFramed || Math.random() < showAdPct || !context.isShowRealtorDotComPromos()) {
+            if (isFramed || Math.random() < showAdPct || !showRealtorDotComPromos) {
                 showAd = true;
             }
 
