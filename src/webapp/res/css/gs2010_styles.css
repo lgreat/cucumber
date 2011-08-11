@@ -3684,7 +3684,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 .miniMargin{margin-top:3px;}
 .worksheet-popup-contents{margin-left: 15px;}
-.worksheet-popup-contents .inner {width:280px;border:1px solid #ccc;background-color: #f4f4f4;color: #f4f4f4;}
+.worksheet-popup-contents .inner {width:auto;border:1px solid #ccc;background-color: #f4f4f4;color: #f4f4f4;}
 .worksheet-popup-contents .bd p {width:auto;margin: 15px;}
 .worksheet-popup-contents .inner .arrow-outline-left{position:absolute;top:42px;left:-15px;*top:39px;}
 .worksheet-popup-contents .inner .arrow-left{position:absolute;top:42px;left:-13px;*top:39px;border-right-color:#f4f4f4;}
@@ -13286,6 +13286,10 @@ p#btsBubbleOpts {
 
 .js-worksheetBubbleInfo{
     position: relative;
+}
+
+.worksheetImage{
+    border:1px solid #ccc;
 }
 
 /* =z-index resets
