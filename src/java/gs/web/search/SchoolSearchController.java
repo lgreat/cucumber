@@ -119,6 +119,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
     public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
     public static final String MODEL_IS_SEARCH = "isSearch";
+    public static final String MODEL_IS_FROM_BY_LOCATION = "isFromByLocation";
 
     public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
     public static final String MODEL_NEARBY_SEARCH_TITLE_PREFIX = "nearbySearchTitlePrefix";
@@ -131,6 +132,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final String MODEL_DID_YOU_MEAN = "didYouMean";
 
     public static final int MAX_PAGE_SIZE = 100;
+    public static final int NEARBY_CITIES_PAGE_SIZE = 33;
 
     protected static final String VIEW_NOT_FOUND = "/status/error404";
 
@@ -192,6 +194,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         boolean isCityBrowse = commandAndFields.isCityBrowse();
         boolean isDistrictBrowse = commandAndFields.isDistrictBrowse();
         boolean isSearch = !isCityBrowse && !isDistrictBrowse;
+        boolean isFromByLocation = schoolSearchCommand.isNearbySearchByLocation();
 
         Map nearbySearchInfo = null;
         if (schoolSearchCommand.isNearbySearch()) {
@@ -226,6 +229,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_IS_SEARCH, isSearch);
         model.put(MODEL_IS_NEARBY_SEARCH, schoolSearchCommand.isNearbySearch());
         model.put(MODEL_NORMALIZED_ADDRESS, schoolSearchCommand.getNormalizedAddress());
+        model.put(MODEL_IS_FROM_BY_LOCATION, isFromByLocation);
 
         if (schoolSearchCommand.isNearbySearch()) {
             String nearbySearchTitlePrefix = "Schools";
@@ -368,6 +372,8 @@ public class SchoolSearchController extends AbstractCommandController implements
         if (isCityBrowse || isDistrictBrowse) {
             citySearchResults = nearbyCitiesFacade.getNearbyCities();
             //districtSearchResults = nearbyDistrictsFacade.getNearbyDistricts(); commented out until we figure out why district lat/lons are inaccurate
+        } else if (isFromByLocation) {
+            citySearchResults = nearbyCitiesFacade.getNearbyCitiesByLatLon();
         } else if (searchString != null) {
             citySearchResults = nearbyCitiesFacade.searchForCities();
             districtSearchResults = nearbyDistrictsFacade.searchForDistricts();
@@ -1348,7 +1354,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             City city = _commandAndFields.getCityFromUrl();
             List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
             try {
-                SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().getCitiesNear(browseLat, browseLon, DEFAULT_RADIUS, null, 0, 33);
+                SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().getCitiesNear(browseLat, browseLon, DEFAULT_RADIUS, null, 0, NEARBY_CITIES_PAGE_SIZE);
 
                 citySearchResults = cityPage.getSearchResults();
 
@@ -1363,7 +1369,35 @@ public class SchoolSearchController extends AbstractCommandController implements
                     }
                 }
             } catch (SearchException ex) {
-                _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", ex);
+                _log.debug("something went wrong when attempting to use CitySearchService. Eating exception", ex);
+            }
+
+            return citySearchResults;
+        }
+
+        public List<ICitySearchResult> getNearbyCitiesByLatLon() {
+            Float lat = _commandAndFields.getLatitude();
+            Float lon = _commandAndFields.getLongitude();
+            String searchStr = _commandAndFields.getSearchString();
+            List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+            try {
+                if (lat != null && lon != null) {
+                    SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().getCitiesNear(lat, lon, DEFAULT_RADIUS, null, 0, NEARBY_CITIES_PAGE_SIZE);
+                    citySearchResults = cityPage.getSearchResults();
+                }
+
+                //if nearby city matches the search string, remove it from nearby list
+                if (citySearchResults != null && searchStr != null) {
+                    Iterator<ICitySearchResult> iterator = citySearchResults.listIterator();
+                    while (iterator.hasNext()) {
+                        ICitySearchResult result = iterator.next();
+                        if (result.getCity().equalsIgnoreCase(searchStr) || (result.getCity() + ", " + result.getState()).equalsIgnoreCase(searchStr)) {
+                            iterator.remove();
+                        }
+                    }
+                }
+            } catch (SearchException ex) {
+                _log.debug("Something went wrong when attempting to use CitySearchService. Eating exception", ex);
             }
 
             return citySearchResults;
