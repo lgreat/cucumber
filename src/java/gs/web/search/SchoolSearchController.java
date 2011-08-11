@@ -1378,23 +1378,11 @@ public class SchoolSearchController extends AbstractCommandController implements
         public List<ICitySearchResult> getNearbyCitiesByLatLon() {
             Float lat = _commandAndFields.getLatitude();
             Float lon = _commandAndFields.getLongitude();
-            String searchStr = _commandAndFields.getSearchString();
             List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
             try {
                 if (lat != null && lon != null) {
                     SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().getCitiesNear(lat, lon, DEFAULT_RADIUS, null, 0, NEARBY_CITIES_PAGE_SIZE);
                     citySearchResults = cityPage.getSearchResults();
-                }
-
-                //if nearby city matches the search string, remove it from nearby list
-                if (citySearchResults != null && searchStr != null) {
-                    Iterator<ICitySearchResult> iterator = citySearchResults.listIterator();
-                    while (iterator.hasNext()) {
-                        ICitySearchResult result = iterator.next();
-                        if (result.getCity().equalsIgnoreCase(searchStr) || (result.getCity() + ", " + result.getState()).equalsIgnoreCase(searchStr)) {
-                            iterator.remove();
-                        }
-                    }
                 }
             } catch (SearchException ex) {
                 _log.debug("Something went wrong when attempting to use CitySearchService. Eating exception", ex);

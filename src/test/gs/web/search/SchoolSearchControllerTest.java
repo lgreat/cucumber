@@ -900,7 +900,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         r.setState(State.CA);
         res.add(r);
         SearchResultsPage page = new SearchResultsPage(10, res);
-        //set the search string to alameda.Therefore it has to be removed from the search results.
+        //set the search string to alameda.Should not be removed from the results.
         schoolSearchCommand.setSearchString("alameda");
         schoolSearchCommand.setLat(new Double(23));
         schoolSearchCommand.setLon(new Double(23));
@@ -910,37 +910,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         List<ICitySearchResult> s = _controller.new NearbyCitiesFacade(cmd).getNearbyCitiesByLatLon();
         verify(_citySearchService);
         assertNotNull(s);
-        assertEquals("Expecting exactly 1 result from the search.",1, s.size());
-    }
-
-    public void testGetNearByCitiesByLatLongWithResultsForSearchStringPlusState() throws SearchException {
-        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
-        getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
-        SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
-        SchoolSearchCommandWithFields cmd = new SchoolSearchCommandWithFields(schoolSearchCommand, fields);
-
-        List<ICitySearchResult> res = new ArrayList<ICitySearchResult>();
-        CitySearchResult r = new CitySearchResult();
-        r.setCity("Alameda");
-        r.setState(State.CA);
-        res.add(r);
-        r = new CitySearchResult();
-        r.setCity("Colma");
-        r.setState(State.CA);
-        res.add(r);
-        SearchResultsPage page = new SearchResultsPage(10, res);
-        //set the search string to alameda,ca(Auto complete in find a school appends a state).
-        // Therefore it has to be removed from the search results.
-        schoolSearchCommand.setSearchString("alameda, ca");
-        schoolSearchCommand.setLat(new Double(23));
-        schoolSearchCommand.setLon(new Double(23));
-        expect(_citySearchService.getCitiesNear(cmd.getLatitude(), cmd.getLongitude(), 50, null, 0, 33)).andReturn(page);
-
-        replay(_citySearchService);
-        List<ICitySearchResult> s = _controller.new NearbyCitiesFacade(cmd).getNearbyCitiesByLatLon();
-        verify(_citySearchService);
-        assertNotNull(s);
-        assertEquals("Expecting exactly 1 result from the search.",1, s.size());
+        assertEquals("Expecting exactly 2 results from the search.",2, s.size());
     }
 
 
