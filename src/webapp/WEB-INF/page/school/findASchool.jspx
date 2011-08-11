@@ -73,48 +73,51 @@
                     <div id="js-schoolTypes" class="unit size1of3">
                         <div class="small_bold bottom">School type</div>
                         <div class="triggerMouseLeave">
-                        <div id="category-1" class="filterCategory small bottom">
-                            <a href="javascript:void(0)">
+                            <div id="category-1" class="filterCategory small bottom">
+
                                 <span class="fltlft vert-align-mid defaultText">Any type</span>
-                                <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                            </a>
-                        </div>
-                        <div id="dropDown-FAS-1" class="dropDown-FAS">
-                            <div class="col_2 pam">
-                                <div>
-                                    <input type="checkbox" checked="checked" name="st" id="js-school-type-all"
-                                           value=""/>
-                                    <label for="js-school-type-all">All School Types</label>
+                                <a href="javascript:void(0)">
+                                    <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
+                                </a>
+                            </div>
+                            <div id="dropDown-FAS-1" class="dropDown-FAS">
+                                <div class="col_2 pam">
+                                    <div>
+                                        <input type="checkbox" checked="checked" name="st" id="js-school-type-all"
+                                               value=""/>
+                                        <label for="js-school-type-all">All School Types</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                               id="js-school-type-public" value="public"/>
+                                        <label for="js-school-type-public">Public</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                               id="js-school-type-charter" value="charter"/>
+                                        <label for="js-school-type-charter">Public charter</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                               id="js-school-type-private" value="private"/>
+                                        <label for="js-school-type-private">Private</label>
+                                    </div>
+                                    <button class="button-1 mtm" type="button" id="hideDropDown-1"
+                                            onclick="javascript:void(0)">Done
+                                    </button>
                                 </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
-                                           id="js-school-type-public" value="public"/>
-                                    <label for="js-school-type-public">Public</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
-                                           id="js-school-type-charter" value="charter"/>
-                                    <label for="js-school-type-charter">Public charter</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
-                                           id="js-school-type-private" value="private"/>
-                                    <label for="js-school-type-private">Private</label>
-                                </div>
-                                <button class="button-1 mtm" type="button" id="hideDropDown-1" onclick="javascript:void(0)">Done</button>
                             </div>
                         </div>
-                            </div>
                     </div>
                     <div id="js-gradeLevels" class="unit size1of3">
                         <div class="small_bold bottom">Grade level</div>
                         <div class="triggerMouseLeave">
-                        <div id="category-2" class="filterCategory small bottom">
-                            <a href="javascript:void(0)">
+                            <div id="category-2" class="filterCategory small bottom">
                                 <span class="fltlft vert-align-mid defaultText">Any grade</span>
-                                <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                            </a>
-                        </div>
+                                <a href="javascript:void(0)">
+                                    <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
+                                </a>
+                            </div>
                         <div id="dropDown-FAS-2" class="dropDown-FAS">
                             <div class="col_2 pam">
                                 <div>
@@ -150,12 +153,13 @@
                     <div id="js-radius" class="unit size1of3 lastUnit">
                         <div class="small_bold bottom">Distance</div>
                         <div class="triggerMouseLeave">
-                        <div id="category-3" class="filterCategory small bottom">
-                            <a href="javascript:void(0)">
+                            <div id="category-3" class="filterCategory small bottom">
+
                                 <span class="fltlft vert-align-mid defaultText">Any distance</span>
-                                <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                            </a>
-                        </div>
+                                <a href="javascript:void(0)">
+                                    <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
+                                </a>
+                            </div>
                         <div id="dropDown-FAS-3" class="dropDown-FAS">
                             <div class="col_2 pam">
                                 <div class="col_1">
@@ -224,25 +228,33 @@
                 <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
                 <input type="hidden" name="search_type" value="1"/>
 
-                <div class="fltlft">
-                <div class="searchBarFas">
-                    <h6 class="fltlft bottom"><input type="text" name="q" class="searchInput mrs" id="js-findByNameBox"
-                                                     onfocus="GS_textSwitch(this, '', '   Search by school or district ...');"
-                                                     onblur="GS_textSwitch(this, '   Search by school or district ...', '');"
-                                                     value="   Search by school or district ..."/></h6>
+                <div class="line">
+                    <div class="unit size67of100">
+                        <div class="searchBarFas">
+                            <h6 class="fltlft bottom"><input type="text" name="q" class="searchInput mrs"
+                                                             id="js-findByNameBox"
+                                                             onfocus="GS_textSwitch(this, '', '   Search by school or district ...');"
+                                                             onblur="GS_textSwitch(this, '   Search by school or district ...', '');"
+                                                             value="   Search by school or district ..."/></h6>
+                        </div>
+                        <div class="smallest fltlft pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
+                    </div>
+                    <div class="unit size17of100 dropDown-FAS-state">
+                        <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                             noStateLabel="Select state"
+                                             usingLongNames="false"
+                                             state="${requestScope.context.state}"
+                                             styleClass="stateSelect"
+                                             styleId="js-findByNameStateSelect"
+                                />
+                    </div>
+                    <div class="unit size15of100 lastUnit">
+                        <button class="button-4 searchSubmit mls" type="submit">Search</button>
+                    </div>
                 </div>
-                <div class="smallest fltlft pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
-                </div>
-                <div class="fltrt">
-                <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                     noStateLabel="Select state"
-                                     usingLongNames="false"
-                                     state="${requestScope.context.state}"
-                                     styleClass="stateSelect"
-                                     styleId="js-findByNameStateSelect"
-                        />
-                <button class="button-4 searchSubmit mls" type="submit">Search</button>
-                </div>
+
+
+
                 <br class="clear"/>
             </form>
 

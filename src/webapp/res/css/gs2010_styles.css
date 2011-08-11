@@ -3704,7 +3704,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     color: #0066BB;
     border: 1px solid #ccc;
     border-bottom: 0px;
-    border-radius:3px;
+    border-radius: 3px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
@@ -3721,20 +3721,23 @@ body.ie8 .btsSupplyListsTag .arrow {
     color: #2b2b2b;
     border: 1px solid #BBDDED;
     border-bottom: 0px;
-    border-radius:3px;
+    border-radius: 3px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
+
 .tabBody {
     width: 590px;
     background-color: #E1F1F7;
-    zoom:1;
+    zoom: 1;
     border: 1px solid #BBDDED;
-    border-radius:3px;
+    border-radius: 3px;
 }
-.searchBarFas{
+
+.searchBarFas {
     height: 34px;
 }
+
 .searchInput {
     width: 480px;
     height: 27px;
@@ -3742,7 +3745,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 #byNameTabBody .searchInput {
-    width: 424px;
+    width: 381px;
     height: 27px;
     color: #777;
 }
@@ -3751,42 +3754,70 @@ body.ie8 .btsSupplyListsTag .arrow {
     width: 380px;
 }
 
-.filterBar {
-    margin-top: 20px;
-    width:100%;
+#byNameTabBody select {
+    width: 98px;
 }
 
-.filterCategory{
-    height:24px;
+#byNameTabBody option {
+    width: 72px;
+}
+
+.filterBar {
+    margin-top: 20px;
+    width: 67%;
+}
+
+.filterCategory {
+    height: 24px;
     width: 111px;
 }
-.filterCategory .defaultText{
-    width:69px;
-    padding:3px 9px 3px 8px;
+
+.chrome .filterCategory {
+    width: 112px;
+}
+
+.filterCategory .defaultText {
+    width: 69px;
+    padding: 3px 9px 3px 8px;
     background-color: white;
     border: 1px solid #A5D3E7;
     border-radius: 3px;
-    border-right:0px;
+    border-right: 0px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
-#slStylesV1-0 .filterCategory a{
-    color: #777;
-    height:24px;
 
+.chrome .filterCategory .defaultText {
+    width: 70px;
 }
+
+#slStylesV1-0 .filterCategory a {
+    color: #777;
+    height: 24px;
+}
+
 #slStylesV1-0 .filterCategory a:hover {
     text-decoration: none;
 }
-.dropDown-FAS{
+
+.dropDown-FAS {
     background-color: #fff;
-    display:none;
-    position:absolute;
-    z-index:100;
+    display: none;
+    position: absolute;
+    z-index: 100;
     border: 1px solid #79BDDB;
 }
-#dropDown-FAS-3{
-    width:207px;
+
+#dropDown-FAS-3 {
+    width: 207px;
+}
+
+.dropDown-FAS-state {
+    margin-top: 6px;
+}
+
+.mac .dropDown-FAS-state {
+    margin-top: 8px;
 }
 
 /*----------------GS-11926 ends (FAS)----------------*/
