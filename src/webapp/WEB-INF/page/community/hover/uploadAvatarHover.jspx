@@ -92,13 +92,13 @@
         });
 
     </script>
+    <div id="avatarHover">
     <h2 class="title fltlft">Upload your photo</h2>
 
     <div class="smallText1 tint_777 closebtn fltrt">CLOSE <img src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
                                                              height="11" alt="close modal"/></div>
-    <div class="spacer_10"><!-- do not collapse --></div>
+    <div class="clearfloat"><!-- do not collapse --></div>
     <p class="text2">Upload a photo or select an image to represent you in the community.</p>
-    <div class="spacer_10"><!-- do not collapse --></div>
 
 <!--    <gsml:popupWindow width="800" height="600" left="50" top="50"
                                        title="GreatSchools Photo Guidelines"
@@ -134,7 +134,7 @@
           id="customAvatarForm" enctype="multipart/form-data">
 
         <fieldset class="fileInput">
-            <label for="avatarFileInput">File:</label>
+            <label class="text1bold" for="avatarFileInput">File:</label>
 
             <div class="fakeFileInput">
                 <div class="filler">&amp;nbsp;</div>
@@ -153,10 +153,8 @@
     </form>
     <div class="spacer_10"><!--do not collapse--></div>
     <hr class="dotted"/>
-    <div class="spacer_10"><!--do not collapse--></div>
     <p class="text1bold">Or, select an image</p>
     <!-- div class="text2">If you decide not to upload a picture, you can choose a standard image from the choices below.</div -->
-    <div class="spacer_20"><!--do not collapse--></div>
     <form action="/community/hover/uploadAvatarHover.page" method="post" id="standardAvatarForm">
         <fieldset>
             <ul class="line standardAvatars">
@@ -201,13 +199,12 @@
                     <gsml:radio styleId="stk-dandelion" name="stockPhoto" value="stk-dandelion"/>
                 </li>
             </ul>
-            <div class="spacer_10"><!-- do not collapse --></div>
         </fieldset>
-        <fieldset>
+        <fieldset class="btnholder">
             <button class="button-1 fltlft saveButton" type="submit">Save</button>
-            <div class="spacer_60"><!-- do not collapse --></div>
         </fieldset>
     </form>
+    </div>
 
     <mod:tracking pageName="Change Photo Hover"
                   hier1="Account,Change Photo Hover"

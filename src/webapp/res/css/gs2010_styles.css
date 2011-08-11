@@ -8265,15 +8265,35 @@ body.hover #startADiscussion .submit {
 /* =12d-3 community avatar hover
 -------------------------------------------------------------------------------------------*/
 
-body.hover #uploadAvatarHover form {
+#avatarHover form {
     margin: 0;
     padding: 0;
 }
 
-.fileInput {
+#avatarHover .title{
+    margin:0 0 12px 0;
+}
+
+#avatarHover .text2,
+#avatarHover .text1bold{
+    margin:0 0 10px 0;
+}
+
+#standardAvatarForm fieldset{
+    border:none;
+    margin:0;
+    padding:0;
+}
+
+#standardAvatarForm .standardAvatars{
+    margin: 10px 0;
+}
+
+#avatarHover .fileInput {
     position: relative;
     text-align: right;
     width: 100%;
+    border:none;
 }
 
 .fileInput label {
@@ -8320,9 +8340,10 @@ body.hover #uploadAvatarHover form {
     padding-bottom: 3px;
 }
 
-.btnholder {
+#avatarHover .btnholder {
     margin: 0;
-    padding: 0 0 0 34px;
+    padding: 0 0 0 45px;
+    border:none;
 }
 
 #standardAvatarForm {
@@ -8331,6 +8352,7 @@ body.hover #uploadAvatarHover form {
 
 #standardAvatarForm li {
     position: relative;
+    list-style: none;
 }
 
 #standardAvatarForm input {

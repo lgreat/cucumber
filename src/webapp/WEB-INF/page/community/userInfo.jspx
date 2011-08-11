@@ -195,12 +195,12 @@
             <c:choose>
                 <c:when test="${pageUser.userProfile.active}">
                 <span class="fltrt">
-                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#"
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="javascript:void(0);"
                                                                                    id="deactivateMember">Deactivate this member</a></span>
                 </c:when>
                 <c:otherwise>
                 <span class="fltrt">
-                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="#"
+                    <span class="sprite reportIt-nbg mrgrt_5"><!--icon--></span><a href="javascript:void(0);"
                                                                                    id="reactivateMember">Reactivate this member</a>
                 </span>
                 </c:otherwise>
@@ -231,10 +231,10 @@
                     <p>
                         <c:choose>
                             <c:when test="${requestScope.viewingOwnProfile}">
-                                <a href="#" id="updateMyPhotoLink">Update my photo</a>
+                                <a href="javascript:void(0);" id="updateMyPhotoLink">Update my photo</a>
                             </c:when>
                             <c:when test="${requestScope.canEditMember and not empty requestScope.pageUser.userProfile.avatarType}">
-                                <a href="#" id="resetPhotoLink">Reset photo</a>
+                                <a href="javascript:void(0);" id="resetPhotoLink">Reset photo</a>
                             </c:when>
                         </c:choose>
                     </p>
@@ -246,14 +246,14 @@
                         <p class="text1bold-d61">About me
                             <c:if test="${requestScope.canEditMember}">
                                 <!--<span class="fltlt">-->
-                                <a href="#" class="editAboutMe">Edit</a>
+                                <a href="javascript:void(0);" class="editAboutMe">Edit</a>
                                 <!--</span>-->
                             </c:if>
                         </p>
                     </c:if>
 
                     <p class="defaultBioText">Welcome to the GreatSchools community!
-                        <a href="#"
+                        <a href="javascript:void(0);"
                            class="editAboutMeSecondaryLink">Tell us about yourself</a> to start building your profile.
                     </p>
 
