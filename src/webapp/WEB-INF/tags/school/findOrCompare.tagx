@@ -269,7 +269,7 @@
                 <c:choose>
                     <c:when test="${isHomePage}">
 
-                        <div class="ad_88x31 vert-align-mid fltrt">
+                        <div class="ad_88x31 vert-align-mid fltrt mrl mls">
                             <ad:Homepage_FindASchool_Sponsor_88x31/>
                         </div>
                         <p class="smallText1">
@@ -278,7 +278,7 @@
 
                     </c:when>
                     <c:otherwise>
-                        <div class="ad_88x31 vert-align-mid fltrt">
+                        <div class="ad_88x31 vert-align-mid fltrt mrl mls">
                             <ad:adTag position="FindASchool_Sponsor_88x31"/>
                         </div>
                         <p class="smallText1">
