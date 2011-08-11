@@ -31,6 +31,12 @@
 
     <c:if test="${requestScope.pageHelper.showingFooter}">
 
+        <!--GS-12019 Backup and restore "s" js variable since MyAllergySurvey ad is overwriting s and breaking future JS code
+        remove if ad compaign is over or when tracking.tagx is moved below this point-->
+        <script type="text/javascript">
+            s_backup = s;
+        </script>
+
         <c:choose>
             <c:when test="${pageContext.request.requestURI eq '/index.page'}">
                 <div id="homepageFooterAd">
@@ -47,6 +53,11 @@
             </c:otherwise>
         </c:choose>
         
+        <!--GS-12019-->
+        <script type="text/javascript">
+            s = s_backup;
+        </script>
+
         <div id="footer" class="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)?'custom':''}">
 
 
