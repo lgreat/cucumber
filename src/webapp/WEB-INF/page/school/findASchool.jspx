@@ -118,36 +118,43 @@
                                     <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
                                 </a>
                             </div>
-                        <div id="dropDown-FAS-2" class="dropDown-FAS">
-                            <div class="col_2 pam">
-                                <div>
-                                    <input type="checkbox" checked="checked" name="gradeLevels" id="js-grade-level-all"
-                                           value=""/>
-                                    <label for="js-grade-level-all">All Grade Levels</label>
+                            <div id="dropDown-FAS-2" class="dropDown-FAS">
+                                <div class="col_2 pam">
+                                    <div>
+                                        <input type="checkbox" checked="checked" name="gradeLevels"
+                                               id="js-grade-level-all"
+                                               value=""/>
+                                        <label for="js-grade-level-all">All Grade Levels</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="jq-grade-level" checked="checked"
+                                               name="gradeLevels"
+                                               id="js-grade-level-p" value="p"/>
+                                        <label for="js-grade-level-p">Preschool</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="jq-grade-level" checked="checked"
+                                               name="gradeLevels"
+                                               id="js-grade-level-e" value="e"/>
+                                        <label for="js-grade-level-e">Elementary School (K-5)</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="jq-grade-level" checked="checked"
+                                               name="gradeLevels"
+                                               id="js-grade-level-m" value="m"/>
+                                        <label for="js-grade-level-m">Middle School (6-8)</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" class="jq-grade-level" checked="checked"
+                                               name="gradeLevels"
+                                               id="js-grade-level-h" value="h"/>
+                                        <label for="js-grade-level-h">High School (9-12)</label>
+                                    </div>
+                                    <button class="button-1  mtm" id="hideDropDown-2" type="button"
+                                            onclick="javascript:void(0)">Done
+                                    </button>
                                 </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
-                                           id="js-grade-level-p" value="p"/>
-                                    <label for="js-grade-level-p">Preschool</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
-                                           id="js-grade-level-e" value="e"/>
-                                    <label for="js-grade-level-e">Elementary School (K-5)</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
-                                           id="js-grade-level-m" value="m"/>
-                                    <label for="js-grade-level-m">Middle School (6-8)</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
-                                           id="js-grade-level-h" value="h"/>
-                                    <label for="js-grade-level-h">High School (9-12)</label>
-                                </div>
-                                <button class="button-1  mtm" id="hideDropDown-2" type="button" onclick="javascript:void(0)">Done</button>
                             </div>
-                        </div>
                         </div>
                     </div>
                     <div id="js-radius" class="unit size1of3 lastUnit">
@@ -266,7 +273,7 @@
         <p class="small">Let us help you find the best school for you and your family</p>
 
         <div class="spacer_5"><!-- do not collapse --></div>
-        <hr class="keyline1"/>
+        <hr class="keyline2"/>
         <div class="line">
             <div class="unit size28of100">
                 <span class="sprite i-choose"><!-- do not collapse --></span>
@@ -302,7 +309,7 @@
                 </div>
             </div>
         </div>
-        <hr class="keyline1"/>
+        <hr class="keyline2"/>
         <div class="line">
             <div class="unit size28of100">
                 <span class="sprite i-move"><!-- do not collapse --></span>
@@ -338,7 +345,7 @@
                 </div>
             </div>
         </div>
-        <hr class="keyline1"/>
+        <hr class="keyline2"/>
         <div class="line">
             <div class="unit size28of100">
                 <span class="sprite i-assess"><!-- do not collapse --></span>
@@ -380,7 +387,7 @@
                 </div>
             </div>
         </div>
-        <hr class="keyline1"/>
+        <hr class="keyline2"/>
         <div class="line">
             <div class="unit size28of100">
                 <span class="sprite i-change"><!-- do not collapse --></span>
@@ -403,7 +410,7 @@
                 </div>
             </div>
         </div>
-        <hr class="keyline1"/>
+        <hr class="keyline2"/>
     </div>
     <div class="grid_5 omega">
         <k12:leadGenAd/>

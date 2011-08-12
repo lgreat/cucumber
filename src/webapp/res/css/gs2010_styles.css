@@ -3704,9 +3704,10 @@ body.ie8 .btsSupplyListsTag .arrow {
     color: #0066BB;
     border: 1px solid #ccc;
     border-bottom: 0px;
-    border-radius: 3px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
 }
 
 .tabBar span.selected {
@@ -3721,9 +3722,10 @@ body.ie8 .btsSupplyListsTag .arrow {
     color: #2b2b2b;
     border: 1px solid #BBDDED;
     border-bottom: 0px;
-    border-radius: 3px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
 }
 
 .tabBody {
@@ -3732,6 +3734,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     zoom: 1;
     border: 1px solid #BBDDED;
     border-radius: 3px;
+    -moz-border-radius: 3px;
 }
 
 .searchBarFas {
@@ -3781,10 +3784,12 @@ body.ie8 .btsSupplyListsTag .arrow {
     padding: 3px 9px 3px 8px;
     background-color: white;
     border: 1px solid #A5D3E7;
-    border-radius: 3px;
     border-right: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-bottomleft: 3px;
+
 }
 
 .chrome .filterCategory .defaultText {
@@ -12407,19 +12412,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     margin: 0;
 }
 
-.nocol #realtorDotCom .mod_hd h3 {
-    background: #6cc;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #fff;
-    margin: 0;
-    font-size: 20px;
-}
-
-.nocol #realtorDotCom.rdc_short .mod_hd h3 {
-    font-size: 15px;
-    font-weight: 700;
-}
-
 #realtorDotCom.mod .mod_bd {
     position: relative;
     border: solid #c6c6c6;
@@ -12452,10 +12444,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     display: block;
     font-size: 18px;
     margin: .5em 0;
-}
-
-.nocol #realtorDotCom p strong {
-    color: #c56;
 }
 
 #realtorDotCom p label {
