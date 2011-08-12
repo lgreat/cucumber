@@ -128,7 +128,7 @@
                 <gsml:img src="${feature.previewImageUrl}"
                           title="${feature.previewImageTitle}"
                           alt="${feature.previewImageAltText}"
-                        width="256" styleClass="worksheetImage"/>
+                        styleClass="worksheetImage"/>
                 </gsml:a>
             </c:if>
 
