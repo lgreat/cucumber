@@ -3,9 +3,11 @@ package gs.web.search;
 import gs.data.content.cms.ContentKey;
 import gs.data.search.indexers.documentBuilders.CmsFeatureDocumentBuilder;
 import gs.data.util.CmsUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.beans.Field;
 
 import javax.xml.bind.annotation.*;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -224,6 +226,13 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     @Field(CmsFeatureDocumentBuilder.FIELD_SUBJECTS)
     public void setSubjects(List<String> subjects) {
         _subjects = subjects;
+    }
+
+    /**
+     * @return e.g."math, writing, reading"
+     */
+    public String getSubjectsString() {
+        return StringUtils.join(_subjects.toArray(new String[0]),", ");
     }
 
     @XmlElement

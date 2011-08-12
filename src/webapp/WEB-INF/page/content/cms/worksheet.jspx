@@ -59,7 +59,7 @@
                 <cms:printCmsFeatureGrades gradeString="${feature.grades}" includeLabel="${true}"/> |
             </c:if>
 
-            ${feature.subjectCategories[0].name}
+            ${feature.subjectsString}
         </p>
 
         <!-- DONE-11818 FB Like, Tweet, Email buttons (no print!); see related GS-11856 -->

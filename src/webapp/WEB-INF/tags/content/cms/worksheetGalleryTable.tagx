@@ -42,7 +42,7 @@
                                 <cms:printCmsFeatureGrades gradeString="${result.grades}" includeLabel="${true}"/> |
                             </c:if>
 
-                            ${result.subjects[0]}
+                            ${result.subjectsString}
                         </p>
                         <div class="js-worksheetBubbleInfo mts">
                             <p class="js-trigger smallText1-06b" style="width: 50px; ">

@@ -56,4 +56,6 @@ public interface ICmsFeatureSearchResult extends ISearchResult {
     public void setDeck(String deck);
     public String getBody();
     public void setBody(String body);
+
+    public String getSubjectsString();
 }
