@@ -151,11 +151,12 @@
         </c:if>
 
         <div id="mainWrap">
-            <div id="contentGS">
+            <div id="contentGS" class="clearfix">
                 <decorator:body/>
             </div>
         </div>
 
+        <div class="clearfloat"><!-- do not collapse --></div>
         <cobrand:numberoneexpertFooter/>
         <mod:footer showAd="true" showSeoFooter="true"/>
     </div>

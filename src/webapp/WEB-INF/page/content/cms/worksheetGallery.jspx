@@ -99,7 +99,7 @@
             <!--<gsweb:adTagGenerator position="Inline_598x50"/>-->
             <!-- Subtopics -->
 
-            <div class="grid_16 alpha">
+            <!--<div class="grid_16 alpha">-->
                 <div class="prl plm">
                     <div class="dropdown-worksheets">
                         <div class="spacer_10"><!-- do not collapse --></div>
@@ -145,7 +145,7 @@
                         <cms:worksheetGalleryTable/>
                     </div>
                 </div>
-            </div>
+            <!--</div>-->
         </div>
         <div class="grid_8 zir-1">
             <cms:topicCenterSidebar topicCenter="${topicCenter}"/>

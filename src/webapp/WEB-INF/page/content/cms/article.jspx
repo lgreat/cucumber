@@ -321,7 +321,7 @@
             <c:if test="${param.print ne 'true'}">
                 <div id="ss_header" class="rounded_top">
                     <ul id="ss_jsddm">
-                        <li><a class="choose" href="#">&amp;nbsp;</a>
+                        <li><a class="choose" href="javascript:void(0);">&amp;nbsp;</a>
                             <ul>
                                 <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
                                     <li>

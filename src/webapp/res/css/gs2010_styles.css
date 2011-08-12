@@ -5827,7 +5827,7 @@ a:hover .dropDown-default {
     width: 968px;
     border-top: 2px solid #aaa;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: visible;
     background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
     clear:both;
 }
