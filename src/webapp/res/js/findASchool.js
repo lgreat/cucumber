@@ -281,6 +281,13 @@ $(function() {
     $('#jq-findByLocationForm').submit(function() {
         return GS.findASchool.submitByLocationSearch();
     });
+    $('#jq-findByNameForm').submit(function() {
+        var defaultText = "   Search by school or district ...";
+        if ($('#js-findByNameBox').val() == defaultText) {
+            $('#js-findByNameBox').val('');
+        }
+        return true;
+    });
     jQuery('#js-gradeLevels input').click(function () {
         var cssId = jQuery(this).attr('id');
 
