@@ -47,7 +47,7 @@
                 <c:choose>
                     <c:when test="${useJavascriptPaging}">
                         <span class="prv_nxt" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            &amp;#171; Prev
+                            <a href="javascript:void(0);">&amp;#171; Prev</a>
                         </span>
                     </c:when>
                     <c:otherwise>
@@ -66,7 +66,7 @@
                 <c:choose>
                     <c:when test="${useJavascriptPaging}">
                         <span onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            ${targetPage.pageNumber}
+                            <a href="javascript:void(0);">${targetPage.pageNumber}</a>
                         </span>
                     </c:when>
                     <c:otherwise>
@@ -82,13 +82,15 @@
             <c:forEach items="${pageSequence}" var="targetPage" varStatus="status">
                 <c:choose>
                     <c:when test="${targetPage.pageNumber == page.pageNumber}">
-                        <span class="active ${pageNumberStyleClass}">${targetPage.pageNumber}</span>
+                        <span class="active ${pageNumberStyleClass}">
+                            <a href="javascript:void(0);">${targetPage.pageNumber}</a>
+                        </span>
                     </c:when>
                     <c:otherwise>
                         <c:choose>
                             <c:when test="${useJavascriptPaging}">
                                 <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                                    ${targetPage.pageNumber}
+                                    <a href="javascript:void(0);">${targetPage.pageNumber}</a>
                                 </span>
                             </c:when>
                             <c:otherwise>
@@ -109,7 +111,7 @@
                 <c:choose>
                     <c:when test="${useJavascriptPaging}">
                         <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            ${targetPage.pageNumber}
+                            <a href="javascript:void(0);">${targetPage.pageNumber}</a>
                         </span>
                     </c:when>
                     <c:otherwise>
@@ -126,7 +128,7 @@
                 <c:choose>
                     <c:when test="${useJavascriptPaging}">
                         <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            Next &amp;#187;
+                            <a href="javascript:void(0);">Next &amp;#187;</a>
                         </span>
                     </c:when>
                     <c:otherwise>
