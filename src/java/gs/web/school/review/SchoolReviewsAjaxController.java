@@ -77,6 +77,12 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     private EmailVerificationReviewOnlyEmail _emailVerificationReviewOnlyEmail;
 
+    protected void onBind(HttpServletRequest request, Object command) throws Exception {
+        super.onBind(request, command);
+        ReviewCommand reviewCommand = (ReviewCommand) command;
+        reviewCommand.setMssSub(request.getParameter("mssSub") != null? new Boolean(request.getParameter("mssSub")):false);
+    }
+
     public ModelAndView handle(HttpServletRequest request,
                                HttpServletResponse response,
                                Object command,
@@ -228,6 +234,10 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             sendReviewPostedEmail(request, review);
         }
 
+        if (reviewCommand.isMssSub()) {
+            addMssSubForSchool(user, school);
+        }
+
         responseValues.put("userId", user.getId().toString());
 
         if (reviewProvisional) {
@@ -248,6 +258,17 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         
         return null;
+    }
+
+    protected void addMssSubForSchool(User user, School school) {
+        List<Subscription> userSubs = _subscriptionDao.findMssSubscriptionsByUser(user);
+        //If the user has more than the max number of subs allowed then do not add the sub for the school being reviewed.
+        if (userSubs == null || (userSubs != null && userSubs.size() < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER)) {
+            List subscriptions = new ArrayList();
+            Subscription sub = new Subscription(user,SubscriptionProduct.MYSTAT,school);
+            subscriptions.add(sub);
+            getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+        }
     }
 
     private User createUserForReview(ReviewCommand reviewCommand, School school) {

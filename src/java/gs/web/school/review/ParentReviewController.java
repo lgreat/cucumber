@@ -1,8 +1,6 @@
 package gs.web.school.review;
 
-import gs.data.community.IReportedEntityDao;
-import gs.data.community.ReportedEntity;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.content.cms.CmsConstants;
@@ -46,6 +44,7 @@ public class ParentReviewController extends AbstractController {
     private IReviewDao _reviewDao;
     private String _viewName;
     private IReportedEntityDao _reportedEntityDao;
+    private ISubscriptionDao _subscriptionDao;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
     private ISchoolDao _schoolDao;
     private NearbySchoolsHelper _nearbySchoolsHelper;
@@ -104,16 +103,20 @@ public class ParentReviewController extends AbstractController {
         if (null != school) {
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             User user = null;
+            boolean isUserSubscribedToMss = false;
             if(PageHelper.isMemberAuthorized(request)){
                 user = sessionContext.getUser();
                 if (user != null) {
                     model.put("validUser", user);
+                    Subscription sub = _subscriptionDao.findMssSubscriptionByUserAndSchool(user,school);
+                    isUserSubscribedToMss = (sub != null) ? true : false;
+
                     if (user.hasPermission(Permission.COMMUNITY_VIEW_REPORTED_POSTS)) {
                         includeInactive = true;
                     }
                 }
             }
-
+            model.put("isUserSubscribedToMss", isUserSubscribedToMss);
             Set<Poster> reviewsBy = getReviewsBy(request.getParameter(PARAM_REVIEWS_BY));
             Map<Poster,Integer> numReviewsBy;
 
@@ -632,4 +635,13 @@ public class ParentReviewController extends AbstractController {
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
     }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
+    }
+
 }

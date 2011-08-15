@@ -335,7 +335,13 @@
                                     target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
                             <em class="sprite i-required"><!-- do not collapse --></em>
                         </label>
-
+                         
+                        <c:if test="${!isUserSubscribedToMss}">
+                            <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
+                            <label for="terms"
+                                   class="smallText1 frmPRLabel-2">Yes, send me monthly email updates about this school.
+                            </label>
+                        </c:if>
                         <div class="spacer_15">
                             <div class="form-error formErrorText mediaExt1-1">
                                 <span class="sprite i-alert img"><!-- do not collapse --></span>

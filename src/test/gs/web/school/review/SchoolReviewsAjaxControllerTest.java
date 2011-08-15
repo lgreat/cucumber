@@ -109,6 +109,17 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
 
+        //Since there is a user expect that subscriptionDao.findMssSubscriptionsByUser is called if the isMssSub is true.
+        _command.setMssSub(true);
+        List<Subscription> existingSubs = new ArrayList<Subscription>();
+        expect(_subscriptionDao.findMssSubscriptionsByUser(user)).andReturn(existingSubs);
+        
+        //Test that the MYSTAT is added to the user's subscriptions.
+        List<Subscription> newMyStatSubs = new ArrayList<Subscription>();
+        Subscription newMyStatSub = new Subscription(user,SubscriptionProduct.MYSTAT,_school);
+        newMyStatSubs.add(newMyStatSub);
+        _subscriptionDao.addNewsletterSubscriptions(user,newMyStatSubs);
+
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
 
@@ -180,6 +191,17 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(user);
         replay(_userDao);
 
+        //Since there is a user expect that subscriptionDao.findMssSubscriptionsByUser is called if the isMssSub is true.
+        _command.setMssSub(true);
+        List<Subscription> existingSubs = new ArrayList<Subscription>();
+        expect(_subscriptionDao.findMssSubscriptionsByUser(user)).andReturn(existingSubs);
+
+        List<Subscription> newMyStatSubs = new ArrayList<Subscription>();
+        Subscription newMyStatSub = new Subscription(user,SubscriptionProduct.MYSTAT,_school);
+        newMyStatSubs.add(newMyStatSub);
+        //Test that the MYSTAT is added to the user's subscriptions.
+        _subscriptionDao.addNewsletterSubscriptions(user,newMyStatSubs);
+
         expect(_reviewDao.findReview(user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
 
@@ -209,6 +231,17 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _command.setComments("safe safe safe safe safe safe safe safe safe safe safe safe.");
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
+
+        //Even if the user has not verified, we check if the user has subscription to the MyStat for the school is isMssSub is true.
+        _command.setMssSub(true);
+        List<Subscription> existingSubs = new ArrayList<Subscription>();
+        expect(_subscriptionDao.findMssSubscriptionsByUser(_user)).andReturn(existingSubs);
+
+        List<Subscription> newMyStatSubs = new ArrayList<Subscription>();
+        Subscription newMyStatSub = new Subscription(_user,SubscriptionProduct.MYSTAT,_school);
+        newMyStatSubs.add(newMyStatSub);
+        //Add the MYSTAT Sub even if the user is has not verified the email address.        
+        _subscriptionDao.addNewsletterSubscriptions(_user,newMyStatSubs);
 
         expect(_reviewDao.findReview(_user, _school)).andReturn(null);
         _reviewDao.saveReview((Review) anyObject());
@@ -287,7 +320,10 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         moderationUser.setEmail("moderation@greatschools.org");
         moderationUser.setUserProfile(new UserProfile());
         moderationUser.getUserProfile().setScreenName("gs_alert_word_filter");
-        
+
+        //Set the Mss subscription to false.Therefore _subscptionDao.findMssSubscriptionsByUser should not be called.
+        _command.setMssSub(false);
+
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
 
@@ -413,6 +449,17 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
 
+        //Since a new user is created expect that subscriptionDao.findMssSubscriptionsByUser is called if the isMssSub is true.
+        _command.setMssSub(true);
+        List<Subscription> existingSubs = new ArrayList<Subscription>();
+        expect(_subscriptionDao.findMssSubscriptionsByUser(_user)).andReturn(existingSubs);
+
+        List<Subscription> newMyStatSubs = new ArrayList<Subscription>();
+        Subscription newMyStatSub = new Subscription(_user,SubscriptionProduct.MYSTAT,_school);
+        newMyStatSubs.add(newMyStatSub);
+        //Test that the MYSTAT is added to the user's subscriptions.
+        _subscriptionDao.addNewsletterSubscriptions(_user,newMyStatSubs);
+        
         _reviewDao.saveReview((Review) anyObject());
         replay(_reviewDao);
 
@@ -543,6 +590,67 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         assertNotNull("Errors should contain email validation error", errors);
         assertTrue("Errors should contain several validation errors", errors.size() > 2);
+    }
+
+    public void testAddMssSubForSchoolUserHasNullMyStatSubs() throws Exception {
+        User user = new User();
+        user.setId(1);
+
+        List<Subscription> subs = null;
+        expect(_subscriptionDao.findMssSubscriptionsByUser(user)).andReturn(subs);
+
+        List<Subscription> myStatSubs = new ArrayList<Subscription>();
+        Subscription myStatSub = new Subscription(user,SubscriptionProduct.MYSTAT,_school);
+        myStatSubs.add(myStatSub);
+        _subscriptionDao.addNewsletterSubscriptions(user, myStatSubs);
+
+        replay(_subscriptionDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.addMssSubForSchool(user, _school);
+        verify(_subscriptionDao);
+
+    }
+
+    public void testAddMssSubForSchoolUserHasZeroMyStatSubs() throws Exception {
+        User user = new User();
+        user.setId(1);
+
+        List<Subscription> subs = new ArrayList<Subscription>();
+        expect(_subscriptionDao.findMssSubscriptionsByUser(user)).andReturn(subs);
+        List<Subscription> myStatSubs = new ArrayList<Subscription>();
+        Subscription myStatSub = new Subscription(user,SubscriptionProduct.MYSTAT,_school);
+        myStatSubs.add(myStatSub);
+        _subscriptionDao.addNewsletterSubscriptions(user, myStatSubs);
+
+        replay(_subscriptionDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.addMssSubForSchool(user, _school);
+        verify(_subscriptionDao);
+
+    }
+
+    public void testAddMssSubForSchoolUserAlreadyHas4OrMoreMyStatSubs() throws Exception {
+        User user = new User();
+        user.setId(1);
+
+        List<Subscription> subs = new ArrayList<Subscription>();
+        Subscription someOtherSub = new Subscription();
+        subs.add(someOtherSub);
+        someOtherSub = new Subscription();
+        subs.add(someOtherSub);
+        someOtherSub = new Subscription();
+        subs.add(someOtherSub);
+        someOtherSub = new Subscription();
+        subs.add(someOtherSub);
+
+        expect(_subscriptionDao.findMssSubscriptionsByUser(user)).andReturn(subs);
+
+        replay(_subscriptionDao);
+
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.addMssSubForSchool(user, _school);
+
+        verify(_subscriptionDao);
     }
 
 }

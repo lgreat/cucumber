@@ -566,13 +566,18 @@ GS.form.SchoolReviewForm = function(id) {
 
     this.serialize = function() {
         var serialized = {};
-        form.find(':input').each(function() {
+        form.find(':input').not(':checkbox').each(function() {
             var name = jQuery(this).attr('name');
 
             if (name !== undefined) {
                 var value = jQuery(this).val();
                 serialized[name] = value;
             }
+        });
+        form.find(':checkbox:visible').each(function() {
+            var name = jQuery(this).attr('name');
+            var value = jQuery(this).attr('checked');
+            serialized[name] = value;
         });
         return serialized;
     };
