@@ -185,9 +185,9 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         if (isUseAdKeywords()) {
             // Google Ad Manager ad keywords
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
+            /*for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
                 pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
-            }
+            }*/
 
             pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
             pageHelper.addAdKeyword(WORKSHEET_GALLERY_GAM_ATTRIBUTE_KEY, String.valueOf(topicCenter.getContentKey().getIdentifier()));
@@ -287,6 +287,16 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         model.put(REQUESTED_GRADE_NAME_KEY,GRADE_CHOICES.get(requestedGrade));
         model.put(REQUESTED_SUBJECT_NAME_KEY,SUBJECT_CHOICES.get(requestedSubject));
         model.put(WORKSHEETS_PATH_KEY, WORKSHEETS_PATH);
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if(requestedGradeId == null) {
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "Preschool");
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "Elementary");
+        } else if (Long.valueOf(requestedGradeId).equals(CmsConstants.PRESCHOOL_CATEGORY_ID)) {
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "Preschool");
+        } else {
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "Elementary");
+        }
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
