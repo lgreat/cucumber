@@ -28,25 +28,11 @@
                     <button class="button-1" type="submit">GO</button>
                 </form>
             </div>
-            <div id="jq-ghostText-leadGenAd_K12_Module_Logo_88x31" class="ft hide">
+            <div class="ft">
                 <div class="ad_88x31 vert-align-mid fltrt">
-                    <gsweb:adTagGenerator position="K12_Module_Logo_88x31"/>
+                    <img src="/res/img/promo/k12/k12-sponsored-by-logo.png" width="50" height="38" alt="k12"/>
                 </div>
                 <p class="smallest allCaps bottom">Sponsored by</p>
-                <script type="text/javascript">
-                    GS = GS || {};
-                    GS.ads = GS.ads || {};
-                    GS.ads.K12_Module_Logo_88x31 = GS.ads.K12_Module_Logo_88x31 || {};
-                    GS.ads.K12_Module_Logo_88x31.showAdSponsorLogoText = function() {
-                        // look for the google ads div. $= means ends with, ^= means starts with
-                        if (jQuery('#jq-ghostText-leadGenAd_K12_Module_Logo_88x31 [id$=K12_Module_Logo_88x31][id^=google_ads_div],#jq-ghostText-leadGenAd_K12_Module_Logo_88x31 [id$=K12_Module_Logo_88x31_ad_container][id^=google_ads_div]').length == 1) {
-                            jQuery('#jq-ghostText-leadGenAd_K12_Module_Logo_88x31').show();
-                        }
-                    };
-                    jQuery(function() {
-                        setTimeout('GS.ads.K12_Module_Logo_88x31.showAdSponsorLogoText();', 1000);
-                    });
-                </script>
             </div>
         </div>
     </div>
