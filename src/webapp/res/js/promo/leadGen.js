@@ -15,20 +15,20 @@ GS.form.LeadGenCampaign = function() {
         var passed = true;
 
         if (wrapper.find('.jq-leadGenFirstName').val() == '') {
-            wrapper.find('.jq-leadGenError-firstName').show();
             passed = false;
         }
         if (wrapper.find('.jq-leadGenLastName').val() == '') {
-            wrapper.find('.jq-leadGenError-lastName').show();
             passed = false;
         }
         if (wrapper.find('.jq-leadGenEmail').val() == '') {
-            wrapper.find('.jq-leadGenError-email').show();
             passed = false;
         }
         if (wrapper.find('.jq-leadGenZip').val() == '' || isNaN(wrapper.find('.jq-leadGenZip').val())) {
-            wrapper.find('.jq-leadGenError-zip').show();
             passed = false;
+        }
+
+        if (!passed) {
+            wrapper.find('.jq-leadGenError-all').show();
         }
 
         return passed;
@@ -57,18 +57,20 @@ GS.form.LeadGenCampaign = function() {
                         wrapper.find('.jq-leadGenForm').hide();
                         wrapper.find('.jq-leadGenThankYou').show();
                     } else {
-                        if (data.indexOf('firstName') > -1) {
-                            wrapper.find('.jq-leadGenError-firstName').show();
-                        }
-                        if (data.indexOf('lastName') > -1) {
-                            wrapper.find('.jq-leadGenError-lastName').show();
-                        }
                         if (data.indexOf('email') > -1) {
                             wrapper.find('.jq-leadGenError-email').show();
+                        } else {
+                            if (data.indexOf('firstName') > -1) {
+                            wrapper.find('.jq-leadGenError-all').show();
+                            }
+                            if (data.indexOf('lastName') > -1) {
+                                wrapper.find('.jq-leadGenError-all').show();
+                            }
+                            if (data.indexOf('zip') > -1) {
+                                wrapper.find('.jq-leadGenError-all').show();
+                            }
                         }
-                        if (data.indexOf('zip') > -1) {
-                            wrapper.find('.jq-leadGenError-zip').show();
-                        }
+
                         submitButton.show();
                     }
                 },
