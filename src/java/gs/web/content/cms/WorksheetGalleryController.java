@@ -188,7 +188,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
             /*for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
                 pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
             }*/
-
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "WorksheetGallery");
             pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
             pageHelper.addAdKeyword(WORKSHEET_GALLERY_GAM_ATTRIBUTE_KEY, String.valueOf(topicCenter.getContentKey().getIdentifier()));
         }
