@@ -26,7 +26,7 @@ GS.form.LeadGenCampaign = function() {
             wrapper.find('.jq-leadGenError-email').show();
             passed = false;
         }
-        if (wrapper.find('.jq-leadGenZip').val() == '') {
+        if (wrapper.find('.jq-leadGenZip').val() == '' || isNaN(wrapper.find('.jq-leadGenZip').val())) {
             wrapper.find('.jq-leadGenError-zip').show();
             passed = false;
         }
@@ -47,25 +47,35 @@ GS.form.LeadGenCampaign = function() {
                 zip: wrapper.find('.jq-leadGenZip').val()
             };
 
-            jQuery.post('/promo/leadGenAjax.page', params, function(data) {
-                if (data == "OK") {
-                    wrapper.find('.jq-leadGenIntroText').hide();
-                    wrapper.find('.jq-leadGenForm').hide();
-                    wrapper.find('.jq-leadGenThankYou').show();
-                } else {
-                    if (data.indexOf('firstName') > -1) {
-                        wrapper.find('.jq-leadGenError-firstName').show();
+            jQuery.ajax({
+                url: "/promo/leadGenAjax.page",
+                type: "POST",
+                data: params,
+                success: function(data, textStatus, jqXHR) {
+                    if (data == "OK") {
+                        wrapper.find('.jq-leadGenIntroText').hide();
+                        wrapper.find('.jq-leadGenForm').hide();
+                        wrapper.find('.jq-leadGenThankYou').show();
+                    } else {
+                        if (data.indexOf('firstName') > -1) {
+                            wrapper.find('.jq-leadGenError-firstName').show();
+                        }
+                        if (data.indexOf('lastName') > -1) {
+                            wrapper.find('.jq-leadGenError-lastName').show();
+                        }
+                        if (data.indexOf('email') > -1) {
+                            wrapper.find('.jq-leadGenError-email').show();
+                        }
+                        if (data.indexOf('zip') > -1) {
+                            wrapper.find('.jq-leadGenError-zip').show();
+                        }
+                        submitButton.show();
                     }
-                    if (data.indexOf('lastName') > -1) {
-                        wrapper.find('.jq-leadGenError-lastName').show();
-                    }
-                    if (data.indexOf('email') > -1) {
-                        wrapper.find('.jq-leadGenError-email').show();
-                    }
-                    if (data.indexOf('zip') > -1) {
-                        wrapper.find('.jq-leadGenError-zip').show();
-                    }
-                    submitButton.show();
+                },
+                error: function(jqXHR,textStatus,errorThrown) {
+                    wrapper.find('.jq-leadGenIntroText').show();
+                    wrapper.find('.jq-leadGenForm').show();
+                    wrapper.find('.jq-leadGenThankYou').hide();
                 }
             });
         }
