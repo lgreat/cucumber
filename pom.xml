@@ -301,7 +301,12 @@
                     <jsSourceDir>/res/js</jsSourceDir>
                     <jsSourceFiles>
                         <param>jquery/jquery-1.3.2.min.js</param>
+                        <!-- TODO-12010 -->
+                        <!--<param>jquery/jquery-1.6.2.min.js</param>-->
                         <param>jquery/jquery-ui-1.7.2.min.js</param>
+                        <!-- TODO-12010 -->
+                        <!--<param>jquery/jquery-ui-1.8.15.min.js</param>-->
+                        <!-- TODO-12010 remove jquery.autocomplete.js when upgrading jquery-ui -->
                         <param>jquery/jquery.autocomplete.js</param>
                         <param>search/schoolAutocomplete.js</param>
                         <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js</param>
