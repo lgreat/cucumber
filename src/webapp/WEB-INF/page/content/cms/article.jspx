@@ -382,7 +382,7 @@
             </c:forEach>
 
             <c:if test="${param.print ne 'true'}">
-                <div id="ss_footer" class="rounded_bottom">
+                <div id="ss_footer" class="rounded_bottom clearfix">
                     <!-- share this -->
                     <!--<cms:communityDistribution content="${feature}"/>-->
                     <cms:articleDistribution includeFbSendBtn="false" includeShareBtn="true"/>
