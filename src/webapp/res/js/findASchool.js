@@ -384,24 +384,56 @@ $(function() {
 
     // filter drop down controls
     $("#category-1").click(function(){
+        $("#dropDown-FAS-2").hide();
+        $("#dropDown-FAS-3").hide();
         $("#dropDown-FAS-1").toggle();
+        $("#category-2 .dropDown-default").show();
+        $("#category-3 .dropDown-default").show();
+        $("#category-2 .dropDown-hover").hide();
+        $("#category-3 .dropDown-hover").hide();
+        $("#category-1 .dropDown-default").toggle();
+        $("#category-1 .dropDown-hover").toggle();
     });
     $("#hideDropDown-1").click(function(){
         $("#dropDown-FAS-1").toggle();
+        $("#category-1 .dropDown-default").show();
+        $("#category-1 .dropDown-hover").hide();
     });
     $("#category-2").click(function(){
+        $("#dropDown-FAS-1").hide();
+        $("#dropDown-FAS-3").hide();
         $("#dropDown-FAS-2").toggle();
+        $("#category-1 .dropDown-default").show();
+        $("#category-3 .dropDown-default").show();
+        $("#category-1 .dropDown-hover").hide();
+        $("#category-3 .dropDown-hover").hide();
+        $("#category-2 .dropDown-default").toggle();
+        $("#category-2 .dropDown-hover").toggle();
     });
     $("#hideDropDown-2").click(function(){
         $("#dropDown-FAS-2").toggle();
+        $("#category-2 .dropDown-default").show();
+        $("#category-2 .dropDown-hover").hide();
     });
     $("#category-3").click(function(){
+        $("#dropDown-FAS-1").hide();
+        $("#dropDown-FAS-2").hide();
         $("#dropDown-FAS-3").toggle();
+        $("#category-1 .dropDown-default").show();
+        $("#category-2 .dropDown-default").show();
+        $("#category-1 .dropDown-hover").hide();
+        $("#category-2 .dropDown-hover").hide();
+        $("#category-3 .dropDown-default").toggle();
+        $("#category-3 .dropDown-hover").toggle();
     });
     $("#hideDropDown-3").click(function(){
         $("#dropDown-FAS-3").toggle();
+        $("#category-3 .dropDown-default").show();
+        $("#category-3 .dropDown-hover").hide();
     });
     $(".triggerMouseLeave").mouseleave(function(){
         $(".dropDown-FAS").hide();
+        $(".dropDown-default").show();
+        $(".dropDown-hover").hide();
     });
 });

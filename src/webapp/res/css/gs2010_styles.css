@@ -1483,24 +1483,24 @@ body.ie8 .btsSupplyListsTag .arrow {
 .worksheet-popup-contents .inner .arrow-left{position:absolute;top:42px;left:-13px;*top:39px;border-right-color:#f4f4f4;}
 
 /*----------------GS-11926 starts(FAS)----------------*/
-.tabBar {
-    margin-bottom: 2px;
+.tabBar{
+    margin-bottom: 7px;
 }
 
 .tabBar span {
-    padding: 5px 25px;
+    padding: 9px 25px;
     border: 1px solid #000;
     border-bottom: none;
     display: inline;
     margin-left: 5px;
     cursor: pointer;
     color: #0066BB;
-    border: 1px solid #ccc;
+    border: 1px solid #D1E9F3;
     border-bottom: 0px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
 }
 
 .tabBar span.selected {
@@ -1515,10 +1515,10 @@ body.ie8 .btsSupplyListsTag .arrow {
     color: #2b2b2b;
     border: 1px solid #BBDDED;
     border-bottom: 0px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
 }
 
 .tabBody {
@@ -1526,8 +1526,8 @@ body.ie8 .btsSupplyListsTag .arrow {
     background-color: #E1F1F7;
     zoom: 1;
     border: 1px solid #BBDDED;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
 .searchBarFas {
@@ -1536,26 +1536,55 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 .searchInput {
     width: 480px;
-    height: 27px;
+    height: 30px;
     color: #777;
+    border: 1px solid #A5D3E7;
 }
 
 #byNameTabBody .searchInput {
     width: 381px;
-    height: 27px;
+    height: 30px;
     color: #777;
+    border: 1px solid #A5D3E7;
 }
 
 .win #byNameTabBody .searchInput {
     width: 380px;
 }
 
+.ie7 .searchInput {
+    height: 23px;
+    padding-top: 7px;
+}
+
+.ie8 .searchInput {
+    height: 23px;
+    padding-top: 7px;
+}
+
+.ie7 #byNameTabBody .searchInput {
+    height: 23px;
+    padding-top: 7px;
+}
+
+.ie8 #byNameTabBody .searchInput {
+    height: 23px;
+    padding-top: 7px;
+}
+
 #byNameTabBody select {
     width: 98px;
+    /*border: 0px;*/
+    /*color:  #0066bb;*/
 }
 
 #byNameTabBody option {
     width: 72px;
+    /*padding: 5px;*/
+    /*color:  #0066bb;*/
+    /*border-left: 1px solid #A5D3E7;*/
+    /*margin-left: 0px;*/
+
 }
 
 .filterBar {
@@ -3588,6 +3617,13 @@ a:hover .dropDown-default {
     width: 24px;
     height: 24px;
     background-position: -80px -32px;
+}
+
+.dropDown-hover {
+    width: 24px;
+    height: 24px;
+    background-position: -80px -32px;
+    display:none;
 }
 
 /* =12 page layouts
