@@ -216,16 +216,9 @@
                     <c:if test="${not empty requestScope.pq_hours}">
                         <p><span class="infoLabel">HOURS: </span>${requestScope.pq_hours}</p>
                     </c:if>
-                    <c:if test="${not empty school.webSite}">
+                    <c:if test="${not empty school.prettyWebSiteUrl}">
                         <p>
-                            <c:choose>
-                                <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
-                                    <a href="${school.webSite}" target="_blank" class="url">School Website</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="http://${school.webSite}" target="_blank" class="url">School Website</a>
-                                </c:otherwise>
-                            </c:choose>
+                            <a href="${school.prettyWebSiteUrl}" target="_blank" class="url">School Website</a>
                         </p>
                     </c:if>
                     <c:if test="${requestScope.context.showRealtorDotComPromos}">

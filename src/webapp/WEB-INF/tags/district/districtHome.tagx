@@ -8,7 +8,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
         >
 
     <jsp:directive.attribute name="district" required="true" description="District object" type="gs.data.school.district.District"/>
@@ -145,16 +145,12 @@
                         <c:if test="${not empty district.fax}">
                             <tr><td>FAX: ${district.fax}</td></tr>
                         </c:if>
-                        <c:if test="${not empty district.webSite}">
-                            <c:choose>
-                                <c:when test='${fn:startsWith(district.webSite, "http://") || fn:startsWith(district.webSite, "https://")}'>
-                                    <tr><td><a href="${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
-                                </c:when>
-                                <c:otherwise>
-                                    <tr><td><a href="http://${district.webSite}" target="_blank">District Web site &gt;</a></td></tr>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:if>
+                            <c:if test="${not empty district.prettyWebSiteUrl}">
+                                <tr>
+                                    <td><a href="${district.prettyWebSiteUrl}"
+                                           target="_blank">District Web site &gt;</a></td>
+                                </tr>
+                            </c:if>
                         </table>
                     </td>
                     <td  id="info">

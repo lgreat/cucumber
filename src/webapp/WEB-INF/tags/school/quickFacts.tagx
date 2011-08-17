@@ -90,16 +90,9 @@
                     </c:if>
                 </p>
 
-                <c:if test="${not empty school.webSite}">
+                <c:if test="${not empty school.prettyWebSiteUrl}">
                     <p>
-                        <c:choose>
-                            <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
-                                <a href="${school.webSite}" class="url" target="_blank">School Web site &#62;</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="http://${school.webSite}" class="url" target="_blank">School Web site &#62;</a>
-                            </c:otherwise>
-                        </c:choose>
+                        <a href="${school.prettyWebSiteUrl}" class="url" target="_blank">School Web site &#62;</a>
                     </p>
                 </c:if>
 
