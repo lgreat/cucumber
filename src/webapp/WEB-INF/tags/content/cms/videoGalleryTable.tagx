@@ -154,7 +154,6 @@
 
     <script type="text/javascript">
         jQuery(function () {
-//                jQuery('#js-bubbleInfo').popup({appear:'left',leftPosition:-200,topPosition:-95});
             jQuery('.js-videoBubbleInfo').popup({distance:0,time: 5,hideDelay: 5,appear:'right',leftPosition:90,topPosition:23});
         });
     </script>

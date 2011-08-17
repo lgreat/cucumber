@@ -13,13 +13,13 @@ http://docs.jquery.com/Tutorials#Plugin_Development
 [Table Of Contents]
 
 =0 template
-=1 disableSelection - for disabling text selection
+=1 disableSelection (disable text selection)
 =1a disableSelection - CSS class list of website wide items with text selection disabled
-=2 popup - for informational popup bubbles
-=3 table stripping plugin
-=4 debug messaging
-=5 textarea character count
-=6 infinite carousel
+=2 popup (informational popup bubbles)
+=3 alternateRowColors (table stripping plugin)
+=4 debug (console.log or alert messaging)
+=5 characterCounter (textarea character count)
+=6 infiniteCarousel
 */
 
 /* =0 template
@@ -48,7 +48,7 @@ http://docs.jquery.com/Tutorials#Plugin_Development
 })(jQuery);
 */
 
-/* =1 disableSelection
+/* =1 disableSelection (disable text selection)
 -------------------------------------------------------------------------------------------*/
 
 (function($) {
@@ -93,7 +93,7 @@ jQuery(document).ready(function() {
     jQuery('#secondary').disableSelection();
 });
 
-/* =2 popup
+/* =2 popup (informational popup bubbles)
 -------------------------------------------------------------------------------------------*/
 
 //You need an anonymous function to wrap around your function to avoid conflict
@@ -241,7 +241,7 @@ jQuery(document).ready(function() {
 //pass jQuery to the function for closure,
 })(jQuery);
 
-/* =3 table stripping plugin
+/* =3 alternateRowColors (table stripping plugin)
 ---------------------------------------------------------------------------*/
 
 (function($) {
@@ -279,7 +279,7 @@ function debug(what) {
     }
 }
 
-/* =5 textarea character count
+/* =5 characterCounter (textarea character count)
 ---------------------------------------------------------------------------*/
 
 (function($){
@@ -306,7 +306,7 @@ function debug(what) {
                 obj.bind('keyup paste mouseup click input', function() {
                     var charLimit = o.charLimit;
                     var charLength = obj.val().length;
-                    var charFeedback = $('#charCount');
+                    var charFeedback = $('#js-charCount');
                     var plural = (((charLimit - charLength)===1) || ((charLength - charLimit)===1)) ? '' : 's';
                     // Alerts when character limit is reached
                     if(obj.val().length > charLimit){
@@ -325,7 +325,7 @@ function debug(what) {
 // end of closure
 })(jQuery);
 
-/* =6 infinite carousel
+/* =6 infiniteCarousel
 ---------------------------------------------------------------------------*/
 // create closure
 (function($) {

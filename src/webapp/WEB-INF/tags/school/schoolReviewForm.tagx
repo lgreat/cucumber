@@ -94,7 +94,7 @@
                 <div id="js-bubbleInfo-6" class="text3">
                 <div class="js-trigger line review-text">
                     <div class="unit size1of1 lastUnit">
-                        <textarea id="reviewText"
+                        <textarea id="js-reviewText"
                                   class="text1-ededed text3"
                                   name="comments"
                                   onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
@@ -128,7 +128,7 @@
 
                 <div class="line">
                     <div class="unit size1of1 lastUnit">
-                        <div id="charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
+                        <div id="js-charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
                     </div>
                 </div>
 
@@ -375,7 +375,7 @@
                 jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
                 jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
                 jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
-                jQuery('#reviewText').characterCounter({charLimit:1200});
+                jQuery('#js-reviewText').characterCounter({charLimit:1200});
             });
         </script>
 
