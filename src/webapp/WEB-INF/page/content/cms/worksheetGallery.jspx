@@ -87,7 +87,35 @@
                 <link:cmsContent contentKey="TopicCenter#4313" fullUri="/worksheets-activities.topic">Worksheets &amp;amp; Activities</link:cmsContent>
             </div>
 
-            <h1 class="mlm">Free Worksheets &amp; Printables</h1>
+            <h1 class="mlm">
+                <c:choose>
+                    <c:when test="${not empty requestedGradeName or not empty requestedSubjectName}">
+
+                        <c:set var="worksheetsHeading">
+                            <c:choose>
+                                <c:when test="${not empty requestedGradeName and not empty requestedSubjectName}">
+                                    <c:out value="${requestedGradeName} ${requestedSubjectName}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${not empty requestedGradeName}">
+                                        <c:out value="${requestedGradeName}"/>
+                                    </c:if>
+                                    <c:if test="${not empty requestedSubjectName}">
+                                        <c:out value="${requestedSubjectName}"/>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:set>
+
+                        ${worksheetsHeading} Worksheets
+
+                    </c:when>
+                    <c:otherwise>
+                        Free Worksheets &amp; Printables
+                    </c:otherwise>
+                </c:choose>
+            </h1>
+
 
             <p class="mlm prl text1">Support learning at home with these helpful printable worksheets. Browse by grade level or subject to find the perfect worksheet challenge for your child.</p>
 
