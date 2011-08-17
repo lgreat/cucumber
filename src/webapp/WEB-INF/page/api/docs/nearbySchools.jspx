@@ -46,8 +46,11 @@
             </div>
             <div class="call">
                 <h2>Parameters</h2>
-                The "key" parameter is what you use to send us your API key.
-                Other parameters are optional and used to describe how you would like to receive the data.
+                The "key" parameter is what is used to identify your specific API key to GreatSchools.
+                The "state" parameter tells us what State you would like the results for and is required.
+                You must provide at least one of the following, "city", "zip", "address", or "lat" and "lon"
+                describing the location in order to receive the list of schools near that coordinate.
+                Other parameters are optional.
                 <table class="call_params">
                     <thead>
                     <tr class="fields">
