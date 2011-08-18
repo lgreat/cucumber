@@ -216,9 +216,9 @@
                     <c:if test="${not empty requestScope.pq_hours}">
                         <p><span class="infoLabel">HOURS: </span>${requestScope.pq_hours}</p>
                     </c:if>
-                    <c:if test="${not empty school.prettyWebSiteUrl}">
+                    <c:if test="${not empty school.webSitePrettyUrl}">
                         <p>
-                            <a href="${school.prettyWebSiteUrl}" target="_blank" class="url">School Website</a>
+                            <a href="${school.webSitePrettyUrl}" target="_blank" class="url">School Website</a>
                         </p>
                     </c:if>
                     <c:if test="${requestScope.context.showRealtorDotComPromos}">

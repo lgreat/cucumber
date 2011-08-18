@@ -90,9 +90,9 @@
                     </c:if>
                 </p>
 
-                <c:if test="${not empty school.prettyWebSiteUrl}">
+                <c:if test="${not empty school.webSitePrettyUrl}">
                     <p>
-                        <a href="${school.prettyWebSiteUrl}" class="url" target="_blank">School Web site &#62;</a>
+                        <a href="${school.webSitePrettyUrl}" class="url" target="_blank">School Web site &#62;</a>
                     </p>
                 </c:if>
 
