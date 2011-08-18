@@ -53,6 +53,11 @@ public class UploadAvatarHoverController extends SimpleFormController implements
     private IUserDao _userDao;
     private CommonsMultipartResolver _multipartResolver;
 
+    //values of these error codes are equal to keys in CBI message bundle
+    public static final String ERROR_CODE_MIN_DIMENSIONS_NOT_MET = "avatarUpload.error.minDimensionsNotMet";
+    public static final String ERROR_CODE_SIZE_LIMIT_EXCEEDED = "avatarUpload.error.sizeLimitExceeded";
+    public static final String ERROR_CODE_INVALID_FILE_TYPE = "avatarUpload.error.invalidFileType";
+
     private void logDuration(long durationInMillis, String eventName) {
         _log.info(eventName + " took " + durationInMillis + " milliseconds");
     }
@@ -86,28 +91,28 @@ public class UploadAvatarHoverController extends SimpleFormController implements
         super.onBindAndValidate(request, commandObj, errors);
         UploadAvatarCommand command = (UploadAvatarCommand) commandObj;
         if (request.getAttribute(SIZE_LIMIT_EXCEEDED) != null) {
-            errors.rejectValue("avatar", null, "Maximum image size is 1 megabyte.");            
+            errors.rejectValue("avatar", ERROR_CODE_SIZE_LIMIT_EXCEEDED, "Maximum image size is 1 megabyte.");
         } else if (command.getAvatar() == null) {
             if (StringUtils.isBlank(command.getStockPhoto()) || !isValidStockPhoto(command.getStockPhoto())) {
                 errors.rejectValue("avatar", null, "Please upload your own picture or select an image.");
             }
         } else {
             if (command.getAvatar().getSize() > MAX_UPLOAD_SIZE_BYTES) {
-                errors.rejectValue("avatar", "maxLimit", "Maximum image size is 1 megabyte.");
+                errors.rejectValue("avatar", ERROR_CODE_SIZE_LIMIT_EXCEEDED, "Maximum image size is 1 megabyte.");
             } else if (command.getAvatar().getSize() == 0) {
-                errors.rejectValue("avatar", null, "Invalid image.");
+                errors.rejectValue("avatar", ERROR_CODE_INVALID_FILE_TYPE, "Invalid image.");
             } else if (command.getAvatar().getContentType() == null ||
                         !(command.getAvatar().getContentType().equals("image/jpeg") ||
                           command.getAvatar().getContentType().equals("image/gif") ||
                           command.getAvatar().getContentType().equals("image/pjpeg"))) {
-                errors.rejectValue("avatar", null, "Image must be a jpeg or gif.");
+                errors.rejectValue("avatar", ERROR_CODE_INVALID_FILE_TYPE, "Image must be a jpeg or gif.");
             } else {
                 BufferedImage incomingImage = ImageIO.read(command.getAvatar().getInputStream());
                 if (incomingImage == null) {
-                    errors.rejectValue("avatar", null, "The file does not appear to be a valid image.");
+                    errors.rejectValue("avatar", ERROR_CODE_INVALID_FILE_TYPE, "The file does not appear to be a valid image.");
                 } else {
                     if (incomingImage.getWidth() < MIN_IMAGE_DIMENSIONS_PIXELS || incomingImage.getHeight() < MIN_IMAGE_DIMENSIONS_PIXELS) {
-                        errors.rejectValue("avatar", "minLimit", "Minimum image dimensions are 95x95 pixels.");
+                        errors.rejectValue("avatar", ERROR_CODE_MIN_DIMENSIONS_NOT_MET, "Minimum image dimensions are 95x95 pixels.");
                     } else {
                         // Remove the file from the command object to save memory
                         command.setAvatar(null);
