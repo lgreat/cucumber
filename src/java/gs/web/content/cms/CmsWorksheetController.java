@@ -111,6 +111,10 @@ public class CmsWorksheetController extends AbstractController {
         for (CmsCategory category : feature.getUniqueKategoryBreadcrumbs()) {
             pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
         }
+
+        // GS-12103 - tag all worksheets with "Back to School" google ad attribute so that BTS ads will show up here
+        pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "Back to School");
+
         pageHelper.addAdKeyword("article_id", String.valueOf(feature.getContentKey().getIdentifier()));
 
         // note: "referer" is a typo in the HTTP spec -- don't fix it here
