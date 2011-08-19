@@ -3028,43 +3028,12 @@ body.cobranded #pageGS {
 }
 
 /* FireFox Default */
-.mac.ff #primary .menuItem .noDrop,
-.mac.ff #primary .menuItem .drop {
+.ff #primary .menuItem .noDrop,
+.ff #primary .menuItem .drop {
     padding: 0 19px;
 }
 
-.mac.ff #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 17px;
-}
-
-.win.ff #primary .menuItem .noDrop,
-.win.ff #primary .menuItem .drop {
-    padding: 0 20px;
-}
-
-.win.ff #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 21px;
-}
-
-/* FireFox4 Specific */
-
-.win.ff4 #primary .menuItem .noDrop,
-.win.ff4 #primary .menuItem .drop {
-    padding: 0 19px;
-}
-
-.win.ff4 #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 17px;
-}
-
-/* FireFox5 Specific */
-
-.win.ff5 #primary .menuItem .noDrop,
-.win.ff5 #primary .menuItem .drop {
-    padding: 0 19px;
-}
-
-.win.ff5 #primary .menuItem.lastNavUnit .menuItemAnchorText{
+.ff #primary .menuItem.lastNavUnit .menuItemAnchorText{
     padding: 0 17px;
 }
 
