@@ -314,15 +314,15 @@
             <!-- end gbgTop -->
             <div id="gbgTabs">
                 <ul>
-                    <li class="gbg-tab-p"><a href="#" class="grade-level">Preschool</a></li>
-                    <li class="gbg-tab-k"><a href="#" class="grade-level">Kindergarten</a></li>
-                    <li class="gbg-tab-1"><a href="#" class="grade-level">1st</a></li>
-                    <li class="gbg-tab-2"><a href="#" class="grade-level">2nd</a></li>
-                    <li class="gbg-tab-3"><a href="#" class="grade-level">3rd</a></li>
-                    <li class="gbg-tab-4"><a href="#" class="grade-level">4th</a></li>
-                    <li class="gbg-tab-5"><a href="#" class="grade-level">5th</a></li>
-                    <li class="gbg-tab-m"><a href="#" class="grade-level">Middle School</a></li>
-                    <li class="gbg-tab-h"><a href="#" class="grade-level">High School</a></li>
+                    <li class="gbg-tab-p"><a href="javascript:void(0);" class="grade-level">Preschool</a></li>
+                    <li class="gbg-tab-k"><a href="javascript:void(0);" class="grade-level">Kindergarten</a></li>
+                    <li class="gbg-tab-1"><a href="javascript:void(0);" class="grade-level">1st</a></li>
+                    <li class="gbg-tab-2"><a href="javascript:void(0);" class="grade-level">2nd</a></li>
+                    <li class="gbg-tab-3"><a href="javascript:void(0);" class="grade-level">3rd</a></li>
+                    <li class="gbg-tab-4"><a href="javascript:void(0);" class="grade-level">4th</a></li>
+                    <li class="gbg-tab-5"><a href="javascript:void(0);" class="grade-level">5th</a></li>
+                    <li class="gbg-tab-m"><a href="javascript:void(0);" class="grade-level">Middle School</a></li>
+                    <li class="gbg-tab-h"><a href="javascript:void(0);" class="grade-level">High School</a></li>
                 </ul>
             </div>
             <!-- end gbgTabs -->

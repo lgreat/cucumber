@@ -17,9 +17,33 @@
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
-<c:set var="browserClass">${fn:contains(agent, 'msie') ? "ie " : ""}${fn:contains(agent, 'msie 6') ? "ie6 " : ""}${fn:contains(agent, 'msie 7') ? "ie7 " : ""}${fn:contains(agent, 'msie 8') ? "ie8 " : ""}${fn:contains(agent, 'msie 9') ? "ie9 " : ""}${fn:contains(agent, 'msie 10') ? "ie10 " : ""}${fn:contains(agent, 'firefox') ? "ff " : ""}${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}${fn:contains(agent, 'firefox/4') ? "ff4 " : ""}${fn:contains(agent, 'firefox/5') ? "ff5 " : ""}${fn:contains(agent, 'version') ? "safari " : ""}${fn:contains(agent, 'chrome') ? "chrome " : ""}</c:set>
-<c:set var="osClass">${fn:contains(agent, 'macintosh') ? "mac" : ""}${fn:contains(agent, 'windows') ? "win" : ""}</c:set>
-<c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout} ${osClass} ${browserClass}</c:set>
+    <c:set var="browserClass">
+        ${fn:contains(agent, 'msie') ? "ie " : ""}
+        ${fn:contains(agent, 'msie 6') ? "ie6 " : ""}
+        ${fn:contains(agent, 'msie 7') ? "ie7 " : ""}
+        ${fn:contains(agent, 'msie 8') ? "ie8 " : ""}
+        ${fn:contains(agent, 'msie 9') ? "ie9 " : ""}
+        ${fn:contains(agent, 'msie 10') ? "ie10 " : ""}
+        ${fn:contains(agent, 'firefox') ? "ff " : ""}
+        ${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}
+        ${fn:contains(agent, 'firefox/4') ? "ff4 " : ""}
+        ${fn:contains(agent, 'firefox/5') ? "ff5 " : ""}
+        ${fn:contains(agent, 'firefox/6') ? "ff6 " : ""}
+        ${fn:contains(agent, 'version') ? "safari " : ""}
+        ${fn:contains(agent, 'chrome') ? "chrome " : ""}
+    </c:set>
+    <c:set var="osClass">
+        ${fn:contains(agent, 'macintosh') ? "mac" : ""}
+        ${fn:contains(agent, 'windows') ? "win" : ""}
+    </c:set>
+    <c:set var="bodyClass">
+        ${requestScope.context.cobranded ? "cobranded" : "www"}
+        ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""}
+        ${requestScope.pageHelper.framed ? 'framed':'unframed'}
+        ${requestScope.pageLayout}
+        ${osClass}
+        ${browserClass}
+    </c:set>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <jsp:output doctype-root-element="html"
@@ -53,7 +77,10 @@
     </c:if>-->
 
     <c:choose>
-        <c:when test="${(not empty param.uncompressedScripts or pageContext.request.serverName eq 'localhost' or pageContext.request.serverName eq '172.18.1.218' or pageContext.request.serverName eq '172.18.1.149' or pageContext.request.serverName eq '172.18.1.129' or pageContext.request.serverName eq '127.0.0.1') and empty param.compressedScripts}">
+        <c:when test="${(not empty param.uncompressedScripts
+                         or pageContext.request.serverName eq 'localhost'
+                         or pageContext.request.serverName eq '127.0.0.1')
+                         and empty param.compressedScripts}">
             <gsml:url var="resetcss" value="/res/css/0_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="grid960css" value="/res/css/1_960gs/grids.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="textcss" value="/res/css/2_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -83,7 +110,10 @@
     ${requestScope.pageHelper.headCssElements}
 
     <!-- Begin JS files.  No CSS below this point. -->
-    <pageHelper:addJavaScript uncompressedScripts="${param.uncompressedScripts}" compressedScripts="${param.compressedScripts}" serverName="${pageContext.request.serverName}"/>
+    <pageHelper:addJavaScript
+            uncompressedScripts="${param.uncompressedScripts}"
+            compressedScripts="${param.compressedScripts}"
+            serverName="${pageContext.request.serverName}"/>
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER" allowCdn="true"/>
