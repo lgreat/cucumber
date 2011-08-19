@@ -80,6 +80,19 @@ GS.form.LeadGenCampaign = function() {
                     wrapper.find('.jq-leadGenThankYou').hide();
                 }
             });
+            jQuery.ajax({
+                url:"http://cdn4.eyewonder.com/cm/ck/9826-133851-21419-0",
+                type: "POST",
+                data: {
+                  mpt:   Math.random()*10000000000000000
+                },
+                success: function(data, textStatus, jqXHR) {
+                    //do nothing
+                },
+                error: function(jqXHR,textStatus,errorThrown) {
+                    //do nothing
+                }
+            });
         }
 
         return false;
