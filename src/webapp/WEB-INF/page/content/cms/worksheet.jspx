@@ -106,7 +106,7 @@
                 <p class="smallText1-333" id="js-ccs-links">
                     Common Core Standards:
                     <c:forEach var="standard" items="${feature.commonCoreStandardsList}" varStatus="loopStatus">
-                        <a href="${standard.url}" target="_blank" class="js-ccs-link">${fn:escapeXml(standard.name)}</a><c:if
+                        <a href="${standard.url}" target="_blank" class="js-ccs-link" onclick="if (s.tl) {s.tl(this, 'o', 'WorksheetSingle_CCS_Link');}">${fn:escapeXml(standard.name)}</a><c:if
                             test="${!loopStatus.last}">, </c:if>
                     </c:forEach>
                 </p>
@@ -254,12 +254,12 @@
 
 <script type="text/javascript">
     //requires /res/js/omnitureEventNotifier.js
-    jQuery('#js-ccs-links .js-ccs-link').click(function() {
+    /*jQuery('#js-ccs-links .js-ccs-link').click(function() {
         omnitureEventNotifier.clear();
         omnitureEventNotifier.successEvents = "event51;";
         omnitureEventNotifier.send();
         return true;
-    });
+    });*/
 </script>
 
 </body>
