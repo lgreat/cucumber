@@ -258,7 +258,7 @@
         omnitureEventNotifier.clear();
         omnitureEventNotifier.successEvents = "event51;";
         omnitureEventNotifier.send();
-        return false;
+        return true;
     });
 </script>
 
