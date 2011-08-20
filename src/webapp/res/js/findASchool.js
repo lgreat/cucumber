@@ -236,15 +236,26 @@ GS.findASchool.FilterTracking = function() {
     };
 };
 
+GS.findASchool.setDistanceRadius = function() {
+//    debug('hello randall');
+    var distanceRadiusRadiobuttons = jQuery('#js-radius .jq-distance-radius > input');
+//    debug(distanceRadiusRadiobuttons.prop('checked').attr('id'));
+};
+
 GS.findASchool.setAllGrades = function() {
     var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
 
     var numGradeLevels = gradeCheckboxes.size();
     var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
-    if (numGradeLevels == numGradeLevelsChecked) {
+    if (numGradeLevelsChecked === numGradeLevels) {
         jQuery('#js-grade-level-all').attr('checked', 'checked');
+        jQuery('#js-grade-level-label').empty().append('All grades')
+    } else if (numGradeLevelsChecked === 0) {
+        jQuery('#js-grade-level-all').removeAttr('checked');
+        jQuery('#js-grade-level-label').empty().append('No grades');
     } else {
         jQuery('#js-grade-level-all').removeAttr('checked');
+        jQuery('#js-grade-level-label').empty().append('Some grades');
     }
 };
 
@@ -253,10 +264,15 @@ GS.findASchool.setAllTypes = function() {
 
     var numSchoolTypes = typeCheckboxes.size();
     var numSchoolTypesChecked = typeCheckboxes.filter(':checked').size();
-    if (numSchoolTypes == numSchoolTypesChecked) {
+    if (numSchoolTypesChecked === numSchoolTypes) {
         jQuery('#js-school-type-all').attr('checked', 'checked');
+        jQuery('#js-school-type-label').empty().append('All types')
+    } else if (numSchoolTypesChecked === 0) {
+        jQuery('#js-school-type-all').removeAttr('checked');
+        jQuery('#js-school-type-label').empty().append('No types');
     } else {
         jQuery('#js-school-type-all').removeAttr('checked');
+        jQuery('#js-school-type-label').empty().append('Some types');
     }
 };
 
@@ -326,10 +342,13 @@ $(function() {
         GS.findASchool.filterTracking.track(cssId);
     });
     jQuery('#js-radius input').click(function() {
+        GS.findASchool.setDistanceRadius();
+        
         GS.findASchool.filterTracking.track(jQuery(this).attr('id'));
     });
 
     // make sure the 'all' check boxes are correctly set on page load (bug from GS-11931)
+    GS.findASchool.setDistanceRadius();
     GS.findASchool.setAllGrades();
     GS.findASchool.setAllTypes();
 
