@@ -36,8 +36,9 @@ public class CacheController extends AbstractController {
         Map<String, Statistics> stats = new HashMap<String, Statistics>();
         for (String cacheName : cacheNames) {
             try {
-                caches.put(cacheName, manager.getCache(cacheName));
-                stats.put(cacheName, manager.getCache(cacheName).getStatistics());
+                Cache cache = manager.getCache(cacheName);
+                caches.put(cacheName, cache);
+                stats.put(cacheName, cache.getStatistics());
             } catch (ClassCastException e) {
                 Ehcache cache = manager.getEhcache(cacheName);
                 stats.put(cacheName, cache.getStatistics());
