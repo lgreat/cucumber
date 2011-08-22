@@ -145,7 +145,7 @@ public class PrincipalReviewController extends SimpleFormController implements R
         Review review = null;
         if (!newUser) {
             // existing user, check if they have previously left a review for this school
-            review = getReviewDao().findReview(user, school);
+            review = _reviewDao.findReview(user, school);
         }
         if (review == null) {
             review = new Review();

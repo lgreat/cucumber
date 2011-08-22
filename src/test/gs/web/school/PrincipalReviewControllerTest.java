@@ -63,6 +63,7 @@ public class PrincipalReviewControllerTest extends BaseControllerTestCase {
         _subscriptionDao.saveSubscription(isA(Subscription.class));
         _subscriptionDao.saveSubscription(isA(Subscription.class));
         _userDao.updateUser(isA(User.class));
+        expect(_reviewDao.findReview(user, school)).andReturn(null);
         _reviewDao.saveReview(isA(Review.class));
         replay(_schoolDao);
         replay(_userDao);
@@ -128,6 +129,7 @@ public class PrincipalReviewControllerTest extends BaseControllerTestCase {
         _subscriptionDao.saveSubscription(isA(Subscription.class));
         _subscriptionDao.saveSubscription(isA(Subscription.class));
         _userDao.updateUser(isA(User.class));
+        expect(_reviewDao.findReview(user, school)).andReturn(null);
         _reviewDao.saveReview(isA(Review.class));
         replay(_schoolDao);
         replay(_userDao);
