@@ -142,7 +142,14 @@ public class PrincipalReviewController extends SimpleFormController implements R
 
         _userDao.updateUser(user);
 
-        Review review = new Review();
+        Review review = null;
+        if (!newUser) {
+            // existing user, check if they have previously left a review for this school
+            review = getReviewDao().findReview(user, school);
+        }
+        if (review == null) {
+            review = new Review();
+        }
         review.setUser(user);
         review.setPosted(new Date());
         review.setStatus("u");
