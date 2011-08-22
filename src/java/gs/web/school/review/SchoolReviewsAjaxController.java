@@ -77,12 +77,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     private EmailVerificationReviewOnlyEmail _emailVerificationReviewOnlyEmail;
 
-    protected void onBind(HttpServletRequest request, Object command) throws Exception {
-        super.onBind(request, command);
-        ReviewCommand reviewCommand = (ReviewCommand) command;
-        reviewCommand.setMssSub(request.getParameter("mssSub") != null? new Boolean(request.getParameter("mssSub")):false);
-    }
-
     public ModelAndView handle(HttpServletRequest request,
                                HttpServletResponse response,
                                Object command,
@@ -234,8 +228,10 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             sendReviewPostedEmail(request, review);
         }
 
-        if (reviewCommand.isMssSub()) {
+        if (reviewCommand.isMssSub() != null && reviewCommand.isMssSub()) {
             addMssSubForSchool(user, school);
+        }else if(reviewCommand.isMssSub() != null && !reviewCommand.isMssSub()){
+            removeMssSubForSchool(user,school);
         }
 
         responseValues.put("userId", user.getId().toString());
@@ -261,13 +257,28 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
     }
 
     protected void addMssSubForSchool(User user, School school) {
-        List<Subscription> userSubs = _subscriptionDao.findMssSubscriptionsByUser(user);
-        //If the user has more than the max number of subs allowed then do not add the sub for the school being reviewed.
-        if (userSubs == null || (userSubs != null && userSubs.size() < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER)) {
-            List subscriptions = new ArrayList();
-            Subscription sub = new Subscription(user,SubscriptionProduct.MYSTAT,school);
-            subscriptions.add(sub);
-            getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+        try {
+            List<Subscription> userSubs = _subscriptionDao.findMssSubscriptionsByUser(user);
+            //If the user has more than the max number of subs allowed then do not add the sub for the school being reviewed.
+            if (userSubs == null || (userSubs != null && userSubs.size() < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER)) {
+                List subscriptions = new ArrayList();
+                Subscription sub = new Subscription(user, SubscriptionProduct.MYSTAT, school);
+                subscriptions.add(sub);
+                getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+            }
+        } catch (Exception e) {
+            _log.debug("Error while adding subscription: "+e);
+        }
+    }
+
+    protected void removeMssSubForSchool(User user, School school) {
+        try {
+            Subscription sub = getSubscriptionDao().findMssSubscriptionByUserAndSchool(user, school);
+            if (sub != null) {
+                getSubscriptionDao().removeSubscription(sub.getId());
+            }
+        } catch (Exception e) {
+           _log.debug("Error while removing subscription: "+e);
         }
     }
 

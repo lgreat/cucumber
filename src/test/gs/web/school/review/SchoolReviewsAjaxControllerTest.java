@@ -321,8 +321,11 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         moderationUser.setUserProfile(new UserProfile());
         moderationUser.getUserProfile().setScreenName("gs_alert_word_filter");
 
-        //Set the Mss subscription to false.Therefore _subscptionDao.findMssSubscriptionsByUser should not be called.
+        //Set the Mss subscription to false.Therefore _subscriptionDao.findMssSubscriptionsByUser should not be called.
+        //However we verify if the user has subscription to the school to unsubscribe the user.
+        // In this case the user is not subscribed therefore no need to unsubscribe.
         _command.setMssSub(false);
+        expect(_subscriptionDao.findMssSubscriptionByUserAndSchool(_user,_school)).andReturn(null);
 
         expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
         replay(_userDao);
@@ -592,6 +595,122 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         assertTrue("Errors should contain several validation errors", errors.size() > 2);
     }
 
+
+    public void testMssSubUserAlreadySubscribed() throws Exception {
+        User moderationUser = new User();
+        moderationUser.setId(-1);
+        moderationUser.setEmail("moderation@greatschools.org");
+        moderationUser.setUserProfile(new UserProfile());
+        moderationUser.getUserProfile().setScreenName("gs_alert_word_filter");
+
+        //Set the Mss subscription to false.Therefore _subscriptionDao.findMssSubscriptionsByUser should not be called.
+        //However we verify if the user has subscription to the school to unsubscribe the user.
+        //In this case the user is subscribed therefore unsubscribe.
+        _command.setMssSub(false);
+        Subscription sub = new Subscription();
+        sub.setId(1);
+        expect(_subscriptionDao.findMssSubscriptionByUserAndSchool(_user, _school)).andReturn(sub);
+        _subscriptionDao.removeSubscription(sub.getId());
+
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        replay(_userDao);
+
+        Review review = new Review();
+        review.setStatus("r");
+        review.setId(1);
+        review.setComments("this school sucks");
+
+        _command.setComments("this school sucks"); //review comments can no longer be empty
+
+        Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = new HashMap<IAlertWordDao.alertWordTypes, Set<String>>();
+        Set<String> warningWords = new HashSet<String>();
+        warningWords.add("sucks");
+        alertWordMap.put(IAlertWordDao.alertWordTypes.WARNING, warningWords);
+
+
+        expect(_reviewDao.findReview(_user, _school)).andReturn(review);
+        _reviewDao.saveReview(review);
+
+        expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
+
+        _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
+
+        expect(_reportContentService.getModerationEmail()).andReturn("moderation@greatschools.org");
+
+        _reportContentService.reportContent(moderationUser, _user, getRequest(), review.getId(), ReportedEntity.ReportedEntityType.schoolReview, "Review contained warning words (sucks)");
+
+        replay(_alertWordDao);
+        replay(_reviewDao);
+        replay(_reportContentService);
+        replay(_subscriptionDao);
+        replay(_reportedEntityDao);
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.handle(_request, _response, _command, _errors);
+        verify(_alertWordDao);
+        verify(_userDao);
+        verify(_reviewDao);
+        verify(_subscriptionDao);
+        verify(_reportContentService);
+        verify(_reportedEntityDao);
+    }
+
+
+    public void testNullMssSubUser() throws Exception {
+        User moderationUser = new User();
+        moderationUser.setId(-1);
+        moderationUser.setEmail("moderation@greatschools.org");
+        moderationUser.setUserProfile(new UserProfile());
+        moderationUser.getUserProfile().setScreenName("gs_alert_word_filter");
+
+        //Set command's mssSub to null, which means that the mss sub checkbox was not displayed on the view and therefore do nothing.
+        _command.setMssSub(null);
+
+        expect(_userDao.findUserFromEmailIfExists(_command.getEmail())).andReturn(_user);
+        replay(_userDao);
+
+        Review review = new Review();
+        review.setStatus("r");
+        review.setId(1);
+        review.setComments("this school sucks");
+
+        _command.setComments("this school sucks"); //review comments can no longer be empty
+
+        Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = new HashMap<IAlertWordDao.alertWordTypes, Set<String>>();
+        Set<String> warningWords = new HashSet<String>();
+        warningWords.add("sucks");
+        alertWordMap.put(IAlertWordDao.alertWordTypes.WARNING, warningWords);
+
+
+        expect(_reviewDao.findReview(_user, _school)).andReturn(review);
+        _reviewDao.saveReview(review);
+
+        expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
+
+        _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
+
+        expect(_reportContentService.getModerationEmail()).andReturn("moderation@greatschools.org");
+
+        _reportContentService.reportContent(moderationUser, _user, getRequest(), review.getId(), ReportedEntity.ReportedEntityType.schoolReview, "Review contained warning words (sucks)");
+
+        replay(_alertWordDao);
+        replay(_reviewDao);
+        replay(_reportContentService);
+        replay(_subscriptionDao);
+        replay(_reportedEntityDao);
+        _controller.setUserDao(_userDao);
+        _controller.setReviewDao(_reviewDao);
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.handle(_request, _response, _command, _errors);
+        verify(_alertWordDao);
+        verify(_userDao);
+        verify(_reviewDao);
+        verify(_subscriptionDao);
+        verify(_reportContentService);
+        verify(_reportedEntityDao);
+    }
+
     public void testAddMssSubForSchoolUserHasNullMyStatSubs() throws Exception {
         User user = new User();
         user.setId(1);
@@ -649,6 +768,35 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
 
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.addMssSubForSchool(user, _school);
+
+        verify(_subscriptionDao);
+    }
+
+    public void testRemoveMssSubForSchoolUserHasSubscription() throws Exception {
+        User user = new User();
+        user.setId(1);
+
+        Subscription sub = new Subscription();
+        sub.setId(1);
+        expect(_subscriptionDao.findMssSubscriptionByUserAndSchool(user, _school)).andReturn(sub);
+        _subscriptionDao.removeSubscription(sub.getId());
+        replay(_subscriptionDao);
+
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.removeMssSubForSchool(user, _school);
+
+        verify(_subscriptionDao);
+    }
+
+    public void testRemoveMssSubForSchoolUserHasNoSubscription() throws Exception {
+        User user = new User();
+        user.setId(1);
+
+        expect(_subscriptionDao.findMssSubscriptionByUserAndSchool(user, _school)).andReturn(null);
+        replay(_subscriptionDao);
+
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.removeMssSubForSchool(user, _school);
 
         verify(_subscriptionDao);
     }
