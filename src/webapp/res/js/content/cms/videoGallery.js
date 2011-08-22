@@ -25,6 +25,9 @@ GS.content.cms.VideoGallery = function() {};
 
         //TODO: make a lot of the code in this method generic and put it elsewhere so it can easily be reused
 
+        //always take the user back to the first page
+        queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+
         //Pass the topic center Id.
         if (content != undefined && content != "") {
             data.content = content;
