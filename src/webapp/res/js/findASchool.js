@@ -237,9 +237,8 @@ GS.findASchool.FilterTracking = function() {
 };
 
 GS.findASchool.setDistanceRadius = function() {
-//    debug('hello randall');
-    var distanceRadiusRadiobuttons = jQuery('#js-radius .jq-distance-radius > input');
-//    debug(distanceRadiusRadiobuttons.prop('checked').attr('id'));
+    var distanceRadiusRadiobuttonText = jQuery('input[name=distance]:checked + label').text();
+    jQuery('#js-radius-label').text(distanceRadiusRadiobuttonText);
 };
 
 GS.findASchool.setAllGrades = function() {
