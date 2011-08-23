@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.38 2010/04/30 00:54:10 yfan Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.39 2011/08/23 23:46:40 droy Exp $
  */
 
 package gs.web.content;
@@ -9,18 +9,19 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
+import gs.web.util.UrlUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.net.*;
 import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
 import java.text.SimpleDateFormat;
 
 import gs.web.jsp.Util;
@@ -31,8 +32,6 @@ import gs.web.jsp.Util;
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
 public class BlogFeedTagHandler extends SimpleTagSupport {
-
-
     private static final Log _log = LogFactory.getLog(BlogFeedTagHandler.class);
     private static final String TYPE_BILLS_BLOG = "billsBlog";
     private static final String TYPE_GS_BLOG = "gsBlog";
@@ -100,10 +99,10 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
             author = entry.getAuthor();
             if (isShowDate()) {
                 date = entry.getPublishedDate();
-                if(date == null || date.equals(null)){
+                if (date == null){
                     date = entry.getUpdatedDate();
                 }
-                if(date == null || date.equals(null)){
+                if (date == null){
                     date = new Date(System.currentTimeMillis());
                 }
             }
@@ -116,10 +115,10 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                 author2 = entry2.getAuthor();
                 if (isShowDate()) {
                     date2 = entry2.getPublishedDate();
-                    if(date2 == null || date2.equals(null)){
+                    if (date2 == null){
                         date2 = entry2.getUpdatedDate();
                     }
-                    if(date2 == null || date2.equals(null)){
+                    if (date2 == null){
                         date2 = new Date(System.currentTimeMillis());
                     }
                 }
@@ -251,11 +250,21 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
     }
 
     public String getAuthorImage(String author){
+        String authorImageHrefRelative;
+
         if (StringUtils.isBlank(author)) {
-            return "/res/img/pixel.gif";
+            authorImageHrefRelative = "/res/img/pixel.gif";
+        } else {
+            authorImageHrefRelative = "/catalog/images/blog/" + author.replaceAll("[^a-zA-Z0-9]", "").toLowerCase() + "_40x40.png";
         }
 
-        return "/catalog/images/blog/" + author.replaceAll("[^a-zA-Z0-9]", "").toLowerCase() + "_40x40.png";
+        UrlUtil urlUtil = new gs.web.util.UrlUtil();
+        return urlUtil.buildUrl(authorImageHrefRelative, getRequest(), true);
+    }
+
+    private HttpServletRequest getRequest() {
+        PageContext pageContext = (PageContext) getJspContext();
+        return (HttpServletRequest) pageContext.getRequest();
     }
 
     private void display(String title, String link, String text, String author, Date date) throws IOException {
