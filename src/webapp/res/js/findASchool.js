@@ -448,14 +448,6 @@ $(function() {
         }
     });
 
-//    $("body").not("#js-gradeLevels").click(function(){
-//        alert("hide");
-//    });
-
-//    $(body).click(function(){
-//        $("#dropDown-FAS-1").hide();
-//    });
-//    state drop for by location
     $("#js-findByNameStateSelect").change(function () {
           var selectedState = $(this).val();
           $(".showState").text(selectedState === "" ? "Select State" : selectedState);

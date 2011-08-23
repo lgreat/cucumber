@@ -1555,10 +1555,6 @@ body.ie8 .btsSupplyListsTag .arrow {
     border: 0;
 }
 
-/*.win #byNameTabBody .searchInput {*/
-    /*width: 365px;*/
-/*}*/
-
 .ie7 .searchInput {
     height: 23px;
     padding-top: 7px;
@@ -1616,14 +1612,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     width:78px;
     padding: 3px 0px 3px 8px;
     border: 0px;
-    /*color:  #0066bb;*/
-    /*border-left: 1px solid #A5D3E7;*/
-    /*margin-left: 0px;*/
 }
-
-/*div.stateDropDown span:last-child{*/
-    /*margin-top: 3px;*/
-/*}*/
 
 #byNameTabBody .dropDownArrow{
     position: absolute;
