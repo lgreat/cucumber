@@ -422,58 +422,34 @@ $(function() {
         }
     });
 
-    // filter drop down controls
-    $("#category-1").click(function(){
-        $("#dropDown-FAS-2").hide();
-        $("#dropDown-FAS-3").hide();
-        $("#dropDown-FAS-1").toggle();
-        $("#category-2 .dropDown-default").show();
-        $("#category-3 .dropDown-default").show();
-        $("#category-2 .dropDown-hover").hide();
-        $("#category-3 .dropDown-hover").hide();
-        $("#category-1 .dropDown-default").toggle();
-        $("#category-1 .dropDown-hover").toggle();
+    $("#jq-filterBar .filterCategory").click(function(){
+        var catNumber = this.id.replace("category-", "");
+        $("#jq-filterBar .dropDown-FAS").not("#dropDown-FAS-" + catNumber).hide();
+        $("#dropDown-FAS-" + catNumber).toggle();
+        var filterCategory = $("#jq-filterBar .filterCategory");
+        filterCategory.find(".dropDown-default").not("#category-" + catNumber + " .dropDown-default").show();
+        filterCategory.find(".dropDown-hover").not("#category-" + catNumber + " .dropDown-hover").hide();
+        $("#category-" + catNumber + " .dropDown-default, #category-" + catNumber + " .dropDown-hover").toggle();
     });
-    $("#hideDropDown-1").click(function(){
-        $("#dropDown-FAS-1").toggle();
-        $("#category-1 .dropDown-default").show();
-        $("#category-1 .dropDown-hover").hide();
+
+    $("#jq-filterBar .dropDown-FAS button").click(function(){
+        var catNumber = this.id.replace("hideDropDown-", "");
+        $("#dropDown-FAS-" + catNumber).toggle();
+        $("#category-" + catNumber + " .dropDown-default").show();
+        $("#category-" + catNumber + " .dropDown-hover").hide();
     });
-    $("#category-2").click(function(){
-        $("#dropDown-FAS-1").hide();
-        $("#dropDown-FAS-3").hide();
-        $("#dropDown-FAS-2").toggle();
-        $("#category-1 .dropDown-default").show();
-        $("#category-3 .dropDown-default").show();
-        $("#category-1 .dropDown-hover").hide();
-        $("#category-3 .dropDown-hover").hide();
-        $("#category-2 .dropDown-default").toggle();
-        $("#category-2 .dropDown-hover").toggle();
-    });
-    $("#hideDropDown-2").click(function(){
-        $("#dropDown-FAS-2").toggle();
-        $("#category-2 .dropDown-default").show();
-        $("#category-2 .dropDown-hover").hide();
-    });
-    $("#category-3").click(function(){
-        $("#dropDown-FAS-1").hide();
-        $("#dropDown-FAS-2").hide();
-        $("#dropDown-FAS-3").toggle();
-        $("#category-1 .dropDown-default").show();
-        $("#category-2 .dropDown-default").show();
-        $("#category-1 .dropDown-hover").hide();
-        $("#category-2 .dropDown-hover").hide();
-        $("#category-3 .dropDown-default").toggle();
-        $("#category-3 .dropDown-hover").toggle();
-    });
-    $("#hideDropDown-3").click(function(){
-        $("#dropDown-FAS-3").toggle();
-        $("#category-3 .dropDown-default").show();
-        $("#category-3 .dropDown-hover").hide();
-    });
-    $(".triggerMouseLeave").mouseleave(function(){
-        $(".dropDown-FAS").hide();
-        $(".dropDown-default").show();
-        $(".dropDown-hover").hide();
-    });
+
+//    $("body").not("#js-gradeLevels").click(function(){
+//        alert("hide");
+//    });
+
+//    $(body).click(function(){
+//        $("#dropDown-FAS-1").hide();
+//    });
+//    state drop for by location
+    $("#js-findByNameStateSelect").change(function () {
+          var selectedState = $(this).val();
+          $(".showState").text(selectedState === "" ? "Select State" : selectedState);
+        })
+    .trigger("change");
 });

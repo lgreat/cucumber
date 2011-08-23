@@ -1541,16 +1541,23 @@ body.ie8 .btsSupplyListsTag .arrow {
     border: 1px solid #A5D3E7;
 }
 
-#byNameTabBody .searchInput {
-    width: 381px;
-    height: 30px;
-    color: #777;
+#byNameTabBody .searchBarFas {
+    height: 34px;
     border: 1px solid #A5D3E7;
+    background-color: #fff;
+    width:480px;
 }
 
-.win #byNameTabBody .searchInput {
-    width: 380px;
+#byNameTabBody .searchInput {
+    width: 370px;
+    height: 33px;
+    color: #777;
+    border: 0;
 }
+
+/*.win #byNameTabBody .searchInput {*/
+    /*width: 365px;*/
+/*}*/
 
 .ie7 .searchInput {
     height: 23px;
@@ -1572,19 +1579,62 @@ body.ie8 .btsSupplyListsTag .arrow {
     padding-top: 7px;
 }
 
-#byNameTabBody select {
-    width: 98px;
-    /*border: 0px;*/
-    /*color:  #0066bb;*/
+#byNameTabBody .searchTextBox{
+    width: 360px;
+}
+
+#byNameTabBody .stateDropDown{
+    width: 107px;
+    position: relative;
+    margin-top: 7px;
+    zoom:1;
+}
+
+#byNameTabBody .showState {
+    position: absolute;
+    left: 15px;
+    color: #06B;
+    font-size:12px;
+}
+
+#byNameTabBody .searchBarFas select {
+    opacity:0;
+    filter: alpha(opacity = 0);
+    position: absolute;
+    z-index: 5;
+    border: 0px;
+    color:  #0066bb;
+    padding: 0px;
+    /*margin-top: 8px;*/
+    width: 104px;
+    left: 3px;
+    top: 2px;
+
 }
 
 #byNameTabBody option {
-    width: 72px;
-    /*padding: 5px;*/
+    width:78px;
+    padding: 3px 0px 3px 8px;
+    border: 0px;
     /*color:  #0066bb;*/
     /*border-left: 1px solid #A5D3E7;*/
     /*margin-left: 0px;*/
+}
 
+/*div.stateDropDown span:last-child{*/
+    /*margin-top: 3px;*/
+/*}*/
+
+#byNameTabBody .dropDownArrow{
+    position: absolute;
+    top: 3px;
+    left: 85px;
+}
+
+#byNameTabBody .verticalLine{
+    color:#ccc;
+    font-size: 19px;
+    line-height:16px;
 }
 
 .filterBar {
@@ -1595,6 +1645,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 .filterCategory {
     height: 24px;
     width: 117px;
+    position: relative;
 }
 
 .filterCategory .defaultText {
@@ -1640,6 +1691,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     width: 178px;
 }
 
+
 #dropDown-FAS-1 input,
 #dropDown-FAS-1 label,
 #dropDown-FAS-2 input,
@@ -1649,13 +1701,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     outline: none;
 }
 
-.dropDown-FAS-state {
-    margin-top: 6px;
-}
 
-.mac .dropDown-FAS-state {
-    margin-top: 8px;
-}
 
 /*----------------GS-11926 ends (FAS)----------------*/
 
@@ -3591,11 +3637,15 @@ a:hover .i-pn-home {
     width: 24px;
     height: 24px;
     background-position: -80px -0px;
+    position:absolute;
+    left:85px;
 }
 a:hover .dropDown-default {
     width: 24px;
     height: 24px;
     background-position: -80px -32px;
+    position:absolute;
+    left:85px;
 }
 
 .dropDown-hover {
@@ -3603,6 +3653,8 @@ a:hover .dropDown-default {
     height: 24px;
     background-position: -80px -32px;
     display:none;
+    position:absolute;
+    left:85px;
 }
 
 /* =12 page layouts
