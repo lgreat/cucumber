@@ -44,10 +44,10 @@
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=211" id="SN_WA-ReadingActivities" class="subMenuItemAnchorText GS_CI9_">Reading Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=216" id="SN_WA-WritingActivities" class="subMenuItemAnchorText GS_CI9_">Writing Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=207" id="SN_WA-ArtActivities" class="subMenuItemAnchorText GS_CI9_">Art Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=212" id="SN_WA-ScienceActivties" class="subMenuItemAnchorText GS_CI9_">Science Activties<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=218" id="SN_WA-TravelActivties" class="subMenuItemAnchorText GS_CI9_">Travel Activties<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=150" id="SN_WA-SummerActivties" class="subMenuItemAnchorText GS_CI9_">Summer Activties<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=246" id="SN_WA-HolidayActivties" class="subMenuItemAnchorText GS_CI9_">Holiday Activties<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=212" id="SN_WA-ScienceActivities" class="subMenuItemAnchorText GS_CI9_">Science Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=218" id="SN_WA-TravelActivities" class="subMenuItemAnchorText GS_CI9_">Travel Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=150" id="SN_WA-SummerActivities" class="subMenuItemAnchorText GS_CI9_">Summer Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=246" id="SN_WA-HolidayActivities" class="subMenuItemAnchorText GS_CI9_">Holiday Activities<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
           </ul>
         </li>
         <li class="menuItem"><a href="/homework-help.topic?content=1544" id="SN-HomeworkHelp" class="menuItemAnchorText GS_CI9_">Homework Help <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
