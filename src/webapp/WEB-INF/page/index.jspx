@@ -224,21 +224,23 @@
         <jsp:include page="/content/cms/mostPopularContent.module?style=reskin2010"/>
     </gsweb:cache>
 
-    <div class="mod">
-        <div class="mod_hd">
-            <h3>GreatSchools Blog</h3>
+    <gsweb:cache key="gsweb_homepage_blog">
+        <div class="mod">
+            <div class="mod_hd">
+                <h3>GreatSchools Blog</h3>
+            </div>
+            <div id="gs-blog" class="mod_bd">
+                <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
+                                  defaultTitle="GreatSchools blog"
+                                  defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
+                                  type="aboutBlog"
+                                  showDate="true"
+                        />
+                <a class="fltrt" href="http://blogs.greatschools.org/greatschoolsblog" target="_blank">View more <span
+                        class="alertDoubleArrow">&amp;raquo;</span></a>
+            </div>
         </div>
-        <div id="gs-blog" class="mod_bd">
-            <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
-                              defaultTitle="GreatSchools blog"
-                              defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
-                              type="aboutBlog"
-                              showDate="true"
-                    />
-            <a class="fltrt" href="http://blogs.greatschools.org/greatschoolsblog" target="_blank">View more <span
-                    class="alertDoubleArrow">&amp;raquo;</span></a>
-        </div>
-    </div>
+    </gsweb:cache>
 </div>
 
 
