@@ -20,7 +20,8 @@ GS.attachSchoolAutocomplete = function(domId) {
         cacheLength: 150,
         matchSubset: true,
         max: 6,
-        autoFill: false
+        autoFill: false,
+        dataType: 'text'
     });
 
     searchStateSelect.blur(function() {
