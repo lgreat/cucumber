@@ -439,6 +439,15 @@ $(function() {
         $("#category-" + catNumber + " .dropDown-hover").hide();
     });
 
+    $("html").click(function(event) {
+        if ($(event.target).closest('.filterCategory, .dropDown-FAS').length == 0) {
+            $("#jq-filterBar .dropDown-FAS").hide();
+            var filterCategory = $("#jq-filterBar .filterCategory");
+            filterCategory.find(".dropDown-default").show();
+            filterCategory.find(".dropDown-hover").hide();
+        }
+    });
+
 //    $("body").not("#js-gradeLevels").click(function(){
 //        alert("hide");
 //    });
