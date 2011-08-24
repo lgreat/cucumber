@@ -26,7 +26,7 @@
                         }
                     });
                     $.post("/nbc/quiz.page", data, function(rval) {
-                        alert("200 received");
+                        alert("status:" + rval.status + "\nmessage:" + rval.message);
                     }, "json");
                 });
 
@@ -43,7 +43,7 @@
     <div>
         <label>Form fields:</label>
         <ul id="fields" style="list-style: none;">
-            <li><input type="text"/> : <input type="text"/></li>
+            <li><input type="text" value="childAge"/> : <input type="text"/></li>
         </ul>
         <button id="add" type="button">Add field</button>
         <br/>
