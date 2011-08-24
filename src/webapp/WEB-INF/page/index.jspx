@@ -85,8 +85,8 @@
                             </c:otherwise>
                         </c:choose>
                         <a href="${fn:escapeXml(featureLink.url)}" target="${featureLinkTarget}">
-                            <img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
-                                 class="carousel-image"
+                            <gsml:img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
+                                 styleClass="carousel-image"
                                  width="584"
                                  height="288"
                                  alt="${homepage.featureLinks[status.index].imageAltText}"/>
@@ -209,7 +209,7 @@
                     <div class="wrapper-outer">
                         <div class="wrapper-inner">
                             <div class="wrapper-content">
-                                <a href="/content/healthyKids.page"><img id="adFreeHouseAd"
+                                <a href="/content/healthyKids.page"><gsml:img id="adFreeHouseAd"
                                                                          src="/res/img/home/GS_boxad_healthy2.jpg"
                                                                          alt="Healthy Kids: No more couch potatoes!"/></a>
                             </div>
