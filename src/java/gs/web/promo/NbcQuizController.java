@@ -2,6 +2,7 @@ package gs.web.promo;
 
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
+import gs.data.promo.IQuizDao;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -35,18 +36,25 @@ public class NbcQuizController implements ReadWriteAnnotationController {
             _message = message;
         }
         public void writeToJSON(JSONObject o) throws JSONException {
-            o.put("status", _status);
-            o.put("message", _message);
+            o.put(KEY_JSON_STATUS, _status);
+            o.put(KEY_JSON_MESSAGE, _message);
         }
         public String toString() {
             return "SaveStatus{" +_status + ":" + _message + "}";
         }
+        public String getStatus()  {return _status;}
+        public String getMessage() {return _message;}
     }
 
     public static final String PARAM_CHILD_AGE = "childAge";
     public static final String PARAM_PARENT_AGE = "parentAge";
     public static final String PARAM_ZIP = "zip";
     public static final Pattern PATTERN_PARAM_ANSWER = Pattern.compile("^q(\\d+)$");
+    public static final String KEY_JSON_STATUS = "status";
+    public static final String KEY_JSON_MESSAGE = "message";
+    public static final String KEY_JSON_AGGREGATE = "aggregate";
+
+    private IQuizDao _quizDao;
 
     @RequestMapping(method = RequestMethod.POST)
     /**
@@ -61,12 +69,12 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     public void submit(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         try {
-            SaveStatus saveStatus = saveResponse(request); // should not throw or return null
+            SaveStatus saveStatus = saveResponses(request); // should not throw or return null
             JSONObject aggregateData = getAggregate(); // should not throw
             if (aggregateData != null) {
                 // combine aggregateData with saveStatus and print out
                 JSONObject output = new JSONObject();
-                output.put("aggregate", aggregateData);
+                output.put(KEY_JSON_AGGREGATE, aggregateData);
                 saveStatus.writeToJSON(output);
                 output.write(response.getWriter()); // throws on error writing to response
             } else {
@@ -81,13 +89,12 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     }
 
     /**
-     * responseObject = parseResponseObject(request)
-     * if (responseObject  == null) return
-     * _dao.save(responseObject)
+     * Parse request params into a QuizTaken and save it.
      *
      * @param request HttpServletRequest containing quiz response
+     * @return SaveStatus enum indicating success or error, never null.
      */
-    public SaveStatus saveResponse(HttpServletRequest request) {
+    public SaveStatus saveResponses(HttpServletRequest request) {
         try {
             Object quizTaken = parseQuizTaken(request);
             // _dao.save(quizTaken)
@@ -153,6 +160,14 @@ public class NbcQuizController implements ReadWriteAnnotationController {
         return null;
     }
 
+    public IQuizDao getQuizDao() {
+        return _quizDao;
+    }
+
+    public void setQuizDao(IQuizDao quizDao) {
+        _quizDao = quizDao;
+    }
+
     /**
      * Thrown on any sort of error parsing the request params or constructing the QuizTaken object.
      * Field saveStatus indicates the error.
@@ -167,7 +182,7 @@ public class NbcQuizController implements ReadWriteAnnotationController {
             return _saveStatus;
         }
         public String toString() {
-            return _saveStatus._message;
+            return "ParseQuizTakenException:" + _saveStatus.getMessage();
         }
     }
 }
