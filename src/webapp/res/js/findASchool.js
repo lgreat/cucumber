@@ -178,7 +178,16 @@ GS.findASchool.attachCityAutocomplete = function(queryBoxId) {
         matchSubset: true,
         max: 6,
         autoFill: false,
-        dataType: "text"
+        dataType: "text",
+        formatItem: function(row) {
+            if (row != null && row.length > 0) {
+                var suggestion = row[0];
+                // capitalize first letter of all words but the last
+                // capitalize the entire last word (state)
+                return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
+            }
+            return row;
+        }
     });
 };
 
