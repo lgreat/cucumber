@@ -85,8 +85,8 @@
                             </c:otherwise>
                         </c:choose>
                         <a href="${fn:escapeXml(featureLink.url)}" target="${featureLinkTarget}">
-                            <gsml:img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
-                                 styleClass="carousel-image"
+                            <img src="${fn:escapeXml(homepage.featureLinks[status.index].imageUrl)}"
+                                 class="carousel-image"
                                  width="584"
                                  height="288"
                                  alt="${homepage.featureLinks[status.index].imageAltText}"/>
