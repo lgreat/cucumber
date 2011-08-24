@@ -17,17 +17,38 @@
         <script type="text/javascript">
             $(function() {
                 $("#go").click(function() {
-                    $.post("/nbc/quiz.page", {}, function(data) {
-                        alert(data.success);
+                    var data = {};
+                    $('#fields li').each(function() {
+                        var key = $(this).find("input:eq(0)");
+                        var value = $(this).find("input:eq(1)");
+                        if (key.val().length > 0) {
+                            data[key.val()] = value.val();
+                        }
+                    });
+                    $.post("/nbc/quiz.page", data, function(rval) {
+                        alert("200 received");
                     }, "json");
+                });
+
+                $("#add").click(function() {
+                    //<![CDATA[
+                    $("#fields").append('<li><input type="text"/> : <input type="text"/></li>');
+                    //]]>
                 });
             });
         </script>
     </head>
     <body>
 
-    <div id="schoolSearchWidget">
-            <button id="go" type="button">Go</button>
+    <div>
+        <label>Form fields:</label>
+        <ul id="fields" style="list-style: none;">
+            <li><input type="text"/> : <input type="text"/></li>
+        </ul>
+        <button id="add" type="button">Add field</button>
+        <br/>
+        <br/>
+        <button id="go" type="button">Go</button>
     </div>
 
     </body>
