@@ -1,6 +1,5 @@
 package gs.web.content.cms;
 
-import gs.data.content.cms.CmsCategory;
 import gs.data.content.cms.CmsConstants;
 import gs.data.content.cms.CmsTopicCenter;
 import gs.data.content.cms.ContentKey;
@@ -263,10 +262,10 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         query.sort(CmsFeatureFields.FIELD_SORTABLE_TITLE, false).sort(CmsFeatureFields.FIELD_SORTABLE_LOWEST_GRADE, false);
 
         if (requestedGradeId != null) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedGradeId.split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedGradeId.split(",")));
         }
         if (requestedSubjectId != null) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedSubjectId.split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(requestedSubjectId.split(",")));
         }
 
         query.page(requestedPage.offset, requestedPage.pageSize);

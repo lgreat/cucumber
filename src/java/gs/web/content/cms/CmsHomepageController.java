@@ -340,7 +340,7 @@ public class CmsHomepageController extends AbstractController {
         GsSolrQuery query = new GsSolrQuery();
         query.filter(DocumentType.CMS_FEATURE);
         query.sort(CmsFeatureFields.FIELD_CMS_DATE_CREATED, true);
-        query.query(CmsFeatureFields.FIELD_CMS_GRADE_ID, categoryIds);
+        query.addQuery(CmsFeatureFields.FIELD_CMS_GRADE_ID, categoryIds);
         query.page(0,5000);
 
         try {

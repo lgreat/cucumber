@@ -207,19 +207,19 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         //If grades/subjects/topics parameters are requested, use them. otherwise, use whatever was configured
         //in the cms for the videos subtopic
         if (StringUtils.isNotBlank(request.getParameter("grades"))) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("grades").split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("grades").split(",")));
         } else if (videoSubtopic != null && !StringUtils.isBlank(videoSubtopic.getGradeIDs())){
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getGradeIDs().split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getGradeIDs().split(",")));
         }
         if (StringUtils.isNotBlank(request.getParameter("subjects"))) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("subjects").split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("subjects").split(",")));
         } else if (videoSubtopic != null && !StringUtils.isBlank(videoSubtopic.getSubjectIDs())){
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getSubjectIDs().split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getSubjectIDs().split(",")));
         }
         if (StringUtils.isNotBlank(request.getParameter("topics"))) {
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("topics").split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(request.getParameter("topics").split(",")));
         } else if (videoSubtopic != null && !StringUtils.isBlank(videoSubtopic.getTopicIDs())){
-            query.query(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getTopicIDs().split(",")));
+            query.addQuery(CmsFeatureFields.FIELD_CMS_CATEGORY_ID, Arrays.asList(videoSubtopic.getTopicIDs().split(",")));
         }
 
         query.page(requestedPage.offset, requestedPage.pageSize);
