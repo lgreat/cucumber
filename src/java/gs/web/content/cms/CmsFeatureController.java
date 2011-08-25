@@ -299,8 +299,9 @@ public class CmsFeatureController extends AbstractController {
         boolean isBts = CmsConstants.isBtsList(feature.getContentKey().getIdentifier());
         boolean isHoliday = CmsConstants.isHolidayContent(feature.getContentKey().getIdentifier());
         if (isBts || isHoliday) {
-            System.out.println("-feature.hasBtsListAd()-----------------"+feature.hasBtsListAd());
+
             boolean hasAd = isBts ? feature.hasBtsListAd() : feature.hasFeatureAd();
+
             if (hasAd) {
                 AdTagHandler adTagHandler = new AdTagHandler();
                 adTagHandler.setPosition("Sponsor_610x225");
