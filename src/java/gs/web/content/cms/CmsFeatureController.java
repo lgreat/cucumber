@@ -190,20 +190,8 @@ public class CmsFeatureController extends AbstractController {
             model.put("currentSlides", slides);
         }
 
-        // GS-11664 insert BTS list ad
-        if (CmsConstants.isBtsList(feature.getContentKey().getIdentifier())) {
-            AdTagHandler adTagHandler = new AdTagHandler();
-            adTagHandler.setPosition("Sponsor_610x225");
-            adTagHandler.setShowOnPrintView(true);
-            try {
-                // must first set ad slot prefix
-                request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "Library_Article_Page_");
-                // then generate the ad code
-                feature.setBtsListAdCode(adTagHandler.getContent(request, SessionContextUtil.getSessionContext(request), null));
-            } catch (Exception e) {
-                _log.warn("Error setting BTS list ad code for content " + feature.getContentKey());
-            }
-        }
+        // GS-11664 insert BTS list ad  and GS-12091 insert ad into holiday articles.
+        setAdsInFeature(feature, request);
 
         // paginate after transforms have been done on entire body
         if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
@@ -301,8 +289,39 @@ public class CmsFeatureController extends AbstractController {
             model.put("showCompanionAd", true);
         }
 
+//        System.out.println("-currentpage----------"+feature.getCurrentPage());
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
+    }
+
+    /* Set the ad in the feature.We support only 1 ad per feature.*/
+    protected void setAdsInFeature(CmsFeature feature, HttpServletRequest request) {
+        boolean isBts = CmsConstants.isBtsList(feature.getContentKey().getIdentifier());
+        boolean isHoliday = CmsConstants.isHolidayContent(feature.getContentKey().getIdentifier());
+        if (isBts || isHoliday) {
+            System.out.println("-feature.hasBtsListAd()-----------------"+feature.hasBtsListAd());
+            boolean hasAd = isBts ? feature.hasBtsListAd() : feature.hasFeatureAd();
+            if (hasAd) {
+                AdTagHandler adTagHandler = new AdTagHandler();
+                adTagHandler.setPosition("Sponsor_610x225");
+                adTagHandler.setShowOnPrintView(true);
+                try {
+                    // must first set ad slot prefix
+                    request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "Library_Article_Page_");
+                    // then generate the ad code
+                    if (isBts) {
+                        // GS-11664 insert BTS list ad
+                        feature.setBtsListAdCode(adTagHandler.getContent(request, SessionContextUtil.getSessionContext(request), null));
+                    } else if (isHoliday) {
+                        // GS-12091 insert ad into holiday articles.
+                        feature.setFeatureAdCode(adTagHandler.getContent(request, SessionContextUtil.getSessionContext(request), null));
+                    }
+
+                } catch (Exception e) {
+                    _log.warn("Error setting ad code for content " + feature.getContentKey());
+                }
+            }
+        }
     }
 
     static boolean getShowContextualAds(CmsFeature feature, String contentExcludes, boolean isAdFree, boolean isCobrand) {

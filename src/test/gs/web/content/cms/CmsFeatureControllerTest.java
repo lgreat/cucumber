@@ -529,5 +529,25 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         assertNull(mAndV.getModel().get("showCompanionAd"));
         CmsUtil.disableCms();
     }
+
+
+    public void testSetAdsInFeatureWithFeatureAd() {
+        CmsFeature feature = new CmsFeature();
+        feature.setContentKey(new ContentKey("Article", 368L));
+        feature.setBody("<p>The first paragraph</p><hr/><p class=\"feature-ad hidden\">[FEATURE AD]</p><p>Just some random other paragraph</p>");
+        _controller.setAdsInFeature(feature, getRequest());
+        //only one ad can be set.Either a feature ad or the bts list ad.
+        assertNotNull(feature.getFeatureAdCode());
+        assertNull(feature.getBtsListAdCode());
+    }
+
+    public void testSetAdsInFeatureWithNoFeatureAd() {
+        CmsFeature feature = new CmsFeature();
+        feature.setContentKey(new ContentKey("Article", 368L));
+        feature.setBody("<p>The first paragraph</p><hr/><p>Just some random other paragraph</p>");
+        _controller.setAdsInFeature(feature, getRequest());
+        assertNull(feature.getFeatureAdCode());
+        assertNull(feature.getBtsListAdCode());
+    }
     
 }
