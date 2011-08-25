@@ -10,10 +10,11 @@
 
        NOTE 7/13/2011: Remove "do not collapse" comment between javascript open and close tags before providing to ad ops
     -->
+    <![CDATA[
 
     <img style="display:none;" src="http://cdn4.eyewonder.com/cm/tr/9826-133851-21419-0?mpt=[CACHEBUSTER]" border="0"/>
 
-    <img id="jq-kindercareSubmitTrack" style="display:none;" src="/res/img/pixel.gif" border="0"/>
+    <div class="display:none;" id="jq-kindercareSubmitTrack"><!-- empty --></div>
 
     <div class="mod kindercare jq-leadGenWrapper">
         <script type="text/javascript" src="/res/js/promo/leadGen.js"><!-- do not collapse --></script>
@@ -76,10 +77,12 @@
     <script type="text/javascript">
         jQuery(function() {
             jQuery('.jq-leadGenForm .jq-leadGenSubmit').click(function() {
-                 var mpt = Math.random()*10000000000000000;
-                 jQuery('#jq-kindercareSubmitTrack').attr('src', 'http://cdn4.eyewonder.com/cm/ck/9826-133851-21419-0?mpt=' + mpt);
+                var cacheBuster = Math.random()*10000000000000000;
+                 jQuery('#jq-kindercareSubmitTrack').html('<iframe src="http://cdn.cdn4.eyewonder.com/0/9826/universal.html?page_name=kindercareconversionpage&KinderCareConversionPage=1&mpuid=' + cacheBuster + '" height="0" width="0" frameborder="0"></iframe>');
             });
         });
     </script>
+
+    ]]>
 
 </jsp:root>
