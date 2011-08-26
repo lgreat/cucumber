@@ -175,7 +175,7 @@
         <jsp:scriptlet>
             request.setAttribute("allGradeLevels", LevelCode.ALL_LEVELS.getIndividualLevelCodes());
 
-            int[] allDistance = new int[]{1, 2, 3, 4, 5, 10, 15, 20, 25};
+            int[] allDistance = new int[]{1, 2, 3, 4, 5, 10, 15, 20, 25, 60};
             request.setAttribute("allDistance", allDistance);
         </jsp:scriptlet>
     <div class="mod findCompare">

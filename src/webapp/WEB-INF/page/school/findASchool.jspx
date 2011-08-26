@@ -217,6 +217,10 @@
                                     <input type="radio" name="distance" value="30" id="js-radius-30"/>
                                     <label for="js-radius-30">30 miles</label>
                                 </div>
+                                <div>
+                                    <input type="radio" name="distance" value="60" id="js-radius-60"/>
+                                    <label for="js-radius-60">60 miles</label>
+                                </div>
                             </div>
                             <div class="col_2">
                                 <button class="button-1 mtm" id="hideDropDown-3" type="button"
