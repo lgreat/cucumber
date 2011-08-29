@@ -913,26 +913,6 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertEquals("Expecting exactly 2 results from the search.",2, s.size());
     }
 
-    public void testBuildStopWordsIntoSearchStringWithCityState(){
-        String str = "school alameda schools schools ca";
-        str = _controller.buildStopWordsIntoSearchString(str);
-        assertNotNull(str);
-        assertEquals("alameda ca",str);
-    }
-
-    public void testBuildStopWordsIntoSearchStringWithCityAndMultipleSpaces(){
-        String str = "schools school alameda   schools ";
-        str = _controller.buildStopWordsIntoSearchString(str);
-        assertNotNull(str);
-        assertEquals("alameda",str);
-    }
-
-    public void testBuildStopWordsIntoSearchStringWithNull(){
-        String str=null;
-        str = _controller.buildStopWordsIntoSearchString(str);
-        assertNull(str);
-    }
-
 //    public void testGetExactCityMatch() {
 //        City rval;
 //
