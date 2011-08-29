@@ -103,7 +103,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             // page only needs up to three, but we need the total number as well
             // should probably add a method _reviewDao.getTotalPublishedReviewsBySchool(school)
             // and limit the following query to 3
-            List<Review> reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, 3);
+            List<Review> reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, 20);
             Long numberOfReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
             model.put("reviews", reviews);
             model.put("numberOfReviews", numberOfReviews);
