@@ -410,7 +410,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
-<school:parentReviews school="${school}" reviews="${reviews}" maxReviews="3" ratings="${ratings}" validUser="${validUser}"/>
+<school:parentReviews school="${school}" reviews="${reviews}" maxReviews="20" ratings="${ratings}" validUser="${validUser}"/>
 <c:if test="${numberOfReviews gt 0}">
     <div class="alertBox4 smallAlertTextBold">
         <link:schoolProfileParentReview school="${school}" styleClass="fltrt">Read all reviews <span
