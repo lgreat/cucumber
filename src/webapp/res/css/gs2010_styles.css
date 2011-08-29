@@ -1698,6 +1698,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     position: absolute;
     top: 100px;
     left: 15px;
+    width: 64px;
 }
 
 .win #dropDown-FAS-3 .doneButton{
