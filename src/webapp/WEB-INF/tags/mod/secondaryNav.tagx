@@ -52,9 +52,9 @@
         </li>
         <li class="menuItem"><a href="/homework-help.topic?content=1544" id="SN-HomeworkHelp" class="menuItemAnchorText GS_CI9_">Homework Help <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_3"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/articles/?topics=140&amp;topics=209" id="SN_HH-Math" class="subMenuItemAnchorText GS_CI9_">Math<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=140&amp;topics=211" id="SN_HH-Reading" class="subMenuItemAnchorText GS_CI9_">Reading<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=140&amp;topics=216" id="SN_HH-Writing" class="subMenuItemAnchorText GS_CI9_">Writing<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=140&amp;subjects=209" id="SN_HH-Math" class="subMenuItemAnchorText GS_CI9_">Math<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=140&amp;subjects=211" id="SN_HH-Reading" class="subMenuItemAnchorText GS_CI9_">Reading<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/articles/?topics=140&amp;subjects=216" id="SN_HH-Writing" class="subMenuItemAnchorText GS_CI9_">Writing<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=148" id="SN_HH-StudySkills" class="subMenuItemAnchorText GS_CI9_">Study Skills<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/articles/?topics=158" id="SN_HH-Tutoring" class="subMenuItemAnchorText GS_CI9_">Tutoring<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/online-learning.topic?content=4351" id="SN_HH-OnlineLearning" class="subMenuItemAnchorText GS_CI9_">Online Learning<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
