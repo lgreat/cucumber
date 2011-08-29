@@ -180,10 +180,10 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         boolean isFromByLocation = schoolSearchCommand.isNearbySearchByLocation();
 
-        if (isFromByLocation && StringUtils.isNotBlank(searchString)) {
-            //GS-12100 Since its a by location search, strip the words 'schools' and school'.
-            searchString = buildStopWordsIntoSearchString(searchString);
-        }
+//        if (isFromByLocation && StringUtils.isNotBlank(searchString)) {
+//            //GS-12100 Since its a by location search, strip the words 'schools' and school'.
+//            searchString = buildStopWordsIntoSearchString(searchString);
+//        }
 
 
         if (schoolSearchCommand.isNearbySearchByLocation()) {
