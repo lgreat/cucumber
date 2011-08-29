@@ -23,6 +23,13 @@ GS.findASchool.submitByLocationSearch = function() {
     var byLocationForm = $('#jq-findByLocationForm');
     var searchQuery = byLocationForm.find('input[name="searchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
+
+    //GS-12100 Since its a by location search, strip the words 'schools' and school'.
+    if (searchQuery != '') {
+        searchQuery = searchQuery.replace(/schools/g, "");
+        searchQuery = searchQuery.replace(/school/g, "");
+    }
+
     if (searchQuery != '' &&
         searchQuery != 'Search by city AND state or address ...' && !GS.findASchool.isTermState(searchQuery)) {
         byLocationForm.find('input[name="searchString"]').val(searchQuery);

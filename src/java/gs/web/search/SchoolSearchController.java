@@ -137,6 +137,8 @@ public class SchoolSearchController extends AbstractCommandController implements
     protected static final String VIEW_NOT_FOUND = "/status/error404";
 
     public static final PaginationConfig SCHOOL_SEARCH_PAGINATION_CONFIG;
+
+    public static final String[] LOCATION_SEARCH_STOP_WORDS = {"schools","school"};
     
     static {
         SCHOOL_SEARCH_PAGINATION_CONFIG = new PaginationConfig(
@@ -176,6 +178,14 @@ public class SchoolSearchController extends AbstractCommandController implements
             model.put(MODEL_MSL_SCHOOLS, mslSchools);
         }
 
+        boolean isFromByLocation = schoolSearchCommand.isNearbySearchByLocation();
+
+        if (isFromByLocation && StringUtils.isNotBlank(searchString)) {
+            //GS-12100 Since its a by location search, strip the words 'schools' and school'.
+            searchString = buildStopWordsIntoSearchString(searchString);
+        }
+
+
         if (schoolSearchCommand.isNearbySearchByLocation()) {
             // check for exact county match
             ICounty county = getExactCountyMatch(schoolSearchCommand.getSearchString());
@@ -194,7 +204,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         boolean isCityBrowse = commandAndFields.isCityBrowse();
         boolean isDistrictBrowse = commandAndFields.isDistrictBrowse();
         boolean isSearch = !isCityBrowse && !isDistrictBrowse;
-        boolean isFromByLocation = schoolSearchCommand.isNearbySearchByLocation();
 
         Map nearbySearchInfo = null;
         if (schoolSearchCommand.isNearbySearch()) {
@@ -494,6 +503,20 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         return result;
+    }
+
+    protected String buildStopWordsIntoSearchString(String searchString) {
+        if (StringUtils.isNotBlank(searchString)) {
+            String schoolsRegex = "schools";
+            String schoolRegex = "school";
+            for (String stopWord : LOCATION_SEARCH_STOP_WORDS) {
+                searchString = searchString.replaceAll(stopWord, "");
+            }
+            searchString = searchString.replaceAll("\\s{2,}", " ");
+            searchString = searchString.trim();
+            return searchString;
+        }
+        return null;
     }
 
     protected class MetaDataHelper {
