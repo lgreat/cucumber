@@ -222,7 +222,7 @@
                                     <label for="js-radius-60">60 miles</label>
                                 </div>
                             </div>
-                            <div class="col_2">
+                            <div class="col_1 doneButton">
                                 <button class="button-1 mtm" id="hideDropDown-3" type="button"
                                         onclick="javascript:void(0)">Done
                                 </button>

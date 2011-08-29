@@ -1681,6 +1681,10 @@ body.ie8 .btsSupplyListsTag .arrow {
     height: 123px;
 }
 
+.win #dropDown-FAS-3 {
+    height: 128px;
+}
+
 #dropDown-FAS-1 input,
 #dropDown-FAS-1 label,
 #dropDown-FAS-2 input,
@@ -1690,11 +1694,16 @@ body.ie8 .btsSupplyListsTag .arrow {
     outline: none;
 }
 
-#dropDown-FAS-3 button{
+#dropDown-FAS-3 .doneButton{
     position: absolute;
-    top: -21px;
-    left:6px;
+    top: 100px;
+    left: 15px;
 }
+
+.win #dropDown-FAS-3 .doneButton{
+    top: 106px;
+}
+
 
 /*----------------GS-11926 ends (FAS)----------------*/
 
