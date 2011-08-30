@@ -59,6 +59,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
     public static String SCHOOL_HIGHLIGHTS_ATTRIBUTE = "schoolHighlights";
     public static final int MAX_SCHOOL_PHOTOS_IN_GALLERY = 4;
+    public static final int MAX_SCHOOL_REVIEWS = 12;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -102,8 +103,8 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             // page only needs up to three, but we need the total number as well
             // should probably add a method _reviewDao.getTotalPublishedReviewsBySchool(school)
-            // and limit the following query to 3
-            List<Review> reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, 20);
+            // and limit the following query to 12
+            List<Review> reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, MAX_SCHOOL_REVIEWS);
             Long numberOfReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
             model.put("reviews", reviews);
             model.put("numberOfReviews", numberOfReviews);
