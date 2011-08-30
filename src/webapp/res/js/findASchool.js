@@ -28,11 +28,10 @@ GS.findASchool.submitByLocationSearch = function() {
         searchQuery != 'Search by city AND state or address ...' && !GS.findASchool.isTermState(searchQuery)) {
         byLocationForm.find('input[name="searchString"]').val(searchQuery);
 
-        //GS-12100 Since its a by location search, strip the words 'schools' and school' from google geocode searches.
-        var searchQueryWithFilteredStopWords =  searchQuery;
+        //GS-12100 Since its a by location search, strip the words 'schools' from google geocode searches.
+        var searchQueryWithFilteredStopWords = searchQuery;
         if (searchQueryWithFilteredStopWords != '') {
             searchQueryWithFilteredStopWords = searchQueryWithFilteredStopWords.replace(/schools/g, "");
-            searchQueryWithFilteredStopWords = searchQueryWithFilteredStopWords.replace(/school/g, "");
         }
 
         GS.findASchool.gsGeocode(searchQueryWithFilteredStopWords, function(geocodeResult) {
