@@ -143,8 +143,9 @@
             //</c:if>
         });
     </script>
-    <div id="startADiscussion">
-        <div id="sd_header">
+    <div class="mod startADiscussion">
+        <div class="inner">
+        <div class="hd">
 
             <!-- DONE-RANDALL - do use sprite image -->
             <span class="sprite community-fc6-lg fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
@@ -166,68 +167,85 @@
                         src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
                         height="11" alt="close modal"/></p></div>
             </c:if>-->
-            <br class="clearfloat"/>
         </div>
+        <div class="bd">
         <form action="/community/discussionSubmission.page" method="post" target="_parent"
               id="discussionSubmissionForm" accept-charset="Windows-1252">
             <fieldset class="startDiscussion">
-                <ul>
-                    <li>
+                <div class="line">
+                    <div class="unit size1of5">
                         <label for="topicSelect" class="text2bold tint_333">Topic</label>
+                    </div>
+                    <div class="unit size2of5">
                         <select id="topicSelect" name="topicCenterId">
                             <gsml:selectOption value="-1">Cities</gsml:selectOption>
 
                             <gsml:selectOption value="1540"
-                                                   selected="${1540 == topicCenterId}">Academics &amp;amp; Activities</gsml:selectOption>
+                                               selected="${1540 == topicCenterId}">Academics &amp;amp; Activities</gsml:selectOption>
                             <gsml:selectOption value="1574"
-                                                   selected="${1574 == topicCenterId}">Elementary School</gsml:selectOption>
+                                               selected="${1574 == topicCenterId}">Elementary School</gsml:selectOption>
                             <gsml:selectOption value="2420"
                                                selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
                             <gsml:selectOption value="1539"
-                                                   selected="${1539 == topicCenterId}">Health &amp;amp; Development</gsml:selectOption>
+                                               selected="${1539 == topicCenterId}">Health &amp;amp; Development</gsml:selectOption>
                             <gsml:selectOption value="1576"
-                                                   selected="${1576 == topicCenterId}">High School</gsml:selectOption>
+                                               selected="${1576 == topicCenterId}">High School</gsml:selectOption>
                             <gsml:selectOption value="1543"
-                                                   selected="${1543 == topicCenterId}">Improve Your School</gsml:selectOption>
+                                               selected="${1543 == topicCenterId}">Improve Your School</gsml:selectOption>
                             <gsml:selectOption value="1575"
-                                                   selected="${1575 == topicCenterId}">Middle School</gsml:selectOption>
+                                               selected="${1575 == topicCenterId}">Middle School</gsml:selectOption>
                             <gsml:selectOption value="1573"
-                                                   selected="${1573 == topicCenterId}">Preschool</gsml:selectOption>
+                                               selected="${1573 == topicCenterId}">Preschool</gsml:selectOption>
                             <gsml:selectOption value="1541"
-                                                   selected="${1541 == topicCenterId}">Special Education</gsml:selectOption>
+                                               selected="${1541 == topicCenterId}">Special Education</gsml:selectOption>
                         </select>
+                    </div>
+                    <div class="unit size2of5 lastUnit">
                         <span class="communityGuidelines ${guidelineStyle}">Read our
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                                   title="GreatSchools Community Standards"
-                                                   href="/terms/?state=$STATE#communityStandards">
+                                              title="GreatSchools Community Standards"
+                                              href="/terms/?state=$STATE#communityStandards">
                                 <span class="link">Community Guidelines</span>
                             </gsml:popupWindow>
                         </span>
-                    </li>
+                    </div>
+                </div>
 
-                    <li class="citySelect">
-                        <div>
-                            <label for="citySelect" class="text2bold tint_333">City</label>
-                            <select id="citySelect" name="discussionBoardId" disabled="disabled">
-                                <c:forEach var="localBoard" items="${localBoards}">
-                                    <gsml:selectOption value="${localBoard.boardId}"
-                                                       selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}, ${localBoard.city.state}</gsml:selectOption>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </li>
+                <div class="line citySelect">
+                    <div class="unit size1of5">
+                        <label for="citySelect" class="text2bold tint_333">City</label>
+                    </div>
+                    <div class="unit size4of5 lastUnit">
+                        <select id="citySelect" name="discussionBoardId" disabled="disabled">
+                            <c:forEach var="localBoard" items="${localBoards}">
+                                <gsml:selectOption value="${localBoard.boardId}"
+                                                   selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}, ${localBoard.city.state}</gsml:selectOption>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
 
-                    <li>
+                <div class="line">
+                    <div class="unit size1of5">
                         <label for="titleInput" class="text2bold tint_333">Title</label>
-                        <input id="titleInput" class="titleInput" type="text" name="title" size="20" value="${discussionTitle}"/>
-                    </li>
-                    <li>
+                    </div>
+                    <div class="unit size4of5 lastUnit">
+                        <input id="titleInput" class="titleInput" type="text" name="title" size="20"
+                               value="${discussionTitle}"/>
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size1of5">
                         <label for="bodyInput" class="text2bold tint_333">Details</label>
+                    </div>
+                    <div class="unit size4of5 lastUnit">
                         <textarea id="bodyInput" class="bodyInput"
                                   rows="5" cols="20"
                                   name="body"><!-- no collapse -->${discussionBody}</textarea>
-                    </li>
-                </ul>
+                    </div>
+                </div>
+
                 <c:if test="${discussionId gt 0}">
                     <input type="hidden" name="discussionId" value="${discussionId}"/>
                     <input type="hidden" name="type" value="editDiscussion"/>
@@ -296,9 +314,11 @@
             </fieldset>
             <!-- end submit -->
         </form>
+            </div>
         <!--<c:if test="${empty useImageForSubmitButton or useImageForSubmitButton}">-->
         <!--<div class="spacer_40">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
         <!--</c:if>-->
+    </div>
     </div>
     <!-- end startADiscussion -->
 
