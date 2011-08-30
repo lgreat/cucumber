@@ -205,7 +205,11 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         //start adding content for middle area of page
         addPageSpecificContentToModel(request, model, topicCenter);
-        
+
+        // TODO-12049 TOPIC CENTER REDESIGN - temporary, please fix
+        if ("true".equals(request.getParameter("redesign"))) {
+            _viewName = "/content/cms/topicCenter2011";
+        }
 
         return new ModelAndView(_viewName, model);
     }
