@@ -3350,6 +3350,10 @@ body.ie10 #primary .menuItem.lastNavUnit .menuItemAnchorText{
     padding: 0 13px;
 }
 
+#secondary li:first-child .menuItemAnchorText{
+    color: #333;
+}
+
 #secondary .menuItem .home {
     padding: 0;
 }
