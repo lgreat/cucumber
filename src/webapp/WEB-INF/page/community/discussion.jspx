@@ -452,7 +452,7 @@
             </c:if>
         </h4>
 
-        <!--<p class="fltrt"><a class="smallText1 link" href="javascript:void(0);">Email</a></p>-->
+        <!--<p class="fltrt"><a class="smallText1 link" href="#">Email</a></p>-->
         <br class="clearfloat"/>
     </div>
 
@@ -495,18 +495,18 @@
                     <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(discussion.dateCreated,requestScope.currentDate)}</span>
                     <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${discussion.user}"
                                                contentPostedDate="${discussion.dateCreated}">
-                        | <a href="javascript:void(0);" class="editLink link">Edit</a>
+                        | <a href="#" class="editLink link">Edit</a>
                     </gsml:ifUserCanEditContent>
                     <c:choose>
                         <c:when test="${discussion.active eq false}">
                             | <span class="tint_c03"> (Deleted) </span>
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                <a href="javascript:void(0);" class="undeleteLink link" onclick="return false;">Undelete</a>
+                                <a href="#" class="undeleteLink link" onclick="return false;">Undelete</a>
                             </gsml:ifUserCanDeleteContent>
                         </c:when>
                         <c:otherwise>
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                | <a href="javascript:void(0);" class="deleteLink link" onclick="return false;">Delete</a>
+                                | <a href="#" class="deleteLink link" onclick="return false;">Delete</a>
                             </gsml:ifUserCanDeleteContent>
                         </c:otherwise>
                     </c:choose>
@@ -581,7 +581,7 @@
                 <c:set var="postAReplyHref" value="${loginRedirectUrl}"/>
             </c:otherwise>
         </c:choose>
-        <a href="javascript:void(0);" class="openPostBox">post a reply</a>!</div>
+        <a href="#" class="openPostBox">post a reply</a>!</div>
 </c:if>
 
 <c:if test="${!discussion.raiseYourHand}">
@@ -634,21 +634,21 @@
                                 <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
                                 <gsml:ifUserCanEditContent pageUser="${validUser}" contentUser="${reply.user}"
                                                            contentPostedDate="${reply.dateCreated}">
-                                    | <a href="javascript:void(0);" class="editLink link" onclick="return false;">Edit</a>
+                                    | <a href="#" class="editLink link" onclick="return false;">Edit</a>
                                 </gsml:ifUserCanEditContent>
                                 <c:choose>
                                     <c:when test="${reply.active eq false}">
                                         | <span class="tint_c03"> (Deleted) </span>
                                         <c:if test="${discussion.active eq true}">
                                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                                <a href="javascript:void(0);" class="undeleteLink link"
+                                                <a href="#" class="undeleteLink link"
                                                    onclick="return false;">Undelete</a>
                                             </gsml:ifUserCanDeleteContent>
                                         </c:if>
                                     </c:when>
                                     <c:otherwise>
                                         <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                            | <a href="javascript:void(0);" class="deleteLink link" onclick="return false;">Delete</a>
+                                            | <a href="#" class="deleteLink link" onclick="return false;">Delete</a>
                                         </gsml:ifUserCanDeleteContent>
                                     </c:otherwise>
                                 </c:choose>

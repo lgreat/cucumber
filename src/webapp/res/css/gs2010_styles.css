@@ -1272,13 +1272,6 @@ body.ie8 .btsSupplyListsTag .arrow {
 /* ------------- communityRating ------------- */
 .parentReviewRating {margin: 10px 0;}
 .parentReviewRating .inner{background-color:#F4FAFD;padding:10px;border:1px solid #83BBD9;}
-/* ---------------- GS-11969 ----------------- */
-/* ------------ startADiscussion ------------- */
-.startADiscussion{width:460px;}
-.startADiscussion .bd fieldset{margin:0 0 15px 5px;;border:none;padding:0;}
-.startADiscussion .bd .line{margin-bottom:10px;}
-.startADiscussion .titleInput{width:95%;}
-.startADiscussion .bodyInput{width:96%;height: 130px;}
 
 /*----------------GS-11784 start---------------*/
 .mediumThumbnail {
@@ -6120,13 +6113,56 @@ body.hover,
 body.hover #marginGS {
     background: #ebebeb;
     height: 100%;
-    margin:auto;
 }
 
 body.hover #contentGS {
     background: none;
     border: 0;
     min-height: 100%;
+}
+
+body.hover #startADiscussion #sd_header h2 {
+    margin-top: 10px;
+}
+
+body.hover #startADiscussion .startDiscussion li {
+    margin: 10px 0;
+}
+
+body.hover #startADiscussion label {
+    display: block;
+    float: left;
+    width: 50px;
+}
+
+body.hover #startADiscussion input {
+    width: 397px;
+}
+
+body.hover #startADiscussion textarea {
+    width: 400px;
+    height: 150px
+}
+
+body.hover #startADiscussion .communityGuidelines {
+    margin-left: 20px;
+}
+
+body.hover #startADiscussion .submit li {
+    padding-left: 50px;
+}
+
+body.hover #startADiscussion .submit {
+    margin: 0 0 0 50px;
+}
+
+#discussionSubmissionForm .sd_InnerLayout {
+    margin: 0 3px;
+}
+
+#discussionSubmissionForm .submitButtonContent{
+    *width:175px;
+    _width:175px;
 }
 
 /* =12d-3 community avatar hover
@@ -7364,7 +7400,6 @@ body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
 #profileRecentDiscussions-parentReviews .textarea-parentReviews{
     height: 120px;
     padding: 4px;
-    width:250px;
 }
 
 /* =12k-1.5 kindercare
