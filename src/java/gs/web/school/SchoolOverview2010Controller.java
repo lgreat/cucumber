@@ -59,7 +59,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
     public static String SCHOOL_HIGHLIGHTS_ATTRIBUTE = "schoolHighlights";
     public static final int MAX_SCHOOL_PHOTOS_IN_GALLERY = 4;
-    public static final int MAX_SCHOOL_REVIEWS = 12;
+    public static final int MAX_SCHOOL_REVIEWS = 10;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
