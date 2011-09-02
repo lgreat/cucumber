@@ -149,6 +149,8 @@ public class TableMoverController extends SimpleFormController {
         tableSets.put("gs_schooldb.configuration,TestDataSet,TestDataSchoolValue", "School ratings");
         tableSets.put("city_rating", "City ratings");
         tableSets.put("district_rating", "District ratings");
+        tableSets.put("TestDataSet,TestDataSchoolValue,TestDataStateValue,TestDataDistrictValue", "Test scores");
+        tableSets.put("gs_schooldb.TestDataSetFile,gs_schooldb.DataFile,gs_schooldb.DataLoad", "Test Display tables (only use with dev to staging)");
         tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer", "Public Directory (w/ census)");
         tableSets.put("school,district,pq,pq_volunteer", "Public Directory (no census)");
         tableSets.put("school,census_data_set,census_data_school_value,pq,pq_volunteer", "Private Directory: Schools only (w/ census)");
@@ -176,7 +178,7 @@ public class TableMoverController extends SimpleFormController {
         for (String tables : allTableSets.keySet())
             for (String table : tables.split(","))
                 allTables.put(table, (table.contains(".")) ? table : "state." + table);
-        // Add any custom tables here e.g. allTables.put("us_geo.foo", "us_geo.foo");        
+        // Add any custom tables here e.g. allTables.put("us_geo.foo", "us_geo.foo");
         Map<String, String> allTablesSorted = new TreeMap<String, String>(new StringValueComparer(allTables));
         allTablesSorted.putAll(allTables);
         return allTablesSorted;
