@@ -3,7 +3,12 @@ package gs.web.promo;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.promo.IQuizDao;
+import gs.data.promo.QuizResponse;
+import gs.data.promo.QuizTaken;
 import gs.web.util.ReadWriteAnnotationController;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 
 /**
@@ -26,7 +32,14 @@ public class NbcQuizController implements ReadWriteAnnotationController {
 
     protected enum SaveStatus {
         SUCCESS ("Success", "Success"),
-        ERROR_NO_CHILD_AGE ("Error", "Child age must be provided -- field " + PARAM_CHILD_AGE + " missing or empty"),
+        ERROR_NO_CHILD_AGE ("Error", "Child age must be provided -- parameter '" + PARAM_CHILD_AGE + "' missing or empty"),
+        ERROR_NO_AGE_CATEGORY ("Error", "Child age category must be provided -- parameter '" + PARAM_CHILD_AGE_CATEGORY + "' missing or empty"),
+        ERROR_AGE_CATEGORY_MISMATCH ("Error", "Child age category mismatch! Parameter '" + PARAM_CHILD_AGE_CATEGORY +
+                "' must match the first character of every response and score parameter"),
+        ERROR_TOO_FEW_RESPONSES ("Error", "Not enough responses provided: need at least " + MIN_NUM_RESPONSES +
+                " matching the regex " + PATTERN_PARAM_ANSWER.pattern()),
+        ERROR_TOO_FEW_SCORES ("Error", "Not enough scores provided: need at least " + MIN_NUM_SCORES +
+                " matching the regex " + PATTERN_PARAM_SCORE.pattern()),
         ERROR_SERVER ("Error", "Server error");
 
         private final String _status;
@@ -46,14 +59,30 @@ public class NbcQuizController implements ReadWriteAnnotationController {
         public String getMessage() {return _message;}
     }
 
+    protected static final String CACHE_NAME = "gs.web.promo.NbcQuizController.Aggregate";
+    protected static final String CACHE_KEY_PREFIX = "aggregate.json.string.";
+    protected static final ReentrantLock DB_LOCK = new ReentrantLock();
     public static final String PARAM_CHILD_AGE = "childAge";
     public static final String PARAM_PARENT_AGE = "parentAge";
     public static final String PARAM_ZIP = "zip";
-    public static final Pattern PATTERN_PARAM_ANSWER = Pattern.compile("^q(\\d+)$");
+    public static final String PARAM_GENDER = "gender";
+    public static final String PARAM_CHILD_AGE_CATEGORY = "type";
+    public static final Pattern PATTERN_PARAM_ANSWER = Pattern.compile("^\\d(bd|m|a)\\d$");
+    public static final Pattern PATTERN_PARAM_SCORE = Pattern.compile("^\\d(bd|m|a)$");
     public static final String KEY_JSON_STATUS = "status";
     public static final String KEY_JSON_MESSAGE = "message";
     public static final String KEY_JSON_AGGREGATE = "aggregate";
+    public static final String KEY_JSON_BRAIN_DEVELOPMENT = "averageBrain";
+    public static final String KEY_JSON_MOTIVATION = "averageMotivation";
+    public static final String KEY_JSON_ACADEMICS = "averageAcademics";
+    /** Minimum number of quiz responses to merit a save.*/
+    public static final int MIN_NUM_RESPONSES = 1;
+    /** Minimum number of scores. 1 for each of the 3 categories */
+    public static final int MIN_NUM_SCORES = 3;
 
+    /** Age of cache in ms */
+    private long _cacheAgeMillis = 60000L;
+    private long _quizId = 1L;
     private IQuizDao _quizDao;
 
     @RequestMapping(method = RequestMethod.POST)
@@ -69,8 +98,11 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     public void submit(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         try {
+            long startTime;
+            startTime = System.currentTimeMillis();
             SaveStatus saveStatus = saveResponses(request); // should not throw or return null
-            JSONObject aggregateData = getAggregate(); // should not throw
+            logDuration(System.currentTimeMillis() - startTime, "Parsing and saving response");
+            JSONObject aggregateData = getAggregate(request.getParameter(PARAM_CHILD_AGE_CATEGORY)); // should not throw
             if (aggregateData != null) {
                 // combine aggregateData with saveStatus and print out
                 JSONObject output = new JSONObject();
@@ -96,16 +128,29 @@ public class NbcQuizController implements ReadWriteAnnotationController {
      */
     public SaveStatus saveResponses(HttpServletRequest request) {
         try {
-            Object quizTaken = parseQuizTaken(request);
-            // _dao.save(quizTaken)
+            QuizTaken quizTaken = parseQuizTaken(request);
+            _quizDao.save(quizTaken);
             return SaveStatus.SUCCESS;
         } catch (ParseQuizTakenException pqte) {
+            _log.warn("Error parsing quiz response: " + pqte.toString());
             return pqte.getSaveStatus();
         } catch (Exception e) {
             // could be thrown by _dao.save
             // In which case there is no meaningful message we can communicate to view, so just log it
-            _log.error("Error saving quiz taken: " + e, e);
+            _log.error("Unexpected error saving quiz taken: " + e, e);
             return SaveStatus.ERROR_SERVER;
+        }
+    }
+
+    protected void addQuizResponse(QuizTaken quizTaken, String key, String value) {
+        if (value != null) {
+            QuizResponse response = new QuizResponse();
+            response.setQuestionKey(key);
+            response.setValue(value);
+            response.setQuizTaken(quizTaken);
+            quizTaken.getQuizResponses().add(response);
+        } else {
+            _log.warn("Question param " + key + " has null value");
         }
     }
 
@@ -118,25 +163,54 @@ public class NbcQuizController implements ReadWriteAnnotationController {
      * @return QuizTaken object containing quiz response, never null
      * @throws ParseQuizTakenException on any error constructing the QuizTaken object
      */
-    public Object parseQuizTaken(HttpServletRequest request) throws ParseQuizTakenException {
-        Object rval = new Object();
+    protected QuizTaken parseQuizTaken(HttpServletRequest request) throws ParseQuizTakenException {
+        QuizTaken quizTaken = new QuizTaken();
+        quizTaken.setQuizId(_quizId);
         // parse static parameters
+        String ageCategory = request.getParameter(PARAM_CHILD_AGE_CATEGORY);
+        if (StringUtils.isBlank(ageCategory)) {
+            throw new ParseQuizTakenException(SaveStatus.ERROR_NO_AGE_CATEGORY);
+        }
         String childAge = request.getParameter(PARAM_CHILD_AGE);
-        if (StringUtils.isBlank(childAge)) { // sample validation
+        if (StringUtils.isBlank(childAge)) {
             throw new ParseQuizTakenException(SaveStatus.ERROR_NO_CHILD_AGE);
         }
-        String parentAge = request.getParameter(PARAM_PARENT_AGE);
-        String zip = request.getParameter(PARAM_ZIP);
+        addQuizResponse(quizTaken, PARAM_CHILD_AGE, childAge);
+        addQuizResponse(quizTaken, PARAM_PARENT_AGE, request.getParameter(PARAM_PARENT_AGE));
+        addQuizResponse(quizTaken, PARAM_ZIP, request.getParameter(PARAM_ZIP));
+        addQuizResponse(quizTaken, PARAM_GENDER, request.getParameter(PARAM_GENDER));
 
         // parse dynamic parameters
         Enumeration paramNames = request.getParameterNames();
+        int numScores = 0;
+        int numResponses = 0;
         while (paramNames.hasMoreElements()) {
             String questionKey = String.valueOf(paramNames.nextElement());
             if (PATTERN_PARAM_ANSWER.matcher(questionKey).matches()) {
-                String questionResponse = request.getParameter(questionKey);
+                if (!StringUtils.equals(ageCategory, questionKey.substring(0, 1))) {
+                    // age category must not vary
+                    throw new ParseQuizTakenException(SaveStatus.ERROR_AGE_CATEGORY_MISMATCH);
+                }
+                addQuizResponse(quizTaken, questionKey, request.getParameter(questionKey));
+                numResponses++;
+            } else if (PATTERN_PARAM_SCORE.matcher(questionKey).matches()) {
+                // for now, scores are identical to quiz responses
+                if (!StringUtils.equals(ageCategory, questionKey.substring(0, 1))) {
+                    // age category must not vary
+                    throw new ParseQuizTakenException(SaveStatus.ERROR_AGE_CATEGORY_MISMATCH);
+                }
+                // TODO: enforce numericality on value
+                addQuizResponse(quizTaken, questionKey, request.getParameter(questionKey));
+                numScores++;
             }
         }
-        return rval;
+        if (numResponses < MIN_NUM_RESPONSES) {
+            throw new ParseQuizTakenException(SaveStatus.ERROR_TOO_FEW_RESPONSES);
+        }
+        if (numScores < MIN_NUM_SCORES) {
+            throw new ParseQuizTakenException(SaveStatus.ERROR_TOO_FEW_SCORES);
+        }
+        return quizTaken;
     }
 
     /**
@@ -145,19 +219,85 @@ public class NbcQuizController implements ReadWriteAnnotationController {
      *
      * @return JSONObject describing aggregate data, or null on error
      */
-    public JSONObject getAggregate() {
+    protected JSONObject getAggregate(String ageCategory) {
+        if (StringUtils.isEmpty(ageCategory)) {
+            _log.error("Must supply a '" + PARAM_CHILD_AGE_CATEGORY + "' param to calculate aggregate");
+            return null;
+        }
+        JSONObject aggregate = null;
         try {
-            // if (cache) return cached aggregate
-            // aggregate = _dao.fetchAggregate()
-            JSONObject aggregate = new JSONObject();
-            // if (aggregate != null) cache(aggregate)
-            aggregate.put("Parent Type A", "80"); // for debugging
-            aggregate.put("Parent Type B", "20"); // for debugging
-            return aggregate;
+            Cache cache = getCache();
+            Element cacheElement = cache.get(CACHE_KEY_PREFIX + ageCategory);
+            // if there is no cache or the cache is expired, attempt to get a concurrency lock to
+            // rebuild the aggregate from the DB
+            if (isExpiredOrNull(cacheElement) && DB_LOCK.tryLock()) {
+                // This code can only reached by a single thread at a time. Other threads get false from tryLock
+                try {
+                    aggregate = getAggregateFromDB(ageCategory);
+                    cacheAggregate(aggregate, ageCategory);
+                } finally {
+                    DB_LOCK.unlock();
+                }
+            } else if (cacheElement != null && cacheElement.getObjectValue() != null) {
+                // Either the cache is fresh or another thread is busy rebuilding the aggregate from the DB.
+                // Either way, let's use the currently cached version if available.
+                try {
+                    aggregate = new JSONObject(cacheElement.getObjectValue().toString(), "UTF-8");
+                } catch (JSONException je) {
+                    _log.error("Error converting cache string to JSONObject. Clearing cache", je);
+                    cache.remove(CACHE_KEY_PREFIX + ageCategory);
+                }
+            } else {
+                // There is no cache and another thread is busy building it
+                // fall through and return null since we have nothing else
+            }
         } catch (Exception e) {
             _log.error("Error constructing aggregate data: " + e, e);
         }
-        return null;
+        return aggregate;
+    }
+
+    /**
+     * Retrieve the aggregate data from the DB and store it in the cache.
+     * @return Fresh JSONObject constructed from the DB
+     */
+    protected JSONObject getAggregateFromDB(String parentType) throws JSONException {
+        long startTime = System.currentTimeMillis();
+        double avgBd = _quizDao.getAverageValue(parentType + "bd");
+        double avgM = _quizDao.getAverageValue(parentType + "m");
+        double avgA = _quizDao.getAverageValue(parentType + "a");
+        JSONObject aggregate = new JSONObject();
+        aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, avgBd);
+        aggregate.put(KEY_JSON_MOTIVATION, avgM);
+        aggregate.put(KEY_JSON_ACADEMICS, avgA);
+        logDuration(System.currentTimeMillis() - startTime, "Fetching aggregate from DB");
+        return aggregate;
+    }
+
+    /**
+     * Returns true if the element is null or if its creationTime is more than CACHE_AGE_MILLIS ago
+     */
+    protected boolean isExpiredOrNull(Element cacheElement) {
+        return cacheElement == null
+                || cacheElement.getObjectValue() == null
+                || cacheElement.getCreationTime() < (System.currentTimeMillis() - _cacheAgeMillis);
+    }
+
+    protected static Cache getCache() {
+        return CacheManager.create().getCache(CACHE_NAME);
+    }
+
+    protected void cacheAggregate(JSONObject aggregate, String parentType) {
+        try {
+            Element cacheElement = new Element(CACHE_KEY_PREFIX + parentType, aggregate.toString());
+            getCache().put(cacheElement);
+        } catch (Exception e) {
+            _log.error("Error saving to ehcache " + CACHE_NAME + ": " + e.toString(), e);
+        }
+    }
+    
+    private void logDuration(long durationInMillis, String eventName) {
+        _log.info(eventName + " took " + durationInMillis + " milliseconds");
     }
 
     public IQuizDao getQuizDao() {
@@ -166,6 +306,22 @@ public class NbcQuizController implements ReadWriteAnnotationController {
 
     public void setQuizDao(IQuizDao quizDao) {
         _quizDao = quizDao;
+    }
+
+    public long getCacheAgeMillis() {
+        return _cacheAgeMillis;
+    }
+
+    public void setCacheAgeMillis(long cacheAgeMillis) {
+        _cacheAgeMillis = cacheAgeMillis;
+    }
+
+    public long getQuizId() {
+        return _quizId;
+    }
+
+    public void setQuizId(long quizId) {
+        _quizId = quizId;
     }
 
     /**

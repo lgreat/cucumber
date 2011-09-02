@@ -26,7 +26,11 @@
                         }
                     });
                     $.post("/nbc/quiz.page", data, function(rval) {
-                        alert("status:" + rval.status + "\nmessage:" + rval.message);
+                        var vals = '';
+                        for (var key in rval.aggregate) {
+                            vals += "\n" + key + ":" + rval.aggregate[key];
+                        }
+                        alert("status:" + rval.status + "\nmessage:" + rval.message + "\naggregate:" + vals);
                     }, "json");
                 });
 
