@@ -98,10 +98,10 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     public void submit(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         try {
-            long startTime;
-            startTime = System.currentTimeMillis();
+//            long startTime;
+//            startTime = System.currentTimeMillis();
             SaveStatus saveStatus = saveResponses(request); // should not throw or return null
-            logDuration(System.currentTimeMillis() - startTime, "Parsing and saving response");
+//            logDuration(System.currentTimeMillis() - startTime, "Parsing and saving response");
             JSONObject aggregateData = getAggregate(request.getParameter(PARAM_CHILD_AGE_CATEGORY)); // should not throw
             if (aggregateData != null) {
                 // combine aggregateData with saveStatus and print out
