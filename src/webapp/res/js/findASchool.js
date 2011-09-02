@@ -179,6 +179,15 @@ GS.findASchool.attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
 GS.findASchool.attachCityAutocomplete = function(queryBoxId) {
     var searchBox = $('#' + queryBoxId);
     var url = "/search/cityAutocomplete.page";
+    var locationFormatter = function(row) {
+        if (row != null && row.length > 0) {
+            var suggestion = row[0];
+            // capitalize first letter of all words but the last
+            // capitalize the entire last word (state)
+            return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
+        }
+        return row;
+    };
     searchBox.autocomplete(url, {
         minChars: 3,
         selectFirst: false,
@@ -187,15 +196,8 @@ GS.findASchool.attachCityAutocomplete = function(queryBoxId) {
         max: 6,
         autoFill: false,
         dataType: "text",
-        formatItem: function(row) {
-            if (row != null && row.length > 0) {
-                var suggestion = row[0];
-                // capitalize first letter of all words but the last
-                // capitalize the entire last word (state)
-                return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
-            }
-            return row;
-        }
+        formatItem: locationFormatter,
+        formatResult: locationFormatter
     });
 };
 
