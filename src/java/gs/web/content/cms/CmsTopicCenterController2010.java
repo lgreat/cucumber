@@ -208,7 +208,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
         // TODO-12049 TOPIC CENTER REDESIGN - temporary, please fix
         if ("true".equals(request.getParameter("redesign"))) {
-            _viewName = "/content/cms/topicCenter2011";
+            return new ModelAndView("/content/cms/topicCenter2011", model);
         }
 
         return new ModelAndView(_viewName, model);
