@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
@@ -288,10 +289,11 @@ public class NbcQuizController implements ReadWriteAnnotationController {
         Double avgBd = averages.get(parentType + "bd");
         Double avgM = averages.get(parentType + "m");
         Double avgA = averages.get(parentType + "a");
+        DecimalFormat decimalFormat = new DecimalFormat("##0.0");
         JSONObject aggregate = new JSONObject();
-        aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, (avgBd != null)?avgBd:0D);
-        aggregate.put(KEY_JSON_MOTIVATION, (avgM != null)?avgM:0D);
-        aggregate.put(KEY_JSON_ACADEMICS, (avgA != null)?avgA:0D);
+        aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, decimalFormat.format((avgBd != null)?avgBd:0D));
+        aggregate.put(KEY_JSON_MOTIVATION, decimalFormat.format((avgM != null)?avgM:0D));
+        aggregate.put(KEY_JSON_ACADEMICS, decimalFormat.format((avgA != null)?avgA:0D));
         logDuration(System.currentTimeMillis() - startTime, "Fetching aggregate from DB for type '" + parentType + "'");
         return aggregate;
     }
