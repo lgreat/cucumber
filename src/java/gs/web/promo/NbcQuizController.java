@@ -4,6 +4,7 @@ import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.promo.IQuizDao;
 import gs.data.promo.QuizResponse;
+import gs.data.promo.QuizScore;
 import gs.data.promo.QuizTaken;
 import gs.web.util.ReadWriteAnnotationController;
 import net.sf.ehcache.Cache;
@@ -83,7 +84,7 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     public static final int MIN_NUM_SCORES = 3;
 
     /** Age of cache in ms */
-    private long _cacheAgeMillis = 60000L;
+    private long _cacheAgeMillis = 5000L;
     private long _quizId = 1L;
     private IQuizDao _quizDao;
 
@@ -156,6 +157,14 @@ public class NbcQuizController implements ReadWriteAnnotationController {
         }
     }
 
+    protected void addQuizScore(QuizTaken quizTaken, String category, double value) {
+        QuizScore score = new QuizScore();
+        score.setCategory(category);
+        score.setScore(value);
+        score.setQuizTaken(quizTaken);
+        quizTaken.getQuizScores().add(score);
+    }
+
     /**
      * parse static parameters
      * parse dynamic parameters
@@ -203,9 +212,9 @@ public class NbcQuizController implements ReadWriteAnnotationController {
                     throw new ParseQuizTakenException(SaveStatus.ERROR_AGE_CATEGORY_MISMATCH);
                 }
                 try {
-                    Float parsedScore = Float.parseFloat(questionValue);
-                    if (parsedScore >= 0.0F && parsedScore <= 100.0F) {
-                        addQuizResponse(quizTaken, questionKey, questionValue);
+                    Double parsedScore = Double.parseDouble(questionValue);
+                    if (parsedScore >= 0.0D && parsedScore <= 100.0D) {
+                        addQuizScore(quizTaken, questionKey, parsedScore);
                         numScores++;
                     } else {
                         throw new ParseQuizTakenException(SaveStatus.ERROR_INVALID_SCORE);
@@ -274,16 +283,16 @@ public class NbcQuizController implements ReadWriteAnnotationController {
      */
     protected JSONObject getAggregateFromDB(String parentType) throws JSONException {
         long startTime = System.currentTimeMillis();
-        Map<String, Double> averages = _quizDao.getAverageValues
+        Map<String, Double> averages = _quizDao.getAverageScores
                 (new String[] {parentType + "bd", parentType + "m", parentType + "a"});
-        double avgBd = averages.get(parentType + "bd");
-        double avgM = averages.get(parentType + "m");
-        double avgA = averages.get(parentType + "a");
+        Double avgBd = averages.get(parentType + "bd");
+        Double avgM = averages.get(parentType + "m");
+        Double avgA = averages.get(parentType + "a");
         JSONObject aggregate = new JSONObject();
-        aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, avgBd);
-        aggregate.put(KEY_JSON_MOTIVATION, avgM);
-        aggregate.put(KEY_JSON_ACADEMICS, avgA);
-        logDuration(System.currentTimeMillis() - startTime, "Fetching aggregate from DB");
+        aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, (avgBd != null)?avgBd:0D);
+        aggregate.put(KEY_JSON_MOTIVATION, (avgM != null)?avgM:0D);
+        aggregate.put(KEY_JSON_ACADEMICS, (avgA != null)?avgA:0D);
+        logDuration(System.currentTimeMillis() - startTime, "Fetching aggregate from DB for type '" + parentType + "'");
         return aggregate;
     }
 
