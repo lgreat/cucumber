@@ -84,7 +84,7 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     public static final int MIN_NUM_SCORES = 3;
 
     /** Age of cache in ms */
-    private long _cacheAgeMillis = 5000L;
+    private long _cacheAgeMillis = 60000L;
     private long _quizId = 1L;
     private IQuizDao _quizDao;
 
