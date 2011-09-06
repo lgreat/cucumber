@@ -17,6 +17,7 @@
         <script type="text/javascript">
             $(function() {
                 $("#go").click(function() {
+                    var postUrl = "/nbc/quiz.page"; // temporary URL for testing
                     var data = {};
                     $('#fields li').each(function() {
                         var key = $(this).find("input:eq(0)");
@@ -26,11 +27,29 @@
                         }
                     });
                     $.post("/nbc/quiz.page", data, function(rval) {
-                        var vals = '';
-                        for (var key in rval.aggregate) {
-                            vals += "\n" + key + ":" + rval.aggregate[key];
+                        var avgAcad = -1, avgMot = -1, avgBrain = -1, saveStatus = '', saveMsg = '';
+                        try {
+                            saveStatus = rval.status;
+                            saveMsg = rval.message;
+                            avgAcad = parseFloat(rval.aggregate['averageAcademics']);
+                            avgMot = parseFloat(rval.aggregate['averageMotivation']);
+                            avgBrain = parseFloat(rval.aggregate['averageBrain']);
+                        } catch (e) {
+                            alert("Error parsing aggregate response: " + e.message);
                         }
-                        alert("status:" + rval.status + "\nmessage:" + rval.message + "\naggregate:" + vals);
+                        if (avgAcad > -1 &amp;&amp; avgMot > -1 &amp;&amp; avgBrain > -1) {
+                            // Display aggregate data to user
+                            var msg = '';
+                            if (saveStatus == 'Success') {
+                                msg += "Quiz save successful\n\n";
+                            } else {
+                                msg += "Quiz save failed: " + saveMsg + "\n\n";
+                            }
+                            msg += "Average academics score: " + avgAcad + "%\n";
+                            msg += "Average motivation score: " + avgMot + "%\n";
+                            msg += "Average brain development score: " + avgBrain + "%\n";
+                            alert(msg);
+                        }
                     }, "json");
                 });
 
@@ -47,7 +66,12 @@
     <div>
         <label>Form fields:</label>
         <ul id="fields" style="list-style: none;">
-            <li><input type="text" value="childAge"/> : <input type="text"/></li>
+            <li><input type="text" value="type"/> : <input type="text" value="1"/></li>
+            <li><input type="text" value="childAge"/> : <input type="text" value="0-3"/></li>
+            <li><input type="text" value="1bd1"/> : <input type="text" value="1"/></li>
+            <li><input type="text" value="1bd"/> : <input type="text" value="50"/></li>
+            <li><input type="text" value="1a"/> : <input type="text" value="50"/></li>
+            <li><input type="text" value="1m"/> : <input type="text" value="50"/></li>
         </ul>
         <button id="add" type="button">Add field</button>
         <br/>

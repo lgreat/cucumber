@@ -74,7 +74,7 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
     }
 
     public void testParseQuizTakenNoType() {
-        // Test that no child age field results in an exception
+        // Test that no type field results in an exception
 
         replayAllMocks();
         try {
@@ -82,6 +82,20 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
             fail("Expect validation error when no parameters supplied");
         } catch (NbcQuizController.ParseQuizTakenException pqte) {
             assertEquals(ERROR_NO_AGE_CATEGORY, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
+
+    public void testParseQuizTakenNoChildAge() {
+        setValidStaticFieldsOnRequest();
+        getRequest().removeParameter("childAge");
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("Expect validation error when no childAge parameter supplied");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(ERROR_NO_CHILD_AGE, pqte.getSaveStatus());
         }
         verifyAllMocks();
     }
@@ -101,22 +115,111 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
         verifyAllMocks();
     }
 
-//    public void testParseQuizTakenTypeConversionFailure() {
-//        // DELETE THIS TEST IF NO TYPE CONVERSION OCCURS
-//        // Test that a failure converting a request param into another type is thrown
-//
-//        // TODO set some fields on request, including one that is typed incorrectly
-//
-//        replayAllMocks();
-//        try {
-//            _controller.parseQuizTaken(getRequest());
-//            fail("Error converting parameter should throw exception");
-//        } catch (NbcQuizController.ParseQuizTakenException pqte) {
-//            // TODO assert that the save status is the right one
-//            //assertEquals(NbcQuizController.SaveStatus.??, pqte.getSaveStatus());
-//        }
-//        verifyAllMocks();
-//    }
+    public void testParseQuizTakenScoreOutOfRange() {
+        setValidStaticFieldsOnRequest();
+        getRequest().setParameter("1bd", "0.0");
+        getRequest().setParameter("1a", "66.7");
+        getRequest().setParameter("1m", "100.1");
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("Out of range score parameter should throw exception");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(SaveStatus.ERROR_INVALID_SCORE, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
+
+    public void testParseQuizTakenScoreNonNumeric() {
+        setValidStaticFieldsOnRequest();
+        getRequest().setParameter("1bd", "0.0");
+        getRequest().setParameter("1a", "66.7");
+        getRequest().setParameter("1m", "ninety-nine");
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("Out of range score parameter should throw exception");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(SaveStatus.ERROR_INVALID_SCORE, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
+
+    public void testParseQuizTakenTooFewScores() {
+        setValidStaticFieldsOnRequest();
+        getRequest().setParameter("1bd1", "1");
+        getRequest().setParameter("1a1", "1");
+        getRequest().setParameter("1m1", "1");
+        getRequest().setParameter("1bd", "1");
+        getRequest().setParameter("1m", "1");
+        // missing 1a
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("Only 2  scores provided should throw exception");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(SaveStatus.ERROR_TOO_FEW_SCORES, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
+
+    public void testParseQuizTakenNoScores() {
+        setValidStaticFieldsOnRequest();
+        getRequest().setParameter("1bd1", "1");
+        getRequest().setParameter("1a1", "1");
+        getRequest().setParameter("1m1", "1");
+        // missing 1a
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("No scores provided should throw exception");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(SaveStatus.ERROR_TOO_FEW_SCORES, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
+
+    public void testParseQuizTakenTypeMismatchQuestion() {
+        setValidStaticFieldsOnRequest();
+        getRequest().setParameter("1bd1", "1");
+        getRequest().setParameter("1a1", "1");
+        getRequest().setParameter("2m1", "1"); // wrong age type
+        getRequest().setParameter("1bd", "0.0");
+        getRequest().setParameter("1a", "66.7");
+        getRequest().setParameter("1m", "100.0");
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("No scores provided should throw exception");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(SaveStatus.ERROR_AGE_CATEGORY_MISMATCH, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
+
+    public void testParseQuizTakenTypeMismatchScore() {
+        setValidStaticFieldsOnRequest();
+        getRequest().setParameter("1bd1", "1");
+        getRequest().setParameter("1a1", "1");
+        getRequest().setParameter("1m1", "1");
+        getRequest().setParameter("1bd", "0.0");
+        getRequest().setParameter("2a", "66.7"); // wrong age type
+        getRequest().setParameter("1m", "100.0");
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("No scores provided should throw exception");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(SaveStatus.ERROR_AGE_CATEGORY_MISMATCH, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
 
     public void testParseQuizTaken() {
         // Test that a valid set of response fields results in a return value

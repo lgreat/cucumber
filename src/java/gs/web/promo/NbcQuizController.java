@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 
@@ -40,6 +41,7 @@ public class NbcQuizController implements ReadWriteAnnotationController {
                 " matching the regex " + PATTERN_PARAM_ANSWER.pattern()),
         ERROR_TOO_FEW_SCORES ("Error", "Not enough scores provided: need at least " + MIN_NUM_SCORES +
                 " matching the regex " + PATTERN_PARAM_SCORE.pattern()),
+        ERROR_INVALID_SCORE ("Error", "Scores must be numeric values in the range 0.0-100.0"),
         ERROR_SERVER ("Error", "Server error");
 
         private final String _status;
@@ -186,12 +188,13 @@ public class NbcQuizController implements ReadWriteAnnotationController {
         int numResponses = 0;
         while (paramNames.hasMoreElements()) {
             String questionKey = String.valueOf(paramNames.nextElement());
+            String questionValue = request.getParameter(questionKey);
             if (PATTERN_PARAM_ANSWER.matcher(questionKey).matches()) {
                 if (!StringUtils.equals(ageCategory, questionKey.substring(0, 1))) {
                     // age category must not vary
                     throw new ParseQuizTakenException(SaveStatus.ERROR_AGE_CATEGORY_MISMATCH);
                 }
-                addQuizResponse(quizTaken, questionKey, request.getParameter(questionKey));
+                addQuizResponse(quizTaken, questionKey, questionValue);
                 numResponses++;
             } else if (PATTERN_PARAM_SCORE.matcher(questionKey).matches()) {
                 // for now, scores are identical to quiz responses
@@ -199,9 +202,17 @@ public class NbcQuizController implements ReadWriteAnnotationController {
                     // age category must not vary
                     throw new ParseQuizTakenException(SaveStatus.ERROR_AGE_CATEGORY_MISMATCH);
                 }
-                // TODO: enforce numericality on value
-                addQuizResponse(quizTaken, questionKey, request.getParameter(questionKey));
-                numScores++;
+                try {
+                    Float parsedScore = Float.parseFloat(questionValue);
+                    if (parsedScore >= 0.0F && parsedScore <= 100.0F) {
+                        addQuizResponse(quizTaken, questionKey, questionValue);
+                        numScores++;
+                    } else {
+                        throw new ParseQuizTakenException(SaveStatus.ERROR_INVALID_SCORE);
+                    }
+                } catch (NumberFormatException nfe) {
+                    throw new ParseQuizTakenException(SaveStatus.ERROR_INVALID_SCORE);
+                }
             }
         }
         if (numResponses < MIN_NUM_RESPONSES) {
@@ -263,9 +274,11 @@ public class NbcQuizController implements ReadWriteAnnotationController {
      */
     protected JSONObject getAggregateFromDB(String parentType) throws JSONException {
         long startTime = System.currentTimeMillis();
-        double avgBd = _quizDao.getAverageValue(parentType + "bd");
-        double avgM = _quizDao.getAverageValue(parentType + "m");
-        double avgA = _quizDao.getAverageValue(parentType + "a");
+        Map<String, Double> averages = _quizDao.getAverageValues
+                (new String[] {parentType + "bd", parentType + "m", parentType + "a"});
+        double avgBd = averages.get(parentType + "bd");
+        double avgM = averages.get(parentType + "m");
+        double avgA = averages.get(parentType + "a");
         JSONObject aggregate = new JSONObject();
         aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, avgBd);
         aggregate.put(KEY_JSON_MOTIVATION, avgM);
