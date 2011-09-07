@@ -16,88 +16,180 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <title></title>
+        <c:choose>
+            <c:when test="${not empty topicCenter.pageTitle}">
+                <c:set var="pageTitle">${topicCenter.pageTitle}</c:set>
+            </c:when>
+            <c:otherwise>
+                <c:set var="pageTitle">${topicCenter.title}</c:set>
+            </c:otherwise>
+        </c:choose>
+        <title>${pageTitle} | GreatSchools</title>
     </head>
 
     <body>
 
-    <div class="container_24">
+    <div id="mainGS" class="col">
 
-        <div class="grid_16">
+        <h1 class="fltlft">${topicCenter.title}</h1>
 
-            DISPLAY FEATURED ARTICLES MODULE: ${topicCenter.displayFeaturedArticlesModule}<br/>
-            DISPLAY MOST POPULAR TAB: ${topicCenter.displayMostPopularTab}<br/>
-            MOST POPULAR TAB NAME: ${topicCenter.mostPopularTabName}<br/>
+        <!--Start Top Story Box-->
+        <div>
+            <gsml:img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
 
-            <br/>
-
-            <p>
-                TOP STORY MAIN ITEM:<br/>
-                image: ${topicCenter.imageUrl}<br/>
-                image alt text: ${topicCenter.imageAltText}<br/>
-                url: ${topicCenter.mainFeatureLink.url}<br/>
-                title: ${topicCenter.mainFeatureLink.title}<br/>
-                description: ${topicCenter.mainFeatureLink.description}<br/>
-            </p>
-
-            TOP STORY OTHER ITEMS:<br/>
-            <c:forEach var="link" items="${topicCenter.otherFeatureLinks}" varStatus="status">
-                ITEM ${status.count}:<br/>
-                url: ${link.url}<br/>
-                title: ${link.title}<br/>
-                description: ${link.description}<br/>
+            <h2>${topicCenter.mainFeatureLink.title}</h2>
+            ${topicCenter.mainFeatureLink.description}
+            <a href="${topicCenter.mainFeatureLink.url}">more &gt;&gt;</a>
+            <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
+                <ul>
+                    <li><a href="${otherFeatureLink.url}"></a>${otherFeatureLink.title}</li>
+                </ul>
             </c:forEach>
-            <br/>
-
-            FEATURED ARTICLES MODULE:<br/>
-            <c:forEach var="link" items="${topicCenter.featuredArticlesModuleLinks}" varStatus="status">
-                ITEM ${status.count}:<br/>
-                url: ${link.url}<br/>
-                imageUrl: ${link.imageUrl}<br/>
-                imageAltText: ${link.imageAltText}<br/>
-                alternateImageUrl: ${link.alternateImageUrl}<br/>
-                alternateImageAltText: ${link.alternateImageAltText}<br/>
-                description: ${link.description}<br/>
-                category: ${link.kategory.name}<br/>
-            </c:forEach>
-            <br/>
-
-            FEATURED ARTICLES LIST:<br/>
-            <c:forEach var="link" items="${topicCenter.featuredArticlesLinks}" varStatus="status">
-                ITEM ${status.count}:<br/>
-                url: ${link.url}<br/>
-                imageUrl: ${link.imageUrl}<br/>
-                imageAltText: ${link.imageAltText}<br/>
-                description: ${link.description}<br/>
-                category: ${link.kategory.name}<br/>
-            </c:forEach>
-            <br/>
-
-            MOST POPULAR MODULE:<br/>
-            <c:forEach var="link" items="${topicCenter.mostPopularModuleLinks}" varStatus="status">
-                ITEM ${status.count}:<br/>
-                url: ${link.url}<br/>
-                imageUrl: ${link.imageUrl}<br/>
-                imageAltText: ${link.imageAltText}<br/>
-                alternateImageUrl: ${link.alternateImageUrl}<br/>
-                alternateImageAltText: ${link.alternateImageAltText}<br/>
-                description: ${link.description}<br/>
-                category: ${link.kategory.name}<br/>
-            </c:forEach>
-            <br/>
-
-            MOST POPULAR LIST:<br/>
-            <c:forEach var="link" items="${topicCenter.mostPopularLinks}" varStatus="status">
-                ITEM ${status.count}:<br/>
-                url: ${link.url}<br/>
-                imageUrl: ${link.imageUrl}<br/>
-                imageAltText: ${link.imageAltText}<br/>
-                description: ${link.description}<br/>
-                category: ${link.kategory.name}<br/>
-            </c:forEach>
-            <br/>
-
         </div>
+        <!--Start Top Story Box-->
+        <br/>
+        <br/>
+        <br/>
+
+        <!--Start Features Articles Tab-->
+        <div>
+            <div>Featured articles</div>
+            <!-- Start Featured Article Module-->
+            <c:set var="featuredArticlesModuleLinks" value="${topicCenter.featuredArticlesModuleLinks}"/>
+            <!-- Show the module links only if min of 3 and show only max of 4 links -->
+            <c:if test="${topicCenter.displayFeaturedArticlesModule and featuredArticlesModuleLinks != null and fn:length(featuredArticlesModuleLinks) >=3 }">
+                <div>
+                    <c:forEach var="link" items="${featuredArticlesModuleLinks}" varStatus="status">
+                        <br/>
+                        <br/>
+                        <!-- First article in module link is treated differently -->
+                        <c:if test="${status.count==1}">
+                            <gsml:img src="${link.alternateImageUrl}" alt="${link.alternateImageAltText}"/>
+
+                            <p>${link.kategory.name}</p>
+
+                            <a href="${link.url}">${link.linkText}</a>
+
+                            <p>${link.description}</p>
+                        </c:if>
+                        <c:if test="${status.count gt 1 and status.count le 4}">
+                            <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                            <p><a href="${link.url}">${link.linkText}</a></p>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </c:if>
+            <!--End Featured Article Module-->
+            <!--Start Featured Article list-->
+            <br/>
+            <br/>
+            <ul>
+                <c:forEach var="link" items="${topicCenter.featuredArticlesLinks}">
+                    <li>
+                        <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                        <p>${link.kategory.name}</p>
+                        <a href="${link.url}">${link.linkText}</a>
+
+                        <p>${link.description}</p>
+
+                    </li>
+                </c:forEach>
+            </ul>
+            <!--End Featured Article list-->
+        </div>
+        <!--End Features Articles Tab-->
+
+        <br/>
+        <br/>
+
+        <!--Start Most popular Tab-->
+        <c:if test="${topicCenter.displayMostPopularTab}">
+            <div>
+                <div>${topicCenter.mostPopularTabName}</div>
+                <!-- Start Most Popular Module-->
+                <c:set var="mostPopularModuleLinks" value="${topicCenter.mostPopularModuleLinks}"/>
+                <!-- Show the module links only if min of 3 and show only max of 4 links -->
+                <c:if test="${topicCenter.displayMostPopularModule and mostPopularModuleLinks != null and fn:length(mostPopularModuleLinks) >=3 }">
+                    <div>
+                        <c:forEach var="link" items="${mostPopularModuleLinks}" varStatus="status">
+                            <br/>
+                            <br/>
+                            <!-- First article in module link is treated differently -->
+                            <c:if test="${status.count==1}">
+                                <gsml:img src="${link.alternateImageUrl}" alt="${link.alternateImageAltText}"/>
+
+                                <p>${link.kategory.name}</p>
+
+                                <a href="${link.url}">${link.linkText}</a>
+
+                                <p>${link.description}</p>
+                            </c:if>
+                            <c:if test="${status.count gt 1 and status.count le 4}">
+                                <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                                <p><a href="${link.url}">${link.linkText}</a></p>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                </c:if>
+                <!--End Most Popular Module-->
+                <br/>
+                <br/>
+                <!--Start Most Popular list-->
+                <ul>
+                    <c:forEach var="link" items="${topicCenter.mostPopularLinks}">
+                        <li>
+                            <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                            <p>${link.kategory.name}</p>
+                            <a href="${link.url}">${link.linkText}</a>
+
+                            <p>${link.description}</p>
+
+                        </li>
+                    </c:forEach>
+                </ul>
+                <!--End Most Popular list-->
+            </div>
+        </c:if>
+        <!--End Most popular Tab-->
+
+        <!--Start Carousels-->
+        <c:choose>
+            <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
+                <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
+                                           items="${requestScope.videoCarouselItems}" minItems="4"/>
+                <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                      items="${requestScope.carouselItems}" minItems="4"/>
+            </c:when>
+            <c:otherwise>
+                <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                      items="${requestScope.carouselItems}" minItems="4"/>
+                <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
+                                           items="${requestScope.videoCarouselItems}" minItems="4"/>
+            </c:otherwise>
+        </c:choose>
+        <!--End Carousels-->
+
+        <!-- Start Sub Topics Bar -->
+        <div id="topicContentGS" class="clearfix">
+
+            <div id="topicbarGS" class="col">
+                <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+
+            </div>
+        </div>
+        <!-- End Sub Topics Bar -->
+
+
+        <!-- start right sidebarGS -->
+        <div id="sidebarGS" class="col">
+            <cms:topicCenterSidebar topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}" isNewTopicCenterPage="${true}"/>
+        </div>
+        <!-- end right sidebarGS -->
+
 
     </div>
 

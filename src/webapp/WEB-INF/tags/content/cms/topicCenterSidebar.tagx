@@ -12,6 +12,13 @@
     <jsp:directive.attribute name="topicCenter" required="true" type="gs.data.content.cms.CmsTopicCenter"/>
     <jsp:directive.attribute name="adSlotPrefix" required="false" description="To use the appropriate ad slot prefix in compare module."/>
 
+    <!--GS-12049.This topicCenterSidebar.tagx is used in video gallery,worksheet gallery and old and new topic center pages.
+     This attribute is used in order to ensure that raise your hand is not included 2 times on old topic center pages
+     and also to make sure that the article search module is not included on gallery pages.-->
+    <jsp:directive.attribute name="isNewTopicCenterPage" required="false" type="java.lang.Boolean"
+            description="This tag is used in gallery pages and old and new topic center pages.This attribute tells us
+            if it is the new topic center page."/>
+
     <c:set var="ad300x250">
         <ad:AboveFold_300x250/>
     </c:set>
@@ -126,7 +133,20 @@
                                 cityHeadingPrefix="${cityHeadingPrefix}"
                     />
         </c:when>
-        <c:otherwise><!-- do not display either module if not p, e, m, or h --></c:otherwise>
+        <c:otherwise>
+            <c:if test="${isNewTopicCenterPage}">
+                <!-- Start Article and community Search -->
+                <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
+                            action="/search/contentSearch.page">
+
+                    <input type="text" name="q" value="Search by keyword"
+                           onfocus="GS_textSwitch(this, '', 'Search by keyword');"
+                           onblur="GS_textSwitch(this, 'Search by keyword', '');"/>
+                    <button type="submit" class="button-1">GO</button>
+                </gsweb:form>
+                <!-- End Article and community Search -->
+            </c:if>
+        </c:otherwise>
     </c:choose>
 
     <c:choose>
@@ -145,4 +165,14 @@
     </c:if>
 
     <ad:BelowFold_Top_300x125/>
+
+    <c:if test="${isNewTopicCenterPage}">
+
+        <c:set var="raiseYourHand">
+            <c:import
+                    url="/community/raiseYourHandSidebar.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=1&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
+        </c:set>
+        ${raiseYourHand}
+    </c:if>
+
 </jsp:root>

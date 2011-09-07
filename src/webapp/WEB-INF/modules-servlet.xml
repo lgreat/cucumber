@@ -129,6 +129,12 @@
         <property name="viewName" value="/community/raiseYourHand"/>
     </bean>
 
+    <bean name="/community/raiseYourHandSidebar.module"
+          class="gs.web.community.RaiseYourHandController"
+          autowire="byName">
+        <property name="viewName" value="/community/raiseYourHandSidebar"/>
+    </bean>
+
     <bean name="/community/raiseYourHandRecentQuestions.module"
           class="gs.web.community.RaiseYourHandRecentQuestionsController"
           autowire="byName">
