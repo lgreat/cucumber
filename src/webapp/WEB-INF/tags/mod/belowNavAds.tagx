@@ -11,7 +11,7 @@
         <!-- ssprouse 2011-09-07 overwrite jQuery's version number, in order to lie to the INGDirect overlay
         ad / Doubleclick so that it won't download jQuery 1.4.4 which currently breaks our site. Remove after upgrading
         jQuery. -->
-        <script language="text/javascript">
+        <script type="text/javascript">
             jQuery.fn.jquery = "1.4.4"
         </script>
         <ad:adTag position="Custom_Welcome_Ad"/>
