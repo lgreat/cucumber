@@ -24,7 +24,7 @@
     <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 8') ? 'ie8' : ''}"/>
     <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 9') ? 'ie9' : ''}"/>
     <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 10') ? 'ie10' : ''}"/>
-    <c:set var="browserClass" value="${fn:contains(agent, 'firefox') ? 'ff ' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox') ? 'ff ' : ''}"/>
     <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/3') ? 'ff3' : ''}"/>
     <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/4') ? 'ff4' : ''}"/>
     <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/5') ? 'ff5' : ''}"/>
