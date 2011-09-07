@@ -9,7 +9,20 @@
 
     <c:set var="numCarouselItems" value="${fn:length(pageScope.items)}"/>
     <!--<p>Number of carousel items: <c:out value="${numCarouselItems}" default="not set"/></p>-->
-    <c:if test="${not empty pageScope.name and not empty pageScope.items and ((not empty pageScope.minItems and numCarouselItems ge minItems) or numCarouselItems ge 3)}">
+    <c:choose>
+        <c:when test="${not empty pageScope.minItems}">
+            <c:if test="${not empty pageScope.name and not empty pageScope.items and (not empty pageScope.minItems and numCarouselItems ge minItems)}">
+                <c:set var="showCarousel" value="${true}"/>
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <c:if test="${not empty pageScope.name and not empty pageScope.items and  numCarouselItems ge 3}">
+                <c:set var="showCarousel" value="${true}"/>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+
+    <c:if test="${showCarousel}">
 
         <div class="infiniteCarousel1">
             <h3 class="ic_title title2-d61">${pageScope.name}</h3>
