@@ -135,6 +135,7 @@
                 <entry key="/backToSchool/pledge/getNumPledgesByCity.page" value="pledgeAPIController"/>
                 <entry key="/backToSchool/pledge/submitDefaultPledge.page" value="pledgeAPIController"/>
                 <entry key="/backToSchool/pledge/submitPersonalPledge.page" value="pledgeAPIController"/>
+                <entry key="/nbc/quiz.page" value="nbcQuizController"/>
             </map>
         </property>
     </bean>
@@ -2614,6 +2615,12 @@
         <property name="viewName">
             <value>/school/findASchool</value>
         </property>
+    </bean>
+
+    <bean name="nbcQuizController"
+          class="gs.web.promo.NbcQuizController" lazy-init="true" autowire="byName">
+        <property name="cacheAgeMillis" value="60000"/>
+        <property name="quizId" value="1"/>
     </bean>
 
 </beans>

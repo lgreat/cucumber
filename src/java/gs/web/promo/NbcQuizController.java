@@ -6,16 +6,15 @@ import gs.data.promo.IQuizDao;
 import gs.data.promo.QuizResponse;
 import gs.data.promo.QuizScore;
 import gs.data.promo.QuizTaken;
-import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.ReadWriteController;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,9 +27,7 @@ import java.util.regex.Pattern;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
-@Controller
-@RequestMapping("/nbc/quiz.page")
-public class NbcQuizController implements ReadWriteAnnotationController {
+public class NbcQuizController extends AbstractController implements ReadWriteController {
     protected static final Log _log = LogFactory.getLog(NbcQuizController.class);
 
     protected enum SaveStatus {
@@ -86,11 +83,20 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     public static final int MIN_NUM_SCORES = 3;
 
     /** Age of cache in ms */
-    private long _cacheAgeMillis = 60000L;
-    private long _quizId = 1L;
+    private long _cacheAgeMillis = 60000L; // default value, overridden by spring configuration
+    private long _quizId = 1L; // default value, overridden by spring configuration
     private IQuizDao _quizDao;
 
-    @RequestMapping(method = RequestMethod.POST)
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+                                                 HttpServletResponse response) throws Exception {
+        if (StringUtils.equalsIgnoreCase("post", request.getMethod())) {
+            submit(request, response);
+        }
+        return null;
+    }
+
     /**
      * saveStatus = saveResponse
      * getAggregate
