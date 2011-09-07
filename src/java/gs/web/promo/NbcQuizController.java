@@ -79,6 +79,7 @@ public class NbcQuizController implements ReadWriteAnnotationController {
     public static final String KEY_JSON_BRAIN_DEVELOPMENT = "averageBrain";
     public static final String KEY_JSON_MOTIVATION = "averageMotivation";
     public static final String KEY_JSON_ACADEMICS = "averageAcademics";
+    public static final String KEY_JSON_COUNT = "count";
     /** Minimum number of quiz responses to merit a save.*/
     public static final int MIN_NUM_RESPONSES = 1;
     /** Minimum number of scores. 1 for each of the 3 categories */
@@ -112,6 +113,7 @@ public class NbcQuizController implements ReadWriteAnnotationController {
                 JSONObject output = new JSONObject();
                 output.put(KEY_JSON_AGGREGATE, aggregateData);
                 saveStatus.writeToJSON(output);
+                addCountToOutput(output);
                 output.write(response.getWriter()); // throws on error writing to response
             } else {
                 // no aggregate means return 500
@@ -121,6 +123,14 @@ public class NbcQuizController implements ReadWriteAnnotationController {
             // there was a failure writing out. Return a 500
             response.setStatus(500);
             _log.error("Error writing to response: " + e, e);
+        }
+    }
+
+    protected void addCountToOutput(JSONObject output) {
+        try {
+            output.put(KEY_JSON_COUNT, _quizDao.getCountQuizTaken());
+        } catch (Exception e) {
+            _log.error("Error adding count(quiz_taken) to output: " + e, e);
         }
     }
 
