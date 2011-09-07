@@ -17,33 +17,30 @@
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
-    <c:set var="browserClass">
-        ${fn:contains(agent, 'msie') ? "ie " : ""}
-        ${fn:contains(agent, 'msie 6') ? "ie6 " : ""}
-        ${fn:contains(agent, 'msie 7') ? "ie7 " : ""}
-        ${fn:contains(agent, 'msie 8') ? "ie8 " : ""}
-        ${fn:contains(agent, 'msie 9') ? "ie9 " : ""}
-        ${fn:contains(agent, 'msie 10') ? "ie10 " : ""}
-        ${fn:contains(agent, 'firefox') ? "ff " : ""}
-        ${fn:contains(agent, 'firefox/3') ? "ff3 " : ""}
-        ${fn:contains(agent, 'firefox/4') ? "ff4 " : ""}
-        ${fn:contains(agent, 'firefox/5') ? "ff5 " : ""}
-        ${fn:contains(agent, 'firefox/6') ? "ff6 " : ""}
-        ${fn:contains(agent, 'version') ? "safari " : ""}
-        ${fn:contains(agent, 'chrome') ? "chrome " : ""}
-    </c:set>
-    <c:set var="osClass">
-        ${fn:contains(agent, 'macintosh') ? "mac" : ""}
-        ${fn:contains(agent, 'windows') ? "win" : ""}
-    </c:set>
-    <c:set var="bodyClass">
-        ${requestScope.context.cobranded ? "cobranded" : "www"}
-        ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""}
-        ${requestScope.pageHelper.framed ? 'framed':'unframed'}
-        ${requestScope.pageLayout}
-        ${osClass}
-        ${browserClass}
-    </c:set>
+
+    <c:set var="browserClass" value="${fn:contains(agent, 'msie') ? 'ie ' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 6') ? 'ie6' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 7') ? 'ie7' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 8') ? 'ie8' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 9') ? 'ie9' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 10') ? 'ie10' : ''}"/>
+    <c:set var="browserClass" value="${fn:contains(agent, 'firefox') ? 'ff ' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/3') ? 'ff3' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/4') ? 'ff4' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/5') ? 'ff5' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/6') ? 'ff6' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'version') ? 'safari' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'chrome') ? 'chrome' : ''}"/>
+
+    <c:set var="osClass" value="${fn:contains(agent, 'macintosh') ? 'mac ' : ''}"/>
+    <c:set var="osClass" value="${osClass}${fn:contains(agent, 'windows') ? 'win ' : ''}"/>
+
+    <c:set var="scopeClass" value="${requestScope.context.cobranded ? 'cobranded ' : 'www'}"/>
+    <c:set var="scopeClass" value="${scopeClass}${requestScope.context.cobranded ?  requestScope.context.cobrand : ''}"/>
+    <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageHelper.framed ? 'framed' : 'unframed'}"/>
+    <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageLayout}"/>
+
+    <c:set var="bodyClass" value="${scopeClass}${osClass}${browserClass}"/>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <jsp:output doctype-root-element="html"
