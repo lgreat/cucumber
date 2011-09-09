@@ -12,48 +12,131 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0">
-    <html lang="en">
-    <jsp:directive.page contentType="text/html"/>
+<html lang="en">
+<jsp:directive.page contentType="text/html"/>
+<c:set var="pageName" value="${omnitureTopicCenterName} Landing Page" scope="request"/>
 
-    <head>
-        <c:choose>
-            <c:when test="${not empty topicCenter.pageTitle}">
-                <c:set var="pageTitle">${topicCenter.pageTitle}</c:set>
-            </c:when>
-            <c:otherwise>
-                <c:set var="pageTitle">${topicCenter.title}</c:set>
-            </c:otherwise>
-        </c:choose>
-        <title>${pageTitle} | GreatSchools</title>
-    </head>
+<head>
+    <c:choose>
+        <c:when test="${not empty topicCenter.pageTitle}">
+            <c:set var="pageTitle">${topicCenter.pageTitle}</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pageTitle">${topicCenter.title}</c:set>
+        </c:otherwise>
+    </c:choose>
+    <title>${pageTitle} | GreatSchools</title>
 
-    <body>
+    <meta name="description" content="${topicCenter.metaDescription}"/>
+    <meta name="keywords" content="${topicCenter.metaKeywords}"/>
 
-    <div id="mainGS" class="col">
+    <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter2011.js"/>
 
-        <h1 class="fltlft">${topicCenter.title}</h1>
+    <c:choose>
+        <c:when test="${topicCenter.healthAndDevelopmentTopicCenter}">
+            <pageHelper:setPathway pathway="HEALTH_AND_DEVELOPMENT"/>
+        </c:when>
+        <c:when test="${topicCenter.academicsAndActivitiesTopicCenter}">
+            <pageHelper:setPathway pathway="ACADEMICS_AND_ACTIVITIES"/>
+        </c:when>
+        <c:when test="${topicCenter.specialEducationTopicCenter}">
+            <pageHelper:setPathway pathway="LEARNING_DISABILITIES"/>
+        </c:when>
+        <c:when test="${topicCenter.contentKey.identifier eq 1542}">
+            <pageHelper:setPathway pathway="COLLEGE"/>
+        </c:when>
+        <c:when test="${topicCenter.contentKey.identifier eq 1543}">
+            <pageHelper:setPathway pathway="IMPROVE_YOUR_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.preschoolTopicCenter}">
+            <pageHelper:setPathway pathway="PRESCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.elementarySchoolTopicCenter}">
+            <pageHelper:setPathway pathway="ELEMENTARY_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.middleSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="MIDDLE_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.highSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="HIGH_SCHOOL"/>
+        </c:when>
+        <c:when test="${topicCenter.greatGiftsTopicCenter}">
+            <pageHelper:setPathway pathway="GREAT_GIFTS"/>
+        </c:when>
+        <c:when test="${topicCenter.backToSchoolTopicCenter}">
+            <pageHelper:setPathway pathway="BACK_TO_SCHOOL"/>
+        </c:when>
+    </c:choose>
 
-        <!--Start Top Story Box-->
-        <div>
-            <gsml:img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
 
-            <h2>${topicCenter.mainFeatureLink.title}</h2>
-            ${topicCenter.mainFeatureLink.description}
-            <a href="${topicCenter.mainFeatureLink.url}">more &gt;&gt;</a>
-            <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
-                <ul>
-                    <li><a href="${otherFeatureLink.url}"></a>${otherFeatureLink.title}</li>
-                </ul>
-            </c:forEach>
+    <c:set var="slotPrefixName" value="Library_Article_Page"/>
+    <ad:setSlotPrefix slotPrefix="${slotPrefixName}"/>
+</head>
+
+<gsml:body adPageName="${pageName}">
+
+<div id="mainGS" class="col">
+
+<h1 class="fltlft">${topicCenter.title}</h1>
+
+<!-- Start LogoAd-->
+<div class="logoAd fltrt mrgtop_5">
+    <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
+        <c:set var="licensorLogo">
+            <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
+        </c:set>
+    </c:if>
+    <c:choose>
+        <c:when test="${not empty licensorLogo and topicCenter.contentKey.identifier ne 1542}">
+            ${licensorLogo}
+        </c:when>
+        <c:otherwise>
+            <div class="fltrt">
+                <ad:adTag position="HeaderLogo_88x33"/>
+            </div>
+        </c:otherwise>
+    </c:choose>
+</div>
+<!-- end logoAd -->
+
+
+<!-- Start Sub Topics Bar -->
+<div id="topicContentGS" class="clearfix">
+
+    <div id="topicbarGS" class="col">
+        <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+
+        <div class="skyscraperAd">
+            <ad:AboveFold_Left_160x600/>
         </div>
-        <!--Start Top Story Box-->
-        <br/>
-        <br/>
-        <br/>
+    </div>
+</div>
+<!-- End Sub Topics Bar -->
 
-        <!--Start Features Articles Tab-->
-        <div>
-            <div>Featured articles</div>
+<div id="topicMainGS" class="col">
+    <!--Start Top Story Box-->
+    <div>
+        <gsml:img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
+
+        <h2>${topicCenter.mainFeatureLink.title}</h2>
+        ${topicCenter.mainFeatureLink.description}
+        <a href="${topicCenter.mainFeatureLink.url}">more &gt;&gt;</a>
+        <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
+            <ul>
+                <li><a href="${otherFeatureLink.url}"></a>${otherFeatureLink.title}</li>
+            </ul>
+        </c:forEach>
+    </div>
+    <!--End Top Story Box-->
+    <br/>
+    <br/>
+    <br/>
+
+    <!--Start Features Articles Tab-->
+    <div>
+        <a href="#" onclick="switchTabs('js_featuredArticlesTab','js_mostPopularTab')">Featured Articles</a>
+
+        <div id="js_featuredArticlesTab">
             <!-- Start Featured Article Module-->
             <c:set var="featuredArticlesModuleLinks" value="${topicCenter.featuredArticlesModuleLinks}"/>
             <!-- Show the module links only if min of 3 and show only max of 4 links -->
@@ -99,15 +182,20 @@
             </ul>
             <!--End Featured Article list-->
         </div>
-        <!--End Features Articles Tab-->
+    </div>
+    <!--End Features Articles Tab-->
 
-        <br/>
-        <br/>
+    <br/>
+    <br/>
 
-        <!--Start Most popular Tab-->
-        <c:if test="${topicCenter.displayMostPopularTab}">
-            <div>
-                <div>${topicCenter.mostPopularTabName}</div>
+    <!--Start Most popular Tab-->
+    <c:if test="${topicCenter.displayMostPopularTab}">
+        <div>
+            <a href="#"
+               onclick="switchTabs('js_mostPopularTab','js_featuredArticlesTab')">${topicCenter.mostPopularTabName}</a>
+
+            <div id="js_mostPopularTab" style="display:none;">
+
                 <!-- Start Most Popular Module-->
                 <c:set var="mostPopularModuleLinks" value="${topicCenter.mostPopularModuleLinks}"/>
                 <!-- Show the module links only if min of 3 and show only max of 4 links -->
@@ -153,47 +241,70 @@
                 </ul>
                 <!--End Most Popular list-->
             </div>
-        </c:if>
-        <!--End Most popular Tab-->
-
-        <!--Start Carousels-->
-        <c:choose>
-            <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
-                <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
-                                           items="${requestScope.videoCarouselItems}" minItems="4"/>
-                <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
-                                      items="${requestScope.carouselItems}" minItems="4"/>
-            </c:when>
-            <c:otherwise>
-                <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
-                                      items="${requestScope.carouselItems}" minItems="4"/>
-                <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
-                                           items="${requestScope.videoCarouselItems}" minItems="4"/>
-            </c:otherwise>
-        </c:choose>
-        <!--End Carousels-->
-
-        <!-- Start Sub Topics Bar -->
-        <div id="topicContentGS" class="clearfix">
-
-            <div id="topicbarGS" class="col">
-                <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
-
-            </div>
         </div>
-        <!-- End Sub Topics Bar -->
+    </c:if>
+    <!--End Most popular Tab-->
 
+    <!--Start Carousels-->
+    <c:choose>
+        <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
+            <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
+                                       items="${requestScope.videoCarouselItems}" minItems="4"/>
+            <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.carouselItems}" minItems="4"/>
+        </c:when>
+        <c:otherwise>
+            <cms:infiniteCarousel name="${requestScope.topicCenter.carouselName}"
+                                  items="${requestScope.carouselItems}" minItems="4"/>
+            <cms:infiniteVideoCarousel name="${requestScope.topicCenter.videoCarouselName}"
+                                       items="${requestScope.videoCarouselItems}" minItems="4"/>
+        </c:otherwise>
+    </c:choose>
+    <!--End Carousels-->
 
-        <!-- start right sidebarGS -->
-        <div id="sidebarGS" class="col">
-            <cms:topicCenterSidebar topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}" isNewTopicCenterPage="${true}"/>
-        </div>
-        <!-- end right sidebarGS -->
-
-
+    <div class="inlineAd">
+        <ad:adTag position="Inline_423x60"/>
     </div>
 
-    </body>
 
-    </html>
+</div>
+
+<!--end #topicMainGS -->
+
+<!-- start right sidebarGS -->
+<div id="sidebarGS" class="col">
+    <cms:topicCenterSidebar topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}"
+                            isNewTopicCenterPage="${true}"/>
+</div>
+<!-- end right sidebarGS -->
+
+
+</div>
+
+
+<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+
+<mod:tracking pageName="${pageName}"
+              hier1="Topic Centers,${omnitureTopicCenterName}"
+              omitAlmondNet="${true}"
+        />
+
+<script type="text/javascript">
+    GS = GS || {};
+    GS.ads = GS.ads || {};
+    GS.ads.HeaderLogo_88x33 = GS.ads.HeaderLogo_88x33 || {};
+    GS.ads.HeaderLogo_88x33.showAdSponsorLogoText = function() {
+        if (jQuery('#google_ads_div_${slotPrefixName}_HeaderLogo_88x33,#google_ads_div_${slotPrefixName}_HeaderLogo_88x33_ad_container').length == 1) {
+            jQuery('#jq-ghostText-${slotPrefixName}_HeaderLogo_88x33').show();
+        }
+    };
+
+    jQuery(function() {
+        setTimeout('GS.ads.HeaderLogo_88x33.showAdSponsorLogoText();', 1000);
+
+    });
+</script>
+</gsml:body>
+
+</html>
 </jsp:root>
