@@ -2986,13 +2986,18 @@ body.cobranded #pageGS {
 
 /* Menu Container */
 
+.menuContainer{
+    width: 968px;
+    margin: 0 auto;
+}
+
 #primary {
     z-index: 4;
     position: relative;
     list-style: none;
-    width: 968px;
-    margin: 0 auto;
+    width: 100%;
     height: 32px;
+    margin: 0;
     padding: 0;
 
     /* Background color and gradients */
@@ -3015,13 +3020,11 @@ body.cobranded #pageGS {
 /* Primary Menu Items */
 
 #primary .menuItem {
-    float: left;
-    display: block;
     text-align: center;
-    position: relative;
     padding: 0;
     margin: 0;
     border: none;
+    border-right: 1px solid #c6c6c6;
 }
 
 #primary .menuItem:hover {
@@ -3048,11 +3051,6 @@ body.cobranded #pageGS {
     outline: none;
 }
 
-#primary .menuItem.selected .menuItemAnchorText{
-    text-shadow: none;
-    color:#333;
-}
-
 #primary .menuItem .menuItemAnchorText {
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 16px;
@@ -3062,11 +3060,18 @@ body.cobranded #pageGS {
     outline: 0;
     text-decoration: none;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35);
-    border-right: 1px solid #c6c6c6;
+    white-space: nowrap;
+    width:100%;
+    position: relative;
 }
 
-#primary .menuItem .home {
-    padding: 0;
+#primary .menuItem.home {
+    width: 35px;
+}
+
+#primary .menuItem.selected .menuItemAnchorText{
+    text-shadow: none;
+    color:#333;
 }
 
 #primary .menuItem:hover .menuItemAnchorText {
@@ -3075,121 +3080,16 @@ body.cobranded #pageGS {
     background-color: white;
 }
 
-#primary .menuItem.lastNavUnit .menuItemAnchorText{
+#primary .menuItem.lastNavUnit{
     border: none;
 }
 
-/* Primary Navigation Browser Specific Padding */
-/* General Browser Default */
-#primary .menuItem .noDrop,
-#primary .menuItem .drop {
-    padding: 0 30px;
-}
-
-/* FireFox Default */
-.mac.ff #primary .menuItem .noDrop,
-.mac.ff #primary .menuItem .drop {
-    padding: 0 32px;
-}
-
-.mac.ff #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 34px;
-}
-
-.win.ff #primary .menuItem .noDrop,
-.win.ff #primary .menuItem .drop {
-    padding: 0 34px;
-}
-
-.win.ff #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 32px;
-}
-
-/* Chrome Default */
-.mac.chrome #primary .menuItem .noDrop,
-.mac.chrome #primary .menuItem .drop {
-    padding: 0 32px;
-}
-
-.mac.chrome #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 30px;
-}
-
-.win.chrome #primary .menuItem .noDrop,
-.win.chrome #primary .menuItem .drop {
-    padding: 0 34px;
-}
-
-.win.chrome #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 32px;
-}
-
-/* Safari Default */
-.mac.safari #primary .menuItem .noDrop,
-.mac.safari #primary .menuItem .drop {
-    padding: 0 32px;
-}
-
-.mac.safari #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 30px;
-}
-
-.win.safari #primary .menuItem .noDrop,
-.win.safari #primary .menuItem .drop {
-    padding: 0 34px;
-}
-
-.win.safari #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 32px;
-}
-
-/* IE Default */
-.ie #primary .menuItem .noDrop,
-.ie #primary .menuItem .drop {
-    padding: 0 30px;
-}
-
-/* IE10 Specific */
-body.ie10 #primary .menuItem .noDrop,
-body.ie10 #primary .menuItem .drop {
-    padding: 0 32px;
-}
-
-body.ie10 #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 34px;
-}
-
-/* IE9 Specific */
-.ie9 #primary .menuItem .noDrop,
-.ie9 #primary .menuItem .drop {
-    padding: 0 32px;
-}
-
-.ie9 #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 34px;
-}
-
-/* IE8 Specific */
-.ie8 #primary .menuItem .noDrop,
-.ie8 #primary .menuItem .drop {
-    padding: 0 34px;
-}
-
-.ie8 #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 32px;
-}
-
-/* IE7 Specific */
-.ie7 #primary .menuItem .noDrop,
-.ie7 #primary .menuItem .drop {
-    padding: 0 34px;
-}
-
-.ie7 #primary .menuItem.lastNavUnit .menuItemAnchorText{
-    padding: 0 32px;
-}
-
 /* Primary Drop Down Containers */
+
+#primary .dropdownReference{
+    position:relative;
+    display: block;
+}
 
 #primary .dropdown_1,
 #primary .dropdown_2,

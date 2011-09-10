@@ -23,14 +23,18 @@
 
 <c:set var="pw" value="${requestScope.context.pathway}"/>
 
-<ul id="primary">
-    <li class="${(pw == tabs.HOME ? 'selected' : '')} menuItem">
-        <link:home id="PN-Home" styleClass="menuItemAnchorText home GS_CI9_">
+<div class="menuContainer">
+<table id="primary">
+<tbody>
+<tr>
+    <td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem home">
+        <link:home id="PN-Home" styleClass="menuItemAnchorText GS_CI9_">
             <span class="navSprite i-pn-home"><!-- do not collapse --></span>
         </link:home>
-    </li>
-    <li class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem"><link:findASchool id="PN-FindASchool"
-                                                                                              styleClass="menuItemAnchorText drop GS_CI9_">Find a School</link:findASchool>
+    </td>
+    <td class="${(pw == tabs.RESEARCH_COMPARE ? 'selected' : '')} menuItem">
+        <div class="dropdownReference">
+        <link:findASchool id="PN-FindASchool" styleClass="menuItemAnchorText drop GS_CI9_">Find a School</link:findASchool>
 
         <div class="dropdown_1 text2">
             <div class="col_1">
@@ -75,9 +79,11 @@
                 </div>
             </div>
         </div>
-    </li>
-    <li class="${(pw == tabs.PRESCHOOL ? 'selected' : '')} menuItem"><link:preschool id="PN-Preschool"
-                                                                                     styleClass="menuItemAnchorText drop GS_CI9_">Preschool</link:preschool>
+        </div>
+    </td>
+    <td class="${(pw == tabs.PRESCHOOL ? 'selected' : '')} menuItem">
+        <div class="dropdownReference">
+        <link:preschool id="PN-Preschool" styleClass="menuItemAnchorText drop GS_CI9_">Preschool</link:preschool>
 
         <div class="dropdown_2 text2">
             <div class="col_1">
@@ -117,9 +123,11 @@
                 </div>
             </div>
         </div>
-    </li>
-    <li class="${(pw == tabs.ELEMENTARY_SCHOOL ? 'selected' : '')} menuItem"><link:elementary-school
-            id="PN-ElementarySchool" styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
+        </div>
+    </td>
+    <td class="${(pw == tabs.ELEMENTARY_SCHOOL ? 'selected' : '')} menuItem">
+        <div class="dropdownReference">
+        <link:elementary-school id="PN-ElementarySchool" styleClass="menuItemAnchorText drop GS_CI9_">Elementary School</link:elementary-school>
 
         <div class="dropdown_3 text2">
             <div class="col_1">
@@ -177,9 +185,11 @@
                 </div>
             </div>
         </div>
-    </li>
-    <li class="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} menuItem"><link:middle-school id="PN-MiddleSchool"
-                                                                                             styleClass="menuItemAnchorText drop GS_CI9_">Middle School</link:middle-school>
+        </div>
+    </td>
+    <td class="${(pw == tabs.MIDDLE_SCHOOL ? 'selected' : '')} menuItem">
+        <div class="dropdownReference">
+        <link:middle-school id="PN-MiddleSchool" styleClass="menuItemAnchorText drop GS_CI9_">Middle School</link:middle-school>
 
         <div class="dropdown_4 text2">
             <div class="col_1">
@@ -226,9 +236,11 @@
                 </div>
             </div>
         </div>
-    </li>
-    <li class="${(pw == tabs.HIGH_SCHOOL ? 'selected' : '')} menuItem"><link:high-school id="PN-HighSchool"
-                                                                                         styleClass="menuItemAnchorText drop GS_CI9_">High School</link:high-school>
+        </div>
+    </td>
+    <td class="${(pw == tabs.HIGH_SCHOOL ? 'selected' : '')} menuItem">
+        <div class="dropdownReference">
+        <link:high-school id="PN-HighSchool" styleClass="menuItemAnchorText drop GS_CI9_">High School</link:high-school>
 
         <div class="dropdown_5 text2 dropdown_align_right">
             <div class="col_1">
@@ -277,9 +289,11 @@
                 </div>
             </div>
         </div>
-    </li>
-    <li class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit"><link:college id="PN-College"
-                                                                                 styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
+        </div>
+    </td>
+    <td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
+        <div class="dropdownReference">
+        <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
         <div class="dropdown_6 text2 dropdown_align_right">
             <div class="col_1">
@@ -315,11 +329,15 @@
                 </div>
             </div>
         </div>
-    </li>
-    <!--<li class="${(pw == tabs.BACK_TO_SCHOOL ? 'selected' : '')} menuItem lastNavUnit"><a href="/back-to-school/"
+        </div>
+    </td>
+    <!--<td class="${(pw == tabs.BACK_TO_SCHOOL ? 'selected' : '')} menuItem lastNavUnit"><a href="/back-to-school/"
                                                                                          id="PN-BackToSchool"
                                                                                          class="menuItemAnchorText noDrop GS_CI9_"><span
-            class="navSprite i-pn-bts">&lt;!&ndash; do not collapse &ndash;&gt;</span> Back to School</a></li>-->
-</ul>
+            class="navSprite i-pn-bts">&lt;!&ndash; do not collapse &ndash;&gt;</span> Back to School</a></td>-->
+</tr>
+</tbody>
+</table>
+</div>
 
 </jsp:root>
