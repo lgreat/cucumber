@@ -27,28 +27,19 @@
                         }
                     });
                     $.post("/nbc/quiz.page", data, function(rval) {
-                        var avgAcad = -1, avgMot = -1, avgBrain = -1, saveStatus = '', saveMsg = '';
+                        var saveStatus = '', saveMsg = '';
                         try {
                             saveStatus = rval.status;
                             saveMsg = rval.message;
-                            avgAcad = parseFloat(rval.aggregate['averageAcademics']);
-                            avgMot = parseFloat(rval.aggregate['averageMotivation']);
-                            avgBrain = parseFloat(rval.aggregate['averageBrain']);
-                        } catch (e) {
-                            alert("Error parsing aggregate response: " + e.message);
-                        }
-                        if (avgAcad > -1 &amp;&amp; avgMot > -1 &amp;&amp; avgBrain > -1) {
-                            // Display aggregate data to user
                             var msg = '';
                             if (saveStatus == 'Success') {
                                 msg += "Quiz save successful\n\n";
                             } else {
                                 msg += "Quiz save failed: " + saveMsg + "\n\n";
                             }
-                            msg += "Average academics score: " + avgAcad + "%\n";
-                            msg += "Average motivation score: " + avgMot + "%\n";
-                            msg += "Average brain development score: " + avgBrain + "%\n";
                             alert(msg);
+                        } catch (e) {
+                            alert("Error parsing aggregate response: " + e.message);
                         }
                     }, "json");
                 });

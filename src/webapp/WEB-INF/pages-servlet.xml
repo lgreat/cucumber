@@ -2619,7 +2619,6 @@
 
     <bean name="nbcQuizController"
           class="gs.web.promo.NbcQuizController" lazy-init="true" autowire="byName">
-        <property name="cacheAgeMillis" value="60000"/>
         <property name="quizId" value="1"/>
     </bean>
 

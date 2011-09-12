@@ -4,12 +4,8 @@ import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.promo.IQuizDao;
 import gs.data.promo.QuizResponse;
-import gs.data.promo.QuizScore;
 import gs.data.promo.QuizTaken;
 import gs.web.util.ReadWriteController;
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,13 +14,12 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.DecimalFormat;
 import java.util.Enumeration;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Pattern;
 
 /**
+ * Controller for 2011 NBC Education Nation parent quiz
+ *
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
 public class NbcQuizController extends AbstractController implements ReadWriteController {
@@ -60,39 +55,56 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
         public String getMessage() {return _message;}
     }
 
-    protected static final String CACHE_NAME = "gs.web.promo.NbcQuizController.Aggregate";
-    protected static final String CACHE_KEY_PREFIX = "aggregate.json.string.";
-    protected static final ReentrantLock DB_LOCK = new ReentrantLock();
+//    protected static final String CACHE_NAME = "gs.web.promo.NbcQuizController.Aggregate";
+//    protected static final String CACHE_KEY_PREFIX = "aggregate.json.string.";
+//    protected static final ReentrantLock DB_LOCK = new ReentrantLock();
+//    protected static final String[] AGE_CATEGORIES = {"1", "2", "3"};
+
     public static final String PARAM_CHILD_AGE = "childAge";
     public static final String PARAM_PARENT_AGE = "parentAge";
     public static final String PARAM_ZIP = "zip";
     public static final String PARAM_GENDER = "gender";
     public static final String PARAM_CHILD_AGE_CATEGORY = "type";
-    public static final Pattern PATTERN_PARAM_ANSWER = Pattern.compile("^\\d(bd|m|a)\\d$");
+//    public static final String PARAM_REFRESH_CACHE = "refresh";
+    public static final Pattern PATTERN_PARAM_ANSWER = Pattern.compile("^\\d(bd|m|a)\\d+$");
     public static final Pattern PATTERN_PARAM_SCORE = Pattern.compile("^\\d(bd|m|a)$");
     public static final String KEY_JSON_STATUS = "status";
     public static final String KEY_JSON_MESSAGE = "message";
-    public static final String KEY_JSON_AGGREGATE = "aggregate";
-    public static final String KEY_JSON_BRAIN_DEVELOPMENT = "averageBrain";
-    public static final String KEY_JSON_MOTIVATION = "averageMotivation";
-    public static final String KEY_JSON_ACADEMICS = "averageAcademics";
-    public static final String KEY_JSON_COUNT = "count";
+//    public static final String KEY_JSON_AGGREGATE = "aggregate";
+//    public static final String KEY_JSON_BRAIN_DEVELOPMENT = "averageBrain";
+//    public static final String KEY_JSON_MOTIVATION = "averageMotivation";
+//    public static final String KEY_JSON_ACADEMICS = "averageAcademics";
+//    public static final String KEY_JSON_COUNT = "count";
     /** Minimum number of quiz responses to merit a save.*/
     public static final int MIN_NUM_RESPONSES = 1;
     /** Minimum number of scores. 1 for each of the 3 categories */
     public static final int MIN_NUM_SCORES = 3;
 
     /** Age of cache in ms */
-    private long _cacheAgeMillis = 60000L; // default value, overridden by spring configuration
+//    private long _cacheAgeMillis = 60000L; // default value, overridden by spring configuration
     private long _quizId = 1L; // default value, overridden by spring configuration
     private IQuizDao _quizDao;
-
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         if (StringUtils.equalsIgnoreCase("post", request.getMethod())) {
             submit(request, response);
+//        } else if (StringUtils.equalsIgnoreCase("get", request.getMethod())) {
+//            if (StringUtils.isNotBlank(request.getParameter(PARAM_REFRESH_CACHE))) {
+//                if (DB_LOCK.tryLock()) {
+//                    // This code can only reached by a single thread at a time. Other threads get false from tryLock
+//                    try {
+//                        for (String ageCategory: AGE_CATEGORIES) {
+//                            JSONObject aggregate = getAggregateFromDB(ageCategory);
+//                            cacheAggregate(aggregate, ageCategory);
+//                        }
+//                    } finally {
+//                        DB_LOCK.unlock();
+//                    }
+//                }
+//                response.getWriter().write("1");
+//            }
         }
         return null;
     }
@@ -113,18 +125,23 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
 //            startTime = System.currentTimeMillis();
             SaveStatus saveStatus = saveResponses(request); // should not throw or return null
 //            logDuration(System.currentTimeMillis() - startTime, "Parsing and saving response");
-            JSONObject aggregateData = getAggregate(request.getParameter(PARAM_CHILD_AGE_CATEGORY)); // should not throw
-            if (aggregateData != null) {
+//            JSONObject aggregateData = getAggregate(request.getParameter(PARAM_CHILD_AGE_CATEGORY)); // should not throw
+//            if (aggregateData != null) {
                 // combine aggregateData with saveStatus and print out
                 JSONObject output = new JSONObject();
-                output.put(KEY_JSON_AGGREGATE, aggregateData);
+//                output.put(KEY_JSON_AGGREGATE, aggregateData);
                 saveStatus.writeToJSON(output);
-                addCountToOutput(output);
-                output.write(response.getWriter()); // throws on error writing to response
-            } else {
-                // no aggregate means return 500
+//                addCountToOutput(output);
+            if (saveStatus == SaveStatus.ERROR_SERVER) {
                 response.setStatus(500);
+            } else if (saveStatus != SaveStatus.SUCCESS) {
+                response.setStatus(400);
             }
+                output.write(response.getWriter()); // throws on error writing to response
+//            } else {
+//                no aggregate means return 500
+//                response.setStatus(500);
+//            }
         } catch (Exception e) {
             // there was a failure writing out. Return a 500
             response.setStatus(500);
@@ -132,13 +149,13 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
         }
     }
 
-    protected void addCountToOutput(JSONObject output) {
-        try {
-            output.put(KEY_JSON_COUNT, _quizDao.getCountQuizTaken());
-        } catch (Exception e) {
-            _log.error("Error adding count(quiz_taken) to output: " + e, e);
-        }
-    }
+//    protected void addCountToOutput(JSONObject output) {
+//        try {
+//            output.put(KEY_JSON_COUNT, _quizDao.getCountQuizTaken());
+//        } catch (Exception e) {
+//            _log.error("Error adding count(quiz_taken) to output: " + e, e);
+//        }
+//    }
 
     /**
      * Parse request params into a QuizTaken and save it.
@@ -174,13 +191,13 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
         }
     }
 
-    protected void addQuizScore(QuizTaken quizTaken, String category, double value) {
-        QuizScore score = new QuizScore();
-        score.setCategory(category);
-        score.setScore(value);
-        score.setQuizTaken(quizTaken);
-        quizTaken.getQuizScores().add(score);
-    }
+//    protected void addQuizScore(QuizTaken quizTaken, String category, double value) {
+//        QuizScore score = new QuizScore();
+//        score.setCategory(category);
+//        score.setScore(value);
+//        score.setQuizTaken(quizTaken);
+//        quizTaken.getQuizScores().add(score);
+//    }
 
     /**
      * parse static parameters
@@ -231,7 +248,8 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
                 try {
                     Double parsedScore = Double.parseDouble(questionValue);
                     if (parsedScore >= 0.0D && parsedScore <= 100.0D) {
-                        addQuizScore(quizTaken, questionKey, parsedScore);
+//                        addQuizScore(quizTaken, questionKey, parsedScore);
+                        addQuizResponse(quizTaken, questionKey, questionValue);
                         numScores++;
                     } else {
                         throw new ParseQuizTakenException(SaveStatus.ERROR_INVALID_SCORE);
@@ -256,85 +274,85 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
      *
      * @return JSONObject describing aggregate data, or null on error
      */
-    protected JSONObject getAggregate(String ageCategory) {
-        if (StringUtils.isEmpty(ageCategory)) {
-            _log.error("Must supply a '" + PARAM_CHILD_AGE_CATEGORY + "' param to calculate aggregate");
-            return null;
-        }
-        JSONObject aggregate = null;
-        try {
-            Cache cache = getCache();
-            Element cacheElement = cache.get(CACHE_KEY_PREFIX + ageCategory);
-            // if there is no cache or the cache is expired, attempt to get a concurrency lock to
-            // rebuild the aggregate from the DB
-            if (isExpiredOrNull(cacheElement) && DB_LOCK.tryLock()) {
-                // This code can only reached by a single thread at a time. Other threads get false from tryLock
-                try {
-                    aggregate = getAggregateFromDB(ageCategory);
-                    cacheAggregate(aggregate, ageCategory);
-                } finally {
-                    DB_LOCK.unlock();
-                }
-            } else if (cacheElement != null && cacheElement.getObjectValue() != null) {
-                // Either the cache is fresh or another thread is busy rebuilding the aggregate from the DB.
-                // Either way, let's use the currently cached version if available.
-                try {
-                    aggregate = new JSONObject(cacheElement.getObjectValue().toString(), "UTF-8");
-                } catch (JSONException je) {
-                    _log.error("Error converting cache string to JSONObject. Clearing cache", je);
-                    cache.remove(CACHE_KEY_PREFIX + ageCategory);
-                }
-            } else {
-                // There is no cache and another thread is busy building it
-                // fall through and return null since we have nothing else
-            }
-        } catch (Exception e) {
-            _log.error("Error constructing aggregate data: " + e, e);
-        }
-        return aggregate;
-    }
+//    protected JSONObject getAggregate(String ageCategory) {
+//        if (StringUtils.isEmpty(ageCategory)) {
+//            _log.error("Must supply a '" + PARAM_CHILD_AGE_CATEGORY + "' param to calculate aggregate");
+//            return null;
+//        }
+//        JSONObject aggregate = null;
+//        try {
+//            Cache cache = getCache();
+//            Element cacheElement = cache.get(CACHE_KEY_PREFIX + ageCategory);
+//            // if there is no cache or the cache is expired, attempt to get a concurrency lock to
+//            // rebuild the aggregate from the DB
+//            if (isExpiredOrNull(cacheElement) && DB_LOCK.tryLock()) {
+//                // This code can only reached by a single thread at a time. Other threads get false from tryLock
+//                try {
+//                    aggregate = getAggregateFromDB(ageCategory);
+//                    cacheAggregate(aggregate, ageCategory);
+//                } finally {
+//                    DB_LOCK.unlock();
+//                }
+//            } else if (cacheElement != null && cacheElement.getObjectValue() != null) {
+//                // Either the cache is fresh or another thread is busy rebuilding the aggregate from the DB.
+//                // Either way, let's use the currently cached version if available.
+//                try {
+//                    aggregate = new JSONObject(cacheElement.getObjectValue().toString(), "UTF-8");
+//                } catch (JSONException je) {
+//                    _log.error("Error converting cache string to JSONObject. Clearing cache", je);
+//                    cache.remove(CACHE_KEY_PREFIX + ageCategory);
+//                }
+//            } else {
+//                // There is no cache and another thread is busy building it
+//                // fall through and return null since we have nothing else
+//                _log.warn("Cache is empty, unable to get aggregate data");
+//            }
+//        } catch (Exception e) {
+//            _log.error("Error constructing aggregate data: " + e, e);
+//        }
+//        return aggregate;
+//    }
 
     /**
      * Retrieve the aggregate data from the DB and store it in the cache.
      * @return Fresh JSONObject constructed from the DB
      */
-    protected JSONObject getAggregateFromDB(String parentType) throws JSONException {
-        long startTime = System.currentTimeMillis();
-        Map<String, Double> averages = _quizDao.getAverageScores
-                (new String[] {parentType + "bd", parentType + "m", parentType + "a"});
-        Double avgBd = averages.get(parentType + "bd");
-        Double avgM = averages.get(parentType + "m");
-        Double avgA = averages.get(parentType + "a");
-        DecimalFormat decimalFormat = new DecimalFormat("##0.0");
-        JSONObject aggregate = new JSONObject();
-        aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, decimalFormat.format((avgBd != null)?avgBd:0D));
-        aggregate.put(KEY_JSON_MOTIVATION, decimalFormat.format((avgM != null)?avgM:0D));
-        aggregate.put(KEY_JSON_ACADEMICS, decimalFormat.format((avgA != null)?avgA:0D));
-        logDuration(System.currentTimeMillis() - startTime, "Fetching aggregate from DB for type '" + parentType + "'");
-        return aggregate;
-    }
+//    protected JSONObject getAggregateFromDB(String parentType) throws JSONException {
+//        long startTime = System.currentTimeMillis();
+//        Map<String, Number> averages = _quizDao.getAverageScoresAndCount(parentType);
+//        Double avgBd = (Double) averages.get("bd");
+//        Double avgM = (Double) averages.get("m");
+//        Double avgA = (Double) averages.get("a");
+//        DecimalFormat decimalFormat = new DecimalFormat("##0.0");
+//        JSONObject aggregate = new JSONObject();
+//        aggregate.put(KEY_JSON_BRAIN_DEVELOPMENT, decimalFormat.format((avgBd != null)?avgBd:0D));
+//        aggregate.put(KEY_JSON_MOTIVATION, decimalFormat.format((avgM != null)?avgM:0D));
+//        aggregate.put(KEY_JSON_ACADEMICS, decimalFormat.format((avgA != null)?avgA:0D));
+//        logDuration(System.currentTimeMillis() - startTime, "Fetching aggregate from DB for type '" + parentType + "'");
+//        return aggregate;
+//    }
 
     /**
-     * Returns true if the element is null or if its creationTime is more than CACHE_AGE_MILLIS ago
+     * Returns true if the element is null or if its creationTime is more than _cacheAgeMillis ago
      */
-    protected boolean isExpiredOrNull(Element cacheElement) {
-        return cacheElement == null
-                || cacheElement.getObjectValue() == null
-                || cacheElement.getCreationTime() < (System.currentTimeMillis() - _cacheAgeMillis);
-    }
+//    protected boolean isExpiredOrNull(Element cacheElement) {
+//        return cacheElement == null
+//                || cacheElement.getObjectValue() == null
+//                || cacheElement.getCreationTime() < (System.currentTimeMillis() - _cacheAgeMillis);
+//    }
 
-    protected static Cache getCache() {
-        return CacheManager.create().getCache(CACHE_NAME);
-    }
+//    protected static Cache getCache() {
+//        return CacheManager.create().getCache(CACHE_NAME);
+//    }
 
-    protected void cacheAggregate(JSONObject aggregate, String parentType) {
-        try {
-            Element cacheElement = new Element(CACHE_KEY_PREFIX + parentType, aggregate.toString());
-            getCache().put(cacheElement);
-        } catch (Exception e) {
-            _log.error("Error saving to ehcache " + CACHE_NAME + ": " + e.toString(), e);
-        }
-    }
+//    protected void cacheAggregate(JSONObject aggregate, String parentType) {
+//        try {
+//            Element cacheElement = new Element(CACHE_KEY_PREFIX + parentType, aggregate.toString());
+//            getCache().put(cacheElement);
+//        } catch (Exception e) {
+//            _log.error("Error saving to ehcache " + CACHE_NAME + ": " + e.toString(), e);
+//        }
+//    }
     
     private void logDuration(long durationInMillis, String eventName) {
         _log.info(eventName + " took " + durationInMillis + " milliseconds");
@@ -348,13 +366,13 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
         _quizDao = quizDao;
     }
 
-    public long getCacheAgeMillis() {
-        return _cacheAgeMillis;
-    }
-
-    public void setCacheAgeMillis(long cacheAgeMillis) {
-        _cacheAgeMillis = cacheAgeMillis;
-    }
+//    public long getCacheAgeMillis() {
+//        return _cacheAgeMillis;
+//    }
+//
+//    public void setCacheAgeMillis(long cacheAgeMillis) {
+//        _cacheAgeMillis = cacheAgeMillis;
+//    }
 
     public long getQuizId() {
         return _quizId;
