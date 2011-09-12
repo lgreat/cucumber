@@ -25,12 +25,20 @@
 
     <c:choose>
         <c:when test="${topicCenter.worksheetsTopicCenter}">
-            <cms:worksheetsBrowseSidebar_v2/>
-            <cms:browseSidebar_v2 title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
+            <div class="mod sideNav_v2 rnd4">
+                <div class="inner">
+                    <cms:worksheetsBrowseSidebar_v2/>
+                    <cms:browseSidebar_v2 title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
+                </div>
+            </div>
         </c:when>
         <c:when test="${topicCenter.elementarySchoolTopicCenter}">
-            ${browseByGrade}
-            ${moreOnThisTopic}
+            <div class="mod sideNav_v2 rnd4">
+                <div class="inner">
+                    ${browseByGrade}
+                    ${moreOnThisTopic}
+                </div>
+            </div>
         </c:when>
         <c:when test="${
             topicCenter.academicsAndActivitiesTopicCenter or
@@ -38,11 +46,19 @@
             topicCenter.specialEducationTopicCenter or
             topicCenter.elementaryGradeTopicCenter
         }">
-            ${moreOnThisTopic}
-            ${browseByGrade}
+            <div class="mod sideNav_v2 rnd4">
+                <div class="inner">
+                    ${moreOnThisTopic}
+                    ${browseByGrade}
+                </div>
+            </div>
         </c:when>
         <c:otherwise>
-            ${moreOnThisTopic}
+            <div class="mod sideNav_v2 rnd4">
+                <div class="inner">
+                    ${moreOnThisTopic}
+                </div>
+            </div>
         </c:otherwise>
     </c:choose>
 

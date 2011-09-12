@@ -11,108 +11,104 @@
     <c:if test="${not empty pageScope.subtopics}">
         <c:set var="hasNestedItems" value="${false}"/>
 
-        <div class="mod sideNav">
-            <div class="inner">
-                <div class="hd">
-                    <h3>${pageScope.title}</h3>
-                </div>
-                <div class="bd">
+        <div class="hd">
+            <h5>${pageScope.title}</h5>
+        </div>
+        <div class="bd">
 
-                    <ul class="text2">
-                        <c:forEach var="subtopic" items="${pageScope.subtopics}" varStatus="subtopicStatus">
-                            <c:if test="${not empty subtopic.subSubtopics}">
-                                <c:set var="hasNestedItems" value="${true}"/>
-                            </c:if>
-                            <c:choose>
-                                <c:when test="${hasNestedItems}">
-                                    <c:set var="className1" value="mrglft_neg5"/>
-                                    <c:set var="className2" value="hasNested"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="className1" value=""/>
-                                    <c:set var="className2" value=""/>
-                                </c:otherwise>
-                            </c:choose>
-                            <li class="${className1} ${className2}">
+            <ul class="text2">
+                <c:forEach var="subtopic" items="${pageScope.subtopics}" varStatus="subtopicStatus">
+                    <c:if test="${not empty subtopic.subSubtopics}">
+                        <c:set var="hasNestedItems" value="${true}"/>
+                    </c:if>
+                    <c:choose>
+                        <c:when test="${hasNestedItems}">
+                            <c:set var="className1" value="mrglft_neg5"/>
+                            <c:set var="className2" value="hasNested"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="className1" value=""/>
+                            <c:set var="className2" value=""/>
+                        </c:otherwise>
+                    </c:choose>
+                    <li class="${className1} ${className2}">
+
+                        <c:choose>
+                            <c:when test="${empty subtopic.subSubtopics}">
+                                <!-- no nested items, so don't show triangle, and clicking subtopic title link should send user to browse page -->
 
                                 <c:choose>
-                                    <c:when test="${empty subtopic.subSubtopics}">
-                                        <!-- no nested items, so don't show triangle, and clicking subtopic title link should send user to browse page -->
-
-                                        <c:choose>
-                                            <c:when test="${not empty currentUri and currentUri eq subtopic.moreLink.url}">
-                                                ${subtopic.title}
-                                            </c:when>
-                                            <c:when test="${not empty subtopic.moreLink}">
-                                                <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:choose>
-                                                    <c:when test="${fn:toLowerCase(subtopic.title) == 'videos'}">
-                                                        <link:cmsVideoGallery
-                                                                topicCenterId="${topicCenter.contentKey.identifier}"
-                                                                topicCenterUrl="${topicCenter.fullUri}"
-                                                                topicIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.topicIDs}"
-                                                                gradeIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.gradeIDs}"
-                                                                subjectIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.subjectIDs}">${subtopic.title}</link:cmsVideoGallery>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                                                gradeIDs="${subtopic.gradeIDs}"
-                                                                                subjectIDs="${subtopic.subjectIDs}"
-                                                                                language="EN">${subtopic.title}</link:cmsCategoryBrowse>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:otherwise>
-                                        </c:choose>
+                                    <c:when test="${not empty currentUri and currentUri eq subtopic.moreLink.url}">
+                                        ${subtopic.title}
+                                    </c:when>
+                                    <c:when test="${not empty subtopic.moreLink}">
+                                        <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <!-- nested items, show triangle, and clicking subtopic title link should only expand/collapse the nested links -->
-                                        <!-- DONE-9457 RANDALL: please fix jquery to make clicking on this link expand/collapse instead of going to the href -->
-                                        <span class='sprite twirlyClosed'><!-- do not collapse --></span>
-                                        <a class="outerNavLink" href="javascript:void(0);">${subtopic.title}</a>
+                                        <c:choose>
+                                            <c:when test="${fn:toLowerCase(subtopic.title) == 'videos'}">
+                                                <link:cmsVideoGallery
+                                                        topicCenterId="${topicCenter.contentKey.identifier}"
+                                                        topicCenterUrl="${topicCenter.fullUri}"
+                                                        topicIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.topicIDs}"
+                                                        gradeIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.gradeIDs}"
+                                                        subjectIDs="${topicCenter.elementarySchoolTopicCenter ? null: subtopic.subjectIDs}">${subtopic.title}</link:cmsVideoGallery>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                                        gradeIDs="${subtopic.gradeIDs}"
+                                                                        subjectIDs="${subtopic.subjectIDs}"
+                                                                        language="EN">${subtopic.title}</link:cmsCategoryBrowse>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:otherwise>
                                 </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                <!-- nested items, show triangle, and clicking subtopic title link should only expand/collapse the nested links -->
+                                <!-- DONE-9457 RANDALL: please fix jquery to make clicking on this link expand/collapse instead of going to the href -->
+                                <span class='sprite twirlyClosed'><!-- do not collapse --></span>
+                                <a class="outerNavLink" href="javascript:void(0);">${subtopic.title}</a>
+                            </c:otherwise>
+                        </c:choose>
 
-                                <c:if test="${not empty subtopic.subSubtopics}">
-                                    <ul class="text2">
-                                        <c:forEach var="section" items="${subtopic.subSubtopics}"
-                                                   varStatus="sectionStatus">
-                                            <li>
-                                                <c:choose>
-                                                    <c:when test="${not empty section.moreLink}">
-                                                        <a href="${section.moreLink.url}">${section.title}</a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
-                                                                                gradeIDs="${section.gradeIDs}"
-                                                                                subjectIDs="${section.subjectIDs}"
-                                                                                language="EN">${section.title}</link:cmsCategoryBrowse>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </li>
-                                        </c:forEach>
-                                        <li>
-                                            <c:choose>
-                                                <c:when test="${not empty subtopic.moreLink}">
-                                                    <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
-                                                                            gradeIDs="${subtopic.gradeIDs}"
-                                                                            subjectIDs="${subtopic.subjectIDs}"
-                                                                            language="EN">See all &amp;raquo;</link:cmsCategoryBrowse>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </li>
-                                    </ul>
-                                </c:if>
-                            </li>
-                            <c:set var="hasNestedItems" value="${false}"/>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </div>
+                        <c:if test="${not empty subtopic.subSubtopics}">
+                            <ul class="text2">
+                                <c:forEach var="section" items="${subtopic.subSubtopics}"
+                                           varStatus="sectionStatus">
+                                    <li>
+                                        <c:choose>
+                                            <c:when test="${not empty section.moreLink}">
+                                                <a href="${section.moreLink.url}">${section.title}</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <link:cmsCategoryBrowse topicIDs="${section.topicIDs}"
+                                                                        gradeIDs="${section.gradeIDs}"
+                                                                        subjectIDs="${section.subjectIDs}"
+                                                                        language="EN">${section.title}</link:cmsCategoryBrowse>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                </c:forEach>
+                                <li>
+                                    <c:choose>
+                                        <c:when test="${not empty subtopic.moreLink}">
+                                            <a href="${subtopic.moreLink.url}">${subtopic.title}</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <link:cmsCategoryBrowse topicIDs="${subtopic.topicIDs}"
+                                                                    gradeIDs="${subtopic.gradeIDs}"
+                                                                    subjectIDs="${subtopic.subjectIDs}"
+                                                                    language="EN">See all &amp;raquo;</link:cmsCategoryBrowse>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                            </ul>
+                        </c:if>
+                    </li>
+                    <c:set var="hasNestedItems" value="${false}"/>
+                </c:forEach>
+            </ul>
         </div>
     </c:if>
 </jsp:root>
