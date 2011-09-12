@@ -15,7 +15,7 @@
                             <c:forEach var="gradeMap" items="${grade}">
                                 <li class="mrglft_neg5 hasNested">
                                     <span class='sprite twirlyClosed'><!-- do not collapse --></span>
-                                    <a class="outerNavLink" href="#">${gradeMap.key.linkText}</a>
+                                    <a class="outerNavLink" href="javascript:void(0);">${gradeMap.key.linkText}</a>
                                     <ul class="text2">
                                         <c:forEach var="subject" items="${gradeMap.value}">
                                             <li><a href="${subject.url}">${subject.linkText}</a></li>
