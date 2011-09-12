@@ -1273,6 +1273,12 @@ body.ie8 .btsSupplyListsTag .arrow {
 .parentReviewRating {margin: 10px 0;}
 .parentReviewRating .inner{background-color:#F4FAFD;padding:10px;border:1px solid #83BBD9;}
 
+/* ---------------- GS-12049 ----------------- */
+/* --------------- mainFeature --------------- */
+.mainFeature{border: 1px solid #e6e6e6;margin:10px 0;}
+.mainFeature .inner{padding:10px}
+.mainFeature .bd h2{color:#06b;margin-bottom: 15px;}
+
 /*----------------GS-11784 start---------------*/
 .mediumThumbnail {
     width: 160px;

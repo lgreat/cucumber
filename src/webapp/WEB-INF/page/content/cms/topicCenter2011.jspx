@@ -77,9 +77,9 @@
 
 <div class="container_24">
 
-<div class="grid_16">
+<div class="grid_16 slStylesV1-0">
 
-<h1 class="fltlft">${topicCenter.title}</h1>
+<h1 class="bottom mtl">${topicCenter.title}</h1>
 
 <!-- Start LogoAd-->
 <div class="logoAd fltrt mrgtop_5">
@@ -102,17 +102,21 @@
 <!-- end logoAd -->
 
         <!--Start Top Story Box-->
-    <div>
-        <gsml:img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
+    <div class="mod mainFeature rnd4">
+        <div class="inner">
+            <div class="bd">
+        <gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}" styleClass="fltrt"/>
 
         <h2>${topicCenter.mainFeatureLink.title}</h2>
-        ${topicCenter.mainFeatureLink.description}
-        <a href="${topicCenter.mainFeatureLink.url}">more &gt;&gt;</a>
-        <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
-            <ul>
+        <p class="small">${topicCenter.mainFeatureLink.description}
+        <a class="wsnw" href="${topicCenter.mainFeatureLink.url}">More <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
+        <ul>
+            <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
                 <li><a href="${otherFeatureLink.url}"></a>${otherFeatureLink.title}</li>
-            </ul>
         </c:forEach>
+            </ul>
+                </div>
+            </div>
     </div>
     <!--End Top Story Box-->
 
@@ -267,7 +271,6 @@
     </div>
 
 </div>
-
 
 </div>
 
