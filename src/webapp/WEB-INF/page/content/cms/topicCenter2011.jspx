@@ -73,9 +73,11 @@
     <ad:setSlotPrefix slotPrefix="${slotPrefixName}"/>
 </head>
 
-<gsml:body adPageName="${pageName}">
+<gsml:body adPageName="${pageName}" pageLayout="nocol">
 
-<div id="mainGS" class="col">
+<div class="container_24">
+
+<div class="grid_16">
 
 <h1 class="fltlft">${topicCenter.title}</h1>
 
@@ -99,22 +101,7 @@
 </div>
 <!-- end logoAd -->
 
-
-<!-- Start Sub Topics Bar -->
-<div id="topicContentGS" class="clearfix">
-
-    <div id="topicbarGS" class="col">
-        <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
-
-        <div class="skyscraperAd">
-            <ad:AboveFold_Left_160x600/>
-        </div>
-    </div>
-</div>
-<!-- End Sub Topics Bar -->
-
-<div id="topicMainGS" class="col">
-    <!--Start Top Story Box-->
+        <!--Start Top Story Box-->
     <div>
         <gsml:img src="${topicCenter.imageUrl}" alt="${topicCenter.imageAltText}"/>
 
@@ -128,9 +115,21 @@
         </c:forEach>
     </div>
     <!--End Top Story Box-->
-    <br/>
-    <br/>
-    <br/>
+
+<!-- Start Sub Topics Bar -->
+
+
+    <div class="grid_5 alpha">
+        <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+
+        <div class="skyscraperAd">
+            <ad:AboveFold_Left_160x600/>
+        </div>
+    </div>
+
+<!-- End Sub Topics Bar -->
+
+<div class="grid_11 omega">
 
     <!--Start Features Articles Tab-->
     <div>
@@ -243,8 +242,9 @@
             </div>
         </div>
     </c:if>
-    <!--End Most popular Tab-->
+</div>
 
+<div class="grid_16 alpha omega">
     <!--Start Carousels-->
     <c:choose>
         <c:when test="${requestScope.topicCenter.carouselOrder eq 'video'}">
@@ -266,18 +266,17 @@
         <ad:adTag position="Inline_423x60"/>
     </div>
 
+</div>
+
 
 </div>
 
-<!--end #topicMainGS -->
-
 <!-- start right sidebarGS -->
-<div id="sidebarGS" class="col">
+<div class="grid_8">
     <cms:topicCenterSidebar topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}"
                             isNewTopicCenterPage="${true}"/>
 </div>
 <!-- end right sidebarGS -->
-
 
 </div>
 
