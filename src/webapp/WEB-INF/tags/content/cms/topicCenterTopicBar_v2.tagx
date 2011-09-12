@@ -8,10 +8,10 @@
     <jsp:directive.attribute name="topicCenter" required="true" type="gs.data.content.cms.CmsTopicCenter"/>
     
     <c:set var="moreOnThisTopic">
-        <cms:browseSidebar title="More on this topic" subtopics="${requestScope.topicCenter.subtopics}"/>
+        <cms:browseSidebar_v2 title="More on this topic" subtopics="${requestScope.topicCenter.subtopics}"/>
     </c:set>
 
-    <c:set var="browseByGrade">
+    <c:set var="browseByGrade" >
         <c:if test="${
             topicCenter.elementarySchoolTopicCenter or
             topicCenter.academicsAndActivitiesTopicCenter or
@@ -19,14 +19,14 @@
             topicCenter.specialEducationTopicCenter or
             topicCenter.elementaryGradeTopicCenter
         }">
-            <cms:browseSidebar title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}" currentUri="${uri}"/>
+            <cms:browseSidebar_v2 title="Browse by grade" subtopics="${requestScope.browseByGradeSubtopics}" currentUri="${uri}"/>
         </c:if>
     </c:set>
 
     <c:choose>
         <c:when test="${topicCenter.worksheetsTopicCenter}">
-            <cms:worksheetsBrowseSidebar/>
-            <cms:browseSidebar title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
+            <cms:worksheetsBrowseSidebar_v2/>
+            <cms:browseSidebar_v2 title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
         </c:when>
         <c:when test="${topicCenter.elementarySchoolTopicCenter}">
             ${browseByGrade}

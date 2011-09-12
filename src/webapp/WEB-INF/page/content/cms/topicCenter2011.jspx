@@ -101,22 +101,25 @@
 </div>
 <!-- end logoAd -->
 
-        <!--Start Top Story Box-->
+    <!--Start Top Story Box-->
     <div class="mod mainFeature rnd4">
         <div class="inner">
             <div class="bd">
-        <gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}" styleClass="fltrt"/>
+                <gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
+                          styleClass="fltrt"/>
 
-        <h2>${topicCenter.mainFeatureLink.title}</h2>
-        <p class="small">${topicCenter.mainFeatureLink.description}
-        <a class="wsnw" href="${topicCenter.mainFeatureLink.url}">More <span class="alertDoubleArrow">&amp;raquo;</span></a></p>
-        <ul>
-            <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
-                <li><a href="${otherFeatureLink.url}"></a>${otherFeatureLink.title}</li>
-        </c:forEach>
-            </ul>
-                </div>
+                <h2>${topicCenter.mainFeatureLink.title}</h2>
+
+                <p class="small">${topicCenter.mainFeatureLink.description}
+                    <a class="wsnw" href="${topicCenter.mainFeatureLink.url}">More <span
+                            class="alertDoubleArrow">&amp;raquo;</span></a></p>
+                <ul>
+                    <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
+                        <li><a href="${otherFeatureLink.url}"></a>${otherFeatureLink.title}</li>
+                    </c:forEach>
+                </ul>
             </div>
+        </div>
     </div>
     <!--End Top Story Box-->
 
@@ -124,7 +127,7 @@
 
 
     <div class="grid_5 alpha">
-        <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
+        <cms:topicCenterTopicBar_v2 topicCenter="${topicCenter}"/>
 
         <div class="skyscraperAd">
             <ad:AboveFold_Left_160x600/>
