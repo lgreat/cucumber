@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <c:if test="${not empty worksheetsLinks}">
+        <div class="mod sideNav">
+            <div class="inner">
+                <div class="hd">
+                    <h3>Worksheets</h3>
+                </div>
+                <div class="bd">
+                    <ul class="text2">
+                        <c:forEach var="grade" items="${worksheetsLinks}">
+                            <c:forEach var="gradeMap" items="${grade}">
+                                <li class="mrglft_neg5 hasNested">
+                                    <span class='sprite twirlyClosed'><!-- do not collapse --></span>
+                                    <a class="outerNavLink" href="javascript:void(0);">${gradeMap.key.linkText}</a>
+                                    <ul class="text2">
+                                        <c:forEach var="subject" items="${gradeMap.value}">
+                                            <li><a href="${subject.url}">${subject.linkText}</a></li>
+                                        </c:forEach>
+                                        <li><a href="${gradeMap.key.url}">See all &amp;raquo;</a></li>
+                                    </ul>
+                                </li>
+                            </c:forEach>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </c:if>
+</jsp:root>
