@@ -31,7 +31,7 @@ Misc classes
 /* Default font settings
 -------------------------------------------------------------- */
 
-#slStylesV1-0{
+.slStylesV1-0{
   font: normal 14px/20px Arial, Helvetica, sans-serif;
   color: #555;
   background: #fff;
@@ -40,90 +40,90 @@ Misc classes
 /* Headings
 -------------------------------------------------------------- */
 
-#slStylesV1-0 h1,
-#slStylesV1-0 h2,
-#slStylesV1-0 h3,
-#slStylesV1-0 h4,
-#slStylesV1-0 h5,
-#slStylesV1-0 h6 { font-weight: normal; color: #2b2b2b; }
-#slStylesV1-0 h1 {color: #d61; }
+.slStylesV1-0 h1,
+.slStylesV1-0 h2,
+.slStylesV1-0 h3,
+.slStylesV1-0 h4,
+.slStylesV1-0 h5,
+.slStylesV1-0 h6 { font-weight: normal; color: #2b2b2b; }
+.slStylesV1-0 h1 {color: #d61; }
 
-#slStylesV1-0 h1 { font: normal 30px/32px Georgia, "Times New Roman", Times, serif; margin-bottom: 32px; }
-#slStylesV1-0 h2 { font: normal 24px/28px Arial, Helvetica, sans-serif; margin-bottom: 28px; }
-#slStylesV1-0 h3 { font: normal 18px/24px Arial, Helvetica, sans-serif; margin-bottom: 24px; }
-#slStylesV1-0 h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-#slStylesV1-0 h5 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-#slStylesV1-0 h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h1 { font: normal 30px/32px Georgia, "Times New Roman", Times, serif; margin-bottom: 32px; }
+.slStylesV1-0 h2 { font: normal 24px/28px Arial, Helvetica, sans-serif; margin-bottom: 28px; }
+.slStylesV1-0 h3 { font: normal 18px/24px Arial, Helvetica, sans-serif; margin-bottom: 24px; }
+.slStylesV1-0 h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h5 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 
-#slStylesV1-0 h1 img,
-#slStylesV1-0 h2 img,
-#slStylesV1-0 h3 img,
-#slStylesV1-0 h4 img,
-#slStylesV1-0 h5 img,
-#slStylesV1-0 h6 img { margin: 0; }
+.slStylesV1-0 h1 img,
+.slStylesV1-0 h2 img,
+.slStylesV1-0 h3 img,
+.slStylesV1-0 h4 img,
+.slStylesV1-0 h5 img,
+.slStylesV1-0 h6 img { margin: 0; }
 
-#slStylesV1-0 hr.keyline1 {background:#ddd;color:#ddd;clear:both;float:none;width:100%;height:1px;margin:0 0 10px;border:none;}
-#slStylesV1-0 hr.keyline2 {background:#e6e6e6;color:#e6e6e6;clear:both;float:none;width:100%;height:1px;margin:0 0 10px;border:none;}
-#slStylesV1-0 hr.space {background:#fff;color:#fff;visibility:hidden;}
+.slStylesV1-0 hr.keyline1 {background:#ddd;color:#ddd;clear:both;float:none;width:100%;height:1px;margin:0 0 10px;border:none;}
+.slStylesV1-0 hr.keyline2 {background:#e6e6e6;color:#e6e6e6;clear:both;float:none;width:100%;height:1px;margin:0 0 10px;border:none;}
+.slStylesV1-0 hr.space {background:#fff;color:#fff;visibility:hidden;}
 
 
 /* Text elements
 -------------------------------------------------------------- */
 
-#slStylesV1-0 p,
-#slStylesV1-0 .default { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-#slStylesV1-0 .medium { font: normal 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-#slStylesV1-0 .small { font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
-#slStylesV1-0 .smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
-#slStylesV1-0 .smallest { font: normal 10px/14px Arial, Helvetica, sans-serif; margin-bottom: 14px; }
-#slStylesV1-0 .small_bold { font: bold 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.slStylesV1-0 p,
+.slStylesV1-0 .default { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .medium { font: normal 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+.slStylesV1-0 .small { font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.slStylesV1-0 .smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.slStylesV1-0 .smallest { font: normal 10px/14px Arial, Helvetica, sans-serif; margin-bottom: 14px; }
+.slStylesV1-0 .small_bold { font: bold 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 
 /*
 	These can be used to pull an image at the start of a paragraph, so
 	that the text flows around it (usage: <p><img class="left">Text</p>)
  */
 /*.left  			{ float: left !important; }
-#slStylesV1-0 p .left			{ margin: 1.5em 1.5em 1.5em 0; padding: 0; }
+.slStylesV1-0 p .left			{ margin: 1.5em 1.5em 1.5em 0; padding: 0; }
 .right 			{ float: right !important; }
-#slStylesV1-0 p .right 		{ margin: 1.5em 0 1.5em 1.5em; padding: 0; }*/
+.slStylesV1-0 p .right 		{ margin: 1.5em 0 1.5em 1.5em; padding: 0; }*/
 
-#slStylesV1-0 a:focus,
-#slStylesV1-0 a:hover     { text-decoration: underline; }
-#slStylesV1-0 a           { color: #06b; text-decoration: none; }
+.slStylesV1-0 a:focus,
+.slStylesV1-0 a:hover     { text-decoration: underline; }
+.slStylesV1-0 a           { color: #06b; text-decoration: none; }
 
-#slStylesV1-0 blockquote  { margin: 20px; color: #555; font-style: italic; }
-#slStylesV1-0 strong,
-#slStylesV1-0 dfn  { font-weight: bold; }
-#slStylesV1-0 em,
-#slStylesV1-0 dfn      { font-style: italic; }
-#slStylesV1-0 sup,
-#slStylesV1-0 sub    { line-height: 0; }
+.slStylesV1-0 blockquote  { margin: 20px; color: #555; font-style: italic; }
+.slStylesV1-0 strong,
+.slStylesV1-0 dfn  { font-weight: bold; }
+.slStylesV1-0 em,
+.slStylesV1-0 dfn      { font-style: italic; }
+.slStylesV1-0 sup,
+.slStylesV1-0 sub    { line-height: 0; }
 
-#slStylesV1-0 abbr,
-#slStylesV1-0 acronym     { border-bottom: 1px dotted #555; }
-#slStylesV1-0 address     { margin: 0 0 1.5em; font-style: italic; }
-#slStylesV1-0 del         { color:#555; }
+.slStylesV1-0 abbr,
+.slStylesV1-0 acronym     { border-bottom: 1px dotted #555; }
+.slStylesV1-0 address     { margin: 0 0 1.5em; font-style: italic; }
+.slStylesV1-0 del         { color:#555; }
 
-#slStylesV1-0 pre         { margin: 1.5em 0; white-space: pre; }
-#slStylesV1-0 pre,
-#slStylesV1-0 code,
-#slStylesV1-0 tt { font: 1em/1.5 'andale mono','lucida console', monospace; }
+.slStylesV1-0 pre         { margin: 1.5em 0; white-space: pre; }
+.slStylesV1-0 pre,
+.slStylesV1-0 code,
+.slStylesV1-0 tt { font: 1em/1.5 'andale mono','lucida console', monospace; }
 
 
 /* Lists
 -------------------------------------------------------------- */
 
-#slStylesV1-0 li ul,
-#slStylesV1-0 li ol       { margin: 0; }
-#slStylesV1-0 ul,
-#slStylesV1-0 ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }
+.slStylesV1-0 li ul,
+.slStylesV1-0 li ol       { margin: 0; }
+.slStylesV1-0 ul,
+.slStylesV1-0 ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }
 
-#slStylesV1-0 ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #b8b8b8; }
-#slStylesV1-0 ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #b8b8b8; }
+.slStylesV1-0 ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #b8b8b8; }
+.slStylesV1-0 ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #b8b8b8; }
 
-#slStylesV1-0 dl          { margin: 0 0 1.5em 0; }
-#slStylesV1-0 dl dt       { font-weight: bold; }
-#slStylesV1-0 dd          { margin-left: 1.5em;}
+.slStylesV1-0 dl          { margin: 0 0 1.5em 0; }
+.slStylesV1-0 dl dt       { font-weight: bold; }
+.slStylesV1-0 dd          { margin-left: 1.5em;}
 
 
 /* Tables
@@ -134,38 +134,38 @@ Misc classes
 	on table cells has to be 27px, instead of the standard 18px or 36px
 	of other elements.
  */
-#slStylesV1-0 table       { margin-bottom: 1.4em; width:100%; }
-#slStylesV1-0 th          { font-weight: bold; }
-#slStylesV1-0 thead th    { background: #bcdeed; }
-#slStylesV1-0 th,
-#slStylesV1-0 td,
-#slStylesV1-0 caption { padding: 4px 10px 4px 5px; }
+.slStylesV1-0 table       { margin-bottom: 1.4em; width:100%; }
+.slStylesV1-0 th          { font-weight: bold; }
+.slStylesV1-0 thead th    { background: #bcdeed; }
+.slStylesV1-0 th,
+.slStylesV1-0 td,
+.slStylesV1-0 caption { padding: 4px 10px 4px 5px; }
 /*
 	You can zebra-stripe your tables in outdated browsers by adding
 	the class "even" to every other table row.
  */
-#slStylesV1-0 tbody tr:nth-child(even) td,
-#slStylesV1-0 tbody tr.even td  {
+.slStylesV1-0 tbody tr:nth-child(even) td,
+.slStylesV1-0 tbody tr.even td  {
 	background: #e2f1f7;
 }
-#slStylesV1-0 tfoot       { font-style: italic; }
-#slStylesV1-0 caption     { background: #e6e6e6; }
+.slStylesV1-0 tfoot       { font-style: italic; }
+.slStylesV1-0 caption     { background: #e6e6e6; }
 
 
 /* Misc classes
 -------------------------------------------------------------- */
 
-#slStylesV1-0 .box {padding:1.5em;margin-bottom:1.5em;background:#e5eCf9;}
+.slStylesV1-0 .box {padding:1.5em;margin-bottom:1.5em;background:#e5eCf9;}
 
-#slStylesV1-0 .hide       { display: none; }
+.slStylesV1-0 .hide       { display: none; }
 
-#slStylesV1-0 .quiet      { color: #787878; }
-#slStylesV1-0 .loud       { color: #000; }
-#slStylesV1-0 .highlight  { background:#ff0; }
-#slStylesV1-0 .added      { background:#060; color: #fff; }
-#slStylesV1-0 .removed    { background:#900; color: #fff; }
+.slStylesV1-0 .quiet      { color: #787878; }
+.slStylesV1-0 .loud       { color: #000; }
+.slStylesV1-0 .highlight  { background:#ff0; }
+.slStylesV1-0 .added      { background:#060; color: #fff; }
+.slStylesV1-0 .removed    { background:#900; color: #fff; }
 
-#slStylesV1-0 .first      { margin-left:0; padding-left:0; }
-#slStylesV1-0 .last       { margin-right:0; padding-right:0; }
-#slStylesV1-0 .top        { margin-top:0; padding-top:0; }
-#slStylesV1-0 .bottom     { margin-bottom:0; padding-bottom:0; }
+.slStylesV1-0 .first      { margin-left:0; padding-left:0; }
+.slStylesV1-0 .last       { margin-right:0; padding-right:0; }
+.slStylesV1-0 .top        { margin-top:0; padding-top:0; }
+.slStylesV1-0 .bottom     { margin-bottom:0; padding-bottom:0; }

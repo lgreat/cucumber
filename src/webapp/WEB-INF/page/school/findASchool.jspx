@@ -35,7 +35,7 @@
     <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
 
     <div class="container_24">
-    <div id="slStylesV1-0" class="grid_16">
+    <div class="grid_16 slStylesV1-0">
     <div class="spacer_20"><!--Do  not collapse --></div>
     <h1>Find a School</h1>
 
