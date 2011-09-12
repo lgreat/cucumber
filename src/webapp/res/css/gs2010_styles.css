@@ -3133,7 +3133,7 @@ body.cobranded #pageGS {
 
 #primary .menuItem:hover .dropdown_align_right {
     left: auto;
-    right: 0;
+    right: -1px;
     top: auto;
 }
 
