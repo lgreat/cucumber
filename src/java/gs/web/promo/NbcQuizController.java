@@ -28,6 +28,9 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
     protected enum SaveStatus {
         SUCCESS ("Success", "Success"),
         ERROR_NO_CHILD_AGE ("Error", "Child age must be provided -- parameter '" + PARAM_CHILD_AGE + "' missing or empty"),
+        ERROR_NO_PARENT_AGE ("Error", "Parent age must be provided -- parameter '" + PARAM_PARENT_AGE + "' missing or empty"),
+        ERROR_NO_ZIP ("Error", "Zip must be provided -- parameter '" + PARAM_ZIP + "' missing or empty"),
+        ERROR_NO_GENDER ("Error", "Gender must be provided -- parameter '" + PARAM_GENDER + "' missing or empty"),
         ERROR_NO_AGE_CATEGORY ("Error", "Child age category must be provided -- parameter '" + PARAM_CHILD_AGE_CATEGORY + "' missing or empty"),
         ERROR_AGE_CATEGORY_MISMATCH ("Error", "Child age category mismatch! Parameter '" + PARAM_CHILD_AGE_CATEGORY +
                 "' must match the first character of every response and score parameter"),
@@ -36,6 +39,7 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
         ERROR_TOO_FEW_SCORES ("Error", "Not enough scores provided: need at least " + MIN_NUM_SCORES +
                 " matching the regex " + PATTERN_PARAM_SCORE.pattern()),
         ERROR_INVALID_SCORE ("Error", "Scores must be numeric values in the range 0.0-100.0"),
+        ERROR_EMPTY_VALUE ("Error", "Empty question parameter value is not allowed"),
         ERROR_SERVER ("Error", "Server error");
 
         private final String _status;
@@ -179,16 +183,25 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
         }
     }
 
-    protected void addQuizResponse(QuizTaken quizTaken, String key, String value) {
-        if (value != null) {
+    protected void addQuizResponse(QuizTaken quizTaken, String key, String value) throws ParseQuizTakenException {
+        if (StringUtils.isNotBlank(value)) {
             QuizResponse response = new QuizResponse();
             response.setQuestionKey(key);
             response.setValue(value);
             response.setQuizTaken(quizTaken);
             quizTaken.getQuizResponses().add(response);
         } else {
-            _log.warn("Question param " + key + " has null value");
+            _log.warn("Question param " + key + " has blank or null value");
+            throw new ParseQuizTakenException(SaveStatus.ERROR_EMPTY_VALUE);
         }
+    }
+
+    protected void addRequiredQuizResponse(QuizTaken quizTaken, String key, String value, SaveStatus errorCode)
+            throws ParseQuizTakenException {
+        if (StringUtils.isBlank(value)) {
+            throw new ParseQuizTakenException(errorCode);
+        }
+        addQuizResponse(quizTaken, key, value);
     }
 
 //    protected void addQuizScore(QuizTaken quizTaken, String category, double value) {
@@ -216,14 +229,10 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
         if (StringUtils.isBlank(ageCategory)) {
             throw new ParseQuizTakenException(SaveStatus.ERROR_NO_AGE_CATEGORY);
         }
-        String childAge = request.getParameter(PARAM_CHILD_AGE);
-        if (StringUtils.isBlank(childAge)) {
-            throw new ParseQuizTakenException(SaveStatus.ERROR_NO_CHILD_AGE);
-        }
-        addQuizResponse(quizTaken, PARAM_CHILD_AGE, childAge);
-        addQuizResponse(quizTaken, PARAM_PARENT_AGE, request.getParameter(PARAM_PARENT_AGE));
-        addQuizResponse(quizTaken, PARAM_ZIP, request.getParameter(PARAM_ZIP));
-        addQuizResponse(quizTaken, PARAM_GENDER, request.getParameter(PARAM_GENDER));
+        addRequiredQuizResponse(quizTaken, PARAM_CHILD_AGE, request.getParameter(PARAM_CHILD_AGE), SaveStatus.ERROR_NO_CHILD_AGE);
+        addRequiredQuizResponse(quizTaken, PARAM_PARENT_AGE, request.getParameter(PARAM_PARENT_AGE), SaveStatus.ERROR_NO_PARENT_AGE);
+        addRequiredQuizResponse(quizTaken, PARAM_ZIP, request.getParameter(PARAM_ZIP), SaveStatus.ERROR_NO_ZIP);
+        addRequiredQuizResponse(quizTaken, PARAM_GENDER, request.getParameter(PARAM_GENDER), SaveStatus.ERROR_NO_GENDER);
 
         // parse dynamic parameters
         Enumeration paramNames = request.getParameterNames();

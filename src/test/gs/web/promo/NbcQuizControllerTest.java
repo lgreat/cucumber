@@ -222,7 +222,7 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
         setValidFieldsOnRequest();
 
         replayAllMocks();
-        Object rval = null;
+        QuizTaken rval = null;
         try {
             rval = _controller.parseQuizTaken(getRequest());
         } catch (NbcQuizController.ParseQuizTakenException pqte) {
@@ -243,7 +243,7 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("totalGarbage", "11");
 
         replayAllMocks();
-        Object rval = null;
+        QuizTaken rval = null;
         try {
             rval = _controller.parseQuizTaken(getRequest());
         } catch (NbcQuizController.ParseQuizTakenException pqte) {
