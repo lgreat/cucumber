@@ -363,9 +363,9 @@ public class NbcQuizController extends AbstractController implements ReadWriteCo
 //        }
 //    }
     
-    private void logDuration(long durationInMillis, String eventName) {
-        _log.info(eventName + " took " + durationInMillis + " milliseconds");
-    }
+//    private void logDuration(long durationInMillis, String eventName) {
+//        _log.info(eventName + " took " + durationInMillis + " milliseconds");
+//    }
 
     public IQuizDao getQuizDao() {
         return _quizDao;

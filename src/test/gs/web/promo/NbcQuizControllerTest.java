@@ -3,8 +3,14 @@ package gs.web.promo;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.promo.IQuizDao;
+import gs.data.promo.QuizResponse;
 import gs.data.promo.QuizTaken;
 import gs.web.BaseControllerTestCase;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.easymock.EasyMock.*;
 import static gs.web.promo.NbcQuizController.*;
@@ -54,18 +60,21 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3bd1").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("1bd2").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3bd5").matches());
+        assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3bd15").matches());
 
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("1m1").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("2m1").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3m1").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("1m2").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3m5").matches());
+        assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3m15").matches());
 
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("1a1").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("2a1").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3a1").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("1a2").matches());
         assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3a5").matches());
+        assertTrue(NbcQuizController.PATTERN_PARAM_ANSWER.matcher("3a15").matches());
     }
 
     public void testParseQuizTakenNoType() {
@@ -91,6 +100,20 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
             fail("Expect validation error when no childAge parameter supplied");
         } catch (NbcQuizController.ParseQuizTakenException pqte) {
             assertEquals(ERROR_NO_CHILD_AGE, pqte.getSaveStatus());
+        }
+        verifyAllMocks();
+    }
+
+    public void testParseQuizTakenBlankValue() {
+        setValidStaticFieldsOnRequest();
+        getRequest().setParameter("1a1", "");
+
+        replayAllMocks();
+        try {
+            _controller.parseQuizTaken(getRequest());
+            fail("Expect validation error when blank value supplied");
+        } catch (NbcQuizController.ParseQuizTakenException pqte) {
+            assertEquals(ERROR_EMPTY_VALUE, pqte.getSaveStatus());
         }
         verifyAllMocks();
     }
@@ -230,7 +253,23 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
         }
         verifyAllMocks();
         assertNotNull("Expect quiz response object when valid fields are provided", rval);
-        // TODO assert rval fields match request fields
+        assertNotNull("Expect quiz response object when valid fields are provided", rval.getQuizResponses());
+        assertEquals("Expect exactly 10 responses", 10, rval.getQuizResponses().size());
+        // assert rval fields match request fields from setValidFieldsOnRequest
+        Map<String, String> responseMap = new HashMap<String, String>(10);
+        for (QuizResponse response: rval.getQuizResponses()) {
+            responseMap.put(response.getQuestionKey(), response.getValue());
+        }
+        assertEquals("0-3", responseMap.get(PARAM_CHILD_AGE));
+        assertEquals("33", responseMap.get(PARAM_PARENT_AGE));
+        assertEquals("92130", responseMap.get(PARAM_ZIP));
+        assertEquals("m", responseMap.get(PARAM_GENDER));
+        assertEquals("a", responseMap.get("1bd1"));
+        assertEquals("b", responseMap.get("1bd2"));
+        assertEquals("c", responseMap.get("1bd3"));
+        assertEquals("0.0", responseMap.get("1bd"));
+        assertEquals("66.7", responseMap.get("1a"));
+        assertEquals("100.0", responseMap.get("1m"));
     }
 
     public void testParseQuizTakenWeirdParameters() {
@@ -251,8 +290,15 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
         }
         verifyAllMocks();
         assertNotNull("Expect quiz response object when valid fields are provided", rval);
-        // TODO assert rval fields match request fields
         // assert rval fields do NOT contain extra params
+        for (QuizResponse response: rval.getQuizResponses()) {
+            if (response.getQuestionKey().equals("xq1")
+                    || response.getQuestionKey().equals("q1x")
+                    || response.getQuestionKey().equals("1q1_")
+                    || response.getQuestionKey().equals("totalGarbage")) {
+                fail("Abnormal parameter should not show up in the responses list: " + response.getQuestionKey());
+            }
+        }
     }
 
     public void testSaveResponsesOnValidationError() {
@@ -307,6 +353,86 @@ public class NbcQuizControllerTest extends BaseControllerTestCase {
         } catch (JSONException e) {
             fail("Unexpected JSON error: " + e);
         }
+    }
+
+    public void testHandleRequestInternalGet() throws Exception {
+        getRequest().setMethod("get");
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAllMocks();
+        assertNull(mAndV);
+    }
+
+    public void testHandleRequestInternalNormalRequest() throws Exception {
+        getRequest().setMethod("post");
+
+        setValidFieldsOnRequest();
+
+        _quizDao.save(isA(QuizTaken.class));
+
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAllMocks();
+        assertNull(mAndV);
+
+        String output = getResponse().getContentAsString();
+        assertNotNull(output);
+        assertEquals("{\"message\":\"Success\",\"status\":\"Success\"}", output);
+        assertEquals("Expect a 200 response code", 200, getResponse().getStatus());
+    }
+
+    public void testHandleRequestInternalValidationError() throws Exception {
+        getRequest().setMethod("post");
+
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAllMocks();
+        assertNull(mAndV);
+
+        String output = getResponse().getContentAsString();
+        assertNotNull(output);
+        assertEquals("{\"message\":\"" + SaveStatus.ERROR_NO_AGE_CATEGORY.getMessage() +
+                             "\",\"status\":\"" + SaveStatus.ERROR_NO_AGE_CATEGORY.getStatus() + "\"}", output);
+        assertEquals("Expect a 400 response code on validation error", 400, getResponse().getStatus());
+    }
+
+    public void testHandleRequestInternalServerError() throws Exception {
+        getRequest().setMethod("post");
+
+        setValidFieldsOnRequest();
+        
+        _quizDao.save(isA(QuizTaken.class));
+        expectLastCall().andThrow(new RuntimeException("Mock dao.save exception"));
+
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAllMocks();
+        assertNull(mAndV);
+
+        String output = getResponse().getContentAsString();
+        assertNotNull(output);
+        assertEquals("{\"message\":\"" + SaveStatus.ERROR_SERVER.getMessage() +
+                             "\",\"status\":\"" + SaveStatus.ERROR_SERVER.getStatus() + "\"}", output);
+        assertEquals("Expect a 500 response code on server error", 500, getResponse().getStatus());
+    }
+
+    public void testHandleRequestInternalBadError() throws Exception {
+        getRequest().setMethod("post");
+
+        setValidFieldsOnRequest();
+
+        _quizDao.save(isA(QuizTaken.class));
+
+        getResponse().setWriterAccessAllowed(false);
+
+        replayAllMocks();
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        verifyAllMocks();
+        assertNull(mAndV);
+
+        String output = getResponse().getContentAsString();
+        assertTrue("Can't write to response", StringUtils.isEmpty(output));
+        assertEquals("Expect a 500 response code on server error", 500, getResponse().getStatus());
     }
 
 //    public void testIsExpiredOrNull() {
