@@ -145,6 +145,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
 
         META_KEYWORDS_GRADE_ONLY.put("preschool", "preschool worksheets, preschool worksheet, pre school worksheets, worksheets for preschool kids");
         META_KEYWORDS_GRADE_ONLY.put("kindergarten", "worksheet for kindergarten, kindergarten worksheets, worksheets for kindergarten, kindergarten worksheet");
+        META_KEYWORDS_GRADE_ONLY.put("first-grade", "worksheets for 1st graders, 1 grade worksheets, first grade worksheets, worksheets for first grade, 1st grade worksheets");
 
         for (String gradeKey : META_GRADE_KEY_TO_SHORT_NAME.keySet()) {
             if (!META_KEYWORDS_GRADE_ONLY.containsKey(gradeKey)) {
@@ -245,14 +246,15 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
      * @param model
      */
     public static void addMetaDataToModel(Map<String, Object> model) {
-        String metaDescription = null;
-        String metaKeywords = null;
+        String metaDescription;
+        String metaKeywords;
 
         String requestedGradeKey = (String)model.get(REQUESTED_GRADE_KEY);
         String requestedSubjectKey = (String)model.get(REQUESTED_SUBJECT_KEY);
 
         // worksheet gallery not filtered by grade, so just use topic center's CMS-entered meta description and keywords
-        if (requestedGradeKey == null && requestedSubjectKey == null) {
+        if ((requestedGradeKey == null && requestedSubjectKey == null) ||
+            ("elementary-school".equals(requestedGradeKey) && StringUtils.isNotBlank(requestedSubjectKey))) {
             return;
         }
 
@@ -283,6 +285,9 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
                             requestedSubjectKey + " worksheets to help your child practice key " +
                             ("math".equals(requestedSubjectKey) ? "number" : "language arts") +
                             " skills.";
+                } else if ("fifth-grade".equals(requestedGradeKey) && "writing".equals(requestedSubjectKey)) {
+                    metaDescription = "Free printable " + META_GRADE_KEY_TO_SHORT_NAME.get(requestedGradeKey) + " " +
+                            requestedSubjectKey + " worksheets to help your child practice skills while having fun.";
                 } else {
                     metaDescription = "Free printable " + META_GRADE_KEY_TO_NUMERIC_NAME.get(requestedGradeKey) + " " +
                             requestedSubjectKey + " worksheets to help your child practice skills while having fun.";
@@ -291,8 +296,6 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
                         META_GRADE_KEY_TO_SHORT_NAME.get(requestedGradeKey) + " " + requestedSubjectKey + " worksheets";
             }
         }
-
-        // TODO-12144 what about /worksheets/elementary-school/<subject>/ or /worksheets/ ???
 
         model.put(MODEL_META_DESCRIPTION, metaDescription);
         model.put(MODEL_META_KEYWORDS, metaKeywords);

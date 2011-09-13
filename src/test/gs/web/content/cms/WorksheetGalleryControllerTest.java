@@ -44,11 +44,12 @@ public class WorksheetGalleryControllerTest extends TestCase {
         assertEquals("Free printable kindergarten worksheets to help your whiz kid practice math, reading, and writing skills.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
         assertEquals("worksheet for kindergarten, kindergarten worksheets, worksheets for kindergarten, kindergarten worksheet", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
 
+        // special case
         model.clear();
         model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "first-grade");
         WorksheetGalleryController.addMetaDataToModel(model);
         assertEquals("Free printable 1st grade worksheets to help your whiz kid practice math, reading, and writing skills.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
-        assertEquals("worksheets for 1st graders, 1st grade worksheets, first grade worksheets, worksheets for first grade", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
+        assertEquals("worksheets for 1st graders, 1 grade worksheets, first grade worksheets, worksheets for first grade, 1st grade worksheets", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
 
         model.clear();
         model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "third-grade");
@@ -118,11 +119,12 @@ public class WorksheetGalleryControllerTest extends TestCase {
         assertEquals("Free printable 3rd grade reading worksheets to help your child practice skills while having fun.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
         assertEquals("3rd grade reading worksheets, third grade reading worksheets", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
 
+        // special case
         model.clear();
         model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "fifth-grade");
         model.put(WorksheetGalleryController.REQUESTED_SUBJECT_KEY, "writing");
         WorksheetGalleryController.addMetaDataToModel(model);
-        assertEquals("Free printable 5th grade writing worksheets to help your child practice skills while having fun.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
+        assertEquals("Free printable fifth grade writing worksheets to help your child practice skills while having fun.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
         assertEquals("5th grade writing worksheets, fifth grade writing worksheets", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
 
         // special case
@@ -141,6 +143,25 @@ public class WorksheetGalleryControllerTest extends TestCase {
         assertEquals("Free printable 1st grade reading worksheets to help your child practice key language arts skills.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
         assertEquals("1st grade reading worksheets, first grade reading worksheets", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
 
-        // TODO-12144 what about /worksheets/elementary-school/<subject>/ or /worksheets/ ???
+        model.clear();
+        model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "elementary-school");
+        model.put(WorksheetGalleryController.REQUESTED_SUBJECT_KEY, "math");
+        WorksheetGalleryController.addMetaDataToModel(model);
+        assertNull(model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
+        assertNull(model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
+
+        model.clear();
+        model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "elementary-school");
+        model.put(WorksheetGalleryController.REQUESTED_SUBJECT_KEY, "reading");
+        WorksheetGalleryController.addMetaDataToModel(model);
+        assertNull(model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
+        assertNull(model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
+
+        model.clear();
+        model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "elementary-school");
+        model.put(WorksheetGalleryController.REQUESTED_SUBJECT_KEY, "writing");
+        WorksheetGalleryController.addMetaDataToModel(model);
+        assertNull(model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
+        assertNull(model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
     }
 }
