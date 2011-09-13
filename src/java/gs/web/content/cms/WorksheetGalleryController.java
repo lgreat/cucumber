@@ -278,8 +278,15 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
                 metaDescription = META_DESCRIPTION_PK_K_GRADE_SUBJECT.get(requestedGradeKey + "/" + requestedSubjectKey);
                 metaKeywords = META_KEYWORDS_PK_K_GRADE_SUBJECT.get(requestedGradeKey + "/" + requestedSubjectKey);
             } else {
-                metaDescription = "Free printable " + META_GRADE_KEY_TO_NUMERIC_NAME.get(requestedGradeKey) + " " +
-                        requestedSubjectKey + " worksheets to help your child practice skills while having fun.";
+                if ("first-grade".equals(requestedGradeKey) && ("math".equals(requestedSubjectKey) || "reading".equals(requestedSubjectKey))) {
+                    metaDescription = "Free printable " + META_GRADE_KEY_TO_NUMERIC_NAME.get(requestedGradeKey) + " " +
+                            requestedSubjectKey + " worksheets to help your child practice key " +
+                            ("math".equals(requestedSubjectKey) ? "number" : "language arts") +
+                            " skills.";
+                } else {
+                    metaDescription = "Free printable " + META_GRADE_KEY_TO_NUMERIC_NAME.get(requestedGradeKey) + " " +
+                            requestedSubjectKey + " worksheets to help your child practice skills while having fun.";
+                }
                 metaKeywords = META_GRADE_KEY_TO_NUMERIC_NAME.get(requestedGradeKey) + " " + requestedSubjectKey + " worksheets, " +
                         META_GRADE_KEY_TO_SHORT_NAME.get(requestedGradeKey) + " " + requestedSubjectKey + " worksheets";
             }

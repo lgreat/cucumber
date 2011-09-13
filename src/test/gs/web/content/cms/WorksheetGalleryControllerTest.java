@@ -125,6 +125,22 @@ public class WorksheetGalleryControllerTest extends TestCase {
         assertEquals("Free printable 5th grade writing worksheets to help your child practice skills while having fun.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
         assertEquals("5th grade writing worksheets, fifth grade writing worksheets", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
 
+        // special case
+        model.clear();
+        model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "first-grade");
+        model.put(WorksheetGalleryController.REQUESTED_SUBJECT_KEY, "math");
+        WorksheetGalleryController.addMetaDataToModel(model);
+        assertEquals("Free printable 1st grade math worksheets to help your child practice key number skills.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
+        assertEquals("1st grade math worksheets, first grade math worksheets", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
+
+        // special case
+        model.clear();
+        model.put(WorksheetGalleryController.REQUESTED_GRADE_KEY, "first-grade");
+        model.put(WorksheetGalleryController.REQUESTED_SUBJECT_KEY, "reading");
+        WorksheetGalleryController.addMetaDataToModel(model);
+        assertEquals("Free printable 1st grade reading worksheets to help your child practice key language arts skills.", model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
+        assertEquals("1st grade reading worksheets, first grade reading worksheets", model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
+
         // TODO-12144 what about /worksheets/elementary-school/<subject>/ or /worksheets/ ???
     }
 }
