@@ -161,6 +161,7 @@ Misc classes
 
 .slStylesV1-0 .quiet      { color: #787878; }
 .slStylesV1-0 .loud       { color: #000; }
+.slStylesV1-0 .make-06b   { color: #06b; }
 .slStylesV1-0 .highlight  { background:#ff0; }
 .slStylesV1-0 .added      { background:#060; color: #fff; }
 .slStylesV1-0 .removed    { background:#900; color: #fff; }

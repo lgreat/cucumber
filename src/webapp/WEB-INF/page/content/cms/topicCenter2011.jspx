@@ -115,7 +115,7 @@
                             class="alertDoubleArrow">&amp;raquo;</span></a></p>
                 <ul>
                     <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
-                        <li><a href="${otherFeatureLink.url}"></a>${otherFeatureLink.title}</li>
+                        <li><a href="${otherFeatureLink.url}">${otherFeatureLink.title}</a></li>
                     </c:forEach>
                 </ul>
             </div>
@@ -140,10 +140,10 @@
 
         <div class="featuredContent tabs">
 
-            <ul class="tabNavigation">
-                <li><a href="#js_featuredArticlesTab">Featured Articles</a></li>
+            <ul class="tabNavigation gradient-3">
+                <li><a class="rnd-top-6" href="#js_featuredArticlesTab">Featured Articles</a></li>
                 <c:if test="${topicCenter.displayMostPopularTab}">
-                    <li><a href="#js_mostPopularTab">${topicCenter.mostPopularTabName}</a></li>
+                    <li><a class="rnd-top-6" href="#js_mostPopularTab">${topicCenter.mostPopularTabName}</a></li>
                 </c:if>
             </ul>
 
@@ -155,8 +155,7 @@
                 <c:if test="${topicCenter.displayFeaturedArticlesModule and featuredArticlesModuleLinks != null and fn:length(featuredArticlesModuleLinks) >=3 }">
                     <div>
                         <c:forEach var="link" items="${featuredArticlesModuleLinks}" varStatus="status">
-                            <br/>
-                            <br/>
+
                             <!-- First article in module link is treated differently -->
                             <c:if test="${status.count==1}">
                                 <gsml:img src="${link.alternateImageUrl}" alt="${link.alternateImageAltText}"/>
@@ -177,21 +176,21 @@
                 </c:if>
                 <!--End Featured Article Module-->
                 <!--Start Featured Article list-->
-                <br/>
-                <br/>
-                <ul>
-                    <c:forEach var="link" items="${topicCenter.featuredArticlesLinks}">
-                        <li>
-                            <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
 
-                            <p>${link.kategory.name}</p>
-                            <a href="${link.url}">${link.linkText}</a>
+                <c:forEach var="link" items="${topicCenter.featuredArticlesLinks}">
+                    <div class="mediaExt2-7">
+                        <gsml:img styleClass="img" src="${link.imageUrl}" alt="${link.imageAltText}"/>
 
-                            <p>${link.description}</p>
+                        <div class="bk">
+                            <p class="small bottom make-06b">${link.kategory.name}</p>
+                            <h3 class="bottom"><a href="${link.url}">${link.linkText}</a></h3>
 
-                        </li>
-                    </c:forEach>
-                </ul>
+                            <p class="small">${link.description}</p>
+                        </div>
+
+                    </div>
+                </c:forEach>
+
                 <!--End Featured Article list-->
             </div>
             <!--End Features Articles Tab-->
@@ -226,22 +225,24 @@
                         </div>
                     </c:if>
                     <!--End Most Popular Module-->
-                    <br/>
-                    <br/>
+
                     <!--Start Most Popular list-->
-                    <ul>
-                        <c:forEach var="link" items="${topicCenter.mostPopularLinks}">
-                            <li>
-                                <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
 
-                                <p>${link.kategory.name}</p>
-                                <a href="${link.url}">${link.linkText}</a>
+                    <c:forEach var="link" items="${topicCenter.mostPopularLinks}">
+                        <div class="mediaExt2-7">
+                            <gsml:img styleClass="img" src="${link.imageUrl}" alt="${link.imageAltText}"/>
 
-                                <p>${link.description}</p>
+                            <div class="bk">
+                                <p class="small bottom make-06b">${link.kategory.name}</p>
 
-                            </li>
-                        </c:forEach>
-                    </ul>
+                                <h3 class="bottom"><a href="${link.url}">${link.linkText}</a></h3>
+
+                                <p class="small">${link.description}</p>
+                            </div>
+
+                        </div>
+                    </c:forEach>
+
                     <!--End Most Popular list-->
                 </div>
             </c:if>
