@@ -125,7 +125,6 @@
 
 <!-- Start Sub Topics Bar -->
 
-
     <div class="grid_5 alpha">
         <cms:topicCenterTopicBar_v2 topicCenter="${topicCenter}"/>
 
@@ -136,78 +135,26 @@
 
 <!-- End Sub Topics Bar -->
 
-<div class="grid_11 omega">
+<!-- Start Featured Content -->
+    <div class="grid_11 omega">
 
-    <!--Start Features Articles Tab-->
-    <div>
-        <a href="#" onclick="switchTabs('js_featuredArticlesTab','js_mostPopularTab')">Featured Articles</a>
+        <div class="featuredContent tabs">
 
-        <div id="js_featuredArticlesTab">
-            <!-- Start Featured Article Module-->
-            <c:set var="featuredArticlesModuleLinks" value="${topicCenter.featuredArticlesModuleLinks}"/>
-            <!-- Show the module links only if min of 3 and show only max of 4 links -->
-            <c:if test="${topicCenter.displayFeaturedArticlesModule and featuredArticlesModuleLinks != null and fn:length(featuredArticlesModuleLinks) >=3 }">
-                <div>
-                    <c:forEach var="link" items="${featuredArticlesModuleLinks}" varStatus="status">
-                        <br/>
-                        <br/>
-                        <!-- First article in module link is treated differently -->
-                        <c:if test="${status.count==1}">
-                            <gsml:img src="${link.alternateImageUrl}" alt="${link.alternateImageAltText}"/>
-
-                            <p>${link.kategory.name}</p>
-
-                            <a href="${link.url}">${link.linkText}</a>
-
-                            <p>${link.description}</p>
-                        </c:if>
-                        <c:if test="${status.count gt 1 and status.count le 4}">
-                            <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
-
-                            <p><a href="${link.url}">${link.linkText}</a></p>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            </c:if>
-            <!--End Featured Article Module-->
-            <!--Start Featured Article list-->
-            <br/>
-            <br/>
-            <ul>
-                <c:forEach var="link" items="${topicCenter.featuredArticlesLinks}">
-                    <li>
-                        <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
-
-                        <p>${link.kategory.name}</p>
-                        <a href="${link.url}">${link.linkText}</a>
-
-                        <p>${link.description}</p>
-
-                    </li>
-                </c:forEach>
+            <ul class="tabNavigation">
+                <li><a href="#js_featuredArticlesTab">Featured Articles</a></li>
+                <c:if test="${topicCenter.displayMostPopularTab}">
+                    <li><a href="#js_mostPopularTab">${topicCenter.mostPopularTabName}</a></li>
+                </c:if>
             </ul>
-            <!--End Featured Article list-->
-        </div>
-    </div>
-    <!--End Features Articles Tab-->
 
-    <br/>
-    <br/>
-
-    <!--Start Most popular Tab-->
-    <c:if test="${topicCenter.displayMostPopularTab}">
-        <div>
-            <a href="#"
-               onclick="switchTabs('js_mostPopularTab','js_featuredArticlesTab')">${topicCenter.mostPopularTabName}</a>
-
-            <div id="js_mostPopularTab" style="display:none;">
-
-                <!-- Start Most Popular Module-->
-                <c:set var="mostPopularModuleLinks" value="${topicCenter.mostPopularModuleLinks}"/>
+            <!--Start Features Articles Tab-->
+            <div id="js_featuredArticlesTab">
+                <!-- Start Featured Article Module-->
+                <c:set var="featuredArticlesModuleLinks" value="${topicCenter.featuredArticlesModuleLinks}"/>
                 <!-- Show the module links only if min of 3 and show only max of 4 links -->
-                <c:if test="${topicCenter.displayMostPopularModule and mostPopularModuleLinks != null and fn:length(mostPopularModuleLinks) >=3 }">
+                <c:if test="${topicCenter.displayFeaturedArticlesModule and featuredArticlesModuleLinks != null and fn:length(featuredArticlesModuleLinks) >=3 }">
                     <div>
-                        <c:forEach var="link" items="${mostPopularModuleLinks}" varStatus="status">
+                        <c:forEach var="link" items="${featuredArticlesModuleLinks}" varStatus="status">
                             <br/>
                             <br/>
                             <!-- First article in module link is treated differently -->
@@ -228,12 +175,12 @@
                         </c:forEach>
                     </div>
                 </c:if>
-                <!--End Most Popular Module-->
+                <!--End Featured Article Module-->
+                <!--Start Featured Article list-->
                 <br/>
                 <br/>
-                <!--Start Most Popular list-->
                 <ul>
-                    <c:forEach var="link" items="${topicCenter.mostPopularLinks}">
+                    <c:forEach var="link" items="${topicCenter.featuredArticlesLinks}">
                         <li>
                             <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
 
@@ -245,11 +192,63 @@
                         </li>
                     </c:forEach>
                 </ul>
-                <!--End Most Popular list-->
+                <!--End Featured Article list-->
             </div>
+            <!--End Features Articles Tab-->
+
+            <!--Start Most popular Tab-->
+            <c:if test="${topicCenter.displayMostPopularTab}">
+                <div id="js_mostPopularTab">
+                    <!-- Start Most Popular Module-->
+                    <c:set var="mostPopularModuleLinks" value="${topicCenter.mostPopularModuleLinks}"/>
+                    <!-- Show the module links only if min of 3 and show only max of 4 links -->
+                    <c:if test="${topicCenter.displayMostPopularModule and mostPopularModuleLinks != null and fn:length(mostPopularModuleLinks) >=3 }">
+                        <div>
+                            <c:forEach var="link" items="${mostPopularModuleLinks}" varStatus="status">
+                                <br/>
+                                <br/>
+                                <!-- First article in module link is treated differently -->
+                                <c:if test="${status.count==1}">
+                                    <gsml:img src="${link.alternateImageUrl}" alt="${link.alternateImageAltText}"/>
+
+                                    <p>${link.kategory.name}</p>
+
+                                    <a href="${link.url}">${link.linkText}</a>
+
+                                    <p>${link.description}</p>
+                                </c:if>
+                                <c:if test="${status.count gt 1 and status.count le 4}">
+                                    <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                                    <p><a href="${link.url}">${link.linkText}</a></p>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </c:if>
+                    <!--End Most Popular Module-->
+                    <br/>
+                    <br/>
+                    <!--Start Most Popular list-->
+                    <ul>
+                        <c:forEach var="link" items="${topicCenter.mostPopularLinks}">
+                            <li>
+                                <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                                <p>${link.kategory.name}</p>
+                                <a href="${link.url}">${link.linkText}</a>
+
+                                <p>${link.description}</p>
+
+                            </li>
+                        </c:forEach>
+                    </ul>
+                    <!--End Most Popular list-->
+                </div>
+            </c:if>
         </div>
-    </c:if>
-</div>
+
+    </div>
+<!-- End Featured Content -->
 
 <div class="grid_16 alpha omega">
     <!--Start Carousels-->

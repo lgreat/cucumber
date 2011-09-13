@@ -1284,6 +1284,15 @@ body.ie8 .btsSupplyListsTag .arrow {
 .sideNav_v2 .hd h5{color:#d61;margin-bottom:10px;}
 .sideNav_v2 .bd ul{padding:0;}
 .sideNav_v2 .bd li{list-style: none;}
+/* ------------- featuredContent ------------- */
+.featuredContent .tabNavigation {padding: 0;margin:0;border-bottom: 1px solid #bbdded; background-color: #e9f4fa;}
+.featuredContent .tabNavigation li {list-style:none;display: inline;}
+.featuredContent .tabNavigation li a {padding: 3px 5px;background-color: #d1e9f3;color: #06a;text-decoration: none;margin-left: 5px;}
+.featuredContent .tabNavigation li a.selected,
+.featuredContent .tabNavigation li a:hover {background-color: #fff;color: #333;padding-top: 7px;border: 1px solid #bbdded;}
+.featuredContent .tabNavigation li a.selected,
+.featuredContent .tabNavigation li a:hover {border-bottom: none; padding-bottom: 4px;}
+.featuredContent .tabNavigation li a:focus {outline: 0;}
 
 /*----------------GS-11784 start---------------*/
 .mediumThumbnail {

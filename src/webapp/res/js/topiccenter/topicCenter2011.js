@@ -1,4 +1,4 @@
-function switchTabs(tabToShow, tabToHide) {
+/*function switchTabs(tabToShow, tabToHide) {
 
     //track user clicks on most popular tab in Omniture.
     if (tabToShow == 'js_mostPopularTab') {
@@ -10,7 +10,21 @@ function switchTabs(tabToShow, tabToHide) {
     var hideTab = jQuery('#' + tabToHide);
     showTab.show();
     hideTab.hide();
-}
+}*/
+
+jQuery(function () {
+    var tabContainers = jQuery('div.tabs > div');
+    tabContainers.hide().filter(':first').show();
+
+    jQuery('div.tabs ul.tabNavigation a').click(
+        function () {
+            tabContainers.hide();
+            tabContainers.filter(this.hash).show();
+            jQuery('div.tabs ul.tabNavigation a').removeClass('selected');
+            jQuery(this).addClass('selected');
+            return false;
+        }).filter(':first').click();
+});
 
 /* ------------------------------------------------ */
 /* -- TOPIC CENTER AND GRADE LEVEL FIND A SCHOOL (moved over from topicCenter2010.js)-- */
