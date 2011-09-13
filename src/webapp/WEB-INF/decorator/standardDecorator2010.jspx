@@ -76,6 +76,8 @@
     <c:choose>
         <c:when test="${(not empty param.uncompressedScripts
                          or pageContext.request.serverName eq 'localhost'
+                         or pageContext.request.serverName eq 'www.localhost.com'
+                         or pageContext.request.serverName eq 'pk.localhost.com'
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
             <gsml:url var="resetcss" value="/res/css/0_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>

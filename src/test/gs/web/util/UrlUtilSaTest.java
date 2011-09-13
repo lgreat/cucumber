@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.81 2011/06/23 01:50:51 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.82 2011/09/13 03:47:04 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -177,8 +177,7 @@ public class UrlUtilSaTest extends TestCase {
 
         assertNull("editorial.dev should not be treated as a cobrand", _urlUtil.cobrandFromUrl("editorial.dev.greatschools.org"));
 
-        // This doesn't work, but it's not a realistic case at this time.
-        //assertNull(_urlUtil.cobrandFromUrl("greatschools.org"));
+        assertNull(_urlUtil.cobrandFromUrl("greatschools.org"));
 
         // GS-11466
         assertEquals("al", _urlUtil.cobrandFromUrl("schoolrankings.al.com"));
@@ -548,5 +547,34 @@ public class UrlUtilSaTest extends TestCase {
         result = UrlUtil.removeParamsFromQueryString(queryString, "b", "c", "a", "d");
 
         assertEquals("", result);
+    }
+
+    public void testOverwriteSubdomain() throws Exception {
+
+        String result = UrlUtil.overwriteSubdomain("www.example.com", "pk");
+        assertEquals("pk.example.com", result);
+
+        result = UrlUtil.overwriteSubdomain("example.com", "pk");
+        assertEquals("pk.example.com", result);
+
+        try {
+            result = UrlUtil.overwriteSubdomain("com", "pk");
+            assertEquals("pk.example.com", result);
+            fail("Exception should have been thrown");
+        } catch (Exception e) {
+            //pass
+        }
+
+        result = UrlUtil.overwriteSubdomain("sub2.sub1.example.com", "pk");
+        assertEquals("sub2.pk.example.com", result);
+    }
+
+    public void testFindHighestSubdomain() {
+        assertEquals("www", UrlUtil.findHighestSubdomain("www.example.com"));
+        assertEquals("xyz", UrlUtil.findHighestSubdomain("abc.xyz.example.com"));
+        assertNull(UrlUtil.findHighestSubdomain("example.com"));
+        assertNull(UrlUtil.findHighestSubdomain(".example.com"));
+        assertNull(UrlUtil.findHighestSubdomain(""));
+        assertNull(UrlUtil.findHighestSubdomain(null));
     }
 }

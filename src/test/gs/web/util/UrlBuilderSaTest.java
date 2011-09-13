@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.134 2011/08/03 23:17:36 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.135 2011/09/13 03:47:04 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -625,6 +625,34 @@ public class UrlBuilderSaTest extends TestCase {
 
         UrlBuilder builder = new UrlBuilder(district, UrlBuilder.DISTRICT_HOME);
         assertEquals("/california/a-city/A-Test_District/", builder.asSiteRelative(request));
+    }
+
+    public void testChangeSubdomainIfNeeded() {
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME, State.CA);
+        builder.setSubdomain(UrlBuilder.Subdomain.PRESCHOOLS);
+
+        assertEquals("greatschools.babycenter.com", builder.changeDomainNameIfNeeded("greatschools.babycenter.com"));
+        assertEquals("greatschools.org", builder.changeDomainNameIfNeeded("greatschools.org"));
+
+        //currently in this example "blah" would be considered a cobrand. pk.greatschools.org is ignored, so for now
+        //only pk.greatschools.org can be switched to www.greatschools.org and vice versa
+        assertEquals("blah.greatschools.com", builder.changeDomainNameIfNeeded("blah.greatschools.com"));
+
+        assertEquals("pk.greatschools.com", builder.changeDomainNameIfNeeded("www.greatschools.com"));
+        assertEquals("pk.greatschools.com", builder.changeDomainNameIfNeeded("pk.greatschools.com"));
+
+        builder.setSubdomain(UrlBuilder.Subdomain.WWW);
+        assertEquals("www.greatschools.com", builder.changeDomainNameIfNeeded("www.greatschools.com"));
+        assertEquals("www.greatschools.com", builder.changeDomainNameIfNeeded("pk.greatschools.com"));
+        assertEquals("www.localhost.com", builder.changeDomainNameIfNeeded("pk.localhost.com"));
+
+        assertEquals("localhost", builder.changeDomainNameIfNeeded("localhost"));
+        try {
+            assertNull(builder.changeDomainNameIfNeeded(null));
+            fail("IllegalArgumentException should have been thrown");
+        } catch (IllegalArgumentException e) {
+            //good
+        }
     }
 
 }

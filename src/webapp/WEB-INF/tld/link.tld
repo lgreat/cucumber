@@ -331,14 +331,14 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Grade name</description>
+            <description>Grade name (e.g. first-grade)</description>
         </attribute>
         <attribute>
-            <name>subjectIDs</name>
+            <name>subject</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
-            <description>Subject name (e.g. first-grade)</description>
+            <description>Subject name (e.g. match)</description>
         </attribute>
         <attribute>
             <name>language</name>
@@ -4424,6 +4424,29 @@
         <display-name>Find a Schools</display-name>
         <description>
             <![CDATA[Find a School Home]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML element id</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>testPrep</name>
+        <tag-class>gs.web.jsp.link.TestPrepTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Test Prep</display-name>
+        <description>
+            <![CDATA[Test Prep page]]>
         </description>
         <attribute>
             <name>styleClass</name>

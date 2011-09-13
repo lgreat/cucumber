@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.256 2011/08/10 20:05:09 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.257 2011/09/13 03:47:04 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -64,6 +64,7 @@ public class UrlBuilder {
 
     private static final Log _log = LogFactory.getLog(UrlBuilder.class);
 
+    public static final String SUBDOMAIN_PRESCHOOLS = "pk";
 
     /**
      * Path relative to the host/context.
@@ -73,6 +74,7 @@ public class UrlBuilder {
     private boolean _perlPage = false;
     private VPage _vPage; // used for some urls
     private static UrlUtil _urlUtil = new UrlUtil();
+    private Subdomain _subdomain;
 
     /**
      * Provides type-safety for identifying our unique "pages".
@@ -316,6 +318,12 @@ public class UrlBuilder {
     public static final VPage RAISE_YOUR_HAND_LANDING = new VPage("vpage:raiseYourHandLanding");
     public static final VPage RAISE_YOUR_HAND_FEATURED_QUESTIONS = new VPage("vpage:raiseYourHandFeaturedQuestions");
     public static final VPage RECENT_CONVERSATIONS = new VPage("vpage:recentConversations");
+
+    /**
+     * Test Prep
+     */
+    public static final VPage TEST_PREP = new VPage("vpage:testPrep");
+
 
     private static void populateVPageNameMap() {
         Field[] fields = UrlBuilder.class.getFields();
@@ -900,6 +908,8 @@ public class UrlBuilder {
             init(HOME, null, null);
         } else if (FIND_A_SCHOOL.equals(page)) {
             _path="/find-schools/";
+        } else if (TEST_PREP.equals(page)) {
+            _path="/test-prep/";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }
@@ -1105,6 +1115,8 @@ public class UrlBuilder {
                     WordUtils.capitalize(name.replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}) +
                     "/" + id + "/" +
                     (showConfirmation ? "?confirm=true" : "");
+
+            _subdomain = Subdomain.PRESCHOOLS;
         } else {
             StringBuffer path = new StringBuffer(
                     DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(
@@ -1679,6 +1691,9 @@ public class UrlBuilder {
         String serverName = request.getServerName();
         int serverPort = request.getServerPort();
 
+        //change the subdomain portion of serverName if _subdomain has been set and if this is not a cobranded url
+        serverName = changeDomainNameIfNeeded(serverName);
+
         String url = "http://" +
                 serverName +
                 ((serverPort != 80) ? ":" + serverPort : "") +
@@ -1702,12 +1717,46 @@ public class UrlBuilder {
         String serverName = request.getServerName();
         int serverPort = request.getServerPort();
 
+        //change the subdomain portion of serverName if _subdomain has been set and if this is not a cobranded url
+        serverName = changeDomainNameIfNeeded(serverName);
+
+
         String url = "http://" +
                 serverName +
                 ((serverPort != 80) ? ":" + serverPort : "") +
                 asSiteRelative(request);
         url = encodeForXml(url);
         return url;
+    }
+
+    /**
+     * Given a hostname, if hostname doesn't contain a cobrand, then changes the "highest" subdomain to whatever is
+     * stored in _subdomain. Or if _subdomain is null, which change the subdomain to www
+     * @param hostname
+     * @return
+     */
+    protected String changeDomainNameIfNeeded(String hostname) {
+        if (hostname == null) {
+            throw new IllegalArgumentException("hostname cannot be null");
+        }
+
+        if (UrlUtil.cobrandFromUrl(hostname) == null) {
+            if (_subdomain != null) {
+                //only change the subdomain if current subdomain matches a known subdomain.
+                String currentSubdomainString = UrlUtil.findHighestSubdomain(hostname);
+                Subdomain matchingSubdomain = Subdomain.getByValue(currentSubdomainString);
+                if (matchingSubdomain != null) {
+                    hostname = UrlUtil.overwriteSubdomain(hostname, _subdomain.toString());
+                }
+            } else {
+                String currentSubdomainString = UrlUtil.findHighestSubdomain(hostname);
+                Subdomain matchingSubdomain = Subdomain.getByValue(currentSubdomainString);
+                if (matchingSubdomain != null && matchingSubdomain != Subdomain.WWW) {
+                    hostname = UrlUtil.overwriteSubdomain(hostname, Subdomain.WWW.toString());
+                }
+            }
+        }
+        return hostname;
     }
 
     /**
@@ -1729,4 +1778,33 @@ public class UrlBuilder {
         return "<a href=\"" + asSiteRelativeXml(request) + "\" class=\"" + styleClass + "\">" + label + "</a>";
     }
 
+    enum Subdomain {
+        PRESCHOOLS("pk"),
+        WWW("www")
+        ;
+
+        private String _value;
+
+        Subdomain(String value) {
+            _value = value;
+        }
+
+        public String toString() {
+            return _value;
+        }
+
+        public static Subdomain getByValue(String value){
+           Subdomain match = null;
+           for (Subdomain domain : EnumSet.allOf(Subdomain.class)) {
+               if (domain.toString().equals(value)) {
+                   match = domain;
+               }
+           }
+           return match;
+       }
+    }
+
+    public void setSubdomain(Subdomain subdomain) {
+        _subdomain = subdomain;
+    }
 }

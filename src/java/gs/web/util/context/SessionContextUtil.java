@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.85 2011/05/18 02:03:49 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.86 2011/09/13 03:47:04 ssprouse Exp $
  */
 
 package gs.web.util.context;
@@ -317,7 +317,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 cobrand = paramCobrand;
             }
         } else {
-            cobrand = _urlUtil.cobrandFromUrl(hostName);
+            cobrand = UrlUtil.cobrandFromUrl(hostName);
         }
 
         // Now see if we need to override the hostName

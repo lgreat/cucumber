@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.110 2011/07/01 20:27:39 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.111 2011/09/13 03:47:04 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -8,9 +8,11 @@ package gs.web.util;
 import gs.data.state.State;
 import gs.data.util.CdnUtil;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ws.security.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -18,10 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Wrapping and URL munging tools.
@@ -139,76 +138,129 @@ public final class UrlUtil {
     }
 
     /**
+     * Given a hostname, extracts the "highest" subdomain if present. e.g.  abc.xyz.example.com => xyz
+     * Is null-safe
+     * @param hostname
+     * @return subdomain if present in hostname. Otherwise null
+     */
+    public static String findHighestSubdomain(String hostname) {
+        if (hostname == null || hostname.length() == 0) {
+            return null;
+        }
+
+        //find the subdomain and overwrite it
+        String[] serverNameTokens = StringUtils.split(hostname, "\\.");
+
+        if (serverNameTokens.length >= 3) {
+            int subdomainPosition = serverNameTokens.length - 3; //subdomain is the third-to-the-last position
+            return serverNameTokens[subdomainPosition];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Given a hostname, finds and overwrites the "highest" subdomain if present, and returns a new hostname.
+     * If no subdomain exists, prepends the given subdomain and returns a new hostname.
+     * @param hostname must contain domain and top-level domain
+     * @return
+     */
+    public static String overwriteSubdomain(String hostname, String newSubdomain) {
+        if (newSubdomain == null) {
+            throw new IllegalArgumentException("newSubdomain is null");
+        }
+
+        String[] serverNameTokens = StringUtils.split(hostname, "\\.");
+
+        //subdomain is the third-to-the-last position:  www.example.com
+        if (serverNameTokens.length >= 3) {
+            int subdomainPosition = serverNameTokens.length - 3;
+            serverNameTokens[subdomainPosition] = newSubdomain;
+        } else if (serverNameTokens.length == 2) {
+            serverNameTokens[0] = newSubdomain + "." + serverNameTokens[0];
+        } else {
+            throw new IllegalArgumentException("hostname must contain at least a domain and TLD e.g.  example.com");
+        }
+        
+        hostname = StringUtils.join(serverNameTokens, '.');
+
+        return hostname;
+    }
+
+    public static final String[] COBRAND_IGNORE_URL_PREFIXES = {
+        "secure",
+        "res1",
+        "res2",
+        "res3",
+        "res4",
+        "res5",
+        "res6",
+        "res7",
+        "qa.",
+        "sw1-pub.",
+        "sw1-pre.",
+        "app1a",
+        "app1b",
+        "app1c",
+        "app1d",
+        "app2a",
+        "app2b",
+        "app2c",
+        "app2d",
+        "staging",
+        "maddy",
+        "admin",
+        "clone",
+        "crufty",
+        "dev",
+        "localhost",
+        "www.localhost",
+        "pk.localhost",
+        "pk.greatschools",
+        "main.dev",
+        "chriskimm.dev",
+        "aroy.office",
+        "aroy.dev",
+        "droy.dev",
+        "profile.dev",
+        "cpickslay.",
+        "editorial.",
+        "mwong.dev",
+        "127.0.0.1",
+        "192.168.",
+        "172.21.1.142",
+        "172.18."
+    };
+
+    /**
      * Given a hostname, extracts the cobrand, or what looks like
      * a cobrand from it. Returns null for no cobrand.
      */
-    public String cobrandFromUrl(String hostName) {
+    public static String cobrandFromUrl(String hostName) {
         String cobrandName = null;
-        boolean isCobrand = !(hostName.startsWith("www") && hostName.indexOf("greatschools") > -1)
-                && !hostName.startsWith("secure")
-                && !hostName.startsWith("res1")
-                && !hostName.startsWith("res2")
-                && !hostName.startsWith("res3")
-                && !hostName.startsWith("res4")
-                && !hostName.startsWith("res5")
-                && !hostName.startsWith("res6")
-                && !hostName.startsWith("res7")
-                && !hostName.startsWith("qa.")
-                && !hostName.startsWith("sw1-pub.")
-                && !hostName.startsWith("sw1-pre.")
-                && !hostName.startsWith("app1a")
-                && !hostName.startsWith("app1b")
-                && !hostName.startsWith("app1c")
-                && !hostName.startsWith("app1d")
-                && !hostName.startsWith("app2a")
-                && !hostName.startsWith("app2b")
-                && !hostName.startsWith("app2c")
-                && !hostName.startsWith("app2d")
-                && !hostName.startsWith("staging")
-                && !hostName.startsWith("maddy")
-                && !hostName.startsWith("admin")
-                && !hostName.startsWith("clone")
-                && !hostName.startsWith("crufty")
-                && !hostName.startsWith("dev")
-                && !hostName.startsWith("localhost")
-                && !hostName.startsWith("main.dev")
-                && !hostName.startsWith("chriskimm.dev")
-                && !hostName.startsWith("aroy.office")
-                && !hostName.startsWith("aroy.dev")
-                && !hostName.startsWith("droy.dev")
-                && !hostName.startsWith("profile.dev")
-                && !hostName.startsWith("cpickslay.")
-                && !hostName.startsWith("editorial.")
-                && !hostName.startsWith("mwong.dev")
+
+        String[] urlTokens = hostName.split("\\.");
+
+        boolean isCobrand =
+                !("www".equals(urlTokens[0]) && hostName.indexOf("greatschools") > -1)
+                && !gs.data.util.string.StringUtils.startsWithAny(hostName, COBRAND_IGNORE_URL_PREFIXES)
                 && !(hostName.indexOf("vpn.greatschools.org") != -1)
-                && !hostName.equals("127.0.0.1")
-                && !hostName.startsWith("192.168.")
-                && !hostName.startsWith("172.21.1.142")
-                && !hostName.startsWith("172.18.")
-                && hostName.indexOf('.') != -1;
+                && urlTokens.length >= 3;
+
         if (isCobrand) {
-            cobrandName = hostName.substring(0, hostName.indexOf("."));
+            cobrandName = urlTokens[0];
             // Need special cases for greatschools.cobrand.com like babycenter
             // or schoolrankings.nj.com (GS-11466)
-            if (hostName.startsWith("greatschools.") || hostName.startsWith("schoolrankings.")) {
-                int firstDot = hostName.indexOf(".");
-                int lastDot = hostName.lastIndexOf(".");
-                if (lastDot > firstDot) {
-                    cobrandName = hostName.substring(firstDot + 1, lastDot);
-                }
+            if ("greatschools".equals(urlTokens[0]) || "schoolrankings".equals(urlTokens[0])) {
+                cobrandName = urlTokens[1];
             // Need special case for cobrands like www.fresno.schools.net
             } else if (hostName.startsWith("www")) {
-                int firstDot = hostName.indexOf(".");
-                if (firstDot > -1) {
-                    int secondDot = hostName.indexOf(".", firstDot+1);
-                    if (secondDot > firstDot) {
-                        cobrandName = hostName.substring(firstDot + 1, secondDot);
-                    }
-                }
+                cobrandName = urlTokens[1];
             }
         }
         return cobrandName;
     }
+
 
     /**
      * Create the correct perl hostname, most useful in the development environment.
