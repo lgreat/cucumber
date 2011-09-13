@@ -31,8 +31,8 @@
     </c:choose>
     <title>${pageTitle} | GreatSchools</title>
 
-    <meta name="description" content="${topicCenter.metaDescription}"/>
-    <meta name="keywords" content="${topicCenter.metaKeywords}"/>
+    <meta name="description" content="${not empty metaDescription ? metaDescription : topicCenter.metaDescription}"/>
+    <meta name="keywords" content="${not empty metaKeywords ? metaKeywords : topicCenter.metaKeywords}"/>
     
     <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter2010.js"/>
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
