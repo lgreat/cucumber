@@ -113,7 +113,9 @@
     </c:choose>
     
      <mod:tracking pageName="${pageName}"
-                  hier1="District,District Home,${district.name}"/>
+                  hier1="District,District Home,${district.name}"
+                  locale="${not empty district.physicalAddress ? district.physicalAddress.city : null}"
+             />
 
 </gsml:body>
 </html>
