@@ -25,7 +25,7 @@ public class CmsCategoryBrowseTagHandlerTest extends TestCase {
         _handler.doAfterBody();
         _handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a href=\"/articles/?topics=1&amp;language=ES\"></a>",
+        assertEquals("<a href=\"http://localhost/articles/?topics=1&amp;language=ES\"></a>",
                 out.getOutputBuffer().toString());
     }
 
@@ -38,7 +38,7 @@ public class CmsCategoryBrowseTagHandlerTest extends TestCase {
         _handler.doAfterBody();
         _handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a href=\"/articles/?topics=1\"></a>",
+        assertEquals("<a href=\"http://localhost/articles/?topics=1\"></a>",
                 out.getOutputBuffer().toString());
     }
 }
