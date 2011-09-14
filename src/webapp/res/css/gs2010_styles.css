@@ -1025,7 +1025,7 @@ h4.subhead2 a {
 
 /* Ext2: No left and right margin */
 /* Ext2 margin: 10px 0; gutter: 10px; */
-.mediaExt2{margin: 10px 0;}
+.mediaExt2{margin: 10px 0;*clear:both;}
 .mediaExt2:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
 .mediaExt2 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt2 .bk > :first-child{margin-top:0;}
@@ -1298,7 +1298,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 .sideNav_v2 .bd li{list-style: none;}
 /* ------------- featuredContent ------------- */
 .featuredContent .tabNavigation {height:40px;padding: 0;margin:0;border-bottom: 1px solid #88dded; background-color: #e9f4fa;}
-.featuredContent .tabNavigation li {list-style:none;display: inline-block;font: normal 14px/44px Arial, Helvetica, sans-serif; margin-bottom: 20px;}
+.featuredContent .tabNavigation li {list-style:none;display: inline-block;*display: inline;font: normal 14px/44px Arial, Helvetica, sans-serif; margin-bottom: 20px;}
 .featuredContent .tabNavigation li a {padding:10px;color: #06a;text-decoration: none;margin-left: 10px;border: 1px solid #e6e6e6;
     background: #bbdded; /* for non-css3 browsers */
 
@@ -5004,6 +5004,7 @@ a:hover .dropDown-default {
 }
 
 .infiniteCarousel4 .wrapper {
+    clear:both;
     width: 480px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: auto;
     height: 140px;
@@ -5204,6 +5205,7 @@ a:hover .dropDown-default {
 }
 
 .infiniteCarousel3 .wrapper {
+    clear:both;
     width: 482px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: auto;
     height: 119px;
