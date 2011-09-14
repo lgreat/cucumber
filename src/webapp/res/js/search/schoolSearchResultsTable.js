@@ -88,7 +88,7 @@ GS.search.SchoolSearcher = function() {
 
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
-            window.History.replaceState(null, null, buildQueryString(window.location.search));
+            window.History.replaceState(null, document.title, buildQueryString(window.location.search));
         }
 
         jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
