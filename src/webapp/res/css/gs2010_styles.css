@@ -1314,6 +1314,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 .featuredContent .tabNavigation li a.selected,
 .featuredContent .tabNavigation li a:hover {border-bottom: none; padding-bottom: 11px;}
 .featuredContent .tabNavigation li a:focus {outline: 0;}
+.width-190{width:190px;}
 
 /*----------------GS-11784 start---------------*/
 .mediumThumbnail {

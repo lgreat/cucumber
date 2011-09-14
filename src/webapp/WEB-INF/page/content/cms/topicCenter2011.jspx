@@ -153,26 +153,38 @@
                 <c:set var="featuredArticlesModuleLinks" value="${topicCenter.featuredArticlesModuleLinks}"/>
                 <!-- Show the module links only if min of 3 and show only max of 4 links -->
                 <c:if test="${topicCenter.displayFeaturedArticlesModule and featuredArticlesModuleLinks != null and fn:length(featuredArticlesModuleLinks) >=3 }">
-                    <div>
-                        <c:forEach var="link" items="${featuredArticlesModuleLinks}" varStatus="status">
+                    <div class="mediaExt2">
+                        <!-- First article in module link is treated differently -->
 
-                            <!-- First article in module link is treated differently -->
-                            <c:if test="${status.count==1}">
-                                <gsml:img src="${link.alternateImageUrl}" alt="${link.alternateImageAltText}"/>
+                        <div class="img width-190">
+                            <gsml:img styleClass="pbm"
+                                      src="${topicCenter.firstFeaturedArticlesModuleLink.alternateImageUrl}"
+                                      alt="${topicCenter.firstFeaturedArticlesModuleLink.alternateImageAltText}"/>
 
-                                <p>${link.kategory.name}</p>
+                            <p class="small bottom make-06b">${topicCenter.firstFeaturedArticlesModuleLink.kategory.name}</p>
 
-                                <a href="${link.url}">${link.linkText}</a>
+                            <h3 class="bottom"><a href="${topicCenter.firstFeaturedArticlesModuleLink.url}">${topicCenter.firstFeaturedArticlesModuleLink.linkText}</a></h3>
 
-                                <p>${link.description}</p>
-                            </c:if>
-                            <c:if test="${status.count gt 1 and status.count le 4}">
-                                <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+                            <p class="small bottom">${topicCenter.firstFeaturedArticlesModuleLink.description}</p>
+                        </div>
 
-                                <p><a href="${link.url}">${link.linkText}</a></p>
-                            </c:if>
-                        </c:forEach>
+
+                        <div class="bk">
+                            <c:forEach var="link" items="${topicCenter.otherFeaturedArticlesModuleLinks}"
+                                       varStatus="status">
+
+                                <div class="mediaExt2">
+                                    <gsml:img styleClass="img" src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                                    <div class="bk">
+                                        <p class="small"><a href="${link.url}">${link.linkText}</a></p>
+                                    </div>
+                                </div>
+
+                            </c:forEach>
+                        </div>
                     </div>
+                    <hr class="keyline2"/>
                 </c:if>
                 <!--End Featured Article Module-->
                 <!--Start Featured Article list-->
@@ -202,27 +214,37 @@
                     <c:set var="mostPopularModuleLinks" value="${topicCenter.mostPopularModuleLinks}"/>
                     <!-- Show the module links only if min of 3 and show only max of 4 links -->
                     <c:if test="${topicCenter.displayMostPopularModule and mostPopularModuleLinks != null and fn:length(mostPopularModuleLinks) >=3 }">
-                        <div>
-                            <c:forEach var="link" items="${mostPopularModuleLinks}" varStatus="status">
-                                <br/>
-                                <br/>
-                                <!-- First article in module link is treated differently -->
-                                <c:if test="${status.count==1}">
-                                    <gsml:img src="${link.alternateImageUrl}" alt="${link.alternateImageAltText}"/>
+                        <div class="mediaExt2">
+                            <!-- First article in module link is treated differently -->
 
-                                    <p>${link.kategory.name}</p>
+                            <div class="img width-190">
+                                <gsml:img styleClass="pbm"
+                                          src="${topicCenter.firstMostPopularModuleLink.alternateImageUrl}"
+                                          alt="${topicCenter.firstMostPopularModuleLink.alternateImageAltText}"/>
 
-                                    <a href="${link.url}">${link.linkText}</a>
+                                <p class="small bottom make-06b">${topicCenter.firstMostPopularModuleLink.kategory.name}</p>
 
-                                    <p>${link.description}</p>
-                                </c:if>
-                                <c:if test="${status.count gt 1 and status.count le 4}">
-                                    <gsml:img src="${link.imageUrl}" alt="${link.imageAltText}"/>
+                                <h3 class="bottom"><a href="${topicCenter.firstMostPopularModuleLink.url}">${topicCenter.firstMostPopularModuleLink.linkText}</a></h3>
 
-                                    <p><a href="${link.url}">${link.linkText}</a></p>
-                                </c:if>
-                            </c:forEach>
+                                <p class="small bottom">${topicCenter.firstMostPopularModuleLink.description}</p>
+                            </div>
+
+                            <div class="bk">
+                                <c:forEach var="link" items="${topicCenter.otherMostPopularModuleLinks}"
+                                           varStatus="status">
+
+                                    <div class="mediaExt2">
+                                        <gsml:img styleClass="img" src="${link.imageUrl}" alt="${link.imageAltText}"/>
+
+                                        <div class="bk">
+                                            <p class="small"><a href="${link.url}">${link.linkText}</a></p>
+                                        </div>
+                                    </div>
+
+                                </c:forEach>
+                            </div>
                         </div>
+                        <hr class="keyline2"/>
                     </c:if>
                     <!--End Most Popular Module-->
 
