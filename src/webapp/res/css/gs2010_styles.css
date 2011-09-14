@@ -46,9 +46,10 @@ General comments:
 =12c topic centers
 =12c-1 featured
 =12c-2 left navigation
-=12c-3.1 infinite carousel 1
+=12c-3.1 infinite carousel 1 (3 up)
+=12c-3.1.1 infinite carousel 4 (4 up GS-12049)
 =12c-3.2 infinite carousel 2 (video: 3 up)
-=12c-3.2.1 infinite carousel 2 (video: 4 up GS-12049)
+=12c-3.2.1 infinite carousel 3 (video: 4 up GS-12049)
 =12c-4 browse schools by city
 =12c-5 talk about it
 =12c-5.1 start a conversation
@@ -4991,6 +4992,99 @@ a:hover .dropDown-default {
     overflow: hidden;
 }
 
+/* =12c-3.1.1 infinite carousel 4 (4 up GS-12049)
+-------------------------------------------------------------------------------------------*/
+
+.infiniteCarousel4 {
+    width: 630px;
+    height: 188px;
+    border-top: 1px solid #d1e9f3;
+    position: relative;
+    margin-bottom:12px;
+}
+
+.infiniteCarousel4 .wrapper {
+    width: 480px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
+    overflow: auto;
+    height: 140px;
+    margin: 0 75px;
+    position: absolute;
+    top: 48px;
+}
+
+.infiniteCarousel4 .wrapper ul {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0 0 0 -15px;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.infiniteCarousel4 ul li {
+    display: block;
+    float: left;
+    padding: 0 20px;
+    width: 90px;
+    height: 140px;
+}
+
+.infiniteCarousel4 ul li a img {
+    display: block;
+    background-color: gray;
+}
+
+.infiniteCarousel4 .arrow {
+    display: block;
+    top: 91px;
+    width: 16px;
+    height: 26px;
+    position: absolute;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    font: bold 24px/0.9 Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.infiniteCarousel4 .forward {
+    right: 7px;
+}
+
+.infiniteCarousel4 .back {
+    left: 7px;
+}
+
+.infiniteCarousel4 .forward:hover {
+    text-decoration: none;
+}
+
+.infiniteCarousel4 .back:hover {
+    text-decoration: none;
+}
+
+.infiniteCarousel4 .ic_title {
+    margin: 10px;
+    float:left;
+}
+
+.infiniteCarousel4 .captioned_photo img {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: block;
+}
+
+.infiniteCarousel4 .captioned_photo span {
+    width: 100%;
+    height: 45px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+    overflow: hidden;
+}
+
 /* =12c-3.2 infinite carousel 2 (video)
 -------------------------------------------------------------------------------------------*/
 
@@ -5099,7 +5193,7 @@ a:hover .dropDown-default {
     right: 20px;
 }
 
-/* =12c-3.2.1 infinite carousel 2 (video: 4 up GS-12049)
+/* =12c-3.2.1 infinite carousel 3 (video: 4 up GS-12049)
 -------------------------------------------------------------------------------------------*/
 .infiniteCarousel3{
     width: 630px;
