@@ -1,16 +1,4 @@
-/*function switchTabs(tabToShow, tabToHide) {
-
-    //track user clicks on most popular tab in Omniture.
-    if (tabToShow == 'js_mostPopularTab') {
-        if (s.tl) {
-            s.tl(true, 'o', 'Topic_Center_Most_Popular_Tab');
-        }
-    }
-    var showTab = jQuery('#' + tabToShow);
-    var hideTab = jQuery('#' + tabToHide);
-    showTab.show();
-    hideTab.hide();
-}*/
+// JavaScript Document
 
 jQuery(function () {
     var tabContainers = jQuery('div.tabs > div');
@@ -18,10 +6,17 @@ jQuery(function () {
 
     jQuery('div.tabs ul.tabNavigation a').click(
         function () {
+            var tabToShowHash = this.hash;
             tabContainers.hide();
-            tabContainers.filter(this.hash).show();
+            tabContainers.filter(tabToShowHash).show();
             jQuery('div.tabs ul.tabNavigation a').removeClass('selected');
             jQuery(this).addClass('selected');
+            //track user clicks on most popular tab in Omniture.
+            if (tabToShowHash === '#js_mostPopularTab') {
+                if (s.tl) {
+                    s.tl(true, 'o', 'Topic_Center_Most_Popular_Tab');
+                }
+            }
             return false;
         }).filter(':first').click();
 });
