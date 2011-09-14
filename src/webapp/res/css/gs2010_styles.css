@@ -47,7 +47,8 @@ General comments:
 =12c-1 featured
 =12c-2 left navigation
 =12c-3.1 infinite carousel 1
-=12c-3.2 infinite carousel 2 (video)
+=12c-3.2 infinite carousel 2 (video: 3 up)
+=12c-3.2.1 infinite carousel 2 (video: 4 up GS-12049)
 =12c-4 browse schools by city
 =12c-5 talk about it
 =12c-5.1 start a conversation
@@ -5096,6 +5097,103 @@ a:hover .dropDown-default {
     position: absolute;
     bottom: 10px;
     right: 20px;
+}
+
+/* =12c-3.2.1 infinite carousel 2 (video: 4 up GS-12049)
+-------------------------------------------------------------------------------------------*/
+.infiniteCarousel3{
+    width: 630px;
+    height: 167px;
+    border-top: 1px solid #d1e9f3;
+    position: relative;
+    margin-bottom:12px;
+}
+
+.infiniteCarousel3 .wrapper {
+    width: 482px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
+    overflow: auto;
+    height: 119px;
+    margin: 0 74px;
+    position: absolute;
+    top: 48px;
+}
+
+.infiniteCarousel3 .wrapper ul {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0 0 0 -15px;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.infiniteCarousel3 ul li {
+    display: block;
+    float: left;
+    padding: 0 15px;
+    width: 98px;
+    height: 119px;
+}
+
+.infiniteCarousel3 ul li a img {
+    display: block;
+    background-color: green;
+}
+
+.infiniteCarousel3 .arrow {
+    display: block;
+    top: 91px;
+    width: 16px;
+    height: 26px;
+    position: absolute;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    font: bold 24px/0.9 Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.infiniteCarousel3 .forward {
+    right: 7px;
+}
+
+.infiniteCarousel3 .back {
+    left: 7px;
+}
+
+.infiniteCarousel3 .forward:hover {
+    text-decoration: none;
+}
+
+.infiniteCarousel3 .back:hover {
+    text-decoration: none;
+}
+
+.infiniteCarousel3 .ic_title {
+    margin: 10px;
+    float:left;
+}
+
+.infiniteCarousel3 .moreLink {
+    margin: 17px 12px;
+    float:right;
+}
+
+.infiniteCarousel3 .captioned_photo img {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: block;
+}
+
+.infiniteCarousel3 .caption {
+    width: 100%;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+    overflow: hidden;
 }
 
 /* =12c-4 browse schools by city
