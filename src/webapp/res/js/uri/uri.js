@@ -7,6 +7,25 @@ GS.uri.Uri = function() {
 
 };
 
+
+/**
+ * Written for GS-12127. When necessary, make ajax calls prepend result of this method to relative path, in order
+ * to override any <base> tag that's on the page, *if* the base tag specifies a host that is different than current
+ * host. (ajax calls can't be cross-domain).
+ *
+ * Return string in format:  http://pk.greatschools.org
+ */
+GS.uri.Uri.getBaseHostname = function() {
+    var baseHostname = "";
+
+    if (window.location.hostname.indexOf("pk.") > -1) {
+        //"override" any base tag, and point at the current domain
+        baseHostname = window.location.protocol + "//" + window.location.host;
+    }
+
+    return baseHostname;
+};
+
 /**
  * Static method that takes a string that resembles a URL querystring in the format ?key=value&amp;key=value&amp;key=value
  * @param queryString

@@ -1,3 +1,7 @@
+/*
+Requires: /uri/Uri.js
+*/
+
 if (GS == undefined) {
     var GS = {};
 }
@@ -518,7 +522,7 @@ GSType.hover.JoinHover = function() {
     };
     this.validateFirstName = function() {
         jQuery.getJSON(
-                '/community/registrationValidationAjax.page',
+                GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
         {firstName:jQuery('#joinGS #fName').val(), field:'firstName'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
@@ -526,7 +530,7 @@ GSType.hover.JoinHover = function() {
     };
     this.validateEmail = function() {
         jQuery.getJSON(
-                '/community/registrationValidationAjax.page',
+                GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
         {email:jQuery('#joinGS #jemail').val(), field:'email'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_email .errors', 'email', data);
@@ -534,7 +538,7 @@ GSType.hover.JoinHover = function() {
     };
     this.validateUsername = function() {
         jQuery.getJSON(
-                '/community/registrationValidationAjax.page',
+                GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
         {screenName:jQuery('#joinGS #uName').val(), email:jQuery('#joinGS #jemail').val(), field:'username'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
@@ -542,7 +546,7 @@ GSType.hover.JoinHover = function() {
     };
     this.validatePassword = function() {
         jQuery.getJSON(
-                '/community/registrationValidationAjax.page',
+                GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
         {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'password'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_password .errors', 'password', data);
@@ -551,7 +555,7 @@ GSType.hover.JoinHover = function() {
     };
     this.validateConfirmPassword = function() {
         jQuery.getJSON(
-                '/community/registrationValidationAjax.page',
+                GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
         {password:jQuery('#joinGS #jpword').val(), confirmPassword:jQuery('#joinGS #cpword').val(), field:'confirmPassword'},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmPassword .errors', 'confirmPassword', data);
@@ -599,7 +603,7 @@ GSType.hover.JoinHover = function() {
 
         params += "&grades=" + newsletters.join(',');
 
-        jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
+        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
         return false;
     };
     this.chooserTipSheetClickHandler = function() {
@@ -678,7 +682,7 @@ GSType.hover.SignInHover = function() {
             password: jQuery('#spword').val()
         };
 
-        jQuery.getJSON('/community/registration/popup/loginValidationAjax.page', params,
+        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + '/community/registration/popup/loginValidationAjax.page', params,
                 GSType.hover.signInHover.loginValidatorHandler);
 
         return false;
@@ -1057,7 +1061,7 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
         return;
     }
 
-    jQuery.post('/community/forgotPassword.page', jQuery('#hover_forgotPasswordForm').serialize());
+    jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/forgotPassword.page', jQuery('#hover_forgotPasswordForm').serialize());
     var email = jQuery('#fpemail').val();
 
     GSType.hover.signInHover.addMessage('An email has been sent to ' + email +
@@ -1377,7 +1381,7 @@ GS.joinHover_passesValidationResponse = function(data) {
 GS.community.MySchoolListHelper = function() {
 
     this.addSchool = function(state, id, successCallback, failCallback, email) {
-        var url = "/mySchoolListAjax.page";
+        var url = GS.uri.Uri.getBaseHostname() + "/mySchoolListAjax.page";
         var data = {};
         data.schoolDatabaseState = state;
         data.schoolId = id;
@@ -1447,7 +1451,7 @@ jQuery(function() {
     GSType.hover.miniStateLauncher.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
-        jQuery.getJSON('/community/forgotPasswordValidator.page',
+        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + '/community/forgotPasswordValidator.page',
                 jQuery('#hover_forgotPasswordForm').serialize(),
                 GS.forgotPasswordHover_checkValidationResponse);
 
@@ -1458,7 +1462,7 @@ jQuery(function() {
         var params = {
             email: GSType.hover.emailNotValidated.email
         };
-        jQuery.get('/community/requestEmailValidation.page', params);
+        jQuery.get(GS.uri.Uri.getBaseHostname() + '/community/requestEmailValidation.page', params);
 
         GSType.hover.emailNotValidated.hide();
     });
@@ -1467,7 +1471,7 @@ jQuery(function() {
         var params = {
             email: GSType.hover.validateLinkExpired.email
         };
-        jQuery.get('/community/requestEmailValidation.page', params);
+        jQuery.get(GS.uri.Uri.getBaseHostname() + '/community/requestEmailValidation.page', params);
 
         GSType.hover.validateLinkExpired.hide();
     });

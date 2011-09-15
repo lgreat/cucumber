@@ -1,9 +1,13 @@
+/*
+Requires: /uri/Uri.js
+*/
+
 var GS = GS || {};
 
 GS.attachSchoolAutocomplete = function(domId) {
     var searchBox = jQuery('#' + domId);
     var searchStateSelect = jQuery('#stateSelector');
-    var url = "/search/schoolAutocomplete.page";
+    var url = GS.uri.Uri.getBaseHostname() + "/search/schoolAutocomplete.page";
     searchBox.autocomplete(url, {
         extraParams: {
             state: function() {
