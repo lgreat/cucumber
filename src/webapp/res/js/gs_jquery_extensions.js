@@ -401,7 +401,7 @@ function debug(what) {
                     return false;
                 }
 
-                pages > 1 ? $wrapper.after('<a class="arrow back rnd3">&lsaquo;</a><a class="arrow forward rnd3">&rsaquo;</a>') : $wrapper;
+                pages > 1 ? $wrapper.after('<a class="arrow back">&lsaquo;</a><a class="arrow forward">&rsaquo;</a>') : $wrapper;
 
                 // 5. Bind to the forward and back buttons
                 $('a.back', this).click(function () {
