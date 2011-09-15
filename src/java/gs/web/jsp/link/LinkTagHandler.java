@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.20 2011/09/13 03:47:04 ssprouse Exp $
+ * $Id: LinkTagHandler.java,v 1.21 2011/09/15 00:36:23 ssprouse Exp $
  */
 
 package gs.web.jsp.link;
@@ -44,7 +44,7 @@ public abstract class LinkTagHandler extends TagSupport {
     private String _onMouseOver;
     private String _onMouseOut;
     private String _onclick;
-    private boolean _absolute = true;
+    private boolean _absolute = false;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.

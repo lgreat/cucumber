@@ -1,10 +1,11 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.12 2009/12/04 19:37:26 npatury Exp $
+ * $Id: BaseControllerTestCase.java,v 1.13 2011/09/15 00:36:23 ssprouse Exp $
  */
 
 package gs.web;
 
+import gs.web.request.HostnameInfo;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -29,6 +30,9 @@ public class BaseControllerTestCase extends BaseTestCase {
         super.setUp();
         _request = new GsMockHttpServletRequest();
         _request.setServerName(HOST_NAME);
+
+        HostnameInfo hostnameInfo = new HostnameInfo(HOST_NAME);
+        _request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
         // Note: you can override or reset them at the beginning of your test.
 
         _sessionContext = (SessionContext) getApplicationContext().getBean(SessionContext.BEAN_ID);

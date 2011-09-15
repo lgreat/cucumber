@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RedirectToSampleSchoolController.java,v 1.6 2009/12/04 20:54:15 npatury Exp $
+ * $Id: RedirectToSampleSchoolController.java,v 1.7 2011/09/15 00:36:22 ssprouse Exp $
  */
 package gs.web.school;
 
@@ -42,7 +42,7 @@ public class RedirectToSampleSchoolController extends AbstractController {
         School school = _schoolDao.getSampleSchool(state);
 
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        View redirectView = new RedirectView(urlBuilder.asSiteRelative(request));
+        View redirectView = new RedirectView(urlBuilder.asFullUrl(request));
         return new ModelAndView(redirectView);
     }
 

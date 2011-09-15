@@ -1,5 +1,6 @@
 package gs.web.api.admin;
 
+import gs.web.request.HostnameInfo;
 import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.Assert.*;
@@ -23,8 +24,11 @@ public class AuthInterceptorTest {
 
     @Test
     public void testPreHandle() throws Exception {
+        HostnameInfo hostnameInfo = new HostnameInfo("");
+        
         // no auth required
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
         request.setMethod("get");
         request.setRequestURI("/api");
         HttpServletResponse response = new MockHttpServletResponse();
@@ -32,6 +36,7 @@ public class AuthInterceptorTest {
 
         // auth required - no cookie
         request = new MockHttpServletRequest();
+        request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
         request.setMethod("get");
         request.setRequestURI("/api/admin/foo");
         response = new MockHttpServletResponse();
@@ -39,6 +44,7 @@ public class AuthInterceptorTest {
 
         // auth required - valid cookie
         request = new MockHttpServletRequest();
+        request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
         request.setMethod("get");
         request.setRequestURI("/api/admin/foo");
         Cookie cookie = new Cookie(AuthInterceptor.API_ADMIN_COOKIE, "foo@bar.com");

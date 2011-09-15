@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.111 2011/09/13 03:47:04 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.112 2011/09/15 00:36:23 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -148,12 +148,11 @@ public final class UrlUtil {
             return null;
         }
 
-        //find the subdomain and overwrite it
-        String[] serverNameTokens = StringUtils.split(hostname, "\\.");
+        String[] hostnameTokens = StringUtils.split(hostname, "\\.");
 
-        if (serverNameTokens.length >= 3) {
-            int subdomainPosition = serverNameTokens.length - 3; //subdomain is the third-to-the-last position
-            return serverNameTokens[subdomainPosition];
+        if (hostnameTokens.length >= 3) {
+            int subdomainPosition = hostnameTokens.length - 3; //subdomain is the third-to-the-last position
+            return hostnameTokens[subdomainPosition];
         } else {
             return null;
         }
@@ -163,26 +162,38 @@ public final class UrlUtil {
      * Given a hostname, finds and overwrites the "highest" subdomain if present, and returns a new hostname.
      * If no subdomain exists, prepends the given subdomain and returns a new hostname.
      * @param hostname must contain domain and top-level domain
+     * @param newSubdomain the subdomain to use as a replacement
      * @return
      */
     public static String overwriteSubdomain(String hostname, String newSubdomain) {
+        return overwriteSubdomain(hostname, newSubdomain, 0);
+    }
+
+    /**
+     * Given a hostname, finds and overwrites the subdomain at the given level if present, and returns a new hostname.
+     * If no subdomain exists at the given level, prepends the given subdomain and returns a new hostname.
+     * @param hostname must contain domain and top-level domain
+     * @param level zero-based position of subdomain to replace.  e.g.  blah.dev.greatschools.org : blah = position 1
+     * @return
+     */
+    public static String overwriteSubdomain(String hostname, String newSubdomain, int level) {
         if (newSubdomain == null) {
             throw new IllegalArgumentException("newSubdomain is null");
         }
 
-        String[] serverNameTokens = StringUtils.split(hostname, "\\.");
+        String[] hostnameTokens = StringUtils.split(hostname, ".");
 
         //subdomain is the third-to-the-last position:  www.example.com
-        if (serverNameTokens.length >= 3) {
-            int subdomainPosition = serverNameTokens.length - 3;
-            serverNameTokens[subdomainPosition] = newSubdomain;
-        } else if (serverNameTokens.length == 2) {
-            serverNameTokens[0] = newSubdomain + "." + serverNameTokens[0];
+        if (hostnameTokens.length >= (3 + level)) {
+            int subdomainPosition = hostnameTokens.length - (3 + level);
+            hostnameTokens[subdomainPosition] = newSubdomain;
+        } else if (hostnameTokens.length == (2 + level)) {
+            hostnameTokens[0] = newSubdomain + "." + hostnameTokens[0];
         } else {
             throw new IllegalArgumentException("hostname must contain at least a domain and TLD e.g.  example.com");
         }
-        
-        hostname = StringUtils.join(serverNameTokens, '.');
+
+        hostname = StringUtils.join(hostnameTokens, '.');
 
         return hostname;
     }

@@ -260,7 +260,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     if (maintainSelection) {
                         urlBuilder.setParameter("compareSchools", schoolsString);
                     }
-                    model.put(MODEL_RETURN_LINK, urlBuilder.asSiteRelative(request));
+                    model.put(MODEL_RETURN_LINK, urlBuilder.asFullUrl(request));
                 }
             }
         }

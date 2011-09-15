@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolOverviewTagHandler.java,v 1.1 2010/11/22 22:10:31 ssprouse Exp $
+ * $Id: SchoolOverviewTagHandler.java,v 1.2 2011/09/15 00:36:23 ssprouse Exp $
  */
 package gs.web.jsp.link.school;
 
@@ -21,6 +21,10 @@ public class SchoolOverviewTagHandler extends BaseSchoolTagHandler {
     private String _name;
     private Address _physicalAddress;
     private String _levelCode;
+
+    public SchoolOverviewTagHandler() {
+        setAbsolute(true);
+    }
 
     public Boolean getShowConfirmation() {
         return _showConfirmation;

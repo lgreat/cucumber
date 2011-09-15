@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RedirectToSampleSchoolControllerTest.java,v 1.7 2009/12/04 20:54:15 npatury Exp $
+ * $Id: RedirectToSampleSchoolControllerTest.java,v 1.8 2011/09/15 00:36:23 ssprouse Exp $
  */
 package gs.web.school;
 
@@ -8,6 +8,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.data.util.string.StringUtils;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
@@ -53,7 +54,7 @@ public class RedirectToSampleSchoolControllerTest extends BaseControllerTestCase
 
         RedirectView view = (RedirectView)mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/california/cityname/1-Alameda-High-School/", view.getUrl());
+        assertTrue(org.apache.commons.lang.StringUtils.endsWith(view.getUrl(), "/california/cityname/1-Alameda-High-School/"));
    }
 
    public void testGetSampleAKSchool() throws Exception {
@@ -74,7 +75,7 @@ public class RedirectToSampleSchoolControllerTest extends BaseControllerTestCase
         RedirectView view = (RedirectView)mav.getView();
         assertNotNull(view.getUrl());
 
-        assertEquals("/alaska/cityname/329-Alaska-High-School/", view.getUrl());
+       assertTrue(org.apache.commons.lang.StringUtils.endsWith(view.getUrl(), "/alaska/cityname/329-Alaska-High-School/"));
    }
 
 

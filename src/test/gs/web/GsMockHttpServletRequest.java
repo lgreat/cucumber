@@ -1,5 +1,6 @@
 package gs.web;
 
+import gs.web.request.HostnameInfo;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
@@ -11,6 +12,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author thuss
  */
 public class GsMockHttpServletRequest extends MockHttpServletRequest   {
+
+    public GsMockHttpServletRequest() {
+        setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, new HostnameInfo(getServerName()));
+    }
 
     /**
      * Sets the given parameter, removing any previous value.

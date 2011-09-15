@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.257 2011/09/13 03:47:04 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.258 2011/09/15 00:36:23 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -19,10 +19,13 @@ import gs.data.util.Address;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
 import gs.data.community.User;
+import gs.web.request.HostnameInfo;
+import gs.web.request.Subdomain;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.widget.SchoolSearchWidgetController;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
@@ -1116,7 +1119,7 @@ public class UrlBuilder {
                     "/" + id + "/" +
                     (showConfirmation ? "?confirm=true" : "");
 
-            _subdomain = Subdomain.PRESCHOOLS;
+            _subdomain = Subdomain.PK;
         } else {
             StringBuffer path = new StringBuffer(
                     DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(
@@ -1691,8 +1694,10 @@ public class UrlBuilder {
         String serverName = request.getServerName();
         int serverPort = request.getServerPort();
 
+        HostnameInfo hostnameInfo = (HostnameInfo) request.getAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME);
+
         //change the subdomain portion of serverName if _subdomain has been set and if this is not a cobranded url
-        serverName = changeDomainNameIfNeeded(serverName);
+        serverName = changeSubdomainIfNeeded(hostnameInfo);
 
         String url = "http://" +
                 serverName +
@@ -1717,8 +1722,10 @@ public class UrlBuilder {
         String serverName = request.getServerName();
         int serverPort = request.getServerPort();
 
+        HostnameInfo hostnameInfo = (HostnameInfo) request.getAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME);
+
         //change the subdomain portion of serverName if _subdomain has been set and if this is not a cobranded url
-        serverName = changeDomainNameIfNeeded(serverName);
+        serverName = changeSubdomainIfNeeded(hostnameInfo);
 
 
         String url = "http://" +
@@ -1730,33 +1737,30 @@ public class UrlBuilder {
     }
 
     /**
-     * Given a hostname, if hostname doesn't contain a cobrand, then changes the "highest" subdomain to whatever is
-     * stored in _subdomain. Or if _subdomain is null, which change the subdomain to www
-     * @param hostname
+     * Given a hostname, if hostname doesn't contain a cobrand, then changes the proper subdomain to whatever is
+     * stored in _subdomain. Or if _subdomain is null, changes the subdomain to www on live or removes it if on
+     * a development environment server
+     * 
+     * @param hostnameInfo
      * @return
      */
-    protected String changeDomainNameIfNeeded(String hostname) {
-        if (hostname == null) {
-            throw new IllegalArgumentException("hostname cannot be null");
+    protected String changeSubdomainIfNeeded(HostnameInfo hostnameInfo) {
+        if (hostnameInfo == null) {
+            throw new IllegalArgumentException("hostnameInfo cannot be null");
         }
 
-        if (UrlUtil.cobrandFromUrl(hostname) == null) {
-            if (_subdomain != null) {
-                //only change the subdomain if current subdomain matches a known subdomain.
-                String currentSubdomainString = UrlUtil.findHighestSubdomain(hostname);
-                Subdomain matchingSubdomain = Subdomain.getByValue(currentSubdomainString);
-                if (matchingSubdomain != null) {
-                    hostname = UrlUtil.overwriteSubdomain(hostname, _subdomain.toString());
-                }
-            } else {
-                String currentSubdomainString = UrlUtil.findHighestSubdomain(hostname);
-                Subdomain matchingSubdomain = Subdomain.getByValue(currentSubdomainString);
-                if (matchingSubdomain != null && matchingSubdomain != Subdomain.WWW) {
-                    hostname = UrlUtil.overwriteSubdomain(hostname, Subdomain.WWW.toString());
-                }
+        String newHostname = hostnameInfo.getHostname();
+
+        if (UrlUtil.cobrandFromUrl(hostnameInfo.getHostname()) == null) {
+
+            if (_subdomain == null || _subdomain.equals(Subdomain.WWW)) {
+                newHostname = hostnameInfo.getBaseHostname();
+            } else if (Subdomain.PK.equals(_subdomain)) {
+                newHostname = hostnameInfo.getHostnameForPkSubdomain();
             }
         }
-        return hostname;
+
+        return newHostname;
     }
 
     /**
@@ -1776,32 +1780,6 @@ public class UrlBuilder {
      */
     public String asAHref(HttpServletRequest request, String label, String styleClass) {
         return "<a href=\"" + asSiteRelativeXml(request) + "\" class=\"" + styleClass + "\">" + label + "</a>";
-    }
-
-    enum Subdomain {
-        PRESCHOOLS("pk"),
-        WWW("www")
-        ;
-
-        private String _value;
-
-        Subdomain(String value) {
-            _value = value;
-        }
-
-        public String toString() {
-            return _value;
-        }
-
-        public static Subdomain getByValue(String value){
-           Subdomain match = null;
-           for (Subdomain domain : EnumSet.allOf(Subdomain.class)) {
-               if (domain.toString().equals(value)) {
-                   match = domain;
-               }
-           }
-           return match;
-       }
     }
 
     public void setSubdomain(Subdomain subdomain) {

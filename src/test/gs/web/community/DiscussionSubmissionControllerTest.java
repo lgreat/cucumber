@@ -3,6 +3,7 @@ package gs.web.community;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.web.BaseControllerTestCase;
 import gs.web.community.registration.AuthenticationManager;
+import gs.web.request.HostnameInfo;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.community.*;
@@ -88,6 +89,7 @@ public class DiscussionSubmissionControllerTest extends BaseControllerTestCase {
         _command = new DiscussionSubmissionCommand();
 
         getRequest().setServerName("localhost");
+        getRequest().setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, new HostnameInfo("localhost"));
         
         SessionContext sessionContext = new SessionContext();
         getRequest().setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);

@@ -66,6 +66,10 @@
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
 
+    <c:if test="${!requestScope.context.cobranded}">
+        <base href="http://www.greatschools.org"/>
+    </c:if>
+
     <c:set var="start" value="${empty param.start ? 0 : param.start}"/>
     <!-- TODO: Is the following necessary? -->
     <![CDATA[

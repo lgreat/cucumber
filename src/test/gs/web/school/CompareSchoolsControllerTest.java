@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.web.GsMockHttpServletRequest;
 import gs.web.BaseControllerTestCase;
+import gs.web.request.HostnameInfo;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -38,6 +39,7 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
     }
     public void testNullSessionContext() throws Exception {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, new HostnameInfo(request.getServerName()));
         request.setParameter("compare.x", "1234");
         ModelAndView mav = controller.handleRequestInternal(request, null);
         RedirectView view = (RedirectView)mav.getView();

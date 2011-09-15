@@ -13,7 +13,10 @@ import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.Address;
+import gs.data.util.string.StringUtils;
 import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
+import gs.web.school.CompareSchoolController;
 import gs.web.util.UrlBuilder;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
@@ -221,6 +224,33 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
         assertSame(ca2, schools.get(0).getSchool());
         assertSame(ca1, schools.get(1).getSchool());
         resetAllMocks();
+    }
+
+    private School getTestSchool() {
+        School ca1 = new School();
+        ca1.setId(1);
+        ca1.setDatabaseState(State.CA);
+        ca1.setCity("Alameda");
+        ca1.setName("Alameda High School");
+        return ca1;
+    }
+
+    public void testHandleReturnLinkUsesAbsoluteUrl() {
+        Map<String,Object> model = new HashMap<String, Object>();
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter(AbstractCompareSchoolController.MODEL_SOURCE, "spoverviewca1");
+
+        School ca1 = getTestSchool();
+
+        expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(ca1);
+        replay(_schoolDao);
+
+        _controller.handleReturnLink(getRequest(), getResponse(), model);
+
+        verify(_schoolDao);
+
+        String returnLink = (String) model.get(AbstractCompareSchoolController.MODEL_RETURN_LINK);
+        assertTrue(returnLink.startsWith("http"));
     }
 
     public void testHandleRequestInternal() throws Exception {

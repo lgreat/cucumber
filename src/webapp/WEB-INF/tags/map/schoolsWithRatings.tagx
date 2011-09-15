@@ -114,7 +114,7 @@ function initSchoolInfo() {
     <jsp:useBean id="curSchool" type="gs.data.school.School" />
     <jsp:scriptlet><![CDATA[
       UrlBuilder urlBuilder = new UrlBuilder(curSchool, UrlBuilder.SCHOOL_PROFILE);
-      request.setAttribute("schoolUrl", urlBuilder.asSiteRelativeXml(request));
+      request.setAttribute("schoolUrl", urlBuilder.asFullUrlXml(request));
     ]]></jsp:scriptlet>
 
     mySchool = new Object();

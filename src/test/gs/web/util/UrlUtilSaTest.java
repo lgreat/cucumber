@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.82 2011/09/13 03:47:04 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.83 2011/09/15 00:36:22 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -568,6 +568,33 @@ public class UrlUtilSaTest extends TestCase {
         result = UrlUtil.overwriteSubdomain("sub2.sub1.example.com", "pk");
         assertEquals("sub2.pk.example.com", result);
     }
+
+    public void testOverwriteSubdomainAtLevel() throws Exception {
+
+        String result = UrlUtil.overwriteSubdomain("www.example.com", "pk", 0);
+        assertEquals("pk.example.com", result);
+
+        result = UrlUtil.overwriteSubdomain("example.com", "pk", 0);
+        assertEquals("pk.example.com", result);
+
+        try {
+            result = UrlUtil.overwriteSubdomain("com", "pk", 0);
+            assertEquals("pk.example.com", result);
+            fail("Exception should have been thrown");
+        } catch (Exception e) {
+            //pass
+        }
+
+        result = UrlUtil.overwriteSubdomain("sub2.sub1.example.com", "pk", 0);
+        assertEquals("sub2.pk.example.com", result);
+
+        result = UrlUtil.overwriteSubdomain("sub2.sub1.example.com", "pk", 1);
+        assertEquals("pk.sub1.example.com", result);
+
+        result = UrlUtil.overwriteSubdomain("sub2.sub1.example.com", "pk", 2);
+        assertEquals("pk.sub2.sub1.example.com", result);
+    }
+
 
     public void testFindHighestSubdomain() {
         assertEquals("www", UrlUtil.findHighestSubdomain("www.example.com"));

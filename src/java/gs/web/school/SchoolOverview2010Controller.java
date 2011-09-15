@@ -17,7 +17,9 @@ import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsHomepageController;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.request.HostnameInfo;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -99,7 +101,16 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             // GS-10484
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-            model.put("relCanonical", urlBuilder.asFullUrl(request));
+            String fullCanonicalUrl = urlBuilder.asFullUrl(request);
+            model.put("relCanonical", fullCanonicalUrl);
+
+            // Preschool pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                HostnameInfo hostnameInfo = (HostnameInfo) request.getAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME);
+                if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
+                    return new ModelAndView(new RedirectView301(fullCanonicalUrl));
+                }
+            }
 
             // page only needs up to three, but we need the total number as well
             // should probably add a method _reviewDao.getTotalPublishedReviewsBySchool(school)
@@ -110,8 +121,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             model.put("numberOfReviews", numberOfReviews);
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
-
-            model.put("noIndexFlag", !shouldIndex(school, numberOfReviews));
 
             /*
              * get PQ data to find quote if it exists

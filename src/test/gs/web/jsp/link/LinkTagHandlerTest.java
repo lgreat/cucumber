@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.92 2011/09/13 04:03:40 ssprouse Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.93 2011/09/15 00:36:23 ssprouse Exp $
  */
 
 package gs.web.jsp.link;
@@ -21,8 +21,11 @@ import gs.web.compare.*;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.jsp.link.microsite.*;
+import gs.web.request.HostnameInfo;
 import gs.web.util.UrlBuilder;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletContext;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -35,7 +38,7 @@ import java.io.IOException;
  */
 public class LinkTagHandlerTest extends BaseTestCase {
 
-    public void xtestGeneratesAttributes() throws JspException {
+    public void testGeneratesAttributes() throws JspException {
 
         LinkTagHandler handler = new LinkTagHandler() {
             protected UrlBuilder createUrlBuilder() {
@@ -74,7 +77,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
                 out.getOutputBuffer().toString());
     }
 
-    public void xtestJavascriptAttributes() throws JspException {
+    public void testJavascriptAttributes() throws JspException {
         LinkTagHandler handler = new LinkTagHandler() {
             protected UrlBuilder createUrlBuilder() {
                 return new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, State.WY);
@@ -123,7 +126,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
                 out.getOutputBuffer().toString());
     }
 
-    public void xtestAnchorandIdAttribute() throws JspException {
+    public void testAnchorandIdAttribute() throws JspException {
         LinkTagHandler handler = new LinkTagHandler() {
             protected UrlBuilder createUrlBuilder() {
                 return new UrlBuilder(new MockHttpServletRequest(), "somepage");
@@ -181,13 +184,19 @@ public class LinkTagHandlerTest extends BaseTestCase {
     }
 
     public void testAbsoluteLink() throws JspException {
+
+        final HostnameInfo hostnameInfo = new HostnameInfo("");
+        final MockHttpServletRequest request = new MockHttpServletRequest();
+
         LinkTagHandler handler = new LinkTagHandler() {
             protected UrlBuilder createUrlBuilder() {
-                return new UrlBuilder(new MockHttpServletRequest(), "/somepage");
+
+                request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
+                return new UrlBuilder(request, "/somepage");
             }
         };
 
-        PageContext pc = new MockPageContext();
+        PageContext pc = new MockPageContext(new MockServletContext(), request);
 
         handler.setPageContext(pc);
         handler.setAbsolute(true);
