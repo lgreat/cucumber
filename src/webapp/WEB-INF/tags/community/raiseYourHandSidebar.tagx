@@ -25,6 +25,12 @@
 <![CDATA[
 <script type="text/javascript">
 <!--
+        function textSwitch(el, target, replace) {
+            if (el.value == replace) {
+                el.value = target;
+            }
+        }
+
     var $j = jQuery;
     $j(function() {
         var ryhAnswerCharacterLimit = 250;
@@ -187,274 +193,269 @@
 </script>
 ]]>
 
-<div id="raise-your-hand" class="mod">
-
-<div class="mod_hd">
+<div class="mod standard raiseYourHand">
+<div class="inner">
+<div class="hd">
     <h3>Raise Your Hand</h3>
 </div>
 
-<div class="mod_bd">
-<div class="ryh-topsection">
-    <div class="ryh-title-onTC rnd8">
+<div class="bd">
+<div class="bd-inner">
+<div class="mod ryh-topic">
+
+    <div class="inner">
         <div class="ryh-downArrow-fff"><!--do not collapse--></div>
-        <link:discussion discussionId="${discussion.id}"
-                         fullUri="${discussion.discussionBoard.fullUri}"
-                         styleClass="title2-d61 ryh-discussion-title">${discussion.title}
-        </link:discussion>
-        <c:if test="${allowEditsDeletesReports}">
-            <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${discussion.user}"
-                                       contentPostedDate="${discussion.dateCreated}">
-                | <a href="javascript:void(0);" class="editLink link">Edit</a>
-            </gsml:ifUserCanEditContent>
-            <c:choose>
-                <c:when test="${discussion.active eq false}">
-                    | <span class="tint_c03"> (Deleted) </span>
-                    <gsml:ifUserCanDeleteContent pageUser="${user}">
-                        <a href="javascript:void(0);" class="undeleteLink link" onclick="return false;">Undelete</a>
-                    </gsml:ifUserCanDeleteContent>
-                </c:when>
-                <c:otherwise>
-                    <gsml:ifUserCanDeleteContent pageUser="${user}">
-                        | <a href="javascript:void(0);" class="deleteLink link" onclick="return false;">Delete</a>
-                    </gsml:ifUserCanDeleteContent>
-                </c:otherwise>
-            </c:choose>
-            <span class="hidden discussionBody">${discussion.body}</span>
-        </c:if>
-    </div>
-    <!-- end ryh-title -->
 
-    <div class="spacer_15"><!-- do not collapse --></div>
-
-    <div class="ryh-answer-onTC">
-
-        <div class="spacer_10"><!-- don't collapse --></div>
-
-        <div class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></div>
-
-        <br class="clearfloat"/>
-
-        <label for="ryhAnswer" class="ryhAnswerLabel text1 fltlft">Your<br/>answer:</label>
-
-        <textarea name="ryhAnswer"
-                  class="ryhAnswer fltrt"
-                  id="ryhAnswer" rows="3" cols="50"
-                  style="width: 330px; height: 58px;"><!-- do not collapse --></textarea>
-        <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
-        <br class="clearfloat"/>
-
-        <button class="button-1 fltlft ryh-submit-onTC" type="button" id="ryhSubmit" name="Submit"
-                value="Submit">Submit
-        </button>
-
-        <c:if test="${showSponsor}">
-            <ad:adTag position="RYH_Sponsor_90x32"/>
-        </c:if>
-
-    </div>
-    <!-- end ryh-reply -->
-    <br class="clearfloat"/>
-</div>
-<!-- end ryh-topsection -->
-
-<div class="spacer_15">
-    <!-- do not collapse -->
-</div>
-
-<c:choose>
-    <c:when test="${fn:length(replies) == 0}">
-        <c:set var="recentRepliesDisplay" value="none"/>
-    </c:when>
-    <c:otherwise>
-        <c:set var="recentRepliesDisplay" value="block"/>
-    </c:otherwise>
-</c:choose>
-
-<div class="ryh-bottomsection clearfix" style="display: ${recentRepliesDisplay};">
-
-    <span class="text1bold">Recent Answers</span>
-
-    <div class="spacer_15">
-        <!-- do not collapse -->
-    </div>
-    <c:if test="${signedIn}">
-
-        <div id="recentAnswerTemplate" style="display: none;">
-            <div class="ryh-reply">
-                <div class="avatar_40 fltlft">
-
-                    <link:userProfile user="${user}">
-                        <community:avatar user="${user}" width="40" height="40"
-                                          cssStyle="border: 1px solid #c6c6c6;"/>
-                    </link:userProfile>
-
-                </div>
-                <!-- end ryh-avatar -->
-
-                <div class="ryh-reply-text-onTC fltlft rnd8">
-                    <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
-
-                    <link:userProfile user="${user}">
-                        <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
-                    </link:userProfile>
-
-                    <span class="smallText1"> a moment ago </span>
-
-                    <!--<p class="fltrt">&amp;nbsp;</p>-->
-                    <div class="spacer_5"><!--do not collapse--></div>
-
-                    <community:userContentTeaserText
-                            textToDisplay="DISCUSSION_REPLY_BODY"
-                            minLength="250" maxLength="260"
-                            discussionId="${discussion.id}"
-                            discussionFullUri="${discussion.discussionBoard.fullUri}"
-                            discussionReplyId="1"
-                            textSpanClass="text3"/>
-                </div>
-                <br class="clearfloat"/>
-                <!-- end ryh-reply-text -->
-
-            </div>
-            <!-- end ryh-reply -->
-            <br class="clearfloat"/>
+        <div class="bd">
+            <link:discussion discussionId="${discussion.id}"
+                             fullUri="${discussion.discussionBoard.fullUri}">${discussion.title}
+            </link:discussion>
+            <c:if test="${allowEditsDeletesReports}">
+                <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${discussion.user}"
+                                           contentPostedDate="${discussion.dateCreated}">
+                    | <a href="javascript:void(0);" class="editLink link">Edit</a>
+                </gsml:ifUserCanEditContent>
+                <c:choose>
+                    <c:when test="${discussion.active eq false}">
+                        | <span class="tint_c03"> (Deleted) </span>
+                        <gsml:ifUserCanDeleteContent pageUser="${user}">
+                            <a href="javascript:void(0);" class="undeleteLink link" onclick="return false;">Undelete</a>
+                        </gsml:ifUserCanDeleteContent>
+                    </c:when>
+                    <c:otherwise>
+                        <gsml:ifUserCanDeleteContent pageUser="${user}">
+                            | <a href="javascript:void(0);" class="deleteLink link" onclick="return false;">Delete</a>
+                        </gsml:ifUserCanDeleteContent>
+                    </c:otherwise>
+                </c:choose>
+                <span class="hidden discussionBody">${discussion.body}</span>
+            </c:if>
         </div>
-        <!-- end recentAnswerTemplate -->
-
-    </c:if>
-
-
-    <div class="recentAnswers"><!-- don't collapse -->
-
-        <c:forEach var="reply" items="${replies}">
-
-            <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
-            <div class="ryh-reply">
-                <div class="avatar_40 fltlft">
-                    <c:choose>
-                        <c:when test="${reply.user.userProfile.active}">
-                            <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
-                                <community:avatar user="${reply.user}" width="40" height="40"
-                                                  cssStyle="border: 1px solid #c6c6c6;"
-                                                  anonymous="${reply.anonymous}"/>
-                            </link:userProfile>
-                        </c:when>
-                        <c:otherwise>
-                            <community:avatar user="${reply.user}" width="40" height="40"
-                                              anonymous="${reply.anonymous}"
-                                              cssStyle="border: 1px solid #c6c6c6;"/>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <!-- end ryh-avatar -->
-
-                <div class="ryh-reply-text-onTC fltlft rnd8">
-                    <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
-                    <p class="fltlft">
-                        <c:choose>
-                            <c:when test="${reply.user.userProfile.active}">
-                                <link:userProfile user="${reply.user}"
-                                                  anonymous="${reply.anonymous}">
-                                                        <span class="smallAlertTextBold-06b"><community:screenName
-                                                                userContent="${reply}"/></span>
-                                </link:userProfile>
-                            </c:when>
-                            <c:otherwise>
-                                                    <span class="smallAlertTextBold-06b"><community:screenName
-                                                            userContent="${reply}"/></span>
-                            </c:otherwise>
-                        </c:choose>
-
-                        <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
-                    </p>
-                    <c:if test="${allowEditsDeletesReports}">
-                        <!-- TODO-9419 Edit Replies -->
-                        <!--
-                        <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${reply.user}"
-                                                   contentPostedDate="${reply.dateCreated}">
-                            | <a href="javascript:void(0);" class="editLink link" onclick="return false;">Edit</a>
-                        </gsml:ifUserCanEditContent>
-                        -->
-                        <c:choose>
-                            <c:when test="${reply.active eq false}">
-                                | <span class="tint_c03"> (Deleted) </span>
-                                <c:if test="${discussion.active eq true}">
-                                    <gsml:ifUserCanDeleteContent pageUser="${user}">
-                                        <a href="javascript:void(0);" class="undeleteLink link"
-                                           onclick="return false;">Undelete</a>
-                                    </gsml:ifUserCanDeleteContent>
-                                </c:if>
-                            </c:when>
-                            <c:otherwise>
-                                <gsml:ifUserCanDeleteContent pageUser="${user}">
-                                    | <a href="javascript:void(0);" class="deleteLink link"
-                                         onclick="return false;">Delete</a>
-                                </gsml:ifUserCanDeleteContent>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:if>
-
-                    <c:choose>
-                        <c:when test="${requestScope.replyReports ne null and requestScope.replyReports[reply.id] eq true}">
-                            <p class="fltrt reported">You've reported this reply.</p>
-                        </c:when>
-                        <c:when test="${allowEditsDeletesReports}">
-                            <p class="fltrt">
-                                <a class="smallText1 reportIt link" href="${loginRedirectUrl}"
-                                   id="report_reply_${reply.id}">Report it</a>
-                            </p>
-                        </c:when>
-                    </c:choose>
-                    <br class="clearfloat"/>
-
-                    <c:choose>
-                        <c:when test="${showFullReplies}">
-                            <span class="text3 replyBody">${reply.body}</span>
-                        </c:when>
-                        <c:otherwise>
-                            <community:userContentTeaserText
-                                    textToDisplay="${reply.body}"
-                                    minLength="250" maxLength="260"
-                                    discussionId="${discussion.id}"
-                                    discussionFullUri="${discussion.discussionBoard.fullUri}"
-                                    discussionReplyId="${reply.id}"
-                                    textSpanClass="text3"/>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-                <!-- end ryh-reply -->
-                <span class="hidden replyId">${reply.id}</span>
-                <br class="clearfloat"/>
-
-            </div>
-            <!-- end ryh-replies -->
-            <br class="clearfloat"/>
-
-        </c:forEach>
-
     </div>
-    <!-- end recentAnswers -->
+</div>
+    <!-- end ryh-topic -->
 
-    <c:if test="${showViewAll}">
 
-        <div class="fltrt">
+<div class="mod ryh-yourAnswer">
+    <div class="inner">
+        <div class="bd">
+
+            <div class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></div>
+
+            <textarea name="ryhAnswer"
+                      class="ryhAnswer"
+                      id="ryhAnswer"
+                    onload="textSwitch(this, 'Your answer...', '');"
+                    onfocus="textSwitch(this, '', 'Your answer...');"
+                    onblur="textSwitch(this, 'Your answer...', '');">Your answer...</textarea>
+            <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
+
+            <button class="button-1" type="button" id="ryhSubmit" name="Submit"
+                    value="Submit">Submit
+            </button>
+
+            <c:if test="${showSponsor}">
+                <ad:adTag position="RYH_Sponsor_90x32"/>
+            </c:if>
+        </div>
+    </div>
+</div>
+    <!-- end ryh-yourAnswer -->
+
+<div class="mod ryh-recentAnswers">
+    <div class="inner">
+        <div class="hd">
+
+            <p class="text1bold fltlft">Recent Answers</p>
+
+            <c:if test="${showViewAll}">
+
+                <div class="fltrt">
                     <span class="smallAlertText">
                     <link:discussion discussionId="${discussion.id}"
                                      fullUri="${discussion.discussionBoard.fullUri}">View all replies <span
                             class="alertDoubleArrow">&amp;raquo;</span>
                     </link:discussion>
                     </span>
+                </div>
+                <br class="clearfloat"/>
+
+            </c:if>
+
         </div>
-        <br class="clearfloat"/>
+        <div class="bd">
 
-    </c:if>
+            <c:if test="${signedIn}">
+
+                <div id="recentAnswerTemplate" style="display: none;">
+                    <div class="ryh-reply">
+                        <div class="avatar_40 fltlft">
+
+                            <link:userProfile user="${user}">
+                                <community:avatar user="${user}" width="40" height="40"
+                                                  cssStyle="border: 1px solid #c6c6c6;"/>
+                            </link:userProfile>
+
+                        </div>
+                        <!-- end ryh-avatar -->
+
+                        <div class="ryh-reply-text-onTC fltlft rnd8">
+                            <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
+
+                            <link:userProfile user="${user}">
+                                <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
+                            </link:userProfile>
+
+                            <span class="smallText1"> a moment ago </span>
+
+                            <!--<p class="fltrt">&amp;nbsp;</p>-->
+                            <div class="spacer_5"><!--do not collapse--></div>
+
+                            <community:userContentTeaserText
+                                    textToDisplay="DISCUSSION_REPLY_BODY"
+                                    minLength="250" maxLength="260"
+                                    discussionId="${discussion.id}"
+                                    discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                    discussionReplyId="1"
+                                    textSpanClass="text3"/>
+                        </div>
+                        <br class="clearfloat"/>
+                        <!-- end ryh-reply-text -->
+
+                    </div>
+                    <!-- end ryh-reply -->
+                    <br class="clearfloat"/>
+                </div>
+                <!-- end recentAnswerTemplate -->
+
+            </c:if>
+
+
+            <div class="recentAnswers"><!-- don't collapse -->
+
+                <c:forEach var="reply" items="${replies}">
+
+                    <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
+                    <div class="ryh-reply">
+                        <div class="avatar_40 fltlft">
+                            <c:choose>
+                                <c:when test="${reply.user.userProfile.active}">
+                                    <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
+                                        <community:avatar user="${reply.user}" width="40" height="40"
+                                                          cssStyle="border: 1px solid #c6c6c6;"
+                                                          anonymous="${reply.anonymous}"/>
+                                    </link:userProfile>
+                                </c:when>
+                                <c:otherwise>
+                                    <community:avatar user="${reply.user}" width="40" height="40"
+                                                      anonymous="${reply.anonymous}"
+                                                      cssStyle="border: 1px solid #c6c6c6;"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <!-- end ryh-avatar -->
+
+                        <div class="ryh-reply-text-onTC fltlft rnd8">
+                            <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
+                            <p class="fltlft">
+                                <c:choose>
+                                    <c:when test="${reply.user.userProfile.active}">
+                                        <link:userProfile user="${reply.user}"
+                                                          anonymous="${reply.anonymous}">
+                                                        <span class="smallAlertTextBold-06b"><community:screenName
+                                                                userContent="${reply}"/></span>
+                                        </link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>
+                                                    <span class="smallAlertTextBold-06b"><community:screenName
+                                                            userContent="${reply}"/></span>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
+                            </p>
+                            <c:if test="${allowEditsDeletesReports}">
+                                <!-- TODO-9419 Edit Replies -->
+                                <!--
+                                <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${reply.user}"
+                                                           contentPostedDate="${reply.dateCreated}">
+                                    | <a href="javascript:void(0);" class="editLink link" onclick="return false;">Edit</a>
+                                </gsml:ifUserCanEditContent>
+                                -->
+                                <c:choose>
+                                    <c:when test="${reply.active eq false}">
+                                        | <span class="tint_c03"> (Deleted) </span>
+                                        <c:if test="${discussion.active eq true}">
+                                            <gsml:ifUserCanDeleteContent pageUser="${user}">
+                                                <a href="javascript:void(0);" class="undeleteLink link"
+                                                   onclick="return false;">Undelete</a>
+                                            </gsml:ifUserCanDeleteContent>
+                                        </c:if>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <gsml:ifUserCanDeleteContent pageUser="${user}">
+                                            | <a href="javascript:void(0);" class="deleteLink link"
+                                                 onclick="return false;">Delete</a>
+                                        </gsml:ifUserCanDeleteContent>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
+
+                            <c:choose>
+                                <c:when test="${requestScope.replyReports ne null and requestScope.replyReports[reply.id] eq true}">
+                                    <p class="fltrt reported">You've reported this reply.</p>
+                                </c:when>
+                                <c:when test="${allowEditsDeletesReports}">
+                                    <p class="fltrt">
+                                        <a class="smallText1 reportIt link" href="${loginRedirectUrl}"
+                                           id="report_reply_${reply.id}">Report it</a>
+                                    </p>
+                                </c:when>
+                            </c:choose>
+                            <br class="clearfloat"/>
+
+                            <c:choose>
+                                <c:when test="${showFullReplies}">
+                                    <span class="text3 replyBody">${reply.body}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <community:userContentTeaserText
+                                            textToDisplay="${reply.body}"
+                                            minLength="250" maxLength="260"
+                                            discussionId="${discussion.id}"
+                                            discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                            discussionReplyId="${reply.id}"
+                                            textSpanClass="text3"/>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <!-- end ryh-reply -->
+                        <span class="hidden replyId">${reply.id}</span>
+                        <br class="clearfloat"/>
+
+                    </div>
+                    <!-- end ryh-replies -->
+                    <br class="clearfloat"/>
+
+                </c:forEach>
+
+            </div>
+            <!-- end recentAnswers -->
+        </div>
+
+    </div>
+</div>
+<!-- end ryh-recentAnswers -->
 
 </div>
-<!-- end ryh-bottomsection -->
+<!-- end bd-inner -->
 </div>
-<!-- end mod_bd -->
+<!-- end bd -->
+</div>
+<!-- end inner -->
 </div>
 
-<!-- end raise-your-hand -->
+<!-- end raiseYourHand -->
 
 </c:if>
 
