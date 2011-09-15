@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.95 2011/09/13 17:48:23 npatury Exp $
+ * $Id: AdPosition.java,v 1.96 2011/09/15 23:27:32 npatury Exp $
  */
 package gs.web.ads;
 
@@ -152,7 +152,7 @@ public class AdPosition extends Enum {
     public static final AdPosition K12_Module_Logo_88x31 = new AdPosition("K12_Module_Logo_88x31", true); // GS-11927
     public static final AdPosition Custom_Peelback_Ad = new AdPosition("Custom_Peelback_Ad", true); // GS-11966
     public static final AdPosition Custom_Welcome_Ad = new AdPosition("Custom_Welcome_Ad", true); // GS-11966
-    public static final AdPosition Library_Article_Page_House_Ad_300x210 = new AdPosition("Library_Article_Page_House_Ad_300x210", true); // GS-12049
+    public static final AdPosition House_Ad_300x210 = new AdPosition("House_Ad_300x210", true); // GS-12049
 
     private boolean _isGAMPosition;
     private String _baseName = null;
