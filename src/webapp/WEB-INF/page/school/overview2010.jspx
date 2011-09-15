@@ -67,7 +67,7 @@
     </c:if>
 
     <c:if test="${!requestScope.context.cobranded}">
-        <base href="http://www.greatschools.org"/>
+        <base href="http://${requestScope.hostnameInfo.baseHostname}"/>
     </c:if>
 
     <c:set var="start" value="${empty param.start ? 0 : param.start}"/>

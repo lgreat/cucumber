@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.112 2011/09/15 00:36:23 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.113 2011/09/15 04:02:57 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -226,8 +226,7 @@ public final class UrlUtil {
         "dev",
         "localhost",
         "www.localhost",
-        "pk.localhost",
-        "pk.greatschools",
+        "pk.",
         "main.dev",
         "chriskimm.dev",
         "aroy.office",
