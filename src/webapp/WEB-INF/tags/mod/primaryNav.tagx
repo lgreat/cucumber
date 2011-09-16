@@ -57,13 +57,11 @@
                         <li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice"
                                                     styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse><!--<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>-->
                         </li>
-                        <li>
-                            <link:movingWithKids id="PN_F_2-MovingWIthKids" styleClass="GS_CI9_">Moving with Kids</link:movingWithKids>
-                        </li>
-                        <li class="lastone">
-                            <link:cmsContent contentKey="TopicCenter#4248" styleId="PN_F_2-LocalSchoolChoiceGuides" styleClass="GS_CI9_"
-                                             fullUri="/parenting" raiseYourHand="false">Guides to Local School Systems</link:cmsContent>
-                        </li>
+                        <li><a href="/moving.topic?content=2220" id="PN_F_2-MovingWIthKids"
+                               class="GS_CI9_">Moving with Kids</a></li>
+                        <li class="lastone"><a href="/tips-moving-school-district.topic?content=4248"
+                                               id="PN_F_2-LocalSchoolChoiceGuides"
+                                               class="GS_CI9_">Guides to Local School Systems</a></li>
                     </ul>
                 </div>
             </div>
@@ -91,35 +89,21 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="198" topicIDs="211" styleId="PN_P_1-ReadingReadiness" styleClass="GS_CI9_"
-                                    >Reading Readiness</link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="198" topicIDs="209" styleId="PN_P_1-MathReadiness" styleClass="GS_CI9_"
-                                    >Math Readiness</link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsWorksheetGallery grade="preschool" styleId="PN_P_1-Worksheets" styleClass="GS_CI9_">Worksheets</link:cmsWorksheetGallery>
-                        </li>
-                        <li class="lastone">
-                            <link:cmsCategoryBrowse gradeIDs="198" topicIDs="156" styleId="PN_P_1-Activities" styleClass="GS_CI9_"
-                                    >Activities</link:cmsCategoryBrowse>
-                        </li>
+                        <li><a href="/articles/?grades=198&amp;topics=211" id="PN_P_1-ReadingReadiness"
+                               class="GS_CI9_">Reading Readiness</a></li>
+                        <li><a href="/articles/?grades=198&amp;topics=209" id="PN_P_1-MathReadiness"
+                               class="GS_CI9_">Math Readiness</a></li>
+                        <li><a href="/worksheets/preschool/" id="PN_P_1-Worksheets" class="GS_CI9_">Worksheets</a></li>
+                        <li class="lastone"><a href="/articles/?topics=156&amp;grades=198" id="PN_P_1-Activities"
+                                               class="GS_CI9_">Activities</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col_1">
                 <div class="col_content">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="198" topicIDs="159" styleId="PN_P_2-Books" styleClass="GS_CI9_"
-                                    >Books</link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="198" topicIDs="371" styleId="PN_P_2-Games" styleClass="GS_CI9_"
-                                    >Games</link:cmsCategoryBrowse>
-                        </li>
+                        <li><a href="/articles/?topics=159&amp;grades=198" id="PN_P_2-Books" class="GS_CI9_">Books</a></li>
+                        <li><a href="/articles/?topics=371&amp;grades=198" id="PN_P_2-Games" class="GS_CI9_">Games</a></li>
                         <li class="lastone"><a href="/preschool/community.gs?content=1636" id="PN_P_2-Community"
                                                class="GS_CI9_">Community</a></li>
                     </ul>
@@ -149,38 +133,21 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsContent contentKey="TopicCenter#2659" styleId="PN_E_1-Kindergarten" styleClass="GS_CI9_" fullUri="/kindergarten" raiseYourHand="true"
-                                    >Kindergarten</link:cmsContent>
+                        <li><a href="/kindergarten.topic?content=2659" id="PN_E_1-Kindergarten"
+                               class="GS_CI9_">Kindergarten</a></li>
+                        <li><a href="/first-grade.topic?content=2660" id="PN_E_1-FirstGrade" class="GS_CI9_">First Grade</a>
                         </li>
-                        <li>
-                            <link:cmsContent contentKey="TopicCenter#2660" styleId="PN_E_1-FirstGrade" styleClass="GS_CI9_" fullUri="/first-grade" raiseYourHand="true"
-                                    >First Grade</link:cmsContent>
+                        <li><a href="/second-grade.topic?content=2661" id="PN_E_1-SecondGrade"
+                               class="GS_CI9_">Second Grade</a></li>
+                        <li><a href="/third-grade.topic?content=2662" id="PN_E_1-ThirdGrade" class="GS_CI9_">Third Grade</a>
                         </li>
-                        <li>
-                            <link:cmsContent contentKey="TopicCenter#2661" styleId="PN_E_1-SecondGrade" styleClass="GS_CI9_" fullUri="/second-grade" raiseYourHand="true"
-                                    >Second Grade</link:cmsContent>
+                        <li><a href="/fourth-grade.topic?content=2663" id="PN_E_1-FourthGrade"
+                               class="GS_CI9_">Fourth Grade</a></li>
+                        <li><a href="/fifth-grade.topic?content=2664" id="PN_E_1-FifthGrade" class="GS_CI9_">Fifth Grade</a>
                         </li>
-                        <li>
-                            <link:cmsContent contentKey="TopicCenter#2662" styleId="PN_E_1-ThirdGrade" styleClass="GS_CI9_" fullUri="/third-grade" raiseYourHand="true"
-                                    >Third Grade</link:cmsContent>
-                        </li>
-                        <li>
-                            <link:cmsContent contentKey="TopicCenter#2663" styleId="PN_E_1-FourthGrade" styleClass="GS_CI9_" fullUri="/fourth-grade" raiseYourHand="true"
-                                    >Fourth Grade</link:cmsContent>
-                        </li>
-                        <li>
-                            <link:cmsContent contentKey="TopicCenter#2664" styleId="PN_E_1-FifthGrade" styleClass="GS_CI9_" fullUri="/fifth-grade" raiseYourHand="true"
-                                    >Fifth Grade</link:cmsContent>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="217" topicIDs="209" styleId="PN_E_1-Math" styleClass="GS_CI9_"
-                                    >Math</link:cmsCategoryBrowse>
-                        </li>
-                        <li class="lastone">
-                            <link:cmsCategoryBrowse gradeIDs="217" topicIDs="211" styleId="PN_E_1-Reading" styleClass="GS_CI9_"
-                                    >Math</link:cmsCategoryBrowse>
-                        </li>
+                        <li><a href="/articles/?topics=209&amp;grades=217" id="PN_E_1-Math" class="GS_CI9_">Math</a></li>
+                        <li class="lastone"><a href="/articles/?topics=211&amp;grades=217" id="PN_E_1-Reading"
+                                               class="GS_CI9_">Reading</a></li>
                     </ul>
                 </div>
             </div>
@@ -189,33 +156,18 @@
                     <ul> <!-- bullet type: disc/square/circle-->
                         <li><a href="/videos/elementary-school/?content=1574" id="PN_E_2-Videos" class="GS_CI9_">Videos</a>
                         </li>
-                        <li>
-                            <link:cmsWorksheetGallery grade="elementary-school" styleId="PN_E_2-Worksheets" styleClass="GS_CI9_">Worksheets</link:cmsWorksheetGallery>
+                        <li><a href="/worksheets/elementary-school/" id="PN_E_2-Worksheets" class="GS_CI9_">Worksheets</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse topicIDs="156" gradeIDs="217" styleId="PN_E_2-Activities" styleClass="GS_CI9_">Activities
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?topics=156&amp;grades=217" id="PN_E_2-Activities"
+                               class="GS_CI9_">Activities</a></li>
+                        <li><a href="/articles/?topics=159&amp;grades=217" id="PN_E_2-Books" class="GS_CI9_">Books</a></li>
+                        <li><a href="/articles/?topics=371&amp;grades=217" id="PN_E_2-Games" class="GS_CI9_">Games</a></li>
+                        <li><a href="/articles/?topics=149&amp;grades=217" id="PN_E_2-Bullying" class="GS_CI9_">Bullying</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse topicIDs="159" gradeIDs="217" styleId="PN_E_2-Books" styleClass="GS_CI9_">Books
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse topicIDs="371" gradeIDs="217" styleId="PN_E_2-Games" styleClass="GS_CI9_">Games
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse topicIDs="149" gradeIDs="217" styleId="PN_E_2-Bullying" styleClass="GS_CI9_">Bullying
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse topicIDs="125" gradeIDs="217" styleId="PN_E_2-ImproveYourSchool" styleClass="GS_CI9_">Improve Your School
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li class="lastone">
-                            <a href="/elementary-school/community.gs?content=1637" id="PN_E_2-Community"
-                                               class="GS_CI9_">Community</a>
-                        </li>
+                        <li><a href="/articles/?topics=125&amp;grades=217" id="PN_E_2-ImproveYourSchool"
+                               class="GS_CI9_">Improve Your School</a></li>
+                        <li class="lastone"><a href="/elementary-school/community.gs?content=1637" id="PN_E_2-Community"
+                                               class="GS_CI9_">Community</a></li>
                     </ul>
                 </div>
             </div>
@@ -243,48 +195,28 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="209" styleId="PN_M_1-Math" styleClass="GS_CI9_">Math
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?grades=205&amp;topics=209" id="PN_M_1-Math" class="GS_CI9_">Math</a></li>
+                        <li><a href="/articles/?grades=205&amp;topics=211" id="PN_M_1-Reading" class="GS_CI9_">Reading</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="211" styleId="PN_M_1-Reading" styleClass="GS_CI9_">Reading
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?grades=205&amp;topics=216" id="PN_M_1-Writing" class="GS_CI9_">Writing</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="216" styleId="PN_M_1-Writing" styleClass="GS_CI9_">Writing
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?grades=205&amp;topics=212" id="PN_M_1-Science" class="GS_CI9_">Science</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="212" styleId="PN_M_1-Science" styleClass="GS_CI9_">Science
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li class="lastone">
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="213" styleId="PN_M_1-SocialStudies" styleClass="GS_CI9_">Social Studies
-                            </link:cmsCategoryBrowse>
-                        </li>
+                        <li class="lastone"><a href="/articles/?grades=205&amp;topics=213" id="PN_M_1-SocialStudies"
+                                               class="GS_CI9_">Social Studies</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col_1">
                 <div class="col_content">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="156" styleId="PN_M_2-Activities" styleClass="GS_CI9_">Activities
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?grades=205&amp;topics=156" id="PN_M_2-Activities"
+                               class="GS_CI9_">Activities</a></li>
+                        <li><a href="/articles/?grades=205&amp;topics=159" id="PN_M_2-Books" class="GS_CI9_">Books</a></li>
+                        <li><a href="/articles/?topics=149&amp;grades=205" id="PN_M_2-Bullying" class="GS_CI9_">Bullying</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="159" styleId="PN_M_2-Books" styleClass="GS_CI9_">Books
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="149" styleId="PN_M_2-Bullying" styleClass="GS_CI9_">Bullying
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="205" topicIDs="125" styleId="PN_M_2-ImproveYourSchool" styleClass="GS_CI9_">Improve Your School
-                            </link:cmsCategoryBrowse>
-                        </li>
+                        <li><a href="/articles/?topics=125&amp;grades=205" id="PN_M_2-ImproveYourSchool"
+                               class="GS_CI9_">Improve Your School</a></li>
                         <li class="lastone"><a href="/middle-school/community.gs?content=1638" id="PN_M_2-Community"
                                                class="GS_CI9_">Community</a></li>
                     </ul>
@@ -314,52 +246,30 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="209" styleId="PN_H_1-Math" styleClass="GS_CI9_">Math
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?grades=206&amp;topics=209" id="PN_H_1-Math" class="GS_CI9_">Math</a></li>
+                        <li><a href="/articles/?grades=206&amp;topics=211" id="PN_H_1-Reading" class="GS_CI9_">Reading</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="211" styleId="PN_H_1-Reading" styleClass="GS_CI9_">Reading
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?grades=206&amp;topics=216" id="PN_H_1-Writing" class="GS_CI9_">Writing</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="216" styleId="PN_H_1-Writing" styleClass="GS_CI9_">Writing
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?grades=206&amp;topics=212" id="PN_H_1-Science" class="GS_CI9_">Science</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="212" styleId="PN_H_1-Science" styleClass="GS_CI9_">Science
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="213" styleId="PN_H_1-SocialStudies" styleClass="GS_CI9_">Social Studies
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li class="lastone">
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="159" styleId="PN_H_1-Books" styleClass="GS_CI9_">Books
-                            </link:cmsCategoryBrowse>
-                        </li>
+                        <li><a href="/articles/?grades=206&amp;topics=213" id="PN_H_1-SocialStudies"
+                               class="GS_CI9_">Social Studies</a></li>
+                        <li class="lastone"><a href="/articles/?grades=206&amp;topics=159" id="PN_H_1-Books"
+                                               class="GS_CI9_">Books</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col_1">
                 <div class="col_content">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="372" styleId="PN_H_2-Graduation" styleClass="GS_CI9_">Graduation
-                            </link:cmsCategoryBrowse>
+                        <li><a href="/articles/?topics=372&amp;grades=206" id="PN_H_2-Graduation"
+                               class="GS_CI9_">Graduation</a></li>
+                        <li><a href="/articles/?topics=152" id="PN_H_2-CollegePrep" class="GS_CI9_">College Prep</a></li>
+                        <li><a href="/articles/?topics=149&amp;grades=206" id="PN_H_2-Bullying" class="GS_CI9_">Bullying</a>
                         </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="152" styleId="PN_H_2-CollegePrep" styleClass="GS_CI9_">College Prep
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="149" styleId="PN_H_2-Bullying" styleClass="GS_CI9_">Bullying
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li>
-                            <link:cmsCategoryBrowse gradeIDs="206" topicIDs="125" styleId="PN_H_2-ImproveYourSchool" styleClass="GS_CI9_">Improve Your School
-                            </link:cmsCategoryBrowse>
-                        </li>
+                        <li><a href="/articles/?topics=125&amp;grades=206" id="PN_H_2-ImproveYourSchool"
+                               class="GS_CI9_">Improve Your School</a></li>
                         <li class="lastone"><a href="/high-school/community.gs?content=1639" id="PN_H_2-Community"
                                                class="GS_CI9_">Community</a></li>
                     </ul>
@@ -389,26 +299,19 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:countdownToCollege id="PN_C_1-PlanningForCollege" styleClass="GS_CI9_">Guides to Local School Systems</link:countdownToCollege>
-                        </li>
-                        <li class="lastone">
-                            <link:testPrep id="PN_C_1-TestPrep" styleClass="GS_CI9_">Test Prep</link:testPrep>
-                        </li>
+                        <li><a href="/college-prep.topic?content=1542" id="PN_C_1-PlanningForCollege"
+                               class="GS_CI9_">Planning For College</a></li>
+                        <li class="lastone"><a href="/test-prep/" id="PN_C_1-TestPrep" class="GS_CI9_">Test Prep</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col_1">
                 <div class="col_content">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li>
-                            <link:cmsCategoryBrowse topicIDs="125" styleId="PN_C_2-ApplyingForCollege" styleClass="GS_CI9_">Applying for College
-                            </link:cmsCategoryBrowse>
-                        </li>
-                        <li class="lastone">
-                            <link:cmsCategoryBrowse topicIDs="167" styleId="PN_C_2-PayingForCollege" styleClass="GS_CI9_">Paying for College
-                            </link:cmsCategoryBrowse>
-                        </li>
+                        <li><a href="/articles/?topics=152" id="PN_C_2-ApplyingForCollege"
+                               class="GS_CI9_">Applying for College</a></li>
+                        <li class="lastone"><a href="/articles/?topics=167" id="PN_C_2-PayingForCollege"
+                                               class="GS_CI9_">Paying for College</a></li>
                     </ul>
                 </div>
             </div>
