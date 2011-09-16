@@ -1,10 +1,14 @@
 package gs.web.request;
 
 import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 
-public class HostnameInfo {
+import javax.servlet.http.HttpServletRequest;
 
-    public static final String REQUEST_ATTRIBUTE_NAME = "hostnameInfo";
+public class RequestInfo {
+
+    public static final String REQUEST_ATTRIBUTE_NAME = "requestInfo";
 
     private final String _hostname;
 
@@ -12,12 +16,19 @@ public class HostnameInfo {
     private Boolean _developerWorkstation;
     private Boolean _isDevEnvironment;
     private Boolean _cobranded;
+    private HttpServletRequest _request;
 
-    public HostnameInfo(String hostname) {
-        if (hostname == null) {
-            throw new IllegalArgumentException("Cannot create HostnameInfo with null hostname");
+    public RequestInfo(HttpServletRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Cannot create RequestInfo with null hostname");
+        }
+        if (request.getServerName() == null) {
+            throw new IllegalArgumentException("Cannot create RequestInfo with a request that contains a null servername");
         }
 
+        String hostname = request.getServerName();
+
+        _request = request;
         _hostname = hostname;
 
         //set up state of HostnameInfo
@@ -26,7 +37,27 @@ public class HostnameInfo {
         _onPkSubdomain = hostname.contains(Subdomain.PK.toString() + ".");
 
         String cobrand = UrlUtil.cobrandFromUrl(hostname);
-        _cobranded = cobrand != null;
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
+        _cobranded = cobrand != null || sessionContext.isCobranded();
+    }
+
+    /**
+     * Generates a hostname for the target Subdomain. Output depends on what the current request's hostname is.
+     * @return generated hostname, otherwise returns current hostname current request is cobranded or is on an
+     * unrecognized subdomain, returns current hostname;
+     */
+    public String getHostnameForTargetSubdomain(Subdomain targetSubdomain) {
+        String newHostname = _hostname;
+
+        if (!isCobranded()) {
+            if (targetSubdomain == null || targetSubdomain.equals(Subdomain.WWW)) {
+                newHostname = getBaseHostname();
+            } else if (Subdomain.PK.equals(targetSubdomain)) {
+                newHostname = getHostnameForPkSubdomain();
+            }
+        }
+
+        return newHostname;
     }
 
     /**
@@ -49,6 +80,13 @@ public class HostnameInfo {
         }
         
         return baseHostname;
+    }
+
+    /**
+     * @return The full protocol, hostname, and port. e.g.  http://www.greatschools.org
+     */
+    public String getBaseHost() {
+        return "http://" + getBaseHostname() + ((_request.getServerPort() != 80) ? ":" + _request.getServerPort() : "");
     }
 
     /**

@@ -66,8 +66,8 @@
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
 
-    <c:if test="${!requestScope.context.cobranded}">
-        <base href="http://${requestScope.hostnameInfo.baseHostname}"/>
+    <c:if test="${!requestScope.requestInfo.cobranded}">
+        <base href="${requestScope.requestInfo.baseHost}"/>
     </c:if>
 
     <c:set var="start" value="${empty param.start ? 0 : param.start}"/>

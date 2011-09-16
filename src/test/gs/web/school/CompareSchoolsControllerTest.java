@@ -2,7 +2,7 @@ package gs.web.school;
 
 import gs.web.GsMockHttpServletRequest;
 import gs.web.BaseControllerTestCase;
-import gs.web.request.HostnameInfo;
+import gs.web.request.RequestInfo;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -35,11 +35,10 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
         request.addParameter("sc", stateIds);
         ModelAndView mav = controller.handleRequestInternal(request, null);
         RedirectView view = (RedirectView)mav.getView();
-        assertEquals("/cgi-bin/msl_confirm/ca/?add_ids=1&add_ids=2&add_ids=3", view.getUrl());
+        assertEquals("http://null/cgi-bin/msl_confirm/ca/?add_ids=1&add_ids=2&add_ids=3", view.getUrl());
     }
     public void testNullSessionContext() throws Exception {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, new HostnameInfo(request.getServerName()));
         request.setParameter("compare.x", "1234");
         ModelAndView mav = controller.handleRequestInternal(request, null);
         RedirectView view = (RedirectView)mav.getView();

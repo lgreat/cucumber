@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.258 2011/09/15 00:36:23 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.259 2011/09/16 00:18:08 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -19,13 +19,12 @@ import gs.data.util.Address;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
 import gs.data.community.User;
-import gs.web.request.HostnameInfo;
+import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.widget.SchoolSearchWidgetController;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
@@ -1691,13 +1690,13 @@ public class UrlBuilder {
      */
     public String asFullUrl(HttpServletRequest request) {
 
-        String serverName = request.getServerName();
+        String serverName;
         int serverPort = request.getServerPort();
 
-        HostnameInfo hostnameInfo = (HostnameInfo) request.getAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME);
+        RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
 
-        //change the subdomain portion of serverName if _subdomain has been set and if this is not a cobranded url
-        serverName = changeSubdomainIfNeeded(hostnameInfo);
+        //get a new hostname for _subdomain, since subdomain might be pk or www
+        serverName = requestInfo.getHostnameForTargetSubdomain(_subdomain);
 
         String url = "http://" +
                 serverName +
@@ -1719,14 +1718,13 @@ public class UrlBuilder {
      */
     public String asFullUrlXml(HttpServletRequest request) {
 
-        String serverName = request.getServerName();
+        String serverName;
         int serverPort = request.getServerPort();
 
-        HostnameInfo hostnameInfo = (HostnameInfo) request.getAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME);
+        RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
 
-        //change the subdomain portion of serverName if _subdomain has been set and if this is not a cobranded url
-        serverName = changeSubdomainIfNeeded(hostnameInfo);
-
+        //get a new hostname for _subdomain, since subdomain might be pk or www
+        serverName = requestInfo.getHostnameForTargetSubdomain(_subdomain);
 
         String url = "http://" +
                 serverName +
@@ -1734,33 +1732,6 @@ public class UrlBuilder {
                 asSiteRelative(request);
         url = encodeForXml(url);
         return url;
-    }
-
-    /**
-     * Given a hostname, if hostname doesn't contain a cobrand, then changes the proper subdomain to whatever is
-     * stored in _subdomain. Or if _subdomain is null, changes the subdomain to www on live or removes it if on
-     * a development environment server
-     * 
-     * @param hostnameInfo
-     * @return
-     */
-    protected String changeSubdomainIfNeeded(HostnameInfo hostnameInfo) {
-        if (hostnameInfo == null) {
-            throw new IllegalArgumentException("hostnameInfo cannot be null");
-        }
-
-        String newHostname = hostnameInfo.getHostname();
-
-        if (UrlUtil.cobrandFromUrl(hostnameInfo.getHostname()) == null) {
-
-            if (_subdomain == null || _subdomain.equals(Subdomain.WWW)) {
-                newHostname = hostnameInfo.getBaseHostname();
-            } else if (Subdomain.PK.equals(_subdomain)) {
-                newHostname = hostnameInfo.getHostnameForPkSubdomain();
-            }
-        }
-
-        return newHostname;
     }
 
     /**

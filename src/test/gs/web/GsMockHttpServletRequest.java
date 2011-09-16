@@ -1,6 +1,7 @@
 package gs.web;
 
-import gs.web.request.HostnameInfo;
+import gs.web.request.RequestInfo;
+import gs.web.util.context.SessionContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
@@ -14,7 +15,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 public class GsMockHttpServletRequest extends MockHttpServletRequest   {
 
     public GsMockHttpServletRequest() {
-        setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, new HostnameInfo(getServerName()));
+        SessionContext sessionContext = new SessionContext();
+        setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
+        setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, new RequestInfo(this));
     }
 
     /**

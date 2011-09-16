@@ -6,7 +6,7 @@ import gs.data.util.email.MockJavaMailSender;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.api.ApiAccountCommandValidator;
-import gs.web.request.HostnameInfo;
+import gs.web.request.RequestInfo;
 import org.springframework.ui.ModelMap;
 import static org.easymock.EasyMock.*;
 import org.junit.Before;
@@ -40,10 +40,10 @@ public class AccountControllerTest {
         _controller.setApiAccountValidator(new ApiAccountCommandValidator());
 
         _request = new GsMockHttpServletRequest();
-        HostnameInfo hostnameInfo = new HostnameInfo("www.greatschools.org");
-        _request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
         _request.setServerName("www.greatschools.org");
-
+        RequestInfo hostnameInfo = new RequestInfo(_request);
+        _request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
+        
     }
 
     @Test

@@ -1,6 +1,5 @@
 package gs.web.school;
 
-import gs.data.community.Subscription;
 import gs.data.community.User;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpCensus;
@@ -17,10 +16,9 @@ import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsHomepageController;
 import gs.web.path.IDirectoryStructureUrlController;
-import gs.web.request.HostnameInfo;
+import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
-import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -106,7 +104,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             // Preschool pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
             if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                HostnameInfo hostnameInfo = (HostnameInfo) request.getAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME);
+                RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
                 if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
                     return new ModelAndView(new RedirectView301(fullCanonicalUrl));
                 }

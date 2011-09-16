@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.93 2011/09/15 00:36:23 ssprouse Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.94 2011/09/16 00:18:08 ssprouse Exp $
  */
 
 package gs.web.jsp.link;
@@ -17,11 +17,12 @@ import gs.data.community.Discussion;
 import gs.data.community.UserProfile;
 import gs.data.community.User;
 import gs.web.BaseTestCase;
+import gs.web.GsMockHttpServletRequest;
 import gs.web.compare.*;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.jsp.link.microsite.*;
-import gs.web.request.HostnameInfo;
+import gs.web.request.RequestInfo;
 import gs.web.util.UrlBuilder;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -185,13 +186,13 @@ public class LinkTagHandlerTest extends BaseTestCase {
 
     public void testAbsoluteLink() throws JspException {
 
-        final HostnameInfo hostnameInfo = new HostnameInfo("");
-        final MockHttpServletRequest request = new MockHttpServletRequest();
+        final MockHttpServletRequest request = new GsMockHttpServletRequest();
+        final RequestInfo requestInfo = new RequestInfo(request);
 
         LinkTagHandler handler = new LinkTagHandler() {
             protected UrlBuilder createUrlBuilder() {
 
-                request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
+                request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, requestInfo);
                 return new UrlBuilder(request, "/somepage");
             }
         };

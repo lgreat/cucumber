@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.136 2011/09/15 00:36:22 ssprouse Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.137 2011/09/16 00:18:08 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -18,8 +18,9 @@ import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.data.util.CmsUtil;
+import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.request.HostnameInfo;
+import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
 import gs.web.widget.CustomizeSchoolSearchWidgetController;
 import gs.web.widget.SchoolSearchWidgetController;
@@ -35,7 +36,7 @@ import java.util.Set;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
-public class UrlBuilderSaTest extends TestCase {
+public class UrlBuilderSaTest extends BaseTestCase {
 
     private GsMockHttpServletRequest getMockRequest() {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
@@ -43,10 +44,10 @@ public class UrlBuilderSaTest extends TestCase {
         request.setProtocol("http");
         String serverName = "www.myserver.com";
         request.setServerName(serverName);
-        HostnameInfo hostnameInfo = new HostnameInfo(serverName);
-        request.setAttribute(HostnameInfo.REQUEST_ATTRIBUTE_NAME, hostnameInfo);
         request.setServerPort(80);
         request.setRequestURI("/index.page");
+        RequestInfo requestInfo = new RequestInfo(request);
+        request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, requestInfo);
         return request;
     }
 
@@ -630,34 +631,6 @@ public class UrlBuilderSaTest extends TestCase {
 
         UrlBuilder builder = new UrlBuilder(district, UrlBuilder.DISTRICT_HOME);
         assertEquals("/california/a-city/A-Test_District/", builder.asSiteRelative(request));
-    }
-
-    public void testChangeSubdomainIfNeeded() {
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME, State.CA);
-        builder.setSubdomain(Subdomain.PK);
-
-        assertEquals("greatschools.babycenter.com", builder.changeSubdomainIfNeeded(new HostnameInfo("greatschools.babycenter.com")));
-        assertEquals("greatschools.org", builder.changeSubdomainIfNeeded(new HostnameInfo("greatschools.org")));
-
-        //currently in this example "blah" would be considered a cobrand. pk.greatschools.org is ignored, so for now
-        //only pk.greatschools.org can be switched to www.greatschools.org and vice versa
-        assertEquals("blah.greatschools.com", builder.changeSubdomainIfNeeded(new HostnameInfo("blah.greatschools.com")));
-
-        assertEquals("pk.greatschools.com", builder.changeSubdomainIfNeeded(new HostnameInfo("www.greatschools.com")));
-        assertEquals("pk.greatschools.com", builder.changeSubdomainIfNeeded(new HostnameInfo("pk.greatschools.com")));
-
-        builder.setSubdomain(Subdomain.WWW);
-        assertEquals("www.greatschools.com", builder.changeSubdomainIfNeeded(new HostnameInfo("www.greatschools.com")));
-        assertEquals("www.greatschools.com", builder.changeSubdomainIfNeeded(new HostnameInfo("pk.greatschools.com")));
-        assertEquals("www.localhost.com", builder.changeSubdomainIfNeeded(new HostnameInfo("pk.localhost.com")));
-
-        assertEquals("localhost", builder.changeSubdomainIfNeeded(new HostnameInfo("localhost")));
-        try {
-            assertNull(builder.changeSubdomainIfNeeded(null));
-            fail("IllegalArgumentException should have been thrown");
-        } catch (IllegalArgumentException e) {
-            //good
-        }
     }
 
 }
