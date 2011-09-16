@@ -31,39 +31,38 @@
             }
         }
 
-    var $j = jQuery;
-    $j(function() {
+    jQuery(function() {
         var ryhAnswerCharacterLimit = 250;
         var ryhCharacterCountText = ' characters left.';
-        $j('#ryhAnswerCount').html(ryhAnswerCharacterLimit + ' ' + ryhCharacterCountText);
+        jQuery('#ryhAnswerCount').html(ryhAnswerCharacterLimit + ' ' + ryhCharacterCountText);
 
         //<c:if test="${signedIn}">
 
         // Counts down the number of characters remaining.
         function limitChars(textid, limit, divElement) {
 
-            var text = $j('#' + textid).val();
+            var text = jQuery('#' + textid).val();
             var textlength = text.length;
             if (textlength > limit) {
-                $j('#' + textid).val(text.substring(0, limit));
+                jQuery('#' + textid).val(text.substring(0, limit));
                 return false;
             } else {
 
-                $j('#' + divElement).html((limit - textlength) + ' character' +
+                jQuery('#' + divElement).html((limit - textlength) + ' character' +
                                           (limit - textlength == 1 ? '' : 's') + ' left.');
                 return true;
             }
         }
 
         // Set up the hook
-        $j('#ryhAnswer').keyup(function() {
+        jQuery('#ryhAnswer').keyup(function() {
             limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
         });
 
         // and then after sending, reset the chars left and blank out the box
-        $j('#ryhSubmit').click(function() {
+        jQuery('#ryhSubmit').click(function() {
 
-            var body = $j('#ryhAnswer').val();
+            var body = jQuery('#ryhAnswer').val();
             if (body == undefined || body == '') {
                 alert("Please enter a reply. ");
                 return false;
@@ -74,25 +73,25 @@
                 return false;
             }
 
-            $j.post('/community/raiseYourHandSubmission.page', {discussionId: $j('#ryhDiscussionId').val(), body: $j('#ryhAnswer').val()},
+            jQuery.post('/community/raiseYourHandSubmission.page', {discussionId: jQuery('#ryhDiscussionId').val(), body: jQuery('#ryhAnswer').val()},
                     function(data) {
                         if (data.status == 'ok') {
-                            var newRyhPost = $j('#recentAnswerTemplate').clone();
+                            var newRyhPost = jQuery('#recentAnswerTemplate').clone();
                             var replyId = data.replyId;
                             var body = data.body;
                             newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1', 'discussionReplyId=' + replyId + '#reply_' + replyId));
                             newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', body));
-                            $j('.recentAnswers').prepend(newRyhPost.children());
-                            var numRecent = $j('.recentAnswers .ryh-reply').size();
+                            jQuery('.recentAnswers').prepend(newRyhPost.children());
+                            var numRecent = jQuery('.recentAnswers .ryh-reply').size();
                             if (numRecent > ${ryhMaxNumReplies}) {
-                                $j('.recentAnswers .ryh-reply:last').remove();
-                                $j('.recentAnswers br.clearfloat:last').remove();
+                                jQuery('.recentAnswers .ryh-reply:last').remove();
+                                jQuery('.recentAnswers br.clearfloat:last').remove();
                             }
-                            $j('#ryhAnswer').val('');
+                            jQuery('#ryhAnswer').val('');
                             limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
-                            $j('.ryh-bottomsection').show();
+                            jQuery('.ryh-recentAnswers').show();
                             // note: the following div is actually in discussion.jspx
-                            $j('.db_no_replies').hide();
+                            jQuery('.db_no_replies').hide();
                         } else {
                             alert('An error occurred. Please try again.');
                         }
@@ -102,8 +101,8 @@
 
         //<c:if test="${allowEditsDeletesReports}">
 
-        $j('.ryh-topsection .editLink').click(function() {
-            var ryhContainer = $j(this).parents('.ryh-topsection');
+        jQuery('.ryh-yourAnswer .editLink').click(function() {
+            var ryhContainer = jQuery(this).parents('.ryh-yourAnswer');
             var body = ryhContainer.children('.discussionBody').html();
             var title = ryhContainer.find('.ryh-discussion-title').html();
             var discussionId = ${discussion.id};
@@ -112,22 +111,22 @@
         });
 
         // TODO-9419
-        $j('.db_replies .editLink, .recentAnswers .editLink').click(function() {
+        jQuery('.db_replies .editLink, .recentAnswers .editLink').click(function() {
             alert('boo');
-            var wrapper = $j(this).parents('.db_reply_topic');
-            var container = $j(this).parents('.db_replyContainer');
+            var wrapper = jQuery(this).parents('.db_reply_topic');
+            var container = jQuery(this).parents('.db_replyContainer');
             var reply = container.children('.db_reply_full');
             var body = reply.children('.replyBody').html();
             body = body.replace(/\<br[^>]*\>/gi, '\n');
             body = unescapeHTML(body);
             var replyId = reply.children('.replyId').text();
-            var replyForm = $j('.replyForm:first form').clone();
+            var replyForm = jQuery('.replyForm:first form').clone();
             replyForm.find('textarea').val(body);
             replyForm.find('input[name=submit]').val('Edit this reply');
             var replyIdElem = document.createElement('input');
-            $j(replyIdElem).attr('name', 'discussionReplyId');
-            $j(replyIdElem).attr('type', 'hidden');
-            $j(replyIdElem).attr('value', replyId);
+            jQuery(replyIdElem).attr('name', 'discussionReplyId');
+            jQuery(replyIdElem).attr('type', 'hidden');
+            jQuery(replyIdElem).attr('value', replyId);
             replyForm.append(replyIdElem);
             container.append(replyForm);
             wrapper.css('margin-left', '0');
@@ -136,10 +135,10 @@
         });
 
         //<gsml:ifUserCanDeleteContent pageUser="${user}">
-        $j('.ryh-reply .deleteLink').click(function() {
-            var reply = $j(this).parents('.ryh-reply');
+        jQuery('.ryh-reply .deleteLink').click(function() {
+            var reply = jQuery(this).parents('.ryh-reply');
             var replyId = reply.children('.replyId').text();
-            $j.post('/community/deactivateContent.page', {
+            jQuery.post('/community/deactivateContent.page', {
                 contentId:replyId,
                 contentType:'reply'});
             window.setTimeout(function() {
@@ -147,10 +146,10 @@
             }, 250);
         });
 
-        $j('.ryh-reply .undeleteLink').click(function() {
-            var reply = $j(this).parents('.ryh-reply');
+        jQuery('.ryh-reply .undeleteLink').click(function() {
+            var reply = jQuery(this).parents('.ryh-reply');
             var replyId = reply.children('.replyId').text();
-            $j.post('/community/deactivateContent.page', {
+            jQuery.post('/community/deactivateContent.page', {
                 contentId:replyId,
                 contentType:'reply',
                 reactivate:true});
@@ -159,7 +158,7 @@
             }, 250);
         });
 
-        $j('.ryh-topsection .deleteLink').click(function() {
+        jQuery('.ryh-yourAnswer .deleteLink').click(function() {
             $.post('/community/deactivateContent.page', {
                 contentId:${discussion.id},
                 contentType:'discussion'});
@@ -168,7 +167,7 @@
             }, 250);
         });
 
-        $j('.ryh-topsection .undeleteLink').click(function() {
+        jQuery('.ryh-yourAnswer .undeleteLink').click(function() {
             $.post('/community/deactivateContent.page', {
                 contentId:${discussion.id},
                 contentType:'discussion',
@@ -183,7 +182,7 @@
         //</c:if>
 
         //<c:if test="${!signedIn}">
-        $j('#ryhAnswer, #ryhSubmit').focus(function() {
+        jQuery('#ryhAnswer, #ryhSubmit').focus(function() {
             GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
         });
         //</c:if>
@@ -240,12 +239,11 @@
     <div class="inner">
         <div class="bd">
 
-            <div class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></div>
+            <div class="formHelperText fltrt" id="js-charCount">250 characters remaining</div>
 
             <textarea name="ryhAnswer"
                       class="ryhAnswer"
-                      id="ryhAnswer"
-                    onload="textSwitch(this, 'Your answer...', '');"
+                      id="js-yourAnswer"
                     onfocus="textSwitch(this, '', 'Your answer...');"
                     onblur="textSwitch(this, 'Your answer...', '');">Your answer...</textarea>
             <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
@@ -260,6 +258,14 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    jQuery(function () {
+        alert('hello randall');
+        jQuery('#js-yourAnswer').characterCounter();
+    });
+</script>
+
     <!-- end ryh-yourAnswer -->
 
 <div class="mod ryh-recentAnswers">
@@ -288,8 +294,8 @@
             <c:if test="${signedIn}">
 
                 <div id="recentAnswerTemplate" style="display: none;">
-                    <div class="ryh-reply">
-                        <div class="avatar_40 fltlft">
+                    <div class="mediaExt2-6">
+                        <div class="img">
 
                             <link:userProfile user="${user}">
                                 <community:avatar user="${user}" width="40" height="40"
@@ -299,45 +305,43 @@
                         </div>
                         <!-- end ryh-avatar -->
 
-                        <div class="ryh-reply-text-onTC fltlft rnd8">
-                            <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
+                        <div class="bk">
+                            <div class="ryh-replies">
+                                <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
 
-                            <link:userProfile user="${user}">
-                                <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
-                            </link:userProfile>
+                                <link:userProfile user="${user}">
+                                    <span class="smallAlertTextBold-06b">${user.userProfile.screenName}</span>
+                                </link:userProfile>
 
-                            <span class="smallText1"> a moment ago </span>
+                                <span class="smallText1"> a moment ago </span>
 
-                            <!--<p class="fltrt">&amp;nbsp;</p>-->
-                            <div class="spacer_5"><!--do not collapse--></div>
+                                <!--<p class="fltrt">&amp;nbsp;</p>-->
+                                <div class="spacer_5"><!--do not collapse--></div>
 
-                            <community:userContentTeaserText
-                                    textToDisplay="DISCUSSION_REPLY_BODY"
-                                    minLength="250" maxLength="260"
-                                    discussionId="${discussion.id}"
-                                    discussionFullUri="${discussion.discussionBoard.fullUri}"
-                                    discussionReplyId="1"
-                                    textSpanClass="text3"/>
+                                <community:userContentTeaserText
+                                        textToDisplay="DISCUSSION_REPLY_BODY"
+                                        minLength="250" maxLength="260"
+                                        discussionId="${discussion.id}"
+                                        discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                        discussionReplyId="1"
+                                        textSpanClass="text3"/>
+                            </div>
                         </div>
-                        <br class="clearfloat"/>
                         <!-- end ryh-reply-text -->
 
                     </div>
                     <!-- end ryh-reply -->
-                    <br class="clearfloat"/>
                 </div>
                 <!-- end recentAnswerTemplate -->
 
             </c:if>
 
 
-            <div class="recentAnswers"><!-- don't collapse -->
-
                 <c:forEach var="reply" items="${replies}">
 
                     <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
-                    <div class="ryh-reply">
-                        <div class="avatar_40 fltlft">
+                    <div class="mediaExt2-6">
+                        <div class="img">
                             <c:choose>
                                 <c:when test="${reply.user.userProfile.active}">
                                     <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
@@ -355,7 +359,8 @@
                         </div>
                         <!-- end ryh-avatar -->
 
-                        <div class="ryh-reply-text-onTC fltlft rnd8">
+                        <div class="bk">
+                        <div class="ryh-replies">
                             <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
                             <p class="fltlft">
                                 <c:choose>
@@ -431,16 +436,12 @@
                         </div>
                         <!-- end ryh-reply -->
                         <span class="hidden replyId">${reply.id}</span>
-                        <br class="clearfloat"/>
-
+                        </div>
                     </div>
                     <!-- end ryh-replies -->
-                    <br class="clearfloat"/>
 
                 </c:forEach>
 
-            </div>
-            <!-- end recentAnswers -->
         </div>
 
     </div>

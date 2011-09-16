@@ -1329,9 +1329,15 @@ body.ie8 .btsSupplyListsTag .arrow {
 .ryh-topic .bd{background-color: #fff;text-align:center;}
 .ryh-topic .bd a{color:#2b2b2b; font:normal 14px Arial, Helvetica, sans-serif;}
 /* ------------- ryh-yourAnswer -------------- */
-.ryh-yourAnswer .bd textarea{width:270px;padding:5px;outline:none;color:#777;font:normal 12px Arial, Helvetica, sans-serif;}
+.ryh-yourAnswer .bd textarea{width:270px;padding:5px;outline:none;color:#777;font:normal 12px Arial, Helvetica, sans-serif;resize:none;}
 /* ------------ ryh-recentAnswers ------------ */
 .ryh-recentAnswers .hd p{color:#2b2b2b; font:bold 12px Arial, Helvetica, sans-serif;margin: 0;padding:0;}
+/* --------------- ryh-replies --------------- */
+.ryh-replies{background-color: #fff;position:relative;margin-left: 12px;padding: 12px;
+    -moz-border-radius: 8px; /* FF1+ */
+    -webkit-border-radius: 8px; /* Saf3+, Chrome */
+    border-radius: 8px; /* Opera 10.5, IE 9 */
+}
 
 /*----------------GS-11784 start---------------*/
 .mediumThumbnail {
@@ -8884,7 +8890,7 @@ div#YahooRealEstateLink {
     height: 23px;
     color: white;
     text-decoration: none;
-    font: bold 14px/23px Arial, Helvetica, sans-serif;
+    font: bold 14px/21px Arial, Helvetica, sans-serif;
     display: inline-block;
     text-align: center;
     position: relative;

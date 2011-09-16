@@ -26,13 +26,13 @@ jQuery(function () {
 /* ------------------------------------------------ */
 
 // change state
-$j('#topSchoolsStateSelector').change(function() {
+jQuery('#topSchoolsStateSelector').change(function() {
     var url = '/accountInformationAjax.page';
-    var pars = 'state=' + $j(this).val() + '&showNotListed=false';
-    var cityDiv = $j('#topCitiesCityListSpan');
-    var citySelect = $j('#topCitiesCityList');
-    var cityLoading = $j('#topCitiesCityLoadingSpan');
-    var stateSelect = $j('#topSchoolsStateSelector');
+    var pars = 'state=' + jQuery(this).val() + '&showNotListed=false';
+    var cityDiv = jQuery('#topCitiesCityListSpan');
+    var citySelect = jQuery('#topCitiesCityList');
+    var cityLoading = jQuery('#topCitiesCityLoadingSpan');
+    var stateSelect = jQuery('#topSchoolsStateSelector');
 
     citySelect.hide();
     stateSelect.hide();
@@ -40,7 +40,7 @@ $j('#topSchoolsStateSelector').change(function() {
     cityLoading.html('<span>&nbsp;&nbsp;Loading ...</span>');
     cityLoading.show();
 
-    $j.get(url, {state: $j(this).val(), showNotListed: 'false'}, function(data) {
+    jQuery.get(url, {state: jQuery(this).val(), showNotListed: 'false'}, function(data) {
         citySelect.html(data);
         citySelect.show();
         cityLoading.html('');
