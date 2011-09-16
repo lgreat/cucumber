@@ -106,7 +106,7 @@
         <div class="inner">
             <div class="bd">
                 <gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
-                          styleClass="fltrt"/>
+                          styleClass="fltrt mlm"/>
 
                 <h2>${topicCenter.mainFeatureLink.title}</h2>
 
