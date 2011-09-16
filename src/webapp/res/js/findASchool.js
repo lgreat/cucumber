@@ -467,9 +467,18 @@ $(function() {
         }
     });
 
-    $("#js-findByNameStateSelect").change(function () {
-          var selectedState = $(this).val();
+    var  stateValue = function(selectedState) {
           $(".showState").text(selectedState === "" ? "Select State" : selectedState);
+    };
+
+    $("#js-findByNameStateSelect").change(function () {
+        stateValue($(this).val());
         })
     .trigger("change");
+
+    $("#js-findByNameStateSelect").keyup(function () {
+        stateValue($(this).val());
+    });
+
+
 });
