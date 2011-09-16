@@ -261,7 +261,6 @@
 
 <script type="text/javascript">
     jQuery(function () {
-        alert('hello randall');
         jQuery('#js-yourAnswer').characterCounter();
     });
 </script>
