@@ -27,10 +27,12 @@
       <ul id="secondary"> <!-- bullet type: disc/square/circle-->
         <li class="menuItem"><a href="javascript:void(0);" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">Hot Topics <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
             <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
-              <li class="subMenuItem"><a href="/improvement.topic?content=1543" id="SN_HT-ImproveYourSchool" class="subMenuItemAnchorText GS_CI9_">Improve Your School<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="/articles/?topics=134" id="SN_HT-VolunteeringFundraising" class="subMenuItemAnchorText GS_CI9_">Volunteering &amp; Fundraising<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="/articles/?topics=134" id="SN_HT-CommunityBuilding" class="subMenuItemAnchorText GS_CI9_">Community Building<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-              <li class="subMenuItem"><a href="/articles/?topics=126" id="SN_HT-QualityTeaching" class="subMenuItemAnchorText GS_CI9_">Quality Teaching<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880" id="SN_HT-SexDrugsAndYourTeen" class="subMenuItemAnchorText GS_CI9_">Sex, Drugs, &amp;amp; Your Teen<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/bullying.topic?content=4350" id="SN_HT-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/your-childs-brain.topic?content=4881" id="SN_HT-YourChildsBrain" class="subMenuItemAnchorText GS_CI9_">Your Child's Brain<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/screen-use-and-abuse.topic?content=4882" id="SN_HT-ScreenUseAndAbuse" class="subMenuItemAnchorText GS_CI9_">Screen Use &amp;amp; Abuse<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/Teacher-Issues.topic?content=4884" id="SN_HT-TeacherIssues" class="subMenuItemAnchorText GS_CI9_">Teacher Issues<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+              <li class="subMenuItem"><a href="/Tween-Troubles.topic?content=4885" id="SN_HT-TweenTroubles" class="subMenuItemAnchorText GS_CI9_">Tween Troubles<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
               <!--<li class="subMenuItem"><a href="javascript:void(0);" id="SN_HT-UnderstandingTheSystem" class="subMenuItemAnchorText GS_CI9_">Understanding the System<span class="navSprite i-sn-arrow-on">&lt;!&ndash; do not collapse &ndash;&gt;</span></a></li>-->
               <!--<li class="subMenuItem"><a href="/improvement/understanding-the-system/4171-School-funding-CA-California-Watch.gs" id="SN_HT-CAWatchSchoolFundingReport" class="subMenuItemAnchorText GS_CI9_">California Watch School Funding Report<span class="navSprite i-sn-arrow-on">&lt;!&ndash; do not collapse &ndash;&gt;</span></a></li>-->
             </ul>
@@ -63,10 +65,12 @@
         </li>
         <li class="menuItem"><a href="/parenting-dilemmas.topic?content=4321" id="SN-ParentingDilemmas" class="menuItemAnchorText GS_CI9_">Parenting Dilemmas <span class="navSprite i-sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_4"> <!-- bullet type: disc/square/circle-->
-            <li class="subMenuItem"><a href="/articles/?topics=149" id="SN_PD-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/media-choices.topic?content=2439" id="SN_PD-MediaTV" class="subMenuItemAnchorText GS_CI9_">Media &amp; TV<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/bullying.topic?content=4350" id="SN_PD-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/Too-Much-Homework.topic?content=4886" id="SN_PD-TooMuchHomework" class="subMenuItemAnchorText GS_CI9_">Too Much Homework?<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/Controlling-Media-and-TV.topic?content=4887" id="SN_PD-ControllingMediaAndTV" class="subMenuItemAnchorText GS_CI9_">Controlling Media &amp;amp; TV<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <li class="subMenuItem"><a href="/Sex-ed.topic?content=4352" id="SN_PD-SexEducation" class="subMenuItemAnchorText GS_CI9_">Sex Education<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=136&amp;language=EN" id="SN_PD-StressManagement" class="subMenuItemAnchorText GS_CI9_">Stress Management<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/Managing-Kids-Stress.topic?content=4888" id="SN_PD-ManagingKidsStress" class="subMenuItemAnchorText GS_CI9_">Managing Kids' Stress<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
+            <li class="subMenuItem"><a href="/Teaching-Character.topic?content=4889" id="SN_PD-TeachingCharacter" class="subMenuItemAnchorText GS_CI9_">Teaching Character<span class="navSprite i-sn-arrow-on"><!-- do not collapse --></span></a></li>
             <!--<li class="subMenuItem"><a href="/summer-learning.topic?content=4353" id="SN_PD-SummerSchoolWork" class="subMenuItemAnchorText GS_CI9_">Summer School Work<span class="navSprite i-sn-arrow-on">&lt;!&ndash; do not collapse &ndash;&gt;</span></a></li>-->
           </ul>
         </li>
