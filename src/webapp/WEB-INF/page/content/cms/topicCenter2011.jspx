@@ -135,6 +135,17 @@
 
 <!-- End Sub Topics Bar -->
 
+    <c:set var="mostPopularModuleLinksExist" value="${false}"/>
+    <c:set var="mostPopularLinksExist" value="${false}"/>
+    <c:if test="${topicCenter.displayMostPopularTab}">
+        <c:if test="${(mostPopularModuleLinks != null and fn:length(mostPopularModuleLinks) >=3)}">
+            <c:set var="mostPopularModuleLinksExist" value="${true}"/>
+        </c:if>
+        <c:if test="${(mostPopularLinks != null and fn:length(mostPopularLinks) >= 1)}">
+            <c:set var="mostPopularLinksExist" value="${true}"/>
+        </c:if>
+    </c:if>
+
 <!-- Start Featured Content -->
     <div class="grid_11 omega">
 
@@ -142,7 +153,7 @@
 
             <ul class="tabNavigation gradient-3">
                 <li><a class="rnd-top-6" href="#js_featuredArticlesTab">Featured Articles</a></li>
-                <c:if test="${topicCenter.displayMostPopularTab}">
+                <c:if test="${mostPopularModuleLinksExist or mostPopularLinksExist or topicCenter.mostPopularTabName != null }">
                     <li><a class="rnd-top-6" href="#js_mostPopularTab">${topicCenter.mostPopularTabName}</a></li>
                 </c:if>
             </ul>
@@ -208,7 +219,7 @@
             <!--End Features Articles Tab-->
 
             <!--Start Most popular Tab-->
-            <c:if test="${topicCenter.displayMostPopularTab}">
+            <c:if test="${mostPopularModuleLinksExist or mostPopularLinksExist}">
                 <div id="js_mostPopularTab">
                     <!-- Start Most Popular Module-->
                     <c:set var="mostPopularModuleLinks" value="${topicCenter.mostPopularModuleLinks}"/>
