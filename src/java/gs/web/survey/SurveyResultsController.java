@@ -48,13 +48,7 @@ public class SurveyResultsController extends AbstractController {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
 
         // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
-        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-            RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
-            if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
-                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
-                return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
-            }
-        }
+        ModelAndView preschoolRedirectMAndV = getPreschoolRedirectViewIfNeeded(request, school);
 
         String level = request.getParameter(LEVEL_PARAM);
         String levelString = null;
@@ -76,6 +70,24 @@ public class SurveyResultsController extends AbstractController {
         model.put(MODEL_NAME, results);
         model.put(MODEL_LEVEL, levelString);
         return new ModelAndView(VIEW_NAME, model);
+    }
+
+    public ModelAndView getPreschoolRedirectViewIfNeeded(HttpServletRequest request, School school) {
+        ModelAndView modelAndView = null;
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+            if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
+                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
+                String level = request.getParameter("level");
+                StringBuffer buffer = new StringBuffer(urlBuilder.asFullUrl(request));
+                if (level != null) {
+                    buffer.append("&level=");
+                    buffer.append(level);
+                }
+                modelAndView = new ModelAndView(new RedirectView301(buffer.toString()));
+            }
+        }
+        return modelAndView;
     }
 
     public ISurveyDao getSurveyDao() {

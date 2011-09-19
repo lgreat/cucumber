@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.261 2011/09/19 22:16:39 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.262 2011/09/19 22:39:13 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -706,7 +706,6 @@ public class UrlBuilder {
             }
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
-            setParameter("level", school.getLevelCode().toString());
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

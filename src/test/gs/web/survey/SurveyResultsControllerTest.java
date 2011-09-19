@@ -1,7 +1,9 @@
 package gs.web.survey;
 
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.data.survey.ISurveyDao;
 import gs.data.survey.SurveyResults;
@@ -11,6 +13,7 @@ import static org.easymock.classextension.EasyMock.*;
 
 import gs.web.school.SchoolProfileHeaderHelper;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
 
@@ -55,5 +58,20 @@ public class SurveyResultsControllerTest extends BaseControllerTestCase {
 
     public void testHandleRequest_specificPages() throws Exception {
         // if no page is specified, page 1 should be returned.
+    }
+
+    public void testRedirectForPreschools() throws Exception {
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        ModelAndView modelAndView = _controller.getPreschoolRedirectViewIfNeeded(getRequest(), school);
+        assertEquals("http://pk.greatschools.org/survey/results.page?id=1&state=CA", ((RedirectView)modelAndView.getView()).getUrl());
+
+        school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        school.setType(SchoolType.PUBLIC);
+        modelAndView = _controller.getPreschoolRedirectViewIfNeeded(getRequest(), school);
+        assertNull(modelAndView);
     }
 }
