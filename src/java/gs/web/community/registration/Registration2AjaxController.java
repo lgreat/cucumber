@@ -2,7 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
-import gs.data.school.Grades;
+import gs.data.school.*;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
@@ -12,14 +12,13 @@ import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
 
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.school.ISchoolDao;
-import gs.data.school.Grade;
-import gs.data.school.School;
 import gs.data.geo.City;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
@@ -69,12 +68,13 @@ public class Registration2AjaxController implements Controller {
         String city = request.getParameter("city");
         State state = _stateManager.getState(request.getParameter("state"));
         String grade = request.getParameter("grade");
+        String schoolTypes = request.getParameter("schoolTypes");
         PrintWriter out = response.getWriter();
 
         if (StringUtils.equals("json", request.getParameter(FORMAT_PARAM))) {
             String type = request.getParameter(TYPE_PARAM);
             if (StringUtils.equals(SCHOOL_TYPE, type)) {
-                outputSchoolJson(state, city,grade, out,request);
+                outputSchoolJson(state, city, grade, schoolTypes, out,request);
             }
             return null;
         }
@@ -144,15 +144,26 @@ public class Registration2AjaxController implements Controller {
         out.print("</select>");
     }
 
-    protected void outputSchoolJson(State state, String city, String grades, PrintWriter out, HttpServletRequest request) {
+    protected void outputSchoolJson(State state, String city, String grades, String schoolTypes, PrintWriter out, HttpServletRequest request) {
         List<School> schools = null;
         JSONObject rval = new JSONObject();
         if (state != null && !StringUtils.isBlank(city)) {
+            Set<SchoolType> schoolTypeSet = new HashSet<SchoolType>();
+            Grades gs = null;
+            if (StringUtils.isNotBlank(schoolTypes)) {
+                String[] schoolTypesArr = StringUtils.split(schoolTypes, ", ");
+                for (String schoolTypeStr : schoolTypesArr) {
+                    schoolTypeSet.add(SchoolType.getSchoolType(schoolTypeStr));
+                }
+            }
             if (StringUtils.isNotBlank(grades)) {                 
                 //We have to convert the passed in string into a Grades object so
                 // that if 'k' is passed in its converted to 'KG'.
-                Grades gs = new Grades(grades);
-                schools = _schoolDao.findSchoolsInCityByGrades(state, city, gs);
+                gs = new Grades(grades);
+            }
+
+            if (!schoolTypeSet.isEmpty() || gs != null) {
+                schools = _schoolDao.findSchoolsInCityByGradesAndTypes(state, city, gs, schoolTypeSet);
             } else {
                 schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
             }
