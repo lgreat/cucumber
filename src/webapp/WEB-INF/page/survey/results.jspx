@@ -110,6 +110,10 @@
     
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
 
+    <c:if test="${!requestScope.requestInfo.cobranded}">
+        <base href="${requestScope.requestInfo.baseHost}"/>
+    </c:if>
+
     <pageHelper:externalCss file="/res/css/survey/survey.css"/>
     <pageHelper:externalCss file="/res/css/survey/surveyResults.css"/>
     <c:if test="${param.level eq 'p'}">

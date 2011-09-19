@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.137 2011/09/16 00:18:08 ssprouse Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.138 2011/09/19 22:16:39 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -267,7 +267,7 @@ public class UrlBuilderSaTest extends BaseTestCase {
         assertEquals("/survey/startResults.page?id=1&amp;state=CA", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
-        assertEquals("/survey/results.page?id=1&amp;state=CA", builder.asSiteRelativeXml(null));
+        assertEquals("/survey/results.page?id=1&amp;level=h&amp;state=CA", builder.asSiteRelativeXml(null));
     }
 
     public void testCityPageBuilder() {

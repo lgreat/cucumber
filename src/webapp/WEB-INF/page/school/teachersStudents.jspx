@@ -16,6 +16,9 @@
     <title>Student Teacher Ratio ${school.name} - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}</title>
     <meta name="description" content="View and compare teacher to student ratio, student demographics and more for ${school.name} - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
     <c:set var="pageName" value="Teachers|Students"/>
+    <c:if test="${!requestScope.requestInfo.cobranded}">
+        <base href="${requestScope.requestInfo.baseHost}"/>
+    </c:if>
     <pageHelper:externalCss file="/css/gs.css"/>
     <pageHelper:externalCss file="/css/spp2.css"/>
     <pageHelper:externalJavascript file="/js/anchorSectionToggler.js"/>
