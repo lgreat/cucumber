@@ -47,7 +47,7 @@
                         </div>
                         <div class="mediaExt2-6">
                             <div class="img gsRating">
-                                <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}">
+                                <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}" levelCode="${school.levelCode}">
                                     <c:choose>
                                         <c:when test="${school.private}">
                                             <span class="sprite badge_sm_pr"><!-- do not collapse --></span>

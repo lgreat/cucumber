@@ -163,7 +163,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             if (StringUtils.equals("overview", sourceCode)) {
                 urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
             } else if (StringUtils.equals("parentReviews", sourceCode)) {
-                urlBuilder = new UrlBuilder(state, id, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
             } else if (StringUtils.equals("esp", sourceCode)) {
                 urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP);
             } else if (StringUtils.equals("schoolMap", sourceCode)) {
@@ -231,7 +231,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                     try {
                         State state = State.fromString(source.substring(9, 11));
                         Integer id = Integer.parseInt(source.substring(11));
-                        urlBuilder = new UrlBuilder(state, id, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                        urlBuilder = new UrlBuilder(_schoolDao.getSchoolById(state, id), UrlBuilder.SCHOOL_PARENT_REVIEWS);
                     } catch (Exception e) {
                         _log.warn("Can't find school from source string \"" + source + "\"", e);
                     }

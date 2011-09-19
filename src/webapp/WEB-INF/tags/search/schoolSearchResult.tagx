@@ -132,7 +132,7 @@
 
             <!-- GreatSchools Rating -->
             <td class="brdbtm_dotted badge-column bg-color-fff" align="left" valign="top">
-                <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}">
+                <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}" levelCode="${school.levelCode}">
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p'}">
                             <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
@@ -152,7 +152,7 @@
 
             <!-- Parent Rating -->
             <td class="brdbtm_dotted stars-column bg-color-fff" align="left" valign="top">
-                <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
+                <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
                     <c:choose>
                         <c:when test="${not empty school.parentRating}">
                             <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
@@ -165,7 +165,7 @@
                 <c:if test="${school.reviewCount gt 0 and not empty school.reviewBlurb}">
                     <div class="mtm smallAlertText reviewBlurb">
                     ${school.reviewBlurb}...<br/>
-                    <link:schoolProfileParentReview2010 state="${school.databaseState}" schoolId="${school.id}" anchor="revPagination">Read more (${school.reviewCount})&amp;#187;</link:schoolProfileParentReview2010>
+                    <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" anchor="revPagination">Read more (${school.reviewCount})&amp;#187;</link:schoolProfileParentReview2010>
                     </div>
                 </c:if>
             </td>

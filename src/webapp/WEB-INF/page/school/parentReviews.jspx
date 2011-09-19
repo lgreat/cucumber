@@ -38,6 +38,11 @@
     <title>Parent Reviews of ${school.name} - ${addr}</title>
     <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
     <c:set var="reviewsByParam"><c:if test="${fn:length(reviewsByCsv) gt 0}"> + '&amp;${param_reviewsby}=${reviewsByCsv}'</c:if></c:set>
+
+    <c:if test="${!requestScope.requestInfo.cobranded}">
+        <base href="${requestScope.requestInfo.baseHost}"/>
+    </c:if>
+    
     <![CDATA[<script type="text/javascript"><!--]]>
 
     <![CDATA[

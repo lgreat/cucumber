@@ -5,8 +5,11 @@ import gs.data.survey.SurveyResults;
 import gs.data.school.School;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
+import gs.web.request.RequestInfo;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.school.SchoolProfileHeaderHelper;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -43,6 +46,15 @@ public class SurveyResultsController extends AbstractController {
 
         // This controller is configured to be school-aware in pages-servlet.xml
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
+
+        // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+            if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
+                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SURVEY_RESULTS);
+                return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
+            }
+        }
 
         String level = request.getParameter(LEVEL_PARAM);
         String levelString = null;

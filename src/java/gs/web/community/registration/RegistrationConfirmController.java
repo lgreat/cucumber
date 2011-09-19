@@ -120,7 +120,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                         sendReviewPostedWelcomeEmail(request, summary.getFirstPublishedReview());
                         hoverHelper.setHoverCookie(HoverHelper.Hover.EMAIL_VERIFIED_SCHOOL_REVIEW_POSTED);
                         urlBuilder = new UrlBuilder(summary.getFirstPublishedReview().getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
-                        viewName = "redirect:" + urlBuilder.asSiteRelative(request);
+                        viewName = "redirect:" + urlBuilder.asFullUrl(request);
                         break;
 
                     case REVIEW_UPGRADED_NOT_PUBLISHED:
@@ -129,7 +129,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                             hoverHelper.setHoverCookie(HoverHelper.Hover.EMAIL_VERIFIED_SCHOOL_REVIEW_QUEUED);
                         }
                         urlBuilder = new UrlBuilder(summary.getUpgradedReviews().get(0).getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
-                        viewName = "redirect:" + urlBuilder.asSiteRelative(request);
+                        viewName = "redirect:" + urlBuilder.asFullUrl(request);
                         break;
 
                     case NO_REVIEW_UPGRADED:
@@ -162,13 +162,13 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                         sendReviewPostedEmail(request, summary.getFirstPublishedReview());
                         hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_POSTED);
                         urlBuilder = new UrlBuilder(summary.getFirstPublishedReview().getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
-                        viewName = "redirect:" + urlBuilder.asSiteRelative(request);
+                        viewName = "redirect:" + urlBuilder.asFullUrl(request);
                         break;
 
                     case REVIEW_UPGRADED_NOT_PUBLISHED:
                         hoverHelper.setHoverCookie(HoverHelper.Hover.SCHOOL_REVIEW_QUEUED);
                         urlBuilder = new UrlBuilder(summary.getUpgradedReviews().get(0).getSchool(), UrlBuilder.SCHOOL_PARENT_REVIEWS);
-                        viewName = "redirect:" + urlBuilder.asSiteRelative(request);
+                        viewName = "redirect:" + urlBuilder.asFullUrl(request);
                         break;
 
                     case NO_REVIEW_UPGRADED:  //This should not happen except with MSL users, since an email-only user

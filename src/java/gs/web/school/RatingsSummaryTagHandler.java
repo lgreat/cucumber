@@ -62,7 +62,7 @@ public class RatingsSummaryTagHandler extends BaseTagHandler {
 
         StringBuilder sb = new StringBuilder();
         sb.append("<a href=\"");
-        sb.append(b.asSiteRelativeXml(request));
+        sb.append(b.asFullUrlXml(request));
         sb.append("\" class=\"submodal-344-362 addParentReviewLink\"");
         sb.append(">") ;
         sb.append(s);

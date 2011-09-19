@@ -396,7 +396,7 @@ public class SurveyControllerTest extends BaseControllerTestCase {
         assertNull("temp survey message cookie should not be in response",
                 getResponse().getCookie("TMP_MSG"));
 
-        assertEquals("redirect:http://www.greatschools.org/survey/results.page?id=123&state=WY&level=p&thanks=true",
+        assertEquals("redirect:http://pk.greatschools.org/survey/results.page?id=123&state=WY&level=p&thanks=true",
                 mAndV.getViewName());
     }
 

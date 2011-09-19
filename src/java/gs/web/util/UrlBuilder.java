@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.259 2011/09/16 00:18:08 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.260 2011/09/19 00:19:54 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -559,10 +559,13 @@ public class UrlBuilder {
         }
     }
 
-    public UrlBuilder(State state, Integer schoolId, VPage page) {
+    public UrlBuilder(State state, Integer schoolId, LevelCode levelCode, VPage page) {
         if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             _perlPage = false;
             _path = "/school/parentReviews.page";
+            if (LevelCode.PRESCHOOL.equals(levelCode)) {
+                _subdomain = Subdomain.PK;
+            }
             // http://stackoverflow.com/questions/3131865/why-does-string-valueofnull-throw-a-nullpointerexception
             setParameter("id", String.valueOf((Object)schoolId));
             if (state != null) {
@@ -571,6 +574,9 @@ public class UrlBuilder {
         } else if (SCHOOL_PROFILE_RATINGS.equals(page)) {
             _perlPage = false;
             _path = "/school/rating.page";
+            if (LevelCode.PRESCHOOL.equals(levelCode)) {
+                _subdomain = Subdomain.PK;
+            }
             // http://stackoverflow.com/questions/3131865/why-does-string-valueofnull-throw-a-nullpointerexception
             setParameter("id", String.valueOf((Object)schoolId));
             if (state != null) {
@@ -593,6 +599,9 @@ public class UrlBuilder {
         }  else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             _perlPage = false;
             _path = "/school/parentReviews.page";
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _subdomain = Subdomain.PK;
+            }
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
         }else if (SCHOOL_PROFILE_CENSUS.equals(page)) {
@@ -601,12 +610,18 @@ public class UrlBuilder {
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/other/" +
                     school.getId();
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _subdomain = Subdomain.PK;
+            }
         } else if (SCHOOL_PROFILE_CENSUS_PRIVATE.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/otherprivate/" +
                     school.getId();
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _subdomain = Subdomain.PK;
+            }
         } else if (SCHOOL_PROFILE_PRIVATE_QUICK_FACTS.equals(page)) {
             _perlPage = true;
             _path = "/modperl/quickprivate/" +
@@ -629,6 +644,9 @@ public class UrlBuilder {
             State state = school.getDatabaseState();
             _perlPage = false;
             _path = "/school/rating.page";
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _subdomain = Subdomain.PK;
+            }
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", state.getAbbreviation());
         } else if (SCHOOL_PROFILE_ADD_PARENT_REVIEW.equals(page)) {
@@ -651,6 +669,9 @@ public class UrlBuilder {
         } else if (SCHOOL_MAP.equals(page)) {
             _perlPage = false;
             _path = "/school/mapSchool.page";
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _subdomain = Subdomain.PK;
+            }
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
         } else if (SCHOOL_PROFILE_ESP_LOGIN.equals(page)) {
@@ -680,6 +701,9 @@ public class UrlBuilder {
         } else if (SURVEY_RESULTS.equals(page)) {
             _perlPage = false;
             _path = "/survey/results.page";
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _subdomain = Subdomain.PK;
+            }
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
         } else {

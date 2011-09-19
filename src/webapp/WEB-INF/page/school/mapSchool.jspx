@@ -40,6 +40,9 @@
         <meta name="description"
               content="A map of ${school.name} located in ${city}, ${stateName} - ${stateAbbrev}, including a map of the nearby schools"/>
         <meta name="robots" content="follow,noindex"/>
+        <c:if test="${!requestScope.requestInfo.cobranded}">
+            <base href="${requestScope.requestInfo.baseHost}"/>
+        </c:if>
         <pageHelper:externalCss file="/res/css/ads.css"/>
         <pageHelper:externalCss file="/res/css/school/mapSchool.css"/>
         <school:profile2010ShareThisJavaScript/>

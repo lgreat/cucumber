@@ -1,5 +1,9 @@
 package gs.web.school;
 
+import gs.data.school.LevelCode;
+import gs.web.request.RequestInfo;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,6 +39,15 @@ public class MapSchoolController extends AbstractSchoolController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         // the school is obtained from the request by our super class: AbstractSchoolController
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
+
+        // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+            if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
+                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_MAP);
+                return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
+            }
+        }
 
         Map<String, Object> model = new HashMap<String, Object>();
 

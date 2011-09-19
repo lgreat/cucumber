@@ -1,10 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.23 2010/07/13 23:06:58 aroy Exp $
+ * $Id: RatingsController.java,v 1.24 2011/09/19 00:19:53 ssprouse Exp $
  */
 package gs.web.test.rating;
 
 import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.ITestDataSetDao;
@@ -12,8 +13,11 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.request.RequestInfo;
 import gs.web.school.SchoolProfileHeaderHelper;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -65,6 +69,16 @@ public class RatingsController extends AbstractCommandController {
             try {
                 School s = getSchoolDao().getSchoolById(state, new Integer(ratingsCommand.getSchoolId()));
                 if (s.isActive()) {
+                    
+                    // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+                    if (LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
+                        RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+                        if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
+                            UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+                            return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
+                        }
+                    }
+
                     ratingsCommand.setSchool(s);
                 } else {
                     errors.reject("nokey", "School is no longer active.");

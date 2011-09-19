@@ -71,7 +71,7 @@
                 <c:forEach items="${schools}" var="school">
                     <td class="cs_gsRating center">
                         <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
-                        <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}">
+                        <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}" levelCode="${school.levelCode}">
                             <c:choose>
                                 <c:when test="${school.private}">
                                         <span class="sprite badge_sm_pr" title="GreatSchools Ratings not available for private schools."><!-- do not collapse --></span>

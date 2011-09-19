@@ -14,8 +14,10 @@ import gs.data.school.School;
 import gs.data.school.review.*;
 import gs.data.security.Permission;
 import gs.data.util.NameValuePair;
+import gs.web.request.RequestInfo;
 import gs.web.school.*;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
@@ -96,6 +98,15 @@ public class ParentReviewController extends AbstractController {
         Map<String,Object> model = new HashMap<String,Object>();
         School school = (School) request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+
+        // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+            if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
+                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
+            }
+        }
 
         KindercareLeadGenHelper.checkForKindercare(request,response,school,model);
 
