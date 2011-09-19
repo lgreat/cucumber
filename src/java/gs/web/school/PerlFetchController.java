@@ -1,6 +1,10 @@
 package gs.web.school;
 
+import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
+import gs.web.request.RequestInfo;
+import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
@@ -34,6 +38,12 @@ public class PerlFetchController extends AbstractSchoolController {
         HashMap<String, Object> model = new HashMap<String, Object>();
 
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
+
+        // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+        ModelAndView preschoolRedirectMandV = getPreschoolRedirectViewIfNeeded(request, school);
+        if (preschoolRedirectMandV != null) {
+            return preschoolRedirectMandV;
+        }
 
         if (school == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -205,6 +215,18 @@ public class PerlFetchController extends AbstractSchoolController {
             } // end if agentId != null
         } // end if cookies != null
         return false;
+    }
+
+    /**
+     * Check a school's levelcode and type to see if a redirect is needed. GS-12127.
+     * Not implemented by default. Only TeachersStudentsController handles Preschools
+     *
+     * @param request
+     * @param school
+     * @return A ModelAndView that includes a redirect view, otherwise null
+     */
+    public ModelAndView getPreschoolRedirectViewIfNeeded(HttpServletRequest request, School school) {
+       return null;
     }
 
     public String getViewName() {

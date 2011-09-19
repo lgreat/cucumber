@@ -3,6 +3,8 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -73,5 +75,26 @@ public class TeachersStudentsControllerTest extends BaseControllerTestCase {
         school.setDatabaseState(State.CA);
         String href = _controller.getAbsoluteHref(school, getRequest());
         assertEquals("http://dev.greatschools.org/ca/public/1", href);
+    }
+
+    public void testRedirectForPreschools() throws Exception {
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        school.setType(SchoolType.PRIVATE);
+        ModelAndView modelAndView = _controller.getPreschoolRedirectViewIfNeeded(getRequest(), school);
+        assertEquals("http://pk.greatschools.org/cgi-bin/ca/otherprivate/1", ((RedirectView)modelAndView.getView()).getUrl());
+
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        school.setType(SchoolType.PUBLIC);
+        modelAndView = _controller.getPreschoolRedirectViewIfNeeded(getRequest(), school);
+        assertEquals("http://pk.greatschools.org/cgi-bin/ca/other/1", ((RedirectView)modelAndView.getView()).getUrl());
+
+        school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        school.setType(SchoolType.PUBLIC);
+        modelAndView = _controller.getPreschoolRedirectViewIfNeeded(getRequest(), school);
+        assertNull(modelAndView);
     }
 }

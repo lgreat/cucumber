@@ -1,7 +1,11 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.web.request.RequestInfo;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,6 +50,34 @@ public class TeachersStudentsController extends PerlFetchController {
         }
 
         return href;
+    }
+
+    /**
+     * Check a school's levelcode and type to see if a redirect is needed. GS-12127
+     *
+     * @param request
+     * @param school
+     * @return A ModelAndView that includes a redirect view, otherwise null
+     */
+    public ModelAndView getPreschoolRedirectViewIfNeeded(HttpServletRequest request, School school) {
+        ModelAndView preschoolRedirectMnadV = null;
+
+        // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            UrlBuilder.VPage vpage;
+            if (SchoolType.PRIVATE.equals(school.getType())) {
+                vpage = UrlBuilder.SCHOOL_PROFILE_CENSUS_PRIVATE;
+            } else {
+                vpage = UrlBuilder.SCHOOL_PROFILE_CENSUS;
+            }
+
+            RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+            if (!requestInfo.isOnPkSubdomain() && requestInfo.isPkSubdomainSupported()) {
+                UrlBuilder urlBuilder = new UrlBuilder(school, vpage);
+                preschoolRedirectMnadV = new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
+            }
+        }
+        return preschoolRedirectMnadV;
     }
 
     public String getPrivateSchoolContentPath() {
