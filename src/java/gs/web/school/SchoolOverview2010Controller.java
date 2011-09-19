@@ -120,6 +120,8 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
 
+            model.put("noIndexFlag", !shouldIndex(school, numberOfReviews));
+
             /*
              * get PQ data to find quote if it exists
              */
@@ -201,18 +203,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     protected boolean shouldIndex(School school, Long numberOfReviews) {
         if (school == null) {
             return false;
-        }
-
-        if (numberOfReviews == null) {
-            numberOfReviews = 0L;
-        }
-
-        if (LevelCode.PRESCHOOL.equals(school.getLevelCode()) && numberOfReviews < 1) {
-            BpCensus bpCensus = _geoDao.findBpCity(school.getStateAbbreviation(), school.getCity());
-            if (bpCensus == null || bpCensus.getPopulation() < PRESCHOOL_CITY_POPULATION_BOUNDARY) {
-                // Preschool with no reviews and low population, so deindex from google per GS-11676
-                return false;
-            }
         }
 
         return true;

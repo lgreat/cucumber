@@ -70,16 +70,17 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
         reset(_geoDao);
 
         bpCity.setPopulation(SchoolOverview2010Controller.PRESCHOOL_CITY_POPULATION_BOUNDARY);
-        expect(_geoDao.findBpCity(school.getStateAbbreviation(), school.getCity())).andReturn(bpCity);
+        //expect(_geoDao.findBpCity(school.getStateAbbreviation(), school.getCity())).andReturn(bpCity);
         replay(_geoDao);
         assertTrue("Should index a preschool with no reviews but large city", _controller.shouldIndex(school, 0L));
         verify(_geoDao);
         reset(_geoDao);
 
+        //GS-12127 revert back to indexing all preschools
         bpCity.setPopulation(SchoolOverview2010Controller.PRESCHOOL_CITY_POPULATION_BOUNDARY - 1);
-        expect(_geoDao.findBpCity(school.getStateAbbreviation(), school.getCity())).andReturn(bpCity);
+        //expect(_geoDao.findBpCity(school.getStateAbbreviation(), school.getCity())).andReturn(bpCity);
         replay(_geoDao);
-        assertFalse("Should not index a preschool with no reviews and small city", _controller.shouldIndex(school, 0L));
+        assertTrue("Should index a preschool with no reviews and small city", _controller.shouldIndex(school, 0L));
         verify(_geoDao);
         reset(_geoDao);
 
@@ -88,10 +89,11 @@ public class SchoolOverview2010ControllerTest extends BaseControllerTestCase {
         verify(_geoDao);
         reset(_geoDao);
 
+        //GS-12127 revert back to indexing all preschools
         bpCity.setPopulation(SchoolOverview2010Controller.PRESCHOOL_CITY_POPULATION_BOUNDARY - 1);
-        expect(_geoDao.findBpCity(school.getStateAbbreviation(), school.getCity())).andReturn(bpCity);
+        //expect(_geoDao.findBpCity(school.getStateAbbreviation(), school.getCity())).andReturn(bpCity);
         replay(_geoDao);
-        assertFalse("Should not index if preschool has null reviews and small city", _controller.shouldIndex(school, null));
+        assertTrue("Should index if preschool has null reviews and small city", _controller.shouldIndex(school, null));
         verify(_geoDao);
         reset(_geoDao);
     }
