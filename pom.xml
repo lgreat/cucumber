@@ -308,6 +308,7 @@
                         <!--<param>jquery/jquery-ui-1.8.15.min.js</param>-->
                         <!-- TODO-12010 remove jquery.autocomplete.js when upgrading jquery-ui -->
                         <param>jquery/jquery.autocomplete.js</param>
+                        <param>uri/uri.js</param>
                         <param>search/schoolAutocomplete.js</param>
                         <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js</param>
                         <param>global.js</param>

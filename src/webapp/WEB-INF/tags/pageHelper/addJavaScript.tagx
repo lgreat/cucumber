@@ -30,6 +30,7 @@
             <!-- TODO-12010 remove jquery.autocomplete.js when upgrading jquery-ui -->
             <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
 
+            <gsml:url var="urijs" value="/res/js/uri/uri.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="schoolautocomplete" value="/res/js/search/schoolAutocomplete.js" allowCdn="true"/>
             <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js" allowCdn="true"/>
             <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -41,6 +42,7 @@
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryautocomplete}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${urijs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${schoolautocomplete}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
