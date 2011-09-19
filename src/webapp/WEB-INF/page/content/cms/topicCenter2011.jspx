@@ -114,7 +114,7 @@
                     <a class="wsnw" href="${topicCenter.mainFeatureLink.url}">More <span
                             class="alertDoubleArrow">&amp;raquo;</span></a></p>
                 <ul>
-                    <c:forEach var="otherFeatureLink" items="${topicCenter.otherFeatureLinks}">
+                    <c:forEach var="otherFeatureLink" items="${topicCenter.upToFiveFeatureLinks}">
                         <li><a href="${otherFeatureLink.url}">${otherFeatureLink.title}</a></li>
                     </c:forEach>
                 </ul>
