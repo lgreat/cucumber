@@ -22,14 +22,31 @@
 
     <c:if test="${isNewTopicCenterPage and !(topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter)}">
         <!-- Start Article and community Search -->
-        <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
-                    action="/search/contentSearch.page">
+        <div class="mod standard findAnArticle mtm">
+            <div class="inner">
+                <div class="hd">
+                    <h3>Find an Article</h3>
+                </div>
+                <div class="bd">
+                    <div class="bd-inner">
+                        <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
+                                    action="/search/contentSearch.page">
 
-            <input type="text" name="q" value="Search by keyword"
-                   onfocus="GS_textSwitch(this, '', 'Search by keyword');"
-                   onblur="GS_textSwitch(this, 'Search by keyword', '');"/>
-            <button type="submit" class="button-1">GO</button>
-        </gsweb:form>
+                            <div class="line">
+                                <div class="unit size75of100 mrm">
+                                    <input type="text" name="q" value="Search by keyword" class="text3-777"
+                                           onfocus="GS_textSwitch(this, '', 'Search by keyword');"
+                                           onblur="GS_textSwitch(this, 'Search by keyword', '');"/>
+                                </div>
+                                <div class="unit size25of100 lastUnit mlm">
+                                    <button type="submit" class="button-1 fltrt">GO</button>
+                                </div>
+                            </div>
+                        </gsweb:form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- End Article and community Search -->
     </c:if>
 
