@@ -16,22 +16,20 @@
         </div>
         <div class="bd">
 
-            <ul class="text2">
+            <ul>
                 <c:forEach var="subtopic" items="${pageScope.subtopics}" varStatus="subtopicStatus">
                     <c:if test="${not empty subtopic.subSubtopics}">
                         <c:set var="hasNestedItems" value="${true}"/>
                     </c:if>
                     <c:choose>
                         <c:when test="${hasNestedItems}">
-                            <c:set var="className1" value="mrglft_neg5"/>
-                            <c:set var="className2" value="hasNested"/>
+                            <c:set var="className1" value="hasNested"/>
                         </c:when>
                         <c:otherwise>
                             <c:set var="className1" value=""/>
-                            <c:set var="className2" value=""/>
                         </c:otherwise>
                     </c:choose>
-                    <li class="${className1} ${className2}">
+                    <li class="${className1}">
 
                         <c:choose>
                             <c:when test="${empty subtopic.subSubtopics}">
@@ -67,13 +65,15 @@
                             <c:otherwise>
                                 <!-- nested items, show triangle, and clicking subtopic title link should only expand/collapse the nested links -->
                                 <!-- DONE-9457 RANDALL: please fix jquery to make clicking on this link expand/collapse instead of going to the href -->
-                                <span class='sprite twirlyClosed'><!-- do not collapse --></span>
-                                <a class="outerNavLink" href="javascript:void(0);">${subtopic.title}</a>
+                                <div class="mediaExt1-1">
+                                    <span class='sprite twirlyClosed img'><!-- do not collapse --></span>
+                                    <a class="outerNavLink bk" href="javascript:void(0);">${subtopic.title}</a>
+                                </div>
                             </c:otherwise>
                         </c:choose>
 
                         <c:if test="${not empty subtopic.subSubtopics}">
-                            <ul class="text2">
+                            <ul class="nested">
                                 <c:forEach var="section" items="${subtopic.subSubtopics}"
                                            varStatus="sectionStatus">
                                     <li>
@@ -90,7 +90,7 @@
                                         </c:choose>
                                     </li>
                                 </c:forEach>
-                                <li>
+                                <li class="lastOne">
                                     <c:choose>
                                         <c:when test="${not empty subtopic.moreLink}">
                                             <a href="${subtopic.moreLink.url}">${subtopic.title}</a>

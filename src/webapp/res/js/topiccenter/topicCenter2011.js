@@ -21,6 +21,27 @@ jQuery(function () {
         }).filter(':first').click();
 });
 
+jQuery(function () {
+    var nestedContainers = jQuery('li.hasNested > .nested');
+    var twirlies = jQuery('li.hasNested > div > span');
+    nestedContainers.hide();
+    twirlies.removeClass('twirlyOpen').addClass('twirlyClosed');
+
+    jQuery('li.hasNested > div').click(
+        function () {
+            var twirly = jQuery(this).find('span');
+            var nestedToShow = jQuery(this).parent().find('.nested');
+            if (twirly.hasClass('twirlyClosed')) {
+                twirly.removeClass('twirlyClosed').addClass('twirlyOpen')
+                nestedToShow.slideDown(250);
+            } else {
+                twirly.removeClass('twirlyOpen').addClass('twirlyClosed');
+                nestedToShow.slideUp(250);
+            }
+        return false;
+    });
+});
+
 /* ------------------------------------------------ */
 /* -- TOPIC CENTER AND GRADE LEVEL FIND A SCHOOL (moved over from topicCenter2010.js)-- */
 /* ------------------------------------------------ */
