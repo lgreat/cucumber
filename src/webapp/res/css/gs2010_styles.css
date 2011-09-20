@@ -1429,7 +1429,6 @@ body.ie8 .btsSupplyListsTag .arrow {
     width: 530px;
     height:500px;
     display:table-cell;
-
 }
 
 .photo-gallery-module.single-photo{
@@ -1457,8 +1456,10 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 #photo-gallery-controls {
-    background-color: #fff;
     width: 530px;
+}
+.ie7 #photo-gallery-controls{
+    margin-top: 15px;
 }
 #photo-gallery-thumbnails {
     display:inline-block;
