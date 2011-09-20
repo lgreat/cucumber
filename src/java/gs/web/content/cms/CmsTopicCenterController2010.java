@@ -206,9 +206,9 @@ public class CmsTopicCenterController2010 extends AbstractController {
         //start adding content for middle area of page
         addPageSpecificContentToModel(request, model, topicCenter);
 
-        if (topicCenter.getFeaturedArticlesLinks() != null && topicCenter.getFeaturedArticlesLinks().size() > 0) {
-            return new ModelAndView("/content/cms/topicCenter2011", model);
-        }
+//        if (topicCenter.getFeaturedArticlesLinks() != null && topicCenter.getFeaturedArticlesLinks().size() > 0) {
+//            return new ModelAndView("/content/cms/topicCenter2011", model);
+//        }
 
         return new ModelAndView(_viewName, model);
     }
