@@ -138,10 +138,10 @@
     <c:set var="mostPopularModuleLinksExist" value="${false}"/>
     <c:set var="mostPopularLinksExist" value="${false}"/>
     <c:if test="${topicCenter.displayMostPopularTab}">
-        <c:if test="${(mostPopularModuleLinks != null and fn:length(mostPopularModuleLinks) >=3)}">
+        <c:if test="${(topicCenter.mostPopularModuleLinks != null and fn:length(topicCenter.mostPopularModuleLinks) >=3)}">
             <c:set var="mostPopularModuleLinksExist" value="${true}"/>
         </c:if>
-        <c:if test="${(mostPopularLinks != null and fn:length(mostPopularLinks) >= 1)}">
+        <c:if test="${(topicCenter.mostPopularLinks != null and fn:length(topicCenter.mostPopularLinks) >= 1)}">
             <c:set var="mostPopularLinksExist" value="${true}"/>
         </c:if>
     </c:if>
