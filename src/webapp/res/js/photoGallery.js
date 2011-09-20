@@ -189,6 +189,17 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
    jQuery('#' + this.id).hide();
 };
 
+var galleryPosition = function() {
+    var browserWidth = $(window).width();
+    var pageWidth = 978;  //Fixed
+    var leftRightPageMargin = browserWidth - pageWidth;  // Empty space on left and right side of the page
+    var pageEdge = leftRightPageMargin / 2; // pageEdge is equal to left or right distance from browser to page.
+    var galleryWidth = 530;
+    var leftRightGalleryMargin = pageWidth - galleryWidth // Empty space on left and right side of the gallery on page.
+    var galleryEdge = leftRightGalleryMargin / 2; //galleryEdge is equal to left or right distance from page to gallery.
+    var leftEdgeGallery = pageEdge + galleryEdge;
+    document.getElementById("photo-gallery").style.left = leftEdgeGallery + "px";
+}
 
 /**
  * Make the gallery open when provided dom node is clicked
@@ -197,20 +208,11 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
 GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
     jQuery("#school-photo-medium ." + cssClass).click(function() {
         this.loadFullSizeImages();
-
         document.getElementById("fade").style.display="block";
-        var browserWidth=$(window).width();
-        var leftRightMargin=browserWidth-978; //Page width = 978px
-        var pageEdge=leftRightMargin/2; //
-        var leftEdge=pageEdge+224;
-        document.getElementById("photo-gallery").style.left=leftEdge+"px";
+        galleryPosition();
         this.show();
         $(window).resize(function() {
-            var browserWidth=$(window).width();
-            var leftRightMargin=browserWidth-978;
-            var pageEdge=leftRightMargin/2;
-            var leftEdge=pageEdge+224;
-            document.getElementById("photo-gallery").style.left=leftEdge+"px";
+            galleryPosition();
         });
         return false;
     }.gs_bind(this));

@@ -1392,14 +1392,10 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 .gallery-fullsize {
     display: block;
-    /*vertical-align: middle;*/
     height: auto;
     width:500px;
-    /*margin:auto;*/
-    /*position: relative;*/
     margin-left:auto;
     margin-right: auto;
-    /*margin-top: -50%;*/
     text-align: center;
 }
 
@@ -1413,9 +1409,6 @@ body.ie8 .btsSupplyListsTag .arrow {
     top: 110px;
     width: 530px;
     z-index: 1002;
-    /*-moz-box-shadow: 20px 60px 24px #333;*/
-    /*-webkit-box-shadow: 20px 60px 24px #333;*/
-    /*box-shadow: 20px 60px 24px #333;*/
 }
 
 #photo-gallery-schoolname {
@@ -1427,15 +1420,9 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 .photo-gallery-module{
-    /*border-top: 1px solid #333;*/
-    /*border-right: 1px solid #333;*/
-    /*border-left: 1px solid #333;*/
     background-color: #fff;
-    height: 578px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    -moz-border-radius-topleft: 9px;
-    -moz-border-radius-topright: 9px;
+    border-radius: 9px;
+    -moz-border-radius: 9px;
     zoom:1;
 }
 #photo-gallery-viewer {
@@ -1470,16 +1457,8 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 #photo-gallery-controls {
-    /*border-right: 1px solid #333;*/
-    border-bottom: 1px solid #333;
-    /*border-left: 1px solid #333;*/
-    padding-bottom:15px;
     background-color: #fff;
     width: 530px;
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
-    -moz-border-radius-bottomleft: 9px;
-    -moz-border-radius-bottomright: 9px;
 }
 #photo-gallery-thumbnails {
     display:inline-block;

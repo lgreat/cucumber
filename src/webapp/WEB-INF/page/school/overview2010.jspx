@@ -232,43 +232,37 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:if test="${school.preschoolSubtype ne 'kindercare'}">
     <ad:adTag position="CustomSponsor_407x65"/>
 </c:if>
+
 <c:choose>
-    <c:when test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 1}">
+    <c:when test="${not empty photoGalleryImages}">
         <div class="mvm">
-        <div class="line">
-            <div class="unit size3of5">
-                <div class="text2 mrm">
-                    <content:ratingsSummary school="${school}"/>
+            <div class="line">
+                <div class="unit size3of5">
+                    <div class="text2 mrm">
+                        <content:ratingsSummary school="${school}"/>
+                    </div>
+                </div>
+                <div class="unit size2of5 lastUnit">
+                    <div class="mediumThumbnail bgtint-eb" id="school-photo-medium"><p
+                            class="text3">Photos of this school</p><a
+                            href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger"><img
+                            src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                            alt="Photos of this school"
+                            width="130" height="130"/></a>
+                        <c:choose>
+                            <c:when test="${fn:length(photoGalleryImages) > 1}">
+                                <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
+                                                             class="js-photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a>
+                                </p>
+                            </c:when>
+                            <c:when test="${fn:length(photoGalleryImages) eq 1}">
+                                <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
+                                                             class="js-photo-gallery-trigger">View photo</a></p>
+                            </c:when>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
-            <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb" id="school-photo-medium"><p class="text3">Photos of this school</p><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger"><img
-                        src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
-                        alt="Photos of this school"
-                        width="130" height="130"/></a>
-                    <p class="smallText1-06b"><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a></p>
-                </div>
-            </div>
-        </div>
-        </div>
-    </c:when>
-    <c:when test="${fn:length(photoGalleryImages) eq 1}">
-        <div class="mtm mbm">
-        <div class="line">
-            <div class="unit size3of5">
-                <div class="text2 mrm">
-                    <content:ratingsSummary school="${school}"/>
-                </div>
-            </div>
-            <div class="unit size2of5 lastUnit">
-                <div class="mediumThumbnail bgtint-eb" id="school-photo-medium" ><p class="text3">Photos of this school</p><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger"><img
-                        src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
-                        alt="Photos of this school"
-                        width="130" height="130"/></a>
-                    <p class="smallText1-06b"><a href="javascript:void(0)" onclick="javascript:scroll(0,0)" class="photo-gallery-trigger">View photo</a></p>
-                </div>
-            </div>
-        </div>
         </div>
     </c:when>
     <c:otherwise>
@@ -448,7 +442,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <c:set var="schoolPhotosTracking" value=""/>
 <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
     <c:set var="schoolPhotosTracking" value="${fn:length(photoGalleryImages)}"/>
-    <school:photoGallery cssClass="photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
+    <school:photoGallery cssClass="js-photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
 </c:if>
 
 <script type="text/javascript">
@@ -486,7 +480,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </div>
 
 </div>
-<div id="fade" class="black_overlay"></div>
+<div id="fade" class="black_overlay"><!-- do not collapse --></div>
 </gsml:body>
 </html>
 </jsp:root>
