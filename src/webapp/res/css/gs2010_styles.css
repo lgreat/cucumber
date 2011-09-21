@@ -1162,6 +1162,8 @@ h4.subhead2 a {
 .partnerOps .inner{border-top:2px dotted #ccc;margin:15px 0;padding:0;}
 .partnerOps .hd h2{margin:15px 0;}
 .partnerOps .bd p, .partnerOps .bd ul{margin:0 0 15px;line-height:1.9;}
+.partnerOps .bd li {list-style: disc;margin: 0 0 0 15px;}
+.partnerOps .bd .subhead {line-height:1.9;font-weight:bold;}
 /* --------- sponsors (extends mod) ---------- */
 .sponsors .inner{margin:0 0 1em;}
 .sponsors .hd h3{margin:0 0 0.25em;}
