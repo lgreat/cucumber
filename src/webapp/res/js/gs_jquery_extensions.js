@@ -91,6 +91,8 @@ jQuery(document).ready(function() {
     jQuery('#primary').disableSelection();
     // disable selection of text in secondary navigation
     jQuery('#secondary').disableSelection();
+    // disable selection of text on topic center tabs
+    jQuery('.tabNavigation').disableSelection();
 });
 
 /* =2 popup (informational popup bubbles)
