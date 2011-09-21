@@ -6,9 +6,11 @@ $j(document).ready(function() {
 
     var cookie = subCookie.getObjectPropertyIfNotExpired("all_hover", "showNLHoverOnArticles");
     var fromNewsletter = $j('#cpnCodeFromNewsletter').val();
+
     if (cookie == null && fromNewsletter === '') {
         showNlHover = true;
     }
+
     var type = $j("#cmsContentType").val();
     var isShowNlSubHover = $j("#isShowNlSubHover").val();
     var socialButtons = $j('.articleDistribution:last');
@@ -20,7 +22,7 @@ $j(document).ready(function() {
         }
     }
 
-    $j(document).scroll(function() {
+    $j(window).scroll(function() {
         if (showNlHover && type == 'article' && isShowNlSubHover == 'true') {
             var reachedScrollPositionToSocialIcons = isScrolledIntoView(socialButtons);
             if (reachedScrollPositionToSocialIcons) {
