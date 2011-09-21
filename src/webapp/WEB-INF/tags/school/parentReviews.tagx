@@ -51,7 +51,7 @@
 
             <div class="spacer_10"><!-- do not collapse --></div>
 
-            <button class="button-1Ext-1" type="submit">Review this school</button>
+            <link:schoolProfileParentReview school="${school}" anchor="${headerLinkAnchor}"><button class="button-1Ext-1" type="submit">Review this school</button></link:schoolProfileParentReview>
         </div>
     </div>
     <script type="text/javascript">
