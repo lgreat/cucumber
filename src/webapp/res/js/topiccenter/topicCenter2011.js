@@ -1,7 +1,7 @@
 // JavaScript Document
 
 jQuery(function () {
-    var tabContainers = jQuery('div.tabs > div');
+    var tabContainers = jQuery('div.tabs > js_featuredArticlesTab');
     tabContainers.hide().filter(':first').show();
 
     jQuery('div.tabs ul.tabNavigation a').click(

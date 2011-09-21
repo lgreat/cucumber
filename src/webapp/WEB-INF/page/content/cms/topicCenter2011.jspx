@@ -151,12 +151,19 @@
 
         <div class="featuredContent tabs">
 
-            <ul class="tabNavigation gradient-3">
-                <li><a class="rnd-top-6" href="#js_featuredArticlesTab">Featured Articles</a></li>
-                <c:if test="${mostPopularModuleLinksExist or mostPopularLinksExist or topicCenter.mostPopularTabName != null }">
-                    <li><a class="rnd-top-6" href="#js_mostPopularTab">${topicCenter.mostPopularTabName}</a></li>
-                </c:if>
-            </ul>
+            <c:choose>
+                <c:when test="${mostPopularModuleLinksExist or mostPopularLinksExist or topicCenter.mostPopularTabName != null }">
+                    <ul class="tabNavigation gradient-3">
+                        <li><a class="rnd-top-6" href="#js_featuredArticlesTab">Featured Articles</a></li>
+                        <li><a class="rnd-top-6" href="#js_mostPopularTab">${topicCenter.mostPopularTabName}</a></li>
+                    </ul>
+                </c:when>
+                <c:otherwise>
+                    <div class="gradient-3">
+                        <h6 class="bottom">Featured Articles</h6>
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
             <!--Start Features Articles Tab-->
             <div id="js_featuredArticlesTab">
