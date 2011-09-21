@@ -952,14 +952,21 @@ GSType.hover.NlSubscription = function() {
             async: false,
             success: function() {
                 GSType.hover.nlSubscription.hide();
-            },
-            error : function(data) {
-                GSType.hover.nlSubscription.hide();
+                GSType.hover.nlSubscriptionThankYou.show();
             }
         });
     };
 }
 GSType.hover.NlSubscription.prototype = new GSType.hover.HoverDialog("hover_nlSubscription",540);
+
+GSType.hover.NlSubscriptionThankYou = function() {
+    this.loadDialog = function() {
+    };
+    this.showHover = function () {
+        GSType.hover.nlSubscriptionThankYou.show();
+    };
+}
+GSType.hover.NlSubscriptionThankYou.prototype = new GSType.hover.HoverDialog("hover_nlSubscriptionThankYou",540);
 
 GSType.hover.InterruptSurvey = function() {
     var surveyUrl = '';
@@ -1088,6 +1095,7 @@ GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolR
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
 GSType.hover.nlSubscription = new GSType.hover.NlSubscription();
+GSType.hover.nlSubscriptionThankYou = new GSType.hover.NlSubscriptionThankYou();
 
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
@@ -1487,6 +1495,7 @@ jQuery(function() {
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.interruptSurvey.loadDialog();
     GSType.hover.nlSubscription.loadDialog();
+    GSType.hover.nlSubscriptionThankYou.loadDialog();
     GSType.hover.principalConfirmation.loadDialog();
     GSType.hover.principalReviewSubmitted.loadDialog();
 

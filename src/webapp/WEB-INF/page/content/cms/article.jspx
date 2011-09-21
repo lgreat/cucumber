@@ -691,6 +691,7 @@
 </c:if>
 
 <content:nlSubscriptionHover/>
+<content:nlSubscriptionThankYouHover/>
 
 <jsp:scriptlet>
     boolean surveyHoverCookie = CookieUtil.hasCookie(request, "survey_hover_seen");
