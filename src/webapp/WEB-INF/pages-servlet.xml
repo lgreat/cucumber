@@ -1614,6 +1614,19 @@
         </property>
     </bean>
 
+    <bean name="/content/cms/nlSubscription.page"
+          class="gs.web.content.cms.NewsletterSubscriptionController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="subscriptionCmd"/>
+        <property name="commandClass" value="gs.web.content.cms.NewsletterSubscriptionCommand"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
+        </property>
+    </bean>
+
     <bean name="/community/forgotPasswordValidator.page"
           class="gs.web.community.registration.ForgotPasswordValidatorAjaxController"
           autowire="byName" lazy-init="true"/>

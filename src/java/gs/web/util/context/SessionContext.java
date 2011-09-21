@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.62 2011/06/01 22:50:53 yfan Exp $
+ * $Id: SessionContext.java,v 1.63 2011/09/21 17:40:42 npatury Exp $
  */
 package gs.web.util.context;
 
@@ -306,6 +306,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public String getIphoneAppItunesStoreUrl() {
         return _propertyDao.getProperty(IPropertyDao.IPHONE_APP_ITUNES_STORE_URL, "");
+    }
+
+    public boolean isShowNlSubscriptionHover() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.SHOW_NL_SUBSCRIPTION_HOVER, "false"));
     }
 
     protected JSONObject getSurveyDetailsJson(String property) {

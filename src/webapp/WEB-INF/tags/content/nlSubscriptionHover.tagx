@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsweb="gstaglib"
+        >
+    <div id="hover_nlSubscription" class="dialog_white" style="display:none;">
+        <h2>Like this article?</h2>
+
+        <p>Sign up for our free newsletter and we'll send you more just like it every week.</p>
+        <label for="nlSubEmail">Email address</label><input type="text" id="nlSubEmail" name="email"/>
+
+        <div id="nlSubEmail_error" style="display:none">Please enter a valid email address</div>
+        <input type="checkbox" name="partnerNewsletter" value="true" id="partnerNewsletter"
+               checked="checked"/>
+
+        <div class="bk">
+            <label for="partnerNewsletter">Send me offers to save on family activities and special
+                promotions from our carefully chosen partners.</label>
+        </div>
+
+        <button class="button-1" type="submit" name="nlSubSubmit"
+                id="hover_nlSubscriptionSubmit">Reset password
+        </button>
+
+        <button class="button-1 hover_nlSubscription_hideHover" type="button" name="nlSubCancel">Cancel
+        </button>
+
+    </div>
+</jsp:root>

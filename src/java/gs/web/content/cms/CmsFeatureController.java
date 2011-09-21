@@ -1,6 +1,9 @@
 package gs.web.content.cms;
 
 import gs.data.cms.IPublicationDao;
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
+import gs.data.community.User;
 import gs.data.content.ArticleComment;
 import gs.data.content.IArticleDao;
 import gs.data.content.cms.*;
@@ -288,6 +291,20 @@ public class CmsFeatureController extends AbstractController {
         if (StringUtils.contains(feature.getCurrentPage(), "http://assets.delvenetworks.com/player/loader.swf")) {
             model.put("showCompanionAd", true);
         }
+
+
+        //Check whether to show the NL subscription Hover or not.
+        boolean isUserSubscribedToParentAdvisor = false;
+        if (PageHelper.isMemberAuthorized(request)) {
+            User user = sessionContext.getUser();
+            if (user != null) {
+                Subscription sub = user.findSubscription(SubscriptionProduct.PARENT_ADVISOR);
+                if (sub != null) {
+                    isUserSubscribedToParentAdvisor = true;
+                }
+            }
+        }
+        model.put("isUserSubscribedToParentAdvisor", isUserSubscribedToParentAdvisor);
 
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);

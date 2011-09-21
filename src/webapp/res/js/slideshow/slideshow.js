@@ -1,14 +1,45 @@
 // JavaScript Document
 // required to avoid "$j" collisions with Prototype.js
 var $j = jQuery;
+var showNlHover = false;
+$j(document).ready(function() {
 
-/*$j(document).ready(function() {
-    $j('#slideMenu').change(function() {
-        $j(this).find('option:selected').each(function() {
-            window.location.href = $j(this).val();
-        });
+    var cookie = subCookie.getObjectPropertyIfNotExpired("all_hover", "showNLHoverOnArticles");
+    var fromNewsletter = $j('#cpnCodeFromNewsletter').val();
+    if (cookie == null && fromNewsletter === '') {
+        showNlHover = true;
+    }
+    var type = $j("#cmsContentType").val();
+    var isShowNlSubHover = $j("#isShowNlSubHover").val();
+    var socialButtons = $j('.articleDistribution:last');
+
+    if (showNlHover && type == 'articleSlideshow' && isShowNlSubHover == 'true') {
+        var slideNum = $j("#articleSlideshowNum").val();
+        if (slideNum == 2) {
+            GSType.hover.nlSubscription.showHover();
+        }
+    }
+
+    $j(document).scroll(function() {
+        if (showNlHover && type == 'article' && isShowNlSubHover == 'true') {
+            var reachedScrollPositionToSocialIcons = isScrolledIntoView(socialButtons);
+            if (reachedScrollPositionToSocialIcons) {
+                GSType.hover.nlSubscription.showHover();
+                showNlHover = false;
+            }
+        }
     });
-});*/
+});
+
+function isScrolledIntoView(elem) {
+    var docViewTop = $j(window).scrollTop();
+    var docViewBottom = docViewTop + $j(window).height();
+
+    var elemTop = elem.offset().top;
+    var elemBottom = elemTop + elem.height();
+
+    return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom));
+}
 
 var timeout = 500;
 var closetimer = 0;

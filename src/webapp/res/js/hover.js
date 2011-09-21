@@ -919,6 +919,48 @@ GSType.hover.EmailToFriend = function() {
 };
 GSType.hover.EmailToFriend.prototype = new GSType.hover.HoverDialog("emailToFriendHover",640);
 
+GSType.hover.NlSubscription = function() {
+    this.loadDialog = function() {
+    };
+    this.showHover = function () {
+        subCookie.createAllHoverCookie('showNLHoverOnArticles',1,30);
+        $j('#nlSubEmail_error').hide();
+        GSType.hover.nlSubscription.show();
+    };
+    this.validateEmail = function() {
+        var isEmailValid = false;
+        jQuery.ajax({
+            type: 'POST',
+            url: GS.uri.Uri.getBaseHostname() + '/util/isValidEmail.page',
+            data: {email:jQuery('#hover_nlSubscription #nlSubEmail').val()},
+            dataType: 'text',
+            async: false,
+            success: function(data) {
+                isEmailValid = data == 'true' ? true : false;
+            }
+        });
+        return isEmailValid;
+    };
+
+    this.subscribeUser = function() {
+        jQuery.ajax({
+            type: 'POST',
+            url: GS.uri.Uri.getBaseHostname() + '/content/cms/nlSubscription.page',
+            data: {email:jQuery('#hover_nlSubscription #nlSubEmail').val(),
+                partnerNewsletter:jQuery('#hover_nlSubscription #partnerNewsletter').is(':checked'),ajaxRequest:true},
+            dataType: 'text',
+            async: false,
+            success: function() {
+                GSType.hover.nlSubscription.hide();
+            },
+            error : function(data) {
+                GSType.hover.nlSubscription.hide();
+            }
+        });
+    };
+}
+GSType.hover.NlSubscription.prototype = new GSType.hover.HoverDialog("hover_nlSubscription",540);
+
 GSType.hover.InterruptSurvey = function() {
     var surveyUrl = '';
     this.loadDialog = function() { };
@@ -1045,6 +1087,7 @@ GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPos
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
+GSType.hover.nlSubscription = new GSType.hover.NlSubscription();
 
 GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
@@ -1443,6 +1486,7 @@ jQuery(function() {
     GSType.hover.emailValidatedSchoolReview.loadDialog();
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.interruptSurvey.loadDialog();
+    GSType.hover.nlSubscription.loadDialog();
     GSType.hover.principalConfirmation.loadDialog();
     GSType.hover.principalReviewSubmitted.loadDialog();
 
@@ -1456,6 +1500,15 @@ jQuery(function() {
                 GS.forgotPasswordHover_checkValidationResponse);
 
         return false;
+    });
+
+    jQuery('#hover_nlSubscriptionSubmit').click(function() {
+        var validEmail = GSType.hover.nlSubscription.validateEmail();
+        if(!validEmail || $j('#nlSubEmail').val() === ''){
+           $j('#nlSubEmail_error').show();
+        }else if (validEmail) {
+            GSType.hover.nlSubscription.subscribeUser();
+        }
     });
 
     jQuery('#clsValNewEmail').click(function() {

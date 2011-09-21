@@ -17,6 +17,8 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+<jsp:directive.page import="gs.web.util.CookieUtil"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 <c:choose>
@@ -94,6 +96,7 @@
 
     <meta name="keywords" content="${feature.metaKeywords}"/>
     <!--<pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>-->
+    <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
     <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
     <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
     <c:choose>
@@ -273,6 +276,13 @@
         <h3 class="text-uppercase">Question:</h3>
         ${askTheExperts.question}
     </div><!-- end #cmsAskTheExpertsQuestion -->
+</c:if>
+<c:if test="${type eq 'article' or type eq 'articleSlideshow'}">
+    <input type="hidden" value="${type}" id="cmsContentType"/>
+    <input type="hidden" value="${param.cpn}" id="cpnCodeFromNewsletter"/>
+    <c:if test="${type eq 'articleSlideshow'}">
+        <input type="hidden" value="${param.page}" id="articleSlideshowNum"/>
+    </c:if>
 </c:if>
 
 <!-- article text -->
@@ -679,6 +689,27 @@
         setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:escapeJavaScript(surveyDetails['url'])}')", 7000);
     </script>
 </c:if>
+
+<content:nlSubscriptionHover/>
+
+<jsp:scriptlet>
+    boolean surveyHoverCookie = CookieUtil.hasCookie(request, "survey_hover_seen");
+    boolean surveyHoverThisSessionCookie = CookieUtil.hasCookie(request, "survey_hover_seen_this_session");
+    request.setAttribute("isSurveyCookieSet", surveyHoverCookie || surveyHoverCookie);
+    SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+    request.setAttribute("showNlSubHover", context.isShowNlSubscriptionHover());
+</jsp:scriptlet>
+
+<c:choose>
+    <c:when test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari and !isSurveyCookieSet}">
+        <c:set var="isShowNlSubHover" value="false"/>
+    </c:when>
+    <c:when test="${!requestScope.context.crawler and !requestScope.context.cobranded and showNlSubHover and !isUserSubscribedToParentAdvisor}">
+        <c:set var="isShowNlSubHover" value="true"/>
+    </c:when>
+</c:choose>
+
+<input type="hidden" id="isShowNlSubHover" value="${isShowNlSubHover}"/>
 
 </body>
 </html>
