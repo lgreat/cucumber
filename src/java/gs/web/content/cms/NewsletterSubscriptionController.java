@@ -29,7 +29,10 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
         NewsletterSubscriptionCommand nlSubCmd = (NewsletterSubscriptionCommand) command;
 
         String email = StringEscapeUtils.escapeHtml(nlSubCmd.getEmail());
-        User user = getUserDao().findUserFromEmailIfExists(email);
+        User user = null;
+        if(email != null){
+            user = getUserDao().findUserFromEmailIfExists(email);
+        }
 
         if (user != null) {
             boolean isSubscribedToParentAdvisor = false;
