@@ -84,7 +84,7 @@
                 </div>
             </div>
         </div>
-        <div class="mbm">
+        <!--<div class="mbm">
             <div class="mod sponsored">
                 <div class="inner">
                     <div class="sponsor_88x31">
@@ -114,7 +114,7 @@
                                 <div class="mediaExt1-1 mtm">
                                     <div class="img">
                                         <a href="http://www.youtube.com/grockit" target="_blank">
-                                            <span class="sprite i-play"><!-- do not collapse --></span></a>
+                                            <span class="sprite i-play">&lt;!&ndash; do not collapse &ndash;&gt;</span></a>
                                     </div>
                                     <div class="bk smallText1-333 pvs">
                                         Watch our video to <a href="http://www.youtube.com/grockit"
@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="mbm">
             <div class="mod topArticles">
                 <div class="inner">
