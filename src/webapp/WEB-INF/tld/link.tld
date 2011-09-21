@@ -2364,6 +2364,13 @@
             <type>java.lang.String</type>
             <description>rel attribute</description>
         </attribute>
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>page number</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolProfileParentReview2010</name>

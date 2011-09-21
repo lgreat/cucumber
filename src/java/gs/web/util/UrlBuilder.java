@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.263 2011/09/20 21:10:51 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.264 2011/09/21 12:52:01 yfan Exp $
  */
 
 package gs.web.util;
@@ -559,18 +559,25 @@ public class UrlBuilder {
         }
     }
 
+    private void handleParentReviews(State state, Integer schoolId, LevelCode levelCode, Integer page) {
+        _perlPage = false;
+        _path = "/school/parentReviews.page";
+        if (LevelCode.PRESCHOOL.equals(levelCode)) {
+            _subdomain = Subdomain.PK;
+        }
+        // http://stackoverflow.com/questions/3131865/why-does-string-valueofnull-throw-a-nullpointerexception
+        setParameter("id", String.valueOf((Object) schoolId));
+        if (state != null) {
+            setParameter("state", state.getAbbreviation());
+        }
+        if (page != null && page > 0) {
+            setParameter("page", String.valueOf(page));
+        }
+    }
+
     public UrlBuilder(State state, Integer schoolId, LevelCode levelCode, VPage page) {
         if (SCHOOL_PARENT_REVIEWS.equals(page)) {
-            _perlPage = false;
-            _path = "/school/parentReviews.page";
-            if (LevelCode.PRESCHOOL.equals(levelCode)) {
-                _subdomain = Subdomain.PK;
-            }
-            // http://stackoverflow.com/questions/3131865/why-does-string-valueofnull-throw-a-nullpointerexception
-            setParameter("id", String.valueOf((Object)schoolId));
-            if (state != null) {
-                setParameter("state", state.getAbbreviation());
-            }
+            handleParentReviews(state, schoolId, levelCode, null);
         } else if (SCHOOL_PROFILE_RATINGS.equals(page)) {
             _perlPage = false;
             _path = "/school/rating.page";
@@ -587,26 +594,22 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(School school, Integer pageNumber, VPage page) {
+        if (SCHOOL_PARENT_REVIEWS.equals(page)) {
+            handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), pageNumber);
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
     public UrlBuilder(School school, VPage page) {
         if (SCHOOL_PROFILE.equals(page)) {
             handleSchoolProfile(school, false);
         } else if (SCHOOL_PARENT_REVIEWS_WITH_HOVER.equals(page)) {
-            _perlPage = false;
-            _path = "/school/parentReviews.page";
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                _subdomain = Subdomain.PK;
-            }
-            setParameter("id", String.valueOf(school.getId().intValue()));
-            setParameter("state", school.getDatabaseState().getAbbreviation());
+            handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), null);
             setParameter("showThankyouHover", "true");
-        }  else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
-            _perlPage = false;
-            _path = "/school/parentReviews.page";
-            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
-                _subdomain = Subdomain.PK;
-            }
-            setParameter("id", String.valueOf(school.getId().intValue()));
-            setParameter("state", school.getDatabaseState().getAbbreviation());
+        } else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
+            handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), null);
         }else if (SCHOOL_PROFILE_CENSUS.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/" +
