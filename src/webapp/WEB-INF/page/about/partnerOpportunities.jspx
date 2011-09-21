@@ -72,9 +72,11 @@
                                                     title="Adobe Reader is required to view these files.Click to download."/></a>
                         </p>
 
-                        For additional questions or to get started today, please contact:<br/><br/>
+                        <p>
+                        For additional questions or to get started today, please contact:
+                        </p>
 
-                        <span class="subhead">Advertising Sales Team</span>:
+                        <div class="subhead">Advertising Sales Team</div>
 
                         <ul>
                             <li>MaryEllen McLaughlin: Northeast and South Regional Sales Manager, <a
