@@ -205,7 +205,10 @@
                         <gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/>
 
                         <div class="bk">
-                            <p class="small bottom make-06b">${link.kategory.name}</p>
+                            <link:cmsCategoryBrowse
+                                    topicIDs="${link.kategory.id}">
+                                <p class="small bottom make-06b">${link.kategory.name}</p>
+                            </link:cmsCategoryBrowse>
                             <h3 class="bottom"><a href="${link.url}">${link.linkText}</a></h3>
 
                             <p class="small">${link.description}</p>
@@ -266,7 +269,10 @@
                             <gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/>
 
                             <div class="bk">
-                                <p class="small bottom make-06b">${link.kategory.name}</p>
+                                <link:cmsCategoryBrowse
+                                        topicIDs="${link.kategory.id}">
+                                    <p class="small bottom make-06b">${link.kategory.name}</p>
+                                </link:cmsCategoryBrowse>
 
                                 <h3 class="bottom"><a href="${link.url}">${link.linkText}</a></h3>
 
