@@ -68,7 +68,7 @@
                 return false;
             }
 
-            $j.post('/community/raiseYourHandSubmission.page', {discussionId: $j('#ryhDiscussionId').val(), body: $j('#ryhAnswer').val()},
+            $j.post(GS.uri.Uri.getBaseHostname() + '/community/raiseYourHandSubmission.page', {discussionId: $j('#ryhDiscussionId').val(), body: $j('#ryhAnswer').val()},
                     function(data) {
                         if (data.status == 'ok') {
                             var newRyhPost = $j('#recentAnswerTemplate').clone();

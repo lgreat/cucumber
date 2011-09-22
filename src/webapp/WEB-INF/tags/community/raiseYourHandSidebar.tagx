@@ -73,7 +73,7 @@
                 return false;
             }
 
-            jQuery.post('/community/raiseYourHandSubmission.page', {discussionId: jQuery('#ryhDiscussionId').val(), body: jQuery('#ryhAnswer').val()},
+            jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/raiseYourHandSubmission.page', {discussionId: jQuery('#ryhDiscussionId').val(), body: jQuery('#ryhAnswer').val()},
                     function(data) {
                         if (data.status == 'ok') {
                             var newRyhPost = jQuery('#recentAnswerTemplate').clone();
