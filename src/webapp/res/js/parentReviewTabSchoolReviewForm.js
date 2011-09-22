@@ -8,7 +8,7 @@ jQuery(function() {
 
     GS.form.ParentReviewTabSchoolReviewForm.prototype = new GS.form.SchoolReviewForm("frmPRModule");
     GS.form.ParentReviewTabSchoolReviewForm.prototype.postReview = function(email, callerFormId) {
-        var url = '/school/review/postReview.page';
+        var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page';
         
         //When this method is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email !== undefined && email !== '') {

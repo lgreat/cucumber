@@ -488,7 +488,7 @@ GS.form.SchoolReviewForm = function(id) {
 
     this.postReview = function(email, callerFormId) {
         jQuery('#parentReviewFormSubmit').attr('disabled','disabled');
-        var url = '/school/review/postReview.page';
+        var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page';
         //When this is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email != undefined && email != '') {
             this.email.getElement().val(email);

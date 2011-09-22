@@ -226,7 +226,7 @@ function GS_postSchoolReview(email, callerFormId) {
     //clear submit fields
 
     // then post the review
-    jQuery.post('/school/review/postReview.page', jQuery('#addParentReviewForm').serialize(), function(data) {
+    jQuery.post(GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page', jQuery('#addParentReviewForm').serialize(), function(data) {
         if (data.showHover != undefined && data.showHover == "validateEmailSchoolReview") {
             subCookie.setObjectProperty("site_pref", "showHover", "validateEmailSchoolReview", 3);
         } else {
