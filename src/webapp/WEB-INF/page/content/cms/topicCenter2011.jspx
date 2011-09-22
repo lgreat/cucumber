@@ -159,9 +159,9 @@
                     </ul>
                 </c:when>
                 <c:otherwise>
-                    <div class="gradient-3">
-                        <h6 class="bottom">Featured Articles</h6>
-                    </div>
+                    <dl class="gradient-3">
+                        <dd class="bottom">Featured Articles</dd>
+                    </dl>
                 </c:otherwise>
             </c:choose>
 
