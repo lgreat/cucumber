@@ -79,7 +79,7 @@
             <div class="ryh-manage">
                 <span class="text1bold">Manage &amp;quot;Raise Your Hand&amp;quot;</span><br/>
 
-                <div class="clear smallText1">
+                <div class="smallText1">
                     <span class="smallText1bold">Status</span>:
 
                     <c:choose>
