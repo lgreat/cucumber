@@ -1,5 +1,6 @@
 package gs.web.compare;
 
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.school.review.Review;
@@ -100,6 +101,10 @@ public class ComparedSchoolBaseStruct {
 
     public State getState() {
         return getSchool().getDatabaseState();
+    }
+
+    public LevelCode getLevelCode() {
+        return getSchool().getLevelCode();
     }
 
     // used by overview, map
