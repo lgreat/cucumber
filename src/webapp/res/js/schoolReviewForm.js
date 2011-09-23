@@ -53,7 +53,7 @@ GS.review.Validator = function() {
     };
 
     this.validateEmail = function(email, successCallback, failCallback) {
-        var url = '/community/registrationValidationAjax.page';
+        var url = GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page';
 
         if (email !== undefined && email.length > 0 && successCallback !== undefined) {
             jQuery.getJSON(url, {email: email, field: 'email'},

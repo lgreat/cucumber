@@ -630,7 +630,7 @@ GSType.hover.JoinHover = function() {
 
         params += "&grades=" + newsletters.join(',');
 
-        jQuery.getJSON("/community/registrationValidationAjax.page", params, GS.chooserHover_checkValidationResponse);
+        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, GS.chooserHover_checkValidationResponse);
         return false;
     };
 };
