@@ -291,9 +291,14 @@
                     <cssSourceDir>/res/css</cssSourceDir>
                     <cssSourceFiles>
                         <param>0_reset/reset.css</param>
-                        <param>1_960gs/grids.css</param>
+                        <param>1_grids/grid_960.css</param>
+                        <param>1_grids/grid_oocss.css</param>
                         <param>2_text/typography.css</param>
                         <param>3_iconSprite/iconSprite.css</param>
+                        <param>5_buttons/buttons.css</param>
+                        <param>6_spacing/spacing.css</param>
+                        <param>8_css3_rounded_corners/rounded_corners.css</param>
+                        <param>9_css3_linear_gradients/linear_gradients.css</param>
                         <param>gs2010_styles.css</param>
                         <param>jquery.autocomplete.css</param>
                     </cssSourceFiles>

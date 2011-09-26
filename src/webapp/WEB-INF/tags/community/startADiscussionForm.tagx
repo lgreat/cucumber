@@ -147,11 +147,11 @@
         <div id="sd_header">
 
             <!-- DONE-RANDALL - do use sprite image -->
-            <span class="sprite community-fc6-lg fltlft mrgtop_2 mrgrt_5"><!-- icon --></span>
+            <span class="sprite community-fc6-lg vert-align-mid"><!-- icon --></span>
             <c:set var="titleStyle" value="title2-d61"/>
             <c:set var="guidelineStyle" value="smallAlertText"/>
 
-            <h2 class="${titleStyle} fltlft">
+            <h2 class="${titleStyle}">
                 <c:choose>
                     <c:when test="${discussionId gt 0}">
                         Edit conversation

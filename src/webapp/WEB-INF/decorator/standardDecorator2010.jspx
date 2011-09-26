@@ -81,15 +81,25 @@
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
             <gsml:url var="resetcss" value="/res/css/0_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="grid960css" value="/res/css/1_960gs/grids.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="grid960" value="/res/css/1_grids/grid_960.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gridoocss" value="/res/css/1_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="textcss" value="/res/css/2_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="iconspritecss" value="/res/css/3_iconSprite/iconSprite.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="buttons" value="/res/css/5_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="spacing" value="/res/css/6_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="roundedcorners" value="/res/css/8_css3_rounded_corners/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="lineargradients" value="/res/css/9_css3_linear_gradients/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${resetcss}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${grid960css}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${grid960}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${textcss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${iconspritecss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
         </c:when>

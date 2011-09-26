@@ -1,0 +1,335 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+Theme Name: Spacing
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+
+ * Spacing classes
+ * Should be used to modify the default spacing between objects (not between nodes of the same object)
+ * Please use judiciously.
+ * You want to be using defaults most of the time, these are exceptions!
+
+ * Spacing read me
+ * p,m = padding,margin
+ * a,t,r,b,l,h,v = all,top,right,bottom,left,horizontal,vertical
+ * s,m,l,n = small(5px),medium(10px),large(20px),none(0px)
+
+.
+
+[Table Of Contents]
+
+*/
+
+.ptn,.pvn,.pan{padding-top: 0}
+.pts,.pvs,.pas{padding-top:5px}
+.ptm,.pvm,.pam{padding-top:10px}
+.ptl,.pvl,.pal{padding-top:20px}
+.prn,.phn,.pan{padding-right: 0}
+.prs,.phs,.pas{padding-right:5px}
+.prm,.phm,.pam{padding-right:10px}
+.prl,.phl,.pal{padding-right:20px}
+.pbn,.pvn,.pan{padding-bottom: 0}
+.pbs,.pvs,.pas{padding-bottom:5px}
+.pbm,.pvm,.pam{padding-bottom:10px}
+.pbl,.pvl,.pal{padding-bottom:20px}
+.pln,.phn,.pan{padding-left: 0}
+.pls,.phs,.pas{padding-left:5px}
+.plm,.phm,.pam{padding-left:10px}
+.pll,.phl,.pal{padding-left:20px}
+.mtn,.mvn,.man{margin-top: 0}
+.mts,.mvs,.mas{margin-top:5px}
+.mtm,.mvm,.mam{margin-top:10px}
+.mtl,.mvl,.mal{margin-top:20px}
+.mrn,.mhn,.man{margin-right: 0}
+.mrs,.mhs,.mas{margin-right:5px}
+.mrm,.mhm,.mam{margin-right:10px}
+.mrl,.mhl,.mal{margin-right:20px}
+.mbn,.mvn,.man{margin-bottom: 0}
+.mbs,.mvs,.mas{margin-bottom:5px}
+.mbm,.mvm,.mam{margin-bottom:10px}
+.mbl,.mvl,.mal{margin-bottom:20px}
+.mln,.mhn,.man{margin-left: 0}
+.mls,.mhs,.mas{margin-left:5px}
+.mlm,.mhm,.mam{margin-left:10px}
+.mll,.mhl,.mal{margin-left:20px}
+
+.mha{margin-right: auto;margin-left: auto;}
+
+.text-align-rt {
+    text-align: right;
+}
+
+.text-align-lft {
+    text-align: left;
+}
+
+.text-align-cen {
+    text-align: center;
+}
+
+.vert-align-mid {
+    vertical-align: middle;
+}
+
+.wsnw{
+    white-space:nowrap;
+}
+
+.fltlft {
+/* this class can be used to float an element left in your page */
+    float: left;
+}
+
+.fltrt {
+/* this class can be used to float an element right in your page. */
+/* The floated element must precede the element it should be next to on the page. */
+    float: right;
+}
+
+.clearfloat {
+/* this class should be placed on a <div> or <br> element and */
+/* should be the final element before the close of a container */
+/* that should fully contain a float */
+    clear: both;
+    height: 0;
+    font-size: 1px;
+    line-height: 0;
+}
+
+/* the following "spacer" classes should NOT be set on the <br/> element */
+.spacer_5 {
+    clear: both;
+    height: 5px;
+    font-size: 1px;
+    line-height: 5px;
+}
+
+.spacer_7 {
+    clear: both;
+    height: 7px;
+    font-size: 1px;
+    line-height: 7px;
+}
+
+.spacer_8 {
+    clear: both;
+    height: 8px;
+    font-size: 1px;
+    line-height: 8px;
+}
+
+.spacer_10 {
+    clear: both;
+    height: 10px;
+    font-size: 1px;
+    line-height: 10px;
+}
+
+.spacer_15 {
+    clear: both;
+    height: 15px;
+    font-size: 1px;
+    line-height: 15px;
+}
+
+.spacer_20 {
+    clear: both;
+    height: 20px;
+    font-size: 1px;
+    line-height: 20px;
+}
+
+.spacer_25 {
+    clear: both;
+    height: 25px;
+    font-size: 1px;
+    line-height: 25px;
+}
+
+.spacer_30 {
+    clear: both;
+    height: 30px;
+    font-size: 1px;
+    line-height: 30px;
+}
+
+.spacer_40 {
+    clear: both;
+    height: 40px;
+    font-size: 1px;
+    line-height: 40px;
+}
+
+.spacer_60 {
+    clear: both;
+    height: 60px;
+    font-size: 1px;
+    line-height: 60px;
+}
+
+.infoBox1 {
+    display: block;
+    padding: 0;
+    line-height: 18px;
+}
+
+.infoBox1 .sprite {
+    vertical-align: middle;
+}
+
+.lineheight-19 {
+    line-height: 19px;
+}
+
+.lineheight-20 {
+    line-height: 20px;
+}
+
+.lineheight-25 {
+    line-height: 25px;
+}
+
+.lineheight-32 {
+    line-height: 32px;
+}
+
+.lineheight-35 {
+    line-height: 35px;
+}
+
+.dotted {
+    border: 1px dotted #333;
+}
+
+.border-c6 {
+    border: 1px solid #c6c6c6;
+}
+
+.brdbtm_dotted {
+    border-bottom: 1px dotted #999;
+}
+
+.brdtop_dotted {
+    border-top: 1px dotted #999;
+}
+
+.brdbtm_med_dotted-999 {
+    border-bottom: medium dotted #999;
+}
+
+.brdbtm_solid {
+    border-bottom: 1px solid #999;
+}
+
+.brdbtm_solid-c6c6c6 {
+    border-bottom: 1px solid #c6c6c6;
+}
+
+.brdbtm_dotted-fff {
+    border-bottom: 1px dotted #fff;
+}
+
+.brdbtm_dotted-ccc {
+    border-bottom: 2px dotted #ccc;
+}
+
+.brdrt_dotted {
+    border-right: 1px dotted #999;
+}
+
+.brdlft_dotted {
+    border-left: 1px dotted #999;
+}
+
+.brdrt-solid {
+    border-right: 1px solid #999;
+}
+
+.brdlft-solid {
+    border-left: 1px solid #999;
+}
+
+.mrgtop_2 {
+    margin-top: 2px;
+}
+
+.mrgtop_5 {
+    margin-top: 5px;
+}
+
+.mrgtop_15 {
+    margin-top: 15px;
+}
+
+.mrgrt_5 {
+    margin-right: 5px;
+}
+
+.mrgrt_10 {
+    margin-right: 10px;
+}
+
+.mrglft_neg5 {
+    margin-left: -5px;
+}
+
+.padtop_7 {
+    padding-top: 7px;
+}
+
+.padrt_5 {
+    padding-right: 5px;
+}
+
+.padrt_10 {
+    padding-right: 10px;
+}
+
+.padrt_15 {
+    padding-right: 15px;
+}
+
+.padbtm_20 {
+    padding-bottom: 20px;
+}
+
+.padbtm_120m {
+    padding-bottom: 1.2em;
+}
+
+.padlft_5 {
+    padding-left: 5px;
+}
+
+.padlft_10 {
+    padding-left: 10px;
+}
+
+.padlft_20 {
+    padding-left: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
+.iblock {
+    display: inline-block;
+}
+
+.top_5 {
+    top: 5px;
+}

@@ -1,0 +1,63 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+Theme Name: CSS3 Rounded Corners
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+.rnd3 {
+/* this class is used to round the corners on infinite carousel buttons */
+    -moz-border-radius: 3px; /* FF1+ */
+    -webkit-border-radius: 3px; /* Saf3+, Chrome */
+    border-radius: 3px; /* Opera 10.5, IE 9 */
+}
+
+.rnd4 {
+/* this class should be used to round the corners on 25 px height buttons */
+    -moz-border-radius: 4px; /* FF1+ */
+    -webkit-border-radius: 4px; /* Saf3+, Chrome */
+    border-radius: 4px; /* Opera 10.5, IE 9 */
+}
+
+.rnd6 {
+/* this class should be used to round the corner on 35 px height buttons */
+    -moz-border-radius: 6px; /* FF1+ */
+    -webkit-border-radius: 6px; /* Saf3+, Chrome */
+    border-radius: 6px; /* Opera 10.5, IE 9 */
+}
+
+.rnd8 {
+    -moz-border-radius: 8px; /* FF1+ */
+    -webkit-border-radius: 8px; /* Saf3+, Chrome */
+    border-radius: 8px; /* Opera 10.5, IE 9 */
+}
+
+.rnd-top-3 {
+/* for firefox and webkit browsers */
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    }
+
+.rnd-top-4 {
+/* for firefox and webkit browsers  */
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+    }
+
+.rnd-top-6 {
+/* for firefox and webkit browsers  */
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    }
