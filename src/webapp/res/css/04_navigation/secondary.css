@@ -1,0 +1,192 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+Theme Name: Secondary Navigation - Drop Down Menus
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* Menu Container */
+
+#secondary {
+    z-index: 3;
+    position: relative;
+    list-style: none;
+    width: 968px;
+    margin: 0 auto;
+    height: 32px;
+    padding: 0;
+    zoom:1;
+
+    /* Background color */
+    background-color: white;
+
+    /* Borders */
+    border: 1px solid #157daa;
+    border-bottom:0 none transparent;
+}
+
+/* Menu Items */
+
+#secondary .menuItem {
+    float: left;
+    display: block;
+    text-align: center;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+#secondary .menuItem:hover {
+    /* Background color */
+    background-color: #06b;
+    outline:0;
+}
+
+#secondary .menuItem .menuItemAnchorText {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 32px;
+    color: #06b;
+    display: block;
+    outline: 0;
+    text-decoration: none;
+    padding: 0 13px;
+}
+
+#secondary li:first-child .menuItemAnchorText{
+    color: #333;
+}
+
+#secondary .menuItem .home {
+    padding: 0;
+}
+
+#secondary .menuItem:hover .menuItemAnchorText {
+    color: white;
+}
+
+.ie7 #secondary .menuItem .i-sn-arrow {
+    vertical-align: middle;
+}
+
+/* Drop Down Containers */
+
+#secondary .dropdown_1,
+#secondary .dropdown_2,
+#secondary .dropdown_3,
+#secondary .dropdown_4,
+#secondary .dropdown_5,
+#secondary .dropdown_6 {
+    margin: 0 auto 1px;
+    position: absolute;
+    left: -999em; /* Hides the drop down */
+    text-align: left;
+    padding: 0;
+    border: 1px solid #06b;
+
+    /* Background */
+    background: white;
+}
+
+#secondary .dropdown_1,
+#secondary .dropdown_2,
+#secondary .dropdown_3,
+#secondary .dropdown_4,
+#secondary .dropdown_5,
+#secondary .dropdown_6 {
+    min-width: 100%;
+}
+
+.ie7 #secondary .dropdown_1{min-width:0;width:245px;}
+.ie7 #secondary .dropdown_2{min-width:0;width:174px;}
+.ie7 #secondary .dropdown_3{min-width:0;width:131px;}
+.ie7 #secondary .dropdown_4{min-width:0;width:157px;}
+.ie7 #secondary .dropdown_5{min-width:0;width:145px;}
+.ie7 #secondary .dropdown_6{min-width:0;width:188px;}
+
+#secondary .menuItem:hover .dropdown_2,
+#secondary .menuItem:hover .dropdown_3,
+#secondary .menuItem:hover .dropdown_4,
+#secondary .menuItem:hover .dropdown_5,
+#secondary .menuItem:hover .dropdown_6 {
+    left: auto;
+    top: auto;
+}
+
+#secondary .menuItem:hover .dropdown_1{
+    left:-1px;
+    top: auto;
+}
+
+#secondary .menuItem:hover .dropdown_align_right {
+    left: auto;
+    right: 0;
+    top: auto;
+}
+
+/* Drop Down Menu Content Stylings */
+
+#secondary .dropdown_1 .subMenuItem,
+#secondary .dropdown_2 .subMenuItem,
+#secondary .dropdown_3 .subMenuItem,
+#secondary .dropdown_4 .subMenuItem,
+#secondary .dropdown_5 .subMenuItem,
+#secondary .dropdown_6 .subMenuItem {
+    display: block;
+    text-align: center;
+    /*position:relative;*/
+    padding: 0;
+    margin: 0;
+    border: none;
+    text-align: left;
+    width: 100%;
+}
+
+#secondary .dropdown_1 .subMenuItem:hover,
+#secondary .dropdown_2 .subMenuItem:hover,
+#secondary .dropdown_3 .subMenuItem:hover,
+#secondary .dropdown_4 .subMenuItem:hover,
+#secondary .dropdown_5 .subMenuItem:hover,
+#secondary .dropdown_6 .subMenuItem:hover {
+    /* Background color */
+    background-color: #06b;
+    outline:0;
+}
+
+#secondary .dropdown_1 .subMenuItem .subMenuItemAnchorText,
+#secondary .dropdown_2 .subMenuItem .subMenuItemAnchorText,
+#secondary .dropdown_3 .subMenuItem .subMenuItemAnchorText,
+#secondary .dropdown_4 .subMenuItem .subMenuItemAnchorText,
+#secondary .dropdown_5 .subMenuItem .subMenuItemAnchorText,
+#secondary .dropdown_6 .subMenuItem .subMenuItemAnchorText {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 32px;
+    color: #06b;
+    display: block;
+    outline: 0;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0 13px;
+}
+
+#secondary .dropdown_1 .subMenuItem:hover .subMenuItemAnchorText,
+#secondary .dropdown_2 .subMenuItem:hover .subMenuItemAnchorText,
+#secondary .dropdown_3 .subMenuItem:hover .subMenuItemAnchorText,
+#secondary .dropdown_4 .subMenuItem:hover .subMenuItemAnchorText,
+#secondary .dropdown_5 .subMenuItem:hover .subMenuItemAnchorText,
+#secondary .dropdown_6 .subMenuItem:hover .subMenuItemAnchorText {
+    color: white;
+}
+
+/* END secondary navigation spacing */
