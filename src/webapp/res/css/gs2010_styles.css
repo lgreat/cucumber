@@ -1359,11 +1359,11 @@ body.ie8 .btsSupplyListsTag .arrow {
     width: 160px;
     text-align: center;
     height: 180px;
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 .mediumThumbnail p {
-    padding: 5px 0px;
+    padding: 5px 0;
 }
 
 .mediumThumbnail img {
@@ -1377,8 +1377,8 @@ body.ie8 .btsSupplyListsTag .arrow {
 .black_overlay {
     display: none;
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: black;
@@ -1420,7 +1420,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 #photo-gallery-schoolname {
     float: left;
-    margin: 11px 0px 10px 10px;
+    margin: 11px 0 10px 10px;
     font-family: Georgia;
     font-size: 19px;
     color: #333;
@@ -1485,7 +1485,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 #photo-gallery-close {
     float: right;
-    margin: 10px 10px 0px 0px;
+    margin: 10px 10px 0 0;
 }
 
 #photo-gallery-content {
@@ -1556,7 +1556,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     cursor: pointer;
     color: #0066BB;
     border: 1px solid #D1E9F3;
-    border-bottom: 0px;
+    border-bottom: 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
@@ -1574,7 +1574,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#F3F9FD', EndColorStr = '#E1F1F7'); /* IE6–IE9 */
     color: #2b2b2b;
     border: 1px solid #BBDDED;
-    border-bottom: 0px;
+    border-bottom: 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     -moz-border-radius-topleft: 5px;
@@ -1658,9 +1658,9 @@ body.ie8 .btsSupplyListsTag .arrow {
     filter: alpha(opacity = 0);
     position: absolute;
     z-index: 5;
-    border: 0px;
+    border: 0;
     color:  #0066bb;
-    padding: 0px;
+    padding: 0;
     /*margin-top: 8px;*/
     width: 104px;
     left: 3px;
@@ -1670,8 +1670,8 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 #byNameTabBody option {
     width:78px;
-    padding: 3px 0px 3px 8px;
-    border: 0px;
+    padding: 3px 0 3px 8px;
+    border: 0;
 }
 
 #byNameTabBody .dropDownArrow{
@@ -1702,7 +1702,7 @@ body.ie8 .btsSupplyListsTag .arrow {
     padding: 3px 9px 3px 8px;
     background-color: white;
     border: 1px solid #A5D3E7;
-    border-right: 0px;
+    border-right: 0;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
     -moz-border-radius-topleft: 3px;
@@ -3960,7 +3960,7 @@ a:hover .dropDown-default {
 
 #fc-bigArrow-f4891d {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     top: 0;
@@ -3976,7 +3976,7 @@ a:hover .dropDown-default {
 
 #fc-bigArrow-fc6 {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     top: 14px;
@@ -4093,7 +4093,7 @@ a:hover .dropDown-default {
 
 .ryh-downArrow-fff {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     bottom: -20px;
@@ -4107,7 +4107,7 @@ a:hover .dropDown-default {
 
 .ryh-replyArrow-fff {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     top: 22px;
@@ -4122,7 +4122,7 @@ a:hover .dropDown-default {
 
 .ryh-replyArrow-fff-onTC {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     top: 16px;
@@ -5423,7 +5423,7 @@ a:hover .dropDown-default {
 
 .startAConversationModule #sac-downArrow-fc6 {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     bottom: -20px;
@@ -6179,7 +6179,7 @@ p.noMatch {
 
 .searchNav li.active b.db_pointDn {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 7px solid white;
     border-top: 10px solid #d61;
@@ -7377,18 +7377,18 @@ body.hover #startADiscussion .submit {
 }
 
 #js-esp-info-popup b.esp-popup-arrow-outline {
-    font-size: 0px;
-    line-height: 0%;
-    width: 0px;
+    font-size: 0;
+    line-height: 0;
+    width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-right: 15px solid #999;
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
 }
 
 #js-esp-info-popup b.esp-popup-arrow {
-    font-size: 0px;
-    line-height: 0%;
-    width: 0px;
+    font-size: 0;
+    line-height: 0;
+    width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-right: 15px solid white;
     border-bottom: 11px solid rgba(255, 255, 255, 0.0);
@@ -7397,9 +7397,9 @@ body.hover #startADiscussion .submit {
 body.ie6 #js-esp-info-popup b.esp-popup-arrow-outline,
 body.ie7 #js-esp-info-popup b.esp-popup-arrow-outline,
 body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
-    font-size: 0px;
-    line-height: 0%;
-    width: 0px;
+    font-size: 0;
+    line-height: 0;
+    width: 0;
     border-top: 11px solid white;
     border-right: 15px solid #c6c6c6;
     border-bottom: 11px solid white;
@@ -7408,9 +7408,9 @@ body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
 .ie6 #js-esp-info-popup b.esp-popup-arrow,
 .ie7 #js-esp-info-popup b.esp-popup-arrow,
 .ie8 #js-esp-info-popup b.esp-popup-arrow {
-    font-size: 0px;
-    line-height: 0%;
-    width: 0px;
+    font-size: 0;
+    line-height: 0;
+    width: 0;
     border-top: 11px dashed black;
     border-right: 15px solid white;
     border-bottom: 11px dashed black;
@@ -8423,7 +8423,7 @@ ul.schoolList div p {
 
 #savvysource span.arrow-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 5px solid rgba(255, 255, 255, 0.0);
     border-left: 9px solid #f90;
@@ -8434,7 +8434,7 @@ body.ie6 #savvysource span.arrow-right,
 body.ie7 #savvysource span.arrow-right,
 body.ie8 #savvysource span.arrow-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 5px dashed black;
     border-left: 9px solid #f90;
@@ -10059,7 +10059,7 @@ Extends button-1 by changing:
 /* skin top arrow */
 span.arrow-outline-top {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-bottom: 15px solid #ccc;
@@ -10068,7 +10068,7 @@ span.arrow-outline-top {
 
 span.arrow-top {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-bottom: 15px solid white;
@@ -10079,7 +10079,7 @@ body.ie6 span.arrow-outline-top,
 body.ie7 span.arrow-outline-top,
 body.ie8 span.arrow-outline-top {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px solid white;
     border-bottom: 15px solid #ccc;
@@ -10090,7 +10090,7 @@ body.ie6 span.arrow-top,
 body.ie7 span.arrow-top,
 body.ie8 span.arrow-top {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px dashed black;
     border-bottom: 15px solid white;
@@ -10100,7 +10100,7 @@ body.ie8 span.arrow-top {
 /* skin right arrow */
 /*span.arrow-outline-shadow-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-left: 15px solid #333;
@@ -10110,7 +10110,7 @@ body.ie8 span.arrow-top {
 
 span.arrow-outline-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-left: 15px solid #ccc;
@@ -10119,7 +10119,7 @@ span.arrow-outline-right {
 
 span.arrow-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-left: 15px solid white;
@@ -10130,7 +10130,7 @@ span.arrow-right {
 body.ie7 span.arrow-outline-shadow-right,
 body.ie8 span.arrow-outline-shadow-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px dashed white;
     border-left: 15px solid #333;
@@ -10142,7 +10142,7 @@ body.ie6 span.arrow-outline-right,
 body.ie7 span.arrow-outline-right,
 body.ie8 span.arrow-outline-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px solid white;
     border-left: 15px solid #ccc;
@@ -10153,7 +10153,7 @@ body.ie6 span.arrow-right,
 body.ie7 span.arrow-right,
 body.ie8 span.arrow-right {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px dashed black;
     border-left: 15px solid white;
@@ -10163,7 +10163,7 @@ body.ie8 span.arrow-right {
 /* skin bottom arrow */
 span.arrow-outline-bottom {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-top: 15px solid #ccc;
@@ -10172,7 +10172,7 @@ span.arrow-outline-bottom {
 
 span.arrow-bottom {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px solid rgba(255, 255, 255, 0.0);
     border-top: 15px solid white;
@@ -10183,7 +10183,7 @@ body.ie6 span.arrow-outline-bottom,
 body.ie7 span.arrow-outline-bottom,
 body.ie8 span.arrow-outline-bottom {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px solid white;
     border-top: 15px solid #ccc;
@@ -10194,7 +10194,7 @@ body.ie6 span.arrow-bottom,
 body.ie7 span.arrow-bottom,
 body.ie8 span.arrow-bottom {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-left: 11px dashed black;
     border-top: 15px solid white;
@@ -10204,7 +10204,7 @@ body.ie8 span.arrow-bottom {
 /* skin left arrow */
 /*span.arrow-outline-shadow-left {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-right: 15px solid #333;
@@ -10214,7 +10214,7 @@ body.ie8 span.arrow-bottom {
 
 span.arrow-outline-left {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-right: 15px solid #ccc;
@@ -10223,7 +10223,7 @@ span.arrow-outline-left {
 
 span.arrow-left {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px solid rgba(255, 255, 255, 0.0);
     border-right: 15px solid white;
@@ -10234,7 +10234,7 @@ span.arrow-left {
 body.ie7 span.arrow-outline-shadow-left,
 body.ie8 span.arrow-outline-shadow-left {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px dashed white;
     border-right: 15px solid #333;
@@ -10246,7 +10246,7 @@ body.ie6 span.arrow-outline-left,
 body.ie7 span.arrow-outline-left,
 body.ie8 span.arrow-outline-left {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px dashed white;
     border-right: 15px solid #ccc;
@@ -10257,7 +10257,7 @@ body.ie6 span.arrow-left,
 body.ie7 span.arrow-left,
 body.ie8 span.arrow-left {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 11px dashed black;
     border-right: 15px solid white;

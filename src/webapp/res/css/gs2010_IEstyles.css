@@ -647,7 +647,7 @@ body.ie6 #carousel .next-position {
 
 #fc-bigArrow-f4891d {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     top: 0;
@@ -662,7 +662,7 @@ body.ie6 #carousel .next-position {
 
 #fc-bigArrow-fc6 {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     position: absolute;
     top: 14px;
@@ -864,9 +864,9 @@ body.ie7 #previewDiscussionDialog .db_discuss, body.ie6 #previewDiscussionDialog
 }
 
 body.ie7 #previewDiscussionDialog .db_discussContainer div.db_pointLeft, body.ie6 #previewDiscussionDialog .db_discussContainer div.db_pointLeft {
-    font-size: 0px;
-    line-height: 0%;
-    width: 0px;
+    font-size: 0;
+    line-height: 0;
+    width: 0;
     border-top: 7px solid #ebebeb;
     border-right: 10px solid white;
     border-bottom: 7px solid #ebebeb;
