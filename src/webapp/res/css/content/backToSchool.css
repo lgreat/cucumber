@@ -41,7 +41,7 @@ ul.bulleted {
 #contentTop {
     margin: 0 0 4px 0;
     position: relative;
-    top: 0px;
+    top: 0;
 }
 
 #contentTop .sponsor {
@@ -88,7 +88,7 @@ ul.bulleted {
 
 .manila .hr {
 	margin: 5px 0 10px;
-	height: 0px;
+	height: 0;
 	border: none;
 	border-top: 1px solid #c1bdbd;
 	border-bottom: 1px solid #fff;
@@ -232,7 +232,7 @@ ul.bulleted {
     margin-top: 10px;
     padding-top: 10px;
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
 }
 
 .greenBox {

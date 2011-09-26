@@ -106,7 +106,7 @@ div#smartContent {
 }
 
 #engagedBottomImg {
-    left: 0px;
+    left: 0;
     position: absolute;
     bottom:0;
 }
@@ -143,7 +143,7 @@ div#smartContent {
 
 #shopSmartSponsor{
     position:absolute;
-    left:0px;
+    left: 0;
     top:154px;
 }
 

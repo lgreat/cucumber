@@ -88,25 +88,25 @@
 #articleCommunityWidget ul li.advice {
     background-image: url(/res/img/community/small_icons/advice.gif);
     background-position: 0 2px;
-    #background-position: 0px 1px;
+    #background-position: 0 1px;
 }
 
 #articleCommunityWidget ul li.question {
     background-image: url(/res/img/community/small_icons/question.gif);
-    background-position: 0 0px;
+    background-position: 0 0;
     #background-position: 0 -1px;
 }
 
 #articleCommunityWidget ul li.groups {
     background-image: url(/res/img/community/small_icons/groups.gif);
-    background-position: 0 0px;
-    #background-position: 0 0px;
+    background-position: 0 0;
+    #background-position: 0 0;
 }
 
 #articleCommunityWidget ul li.discussion {
     background-image: url(/res/img/community/small_icons/discussion.gif);
-    background-position: 0 0px;
-    #background-position: 0 0px;
+    background-position: 0 0;
+    #background-position: 0 0;
 }
 
 
@@ -135,7 +135,7 @@
 
 #resultstabs li.tableft {
 	background-image: url(/res/img/tabs/lefttab_off.gif);
-    _background-position: 0px 2px;
+    _background-position: 0 2px;
 	padding-left: 5px;
 	padding-right: 3px;
 }

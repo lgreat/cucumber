@@ -27,7 +27,7 @@ table.bpsv th {
     background-color: #e5e5e5;
     padding: 4px;
     border: 1px dotted #000;
-    border-width: 0px 0 0px 0;
+    border-width: 0;
 }
 
 table.bpsv td {

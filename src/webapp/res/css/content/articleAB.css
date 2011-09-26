@@ -4,11 +4,11 @@ div#more-about-alt{
     background-position: 0.5ex 0.5ex;
     float:right;
     width:312px;
-    margin:0px 0px 5px 0px;
+    margin: 0 0 5px 0;
     border-style: solid;
     border-width:1px;
     border-color: #BBBBBB;
-    padding: 3em 10px 0px 0px;
+    padding: 3em 10px 0 0;
 }
 div#more-about-alt li,
 div#more-about-alt a:link,
@@ -33,12 +33,12 @@ p#destination-insert-before-node {
 
 div#more-about-alt ul{
    margin-bottom: 0;
-   padding-bottom: 0px;
+   padding-bottom: 0;
 }
 div#more-about-alt li{
     list-style:none;
     padding: 0 0 2px 1.0em;
-    margin-left: 0px;
+    margin-left: 0;
     background-image: url("/res/img/content/article/altmoreonbullet.gif");
     background-repeat: no-repeat;
     background-position: 0 .6ex;

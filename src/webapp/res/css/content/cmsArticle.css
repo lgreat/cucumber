@@ -234,7 +234,7 @@ ul.horizontal li {
 #cmsArticleText h4 {
     font: bold 16px/1.0 Arial, Arial, Helvetica, sans-serif;
     color: #444;
-    margin: 0px;
+    margin: 0;
 }
 
 #cmsArticleText p {

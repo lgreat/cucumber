@@ -280,9 +280,9 @@ body.ie6 .module {
 }
 
 .db_discussContainer b.db_pointLeft{
-	font-size: 0px;
+	font-size: 0;
 	line-height: 0%;
-	width: 0px;
+	width: 0;
 	border-top: 7px solid white;
 	border-right: 10px solid #ebebeb;
 	border-bottom: 7px solid white;
@@ -302,36 +302,36 @@ body.ie6 .module {
 }
 
 .db_replyContainer b.db_replyPointLeft{
-	font-size: 0px;
+	font-size: 0;
 	line-height: 0%;
-	width: 0px;
+	width: 0;
 	border-top: 7px solid white;
 	border-right: 10px solid #c6c6c6;
 	border-bottom: 7px solid white;
 }
 
 .db_replyContainer b.db_replyPointLeftTop {
-	font-size: 0px;
+	font-size: 0;
 	line-height: 0%;
-	width: 0px;
+	width: 0;
 	border-top:7px solid rgba(255, 255, 255, 0.0);
 	border-right: 10px solid white;
 	border-bottom:7px solid rgba(255, 255, 255, 0.0);
 }
 
 body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.db_replyPointLeft, body.ie8 .db_replyContainer b.db_replyPointLeft {
-	font-size: 0px;
+	font-size: 0;
 	line-height: 0%;
-	width: 0px;
+	width: 0;
 	border-top: 7px solid white;
 	border-right: 10px solid #c6c6c6;
 	border-bottom: 7px solid white;
 }
 
 .ie6 .db_replyContainer b.db_replyPointLeftTop, .ie7 .db_replyContainer b.db_replyPointLeftTop, .ie8 .db_replyContainer b.db_replyPointLeftTop {
-	font-size: 0px;
+	font-size: 0;
 	line-height: 0%;
-	width: 0px;
+	width: 0;
 	border-top:7px dashed black;
 	border-right: 10px solid white;
 	border-bottom:7px dashed black;
@@ -357,9 +357,9 @@ body.ie6 .db_replyContainer b.db_replyPointLeft, body.ie7 .db_replyContainer b.d
 }
 
 .db_postReplyContainer b.db_postPointLeft{
-	font-size: 0px;
+	font-size: 0;
 	line-height: 0%;
-	width: 0px;
+	width: 0;
 	border-top: 7px solid white;
 	border-right: 10px solid #fc6;
 	border-bottom: 7px solid white;
@@ -714,7 +714,7 @@ body.ie6 .activity li span.icon  {
     display: inline;
 }
 .pagination span.ellipsis {
-    padding: 0 0px;
+    padding: 0 0;
     background: #ffffff;
 }
 #contentGS .pagination span a {
@@ -767,9 +767,9 @@ p.noMatch {
     font-size: 12px;
 }
 .searchNav li.active b.db_pointDn {
-	font-size: 0px;
+	font-size: 0;
 	line-height: 0%;
-	width: 0px;
+	width: 0;
 	border-left: 7px solid white;
 	border-top: 10px solid #d61;
 	border-right: 7px solid white;
