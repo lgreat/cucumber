@@ -388,12 +388,12 @@ width:auto;
 
 .brainDrainImage{
     position:absolute;
-    left:0px;
+    left: 0;
 }
 
 .valuableOffersImage{
     position:absolute;
-    top:0px;
+    top: 0;
     left:-91px;
 }
 
@@ -427,14 +427,13 @@ width:auto;
 }
 
 #outline ul li#freeNewsletters input{
-    width:0px;
     position:relative;
     margin-top:15px;
     margin-right:8px;
     width: 15px;
     height: 15px;
     top: 3px;
-    left:0px;
+    left: 0;
     position: relative;
 }
 
@@ -501,7 +500,7 @@ width:auto;
 
 #outline ul li#termsError{
     height:10px;
-    padding:0px;
+    padding: 0;
 }
 
 
@@ -530,7 +529,7 @@ width:auto;
 #outline ul li#terms input {
     width: 15px;
     top: 3px;
-    left:0px;
+    left: 0;
     position: relative;
 }
 

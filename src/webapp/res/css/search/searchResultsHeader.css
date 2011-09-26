@@ -1,7 +1,7 @@
 #searchResultsHeader {
     width: 542px;
     margin-top:5px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     background: url(/res/img/search/tab_off_bg.gif) repeat;
     line-height:22px;
 }
@@ -10,15 +10,15 @@
     float:left;
     background: url(/res/img/search/tab_divider.gif) no-repeat;
     width:3px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     height:22px;
 }
 #searchResultsHeader div.firstspace {
     float:left;
-    width:0px;
-    margin: 0px;
-    padding: 0px;
+    width: 0;
+    margin: 0;
+    padding: 0;
     height:22px;
 }
 #searchResultsHeader div.active{
@@ -49,26 +49,26 @@
 
 #schoolResultsHeader {
     width: 205px;
-    margin-right: 0px;
-    margin-left: 0px
+    margin-right: 0;
+    margin-left: 0
 }
 
 #schoolResultsHeader.wideSchoolResultsHeader{
     width: 371px;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 #ratingsHeader {
     width: 163px;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 #reviewsHeader {
     float:left;
     width: 151px;
-    margin-right: 0px;
+    margin-right: 0;
     padding-left: 12px;
     text-align : left;
 }

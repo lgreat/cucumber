@@ -62,7 +62,7 @@
 }
 
 #contentGS .left ul {
-    margin: 5px 0px 6px 0px;
+    margin: 5px 0 6px 0;
 }
 
 #contentGS .left ul li {
@@ -70,7 +70,7 @@
     font-weight: bolder;
     background-color: #eee;
     color: #999;
-    padding: 0px 12px 4px 16px;
+    padding: 0 12px 4px 16px;
     margin-bottom: 1px;
     background-image: url(/res/img/content/countdownToCollege/dotOnEee.gif );
     background-repeat: no-repeat;
@@ -86,7 +86,7 @@
 
 #contentGS .left ul li.noBullet2Ln img {
     float: left;
-    padding: 12px 2px 8px 0px;
+    padding: 12px 2px 8px 0;
 }
 
 #contentGS .left ul li.noBullet2Ln a {
@@ -107,7 +107,7 @@
 }
 
 #contentGS .left ul li.bookPicks img {
-      padding: 3px 3px 3px 0px;
+      padding: 3px 3px 3px 0;
 }
 
 #contentGS .left ul li.seeMore {
@@ -263,7 +263,7 @@ h3#freeNewsletters {
 
 .textAd {
 	margin-top: 20px;
-    padding: 0px 20px 0px 20px;
+    padding: 0 20px 0 20px;
 	width: 259px;
 }
 
@@ -332,8 +332,8 @@ ul.pdf li {
 
 /* text ads */
 #BelowFold_Top_300x125, #BelowFold_Bottom_300x125  {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
     width:300px;
 
    

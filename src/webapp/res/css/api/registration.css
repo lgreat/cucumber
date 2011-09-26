@@ -154,11 +154,11 @@ div#finder_promo .blurb {
 #schoolFinderPromo{
 	background-image: url(/res/img/api/mapwidget_map.gif);
 	background-repeat: no-repeat;
-	background-position: 0px 30px;
+	background-position: 0 30px;
 
     width: 260px;
     height: 152px;
-    padding: 4px 0px;
+    padding: 4px 0;
 }
 
 #schoolFinderPromo h2{
@@ -181,7 +181,7 @@ div#finder_promo .blurb {
 }
 
 .box .inner .contentRight {
-	padding: 5px 0px 1px;
+	padding: 5px 0 1px;
 	background-color: #fff;
     /*position: relative;*/
 }
@@ -195,7 +195,7 @@ td.getStarted{
 .getStarted1{
     background-image: url(/res/img/api/step1.gif);
     background-repeat: no-repeat;
-    background-position: 0px 0px;
+    background-position: 0 0;
     padding-left:20px;
     height:35px;
     margin-top:10px;
@@ -204,7 +204,7 @@ td.getStarted{
 .getStarted2{
     background-image: url(/res/img/api/step2.gif);
     background-repeat: no-repeat;
-    background-position: 0px 0px;
+    background-position: 0 0;
     padding-left:20px;
     height:35px;
 }
@@ -212,7 +212,7 @@ td.getStarted{
 .getStarted3{
     background-image: url(/res/img/api/step3.gif);
     background-repeat: no-repeat;
-    background-position: 0px 0px;
+    background-position: 0 0;
     padding-left:20px;
 }
 

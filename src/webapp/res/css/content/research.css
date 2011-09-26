@@ -38,7 +38,7 @@ a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS
 	font-size: 12px;
 	line-height: 15px;
 	text-decoration: underline;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 a.underline:link, a.underline:visited, a.underline:hover {
@@ -46,7 +46,7 @@ a.underline:link, a.underline:visited, a.underline:hover {
 	font-size: 12px;
 	line-height: 15px;
 	text-decoration: underline;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 a.dearParentsLink:link, a.dearParentsLink:visited {
@@ -54,7 +54,7 @@ a.dearParentsLink:link, a.dearParentsLink:visited {
 	font-size: 12px;
 	line-height: 15px;
 	text-decoration: none;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .bold {
@@ -70,7 +70,7 @@ a.arrowLink:link, a.arrowLink:visited, a.arrowLink:active {
 	font-size: 12px;
 	line-height: 15px;
 	text-decoration: none;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 a.arrowLink:hover {
@@ -78,22 +78,22 @@ a.arrowLink:hover {
 }
 
 .greyBar {
-	padding: 0px 0px 17px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 17px 0;
+	margin: 0 0 0 0;
 	border-top: 1px solid #cccccc;
 }
 
 .findBox {
 	border: 3px solid #66CCCC;
-	border-top: 0px;
-	padding: 24px 11px 0px 23px;
+	border-top: 0;
+	padding: 24px 11px 0 23px;
     font-family: "Century Gothic", Arial, sans-serif;
 	font-size: 13px;
 	line-height: 17px;
 	color: #777777;
 	width: 283px;
 	height: 299px;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 .btest {
     width: 611px;
@@ -114,43 +114,43 @@ a.arrowLink:hover {
 }
 .compareBox {
 	border: 3px solid #66CCCC;
-	border-top: 0px;
-	padding: 24px 11px 0px 23px;
+	border-top: 0;
+	padding: 24px 11px 0 23px;
     font-family: "Century Gothic", Arial, sans-serif;
 	font-size: 13px;
 	line-height: 17px;
 	color: #777777;
 	width: 282px;
 	height: 299px;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .middleBottom {
-	padding: 0px 0px 8px 0px;
+	padding: 0 0 8px 0;
 	text-align: right;
 }
 
 .middleTitle {
-	padding: 10px 0px 7px 26px;
+	padding: 10px 0 7px 26px;
     font-family: "Century Gothic", Arial, sans-serif;
 	font-size: 20px;
 	line-height: 17px;
 	color: #ffffff;
 	background-color: #66CCCC;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .yellowArrow {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 	background-image: url(/res/img/content/research/yellow_arrow.gif);
 	background-repeat: no-repeat;
-	background-position: 7px 0px;
+	background-position: 7px 0;
 	width: 22px;
 }
 
 .goBlue {
-	padding: 5px 0px 0px 0px;
+	padding: 5px 0 0 0;
 	background-image: url(/res/img/content/research/go_blue.gif);
 	background-repeat: no-repeat;
 	width: 39px;
@@ -158,26 +158,26 @@ a.arrowLink:hover {
 }
 
 .districtText {
-	padding: 5px 0px 0px 15px;
+	padding: 5px 0 0 15px;
     font-family: Arial, Arial, sans-serif;
 	font-size: 11px;
 	line-height: 10px;
 	color: #777777;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .districtText2 {
-	padding: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
     font-family: Arial, Arial, sans-serif;
 	font-size: 11px;
 	line-height: 14px;
 	color: #777777;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .zip {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 	width: 50px;
 	font-size: 11px;
 }
@@ -234,7 +234,7 @@ h2.topSchoolsHeader {
 #schoolFinderPromo{
 	background-image: url(/res/img/promo/schoolfinder/mapwidget_rcpage_mapbg.gif);
 	background-repeat: no-repeat;
-	background-position: 0px 0px;
+	background-position: 0 0;
     float: left;
     width: 247px;
     height: 152px;
@@ -266,7 +266,7 @@ h2.topSchoolsHeader {
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
-	letter-spacing: 0px;
+	letter-spacing: 0;
     width:258px;
     float:left;
     height:75px;
@@ -277,7 +277,7 @@ h2.topSchoolsHeader {
      width:135px;
      float:left;
      height:23px;
-     padding: 14px 0px 0px 0px;
+     padding: 14px 0 0 0;
  }
 
 /*.contentGS ul.fourStepsUlstyle {
@@ -393,36 +393,36 @@ h2.topSchoolsHeader {
 }
 
 select.school {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 	width: 100px;
 	font-size: 11px;
 }
 
 input.district {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 	width: 127px;
 	font-size: 11px;
 }
 
 .goInterstitial .state {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 	width: 102px;
 	font-size: 11px;
 }
 
 .state2 {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 	width: 43px;
 	font-size: 11px;
 }
 
 .miles {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
 	width: 40px;
 	font-size: 11px;
 }
@@ -431,13 +431,13 @@ input.district {
 	border: 1px solid #A7A6AA;
 	width: 97px;
 	height: 17px;
-	margin: 0px 3px 0px 0px;
+	margin: 0 3px 0 0;
 	vertical-align: top;
 }
 
 .blueDash {
-	padding: 0px 0px 0px 0px;
-    margin-top: 0px;
+	padding: 0 0 0 0;
+    margin-top: 0;
 	margin-right: 10px;
     height: 21px;
     background-image: url(/res/img/content/research/blue_dash.gif);
@@ -461,26 +461,26 @@ input.district {
 
 .greyDash {
     text-indent:-50em;
-    padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+    padding: 0 0 0 0;
+	margin: 0 0 0 0;
     background-image: url(/res/img/content/research/grey_dash2.gif);
 	background-repeat: repeat-x;
 	height: 15px;
 }
 
 .blueTitleText {
-	padding: 0px 0px 6px 0px;
+	padding: 0 0 6px 0;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 18px;
 	color: #55BBCC;
 	font-weight: bold;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .k12Success {
 	display: block;
-	padding: 3px 27px 0px 13px;
+	padding: 3px 27px 0 13px;
 	width: 154px;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
@@ -491,23 +491,23 @@ input.district {
 
 .k12SuccessImg {
     text-indent:-50em;
-	padding: 0px 0px 16px 0px;
+	padding: 0 0 16px 0;
 	background-image: url(/res/img/content/research/img_pencil.jpg);
 	background-repeat: no-repeat;
-	margin: 0px auto 0px auto;
+	margin: 0 auto 0 auto;
 	width: 94px;
 	height: 94px;
 }
 
 .k12SuccessSearch {
-    padding: 5px 0px 10px 12px;
+    padding: 5px 0 10px 12px;
 	width: 182px;
 	font-family: "Century Gothic", Arial, sans-serif;
 	font-size: 14px;
 	line-height: 18px;
 	color: #FFFFFF;
 	background-color: #66CCCC;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .k12SuccessSearchBold {
@@ -515,54 +515,54 @@ input.district {
 }
 
 .k12SuccessSearchKeyword {
-	padding: 7px 0px 0px 0px;
+	padding: 7px 0 0 0;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 18px;
 }
 
 .askExperts {
-	padding: 2px 14px 0px 15px;
+	padding: 2px 14px 0 15px;
 	width: 117px;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
-	letter-spacing:0px;
+	letter-spacing: 0;
 }
 
 .askExpertsImg {
     text-indent:-100em;
-	padding: 0px 0px 21px 0px;
+	padding: 0 0 21px 0;
 	background-image: url(/res/img/content/research/img_books.jpg);
 	background-repeat: no-repeat;
-	margin: 0px auto 0px auto;
+	margin: 0 auto 0 auto;
 	width: 65px;
 	height: 86px;
 }
 
 .billsBlog {
-	padding: 2px 12px 0px 15px;
+	padding: 2px 12px 0 15px;
 	width: 119px;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
-	letter-spacing:0px;
+	letter-spacing: 0;
 }
 
 .billsBlogImg {
     text-indent:-150em;
-    padding: 0px 0px 21px 0px;
+    padding: 0 0 21px 0;
 	background-image: url(/res/img/content/research/img_bills_blog.jpg);
 	background-repeat: no-repeat;
-	margin: 0px auto 0px auto;
+	margin: 0 auto 0 auto;
 	width: 65px;
 	height: 86px;
 }
 
 div.healthyKids {
-	padding: 2px 19px 0px 11px;
+	padding: 2px 19px 0 11px;
 	width: 115px;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
@@ -573,44 +573,44 @@ div.healthyKids {
 
 .healthyKidsImg {
     text-indent:-150em;
-    padding: 0px 0px 21px 0px;
+    padding: 0 0 21px 0;
 	background-image: url(/res/img/content/research/blueberries.jpg);
 	background-repeat: no-repeat;
-	margin: 0px auto 0px auto;
+	margin: 0 auto 0 auto;
 	width: 65px;
 	height: 86px;
 }
 
 .editorsPick {
-	padding: 0px 43px 0px 13px;
+	padding: 0 43px 0 13px;
 	width: 145px;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
-	letter-spacing:0px;
+	letter-spacing: 0;
 }
 
 .editorsPickImg {
     text-indent:-150em;
-    padding: 0px 0px 18px 0px;
+    padding: 0 0 18px 0;
 	background-image: url(/res/img/content/research/mmyers.jpg);
 	background-repeat: no-repeat;
-	margin: 0px 15px 0px auto;
+	margin: 0 15px 0 auto;
 	width: 94px;
 	height: 94px;
 }
 
 #contentGS .arrowUL {
-	padding: 7px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 7px 0 0 0;
+	margin: 0 0 0 0;
 	list-style: none;
 	color: #666666;
 	font-weight: normal;
 }
 
 #contentGS .arrowLI {
-	padding: 0px 0px 2px 10px;
+	padding: 0 0 2px 10px;
 	background-image: url(/res/img/content/research/pink_arrow.gif);
 	background-repeat: no-repeat;
 	background-position: 0ex .5ex;
@@ -624,14 +624,14 @@ div.healthyKids {
     text-indent:-1000em;
     background-image: url(/res/img/content/research/lrosenthal.jpg);
 	background-repeat: no-repeat;
-	background-position: 2px; 2px; 2px; 2px;
+	background-position: 2px 2px;
 	width: 53px;
 	height: 69px;
 }
 
 .lisaDashedBorder {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 7px 3px 0px;
+	padding: 0 0 0 0;
+	margin: 0 7px 3px 0;
 	border: 1px dashed #DDEEEE;
     width: 59px;
 }
@@ -640,30 +640,30 @@ div.healthyKids {
     text-indent:-50em;
     background-image: url(/res/img/content/research/lisa_signature.gif);
     background-repeat: no-repeat;
-    margin:10px 0px 10px 0px;
+    margin:10px 0 10px 0;
     width: 147px;
 	height: 26px;
 }
 
 .printName {
-	padding: 0px 0px 0px 2px;
+	padding: 0 0 0 2px;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
 	font-weight: bold;
 	color: #55BBCC;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .italicTitle {
-	padding: 0px 0px 0px 2px;
+	padding: 0 0 0 2px;
 	font-family: Arial, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
 	font-weight: bold;
 	font-style: italic;
 	color: #55BBCC;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .border10 {
@@ -673,7 +673,7 @@ div.healthyKids {
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 	width: 172px;
 }
 
@@ -687,15 +687,15 @@ td#leftBox {
 }
 
 #contentGS .dearParentsUL {
-	padding: 4px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
+	padding: 4px 0 0 0;
+	margin: 0 0 0 0;
 	list-style: none;
 	color: #666666;
 	font-weight: normal;
 }
 
 #contentGS .dearParentsLI {
-	padding: 1px 0px 8px 10px;
+	padding: 1px 0 8px 10px;
 	background-image: url(/res/img/content/research/grey_dot.gif);
 	background-repeat: no-repeat;
 	background-position: 0ex .8ex;
@@ -704,32 +704,32 @@ td#leftBox {
 }
 
 h1#stateSchools {
-	padding: 9px 0px 9px 17px;
+	padding: 9px 0 9px 17px;
     font-family: Arial, Arial, sans-serif;
 	font-size: 19px;
 	line-height: 17px;
 	color: #55BBCC;
 	background-color: #DDEEEE;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 h2.updatesTitle {
-	padding: 0px 0px 0px 0px;
+	padding: 0 0 0 0;
     font-family: Arial, Arial, sans-serif;
 	font-size: 13px;
 	line-height: 19px;
 	color: #FFBB00;
 	font-weight: bold;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .updatesText {
-	padding: 10px 0px 0px 0px;
+	padding: 10px 0 0 0;
     font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
-	letter-spacing: 0px;
+	letter-spacing: 0;
 }
 
 .updatesText a:link, .updatesText a:visited, .updatesText a:hover, .updatesText a:active {

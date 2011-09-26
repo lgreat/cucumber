@@ -131,7 +131,7 @@
 
 #previewDiscussionDialog .db_discussContainer b.db_pointLeft {
     font-size: 0;
-    line-height: 0%;
+    line-height: 0;
     width: 0;
     border-top: 7px solid #ebebeb;
     border-right: 7px solid white;

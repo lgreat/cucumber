@@ -70,7 +70,7 @@
                 <div class="yui-u">
                     <div style="margin-left:80px;position:relative">
                         <h2>States</h2>
-                        <input id="selectAllStates" style="position:absolute;left:80px;top:0px" type="button"
+                        <input id="selectAllStates" style="position:absolute;left:80px;top:0;" type="button"
                                value="Select All"/>
                         <script type="text/javascript">
                             $.fn.reverse = [].reverse;

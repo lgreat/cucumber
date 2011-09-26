@@ -67,7 +67,7 @@
         }
 
         .research .compareEntry p {
-            margin: 0px 0 10px 0;
+            margin: 0 0 10px 0;
         }
     </style>
     <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>

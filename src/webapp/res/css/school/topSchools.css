@@ -1,6 +1,6 @@
 #pageWrapper .title-box .inner {
     background-image: url( /res/img/library/top-box-top.png );
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 .title-box {
@@ -274,7 +274,7 @@
 
 #pageWrapper #finding-the-right-school #find-and-compare-schools {
     margin: 20px -10px 0 -10px;
-    padding: 5px 0px 10px 10px;
+    padding: 5px 0 10px 10px;
 }
 
 #pageWrapper #finding-the-right-school #find-and-compare-schools {

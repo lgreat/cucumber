@@ -227,7 +227,7 @@ div.resultSchool {
 }
 
 #toc ul li {
-    padding: 0px 12px 7px 16px;
+    padding: 0 12px 7px 16px;
 }
 #toc ul li.inactive {
     background-image: url( "/res/img/bullet/pinkarrow.gif");

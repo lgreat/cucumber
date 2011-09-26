@@ -345,7 +345,7 @@
     margin: 0;
     border-right: 1px dashed #99CC67;
     border-left: 1px dashed #99CC67;
-    padding: 0px 14px;
+    padding: 0 14px;
 }
 
 #topnav table#nav td a:link,
@@ -500,7 +500,7 @@
 }
 
 #topnav ul#topnav_menusubnav li.nav_menu, #myAccountMenu li.nav_menu {
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 /* Intentionally exclude #myAccountMenu because we want it to keep the same font characteristics as other links near it */

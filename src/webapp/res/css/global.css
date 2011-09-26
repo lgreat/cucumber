@@ -33,7 +33,7 @@ img {
     color: #00F;
 }
 .contentGS a.pad {
-    padding: 0px 10px 0px 0px;
+    padding: 0 10px 0 0;
     display: inline;
 }
 
@@ -67,7 +67,7 @@ img {
 }
 
 .lpad {
-    padding: 0px 0px 0px 10px;
+    padding: 0 0 0 10px;
     display: inline;
 }
 
@@ -85,7 +85,7 @@ img {
 
 .bottomalign {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
 }
 
 div.verticalcontainer {
@@ -114,7 +114,7 @@ div.verticalcontainer {
 
 /*  Structure */
 #main {
-    margin: 5px 0px 0px 0px;
+    margin: 5px 0 0 0;
 }
 
 #main td.col1 {
@@ -138,7 +138,7 @@ table.bottomcontent tr td img {
 
 /*  Search */
 .browselinks {
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0 10px 0;
     width: 100%;
     font-size: small;
 }
@@ -161,13 +161,13 @@ h2.segmentheader {
     color: #900;
     font-size: small; /* 1em; */
     font-weight: bold;
-    padding: 0px 0px 3px 0px;
+    padding: 0 0 3px 0;
 }
 
 h3.tagline, h4.tagline {
     color: #eb7a31;
     font-weight: normal;
-    padding: 0px 0px 5px 0px;
+    padding: 0 0 5px 0;
 }
 
 h3.tagline {
@@ -177,13 +177,13 @@ h3.tagline {
 h3.tagline {
     color: #eb7a31;
     font-weight: normal;
-    padding: 0px 0px 5px 0px;
+    padding: 0 0 5px 0;
 }
 
 /*  Lists */
 .result_title {
     font-size: small;
-    padding: 0px 20px 0px 0px;
+    padding: 0 20px 0 0;
     font-weight: bold;
 }
 
@@ -192,12 +192,12 @@ h3.tagline {
 }
 
 .topCities ul li {
-    padding: 0px 20px 1px 0px;
+    padding: 0 20px 1px 0;
 }
 
 /* Forms */
 input.checkbox {
-    margin: 0px 0px -2px 0px;
+    margin: 0 0 -2px 0;
 }
 
 .smallform .textfield {
@@ -205,13 +205,13 @@ input.checkbox {
     color: #999;
     width: 75%;
     height: 1.8em;
-    padding: 1px 0px 0px 3px;
+    padding: 1px 0 0 3px;
 }
 
 .smallform input.btn {
     width: 21px;
     height: 18px;
-    margin: 0px 0px -3px 6px;
+    margin: 0 0 -3px 6px;
     padding: 0;
     border: 0;
 }
@@ -224,7 +224,7 @@ input.checkbox {
 input.btn {
     width: 28px;
     height: 24px;
-    margin: 0px 0px 0px 6px;
+    margin: 0 0 0 6px;
     padding: 0;
     border: 0;
 }
@@ -239,7 +239,7 @@ input.btn {
     padding: 0;
     font-size: small;
     font-weight: bold;
-    margin: 10px 0px 6px 0px;
+    margin: 10px 0 6px 0;
     color: #036;
 }
 
@@ -250,7 +250,7 @@ input.btn {
 
 /* PROMOS */
 .featuredarticle {
-    margin: 0px 0px 0px 5px;
+    margin: 0 0 0 5px;
 }
 
 .featuredarticle b {
@@ -276,7 +276,7 @@ div.featuredarticle h3 {
 .featuredarticles li,
     .hotTopics li {
     padding: 3px 5px 3px 12px;
-    margin: 2px 0px 3px 0px;
+    margin: 2px 0 3px 0;
     background: url( /res/img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
 }
 
@@ -291,11 +291,11 @@ div.featuredarticle h3 {
     color: #036;
     font-weight: bold;
     padding: 3px 20px 3px 0;
-    margin: 2px 0px 3px 0px;
+    margin: 2px 0 3px 0;
 }
 
 .promoNewsletterMedium {
-    margin: 0px 0px 0px 2px;
+    margin: 0 0 0 2px;
 }
 
 .promoNewsletterMedium img {
@@ -316,26 +316,26 @@ div.featuredarticle h3 {
 .promoNewsletterMedium h3 {
     font-size: small; /* 1em; */
     font-weight: bold;
-    margin: 10px 0px 5px 0px;
+    margin: 10px 0 5px 0;
     padding-top: 0.75em;
 }
 
 div.promoNewsletterMedium .smallform {
-    margin: 10px 0px 2px 0px;
+    margin: 10px 0 2px 0;
     white-space: nowrap;
 }
 
 .promoNewsletterMedium h4 {
     font-size: small;
     font-weight: bold;
-    margin: 10px 0px 6px 0px;
+    margin: 10px 0 6px 0;
     color: #036;
 
 }
 
 h3.membershipTagline {
     color: #F60;
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0 10px 0;
     font-weight: bold;
 }
 
@@ -383,18 +383,18 @@ table.promoMembershipMedium h5 {
 }
 
 .promoArticles ul.promo {
-    margin: 10px 0px 15px 10px;
+    margin: 10px 0 15px 10px;
 }
 
 .promoArticles ul.promo li {
-    margin: 0px 0px 0px 20px;
+    margin: 0 0 0 20px;
     list-style-type: disc;
     line-height: 1.4em;
 }
 
 .schoolchoicecenter {
     padding-top: 7px;
-    margin: 0px 0px 5px 5px;
+    margin: 0 0 5px 5px;
     height: 180px; /* image is 170px */
 }
 
@@ -402,18 +402,18 @@ table.promoMembershipMedium h5 {
     font-size: large;
     font-weight: bold;
     color: #036;
-    padding: 0px 5px .3em 10px;
+    padding: 0 5px .3em 10px;
     white-space: nowrap;
 }
 
 .schoolchoicecenter ul {
-    padding: 0px 5px .3em 10px;
+    padding: 0 5px .3em 10px;
 }
 
 .schoolchoicecenter li,
     div.about li {
-    padding: 3px 5px 3px 0px;
-    margin: 2px 0px 3px 0px;
+    padding: 3px 5px 3px 0;
+    margin: 2px 0 3px 0;
     background-repeat: no-repeat;
     background-position: 2px 7px;
 }
@@ -469,7 +469,7 @@ div.about li {
     border-bottom: 1px solid #ccc;
     font-weight: bold;
     font-size: medium;
-    margin: 0em 0 1em 0;
+    margin: 0 0 1em 0;
 }
 
 .twoColumnLayout .contentGS h4{
@@ -494,11 +494,11 @@ div.about li {
 }
 
     .singleTextOnlyColumnLayout .contentGS p {
-    margin: 0em 0 1.2em 0;
+    margin: 0 0 1.2em 0;
         line-height:1.8;
 }
 .twoColumnLayout .contentGS p {
-    margin: 0em 0 1.2em 0;
+    margin: 0 0 1.2em 0;
 }
 
 .twoColumnLayout .contentGS ul,
@@ -508,7 +508,7 @@ div.about li {
 
 .singleTextOnlyColumnLayout .contentGS ul li {
     padding: 3px 5px 3px 12px;
-    margin: 2px 0px 3px 0px;
+    margin: 2px 0 3px 0;
     background: url( /res/img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
 }
 
@@ -538,7 +538,7 @@ div.contentGS div.promoNewsletterSmall h2 {
 }
 
 div.contentGS div.promoNewsletterSmall h3 {
-    margin: 10px 0px 2px 0px;
+    margin: 10px 0 2px 0;
     font-size: small;
     color: #000 !important;
     border-bottom: 0;
@@ -546,7 +546,7 @@ div.contentGS div.promoNewsletterSmall h3 {
 }
 
 div.contentGS div.promoNewsletterSmall .smallform {
-    margin: 10px 0px 2px 0px;
+    margin: 10px 0 2px 0;
     white-space: nowrap;
 }
 
@@ -562,9 +562,9 @@ div.contentGS div.promoNewsletterSmall .smallform {
 }
 
 div#printandemail {
-    font-family:arial;
+    font-family:Arial, sans-serif;
     font-size: 11px;
-    padding:0px 7px 6px 8px;
+    padding: 0 7px 6px 8px;
     text-align:right;
 }
     div#printandemail a:hover {
@@ -579,7 +579,7 @@ div.showall{}
     .wrap0  { width:75%; background:white; }
     body, body.unframed #pageGS {
         background-color:#fff;
-        border: 0px solid   #fff;
+        border: 0 solid   #fff;
     }
     .showall{width: 100%; margin: 0; float: none;}
 }

@@ -6,11 +6,11 @@ function setStars(rating) {
     document.getElementById('q_4').style.background="url(/res/img/school/review/emptyStars.gif) no-repeat 0 0;";
     document.getElementById('q_5').style.background="url(/res/img/school/review/emptyStars.gif) no-repeat 0 0;";
 
-    if (rating > 0) { document.getElementById('q_1').style.background="url(/res/img/school/review/stars.gif) no-repeat 0px -23px;"; }
-    if (rating > 1) { document.getElementById('q_2').style.background="url(/res/img/school/review/stars.gif) no-repeat 0px -23px;"; }
-    if (rating > 2) { document.getElementById('q_3').style.background="url(/res/img/school/review/stars.gif) no-repeat 0px -23px;"; }
-    if (rating > 3) { document.getElementById('q_4').style.background="url(/res/img/school/review/stars.gif) no-repeat 0px -23px;"; }
-    if (rating > 4) { document.getElementById('q_5').style.background="url(/res/img/school/review/stars.gif) no-repeat 0px -23px;"; }
+    if (rating > 0) { document.getElementById('q_1').style.background="url(/res/img/school/review/stars.gif) no-repeat 0 -23px;"; }
+    if (rating > 1) { document.getElementById('q_2').style.background="url(/res/img/school/review/stars.gif) no-repeat 0 -23px;"; }
+    if (rating > 2) { document.getElementById('q_3').style.background="url(/res/img/school/review/stars.gif) no-repeat 0 -23px;"; }
+    if (rating > 3) { document.getElementById('q_4').style.background="url(/res/img/school/review/stars.gif) no-repeat 0 -23px;"; }
+    if (rating > 4) { document.getElementById('q_5').style.background="url(/res/img/school/review/stars.gif) no-repeat 0 -23px;"; }
     return false;
 }
 

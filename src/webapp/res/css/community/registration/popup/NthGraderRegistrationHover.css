@@ -15,7 +15,7 @@ form#reg1Form ol li{
 }
 
 form#reg1Form ol li input {
-    left: 0px;
+    left: 0;
     position:static;
     width:15px;
     margin-right:8px;

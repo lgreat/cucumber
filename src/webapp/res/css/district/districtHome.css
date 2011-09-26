@@ -86,7 +86,7 @@ body{
 }
 
 #intro h2{
-    font: 700 25px Arial, sans-serif;
+    font: bold 25px Arial, sans-serif;
     color:white;
     padding-left:12px;
     padding-top:5px;
@@ -110,7 +110,7 @@ ul.horizontalList li{
 div.introText ul.horizontalList li.borderedLink{
     border-left: 1px solid #666666;
     padding: 0 0 0 10px;
-    margin: 0 0px 0 10px;
+    margin: 0 0 0 10px;
 }
 
 #intro div.introText a{
@@ -133,16 +133,16 @@ div#keyTermDefinitions{
 /* BEGIN Quickfacts*/
 
 #ratingAndInfo{
-    margin:10px 0px 10px 0px;
+    margin:10px 0 10px 0;
 }
 #rating{
     width:40%;
-    padding:0px 7px 0px 0px;    
+    padding: 0 7px 0 0;
 }
 
 #address{
     width:30%;
-    padding:0px 7px 0px 11px;
+    padding: 0 7px 0 11px;
     line-height:15px;
     border-left: 1px solid #DDDDDD;
 }
@@ -153,7 +153,7 @@ div#keyTermDefinitions{
 
 #info{
     width:30%;
-    padding:0px 0px 0px 12px;
+    padding: 0 0 0 12px;
     line-height:15px;
     border-left: 1px solid #DDDDDD;
     vertical-align:top;
@@ -180,7 +180,7 @@ div#keyTermDefinitions{
 
 #ad_top #AboveFold_300x250{
     border-top:none;
-    margin-top:0px;
+    margin-top: 0;
     padding-top:10px;
 }
 
@@ -205,7 +205,6 @@ div.recentParentReviews {
 div.recentParentReviewsContent {
     margin: 0;
     padding: 0 5px;
-}
 }
 
 div.recentParentReviews table tr td {
@@ -386,7 +385,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
 
 /* BEGIN breadcrumbs */
 #breadcrumbs {
-	margin: 0px 0 10px 1px;
+	margin: 0 0 10px 1px;
 }
 
 #breadcrumbs ul li {
@@ -474,7 +473,7 @@ form#compareSchoolsForm input#compareSchoolsFormSubmit {
     width: 274px;
 }
 #contentRight #tpsTable th  {
-    font: 700 10px/1 Arial, sans-serif;
+    font: bold 10px/1 Arial, sans-serif;
     color: #999;
     padding: 7px 0 4px;
     text-align: right;
@@ -503,7 +502,7 @@ body.ie #contentRight #tpsTable, body.ie #contentRight #nbTable {
     border-bottom: 1px dotted #ddd;
     padding: 7px 0 4px;
     vertical-align: top;
-    font: 700 13px Arial, sans-serif;
+    font: bold 13px Arial, sans-serif;
     background: #fff;
 }
 #contentRight #tpsTable .rating {
@@ -528,7 +527,7 @@ body.ie #contentRight #tpsTable, body.ie #contentRight #nbTable {
     background-image:url(/res/img/district/district_page_rightbox_sides.gif);
     background-position:left top;
     background-repeat:repeat-y;
-    padding:2px 0px 6px 16px;
+    padding:2px 0 6px 16px;
 }
 
 /* END top rated schools */

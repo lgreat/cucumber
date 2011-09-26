@@ -105,26 +105,26 @@ div#editorialBar ul.contentList {
 }
 
 .topSchoolTextDiv, .topSchoolLinkDiv {
-	padding: 10px 0px 0px 0px;
+	padding: 10px 0 0 0;
     font-family: Arial, Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
 	color: #666666;
-	letter-spacing: 0px;
+	letter-spacing: 0;
     font-weight:normal;
 }
 
   .topSchoolLinkDiv {
-    padding: 5px 0px 0px 0px;
+    padding: 5px 0 0 0;
     clear:both;
 }
 
 * + html .topSchoolLinkDiv {
-    padding: 3px 0px 0px 0px;
+    padding: 3px 0 0 0;
 }
 
 * html .topSchoolLinkDiv {
-    padding: 3px 0px 0px 0px;
+    padding: 3px 0 0 0;
 }
 .contentGS .topSchoolLinkDiv a:link, .contentGS .topSchoolLinkDiv a:visited, .contentGS .topSchoolLinkDiv a:active {
     font-weight:normal;

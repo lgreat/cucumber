@@ -27,7 +27,7 @@
 
 #editorialFooter .k12Success {
     display: block;
-    padding: 3px 12px 0px 13px;
+    padding: 3px 12px 0 13px;
     width: 169px;
     font-family: Arial, Arial, sans-serif;
     font-size: 12px;
@@ -38,23 +38,23 @@
 
 #editorialFooter .k12SuccessImg {
     text-indent: -50em;
-    padding: 0px 0px 12px 0px;
+    padding: 0 0 12px 0;
     background-image: url(/res/img/content/research/reading.jpg);
     background-repeat: no-repeat;
-    margin: 0px auto 0px auto;
+    margin: 0 auto 0 auto;
     width: 94px;
     height: 94px;
 }
 
 #editorialFooter .k12SuccessSearch {
-    padding: 5px 0px 10px 12px;
+    padding: 5px 0 10px 12px;
     width: 182px;
     font-family: "Century Gothic", Arial, sans-serif;
     font-size: 14px;
     line-height: 18px;
     color: #FFFFFF;
     background-color: #66CCCC;
-    letter-spacing: 0px;
+    letter-spacing: 0;
 }
 
 #editorialFooter .k12SuccessSearchBold {
@@ -62,14 +62,14 @@
 }
 
 #editorialFooter .k12SuccessSearchKeyword {
-    padding: 7px 0px 0px 0px;
+    padding: 7px 0 0 0;
     font-family: Arial, Arial, sans-serif;
     font-size: 12px;
     line-height: 18px;
 }
 
 #editorialFooter .middleBottom {
-    padding: 5px 0px 8px 0px;
+    padding: 5px 0 8px 0;
     text-align: right;
 }
 
@@ -87,51 +87,51 @@
 }
 
 #editorialFooter .blueTitleText {
-    padding: 0px 0px 6px 0px;
+    padding: 0 0 6px 0;
     font-family: Arial, Arial, sans-serif;
     font-size: 14px;
     line-height: 18px;
     color: #55BBCC;
     font-weight: bold;
-    letter-spacing: 0px;
+    letter-spacing: 0;
 }
 
 #editorialFooter .askExperts {
-    padding: 2px 9px 0px 15px;
+    padding: 2px 9px 0 15px;
     width: 122px;
     font-family: Arial, Arial, sans-serif;
     font-size: 12px;
     line-height: 17px;
     color: #666666;
-    letter-spacing: 0px;
+    letter-spacing: 0;
 }
 
 #editorialFooter .askExpertsImg {
     text-indent: -100em;
-    padding: 0px 0px 21px 0px;
+    padding: 0 0 21px 0;
     background-image: url(/res/img/content/research/askexperts.jpg);
     background-repeat: no-repeat;
-    margin: 0px auto 0px auto;
+    margin: 0 auto 0 auto;
     width: 65px;
     height: 86px;
 }
 
 #editorialFooter .billsBlog {
-    padding: 2px 7px 0px 10px;
+    padding: 2px 7px 0 10px;
     width: 129px;
     font-family: Arial, Arial, sans-serif;
     font-size: 12px;
     line-height: 17px;
     color: #666666;
-    letter-spacing: 0px;
+    letter-spacing: 0;
 }
 
 #editorialFooter .billsBlogImg {
     text-indent: -150em;
-    padding: 0px 0px 21px 0px;
+    padding: 0 0 21px 0;
     background-image: url(/res/img/content/research/bill.jpg);
     background-repeat: no-repeat;
-    margin: 0px auto 0px auto;
+    margin: 0 auto 0 auto;
     width: 65px;
     height: 85px;
 }
@@ -142,7 +142,7 @@
 }
 
 #editorialFooter div.tutoring {
-    padding: 2px 16px 0px 9px;
+    padding: 2px 16px 0 9px;
     width: 120px;
     font-family: Arial, Arial, sans-serif;
     font-size: 12px;
@@ -157,52 +157,52 @@
 
 #editorialFooter .healthyKidsImg {
     text-indent: -150em;
-    padding: 0px 0px 21px 0px;
+    padding: 0 0 21px 0;
     background-image: url(/res/img/content/research/blueberries.jpg);
     background-repeat: no-repeat;
-    margin: 0px auto 0px auto;
+    margin: 0 auto 0 auto;
     width: 65px;
     height: 86px;
 }
 
 #editorialFooter .tutoringImg {
     text-indent: -150em;
-    padding: 0px 0px 21px 0px;
+    padding: 0 0 21px 0;
     background-image: url(/res/img/content/research/tutor_small.jpg);
     background-repeat: no-repeat;
-    margin: 0px auto 0px auto;
+    margin: 0 auto 0 auto;
     width: 65px;
     height: 86px;
 }
 
 #editorialFooter .editorsPick {
-    padding: 0px 43px 0px 13px;
+    padding: 0 43px 0 13px;
     width: 145px;
     font-family: Arial, Arial, sans-serif;
     font-size: 12px;
     line-height: 17px;
     color: #666666;
-    letter-spacing: 0px;
+    letter-spacing: 0;
 }
 
 #editorialFooter .editorsPickImg {
     text-indent: -150em;
-    padding: 0px 0px 13px 0px;
+    padding: 0 0 13px 0;
     background-image: url(/res/img/content/research/mmyers.jpg);
     background-repeat: no-repeat;
-    margin: 0px 15px 0px auto;
+    margin: 0 15px 0 auto;
     width: 94px;
     height: 94px;
 }
 
 .blogImg {
     text-indent: -150em;
-    padding: 0px 0px 13px 0px;
+    padding: 0 0 13px 0;
     background-repeat: no-repeat;
-    margin: 0px 15px 0px auto;
+    margin: 0 15px 0 auto;
     width: 94px;
     height: 94px;
-    text-indent: 0px;
+    text-indent: 0;
 }
 
 #contentGS #editorialFooter .arrowUL {
@@ -214,7 +214,7 @@
 }
 
 #contentGS #editorialFooter .arrowLI {
-    padding: 0px 0px 2px 10px;
+    padding: 0 0 2px 10px;
     background-image: url(/res/img/content/research/pink_arrow.gif);
     background-repeat: no-repeat;
     background-position: 0ex .5ex;
@@ -246,6 +246,6 @@
     border: 1px solid #A7A6AA;
     width: 97px;
     height: 17px;
-    margin: 0px 3px 0px 0px;
+    margin: 0 3px 0 0;
     vertical-align: top;
 }

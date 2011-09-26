@@ -270,7 +270,7 @@ body.ie6 #col_center {
     float: right;
     text-align: center;
 	margin: 19px 15px 0 0;
-	_margin: 20px 8px 17px 0px; /* IE 6 hack */
+	_margin: 20px 8px 17px 0; /* IE 6 hack */
 	width: 140px;
 }
 
@@ -448,7 +448,7 @@ body.ie6 #col_center {
 }
 
 #parentReviewsRateIt .callout{
-    margin: 0px 10px 0 0;
+    margin: 0 10px 0 0;
 }
 
 #parentReviewsRateIt .callout a,
@@ -556,13 +556,13 @@ body.ie6 #col_center {
     text-indent: -9999px;
     height: 4px;
     margin: 10px 15px 5px 15px;
-    _margin: 0px 15px 0px 15px;
+    _margin: 0 15px 0 15px;
 }
 
 
 #parentReviewsRateIt a.ps,
 #parentReviews a.ps {
-   margin: 0px 0 0 0;
+   margin: 0 0 0 0;
    padding: 5px 0 0 0;
 }
 
@@ -574,7 +574,7 @@ body.ie6 #col_center {
 #parentReviewsRateIt div.psCallout,
 #parentReviews div.psCallout  {
     font: 16px Arial, sans-serif;
-    padding:8px 0px 20px 15px;
+    padding:8px 0 20px 15px;
     margin:40px 0 0 0;
     color:#888888;
     background:#DDEEEE;
@@ -749,13 +749,13 @@ body.ie6 #col_center {
 body.ie6 #compareSchool form {
     margin: -2px 0 0 10px;
     zoom:1;
-    border: 1px solid #red;
+    border: 1px solid red;
 }
 *html #compareSchool form {
     margin: -2px 0 0 10px;
     zoom:1;
     height: 85px;
-    border: 1px solid #red;
+    border: 1px solid red;
 }
 
 
@@ -934,7 +934,7 @@ span#compareGo {
 
 img.psRating {
     padding:5px 0 6px 14px;
-    _padding:0px 0 6px 10px;
+    _padding: 0 0 6px 10px;
 }
 
 div.psComment {
@@ -1090,6 +1090,6 @@ ul.compareSchoolB {
 }
 .ad_top #AboveFold_300x250{
     border-top: none;
-    margin-top: 0px;
-    padding-top: 0px;
+    margin-top: 0;
+    padding-top: 0;
 }

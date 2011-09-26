@@ -16,7 +16,7 @@
 
 #toc ul li {
     font: bold 13px Arial, sans-serif;
-    padding: 0px 12px 4px 16px;
+    padding: 0 12px 4px 16px;
     margin-bottom: 1px;
     list-style: none;
     background-image: url( "/res/img/bullet/pinkarrow.gif");
@@ -153,9 +153,9 @@ h2.question-group-heading {
 	font-size:16px;
 	line-height:18px;
 	font-weight:bold;
-	padding-top:0px;
+	padding-top: 0;
 	padding-bottom:8px;
-	margin-top:0px;
+	margin-top: 0;
 	margin-bottom:14px;
 	width:530px;
 	border-bottom:3px #E2E3CB dotted; /*pale green*/
@@ -275,7 +275,7 @@ div.answer-sibling-last{
 div.checkbox-col{
 	float:left;
 	width:176px;
-	border:0px black solid;
+	border: 0 black solid;
 	margin:0;
 	padding:0;
 	overflow:hidden;
@@ -295,7 +295,7 @@ div.checkbox-multi-col{
 	height:auto;
 	clear:left;
 	overflow:hidden;
-	border:0px black solid;
+	border: 0 black solid;
 	display:block;
 	padding-top:2px;
 	} /* wraps each checkbox in the 3-column checkbox area*/
@@ -305,7 +305,7 @@ div.label-multi-col{
 	width:157px;
 	clear:right;
 	overflow:hidden;
-	border:0px black solid;
+	border: 0 black solid;
 	display:block;
 }	/* wraps each label in the 3-column checkbox area*/
 
@@ -385,7 +385,7 @@ div.feedback {
 .answer-bar .radio1{
 	position:absolute;
 	top:5px;
-	left:0px;
+	left: 0;
 	}
 
 .answer-bar .radio2{
@@ -465,14 +465,14 @@ div.nextprev div.previousnextouterwrap div.previousnextwrap div.previous{
     display:block;
     float:left;
     margin-top: 15px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 div.nextprev div.previousnextouterwrap div.previousnextwrap div.next{
     background-color: #ddeeee;
     display:block;
     float:right;
     margin-top: 15px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 div#all-errors {

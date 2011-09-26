@@ -1,5 +1,5 @@
 #resultsheader {
-    padding: 10px 0px 20px 0px;
+    padding: 10px 0 20px 0;
     background: none;
     margin-top: 10px;    
 }
@@ -58,8 +58,8 @@
 
 #pagination .showAll {
     float:left;
-    padding-left: 0px;
-    margin-left: 0px;
+    padding-left: 0;
+    margin-left: 0;
 }
 
 #preschoolsRatingNote{

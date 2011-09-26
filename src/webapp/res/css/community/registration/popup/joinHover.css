@@ -246,7 +246,7 @@ form#reg1Form ul li.newsletter input {
     height: 15px;
     left: 120px;
     top: 3px;
-    *top: 0px;
+    *top: 0;
     position: relative;
 }
 
@@ -255,7 +255,7 @@ form#reg1Form ul li.newsletter input {
     *top: -4px;
 }
 *+html #contentGS ul li#terms {
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 #terms a {
@@ -316,7 +316,7 @@ ul li#usernameLine {
 
 ul li#termsError{
     height:10px;
-    padding:0px;
+    padding: 0;
 }
 
 

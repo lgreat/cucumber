@@ -229,7 +229,7 @@ p.infoMessage img {
 #returninguser p.infoMessage img {
     position: absolute;
     left: 0;
-    top: 0px;
+    top: 0;
     margin: 0;
 }
 

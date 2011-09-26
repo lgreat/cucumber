@@ -32,11 +32,11 @@
             }
 
             .state1 {
-                padding:0px 65px 10px 150px;
+                padding: 0 65px 10px 150px;
             }
 
             .state2 {
-                padding: 0px 65px 0px 0px;
+                padding: 0 65px 0 0;
             }
 
             #main {
@@ -45,7 +45,7 @@
             }
             .contentGS h2 {
                 font-weight:bold;
-                padding: 0px 0px 0px 15px;
+                padding: 0 0 0 15px;
                 font-size:large;
                 color:#666;
                 text-align: left;

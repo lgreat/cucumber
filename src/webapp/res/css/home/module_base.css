@@ -40,7 +40,7 @@ To use:
 
 .wrapper-content {
 	background: url(/res/img/home/module/bottom_right_corner.png) no-repeat right bottom;
-	padding: 0px 10px 10px 0;
+	padding: 0 10px 10px 0;
 }
 
 .heading {

@@ -19,10 +19,10 @@ body.hover {
 #popupContainer {
 	position: absolute;
 	z-index: 201;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	display:none;
-	padding: 0px;
+	padding: 0;
     border: 1px #CCC solid; /* only for IE6 */
 }
 
@@ -54,7 +54,7 @@ body.hover {
 /* end drop shadows */
 
 #popupFrame {
-	margin: 0px;
+	margin: 0;
 	width: 80%;
 	height: 80%;
 	position: relative;
@@ -79,7 +79,7 @@ body.hover {
 
 #popupTitle {
 	float:left;
-    height:0px;
+    height: 0;
 }
 
 /* display: inline is for the IE float double-margin bug */

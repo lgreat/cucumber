@@ -16,7 +16,7 @@ div.printSchoolProfileHeader {
     margin-bottom: 10px;
 }
 
-div.printSchoolProfileHeader div{display:inline;margin:0;position:absolute;top:0px;}
+div.printSchoolProfileHeader div{display:inline;margin:0;position:absolute;top: 0;}
 div.printSchoolProfileHeader div.printName{left:20px;top:35px;height:100px;}
 
 #AboveFold_300x600 {

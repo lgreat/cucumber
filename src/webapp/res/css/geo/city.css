@@ -141,7 +141,7 @@
 #schoolFinderPromo {
 	background-image: url(/res/img/promo/schoolfinder/mapwidget_citypage_mapbg.gif);
 	background-repeat: no-repeat;
-	background-position: 0px 0px;
+	background-position: 0 0;
 }
 
 #schoolFinderPromo h2, #schoolFinderPromo p, #schoolFinderPromo a{
@@ -371,7 +371,7 @@ div.statsModule {
     border: 0 solid #DDDDDD;
     margin-top: 3px;
     padding-top: 6px;
-    border-top-width: 0px;
+    border-top-width: 0;
     border-bottom-width: 1px;
     margin-bottom: 18px;
 }
@@ -395,7 +395,7 @@ div.statsModule {
 #cityrating #ratingimage{
     position:absolute;
     top:11px;
-    left:0px;
+    left: 0;
 }
 
 #cityrating #textwrapper{
