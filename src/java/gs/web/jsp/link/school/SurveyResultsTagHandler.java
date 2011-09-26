@@ -1,5 +1,6 @@
 package gs.web.jsp.link.school;
 
+import gs.data.school.LevelCode;
 import gs.web.util.UrlBuilder;
 
 /**
@@ -12,6 +13,10 @@ public class SurveyResultsTagHandler extends BaseSchoolTagHandler {
 
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder = new UrlBuilder(getSchool(), UrlBuilder.SURVEY_RESULTS);
+        //Preschool pages are hosted from a separate domain and therefore must use an absolute URL (GS-12127)
+        if (LevelCode.PRESCHOOL.equals(getSchool().getLevelCode())) {
+            setAbsolute(true);
+        }
 
         if (_level != null) {
             builder.addParameter("level", _level);
