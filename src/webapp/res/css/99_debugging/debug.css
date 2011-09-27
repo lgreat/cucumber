@@ -1,0 +1,19 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+Theme Name: Debugging Styles
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+.outline1{outline:1px solid red;}
+.outline2{outline:1px solid green;}
+.outline3{outline:1px solid blue;}

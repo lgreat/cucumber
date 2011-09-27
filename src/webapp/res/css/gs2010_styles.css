@@ -8401,18 +8401,6 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
 /* =debugging styles
 -------------------------------------------------------------------------------------------*/
 
-.outline1 {
-    outline: 1px solid red;
-}
-
-.outline2 {
-    outline: 1px solid green;
-}
-
-.outline3 {
-    outline: 1px solid blue;
-}
-
 /* =temporary modules
 -------------------------------------------------------------------------------------------*/
 /* DC NCLB */
@@ -9336,26 +9324,6 @@ p#btsBubbleOpts {
 
 /* =z-index resets
 -------------------------------------------------------------------------------------------*/
-
-.zir-1{
-    position: relative;
-    z-index: 1;
-}
-
-.zir-2{
-    position: relative;
-    z-index: 2;
-}
-
-.zir-3{
-    position: relative;
-    z-index: 3;
-}
-
-.zir-4{
-    position: relative;
-    z-index: 4;
-}
 
 /* =samson's random stylings
 -------------------------------------------------------------------------------------------*/

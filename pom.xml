@@ -291,6 +291,7 @@
                     <cssSourceDir>/res/css</cssSourceDir>
                     <cssSourceFiles>
                         <param>00_reset/reset.css</param>
+                        <param>00_reset/z_index_reset.css</param>
                         <param>01_grids/grid_960.css</param>
                         <param>01_grids/grid_oocss.css</param>
                         <param>02_text/typography.css</param>
@@ -303,6 +304,7 @@
                         <param>08_css3/rounded_corners.css</param>
                         <param>08_css3/linear_gradients.css</param>
                         <param>08_css3/opacity_shadow.css</param>
+                        <param>99_debugging/debug.css</param>
                         <param>gs2010_styles.css</param>
                         <param>jquery.autocomplete.css</param>
                     </cssSourceFiles>

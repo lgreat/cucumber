@@ -81,6 +81,7 @@
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
             <gsml:url var="resetcss" value="/res/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="zindexreset" value="/res/css/00_reset/z_index_reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="grid960" value="/res/css/01_grids/grid_960.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="textcss" value="/res/css/02_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -93,9 +94,11 @@
             <gsml:url var="roundedcorners" value="/res/css/08_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="lineargradients" value="/res/css/08_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="opacityshadow" value="/res/css/08_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="debug" value="/res/css/99_debugging/debug.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${resetcss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${zindexreset}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${grid960}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${textcss}" type="text/css" />]]>
@@ -108,6 +111,7 @@
             <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
         </c:when>
