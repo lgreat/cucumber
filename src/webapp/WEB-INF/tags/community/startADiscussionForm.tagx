@@ -147,17 +147,18 @@
         <div id="sd_header">
 
             <!-- DONE-RANDALL - do use sprite image -->
-            <span class="sprite community-fc6-lg vert-align-mid"><!-- icon --></span>
-            <c:set var="titleStyle" value="title2-d61"/>
+            <!--<span class="sprite community-fc6-lg vert-align-mid">&lt;!&ndash; icon &ndash;&gt;</span>-->
+            <!--<c:set var="titleStyle" value="title2-d61"/>-->
             <c:set var="guidelineStyle" value="smallAlertText"/>
 
-            <h2 class="${titleStyle}">
+            <!--<h2 class="${titleStyle}">-->
+            <h2 class="bottom">
                 <c:choose>
                     <c:when test="${discussionId gt 0}">
-                        Edit conversation
+                        <span class="sprite community-fc6-lg vert-align-mid"><!-- icon --></span> Edit conversation
                     </c:when>
                     <c:otherwise>
-                        Start a conversation
+                        <span class="sprite community-fc6-lg vert-align-mid"><!-- icon --></span> Start a conversation
                     </c:otherwise>
                 </c:choose>
             </h2>
@@ -166,7 +167,7 @@
                         src="/res/img/discussion_boards/db_modalCloseX_bg.png" width="11"
                         height="11" alt="close modal"/></p></div>
             </c:if>-->
-            <br class="clearfloat"/>
+            <!--<br class="clearfloat"/>-->
         </div>
         <form action="/community/discussionSubmission.page" method="post" target="_parent"
               id="discussionSubmissionForm" accept-charset="Windows-1252">
