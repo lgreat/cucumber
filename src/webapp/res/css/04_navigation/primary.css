@@ -55,7 +55,7 @@ General comments:
     background-image:     -ms-linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* IE10+ */
     background-image:      -o-linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* Opera11.10+ */
     background-image:         linear-gradient(top, #6DC8FD 0%,#2092C4 33%,#2092C4 75%,#42AADD 95%,#1187B8 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF6DC8FD', endColorstr='#FF1187B8',GradientType=0 ); /* IE6-9 */
+              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF6DC8FD', endColorstr='#FF1187B8',GradientType=0 ); /* IE6-9 */
 
     zoom:1;
 }
