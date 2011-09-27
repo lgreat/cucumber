@@ -11,6 +11,7 @@
         <label for="nlSubEmail">Email address</label><input type="text" id="nlSubEmail" name="email"/>
 
         <div id="nlSubEmail_error" style="display:none">Please enter a valid email address</div>
+        <div id="nlSubEmail_error_alreadySub" style="display:none">The email address is already signed up.</div>
         <input type="checkbox" name="partnerNewsletter" value="true" id="partnerNewsletter"
                checked="checked"/>
 

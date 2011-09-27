@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.data.community.*;
+import gs.data.json.JSONObject;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
@@ -11,9 +12,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class NewsletterSubscriptionController extends SimpleFormController implements ReadWriteController {
     private IUserDao _userDao;
@@ -34,9 +33,9 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             user = getUserDao().findUserFromEmailIfExists(email);
         }
 
+        boolean isSubscribedToParentAdvisor = false;
+        boolean isSubscribedToSponsorOptIn = false;
         if (user != null) {
-            boolean isSubscribedToParentAdvisor = false;
-            boolean isSubscribedToSponsorOptIn = false;
             Set<Subscription> userSubs = user.getSubscriptions();
 
             if (userSubs != null) {
@@ -68,8 +67,11 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
                 getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
             }
         }
-        if(nlSubCmd.isAjaxRequest()){
-          return null;
+        if (nlSubCmd.isAjaxRequest()) {
+            JSONObject rval = new JSONObject();
+            rval.put("userAlreadySubscribed", isSubscribedToParentAdvisor);
+            response.getWriter().print(rval.toString());
+            return null;
         }
         return mAndV;
     }

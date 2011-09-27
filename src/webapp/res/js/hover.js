@@ -925,6 +925,7 @@ GSType.hover.NlSubscription = function() {
     this.showHover = function () {
         subCookie.createAllHoverCookie('showNLHoverOnArticles',1,30);
         $j('#nlSubEmail_error').hide();
+        $j('#nlSubEmail_error_alreadySub').hide();
         GSType.hover.nlSubscription.show();
     };
     this.validateEmail = function() {
@@ -948,11 +949,15 @@ GSType.hover.NlSubscription = function() {
             url: GS.uri.Uri.getBaseHostname() + '/content/cms/nlSubscription.page',
             data: {email:jQuery('#hover_nlSubscription #nlSubEmail').val(),
                 partnerNewsletter:jQuery('#hover_nlSubscription #partnerNewsletter').is(':checked'),ajaxRequest:true},
-            dataType: 'text',
+            dataType: 'json',
             async: false,
-            success: function() {
-                GSType.hover.nlSubscription.hide();
-                GSType.hover.nlSubscriptionThankYou.show();
+            success: function(data) {
+                if (data.userAlreadySubscribed === true) {
+                    $j('#nlSubEmail_error_alreadySub').show();
+                } else {
+                    GSType.hover.nlSubscription.hide();
+                    GSType.hover.nlSubscriptionThankYou.show();
+                }
             }
         });
     };

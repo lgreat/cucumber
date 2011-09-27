@@ -432,8 +432,7 @@ var subCookie = {
 	nameValueSeparator: '$$:$$',
 	subcookieSeparator: '$$/$$',
 
-    propertyExpirySuffix : '.expiresInDays',
-    propertyDateCreatedSuffix : '.dateCreated',
+    propertyExpirySuffix : '.expiresInMilliSec',
 
     /*
      * Gets the entire object
@@ -514,20 +513,16 @@ var subCookie = {
     getObjectPropertyIfNotExpired: function(cookieName, propertyName) {
         var prop = subCookie.getObjectProperty(cookieName, propertyName);
         var returnProp = null;
-        if (prop != null && prop != undefined && !(propertyName.indexOf(subCookie.propertyExpirySuffix) >= 0) && !(propertyName.indexOf(subCookie.propertyDateCreatedSuffix) >= 0)) {
-            var lifeSpan = subCookie.getObjectProperty(cookieName, propertyName + subCookie.propertyExpirySuffix);
-            var createdOn = subCookie.getObjectProperty(cookieName, propertyName + subCookie.propertyDateCreatedSuffix);
-            if (createdOn !== null && createdOn !== undefined && lifeSpan !== null && lifeSpan !== undefined) {
-                createdOn = subCookie.decode(createdOn);
-                var dateCreated = new Date(createdOn);
-                if (dateCreated !== 'Invalid Date') {
-                    var expiryDate = new Date();
-                    expiryDate.setDate(dateCreated.getDate() + parseInt(lifeSpan));
+        if (prop != null && prop != undefined && !(propertyName.indexOf(subCookie.propertyExpirySuffix) >= 0)) {
+
+            var expiryInMills = subCookie.getObjectProperty(cookieName, propertyName + subCookie.propertyExpirySuffix);
+            if (expiryInMills !== null && expiryInMills !== undefined) {
+                var expiryDate = new Date(parseInt(expiryInMills));
+                if (expiryDate !== 'Invalid Date') {
                     var today = new Date();
                     if (today > expiryDate) {
                         subCookie.deleteObjectProperty(cookieName, propertyName);
                         subCookie.deleteObjectProperty(cookieName, propertyName + subCookie.propertyExpirySuffix);
-                        subCookie.deleteObjectProperty(cookieName, propertyName + subCookie.propertyDateCreatedSuffix);
 
                         var cookieValue = readEscapedCookie(cookieName);
                         if (cookieValue === undefined || cookieValue.length < 1) {
@@ -558,25 +553,16 @@ var subCookie = {
         subCookie.setObject(cookieName,cookieObj,days);
     },
 
-    /*
-     * Formats the date that is set as the expiryDate
-     */
-    formatCookieDate: function(date) {
-        var formatedDate = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
-        return formatedDate;
-    },
 
     /*
-     * Url decodes a string
+     * Creates a cookie with the property.Property names currently in use - showNLHoverOnArticles.
      */
-    decode: function (str) {
-        return decodeURI(str.replace(/\+/g, " "));
-    },
-
     createAllHoverCookie : function (propertyName, propertyValue, expiryInDays) {
         subCookie.setObjectProperty("all_hover", propertyName, propertyValue, 365);
-        subCookie.setObjectProperty("all_hover", propertyName + subCookie.propertyDateCreatedSuffix, subCookie.formatCookieDate(new Date()), 365);
-        subCookie.setObjectProperty("all_hover", propertyName + subCookie.propertyExpirySuffix, expiryInDays, 365);
+        var today = new Date();
+        var expiryDate = new Date();
+        expiryDate.setDate(today.getDate() + parseInt(expiryInDays));
+        subCookie.setObjectProperty("all_hover", propertyName + subCookie.propertyExpirySuffix, expiryDate.getTime(), 365);
     }
 };
 
