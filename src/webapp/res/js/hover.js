@@ -927,6 +927,7 @@ GSType.hover.NlSubscription = function() {
         $j('#nlSubEmail_error').hide();
         $j('#nlSubEmail_error_alreadySub').hide();
         GSType.hover.nlSubscription.show();
+        $j("#nlSubEmail").blur();
     };
     this.validateEmail = function() {
         var isEmailValid = false;
