@@ -1,0 +1,42 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+Theme Name: Community iframed Hovers
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+body.hover{background-color: #ebebeb;}
+
+/* =5 modules
+-------------------------------------------------------------------------------------------*/
+
+/* implementation pattern eg */
+/*
+<div class="mod attribution">
+  <div class="inner">
+    <div class="hd">
+      Module block header content goes here.
+    </div>
+    <div class="bd">
+      Module block body content goes here.
+    </div>
+  </div>
+</div>
+*/
+
+/* **************** BLOCK STRUCTURES ***************** */
+/* ------------------- mod ------------------- */
+.mod{margin:0;}
+.inner{position:relative;}
+.hd,.bd,.ft{display: inline-block; width:100%; *display:block; *width:auto; zoom:1;}
+
+.startaconversation .hd h2{color: #d61;}

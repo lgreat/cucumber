@@ -4039,7 +4039,7 @@ body.cobranded #pageGS {
     *filter: alpha(opacity = 100);
 }
 
-.startAConversationModule h2 {
+/*.startAConversationModule h2 {
     margin-top: 10px;
 }
 
@@ -4077,7 +4077,7 @@ body.cobranded #pageGS {
 
 .startAConversationModule .submit {
     margin-left: 54px;
-}
+}*/
 
 /* =12c-5.2 preview a conversation
 -------------------------------------------------------------------------------------------*/
