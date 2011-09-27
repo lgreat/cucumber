@@ -80,11 +80,17 @@ public class SurveyResultsControllerTest extends BaseControllerTestCase {
         assertNull(modelAndView);
     }
 
-    public void testHandle() throws Exception {
+    public void testHandleInternal() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         HttpServletResponse response = getResponse();
         request.setServerName("www.greatschools.org");
         RequestInfo requestInfo = new RequestInfo(request);
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        request.setAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE, school);
 
         request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, requestInfo);
 
