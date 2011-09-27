@@ -49,6 +49,9 @@ public class SurveyResultsController extends AbstractController {
 
         // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
         ModelAndView preschoolRedirectMAndV = getPreschoolRedirectViewIfNeeded(request, school);
+        if (preschoolRedirectMAndV != null) {
+            return preschoolRedirectMAndV;
+        }
 
         String level = request.getParameter(LEVEL_PARAM);
         String levelString = null;
