@@ -6,20 +6,22 @@
     <c:if test="${not empty worksheetsLinks}">
 
         <div class="hd">
-            <h5>Worksheets</h5>
+            <h6>Worksheets</h6>
         </div>
-        <div class="bd">
-            <ul class="text2">
+        <div class="bd clearfix">
+            <ul>
                 <c:forEach var="grade" items="${worksheetsLinks}">
                     <c:forEach var="gradeMap" items="${grade}">
-                        <li class="mrglft_neg5 hasNested">
-                            <span class='sprite twirlyClosed'><!-- do not collapse --></span>
-                            <a class="outerNavLink" href="javascript:void(0);">${gradeMap.key.linkText}</a>
-                            <ul class="text2">
+                        <li class="hasNested">
+                            <div class="mediaExt1-1">
+                                <span class="sprite twirlyClosed img"><!-- do not collapse --></span>
+                                <a class="outerNavLink bk" href="javascript:void(0);">${gradeMap.key.linkText}</a>
+                            </div>
+                            <ul class="nested">
                                 <c:forEach var="subject" items="${gradeMap.value}">
                                     <li><a href="${subject.url}">${subject.linkText}</a></li>
                                 </c:forEach>
-                                <li><a href="${gradeMap.key.url}">See all &amp;raquo;</a></li>
+                                <li class="lastOne"><a href="${gradeMap.key.url}">See all &amp;raquo;</a></li>
                             </ul>
                         </li>
                     </c:forEach>
