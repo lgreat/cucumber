@@ -4361,35 +4361,41 @@ a.ui-dialog-titlebar-close .ui-icon {
 }
 
 /*GS-12118 starts*/
-#hover_nlSubscription.nlHover {
+.nlHover {
     background-color: #EBEBEB;
     padding: 30px;
     margin: -20px;
     background: url(/res/img/nlHover/newsletter-210x260.png) 100% 100% no-repeat;
 }
 
-#hover_nlSubscription .nlContent {
+.nlContent {
     width: 59%;
 }
 
-#hover_nlSubscription .nlContent p {
+#hover_nlSubscriptionThankYou .nlContent{
+    min-height: 151px;
+    margin-top: 40px;
+}
+
+.nlContent p {
     color: #2b2b2b;
 }
 
-#hover_nlSubscription .nlContent label {
+.nlContent label {
     color: #999999;
 }
 
-#hover_nlSubscription .nlContent .validEmail {
+.nlContent .validEmail {
     color: #CB0033;
     font-style: italic;
 }
 
-#hover_nlSubscription .nlSignUp #nlSubEmail {
+.nlSignUp #nlSubEmail {
     color: #999999;
     width: 211px;
     height: 17px;
 }
+
 /*GS-12118 ends*/
 
 /* GS-11161 */

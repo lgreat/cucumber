@@ -6,9 +6,9 @@
         >
     <div id="hover_nlSubscriptionThankYou" class="slStylesV1-0 nlHover" style="display:none;">
         <div class="nlContent">
-            <h2>Thank you</h2>
+            <h2>Thank you!</h2>
 
-            <p>You have successfully suscribed to the greatschools weekly newsletter</p>
+            <p>You have successfully suscribed to the GreatSchools weekly newsletter.</p>
         </div>
     </div>
 </jsp:root>
