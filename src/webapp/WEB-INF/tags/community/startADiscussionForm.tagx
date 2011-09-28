@@ -248,7 +248,9 @@
 
                     <fieldset class="submit mbl">
 
-                        <c:set var="previewButtonSpacing" value="${topicCenterId gt 0 ? 'prs' : 'prm'}"/>
+                        <c:set var="previewButtonSpacing" value="${topicCenterId gt 0 ? 'prs mlm' : 'prm mlm'}"/>
+
+                        <div class="unit size10of100 mrm">&amp;nbsp</div>
 
                         <div class="line">
                             <c:choose>
