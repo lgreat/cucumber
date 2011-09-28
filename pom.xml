@@ -296,7 +296,7 @@
                         <param>01_grids/grid_oocss.css</param>
                         <param>02_text/typography.css</param>
                         <param>03_sprites/icons.css</param>
-                        <param>03_sprites/iu.css</param>
+                        <param>03_sprites/ui.css</param>
                         <param>04_navigation/primary.css</param>
                         <param>04_navigation/secondary.css</param>
                         <param>05_buttons/buttons.css</param>
