@@ -40,3 +40,4 @@ body.hover{background-color: #ebebeb;}
 .hd,.bd,.ft{display: inline-block; width:100%; *display:block; *width:auto; zoom:1;}
 
 .startaconversation .hd h2{color: #d61;}
+.startaconversation .bd input, .startaconversation .bd textarea{width:100%;}

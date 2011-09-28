@@ -176,31 +176,35 @@
                     <fieldset class="startDiscussion mbl">
 
                         <div class="line mbm">
-                            <label for="topicSelect" class="unit size10of100 mrm">Topic</label>
-                            <select id="topicSelect" class="unit size35of100 mhm" name="topicCenterId">
-                                <gsml:selectOption value="-1">Cities</gsml:selectOption>
+                            <div class="unit size15of100">
+                                <label for="topicSelect">Topic</label>
+                            </div>
+                            <div class="unit size42of100">
+                                <select id="topicSelect" name="topicCenterId">
+                                    <gsml:selectOption value="-1">Cities</gsml:selectOption>
 
-                                <gsml:selectOption value="1540"
-                                                   selected="${1540 == topicCenterId}">Academics &amp;amp; Activities</gsml:selectOption>
-                                <gsml:selectOption value="1574"
-                                                   selected="${1574 == topicCenterId}">Elementary School</gsml:selectOption>
-                                <gsml:selectOption value="2420"
-                                                   selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
-                                <gsml:selectOption value="1539"
-                                                   selected="${1539 == topicCenterId}">Health &amp;amp; Development</gsml:selectOption>
-                                <gsml:selectOption value="1576"
-                                                   selected="${1576 == topicCenterId}">High School</gsml:selectOption>
-                                <gsml:selectOption value="1543"
-                                                   selected="${1543 == topicCenterId}">Improve Your School</gsml:selectOption>
-                                <gsml:selectOption value="1575"
-                                                   selected="${1575 == topicCenterId}">Middle School</gsml:selectOption>
-                                <gsml:selectOption value="1573"
-                                                   selected="${1573 == topicCenterId}">Preschool</gsml:selectOption>
-                                <gsml:selectOption value="1541"
-                                                   selected="${1541 == topicCenterId}">Special Education</gsml:selectOption>
-                            </select>
+                                    <gsml:selectOption value="1540"
+                                                       selected="${1540 == topicCenterId}">Academics &amp;amp; Activities</gsml:selectOption>
+                                    <gsml:selectOption value="1574"
+                                                       selected="${1574 == topicCenterId}">Elementary School</gsml:selectOption>
+                                    <gsml:selectOption value="2420"
+                                                       selected="${selectGeneralParentingBoard eq true}">General Parenting</gsml:selectOption>
+                                    <gsml:selectOption value="1539"
+                                                       selected="${1539 == topicCenterId}">Health &amp;amp; Development</gsml:selectOption>
+                                    <gsml:selectOption value="1576"
+                                                       selected="${1576 == topicCenterId}">High School</gsml:selectOption>
+                                    <gsml:selectOption value="1543"
+                                                       selected="${1543 == topicCenterId}">Improve Your School</gsml:selectOption>
+                                    <gsml:selectOption value="1575"
+                                                       selected="${1575 == topicCenterId}">Middle School</gsml:selectOption>
+                                    <gsml:selectOption value="1573"
+                                                       selected="${1573 == topicCenterId}">Preschool</gsml:selectOption>
+                                    <gsml:selectOption value="1541"
+                                                       selected="${1541 == topicCenterId}">Special Education</gsml:selectOption>
+                                </select>
+                            </div>
 
-                            <div class="communityGuidelines ${guidelineStyle} unit size55of100 lastUnit mlm smaller">Read our
+                            <div class="communityGuidelines ${guidelineStyle} unit size43of100 lastUnit smaller">Read our
                                 <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                   title="GreatSchools Community Standards"
                                                   href="/terms/?state=$STATE#communityStandards">
@@ -210,34 +214,45 @@
                         </div>
 
                         <div class="line mbm citySelect">
-                            <label for="citySelect" class="unit size10of100 mrm">City</label>
-                            <select id="citySelect" class="unit size35of100 mhm" name="discussionBoardId"
-                                    disabled="disabled">
-                                <c:forEach var="localBoard" items="${localBoards}">
-                                    <gsml:selectOption value="${localBoard.boardId}"
-                                                       selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}, ${localBoard.city.state}</gsml:selectOption>
-                                </c:forEach>
-                            </select>
+                            <div class="unit size15of100">
+                                <label for="citySelect">City</label>
+                            </div>
+                            <div class="unit size42of100">
+                                <select id="citySelect" name="discussionBoardId"
+                                        disabled="disabled">
+                                    <c:forEach var="localBoard" items="${localBoards}">
+                                        <gsml:selectOption value="${localBoard.boardId}"
+                                                           selected="${localBoard.boardId == localBoardId}">${localBoard.city.name}, ${localBoard.city.state}</gsml:selectOption>
+                                    </c:forEach>
+                                </select>
+                            </div>
 
-                            <div class="unit size55of100 lastUnit mlm">&amp;nbsp</div>
+                            <div class="unit size43of100 lastUnit">&amp;nbsp</div>
                         </div>
 
                         <div class="line mbm">
-                            <label for="titleInput" class="unit size10of100 mrm">Title</label>
-                            <input id="titleInput" class="titleInput unit size80of100 mhm" type="text" name="title"
-                                   size="20"
-                                   value="${discussionTitle}"/>
+                            <div class="unit size15of100">
+                                <label for="titleInput">Title</label>
+                            </div>
+                            <div class="unit size75of100">
+                                <input id="titleInput" class="titleInput" type="text" name="title"
+                                       value="${discussionTitle}"/>
+                            </div>
 
                             <div class="unit size10of100 lastUnit mlm">&amp;nbsp</div>
                         </div>
 
                         <div class="line mbm">
-                            <label for="bodyInput" class="unit size10of100 mrm">Details</label>
-                            <textarea id="bodyInput" class="bodyInput unit size80of100 mhm"
-                                      rows="5" cols="20"
-                                      name="body"><!-- no collapse -->${discussionBody}</textarea>
+                            <div class="unit size15of100">
+                                <label for="bodyInput">Details</label>
+                            </div>
+                            <div class="unit size75of100">
+                                <textarea id="bodyInput" class="bodyInput"
+                                          rows="5"
+                                          name="body"><!-- no collapse -->${discussionBody}</textarea>
+                            </div>
 
-                            <div class="unit size10of100 lastUnit mlm">&amp;nbsp</div>
+                            <div class="unit size10of100 lastUnit">&amp;nbsp</div>
                         </div>
 
                         <c:if test="${discussionId gt 0}">
@@ -248,9 +263,9 @@
 
                     <fieldset class="submit mbl">
 
-                        <c:set var="previewButtonSpacing" value="${topicCenterId gt 0 ? 'prs mlm' : 'prm mlm'}"/>
+                        <!--<c:set var="previewButtonSpacing" value="${topicCenterId gt 0 ? 'mrs' : 'mrs'}"/>-->
 
-                        <div class="unit size10of100 mrm">&amp;nbsp</div>
+                        <div class="unit size15of100">&amp;nbsp</div>
 
                         <div class="line">
                             <c:choose>
@@ -258,7 +273,7 @@
                                 </c:when>
                                 <c:otherwise>
 
-                                    <div class="unit ${previewButtonSpacing}">
+                                    <div class="unit">
                                         <button class="button-1 previewButton" type="submit" name="preview"
                                                 value="Preview">Preview
                                         </button>
@@ -267,7 +282,7 @@
                                 </c:otherwise>
                             </c:choose>
 
-                            <c:set var="postButtonSpacing" value="${topicCenterId gt 0 ? 'phs' : 'pls prl'}"/>
+                            <c:set var="postButtonSpacing" value="${topicCenterId gt 0 ? 'mhs' : 'mhs'}"/>
                             <c:set var="submitButtonText" value="${discussionId gt 0 ? '*Save' : 'Post conversation'}"/>
                             <c:set var="submitButtonStyle"
                                    value="${discussionId gt 0 ? 'button-1 submitButton sd_SaveLayout' : 'button-1 submitButton'}"/>
@@ -300,9 +315,9 @@
                                 </c:choose>
                             </div>
 
-                            <c:set var="cancelButtonSpacing" value="${topicCenterId gt 0 ? 'pls' : 'plm'}"/>
+                            <!--<c:set var="cancelButtonSpacing" value="${topicCenterId gt 0 ? 'mls' : 'mls'}"/>-->
 
-                            <div class="unit ${cancelButtonSpacing}">
+                            <div class="unit">
                                 <button class="button-1 dialogCancelButton" type="button" value="Cancel">Cancel</button>
                             </div>
 

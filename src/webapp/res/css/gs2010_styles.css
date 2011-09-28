@@ -4079,6 +4079,8 @@ body.cobranded #pageGS {
     margin-left: 54px;
 }*/
 
+.startaconversation .bd input, .startaconversation .bd textarea{width:100%;}
+
 /* =12c-5.2 preview a conversation
 -------------------------------------------------------------------------------------------*/
 
