@@ -149,6 +149,10 @@
 <!-- Start Featured Content -->
     <div class="grid_11 omega">
 
+        <div class="inlineAd mbm">
+            <ad:adTag position="Inline_423x60"/>
+        </div>
+
         <div class="featuredContent tabs">
 
             <c:choose>
@@ -314,10 +318,6 @@
         </c:otherwise>
     </c:choose>
     <!--End Carousels-->
-
-    <div class="inlineAd">
-        <ad:adTag position="Inline_423x60"/>
-    </div>
 
 </div>
 
