@@ -4358,6 +4358,38 @@ a.ui-dialog-titlebar-close .ui-icon {
     width:185px;
 }
 
+/*GS-12118 starts*/
+.nlHover {
+    background-color: #EBEBEB;
+    padding: 30px;
+    margin: -20px;
+    background: url(/res/img/nlHover/newsletter-210x260.png) 100% 100% no-repeat;
+}
+
+.nlContent {
+    width: 59%;
+}
+
+.nlContent p {
+    color: #2b2b2b;
+}
+
+.nlContent label {
+    color: #999999;
+}
+
+.nlContent .validEmail {
+    color: #CB0033;
+    font-style: italic;
+}
+
+.nlSignUp #nlSubEmail {
+    color: #999999;
+    width: 211px;
+    height: 17px;
+}
+/*GS-12118 ends*/
+
 /* GS-11161 */
 #joinHover .introTxt span.title {
 }
