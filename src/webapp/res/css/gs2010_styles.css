@@ -4367,32 +4367,34 @@ a.ui-dialog-titlebar-close .ui-icon {
 }
 
 /*GS-12118 starts*/
-.nlHover{
+.nlHover {
     background-color: #EBEBEB;
     padding: 30px;
     margin: -20px;
     background: url(/res/img/nlHover/newsletter-210x260.png) 100% 100% no-repeat;
 }
 
-.nlContent{
+.nlContent {
     width: 59%;
 }
-.nlContent p{
+
+.nlContent p {
     color: #2b2b2b;
 }
 
-.nlContent label{
+.nlContent label {
     color: #999999;
 }
 
-.nlContent .validEmail{
+.nlContent .validEmail {
     color: #CB0033;
-    font-style:italic;
+    font-style: italic;
 }
-.nlSignUp #nlSubEmail{
+
+.nlSignUp #nlSubEmail {
     color: #999999;
     width: 211px;
-    height:17px;
+    height: 17px;
 }
 /*GS-12118 ends*/
 .introTxt h3 {
