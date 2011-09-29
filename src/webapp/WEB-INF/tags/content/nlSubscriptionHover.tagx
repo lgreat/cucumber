@@ -17,7 +17,7 @@
                 <div id="nlSubEmail_error_alreadySub" class="smaller bottom validEmail"
                      style="display:none">The email address is already in use.
                 </div>
-                <span class="mrm">
+                <span class="nlEmail">
                     <input type="text" id="nlSubEmail" name="email" class="small bottom"
                            onfocus="GS_textSwitch(this, '', '[Your email address]')"
                            onblur="GS_textSwitch(this, '[Your email address]', '');"

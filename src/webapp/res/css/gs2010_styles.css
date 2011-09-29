@@ -4394,9 +4394,16 @@ a.ui-dialog-titlebar-close .ui-icon {
     color: #999999;
     width: 211px;
     height: 17px;
+
 }
 
-/*GS-12118 ends*/
+.nlEmail{
+    margin-right: 10px;
+}
+
+.chrome .nlEmail{
+    margin-right: 8px;
+}
 
 /* GS-11161 */
 #joinHover .introTxt span.title {
