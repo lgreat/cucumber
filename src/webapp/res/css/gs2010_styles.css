@@ -4387,6 +4387,9 @@ a.ui-dialog-titlebar-close .ui-icon {
     margin: -20px;
     background: url(/res/img/nlHover/newsletter-210x260.png) 100% 100% no-repeat;
 }
+.ie7 .nlHover {
+    padding: 10px 30px 30px;
+}
 
 .nlContent {
     width: 59%;
@@ -4395,6 +4398,10 @@ a.ui-dialog-titlebar-close .ui-icon {
 #hover_nlSubscriptionThankYou .nlContent{
     min-height: 151px;
     margin-top: 40px;
+}
+
+.ie7 #hover_nlSubscriptionThankYou .nlContent{
+    min-height: 160px;
 }
 
 .nlContent p {
