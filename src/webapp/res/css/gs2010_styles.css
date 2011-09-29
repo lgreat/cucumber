@@ -3641,7 +3641,7 @@ body.cobranded #pageGS {
     outline:0;
 
     /* backkground */
-    background-color: #eef6fa;
+    background-color: #ffffff; /* Old browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eef6fa), color-stop(20%,#ffffff)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #eef6fa 0%, #ffffff 20%); /* Chrome 10+, Saf5.1+, iOS 5+ */
     background-image:    -moz-linear-gradient(top, #eef6fa 0%, #ffffff 20%); /* FF3.6 */
@@ -3870,7 +3870,7 @@ body.cobranded #pageGS {
     outline:0;
 
     /* backkground */
-    background-color: #eef6fa;
+    background-color: #ffffff; /* Old browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eef6fa), color-stop(20%,#ffffff)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #eef6fa 0%, #ffffff 20%); /* Chrome 10+, Saf5.1+, iOS 5+ */
     background-image:    -moz-linear-gradient(top, #eef6fa 0%, #ffffff 20%); /* FF3.6 */
