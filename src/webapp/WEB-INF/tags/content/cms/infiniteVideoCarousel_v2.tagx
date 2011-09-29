@@ -65,7 +65,7 @@
                                     <c:set var="videoSeconds" value="${zeroPrefix}${videoSeconds}"/>
                                 </c:if>
 
-                                <p class="small bottom">
+                                <p class="smaller bottom">
                                     <a href="${carouselItem.url}"
                                        target="${carouselItemTarget}">${carouselItem.linkText}</a> -
                                     <c:out value="${videoMinutes}"/>:<c:out value="${videoSeconds}"/>

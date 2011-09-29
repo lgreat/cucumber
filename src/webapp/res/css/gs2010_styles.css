@@ -927,8 +927,8 @@ body.ie8 .btsSupplyListsTag .arrow {
 /* ---------------- GS-12049 ----------------- */
 /* --------------- mainFeature --------------- */
 .mainFeature{border: 1px solid #e6e6e6;margin:15px 0;}
-.mainFeature .inner{padding:10px}
-.mainFeature .bd h2{color:#06b;margin-bottom: 15px;}
+.mainFeature .inner{padding:10px 10px 10px 20px;}
+.mainFeature .bd h2{color:#06b;margin:10px 0 15px;}
 /* ---------------- sideNav_v2 --------------- */
 .sideNav_v2{border: 1px solid #e6e6e6;margin-bottom:15px;}
 .sideNav_v2 .inner{padding:10px}
