@@ -238,7 +238,7 @@ public class ParentReviewController extends AbstractController {
 
                 toIndex = Math.min(toIndex, reviews.size());
 
-                if (fromIndex >= toIndex) {
+                if (fromIndex >= toIndex || fromIndex < 0) {
                     String queryString = request.getQueryString();
                     return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + resetPageParam(queryString) : "")));
                 }
