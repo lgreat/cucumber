@@ -27,6 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -237,6 +238,11 @@ public class ParentReviewController extends AbstractController {
 
                 toIndex = Math.min(toIndex, reviews.size());
 
+                if (fromIndex >= toIndex) {
+                    String queryString = request.getQueryString();
+                    return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + resetPageParam(queryString) : "")));
+                }
+
                 reviewsToShow = reviews.subList(fromIndex, toIndex);
             }
             model.put("reviewsToShow", reviewsToShow);
@@ -296,6 +302,13 @@ public class ParentReviewController extends AbstractController {
 
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    public static String resetPageParam(String queryString) {
+        if (queryString != null) {
+            queryString = queryString.replaceAll("\\bpage=\\d+", "page=1");
+        }
+        return queryString;
     }
 
     // GS-10633
