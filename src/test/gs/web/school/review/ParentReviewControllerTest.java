@@ -299,21 +299,4 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         assertEquals("Parent review,Student review,Teacher review", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "dd"));
         assertEquals("Lowest rating first,Parent review,Student review,Teacher review", _controller.getReviewsFilterSortTracking(numReviews, reviewsBy, "ra"));
     }
-
-    public void testResetPageParam() throws Exception {
-        String queryString = "id=842&state=PA&sortBy=dd&page=3";
-        assertEquals("id=842&state=PA&sortBy=dd&page=1", ParentReviewController.resetPageParam(queryString));
-
-        queryString = "page=4&id=842&state=PA&sortBy=dd&page=3";
-        assertEquals("page=1&id=842&state=PA&sortBy=dd&page=1", ParentReviewController.resetPageParam(queryString));
-
-        queryString = "page=4&id=842&state=PA&sortBy=dd";
-        assertEquals("page=1&id=842&state=PA&sortBy=dd", ParentReviewController.resetPageParam(queryString));
-
-        queryString = "id=842&state=PA&page=5&sortBy=dd";
-        assertEquals("id=842&state=PA&page=1&sortBy=dd", ParentReviewController.resetPageParam(queryString));
-
-        queryString = "id=842&state=PA&sortBy=dd";
-        assertEquals("id=842&state=PA&sortBy=dd", ParentReviewController.resetPageParam(queryString));
-    }
 }

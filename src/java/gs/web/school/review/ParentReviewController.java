@@ -240,7 +240,10 @@ public class ParentReviewController extends AbstractController {
 
                 if (fromIndex >= toIndex || fromIndex < 0) {
                     String queryString = request.getQueryString();
-                    return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + resetPageParam(queryString) : "")));
+                    if (queryString != null) {
+                        queryString = UrlUtil.putQueryParamIntoQueryString(queryString, "page", "1");
+                    }
+                    return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + queryString : "")));
                 }
 
                 reviewsToShow = reviews.subList(fromIndex, toIndex);
@@ -302,13 +305,6 @@ public class ParentReviewController extends AbstractController {
 
         }
         return new ModelAndView(getViewName(), model);
-    }
-
-    public static String resetPageParam(String queryString) {
-        if (queryString != null) {
-            queryString = queryString.replaceAll("\\bpage=\\d+", "page=1");
-        }
-        return queryString;
     }
 
     // GS-10633
