@@ -113,7 +113,7 @@
 
     <c:if test="${topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
         <c:choose>
-            <c:when test="${isNewTopicCenterPage and (levelCode eq 'e' or levelCode eq 'p') }">
+            <c:when test="${isNewTopicCenterPage and (levelCode eq 'e' or topicCenter.preschoolTopicCenter) }">
                 <ad:adTag position="House_Ad_300x210"/>
             </c:when>
             <c:when test="${!isNewTopicCenterPage}">
