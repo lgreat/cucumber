@@ -14,12 +14,31 @@ General comments:
 
 */
 
+/* implementation pattern eg */
+/*
+<span class="navSprite discussion"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the defines width and height of each icon
+*/
+
+/* **************** SPRITE ***************** */
+
 .navSprite {
     display: inline-block;
-    background-image: url(/res/img/navSprite/uiSprite_2011-08-04.png);
+    background-image: url(/res/img/navSprite/uiSprite_2011-09-30.png);
 }
 
 /* **************** VIEWPORT ***************** */
+
 /* column 0 */
 .i-pn-bts {
     width: 16px;
@@ -167,7 +186,20 @@ body.ie10 .dropdown_6 a .i-sn-arrow-on {top:-19px;left:129px;}
   visibility:visible;
 }
 
-/* column 20 */
+/* column 16 */
+.i-twirly-closed {
+    width: 7px;
+    height: 7px;
+    background-position: -16px 0;
+}
+
+.i-twirly-open {
+    width: 7px;
+    height: 7px;
+    background-position: -16px -16px;
+}
+
+/* column 32 */
 .i-pn-home {
     width: 35px;
     height: 32px;
@@ -179,6 +211,7 @@ a:hover .i-pn-home {
     height: 32px;
     background-position: -32px -32px;
 }
+
 /* column 80 */
 .dropDown-default {
     width: 24px;
