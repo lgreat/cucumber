@@ -118,8 +118,8 @@ li ol       { margin: 0; }
 ul,
 ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }
 
-ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #b8b8b8; }
-ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #b8b8b8; }
+ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
+ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
 
 dl          { margin: 0 0 1.5em 0; }
 dl dt       { font-weight: bold; }
