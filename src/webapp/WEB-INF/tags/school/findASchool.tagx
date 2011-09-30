@@ -24,7 +24,7 @@
     <div id="findASchool" class="mod">
         <div class="mod_hd">
             <c:choose>
-                <c:when test="${levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h'or topicCenter.elementaryGradeTopicCenter}">
+                <c:when test="${levelCode eq 'e' or levelCode eq 'm' or levelCode eq 'h'or topicCenter.elementaryGradeTopicCenter or topicCenter.preschoolTopicCenter}">
                     <h3>Local Schools</h3>
                 </c:when>
                 <c:otherwise>
