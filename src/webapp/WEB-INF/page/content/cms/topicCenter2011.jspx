@@ -325,8 +325,7 @@
 
 <!-- start right sidebarGS -->
 <div class="grid_8">
-    <cms:topicCenterSidebar topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}"
-                            isNewTopicCenterPage="${true}"/>
+    <cms:topicCenterSidebar_2011 topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}"/>
 </div>
 <!-- end right sidebarGS -->
 
