@@ -93,6 +93,10 @@ jQuery(document).ready(function() {
     jQuery('#secondary').disableSelection();
     // disable selection of text on topic center tabs
     jQuery('.tabNavigation').disableSelection();
+    // disable selection of forward button on infinite carousel
+    jQuery('.infiniteCarousel3').disableSelection();
+    // disable selection of back button on infinite carousel
+    jQuery('.infiniteCarousel4').disableSelection();
 });
 
 /* =2 popup (informational popup bubbles)

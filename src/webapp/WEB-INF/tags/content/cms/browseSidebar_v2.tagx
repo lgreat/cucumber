@@ -14,7 +14,7 @@
         <div class="hd">
             <h6>${pageScope.title}</h6>
         </div>
-        <div class="bd clearfix">
+        <div class="bd">
 
             <ul>
                 <c:forEach var="subtopic" items="${pageScope.subtopics}" varStatus="subtopicStatus">

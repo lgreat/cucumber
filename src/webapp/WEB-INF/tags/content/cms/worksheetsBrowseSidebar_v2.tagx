@@ -8,7 +8,7 @@
         <div class="hd">
             <h6>Worksheets</h6>
         </div>
-        <div class="bd clearfix">
+        <div class="bd">
             <ul>
                 <c:forEach var="grade" items="${worksheetsLinks}">
                     <c:forEach var="gradeMap" items="${grade}">

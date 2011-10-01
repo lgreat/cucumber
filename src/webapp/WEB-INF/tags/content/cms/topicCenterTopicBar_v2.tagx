@@ -27,16 +27,24 @@
         <c:when test="${topicCenter.worksheetsTopicCenter}">
             <div class="mod sideNav_v2 rnd4">
                 <div class="inner">
-                    <cms:worksheetsBrowseSidebar_v2/>
-                    <cms:browseSidebar_v2 title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
+                    <div class="clearfix">
+                        <cms:worksheetsBrowseSidebar_v2/>
+                    </div>
+                    <div class="clearfix">
+                        <cms:browseSidebar_v2 title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
+                    </div>
                 </div>
             </div>
         </c:when>
         <c:when test="${topicCenter.elementarySchoolTopicCenter}">
             <div class="mod sideNav_v2 rnd4">
                 <div class="inner">
-                    ${browseByGrade}
-                    ${moreOnThisTopic}
+                    <div class="clearfix">
+                        ${browseByGrade}
+                    </div>
+                    <div class="clearfix">
+                        ${moreOnThisTopic}
+                    </div>
                 </div>
             </div>
         </c:when>
@@ -48,8 +56,12 @@
         }">
             <div class="mod sideNav_v2 rnd4">
                 <div class="inner">
-                    ${moreOnThisTopic}
-                    ${browseByGrade}
+                    <div class="clearfix">
+                        ${moreOnThisTopic}
+                    </div>
+                    <div class="clearfix">
+                        ${browseByGrade}
+                    </div>
                 </div>
             </div>
         </c:when>
