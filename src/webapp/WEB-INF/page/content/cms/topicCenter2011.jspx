@@ -108,7 +108,7 @@
                 <gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
                           styleClass="fltrt mlm"/>
 
-                <h2 class="mtm">${topicCenter.mainFeatureLink.title}</h2>
+                <h2 class="mtm"><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h2>
 
                 <p class="small">${topicCenter.mainFeatureLink.description}
                     <a class="wsnw" href="${topicCenter.mainFeatureLink.url}">More <span
