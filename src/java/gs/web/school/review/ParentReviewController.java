@@ -105,6 +105,9 @@ public class ParentReviewController extends AbstractController {
             RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
             if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
                 UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+                urlBuilder.removeParameter("state");
+                urlBuilder.removeParameter("id");
+                urlBuilder.addParametersFromRequest(request);
                 return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
             }
         }
@@ -207,7 +210,10 @@ public class ParentReviewController extends AbstractController {
                 model.put("numTeacherStaffReviews", numTeacherStaffReviews);
             }
             model.put("reviewsByCsv", getReviewsByCsv(reviewsBy));
-            model.put(MODEL_URI, request.getRequestURI());
+            int serverPort = request.getServerPort();
+            String url = "http://" + request.getServerName() +
+                ((serverPort != 80) ? ":" + serverPort : "") + request.getRequestURI();
+            model.put(MODEL_URI, url);
 
             model.put("reviewsTotalPages", getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
             model.put("param_reviewsby", PARAM_REVIEWS_BY);
