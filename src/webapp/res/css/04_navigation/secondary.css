@@ -79,6 +79,36 @@ General comments:
     vertical-align: middle;
 }
 
+.sn-arrow{
+    font-size: 0;
+    line-height: 0;
+    width: 0;
+    vertical-align: baseline;
+    display: inline-block;
+    background: none;
+    border-left: 4px solid white;
+    border-top: 5px solid #808080;
+    border-right: 4px solid white;
+    *border-right: 5px solid white;
+    opacity:1;
+    *filter: alpha(opacity = 100);
+}
+
+.menuItem:hover .sn-arrow{
+    font-size: 0;
+    line-height: 0;
+    width: 0;
+    vertical-align: baseline;
+    display: inline-block;
+    background: none;
+    border-left: 4px solid #06b;
+    border-top: 5px solid white;
+    border-right: 4px solid #06b;
+    *border-right: 5px solid #06b;
+    opacity:1;
+    *filter: alpha(opacity = 100);
+}
+
 /* Drop Down Containers */
 
 #secondary .dropdown_1,
