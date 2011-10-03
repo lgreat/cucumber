@@ -26,11 +26,15 @@
     <c:if test="${showCarousel}">
 
         <div class="infiniteCarousel3">
-            <h3 class="ic_title bottom">${pageScope.name}</h3>
-            <p class="small moreLink"><link:cmsVideoGallery
-                    topicCenterId="${topicCenter.contentKey.identifier}"
-                    topicCenterUrl="${topicCenter.fullUri}"
-                    language="EN">More videos <span class="alertDoubleArrow">&amp;raquo;</span></link:cmsVideoGallery></p>
+            <div class="ic_hd">
+                <h3 class="ic_title bottom">${pageScope.name}</h3>
+
+                <p class="small moreLink"><link:cmsVideoGallery
+                        topicCenterId="${topicCenter.contentKey.identifier}"
+                        topicCenterUrl="${topicCenter.fullUri}"
+                        language="EN">More videos <span
+                        class="alertDoubleArrow">&amp;raquo;</span></link:cmsVideoGallery></p>
+            </div>
 
             <div class="wrapper" style="overflow:hidden;">
                 <ul class="unordered-carousel">

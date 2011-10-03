@@ -349,7 +349,7 @@ function debug(what) {
             //Iterate over the current set of matched elements
             return this.each(function() {
 
-                var $wrapper = $('> div', this).css('overflow', 'hidden'),
+                var $wrapper = $('> .wrapper', this).css('overflow', 'hidden'),
                     $slider = $wrapper.find('> ul'),
                     $items = $slider.find('> li'),
                     $single = $items.filter(':first'),
