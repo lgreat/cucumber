@@ -264,30 +264,31 @@
                 </gsweb:form>
 
             </div>
-            <div id="jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31" class="ft hidden">
-            <!--<div class="ft">-->
-                <c:choose>
-                    <c:when test="${isHomePage}">
+            <div class="ft">
+                <div id="jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31" class="hidden">
+                    <c:choose>
+                        <c:when test="${isHomePage}">
 
-                        <div class="ad_88x31 vert-align-mid fltrt mrl mls">
-                            <ad:Homepage_FindASchool_Sponsor_88x31/>
-                        </div>
-                        <p class="smallText1">
-                            Sponsored<br/>by
-                        </p>
+                            <div class="ad_88x31 vert-align-mid fltrt mrl mls">
+                                <ad:Homepage_FindASchool_Sponsor_88x31/>
+                            </div>
+                            <p class="smallText1">
+                                Sponsored<br/>by
+                            </p>
 
-                    </c:when>
-                    <c:otherwise>
-                        <div class="ad_88x31 vert-align-mid fltrt mrl mls">
-                            <ad:adTag position="FindASchool_Sponsor_88x31"/>
-                        </div>
-                        <p class="smallText1">
-                            Sponsored<br/>by
-                        </p>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="ad_88x31 vert-align-mid fltrt mrl mls">
+                                <ad:adTag position="FindASchool_Sponsor_88x31"/>
+                            </div>
+                            <p class="smallText1">
+                                Sponsored<br/>by
+                            </p>
 
-                    </c:otherwise>
-                </c:choose>
+                        </c:otherwise>
+                    </c:choose>
 
+                </div>
             </div>
         </div>
     </div>
