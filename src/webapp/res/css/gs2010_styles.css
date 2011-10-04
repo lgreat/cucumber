@@ -4575,6 +4575,10 @@ a.ui-dialog-titlebar-close .ui-icon {
     margin-right: 8px;
 }
 
+.safari .nlEmail{
+    margin-right: 8px;
+}
+
 /* GS-11161 */
 #joinHover .introTxt span.title {
 }
