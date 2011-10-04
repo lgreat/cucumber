@@ -66,7 +66,7 @@
                                 <!-- nested items, show triangle, and clicking subtopic title link should only expand/collapse the nested links -->
                                 <!-- DONE-9457 RANDALL: please fix jquery to make clicking on this link expand/collapse instead of going to the href -->
                                 <div class="mediaExt1-1">
-                                    <span class='navSprite i-twirly-closed img mts'><!-- do not collapse --></span>
+                                    <span class='tn-twirly-closed img'><!-- do not collapse --></span>
                                     <a class="outerNavLink bk" href="javascript:void(0);">${subtopic.title}</a>
                                 </div>
                             </c:otherwise>

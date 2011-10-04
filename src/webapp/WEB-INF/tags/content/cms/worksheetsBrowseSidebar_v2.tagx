@@ -14,7 +14,7 @@
                     <c:forEach var="gradeMap" items="${grade}">
                         <li class="hasNested">
                             <div class="mediaExt1-1">
-                                <span class="navSprite i-twirly-closed img mts"><!-- do not collapse --></span>
+                                <span class="tn-twirly-closed img"><!-- do not collapse --></span>
                                 <a class="outerNavLink bk" href="javascript:void(0);">${gradeMap.key.linkText}</a>
                             </div>
                             <ul class="nested">

@@ -25,17 +25,17 @@ jQuery(function () {
     var nestedContainers = jQuery('li.hasNested > .nested');
     var twirlies = jQuery('li.hasNested > div > span');
     nestedContainers.hide();
-    twirlies.removeClass('i-twirly-open').addClass('i-twirly-closed');
+    twirlies.removeClass('tn-twirly-open').addClass('tn-twirly-closed');
 
     jQuery('li.hasNested > div').click(
         function () {
             var twirly = jQuery(this).find('span');
             var nestedToShow = jQuery(this).parent().find('.nested');
-            if (twirly.hasClass('i-twirly-closed')) {
-                twirly.removeClass('i-twirly-closed').addClass('i-twirly-open')
+            if (twirly.hasClass('tn-twirly-closed')) {
+                twirly.removeClass('tn-twirly-closed').addClass('tn-twirly-open')
                 nestedToShow.slideDown(250);
             } else {
-                twirly.removeClass('i-twirly-open').addClass('i-twirly-closed');
+                twirly.removeClass('tn-twirly-open').addClass('tn-twirly-closed');
                 nestedToShow.slideUp(250);
             }
         return false;
