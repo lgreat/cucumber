@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/*@charset "UTF-8";*/
 /* CSS Document */
 
 /*
@@ -77,12 +77,12 @@ a:hover .i-sn-arrow {
     background-position: -16px -16px;
 }
 
-/* column 32 */
 .i-pn-home {
     width: 35px;
     height: 32px;
     background-position: -32px 0;
 }
+/* column 32 */
 
 a:hover .i-pn-home {
     width: 35px;
