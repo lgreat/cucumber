@@ -156,7 +156,7 @@
         <div class="featuredContent tabs">
 
             <c:choose>
-                <c:when test="${mostPopularModuleLinksExist or mostPopularLinksExist or topicCenter.mostPopularTabName != null }">
+                <c:when test="${(mostPopularModuleLinksExist or mostPopularLinksExist) and topicCenter.mostPopularTabName != null }">
                     <ul class="tabNavigation gradient-3">
                         <li><a class="rnd-top-6" href="#js_featuredArticlesTab">Featured Articles</a></li>
                         <li><a class="rnd-top-6" href="#js_mostPopularTab">${topicCenter.mostPopularTabName}</a></li>
