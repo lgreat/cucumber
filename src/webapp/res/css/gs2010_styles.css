@@ -6467,6 +6467,7 @@ body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
 #profileRecentDiscussions-parentReviews .textarea-parentReviews{
     height: 120px;
     padding: 4px;
+    width: 100%;
 }
 
 /* =12k-1.5 kindercare
