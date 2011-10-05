@@ -105,8 +105,8 @@
     <div class="mod mainFeature rnd4">
         <div class="inner">
             <div class="bd">
-                <gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
-                          styleClass="fltrt mlm"/>
+                <a href="${topicCenter.mainFeatureLink.url}"><gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
+                          styleClass="fltrt mlm"/></a>
 
                 <h2 class="mtm"><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h2>
 
@@ -179,9 +179,9 @@
                         <!-- First article in module link is treated differently -->
 
                         <div class="img width-190">
-                            <gsml:img styleClass="pbm" width="190" height="133"
+                            <a href="${topicCenter.firstFeaturedArticlesModuleLink.url}"><gsml:img styleClass="pbm" width="190" height="133"
                                       src="${topicCenter.firstFeaturedArticlesModuleLink.alternateImageUrl}"
-                                      alt="${topicCenter.firstFeaturedArticlesModuleLink.alternateImageAltText}"/>
+                                      alt="${topicCenter.firstFeaturedArticlesModuleLink.alternateImageAltText}"/></a>
 
                             <p class="small bottom make-06b">${topicCenter.firstFeaturedArticlesModuleLink.kategory.name}</p>
 
@@ -196,7 +196,7 @@
                                        varStatus="status">
 
                                 <div class="mediaExt2">
-                                    <gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/>
+                                    <a href="${link.url}"><gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/></a>
 
                                     <div class="bk">
                                         <p class="small"><a href="${link.url}">${link.linkText}</a></p>
@@ -213,7 +213,7 @@
 
                 <c:forEach var="link" items="${topicCenter.featuredArticlesLinks}">
                     <div class="mediaExt2-7">
-                        <gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/>
+                        <a href="${link.url}"><gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/></a>
 
                         <div class="bk">
                             <link:cmsCategoryBrowse
@@ -243,9 +243,9 @@
                             <!-- First article in module link is treated differently -->
 
                             <div class="img width-190">
-                                <gsml:img styleClass="pbm" width="190" height="133"
+                                <a href="${topicCenter.firstMostPopularModuleLink.url}"><gsml:img styleClass="pbm" width="190" height="133"
                                           src="${topicCenter.firstMostPopularModuleLink.alternateImageUrl}"
-                                          alt="${topicCenter.firstMostPopularModuleLink.alternateImageAltText}"/>
+                                          alt="${topicCenter.firstMostPopularModuleLink.alternateImageAltText}"/></a>
 
                                 <p class="small bottom make-06b">${topicCenter.firstMostPopularModuleLink.kategory.name}</p>
 
@@ -259,7 +259,7 @@
                                            varStatus="status">
 
                                     <div class="mediaExt2">
-                                        <gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/>
+                                        <a href="${link.url}"><gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/></a>
 
                                         <div class="bk">
                                             <p class="small"><a href="${link.url}">${link.linkText}</a></p>
@@ -277,7 +277,7 @@
 
                     <c:forEach var="link" items="${topicCenter.mostPopularLinks}">
                         <div class="mediaExt2-7">
-                            <gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/>
+                            <a href="${link.url}"><gsml:img styleClass="img" width="100" height="70" src="${link.imageUrl}" alt="${link.imageAltText}"/></a>
 
                             <div class="bk">
                                 <link:cmsCategoryBrowse
