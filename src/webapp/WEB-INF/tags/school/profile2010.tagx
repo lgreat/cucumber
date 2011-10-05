@@ -473,7 +473,7 @@
             <!--<p>school levelCode is: <c:out value="${school.levelCode}" default="not set"/></p>-->
             <c:choose>
                 <c:when test="${tab eq 'overview'}">
-                    <ad:AboveFold_300x250/>
+                    <ad:AboveFold_300x600/>
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
@@ -576,7 +576,7 @@
                 <c:when test="${tab eq 'schoolMap'}">
                     <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
                     <div class="ad_middle">
-                        <ad:AboveFold_300x250/>
+                        <ad:AboveFold_300x600/>
                     </div>
 
                     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
@@ -586,7 +586,7 @@
                     ${savvySource}
                 </c:when>
                 <c:otherwise>
-                    <ad:AboveFold_300x250/>
+                    <ad:AboveFold_300x600/>
 
                     <jsp:include page="/promo/emailSignUp.module"/>
 
