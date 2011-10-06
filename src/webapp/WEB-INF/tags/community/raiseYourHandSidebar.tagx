@@ -242,8 +242,8 @@
             <div class="formHelperText fltrt" id="js-charCount">250 characters remaining</div>
 
             <textarea name="ryhAnswer"
-                      class="ryhAnswer"
-                      id="js-yourAnswer"
+                      class="ryhAnswer js-yourAnswer"
+                      id="ryhAnswer"
                     onfocus="textSwitch(this, '', 'Your answer...');"
                     onblur="textSwitch(this, 'Your answer...', '');">Your answer...</textarea>
             <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
@@ -261,7 +261,7 @@
 
 <script type="text/javascript">
     jQuery(function () {
-        jQuery('#js-yourAnswer').characterCounter();
+        jQuery('.js-yourAnswer').characterCounter();
     });
 </script>
 
