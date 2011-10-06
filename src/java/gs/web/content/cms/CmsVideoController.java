@@ -30,6 +30,8 @@ public class CmsVideoController extends AbstractController {
     private boolean _unitTest = false;
     private String _viewName;
 
+    private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
+
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
     public static final String GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID = "referring_topic_center_id";
     private static final Pattern TOPIC_CENTER_URL_PATTERN = Pattern.compile("^.*\\.topic\\?content=(\\d+)");
@@ -102,6 +104,17 @@ public class CmsVideoController extends AbstractController {
                 return new ModelAndView(new RedirectView301(canonicalUrl));
             }
         }*/
+
+        if (feature == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ModelAndView("/status/error404.page");
+        }
+
+        try {
+            _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(feature);
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
 
         List<ArticleComment> comments;
         if (feature.getLegacyId() != null) {
@@ -251,5 +264,13 @@ public class CmsVideoController extends AbstractController {
 
     public void setArticleDao(IArticleDao legacyArticleDao) {
         _legacyArticleDao = legacyArticleDao;
+    }
+
+    public CmsContentLinkResolver getCmsFeatureEmbeddedLinkResolver() {
+        return _cmsFeatureEmbeddedLinkResolver;
+    }
+
+    public void setCmsFeatureEmbeddedLinkResolver(CmsContentLinkResolver cmsFeatureEmbeddedLinkResolver) {
+        _cmsFeatureEmbeddedLinkResolver = cmsFeatureEmbeddedLinkResolver;
     }
 }

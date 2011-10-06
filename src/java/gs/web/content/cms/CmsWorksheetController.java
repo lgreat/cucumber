@@ -27,6 +27,8 @@ public class CmsWorksheetController extends AbstractController {
     private IArticleDao _legacyArticleDao;
     private String _viewName;
 
+    private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
+
     public static final String GAM_AD_ATTRIBUTE_KEY = "editorial";
     public static final String GAM_AD_ATTRIBUTE_REFERRING_TOPIC_CENTER_ID = "referring_topic_center_id";
     private static final Pattern TOPIC_CENTER_URL_PATTERN = Pattern.compile("^.*\\.topic\\?content=(\\d+)");
@@ -73,6 +75,17 @@ public class CmsWorksheetController extends AbstractController {
         }
 
         feature = _featureDao.get(contentId);
+
+        if (feature == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ModelAndView("/status/error404.page");
+        }
+
+        try {
+            _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(feature);
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
 
         List<ArticleComment> comments = _legacyArticleDao.getArticleComments(feature.getContentKey());
 
@@ -162,5 +175,13 @@ public class CmsWorksheetController extends AbstractController {
 
     public void setCmsCategoryDao(ICmsCategoryDao cmsCategoryDao) {
         _cmsCategoryDao = cmsCategoryDao;
+    }
+
+    public CmsContentLinkResolver getCmsFeatureEmbeddedLinkResolver() {
+        return _cmsFeatureEmbeddedLinkResolver;
+    }
+
+    public void setCmsFeatureEmbeddedLinkResolver(CmsContentLinkResolver cmsFeatureEmbeddedLinkResolver) {
+        _cmsFeatureEmbeddedLinkResolver = cmsFeatureEmbeddedLinkResolver;
     }
 }
