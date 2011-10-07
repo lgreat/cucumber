@@ -63,10 +63,6 @@ General comments:
     padding: 0 13px;
 }
 
-#secondary li:first-child .menuItemAnchorText{
-    color: #333;
-}
-
 #secondary .menuItem .home {
     padding: 0;
 }
