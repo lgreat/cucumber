@@ -2635,4 +2635,20 @@
         <property name="quizId" value="1"/>
     </bean>
 
+
+     <!--<bean name="/email/newslettersSignUp.page"-->
+          <!--class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">-->
+        <!--<property name="viewName" value="email/newslettersSignUp"/>-->
+    <!--</bean>-->
+
+     <bean name="/email/newslettersSignUp.page"
+          class="gs.web.email.NewslettersSignUpController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="emailCmd"/>
+        <property name="commandClass" value="gs.web.email.NewslettersSignUpCommand"/>
+        <property name="formView" value="/email/newslettersSignUp"/>
+    </bean>
+
+
 </beans>
