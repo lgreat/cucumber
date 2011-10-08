@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: ContentSearchTagHandler.java,v 1.4 2009/12/04 22:27:02 chriskimm Exp $
+ * $Id: ContentSearchTagHandler.java,v 1.5 2011/10/08 03:35:24 ssprouse Exp $
  */
 
 package gs.web.jsp.link;
@@ -17,10 +17,9 @@ public class ContentSearchTagHandler extends LinkTagHandler {
     private String _query;
     private Integer _page;
     private String _type;
-    private String _sample;
 
     protected UrlBuilder createUrlBuilder() {
-        return new UrlBuilder(UrlBuilder.CONTENT_SEARCH, getQuery(), getPage(), getType(), getSample());
+        return new UrlBuilder(UrlBuilder.CONTENT_SEARCH, getQuery(), getPage(), getType());
     }
 
     public String getQuery() {
@@ -45,13 +44,5 @@ public class ContentSearchTagHandler extends LinkTagHandler {
 
     public void setType(String type) {
         _type = type;
-    }
-
-    public String getSample() {
-        return _sample;
-    }
-
-    public void setSample(String sample) {
-        _sample = sample;
     }
 }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.264 2011/09/21 12:52:01 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.265 2011/10/08 03:35:24 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -1235,7 +1235,7 @@ public class UrlBuilder {
         }
     }
 
-    public UrlBuilder(VPage page, String searchQuery, Integer pageNum, String type, String sample) {
+    public UrlBuilder(VPage page, String searchQuery, Integer pageNum, String type) {
         // GS-8876
         if (CONTENT_SEARCH.equals(page)) {
             _perlPage = false;
@@ -1250,9 +1250,6 @@ public class UrlBuilder {
             }
             if (type != null) {
                 this.setParameter("type", type);
-            }
-            if (StringUtils.isNotBlank(sample)) {
-                this.setParameter("sample", sample);
             }
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);

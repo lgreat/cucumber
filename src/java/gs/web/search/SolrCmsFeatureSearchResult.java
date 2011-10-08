@@ -32,7 +32,7 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     private String _imageUrl;
     private String _imageAltText;
     private String _length;
-    private String _grades;
+    private List<String> _grades;
     private List<String> _subjects;
     private String _deck;
     private String _body;
@@ -211,11 +211,11 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     }
     
     @XmlElement
-    public String getGrades() {
+    public List<String> getGrades() {
         return _grades;
     }
     @Field(CmsFeatureDocumentBuilder.FIELD_GRADES)
-    public void setGrades(String grades) {
+    public void setGrades(List<String> grades) {
         _grades = grades;
     }
     

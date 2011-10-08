@@ -69,13 +69,13 @@
                         <c:set var="searchType" value="all"/>
                     </c:when>
                     <c:otherwise>
-                        <li><link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}">${typeButtonText}</link:contentSearch></li>
+                        <li><link:contentSearch query="${requestScope.searchQuery}" >${typeButtonText}</link:contentSearch></li>
                     </c:otherwise>
                 </c:choose>
             </c:if>
                 <c:set var="typeButtonText" value="Articles (${requestScope.numArticles})"/>
                 <c:choose>
-                    <c:when test="${requestScope.type eq 'articles' || numResultTypes == 1}">
+                    <c:when test="${requestScope.type eq 'articles' || (numResultTypes eq 1 and numArticles gt 0)}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="articles"/>
                     </c:when>
@@ -86,7 +86,7 @@
                                     ${typeButtonText}
                                 </c:when>
                                 <c:otherwise>
-                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">${typeButtonText}</link:contentSearch>
+                                    <link:contentSearch query="${requestScope.searchQuery}" type="articles">${typeButtonText}</link:contentSearch>
                                 </c:otherwise>
                             </c:choose>
                         </li>
@@ -95,7 +95,7 @@
 
                 <c:set var="typeButtonText" value="Worksheets (${requestScope.numWorksheets})"/>
                 <c:choose>
-                    <c:when test="${requestScope.type eq 'worksheets' || numResultTypes == 1}">
+                    <c:when test="${requestScope.type eq 'worksheets' || (numResultTypes eq 1 and numWorksheets gt 0)}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="worksheets"/>
                     </c:when>
@@ -106,7 +106,7 @@
                                     ${typeButtonText}
                                 </c:when>
                                 <c:otherwise>
-                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="worksheets">${typeButtonText}</link:contentSearch>
+                                    <link:contentSearch query="${requestScope.searchQuery}" type="worksheets">${typeButtonText}</link:contentSearch>
                                 </c:otherwise>
                             </c:choose>
                         </li>
@@ -115,7 +115,7 @@
 
                 <c:set var="typeButtonText" value="Videos (${requestScope.numVideos})"/>
                 <c:choose>
-                    <c:when test="${requestScope.type eq 'videos' || numResultTypes == 1}">
+                    <c:when test="${requestScope.type eq 'videos' || (numResultTypes eq 1 and numVideos gt 0)}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="videos"/>
                     </c:when>
@@ -126,7 +126,7 @@
                                     ${typeButtonText}
                                 </c:when>
                                 <c:otherwise>
-                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="videos">${typeButtonText}</link:contentSearch>
+                                    <link:contentSearch query="${requestScope.searchQuery}" type="videos">${typeButtonText}</link:contentSearch>
                                 </c:otherwise>
                             </c:choose>
                         </li>
@@ -135,7 +135,7 @@
 
                 <c:set var="typeButtonText" value="Community (${requestScope.numDiscussions})"/>
                 <c:choose>
-                    <c:when test="${requestScope.type eq 'community' || numResultTypes == 1}">
+                    <c:when test="${requestScope.type eq 'community' || (numResultTypes eq 1 and numDiscussions gt 0)}">
                         <li class="active">${typeButtonText}<b class="db_pointDn"><!-- don't collapse --></b></li>
                         <c:set var="searchType" value="community"/>
                     </c:when>
@@ -146,7 +146,7 @@
                                     ${typeButtonText}
                                 </c:when>
                                 <c:otherwise>
-                                    <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">${typeButtonText}</link:contentSearch>
+                                    <link:contentSearch query="${requestScope.searchQuery}" type="community">${typeButtonText}</link:contentSearch>
                                 </c:otherwise>
                             </c:choose>
                         </li>
@@ -159,8 +159,8 @@
             <c:set var="showArticles" value="${requestScope.type eq 'articles' or (empty requestScope.type and requestScope.numArticles gt 0)}"/>
             <c:set var="showWorksheets" value="${requestScope.type eq 'worksheets' or (empty requestScope.type and requestScope.numWorksheets gt 0)}"/>
             <c:set var="showVideos" value="${requestScope.type eq 'videos' or (empty requestScope.type and requestScope.numVideos gt 0)}"/>
-            <c:set var="showPagination" value="${not showCommunity or not showArticles or not showVideos or not showWorksheets}"/>
-            <c:set var="showSeeAllLink" value="${showCommunity and showArticles and showVideos and showWorksheets}"/>
+            <c:set var="showPagination" value="${numResultTypes eq 1 or not empty requestScope.type}"/>
+            <c:set var="showSeeAllLink" value="${not (numResultTypes eq 1 or not empty requestScope.type)}"/>
 
             <c:if test="${showPagination}">
                 <c:choose>
@@ -235,9 +235,9 @@
                     </c:forEach>
                 </ul>
 
-                <c:if test="${showSeeAllLink}">
+                <c:if test="${showSeeAllLink and numArticles gt 5}">
                     <p class="moreRslts">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="articles">See all article results <span class="go">&amp;#187;</span></link:contentSearch>
+                        <link:contentSearch query="${requestScope.searchQuery}" type="articles">See all article results <span class="go">&amp;#187;</span></link:contentSearch>
                     </p>
                 </c:if>
             </c:if>
@@ -286,9 +286,9 @@
                     </c:forEach>
                 </ul>
 
-                <c:if test="${showSeeAllLink}">
+                <c:if test="${showSeeAllLink and numWorksheets gt 5}">
                     <p class="moreRslts">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="worksheets">See all worksheet results <span class="go">&amp;#187;</span></link:contentSearch>
+                        <link:contentSearch query="${requestScope.searchQuery}" type="worksheets">See all worksheet results <span class="go">&amp;#187;</span></link:contentSearch>
                     </p>
                 </c:if>
             </c:if>
@@ -337,9 +337,9 @@
                     </c:forEach>
                 </ul>
 
-                <c:if test="${showSeeAllLink}">
+                <c:if test="${showSeeAllLink and numVideos gt 5}">
                     <p class="moreRslts">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="videos">See all video results <span class="go">&amp;#187;</span></link:contentSearch>
+                        <link:contentSearch query="${requestScope.searchQuery}" type="videos">See all video results <span class="go">&amp;#187;</span></link:contentSearch>
                     </p>
                 </c:if>
             </c:if>
@@ -410,9 +410,9 @@
                     </c:forEach>
                 </ul>
 
-                <c:if test="${showSeeAllLink}">
+                <c:if test="${showSeeAllLink and numDiscussions gt 5}">
                     <p class="moreRslts">
-                        <link:contentSearch query="${requestScope.searchQuery}" sample="${requestScope.sample}" type="community">See all community results <span class="go">&amp;#187;</span></link:contentSearch>
+                        <link:contentSearch query="${requestScope.searchQuery}" type="community">See all community results <span class="go">&amp;#187;</span></link:contentSearch>
                     </p>
                 </c:if>
             </c:if>
