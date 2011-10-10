@@ -271,7 +271,7 @@
     <div class="dropdownReference">
         <link:high-school id="PN-HighSchool" styleClass="menuItemAnchorText drop GS_CI9_">High School</link:high-school>
 
-        <div class="dropdown_5 text2 dropdown_align_right">
+        <div class="dropdown_5 text2">
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
@@ -328,7 +328,7 @@
     </div>
 </td>
 <td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem">
-    <div class="dropdownReference lastNavUnit">
+    <div class="dropdownReference">
         <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
         <div class="dropdown_6 text2 dropdown_align_right">
@@ -369,10 +369,10 @@
         </div>
     </div>
 </td>
-<!--<td class="${(pw == tabs.BACK_TO_SCHOOL ? 'selected' : '')} menuItem lastNavUnit"><a href="/back-to-school/"
-                                                                     id="PN-BackToSchool"
+<td class="${(pw == tabs.EDUCATIONAL_TOYS ? 'selected' : '')} menuItem lastNavUnit"><a href="/back-to-school/"
+                                                                     id="PN-EducationalToys"
                                                                      class="menuItemAnchorText noDrop GS_CI9_"><span
-class="navSprite i-pn-bts">&lt;!&ndash; do not collapse &ndash;&gt;</span> Back to School</a></td>-->
+class="navSprite i-pn-et"><!-- do not collapse --></span> Educational Toys</a></td>
 </tr>
 </tbody>
 </table>

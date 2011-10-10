@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.103 2011/08/03 23:18:32 yfan Exp $
+ * $Id: PageHelper.java,v 1.104 2011/10/10 21:01:02 rcox Exp $
  */
 
 package gs.web.util;
@@ -75,6 +75,7 @@ public class PageHelper {
         put("HEALTH_AND_DEVELOPMENT", "27");
         put("GREAT_GIFTS", "28");
         put("TEST_PREP", "29");
+        put("EDUCATIONAL_TOYS", "30");
     }};
 
     private final SessionContext _sessionContext;
