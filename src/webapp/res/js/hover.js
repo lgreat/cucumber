@@ -958,6 +958,8 @@ GSType.hover.NlSubscription = function() {
                 } else {
                     GSType.hover.nlSubscription.hide();
                     GSType.hover.nlSubscriptionThankYou.show();
+                    pageTracking.successEvents = 'event52';
+                    pageTracking.send();
                 }
             }
         });
