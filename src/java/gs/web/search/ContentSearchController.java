@@ -262,11 +262,17 @@ public class ContentSearchController extends AbstractController {
         if (type == null) {
             throw new IllegalArgumentException("Can't build query with null ContentSearchType");
         }
-        GsSolrQuery query = new GsSolrQuery();
+        GsSolrQuery query = new GsSolrQuery(QueryType.CONTENT_SEARCH);
 
         // Limit searches to CMS features and appropriate content types
-        query.filter(DocumentType.CMS_FEATURE);
+        if (ContentSearchType.DISCUSSIONS.equals(type)) {
+            query.filter(DocumentType.DISCUSSION);
+        } else {
+            query.filter(DocumentType.CMS_FEATURE);
+        }
+
         query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, Arrays.asList(type.getContentTypes()));
+        query.requireNonOptionalWords();
 
         return query;
     }
@@ -408,17 +414,12 @@ public class ContentSearchController extends AbstractController {
     }
 
     public GsSolrQuery getFacetCountQuery(String searchQuery) throws SolrServerException {
-        GsSolrQuery query = new GsSolrQuery();
+        GsSolrQuery query = new GsSolrQuery(QueryType.CONTENT_SEARCH);
         query.facet(CmsFeatureFields.FIELD_CONTENT_TYPE);
         query.page(0,0);
 
-        StringBuilder q = new StringBuilder();
-        q.append("(");
-        q.append("(title:" + searchQuery.toLowerCase() + ")^10");
-        q.append(" OR (text:" + searchQuery.toLowerCase() + ")");
-        q.append(" OR (cmsGradesText:" + searchQuery.toLowerCase() + ")");
-        q.append(")");
-        query.query(q.toString());
+        query.query(searchQuery);
+        query.requireNonOptionalWords();
         return query;
     }
 
