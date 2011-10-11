@@ -25,7 +25,7 @@
 
     <!-- Begin Secondary Navigation -->
       <ul id="secondary"> <!-- bullet type: disc/square/circle-->
-        <li class="menuItem"><a href="javascript:void(0);" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">Hot Topics&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
+        <li class="menuItem"><a href="/hot-topics/" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">Hot Topics&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
             <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
               <li class="subMenuItem"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880" id="SN_HT-SexDrugsAndYourTeen" class="subMenuItemAnchorText GS_CI9_">Sex, Drugs, &amp;amp; Your Teen</a></li>
               <li class="subMenuItem"><a href="/bullying.topic?content=4350" id="SN_HT-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying</a></li>
