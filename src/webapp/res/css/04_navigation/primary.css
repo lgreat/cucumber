@@ -40,7 +40,6 @@ General comments:
 /* Primary Menu Items */
 
 #primary .menuItem {
-    text-align: center;
     padding: 0;
     margin: 0;
     border: 0 none;
@@ -106,6 +105,7 @@ General comments:
     white-space: nowrap;
     width:100%;
     position: relative;
+    text-align: center;
 }
 
 #primary .menuItem.home {

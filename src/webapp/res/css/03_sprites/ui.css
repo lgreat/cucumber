@@ -54,14 +54,16 @@ a:hover .i-pn-bts {
 
 .i-pn-et {
     width: 16px;
-    height: 16px;
+    height: 32px;
     background-position: 0 -32px;
+    vertical-align: middle;
 }
 
 a:hover .i-pn-et {
     width: 16px;
-    height: 16px;
-    background-position: 0 -48px;
+    height: 32px;
+    background-position: 0 -64px;
+    vertical-align: middle;
 }
 
 /* column 16 */
