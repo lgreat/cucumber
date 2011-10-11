@@ -183,7 +183,11 @@
                                       src="${topicCenter.firstFeaturedArticlesModuleLink.alternateImageUrl}"
                                       alt="${topicCenter.firstFeaturedArticlesModuleLink.alternateImageAltText}"/></a>
 
-                            <p class="small bottom make-06b">${topicCenter.firstFeaturedArticlesModuleLink.kategory.name}</p>
+
+                            <link:cmsCategoryBrowse
+                                    topicIDs="${topicCenter.firstFeaturedArticlesModuleLink.kategory.id}">
+                                <p class="small bottom make-06b">${topicCenter.firstFeaturedArticlesModuleLink.kategory.name}</p>
+                            </link:cmsCategoryBrowse>
 
                             <h3 class="bottom"><a href="${topicCenter.firstFeaturedArticlesModuleLink.url}">${topicCenter.firstFeaturedArticlesModuleLink.linkText}</a></h3>
 
@@ -247,7 +251,10 @@
                                           src="${topicCenter.firstMostPopularModuleLink.alternateImageUrl}"
                                           alt="${topicCenter.firstMostPopularModuleLink.alternateImageAltText}"/></a>
 
-                                <p class="small bottom make-06b">${topicCenter.firstMostPopularModuleLink.kategory.name}</p>
+                                <link:cmsCategoryBrowse
+                                        topicIDs="${topicCenter.firstMostPopularModuleLink.kategory.id}">
+                                    <p class="small bottom make-06b">${topicCenter.firstMostPopularModuleLink.kategory.name}</p>
+                                </link:cmsCategoryBrowse>
 
                                 <h3 class="bottom"><a href="${topicCenter.firstMostPopularModuleLink.url}">${topicCenter.firstMostPopularModuleLink.linkText}</a></h3>
 
