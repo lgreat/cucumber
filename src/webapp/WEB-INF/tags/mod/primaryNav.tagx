@@ -369,7 +369,7 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.EDUCATIONAL_TOYS ? 'selected' : '')} menuItem lastNavUnit"><a href="/educational-toys/"
+<td class="${(pw == tabs.EDUCATIONAL_TOYS ? 'selected' : '')} menuItem lastNavUnit"><a href="/educational-toys.topic?content=4931"
                                                                      id="PN-EducationalToys"
                                                                      class="menuItemAnchorText noDrop GS_CI9_"><span
 class="navSprite i-pn-et"><!-- do not collapse --></span> Educational Toys</a></td>
