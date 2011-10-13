@@ -159,5 +159,15 @@ jQuery(function() {
     jQuery('#jq-citySelect').change(function() {
         GS.form.emailManagement.emailCityChange(jQuery(this));
     });
+
+    jQuery('#js_submitButton').click(function() {
+        var email = jQuery('#js_email').val();
+        if (email === '') {
+            jQuery('#js_empty_email_error').show();
+            return false;
+        }
+        jQuery('#js_empty_email_error').hide();
+        return true;
+    });
 });
 

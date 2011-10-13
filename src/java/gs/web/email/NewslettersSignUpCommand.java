@@ -1,5 +1,6 @@
 package gs.web.email;
 
+import gs.data.community.SubscriptionProduct;
 import gs.data.school.School;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
@@ -95,12 +96,12 @@ public class NewslettersSignUpCommand {
         this.userId = userId;
     }
 
-     public boolean isDailytip() {
+    public boolean isDailytip() {
         return dailytip;
     }
 
     public void setDailytip(boolean dailytip) {
-        dailytip = dailytip;
+        this.dailytip = dailytip;
     }
 
     public int getDailytipId() {
@@ -108,7 +109,7 @@ public class NewslettersSignUpCommand {
     }
 
     public void setDailytipId(int dailytipId) {
-        dailytipId = dailytipId;
+        this.dailytipId = dailytipId;
     }
 
      public boolean getGreatnews() {
@@ -437,5 +438,67 @@ public class NewslettersSignUpCommand {
 
     public void setId4(int id4) {
         this.id4 = id4;
+    }
+
+    public boolean checkedBox(SubscriptionProduct myNth){
+        if(myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)){
+            return mypk;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_KINDERGARTNER)){
+            return myk;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FIRST_GRADER)){
+            return my1;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_SECOND_GRADER)){
+            return my2;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_THIRD_GRADER)){
+            return my3;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FOURTH_GRADER)){
+            return my4;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FIFTH_GRADER)){
+            return my5;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_MS)){
+            return myms;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_HS)){
+            return myhs;
+        }
+        return false;
+    }
+
+    public int getMyNthId(SubscriptionProduct myNth){
+        if(myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)){
+            return mypkId;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_KINDERGARTNER)){
+            return mykId;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FIRST_GRADER)){
+            return my1Id;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_SECOND_GRADER)){
+            return my2Id;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_THIRD_GRADER)){
+            return my3Id;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FOURTH_GRADER)){
+            return my4Id;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_FIFTH_GRADER)){
+            return my5Id;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_MS)){
+            return mymsId;
+        }
+        if(myNth.equals(SubscriptionProduct.MY_HS)){
+            return myhsId;
+        }
+        return 0;
     }
 }
