@@ -87,6 +87,7 @@ General comments:
 =12p parent review landing page
 =12q FAQ
 =12r interrupt survey hover
+=12s news letter subscription
 =13 editorialFooter
 =14 searchResults
 =15 terms/privacy
@@ -7309,6 +7310,38 @@ body.ie8 #savvysource span.arrow-right {
     width:200px;
     height:50px;
     float:right;
+}
+
+/* =12s news letter subscription
+-------------------------------------------------------------------------------------------*/
+.nlSubscription {
+    width: 98%;
+    margin: auto;
+}
+
+#manageNewsletters.nlSubscription fieldset{
+    border: none;
+    padding: 0;
+}
+#manageNewsletters.nlSubscription .formContentGS{
+    width: auto;
+}
+
+.nlSubscription ul {
+    padding: 0;
+}
+
+.nlSubscription ul li{
+    list-style-type: none;
+    margin: 4px 0;
+}
+.nlSubscription .weeklyNewsletter ul li{
+    margin: 0 0 10px;
+}
+
+.nlSubscription select{
+    border: 1px solid #999;
+    width: 188px;
 }
 
 /* =13 editorialFooter

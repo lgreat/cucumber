@@ -30,254 +30,229 @@
 <gsml:body adPageName="email/newslettersSignUp" pageLayout="nocol">
          <!--<jsp:include page="/promo/newslettersSignUp.module"/>-->
 
-<div id="topicMainGS" class="col">
-<div id="manageNewsletters">
-
-
-<h3 class="title2-d61">Subscribe to our free newsletters</h3>
-
-<div class="spacer_5"><!-- do not collapse --></div>
-
-<div class="spacer_15"><!-- do not collapse --></div>
-
-<form:form name="manage" commandName="emailCmd" method="post">
-<input name="userId" type="hidden" value="${emailCmd.userId}"/>
-
-<fieldset id="dailyTip">
-    <div class="mediaExt1">
-        <div class="bk">
-            <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold"><form:checkbox path="dailytip" cssClass="newsletterCheckbox"
-                                           id="dailytip_checkbox"/><label for="dailytip_checkbox">Daily Newsletter</label></p>
-                <p class="newsletterDescription text2">MONDAY-FRIDAY</p>
-                <p class="newsletterDescription text2">Daily tips and ideas that will enrich your child's education.</p>
-            </div>
-        </div>
-    </div>
-</fieldset>
-
-
-<fieldset>
-    <div class="formContentGS clearfix">
-        <div class="mediaExt1">
-            <div class="bk">
-                <p class="newsletterHeader text2bold"><form:checkbox path="greatnews" id="jq-greatnews"
-                                           cssClass="newsletterCheckbox"/><label for="jq-greatnews">Weekly Newsletter</label></p>
-
-                <p class="newsletterDescription text2">The tips and tools you need to make smart choices about your child’s education.</p>
-
-            </div>
-
-
-            <div id="jq-mynth" class="mynth">
-                <p class="text3bold">Personalize your weekly updates by indicating your<a name="mynth_anchor">&amp;nbsp;</a> <br/>child(ren)'s grade level(s) for 2011-2012:</p>
-                <ol class="horizontal">
-                        <li>
-                            <fieldset>
-                                <ol class="size1of3 col">
-                                    <li><form:checkbox value="mypk" id="gp" path="mypk"/><label
-                                            for="gp">Preschool</label>
-                                        <form:hidden path="mypkId"/>
-                                    </li>
-                                    <li><form:checkbox value="myk" id="gk" path="myk"/><label
-                                            for="gk">Kindergarten</label>
-                                        <form:hidden path="mykId"/>
-                                    </li>
-                                    <li><form:checkbox value="my1" id="g1" path="my1"/><label
-                                            for="g1">1st Grade</label>
-                                        <form:hidden path="my1Id"/>
-                                    </li>
-                                </ol>
-                                <ol class="size1of3 col">
-                                    <li><form:checkbox value="my2" id="g2" path="my2"/><label
-                                            for="g2">2nd Grade</label>
-                                        <form:hidden path="my2Id"/>
-                                    </li>
-                                    <li><form:checkbox value="my3" id="g3" path="my3"/><label
-                                            for="g3">3rd Grade</label>
-                                        <form:hidden path="my3Id"/>
-                                    </li>
-
-                                    <li><form:checkbox value="my4" id="g4" path="my4"/><label
-                                            for="g4">4th Grade</label>
-                                        <form:hidden path="my4Id"/>
-                                    </li>
-                                </ol>
-                                <ol class="size1of3 col">
-                                    <li><form:checkbox value="my5" id="g5" path="my5"/><label
-                                            for="g5">5th Grade</label>
-                                        <form:hidden path="my5Id"/>
-                                    </li>
-                                    <li><form:checkbox value="myms" id="gM" path="myms"/><label
-                                            for="gM">Middle School</label>
-                                        <form:hidden path="mymsId"/>
-                                    </li>
-                                    <li><form:checkbox value="myhs" id="gH" path="myhs"/><label
-                                            for="gH">High School</label>
-                                        <form:hidden path="myhsId"/>
-                                    </li>
-                                </ol>
-                            </fieldset>
-                        </li>
-                    </ol>
-            </div>
-
-        </div>
-    </div>
-
-</fieldset>
-
-
-
-<fieldset>
-    <div class="mediaExt1">
-        <div class="bk">
-            <div class="newsletterInfo">
-                <c:if test="${emailCmd.tooManySchoolsError}">
-                    <div class="error">You have subscribed to the maximum number
-                        of school updates
-                    </div>
-                </c:if>
-
-                <p class="newsletterHeader text2bold">My School Stats</p>
-                <p>MONTHLY</p>
-                <p class="newsletterDescription text2">
-                    Track your child's school stats &amp;#8212; from test scores to teacher quality.
-                    (Available for public schools only)
-                </p>
-            </div>
-
-            <div class="spacer_10"><!-- do not collapse --></div>
-
-            <div class="mssInfo">
-                <p class="text3bold ${emailCmd.school1 ? '' : 'hidden'}" id="jq-mssHeading">Subscribe to school updates on:</p>
-
-                <input type="hidden" id="jq-numMssSchools"
-                       name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
-
-                <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
-                    <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox" checked="checked"/>
-                    <label for="jq-mssSchoolX">REPLACE-ME</label>
-                    <input type="hidden" name="uniqueStateId" value="REPLACE-ME"/>
-                </div>
-
-                <div id="jq-mssSchoolSection">
-                    <c:if test="${emailCmd.school1}">
-                        <c:forEach var="school" items="${emailCmd.currentMySchoolStats}" varStatus="schoolCounter">
-                            <div class="mssSchoolLine">
-                                <form:checkbox path="school${schoolCounter.count}" id="jq-mssSchool${schoolCounter.count}"
-                                               cssClass="newsletterCheckbox"/>
-                                <label for="jq-mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
-                                <input type="hidden" name="id${schoolCounter.count}"
-                                       value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
-                                <input type="hidden" name="name${schoolCounter.count}" value="${school.name}"/>
-                                <input type="hidden" name="uniqueStateId"
-                                       value="${school.stateAbbreviation}${school.id}"/>
-                            </div>
-                        </c:forEach>
-                    </c:if>
-                </div>
-
-
-                <c:set var="addSectionDisplayStyle" value="block"/>
-                <c:if test="${fn:length(emailCmd.myStatIds) ge 4}">
-                    <c:set var="addSectionDisplayStyle" value="none"/>
-                </c:if>
-
-                <div class="spacer_10"><!-- do not collapse --></div>
-                <div id="jq-mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
-                    <p class="text3bold">Add a school:<span class="text3"> (four schools maximum)</span></p>
-                    <ol>
-                        <li>
-                            <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="jq-stateAdd"
-                                                 name="stateAdd"
-                                                 noStateLabel="1. Choose state"
-                                                 allowNoState="true"
-                                    />
-                        </li>
-
-                        <li id="city">
-                            <select id="jq-citySelect" name="city">
-                                <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
-                                    <option selected="selected" value="">2. Choose city</option>
-                                </c:if>
-                                <c:forEach var="cityOption" items="${emailCmd.cityList}">
-                                    <![CDATA[<option ]]>
-                                    <c:if test="${emailCmd.city eq cityOption.name}">
-                                        selected="selected"
-                                    </c:if>
-                                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                                </c:forEach>
-                            </select>
-                        </li>
-                        <gsml:feedbackMessage command="emailCmd" field="city" styleClass="ajaxMessage ajaxError"/>
-
-                        <li id="schoolsInCity">
-                            <select name="school" id="jq-school" class="selectChildSchool">
-                                <option selected="selected" value="0">3. Choose school</option>
-                                <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
-                                    <![CDATA[<option ]]>
-                                    <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
-                                </c:forEach>
-                            </select>
-                        </li>
-                    </ol>
-                    <div class="spacer_10"><!-- do not collapse --></div>
-
-                    <button class="button-1 fltlft" type="button" id="jq-addMssSchool" name="Add" value="Add">Add</button>
-                    <div class="spacer_15"><!-- do not collapse --></div>
-
-                </div>
-                <!-- end #jq-mssAddSchoolSection -->
-            </div>
-            <!-- end .mssInfo -->
-        </div>
-    </div>
-</fieldset>
-
-
-<fieldset>
-    <div class="mediaExt1">
-        <div class="bk">
-            <div class="newsletterInfo">
-                <p class="newsletterHeader text2bold">Send me valuable offers and information from GreatSchools partners<a name="sponsor_anchor">&amp;nbsp;</a></p>
-                <ol>
-                    <li>
-                        <fieldset>
-                            <ol>
-                                <li>
-                                    <form:checkbox path="sponsor" cssClass="newsletterCheckbox"
-                                           id="sponsor_checkbox"/>
-                                    <label for="sponsor_checkbox">Subscribe to this newsletter</label></li>
-                            </ol>
-                        </fieldset>
-                    </li>
-                    <form:hidden path="sponsorId"/></ol>
-            </div>
-        </div>
-    </div>
-</fieldset>
-
-
-<fieldset class="submit">
-
-    <button class="button-1 fltlft" type="submit" id="submitButton" name="Submit" value="Submit">Subscribe</button>
-
-</fieldset>
-
-</form:form>
-<div class="spacer_15"><!-- do not collapse --></div>
-<p><gsml:popupWindow width="800" height="600" left="50" top="50"
-                     title="GreatSchools Privacy Policy"
-                     href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>
-<p>
-    <link:newsletterUnsubscribe email="${emailCmd.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
-</p>
-
-</div>
-<!-- end manageNewsletters -->
-</div>
-
+         <div id="topicMainGS" class="slStylesV1-0">
+         <div id="manageNewsletters" class="nlSubscription">
+         <div class="spacer_20"><!-- do not collapse --></div>
+         <h1 class="bottom">Subscribe to our free newsletters</h1>
+         <div class="spacer_10"><!-- do not collapse --></div>
+         <form:form name="manage" commandName="emailCmd" method="post">
+         <input name="userId" type="hidden" value="${emailCmd.userId}"/>
+         <div class="line">
+         <div class="unit size25of100">
+             <fieldset id="dailyTip">
+                 <div class="mediaExt1">
+                     <div class="bk">
+                         <div class="newsletterInfo">
+                             <p class="newsletterHeader bottom"><form:checkbox path="dailytip"
+                                                                               cssClass="newsletterCheckbox"
+                                                                               id="dailytip_checkbox"/><label
+                                     for="dailytip_checkbox">Daily Newsletter</label></p>
+                             <p class="newsletterDescription bottom">MONDAY-FRIDAY</p>
+                             <p class="newsletterDescription bottom">Daily tips and ideas that will enrich your child's education.</p>
+                         </div>
+                     </div>
+                 </div>
+             </fieldset>
+         </div>
+         <div class="unit size25of100">
+             <fieldset>
+                 <div class="formContentGS weeklyNewsletter clearfix">
+                     <div class="mediaExt1">
+                         <div class="bk">
+                             <p class="newsletterHeader bottom"><form:checkbox path="greatnews" id="jq-greatnews"
+                                                                               cssClass="newsletterCheckbox"/><label
+                                     for="jq-greatnews">Weekly Newsletter</label></p>
+                             <p class="bottom">WEEKLY</p>
+                             <p class="newsletterDescription bottom">The tips and tools you need to make smart choices about your child’s education.</p>
+                         </div>
+                         <div id="jq-mynth" class="mynth">
+                             <p class="bottom">Personalize your weekly updates by indicating your<a
+                                     name="mynth_anchor">&amp;nbsp;</a> <br/>child(ren)'s grade level(s) for 2011-2012:
+                             </p>
+                             <fieldset>
+                                 <ul class="fltlft">
+                                     <li><form:checkbox value="mypk" id="gp" path="mypk"/><label
+                                             for="gp">Preschool</label>
+                                         <form:hidden path="mypkId"/>
+                                     </li>
+                                     <li><form:checkbox value="myk" id="gk" path="myk"/><label
+                                             for="gk">Kindergarten</label>
+                                         <form:hidden path="mykId"/>
+                                     </li>
+                                     <li><form:checkbox value="my1" id="g1" path="my1"/><label
+                                             for="g1">1st Grade</label>
+                                         <form:hidden path="my1Id"/>
+                                     </li>
+                                     <li><form:checkbox value="my2" id="g2" path="my2"/><label
+                                             for="g2">2nd Grade</label>
+                                         <form:hidden path="my2Id"/>
+                                     </li>
+                                     <li><form:checkbox value="my3" id="g3" path="my3"/><label
+                                             for="g3">3rd Grade</label>
+                                         <form:hidden path="my3Id"/>
+                                     </li>
+                                 </ul>
+                                 <ul class="fltrt">
+                                     <li><form:checkbox value="my4" id="g4" path="my4"/><label
+                                             for="g4">4th Grade</label>
+                                         <form:hidden path="my4Id"/>
+                                     </li>
+                                     <li><form:checkbox value="my5" id="g5" path="my5"/><label
+                                             for="g5">5th Grade</label>
+                                         <form:hidden path="my5Id"/>
+                                     </li>
+                                     <li><form:checkbox value="myms" id="gM" path="myms"/><label
+                                             for="gM">Middle School</label>
+                                         <form:hidden path="mymsId"/>
+                                     </li>
+                                     <li><form:checkbox value="myhs" id="gH" path="myhs"/><label
+                                             for="gH">High School</label>
+                                         <form:hidden path="myhsId"/>
+                                     </li>
+                                 </ul>
+                             </fieldset>
+                         </div>
+                     </div>
+                 </div>
+             </fieldset>
+         </div>
+         <div class="unit size25of100">
+             <fieldset>
+                 <div class="mediaExt1">
+                     <div class="bk">
+                         <div class="newsletterInfo">
+                             <c:if test="${emailCmd.tooManySchoolsError}">
+                                 <div class="error">You have subscribed to the maximum number
+                                     of school updates
+                                 </div>
+                             </c:if>
+                             <p class="newsletterHeader bottom">My School Stats</p>
+                             <p class="bottom">MONTHLY</p>
+                             <p class="newsletterDescription bottom">
+                                 Track your child's school stats &amp;#8212; from test scores to teacher quality.
+                                 (Available for public schools only)
+                             </p>
+                         </div>
+                         <div class="spacer_10"><!-- do not collapse --></div>
+                         <div class="mssInfo">
+                             <p class="${emailCmd.school1 ? '' : 'hidden'}"
+                                id="jq-mssHeading">Subscribe to school updates on:</p>
+                             <input type="hidden" id="jq-numMssSchools"
+                                    name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
+                             <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
+                                 <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox"
+                                        checked="checked"/>
+                                 <label for="jq-mssSchoolX">REPLACE-ME</label>
+                                 <input type="hidden" name="uniqueStateId" value="REPLACE-ME"/>
+                             </div>
+                             <div id="jq-mssSchoolSection">
+                                 <c:if test="${emailCmd.school1}">
+                                     <c:forEach var="school" items="${emailCmd.currentMySchoolStats}"
+                                                varStatus="schoolCounter">
+                                         <div class="mssSchoolLine">
+                                             <form:checkbox path="school${schoolCounter.count}"
+                                                            id="jq-mssSchool${schoolCounter.count}"
+                                                            cssClass="newsletterCheckbox"/>
+                                             <label for="jq-mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
+                                             <input type="hidden" name="id${schoolCounter.count}"
+                                                    value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
+                                             <input type="hidden" name="name${schoolCounter.count}"
+                                                    value="${school.name}"/>
+                                             <input type="hidden" name="uniqueStateId"
+                                                    value="${school.stateAbbreviation}${school.id}"/>
+                                         </div>
+                                     </c:forEach>
+                                 </c:if>
+                             </div>
+                             <c:set var="addSectionDisplayStyle" value="block"/>
+                             <c:if test="${fn:length(emailCmd.myStatIds) ge 4}">
+                                 <c:set var="addSectionDisplayStyle" value="none"/>
+                             </c:if>
+                             <div class="spacer_10"><!-- do not collapse --></div>
+                             <div id="jq-mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
+                                 <p class="text3bold">Add a school:<span class="text3"> (four maximum)</span></p>
+                                 <ul>
+                                     <li>
+                                         <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="jq-stateAdd"
+                                                              name="stateAdd"
+                                                              noStateLabel="1. Choose state"
+                                                              allowNoState="true"
+                                                 />
+                                     </li>
+                                     <li id="city">
+                                         <select id="jq-citySelect" name="city">
+                                             <c:if test="${emailCmd.cityList ne null and (emailCmd.city eq null or emailCmd.city eq '')}">
+                                                 <option selected="selected" value="">2. Choose city</option>
+                                             </c:if>
+                                             <c:forEach var="cityOption" items="${emailCmd.cityList}">
+                                                 <![CDATA[<option ]]>
+                                                 <c:if test="${emailCmd.city eq cityOption.name}">
+                                                     selected="selected"
+                                                 </c:if>
+                                                 <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                             </c:forEach>
+                                         </select>
+                                     </li>
+                                     <gsml:feedbackMessage command="emailCmd" field="city"
+                                                           styleClass="ajaxMessage ajaxError"/>
+                                     <li id="schoolsInCity">
+                                         <select name="school" id="jq-school" class="selectChildSchool">
+                                             <option selected="selected" value="0">3. Choose school</option>
+                                             <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
+                                                 <![CDATA[<option ]]>
+                                                 <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                                             </c:forEach>
+                                         </select>
+                                     </li>
+                                 </ul>
+                                 <div class="spacer_10"><!-- do not collapse --></div>
+                                 <button class="button-1 fltlft" type="button" id="jq-addMssSchool" name="Add"
+                                         value="Add">Add
+                                 </button>
+                                 <div class="spacer_15"><!-- do not collapse --></div>
+                             </div>
+                             <!-- end #jq-mssAddSchoolSection -->
+                         </div>
+                         <!-- end .mssInfo -->
+                     </div>
+                 </div>
+             </fieldset>
+         </div>
+         <div class="unit size25of100 lastUnit">
+             <fieldset>
+                 <div class="mediaExt1">
+                     <div class="bk">
+                         <div class="newsletterInfo">
+                             <p class="newsletterHeader bottom"><form:checkbox path="sponsor"
+                                                                               cssClass="newsletterCheckbox"
+                                                                               id="sponsor_checkbox"/>
+                                 <label for="sponsor_checkbox">Partner Offers</label>
+                                 <form:hidden path="sponsorId"/>
+                             </p>
+                             <p class="newsletterDescription bottom">WEEKLY</p>
+                             <p class="newsletterDescription bottom">Valuable offers and information from GreatSchools partners.</p>
+                         </div>
+                     </div>
+                 </div>
+             </fieldset>
+         </div>
+         </div>
+         <fieldset class="submit">
+             <button class="button-1 fltlft" type="submit" id="submitButton" name="Submit" value="Submit">Subscribe
+             </button>
+         </fieldset>
+         </form:form>
+         <div class="spacer_15"><!-- do not collapse --></div>
+         <p><gsml:popupWindow width="800" height="600" left="50" top="50"
+                              title="GreatSchools Privacy Policy"
+                              href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>
+         <p>
+             <link:newsletterUnsubscribe
+                     email="${emailCmd.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
+         </p>
+         </div>
+         <!-- end manageNewsletters -->
+         </div>
 </gsml:body>
 </html>
 </jsp:root>
