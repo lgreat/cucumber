@@ -132,22 +132,37 @@
 
             <!-- GreatSchools Rating -->
             <td class="brdbtm_dotted badge-column bg-color-fff" align="left" valign="top">
-                <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}" levelCode="${school.levelCode}">
-                    <c:choose>
-                        <c:when test="${school.levelCode eq 'p'}">
-                            <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
-                        </c:when>
-                        <c:when test="${school.schoolType eq 'private'}">
-                            <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                        </c:when>
-                        <c:when test="${not empty school.greatSchoolsRating}">
-                            <span class="sprite badge_sm_${school.greatSchoolsRating}"><!-- do not collapse --></span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                        </c:otherwise>
-                    </c:choose>
-                </link:schoolProfileRating2010>
+                <c:choose>
+                    <c:when test="${school.levelCode eq 'p' or school.schoolType eq 'private'}">
+                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                                 databaseState="${school.databaseState}"
+                                                                 name="${school.name}"
+                                                                 physicalAddress="${school.address}"
+                                                                 levelCode="${school.levelCode}">
+                            <c:choose>
+                                <c:when test="${school.levelCode eq 'p'}">
+                                    <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
+                                </c:when>
+                                <c:when test="${school.schoolType eq 'private'}">
+                                    <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
+                                </c:when>
+                            </c:choose>
+                        </link:schoolProfileOverviewForPrimitives>
+                    </c:when>
+                    <c:otherwise>
+                        <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
+                                                      levelCode="${school.levelCode}">
+                            <c:choose>
+                                <c:when test="${not empty school.greatSchoolsRating}">
+                                    <span class="sprite badge_sm_${school.greatSchoolsRating}"><!-- do not collapse --></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                                </c:otherwise>
+                            </c:choose>
+                        </link:schoolProfileRating2010>
+                    </c:otherwise>
+                </c:choose>
             </td>
 
             <!-- Parent Rating -->
