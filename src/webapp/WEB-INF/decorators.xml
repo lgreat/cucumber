@@ -20,6 +20,8 @@
         <pattern>/community/hover/*</pattern>
     </decorator>
 
+    <decorator name="standardMobileDecorator" page="standardMobileDecorator.jspx"/>
+
     <decorator name="emptyDecorator" page="emptyDecorator.jspx"/>
 
     <decorator name="minimalDecorator" page="minimalDecorator.jspx">
