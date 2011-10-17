@@ -194,7 +194,7 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         CmsUtil.enableCms();
 
         UrlBuilder mock = createStrictMock(UrlBuilder.class);
-        _controller.setUrlBuilderForArticleId(mock);
+        _controller._setUrlBuilderForArticleId(mock);
 
         getRequest().removeParameter(ArticleController.PARAM_AID);
         getRequest().setParameter(ArticleController.PARAM_AID, String.valueOf(articleServedByCmsButNotPublished));
@@ -218,7 +218,7 @@ public class ArticleControllerTest extends BaseControllerTestCase {
         CmsUtil.enableCms();
 
         UrlBuilder mock = createStrictMock(UrlBuilder.class);
-        _controller.setUrlBuilderForArticleId(mock);
+        _controller._setUrlBuilderForArticleId(mock);
 
         getRequest().removeParameter(ArticleController.PARAM_AID);
         getRequest().setParameter(ArticleController.PARAM_AID, String.valueOf(articleServedByCmsButPublished));

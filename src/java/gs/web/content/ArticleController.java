@@ -280,7 +280,7 @@ public class ArticleController extends AbstractController {
      * Provided for unit tests 
      * @param urlBuilder
      */
-    public void setUrlBuilderForArticleId(UrlBuilder urlBuilder) {
+    public void _setUrlBuilderForArticleId(UrlBuilder urlBuilder) {
         _urlBuilderForArticleId = urlBuilder;
     }
 
