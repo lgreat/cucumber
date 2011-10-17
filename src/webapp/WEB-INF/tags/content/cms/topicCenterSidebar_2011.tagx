@@ -107,11 +107,11 @@
     </c:if>
 
 
-    <c:if test="${!(topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter)}">
+    <c:if test="${!(topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter or  topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter)}">
         <jsp:include page="/promo/emailSignUp.module"/>
     </c:if>
 
-    <c:if test="${topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
+    <c:if test="${topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter or topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter}">
         <c:choose>
             <c:when test="${(levelCode eq 'e' or topicCenter.preschoolTopicCenter) }">
                 <ad:adTag position="House_Ad_300x210"/>
@@ -215,7 +215,7 @@
     </c:choose>
 
     <!-- DONE-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
-    <c:if test="${topicCenter.gradeLevelTopicCenter}">
+    <c:if test="${topicCenter.gradeLevelTopicCenter or topicCenter.elementaryGradeTopicCenter}">
         <school:browseSchoolsInCity gradeLevel="${topicCenter.gradeLevel}"/>
     </c:if>
 
