@@ -29,7 +29,8 @@ public interface ICmsFeatureSearchResult extends ISearchResult {
     public String getImageAltText();
     public String getLength();
     public void setGrades(List<String> grades);
-    public List<String> getGrades();
+    public String getGrades();
+    public String getGradesCsv();
     public List<String> getSubjects();
     public void setSubjects(List<String> subjects);
     public void setContentType(String contentType);

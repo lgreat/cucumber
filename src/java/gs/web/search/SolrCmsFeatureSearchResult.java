@@ -211,9 +211,17 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
     }
     
     @XmlElement
-    public List<String> getGrades() {
-        return _grades;
+    public String getGrades() {
+        //TODO: change this method to return a list, and make callers use getGradesCsv instead
+        return getGradesCsv();
     }
+    public String getGradesCsv() {
+        if (_grades == null) {
+            return null;
+        }
+        return StringUtils.join(_grades.toArray(new String[0]), ',');
+    }
+
     @Field(CmsFeatureDocumentBuilder.FIELD_GRADES)
     public void setGrades(List<String> grades) {
         _grades = grades;
