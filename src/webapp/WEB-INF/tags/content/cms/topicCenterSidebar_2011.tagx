@@ -214,8 +214,7 @@
         </c:when>
     </c:choose>
 
-    <!-- DONE-9457 RANDALL, please make this tag pretty! it only shows up on grade-level topic centers -->
-    <c:if test="${topicCenter.gradeLevelTopicCenter or topicCenter.elementaryGradeTopicCenter}">
+    <c:if test="${topicCenter.gradeLevelTopicCenter}">
         <school:browseSchoolsInCity gradeLevel="${topicCenter.gradeLevel}"/>
     </c:if>
 
