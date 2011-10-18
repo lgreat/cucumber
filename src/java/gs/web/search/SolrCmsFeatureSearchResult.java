@@ -219,7 +219,7 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
         if (_grades == null) {
             return null;
         }
-        return StringUtils.join(_grades.toArray(new String[0]), ',');
+        return StringUtils.join(_grades.toArray(new String[0]), ", ");
     }
 
     @Field(CmsFeatureDocumentBuilder.FIELD_GRADES)
