@@ -16,6 +16,10 @@
             <param name="parameter.name" value="confirm" />
             <param name="parameter.value" value="true" />
         </mapper>
+
+        <mapper class="com.opensymphony.module.sitemesh.mapper.PageDecoratorMapper">
+            <param name="property.1" value="meta.decorator" />
+        </mapper>
         <!-- put a meta tag with name="decorator" content="minimalDecorator" to choose decorators via page logic -->
         <!-- mapper class="com.opensymphony.module.sitemesh.mapper.PageDecoratorMapper">
             <param name="property.1" value="meta.decorator" />
