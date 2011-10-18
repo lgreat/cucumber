@@ -133,6 +133,7 @@
             <!-- has the user searched in a specific state? -->
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="HAS_SEARCHED"/>
+                <property name="cookieDomain" value=".greatschools.org"/>
             </bean>
         </property>
         <property name="sessionCacheCookieGenerator">
