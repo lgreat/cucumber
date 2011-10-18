@@ -98,7 +98,7 @@
                     reason: reason
                 };
 
-                jQuery.post('/community/reportContent.page', params);
+                jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/reportContent.page', params);
 
                 jQuery('#' + GS.reportContent_idOfOpeningElement).parent().addClass('reported');
                 var contentTypeNormalized = params.type;
