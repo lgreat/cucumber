@@ -91,13 +91,14 @@ function textSwitch(el, target, replace) {
 
 function changeCity(cityName, stateAbbr) {
     var newHref = window.location.href;
+    var contentParam = "";
     if (newHref.indexOf('?') > 0) {
+        contentParam = getUrlParams('content');
         newHref = newHref.substring(0, newHref.indexOf('?'));
     }
-    newHref = newHref + '?city=' + encodeURIComponent(cityName) + '&state=' + stateAbbr + '#findASchool';
+    newHref = newHref + '?city=' + encodeURIComponent(cityName) + '&state=' + stateAbbr +(contentParam===''?'':'&content='+contentParam)+ '#findASchool';
     window.location.href = newHref;
 }
-
 
 function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
     var returnVal = true;
@@ -121,4 +122,16 @@ function findAndCompareCheck(queryId, stateSelectorId, pathwaysId) {
         returnVal = false;
     }
     return returnVal;
+}
+
+function getUrlParams(name)
+{
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null)
+        return "";
+    else
+        return results[1];
 }
