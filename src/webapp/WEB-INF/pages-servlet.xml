@@ -2645,11 +2645,16 @@
           class="gs.web.email.NewslettersSignUpController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="emailCmd"/>
+        <property name="commandName" value="newslettersSignUpCommand"/>
         <property name="commandClass" value="gs.web.email.NewslettersSignUpCommand"/>
         <property name="formView" value="/email/newslettersSignUp"/>
         <property name="successView">
             <value>email/newslettersSignUpThankYou</value>
+        </property>
+         <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
         </property>
     </bean>
 

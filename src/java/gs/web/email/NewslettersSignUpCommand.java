@@ -3,11 +3,12 @@ package gs.web.email;
 import gs.data.community.SubscriptionProduct;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.web.util.validator.EmailValidator;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
-public class NewslettersSignUpCommand {
+public class NewslettersSignUpCommand implements EmailValidator.IEmail{
     private String _email;
     private int userId;
 

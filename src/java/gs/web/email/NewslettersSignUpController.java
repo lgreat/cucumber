@@ -1,40 +1,49 @@
 package gs.web.email;
 
 import gs.data.community.*;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.geo.City;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.util.ReadWriteController;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class NewslettersSignUpController extends SimpleFormController implements ReadWriteController {
-    private String _viewName;
+
+    private EmailVerificationEmail _emailVerificationEmail;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
     protected final Log _log = LogFactory.getLog(getClass());
 
+//    protected void onBindOnNewForm(HttpServletRequest request, Object o) throws Exception {
+//        NewslettersSignUpCommand command = (NewslettersSignUpCommand) o;
+//        // set the cities option
+//        setCitiesOptions(command);
+//    }
 
-    protected void onBindOnNewForm(HttpServletRequest request, Object o) throws Exception {
-        NewslettersSignUpCommand command = (NewslettersSignUpCommand) o;
+    protected void onBindAndValidate(HttpServletRequest request,
+                                     Object command,
+                                     BindException errors) throws Exception {
+        if (errors.hasErrors()) {
+            return;
+        }
 
-        // set the cities option
-        City city = new City();
-        city.setName("My city is not listed");
-        List<City> cities = new ArrayList<City>();
-        cities.add(0, city);
-        command.setCityList(cities);
     }
 
     protected ModelAndView showForm(
@@ -42,35 +51,42 @@ public class NewslettersSignUpController extends SimpleFormController implements
             HttpServletResponse response,
             BindException be)
             throws Exception {
+        ModelAndView mAndV = super.showForm(request, response, be);
         NewslettersSignUpCommand command = (NewslettersSignUpCommand) be.getTarget();
 
-        Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, Object> model = mAndV.getModel();
+
+        setCitiesOptions(command);
         model.put(getCommandName(), command);
 
-        return new ModelAndView(_viewName, model);
+        return new ModelAndView(getFormView(), model);
 
     }
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object o, BindException be) throws Exception {
         NewslettersSignUpCommand command = (NewslettersSignUpCommand) o;
-        if (command.getEmail() != null) {
-            User user = getUserDao().findUserFromEmailIfExists(command.getEmail());
+        Map<String, Object> model = new HashMap<String, Object>();
+        String email = StringEscapeUtils.escapeHtml(command.getEmail());
 
-//            boolean isNewMember = false;
-//
-//            // If the user does not yet exist, add to list_member
-//            if (user == null) {
-//                user = new User();
-//                user.setEmail(command.getEmail());
-//                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-//                _userDao.saveUser(user);
-//                isNewMember = true;
-//            }
+        if (email != null) {
+
+            User user = getUserDao().findUserFromEmailIfExists(email);
+
+            // If the user does not yet exist, add to list_member
+            boolean isNewMember = false;
+            if (user == null) {
+                user = new User();
+                user.setEmail(email);
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                _userDao.saveUser(user);
+                isNewMember = true;
+            } else if (!user.getEmailVerified()) {
+                isNewMember = true;
+            }
 
             State state = user.getState();
             if (user.getUserProfile() != null) {
-                // your location
                 state = user.getUserProfile().getState();
             }
             if (state == null) {
@@ -82,9 +98,11 @@ public class NewslettersSignUpController extends SimpleFormController implements
             doMySchoolStats(user, command, subscriptions, request);
 
             submitMyNthList(user, command, state);
+
             boolean userAlreadySubscribedToDailyTip = false;
             boolean userAlreadySubscribedToSponsor = false;
             List<Subscription> existingSubscriptions = _subscriptionDao.getUserSubscriptions(user);
+
             if (existingSubscriptions != null) {
                 for (Object subscription : existingSubscriptions) {
                     Subscription s = (Subscription) subscription;
@@ -106,25 +124,33 @@ public class NewslettersSignUpController extends SimpleFormController implements
                 subscriptions.add(s);
             }
 
-            ThreadLocalTransactionManager.commitOrRollback();
-            _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
-
-            Map<String, Object> model = new HashMap<String, Object>();
-            model.put(getCommandName(), command);
-
             if (command.isTooManySchoolsError()) {
                 // set the cities option
-                City city = new City();
-                city.setName("My city is not listed");
-                List<City> cities = new ArrayList<City>();
-                cities.add(0, city);
-                command.setCityList(cities);
-                return new ModelAndView(_viewName, model);
+                setCitiesOptions(command);
+                return new ModelAndView(getFormView(), model);
             }
+
+            _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
+
+            model.put(getCommandName(), command);
+
+            // Send verification email to new users.
+            if (isNewMember) {
+                sendVerificationEmail(request, user);
+            }
+
+            return new ModelAndView(getSuccessView(), model);
         }
 
-        return new ModelAndView(getSuccessView());
+        return new ModelAndView(getFormView(), model);
+    }
 
+    protected void setCitiesOptions(NewslettersSignUpCommand command) {
+        City city = new City();
+        city.setName("My city is not listed");
+        List<City> cities = new ArrayList<City>();
+        cities.add(0, city);
+        command.setCityList(cities);
     }
 
     protected void doMySchoolStats(User user, NewslettersSignUpCommand command, List<Subscription> newSubscriptions,
@@ -151,14 +177,13 @@ public class NewslettersSignUpController extends SimpleFormController implements
         if (stateIdStringSetFromDB.size() + stateIdStringSetFromPage.size() > 4) {
             command.setTooManySchoolsError(true);
         } else {
-            // any school on the page that isn't in the existing set, add it
             int counter = 1;
-            // reset messages
             command.setSchool1(false);
             command.setSchool2(false);
             command.setSchool3(false);
             command.setSchool4(false);
             for (String stateIdStringFromPage : stateIdStringSetFromPage) {
+                // any school on the page that isn't in the existing set, add it
                 if (!stateIdStringSetFromDB.contains(stateIdStringFromPage)) {
                     State stateToAdd;
                     Integer schoolIdToAdd;
@@ -208,129 +233,38 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
     }
 
-    public void submitMyNthList(User user,
-                                NewslettersSignUpCommand command,
-                                State state) {
-        List<Student> mynthSubscriptions = _subscriptionDao.findMynthSubscriptionsByUser(user);
-        Map<SubscriptionProduct, Integer> myNthMap = new HashMap<SubscriptionProduct, Integer>();
-        for (Student myNth : mynthSubscriptions) {
-            myNthMap.put(myNth.getMyNth(), myNth.getId());
+    protected void submitMyNthList(User user,
+                                   NewslettersSignUpCommand command,
+                                   State state) {
+        List<Student> myExistingNthSubscriptions = _subscriptionDao.findMynthSubscriptionsByUser(user);
+
+        Map<SubscriptionProduct, Integer> myExistingNthMap = new HashMap<SubscriptionProduct, Integer>();
+        for (Student myNth : myExistingNthSubscriptions) {
+            myExistingNthMap.put(myNth.getMyNth(), myNth.getId());
         }
 
+        //Add Nth subscription if user does not already have it.
         for (SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER) {
-            if (myNthMap.get(myNth) == null && command.checkedBox(myNth) && !(command.getMyNthId(myNth) > 0)) {
+            if (myExistingNthMap.get(myNth) == null && command.checkedBox(myNth) && !(command.getMyNthId(myNth) > 0)) {
                 addMyNth(myNth, user, state);
             }
         }
     }
 
-//    public void doMyNthList(User user, NewslettersSignUpCommand command) {
-//        //store existing My Nth Grade subscriptions in myNthMap
-//        List<Student> mynthSubscriptions = _subscriptionDao.findMynthSubscriptionsByUser(user);
-//        Map<SubscriptionProduct, Integer> myNthMap = new HashMap<SubscriptionProduct, Integer>();
-//        for (Student myNth : mynthSubscriptions) {
-//            myNthMap.put(myNth.getMyNth(), myNth.getId());
-//        }
-//
-//        //set checkboxes and hidden ids to correct values
-//        for (SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER) {
-//            if (myNthMap.get(myNth) == null) {
-//                continue;
-//            }
-//            Integer mnId = myNthMap.get(myNth);
-//            if (myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)) {
-//                command.setMypk(true);
-//                command.setMypkId(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_KINDERGARTNER)) {
-//                command.setMyk(true);
-//                command.setMykId(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_FIRST_GRADER)) {
-//                command.setMy1(true);
-//                command.setMy1Id(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_SECOND_GRADER)) {
-//                command.setMy2(true);
-//                command.setMy2Id(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_THIRD_GRADER)) {
-//                command.setMy3(true);
-//                command.setMy3Id(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_FOURTH_GRADER)) {
-//                command.setMy4(true);
-//                command.setMy4Id(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_FIFTH_GRADER)) {
-//                command.setMy5(true);
-//                command.setMy5Id(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_MS)) {
-//                command.setMyms(true);
-//                command.setMymsId(mnId);
-//            } else if (myNth.equals(SubscriptionProduct.MY_HS)) {
-//                command.setMyhs(true);
-//                command.setMyhsId(mnId);
-//            }
-//        }
-//    }
-//
-//    protected void checkRequestParams(HttpServletRequest request, ManagementCommand command) {
-//        for (SubscriptionProduct myNth : SubscriptionProduct.MY_NTH_GRADER) {
-//            if (request.getParameter("set" + myNth.getName()) == null) {
-//                continue;
-//            }
-//            // this ensures that if a request param sets an nth newsletter to checked, the
-//            // greatnews will also be checked
-//            command.setGreatnews(true);
-//            if (myNth.equals(SubscriptionProduct.MY_PRESCHOOLER)) {
-//                command.setMypk(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_KINDERGARTNER)) {
-//                command.setMyk(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_FIRST_GRADER)) {
-//                command.setMy1(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_SECOND_GRADER)) {
-//                command.setMy2(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_THIRD_GRADER)) {
-//                command.setMy3(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_FOURTH_GRADER)) {
-//                command.setMy4(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_FIFTH_GRADER)) {
-//                command.setMy5(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_MS)) {
-//                command.setMyms(true);
-//            } else if (myNth.equals(SubscriptionProduct.MY_HS)) {
-//                command.setMyhs(true);
-//            }
-//        }
-//    }
-
-    public void addMyNth(SubscriptionProduct sp, User user, State state) {
+    protected void addMyNth(SubscriptionProduct sp, User user, State state) {
         Student student = new Student();
         student.setSchoolId(-1);
         student.setGrade(sp.getGrade());
         student.setState(state);
         user.addStudent(student);
         _userDao.saveUser(user);
-
     }
 
-    public void removeMyNth(SubscriptionProduct myNth, User user) {
-        Set<Student> students = user.getStudents();
-        Student studentToDelete = null;
-        for (Student student : students) {
-            if (student.getGrade() != null && student.getGrade().equals(myNth.getGrade())) {
-                studentToDelete = student;
-                break;
-            }
-        }
-        if (studentToDelete != null) {
-            students.remove(studentToDelete);
-            user.setStudents(students);
-            _userDao.saveUser(user);
-        }
-    }
-
-    public String getViewName() {
-        return _viewName;
-    }
-
-    public void setViewName(String viewName) {
-        _viewName = viewName;
+    private void sendVerificationEmail(HttpServletRequest request, User user)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NL_SIGN_UP_PAGE);
+        String redirectUrl = urlBuilder.asFullUrl(request);
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
     }
 
     public ISubscriptionDao getSubscriptionDao() {
@@ -355,6 +289,14 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public EmailVerificationEmail getEmailVerificationEmail() {
+        return _emailVerificationEmail;
+    }
+
+    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
+        _emailVerificationEmail = emailVerificationEmail;
     }
 
 }

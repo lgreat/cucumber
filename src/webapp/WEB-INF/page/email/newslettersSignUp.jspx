@@ -35,15 +35,23 @@
 <div class="spacer_20"><!-- do not collapse --></div>
 <h1 class="bottom">Subscribe to our free newsletters</h1>
 <div class="spacer_10"><!-- do not collapse --></div>
-<form:form name="manage" commandName="emailCmd" method="post">
-<c:if test="${emailCmd.tooManySchoolsError}">
+<form:form commandName="newslettersSignUpCommand" method="POST">
+<c:if test="${newslettersSignUpCommand.tooManySchoolsError}">
     <div>You have subscribed to the maximum number
         of school updates
     </div>
 </c:if>
 
-<div class="error" id="js_empty_email_error">Please enter email address
+<div class="error" id="js_empty_email_error">Please enter email address.
 </div>
+<div>
+    <form:errors path="email">
+        <c:forEach items="${messages}" var="message">
+            ${message}
+        </c:forEach>
+    </form:errors>
+</div>
+
 <div class="emailSubscription pas">
         <h6 class="bottom"><label for="js_email" class="fltlft mrm">Email address:</label></h6>
         <input type="text" id="js_email"
@@ -57,7 +65,7 @@
         <h6 class="fltlft  small mts bottom">Check or uncheck newsletters below and click "Subscribe."</h6>
     <br class="clearfloat"/>
 </div>
-<input name="userId" type="hidden" value="${emailCmd.userId}"/>
+<input name="userId" type="hidden" value="${newslettersSignUpCommand.userId}"/>
 <div class="line mtl">
 <div class="unit size25of100 formStyles pas">
     <fieldset id="dailyTip">
@@ -151,10 +159,10 @@
                 </div>
                 <div class="spacer_10"><!-- do not collapse --></div>
                 <div class="mssInfo">
-                    <p class="${emailCmd.school1 ? '' : 'hidden'}"
+                    <p class="${newslettersSignUpCommand.school1 ? '' : 'hidden'}"
                        id="jq-mssHeading">Subscribe to school updates on:</p>
                     <input type="hidden" id="jq-numMssSchools"
-                           name="numMssSchools" value="${fn:length(emailCmd.myStatIds)}"/>
+                           name="numMssSchools" value="${fn:length(newslettersSignUpCommand.myStatIds)}"/>
                     <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
                         <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox"
                                checked="checked"/>
@@ -162,8 +170,8 @@
                         <input type="hidden" name="uniqueStateId" value="REPLACE-ME"/>
                     </div>
                     <div id="jq-mssSchoolSection">
-                        <c:if test="${emailCmd.school1}">
-                            <c:forEach var="school" items="${emailCmd.currentMySchoolStats}"
+                        <c:if test="${newslettersSignUpCommand.school1}">
+                            <c:forEach var="school" items="${newslettersSignUpCommand.currentMySchoolStats}"
                                        varStatus="schoolCounter">
                                 <div class="mssSchoolLine">
                                     <form:checkbox path="school${schoolCounter.count}"
@@ -171,7 +179,7 @@
                                                    cssClass="newsletterCheckbox"/>
                                     <label for="jq-mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
                                     <input type="hidden" name="id${schoolCounter.count}"
-                                           value="${emailCmd.myStatIds[schoolCounter.count -1]}"/>
+                                           value="${newslettersSignUpCommand.myStatIds[schoolCounter.count -1]}"/>
                                     <input type="hidden" name="name${schoolCounter.count}"
                                            value="${school.name}"/>
                                     <input type="hidden" name="uniqueStateId"
@@ -181,7 +189,7 @@
                         </c:if>
                     </div>
                     <c:set var="addSectionDisplayStyle" value="block"/>
-                    <c:if test="${fn:length(emailCmd.myStatIds) ge 4}">
+                    <c:if test="${fn:length(newslettersSignUpCommand.myStatIds) ge 4}">
                         <c:set var="addSectionDisplayStyle" value="none"/>
                     </c:if>
                     <div class="spacer_10"><!-- do not collapse --></div>
@@ -189,7 +197,7 @@
                         <h6 class="medium bottom pls">Add a school:<span class="text3"> (four maximum)</span></h6>
                         <ul>
                             <li class="pls">
-                                <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="jq-stateAdd"
+                                <gsweb:stateSelector state="${newslettersSignUpCommand.stateAdd}" styleId="jq-stateAdd"
                                                      name="stateAdd"
                                                      noStateLabel="1. Choose state"
                                                      allowNoState="true"
@@ -197,24 +205,24 @@
                             </li>
                             <li id="city" class="pls">
                                 <select id="jq-citySelect" name="city">
-                                    <c:if test="${emailCmd.cityList ne null}">
+                                    <c:if test="${newslettersSignUpCommand.cityList ne null}">
                                         <option selected="selected" value="">2. Choose city</option>
                                     </c:if>
-                                    <c:forEach var="cityOption" items="${emailCmd.cityList}">
+                                    <c:forEach var="cityOption" items="${newslettersSignUpCommand.cityList}">
                                         <![CDATA[<option ]]>
-                                        <c:if test="${emailCmd.city eq cityOption.name}">
+                                        <c:if test="${newslettersSignUpCommand.city eq cityOption.name}">
                                             selected="selected"
                                         </c:if>
                                         <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
                                     </c:forEach>
                                 </select>
                             </li>
-                            <gsml:feedbackMessage command="emailCmd" field="city"
+                            <gsml:feedbackMessage command="newslettersSignUpCommand" field="city"
                                                   styleClass="ajaxMessage ajaxError"/>
                             <li id="schoolsInCity" class="pls">
                                 <select name="school" id="jq-school" class="selectChildSchool">
                                     <option selected="selected" value="0">3. Choose school</option>
-                                    <c:forEach var="schoolOption" items="${emailCmd.currentMySchoolStats}">
+                                    <c:forEach var="schoolOption" items="${newslettersSignUpCommand.currentMySchoolStats}">
                                         <![CDATA[<option ]]>
                                         <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
                                     </c:forEach>
@@ -263,7 +271,7 @@
                      href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>
 <p>
     <link:newsletterUnsubscribe
-            email="${emailCmd.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
+            email="${newslettersSignUpCommand.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
 </p>
 </div>
 <!-- end manageNewsletters -->

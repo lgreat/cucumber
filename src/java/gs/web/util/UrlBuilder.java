@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.265 2011/10/08 03:35:24 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.266 2011/10/19 22:02:59 npatury Exp $
  */
 
 package gs.web.util;
@@ -163,6 +163,7 @@ public class UrlBuilder {
     public static final VPage USER_PROFILE = new VPage("vpage:userProfile");
     public static final VPage USER_ACCOUNT = new VPage("vpage:userAccount");
     public static final VPage RECENT_ACTIVITY = new VPage("vpage:recentActivity");
+    public static final VPage NL_SIGN_UP_PAGE = new VPage("vpage:newslettersSignUp");
 
     /**
      * school profile pages
@@ -942,6 +943,9 @@ public class UrlBuilder {
             _path="/find-schools/";
         } else if (TEST_PREP.equals(page)) {
             _path="/test-prep/";
+        } else if(NL_SIGN_UP_PAGE.equals(page)){
+            _perlPage = false;
+            _path = "email/newslettersSignUp.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }
