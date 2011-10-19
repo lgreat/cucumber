@@ -186,7 +186,6 @@
     <c:if test="${type eq 'askTheExperts'}">
         <h3 class="text-uppercase">Ask the Experts</h3>
     </c:if>
-    <a name="slide"><!-- don't collapse --></a>
     <h1>${feature.title}</h1>
 
     <c:choose>
@@ -298,7 +297,7 @@
                 <c:choose>
                     <c:when test="${hasNextSlide}">
                         <div class="next"><a
-                                href="${contentUrl}?page=${pageNum + 1}#slide"><img
+                                href="${contentUrl}?page=${pageNum + 1}"><img
                                 src="/res/img/slideShow/next.png" width="60" height="17" alt="next"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -315,7 +314,7 @@
                 <c:choose>
                     <c:when test="${hasPreviousSlide}">
                         <div class="prev"><a
-                                href="${contentUrl}?page=${pageNum - 1}#slide"><img
+                                href="${contentUrl}?page=${pageNum - 1}"><img
                                 src="/res/img/slideShow/prev.png" width="60" height="17" alt="previous"/></a></div>
                     </c:when>
                     <c:otherwise>
@@ -335,7 +334,7 @@
                             <ul>
                                 <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
                                     <li>
-                                        <a href="${contentUrl}?page=${status.count}#slide">
+                                        <a href="${contentUrl}?page=${status.count}">
                                             <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
                                             <c:choose>
                                                 <c:when test="${hasSlidePromo}">
@@ -372,7 +371,7 @@
 
                     <c:if test="${param.print ne 'true' and hasNextSlide}">
                         <p class="ss_text ss_next">Next:&amp;nbsp;
-                            <a href="${contentUrl}?page=${pageNum + 1}#slide">
+                            <a href="${contentUrl}?page=${pageNum + 1}">
                                 <c:set var="nextSlideHasPromo" value="${not empty articleSlideshow.nextSlide.promo}"/>
                                 <c:choose>
                                     <c:when test="${nextSlideHasPromo}">
