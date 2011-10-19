@@ -272,7 +272,6 @@ public class ContentSearchController extends AbstractController {
         }
 
         query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, Arrays.asList(type.getContentTypes()));
-        query.requireNonOptionalWords();
 
         return query;
     }
@@ -419,7 +418,6 @@ public class ContentSearchController extends AbstractController {
         query.page(0,0);
 
         query.query(searchQuery);
-        query.requireNonOptionalWords();
         return query;
     }
 
