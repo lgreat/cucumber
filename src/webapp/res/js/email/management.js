@@ -162,7 +162,7 @@ jQuery(function() {
 
     jQuery('#js_submitButton').click(function() {
         var email = jQuery('#js_email').val();
-        if (email === '') {
+        if (email === '' || email === '[Enter and email address]') {
             jQuery('#js_empty_email_error').show();
             return false;
         }
