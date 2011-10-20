@@ -15,12 +15,19 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <title>Thank You GreatSchools</title>
+        <meta name="robots" content="follow,noindex"/>
+        <title>Thank You for Signing Up | GreatSchools</title>
     </head>
 
     <gsml:body adPageName="email/newslettersSignUpThankYou" pageLayout="nocol">
+
         <div>Thank You</div>
         <div>${ThankYouMsg}</div>
+
+
+        <mod:tracking pageName="NL Sign-up Landing Page Thanks"
+                      hier1="Newsletter,NLLandingPageThanks" events="event53"/>
+
     </gsml:body>
 
     </html>

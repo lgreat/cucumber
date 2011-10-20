@@ -23,11 +23,11 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>Newsletter Sign Up GreatSchools</title>
+    <meta name="robots" content="follow,noindex"/>
+    <title>Free Newsletters | GreatSchools</title>
 </head>
 
 <gsml:body adPageName="email/newslettersSignUp" pageLayout="nocol">
-<!--<jsp:include page="/promo/newslettersSignUp.module"/>-->
 
 <div id="topicMainGS" class="slStylesV1-0">
 <div id="newslettersSignUp" class="nlSubscription">
@@ -36,7 +36,8 @@
 <div class="spacer_10"><!-- do not collapse --></div>
 <form:form commandName="newslettersSignUpCommand" method="POST">
 <c:if test="${newslettersSignUpCommand.tooManySchoolsError}">
-    <div>You have reached the maximum number of trackable schools.<a href="/email/management.page?ref=${tooManySchoolsErrMemberId}">Click here to update your schools.</a>
+    <div>You have reached the maximum number of trackable schools.<a
+            href="/email/management.page?ref=${tooManySchoolsErrMemberId}">Click here to update your schools.</a>
     </div>
 </c:if>
 
@@ -51,44 +52,44 @@
 </div>
 
 <div class="emailSubscription pas">
-        <h6 class="bottom"><label for="js_email" class="fltlft mrm">Email address:</label></h6>
-        <input type="text" id="js_email"
-               onfocus="GS_textSwitch(this, '', '[Enter and email address]');"
-               onblur="GS_textSwitch(this, '[Enter and email address]', '');"
-               class="fltlft small quiet bottom" name="email" value="[Enter and email address]"/>
-        <fieldset class="submit fltlft mlm mrm">
-            <button class="button-1 fltlft" type="submit" id="js_submitButton" name="Submit" value="Submit">Subscribe
-            </button>
-        </fieldset>
-        <h6 class="fltlft  small mts bottom">Check or uncheck newsletters below and click "Subscribe."</h6>
+    <h6 class="bottom"><label for="js_email" class="fltlft mrm">Email address:</label></h6>
+    <input type="text" id="js_email"
+           onfocus="GS_textSwitch(this, '', '[Enter and email address]');"
+           onblur="GS_textSwitch(this, '[Enter and email address]', '');"
+           class="fltlft small quiet bottom" name="email" value="[Enter and email address]"/>
+    <fieldset class="submit fltlft mlm mrm">
+        <button class="button-1 fltlft" type="submit" id="js_submitButton" name="Submit" value="Submit">Subscribe
+        </button>
+    </fieldset>
+    <h6 class="fltlft  small mts bottom">Check or uncheck newsletters below and click "Subscribe."</h6>
     <br class="clearfloat"/>
 </div>
 <input name="userId" type="hidden" value="${newslettersSignUpCommand.userId}"/>
 <div class="line mtl">
-<div class="unit size25of100 formStyles pas">
-    <fieldset id="dailyTip">
-        <div class="mediaExt1">
-            <div class="bk">
-                <div class="newsletterInfo">
-                    <h5 class="newsletterHeader bottom"><form:checkbox path="dailytip"
-                                                                      cssClass="newsletterCheckbox"
-                                                                      id="dailytip_checkbox"/>
-                        <label for="dailytip_checkbox">Daily Newsletter</label></h5>
-                    <p class="newsletterDescription smaller quite bottom pls pts">MONDAY-FRIDAY</p>
-                    <h6 class="newsletterDescription medium bottom pls pts">Daily tips and ideas that will enrich your child's education.</h6>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
-<div class="unit size25of100 formStyles pas">
-    <fieldset>
-        <div class="formContentGS weeklyNewsletter clearfix">
+    <div class="unit size25of100 formStyles pas">
+        <fieldset id="dailyTip">
             <div class="mediaExt1">
                 <div class="bk">
-                    <h5 class="newsletterHeader bottom"><form:checkbox path="greatnews" id="jq-greatnews"
-                                                                      cssClass="newsletterCheckbox"/><label
-                            for="jq-greatnews">Weekly Newsletter</label></h5>
+                    <div class="newsletterInfo">
+                        <h5 class="newsletterHeader bottom"><form:checkbox path="dailytip"
+                                                                           cssClass="newsletterCheckbox"
+                                                                           id="dailytip_checkbox"/>
+                            <label for="dailytip_checkbox">Daily Newsletter</label></h5>
+                        <p class="newsletterDescription smaller quite bottom pls pts">MONDAY-FRIDAY</p>
+                        <h6 class="newsletterDescription medium bottom pls pts">Daily tips and ideas that will enrich your child's education.</h6>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="unit size25of100 formStyles pas">
+        <fieldset>
+            <div class="formContentGS weeklyNewsletter clearfix">
+                <div class="mediaExt1">
+                    <div class="bk">
+                        <h5 class="newsletterHeader bottom"><form:checkbox path="greatnews" id="jq-greatnews"
+                                                                           cssClass="newsletterCheckbox"/><label
+                                for="jq-greatnews">Weekly Newsletter</label></h5>
                     <p class="smaller quite bottom pls pts">WEEKLY</p>
                     <h6 class="newsletterDescription medium bottom pls pts">The tips and tools you need to make smart choices about your child’s education.</h6>
                 </div>
@@ -149,52 +150,52 @@
             <div class="bk">
                 <div class="newsletterInfo">
                     <h5 class="newsletterHeader bottom pls">My School Stats</h5>
-                    <p class="smaller quite bottom pls pts">MONTHLY</p>
-                    <h6 class="newsletterDescription medium bottom pls pts">
-                        Track your child's school stats &amp;#8212; from test scores to teacher quality.
-                        (Available for public schools only)
-                    </h6>
-                </div>
-                <div class="spacer_10"><!-- do not collapse --></div>
-                <div class="mssInfo">
-                    <p class="${newslettersSignUpCommand.school1 ? '' : 'hidden'}"
-                       id="jq-mssHeading">Subscribe to school updates on:</p>
-                    <input type="hidden" id="jq-numMssSchools"
-                           name="numMssSchools" value="${fn:length(newslettersSignUpCommand.myStatIds)}"/>
-                    <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
-                        <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox"
-                               checked="checked"/>
-                        <label for="jq-mssSchoolX">REPLACE-ME</label>
-                        <input type="hidden" name="uniqueStateId" value="REPLACE-ME"/>
+                        <p class="smaller quite bottom pls pts">MONTHLY</p>
+                        <h6 class="newsletterDescription medium bottom pls pts">
+                            Track your child's school stats &amp;#8212; from test scores to teacher quality.
+                            (Available for public schools only)
+                        </h6>
                     </div>
-                    <div id="jq-mssSchoolSection">
-                        <c:if test="${newslettersSignUpCommand.school1}">
-                            <c:forEach var="school" items="${newslettersSignUpCommand.currentMySchoolStats}"
-                                       varStatus="schoolCounter">
-                                <div class="mssSchoolLine">
-                                    <form:checkbox path="school${schoolCounter.count}"
-                                                   id="jq-mssSchool${schoolCounter.count}"
-                                                   cssClass="newsletterCheckbox"/>
-                                    <label for="jq-mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
-                                    <input type="hidden" name="id${schoolCounter.count}"
-                                           value="${newslettersSignUpCommand.myStatIds[schoolCounter.count -1]}"/>
-                                    <input type="hidden" name="name${schoolCounter.count}"
-                                           value="${school.name}"/>
-                                    <input type="hidden" name="uniqueStateId"
-                                           value="${school.stateAbbreviation}${school.id}"/>
-                                </div>
-                            </c:forEach>
-                        </c:if>
-                    </div>
-                    <c:set var="addSectionDisplayStyle" value="block"/>
-                    <c:if test="${fn:length(newslettersSignUpCommand.myStatIds) ge 4}">
-                        <c:set var="addSectionDisplayStyle" value="none"/>
-                    </c:if>
                     <div class="spacer_10"><!-- do not collapse --></div>
-                    <div id="jq-mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
-                        <h6 class="medium bottom pls">Add a school:<span class="text3"> (four maximum)</span></h6>
-                        <ul>
-                            <li class="pls">
+                    <div class="mssInfo">
+                        <p class="${newslettersSignUpCommand.school1 ? '' : 'hidden'}"
+                           id="jq-mssHeading">Subscribe to school updates on:</p>
+                        <input type="hidden" id="jq-numMssSchools"
+                               name="numMssSchools" value="${fn:length(newslettersSignUpCommand.myStatIds)}"/>
+                        <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
+                            <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox"
+                                   checked="checked"/>
+                            <label for="jq-mssSchoolX">REPLACE-ME</label>
+                            <input type="hidden" name="uniqueStateId" value="REPLACE-ME"/>
+                        </div>
+                        <div id="jq-mssSchoolSection">
+                            <c:if test="${newslettersSignUpCommand.school1}">
+                                <c:forEach var="school" items="${newslettersSignUpCommand.currentMySchoolStats}"
+                                           varStatus="schoolCounter">
+                                    <div class="mssSchoolLine">
+                                        <form:checkbox path="school${schoolCounter.count}"
+                                                       id="jq-mssSchool${schoolCounter.count}"
+                                                       cssClass="newsletterCheckbox"/>
+                                        <label for="jq-mssSchool${schoolCounter.count}">${school.name}, ${school.city}, ${school.stateAbbreviation}</label>
+                                        <input type="hidden" name="id${schoolCounter.count}"
+                                               value="${newslettersSignUpCommand.myStatIds[schoolCounter.count -1]}"/>
+                                        <input type="hidden" name="name${schoolCounter.count}"
+                                               value="${school.name}"/>
+                                        <input type="hidden" name="uniqueStateId"
+                                               value="${school.stateAbbreviation}${school.id}"/>
+                                    </div>
+                                </c:forEach>
+                            </c:if>
+                        </div>
+                        <c:set var="addSectionDisplayStyle" value="block"/>
+                        <c:if test="${fn:length(newslettersSignUpCommand.myStatIds) ge 4}">
+                            <c:set var="addSectionDisplayStyle" value="none"/>
+                        </c:if>
+                        <div class="spacer_10"><!-- do not collapse --></div>
+                        <div id="jq-mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
+                            <h6 class="medium bottom pls">Add a school:<span class="text3"> (four maximum)</span></h6>
+                            <ul>
+                                <li class="pls">
                                 <gsweb:stateSelector state="${newslettersSignUpCommand.stateAdd}" styleId="jq-stateAdd"
                                                      name="stateAdd"
                                                      noStateLabel="1. Choose state"
@@ -253,14 +254,14 @@
                         <label for="sponsor_checkbox">Partner Offers</label>
                         <form:hidden path="sponsorId"/>
                     </h5>
-                             <p class="newsletterDescription smaller quite bottom pls pts">WEEKLY</p>
-                             <h6 class="newsletterDescription medium bottom pls pts">Valuable offers and information from GreatSchools partners.</h6>
-                         </div>
-                     </div>
-                 </div>
-             </fieldset>
-         </div>
-         </div>
+                        <p class="newsletterDescription smaller quite bottom pls pts">WEEKLY</p>
+                        <h6 class="newsletterDescription medium bottom pls pts">Valuable offers and information from GreatSchools partners.</h6>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
 
 </form:form>
 <div class="spacer_15"><!-- do not collapse --></div>
@@ -274,6 +275,9 @@
 </div>
 <!-- end manageNewsletters -->
 </div>
+
+<mod:tracking pageName="NL Sign-up Landing Page"
+              hier1="Newsletter,NLLandingPage"/>
 </gsml:body>
 </html>
 </jsp:root>
