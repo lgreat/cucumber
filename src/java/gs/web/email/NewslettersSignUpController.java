@@ -43,7 +43,6 @@ public class NewslettersSignUpController extends SimpleFormController implements
         if (errors.hasErrors()) {
             return;
         }
-
     }
 
     protected ModelAndView showForm(
@@ -60,7 +59,6 @@ public class NewslettersSignUpController extends SimpleFormController implements
         model.put(getCommandName(), command);
 
         return new ModelAndView(getFormView(), model);
-
     }
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -70,7 +68,6 @@ public class NewslettersSignUpController extends SimpleFormController implements
         String email = StringEscapeUtils.escapeHtml(command.getEmail());
 
         if (email != null) {
-
             User user = getUserDao().findUserFromEmailIfExists(email);
 
             // If the user does not yet exist, add to list_member
@@ -124,19 +121,22 @@ public class NewslettersSignUpController extends SimpleFormController implements
                 subscriptions.add(s);
             }
 
+            model.put(getCommandName(), command);
+            model.put("ThankYouMsg", "You've successfully subscribed to the GreatSchools newsletter.");
+
             if (command.isTooManySchoolsError()) {
                 // set the cities option
                 setCitiesOptions(command);
+                model.put("tooManySchoolsErrMemberId", user.getId());
                 return new ModelAndView(getFormView(), model);
             }
 
             _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
 
-            model.put(getCommandName(), command);
-
             // Send verification email to new users.
             if (isNewMember) {
                 sendVerificationEmail(request, user);
+                model.put("ThankYouMsg", "Please confirm your subscription by clicking the link in the email we just sent you.");
             }
 
             return new ModelAndView(getSuccessView(), model);

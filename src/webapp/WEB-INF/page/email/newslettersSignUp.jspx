@@ -7,7 +7,6 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
@@ -24,7 +23,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>Email GreatSchools</title>
+    <title>Newsletter Sign Up GreatSchools</title>
 </head>
 
 <gsml:body adPageName="email/newslettersSignUp" pageLayout="nocol">
@@ -37,8 +36,7 @@
 <div class="spacer_10"><!-- do not collapse --></div>
 <form:form commandName="newslettersSignUpCommand" method="POST">
 <c:if test="${newslettersSignUpCommand.tooManySchoolsError}">
-    <div>You have subscribed to the maximum number
-        of school updates
+    <div>You have reached the maximum number of trackable schools.<a href="/email/management.page?ref=${tooManySchoolsErrMemberId}">Click here to update your schools.</a>
     </div>
 </c:if>
 
