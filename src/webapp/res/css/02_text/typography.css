@@ -77,6 +77,7 @@ Misc classes
 .slStylesV1-0 .smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 .slStylesV1-0 .smallest { font: normal 10px/14px Arial, Helvetica, sans-serif; margin-bottom: 14px; }
 .slStylesV1-0 .small_bold { font: bold 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.slStylesV1-0 .medium_bold { font: bold 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
 
 /*
 	These can be used to pull an image at the start of a paragraph, so
@@ -162,6 +163,7 @@ Misc classes
 .slStylesV1-0 .quiet      { color: #787878; }
 .slStylesV1-0 .loud       { color: #000; }
 .slStylesV1-0 .make-06b   { color: #06b; }
+.slStylesV1-0 .error_msg   { color: #900; }
 .slStylesV1-0 .highlight  { background:#ff0; }
 .slStylesV1-0 .added      { background:#060; color: #fff; }
 .slStylesV1-0 .removed    { background:#900; color: #fff; }

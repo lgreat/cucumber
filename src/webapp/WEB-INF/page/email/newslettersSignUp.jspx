@@ -36,14 +36,14 @@
 <div class="spacer_10"><!-- do not collapse --></div>
 <form:form commandName="newslettersSignUpCommand" method="POST">
 <c:if test="${newslettersSignUpCommand.tooManySchoolsError}">
-    <div>You have reached the maximum number of trackable schools.<a
-            href="/email/management.page?ref=${tooManySchoolsErrMemberId}">Click here to update your schools.</a>
+    <div class="error_msg medium_bold bottom pbm">You have reached the maximum number of trackable schools.<a
+            href="/email/management.page?ref=${tooManySchoolsErrMemberId}" class="mls">Click here to update your schools.</a>
     </div>
 </c:if>
 
-<div class="error" id="js_empty_email_error">Please enter email address.
+<div class="error medium_bold bottom" id="js_empty_email_error">Please enter email address.
 </div>
-<div>
+<div class="invalidEmail medium_bold error_msg bottom pbm">
     <form:errors path="email">
         <c:forEach items="${messages}" var="message">
             ${message}

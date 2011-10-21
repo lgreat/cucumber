@@ -7382,8 +7382,14 @@ body.ie8 #savvysource span.arrow-right {
     border-right: 1px solid #ECECEC;
 }
 
+.nlSubscription .error{
+    background: none;
+    padding: 0 0 10px;
+}
 
-
+.nlSubscription .invalidEmail{
+    padding-bottom: 10px;
+}
 
 
 
