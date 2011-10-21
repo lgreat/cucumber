@@ -70,16 +70,32 @@ public class NewslettersSignUpController extends SimpleFormController implements
         if (email != null) {
             User user = getUserDao().findUserFromEmailIfExists(email);
 
+            //Logic taken from populateSubscriptionInfo in SubscriptionDaoHibernate.
+            //Users who joined after double opt in was introduced and have not verified their emails
+            //are omitted from the nightly ET export and therefore do not receive NLs until they verify their email.
+            //Therefore if a user
+            // i)has joined after we introduced double opt in
+            // ii)and has not verified their email
+            //iii)and is trying to add newsletters
+            // then re-send the email verification email.
+            Calendar double_opt_in_release_date = Calendar.getInstance();
+            double_opt_in_release_date.set(2010, 3, 14, 23, 0, 0);
+
+            boolean shouldSendVerificationEmail = false;
+
             // If the user does not yet exist, add to list_member
-            boolean isNewMember = false;
             if (user == null) {
                 user = new User();
                 user.setEmail(email);
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.saveUser(user);
-                isNewMember = true;
-            } else if (!user.getEmailVerified()) {
-                isNewMember = true;
+                shouldSendVerificationEmail = true;
+            } else if (user != null && user.getTimeAdded() != null && (user.getEmailVerified() == null || !user.getEmailVerified())) {
+                Date time_added = user.getTimeAdded();
+
+                if (time_added.after(double_opt_in_release_date.getTime()) && (user.getEmailVerified() == null || !user.getEmailVerified())) {
+                    shouldSendVerificationEmail = true;
+                }
             }
 
             State state = user.getState();
@@ -133,8 +149,8 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
             _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
 
-            // Send verification email to new users.
-            if (isNewMember) {
+            // Send verification email
+            if (shouldSendVerificationEmail) {
                 sendVerificationEmail(request, user);
                 model.put("ThankYouMsg", "Please confirm your subscription by clicking the link in the email we just sent you.");
             }
