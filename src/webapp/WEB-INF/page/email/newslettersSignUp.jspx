@@ -43,7 +43,7 @@
 
 <div class="error medium_bold bottom" id="js_empty_email_error">Please enter email address.
 </div>
-<div class="invalidEmail medium_bold error_msg bottom pbm">
+<div class="invalidEmail medium_bold error_msg bottom pbm" id="js_invalid_email_error">
     <form:errors path="email">
         <c:forEach items="${messages}" var="message">
             ${message}
