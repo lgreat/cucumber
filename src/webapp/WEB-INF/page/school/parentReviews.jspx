@@ -90,7 +90,7 @@
 
     <script type="text/javascript">
         function disableReview(reviewId) {
-            jQuery.post('/community/deactivateContent.page', {
+            jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/deactivateContent.page', {
                 contentId:reviewId,
                 contentType:'schoolReview'});
             window.setTimeout(function() {
@@ -99,7 +99,7 @@
         }
 
         function enableReview(reviewId) {
-            jQuery.post('/community/deactivateContent.page', {
+            jQuery.post(GS.uri.Uri.getBaseHostname () + '/community/deactivateContent.page', {
                 contentId:reviewId,
                 contentType:'schoolReview',
                 reactivate:true});
