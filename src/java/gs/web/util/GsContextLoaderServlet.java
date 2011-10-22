@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 NDP Software. All Rights Reserved.
- * $Id: GsContextLoaderServlet.java,v 1.3 2009/12/04 22:27:03 chriskimm Exp $
+ * $Id: GsContextLoaderServlet.java,v 1.4 2011/10/22 00:01:39 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -8,7 +8,7 @@ package gs.web.util;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.ContextLoaderServlet;
+import org.springframework.web.context.ContextLoaderListener;
 
 import javax.servlet.ServletContext;
 
@@ -22,7 +22,7 @@ import javax.servlet.ServletContext;
  *
  * @author <a href="mailto:apeterson@greatschools.org">Andrew J. Peterson</a>
  */
-public class GsContextLoaderServlet extends ContextLoaderServlet {
+public class GsContextLoaderServlet extends ContextLoaderListener {
     protected ContextLoader createContextLoader() {
         return new ContextLoader() {
             protected ApplicationContext loadParentContext(ServletContext servletContext) throws BeansException {

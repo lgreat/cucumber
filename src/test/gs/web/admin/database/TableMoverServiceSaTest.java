@@ -30,26 +30,26 @@ public class TableMoverServiceSaTest extends BaseTestCase {
     }
 
     public void testGetTables() {
-        List<HashMap<String, String>> resultSet = new ArrayList<HashMap<String, String>>();
-        resultSet.add(new HashMap<String, String>() {
+        List<Map<String, Object>> resultSet = new ArrayList<Map<String, Object>>();
+        resultSet.add(new HashMap<String, Object>() {
             {
                 put(TableMoverService.DATABASE_COLUMN, "gs_schooldb");
                 put(TableMoverService.TABLE_COLUMN, "table1");
             }
         });
-        resultSet.add(new HashMap<String, String>() {
+        resultSet.add(new HashMap<String, Object>() {
             {
                 put(TableMoverService.DATABASE_COLUMN, "gs_schooldb");
                 put(TableMoverService.TABLE_COLUMN, "table2");
             }
         });
-        resultSet.add(new HashMap<String, String>() {
+        resultSet.add(new HashMap<String, Object>() {
             {
                 put(TableMoverService.DATABASE_COLUMN, "_az");
                 put(TableMoverService.TABLE_COLUMN, "az_table1");
             }
         });
-        resultSet.add(new HashMap<String, String>() {
+        resultSet.add(new HashMap<String, Object>() {
             {
                 put(TableMoverService.DATABASE_COLUMN, "_az");
                 put(TableMoverService.TABLE_COLUMN, "az_table2");

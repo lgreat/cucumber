@@ -1,6 +1,5 @@
 package gs.web.path;
 
-import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.beans.BeansException;
 
 import java.util.Map;
@@ -10,13 +9,14 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.web.jsp.Util;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 
 /**
  * @author <a href="mailto:yfan@greatschools.org">Young Fan</a>
  */
 public class DirectoryStructureUrlHandlerMapping extends SimpleUrlHandlerMapping {
 
-    private static Map<String,String> _map = new HashMap<String,String>();
+    private static Map<String,Object> _map = new HashMap<String,Object>();
 
     static {
         for (State state : StateManager.getList()) {
@@ -38,7 +38,7 @@ public class DirectoryStructureUrlHandlerMapping extends SimpleUrlHandlerMapping
         return _map;
     }
 
-    protected void registerHandlers(Map urlMap)
+    protected void registerHandlers(Map<String,Object> urlMap)
                          throws BeansException {
         super.registerHandlers(_map);
     }

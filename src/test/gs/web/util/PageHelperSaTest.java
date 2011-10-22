@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.55 2010/11/24 22:44:34 droy Exp $
+ * $Id: PageHelperSaTest.java,v 1.56 2011/10/22 00:01:39 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -478,7 +478,7 @@ public class PageHelperSaTest extends TestCase {
         Cookie cookie = _response.getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
         assertNotNull(cookie);
         assertEquals(memberId, cookie.getValue());
-        assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
+        assertEquals(-1, cookie.getMaxAge()); //TODO: consider setting cookie maxAge to null instead of -1 in this case
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
     }
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.18 2009/12/04 22:27:19 chriskimm Exp $
+ * $Id: NthGraderControllerTest.java,v 1.19 2011/10/22 00:01:39 ssprouse Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -160,7 +160,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
 
         Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
         assertNotNull(cookie);
-        assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
+        assertEquals(-1, cookie.getMaxAge()); //TODO: consider setting cookie max age to null instead of -1 in this case
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
         assertEquals(cookie.getValue(), "1");
 

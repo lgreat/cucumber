@@ -3,12 +3,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       xmlns:device="http://www.springframework.org/schema/mobile/device"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
             http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd
             http://www.springframework.org/schema/aop
-            http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/mobile/device
+            http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd"
        default-autowire="byName" default-lazy-init="true">
 
     <context:component-scan base-package="gs.web.api" />
@@ -24,6 +31,15 @@
           lazy-init="true">
         <property name="interceptors">
             <list>
+                <!--<bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor">
+                <beans:constructor-arg>
+                    <device:wurfl-device-resolver root-location="/WEB-INF/wurfl-2.0.25.zip" />
+                </beans:constructor-arg>
+                </bean>
+                &lt;!&ndash; On pre-handle, redirects mobile users to "m.myapp.com" (declare after DeviceResolverHandlerInterceptor) &ndash;&gt;
+                <bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="mDot">
+                    <beans:constructor-arg value="samson-sprouses-imac.local" />
+                </bean>-->
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
                 <!-- CookieInterceptor and SeoCobrandInterceptor are dependent on SessionContextInterceptor, and must come after it in config -->
