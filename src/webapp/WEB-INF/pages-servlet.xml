@@ -110,6 +110,7 @@
                 <entry key="/back-to-school/**" value="/content/backToSchool.page"/>
                 <entry key="/stateofeducation/**" value="/content/cms/topicCenter.page"/>
                 <entry key="/find-schools/**" value="/school/findASchool.page"/>
+                <entry key="/newsletters/**" value="/email/newslettersSignUp.page"/>
             </map>
         </property>
     </bean>
@@ -2651,11 +2652,6 @@
         <property name="quizId" value="1"/>
     </bean>
 
-
-     <!--<bean name="/email/newslettersSignUp.page"-->
-          <!--class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">-->
-        <!--<property name="viewName" value="email/newslettersSignUp"/>-->
-    <!--</bean>-->
 
      <bean name="/email/newslettersSignUp.page"
           class="gs.web.email.NewslettersSignUpController"

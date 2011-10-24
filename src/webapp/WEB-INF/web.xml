@@ -65,6 +65,11 @@
 
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
+        <url-pattern>/newsletters/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
         <url-pattern>/videos/*</url-pattern>
     </servlet-mapping>
 
@@ -714,6 +719,11 @@
 
     <filter-mapping>
         <filter-name>disablejsessionid</filter-name>
+        <url-pattern>/newsletters/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>disablejsessionid</filter-name>
         <url-pattern>/worksheets/*</url-pattern>
     </filter-mapping>
 
@@ -1293,6 +1303,14 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>/find-schools/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/newsletters/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <!-- We want this to run for error pages also! -->
         <dispatcher>ERROR</dispatcher>
@@ -2275,6 +2293,11 @@
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/find-schools/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/newsletters/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
