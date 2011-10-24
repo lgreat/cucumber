@@ -86,24 +86,26 @@
             <div class="module"><span class="m_title treb15 tint5bc">More Community Partners</span>
 
                 <div class="m_content">
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://aamaonline.org/"
-                                           target="_blank">African American Music Association</a></div>
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.aje-dc.org/"
+                                           target="_blank">Advocates for Justice in Education</a></div>
+
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.cpfe.org/"
+                                                        target="_blank">Capital Partners for Education</a></div>
+
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.fsfsc.org/"
+                                                                  target="_blank">Far Southeast Family Strengthening Collaborative</a></div>
+
+                     <div class="m_list"><a class="treb12 tint39a link" href="http://www.focusdc.org/"
+                                                                  target="_blank">FOCUS</a></div>
+
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.higherachievement.org/"
+                                                                  target="_blank">Higher Achievement</a></div>
+
                     <div class="m_list"><a class="treb12 tint39a link" href="http://www.michaelwaltonfoundation.org/"
-                                                        target="_blank">Michael Walton Foundation</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.mmbcdc.org/"
-                                                                  target="_blank">Urban Family's House of Hope</a></div>
-                     <div class="m_list"><a class="treb12 tint39a link" href="http://www.aje-dc.org/"
-                                                                  target="_blank">Advocates for Justice in Education</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.centronia.org/"
-                                                                  target="_blank">CentroNia</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.erfsc.org/"
-                                                                  target="_blank">East River FSC</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.focusdc.org/"
-                                                                  target="_blank">Friends of Choice in Urban Schools</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.lifestarts.org/"
-                                                        target="_blank"><span class="italic">Life</span>STARTS</a></div>
-                    <div class="m_list"><a class="treb12 tint39a link" href="http://ola.dc.gov/ola/site/default.asp"
-                                           target="_blank">Office on Latino Affairs</a></div>
+                                                                  target="_blank">Michael Walton Foundation</a></div>
+
+                    <div class="m_list"><a class="treb12 tint39a link" href="http://www.ola.dc.gov/"
+                                                                  target="_blank">Mayor's Office of Latino Affairs</a></div>
                 </div>
                 <!--end module content -->
             </div>
