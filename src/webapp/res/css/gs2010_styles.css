@@ -7385,6 +7385,7 @@ body.ie8 #savvysource span.arrow-right {
 .nlSubscription .error{
     background: none;
     padding: 0 0 10px;
+    color: #900;
 }
 
 .nlSubscription .invalidEmail{

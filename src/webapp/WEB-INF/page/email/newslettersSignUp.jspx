@@ -230,7 +230,7 @@
                         </ul>
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <div class="pls">
-                            <button class="button-1 fltlft pls" type="button" id="jq-addMssSchool" name="Add"
+                            <button class="button-1 fltlft" type="button" id="jq-addMssSchool" name="Add"
                                     value="Add">Add
                             </button>
                         </div>
