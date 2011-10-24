@@ -56,7 +56,7 @@
                          alt="Natanya, Pamela, Kelli, Jocelyn, Tamika"/>-->
 
                     <div class="m_list treb12B tint5bc">Natanya Levioff<br/>
-                        <span class="treb12 tint666">DC Program Director</span></div>
+                        <span class="treb12 tint666">D.C. Program Director</span></div>
                     <div class="m_list treb12B tint5bc">Tamika Joyner<br/>
                         <span class="treb12 tint666">Project Manager</span></div>
                     <div class="m_list treb12B tint5bc">Kelli Anderson<br/>
@@ -145,7 +145,7 @@
                 <div id="u2" class="u_content">
                     <ul class="u_list treb12 tint777">
                         <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
-                                href="/pdf/GreatSchools_DC_Coach_Corps_2009.pdf" styleClass="treb12 tint39a link"
+                                href="/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf" styleClass="treb12 tint39a link"
                                 target="_blank">GSDC Coach Corps (Volunteer)</gsml:a></li>
                         <li><link:cmsContent styleClass="treb12 tint39a link" contentKey="Article#33"
                                              fullUri="/find-a-school/defining-your-ideal/choosing-a-school">Choosing a school: An overview</link:cmsContent>
@@ -204,16 +204,16 @@
                         <li>English Parent Hotline: 202-431-5538</li>
                         <li>L&amp;iacute;nea Directa para Padres de Familia:<br/>202-431-5516</li>
                         <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
-                                href="/pdf/DC_School_Chooser_2011-2012.pdf" styleClass="treb12 tint39a link"
-                                target="_blank">D.C. School Chooser 2011-2012</gsml:a></li>
+                                href="/res/pdf/DC/DC_School_Chooser_2012-2013.pdf" styleClass="treb12 tint39a link"
+                                target="_blank">D.C. School Chooser 2012-2013</gsml:a></li>
                         <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
-                                href="/pdf/DC_School_Chooser_Workbook.pdf" styleClass="treb12 tint39a link"
+                                href="/res/pdf/DC/DC_School_Chooser_Workbook_2012-2013.pdf" styleClass="treb12 tint39a link"
                                 target="_blank">D.C. School Chooser workbook</gsml:a></li>
                         <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
-                                href="/pdf/Listado_de_Escuelas_de_DC_2011-2012.pdf" styleClass="treb12 tint39a link"
-                                target="_blank">Listado de Escuelas de D.C. 2011-2012</gsml:a></li>
+                                href="/res/pdf/DC/Listado_de_Escuelas_de_DC_2012-2013.pdf" styleClass="treb12 tint39a link"
+                                target="_blank">Listado de Escuelas de D.C. 2012-2013</gsml:a></li>
                         <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
-                                href="/pdf/Cuaderno_de_Listado_de_Escuelas_de_DC.pdf" styleClass="treb12 tint39a link"
+                                href="/res/pdf/DC/Cuaderno_de_Listado_de_Escuelas_de_DC_2012-2013.pdf" styleClass="treb12 tint39a link"
                                 target="_blank">Cuaderno de Listado de Escuelas de D.C.</gsml:a></li>
                         <li><gsml:a
                                 href="/community/loginOrRegister.page?redirect=/email/management.page"
