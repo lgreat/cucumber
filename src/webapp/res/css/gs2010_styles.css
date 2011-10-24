@@ -7353,6 +7353,7 @@ body.ie8 #savvysource span.arrow-right {
     border: 1px solid #BBDDED;
     border-radius: 5px;
     -moz-border-radius: 5px;
+    zoom: 1;
 }
 
 .emailSubscription label{
@@ -7360,12 +7361,11 @@ body.ie8 #savvysource span.arrow-right {
     font-weight: bold;
 }
 
- .emailSubscription input{
+.emailSubscription input{
     width: 242px;
     height: 18px;
     padding: 0 2px;
     margin-top: 1px;
-    /*color: #666;*/
 }
 
 .emailSubscription fieldset{
@@ -7391,8 +7391,6 @@ body.ie8 #savvysource span.arrow-right {
 .nlSubscription .invalidEmail{
     padding-bottom: 10px;
 }
-
-
 
 /* =13 editorialFooter
 -------------------------------------------------------------------------------------------*/
