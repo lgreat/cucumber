@@ -66,6 +66,9 @@
         <c:when test="${topicCenter.backToSchoolTopicCenter}">
             <pageHelper:setPathway pathway="BACK_TO_SCHOOL"/>
         </c:when>
+        <c:when test="${topicCenter.contentKey.identifier eq 4931}">
+            <pageHelper:setPathway pathway="EDUCATIONAL_TOYS"/>
+        </c:when>
     </c:choose>
 
 
