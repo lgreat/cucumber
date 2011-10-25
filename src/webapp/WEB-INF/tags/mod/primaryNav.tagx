@@ -45,9 +45,7 @@
                     <ul> <!-- bullet type: disc/square/circle-->
                         <li><link:findASchool id="PN_F_1-SearchForSchools"
                                               styleClass="GS_CI9_">Search for Schools</link:findASchool></li>
-                        <li><link:cmsCategoryBrowse topicIDs="145" styleId="PN_F_1-DefiningYourIdealSchool"
-                                                    styleClass="GS_CI9_">Defining Your Ideal School</link:cmsCategoryBrowse><!--<a href="/articles/?topics=145" id="PN_F_1-DefiningYourIdealSchool" class="GS_CI9_">Defining Your Ideal School</a>-->
-                        </li>
+                        <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool" class="GS_CI9_">Defining Your Ideal School</a></li>
                         <li class="lastone"><link:cmsCategoryBrowse topicIDs="197" styleId="PN_F_1-HowToAssessASchool"
                                                                     styleClass="GS_CI9_">How to Assess a School</link:cmsCategoryBrowse><!--<a href="/articles/?topics=197" id="PN_F_1-PreparingForASchoolVisit" class="GS_CI9_">Preparing for a School Visit</a>-->
                         </li>
@@ -94,11 +92,12 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li><a href="/articles/?grades=198&amp;topics=211" id="PN_P_1-ReadingReadiness"
+                        <li><a href="/preschool-reading-readiness.topic?content=4980" id="PN_P_1-ReadingReadiness"
                                class="GS_CI9_">Reading Readiness</a></li>
                         <li><a href="/articles/?grades=198&amp;topics=209" id="PN_P_1-MathReadiness"
                                class="GS_CI9_">Math Readiness</a></li>
-                        <li><a href="/worksheets/preschool/" id="PN_P_1-Worksheets" class="GS_CI9_">Worksheets</a></li>
+                        <li><a href="/worksheets/preschool/" id="PN_P_1-Worksheets"
+                               class="GS_CI9_">Worksheets</a></li>
                         <li class="lastone"><a href="/articles/?topics=156&amp;grades=198" id="PN_P_1-Activities"
                                                class="GS_CI9_">Activities</a></li>
                     </ul>
