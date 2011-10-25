@@ -127,12 +127,12 @@
         var submitForm = document.getElementById('rdcSubmitForm');
         if (document.getElementById('rdcTypeNew').checked) {
             submitForm.gate.disabled = true;
-            submitForm.source.disabled = true;
+            submitForm.cid.disabled = true;
             submitForm.searchtext.disabled = false;
             searchURL = rdcGetNewHomeUrl(submitForm);
         } else {
             submitForm.gate.disabled = false;
-            submitForm.source.disabled = false;
+            submitForm.cid.disabled = false;
             submitForm.searchtext.disabled = true;
             searchURL = rdcGetExistingHomeUrl(submitForm);
         }
