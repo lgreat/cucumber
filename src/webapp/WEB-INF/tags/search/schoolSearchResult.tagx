@@ -46,7 +46,7 @@
                                for="${school.databaseState}${school.id}">COMPARE</label>
 
                         <p class="js-compareHelperMessage formHelperText">Check 2<br/>or more to<br/>compare</p>
-                        <button class="js-compareButton button-1Ext-2 smallText2">COMPARE<br/>NOW</button>
+                        <button class="js-compareButton button-1Ext-2">COMPARE<br/>NOW</button>
                     </c:otherwise>
                 </c:choose>
             </td>
