@@ -265,13 +265,10 @@
 
 </form:form>
 <div class="spacer_15"><!-- do not collapse --></div>
-<p><gsml:popupWindow width="800" height="600" left="50" top="50"
+<p class="small"><gsml:popupWindow width="800" height="600" left="50" top="50"
                      title="GreatSchools Privacy Policy"
                      href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>
-<p>
-    <link:newsletterUnsubscribe
-            email="${newslettersSignUpCommand.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
-</p>
+
 </div>
 <!-- end manageNewsletters -->
 </div>
