@@ -136,16 +136,14 @@ ${excludes}
 <jsp:scriptlet>
 RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
 request.setAttribute("isOnPkSubdomain", requestInfo != null &amp;&amp; requestInfo.isOnPkSubdomain());
-</jsp:scriptlet>
-<c:choose>
+</jsp:scriptlet><c:choose>
     <c:when test="${requestScope.isOnPkSubdomain}">
         <c:set var="sitemapUrl" value="http://pk.greatschools.org/sitemap/sitemap.xml"/>
     </c:when>
     <c:otherwise>
         <c:set var="sitemapUrl" value="http://www.greatschools.org/sitemap/sitemap.xml"/>
     </c:otherwise>
-</c:choose>
-Sitemap: ${sitemapUrl}
+</c:choose>Sitemap: ${sitemapUrl}
 </c:otherwise>
 </c:choose>
 </jsp:root>
