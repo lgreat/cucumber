@@ -27,7 +27,7 @@
       <ul id="secondary"> <!-- bullet type: disc/square/circle-->
         <li class="menuItem"><a href="/hot-topics.topic?content=4932" id="SN-HotTopics" class="menuItemAnchorText GS_CI9_">Hot Topics&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
             <ul class="dropdown dropdown_1"> <!-- bullet type: disc/square/circle-->
-              <li class="subMenuItem"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880" id="SN_HT-SexDrugsAndYourTeen" class="subMenuItemAnchorText GS_CI9_">Sex, Drugs, &amp;amp; Your Teen</a></li>
+              <li class="subMenuItem"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880" id="SN_HT-SexDrugsAndYourTeen" class="subMenuItemAnchorText GS_CI9_">Sex, Drugs &amp;amp; Your Teen</a></li>
               <li class="subMenuItem"><a href="/bullying.topic?content=4350" id="SN_HT-Bullying" class="subMenuItemAnchorText GS_CI9_">Bullying</a></li>
               <li class="subMenuItem"><a href="/your-childs-brain.topic?content=4881" id="SN_HT-YourChildsBrain" class="subMenuItemAnchorText GS_CI9_">Your Child's Brain</a></li>
               <li class="subMenuItem"><a href="/screen-use-and-abuse.topic?content=4882" id="SN_HT-ScreenUseAndAbuse" class="subMenuItemAnchorText GS_CI9_">Screen Use &amp;amp; Abuse</a></li>
@@ -77,7 +77,7 @@
         <li class="menuItem"><a href="/parenting.topic?content=1539" id="SN-HealthBehavior" class="menuItemAnchorText GS_CI9_">Health &amp; Behavior&amp;nbsp;<span class="sn-arrow"><!-- do not collapse --></span></a>
           <ul class="dropdown_5"> <!-- bullet type: disc/square/circle-->
             <li class="subMenuItem"><a href="/content/healthyKids.page" id="SN_HB-HealthNutrition" class="subMenuItemAnchorText GS_CI9_">Health &amp; Nutrition</a></li>
-            <li class="subMenuItem"><a href="/articles/?topics=124" id="SN_HB-BehaviorDiscipline" class="subMenuItemAnchorText GS_CI9_">Behavior &amp; Discipline</a></li>
+            <li class="subMenuItem"><a href="/behavior-and-discipline.topic?content=5009" id="SN_HB-BehaviorDiscipline" class="subMenuItemAnchorText GS_CI9_">Behavior &amp; Discipline</a></li>
             <li class="subMenuItem"><a href="/articles/?topics=157" id="SN_HB-SocialSkills" class="subMenuItemAnchorText GS_CI9_">Social Skills</a></li>
             <li class="subMenuItem"><a href="/articles/?topics=136" id="SN_HB-EmotionalWellBeing" class="subMenuItemAnchorText GS_CI9_">Emotional Well-Being</a></li>
           </ul>
