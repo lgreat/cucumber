@@ -5,6 +5,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
         >
+    <jsp:directive.page import="gs.web.request.RequestInfo"/>
     <jsp:directive.page contentType="text/plain"/>
 <c:set var="excludes">
 <!-- List of URL's no bot should ever crawl -->    
@@ -132,7 +133,19 @@ ${excludes}
 
 User-agent: *
 ${excludes}
-Sitemap: http://www.greatschools.org/sitemap/sitemap.xml
+<jsp:scriptlet>
+RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+request.setAttribute("isOnPkSubdomain", requestInfo != null &amp;&amp; requestInfo.isOnPkSubdomain());
+</jsp:scriptlet>
+<c:choose>
+    <c:when test="${requestScope.isOnPkSubdomain}">
+        <c:set var="sitemapUrl" value="http://pk.greatschools.org/sitemap/sitemap.xml"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="sitemapUrl" value="http://www.greatschools.org/sitemap/sitemap.xml"/>
+    </c:otherwise>
+</c:choose>
+Sitemap: ${sitemapUrl}
 </c:otherwise>
 </c:choose>
 </jsp:root>
