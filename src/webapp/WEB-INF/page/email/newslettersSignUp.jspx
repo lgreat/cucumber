@@ -25,6 +25,13 @@
 <head>
     <meta name="robots" content="follow,noindex"/>
     <title>Free Newsletters | GreatSchools</title>
+    <pageHelper:addMetaProperty property="og:title" content="Free newsletters from GreatSchools"/>
+    <pageHelper:addMetaProperty property="og:type" content="website"/>
+    <pageHelper:addMetaProperty property="og:url" content="${contentUrl}"/>
+    <!--<pageHelper:addMetaProperty property="og:image" content=""/>-->
+    <pageHelper:addMetaProperty property="og:site_name" content="GreatSchools" />
+    <pageHelper:addMetaProperty property="og:description" content="Sign up for tips and ideas that will enrich your child's education."/>
+    
 </head>
 
 <gsml:body adPageName="email/newslettersSignUp" pageLayout="nocol">
@@ -93,7 +100,9 @@
                     <p class="smaller quite bottom pls pts">WEEKLY</p>
                     <h6 class="newsletterDescription medium bottom pls pts">The tips and tools you need to make smart choices about your child’s education.</h6>
                 </div>
-                <div id="jq-mynth" class="mynth">
+
+                <c:set var="showMynth" value="${ newslettersSignUpCommand.greatnews ? 'showIt' : 'hideIt' }"/>
+                <div id="jq-mynth" class="mynth ${showMynth}">
                     <h6 class="medium bottom pls pts">Personalize your weekly updates by indicating your child(ren)'s grade level(s) for 2011-2012:
                     </h6>
                     <fieldset class="mtm">

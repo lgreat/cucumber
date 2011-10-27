@@ -57,7 +57,8 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
         setCitiesOptions(command);
         model.put(getCommandName(), command);
-
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NL_SIGN_UP_PAGE);
+        model.put("contentUrl", urlBuilder.asFullUrl(request));
         return new ModelAndView(getFormView(), model);
     }
 
@@ -139,7 +140,8 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
             model.put(getCommandName(), command);
             model.put("ThankYouMsg", "You've successfully subscribed to the GreatSchools newsletter.");
-
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NL_SIGN_UP_PAGE);
+            model.put("contentUrl", urlBuilder.asFullUrl(request));
             if (command.isTooManySchoolsError()) {
                 // set the cities option
                 setCitiesOptions(command);
