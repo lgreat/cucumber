@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.266 2011/10/19 22:02:59 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.267 2011/10/28 21:38:18 npatury Exp $
  */
 
 package gs.web.util;
@@ -945,7 +945,7 @@ public class UrlBuilder {
             _path="/test-prep/";
         } else if(NL_SIGN_UP_PAGE.equals(page)){
             _perlPage = false;
-            _path = "email/newslettersSignUp.page";
+            _path = "/newsletters/";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

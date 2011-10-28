@@ -115,6 +115,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
             boolean userAlreadySubscribedToDailyTip = false;
             boolean userAlreadySubscribedToSponsor = false;
+            boolean userAlreadySubscribedToParentAdvisor = false;
             List<Subscription> existingSubscriptions = _subscriptionDao.getUserSubscriptions(user);
 
             if (existingSubscriptions != null) {
@@ -124,6 +125,8 @@ public class NewslettersSignUpController extends SimpleFormController implements
                         userAlreadySubscribedToDailyTip = true;
                     } else if (s.getProduct().equals(SubscriptionProduct.SPONSOR_OPT_IN)) {
                         userAlreadySubscribedToSponsor = true;
+                    }else if(s.getProduct().equals(SubscriptionProduct.PARENT_ADVISOR)){
+                        userAlreadySubscribedToParentAdvisor = true;
                     }
                 }
             }
@@ -135,6 +138,11 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
             if (command.isSponsor() && !userAlreadySubscribedToSponsor) {
                 Subscription s = new Subscription(user, SubscriptionProduct.SPONSOR_OPT_IN, state);
+                subscriptions.add(s);
+            }
+
+            if (command.getGreatnews() && !userAlreadySubscribedToParentAdvisor) {
+                Subscription s = new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, state);
                 subscriptions.add(s);
             }
 
