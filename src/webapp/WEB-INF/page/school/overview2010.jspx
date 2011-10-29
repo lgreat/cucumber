@@ -466,7 +466,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             return false;
         });
 
-        document.title = '${school.name} - ${addr} - School overview';
+        document.title = '${gsweb:schoolPageTitle(school)}';
 
     });
 
