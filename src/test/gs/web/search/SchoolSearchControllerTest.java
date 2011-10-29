@@ -752,6 +752,8 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Private Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"private"}));
         assertEquals("San Francisco Public Charter Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"charter"}));
 
+        assertEquals("Washington, DC Preschools and Daycare Centers - Washington, DC | GreatSchools", SchoolSearchController.getTitle("Washington, DC", State.DC, LevelCode.PRESCHOOL, null));
+
         assertEquals("San Francisco Public and Private Schools - San Francisco, CA | GreatSchools",
                      SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"public", "private"}));
         assertEquals("San Francisco Public and Public Charter Schools - San Francisco, CA | GreatSchools",

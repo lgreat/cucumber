@@ -29,7 +29,14 @@
     <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
     <c:set var="stateName" value="${school.databaseState.longName}"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}"/>
+    <c:choose>
+        <c:when test="${state eq 'dc'}">
+            <c:set var="addr" value="Washington, DC"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}"/>
+        </c:otherwise>
+    </c:choose>
     <c:set var="pageName" value="School Tab - Map" scope="request"/>
     <c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
     <c:set var="gs_rating" value="${gs_rating}"/>

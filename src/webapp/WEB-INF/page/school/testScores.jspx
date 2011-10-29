@@ -10,7 +10,16 @@
 <html>
 <jsp:directive.page contentType="text/html"/>
 <head>
-    <title>${school.name} Test Scores - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}</title>
+    <c:choose>
+        <c:when test="${school.databaseState.abbreviationLowerCase eq 'dc'}">
+            <c:set var="addr" value="Washington, DC"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="addr"
+                   value="${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
+        </c:otherwise>
+    </c:choose>
+    <title>${school.name} Test Scores - ${addr}</title>
     <meta name="description" content="See test scores and view results for ${school.name} students - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
     <c:if test="${!requestScope.requestInfo.cobranded}">
         <base href="${requestScope.requestInfo.baseHost}"/>

@@ -825,7 +825,12 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else {
             sb.append(" Schools");
         }
-        sb.append(" - ").append(cityDisplayName).append(", ").append(cityState.getAbbreviation());
+        sb.append(" - ");
+        if ("Washington, DC".equals(cityDisplayName)) {
+            sb.append(cityDisplayName);
+        } else {
+            sb.append(cityDisplayName).append(", ").append(cityState.getAbbreviation());
+        }
         sb.append(" | GreatSchools");
         return sb.toString();
     }
