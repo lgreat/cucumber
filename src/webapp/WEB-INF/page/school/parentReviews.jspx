@@ -365,11 +365,11 @@
                 <c:when test="${principalReview.status eq 'd'}">
                     (deleted)
                     | <a href="javascript:void(0);" class="enableLink link"
-                         onclick="enableReview(${review.id}); return false;">Enable</a>
+                         onclick="enableReview(${principalReview.id}); return false;">Enable</a>
                 </c:when>
                 <c:when test="${principalReview.status eq 'p'}">
                     | <a href="javascript:void(0);" class="disableLink link"
-                         onclick="disableReview(${review.id}); return false;">Disable</a>
+                         onclick="disableReview(${principalReview.id}); return false;">Disable</a>
                 </c:when>
             </c:choose>
         </gsml:ifUserCanDeleteContent>
