@@ -72,7 +72,7 @@
     <br class="clearfloat"/>
 </div>
 <input name="userId" type="hidden" value="${newslettersSignUpCommand.userId}"/>
-<div class="line mtl">
+<div class="line mtl nlSignUpFrom">
     <div class="unit size25of100 formStyles pas">
         <fieldset id="dailyTip">
             <div class="mediaExt1">
@@ -166,14 +166,14 @@
                     </div>
                     <div class="spacer_10"><!-- do not collapse --></div>
                     <div class="mssInfo">
-                        <p class="${newslettersSignUpCommand.school1 ? '' : 'hidden'}"
-                           id="jq-mssHeading">Subscribe to school updates on:</p>
+                        <h6 class="${newslettersSignUpCommand.school1 ? '' : 'hidden'} medium pls"
+                           id="jq-mssHeading">Subscribe to school updates on:</h6>
                         <input type="hidden" id="jq-numMssSchools"
                                name="numMssSchools" value="${fn:length(newslettersSignUpCommand.myStatIds)}"/>
                         <div id="jq-mssSchoolLineTemplate" class="mssSchoolLine hidden">
-                            <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox"
+                            <input type="checkbox" id="jq-mssSchoolX" class="newsletterCheckbox pls"
                                    checked="checked"/>
-                            <label for="jq-mssSchoolX">REPLACE-ME</label>
+                            <label for="jq-mssSchoolX" class="medium addedSchool">REPLACE-ME</label>
                             <input type="hidden" name="uniqueStateId" value="REPLACE-ME"/>
                         </div>
                         <div id="jq-mssSchoolSection">
@@ -201,7 +201,7 @@
                         </c:if>
                         <div class="spacer_10"><!-- do not collapse --></div>
                         <div id="jq-mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
-                            <h6 class="medium_bold bottom pls">Add a school:<span class="text3"> (four maximum)</span></h6>
+                            <h6 class="medium_bold bottom pls">Add a school<span class="text3"> (four maximum)</span></h6>
                             <ul>
                                 <li class="pls">
                                 <gsweb:stateSelector state="${newslettersSignUpCommand.stateAdd}" styleId="jq-stateAdd"
