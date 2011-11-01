@@ -147,6 +147,9 @@ public class ArticlesByCategoryController extends AbstractController {
             } catch (NumberFormatException e) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return new ModelAndView("/status/error404.page");
+            } catch (IllegalArgumentException iae) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ModelAndView("/status/error404.page");
             }
 
             List<CmsCategory> categories = (List<CmsCategory>)model.get(MODEL_CATEGORIES);
