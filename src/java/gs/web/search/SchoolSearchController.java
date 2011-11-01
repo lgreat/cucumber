@@ -134,7 +134,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     public static final int MAX_PAGE_SIZE = 100;
     public static final int NEARBY_CITIES_PAGE_SIZE = 33;
 
-    protected static final String VIEW_NOT_FOUND = "/status/error404";
+    protected static final String VIEW_NOT_FOUND = "/status/error404.page";
 
     public static final PaginationConfig SCHOOL_SEARCH_PAGINATION_CONFIG;
 
@@ -579,7 +579,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public ModelAndView redirectTo404(HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        return new ModelAndView("redirect:" + VIEW_NOT_FOUND);
+        return new ModelAndView(VIEW_NOT_FOUND);
     }
 
     class InvalidDistrictException extends Exception {
