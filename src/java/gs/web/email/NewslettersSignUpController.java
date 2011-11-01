@@ -30,6 +30,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
     protected final Log _log = LogFactory.getLog(getClass());
+    protected final String FACEBOOK_ENVELOPE_ICON_IMAGE = "/catalog/images/icon-envelope-90x70.png";
 
 //    protected void onBindOnNewForm(HttpServletRequest request, Object o) throws Exception {
 //        NewslettersSignUpCommand command = (NewslettersSignUpCommand) o;
@@ -59,6 +60,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
         model.put(getCommandName(), command);
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NL_SIGN_UP_PAGE);
         model.put("contentUrl", urlBuilder.asFullUrl(request));
+        model.put("facebookImgUrl", getFBImageUrl(request));
         return new ModelAndView(getFormView(), model);
     }
 
@@ -150,6 +152,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
             model.put("ThankYouMsg", "You've successfully subscribed to the GreatSchools newsletter.");
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NL_SIGN_UP_PAGE);
             model.put("contentUrl", urlBuilder.asFullUrl(request));
+            model.put("facebookImgUrl", getFBImageUrl(request));
             if (command.isTooManySchoolsError()) {
                 // set the cities option
                 setCitiesOptions(command);
@@ -162,7 +165,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
             // Send verification email
             if (shouldSendVerificationEmail) {
                 sendVerificationEmail(request, user);
-                model.put("ThankYouMsg", "Please confirm your subscription by clicking the link in the email we just sent you.");
+                model.put("ThankYouMsg", "Please confirm your subscription(s) by clicking the link in the email we just sent you.");
             }
 
             return new ModelAndView(getSuccessView(), model);
@@ -288,7 +291,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
     private void sendVerificationEmail(HttpServletRequest request, User user)
             throws IOException, MessagingException, NoSuchAlgorithmException {
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NL_SIGN_UP_PAGE);
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
         String redirectUrl = urlBuilder.asFullUrl(request);
         getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
     }
@@ -323,6 +326,11 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
     public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
         _emailVerificationEmail = emailVerificationEmail;
+    }
+
+    protected String getFBImageUrl(HttpServletRequest request) {
+        String url = "http://" + request.getServerName() + FACEBOOK_ENVELOPE_ICON_IMAGE;
+        return url;
     }
 
 }

@@ -28,7 +28,7 @@
     <pageHelper:addMetaProperty property="og:title" content="Free newsletters from GreatSchools"/>
     <pageHelper:addMetaProperty property="og:type" content="website"/>
     <pageHelper:addMetaProperty property="og:url" content="${contentUrl}"/>
-    <!--<pageHelper:addMetaProperty property="og:image" content=""/>-->
+    <pageHelper:addMetaProperty property="og:image" content="${facebookImgUrl}"/>
     <pageHelper:addMetaProperty property="og:site_name" content="GreatSchools" />
     <pageHelper:addMetaProperty property="og:description" content="Sign up for tips and ideas that will enrich your child's education."/>
     
