@@ -206,7 +206,21 @@ public class CmsFeatureController extends AbstractController {
             if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum) ||
                     StringUtils.equals("-1", pageNum)) {
                 try {
-                    feature.setCurrentPageNum(Integer.parseInt(pageNum));
+                    int p = Integer.parseInt(pageNum);
+                    feature.setCurrentPageNum(p);
+                    if (!StringUtils.equals("-1", pageNum)) {
+                        int prevPage = p-1;
+                        int nextPage = p+1;
+                        model.put("prevPageNum",prevPage );
+                        model.put("nextPageNum", nextPage);
+                        if((nextPage > feature.getNumPages())){
+                            model.put("nextPageNum", "-1");
+                        }
+                         if(!(prevPage >= 1)){
+                            model.put("prevPageNum", "-1");
+                         }
+                    }
+
                 } catch (NumberFormatException e) {
                     _log.warn("Invalid page number " + pageNum + " for feature uri " + uri);
                 } catch(IllegalArgumentException iae) {
