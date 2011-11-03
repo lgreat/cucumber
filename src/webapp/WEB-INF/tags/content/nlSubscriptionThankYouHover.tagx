@@ -5,10 +5,10 @@
           xmlns:gsweb="gstaglib"
         >
     <div id="hover_nlSubscriptionThankYou" class="slStylesV1-0 nlHover" style="display:none;">
-        <div class="nlContent">
+        <div class="nlContent" id="thankYouMsg">
             <h2>Thank you!</h2>
 
-            <p>You have successfully subscribed to the GreatSchools weekly newsletter.</p>
+            <!--<p ><div id="thankYouMsg"></div></p>-->
         </div>
     </div>
 </jsp:root>

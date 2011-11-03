@@ -957,6 +957,9 @@ GSType.hover.NlSubscription = function() {
                     $j('#nlSubEmail_error_alreadySub').show();
                 } else {
                     GSType.hover.nlSubscription.hide();
+                    if (data.thankYouMsg != '' && data.thankYouMsg != null) {
+                        jQuery('#hover_nlSubscriptionThankYou #thankYouMsg').append("<p>" + data.thankYouMsg + "</p>");
+                    }
                     GSType.hover.nlSubscriptionThankYou.show();
                     s.linkTrackVars = "events";
                     s.linkTrackEvents = "event52";

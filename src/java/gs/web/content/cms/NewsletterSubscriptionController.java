@@ -2,7 +2,9 @@ package gs.web.content.cms;
 
 import gs.data.community.*;
 import gs.data.json.JSONObject;
+import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.util.ReadWriteController;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -10,14 +12,18 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class NewsletterSubscriptionController extends SimpleFormController implements ReadWriteController {
     private IUserDao _userDao;
     protected final Log _log = LogFactory.getLog(getClass());
     private ISubscriptionDao _subscriptionDao;
+    private EmailVerificationEmail _emailVerificationEmail;
 
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
@@ -29,12 +35,15 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
 
         String email = StringEscapeUtils.escapeHtml(nlSubCmd.getEmail());
         User user = null;
-        if(email != null){
+        if (email != null) {
             user = getUserDao().findUserFromEmailIfExists(email);
         }
 
         boolean isSubscribedToParentAdvisor = false;
         boolean isSubscribedToSponsorOptIn = false;
+        boolean shouldSendVerificationEmail = false;
+        List subscriptions = new ArrayList();
+
         if (user != null) {
             Set<Subscription> userSubs = user.getSubscriptions();
 
@@ -49,31 +58,71 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             }
 
             if (!isSubscribedToParentAdvisor || (!isSubscribedToSponsorOptIn && nlSubCmd.isPartnerNewsletter())) {
-                List subscriptions = new ArrayList();
 
                 if (!isSubscribedToParentAdvisor) {
-                    Subscription sub = new Subscription();
-                    sub.setUser(user);
-                    sub.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-                    subscriptions.add(sub);
+                    addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
                 }
                 if (nlSubCmd.isPartnerNewsletter() && !isSubscribedToSponsorOptIn) {
-                    Subscription sub = new Subscription();
-                    sub.setUser(user);
-                    sub.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
-                    subscriptions.add(sub);
+                    addSubscription(subscriptions, user, SubscriptionProduct.SPONSOR_OPT_IN);
+
                 }
 
-                getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+            }
+        } else if (user == null) {
+            user = new User();
+            user.setEmail(email);
+            user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+            _userDao.saveUser(user);
+            shouldSendVerificationEmail = true;
+
+            addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
+
+            if (nlSubCmd.isPartnerNewsletter()) {
+                addSubscription(subscriptions, user, SubscriptionProduct.SPONSOR_OPT_IN);
             }
         }
+
+        if (subscriptions != null && subscriptions.size() > 0) {
+            getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+        }
+
+        String thankYouMsg = "You have successfully subscribed to the GreatSchools weekly newsletter.";
+
+        if (shouldSendVerificationEmail) {
+            sendVerificationEmail(request, user);
+            thankYouMsg = "Please confirm your subscription(s) by clicking the link in the email we just sent you.";
+        }
+
         if (nlSubCmd.isAjaxRequest()) {
             JSONObject rval = new JSONObject();
             rval.put("userAlreadySubscribed", isSubscribedToParentAdvisor);
+            rval.put("thankYouMsg", thankYouMsg);
             response.getWriter().print(rval.toString());
             return null;
         }
         return mAndV;
+    }
+
+    private void sendVerificationEmail(HttpServletRequest request, User user)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
+        String redirectUrl = urlBuilder.asFullUrl(request);
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+    }
+
+    private void addSubscription(List subscriptions, User user, SubscriptionProduct product) {
+        Subscription sub = new Subscription();
+        sub.setUser(user);
+        sub.setProduct(product);
+        subscriptions.add(sub);
+    }
+
+    public EmailVerificationEmail getEmailVerificationEmail() {
+        return _emailVerificationEmail;
+    }
+
+    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
+        _emailVerificationEmail = emailVerificationEmail;
     }
 
     public IUserDao getUserDao() {
