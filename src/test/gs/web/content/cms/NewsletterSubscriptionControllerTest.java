@@ -3,6 +3,7 @@ package gs.web.content.cms;
 import gs.data.community.*;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.community.registration.EmailVerificationEmail;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import java.util.HashSet;
@@ -14,10 +15,10 @@ import static org.easymock.classextension.EasyMock.*;
 public class NewsletterSubscriptionControllerTest extends BaseControllerTestCase {
     private NewsletterSubscriptionController _controller;
     private NewsletterSubscriptionCommand _cmd;
-    protected GsMockHttpServletRequest _request;
     protected MockHttpServletResponse _response;
     private ISubscriptionDao _subscriptionDao;
     private IUserDao _userDao;
+    private EmailVerificationEmail _emailVerificationEmail;
 
     @Override
     public void setUp() throws Exception {
@@ -25,32 +26,36 @@ public class NewsletterSubscriptionControllerTest extends BaseControllerTestCase
         _controller = new NewsletterSubscriptionController();
         _cmd = new NewsletterSubscriptionCommand();
         _subscriptionDao = createStrictMock(ISubscriptionDao.class);
+        _emailVerificationEmail = createStrictMock(EmailVerificationEmail.class);
+        _controller.setEmailVerificationEmail(_emailVerificationEmail);
         _userDao = createStrictMock(IUserDao.class);
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.setUserDao(_userDao);
     }
     public void replayAllMocks() {
-        super.replayMocks(_subscriptionDao, _userDao);
+        super.replayMocks(_subscriptionDao, _userDao,_emailVerificationEmail);
     }
 
     public void verifyAllMocks() {
-        super.verifyMocks(_subscriptionDao, _userDao);
+        super.verifyMocks(_subscriptionDao, _userDao,_emailVerificationEmail);
     }
 
-//    public void testOnSubmitNullEmail() throws Exception {
-//        replayAllMocks();
-//        _controller.onSubmit(_request, _response, _cmd, null);
-//        verifyAllMocks();
-//    }
-//
-//    public void testOnSubmitNoUser() throws Exception {
-//        _cmd.setEmail("someemail@someemail");
-//        expect(_userDao.findUserFromEmailIfExists(_cmd.getEmail())).andReturn(null);
-//        _userDao.saveUser(isA(User.class));
-//        replayAllMocks();
-//        _controller.onSubmit(_request, _response, _cmd, null);
-//        verifyAllMocks();
-//    }
+    public void testOnSubmitNullEmail() throws Exception {
+        replayAllMocks();
+        _controller.onSubmit(getRequest(), _response, _cmd, null);
+        verifyAllMocks();
+    }
+
+    public void testOnSubmitNoUser() throws Exception {
+        _cmd.setEmail("someemail@someemail");
+        expect(_userDao.findUserFromEmailIfExists(_cmd.getEmail())).andReturn(null);
+        _userDao.saveUser(isA(User.class));
+        _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
+        _emailVerificationEmail.sendVerificationEmail(eq(getRequest()), isA(User.class), eq("http://www.greatschools.org/"));
+        replayAllMocks();
+        _controller.onSubmit(getRequest(), _response, _cmd, null);
+        verifyAllMocks();
+    }
 
     public void testOnSubmitUserAlreadySubscribed() throws Exception {
         _cmd.setEmail("someemail@someemail");
@@ -68,7 +73,7 @@ public class NewsletterSubscriptionControllerTest extends BaseControllerTestCase
 
         expect(_userDao.findUserFromEmailIfExists(_cmd.getEmail())).andReturn(user);
         replayAllMocks();
-        _controller.onSubmit(_request, _response, _cmd, null);
+        _controller.onSubmit(getRequest(), _response, _cmd, null);
         verifyAllMocks();
     }
 
@@ -83,7 +88,7 @@ public class NewsletterSubscriptionControllerTest extends BaseControllerTestCase
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
 
         replayAllMocks();
-        _controller.onSubmit(_request, _response, _cmd, null);
+        _controller.onSubmit(getRequest(), _response, _cmd, null);
         verifyAllMocks();
     }
 

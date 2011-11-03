@@ -6,6 +6,7 @@ import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
@@ -35,70 +36,70 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
 
         String email = StringEscapeUtils.escapeHtml(nlSubCmd.getEmail());
         User user = null;
-        if (email != null) {
+        if (StringUtils.isNotBlank(email)) {
             user = getUserDao().findUserFromEmailIfExists(email);
-        }
 
-        boolean isSubscribedToParentAdvisor = false;
-        boolean isSubscribedToSponsorOptIn = false;
-        boolean shouldSendVerificationEmail = false;
-        List subscriptions = new ArrayList();
+            boolean isSubscribedToParentAdvisor = false;
+            boolean isSubscribedToSponsorOptIn = false;
+            boolean shouldSendVerificationEmail = false;
+            List subscriptions = new ArrayList();
 
-        if (user != null) {
-            Set<Subscription> userSubs = user.getSubscriptions();
+            if (user != null) {
+                Set<Subscription> userSubs = user.getSubscriptions();
 
-            if (userSubs != null) {
-                for (Subscription s : userSubs) {
-                    if (SubscriptionProduct.PARENT_ADVISOR.equals(s.getProduct())) {
-                        isSubscribedToParentAdvisor = true;
-                    } else if (SubscriptionProduct.SPONSOR_OPT_IN.equals(s.getProduct())) {
-                        isSubscribedToSponsorOptIn = true;
+                if (userSubs != null) {
+                    for (Subscription s : userSubs) {
+                        if (SubscriptionProduct.PARENT_ADVISOR.equals(s.getProduct())) {
+                            isSubscribedToParentAdvisor = true;
+                        } else if (SubscriptionProduct.SPONSOR_OPT_IN.equals(s.getProduct())) {
+                            isSubscribedToSponsorOptIn = true;
+                        }
                     }
                 }
-            }
 
-            if (!isSubscribedToParentAdvisor || (!isSubscribedToSponsorOptIn && nlSubCmd.isPartnerNewsletter())) {
+                if (!isSubscribedToParentAdvisor || (!isSubscribedToSponsorOptIn && nlSubCmd.isPartnerNewsletter())) {
 
-                if (!isSubscribedToParentAdvisor) {
-                    addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
+                    if (!isSubscribedToParentAdvisor) {
+                        addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
+                    }
+                    if (nlSubCmd.isPartnerNewsletter() && !isSubscribedToSponsorOptIn) {
+                        addSubscription(subscriptions, user, SubscriptionProduct.SPONSOR_OPT_IN);
+
+                    }
+
                 }
-                if (nlSubCmd.isPartnerNewsletter() && !isSubscribedToSponsorOptIn) {
+            } else if (user == null) {
+                user = new User();
+                user.setEmail(email);
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                _userDao.saveUser(user);
+                shouldSendVerificationEmail = true;
+
+                addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
+
+                if (nlSubCmd.isPartnerNewsletter()) {
                     addSubscription(subscriptions, user, SubscriptionProduct.SPONSOR_OPT_IN);
-
                 }
-
             }
-        } else if (user == null) {
-            user = new User();
-            user.setEmail(email);
-            user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-            _userDao.saveUser(user);
-            shouldSendVerificationEmail = true;
 
-            addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
-
-            if (nlSubCmd.isPartnerNewsletter()) {
-                addSubscription(subscriptions, user, SubscriptionProduct.SPONSOR_OPT_IN);
+            if (subscriptions != null && subscriptions.size() > 0) {
+                getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
             }
-        }
 
-        if (subscriptions != null && subscriptions.size() > 0) {
-            getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
-        }
+            String thankYouMsg = "You have successfully subscribed to the GreatSchools weekly newsletter.";
 
-        String thankYouMsg = "You have successfully subscribed to the GreatSchools weekly newsletter.";
+            if (shouldSendVerificationEmail) {
+                sendVerificationEmail(request, user);
+                thankYouMsg = "Please confirm your subscription(s) by clicking the link in the email we just sent you.";
+            }
 
-        if (shouldSendVerificationEmail) {
-            sendVerificationEmail(request, user);
-            thankYouMsg = "Please confirm your subscription(s) by clicking the link in the email we just sent you.";
-        }
-
-        if (nlSubCmd.isAjaxRequest()) {
-            JSONObject rval = new JSONObject();
-            rval.put("userAlreadySubscribed", isSubscribedToParentAdvisor);
-            rval.put("thankYouMsg", thankYouMsg);
-            response.getWriter().print(rval.toString());
-            return null;
+            if (nlSubCmd.isAjaxRequest()) {
+                JSONObject rval = new JSONObject();
+                rval.put("userAlreadySubscribed", isSubscribedToParentAdvisor);
+                rval.put("thankYouMsg", thankYouMsg);
+                response.getWriter().print(rval.toString());
+                return null;
+            }
         }
         return mAndV;
     }
