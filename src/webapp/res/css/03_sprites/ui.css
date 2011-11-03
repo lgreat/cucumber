@@ -34,7 +34,7 @@ Viewport: the defines width and height of each icon
 
 .navSprite {
     display: inline-block;
-    background-image: url(/res/img/navSprite/uiSprite_2011-10-10.png);
+    background-image: url(/res/img/navSprite/uiSprite_2011-11-03.png);
 }
 
 /* **************** VIEWPORT ***************** */
@@ -67,12 +67,26 @@ a:hover .i-pn-et {
 }
 
 /* column 16 */
+.i-pn-gg {
+    width: 16px;
+    height: 32px;
+    background-position: -16px -32px;
+    vertical-align: middle;
+}
+
+a:hover .i-pn-gg {
+    width: 16px;
+    height: 32px;
+    background-position: -16px -64px;
+    vertical-align: middle;
+}
+
+/* column 32 */
 .i-pn-home {
     width: 35px;
     height: 32px;
     background-position: -32px 0;
 }
-/* column 32 */
 
 a:hover .i-pn-home {
     width: 35px;

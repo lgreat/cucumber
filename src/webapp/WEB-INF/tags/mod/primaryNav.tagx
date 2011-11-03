@@ -368,10 +368,10 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.EDUCATIONAL_TOYS ? 'selected' : '')} menuItem lastNavUnit"><a href="/educational-toys.topic?content=4931"
+<td class="${(pw == tabs.EDUCATIONAL_TOYS ? 'selected' : '')} menuItem lastNavUnit"><a href="/gift-guide-2011.topic?content=5083"
                                                                      id="PN-EducationalToys"
                                                                      class="menuItemAnchorText noDrop GS_CI9_"><span
-class="navSprite i-pn-et"><!-- do not collapse --></span> Educational Toys</a></td>
+class="navSprite i-pn-gg"><!-- do not collapse --></span> Gift Guide</a></td>
 </tr>
 </tbody>
 </table>
