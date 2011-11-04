@@ -46,12 +46,12 @@ public class NewsletterSubscriptionControllerTest extends BaseControllerTestCase
         verifyAllMocks();
     }
 
-    public void testOnSubmitNoUser() throws Exception {
+    public void testOnSubmitNewUser() throws Exception {
         _cmd.setEmail("someemail@someemail");
         expect(_userDao.findUserFromEmailIfExists(_cmd.getEmail())).andReturn(null);
         _userDao.saveUser(isA(User.class));
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
-        _emailVerificationEmail.sendVerificationEmail(eq(getRequest()), isA(User.class), eq("http://www.greatschools.org/"));
+        _emailVerificationEmail.sendVerificationEmail(eq(getRequest()), isA(User.class), eq("http://www.greatschools.org/?showSubscriptionThankYouHover=true"));
         replayAllMocks();
         _controller.onSubmit(getRequest(), _response, _cmd, null);
         verifyAllMocks();
