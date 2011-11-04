@@ -292,6 +292,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
     private void sendVerificationEmail(HttpServletRequest request, User user)
             throws IOException, MessagingException, NoSuchAlgorithmException {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
+        urlBuilder.addParameter("showSubscriptionThankYouHover","true");
         String redirectUrl = urlBuilder.asFullUrl(request);
         getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
     }

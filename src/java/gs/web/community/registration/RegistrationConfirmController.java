@@ -203,7 +203,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailVerified);
 
-        processPendingSubscriptions(user, ot, hoverHelper);
+        processPendingSubscriptions(user, ot, hoverHelper, requestedRedirect);
 
 
         _log.info("Email confirmed, forwarding user to " + viewName);
@@ -213,7 +213,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
     // GS-11567 GS-11799
     // if it exists, convert existing not-verified subscription to verified subscription
-    public void processPendingSubscriptions(User user, OmnitureTracking ot, HoverHelper hoverHelper) {
+    public void processPendingSubscriptions(User user, OmnitureTracking ot, HoverHelper hoverHelper, String requestedRedirect) {
         boolean alreadySubscribedToWeeklyProd = false;
         boolean alreadySubscribedToDailyProd = false;
 
@@ -253,6 +253,10 @@ public class RegistrationConfirmController extends AbstractCommandController imp
             // add success event to track having signed up for emails
             ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
 
+        }
+
+        boolean showThankYouHover = isShowSubscriptionThankYouHover(requestedRedirect);
+        if (showThankYouHover || convertedToVerifiedSubscription) {
             // set cookie to show confirmation hover on page load
             hoverHelper.setHoverCookie(HoverHelper.Hover.SUBSCRIPTION_EMAIL_VERIFIED);
         }
@@ -328,6 +332,14 @@ public class RegistrationConfirmController extends AbstractCommandController imp
 
         emailAttributes.put("HTML__reviewLink", reviewLink.toString());
         _exactTargetAPI.sendTriggeredEmail("review_posted_trigger",anUpgradedReview.getUser(), emailAttributes);
+    }
+
+    private boolean isShowSubscriptionThankYouHover(String redirectParam) {
+        boolean showSubscriptionThankYouHover = false;
+        if (StringUtils.isNotBlank(redirectParam) && redirectParam.indexOf("?showSubscriptionThankYouHover=true") > 0) {
+            showSubscriptionThankYouHover = true;
+        }
+        return showSubscriptionThankYouHover;
     }
 
     public IUserDao getUserDao() {
