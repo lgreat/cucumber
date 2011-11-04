@@ -335,7 +335,7 @@ public class ManagementController extends SimpleFormController implements ReadWr
         ManagementCommand command = (ManagementCommand)o;
         User user = getUserDao().findUserFromId(command.getUserId());
 
-        user.setFirstName(command.getFirstName());
+//        user.setFirstName(command.getFirstName());
 
         // replies to community posts
         boolean newNotifyAboutReplies = command.isRepliesToCommunityPosts();
