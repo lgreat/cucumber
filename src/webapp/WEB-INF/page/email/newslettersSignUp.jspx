@@ -56,6 +56,11 @@
             ${message}
         </c:forEach>
     </form:errors>
+    <form:errors path="greatnews">
+        <c:forEach items="${messages}" var="message">
+            ${message}
+        </c:forEach>
+    </form:errors>
 </div>
 
 <div class="emailSubscription pas">
@@ -63,7 +68,7 @@
     <input type="text" id="js_email"
            onfocus="GS_textSwitch(this, '', '[Enter and email address]');"
            onblur="GS_textSwitch(this, '[Enter and email address]', '');"
-           class="fltlft small quiet bottom" name="email" value="[Enter and email address]"/>
+           class="fltlft small quiet bottom" name="email" value="${(newslettersSignUpCommand.email == null || newslettersSignUpCommand.email =='')?'[Enter and email address]':newslettersSignUpCommand.email}"/>
     <fieldset class="submit fltlft mlm mrm">
         <button class="button-1 fltlft" type="submit" id="js_submitButton" name="Submit" value="Submit">Subscribe
         </button>

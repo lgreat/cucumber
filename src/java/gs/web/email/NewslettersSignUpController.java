@@ -41,6 +41,18 @@ public class NewslettersSignUpController extends SimpleFormController implements
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
                                      BindException errors) throws Exception {
+        NewslettersSignUpCommand cmd = (NewslettersSignUpCommand) command;
+        String[] stateIdStringsFromPage = request.getParameterValues("uniqueStateId");
+        Set<String> stateIdStringSetFromPage = new HashSet<String>();
+        if (stateIdStringsFromPage != null && stateIdStringsFromPage.length > 0) {
+            stateIdStringSetFromPage.addAll(Arrays.asList(stateIdStringsFromPage));
+            stateIdStringSetFromPage.remove("REPLACE-ME");
+        }
+
+        if (!cmd.isDailytip() && !cmd.isSponsor() && !cmd.getGreatnews() && (stateIdStringSetFromPage == null || stateIdStringSetFromPage.size() == 0)) {
+            errors.rejectValue("greatnews", "no_nl_selected", "Please select a newsletter to subscribe to.");
+        }
+
         if (errors.hasErrors()) {
             return;
         }
@@ -149,7 +161,7 @@ public class NewslettersSignUpController extends SimpleFormController implements
             }
 
             model.put(getCommandName(), command);
-            model.put("ThankYouMsg", "You've successfully subscribed to the GreatSchools newsletter.");
+            model.put("ThankYouMsg", "You've successfully subscribed to the selected newsletter(s).");
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NL_SIGN_UP_PAGE);
             model.put("contentUrl", urlBuilder.asFullUrl(request));
             model.put("facebookImgUrl", getFBImageUrl(request));
