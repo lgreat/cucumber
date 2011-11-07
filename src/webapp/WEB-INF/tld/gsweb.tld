@@ -272,7 +272,7 @@
     <function>
         <name>showBasicError404Page</name>
         <function-class>gs.web.jsp.Util</function-class>
-        <function-signature>boolean showBasicError404Page(java.lang.String)</function-signature>
+        <function-signature>boolean showBasicError404Page(javax.servlet.jsp.PageContext)</function-signature>
     </function>
 
     <function>

@@ -60,6 +60,7 @@
         <pattern>*/tableMover.page*</pattern>
         <pattern>*/api/admin/*</pattern>
         <pattern>*/api/admin_login.page*</pattern>
+        <pattern>*/status/error404.page*</pattern>
     </excludes>
 
 </decorators>

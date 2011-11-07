@@ -14,7 +14,7 @@
         >
     <c:choose>
         <!-- http://stackoverflow.com/questions/1018295/display-different-tomcat-error-pages-depending-on-url-of-original-request -->
-        <c:when test="${gsweb:showBasicError404Page(pageContext.errorData.requestURI)}">
+        <c:when test="${gsweb:showBasicError404Page(pageContext)}">
             <jsp:directive.page contentType="text/html"/>
             <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 

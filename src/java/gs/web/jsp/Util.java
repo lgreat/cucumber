@@ -13,6 +13,7 @@ import org.htmlcleaner.TagNode;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 
+import javax.servlet.jsp.PageContext;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.BreakIterator;
@@ -492,6 +493,16 @@ public class Util {
         String[] tokens = StringUtils.split(stringToSearch, separaterChars);
 
         return ArrayUtils.contains(tokens, stringToFind);
+    }
+
+    public static boolean showBasicError404Page(PageContext context) {
+        try {
+            // getErrorData() seems to throw a NPE in some versions of tomcat
+            String uri = context.getErrorData().getRequestURI();
+            return showBasicError404Page(uri);
+        } catch (NullPointerException npe) {
+            return false;
+        }
     }
 
     private final static Pattern IMAGE_PATTERN = Pattern.compile("^.*\\.(png|jpg|gif|js|css)$", Pattern.CASE_INSENSITIVE);
