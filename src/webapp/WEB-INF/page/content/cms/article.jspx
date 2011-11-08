@@ -31,6 +31,11 @@
                 <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
                                                        imageUrl="${feature.imageUrl}"/>
             </c:when>
+            <c:when test="${type eq 'articleSlideshow' and not empty feature.slides[0].imageUrl}">
+                <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
+                                                       imageUrl="${feature.slides[0].imageUrl}"/>
+
+            </c:when>
             <c:otherwise>
                 <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"/>
             </c:otherwise>
