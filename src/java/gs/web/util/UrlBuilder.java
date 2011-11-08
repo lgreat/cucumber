@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.268 2011/11/08 02:37:34 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.269 2011/11/08 02:53:47 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -556,7 +556,7 @@ public class UrlBuilder {
                 setParameter("page", page);
             }
 
-            if (language != null) {
+            if (StringUtils.isNotEmpty(language)) {
                 setParameter("language", language);
             }
         } else {
