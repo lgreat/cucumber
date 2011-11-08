@@ -48,7 +48,7 @@
 
                                 <div class="js-videoBubbleInfo">
                                     <div class="js-trigger">
-                                        <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
+                                        <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" language="${param.language}">
 
                                             <gsml:img src="${result.imageUrl}"
                                                       alt="${result.imageAltText}"
@@ -74,7 +74,7 @@
 
                                 <p>
                                     <link:cmsContent contentKey="${result.contentKey}"
-                                                     fullUri="${result.fullUri}">
+                                                     fullUri="${result.fullUri}" language="${param.language}">
                                         <c:choose>
                                             <c:when test="${not empty result.promo}">
                                                 ${result.promo}
@@ -147,7 +147,7 @@
                 Please select another option from one of the filter menus above or <link:cmsVideoGallery
                     topicCenterId="${topicCenter.contentKey.identifier}"
                     topicCenterUrl="${topicCenter.fullUri}"
-                    language="EN"><strong>view all videos</strong></link:cmsVideoGallery>.
+                    language="${param.language}"><strong>view all videos</strong></link:cmsVideoGallery>.
                 </p>
             </c:otherwise>
         </c:choose>

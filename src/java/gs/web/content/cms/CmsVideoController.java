@@ -6,6 +6,7 @@ import gs.data.content.ArticleComment;
 import gs.data.content.IArticleDao;
 import gs.data.content.cms.*;
 import gs.data.util.SpringUtil;
+import gs.web.i18n.LanguageToggleHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
@@ -146,6 +147,8 @@ public class CmsVideoController extends AbstractController {
 
         model.put("uri", uri + "?content=" + feature.getContentKey().getIdentifier());
         model.put("almondNetCategory", CmsContentUtils.getAlmondNetCategory(feature));
+
+        LanguageToggleHelper.handleLanguageToggle(request, model);
 
         // GS-11430 Allow for companion ads on articles with Delve Networks videos
         if (StringUtils.contains(feature.getCurrentPage(), "http://assets.delvenetworks.com/player/loader.swf")) {

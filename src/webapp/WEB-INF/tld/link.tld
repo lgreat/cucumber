@@ -427,6 +427,13 @@
             <type>java.lang.Boolean</type>
             <description>whether to link to Raise Your Hand list page instead of discussion board page (if applicable)</description>
         </attribute>
+        <attribute>
+            <name>language</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Language code</description>
+        </attribute>
     </tag>
     <tag>
         <name>glossaryTerm</name>

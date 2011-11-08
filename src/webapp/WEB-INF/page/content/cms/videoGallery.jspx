@@ -97,6 +97,16 @@
 
             <div class="grid_11 omega">
                 <div class="prm">
+                    <div>
+                    <c:choose>
+                        <c:when test="${param.language eq 'ES'}">
+                            <a href="${alternateLanguageUrl}">See English videos</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${alternateLanguageUrl}">Ver videos in español</a>
+                        </c:otherwise>
+                    </c:choose>
+                    </div>
                 <div class="spacer_10 brdtop_dotted"><!-- do not collapse --></div>
                 <!-- hardcoded grades and topics for the video gallery page.GS-11651 -->
                 <div class="line">

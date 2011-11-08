@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.267 2011/10/28 21:38:18 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.268 2011/11/08 02:37:34 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -513,12 +513,12 @@ public class UrlBuilder {
         }
     }
 
-    public UrlBuilder(ContentKey contentKey, String fullUri, Boolean raiseYourHand, String page) {
+    public UrlBuilder(ContentKey contentKey, String fullUri, Boolean raiseYourHand, String page, String language) {
         if (!CmsUtil.isCmsEnabled()) {
             throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
         }
 
-        initializeForCmsContent(contentKey, fullUri, raiseYourHand, page);
+        initializeForCmsContent(contentKey, fullUri, raiseYourHand, page, language);
     }
 
     public UrlBuilder(ContentKey contentKey, String fullUri, Boolean raiseYourHand) {
@@ -526,7 +526,7 @@ public class UrlBuilder {
             throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
         }
 
-        initializeForCmsContent(contentKey, fullUri, raiseYourHand, null);
+        initializeForCmsContent(contentKey, fullUri, raiseYourHand, null, null);
     }
 
     public UrlBuilder(ContentKey contentKey, String fullUri) {
@@ -534,16 +534,16 @@ public class UrlBuilder {
             throw new UnsupportedOperationException("Attempting to display CMS Content when CMS is disabled.");
         }
 
-        initializeForCmsContent(contentKey, fullUri, false, null);
+        initializeForCmsContent(contentKey, fullUri, false, null, null);
     }
 
     private void initializeForCmsContent(ContentKey contentKey, String fullUri) {
-        initializeForCmsContent(contentKey, fullUri, false, null);
+        initializeForCmsContent(contentKey, fullUri, false, null, null);
     }
 
     // unfortunately, changes to this also necessitate changes to PublicationDao.populateHttpUrlForContentUrl()
     // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
-    private void initializeForCmsContent(ContentKey contentKey, String fullUri, Boolean raiseYourHand, String page) {
+    private void initializeForCmsContent(ContentKey contentKey, String fullUri, Boolean raiseYourHand, String page, String language) {
         _perlPage = false;
         if (fullUri != null) {
             _path = CmsUtil.getUri(contentKey, fullUri, raiseYourHand);
@@ -554,6 +554,10 @@ public class UrlBuilder {
 
             if (page != null) {
                 setParameter("page", page);
+            }
+
+            if (language != null) {
+                setParameter("language", language);
             }
         } else {
             _path = "";

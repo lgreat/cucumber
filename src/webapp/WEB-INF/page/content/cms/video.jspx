@@ -91,6 +91,17 @@
 
         <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
+        <div>
+        <c:choose>
+            <c:when test="${param.language eq 'ES'}">
+                <a href="${alternateLanguageUrl}">See video in English</a>
+            </c:when>
+            <c:otherwise>
+                <a href="${alternateLanguageUrl}">Ver video in español</a>
+            </c:otherwise>
+        </c:choose>
+        </div>
+
         <div class="fltrt mts mbm">
             <cms:articleDistribution includeShareBtn="false" includeFbSendBtn="true"/>
         </div>
