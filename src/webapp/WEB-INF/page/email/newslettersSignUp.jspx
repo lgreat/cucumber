@@ -66,8 +66,8 @@
 <div class="emailSubscription pas">
     <h6 class="bottom"><label for="js_email" class="fltlft mrm">Email address:</label></h6>
     <input type="text" id="js_email"
-           onfocus="GS_textSwitch(this, '', '[Enter and email address]');"
-           onblur="GS_textSwitch(this, '[Enter and email address]', '');"
+           onfocus="GS_textSwitch(this, '', '[Enter an email address]');"
+           onblur="GS_textSwitch(this, '[Enter an email address]', '');"
            class="fltlft small quiet bottom" name="email" value="${(newslettersSignUpCommand.email == null || newslettersSignUpCommand.email =='')?'[Enter and email address]':newslettersSignUpCommand.email}"/>
     <fieldset class="submit fltlft mlm mrm">
         <button class="button-1 fltlft" type="submit" id="js_submitButton" name="Submit" value="Submit">Subscribe
