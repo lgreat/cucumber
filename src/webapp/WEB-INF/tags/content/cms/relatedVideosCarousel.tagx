@@ -1,0 +1,20 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0">
+    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
+
+    <div class="hd">
+    <h4 class="subhead2 mbs">Videos</h4>
+    </div>
+    <div class="bd">
+        <ul>
+            <c:forEach var="relatedVideo" items="${feature.relatedVideos}" varStatus="status">
+                <c:if test="${not empty relatedVideo.imageUrl}">
+                    <li><a href="${relatedVideo.url}"><img src="${relatedVideo.imageUrl}" alt="${relatedVideo.imageAltText}"/></a></li>
+                    <div>${relatedVideo.imageTitle}</div>
+                </c:if>
+            </c:forEach>
+        </ul>
+    </div>
+</jsp:root>
