@@ -1809,6 +1809,40 @@ body.cobranded #pageGS {
     height:31px;
 }
 
+/* GS-11847 Integrated text ads*/
+
+.integratedTextAds{
+    background-color: #FDF5E6;
+}
+
+.integratedTextAds.singleLine{
+    height: 30px;
+}
+
+.integratedTextAds .sponsoredText{
+    color: #B89652;
+}
+
+.integratedTextAds h6{
+    line-height: 14px;
+}
+
+.integratedTextAds.singleLine .gsAdText{
+    margin-top: 8px;
+}
+
+.integratedTextAds.adLogo .gsAdText{
+    width: 297px;
+}
+
+.integratedTextAds.adLogo.adList .gsAdText{
+    width: 475px;
+}
+
+.integratedTextAds.adLogo .sponsoredText{
+    width: 95px;
+}
+
 /* =11 header/primary navigation
 -------------------------------------------------------------------------------------------*/
 
@@ -7400,6 +7434,9 @@ body.ie8 #savvysource span.arrow-right {
 #newslettersSignUp .hideIt{
     display: none;
 }
+
+
+
 
 /* =13 editorialFooter
 -------------------------------------------------------------------------------------------*/
