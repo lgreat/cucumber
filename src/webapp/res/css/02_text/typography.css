@@ -140,35 +140,34 @@ Misc classes
 .slStylesV1-0 thead th    { background: #bcdeed; }
 .slStylesV1-0 th,
 .slStylesV1-0 td,
-.slStylesV1-0 caption { padding: 4px 10px 4px 5px; }
+.slStylesV1-0 caption     { padding: 4px 10px 4px 5px; }
 /*
 	You can zebra-stripe your tables in outdated browsers by adding
 	the class "even" to every other table row.
  */
 .slStylesV1-0 tbody tr:nth-child(even) td,
-.slStylesV1-0 tbody tr.even td  {
-	background: #e2f1f7;
-}
-.slStylesV1-0 tfoot       { font-style: italic; }
-.slStylesV1-0 caption     { background: #e6e6e6; }
+.slStylesV1-0 tbody tr.even td  { background: #e2f1f7; }
+.slStylesV1-0 tfoot        { font-style: italic; }
+.slStylesV1-0 caption      { background: #e6e6e6; }
 
 
 /* Misc classes
 -------------------------------------------------------------- */
 
-.slStylesV1-0 .box {padding:1.5em;margin-bottom:1.5em;background:#e5eCf9;}
+.slStylesV1-0 .box         {padding:1.5em;margin-bottom:1.5em;background:#e5eCf9;}
 
-.slStylesV1-0 .hide       { display: none; }
+.slStylesV1-0 .hide        { display: none; }
 
-.slStylesV1-0 .quiet      { color: #787878; }
-.slStylesV1-0 .loud       { color: #000; }
-.slStylesV1-0 .make-06b   { color: #06b; }
+.slStylesV1-0 .quiet       { color: #787878; }
+.slStylesV1-0 .loud        { color: #000; }
+.slStylesV1-0 .make-06b    { color: #06b; }
+.slStylesV1-0 .make-f2791f { color: #f2791f; }
 .slStylesV1-0 .error_msg   { color: #900; }
-.slStylesV1-0 .highlight  { background:#ff0; }
-.slStylesV1-0 .added      { background:#060; color: #fff; }
-.slStylesV1-0 .removed    { background:#900; color: #fff; }
+.slStylesV1-0 .highlight   { background:#ff0; }
+.slStylesV1-0 .added       { background:#060; color: #fff; }
+.slStylesV1-0 .removed     { background:#900; color: #fff; }
 
-.slStylesV1-0 .first      { margin-left:0; padding-left:0; }
-.slStylesV1-0 .last       { margin-right:0; padding-right:0; }
-.slStylesV1-0 .top        { margin-top:0; padding-top:0; }
-.slStylesV1-0 .bottom     { margin-bottom:0; padding-bottom:0; }
+.slStylesV1-0 .first       { margin-left:0; padding-left:0; }
+.slStylesV1-0 .last        { margin-right:0; padding-right:0; }
+.slStylesV1-0 .top         { margin-top:0; padding-top:0; }
+.slStylesV1-0 .bottom      { margin-bottom:0; padding-bottom:0; }

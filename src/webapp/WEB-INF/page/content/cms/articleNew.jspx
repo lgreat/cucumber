@@ -98,16 +98,18 @@
 
 <body>
 
-<div id="breadcrumbs">
-    <link:home>Home</link:home> &amp;gt;
+<div class="container_24 slStylesV1-0">
+<div class="grid_16">
+<p class="small">
+    <link:home>Home</link:home> &amp;rsaquo;
     <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
         <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
-        <c:if test="${!status.last}"> &amp;gt; </c:if>
+        <c:if test="${!status.last}"> &amp;rsaquo; </c:if>
     </c:forEach>
-</div>
+</p>
 
 
-<h1>${feature.title}</h1>
+<h2>${feature.title}</h2>
 
 <!--Licensor logo-->
 <c:if test="${not empty feature.licensorLogoUrl}">
@@ -125,26 +127,12 @@
     </c:choose>
 </c:if>
 
-<div class="summary">
-    ${fn:escapeXml(article.summary)}
-</div>
+<h4>${fn:escapeXml(article.summary)}</h4>
+    
 <ad:adTag position="Sponsor_610x16"/>
 
-<div class="authors">
-    <!-- byline - for articles only -->
-    <c:if test="${not empty feature.authors}">
-        <c:choose>
-            <c:when test="${feature.language eq 'ES'}">Por </c:when>
-            <c:otherwise>By </c:otherwise>
-
-        </c:choose>
-        <c:forEach var="author"
-                   items="${feature.authors}"
-                   varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
-    </c:if>
-</div>
-
 <!--Sidebar-->
+    <div class="grid_6 alpha">
 <div><cms:articleDistributionNew includeFbSendBtn="true" includeShareBtn="false"/></div>
 <ul>
     <li class="articlePrintAndEmail">
@@ -181,7 +169,7 @@
         </c:forEach>
 
         <c:if test="${hasPublishedRelatedArticles}">
-            <cms:relatedArticlesList feature="${feature}"/>
+            <cms:relatedArticlesListNew feature="${feature}"/>
         </c:if>
     </div>
 
@@ -189,9 +177,11 @@
 <c:if test="${feature.sidebar}">
     ${feature.sidebar}
 </c:if>
+        </div>
 <!--Sidebar-->
 
 <!--Content-->
+    <div class="grid_10 omega">
 <div id="cmsArticleText">
 
     <!--Image-->
@@ -206,6 +196,20 @@
     </c:if>
     <!--Image-->
 
+    <p class="small">
+        <!-- byline - for articles only -->
+        <c:if test="${not empty feature.authors}">
+            <c:choose>
+                <c:when test="${feature.language eq 'ES'}">Por </c:when>
+                <c:otherwise>By </c:otherwise>
+
+            </c:choose>
+            <c:forEach var="author"
+                       items="${feature.authors}"
+                       varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
+        </c:if>
+    </p>
+
     ${currentPage}
 
     <c:if test="${not empty feature.pdfUri and (-1 eq feature.currentPageNum or feature.numPages eq feature.currentPageNum)}">
@@ -217,6 +221,7 @@
         </div>
     </c:if>
 </div>
+        </div>
 <!--Content-->
 
 <!--Share buttons-->
@@ -289,11 +294,12 @@
         <cms:comments comments="${comments}"/>
     </div>
 </div>
+</div>
 
 <c:set var="pageName" value="article"/>
 <c:set var="hier1" value="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"/>
 
-<div id="rightColumn">
+<div class="grid_8">
     <c:choose>
         <!--
             GS-8341: Initial implementation
@@ -374,6 +380,7 @@
 
         </c:otherwise>
     </c:choose>
+</div>
 </div>
 
 <input type="hidden" value="${type}" id="cmsContentType"/>
