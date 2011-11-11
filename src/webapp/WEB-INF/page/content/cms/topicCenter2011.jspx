@@ -69,6 +69,9 @@
         <c:when test="${topicCenter.contentKey.identifier eq 4931}">
             <pageHelper:setPathway pathway="EDUCATIONAL_TOYS"/>
         </c:when>
+        <c:when test="${topicCenter.contentKey.identifier eq 5083}">
+            <pageHelper:setPathway pathway="GIFT_GUIDE"/>
+        </c:when>
     </c:choose>
 
 
