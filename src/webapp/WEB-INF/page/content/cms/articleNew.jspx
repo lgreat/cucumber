@@ -156,7 +156,17 @@
         </a></li>
     </c:if>
 </ul>
-<div>TODO:photos</div>
+
+<div>
+    <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+        <div id="js_photo_gallery_container">
+            <a href="javascript:void(0)" class="js-photo-gallery-trigger">
+               <img src="http://dev.greatschools.org/library/article_img_1_small.png" alt="something"/>
+            </a>
+        </div>
+    </c:if>
+</div>
+
 <div><cms:relatedVideosCarousel feature="${feature}"/></div>
 <c:if test="${not empty feature.relatedArticles}">
 
@@ -424,8 +434,11 @@
 </c:choose>
 
 <input type="hidden" id="isShowNlSubHover" value="${isShowNlSubHover}"/>
+<c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+    <cms:articlePhotoGallery cssClass="js-photo-gallery-trigger" images="${photoGalleryImages}" prefix="article"/>
+</c:if>
 
-
+<div id="fade" class="black_overlay"><!-- do not collapse --></div>
 </body>
 </html>
 </jsp:root>
