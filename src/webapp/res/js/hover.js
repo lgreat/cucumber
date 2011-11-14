@@ -357,31 +357,6 @@ GSType.hover.JoinHover = function() {
         GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinAuto;
         GSType.hover.joinHover.show();
     };
-    this.showJoinChooserTipSheet = function(email) {
-        GSType.hover.joinHover.baseFields();
-        GSType.hover.joinHover.setTitle("School Chooser tip sheet");
-        GSType.hover.joinHover.setSubTitle("Join GreatSchools",
-                "for the best advice on choosing the right school for your family");
-        // show city and state inputs
-        jQuery('#joinHover .joinHover_location').show();
-
-        // set label for weekly updates opt-in
-        GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, false, false);
-
-        GSType.hover.joinHover.setJoinHoverType("ChooserTipSheet");
-
-        GSType.hover.joinHover.configureOmniture('School Chooser Pack Join Hover', 'Hovers,Join,School Chooser Pack Join Hover');
-
-        GSType.hover.signInHover.showJoinFunction = GSType.hover.joinHover.showJoinChooserTipSheet;
-
-        jQuery('#jemail').val(email);
-
-        GSType.hover.joinHover.show();
-
-        GSType.hover.joinHover.loadCities();
-
-        jQuery('#joinBtn').click(GSType.hover.joinHover.chooserTipSheetClickHandler);
-    };
     this.showSchoolReviewJoin = function(onSubmitCallback) {
         jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
@@ -606,33 +581,6 @@ GSType.hover.JoinHover = function() {
         jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
         return false;
     };
-    this.chooserTipSheetClickHandler = function() {
-        var params = jQuery('#joinGS').serialize();
-        // TODO-JQ-12056 swap following lines
-        jQuery('#joinBtn').attr('disabled', 'disabled');
-//        jQuery('#joinBtn').prop('disabled', true);
-
-
-        //if - Choose city - is selected, just remove this from the form, as if no city was given
-        if (jQuery('#joinCity').val() == '- Choose city -') {
-            params = params.replace(/&city=([^&]+)/, "");
-        }
-
-        var first = true;
-        var newsletters = [];
-        jQuery('#joinGS [name="grades"]').each(function() {
-        // TODO-JQ-12056 swap following lines
-            if (jQuery(this).attr('checked')) {
-//            if (jQuery(this).prop('checked')) {
-                newsletters.push(encodeURIComponent(jQuery(this).val()));
-            }
-        });
-
-        params += "&grades=" + newsletters.join(',');
-
-        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, GS.chooserHover_checkValidationResponse);
-        return false;
-    };
 };
 GSType.hover.JoinHover.prototype = new GSType.hover.HoverDialog('joinHover',555);
 
@@ -694,7 +642,7 @@ GSType.hover.SignInHover = function() {
         } else if (data.userNoPassword) {
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
-            GSType.hover.joinHover.showJoinChooserTipSheet();
+            GSType.hover.joinHover.showJoinGlobalHeader();
             GSType.hover.joinHover.addMessage(data.userNoPassword);
         } else if (data.userNotValidated) {
             GSType.hover.signInHover.clearMessages();
@@ -1190,21 +1138,6 @@ GS.showSchoolReviewHover = function(redirect) {
     return false;
 };
 
-GS.showChooserTipSheetHover = function(email, redirect) {
-    if (GS.isSignedIn()) {
-        return true; // signed in users go straight to destination
-    } else {
-        GSType.hover.signInHover.setRedirect(redirect);
-        jQuery('#joinHover .redirect_field').val(redirect);
-        if (GS.isMember()) {
-            GSType.hover.signInHover.showHover(email, redirect, GSType.hover.joinHover.showJoinChooserTipSheet); // members get sign in hover
-        } else {
-            GSType.hover.joinHover.showJoinChooserTipSheet(email); // anons get join hover
-        }
-    }
-    return false;
-};
-
 GS.showMssJoinHover = function(redirect, schoolName, schoolId, schoolState) {
     if (GS.isSignedIn()) {
         return true; // signed in users go straight to destination
@@ -1297,43 +1230,6 @@ GS.showAddMslJoinHoverAllSchools = function(schoolIdList, schoolState) {
         }
     }
     return false;
-};
-
-//validates response for chooser tip sheet join hover. If validation passes, makes an ajax request to have tips email sent out, then submits join form so controller creates user
-GS.chooserHover_checkValidationResponse = function(data) {
-
-    if (GS.joinHover_passesValidationResponse(data)) {
-
-        var emailVal = jQuery('input#cemail').val();
-
-        if (emailVal != undefined) {
-            var cks = new Array();
-            jQuery('.ck').each(function () {
-                if (this.checked) {
-                    cks.push(this.name);
-                }
-            });
-            jQuery.post("/promo/schoolChoicePackPromo.page",
-            {email : emailVal, levels : cks.join(','), pageName : clickCapture.pageName, redirectForConfirm : window.location.href},
-                    function(datax) {
-                        omnitureEventNotifier.clear();
-                        omnitureEventNotifier.successEvents = datax.omnitureTracking.successEvents;
-                        omnitureEventNotifier.eVars = datax.omnitureTracking.eVars;
-                        omnitureEventNotifier.send();
-                        jQuery("#form_panel").hide();
-                        jQuery("#confirm_panel").show();
-                        jQuery('#joinHover .redirect_field').val(decodeURIComponent(datax.redirectEncoded));
-                        jQuery('#joinGS').submit();
-                        jQuery('#joinGS').submit(function() {
-                            return false; // prevent multiple submits
-                        });
-                        GSType.hover.joinHover.hide();
-                    }, "json");
-        }
-    }
-    // TODO-JQ-12056 swap following lines
-    jQuery('#joinBtn').attr('disabled', '');
-//    jQuery('#joinBtn').prop('disabled', false);
 };
 
 GS.joinHover_checkValidationResponse2 = function(data) {
@@ -1596,10 +1492,6 @@ jQuery(function() {
 /*
     jQuery('.joinAutoHover_showHover').click(function() {
         GSType.hover.joinHover.showJoinAuto('Alameda High School', 1, 'CA');
-        return false;
-    });
-    jQuery('.joinChooserHover_showHover').click(function() {
-        GSType.hover.joinHover.showJoinChooserTipSheet();
         return false;
     });
     jQuery('.joinLDHover_showHover').click(function() {
