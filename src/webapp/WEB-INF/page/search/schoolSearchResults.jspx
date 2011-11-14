@@ -496,6 +496,7 @@
     </div>
 
     <div id="topicMainGS" class="col">
+        <ad:adTag position="SponsoredSearch_Top_423x120"/>
         <ad:adTag position="SponsoredSearch_Top_423x68"/>
         <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
         <c:choose>

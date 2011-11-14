@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.96 2011/09/15 23:27:32 npatury Exp $
+ * $Id: AdPosition.java,v 1.97 2011/11/14 17:59:39 pdeshwal Exp $
  */
 package gs.web.ads;
 
@@ -141,8 +141,10 @@ public class AdPosition extends Enum {
     public static final AdPosition CustomSponsor_407x65 = new AdPosition("CustomSponsor_407x65", true); // GS-10414
     public static final AdPosition Community_Ad_300x50 = new AdPosition("Community_Ad_300x50", true); // GS-10357
     public static final AdPosition Sponsor_610x16 = new AdPosition("Sponsor_610x16", true); // GS-10540
+    public static final AdPosition Sponsor_610x30 = new AdPosition("Sponsor_610x30", true); //GS-11847
     public static final AdPosition Sponsor_BelowFold_610x38 = new AdPosition("Sponsor_BelowFold_610x38", true); // GS-10708
     public static final AdPosition SponsoredSearch_Top_423x68 = new AdPosition("SponsoredSearch_Top_423x68", true); // GS-10772
+    public static final AdPosition SponsoredSearch_Top_423x120 = new AdPosition("SponsoredSearch_Top_423x120", true); // GS-10772
     public static final AdPosition SponsoredSearch_Bottom_423x68 = new AdPosition("SponsoredSearch_Bottom_423x68", true); // GS-10772
     public static final AdPosition Sponsor_610x225 = new AdPosition("Sponsor_610x225", true); // GS-11664
     public static final AdPosition Sponsor_88x31 = new AdPosition("Sponsor_88x31", true); // GS-11708

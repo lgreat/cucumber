@@ -133,6 +133,7 @@
 
         <!-- DONE-RANDALL-10540 - This ad slot should appear for 15.8. I've commented it out pre-code-freeze so it doesn't appear in 15.7. -->
         <ad:adTag position="Sponsor_610x16"/>
+        <ad:adTag position="Sponsor_610x30"/>
 
         <div class="spacer_15 brdbtm_solid-c6c6c6 mbm"><!-- do not collapse --></div>
 
