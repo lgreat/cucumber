@@ -103,7 +103,7 @@
                             <a href="${alternateLanguageUrl}">See English videos</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="${alternateLanguageUrl}">Ver videos in español</a>
+                            <a href="${alternateLanguageUrl}">Ver videos en español</a>
                         </c:otherwise>
                     </c:choose>
                     </div>
