@@ -836,6 +836,10 @@ h4.subhead2 a {
 .emailSignUp .section2 p{margin:auto;padding:0;*margin:0;}
 .emailSignUp h3{font: 18px Georgia, "Times New Roman", Times, serif;}
 
+/* ---------------- GS-12260 ----------------- */
+/* ------ articleText (extends standard) ----- */
+.articleText h3{ color: #f2791f; }
+
 /* ---------------- GS-11664 ----------------- */
 /* ------ btsSponsor (extends standard) ------ */
 .btsSponsor .inner{background-color:#f9eccd;}
