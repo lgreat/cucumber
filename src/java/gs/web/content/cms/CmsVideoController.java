@@ -94,7 +94,9 @@ public class CmsVideoController extends AbstractController {
             return new ModelAndView(new RedirectView301(redirect.asSiteRelative(request)));
         }
 
-        feature = _featureDao.get(contentId);
+        LanguageToggleHelper.Language currentLanguage = LanguageToggleHelper.handleLanguageToggle(request, model);
+
+        feature = _featureDao.get(contentId, currentLanguage.name());
 
         /*if (!_unitTest && feature != null) {
             // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
@@ -147,8 +149,6 @@ public class CmsVideoController extends AbstractController {
 
         model.put("uri", uri + "?content=" + feature.getContentKey().getIdentifier());
         model.put("almondNetCategory", CmsContentUtils.getAlmondNetCategory(feature));
-
-        LanguageToggleHelper.handleLanguageToggle(request, model);
 
         // GS-11430 Allow for companion ads on articles with Delve Networks videos
         if (StringUtils.contains(feature.getCurrentPage(), "http://assets.delvenetworks.com/player/loader.swf")) {
