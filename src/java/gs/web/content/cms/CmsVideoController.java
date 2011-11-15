@@ -6,7 +6,6 @@ import gs.data.content.ArticleComment;
 import gs.data.content.IArticleDao;
 import gs.data.content.cms.*;
 import gs.data.util.SpringUtil;
-import gs.web.i18n.LanguageToggleHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
@@ -94,9 +93,7 @@ public class CmsVideoController extends AbstractController {
             return new ModelAndView(new RedirectView301(redirect.asSiteRelative(request)));
         }
 
-        LanguageToggleHelper.Language currentLanguage = LanguageToggleHelper.handleLanguageToggle(request, model);
-
-        feature = _featureDao.get(contentId, currentLanguage.name());
+        feature = _featureDao.get(contentId);
 
         /*if (!_unitTest && feature != null) {
             // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
