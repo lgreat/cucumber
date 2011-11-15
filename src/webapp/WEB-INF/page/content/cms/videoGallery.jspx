@@ -100,10 +100,14 @@
                     <div>
                     <c:choose>
                         <c:when test="${param.language eq 'ES'}">
-                            <a href="${alternateLanguageUrl}">See English videos</a>
+                            <div class="fltrt">
+                                <a href="${alternateLanguageUrl}">See English videos</a>
+                            </div>
                         </c:when>
                         <c:otherwise>
-                            <a href="${alternateLanguageUrl}">Ver videos en español</a>
+                            <div class="fltrt">
+                                <a href="${alternateLanguageUrl}">Ver videos en español</a>
+                            </div>
                         </c:otherwise>
                     </c:choose>
                     </div>

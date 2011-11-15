@@ -91,25 +91,27 @@
 
         <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
-        <div class="fltrt mts mbm">
-            <cms:articleDistribution includeShareBtn="false" includeFbSendBtn="true"/>
-        </div>
-
         <div class="text3 fltrt">
             <ul>
                 <c:if test="${not empty feature.otherLanguageUri}">
                     <li><a href="${feature.otherLanguageUri}">
                         <c:choose>
                             <c:when test="${feature.language eq 'ES'}">
-                                <span class="bolder">Watch video in English &amp;raquo;</span>
+                                    <span class="bolder">Watch video in English &amp;raquo;</span>
                             </c:when>
                             <c:otherwise>
-                                <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
+                                    <span class="bolder">Ver video en espa&amp;ntilde;ol &amp;raquo;</span>
                             </c:otherwise>
                         </c:choose>
                     </a></li>
                 </c:if>
             </ul>
+        </div>
+
+        <div class="clear">&amp;nbsp;</div>
+
+        <div class="fltrt mts mbm">
+            <cms:articleDistribution includeShareBtn="false" includeFbSendBtn="true"/>
         </div>
 
         <div class="pvs">
