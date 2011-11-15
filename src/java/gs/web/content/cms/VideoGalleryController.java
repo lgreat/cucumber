@@ -10,7 +10,6 @@ import gs.data.search.SearchResultsPage;
 import gs.data.search.fields.CmsFeatureFields;
 import gs.data.search.fields.DocumentType;
 import gs.data.util.CmsUtil;
-import gs.web.i18n.LanguageToggleHelper;
 import gs.web.pagination.Pagination;
 import gs.web.pagination.RequestedPage;
 import gs.web.search.CmsFeatureSearchService;
@@ -53,7 +52,6 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
     public static Map<String,String> TOPIC_CHOICES = new LinkedHashMap<String,String>();
     public static String TOPIC_CHOICES_PARAM = "topicChoices";
     public static String GRADE_CHOICES_PARAM = "gradeChoices";
-
 
     static {
         VIDEO_GALLERY_PAGINATION_CONFIG = new PaginationConfig(
@@ -183,11 +181,7 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         }
     }
 
-
-
     public void addPageSpecificContentToModel(HttpServletRequest request, CmsTopicCenter cmsTopicCenter, Map<String, Object> model) {
-
-        LanguageToggleHelper.Language currentLanguage = LanguageToggleHelper.handleLanguageToggle(request, model);
 
         RequestedPage requestedPage = Pagination.getPageFromRequest(request, VIDEO_GALLERY_PAGINATION_CONFIG);
 
@@ -204,7 +198,6 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         GsSolrQuery query = new GsSolrQuery();
         query.filter(DocumentType.CMS_FEATURE);
         query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);
-        query.filter(CmsFeatureFields.FIELD_LANGUAGE, currentLanguage.name());
 
         //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
         //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
@@ -242,8 +235,6 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         model.put(MODEL_FULL_URL, url);
         model.put(GRADE_CHOICES_PARAM, GRADE_CHOICES);
         model.put(TOPIC_CHOICES_PARAM, TOPIC_CHOICES);
-
-
 
         try {
             SearchResultsPage<ICmsFeatureSearchResult> searchResults = getCmsFeatureSearchService().search(query.getSolrQuery());
