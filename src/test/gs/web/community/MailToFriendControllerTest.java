@@ -141,6 +141,10 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
             public List<CmsFeature> getAll() {
                 return null;
             }
+
+            public CmsFeature get(Long contentId, String language) {
+                return null;
+            }
         });
 
         _controller.onBindOnNewForm(getRequest(), command, errors);
