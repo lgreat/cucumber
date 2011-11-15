@@ -10,6 +10,7 @@ import gs.data.search.SearchResultsPage;
 import gs.data.search.fields.CmsFeatureFields;
 import gs.data.search.fields.DocumentType;
 import gs.data.util.CmsUtil;
+import gs.web.i18n.LanguageToggleHelper;
 import gs.web.pagination.Pagination;
 import gs.web.pagination.RequestedPage;
 import gs.web.search.CmsFeatureSearchService;
@@ -183,6 +184,8 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
     public void addPageSpecificContentToModel(HttpServletRequest request, CmsTopicCenter cmsTopicCenter, Map<String, Object> model) {
 
+        LanguageToggleHelper.Language currentLanguage = LanguageToggleHelper.handleLanguageToggle(request, model);
+
         RequestedPage requestedPage = Pagination.getPageFromRequest(request, VIDEO_GALLERY_PAGINATION_CONFIG);
 
         //find the "videos" subtopic for the topic center we're on
@@ -198,6 +201,7 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
         GsSolrQuery query = new GsSolrQuery();
         query.filter(DocumentType.CMS_FEATURE);
         query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);
+        query.filter(CmsFeatureFields.FIELD_LANGUAGE, currentLanguage.name());
 
         //'videos' subtopic can be viewed within the context of a topic center.Hence the contentId(topicCenterId) is needed.
         //A 'videos' subtopic can be categorized with any number of grades,subjects,topics.
