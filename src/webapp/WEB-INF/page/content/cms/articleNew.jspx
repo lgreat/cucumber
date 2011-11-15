@@ -143,19 +143,15 @@
                         <gsml:url var="mailToFriendUrl"
                                   value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
                         <gsml:a href="${mailToFriendUrl}"
-                                onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"><img
-                                src="/res/img/icons/emailIcon.gif" alt="Email"/>&amp;nbsp;<span>Email</span></gsml:a>
+                                onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
+                            <span class="sprite i-email vert-align-mid"><!-- do not collapse --></span> Email</gsml:a>
                     </li>
-
+                    <li><a href="javascript:void(0);"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
                     <c:if test="${not empty feature.otherLanguageUri}">
                         <li><strong><a href="${feature.otherLanguageUri}">
                             <c:choose>
-                                <c:when test="${feature.language eq 'ES'}">
-                                    <span>In english</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span>En espa&amp;ntilde;ol</span>
-                                </c:otherwise>
+                                <c:when test="${feature.language eq 'ES'}">In english</c:when>
+                                <c:otherwise><span class="sprite i-sun vert-align-mid"><!-- do not collapse --></span> En espa&amp;ntilde;ol</c:otherwise>
                             </c:choose>
                         </a></strong></li>
                     </c:if>

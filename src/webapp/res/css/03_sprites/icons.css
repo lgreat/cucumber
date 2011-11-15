@@ -34,21 +34,7 @@ Viewport: the defines width and height of each icon
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-08-08.png);
-}
-
-*html .sprite { /* for IE 6 iframe hovers */
-    display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-08-08.gif);
-    _zoom:1;
-    cursor: pointer;
-}
-
-body.ie6 .sprite { /* for IE 6 generally */
-    display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-08-08.gif);
-    _zoom:1;
-    cursor: pointer;
+    background-image: url(/res/img/sprites/iconSprite_2011-11-15.png);
 }
 
 /* **************** VIEWPORT ***************** */
@@ -428,6 +414,24 @@ body.ie6 .sprite { /* for IE 6 generally */
     width:18px;
     height:34px;
     background-position: -60px -240px;
+}
+
+.i-email{
+    width:16px;
+    height:16px;
+    background-position: -60px -280px;
+}
+
+.i-print{
+    width:16px;
+    height:16px;
+    background-position: -60px -300px;
+}
+
+.i-sun{
+    width:16px;
+    height:16px;
+    background-position: -60px -320px;
 }
 
 /* column 80 */
