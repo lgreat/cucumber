@@ -103,4 +103,36 @@ public class RequestInfoTest {
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.localhost.com"));
         assertEquals("pk.localhost.com", hostnameInfo.getHostnameForPkSubdomain());
     }
+
+    @Test
+    public void testIsProductionHostname() {
+        RequestInfo hostnameInfo;
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.greatschools.org"));
+        assertTrue(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("pk.greatschools.org"));
+        assertTrue(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("profile.dev"));
+        assertFalse(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("pk.dev.greatschools.org"));
+        assertFalse(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("dev.greatschools.org"));
+        assertFalse(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("greatschools.babycenter.com"));
+        assertFalse(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("localhost"));
+        assertFalse(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.localhost.com"));
+        assertFalse(hostnameInfo.isProductionHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("blah.greatschools.org"));
+        assertFalse(hostnameInfo.isProductionHostname());
+    }
 }

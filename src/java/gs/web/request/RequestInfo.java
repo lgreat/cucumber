@@ -16,7 +16,10 @@ public class RequestInfo {
     private Boolean _developerWorkstation;
     private Boolean _isDevEnvironment;
     private Boolean _cobranded;
+    private Boolean _productionHostname;
     private HttpServletRequest _request;
+
+    private static String[] PRODUCTION_HOSTNAMES = {"www.greatschools.org","pk.greatschools.org"};
 
     public RequestInfo(HttpServletRequest request) {
         if (request == null) {
@@ -35,6 +38,7 @@ public class RequestInfo {
         _developerWorkstation = UrlUtil.isDeveloperWorkstation(hostname);
         _isDevEnvironment = UrlUtil.isDevEnvironment(hostname);
         _onPkSubdomain = hostname.contains(Subdomain.PK.toString() + ".");
+        _productionHostname = org.apache.commons.lang.StringUtils.indexOfAny(_hostname, PRODUCTION_HOSTNAMES) > -1;
 
         String cobrand = UrlUtil.cobrandFromUrl(hostname);
         SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
@@ -71,7 +75,7 @@ public class RequestInfo {
 
         if (isOnPkSubdomain()) {
             //TODO: remove check for pk.localhost.com
-            if (isDevEnvironment() && !_hostname.contains("pk.localhost.com")) {
+            if (!isProductionHostname() && !_hostname.contains("pk.localhost.com")) {
                 //on some servers we just need to remove pk and not replace it with www
                 baseHostname = _hostname.replaceFirst(Subdomain.PK.toString() + ".", "");
             } else {
@@ -97,7 +101,7 @@ public class RequestInfo {
         String hostname = _hostname;
 
         if (!isOnPkSubdomain() && isPkSubdomainSupported()) {
-            if (isDevEnvironment() && !_hostname.contains("www.localhost.com")) {
+            if (!isProductionHostname() && !_hostname.contains("www.localhost.com")) {
                 hostname = Subdomain.PK.toString() + "." + _hostname;
             } else if (!isCobranded()) {
                 hostname = _hostname.replaceFirst(Subdomain.WWW.toString() + ".", Subdomain.PK.toString() + ".");
@@ -118,6 +122,10 @@ public class RequestInfo {
 
     public String getHostname() {
         return _hostname;
+    }
+
+    public boolean isProductionHostname() {
+        return _productionHostname;
     }
 
     /**
