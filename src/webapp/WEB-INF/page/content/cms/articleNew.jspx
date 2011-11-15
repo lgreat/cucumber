@@ -99,8 +99,8 @@
 <body>
 
 <div class="container_24 slStylesV1-0">
-<div class="grid_16">
-<p class="small">
+<div class="grid_16 articleText">
+<p class="small ptm">
     <link:home>Home</link:home> &amp;rsaquo;
     <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
         <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
@@ -109,7 +109,7 @@
 </p>
 
 
-<h2>${feature.title}</h2>
+<h1>${feature.title}</h1>
 
 <!--Licensor logo-->
 <c:if test="${not empty feature.licensorLogoUrl}">
@@ -133,29 +133,36 @@
 
 <!--Sidebar-->
 <div class="grid_6 alpha">
-    <div><cms:articleDistributionNew includeFbSendBtn="true" includeShareBtn="false"/></div>
-    <ul>
-        <li class="articlePrintAndEmail">
-            <gsml:url var="mailToFriendUrl"
-                      value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
-            <gsml:a href="${mailToFriendUrl}"
-                    onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"><img
-                    src="/res/img/icons/emailIcon.gif" alt="Email"/>&amp;nbsp;<span>Email</span></gsml:a>
-        </li>
 
-        <c:if test="${not empty feature.otherLanguageUri}">
-            <li><a href="${feature.otherLanguageUri}">
-                <c:choose>
-                    <c:when test="${feature.language eq 'ES'}">
-                        <span class="bolder">In english</span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="bolder">En espa&amp;ntilde;ol</span>
-                    </c:otherwise>
-                </c:choose>
-            </a></li>
-        </c:if>
-    </ul>
+    <div class="mod articleDistribution">
+        <div class="inner rnd3">
+            <div class="bd"><cms:articleDistributionNew includeFbSendBtn="true" includeShareBtn="false"/></div>
+            <div class="ft">
+                <ul>
+                    <li>
+                        <gsml:url var="mailToFriendUrl"
+                                  value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
+                        <gsml:a href="${mailToFriendUrl}"
+                                onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;"><img
+                                src="/res/img/icons/emailIcon.gif" alt="Email"/>&amp;nbsp;<span>Email</span></gsml:a>
+                    </li>
+
+                    <c:if test="${not empty feature.otherLanguageUri}">
+                        <li><strong><a href="${feature.otherLanguageUri}">
+                            <c:choose>
+                                <c:when test="${feature.language eq 'ES'}">
+                                    <span>In english</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span>En espa&amp;ntilde;ol</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </a></strong></li>
+                    </c:if>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <div>
         <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
@@ -171,6 +178,7 @@
     <c:if test="${not empty feature.relatedArticles}">
 
         <div>
+            <hr class="keyline3"/>
             <c:set var="hasPublishedRelatedArticles" value="${false}"/>
             <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
                 <c:if test="${not empty relatedArticle.url}">
@@ -181,6 +189,7 @@
             <c:if test="${hasPublishedRelatedArticles}">
                 <cms:relatedArticlesListNew feature="${feature}"/>
             </c:if>
+            <hr class="keyline3"/>
         </div>
 
     </c:if>
@@ -199,7 +208,7 @@
                 <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
             </c:if>
 
-            <div class="caption">${feature.imageTitle}</div>
+            <div class="small quiet">${feature.imageTitle}</div>
         </div>
     </c:if>
     <!--Image-->
@@ -231,13 +240,15 @@
 </div>
 <!--Content-->
 
+<hr class="keyline3"/>
+
 <!--Share buttons-->
-<cms:articleDistributionNew includeFbSendBtn="false" includeShareBtn="true"/>
+<cms:articleDistributionNew2 includeFbSendBtn="false" includeShareBtn="true"/>
 <!--Share buttons-->
 
 <!-- Pagination -->
 <c:if test="${feature.numPages > 1 and param.print ne 'true'}">
-    <div class="cmsArticlePagination">
+    <div class="articlePagination">
         Page
         <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
             <c:choose>
@@ -275,6 +286,7 @@
 <!-- Related links -->
 <c:if test="${not empty feature.externalLinks}">
     <div>
+        <hr class="keyline3"/>
         <cms:relatedLinksList feature="${feature}"/>
     </div>
 </c:if>

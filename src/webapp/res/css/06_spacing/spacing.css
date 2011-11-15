@@ -76,6 +76,10 @@ General comments:
     vertical-align: middle;
 }
 
+.vert-align-top {
+    vertical-align: top;
+}
+
 .wsnw{
     white-space:nowrap;
 }

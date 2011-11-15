@@ -838,8 +838,18 @@ h4.subhead2 a {
 
 /* ---------------- GS-12260 ----------------- */
 /* ------ articleText (extends standard) ----- */
+.articleText h1{ color: #2b2b2b; font: bold 24px/28px Arial, Helvetica, sans-serif; margin-bottom: 10px; }
 .articleText h3{ color: #f2791f; }
-
+.articleText .mainImage{ margin-botom: 16px; }
+/* ----------- articleDistribution ----------- */
+.articleDistribution .inner{border:1px solid #ddd;background-color: #fafafa;}
+.articleDistribution .inner .ft{border-top:1px solid #ddd;}
+.articleDistribution .ft ul{float:left;margin:0;padding:0;}
+.articleDistribution .ft li{list-style:none outside none;float:left;margin:0 5px;padding:0;line-height:28px;}
+/* ------------ articlePagination ------------ */
+.articlePagination{font: normal 12px/16px Arial, Helvetica, sans-serif;float:right;}
+.articlePagination a{background-color:white;display: inline-block;}
+.articlePagination span.active a{color:white;background-color: #06b;}
 /* ---------------- GS-11664 ----------------- */
 /* ------ btsSponsor (extends standard) ------ */
 .btsSponsor .inner{background-color:#f9eccd;}

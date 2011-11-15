@@ -13,21 +13,25 @@
                              description="Whether to include the share button"/>
 
 
-    <div>
+    <div class="fltlft">
 
-        <div class="mas">
-            <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
-        </div>
+        <c:if test="${includeShareBtn==true}">
+            <span class="mrs vert-align-top">
+                <span class='st_sharethis_button' displayText='ShareThis'><!--share--></span>
+                <script type="text/javascript">var switchTo5x = false;</script>
+                <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+                <script type="text/javascript">stLight.options({publisher:'b8806ac1-3e37-4089-a80b-79f28e8c2e04'});</script>
+            </span>
+        </c:if>
 
-        <div class="mas">
-                <span class="mrs">
+
+        <span class="mhs">
             <promo:tweetButtonArticle/>
-                </span>
+        </span>
 
-                <span class="mls">
+        <span class="mls">
             <community:addGooglePlusOne url="${fullUrl}"/>
-                </span>
-        </div>
+        </span>
 
     </div>
 
