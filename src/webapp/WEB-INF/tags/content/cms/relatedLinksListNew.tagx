@@ -1,0 +1,28 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          version="2.0">
+    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
+
+    <div class="hd">
+        <h3>Related links</h3>
+    </div>
+    <div class="bd">
+        <ul>
+            <c:forEach var="externalLink" items="${feature.externalLinks}">
+                <c:if test="${not empty externalLink.url}">
+                    <c:choose>
+                        <c:when test="${fn:startsWith(externalLink.url, '/')}">
+                            <c:set var="externalLinkTarget" value="_self"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="externalLinkTarget" value="_blank"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <li><a href="${externalLink.url}" target="${externalLinkTarget}">${externalLink.linkText}</a></li>
+                </c:if>
+            </c:forEach>
+        </ul>
+    </div>
+</jsp:root>

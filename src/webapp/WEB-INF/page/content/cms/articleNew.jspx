@@ -99,7 +99,8 @@
 <body>
 
 <div class="container_24 slStylesV1-0">
-<div class="grid_16 articleText">
+<div class="grid_16">
+<div class="articleText clearfix">
 <p class="small ptm">
     <link:home>Home</link:home> &amp;rsaquo;
     <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
@@ -278,12 +279,15 @@
     </div>
 </c:if>
 <!-- End Licensor attribution -->
+</div>
 
 <!-- Related links -->
 <c:if test="${not empty feature.externalLinks}">
-    <div>
-        <hr class="keyline3"/>
-        <cms:relatedLinksList feature="${feature}"/>
+    <hr class="keyline3"/>
+    <div class="mod relatedLinksList">
+        <div class="inner">
+            <cms:relatedLinksListNew feature="${feature}"/>
+        </div>
     </div>
 </c:if>
 
