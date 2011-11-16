@@ -85,7 +85,7 @@
     <k12:trafficDriverIncludes/>
 </head>
 
-<body>
+<gsml:body adPageName="article" pageLayout="nocol">
 
 <c:if test="${not empty smallPhotos and fn:length(smallPhotos) > 0
 and not empty mediumPhotos and fn:length(mediumPhotos) > 0
@@ -94,8 +94,8 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 <c:set var="showPhotoGallery" value="${true}"/>
 </c:if>
 
-<div class="container_24 slStylesV1-0">
-<div class="grid_16">
+<div class="container_24">
+<div class="grid_16 slStylesV1-0">
 <div class="articleText clearfix">
 <p class="small ptm">
     <link:home>Home</link:home> &amp;rsaquo;
@@ -133,7 +133,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 
     <div class="mod articleDistribution">
         <div class="inner rnd3">
-            <div class="bd"><cms:articleDistributionNew includeFbSendBtn="true" includeShareBtn="false"/></div>
+            <div class="bd"><cms:articleDistributionNew1 includeFbSendBtn="true" includeShareBtn="false"/></div>
             <div class="ft">
                 <ul>
                     <li>
@@ -143,7 +143,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
                                 onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
                             <span class="sprite i-email vert-align-mid"><!-- do not collapse --></span> Email</gsml:a>
                     </li>
-                    <li><a href="#" onClick="window.open('/print-view${uri}?showNew=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
+                    <li><a href="javascript:void(0);" onClick="window.open('/print-view${uri}?showNew=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
                     <c:if test="${not empty feature.otherLanguageUri}">
                         <li><strong><a href="${feature.otherLanguageUri}">
                             <c:choose>
@@ -171,7 +171,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
     <c:if test="${not empty feature.relatedArticles}">
 
         <div>
-            <hr class="keyline3"/>
+            <hr class="keyline1"/>
             <c:set var="hasPublishedRelatedArticles" value="${false}"/>
             <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
                 <c:if test="${not empty relatedArticle.url}">
@@ -182,7 +182,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
             <c:if test="${hasPublishedRelatedArticles}">
                 <cms:relatedArticlesListNew feature="${feature}"/>
             </c:if>
-            <hr class="keyline3"/>
+            <hr class="keyline1"/>
         </div>
 
     </c:if>
@@ -233,7 +233,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 </div>
 <!--Content-->
 
-<hr class="keyline3"/>
+<hr class="keyline1"/>
 
 <!--Share buttons-->
 <cms:articleDistributionNew2 includeFbSendBtn="false" includeShareBtn="true"/>
@@ -262,11 +262,10 @@ and not empty altTexts and fn:length(altTexts) > 0}">
             </c:otherwise>
         </c:choose>
     </div>
-    <!-- end .cmsArticlePagination -->
 </c:if>
+<!-- Pagination -->
 
-
-<!-- start Licensor attribution -->
+<!-- Licensor attribution -->
 <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
     <div class="licensorAttributionPageBar">
         <div class="attribution">
@@ -274,18 +273,19 @@ and not empty altTexts and fn:length(altTexts) > 0}">
         </div>
     </div>
 </c:if>
-<!-- End Licensor attribution -->
+<!-- Licensor attribution -->
 </div>
 
 <!-- Related links -->
 <c:if test="${not empty feature.externalLinks}">
-    <hr class="keyline3"/>
+    <hr class="keyline1"/>
     <div class="mod relatedLinksList">
         <div class="inner">
             <cms:relatedLinksListNew feature="${feature}"/>
         </div>
     </div>
 </c:if>
+<!-- Related links -->
 
 <div class="articleCommentForm">
 
@@ -299,16 +299,16 @@ and not empty altTexts and fn:length(altTexts) > 0}">
                 }
             </script>
             <!-- Article comment form -->
-            <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-        </div>
-        <div class="divider">
-            <hr/>
+            <cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/>
         </div>
 
-        <!-- display comments for this article -->
-        <cms:comments comments="${comments}"/>
     </div>
 </div>
+<div class="divider">
+    <hr/>
+</div>
+<!-- display comments for this article -->
+<cms:comments comments="${comments}"/>
 </div>
 
 <c:set var="pageName" value="article"/>
@@ -421,14 +421,6 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 <content:nlSubscriptionHover/>
 <content:nlSubscriptionThankYouHover/>
 
-<jsp:scriptlet>
-    boolean surveyHoverCookie = CookieUtil.hasCookie(request, "survey_hover_seen");
-    boolean surveyHoverThisSessionCookie = CookieUtil.hasCookie(request, "survey_hover_seen_this_session");
-    request.setAttribute("isSurveyCookieSet", surveyHoverCookie || surveyHoverCookie);
-    SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-    request.setAttribute("showNlSubHover", context.isShowNlSubscriptionHover());
-</jsp:scriptlet>
-
 <c:choose>
     <c:when test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari and !isSurveyCookieSet}">
         <c:set var="isShowNlSubHover" value="false"/>
@@ -445,6 +437,13 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 </c:if>
 
 <div id="fade" class="black_overlay"><!-- do not collapse --></div>
-</body>
+</gsml:body>
+<jsp:scriptlet>
+    boolean surveyHoverCookie = CookieUtil.hasCookie(request, "survey_hover_seen");
+    boolean surveyHoverThisSessionCookie = CookieUtil.hasCookie(request, "survey_hover_seen_this_session");
+    request.setAttribute("isSurveyCookieSet", surveyHoverCookie || surveyHoverCookie);
+    SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+    request.setAttribute("showNlSubHover", context.isShowNlSubscriptionHover());
+</jsp:scriptlet>
 </html>
 </jsp:root>
