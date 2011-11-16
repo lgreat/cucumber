@@ -1844,6 +1844,15 @@ body.cobranded #pageGS {
 
 .integratedTextAds.singleLine .gsAdText{
     margin-top: 8px;
+    line-height: 16px;
+}
+
+.integratedTextAds.sponsoredSearch{
+    zoom:1;
+}
+
+.integratedTextAds.sponsoredSearch .sponsoredText{
+    width:100%;
 }
 
 .integratedTextAds.adLogo .gsAdText{
