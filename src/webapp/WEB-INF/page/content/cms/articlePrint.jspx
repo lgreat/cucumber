@@ -32,9 +32,26 @@
 
     </head>
 
-    <body>
+    <body onload="window.print();">
 
-    TODO back to original article
+    <c:if test="${not empty smallPhotos and fn:length(smallPhotos) > 0
+and not empty mediumPhotos and fn:length(mediumPhotos) > 0
+and not empty largePhotos and fn:length(largePhotos) > 0
+and not empty altTexts and fn:length(altTexts) > 0}">
+        <c:set var="showPhotoGallery" value="${true}"/>
+    </c:if>
+
+    <c:choose>
+        <c:when test="${feature.numPages == 1 or fromPage eq '1'}">
+            <c:set var="featureLink" value="${contentUrl}?showNew=true"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="featureLink" value="${contentUrl}?showNew=true&amp;page=${fromPage}"/>
+        </c:otherwise>
+    </c:choose>
+
+
+    <a href="${featureLink}">GO BACK TO ARTICLE</a>
     TODO greatschools logo
     <div class="grid_16">
 
@@ -64,7 +81,6 @@
                 <c:if test="${not empty feature.imageUrl}">
                     <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
                 </c:if>
-
                 <div class="caption">${feature.imageTitle}</div>
             </div>
         </c:if>
@@ -89,9 +105,9 @@
 
         <!-- photo gallery images -->
         <div>
-            <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
-                <c:forEach var="galleryImage" items="${photoGalleryImages}">
-                    <img src="${basePhotoPath}${galleryImage}_medium.jpg" alt="something"/>
+            <c:if test="${showPhotoGallery}">
+                <c:forEach var="galleryImage" items="${mediumPhotos}" varStatus="index">
+                    <img src="${galleryImage}" alt="${altTexts[index.count]}"/>
                 </c:forEach>
             </c:if>
         </div>

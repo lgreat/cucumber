@@ -231,7 +231,7 @@ GS.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
 /**
  * Constructor
  */
-GS.photoGallery.Image = function(src,id,cssClass,alt,title,height,width) {
+GS.photoGallery.Image = function(src,alt,id,cssClass,title,height,width) {
     this.src = src;
     this.id = id;
     this.cssClass = cssClass;

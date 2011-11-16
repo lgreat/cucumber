@@ -56,17 +56,6 @@
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
     <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
     <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
-    <c:choose>
-        <c:when test="${param.print eq 'true'}">
-            <!-- cmsArticleSupplemental is for the screen view *and* print version of the printer-friendly version.
-          We can't use the word "print" in the css file name, or else it will target media="print" only.
-          See PageHelper.getHeadElements() -->
-            <pageHelper:externalCss file="/res/css/content/cmsArticleSupplemental.css"/>
-        </c:when>
-        <c:otherwise>
-            <pageHelper:externalCss file="/res/css/content/cmsArticleSupplemental.css" media="print"/>
-        </c:otherwise>
-    </c:choose>
 
     <!-- GS-11430 -->
     <c:if test="${showCompanionAd}">
@@ -97,6 +86,13 @@
 </head>
 
 <body>
+
+<c:if test="${not empty smallPhotos and fn:length(smallPhotos) > 0
+and not empty mediumPhotos and fn:length(mediumPhotos) > 0
+and not empty largePhotos and fn:length(largePhotos) > 0
+and not empty altTexts and fn:length(altTexts) > 0}">
+<c:set var="showPhotoGallery" value="${true}"/>
+</c:if>
 
 <div class="container_24 slStylesV1-0">
 <div class="grid_16">
@@ -147,7 +143,7 @@
                                 onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
                             <span class="sprite i-email vert-align-mid"><!-- do not collapse --></span> Email</gsml:a>
                     </li>
-                    <li><a href="javascript:void(0);"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
+                    <li><a href="#" onClick="window.open('/print-view${uri}?showNew=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
                     <c:if test="${not empty feature.otherLanguageUri}">
                         <li><strong><a href="${feature.otherLanguageUri}">
                             <c:choose>
@@ -162,10 +158,10 @@
     </div>
 
     <div>
-        <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+        <c:if test="${showPhotoGallery}">
             <div id="js_photo_gallery_container">
                 <a href="javascript:void(0)" class="js-photo-gallery-trigger">
-                    <img src="http://dev.greatschools.org/library/article_img_1_small.png" alt="something"/>
+                    <img src="${mediumPhotos[0]}" alt="${altTexts[0]}"/>
                 </a>
             </div>
         </c:if>
@@ -244,7 +240,7 @@
 <!--Share buttons-->
 
 <!-- Pagination -->
-<c:if test="${feature.numPages > 1 and param.print ne 'true'}">
+<c:if test="${feature.numPages > 1}">
     <div class="articlePagination">
         Page
         <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
@@ -443,8 +439,9 @@
 </c:choose>
 
 <input type="hidden" id="isShowNlSubHover" value="${isShowNlSubHover}"/>
-<c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
-    <cms:articlePhotoGallery cssClass="js-photo-gallery-trigger" images="${photoGalleryImages}" prefix="article"/>
+<c:if test="${showPhotoGallery}">
+    <cms:articlePhotoGallery cssClass="js-photo-gallery-trigger" smallImages="${smallPhotos}" largeImages="${largePhotos}"
+                             altTexts="${altTexts}" prefix="article"/>
 </c:if>
 
 <div id="fade" class="black_overlay"><!-- do not collapse --></div>

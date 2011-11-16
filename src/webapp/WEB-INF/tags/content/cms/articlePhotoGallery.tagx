@@ -9,7 +9,11 @@
 
     <jsp:directive.attribute name="cssClass" required="true" description="The dom ID to attach to"
                              type="java.lang.String"/>
-    <jsp:directive.attribute name="images" required="true" description="List of image src values"
+    <jsp:directive.attribute name="smallImages" required="true" description="List of small image src values"
+                             type="java.util.List"/>
+    <jsp:directive.attribute name="largeImages" required="true" description="List of large image src values"
+                             type="java.util.List"/>
+     <jsp:directive.attribute name="altTexts" required="true" description="List of alt text values"
                              type="java.util.List"/>
     <jsp:directive.attribute name="prefix" required="true" description="prefix for a given gallery.
     This enables us to have more than one on a given page."
@@ -17,7 +21,7 @@
 
     <pageHelper:externalJavascript file="/res/js/content/cms/articlePhotoGallery.js"/>
 
-    <c:set var="numberOfImages" value="${fn:length(images)}"/>
+    <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
 
     <div id="${prefix}-photo-gallery" class="photo-gallery-wrapper">
         <div class="photo-gallery-module">
@@ -64,8 +68,8 @@
         "index" >
         imageArray.push(
                 new GS.photoGallery.MultiSizeImage(
-                        new GS.photoGallery.Image('${basePhotoPath}${images[index]}_small.png'),
-                        new GS.photoGallery.Image('${basePhotoPath}${images[index]}_big.png')
+                        new GS.photoGallery.Image('${smallImages[index]}','${altTexts[index]}'),
+                        new GS.photoGallery.Image('${largeImages[index]}','${altTexts[index]}')
                 )
         );
         </c:forEach>

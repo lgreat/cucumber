@@ -67,6 +67,10 @@ public class CmsFeatureController extends AbstractController {
         CmsFeature feature = null;
         boolean showSampleSlideshow = uri.contains("slideshows/sample-slideshow");
 
+        //GS-12260 if "showNew" param is present then show the new page.
+        String showNewParam =  request.getParameter("showNew");
+        boolean isShowNew = (StringUtils.isNotBlank(showNewParam)) ? ("true".equalsIgnoreCase(showNewParam) ? true : false) : false;
+
         if (!showSampleSlideshow) {
             Long contentId = null;
 
@@ -133,7 +137,7 @@ public class CmsFeatureController extends AbstractController {
                 // if requested url is not canonical url (e.g. due to CMS recategorization), 301-redirect to canonical url
                 UrlBuilder builder = new UrlBuilder(feature.getContentKey());
                 // make sure no endless loops ever happen
-                if (!StringUtils.equals(builder.asSiteRelative(request), uri)) {
+                if (!(uri.indexOf("/print-view/") >= 0) && !StringUtils.equals(builder.asSiteRelative(request), uri)) {
                     return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
                 }
             }
@@ -155,7 +159,7 @@ public class CmsFeatureController extends AbstractController {
         // if the user has already been on the website during this browser session,
         boolean showAll = false;
         if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) && request.getParameter("page") == null) {
-            if (CookieUtil.hasCookie(request, SessionContextUtil.TRACKING_NUMBER)) {
+            if (CookieUtil.hasCookie(request, SessionContextUtil.TRACKING_NUMBER) && !(uri.indexOf("/print-view/") >= 0)) {
                 String queryString = request.getQueryString();
                 return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request) +
                         (queryString != null ? "?" + queryString + "&page=1" : "?page=1")));
@@ -169,7 +173,7 @@ public class CmsFeatureController extends AbstractController {
             throw new RuntimeException(e);
         }
 
-        boolean print = "true".equals(request.getParameter("print"));
+        boolean print = "true".equals(request.getParameter("print")) || (uri.indexOf("/print-view/") >= 0);
         String fromPageNum = request.getParameter("fromPage");
         boolean validFromPageNum = (StringUtils.isNotBlank(fromPageNum) && (StringUtils.isNumeric(fromPageNum) || "all".equals(fromPageNum)));
         if (print && validFromPageNum) {
@@ -271,8 +275,17 @@ public class CmsFeatureController extends AbstractController {
         }
 
         // insert current page into model
-        model.put("currentPage", insertSpansIntoListItems(insertSidebarIntoPage(feature.getCurrentPage(), feature)));
+        if(isShowNew){
+            model.put("currentPage", insertSpansIntoListItems(feature.getCurrentPage()));
+        }else{
+            model.put("currentPage", insertSpansIntoListItems(insertSidebarIntoPage(feature.getCurrentPage(), feature)));
+        }
+
         model.put("answer", insertSpansIntoListItems(feature.getAnswer()));
+
+        if (isShowNew) {
+            populatePhotosForGallery(model, feature);
+        }
 
         List<String> authorBios = feature.getAuthorBios();
         if (authorBios != null) {
@@ -319,6 +332,14 @@ public class CmsFeatureController extends AbstractController {
             }
         }
         model.put("isUserSubscribedToParentAdvisor", isUserSubscribedToParentAdvisor);
+
+        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) && isShowNew) {
+            if (print) {
+                return new ModelAndView("/content/cms/articlePrint", model);
+            } else {
+                return new ModelAndView("/content/cms/articleNew", model);
+            }
+        }
 
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
@@ -471,6 +492,38 @@ public class CmsFeatureController extends AbstractController {
         }
         return currentPage.toString();
     }
+
+    protected void populatePhotosForGallery(Map model, CmsFeature feature) {
+        if (feature.getPhotos() != null && feature.getPhotos().size() > 0) {
+            List smallPhotos = new ArrayList();
+            List mediumPhotos = new ArrayList();
+            List largePhotos = new ArrayList();
+            List altTexts = new ArrayList();
+            for (CmsPhoto photo : feature.getPhotos()) {
+                if (StringUtils.isNotBlank(photo.getSmallImageUrl())) {
+                    smallPhotos.add(photo.getSmallImageUrl());
+                }
+                if (StringUtils.isNotBlank(photo.getMediumImageUrl())) {
+                    mediumPhotos.add(photo.getMediumImageUrl());
+                }
+                if (StringUtils.isNotBlank(photo.getLargeImageUrl())) {
+                    largePhotos.add(photo.getLargeImageUrl());
+                }
+
+                altTexts.add(StringUtils.isNotBlank(photo.getAltText()) ? photo.getAltText() : "");
+            }
+
+            if (smallPhotos.size() > 0 && mediumPhotos.size() > 0 && largePhotos.size() > 0 && altTexts.size() > 0
+                    && smallPhotos.size() == mediumPhotos.size() && mediumPhotos.size() == largePhotos.size()
+                    && largePhotos.size() == altTexts.size()) {
+                model.put("smallPhotos", smallPhotos);
+                model.put("mediumPhotos", mediumPhotos);
+                model.put("largePhotos", largePhotos);
+                model.put("altTexts", altTexts);
+            }
+        }
+    }
+
 
     // START sample methods
 

@@ -61,6 +61,7 @@
         <pattern>*/api/admin/*</pattern>
         <pattern>*/api/admin_login.page*</pattern>
         <pattern>*/status/error404.page*</pattern>
+        <pattern>*/print-view/*</pattern>
     </excludes>
 
 </decorators>
