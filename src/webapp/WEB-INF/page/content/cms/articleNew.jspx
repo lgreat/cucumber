@@ -287,28 +287,29 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 </c:if>
 <!-- Related links -->
 
-<div class="articleCommentForm">
-
-    <div id="articleComments" class="noprint">
-        <div id="enterComment">
-            <script type="text/javascript">
-                function wrapCommentWithDelimiter(comment) {
-                    return "BEGIN_ARTICLE_COMMENT\n" +
-                            comment +
-                            "\nEND_ARTICLE_COMMENT\n";
-                }
-            </script>
-            <!-- Article comment form -->
-            <cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-        </div>
-
+<!-- Article comment form -->
+<div class="mod articleCommentForm">
+    <div class="inner rnd5">
+        <script type="text/javascript">
+            function wrapCommentWithDelimiter(comment) {
+                return "BEGIN_ARTICLE_COMMENT\n" +
+                        comment +
+                        "\nEND_ARTICLE_COMMENT\n";
+            }
+        </script>
+        <div class="bd"><cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/></div>
     </div>
 </div>
-<div class="divider">
-    <hr/>
-</div>
+
+<hr class="keyline1"/>
+
 <!-- display comments for this article -->
-<cms:comments comments="${comments}"/>
+<div class="mod articleComments">
+    <div class="inner">
+        <cms:commentsNew comments="${comments}"/>
+    </div>
+</div>
+
 </div>
 
 <c:set var="pageName" value="article"/>

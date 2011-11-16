@@ -18,20 +18,17 @@
           version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
         <jsp:directive.attribute name="comments" required="true" type="java.util.List"/>
 
-    <div id="cmsArticleComments">
-            <c:if test="${not empty comments and fn:length(comments) gt 0}">
-                <!--<hr width="100%" class="commentDivider"/>-->
-                <h4>Comments from GreatSchools.org readers</h4>
-                <div id="comments">
-                    <c:forEach var="comment" items="${comments}">
-                        <div class="comment">
-                            <div class="comment-date"><fmt:formatDate value="${comment.posted}"
-                                                                      pattern="MM/d/yyyy"/>:</div>
-
-                            <div class="comment-text">"${comment.text}"</div>
-                        </div>
-                    </c:forEach>
-                </div>
-            </c:if>
+    <c:if test="${not empty comments and fn:length(comments) gt 0}">
+        <div class="hd">
+            <h3>Comments from GreatSchools.org readers</h3>
         </div>
+        <div class="bd">
+            <c:forEach var="comment" items="${comments}">
+                <div class="small articleCommentDate"><fmt:formatDate value="${comment.posted}"
+                                                           pattern="MM/d/yyyy"/>:</div>
+
+                <div class="small articleCommentText">"${comment.text}"</div>
+            </c:forEach>
+        </div>
+    </c:if>
 </jsp:root>
