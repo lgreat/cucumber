@@ -22,6 +22,8 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +34,7 @@ import java.util.*;
  * This class should probably share code with CmsTopicCenterController2010 through composition rather than inheritance,
  * but I don't want to refactor CmsTopicCenterController2010 anymore at this point.
  */
-public class VideoGalleryController extends CmsTopicCenterController2010 {
+public class VideoGalleryController extends CmsTopicCenterController2010 implements BeanFactoryAware {
     private static final Logger _log = Logger.getLogger(VideoGalleryController.class);
 
     /**
@@ -53,6 +55,8 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
     public static Map<String,String> TOPIC_CHOICES = new LinkedHashMap<String,String>();
     public static String TOPIC_CHOICES_PARAM = "topicChoices";
     public static String GRADE_CHOICES_PARAM = "gradeChoices";
+
+    private BeanFactory _beanFactory;
 
     static {
         VIDEO_GALLERY_PAGINATION_CONFIG = new PaginationConfig(
@@ -184,7 +188,9 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
     public void addPageSpecificContentToModel(HttpServletRequest request, CmsTopicCenter cmsTopicCenter, Map<String, Object> model) {
 
-        LanguageToggleHelper.Language currentLanguage = LanguageToggleHelper.handleLanguageToggle(request, model);
+        LanguageToggleHelper languageToggleHelper = (LanguageToggleHelper) getBeanFactory().getBean(LanguageToggleHelper.BEAN_ID, request, model);
+        LanguageToggleHelper.Language currentLanguage = languageToggleHelper.getCurrentLanguage();
+        languageToggleHelper.addDataToModel();
 
         RequestedPage requestedPage = Pagination.getPageFromRequest(request, VIDEO_GALLERY_PAGINATION_CONFIG);
 
@@ -296,5 +302,13 @@ public class VideoGalleryController extends CmsTopicCenterController2010 {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public BeanFactory getBeanFactory() {
+        return _beanFactory;
+}
+
+    public void setBeanFactory(BeanFactory beanFactory) {
+        _beanFactory = beanFactory;
     }
 }
