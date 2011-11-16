@@ -19,7 +19,9 @@ public class LanguageToggleHelperTest {
 
         Map<String,Object> model = new HashMap<String,Object>();
 
-        LanguageToggleHelper.Language language = LanguageToggleHelper.handleLanguageToggle(request, model);
+        LanguageToggleHelper helper = new LanguageToggleHelper(request, model);
+        LanguageToggleHelper.Language language = helper.getCurrentLanguage();
+        helper.addDataToModel();
 
         assertEquals(LanguageToggleHelper.Language.EN, language);
         assertTrue(model.containsKey(LanguageToggleHelper.MODEL_ALTERNATE_LANGUAGE_URL));
@@ -34,7 +36,9 @@ public class LanguageToggleHelperTest {
 
         Map<String,Object> model = new HashMap<String,Object>();
 
-        LanguageToggleHelper.Language language = LanguageToggleHelper.handleLanguageToggle(request, model);
+        LanguageToggleHelper helper = new LanguageToggleHelper(request, model);
+        LanguageToggleHelper.Language language = helper.getCurrentLanguage();
+        helper.addDataToModel();
 
         assertEquals(LanguageToggleHelper.Language.ES, language);
         assertTrue(model.containsKey(LanguageToggleHelper.MODEL_ALTERNATE_LANGUAGE_URL));
@@ -49,7 +53,9 @@ public class LanguageToggleHelperTest {
 
         Map<String,Object> model = new HashMap<String,Object>();
 
-        LanguageToggleHelper.Language language = LanguageToggleHelper.handleLanguageToggle(request, model);
+        LanguageToggleHelper helper = new LanguageToggleHelper(request, model);
+        LanguageToggleHelper.Language language = helper.getCurrentLanguage();
+        helper.addDataToModel();
 
         assertEquals(LanguageToggleHelper.Language.EN, language);
         assertTrue(model.containsKey(LanguageToggleHelper.MODEL_ALTERNATE_LANGUAGE_URL));
@@ -64,7 +70,9 @@ public class LanguageToggleHelperTest {
 
         Map<String,Object> model = new HashMap<String,Object>();
 
-        LanguageToggleHelper.Language language = LanguageToggleHelper.handleLanguageToggle(request, model);
+        LanguageToggleHelper helper = new LanguageToggleHelper(request, model);
+        LanguageToggleHelper.Language language = helper.getCurrentLanguage();
+        helper.addDataToModel();
 
         assertEquals(LanguageToggleHelper.Language.EN, language);
         assertTrue(model.containsKey(LanguageToggleHelper.MODEL_ALTERNATE_LANGUAGE_URL));

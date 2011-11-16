@@ -255,4 +255,10 @@
         <property name="queryParser" ref="preSolrSchoolSearchQueryParser" />
     </bean>
 
+    <bean id="languageToggleHelper" class="gs.web.i18n.LanguageToggleHelper" scope="prototype">
+        <constructor-arg type="javax.servlet.http.HttpServletRequest"><null/></constructor-arg>
+        <constructor-arg type="java.util.Map"><null/></constructor-arg>
+    </bean>
+
+
 </beans>
