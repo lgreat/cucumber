@@ -29,7 +29,7 @@ General comments:
 }
 
 .rnd5 {
-/* this class should be used to round the corner on 35 px height buttons */
+/* this class should be used to round the corner on various modules */
   -webkit-border-radius: 5px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
      -moz-border-radius: 5px; /* FF1-3.6 */
           border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */

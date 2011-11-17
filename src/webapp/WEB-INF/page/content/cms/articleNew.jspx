@@ -246,7 +246,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
         <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
             <c:choose>
                 <c:when test="${pageNum == feature.currentPageNum}">
-                    <span class="active">${pageNum}</span>
+                    <span class="active rnd3">${pageNum}</span>
                 </c:when>
                 <c:otherwise>
                     <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
@@ -255,7 +255,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
         </c:forEach>
         <c:choose>
             <c:when test="${-1 == feature.currentPageNum}">
-                <span class="active">Single Page</span>
+                <span class="active rnd3">Single Page</span>
             </c:when>
             <c:otherwise>
                 <a href="${contentUrl}?page=all">Single Page</a>
