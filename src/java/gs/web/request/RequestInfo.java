@@ -99,7 +99,9 @@ public class RequestInfo {
             } else if (Subdomain.PK.equals(targetSubdomain)) {
                 newHostname = getHostnameForPkSubdomain();
             } else {
-                newHostname = UrlUtil.overwriteSubdomain(_hostname, targetSubdomain.toString());
+                if (targetSubdomain != null) {
+                    newHostname = UrlUtil.overwriteSubdomain(_hostname, targetSubdomain.toString());
+                }
             }
         }
 
