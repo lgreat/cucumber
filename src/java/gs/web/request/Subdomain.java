@@ -12,6 +12,7 @@ public enum Subdomain {
     STAGING("staging"),
     DEV("dev"),
     DEV_PREVIEW("dev-preview"),
+    MOBILE("m"),
     ;
 
     private String _value;

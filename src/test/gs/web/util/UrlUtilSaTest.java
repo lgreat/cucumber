@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.83 2011/09/15 00:36:22 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.84 2011/11/17 19:00:53 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -547,6 +547,24 @@ public class UrlUtilSaTest extends TestCase {
         result = UrlUtil.removeParamsFromQueryString(queryString, "b", "c", "a", "d");
 
         assertEquals("", result);
+    }
+
+    public void testRemoveQueryParamsFromUrl() {
+        String url = "http://www.host.com/path";
+
+        String newUrl = UrlUtil.removeQueryParamsFromUrl(url, "param2");
+
+        assertEquals("http://www.host.com/path", newUrl);
+
+        url = "http://www.host.com?param1=one";
+        newUrl = UrlUtil.removeQueryParamsFromUrl(url, "param1");
+
+        assertTrue("http://www.host.com".equals(newUrl));
+
+        url = "http://www.host.com?param1=one&param2=two";
+        newUrl = UrlUtil.removeQueryParamsFromUrl(url, "param1");
+
+        assertTrue("http://www.host.com?param2=two".equals(newUrl));
     }
 
     public void testOverwriteSubdomain() throws Exception {

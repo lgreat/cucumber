@@ -10,6 +10,7 @@ import gs.data.search.fields.DocumentType;
 import gs.data.security.Permission;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
+import gs.web.mobile.IControllerWithMobileView;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.CookieUtil;
@@ -33,7 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
-public class CmsHomepageController extends AbstractController {
+public class CmsHomepageController extends AbstractController implements IControllerWithMobileView {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
 
     public static final String BEAN_ID = "/index.page";

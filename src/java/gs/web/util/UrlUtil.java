@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.113 2011/09/15 04:02:57 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.114 2011/11/17 19:00:52 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -108,6 +108,32 @@ public final class UrlUtil {
         }
 
         return getQueryStringFromMap(map);
+    }
+
+    public static String removeQueryParamsFromUrl(String url, String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
+        if (url == null) {
+            throw new IllegalArgumentException("Url cannot be null");
+        }
+
+        String[] parts = url.split("\\?");
+
+        String base = parts[0];
+        String queryString = "";
+        if (parts.length > 1) {
+            queryString = parts[1];
+        }
+
+        queryString = removeParamsFromQueryString(queryString, key);
+
+        String newUrl = base;
+        if (queryString.length() > 0) {
+            newUrl += "?" + queryString;
+        }
+
+        return newUrl;
     }
 
     /**
@@ -239,7 +265,8 @@ public final class UrlUtil {
         "127.0.0.1",
         "192.168.",
         "172.21.1.142",
-        "172.18."
+        "172.18.",
+        "m."
     };
 
     /**

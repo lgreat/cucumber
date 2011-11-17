@@ -31,21 +31,25 @@
           lazy-init="true">
         <property name="interceptors">
             <list>
-                <!--<bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor">
+                <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor">
                 <beans:constructor-arg>
                     <device:wurfl-device-resolver root-location="/WEB-INF/wurfl-2.0.25.zip" />
                 </beans:constructor-arg>
                 </bean>
-                &lt;!&ndash; On pre-handle, redirects mobile users to "m.myapp.com" (declare after DeviceResolverHandlerInterceptor) &ndash;&gt;
-                <bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="mDot">
+                <!-- On pre-handle, redirects mobile users to "m.myapp.com" (declare after DeviceResolverHandlerInterceptor) -->
+                <!--<bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="mDot">
                     <beans:constructor-arg value="samson-sprouses-imac.local" />
                 </bean>-->
+                <!-- On pre-handle, manage the user's site preference (declare after DeviceResolverHandlerInterceptor) -->
+                <bean class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" />
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
                 <!-- CookieInterceptor and SeoCobrandInterceptor are dependent on SessionContextInterceptor, and must come after it in config -->
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
+                <bean class="gs.web.mobile.SiteSwitcherInterceptor" autowire="byName"/>
+                <bean class="gs.web.mobile.MobileViewSwitcherInterceptor" autowire="byName"/>
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
