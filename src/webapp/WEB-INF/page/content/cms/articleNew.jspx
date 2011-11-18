@@ -129,7 +129,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 <ad:adTag position="Sponsor_610x30"/>
 
 <!--Sidebar-->
-<div class="grid_6 alpha">
+<div class="grid_6 alpha mrm">
 
     <div class="mod articleDistribution">
         <div class="inner rnd3">
