@@ -100,8 +100,9 @@ public class RequestInfoTest {
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("localhost"));
         assertEquals("localhost", hostnameInfo.getHostnameForPkSubdomain());
 
+        // www.localhost.com will be detected as developer workstation and so pk subdomain won't be applied.
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.localhost.com"));
-        assertEquals("pk.localhost.com", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("www.localhost.com", hostnameInfo.getHostnameForPkSubdomain());
     }
 
     @Test

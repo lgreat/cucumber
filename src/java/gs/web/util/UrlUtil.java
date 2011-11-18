@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.114 2011/11/17 19:00:52 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.115 2011/11/18 03:23:01 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -216,7 +216,7 @@ public final class UrlUtil {
         } else if (hostnameTokens.length == (2 + level)) {
             hostnameTokens[0] = newSubdomain + "." + hostnameTokens[0];
         } else {
-            throw new IllegalArgumentException("hostname must contain at least a domain and TLD e.g.  example.com");
+            return hostname;
         }
 
         hostname = StringUtils.join(hostnameTokens, '.');

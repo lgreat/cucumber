@@ -27,6 +27,8 @@
 
 <body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}">
     <decorator:body/>
+
+    <a href="${sitePreferenceUrlForAlternateSite}">View desktop version</a>
 </body>
 </html>
 </jsp:root>

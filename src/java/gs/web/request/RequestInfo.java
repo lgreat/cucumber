@@ -7,6 +7,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.mobile.device.site.SitePreferenceHandler;
+import org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,11 +65,27 @@ public class RequestInfo {
 
     public boolean isMobileSiteEnabled() {
         String activate = _request.getParameter("activateMobileSite");
-        return ((isDevEnvironment() || _hostname.indexOf("localhost.com") > -1) && "true".equalsIgnoreCase(activate));
+        return (isDevEnvironment() && "true".equalsIgnoreCase(activate));
     }
 
     public boolean isFromMobileDevice() {
-        return _device.isMobile();
+        return _device != null && _device.isMobile();
+    }
+
+    /**
+     * Gets URL for normal version if on the mobile site, otherwise gets URL for mobile version
+     * @return
+     */
+    public String getSitePreferenceUrlForAlternateSite() {
+        String newUrl;
+        if (isOnMobileSite()) {
+            newUrl = getFullUrlAtNewSubdomain(Subdomain.WWW);
+            newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.NORMAL.toString().toLowerCase());
+        } else {
+            newUrl = getFullUrlAtNewSubdomain(Subdomain.MOBILE);
+            newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.MOBILE.toString().toLowerCase());
+        }
+        return newUrl;
     }
 
     public boolean isOnMobileSite() {
@@ -119,8 +136,7 @@ public class RequestInfo {
         String baseHostname = _hostname;
 
         if (isOnPkSubdomain()) {
-            //TODO: remove check for pk.localhost.com
-            if (!isProductionHostname() && !_hostname.contains("pk.localhost.com")) {
+            if (!isProductionHostname()) {
                 //on some servers we just need to remove pk and not replace it with www
                 baseHostname = _hostname.replaceFirst(Subdomain.PK.toString() + ".", "");
             } else {
@@ -143,7 +159,7 @@ public class RequestInfo {
         String hostname = _hostname;
 
         if (!isOnPkSubdomain() && isPkSubdomainSupported()) {
-            if (!isProductionHostname() && !_hostname.contains("www.localhost.com")) {
+            if (!isProductionHostname()) {
                 hostname = Subdomain.PK.toString() + "." + _hostname;
             } else if (!isCobranded()) {
                 hostname = _hostname.replaceFirst(Subdomain.WWW.toString() + ".", Subdomain.PK.toString() + ".");
@@ -159,7 +175,7 @@ public class RequestInfo {
      */
     public boolean isPkSubdomainSupported() {
         //Developer workstations can set up a virtual host and specify it here
-        return (!isDeveloperWorkstation() && !isCobranded()) || _hostname.contains(".localhost.com");
+        return (!isDeveloperWorkstation() && !isCobranded());
     }
 
     /******************************************************************************/

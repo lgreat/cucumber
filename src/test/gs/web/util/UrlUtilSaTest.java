@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.84 2011/11/17 19:00:53 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.85 2011/11/18 03:23:01 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -575,13 +575,8 @@ public class UrlUtilSaTest extends TestCase {
         result = UrlUtil.overwriteSubdomain("example.com", "pk");
         assertEquals("pk.example.com", result);
 
-        try {
-            result = UrlUtil.overwriteSubdomain("com", "pk");
-            assertEquals("pk.example.com", result);
-            fail("Exception should have been thrown");
-        } catch (Exception e) {
-            //pass
-        }
+        result = UrlUtil.overwriteSubdomain("com", "pk");
+        assertEquals("com", result);
 
         result = UrlUtil.overwriteSubdomain("sub2.sub1.example.com", "pk");
         assertEquals("sub2.pk.example.com", result);
@@ -595,13 +590,8 @@ public class UrlUtilSaTest extends TestCase {
         result = UrlUtil.overwriteSubdomain("example.com", "pk", 0);
         assertEquals("pk.example.com", result);
 
-        try {
-            result = UrlUtil.overwriteSubdomain("com", "pk", 0);
-            assertEquals("pk.example.com", result);
-            fail("Exception should have been thrown");
-        } catch (Exception e) {
-            //pass
-        }
+        result = UrlUtil.overwriteSubdomain("com", "pk", 0);
+        assertEquals("com", result);
 
         result = UrlUtil.overwriteSubdomain("sub2.sub1.example.com", "pk", 0);
         assertEquals("sub2.pk.example.com", result);

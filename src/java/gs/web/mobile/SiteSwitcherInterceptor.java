@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SiteSwitcherInterceptor implements HandlerInterceptor {
 
+    public static final String sitePreferenceUrlForAlternateSite = "sitePreferenceUrlForAlternateSite";
+
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
         boolean controllerHasMobileView = handler instanceof IControllerWithMobileView;
@@ -53,7 +55,10 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
 	}
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
-        //To change body of implemented methods use File | Settings | File Templates.
+        RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+
+        modelAndView.getModel().put(sitePreferenceUrlForAlternateSite, requestInfo.getSitePreferenceUrlForAlternateSite());
+
     }
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
