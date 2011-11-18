@@ -847,7 +847,8 @@ h4.subhead2 a {
 /* ----------- articleDistribution ----------- */
 .articleDistribution{margin-bottom:10px;}
 .articleDistribution .inner{border:1px solid #ddd;background-color: #fafafa;}
-.articleDistribution .inner .ft{border-top:1px solid #ddd;}
+.articleDistribution .inner .bd{height:60px;}
+.articleDistribution .inner .ft{border-top:1px solid #ddd;height:28px;}
 .articleDistribution .ft ul{float:left;margin:0;padding:0;}
 .articleDistribution .ft li{list-style:none outside none;float:left;margin:0 5px;padding:0;line-height:28px;}
 /* ------------ articlePagination ------------ */
