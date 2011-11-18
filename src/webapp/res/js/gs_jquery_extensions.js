@@ -340,7 +340,15 @@ function debug(what) {
     $.fn.extend({
 
         //This is where you write your plugin's name
-        infiniteCarousel: function() {
+        infiniteCarousel: function(options) {
+
+            //Set the default values, use comma to separate the settings
+            //Settings list and the default values
+            var defaults = {
+                showCounter: false
+            };
+
+            var options = $.extend(defaults, options);
 
             function repeat(str, num) {
                 return new Array(num + 1).join(str);
@@ -348,7 +356,7 @@ function debug(what) {
 
             //Iterate over the current set of matched elements
             return this.each(function() {
-
+                var o = options;
                 var $wrapper = $('> .wrapper', this).css('overflow', 'hidden'),
                     $slider = $wrapper.find('> ul'),
                     $items = $slider.find('> li'),
@@ -358,7 +366,8 @@ function debug(what) {
                     singleWidth = $single.outerWidth(),
                     visible = Math.ceil(viewWidth / singleWidth),// note: does not include padding or border
                     currentPage = 1,
-                    pages = Math.ceil($items.length / visible);
+                    pages = Math.ceil($items.length / visible),
+                    totalItems = $items.length;
 
 //                console.log('viewWidth: '+viewWidth);
 //                console.log('singleWidth: '+singleWidth);
@@ -402,6 +411,10 @@ function debug(what) {
                         }
 
                         currentPage = page;
+                        if (o.showCounter === true) {
+                            $('.carouselCounter').text(currentPage + 'of' + totalItems);
+                        }
+
                     });
 
                     return false;

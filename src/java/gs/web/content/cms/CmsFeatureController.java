@@ -499,6 +499,7 @@ public class CmsFeatureController extends AbstractController {
             List mediumPhotos = new ArrayList();
             List largePhotos = new ArrayList();
             List altTexts = new ArrayList();
+            List photoCaptions = new ArrayList();
             for (CmsPhoto photo : feature.getPhotos()) {
                 if (StringUtils.isNotBlank(photo.getSmallImageUrl())) {
                     smallPhotos.add(photo.getSmallImageUrl());
@@ -511,15 +512,18 @@ public class CmsFeatureController extends AbstractController {
                 }
 
                 altTexts.add(StringUtils.isNotBlank(photo.getAltText()) ? photo.getAltText() : "");
+                photoCaptions.add(StringUtils.isNotBlank(photo.getCaption()) ? photo.getCaption() : "");
             }
 
             if (smallPhotos.size() > 0 && mediumPhotos.size() > 0 && largePhotos.size() > 0 && altTexts.size() > 0
+                    && photoCaptions.size() > 0 && photoCaptions.size() == altTexts.size()
                     && smallPhotos.size() == mediumPhotos.size() && mediumPhotos.size() == largePhotos.size()
                     && largePhotos.size() == altTexts.size()) {
                 model.put("smallPhotos", smallPhotos);
                 model.put("mediumPhotos", mediumPhotos);
                 model.put("largePhotos", largePhotos);
                 model.put("altTexts", altTexts);
+                model.put("photoCaptions", photoCaptions);
             }
         }
     }

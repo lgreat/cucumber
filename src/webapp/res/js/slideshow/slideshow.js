@@ -4,6 +4,8 @@ var $j = jQuery;
 var showNlHover = false;
 $j(document).ready(function() {
 
+    $j('.infiniteCarousel_1').infiniteCarousel({showCounter:true});
+
     var cookie = subCookie.getObjectPropertyIfNotExpired("all_hover", "showNLHoverOnArticles");
     var fromNewsletter = $j('#cpnCodeFromNewsletter').val();
 

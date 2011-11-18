@@ -3,27 +3,29 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0">
-    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
 
-    <c:if test="${feature.relatedVideos != null and fn:length(feature.relatedVideos) >0 }">
+    <c:if test="${mediumPhotos != null and fn:length(mediumPhotos) >0 }">
     <div class="infiniteCarousel_1">
 
             <div class="ic_hd">
-                <h3 class="ic_title">Videos</h3>
+                <h3 class="ic_title">Photos</h3>
             </div>
 
-            <div class="carouselCounter">1 of ${fn:length(feature.relatedVideos)}</div>
+            <div class="carouselCounter">1 of ${fn:length(mediumPhotos)}</div>
 
             <div class="wrapper" style="overflow:hidden;">
                 <ul class="unordered-carousel">
-                    <c:forEach var="carouselItem" items="${feature.relatedVideos}" varStatus="carouselStatus">
+                    <c:forEach var="carouselItem" items="${mediumPhotos}" varStatus="carouselStatus">
 
                         <li>
                             <div class="captioned_photo">
-                                <img src="${carouselItem.imageUrl}" height="90" width="90"
-                                     alt="${carouselItem.imageAltText}"/>
-                                <p>${carouselItem.imageTitle}</p>
+                                <img src="${carouselItem}" height="90" width="90"
+                                     alt="${altTexts[carouselStatus.count]}"/>
+
                             </div>
+                            <c:if test="${photoCaptions[carouselStatus.count] != ''}">
+                                <p>${photoCaptions[carouselStatus.count]}</p>
+                            </c:if>
                         </li>
                     </c:forEach>
                 </ul>
