@@ -4251,13 +4251,13 @@ body.cobranded #pageGS {
 
 .infiniteCarousel5 .arrow {
     display: block;
-    top: 20px;
-    width: 18px;
-    height: 18px;
+    top: 10px;
+    width: 14px;
+    height: 14px;
     position: absolute;
     cursor: pointer;
     border: 1px solid #ccc;
-    font: bold 18px/14px Arial, Helvetica, sans-serif;
+    font: bold 18px/12px Arial, Helvetica, sans-serif;
     text-align: center;
     /*rounded corners*/
     -moz-border-radius: 9px; /* FF1+ */
@@ -4274,8 +4274,8 @@ body.cobranded #pageGS {
               filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
 }
 
-.infiniteCarousel5 .forward {right: 12px;}
-.infiniteCarousel5 .back {left: 12px;}
+.infiniteCarousel5 .forward {right: 14px;}
+.infiniteCarousel5 .back {left: 133px;}
 
 .infiniteCarousel5 .forward:hover {text-decoration: none;
     background-color: #ffffff;
@@ -4344,7 +4344,7 @@ body.cobranded #pageGS {
 }
 
 .infiniteCarousel5 .ic_title {
-    margin: 14px;
+    margin: 8px 14px;
     float:left;
 }
 
@@ -4356,12 +4356,18 @@ body.cobranded #pageGS {
 
 .infiniteCarousel5 .captioned_photo span {
     width: 100%;
-    height: 40px;
-    margin: 0;
+    height: 30px;
+    margin: 9px 0 0;
     padding: 0;
     text-align: center;
     display: block;
     overflow: hidden;
+}
+
+.infiniteCarousel5 .carouselCounter{
+    position:absolute;
+    top:11px;
+    right:40px;
 }
 
 /* =12c-3.3.2 infinite carousel 6 (video: 1 up GS-12260)
@@ -4419,13 +4425,13 @@ body.cobranded #pageGS {
 
 .infiniteCarousel6 .arrow {
     display: block;
-    top: 79px;
-    width: 24px;
-    height: 18px;
+    top: 10px;
+    width: 14px;
+    height: 14px;
     position: absolute;
     cursor: pointer;
     border: 1px solid #ccc;
-    font: bold 18px/14px Arial, Helvetica, sans-serif;
+    font: bold 18px/12px Arial, Helvetica, sans-serif;
     text-align: center;
     /*rounded corners*/
     -moz-border-radius: 9px; /* FF1+ */
@@ -4442,8 +4448,8 @@ body.cobranded #pageGS {
               filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
 }
 
-.infiniteCarousel6 .forward {right: 12px;}
-.infiniteCarousel6 .back {left: 12px;}
+.infiniteCarousel6 .forward {right: 14px;}
+.infiniteCarousel6 .back {left: 133px;}
 
 .infiniteCarousel6 .forward:hover {text-decoration: none;
     background-color: #ffffff;
@@ -4512,7 +4518,7 @@ body.cobranded #pageGS {
 }
 
 .infiniteCarousel6 .ic_title {
-    margin: 14px;
+    margin: 10px 14px;
     float:left;
 }
 
@@ -4524,12 +4530,18 @@ body.cobranded #pageGS {
 
 .infiniteCarousel6 .captioned_photo span {
     width: 100%;
-    height: 45px;
-    margin: 0;
+    height: 35px;
+    margin: 9px 0 0;
     padding: 0;
     text-align: center;
     display: block;
     overflow: hidden;
+}
+
+.infiniteCarousel6 .carouselCounter{
+    position:absolute;
+    top:11px;
+    right:40px;
 }
 
 /* =12c-4 browse schools by city
@@ -10205,114 +10217,3 @@ p#btsBubbleOpts {
     width:224px;
 }
 /*----------------End GS-12260 Photo Gallery----------------*/
-
-
-
-
-/* =12c-3.1 infinite carousel 1
--------------------------------------------------------------------------------------------*/
-
-.infiniteCarousel_1 {
-    width: 150px;
-    height: 204px;
-    border: 1px solid #c6c6c6;
-    position: relative;
-}
-
-.infiniteCarousel_1 .ic_title {
-    width: 100px;
-    margin: 0 12px;
-    padding: 5px 0 6px 2px;
-    border-bottom: 1px dotted #999;
-}
-
-.infiniteCarousel_1 .wrapper {
-    width: 150px; /* .infiniteCarousel1 width - (.wrapper margin-left + .wrapper margin-right) */
-    overflow: auto;
-    min-height: 144px;
-    margin: 0 34px;
-    position: absolute;
-    top: 50px;
-}
-
-.infiniteCarousel_1 ul a img {
-}
-
-.infiniteCarousel_1 .wrapper ul {
-    width: 9999px;
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
-    margin: 0 0 0 -15px;
-    padding: 0;
-    position: relative;
-    top: 0;
-}
-
-.infiniteCarousel_1 ul li {
-    display: block;
-    float: left;
-    padding: 0 15px;
-    width: 96px;
-    height: 139px;
-    border-right: 1px solid #c6c6c6;
-}
-
-.infiniteCarousel_1 ul li a img {
-    display: block;
-    background-color: gray;
-}
-
-.infiniteCarousel_1 .arrow {
-    display: block;
-    top: 91px;
-    width: 16px;
-    height: 26px;
-    position: absolute;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    font: bold 24px/0.9 Arial, Helvetica, sans-serif;
-    text-align: center;
-    /*rounded corners*/
-    -moz-border-radius: 3px; /* FF1+ */
-    -webkit-border-radius: 3px; /* Saf3+, Chrome */
-    border-radius: 3px; /* Opera 10.5, IE 9 */
-}
-
-.infiniteCarousel_1 .forward {
-    right: 7px;
-}
-
-.infiniteCarousel_1 .back {
-    left: 7px;
-}
-
-.infiniteCarousel1 .forward:hover {
-    text-decoration: none;
-}
-
-.infiniteCarousel_1 .back:hover {
-    text-decoration: none;
-}
-
-.infiniteCarousel_1 .captioned_photo {
-}
-
-.infiniteCarousel_1 .captioned_photo img {
-    margin: 0 0 5px 0;
-    padding: 0;
-    display: block;
-}
-
-.infiniteCarousel_1 .captioned_photo span {
-    width: 100%;
-    height: 29px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    display: block;
-    overflow: hidden;
-}
-
-/* =12c-3.1.1 infinite carousel 4 (4 up GS-12049)
--------------------------------------------------------------------------------------------*/

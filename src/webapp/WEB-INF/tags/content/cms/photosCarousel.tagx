@@ -5,13 +5,14 @@
           version="2.0">
 
     <c:if test="${mediumPhotos != null and fn:length(mediumPhotos) >0 }">
-    <div class="infiniteCarousel5 rnd3">
+        <div class="infiniteCarousel5 rnd3">
 
-            <div class="ic_hd fltlft">
+            <div class="ic_hd">
+            <div class="ic_hd">
                 <p class="ic_title medium_bold">Photos</p>
             </div>
 
-            <div class="smaller carouselCounter fltrt">1 of ${fn:length(mediumPhotos)}</div>
+            <div class="smaller loud carouselCounter">1 of ${fn:length(mediumPhotos)}</div>
 
             <div class="wrapper" style="overflow:hidden;">
                 <ul class="unordered-carousel">
@@ -21,16 +22,22 @@
                             <div class="captioned_photo js-photo-gallery-trigger">
                                 <img src="${carouselItem}" width="200" height="130"
                                      alt="${altTexts[carouselStatus.count]}"/>
+                                <c:if test="${photoCaptions[carouselStatus.count] != ''}">
+                                    <span class="smaller loud">${photoCaptions[carouselStatus.count]}</span>
+                                </c:if>
 
                             </div>
-                            <c:if test="${photoCaptions[carouselStatus.count] != ''}">
-                                <p class="smaller">${photoCaptions[carouselStatus.count]}</p>
-                            </c:if>
                         </li>
                     </c:forEach>
                 </ul>
             </div>
         </div>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('.infiniteCarousel5').infiniteCarousel();
+            });
+        </script>
     </c:if>
 
 </jsp:root>

@@ -12,7 +12,7 @@
                 <p class="ic_title medium_bold">Videos</p>
             </div>
 
-            <div class="smaller carouselCounter">1 of ${fn:length(feature.relatedVideos)}</div>
+            <div class="smaller loud carouselCounter">1 of ${fn:length(feature.relatedVideos)}</div>
 
             <div class="wrapper" style="overflow:hidden;">
                 <ul class="unordered-carousel">
@@ -22,13 +22,19 @@
                             <div class="captioned_photo">
                                 <img src="${carouselItem.imageUrl}" width="120" height="86"
                                      alt="${carouselItem.imageAltText}"/>
-                                <p class="smaller">${carouselItem.imageTitle}</p>
+                                <span class="smaller loud">${carouselItem.imageTitle}</span>
                             </div>
                         </li>
                     </c:forEach>
                 </ul>
             </div>
         </div>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('.infiniteCarousel6').infiniteCarousel();
+            });
+        </script>
     </c:if>
 
 </jsp:root>
