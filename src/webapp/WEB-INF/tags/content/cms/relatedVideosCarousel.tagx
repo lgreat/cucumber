@@ -6,13 +6,13 @@
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
 
     <c:if test="${feature.relatedVideos != null and fn:length(feature.relatedVideos) >0 }">
-    <div class="infiniteCarousel_1">
+    <div class="infiniteCarousel6 rnd3">
 
             <div class="ic_hd">
-                <h3 class="ic_title">Videos</h3>
+                <p class="ic_title medium_bold">Videos</p>
             </div>
 
-            <div class="carouselCounter">1 of ${fn:length(feature.relatedVideos)}</div>
+            <div class="smaller carouselCounter">1 of ${fn:length(feature.relatedVideos)}</div>
 
             <div class="wrapper" style="overflow:hidden;">
                 <ul class="unordered-carousel">
@@ -20,9 +20,9 @@
 
                         <li>
                             <div class="captioned_photo">
-                                <img src="${carouselItem.imageUrl}" height="90" width="90"
+                                <img src="${carouselItem.imageUrl}" width="120" height="86"
                                      alt="${carouselItem.imageAltText}"/>
-                                <p>${carouselItem.imageTitle}</p>
+                                <p class="smaller">${carouselItem.imageTitle}</p>
                             </div>
                         </li>
                     </c:forEach>

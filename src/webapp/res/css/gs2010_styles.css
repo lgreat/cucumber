@@ -4213,16 +4213,6 @@ body.cobranded #pageGS {
 
 .infiniteCarousel5 .ic_hd {
     height:35px;
-
-    /* backkground */
-    background-color: #ffffff; /* Old browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eef6fa), color-stop(20%,#ffffff)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* IE10 */
-    background-image:      -o-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #eef6fa 0%, #ffffff 100%);  /* W3C */
-              filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eef6fa', EndColorStr='#ffffff'); /* IE6-IE9 */
 }
 
 .infiniteCarousel5 .wrapper {
@@ -4378,39 +4368,29 @@ body.cobranded #pageGS {
 -------------------------------------------------------------------------------------------*/
 
 .infiniteCarousel6 {
-    width: 630px;
-    height: 188px;
-    border-top: 1px solid #d1e9f3;
+    width: 228px;
+    height: 178px;
+    border: 1px solid #ddd;
     position: relative;
-    margin-bottom:12px;
+    margin-bottom:20px;
     outline:0;
 
     /* backkground */
-    background-color: #ffffff; /* Old browsers */
+    background-color: #fafafa; /* Old browsers */
 }
 
 .infiniteCarousel6 .ic_hd {
-    height:48px;
-
-    /* backkground */
-    background-color: #ffffff; /* Old browsers */
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eef6fa), color-stop(20%,#ffffff)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* IE10 */
-    background-image:      -o-linear-gradient(top, #eef6fa 0%, #ffffff 100%); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #eef6fa 0%, #ffffff 100%);  /* W3C */
-              filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eef6fa', EndColorStr='#ffffff'); /* IE6-IE9 */
+    height:42px;
 }
 
 .infiniteCarousel6 .wrapper {
     clear:both;
-    width: 480px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
+    width: 120px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: auto;
-    height: 140px;
-    margin: 0 75px;
+    height: 136px;
+    margin: 0 53px;
     position: absolute;
-    top: 48px;
+    top: 42px;
 }
 
 .infiniteCarousel6 .wrapper ul {
@@ -4428,8 +4408,8 @@ body.cobranded #pageGS {
     display: block;
     float: left;
     padding: 0 20px;
-    width: 90px;
-    height: 140px;
+    width: 120px;
+    height: 86px;
 }
 
 .infiniteCarousel6 ul li a img {
@@ -4441,16 +4421,16 @@ body.cobranded #pageGS {
     display: block;
     top: 79px;
     width: 24px;
-    height: 24px;
+    height: 18px;
     position: absolute;
     cursor: pointer;
     border: 1px solid #ccc;
-    font: bold 24px/19px Arial, Helvetica, sans-serif;
+    font: bold 18px/14px Arial, Helvetica, sans-serif;
     text-align: center;
     /*rounded corners*/
-    -moz-border-radius: 12px; /* FF1+ */
-    -webkit-border-radius: 12px; /* Saf3+, Chrome */
-    border-radius: 12px; /* Opera 10.5, IE 9 */
+    -moz-border-radius: 9px; /* FF1+ */
+    -webkit-border-radius: 9px; /* Saf3+, Chrome */
+    border-radius: 9px; /* Opera 10.5, IE 9 */
     /*background*/
     background-color: #ffffff; /* Old browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e6e6e6)); /* Chrome,Safari4+ */
@@ -4532,7 +4512,7 @@ body.cobranded #pageGS {
 }
 
 .infiniteCarousel6 .ic_title {
-    margin: 10px;
+    margin: 14px;
     float:left;
 }
 
