@@ -4245,9 +4245,10 @@ body.cobranded #pageGS {
     height: 130px;
 }
 
-.infiniteCarousel5 ul li a img {
+.infiniteCarousel5 ul li img {
     display: block;
     background-color: gray;
+    cursor: pointer;
 }
 
 .infiniteCarousel5 .arrow {
@@ -4419,7 +4420,7 @@ body.cobranded #pageGS {
     height: 86px;
 }
 
-.infiniteCarousel6 ul li a img {
+.infiniteCarousel6 ul li img {
     display: block;
     background-color: gray;
 }
