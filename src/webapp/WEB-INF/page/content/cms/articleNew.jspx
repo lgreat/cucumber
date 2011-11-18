@@ -157,16 +157,12 @@ and not empty altTexts and fn:length(altTexts) > 0}">
         </div>
     </div>
 
-    <div>
-        <c:if test="${showPhotoGallery}">
-            <div id="js_photo_gallery_container">
-                <a href="javascript:void(0)" class="js-photo-gallery-trigger">
-                    <img src="${mediumPhotos[0]}" alt="${altTexts[0]}"/>
-                </a>
-            </div>
-        </c:if>
-        <cms:photosCarousel/>
-    </div>
+
+    <c:if test="${showPhotoGallery}">
+        <div id="js_photo_gallery_container">
+            <cms:photosCarousel/>
+        </div>
+    </c:if>
 
     <c:if test="${feature.relatedVideos != null and fn:length(feature.relatedVideos) >0 }">
         <div><cms:relatedVideosCarousel feature="${feature}"/></div>

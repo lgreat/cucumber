@@ -18,7 +18,7 @@
                     <c:forEach var="carouselItem" items="${mediumPhotos}" varStatus="carouselStatus">
 
                         <li>
-                            <div class="captioned_photo">
+                            <div class="captioned_photo js-photo-gallery-trigger">
                                 <img src="${carouselItem}" height="90" width="90"
                                      alt="${altTexts[carouselStatus.count]}"/>
 
