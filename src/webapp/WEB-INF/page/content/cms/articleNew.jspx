@@ -301,7 +301,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
                         "\nEND_ARTICLE_COMMENT\n";
             }
         </script>
-        <div class="bd"><cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/></div>
+        <cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/>
     </div>
 </div>
 
