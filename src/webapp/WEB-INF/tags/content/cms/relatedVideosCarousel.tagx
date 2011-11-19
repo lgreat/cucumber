@@ -32,7 +32,7 @@
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
-                jQuery('.infiniteCarousel6').infiniteCarousel();
+                jQuery('.infiniteCarousel6').infiniteCarousel({showCounter:true});
             });
         </script>
     </c:if>

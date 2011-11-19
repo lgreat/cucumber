@@ -361,6 +361,7 @@ function debug(what) {
                     $slider = $wrapper.find('> ul'),
                     $items = $slider.find('> li'),
                     $single = $items.filter(':first'),
+                    $counterDiv = $('> div.carouselCounter', this),
 
                     viewWidth = $wrapper.innerWidth(),
                     singleWidth = $single.outerWidth(),
@@ -411,8 +412,8 @@ function debug(what) {
                         }
 
                         currentPage = page;
-                        if (o.showCounter === true) {
-                            $('.carouselCounter').text(currentPage + 'of' + totalItems);
+                        if (o.showCounter === true && $counterDiv !== undefined) {
+                            $counterDiv.text(currentPage + ' of ' + totalItems);
                         }
 
                     });
