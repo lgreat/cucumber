@@ -83,14 +83,24 @@ public class RequestInfo {
      * @return
      */
     public String getSitePreferenceUrlForAlternateSite() {
-        String newUrl;
-        if (isOnMobileSite()) {
-            newUrl = getFullUrlAtNewSubdomain(Subdomain.WWW);
-            newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.NORMAL.toString().toLowerCase());
+        String newUrl = getCurrentUrl();
+
+        if (isDeveloperWorkstation()) {
+            if (_sitePreference == SitePreference.MOBILE) {
+                newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.NORMAL.toString().toLowerCase());
+            } else {
+                newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.MOBILE.toString().toLowerCase());
+            }
         } else {
-            newUrl = getFullUrlAtNewSubdomain(Subdomain.MOBILE);
-            newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.MOBILE.toString().toLowerCase());
+            if (isOnMobileSite()) {
+                newUrl = getFullUrlAtNewSubdomain(Subdomain.WWW);
+                newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.NORMAL.toString().toLowerCase());
+            } else {
+                newUrl = getFullUrlAtNewSubdomain(Subdomain.MOBILE);
+                newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "site_preference", SitePreference.MOBILE.toString().toLowerCase());
+            }
         }
+
         return newUrl;
     }
 
@@ -197,6 +207,15 @@ public class RequestInfo {
      */
     public String getBaseHost() {
         return _request.getScheme() + "://" + getBaseHostname() + ((_request.getServerPort() != 80) ? ":" + _request.getServerPort() : "");
+    }
+
+    public String getCurrentUrl() {
+        String fullUrl = _request.getScheme() + "://" + _request.getServerName() + ((_request.getServerPort() != 80) ? ":" + _request.getServerPort() : "");
+        fullUrl += _request.getContextPath() + _request.getServletPath();
+        if (_request.getQueryString() != null) {
+            fullUrl += "?" + _request.getQueryString();
+        }
+        return fullUrl;
     }
 
     public String getFullUrlAtBaseHost() {

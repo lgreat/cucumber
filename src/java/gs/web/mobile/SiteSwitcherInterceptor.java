@@ -22,6 +22,10 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
         boolean controllerHasDesktopView = !mobileOnlyController; //readability
         boolean desktopOnlyController = !controllerHasMobileView; //readability
 
+        if (requestInfo.isDeveloperWorkstation()) {
+            return true;
+        }
+
         /*
         If request is on the mobile version of the site, and there's a desktop version of the current page (controller
         if not a mobile-only controller) AND (the user is either on a desktop OR prefers the desktop version) AND doesn't prefer the mobile version,
