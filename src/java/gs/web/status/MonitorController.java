@@ -11,6 +11,7 @@ import gs.data.util.CommunityUtil;
 import gs.data.util.StackTraceUtil;
 import gs.data.admin.IPropertyDao;
 import gs.web.community.UploadAvatarHoverController;
+import gs.web.request.RequestInfo;
 import gs.web.util.ReadWriteController;
 import gs.web.util.VariantConfiguration;
 import gs.web.util.UrlUtil;
@@ -164,6 +165,19 @@ public class MonitorController implements ReadWriteController {
         }
         model.put("abConfiguration", VariantConfiguration.convertABConfigurationToString());
 
+        // mobile site can be disabled / enabled with a cookie
+        boolean mobileSiteEnabled = isMobileSiteEnabled(request);
+        String mobileSiteAction = request.getParameter("mobileSiteAction");
+        if ("enable".equalsIgnoreCase(mobileSiteAction)) {
+            enableMobileSite(request, response);
+            response.sendRedirect(BEAN_ID);
+        } else if ("disable".equalsIgnoreCase(mobileSiteAction)){
+            disableMobileSite(request, response);
+            response.sendRedirect(BEAN_ID);
+        }
+        model.put("mobileSiteEnabled", mobileSiteEnabled);
+
+
         // Test setting some values in the session to try session replication
         HttpSession session = request.getSession(true);
 
@@ -266,6 +280,34 @@ public class MonitorController implements ReadWriteController {
 
         response.addCookie(trackingNumber);
         SessionContextUtil.getSessionContext(request).setAbVersion(newVariant);
+    }
+
+
+    protected boolean isMobileSiteEnabled(HttpServletRequest request) {
+        Cookie cookie = findCookie(request, RequestInfo.MOBILE_SITE_ENABLED_COOKIE_NAME);
+        return (cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue())));
+    }
+
+    protected void enableMobileSite(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie("mobileSiteEnabled","true");
+        cookie.setPath("/");
+        cookie.setMaxAge(-1);
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            // don't set domain for developer workstations so they can still access the cookie!!
+            cookie.setDomain(".greatschools.org");
+        }
+        response.addCookie(cookie);
+    }
+
+    protected void disableMobileSite(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie("mobileSiteEnabled", "false");
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
+            // don't set domain for developer workstations so they can still access the cookie!!
+            cookie.setDomain(".greatschools.org");
+        }
+        response.addCookie(cookie);
     }
 
     protected Cookie findCookie(HttpServletRequest request, String cookieName) {

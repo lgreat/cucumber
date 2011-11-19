@@ -1,5 +1,6 @@
 package gs.web.request;
 
+import gs.web.util.CookieUtil;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -9,6 +10,7 @@ import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.mobile.device.site.SitePreferenceHandler;
 import org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 public class RequestInfo {
@@ -16,6 +18,7 @@ public class RequestInfo {
     public static final String REQUEST_ATTRIBUTE_NAME = "requestInfo";
 
     private final String _hostname;
+    private final String _currentSubdomain;
 
     private Boolean _onPkSubdomain;
     private Boolean _developerWorkstation;
@@ -26,7 +29,9 @@ public class RequestInfo {
     private Device _device;
     private SitePreference _sitePreference;
 
-    private static String[] PRODUCTION_HOSTNAMES = {"www.greatschools.org","pk.greatschools.org"};
+    public static final String MOBILE_SITE_ENABLED_COOKIE_NAME = "mobileSiteEnabled";
+
+    private static String[] PRODUCTION_HOSTNAMES = {"www.greatschools.org","pk.greatschools.org","m.greatschools.org"};
 
     public RequestInfo(HttpServletRequest request) {
         if (request == null) {
@@ -38,6 +43,7 @@ public class RequestInfo {
 
         _request = request;
         _hostname = request.getServerName();
+        _currentSubdomain = UrlUtil.findLowestSubdomain(_hostname);
 
         //set up state of HostnameInfo
         _developerWorkstation = UrlUtil.isDeveloperWorkstation(_hostname);
@@ -64,8 +70,8 @@ public class RequestInfo {
     /******************************************************************************/
 
     public boolean isMobileSiteEnabled() {
-        String activate = _request.getParameter("activateMobileSite");
-        return (isDevEnvironment() && "true".equalsIgnoreCase(activate));
+        Cookie cookie = CookieUtil.getCookie(_request, MOBILE_SITE_ENABLED_COOKIE_NAME);
+        return (isDevEnvironment() && cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue())));
     }
 
     public boolean isFromMobileDevice() {
@@ -110,19 +116,41 @@ public class RequestInfo {
     public String getHostnameForTargetSubdomain(Subdomain targetSubdomain) {
         String newHostname = _hostname;
 
-        if (!isCobranded()) {
-            if ((targetSubdomain == null || targetSubdomain.equals(Subdomain.WWW)) && isOnPkSubdomain()) {
-                newHostname = getBaseHostname();
-            } else if (Subdomain.PK.equals(targetSubdomain)) {
-                newHostname = getHostnameForPkSubdomain();
+        if (!isCobranded() && !_hostname.startsWith(String.valueOf(targetSubdomain) + ".")) {
+            if ((targetSubdomain == null || targetSubdomain.equals(Subdomain.WWW))) {
+                if (!isProductionHostname()) {
+                    //on some servers we just need to remove pk and not replace it with www
+                    newHostname = _hostname.replaceFirst(_currentSubdomain + ".", "");
+                } else {
+                    newHostname = _hostname.replaceFirst(_currentSubdomain + ".", Subdomain.WWW.toString() + ".");
+                }
             } else {
-                if (targetSubdomain != null) {
-                    newHostname = UrlUtil.overwriteSubdomain(_hostname, targetSubdomain.toString());
+                if (isSubdomainSupported(targetSubdomain)) {
+                    if (!isProductionHostname()) {
+                        newHostname = targetSubdomain.toString() + "." + _hostname;
+                    } else {
+                        newHostname = _hostname.replaceFirst(_currentSubdomain + ".", targetSubdomain.toString() + ".");
+                    }
                 }
             }
         }
 
         return newHostname;
+    }
+
+    public boolean isSubdomainSupported(Subdomain targetSubdomain) {
+        boolean supported = false;
+        switch (targetSubdomain) {
+            case PK:
+                supported = isPkSubdomainSupported();
+                break;
+            case MOBILE:
+                supported = isMobileSiteEnabled();
+                break;
+            default:
+                supported = true;
+        }
+        return supported;
     }
 
     /**
@@ -143,31 +171,13 @@ public class RequestInfo {
                 baseHostname = _hostname.replaceFirst(Subdomain.PK.toString() + ".", Subdomain.WWW.toString() + ".");
             }
         }
-        
+
         return baseHostname;
     }
 
     /******************************************************************************/
     /* Support for pk subdomain                                                   */
     /******************************************************************************/
-
-    /**
-     * Creates a hostname as it should appear for preschool pages hosted from our pk. domain
-     * @return
-     */
-    public String getHostnameForPkSubdomain() {
-        String hostname = _hostname;
-
-        if (!isOnPkSubdomain() && isPkSubdomainSupported()) {
-            if (!isProductionHostname()) {
-                hostname = Subdomain.PK.toString() + "." + _hostname;
-            } else if (!isCobranded()) {
-                hostname = _hostname.replaceFirst(Subdomain.WWW.toString() + ".", Subdomain.PK.toString() + ".");
-            }
-        }
-        
-        return hostname;
-    }
 
     /**
      * Returns true if this host supports pk subdomain for preschools

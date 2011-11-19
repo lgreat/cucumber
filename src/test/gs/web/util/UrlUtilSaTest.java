@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.85 2011/11/18 03:23:01 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.86 2011/11/19 01:02:32 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -607,6 +607,15 @@ public class UrlUtilSaTest extends TestCase {
     public void testFindHighestSubdomain() {
         assertEquals("www", UrlUtil.findHighestSubdomain("www.example.com"));
         assertEquals("xyz", UrlUtil.findHighestSubdomain("abc.xyz.example.com"));
+        assertNull(UrlUtil.findHighestSubdomain("example.com"));
+        assertNull(UrlUtil.findHighestSubdomain(".example.com"));
+        assertNull(UrlUtil.findHighestSubdomain(""));
+        assertNull(UrlUtil.findHighestSubdomain(null));
+    }
+
+    public void testFindLowestSubdomain() {
+        assertEquals("www", UrlUtil.findLowestSubdomain("www.example.com"));
+        assertEquals("abc", UrlUtil.findLowestSubdomain("abc.xyz.example.com"));
         assertNull(UrlUtil.findHighestSubdomain("example.com"));
         assertNull(UrlUtil.findHighestSubdomain(".example.com"));
         assertNull(UrlUtil.findHighestSubdomain(""));

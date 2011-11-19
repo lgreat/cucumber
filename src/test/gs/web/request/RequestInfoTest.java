@@ -76,33 +76,33 @@ public class RequestInfoTest {
     }
 
     @Test
-    public void testGetHostnameForPkSubdomain() {
+    public void testGetHostnameForTargetSubdomain() {
         RequestInfo hostnameInfo;
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.greatschools.org"));
-        assertEquals("pk.greatschools.org", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("pk.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("pk.greatschools.org"));
-        assertEquals("pk.greatschools.org", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("pk.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("profile.dev"));
-        assertEquals("pk.profile.dev", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("pk.profile.dev", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("pk.dev.greatschools.org"));
-        assertEquals("pk.dev.greatschools.org", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("pk.dev.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("dev.greatschools.org"));
-        assertEquals("pk.dev.greatschools.org", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("pk.dev.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("greatschools.babycenter.com"));
-        assertEquals("greatschools.babycenter.com", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("greatschools.babycenter.com", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("localhost"));
-        assertEquals("localhost", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("localhost", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
 
         // www.localhost.com will be detected as developer workstation and so pk subdomain won't be applied.
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.localhost.com"));
-        assertEquals("www.localhost.com", hostnameInfo.getHostnameForPkSubdomain());
+        assertEquals("www.localhost.com", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
     }
 
     @Test

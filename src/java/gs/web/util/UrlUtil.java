@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.115 2011/11/18 03:23:01 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.116 2011/11/19 01:02:32 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -184,6 +184,27 @@ public final class UrlUtil {
         }
     }
 
+
+    /**
+     * Given a hostname, extracts the "lowest" subdomain if present. e.g.  abc.xyz.example.com => abc
+     * Is null-safe
+     * @param hostname
+     * @return subdomain if present in hostname. Otherwise null
+     */
+    public static String findLowestSubdomain(String hostname) {
+        if (hostname == null || hostname.length() == 0) {
+            return null;
+        }
+
+        String[] hostnameTokens = StringUtils.split(hostname, "\\.");
+
+        if (hostnameTokens.length >= 3) {
+            return hostnameTokens[0];
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Given a hostname, finds and overwrites the "highest" subdomain if present, and returns a new hostname.
      * If no subdomain exists, prepends the given subdomain and returns a new hostname.
@@ -261,12 +282,12 @@ public final class UrlUtil {
         "profile.dev",
         "cpickslay.",
         "editorial.",
-        "mwong.dev",
         "127.0.0.1",
         "192.168.",
         "172.21.1.142",
         "172.18.",
-        "m."
+        "m.",
+        "samson."
     };
 
     /**
@@ -523,6 +544,7 @@ public final class UrlUtil {
                 hostName.indexOf("clone") != -1 ||
                 hostName.indexOf("cmsqa") != -1 ||
                 hostName.indexOf("qa") != -1 ||
+                hostName.indexOf("samson.") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.matches("^172\\.18\\.1.*") ||
                 hostName.matches(".*carbonfive.com") ||
