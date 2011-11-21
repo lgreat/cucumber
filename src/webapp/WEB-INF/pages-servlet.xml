@@ -33,7 +33,7 @@
             <list>
                 <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor">
                 <beans:constructor-arg>
-                    <device:wurfl-device-resolver root-location="/WEB-INF/wurfl-2.3.xml" />
+                    <device:wurfl-device-resolver root-location="/WEB-INF/custom-wurfl.xml" />
                 </beans:constructor-arg>
                 </bean>
                 <!-- On pre-handle, redirects mobile users to "m.myapp.com" (declare after DeviceResolverHandlerInterceptor) -->
