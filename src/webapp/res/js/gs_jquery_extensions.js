@@ -362,7 +362,7 @@ function debug(what) {
                     $items = $slider.find('> li'),
                     $single = $items.filter(':first'),
                     $counterDiv = $('> div.carouselCounter', this),
-
+                    $photoNum = $('> input.js_photoNum', this),
                     viewWidth = $wrapper.innerWidth(),
                     singleWidth = $single.outerWidth(),
                     visible = Math.ceil(viewWidth / singleWidth),// note: does not include padding or border
@@ -414,6 +414,9 @@ function debug(what) {
                         currentPage = page;
                         if (o.showCounter === true && $counterDiv !== undefined) {
                             $counterDiv.text(currentPage + ' of ' + totalItems);
+                            if ($photoNum !== undefined) {
+                                $photoNum.val(currentPage);
+                            }
                         }
 
                     });

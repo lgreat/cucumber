@@ -85,7 +85,6 @@
         </c:forEach>
 
         jQuery(function() {
-            gallery.showFullSizeImage(0); //load the first full size image into gallery
             gallery.attachShowEvent('${cssClass}');
             gallery.loadThumbnails(); //start loading the gallery thumbnails
             gallery.applyThumbnailClickHandlers(); //attach click handlers to thumbnails

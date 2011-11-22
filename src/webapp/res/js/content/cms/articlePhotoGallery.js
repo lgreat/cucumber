@@ -57,7 +57,6 @@ GS.photoGallery.PhotoGallery.prototype.showNextImage = function() {
         targetIndex = 0;
     }
     this.showFullSizeImage(targetIndex);
-    this.sendOmnitureTrackingInfo();
 };
 
 GS.photoGallery.PhotoGallery.prototype.showPreviousImage = function() {
@@ -66,7 +65,6 @@ GS.photoGallery.PhotoGallery.prototype.showPreviousImage = function() {
         targetIndex = this.numberOfImages -1;
     }
     this.showFullSizeImage(targetIndex);
-    this.sendOmnitureTrackingInfo();
 };
 
 GS.photoGallery.PhotoGallery.prototype.loadThumbnail = function(index) {
@@ -156,16 +154,8 @@ GS.photoGallery.PhotoGallery.prototype.applyThumbnailClickHandlers = function() 
             var tokens = id.split('-');
             var index = tokens[tokens.length-1];
             self.showFullSizeImage(index);
-            self.sendOmnitureTrackingInfo();
         });
     }
-};
-
-GS.photoGallery.PhotoGallery.prototype.sendOmnitureTrackingInfo = function() {
-    //requires /res/js/omnitureEventNotifier.js
-    omnitureEventNotifier.clear();
-    omnitureEventNotifier.successEvents = "event40;";
-    omnitureEventNotifier.send();
 };
 
 GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
@@ -182,7 +172,6 @@ GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
 };
 
 GS.photoGallery.PhotoGallery.prototype.show = function() {
-   this.sendOmnitureTrackingInfo();
    jQuery('#' + this.id).show();
 };
 GS.photoGallery.PhotoGallery.prototype.hide = function() {
@@ -197,6 +186,9 @@ GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
     jQuery("#js_photo_gallery_container ." + cssClass).click(function() {
         this.loadFullSizeImages();
         document.getElementById("fade").style.display="block";
+        var photoNumVar = jQuery('input.js_photoNum').val();
+        var photoNumToShow = (photoNumVar !== undefined && photoNumVar !== null) ? (isNaN(photoNumVar - 1) ? 0 : (photoNumVar - 1)) : 0;
+        this.showFullSizeImage(photoNumToShow); //load the first full size image into gallery
         this.show();
         return false;
     }.gs_bind(this));
@@ -222,6 +214,5 @@ GS.photoGallery.Image = function(src,alt,id,cssClass,title,height,width) {
     this.title = title;
     this.height = height;
     this.width = width;
-
     this.loaded = false;
 };

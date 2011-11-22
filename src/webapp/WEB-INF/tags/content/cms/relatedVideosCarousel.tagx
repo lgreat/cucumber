@@ -20,9 +20,11 @@
 
                         <li>
                             <div class="captioned_photo">
+                                <a href="${carouselItem.url}" target="_blank">
                                 <img src="${carouselItem.imageUrl}" width="120" height="86"
                                      alt="${carouselItem.imageAltText}"/>
                                 <span class="smaller loud">${carouselItem.imageTitle}</span>
+                                </a>
                             </div>
                         </li>
                     </c:forEach>
