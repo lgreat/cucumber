@@ -23,6 +23,7 @@
     <context:component-scan base-package="gs.web.search" />
     <context:component-scan base-package="gs.web.community" />
     <context:component-scan base-package="gs.web.promo" />
+    <context:component-scan base-package="gs.web.geo" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.

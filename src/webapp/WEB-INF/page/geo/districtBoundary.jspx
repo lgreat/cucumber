@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0" >
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<head>
+    <pageHelper:externalJavascript file="/res/js/history.min.js"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>GeoJson - Drawing district boundaries</title>
+    <style type="text/css">
+        div.leftSide {
+            width: 233px;
+        }
+        div.rightSide {
+            width: 720px;
+        }
+        #districtListDiv {
+            height: 450px;
+            overflow-y: scroll;
+            border: 1px solid;
+        }
+        #districtList {
+            list-style: disc inside;
+        }
+        #districtList li {
+            margin-bottom: 3px;
+            list-style: disc inside;
+            background-color: #ddd;
+            font-size: 12px;
+            padding: 1px;
+        }
+        #districtList li.selected {
+            border: 1px solid red;
+            padding: 0;
+        }
+        #map-canvas{
+            width:700px;
+            height:500px;
+            border:2px solid #999;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"><!-- no collapse --></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"><!-- no collapse --></script>
+
+    <script type="text/javascript">
+        <![CDATA[
+
+        var GS = GS || {};
+        GS.Boundaries = GS.Boundaries || {};
+
+        GS.Boundaries.BoundaryHelper = function() {
+            var districtBoundaryMap;
+            var districtMarkers = new Array();
+            var polygons = new Array();
+            var stuffOnMap = {};
+            var selectedLocation = null;
+
+            var MarkerWithBoundary = function() {
+                this.marker = null;
+                this.polygon = null;
+                this.state = null;
+                this.id = null;
+                this.name = null;
+                this.showOnLoad = false;
+
+                this.init = function(params) {
+                    this.state = params.state;
+                    this.id = params.id;
+                    this.name = params.name;
+                };
+                this.isMarkerShown = function() {
+                    return this.marker != null && this.marker.getMap() != null;
+                };
+                this.hideMarker = function() {
+                    if (this.isMarkerShown()) {
+                        this.marker.setMap(null);
+                    }
+                };
+                this.hasPolygon = function() {
+                    return this.polygon !== null;
+                };
+                this.isPolygonShown = function() {
+                    return this.polygon != null && this.polygon.getMap() != null;
+                };
+                this.showPolygon = function() {
+                    $('#districtList li').removeClass("selected");
+                    if (this.hasPolygon() && !this.isPolygonShown()) {
+                        this.polygon.setMap(districtBoundaryMap);
+                        selectedLocation = this;
+                        $('#' + this.getKey()).addClass("selected");
+                        $('#currentlySelectedDistrict').html(this.name);
+                    }
+                };
+                this.hidePolygon = function() {
+                    if (this.isPolygonShown()) {
+                        selectedLocation = null;
+                        $('#' + this.getKey()).removeClass("selected");
+                        $('#currentlySelectedDistrict').html('');
+                        this.polygon.setMap(null);
+                    }
+                };
+                this.togglePolygon = function() {
+                    if (this.isPolygonShown()) {
+                        this.hidePolygon();
+                    } else {
+                        this.loadAndShowPolygon();
+                    }
+                };
+            };
+            var DistrictWithBoundary = function(params) {
+                this.init(params);
+                this.loadPolygon = function() {
+                    if (!this.hasPolygon()) {
+                        getDistrictBoundaryAjax(this.state, this.id, this.name);
+                    }
+                };
+                this.loadAndShowPolygon = function() {
+                    if (!this.hasPolygon()) {
+                        this.showOnLoad = true;
+                        getDistrictBoundaryAjax(this.state, this.id, this.name);
+                    } else if (!this.isPolygonShown()) {
+                        this.showPolygon();
+                    }
+                };
+                this.getKey = function() {
+                    return "district-" + this.state + "-" + this.id;
+                }
+            };
+            DistrictWithBoundary.prototype = new MarkerWithBoundary();
+            var SchoolWithBoundary = function(params) {
+                this.init(params);
+                this.loadPolygon = function() {
+                    if (this.hasPolygon()) {
+                        this.showPolygon();
+                    } else {
+                    }
+                };
+                this.getKey = function() {
+                    return "school-" + this.state + "-" + this.id;
+                }
+            };
+            SchoolWithBoundary.prototype = new MarkerWithBoundary();
+
+            var loadDistrictAroundPoint = function(latitude, longitude) {
+                jQuery.getJSON("/geo/boundary/ajax/getDistrictContainingPoint.page", {lat:latitude, lon:longitude, level:$('.js_mapLevelCode:checked').val()}
+                ).success(function(data) {
+                      var polygon = createGeoJsonPolygon(data);
+                      polygon.setMap(districtBoundaryMap);
+                      polygons.push(polygon);
+                }).error(function() {
+                    alert("Error fetching district");
+                });
+            };
+            var loadDistrictMap = function(latitude, longitude) {
+                if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+                    // use HTML 5 history API to rewrite the current URL to represent the new state.
+                    window.History.replaceState(null, document.title, '?lat=' + latitude + '&lon=' + longitude);
+                }
+                jQuery.getJSON("/geo/boundary/ajax/getDistrictsNearPoint.page", {lat:latitude, lon:longitude, level:$('.js_mapLevelCode:checked').val()}
+                ).success(function(data) {
+                      try {
+                          drawMap(data.districts);
+                          updateDistrictList(data.districts);
+                      } catch (e) {
+                          alert("Error: "+ e.message);
+                      }
+                }).error(function() {
+                    alert("Error fetching district list");
+                });
+            };
+            var clearMap = function() {
+                for (var key in stuffOnMap) {
+                    var thingOnMap = stuffOnMap[key];
+                    thingOnMap.hideMarker();
+                    thingOnMap.hidePolygon();
+                    delete stuffOnMap[key];
+                }
+            };
+            var getLocation = function(pos) {
+                var latitude = pos.coords.latitude;
+                var longitude = pos.coords.longitude;
+                loadDistrictMap(latitude, longitude);
+            };
+            var unknownLocation = function() {
+                loadDistrictMap(37.790948, -122.3942572);
+            };
+            var drawMap = function(districtList) {
+                var mapBounds = new google.maps.LatLngBounds();
+                var setBounds = false;
+                for (var districtIndex = 0; districtIndex < districtList.length; districtIndex++) {
+                    var district = districtList[districtIndex];
+                    var districtLatLng = new google.maps.LatLng(district.lat, district.lon);
+                    if (districtBoundaryMap === undefined) {
+                        initMap(districtLatLng);
+                        setBounds = true;
+                    }
+                    var districtMarker = createDistrictMarker(district);
+                    districtMarker.setMap(districtBoundaryMap);
+                    districtMarkers.push(districtMarker);
+                    mapBounds.extend(districtMarker.getPosition());
+
+                    var districtOnMap = new DistrictWithBoundary({state:district.state, id:district.id, name:district.name});
+                    districtOnMap.marker = districtMarker;
+                    stuffOnMap["district-" + district.state + "-" + district.id] = districtOnMap;
+
+                    google.maps.event.addListener(districtMarker, 'click', createDistrictMarkerClickListener(district));
+                }
+                if (setBounds) {
+                    // only change zoom if it is the initial load
+                    districtBoundaryMap.fitBounds(mapBounds);
+                }
+            };
+            var getDistrictBoundarySuccess = function(data) {
+                var districtOnMap = stuffOnMap["district-" + data.state + "-" + data.districtId];
+                districtOnMap.polygon = createGeoJsonPolygon(data);
+                if (districtOnMap.showOnLoad === true) {
+                    districtOnMap.showPolygon();
+                }
+            };
+            var getSchoolBoundariesSuccess = function(data) {
+                for (var x=0; x < data.schoolBoundaries.length; x++) {
+                    var schoolBoundary = data.schoolBoundaries[x];
+                    var key = "school-" + schoolBoundary.state + "-" + schoolBoundary.schoolId;
+                    if (typeof(stuffOnMap[key]) === 'undefined') {
+                        stuffOnMap[key] = new SchoolWithBoundary({state:schoolBoundary.state, id:schoolBoundary.schoolId});
+                    } else {
+                        console.log("Duplicate school key: " + key);
+                        stuffOnMap[key].hidePolygon();
+                    }
+                    stuffOnMap[key].polygon = createGeoJsonPolygon(schoolBoundary, '#66461F', '#78FF00');
+                    stuffOnMap[key].showPolygon();
+                }
+            };
+            var getDistrictBoundaryAjax = function(state, id, name) {
+                jQuery.getJSON(
+                        "/geo/boundary/ajax/getDistrictBoundary.page",
+                        {state:state, id:id, level:$('.js_mapLevelCode:checked').val()}
+                ).success(getDistrictBoundarySuccess
+                ).error(function() {
+                    console.log("Error fetching district boundary: " + name + " (" + state + ":" + id + ")");
+                });
+            };
+            var getSchoolBoundariesForDistrictAjax = function(state, id, name) {
+                jQuery.getJSON(
+                        "/geo/boundary/ajax/getSchoolBoundariesForDistrict.page",
+                        {state:state, districtId:id, level:$('.js_mapLevelCode:checked').val()}
+                ).success(getSchoolBoundariesSuccess
+                ).error(function() {
+                    console.log("Error fetching school boundaries: " + name + " (" + state + ":" + id + ")");
+                });
+            };
+            var createDistrictMarkerClickListener = function(district) {
+                return function() {
+                    var districtOnMap = stuffOnMap["district-" + district.state + "-" + district.id];
+                    if (districtOnMap.isPolygonShown()) {
+                        hideAllPolygons();
+                    } else if (districtOnMap.hasPolygon()) {
+                        hideAllPolygons();
+                        districtOnMap.showPolygon();
+                    } else {
+                        hideAllPolygons();
+                        districtOnMap.loadAndShowPolygon();
+                    }
+                };
+            };
+            var hideAllPolygons = function() {
+                for (var key in stuffOnMap) {
+                    stuffOnMap[key].hidePolygon();
+                }
+            };
+            var initMap = function(center) {
+                districtBoundaryMap = new google.maps.Map(document.getElementById('map-canvas'), {
+                    zoom: 12,
+                    center: center,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+            };
+            var createDistrictMarker = function(district) {
+                var icon = '/res/img/map/GS_gsr_na_forground.png';
+                if (district.rating > 0 && district.rating < 11) {
+                    icon = '/res/img/map/GS_gsr_' + district.rating + '_forground.png';
+                }
+                var markerImage = new google.maps.MarkerImage(icon, new google.maps.Size(40,40),
+                                                              new google.maps.Point(0,0), new google.maps.Point(11,34));
+                var markerShadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                                                               new google.maps.Size(40, 40),
+                                                               new google.maps.Point(0, 0),
+                                                               new google.maps.Point(11, 34));
+                var markerShape = {
+                    coord: [0, 0, 30, 0, 30, 37, 0, 37],
+                    type: 'poly'
+                };
+                return new google.maps.Marker
+                        ({
+                             position: new google.maps.LatLng(district.lat, district.lon),
+                             title:district.name,
+                             icon:markerImage,
+                             shadow:markerShadow,
+                             shape:markerShape
+                         });
+            };
+            var createGeoJsonPolygon = function(geojson, fillColor, strokeColor){
+                fillColor = typeof(fillColor) !== 'undefined' ? fillColor : '#46461F';
+                strokeColor = typeof(strokeColor) !== 'undefined' ? strokeColor : '#FF7800';
+                var coords = geojson.coordinates;
+                var paths = [];
+                for (var i=0;i < coords.length;i++){
+                    for (var j=0;j<coords[i].length;j++){
+                        var path=[];
+                        for (var k=0;k<coords[i][j].length;k++){
+                            var ll = new google.maps.LatLng(coords[i][j][k][1],coords[i][j][k][0]);
+                            path.push(ll);
+                        }
+                        paths.push(path);
+                    }
+                }
+                return new google.maps.Polygon({
+                    paths: paths,
+                    strokeColor: strokeColor,
+                    strokeOpacity: 1,
+                    strokeWeight: 2,
+                    fillColor: fillColor,
+                    fillOpacity: 0.25
+                });
+            };
+            var getUrlVars = function() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                    vars[key] = value;
+                });
+                return vars;
+            };
+            var updateDistrictList = function(districts) {
+                var districtListDiv = $('#districtList');
+                districtListDiv.empty();
+                // sort on district rating
+                districts.sort(function(a,b) {
+                    if (a.rating > 0 && a.rating < 11 && b.rating > 0 && b.rating < 11) {
+                        return b.rating - a.rating;
+                    } else if (a.rating > 0 && a.rating < 11) {
+                        return -1;
+                    }
+                    return 1;
+                });
+                for (var districtIndex = 0; districtIndex < districts.length; districtIndex++) {
+                    var district = districts[districtIndex];
+                    var districtKey = "district-" + district.state + "-" + district.id;
+                    var districtRating = 'na';
+                    var li = '<li id="' + districtKey + '">' + district.name + ' ';
+                    li += '<span class="sprite badge_sm_';
+                    if (district.rating > 0 && district.rating < 11) {
+                        li += district.rating
+                    } else {
+                        li += 'na'
+                    }
+                    li += '_b';
+                    li += '"><!-- do not collapse --></span>';
+                    li += '</li>';
+                    districtListDiv.append(li);
+                }
+            };
+
+            jQuery(function () {
+                try {
+                    var params = getUrlVars();
+                    if (params.lat && params.lon) {
+                        loadDistrictMap(params.lat, params.lon);
+                    } else {
+                        navigator.geolocation.getCurrentPosition(getLocation, unknownLocation);
+                    }
+                } catch (e) {
+                    unknownLocation();
+                }
+
+                $('#js_reloadMap').click(function() {
+                    if (districtBoundaryMap !== undefined) {
+                        clearMap();
+                        loadDistrictMap(districtBoundaryMap.getCenter().lat(),
+                                        districtBoundaryMap.getCenter().lng());
+                    }
+                });
+                $('#js_drawAllDistricts').click(function() {
+                    if (districtBoundaryMap !== undefined) {
+                        for (var key in stuffOnMap) {
+                            stuffOnMap[key].loadAndShowPolygon();
+                        }
+                    }
+                });
+                $('#js_drawAllDistrictsAndSAZ').click(function() {
+                    if (districtBoundaryMap !== undefined) {
+                        for (var key in stuffOnMap) {
+                            if (key.indexOf('district') === 0) {
+                                stuffOnMap[key].loadAndShowPolygon();
+                                getSchoolBoundariesForDistrictAjax(stuffOnMap[key].state, stuffOnMap[key].id, stuffOnMap[key].name);
+                            }
+                        }
+                    }
+                });
+                $('#js_drawContainingDistrict').click(function() {
+                    if (districtBoundaryMap !== undefined) {
+                        loadDistrictAroundPoint(districtBoundaryMap.getCenter().lat(),
+                                                districtBoundaryMap.getCenter().lng());
+                    }
+                });
+                $('#js_getSAZ').click(function() {
+                    if (selectedLocation != null) {
+                        getSchoolBoundariesForDistrictAjax(selectedLocation.state, selectedLocation.id, selectedLocation.name);
+                    }
+                });
+                $('.js_mapLevelCode').change(function() {
+                    if (districtBoundaryMap !== undefined) {
+                        clearMap();
+                        loadDistrictMap(districtBoundaryMap.getCenter().lat(),
+                                        districtBoundaryMap.getCenter().lng());
+                    }
+                });
+                $('#districtList').delegate("li", "mouseenter", function() {
+                    var key = $(this).attr('id');
+                    if (stuffOnMap[key] !== undefined) {
+                        if (stuffOnMap[key].isPolygonShown()) {
+                            hideAllPolygons();
+                        } else {
+                            hideAllPolygons();
+                            stuffOnMap[key].loadAndShowPolygon();
+                        }
+                    }
+                });
+            });
+        };
+
+        new GS.Boundaries.BoundaryHelper();
+        ]]>
+    </script>
+
+</head>
+<gsml:body adPageName="districtBoundary" pageLayout="leftside">
+    <div class="leftSide fltlft">
+        <h3>School &amp; District Map Tool</h3>
+        <div id="districtListDiv">
+            <ul id="districtList"><!-- not empty --></ul>
+        </div>
+        <div>Currently selected district: <span id="currentlySelectedDistrict"><!-- no collapse --></span></div>
+        <button name="getSAZ" id="js_getSAZ">Load SAZ for selected district</button>
+    </div>
+    <div class="rightSide fltrt">
+        <div class="">
+            <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_e" value="e" checked="checked"/><label for="mapLevelCode_e">Elementary</label>
+            <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_m" value="m"/><label for="mapLevelCode_m">Middle</label>
+            <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_h" value="h"/><label for="mapLevelCode_h">High</label>
+        </div>
+        <div id="map-canvas"><!-- no collapse --></div>
+        <button name="reload" id="js_reloadMap">Reload at this location</button>
+        <button name="drawAllDistricts" id="js_drawAllDistricts">Debug: Draw all districts</button>
+        <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ">Debug: Draw all districts and SAZ</button>
+        <button name="drawContainingDistrict" id="js_drawContainingDistrict">Debug: Draw Containing District</button>
+    </div>
+</gsml:body>
+</html>
+</jsp:root>
