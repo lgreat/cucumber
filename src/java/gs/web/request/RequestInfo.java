@@ -4,11 +4,9 @@ import gs.web.util.CookieUtil;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.DeviceUtils;
+import net.sourceforge.wurfl.core.Device;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.mobile.device.site.SitePreferenceHandler;
-import org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +53,7 @@ public class RequestInfo {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
         _cobranded = cobrand != null || sessionContext.isCobranded();
 
-        _device = DeviceUtils.getCurrentDevice(request);
+        //_device = DeviceUtils.getCurrentDevice(request);
 
         Object sitePreferenceObj = request.getAttribute(SitePreferenceHandler.CURRENT_SITE_PREFERENCE_ATTRIBUTE);
         if (sitePreferenceObj != null) {
@@ -75,7 +73,10 @@ public class RequestInfo {
     }
 
     public boolean isFromMobileDevice() {
-        return _device != null && _device.isMobile();
+        if (_device == null) return false;
+
+        String capability = _device.getCapability("is_wireless_device");
+        return capability != null && capability.length() > 0 && Boolean.valueOf(capability);
     }
 
     /**
@@ -270,5 +271,9 @@ public class RequestInfo {
 
     public SitePreference getSitePreference() {
         return _sitePreference;
+    }
+
+    public void setDevice(Device device) {
+        _device = device;
     }
 }

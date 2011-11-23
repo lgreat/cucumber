@@ -1,11 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.8 2011/09/16 00:18:07 ssprouse Exp $
+ * $Id: SessionContextInterceptor.java,v 1.9 2011/11/23 18:12:25 ssprouse Exp $
  */
 package gs.web.util.context;
 
 import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
+import net.sourceforge.wurfl.core.Device;
+import net.sourceforge.wurfl.core.WURFLManager;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SessionContextInterceptor implements HandlerInterceptor {
 
     private SessionContextUtil _sessionContextUtil;
+    private WURFLManager _springWurflManager;
 
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
@@ -35,6 +38,10 @@ public class SessionContextInterceptor implements HandlerInterceptor {
         SessionContext context = _sessionContextUtil.prepareSessionContext(request, response);
         PageHelper pageHelper = new PageHelper(context, request);
         RequestInfo requestInfo = new RequestInfo(request);
+        if (_springWurflManager != null) {
+            Device device = _springWurflManager.getDeviceForRequest(request);
+            requestInfo.setDevice(device);
+        }
         request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, requestInfo);
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
         return true; // go on
@@ -51,6 +58,10 @@ public class SessionContextInterceptor implements HandlerInterceptor {
 
     public void setSessionContextUtil(SessionContextUtil sessionContextUtil) {
         _sessionContextUtil = sessionContextUtil;
+    }
+
+    public void setSpringWurflManager(WURFLManager springWurflManager) {
+        _springWurflManager = springWurflManager;
     }
 }
 
