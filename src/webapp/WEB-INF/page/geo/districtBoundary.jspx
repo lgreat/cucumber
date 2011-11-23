@@ -69,6 +69,8 @@
                 this.id = null;
                 this.name = null;
                 this.showOnLoad = false;
+                this.centerOnLoad = false;
+                this.centroid = {};
 
                 this.init = function(params) {
                     this.state = params.state;
@@ -113,6 +115,11 @@
                         this.loadAndShowPolygon();
                     }
                 };
+                this.centerMap = function() {
+                    if (typeof(this.centroid.lat) !== 'undefined' && typeof(this.centroid.lon) !== 'undefined') {
+                        districtBoundaryMap.panTo(new google.maps.LatLng(this.centroid.lat, this.centroid.lon));
+                    }
+                }
             };
             var DistrictWithBoundary = function(params) {
                 this.init(params);
@@ -219,12 +226,24 @@
             };
             var getDistrictBoundarySuccess = function(data) {
                 var districtOnMap = stuffOnMap["district-" + data.state + "-" + data.districtId];
+                if (districtOnMap.isPolygonShown()) {
+                    districtOnMap.hidePolygon()
+                }
                 districtOnMap.polygon = createGeoJsonPolygon(data);
                 if (districtOnMap.showOnLoad === true) {
                     districtOnMap.showPolygon();
                 }
+                if (typeof(data.centroid) !== 'undefined') {
+                    districtOnMap.centroid = {lat: data.centroid.lat, lon: data.centroid.lon};
+                    if (districtOnMap.centerOnLoad === true) {
+                        districtOnMap.centerMap();
+                    }
+                }
             };
             var getSchoolBoundariesSuccess = function(data) {
+                if (data.schoolBoundaries.length == 0) {
+                    alert("No school attendance zones found");
+                }
                 for (var x=0; x < data.schoolBoundaries.length; x++) {
                     var schoolBoundary = data.schoolBoundaries[x];
                     var key = "school-" + schoolBoundary.state + "-" + schoolBoundary.schoolId;
@@ -244,7 +263,7 @@
                         {state:state, id:id, level:$('.js_mapLevelCode:checked').val()}
                 ).success(getDistrictBoundarySuccess
                 ).error(function() {
-                    console.log("Error fetching district boundary: " + name + " (" + state + ":" + id + ")");
+                    alert("Error fetching district boundary: " + name + " (" + state + ":" + id + ")");
                 });
             };
             var getSchoolBoundariesForDistrictAjax = function(state, id, name) {
@@ -253,7 +272,7 @@
                         {state:state, districtId:id, level:$('.js_mapLevelCode:checked').val()}
                 ).success(getSchoolBoundariesSuccess
                 ).error(function() {
-                    console.log("Error fetching school boundaries: " + name + " (" + state + ":" + id + ")");
+                    alert("Error fetching school boundaries for district: " + name + " (" + state + ":" + id + ")");
                 });
             };
             var createDistrictMarkerClickListener = function(district) {
@@ -421,14 +440,16 @@
                                         districtBoundaryMap.getCenter().lng());
                     }
                 });
-                $('#districtList').delegate("li", "mouseenter", function() {
+                $('#districtList').delegate("li", "click", function() {
                     var key = $(this).attr('id');
                     if (stuffOnMap[key] !== undefined) {
+                        stuffOnMap[key].centerOnLoad = true;
                         if (stuffOnMap[key].isPolygonShown()) {
-                            hideAllPolygons();
+                            stuffOnMap[key].centerMap();
                         } else {
                             hideAllPolygons();
                             stuffOnMap[key].loadAndShowPolygon();
+                            stuffOnMap[key].centerMap();
                         }
                     }
                 });
