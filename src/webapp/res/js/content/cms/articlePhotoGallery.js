@@ -9,15 +9,15 @@ Function.prototype.gs_bind = function(obj) {
 /**
  * Constructor
  */
-GS.photoGallery.PhotoGallery = function(prefix,multiSizeImageArray,debug) {
-    this.closeButtonDomId = prefix+"-photo-gallery-close"; //close button
-    this.backButtonId = prefix+"-photo-gallery-back";
-    this.nextButtonId = prefix+"-photo-gallery-next";
-    this.thumbnailIdPrefix = prefix+"-gallery-thumbnail";
+GS.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug) {
+    this.closeButtonDomId = prefix + "-photo-gallery-close"; //close button
+    this.backButtonId = prefix + "-photo-gallery-back";
+    this.nextButtonId = prefix + "-photo-gallery-next";
+    this.thumbnailIdPrefix = prefix + "-gallery-thumbnail";
     this.thumbnailSelectedCssClass = "gallery-thumbnail-selected";
-    this.fullSizeImageIdPrefix = prefix+"-gallery-fullsize";
+    this.fullSizeImageIdPrefix = prefix + "-gallery-fullsize";
 
-    this.id = prefix+"-photo-gallery";
+    this.id = prefix + "-photo-gallery";
     this.currentFullSizeImage = 0;
     this.numberOfImages = multiSizeImageArray.length;
     this.multiSizeImageArray = multiSizeImageArray;
@@ -32,7 +32,7 @@ GS.photoGallery.PhotoGallery = function(prefix,multiSizeImageArray,debug) {
 GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
     var id;
     //hide all other images
-    for(var i=0; i<this.multiSizeImageArray.length; i++) {
+    for (var i = 0; i < this.multiSizeImageArray.length; i++) {
         if (i === index) {
             continue;
         }
@@ -57,21 +57,23 @@ GS.photoGallery.PhotoGallery.prototype.showNextImage = function() {
         targetIndex = 0;
     }
     this.showFullSizeImage(targetIndex);
+    this.sendOmnitureTrackingInfo();
 };
 
 GS.photoGallery.PhotoGallery.prototype.showPreviousImage = function() {
     var targetIndex = parseInt(this.currentFullSizeImage) - 1;
     if (targetIndex < 0) {
-        targetIndex = this.numberOfImages -1;
+        targetIndex = this.numberOfImages - 1;
     }
     this.showFullSizeImage(targetIndex);
+    this.sendOmnitureTrackingInfo();
 };
 
 GS.photoGallery.PhotoGallery.prototype.loadThumbnail = function(index) {
     var image = this.multiSizeImageArray[index].thumbnailImage;
     if (!image.loaded) {
         var container = jQuery('#' + this.thumbnailIdPrefix + '-' + index);
-        container.find('img').attr('src',image.src);
+        container.find('img').attr('src', image.src);
         image.loaded = true;
         if (this.debug) {
             console.log("thumbnail " + index + " loaded.");
@@ -106,7 +108,7 @@ GS.photoGallery.PhotoGallery.prototype.loadFullSizeImage = function(index) {
     var image = this.multiSizeImageArray[index].fullSizeImage;
     if (!image.loaded) {
         var container = jQuery('#' + this.fullSizeImageIdPrefix + '-' + index);
-        container.find('img').attr('src',image.src);
+        container.find('img').attr('src', image.src);
         image.loaded = true;
         if (this.debug) {
             console.log("full-sized image " + index + " loaded.");
@@ -127,7 +129,7 @@ GS.photoGallery.PhotoGallery.prototype.loadFullSizeImages = function() {
     if (success) {
         this.fullSizeImageLoaderPosition++;
         if (this.fullSizeImageLoaderPosition < this.multiSizeImageArray.length) {
-            setTimeout(this.loadFullSizeImages.gs_bind(this), this.chosenTimeout*2);
+            setTimeout(this.loadFullSizeImages.gs_bind(this), this.chosenTimeout * 2);
         }
     } else {
         this.fullSizeImageLoaderPosition++;
@@ -152,10 +154,18 @@ GS.photoGallery.PhotoGallery.prototype.applyThumbnailClickHandlers = function() 
             var item = jQuery(this);
             var id = item.attr('id');
             var tokens = id.split('-');
-            var index = tokens[tokens.length-1];
+            var index = tokens[tokens.length - 1];
             self.showFullSizeImage(index);
+            self.sendOmnitureTrackingInfo();
         });
     }
+};
+
+GS.photoGallery.PhotoGallery.prototype.sendOmnitureTrackingInfo = function() {
+    //requires /res/js/omnitureEventNotifier.js
+    omnitureEventNotifier.clear();
+    omnitureEventNotifier.successEvents = "event58;";
+    omnitureEventNotifier.send();
 };
 
 GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
@@ -167,15 +177,16 @@ GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
     }.gs_bind(this));
     jQuery('#' + this.closeButtonDomId).click(function() {
         this.hide();
-        document.getElementById("fade").style.display="none";
+        document.getElementById("fade").style.display = "none";
     }.gs_bind(this));
 };
 
 GS.photoGallery.PhotoGallery.prototype.show = function() {
-   jQuery('#' + this.id).show();
+    this.sendOmnitureTrackingInfo();
+    jQuery('#' + this.id).show();
 };
 GS.photoGallery.PhotoGallery.prototype.hide = function() {
-   jQuery('#' + this.id).hide();
+    jQuery('#' + this.id).hide();
 };
 
 /**
@@ -185,7 +196,7 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
 GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
     jQuery("#js_photo_gallery_container ." + cssClass).click(function() {
         this.loadFullSizeImages();
-        document.getElementById("fade").style.display="block";
+        document.getElementById("fade").style.display = "block";
         var photoNumVar = jQuery('input.js_photoNum').val();
         var photoNumToShow = (photoNumVar !== undefined && photoNumVar !== null) ? (isNaN(photoNumVar - 1) ? 0 : (photoNumVar - 1)) : 0;
         this.showFullSizeImage(photoNumToShow); //load the first full size image into gallery
@@ -206,7 +217,7 @@ GS.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
 /**
  * Constructor
  */
-GS.photoGallery.Image = function(src,alt,id,cssClass,title,height,width) {
+GS.photoGallery.Image = function(src, alt, id, cssClass, title, height, width) {
     this.src = src;
     this.id = id;
     this.cssClass = cssClass;

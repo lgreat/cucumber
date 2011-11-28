@@ -29,6 +29,7 @@
             </c:otherwise>
         </c:choose>
         <title>${pageTitle} | GreatSchools</title>
+        <script type="text/javascript" src="/res/js/global.js"><!--D not collapse--></script>
 
     </head>
 
@@ -156,6 +157,8 @@ and not empty altTexts and fn:length(altTexts) > 0}">
     </div>
     <input type="hidden" value="${type}" id="cmsContentType"/>
 
+    <mod:tracking pageName="ArticlePrint"
+                  hier1="Article,${commaSeparatedPrimaryKategoryNames},${titleForOmniture},Print Article"/>
     </body>
     </html>
 </jsp:root>
