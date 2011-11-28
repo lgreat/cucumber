@@ -259,7 +259,7 @@ public class ParentReviewController extends AbstractController {
             model.put("reviewsFilterSortTracking", getReviewsFilterSortTracking(cmd.getTotalReviews(), reviewsBy, paramSortBy));
 
             // GS-10709
-            UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            UrlBuilder builder = new UrlBuilder(school, page, UrlBuilder.SCHOOL_PARENT_REVIEWS);
             model.put("relCanonical", builder.asFullUrlXml(request));
 
             // GS-10633

@@ -31,7 +31,7 @@
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <c:set var="school" value="${cmd.school}"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-<c:choose>
+<c:choosee
     <c:when test="${stateAbbrev eq 'DC'}">
         <c:set var="addr" value="Washington, DC"/>
     </c:when>
@@ -44,6 +44,18 @@
 
     <title>Parent Reviews of ${school.name} - ${addr}</title>
     <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
+    <c:set var="paginationUrl"><c:choose>
+        <c:when test="${empty reviewsByCsv}">${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}</c:when>
+        <c:otherwise>${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=${reviewsByCsv}</c:otherwise>
+    </c:choose></c:set>
+    <c:if test="${page lt reviewsTotalPages}">
+        <c:set var="nextPageNum" value="${page + 1}" scope="page"/>
+        <link rel="next" href="${paginationUrl}&amp;amp;page=${nextPageNum}"/>
+    </c:if>
+    <c:if test="${page gt 1}">
+        <c:set var="previousPageNum" value="${page - 1}" scope="page"/>
+        <link rel="prev" href="${paginationUrl}&amp;amp;page=${previousPageNum}"/>
+    </c:if>
     <c:set var="reviewsByParam"><c:if test="${fn:length(reviewsByCsv) gt 0}"> + '&amp;${param_reviewsby}=${reviewsByCsv}'</c:if></c:set>
 
     <c:if test="${!requestScope.requestInfo.cobranded}">
