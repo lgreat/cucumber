@@ -44,11 +44,13 @@
         <meta name="robots" content="follow,noindex"/>
     </c:if>
 
-    <c:if test="${!page.lastPage}">
-        <link rel="next" href="${pagination:recordPageInUrl(page.nextPage, fullUrl, 'offset')}"/>
-    </c:if>
-    <c:if test="${!page.firstPage}">
-        <link rel="prev" href="${pagination:recordPageInUrl(page.previousPage, fullUrl, 'offset')}"/>
+    <c:if test="${!isSearch}">
+        <c:if test="${!page.lastPage}">
+            <link rel="next" href="${pagination:recordPageInUrl(page.nextPage, gsweb:getRequestURL(pageContext.request), 'offset')}"/>
+        </c:if>
+        <c:if test="${!page.firstPage}">
+            <link rel="prev" href="${pagination:recordPageInUrl(page.previousPage, gsweb:getRequestURL(pageContext.request), 'offset')}"/>
+        </c:if>
     </c:if>
 
     <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
