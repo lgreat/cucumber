@@ -288,18 +288,14 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 <!-- Related links -->
 
 <!-- Article comment form -->
-<div class="mod articleCommentForm">
-    <div class="inner rnd5">
-        <script type="text/javascript">
-            function wrapCommentWithDelimiter(comment) {
-                return "BEGIN_ARTICLE_COMMENT\n" +
-                        comment +
-                        "\nEND_ARTICLE_COMMENT\n";
-            }
-        </script>
-        <cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-    </div>
-</div>
+<script type="text/javascript">
+    function wrapCommentWithDelimiter(comment) {
+        return "BEGIN_ARTICLE_COMMENT\n" +
+                comment +
+                "\nEND_ARTICLE_COMMENT\n";
+    }
+</script>
+<cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/>
 
 <hr class="keyline1"/>
 

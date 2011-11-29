@@ -90,6 +90,7 @@
             <gsml:url var="secondarynavigation" value="/res/css/04_navigation/secondary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="buttons" value="/res/css/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="spacing" value="/res/css/06_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="forms" value="/res/css/07_forms/forms.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="roundedcorners" value="/res/css/08_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="lineargradients" value="/res/css/08_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="opacityshadow" value="/res/css/08_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -107,6 +108,7 @@
             <![CDATA[<link rel="stylesheet" href="${secondarynavigation}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${forms}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>

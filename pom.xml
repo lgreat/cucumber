@@ -305,6 +305,7 @@
                         <param>04_navigation/secondary.css</param>
                         <param>05_buttons/buttons.css</param>
                         <param>06_spacing/spacing.css</param>
+                        <param>07_forms/forms.css</param>
                         <param>08_css3/rounded_corners.css</param>
                         <param>08_css3/linear_gradients.css</param>
                         <param>08_css3/opacity_shadow.css</param>
