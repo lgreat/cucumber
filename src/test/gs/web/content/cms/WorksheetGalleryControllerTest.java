@@ -1,5 +1,6 @@
 package gs.web.content.cms;
 
+import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
 
 import java.util.HashMap;
@@ -163,5 +164,15 @@ public class WorksheetGalleryControllerTest extends TestCase {
         WorksheetGalleryController.addMetaDataToModel(model);
         assertNull(model.get(WorksheetGalleryController.MODEL_META_DESCRIPTION));
         assertNull(model.get(WorksheetGalleryController.MODEL_META_KEYWORDS));
+    }
+
+    public void testCanonicalUrl() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setQueryString("decorator=minimalDecorator");
+        request.setRequestURI("/worksheets/");
+
+        WorksheetGalleryController controller = new WorksheetGalleryController();
+        String result = controller.getCanonicalUrl(request);
+        assertEquals("http://localhost/worksheets/", result);
     }
 }

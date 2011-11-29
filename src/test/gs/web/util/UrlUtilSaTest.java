@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.86 2011/11/19 01:02:32 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.87 2011/11/29 00:06:09 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -620,5 +620,101 @@ public class UrlUtilSaTest extends TestCase {
         assertNull(UrlUtil.findHighestSubdomain(".example.com"));
         assertNull(UrlUtil.findHighestSubdomain(""));
         assertNull(UrlUtil.findHighestSubdomain(null));
+    }
+
+    public void testGetHostAndPath() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("http");
+        request.setQueryString("decorator=blank");
+
+        assertEquals("http://localhost/california/", UrlUtil.getRequestHostAndPath(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("https");
+        request.setQueryString("decorator=blank");
+        request.setServerPort(8080);
+
+        assertEquals("https://localhost:8080/california/", UrlUtil.getRequestHostAndPath(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("http");
+        request.setQueryString("decorator=blank");
+        request.setServerPort(8080);
+
+        assertEquals("http://localhost:8080/california/", UrlUtil.getRequestHostAndPath(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("https");
+        request.setQueryString("decorator=blank");
+        request.setServerPort(443);
+
+        assertEquals("https://localhost/california/", UrlUtil.getRequestHostAndPath(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setAttribute("javax.servlet.forward.request_uri", "/california/");
+        request.setAttribute("javax.servlet.forward.query_string", "decorator=blank");
+        request.setRequestURI("/error404");
+        request.setScheme("https");
+        request.setQueryString("");
+        request.setServerPort(443);
+
+        assertEquals("https://localhost/california/", UrlUtil.getRequestHostAndPath(request));
+    }
+
+    public void testGetRequestURL() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("http");
+        request.setQueryString("decorator=blank");
+
+        assertEquals("http://localhost/california/?decorator=blank", UrlUtil.getRequestURL(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("https");
+        request.setQueryString("decorator=blank");
+        request.setServerPort(8080);
+
+        assertEquals("https://localhost:8080/california/?decorator=blank", UrlUtil.getRequestURL(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("http");
+        request.setQueryString("decorator=blank");
+        request.setServerPort(8080);
+
+        assertEquals("http://localhost:8080/california/?decorator=blank", UrlUtil.getRequestURL(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setRequestURI("/california/");
+        request.setScheme("https");
+        request.setQueryString("decorator=blank");
+        request.setServerPort(443);
+
+        assertEquals("https://localhost/california/?decorator=blank", UrlUtil.getRequestURL(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setAttribute("javax.servlet.forward.request_uri", "/california/");
+        request.setAttribute("javax.servlet.forward.query_string", "decorator=blank");
+        request.setRequestURI("/error404.jspx");
+        request.setScheme("https");
+        request.setQueryString("");
+        request.setServerPort(443);
+
+        assertEquals("https://localhost/california/?decorator=blank", UrlUtil.getRequestURL(request));
+
+        request = new GsMockHttpServletRequest();
+        request.setAttribute("javax.servlet.include.request_uri", "/california/");
+        request.setAttribute("javax.servlet.include.query_string", "decorator=blank");
+        request.setRequestURI("/error404.jspx");
+        request.setScheme("https");
+        request.setQueryString("");
+        request.setServerPort(443);
+
+        assertEquals("https://localhost/california/?decorator=blank", UrlUtil.getRequestURL(request));
     }
 }

@@ -9,7 +9,8 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          version="2.0" >
+          xmlns:pagination="pagination"
+          version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 <c:set var="pageName" value="${omnitureTopicCenterName} Worksheets" scope="request"/>
@@ -33,7 +34,14 @@
 
     <meta name="description" content="${not empty metaDescription ? metaDescription : topicCenter.metaDescription}"/>
     <meta name="keywords" content="${not empty metaKeywords ? metaKeywords : topicCenter.metaKeywords}"/>
-    
+    <link rel="canonical" href="${relCanonical}"/>
+    <c:if test="${!page.lastPage}">
+        <link rel="next" href="${pagination:recordPageInUrl(page.nextPage, fullUrl, 'offset')}"/>
+    </c:if>
+    <c:if test="${!page.firstPage}">
+        <link rel="prev" href="${pagination:recordPageInUrl(page.previousPage, fullUrl, 'offset')}"/>
+    </c:if>
+
     <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter2010.js"/>
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
     <pageHelper:externalJavascript file="/res/js/content/cms/worksheetGallery.js"/>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.116 2011/11/19 01:02:32 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.117 2011/11/29 00:06:10 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -161,6 +161,88 @@ public final class UrlUtil {
         }
 
         return queryString.toString();
+    }
+
+    /**
+     * Gets the host and path portion of the URL the client used when initiating the request, before any request
+     * dispatching has taken place.
+     * i.e. Handles includes and forwards, which HttpServletRequest.getRequestURL no longer does due to servlet spec
+     *
+     * e.g. https://www.greatschools.org:443/california/?decorator=none ==> https://www.greatschools.org/california/
+     *
+     * @param request
+     * @return
+     */
+    public static String getRequestHostAndPath(HttpServletRequest request) {
+
+        if (request == null) {
+            throw new IllegalArgumentException("Provided request was null");
+        }
+
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+
+        // handle forwards
+        String requestUri = (String)request.getAttribute("javax.servlet.forward.request_uri");
+
+        // handle includes
+        if (requestUri == null) {
+            requestUri = (String)request.getAttribute("javax.servlet.include.request_uri");
+        }
+
+        // handle default case
+        if (requestUri == null) {
+            requestUri = request.getRequestURI();
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(scheme);
+        buffer.append("://");
+        buffer.append(serverName);
+
+        //if not http:80 or https:443, then add the port number
+        if (
+            !(scheme.equalsIgnoreCase("http") && serverPort == 80) &&
+            !(scheme.equalsIgnoreCase("https") && serverPort == 443)
+        ) {
+            buffer.append(":").append(String.valueOf(serverPort));
+        }
+
+        buffer.append(requestUri);
+
+        return buffer.toString();
+    }
+
+    /**
+     * Gets the URL the client used when initiating the request, before any request dispatching has taken place.
+     * i.e. Handles includes and forwards, which HttpServletRequest.getRequestURL no longer does due to servlet spec
+     *
+     * @param request
+     * @return
+     */
+    public static String getRequestURL(HttpServletRequest request) {
+
+        String url = getRequestHostAndPath(request);
+
+        // handle forwards
+        String queryString = (String) request.getAttribute("javax.servlet.forward.query_string");
+
+        // handle includes
+        if (queryString == null) {
+            queryString = (String) request.getAttribute("javax.servlet.include.query_string");
+        }
+
+        // handle default case
+        if (queryString == null) {
+            queryString = request.getQueryString();
+        }
+
+        if (queryString != null) {
+            url = url + "?" + queryString;
+        }
+
+        return url;
     }
 
     /**

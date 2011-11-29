@@ -65,6 +65,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
     public static String REQUESTED_GRADE_NAME_KEY = "requestedGradeName";
     public static String REQUESTED_SUBJECT_NAME_KEY = "requestedSubjectName";
     public static String WORKSHEETS_PATH_KEY = "worksheetsPath";
+    public static final String REL_CANONICAL_KEY = "relCanonical";
 
     public static String GRADE_ID_REQUEST_PARAM = "gradeId";
     public static String SUBJECT_ID_REQUEST_PARAM = "subjectId";
@@ -407,6 +408,7 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         model.put(REQUESTED_GRADE_NAME_KEY,GRADE_CHOICES.get(requestedGrade));
         model.put(REQUESTED_SUBJECT_NAME_KEY,SUBJECT_CHOICES.get(requestedSubject));
         model.put(WORKSHEETS_PATH_KEY, WORKSHEETS_PATH);
+        model.put(REL_CANONICAL_KEY, getCanonicalUrl(request));
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if(requestedGradeId == null) {
@@ -454,6 +456,16 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         } else {
             model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
         }
+    }
+
+    public String getCanonicalUrl(HttpServletRequest request) {
+        String queryString = request.getQueryString();
+        queryString = UrlUtil.removeParamsFromQueryString(queryString, "requestType","decorator");
+        String url = UrlUtil.getRequestHostAndPath(request);
+        if (StringUtils.isNotBlank(queryString)) {
+            url+= "?" + queryString;
+        }
+        return url;
     }
 
     public static boolean isAjaxRequest(HttpServletRequest request) {

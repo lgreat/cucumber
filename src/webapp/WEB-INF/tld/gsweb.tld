@@ -299,6 +299,18 @@
         <function-signature>java.lang.String putQueryParamIntoUrl(java.lang.String,java.lang.String,java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>getRequestURL</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>java.lang.String getRequestURL(javax.servlet.http.HttpServletRequest)</function-signature>
+    </function>
+
+    <function>
+        <name>getRequestHostAndPath</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>java.lang.String getRequestHostAndPath(javax.servlet.http.HttpServletRequest)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
