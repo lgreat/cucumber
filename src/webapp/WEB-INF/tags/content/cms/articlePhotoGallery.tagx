@@ -19,7 +19,7 @@
     This enables us to have more than one on a given page."
                              type="java.lang.String"/>
 
-    <pageHelper:externalJavascript file="/res/js/content/cms/articlePhotoGallery.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/content/cms/articlePhotoGallery.js"/>-->
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
 
