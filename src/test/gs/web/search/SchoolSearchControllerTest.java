@@ -20,6 +20,7 @@ import gs.data.search.services.DistrictSearchService;
 import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.util.Address;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -33,6 +34,7 @@ import org.apache.lucene.document.Field;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static org.easymock.EasyMock.*;
@@ -913,6 +915,62 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         verify(_citySearchService);
         assertNotNull(s);
         assertEquals("Expecting exactly 2 results from the search.",2, s.size());
+    }
+
+    public void testGetRelCanonicalForSearchWithCity() {
+        String searchString = "Alameda";
+        HttpServletRequest request = new GsMockHttpServletRequest();
+        List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+        CitySearchResult result1 = new CitySearchResult();
+        result1.setCity("Alameda");
+        result1.setState(State.CA);
+        citySearchResults.add(result1);
+
+        String result = _controller.getRelCanonicalForSearch(request, searchString, State.CA, citySearchResults);
+
+        assertEquals(result, "http://localhost/california/alameda/");
+    }
+
+    public void testGetRelCanonicalForSearchWithStateOnly() {
+        HttpServletRequest request = new GsMockHttpServletRequest();
+        List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+        String searchString = "nonsense";
+
+        String result = _controller.getRelCanonicalForSearch(request, searchString, State.CA, citySearchResults);
+
+        assertEquals(result, "http://localhost/california/");
+    }
+
+    public void testGetRelCanonicalForDistrictBrowse() {
+        HttpServletRequest request = new GsMockHttpServletRequest();
+
+        Address address = new Address();
+        address.setCity("Alameda");
+
+        District district = new District();
+        district.setId(0);
+        district.setStateId(State.CA.getAbbreviationLowerCase());
+        district.setDatabaseState(State.CA);
+        district.setName("Alameda City Unified School District");
+        district.setPhysicalAddress(address);
+
+        String result = _controller.getRelCanonicalForDistrictBrowse(request, district);
+
+
+        assertEquals(result, "http://localhost/california/alameda/Alameda-City-Unified-School-District/schools/");
+    }
+
+    public void testGetRelCanonicalForCityBrowse() {
+        HttpServletRequest request = new GsMockHttpServletRequest();
+
+        City city = new City();
+        city.setName("Alameda");
+        city.setId(0);
+        city.setState(State.CA);
+
+        String result = _controller.getRelCanonicalForCityBrowse(request, city, State.CA);
+
+        assertEquals("http://localhost/california/alameda/schools/", result);
     }
 
 //    public void testGetExactCityMatch() {

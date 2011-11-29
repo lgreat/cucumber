@@ -405,9 +405,23 @@ public class SchoolSearchController extends AbstractCommandController implements
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
 
+        // determine the correct canonical URL based on if this controller is handling a string search that matches
+        // a city or not, and whether or not the controller is handling a city browse or district browse request
+        String relCanonicalUrl = null;
         if (state != null) {
-        model.put(MODEL_REL_CANONICAL,  getRelCanonical(request, state, citySearchResults, city, district,
-                                     filterGroups, levelCode, searchString));
+            if (StringUtils.isNotBlank(searchString)) {
+                relCanonicalUrl = getRelCanonicalForSearch(request, searchString, state, citySearchResults);
+            } else {
+                if (district != null) {
+                    relCanonicalUrl = getRelCanonicalForDistrictBrowse(request, district);
+                } else if (city != null) {
+                    relCanonicalUrl = getRelCanonicalForCityBrowse(request, city, state);
+               }
+            }
+
+            if (relCanonicalUrl != null) {
+                model.put(MODEL_REL_CANONICAL, relCanonicalUrl);
+            }
         }
 
         if (commandAndFields.isCityBrowse()) {
@@ -1044,9 +1058,35 @@ public class SchoolSearchController extends AbstractCommandController implements
     //-------------------------------------------------------------------------
     // rel canonical
     //-------------------------------------------------------------------------
+    protected String getRelCanonicalForDistrictBrowse(HttpServletRequest request, District district) {
+        if (request == null || district == null) {
+            throw new IllegalArgumentException("HttpServletRequest and District are required and cannot be null");
+        }
+        UrlBuilder urlBuilder = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
+        String url = urlBuilder.asFullUrl(request);
 
-    protected String getRelCanonical(HttpServletRequest request, State state, List<ICitySearchResult> citySearchResults, City city, District district,
-                                     List<FilterGroup> filterGroups, LevelCode levelCode, String searchString) {
+        return url;
+    }
+
+    protected String getRelCanonicalForCityBrowse(HttpServletRequest request, City city, State state) {
+        if (request == null || city == null || state == null) {
+            throw new IllegalArgumentException("request, city, and state are required and cannot be null");
+        }
+        HashSet<SchoolType> schoolTypeSet = new HashSet<SchoolType>(1);
+        schoolTypeSet.add(SchoolType.PUBLIC);
+        schoolTypeSet.add(SchoolType.CHARTER);
+        schoolTypeSet.add(SchoolType.PRIVATE);
+
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+                state,
+                city.getName(),
+                schoolTypeSet, null);
+        String url = urlBuilder.asFullUrl(request);
+
+        return url;
+    }
+
+    protected String getRelCanonicalForSearch(HttpServletRequest request, String searchString, State state, List<ICitySearchResult> citySearchResults) {
         if (request == null || state == null) {
             throw new IllegalArgumentException("Request and state must not be null");
         }
@@ -1077,41 +1117,25 @@ public class SchoolSearchController extends AbstractCommandController implements
                     _log.warn("Error determining state URL for canonical: " + e, e);
                 }
             }
+        }
+        return url;
+    }
+
+    protected String getRelCanonical(HttpServletRequest request, State state, List<ICitySearchResult> citySearchResults, City city, District district,
+                                     List<FilterGroup> filterGroups, LevelCode levelCode, String searchString) {
+        if (request == null || state == null) {
+            throw new IllegalArgumentException("Request and state must not be null");
+        }
+        String url = null;
+
+        if (StringUtils.isNotBlank(searchString) && state != null) {
+            url = getRelCanonicalForSearch(request, searchString, state, citySearchResults);
         } else {
-            // GS-10144, GS-10400 - browse pages
-
-            Set<SchoolFilters> filtersSet = new HashSet<SchoolFilters>();
-            if (filterGroups != null) {
-                for (FilterGroup filterGroup : filterGroups) {
-                    filtersSet.addAll(Arrays.asList(filterGroup.getFieldFilters()));
-                }
-            }
-
             if (district != null) {
-                // district browse
-                UrlBuilder urlBuilder = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
-                url = urlBuilder.asFullUrl(request) + (levelCode != null ? "?lc=" + levelCode : "");
+                url = getRelCanonicalForDistrictBrowse(request, district);
             } else if (city != null) {
-                // city browse
-                boolean publicSelected = filtersSet.contains(SchoolFilters.SchoolTypeFilter.PUBLIC);
-                boolean charterSelected = filtersSet.contains(SchoolFilters.SchoolTypeFilter.CHARTER);
-                boolean privateSelected = filtersSet.contains(SchoolFilters.SchoolTypeFilter.PRIVATE);
-
-                HashSet<SchoolType> schoolTypeSet = new HashSet<SchoolType>(1);
-                if (publicSelected && !charterSelected && !privateSelected) {
-                    schoolTypeSet.add(SchoolType.PUBLIC);
-                } else if (!publicSelected && charterSelected && !privateSelected) {
-                    schoolTypeSet.add(SchoolType.CHARTER);
-                } else if (!publicSelected && !charterSelected && privateSelected) {
-                    schoolTypeSet.add(SchoolType.PRIVATE);
-                }
-
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
-                        state,
-                        city.getName(),
-                        schoolTypeSet, levelCode);
-                url = urlBuilder.asFullUrl(request);
-            }
+                url = getRelCanonicalForCityBrowse(request, city, state);
+           }
         }
 
         return url;
