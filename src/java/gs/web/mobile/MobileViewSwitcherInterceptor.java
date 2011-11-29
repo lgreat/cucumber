@@ -18,17 +18,19 @@ public class MobileViewSwitcherInterceptor implements HandlerInterceptor {
 	}
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        boolean controllerHasMobileView = handler instanceof IControllerWithMobileView;
-        boolean mobileOnlyController = handler instanceof IMobileOnlyController;
-        boolean controllerHasDesktopView = !mobileOnlyController; //readability
-        boolean desktopOnlyController = !controllerHasMobileView; //readability
+        if (modelAndView != null && modelAndView.getModel() != null) {
+            boolean controllerHasMobileView = handler instanceof IControllerWithMobileView;
+            boolean mobileOnlyController = handler instanceof IMobileOnlyController;
+            boolean controllerHasDesktopView = !mobileOnlyController; //readability
+            boolean desktopOnlyController = !controllerHasMobileView; //readability
 
-        if (controllerHasMobileView) {
-            MobileHelper.switchToMobileViewIfNeeded(request, modelAndView);
+            if (controllerHasMobileView) {
+                MobileHelper.switchToMobileViewIfNeeded(request, modelAndView);
+            }
+
+            //TODO: move map key name elsewhere
+            modelAndView.getModel().put("hasMobileView", controllerHasMobileView);
         }
-
-        //TODO: move map key name elsewhere
-        modelAndView.getModel().put("hasMobileView", controllerHasMobileView);
     }
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
