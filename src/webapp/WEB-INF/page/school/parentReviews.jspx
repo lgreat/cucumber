@@ -31,7 +31,7 @@
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <c:set var="school" value="${cmd.school}"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-<c:choosee
+<c:choose>
     <c:when test="${stateAbbrev eq 'DC'}">
         <c:set var="addr" value="Washington, DC"/>
     </c:when>
