@@ -21,12 +21,9 @@
             width: 720px;
         }
         #districtListDiv {
-            height: 450px;
+            height: 350px;
             overflow-y: scroll;
             border: 1px solid;
-        }
-        #districtList {
-            list-style: disc inside;
         }
         #districtList li {
             margin-bottom: 3px;
@@ -36,6 +33,22 @@
             padding: 1px;
         }
         #districtList li.selected {
+            border: 1px solid red;
+            padding: 0;
+        }
+        #schoolListDiv {
+            height: 350px;
+            overflow-y: scroll;
+            border: 1px solid;
+        }
+        #schoolList li {
+            margin-bottom: 3px;
+            list-style: disc inside;
+            background-color: #ddd;
+            font-size: 12px;
+            padding: 1px;
+        }
+        #schoolList li.selected {
             border: 1px solid red;
             padding: 0;
         }
@@ -58,9 +71,10 @@
         GS.Boundaries.BoundaryHelper = function() {
             var districtBoundaryMap;
             var districtMarkers = new Array();
+            var schoolMarkers = new Array();
             var polygons = new Array();
             var stuffOnMap = {};
-            var selectedLocation = null;
+            var selectedDistrict = null;
 
             var MarkerWithBoundary = function() {
                 this.marker = null;
@@ -68,6 +82,7 @@
                 this.state = null;
                 this.id = null;
                 this.name = null;
+                this.rating = 0;
                 this.showOnLoad = false;
                 this.centerOnLoad = false;
                 this.centroid = {};
@@ -77,35 +92,33 @@
                     this.id = params.id;
                     this.name = params.name;
                 };
+                this.isDistrict = function() {return false;};
+                this.isSchool = function() {return false;};
                 this.isMarkerShown = function() {
                     return this.marker != null && this.marker.getMap() != null;
                 };
                 this.hideMarker = function() {
-                    if (this.isMarkerShown()) {
-                        this.marker.setMap(null);
-                    }
+                    this.marker.setMap(null);
+                };
+                this.showMarker = function() {
+                    this.marker.setMap(districtBoundaryMap);
                 };
                 this.hasPolygon = function() {
-                    return this.polygon !== null;
+                    return this.polygon != null;
                 };
                 this.isPolygonShown = function() {
                     return this.polygon != null && this.polygon.getMap() != null;
                 };
                 this.showPolygon = function() {
-                    $('#districtList li').removeClass("selected");
                     if (this.hasPolygon() && !this.isPolygonShown()) {
                         this.polygon.setMap(districtBoundaryMap);
-                        selectedLocation = this;
-                        $('#' + this.getKey()).addClass("selected");
-                        $('#currentlySelectedDistrict').html(this.name);
+                        this.showPolygonImpl();
                     }
                 };
                 this.hidePolygon = function() {
                     if (this.isPolygonShown()) {
-                        selectedLocation = null;
-                        $('#' + this.getKey()).removeClass("selected");
-                        $('#currentlySelectedDistrict').html('');
                         this.polygon.setMap(null);
+                        this.hidePolygonImpl();
                     }
                 };
                 this.togglePolygon = function() {
@@ -118,11 +131,36 @@
                 this.centerMap = function() {
                     if (typeof(this.centroid.lat) !== 'undefined' && typeof(this.centroid.lon) !== 'undefined') {
                         districtBoundaryMap.panTo(new google.maps.LatLng(this.centroid.lat, this.centroid.lon));
+                    } else if (this.isMarkerShown()) {
+                        districtBoundaryMap.panTo(this.marker.getPosition());
                     }
                 }
             };
             var DistrictWithBoundary = function(params) {
+                this.schools = new Array();
+
                 this.init(params);
+                this.loadSchools = function() {
+                    if (!this.hasSchools()) {
+                        getSchoolsForDistrictAjax(this.state, this.id, this.name);
+                    } else {
+                        this.showSchools();
+                    }
+                };
+                this.hasSchools = function() {
+                    return this.schools.length > 0;
+                };
+                this.showSchools = function() {
+                    updateSchoolList(this.schools);
+                    for (var x=0; x < this.schools.length; x++) {
+                        this.schools[x].showMarker();
+                    }
+                };
+                this.hideSchools = function() {
+                    for (var x=0; x < this.schools.length; x++) {
+                        this.schools[x].hideMarker();
+                    }
+                };
                 this.loadPolygon = function() {
                     if (!this.hasPolygon()) {
                         getDistrictBoundaryAjax(this.state, this.id, this.name);
@@ -136,9 +174,22 @@
                         this.showPolygon();
                     }
                 };
+                this.showPolygonImpl = function() {
+                    $('#districtList li').removeClass("selected");
+                    $('#' + this.getKey()).addClass("selected");
+                    selectedDistrict = this;
+                    $('#currentlySelectedDistrict').html(this.name);
+                };
+                this.hidePolygonImpl = function() {
+                    $('#' + this.getKey()).removeClass("selected");
+                    $('#currentlySelectedDistrict').html('');
+                    selectedDistrict = null;
+                    this.hideSchools();
+                };
                 this.getKey = function() {
                     return "district-" + this.state + "-" + this.id;
-                }
+                };
+                this.isDistrict = function() {return true;};
             };
             DistrictWithBoundary.prototype = new MarkerWithBoundary();
             var SchoolWithBoundary = function(params) {
@@ -147,11 +198,32 @@
                     if (this.hasPolygon()) {
                         this.showPolygon();
                     } else {
+                        // ?
                     }
+                };
+                this.loadPolygon = function() {
+                    if (!this.hasPolygon()) {
+                        getSchoolBoundaryAjax(this.state, this.id, this.name);
+                    }
+                };
+                this.loadAndShowPolygon = function() {
+                    if (!this.hasPolygon()) {
+                        this.showOnLoad = true;
+                        getSchoolBoundaryAjax(this.state, this.id, this.name);
+                    } else if (!this.isPolygonShown()) {
+                        this.showPolygon();
+                    }
+                };
+                this.showPolygonImpl = function() {
+                    $('#' + this.getKey()).addClass("selected");
+                };
+                this.hidePolygonImpl = function() {
+                    $('#' + this.getKey()).removeClass("selected");
                 };
                 this.getKey = function() {
                     return "school-" + this.state + "-" + this.id;
-                }
+                };
+                this.isSchool = function() {return true;};
             };
             SchoolWithBoundary.prototype = new MarkerWithBoundary();
 
@@ -189,6 +261,8 @@
                     thingOnMap.hidePolygon();
                     delete stuffOnMap[key];
                 }
+                $('#districtList').empty();
+                $('#schoolList').empty();
             };
             var getLocation = function(pos) {
                 var latitude = pos.coords.latitude;
@@ -217,7 +291,7 @@
                     districtOnMap.marker = districtMarker;
                     stuffOnMap["district-" + district.state + "-" + district.id] = districtOnMap;
 
-                    google.maps.event.addListener(districtMarker, 'click', createDistrictMarkerClickListener(district));
+                    google.maps.event.addListener(districtMarker, 'click', createDistrictMarkerClickListener(districtOnMap));
                 }
                 if (setBounds) {
                     // only change zoom if it is the initial load
@@ -240,15 +314,33 @@
                     }
                 }
             };
+            var getSchoolBoundarySuccess = function(data) {
+                var schoolOnMap = stuffOnMap["school-" + data.state + "-" + data.id];
+                if (schoolOnMap.isPolygonShown()) {
+                    schoolOnMap.hidePolygon()
+                }
+                schoolOnMap.polygon = createGeoJsonPolygon(data, '#66461F', '#78FF00');
+                if (schoolOnMap.showOnLoad === true) {
+                    schoolOnMap.showPolygon();
+                }
+                if (typeof(data.centroid) !== 'undefined') {
+                    schoolOnMap.centroid = {lat: data.centroid.lat, lon: data.centroid.lon};
+                    if (schoolOnMap.centerOnLoad === true) {
+                        schoolOnMap.centerMap();
+                    }
+                }
+            };
             var getSchoolBoundariesSuccess = function(data) {
                 if (data.schoolBoundaries.length == 0) {
                     alert("No school attendance zones found");
                 }
+                try {
+
                 for (var x=0; x < data.schoolBoundaries.length; x++) {
                     var schoolBoundary = data.schoolBoundaries[x];
-                    var key = "school-" + schoolBoundary.state + "-" + schoolBoundary.schoolId;
+                    var key = "school-" + schoolBoundary.state + "-" + schoolBoundary.id;
                     if (typeof(stuffOnMap[key]) === 'undefined') {
-                        stuffOnMap[key] = new SchoolWithBoundary({state:schoolBoundary.state, id:schoolBoundary.schoolId});
+                        stuffOnMap[key] = new SchoolWithBoundary({state:schoolBoundary.state, id:schoolBoundary.id, name:schoolBoundary.name});
                     } else {
                         console.log("Duplicate school key: " + key);
                         stuffOnMap[key].hidePolygon();
@@ -256,6 +348,32 @@
                     stuffOnMap[key].polygon = createGeoJsonPolygon(schoolBoundary, '#66461F', '#78FF00');
                     stuffOnMap[key].showPolygon();
                 }
+                } catch (e) {
+                    alert("Error:" + e + "; " + e.message);
+                }
+            };
+            var getSchoolsSuccess = function(data) {
+                if (data.schools.length == 0) {
+                    alert("No schools found");
+                }
+                var districtKey = "district-" + data.state + "-" + data.districtId;
+                var district = stuffOnMap[districtKey];
+                for (var x=0; x < data.schools.length; x++) {
+                    var school = data.schools[x];
+                    var key = "school-" + school.state + "-" + school.id;
+                    if (typeof(stuffOnMap[key]) === 'undefined') {
+                        stuffOnMap[key] = new SchoolWithBoundary({state:school.state, id:school.id, name:school.name});
+                    } else {
+                        console.log("Duplicate school key: " + key);
+                    }
+                    var schoolMarker = createSchoolMarker(school);
+                    schoolMarker.setMap(districtBoundaryMap);
+                    schoolMarkers.push(schoolMarker);
+                    stuffOnMap[key].marker = schoolMarker;
+                    district.schools.push(stuffOnMap[key]);
+                    google.maps.event.addListener(schoolMarker, 'click', createSchoolMarkerClickListener(stuffOnMap[key]));
+                }
+                updateSchoolList(data.schools);
             };
             var getDistrictBoundaryAjax = function(state, id, name) {
                 jQuery.getJSON(
@@ -264,6 +382,19 @@
                 ).success(getDistrictBoundarySuccess
                 ).error(function() {
                     alert("Error fetching district boundary: " + name + " (" + state + ":" + id + ")");
+                });
+            };
+            var getSchoolBoundaryAjax = function(state, id, name) {
+                jQuery.getJSON(
+                        "/geo/boundary/ajax/getSchoolBoundary.page",
+                        {state:state, id:id, level:$('.js_mapLevelCode:checked').val()}
+                ).success(getSchoolBoundarySuccess
+                ).error(function(event) {
+                    if (event.status == 404) {
+                        alert("No school boundary found: " + name + " (" + state + ":" + id + ")");
+                    } else {
+                        alert("Error fetching school boundary: " + name + " (" + state + ":" + id + ")");
+                    }
                 });
             };
             var getSchoolBoundariesForDistrictAjax = function(state, id, name) {
@@ -275,19 +406,44 @@
                     alert("Error fetching school boundaries for district: " + name + " (" + state + ":" + id + ")");
                 });
             };
-            var createDistrictMarkerClickListener = function(district) {
+            var getSchoolsForDistrictAjax = function(state, id, name) {
+                jQuery.getJSON(
+                        "/geo/boundary/ajax/getSchoolsForDistrict.page",
+                        {state:state, districtId:id, level:$('.js_mapLevelCode:checked').val()}
+                ).success(getSchoolsSuccess
+                ).error(function() {
+                    alert("Error fetching school list for district: " + name + " (" + state + ":" + id + ")");
+                });
+            };
+            var createDistrictMarkerClickListener = function(districtOnMap) {
                 return function() {
-                    var districtOnMap = stuffOnMap["district-" + district.state + "-" + district.id];
-                    if (districtOnMap.isPolygonShown()) {
-                        hideAllPolygons();
-                    } else if (districtOnMap.hasPolygon()) {
-                        hideAllPolygons();
-                        districtOnMap.showPolygon();
-                    } else {
-                        hideAllPolygons();
-                        districtOnMap.loadAndShowPolygon();
-                    }
+                    districtClickHandler(districtOnMap);
                 };
+            };
+            var createSchoolMarkerClickListener = function(schoolOnMap) {
+                return function() {
+                    schoolClickHandler(schoolOnMap);
+                };
+            };
+            var districtClickHandler = function(district) {
+                district.centerOnLoad = true;
+                if (!district.isPolygonShown()) {
+                    hideAllPolygons();
+                    district.loadAndShowPolygon();
+                    district.loadSchools();
+                }
+                district.centerMap();
+            };
+            var schoolClickHandler = function(school) {
+                school.centerOnLoad = true;
+                if (!school.isPolygonShown()) {
+                    if (school.hasPolygon()) {
+                        school.centerMap();
+                    }
+                    school.loadAndShowPolygon();
+                } else {
+                    school.hidePolygon();
+                }
             };
             var hideAllPolygons = function() {
                 for (var key in stuffOnMap) {
@@ -320,6 +476,30 @@
                         ({
                              position: new google.maps.LatLng(district.lat, district.lon),
                              title:district.name,
+                             icon:markerImage,
+                             shadow:markerShadow,
+                             shape:markerShape
+                         });
+            };
+            var createSchoolMarker = function(school) {
+                var icon = '/res/img/map/GS_gsr_na_forground.png';
+                if (school.rating > 0 && school.rating < 11) {
+                    icon = '/res/img/map/GS_gsr_' + school.rating + '_forground.png';
+                }
+                var markerImage = new google.maps.MarkerImage(icon, new google.maps.Size(40,40),
+                                                              new google.maps.Point(0,0), new google.maps.Point(11,34));
+                var markerShadow = new google.maps.MarkerImage('/res/img/map/GS_gsr_1_backgroundshadow.png',
+                                                               new google.maps.Size(40, 40),
+                                                               new google.maps.Point(0, 0),
+                                                               new google.maps.Point(11, 34));
+                var markerShape = {
+                    coord: [0, 0, 30, 0, 30, 37, 0, 37],
+                    type: 'poly'
+                };
+                return new google.maps.Marker
+                        ({
+                             position: new google.maps.LatLng(school.lat, school.lon),
+                             title:school.name,
                              icon:markerImage,
                              shadow:markerShadow,
                              shape:markerShape
@@ -385,7 +565,28 @@
                     districtListDiv.append(li);
                 }
             };
-
+            var updateSchoolList = function(schools) {
+                var schoolListDiv = $('#schoolList');
+                schoolListDiv.empty();
+                // sort on school rating
+                // TODO
+                for (var schoolIndex = 0; schoolIndex < schools.length; schoolIndex++) {
+                    var school = schools[schoolIndex];
+                    var schoolKey = "school-" + school.state + "-" + school.id;
+                    var schoolRating = 'na';
+                    var li = '<li id="' + schoolKey + '">' + school.name + ' ';
+                    li += '<span class="sprite badge_sm_';
+                    if (school.rating > 0 && school.rating < 11) {
+                        li += school.rating
+                    } else {
+                        li += 'na'
+                    }
+                    li += '_b';
+                    li += '"><!-- do not collapse --></span>';
+                    li += '</li>';
+                    schoolListDiv.append(li);
+                }
+            };
             jQuery(function () {
                 try {
                     var params = getUrlVars();
@@ -399,58 +600,47 @@
                 }
 
                 $('#js_reloadMap').click(function() {
-                    if (districtBoundaryMap !== undefined) {
-                        clearMap();
-                        loadDistrictMap(districtBoundaryMap.getCenter().lat(),
-                                        districtBoundaryMap.getCenter().lng());
-                    }
+                    clearMap();
+                    loadDistrictMap(districtBoundaryMap.getCenter().lat(),
+                                    districtBoundaryMap.getCenter().lng());
                 });
                 $('#js_drawAllDistricts').click(function() {
-                    if (districtBoundaryMap !== undefined) {
-                        for (var key in stuffOnMap) {
-                            stuffOnMap[key].loadAndShowPolygon();
-                        }
+                    for (var key in stuffOnMap) {
+                        stuffOnMap[key].loadAndShowPolygon();
                     }
                 });
                 $('#js_drawAllDistrictsAndSAZ').click(function() {
-                    if (districtBoundaryMap !== undefined) {
-                        for (var key in stuffOnMap) {
-                            if (key.indexOf('district') === 0) {
-                                stuffOnMap[key].loadAndShowPolygon();
-                                getSchoolBoundariesForDistrictAjax(stuffOnMap[key].state, stuffOnMap[key].id, stuffOnMap[key].name);
-                            }
+                    for (var key in stuffOnMap) {
+                        if (key.indexOf('district') === 0) {
+                            stuffOnMap[key].loadAndShowPolygon();
+                            getSchoolBoundariesForDistrictAjax(stuffOnMap[key].state, stuffOnMap[key].id, stuffOnMap[key].name);
                         }
                     }
                 });
                 $('#js_drawContainingDistrict').click(function() {
-                    if (districtBoundaryMap !== undefined) {
-                        loadDistrictAroundPoint(districtBoundaryMap.getCenter().lat(),
-                                                districtBoundaryMap.getCenter().lng());
-                    }
+                    loadDistrictAroundPoint(districtBoundaryMap.getCenter().lat(),
+                                            districtBoundaryMap.getCenter().lng());
                 });
                 $('#js_getSAZ').click(function() {
-                    if (selectedLocation != null) {
-                        getSchoolBoundariesForDistrictAjax(selectedLocation.state, selectedLocation.id, selectedLocation.name);
+                    if (selectedDistrict != null) {
+                        getSchoolBoundariesForDistrictAjax(selectedDistrict.state, selectedDistrict.id, selectedDistrict.name);
                     }
                 });
                 $('.js_mapLevelCode').change(function() {
-                    if (districtBoundaryMap !== undefined) {
-                        clearMap();
-                        loadDistrictMap(districtBoundaryMap.getCenter().lat(),
-                                        districtBoundaryMap.getCenter().lng());
-                    }
+                    clearMap();
+                    loadDistrictMap(districtBoundaryMap.getCenter().lat(),
+                                    districtBoundaryMap.getCenter().lng());
                 });
                 $('#districtList').delegate("li", "click", function() {
                     var key = $(this).attr('id');
                     if (stuffOnMap[key] !== undefined) {
-                        stuffOnMap[key].centerOnLoad = true;
-                        if (stuffOnMap[key].isPolygonShown()) {
-                            stuffOnMap[key].centerMap();
-                        } else {
-                            hideAllPolygons();
-                            stuffOnMap[key].loadAndShowPolygon();
-                            stuffOnMap[key].centerMap();
-                        }
+                        districtClickHandler(stuffOnMap[key]);
+                    }
+                });
+                $('#schoolList').delegate("li", "click", function() {
+                    var key = $(this).attr('id');
+                    if (stuffOnMap[key] !== undefined) {
+                        schoolClickHandler(stuffOnMap[key]);
                     }
                 });
             });
@@ -468,7 +658,10 @@
             <ul id="districtList"><!-- not empty --></ul>
         </div>
         <div>Currently selected district: <span id="currentlySelectedDistrict"><!-- no collapse --></span></div>
-        <button name="getSAZ" id="js_getSAZ">Load SAZ for selected district</button>
+        <div id="schoolListDiv">
+            Schools:
+            <ul id="schoolList"><!-- not empty --></ul>
+        </div>
     </div>
     <div class="rightSide fltrt">
         <div class="">
@@ -479,7 +672,8 @@
         <div id="map-canvas"><!-- no collapse --></div>
         <button name="reload" id="js_reloadMap">Reload at this location</button>
         <button name="drawAllDistricts" id="js_drawAllDistricts">Debug: Draw all districts</button>
-        <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ">Debug: Draw all districts and SAZ</button>
+        <button name="getSAZ" id="js_getSAZ">Debug: Load SAZ for selected district</button>
+        <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ">Debug: Draw all districts and SAZ (Warning!)</button>
         <button name="drawContainingDistrict" id="js_drawContainingDistrict">Debug: Draw Containing District</button>
     </div>
 </gsml:body>

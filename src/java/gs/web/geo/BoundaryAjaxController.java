@@ -30,7 +30,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.org>
@@ -64,6 +66,27 @@ public class BoundaryAjaxController {
             try {
                 response.setContentType("application/json");
                 response.getWriter().write(districtBoundary.toJson());
+            } catch (Exception e) {
+                _log.error("Error parsing geometry:" + e, e);
+                response.setStatus(500);
+            }
+        } else {
+            response.setStatus(404);
+        }
+    }
+
+    @RequestMapping(value="getSchoolBoundary.page", method=RequestMethod.GET)
+    public void getSchoolBoundary(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        State state = State.fromString(request.getParameter("state"));
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
+        SchoolBoundary schoolBoundary = _schoolBoundaryDao.getSchoolBoundaryByGSId(state, id, schoolLevel);
+        if (schoolBoundary != null) {
+            School school = _schoolDao.getSchoolById(state, id);
+            schoolBoundary.setSchool(school);
+            try {
+                response.setContentType("application/json");
+                response.getWriter().write(schoolBoundary.toJson());
             } catch (Exception e) {
                 _log.error("Error parsing geometry:" + e, e);
                 response.setStatus(500);
@@ -146,6 +169,41 @@ public class BoundaryAjaxController {
         }
     }
 
+    @RequestMapping(value="getSchoolsForDistrict.page", method=RequestMethod.GET)
+    public void getSchoolsForDistrict(HttpServletRequest request,
+                                      HttpServletResponse response) throws IOException, JSONException {
+        response.setContentType("application/json");
+        State state = State.fromString(request.getParameter("state"));
+        Integer districtId = Integer.valueOf(request.getParameter("districtId"));
+        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
+
+        JSONObject rval = new JSONObject();
+
+        District district = _districtDao.findDistrictById(state, districtId);
+        if (district != null) {
+            rval.put("districtName", district.getName());
+            rval.put("districtId", districtId);
+            rval.put("state", state);
+
+            List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
+
+            JSONArray array = new JSONArray();
+            if (schools != null && schools.size() > 0) {
+                for (School s: schools) {
+                    JSONObject schoolInfo = new JSONObject();
+                    schoolInfo.put("name", s.getName());
+                    schoolInfo.put("id", s.getId());
+                    schoolInfo.put("lat", s.getLat());
+                    schoolInfo.put("lon", s.getLon());
+                    schoolInfo.put("state", s.getDatabaseState());
+                    array.put(schoolInfo);
+                }
+            }
+            rval.put("schools", array);
+        }
+        rval.write(response.getWriter());
+    }
+
     @RequestMapping(value="getSchoolBoundariesForDistrict.page", method=RequestMethod.GET)
     public void getSchoolBoundariesForDistrict(HttpServletRequest request,
                                                HttpServletResponse response) throws IOException, JSONException {
@@ -155,27 +213,51 @@ public class BoundaryAjaxController {
         Integer districtId = Integer.valueOf(request.getParameter("districtId"));
         LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
 
-        long dbStart = System.currentTimeMillis();
-        List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
-        long dbEnd = System.currentTimeMillis();
-        long sazStart = 0;
-        long sazEnd = 0;
-        if (schools != null && schools.size() > 0) {
-            sazStart = System.currentTimeMillis();
-            List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundaries(schools, schoolLevel);
-            sazEnd = System.currentTimeMillis();
-            System.out.println("    (" + districtId + ") Of " + schools.size() + " schools in DB, " + schoolBoundaries.size() + " have SAZ info");
+        District district = _districtDao.findDistrictById(state, districtId);
+        if (district != null) {
             JSONObject rval = new JSONObject();
-            JSONArray array = new JSONArray();
-            for (SchoolBoundary schoolBoundary: schoolBoundaries) {
-                array.put(schoolBoundary.toJsonObject());
+            rval.put("districtName", district.getName());
+            rval.put("districtId", districtId);
+            rval.put("state", state);
+
+            long dbStart = System.currentTimeMillis();
+            List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
+            long dbEnd = System.currentTimeMillis();
+            long sazStart = 0;
+            long sazEnd = 0;
+            if (schools.size() > 0) {
+                Map<Integer, SchoolBoundary> idSchoolBoundaryMap = new HashMap<Integer, SchoolBoundary>(schools.size());
+                sazStart = System.currentTimeMillis();
+                List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundaries(schools, schoolLevel);
+                sazEnd = System.currentTimeMillis();
+                System.out.println("    (" + districtId + ") Of " + schools.size() + " schools in DB, " + schoolBoundaries.size() + " have SAZ info");
+                for (SchoolBoundary boundary: schoolBoundaries) {
+                    idSchoolBoundaryMap.put(boundary.getSchoolId(), boundary);
+                }
+                JSONArray array = new JSONArray();
+                for (School s: schools) {
+                    SchoolBoundary boundary = idSchoolBoundaryMap.get(s.getId());
+                    JSONObject schoolInfo;
+                    if (boundary != null) {
+                        schoolInfo = boundary.toJsonObject();
+                    } else {
+                        schoolInfo = new JSONObject();
+                        schoolInfo.put("coordinates", new JSONObject());
+                    }
+                    schoolInfo.put("name", s.getName());
+                    schoolInfo.put("id", s.getId());
+                    schoolInfo.put("lat", s.getLat());
+                    schoolInfo.put("lon", s.getLon());
+                    schoolInfo.put("state", s.getDatabaseState());
+                    array.put(schoolInfo);
+                }
+                rval.put("schoolBoundaries", array);
             }
-            rval.put("schoolBoundaries", array);
             rval.write(response.getWriter());
+            System.out.println("    (" + districtId + ") getSchoolBoundariesForDistrict took " + (System.currentTimeMillis()-start) + " ms");
+            System.out.println("      (" + districtId + ") DB took " + (dbEnd-dbStart) + " ms");
+            System.out.println("      (" + districtId + ") SAZ took " + (sazEnd-sazStart) + " ms");
         }
-        System.out.println("    getSchoolBoundariesForDistrict(" + districtId + ") took " + (System.currentTimeMillis()-start) + " ms");
-        System.out.println("      (" + districtId + ") DB took " + (dbEnd-dbStart) + " ms");
-        System.out.println("      (" + districtId + ") SAZ took " + (sazEnd-sazStart) + " ms");
     }
 
 
