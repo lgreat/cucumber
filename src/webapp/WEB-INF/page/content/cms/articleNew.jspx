@@ -430,7 +430,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 <input type="hidden" id="isShowNlSubHover" value="${isShowNlSubHover}"/>
 <c:if test="${showPhotoGallery}">
     <cms:articlePhotoGallery cssClass="js-photo-gallery-trigger" smallImages="${smallPhotos}" largeImages="${largePhotos}"
-                             altTexts="${altTexts}" prefix="article"/>
+                             altTexts="${altTexts}" prefix="article" photoCaptions="${photoCaptions}"/>
 </c:if>
 
 <div id="fade" class="black_overlay"><!-- do not collapse --></div>
