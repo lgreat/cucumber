@@ -106,6 +106,10 @@
         <c:out value="${ad300x250}" escapeXml="false"/>
     </c:if>
 
+    <c:if test="${topicCenter.collegeTopicCenter}">
+        <promo:collegeResources/>
+    </c:if>
+
 
     <c:if test="${!(topicCenter.preschoolTopicCenter or topicCenter.elementarySchoolTopicCenter or topicCenter.elementaryGradeTopicCenter or  topicCenter.middleSchoolTopicCenter or topicCenter.highSchoolTopicCenter)}">
         <jsp:include page="/promo/emailSignUp.module"/>
