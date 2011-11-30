@@ -215,7 +215,7 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
 
         Object currentPage = mAndV.getModel().get("currentPage");
         assertNotNull("Expect current article page to be injected into model", currentPage);
-        assertEquals("<p>first</p><p>second</p><div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div><p>sidebar</p><div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div><p>third</p>", currentPage);
+        assertEquals("<p>first</p><p>second</p><p>third</p>", currentPage);
     }
 
     public void testInsertCurrentPageIntoModelNoSidebar() {
@@ -371,86 +371,6 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         assertNotNull("Expect current article page to be injected into model", currentPage);
         assertEquals("First pageSecond page", currentPage);
 
-    }
-
-    public void testInsertSidebarIntoPageSinglePageThreeParagraphBody() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p><p>second</p><p>third</p>");
-        feature.setSidebar("<p>sidebar</p>");
-        feature.setCurrentPageNum(-1); // single page view
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>first</p><p>second</p><div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div><p>sidebar</p><div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div><p>third</p>", currentPage);
-    }
-
-    public void testInsertSidebarIntoPageSinglePageTwoParagraphBody() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p><p>second</p>");
-        feature.setSidebar("<p>sidebar</p>");
-        feature.setCurrentPageNum(-1); // single page view
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>first</p><p>second</p><div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div><p>sidebar</p><div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div>", currentPage);
-    }
-
-    public void testInsertSidebarIntoPageSinglePageLessThanTwoParagraphBody() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p>");
-        feature.setSidebar("<p>sidebar</p>");
-        feature.setCurrentPageNum(-1); // single page view
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>first</p><div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div><p>sidebar</p><div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div>", currentPage);
-    }
-
-    public void testInsertSidebarIntoPageFirstPage() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p><p>second</p><p>third</p><hr class=\"page-break\"/><p>pg2-first</p>");
-        feature.setSidebar("<p>sidebar</p>");
-        feature.setCurrentPageNum(1);
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>first</p><p>second</p><div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div><p>sidebar</p><div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div><p>third</p>", currentPage);
-    }
-
-    public void testInsertSidebarIntoPageSecondPage() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p><p>second</p><p>third</p><hr class=\"page-break\"/><p>pg2-first</p>");
-        feature.setSidebar("<p>sidebar</p>");
-        feature.setCurrentPageNum(2);
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>pg2-first</p>", currentPage);
-    }
-
-    public void testInsertSidebarIntoPageFirstPageOneParagraphAndHasSecondPage() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p><hr class=\"page-break\"/><p>pg2-first</p>");
-        feature.setSidebar("<p>sidebar</p>");
-        feature.setCurrentPageNum(1);
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>first</p><div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div><p>sidebar</p><div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div>", currentPage);
-    }
-
-    public void testInsertSidebarIntoPageMultiPageThreeParagraphsTotal() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p><hr class=\"page-break\"/><p>pg2-first</p><p>pg2-second</p><p>pg2-third</p>");
-        feature.setSidebar("<p>sidebar</p>");
-        feature.setCurrentPageNum(-1); // single page view
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>first</p><p>pg2-first</p><div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div><p>sidebar</p><div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div><p>pg2-second</p><p>pg2-third</p>", currentPage);
-    }
-
-    public void testInsertSidebarIntoPageNoSidebar() {
-        CmsFeature feature = getSampleFeature();
-        feature.setBody("<p>first</p><hr class=\"page-break\"/><p>pg2-first</p><p>pg2-second</p><p>pg2-third</p>");
-        feature.setSidebar(null);
-        feature.setCurrentPageNum(-1); // single page view
-
-        String currentPage = _controller.insertSidebarIntoPage(feature.getCurrentPage(), feature);
-        assertEquals("<p>first</p><p>pg2-first</p><p>pg2-second</p><p>pg2-third</p>", currentPage);
     }
 
     public void testAdKeywords() {
