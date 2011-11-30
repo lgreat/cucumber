@@ -59,10 +59,11 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
 	}
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
-        RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+        if (modelAndView != null && modelAndView.getModel() != null) {
+            RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
 
-        modelAndView.getModel().put(sitePreferenceUrlForAlternateSite, requestInfo.getSitePreferenceUrlForAlternateSite());
-
+            modelAndView.getModel().put(sitePreferenceUrlForAlternateSite, requestInfo.getSitePreferenceUrlForAlternateSite());
+        }
     }
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
