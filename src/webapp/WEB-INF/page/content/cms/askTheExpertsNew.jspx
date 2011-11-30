@@ -4,7 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
@@ -14,9 +13,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+          version="2.0">
 <jsp:directive.page import="gs.web.util.CookieUtil"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <html lang="en">
@@ -43,24 +40,6 @@
           content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
 
     <meta name="keywords" content="${feature.metaKeywords}"/>
-    <!--<pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>-->
-    <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
-    <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
-    <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
-
-    <!-- GS-11430 -->
-    <c:if test="${showCompanionAd}">
-        <script type="text/javascript" src="http://objects.tremormedia.com/embed/js/banners.js">
-            // i had to put something here to avoid the tag collapsing which breaks the ad
-        </script>
-        <script type="text/javascript">
-            function displayCompanionBanners(banners) {
-                tmDisplayBanner(banners, "adCompanionBanner", 300, 250);
-                jQuery('#squareadvert').hide();
-                jQuery(".ad .adCompanionHeader").show();
-            }
-        </script>
-    </c:if>
 
     <k12:trafficDriverIncludes/>
 </head>
@@ -270,92 +249,45 @@
 
 </div>
 
-<c:set var="pageName" value=""/>
-<c:set var="hier1" value=""/>
 <c:set var="pageName" value="Ask the Experts"/>
 <c:set var="hier1" value="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"/>
 
 <div id="rightColumn">
-    <c:choose>
-        <!--
-            GS-8341: Initial implementation
-            GS-8538: Removal of code. This block is currently not triggered, but I'm leaving it
-                     in so that it will automatically work if the model is updated.
-         -->
-        <c:when test="${not empty requestScope.targetSupplyItems}">
-            <pageHelper:externalJavascript file="/res/js/fixedElement.js"/>
-            <pageHelper:addOnLoadHandler handler="fixedMenu.init('targetList', 'targetContainer', 'main');"/>
-            <pageHelper:externalCss file="/res/css/content/targetSupplyList.css"/>
+    <div id="squareadvert">
+        <ad:AboveFold_300x250/>
+    </div>
+    <!-- GS-11430 -->
+    <c:if test="${showCompanionAd}">
+        <div class="ad">
+            <span class="jq-ghostText adCompanionHeader" style="display:none;">ADVERTISEMENT</span>
 
-            <div id="targetContainer">
-                <div id="targetList" style="
-                    right:0;
-                    top:10px;">
-                    <img class="targetLogo"
-                         src="/res/img/promo/target/targetLogo.gif" alt="Target Logo"/>
+            <div id="adCompanionBanner"><!-- don't collapse --></div>
+        </div>
+    </c:if>
 
-                    <h2>Find everything on your school list at Target</h2>
-                    <c:forEach items="${requestScope.targetSupplyItems}" var="targetSupplyItem">
-                        <div class="targetSupplyItem">
-                            <img src="/res/img/promo/target/${targetSupplyItem.imageName}.jpg"
-                                 alt="${targetSupplyItem.text}" height="75" width="75"/>
-                            <a href="${targetSupplyItem.link}" target="target">${targetSupplyItem.text}</a>
-                        </div>
-                    </c:forEach>
-                    <a id="targetSearchMore" target="target"
-                       href="http://ad.doubleclick.net/clk;216461280;38927400;c?http://www.target.com/b/?node=1041972&amp;amp;ref=tgt_adv_XCGS3638&amp;amp;afid=d_greatschools&amp;amp;cpng=bts09&amp;amp;PlaceID=38927400&amp;amp;CreateID=31327056">Search more school supplies at Target &amp;raquo;</a>
-                    <![CDATA[
-                        <script language='JavaScript1.1'
-                                src="http://ad.doubleclick.net/adj/N3550.GreatSchools/B3776842.7;sz=1x1;ord=%n?">
-                        </script>
-                        <noscript>
-                            <a href="http://ad.doubleclick.net/jump/N3550.GreatSchools/B3776842.7;sz=1x1;ord=%n?">
-                            <img src="http://ad.doubleclick.net/ad/N3550.GreatSchools/B3776842.7;sz=1x1;ord=%n?"
-                                 border="0" width="1" height="1" alt="Click Here"></a>
-                        </noscript>
-                    ]]>
-                </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div id="squareadvert">
-                <ad:AboveFold_300x250/>
-            </div>
-            <!-- GS-11430 -->
-            <c:if test="${showCompanionAd}">
-                <div class="ad">
-                    <span class="jq-ghostText adCompanionHeader" style="display:none;">ADVERTISEMENT</span>
-
-                    <div id="adCompanionBanner"><!-- don't collapse --></div>
-                </div>
-            </c:if>
-
-            <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
+    <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
                     feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
 
-            <c:set var="ckid" value="${feature.contentKey.identifier}"/>
-            <c:if test="${ckid eq 2331 or ckid eq 2287 or ckid eq 2272 or ckid eq 2315 or ckid eq 2324 or ckid eq 2334 or ckid eq 2335 or ckid eq 2336 or ckid eq 2337 or ckid eq 2338 }">
-                <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE"
-                                           showAdPct="0"/>
-            </c:if>
+    <c:set var="ckid" value="${feature.contentKey.identifier}"/>
+    <c:if test="${ckid eq 2331 or ckid eq 2287 or ckid eq 2272 or ckid eq 2315 or ckid eq 2324 or ckid eq 2334 or ckid eq 2335 or ckid eq 2336 or ckid eq 2337 or ckid eq 2338 }">
+        <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE"
+                                   showAdPct="0"/>
+    </c:if>
 
-            <jsp:include page="/promo/emailSignUp.module"/>
+    <jsp:include page="/promo/emailSignUp.module"/>
 
-            <div id="articleBottomRightAd">
-                <c:choose>
-                    <c:when test="${type eq 'articleSlideshow'}">
-                        <ad:BelowFold_Top_300x125/>
-                    </c:when>
-                    <c:otherwise>
-                        <gsweb:adTagGenerator position="BelowFold2_300x250">
-                            <span class="jq-ghostText">ADVERTISEMENT</span>$AD
-                        </gsweb:adTagGenerator>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-        </c:otherwise>
-    </c:choose>
+    <div id="articleBottomRightAd">
+        <c:choose>
+            <c:when test="${type eq 'articleSlideshow'}">
+                <ad:BelowFold_Top_300x125/>
+            </c:when>
+            <c:otherwise>
+                <gsweb:adTagGenerator position="BelowFold2_300x250">
+                    <span class="jq-ghostText">ADVERTISEMENT</span>$AD
+                </gsweb:adTagGenerator>
+            </c:otherwise>
+        </c:choose>
+    </div>
 </div>
 
 
