@@ -127,6 +127,10 @@ public class RequestInfo {
     public String getHostnameForTargetSubdomain(Subdomain targetSubdomain) {
         String newHostname = _hostname;
 
+        if (targetSubdomain == null) {
+            return _hostname;
+        }
+
         if (!isCobranded() && !_hostname.startsWith(String.valueOf(targetSubdomain) + ".")) {
             if ((targetSubdomain == null || targetSubdomain.equals(Subdomain.WWW))) {
                 if (!isProductionHostname()) {

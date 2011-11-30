@@ -103,6 +103,19 @@ public class RequestInfoTest {
         // www.localhost.com will be detected as developer workstation and so pk subdomain won't be applied.
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.localhost.com"));
         assertEquals("www.localhost.com", hostnameInfo.getHostnameForTargetSubdomain(Subdomain.PK));
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("dev.greatschools.org"));
+        assertEquals("dev.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(null));
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("www.greatschools.org"));
+        assertEquals("www.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(null));
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("greatschools.org"));
+        assertEquals("greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(null));
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("localhost"));
+        assertEquals("localhost", hostnameInfo.getHostnameForTargetSubdomain(null));
+
     }
 
     @Test
