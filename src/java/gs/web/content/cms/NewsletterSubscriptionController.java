@@ -3,6 +3,7 @@ package gs.web.content.cms;
 import gs.data.community.*;
 import gs.data.json.JSONObject;
 import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.util.ExactTargetUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -42,6 +43,8 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             boolean isSubscribedToParentAdvisor = false;
             boolean isSubscribedToSponsorOptIn = false;
             boolean shouldSendVerificationEmail = false;
+            boolean addedParentAdvisorSubscription = false;
+            boolean addedSponsorOptInSubscription = false;
             List subscriptions = new ArrayList();
 
             if (user != null) {
@@ -61,9 +64,11 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
 
                     if (!isSubscribedToParentAdvisor) {
                         addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
+                        addedParentAdvisorSubscription = true;
                     }
                     if (nlSubCmd.isPartnerNewsletter() && !isSubscribedToSponsorOptIn) {
                         addSubscription(subscriptions, user, SubscriptionProduct.SPONSOR_OPT_IN);
+                        addedSponsorOptInSubscription = true;
 
                     }
 
@@ -76,9 +81,11 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
                 shouldSendVerificationEmail = true;
 
                 addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
+                addedParentAdvisorSubscription = true;
 
                 if (nlSubCmd.isPartnerNewsletter()) {
                     addSubscription(subscriptions, user, SubscriptionProduct.SPONSOR_OPT_IN);
+                    addedSponsorOptInSubscription = true;
                 }
             }
 
@@ -89,7 +96,7 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             String thankYouMsg = "You have successfully subscribed to the GreatSchools weekly newsletter.";
 
             if (shouldSendVerificationEmail) {
-                sendVerificationEmail(request, user);
+                sendVerificationEmail(request, user, addedParentAdvisorSubscription, addedSponsorOptInSubscription);
                 thankYouMsg = "Please confirm your subscription(s) by clicking the link in the email we just sent you.";
             }
 
@@ -104,12 +111,14 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
         return mAndV;
     }
 
-    private void sendVerificationEmail(HttpServletRequest request, User user)
+    private void sendVerificationEmail(HttpServletRequest request, User user, boolean addedParentAdvisorSubscription, boolean addedSponsorOptInSubscription)
             throws IOException, MessagingException, NoSuchAlgorithmException {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
         urlBuilder.addParameter("showSubscriptionThankYouHover","true");
         String redirectUrl = urlBuilder.asFullUrl(request);
-        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+        Map<String,String> otherParams = new HashMap<String,String>();
+        otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM,ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription,false,false,addedSponsorOptInSubscription));
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
     }
 
     private void addSubscription(List subscriptions, User user, SubscriptionProduct product) {

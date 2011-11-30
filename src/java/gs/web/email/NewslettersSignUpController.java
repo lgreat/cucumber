@@ -6,6 +6,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.util.ExactTargetUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
@@ -123,7 +124,10 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
             List<Subscription> subscriptions = new ArrayList<Subscription>();
 
-            doMySchoolStats(user, command, subscriptions, request);
+            boolean addedParentAdvisorSubscription = false;
+            boolean addedSponsorOptInSubscription = false;
+            boolean addedDailySubscription = false;
+            boolean addedMyStatsSubscription = doMySchoolStats(user, command, subscriptions, request);
 
             submitMyNthList(user, command, state);
 
@@ -148,16 +152,19 @@ public class NewslettersSignUpController extends SimpleFormController implements
             if (command.isDailytip() && !userAlreadySubscribedToDailyTip) {
                 Subscription s = new Subscription(user, SubscriptionProduct.DAILY_TIP, state);
                 subscriptions.add(s);
+                addedDailySubscription = true;
             }
 
             if (command.isSponsor() && !userAlreadySubscribedToSponsor) {
                 Subscription s = new Subscription(user, SubscriptionProduct.SPONSOR_OPT_IN, state);
                 subscriptions.add(s);
+                addedSponsorOptInSubscription = true;
             }
 
             if (command.getGreatnews() && !userAlreadySubscribedToParentAdvisor) {
                 Subscription s = new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, state);
                 subscriptions.add(s);
+                addedParentAdvisorSubscription = true;
             }
 
             model.put(getCommandName(), command);
@@ -176,7 +183,9 @@ public class NewslettersSignUpController extends SimpleFormController implements
 
             // Send verification email
             if (shouldSendVerificationEmail) {
-                sendVerificationEmail(request, user);
+                sendVerificationEmail(request, user,
+                        addedParentAdvisorSubscription, addedDailySubscription,
+                        addedMyStatsSubscription, addedSponsorOptInSubscription);
                 model.put("ThankYouMsg", "Please confirm your subscription(s) by clicking the link in the email we just sent you.");
             }
 
@@ -194,8 +203,9 @@ public class NewslettersSignUpController extends SimpleFormController implements
         command.setCityList(cities);
     }
 
-    protected void doMySchoolStats(User user, NewslettersSignUpCommand command, List<Subscription> newSubscriptions,
+    protected boolean doMySchoolStats(User user, NewslettersSignUpCommand command, List<Subscription> newSubscriptions,
                                    HttpServletRequest request) {
+        boolean addedMyStatsSubscription = false;
         List<Subscription> previousMyStatsSubs = _subscriptionDao.findMssSubscriptionsByUser(user);
         Set<String> stateIdStringSetFromDB = new HashSet<String>(previousMyStatsSubs.size());
         Map<String, Subscription> stringToSubscriptionMap =
@@ -265,13 +275,14 @@ public class NewslettersSignUpController extends SimpleFormController implements
                         Subscription s = new Subscription(user, SubscriptionProduct.MYSTAT, stateToAdd);
                         s.setSchoolId(schoolIdToAdd);
                         newSubscriptions.add(s);
+                        addedMyStatsSubscription = true;
                     }
                     counter++;
                 }
 
             }
         }
-
+        return addedMyStatsSubscription;
     }
 
     protected void submitMyNthList(User user,
@@ -301,12 +312,19 @@ public class NewslettersSignUpController extends SimpleFormController implements
         _userDao.saveUser(user);
     }
 
-    private void sendVerificationEmail(HttpServletRequest request, User user)
+    private void sendVerificationEmail(HttpServletRequest request, User user,
+                                       boolean addedParentAdvisorSubscription, boolean addedDailySubscription,
+                                       boolean addedMyStatsSubscription, boolean addedSponsorOptInSubscription)
             throws IOException, MessagingException, NoSuchAlgorithmException {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
         urlBuilder.addParameter("showSubscriptionThankYouHover","true");
         String redirectUrl = urlBuilder.asFullUrl(request);
-        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+        Map<String,String> otherParams = new HashMap<String,String>();
+        otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM,
+                ExactTargetUtil.getEmailSubWelcomeParamValue(
+                        addedParentAdvisorSubscription,addedDailySubscription,
+                        addedMyStatsSubscription,addedSponsorOptInSubscription));
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
     }
 
     public ISubscriptionDao getSubscriptionDao() {

@@ -36,9 +36,9 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     private String _viewName;
     private IUserDao _userDao;
     private IReviewDao _reviewDao;
-    private ExactTargetAPI _exactTargetAPI;
     private ReviewService _reviewService;
     private ISubscriptionDao _subscriptionDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     protected enum UserState {
         EMAIL_ONLY,
@@ -204,11 +204,24 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         ot.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailVerified);
 
         processPendingSubscriptions(user, ot, hoverHelper, requestedRedirect);
+        sendTriggeredEmails(request, user);
 
 
         _log.info("Email confirmed, forwarding user to " + viewName);
         return new ModelAndView(viewName);
 
+    }
+
+    public void sendTriggeredEmails(HttpServletRequest request, User user) {
+        // GS-12317
+        String esw = request.getParameter(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM);
+        boolean sendEmailSubscriptionWelcomeEmail = StringUtils.isNotBlank(esw);
+        if (sendEmailSubscriptionWelcomeEmail) {
+            Map<String, String> attributes = ExactTargetUtil.getEmailSubWelcomeAttributes(esw);
+            if (!attributes.isEmpty()) {
+                _exactTargetAPI.sendTriggeredEmail(ExactTargetUtil.EMAIL_SUB_WELCOME_TRIGGER_KEY, user, attributes);
+            }
+        }
     }
 
     // GS-11567 GS-11799
@@ -389,4 +402,6 @@ public class RegistrationConfirmController extends AbstractCommandController imp
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
     }
+
+
 }

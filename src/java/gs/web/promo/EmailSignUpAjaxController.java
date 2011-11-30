@@ -4,6 +4,7 @@ import gs.data.community.*;
 import gs.web.community.registration.EmailVerificationEmail;
 import gs.web.tracking.JsonBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.util.ExactTargetUtil;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
@@ -21,7 +22,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Young Fan <mailto:yfan@greatschools.org>
@@ -97,7 +100,7 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
 
             if (isNewMember || weeklyState.isSendVerificationEmail() || dailyState.isSendVerificationEmail()) {
                 // send email verification email
-                sendVerificationEmail(request, user);
+                sendVerificationEmail(request, user, weeklyState.isSendVerificationEmail(), dailyState.isSendVerificationEmail());
                 status = STATUS_SUCCESS_EMAIL_SENT;
             } else {
                 status = STATUS_SUCCESS_NO_EMAIL_SENT;
@@ -152,11 +155,14 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
         out.println("}");
     }
 
-    private void sendVerificationEmail(HttpServletRequest request, User user)
+    private void sendVerificationEmail(HttpServletRequest request, User user, boolean addedWeeklySubscription, boolean addedDailySubscription)
             throws IOException, MessagingException, NoSuchAlgorithmException {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
         String redirectUrl = urlBuilder.asFullUrl(request);
-        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl);
+        Map<String,String> otherParams = new HashMap<String,String>();
+        otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM,
+                ExactTargetUtil.getEmailSubWelcomeParamValue(addedWeeklySubscription,addedDailySubscription,false,false));
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
     }
 
     /**

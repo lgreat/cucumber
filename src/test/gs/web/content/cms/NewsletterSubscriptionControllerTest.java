@@ -6,9 +6,7 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.community.registration.EmailVerificationEmail;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.easymock.classextension.EasyMock.*;
 
@@ -51,7 +49,9 @@ public class NewsletterSubscriptionControllerTest extends BaseControllerTestCase
         expect(_userDao.findUserFromEmailIfExists(_cmd.getEmail())).andReturn(null);
         _userDao.saveUser(isA(User.class));
         _subscriptionDao.addNewsletterSubscriptions(isA(User.class), isA(List.class));
-        _emailVerificationEmail.sendVerificationEmail(eq(getRequest()), isA(User.class), eq("http://www.greatschools.org/?showSubscriptionThankYouHover=true"));
+        Map<String,String> otherParams = new HashMap<String,String>();
+        otherParams.put("esw","w");
+        _emailVerificationEmail.sendVerificationEmail(eq(getRequest()), isA(User.class), eq("http://www.greatschools.org/?showSubscriptionThankYouHover=true"), eq(otherParams));
         replayAllMocks();
         _controller.onSubmit(getRequest(), _response, _cmd, null);
         verifyAllMocks();
