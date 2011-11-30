@@ -2,46 +2,50 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page">
 
-    <div id="collRes" class="mod">
+    <div class="mod collRes">
         <div class="inner">
 
-            <h3 class="title1">More College Resources</h3>
+            <div class="hd">
+                <h3 class="title1">More College Resources</h3>
+            </div>
 
-            <ul>
-                <li>
-                    <div class="res text3bold-06b"><a href="http://www.collegeboard.org"
-                                                               target="_blank">College Board</a></div>
-                    <p>
-                        Provides resources to promote college readiness and success,
-                        including SAT and AP test information and practice options.
-                    </p>
-                </li>
-                <li>
-                    <div class="res text3bold-06b"><a href="http://www.collegeprowler.com"
-                                                               target="_blank">College Prowler</a>
-                    </div>
-                    <p>
-                        Provides college information &amp;quot;by students, for students&amp;quot;
-                        including student reviews and scholarship information.
-                    </p>
-                </li>
-                <li>
-                    <div class="res text3bold-06b"><a href="http://www.mycollegeoptions.org"
-                                                               target="_blank">My College Options</a></div>
-                    <p>
-                        Connects students to 2,000 colleges and universities nationwide,
-                        using a unique matching system.
-                    </p>
-                </li>
-                <li class="last">
-                    <div class="res text3bold-06b"><a href="http://www.unigo.com" target="_blank">Unigo</a>
-                    </div>
-                    <p>
-                        Offers extensive college search options, and college rankings
-                        based on over 30,000 student reviews.
-                    </p>
-                </li>
-            </ul>
+            <div class="bd">
+                <ul>
+                    <li>
+                        <div class="res text3bold-06b"><a href="http://www.collegeboard.org"
+                                                          target="_blank">College Board</a></div>
+                        <p>
+                            Provides resources to promote college readiness and success,
+                            including SAT and AP test information and practice options.
+                        </p>
+                    </li>
+                    <li>
+                        <div class="res text3bold-06b"><a href="http://www.collegeprowler.com"
+                                                          target="_blank">College Prowler</a>
+                        </div>
+                        <p>
+                            Provides college information &amp;quot;by students, for students&amp;quot;
+                            including student reviews and scholarship information.
+                        </p>
+                    </li>
+                    <li>
+                        <div class="res text3bold-06b"><a href="http://www.mycollegeoptions.org"
+                                                          target="_blank">My College Options</a></div>
+                        <p>
+                            Connects students to 2,000 colleges and universities nationwide,
+                            using a unique matching system.
+                        </p>
+                    </li>
+                    <li class="last">
+                        <div class="res text3bold-06b"><a href="http://www.unigo.com" target="_blank">Unigo</a>
+                        </div>
+                        <p>
+                            Offers extensive college search options, and college rankings
+                            based on over 30,000 student reviews.
+                        </p>
+                    </li>
+                </ul>
+            </div>
 
         </div>
 
