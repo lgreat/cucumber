@@ -16,13 +16,13 @@
             <div class="wrapper" style="overflow:hidden;">
                 <ul class="unordered-carousel">
                     <c:forEach var="carouselItem" items="${mediumPhotos}" varStatus="carouselStatus">
-
+                        <c:set var="index" value="${carouselStatus.count > 0 ? carouselStatus.count -1 :0}"></c:set>
                         <li>
                             <div class="captioned_photo js-photo-gallery-trigger">
                                 <img src="${carouselItem}" width="200" height="130"
-                                     alt="${altTexts[carouselStatus.count]}"/>
-                                <c:if test="${photoCaptions[carouselStatus.count] != ''}">
-                                    <span class="smaller loud">${photoCaptions[carouselStatus.count]}</span>
+                                     alt="${altTexts[index]}"/>
+                                <c:if test="${photoCaptions[index] != ''}">
+                                    <span class="smaller loud">${photoCaptions[index]}</span>
                                 </c:if>
 
                             </div>
