@@ -180,6 +180,18 @@
     </c:if>
     <!-- end related articles -->
 
+    <!-- start main image -->
+    <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
+        <div class="mainImage">
+            <c:if test="${not empty feature.imageUrl}">
+                <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
+            </c:if>
+
+            <div class="caption">${feature.imageTitle}</div>
+        </div>
+    </c:if>
+    <!-- end main image -->
+
     <!-- start question -->
     <div id="cmsAskTheExpertsQuestion">
         <h3 class="text-uppercase">Question:</h3>
@@ -188,23 +200,10 @@
     <!-- end question -->
 
     <div id="cmsArticleText">
-        <!-- start main image -->
-        <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
-            <div class="mainImage">
-                <c:if test="${not empty feature.imageUrl}">
-                    <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
-                </c:if>
-
-                <div class="caption">${feature.imageTitle}</div>
-            </div>
-        </c:if>
-        <!-- end main image -->
-
         <!-- start answer -->
         <div id="cmsAskTheExpertsAnswer"><h3 class="text-uppercase">Answer:</h3></div>
         ${answer}
         <!-- end answer -->
-
     </div>
 
 

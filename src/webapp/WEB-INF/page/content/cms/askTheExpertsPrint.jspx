@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+    <jsp:directive.page import="gs.web.util.context.SessionContext"/>
+    <html lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.metaDescription}" title="${feature.title}"/>
+
+    <head>
+        <c:choose>
+            <c:when test="${not empty feature.pageTitle}">
+                <c:set var="pageTitle">${feature.pageTitle}</c:set>
+            </c:when>
+            <c:when test="${not empty feature.promo}">
+                <c:set var="pageTitle">${feature.promo} - ${feature.primaryKategory.name}</c:set>
+            </c:when>
+            <c:otherwise>
+                <c:set var="pageTitle">${feature.title} - ${feature.primaryKategory.name}</c:set>
+            </c:otherwise>
+        </c:choose>
+        <title>${pageTitle} | GreatSchools</title>
+
+        <meta name="description"
+              content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
+        <meta name="keywords" content="${feature.metaKeywords}"/>
+
+        <script type="text/javascript" src="/res/js/global.js"><!--Do not collapse--></script>
+
+    </head>
+
+    <body onload="window.print();">
+
+    TODO greatschools logo
+    <hr/>
+
+    <!--Licensor logo-->
+    <c:if test="${not empty feature.licensorLogoUrl}">
+        <c:set var="licensorLogo">
+            <img class="float right pb pl"
+                 src="${feature.licensorLogoUrl}" alt="${feature.licensorLogoAltText}"/>
+        </c:set>
+        <c:choose>
+            <c:when test="${not empty feature.licensorUrl}">
+                <a href="${feature.licensorUrl}" target="_blank">${licensorLogo}</a>
+            </c:when>
+            <c:otherwise>
+                ${licensorLogo}
+            </c:otherwise>
+        </c:choose>
+    </c:if>
+
+    <h3 class="text-uppercase">Ask the Experts</h3>
+
+    <h1>${feature.title}</h1>
+
+    <!-- start authors -->
+    <div class="authorPageBar">
+        <div class="authors">
+            <c:if test="${not empty feature.authors}">
+                <c:choose>
+                    <c:when test="${feature.language eq 'ES'}">Por </c:when>
+                    <c:otherwise>By </c:otherwise>
+
+                </c:choose>
+                <c:forEach var="author"
+                           items="${feature.authors}"
+                           varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}
+                </c:forEach>
+            </c:if>
+        </div>
+    </div>
+    <!-- end authors -->
+
+    <!-- start question -->
+    <div id="cmsAskTheExpertsQuestion">
+        <h3 class="text-uppercase">Question:</h3>
+        ${askTheExperts.question}
+    </div>
+    <!-- end question -->
+
+    <div id="cmsArticleText">
+        <!-- start main image -->
+        <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
+            <div class="mainImage">
+                <c:if test="${not empty feature.imageUrl}">
+                    <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
+                </c:if>
+
+                <div class="caption">${feature.imageTitle}</div>
+            </div>
+        </c:if>
+        <!-- end main image -->
+
+        <!-- start answer -->
+        <div id="cmsAskTheExpertsAnswer"><h3 class="text-uppercase">Answer:</h3></div>
+        ${answer}
+        <!-- end answer -->
+
+    </div>
+
+    <!-- start Licensor attribution -->
+    <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+        <div class="licensorAttributionPageBar">
+            <div class="attribution">
+                ${feature.licensorAttribution}
+            </div>
+        </div>
+    </c:if>
+    <!-- end Licensor attribution -->
+
+
+    <div id="disclaimer">
+        <p>Advice from our experts is not a substitute for professional diagnosis or treatment from a health-care provider or learning expert familiar with your unique situation. We recommend consulting a qualified professional if you have concerns about your child's condition.</p>
+    </div>
+
+    </body>
+    </html>
+</jsp:root>

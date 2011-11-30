@@ -336,7 +336,11 @@ public class CmsFeatureController extends AbstractController {
         }
 
         if (CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(feature.getContentKey().getType()) && isShowNew) {
-            return new ModelAndView("/content/cms/askTheExpertsNew", model);
+            if (print) {
+                return new ModelAndView("/content/cms/askTheExpertsPrint", model);
+            } else {
+                return new ModelAndView("/content/cms/askTheExpertsNew", model);
+            }
         }
 
         return new ModelAndView(_viewName, model);
