@@ -21,7 +21,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <c:choose>
-    <c:when test="${type eq 'article' and not empty feature.imageUrl}">
+    <c:when test="${not empty feature.imageUrl}">
         <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
                                                imageUrl="${feature.imageUrl}"/>
     </c:when>
