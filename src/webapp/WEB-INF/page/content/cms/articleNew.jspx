@@ -95,7 +95,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 </c:if>
 
 <div class="container_24">
-<div class="grid_16 slStylesV1-0">
+<div class="grid_16 slStylesV1-0 slFormsV1-0">
 <div class="articleText clearfix">
 <p class="small ptm">
     <link:home>Home</link:home> &amp;rsaquo;
