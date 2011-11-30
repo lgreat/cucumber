@@ -143,7 +143,7 @@ and not empty altTexts and fn:length(altTexts) > 0}">
                                 onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
                             <span class="sprite i-email vert-align-mid"><!-- do not collapse --></span> Email</gsml:a>
                     </li>
-                    <li><a href="javascript:void(0);" onClick="window.open('/print-view${uri}?showNew=true&amp;fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
+                    <li><a href="javascript:void(0);" onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
                     <c:if test="${not empty feature.otherLanguageUri}">
                         <li><strong><a href="${feature.otherLanguageUri}">
                             <c:choose>

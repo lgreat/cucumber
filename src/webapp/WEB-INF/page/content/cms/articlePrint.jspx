@@ -44,10 +44,10 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 
     <c:choose>
         <c:when test="${feature.numPages == 1 or fromPage eq '1'}">
-            <c:set var="featureLink" value="${contentUrl}?showNew=true"/>
+            <c:set var="featureLink" value="${contentUrl}"/>
         </c:when>
         <c:otherwise>
-            <c:set var="featureLink" value="${contentUrl}?showNew=true&amp;page=${fromPage}"/>
+            <c:set var="featureLink" value="${contentUrl}?page=${fromPage}"/>
         </c:otherwise>
     </c:choose>
 

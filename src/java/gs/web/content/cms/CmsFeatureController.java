@@ -275,17 +275,11 @@ public class CmsFeatureController extends AbstractController {
         }
 
         // insert current page into model
-        if(isShowNew){
-            model.put("currentPage", insertSpansIntoListItems(feature.getCurrentPage()));
-        }else{
-            model.put("currentPage", insertSpansIntoListItems(insertSidebarIntoPage(feature.getCurrentPage(), feature)));
-        }
+        model.put("currentPage", insertSpansIntoListItems(feature.getCurrentPage()));
 
         model.put("answer", insertSpansIntoListItems(feature.getAnswer()));
 
-        if (isShowNew) {
-            populatePhotosForGallery(model, feature);
-        }
+        populatePhotosForGallery(model, feature);
 
         List<String> authorBios = feature.getAuthorBios();
         if (authorBios != null) {
@@ -333,7 +327,7 @@ public class CmsFeatureController extends AbstractController {
         }
         model.put("isUserSubscribedToParentAdvisor", isUserSubscribedToParentAdvisor);
 
-        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) && isShowNew) {
+        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
             if (print) {
                 return new ModelAndView("/content/cms/articlePrint", model);
             } else {
@@ -473,28 +467,6 @@ public class CmsFeatureController extends AbstractController {
             return originalPage.replaceAll("<li>","<li><span class=\"darktext\">").replaceAll("</li>","</span></li>");
         }
         return originalPage;
-    }
-
-    protected String insertSidebarIntoPage(String originalPage, CmsFeature feature) {
-        // pull out current page into variable
-        StringBuilder currentPage = new StringBuilder(originalPage);
-        // potentially insert sidebar into current page (if sidebar exists and (page == 1 or all))
-        if (StringUtils.isNotBlank(feature.getSidebar()) &&
-                (feature.getCurrentPageNum() == 1 || feature.getCurrentPageNum() == -1)) {
-            // find end of first paragraph
-            int insertIndex = currentPage.indexOf("</p>");
-            // find end of second paragraph
-            // the +4 is to shift the index to the right by the length of the </p> tag
-            insertIndex = currentPage.indexOf("</p>", insertIndex + 4);
-            // if there is no end of second paragraph, just insert the sidebar at the end of the current page
-            if (insertIndex < 0) {
-                insertIndex = currentPage.length();
-            } else {
-                insertIndex += 4;
-            }
-            currentPage.insert(insertIndex, "<div id=\"cmsArticleSidebar\"><div><img src=\"/res/img/box/sidebar_top.gif\" alt=\"\" width=\"245\" height=\"9\" /></div>" + feature.getSidebar() + "<div><img src=\"/res/img/box/sidebar_bottom.gif\" alt=\"\" width=\"245\" height=\"9\" /></div></div>");
-        }
-        return currentPage.toString();
     }
 
     protected void populatePhotosForGallery(Map model, CmsFeature feature) {
