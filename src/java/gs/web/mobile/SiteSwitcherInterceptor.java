@@ -62,7 +62,9 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
         if (modelAndView != null && modelAndView.getModel() != null) {
             RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
 
-            modelAndView.getModel().put(sitePreferenceUrlForAlternateSite, requestInfo.getSitePreferenceUrlForAlternateSite());
+            if (requestInfo.isMobileSiteEnabled()) {
+                modelAndView.getModel().put(sitePreferenceUrlForAlternateSite, requestInfo.getSitePreferenceUrlForAlternateSite());
+            }
         }
     }
 

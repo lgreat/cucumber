@@ -24,12 +24,16 @@ public class MobileViewSwitcherInterceptor implements HandlerInterceptor {
             boolean controllerHasDesktopView = !mobileOnlyController; //readability
             boolean desktopOnlyController = !controllerHasMobileView; //readability
 
+            RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+
             if (controllerHasMobileView) {
                 MobileHelper.switchToMobileViewIfNeeded(request, modelAndView);
             }
 
             //TODO: move map key name elsewhere
-            modelAndView.getModel().put("hasMobileView", controllerHasMobileView);
+            if (requestInfo.isMobileSiteEnabled()) {
+                modelAndView.getModel().put("hasMobileView", controllerHasMobileView);
+            }
         }
     }
 
