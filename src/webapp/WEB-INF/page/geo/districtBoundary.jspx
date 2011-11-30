@@ -10,7 +10,6 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
-    <pageHelper:externalJavascript file="/res/js/history.min.js"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>GeoJson - Drawing district boundaries</title>
     <style type="text/css">
@@ -19,6 +18,9 @@
         }
         div.rightSide {
             width: 720px;
+        }
+        .searchLocationLabel {
+            margin-left: 15px;
         }
         #districtListDiv {
             height: 350px;
@@ -59,12 +61,22 @@
         }
     </style>
 
+    <pageHelper:externalJavascript file="/res/js/history.min.js"/>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"><!-- no collapse --></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"><!-- no collapse --></script>
 
     <script type="text/javascript">
         <![CDATA[
 
+        Array.prototype.contains = function(obj) {
+          var i = this.length;
+          while (i--) {
+            if (this[i] === obj) {
+              return true;
+            }
+          }
+          return false;
+        };
         var GS = GS || {};
         GS.Boundaries = GS.Boundaries || {};
 
@@ -456,6 +468,7 @@
                     center: center,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
+                $('.js_showWithMap').show();
             };
             var createDistrictMarker = function(district) {
                 var icon = '/res/img/map/GS_gsr_na_forground.png';
@@ -587,6 +600,65 @@
                     schoolListDiv.append(li);
                 }
             };
+            var geocodeAddress = function(searchInput) {
+                var geocoder = new google.maps.Geocoder();
+                if (geocoder && searchInput) {
+                    geocoder.geocode({ 'address': searchInput + ' US'}, function(results, status) {
+                        var numResults = 0;
+                        var GS_geocodeResults = new Array();
+                        if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
+                            numResults = results.length;
+                            for (var x = 0; x < numResults; x++) {
+                                var geocodeResult = new Array();
+                                geocodeResult['lat'] = results[x].geometry.location.lat();
+                                geocodeResult['lon'] = results[x].geometry.location.lng();
+                                geocodeResult['normalizedAddress'] =results[x].formatted_address;
+                                geocodeResult['type'] = results[x].types.join();
+                                if (results[x].partial_match) {
+                                    geocodeResult['partial_match'] = true;
+                                } else {
+                                    geocodeResult['partial_match'] = false;
+                                }
+                                for (var i = 0; i < results[x].address_components.length; i++) {
+                                    if (results[x].address_components[i].types.contains('administrative_area_level_1')) {
+                                        geocodeResult['state'] = results[x].address_components[i].short_name;
+                                    }
+                                    if (results[x].address_components[i].types.contains('country')) {
+                                        geocodeResult['country'] = results[x].address_components[i].short_name;
+                                    }
+                                }
+                                // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
+                                if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
+                                        'state' in geocodeResult &&
+                                        'normalizedAddress' in geocodeResult &&
+                                        'country' in geocodeResult) ||
+                                        geocodeResult['country'] != 'US') {
+                                    geocodeResult = null;
+                                }
+                                if (geocodeResult != null) {
+                                    GS_geocodeResults.push(geocodeResult);
+                                }
+                            }
+                        }
+                        if (GS_geocodeResults.length == 0) {
+                            alert("Cannot determine location for '" + searchInput + "'");
+                        } else if (GS_geocodeResults.length == 1) {
+                            GS_geocodeResults[0]['totalResults'] = 1;
+                            clearMap();
+                            loadDistrictMap(GS_geocodeResults[0]['lat'],
+                                            GS_geocodeResults[0]['lon']);
+                            districtBoundaryMap.panTo(new google.maps.LatLng(GS_geocodeResults[0]['lat'], GS_geocodeResults[0]['lon']));
+                        } else {
+                            // ignore multiple results for now
+                            GS_geocodeResults[0]['totalResults'] = GS_geocodeResults.length;
+                            clearMap();
+                            loadDistrictMap(GS_geocodeResults[0]['lat'],
+                                            GS_geocodeResults[0]['lon]']);
+                            districtBoundaryMap.panTo(new google.maps.LatLng(GS_geocodeResults[0]['lat'], GS_geocodeResults[0]['lon']));
+                        }
+                    });
+                }
+            };
             jQuery(function () {
                 try {
                     var params = getUrlVars();
@@ -643,6 +715,9 @@
                         schoolClickHandler(stuffOnMap[key]);
                     }
                 });
+                $('#js_loadAddress').click(function() {
+                    geocodeAddress($('#js_mapAddressQuery').val());
+                });
             });
         };
 
@@ -654,13 +729,15 @@
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
     <div class="leftSide fltlft">
         <h3>School &amp; District Map Tool</h3>
-        <div id="districtListDiv">
-            <ul id="districtList"><!-- not empty --></ul>
-        </div>
-        <div>Currently selected district: <span id="currentlySelectedDistrict"><!-- no collapse --></span></div>
-        <div id="schoolListDiv">
-            Schools:
-            <ul id="schoolList"><!-- not empty --></ul>
+        <div class="js_showWithMap hidden">
+            <div id="districtListDiv">
+                <ul id="districtList"><!-- not empty --></ul>
+            </div>
+            <div>Currently selected district: <span id="currentlySelectedDistrict"><!-- no collapse --></span></div>
+            <div id="schoolListDiv">
+                Schools:
+                <ul id="schoolList"><!-- not empty --></ul>
+            </div>
         </div>
     </div>
     <div class="rightSide fltrt">
@@ -668,13 +745,18 @@
             <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_e" value="e" checked="checked"/><label for="mapLevelCode_e">Elementary</label>
             <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_m" value="m"/><label for="mapLevelCode_m">Middle</label>
             <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_h" value="h"/><label for="mapLevelCode_h">High</label>
+            <label class="searchLocationLabel" for="js_mapAddressQuery">Search location:</label>
+            <input type="text" name="addressQuery" id="js_mapAddressQuery"/>
+            <button name="loadAddress" id="js_loadAddress">Search</button>
         </div>
-        <div id="map-canvas"><!-- no collapse --></div>
-        <button name="reload" id="js_reloadMap">Reload at this location</button>
-        <button name="drawAllDistricts" id="js_drawAllDistricts">Debug: Draw all districts</button>
-        <button name="getSAZ" id="js_getSAZ">Debug: Load SAZ for selected district</button>
-        <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ">Debug: Draw all districts and SAZ (Warning!)</button>
-        <button name="drawContainingDistrict" id="js_drawContainingDistrict">Debug: Draw Containing District</button>
+        <div class="js_showWithMap hidden">
+            <div id="map-canvas"><!-- no collapse --></div>
+            <button name="reload" id="js_reloadMap">Reload at this location</button>
+            <button name="drawAllDistricts" id="js_drawAllDistricts">Debug: Draw all districts</button>
+            <button name="getSAZ" id="js_getSAZ">Debug: Load SAZ for selected district</button>
+            <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ">Debug: Draw all districts and SAZ (Warning!)</button>
+            <button name="drawContainingDistrict" id="js_drawContainingDistrict">Debug: Draw Containing District</button>
+        </div>
     </div>
 </gsml:body>
 </html>
