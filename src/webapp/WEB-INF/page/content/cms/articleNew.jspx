@@ -13,9 +13,8 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+          version="2.0">
 <jsp:directive.page import="gs.web.util.CookieUtil"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <html lang="en">
@@ -52,7 +51,6 @@
 
 
     <meta name="keywords" content="${feature.metaKeywords}"/>
-    <!--<pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/>-->
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
     <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
     <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
