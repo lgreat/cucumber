@@ -16,6 +16,16 @@
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
 
+    <c:choose>
+        <c:when test="${type eq 'article' and not empty feature.imageUrl}">
+            <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
+                                                   imageUrl="${feature.imageUrl}"/>
+        </c:when>
+        <c:otherwise>
+            <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"/>
+        </c:otherwise>
+    </c:choose>
+
     <head>
         <c:choose>
             <c:when test="${not empty feature.pageTitle}">
@@ -29,6 +39,10 @@
             </c:otherwise>
         </c:choose>
         <title>${pageTitle} | GreatSchools</title>
+        <meta name="description"
+              content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
+
+        <meta name="keywords" content="${feature.metaKeywords}"/>
         <script type="text/javascript" src="/res/js/global.js"><!--D not collapse--></script>
 
     </head>
