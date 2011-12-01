@@ -5768,8 +5768,8 @@ body.hover #startADiscussion .submit {
 #standardAvatarForm li {
     position: relative;
     list-style: none;
-    /*display:inline-block;*/
-    /*margin:0 10px;*/
+    display:inline-block;
+    margin:0 10px;
 }
 
 #standardAvatarForm input {
