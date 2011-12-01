@@ -57,3 +57,14 @@ General comments:
     background-image:         linear-gradient(top, #d1e9f3, #88dded); /* W3C */
               filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#d1e9f3', EndColorStr='#88dded'); /* IE6�IE9 */
 }
+
+.gradient-5 {
+    background: #f3fafd; /* for non-css3 browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f3fafd), to(#d2e9f3)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #f3fafd, #d2e9f3); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #f3fafd, #d2e9f3); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #f3fafd, #d2e9f3); /* IE10 */
+    background-image:      -o-linear-gradient(top, #f3fafd, #d2e9f3); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #f3fafd, #d2e9f3); /* W3C */
+              filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f3fafd', EndColorStr='#d2e9f3'); /* IE6�IE9 */
+}

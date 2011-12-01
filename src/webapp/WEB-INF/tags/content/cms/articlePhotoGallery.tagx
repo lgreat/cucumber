@@ -25,40 +25,46 @@
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
 
-    <div id="${prefix}-photo-gallery" class="photo-gallery-wrapper">
-        <div class="photo-gallery-module">
-            <div id="${prefix}-photo-gallery-close" class="photo-gallery-close">
-                <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
-            </div>
-            <div class="photo-gallery-viewer">
-                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                    <div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize">
-                        <img align="middle" class="test" src="/res/img/pixel.gif"/>
-                        <p>${photoCaptions[index]}</p>
-                    </div>
-                </c:forEach>
-                <br style="clear:both"/>
-            </div>
-
-            <div class="photo-gallery-controls">
-                <div style="margin: auto;text-align: center;">
-                    <div id="${prefix}-photo-gallery-back" class="photo-gallery-back">
-                        <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
-                    </div>
-                    <div class="photo-gallery-thumbnails">
-                        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                            <div id="${prefix}-gallery-thumbnail-${index}" class="gallery-thumbnail">
-                                <img src="/res/img/pixel.gif" width="70" height="70"/>
-                            </div>
-                        </c:forEach>
-                    </div>
-                    <div id="${prefix}-photo-gallery-next" class="photo-gallery-next">
-                        <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
-                    </div>
-                    <br style="clear:both"/>
+    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper">
+        <div class="inner rnd9">
+            <div class="hd gradient-5 rnd-top-9">
+                <div id="${prefix}-photo-gallery-close" class="photoGalleryClose">
+                    <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                 </div>
             </div>
-            <br style="clear:both"/>
+            <div class="bd">
+                <div class="photoGalleryViewer">
+                    <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                        <div id="${prefix}-gallery-fullsize-${index}" class="galleryPhotoFullsize">
+                            <!--<div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize">-->
+                            <img src="/res/img/pixel.gif" width="390" height="252"/>
+
+                            <span>${photoCaptions[index]}</span>
+                        </div>
+                    </c:forEach>
+                    <!--<br style="clear:both"/>-->
+                </div>
+
+                <div class="photo-gallery-controls">
+                    <div style="margin: auto;text-align: center;">
+                        <div id="${prefix}-photo-gallery-back" class="photo-gallery-back">
+                            <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
+                        </div>
+                        <div class="photo-gallery-thumbnails">
+                            <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                                <div id="${prefix}-gallery-thumbnail-${index}" class="gallery-thumbnail">
+                                    <img src="/res/img/pixel.gif" width="70" height="70"/>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <div id="${prefix}-photo-gallery-next" class="photo-gallery-next">
+                            <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
+                        </div>
+                        <!--<br style="clear:both"/>-->
+                    </div>
+                </div>
+                <!--<br style="clear:both"/>-->
+            </div>
         </div>
     </div>
 
@@ -83,8 +89,8 @@
         end = "${numberOfImages-1}"
         var =
         "index" >
-        gallery.photoMargins.push(Math.round((300) / 2));
-        document.getElementById("${prefix}-gallery-fullsize-" +${index}).style.marginTop = gallery.photoMargins[${index}] + "px";
+//        gallery.photoMargins.push(Math.round((300) / 2));
+//        document.getElementById("${prefix}-gallery-fullsize-" +${index}).style.marginTop = gallery.photoMargins[${index}] + "px";
         </c:forEach>
 
         jQuery(function() {
