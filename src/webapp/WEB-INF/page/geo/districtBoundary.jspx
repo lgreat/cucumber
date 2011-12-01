@@ -84,12 +84,9 @@
 
         GS.Boundaries.BoundaryHelper = function() {
             var districtBoundaryMap;
-            var districtMarkers = new Array();
-            var schoolMarkers = new Array();
             var polygons = new Array();
             var stuffOnMap = {};
             var selectedDistrict = null;
-            var mapClickListener = null;
             var mapClickListeners = new Array();
 
             // DATA STRUCTURES
@@ -353,6 +350,7 @@
                       try {
                           loadDistrictsNearPointSuccess(data.districts);
                           updateDistrictList();
+                          districtBoundaryMap.panTo(new google.maps.LatLng(latitude, longitude));
                       } catch (e) {
                           alert("Error: "+ e.message);
                       }
@@ -364,6 +362,7 @@
             var loadDistrictsNearPointSuccess = function(districtList) {
                 var mapBounds = new google.maps.LatLngBounds();
                 var setBounds = false;
+                clearMap();
                 for (var districtIndex = 0; districtIndex < districtList.length; districtIndex++) {
                     var district = districtList[districtIndex];
                     var districtLatLng = new google.maps.LatLng(district.lat, district.lon);
@@ -450,7 +449,6 @@
                     }
                     var schoolMarker = createSchoolMarker(school);
                     schoolMarker.setMap(districtBoundaryMap);
-                    schoolMarkers.push(schoolMarker);
                     stuffOnMap[key].marker = schoolMarker;
                     district.schools.push(stuffOnMap[key]);
                     google.maps.event.addListener(schoolMarker, 'click', createSchoolMarkerClickListener(stuffOnMap[key]));
@@ -509,7 +507,7 @@
                 loadDistrictsNearPointAjax(latitude, longitude);
             };
             var browserGetLocationFail = function() {
-                loadDistrictsNearPointAjax(37.790948, -122.3942572);
+                loadDistrictsNearPointAjax(39.790948, -122.3942572);
             };
             var getDistrictWithBoundary = function(district) {
                 var districtOnMap = stuffOnMap["district-" + district.state + "-" + district.id];
@@ -519,7 +517,6 @@
                     districtOnMap.marker = districtMarker;
                     google.maps.event.addListener(districtOnMap.marker, 'click', createDistrictMarkerClickListener(districtOnMap));
                     districtOnMap.showMarker();
-                    districtMarkers.push(districtMarker);
                     stuffOnMap["district-" + district.state + "-" + district.id] = districtOnMap;
                 }
                 return districtOnMap;
@@ -529,11 +526,9 @@
                 var schoolOnMap = stuffOnMap[key];
                 if (typeof(schoolOnMap) === 'undefined') {
                     schoolOnMap = new SchoolWithBoundary({state:school.state, id:school.id, name:school.name, rating:school.rating});
-                    var schoolMarker = createSchoolMarker(school);
-                    schoolOnMap.marker = schoolMarker;
+                    schoolOnMap.marker = createSchoolMarker(school);
                     google.maps.event.addListener(schoolOnMap.marker, 'click', createSchoolMarkerClickListener(schoolOnMap));
                     schoolOnMap.showMarker();
-                    schoolMarkers.push(schoolMarker);
                     stuffOnMap[key] = schoolOnMap;
 
                     var districtKey = "district-" + school.state + "-" + school.districtId;
@@ -812,7 +807,7 @@
                     geocodeResults[0]['totalResults'] = geocodeResults.length;
                     clearMap();
                     loadDistrictsNearPointAjax(geocodeResults[0]['lat'],
-                                               geocodeResults[0]['lon]']);
+                                               geocodeResults[0]['lon']);
                     districtBoundaryMap.panTo(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']));
                 }
             };
@@ -822,7 +817,8 @@
                     if (params.lat && params.lon) {
                         loadDistrictsNearPointAjax(params.lat, params.lon);
                     } else {
-                        navigator.geolocation.getCurrentPosition(browserGetLocationSuccess, browserGetLocationFail);
+                        browserGetLocationFail();
+                        navigator.geolocation.getCurrentPosition(browserGetLocationSuccess);
                     }
                 } catch (e) {
                     browserGetLocationFail();
@@ -831,7 +827,7 @@
                 $('#js_reloadMap').click(function() {
                     clearMap();
                     loadDistrictsNearPointAjax(districtBoundaryMap.getCenter().lat(),
-                                    districtBoundaryMap.getCenter().lng());
+                                               districtBoundaryMap.getCenter().lng());
                 });
                 $('#js_clearPolygons').click(function() {
                     clearPolygons();
