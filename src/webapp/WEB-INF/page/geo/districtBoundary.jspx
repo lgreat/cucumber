@@ -507,7 +507,7 @@
                 loadDistrictsNearPointAjax(latitude, longitude);
             };
             var browserGetLocationFail = function() {
-                loadDistrictsNearPointAjax(39.790948, -122.3942572);
+                loadDistrictsNearPointAjax(37.790948, -122.3942572);
             };
             var getDistrictWithBoundary = function(district) {
                 var districtOnMap = stuffOnMap["district-" + district.state + "-" + district.id];
