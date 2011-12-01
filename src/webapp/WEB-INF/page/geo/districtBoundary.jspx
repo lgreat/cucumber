@@ -258,10 +258,9 @@
                     for (var districtIndex = 0; districtIndex < data.districts.length; districtIndex++) {
                         var district = data.districts[districtIndex];
                         var districtOnMap = getDistrictWithBoundary(district);
-                        if (districtOnMap.isPolygonShown()) {
-                            districtOnMap.hidePolygon();
+                        if (!districtOnMap.hasPolygon()) {
+                            districtOnMap.polygon = createGoogleMapsPolygon({coordinates:district.coordinates, zIndex:1});
                         }
-                        districtOnMap.polygon = createGoogleMapsPolygon(district);
                         districtOnMap.showPolygon();
                         highlightPolygon(districtOnMap.polygon, 400);
                         if (typeof(district.centroid) !== 'undefined') {
@@ -285,7 +284,7 @@
                         if (schoolOnMap.isPolygonShown()) {
                             schoolOnMap.hidePolygon();
                         }
-                        schoolOnMap.polygon = createGoogleMapsPolygon(school);
+                        schoolOnMap.polygon = createGoogleMapsPolygon({coordinates:school.coordinates, strokeColor:'#78FF00', zIndex:2});
                         schoolOnMap.showPolygon();
                         highlightPolygon(schoolOnMap.polygon, 400);
                         if (typeof(school.centroid) !== 'undefined') {
@@ -384,7 +383,7 @@
                 if (districtOnMap.isPolygonShown()) {
                     districtOnMap.hidePolygon()
                 }
-                districtOnMap.polygon = createGoogleMapsPolygon(data);
+                districtOnMap.polygon = createGoogleMapsPolygon({coordinates:data.coordinates, zIndex:1});
                 if (districtOnMap.showOnLoad === true) {
                     districtOnMap.showPolygon();
                 }
@@ -400,7 +399,7 @@
                 if (schoolOnMap.isPolygonShown()) {
                     schoolOnMap.hidePolygon()
                 }
-                schoolOnMap.polygon = createGoogleMapsPolygon(data, '#66461F', '#78FF00');
+                schoolOnMap.polygon = createGoogleMapsPolygon({coordinates:data.coordinates, strokeColor:'#78FF00', zIndex:2});
                 if (schoolOnMap.showOnLoad === true) {
                     schoolOnMap.showPolygon();
                 }
@@ -426,7 +425,7 @@
                         console.log("Duplicate school key: " + key);
                         stuffOnMap[key].hidePolygon();
                     }
-                    stuffOnMap[key].polygon = createGoogleMapsPolygon(schoolBoundary, '#66461F', '#78FF00');
+                    stuffOnMap[key].polygon = createGoogleMapsPolygon({coordinates:schoolBoundary.coordinates, strokeColor:'#78FF00', zIndex:2});
                     stuffOnMap[key].showPolygon();
                 }
                 } catch (e) {
@@ -513,8 +512,7 @@
                 var districtOnMap = stuffOnMap["district-" + district.state + "-" + district.id];
                 if (typeof(districtOnMap) === 'undefined') {
                     districtOnMap = new DistrictWithBoundary({state:district.state, id:district.id, name:district.name, rating:district.rating});
-                    var districtMarker = createDistrictMarker(district);
-                    districtOnMap.marker = districtMarker;
+                    districtOnMap.marker = createDistrictMarker(district);
                     google.maps.event.addListener(districtOnMap.marker, 'click', createDistrictMarkerClickListener(districtOnMap));
                     districtOnMap.showMarker();
                     stuffOnMap["district-" + district.state + "-" + district.id] = districtOnMap;
@@ -587,10 +585,11 @@
                              shape:markerShape
                          });
             };
-            var createGoogleMapsPolygon = function(geojson, fillColor, strokeColor){
-                fillColor = typeof(fillColor) !== 'undefined' ? fillColor : '#46461F';
-                strokeColor = typeof(strokeColor) !== 'undefined' ? strokeColor : '#FF7800';
-                var coords = geojson.coordinates;
+            var createGoogleMapsPolygon = function(options){ //zIndex, fillColor, strokeColor){
+                var coords = options.coordinates;
+                var zIndex = typeof(options.zIndex) !== 'undefined' ? options.zIndex : 1;
+                var fillColor = typeof(options.fillColor) !== 'undefined' ? options.fillColor : '#46461F';
+                var strokeColor = typeof(options.strokeColor) !== 'undefined' ? options.strokeColor : '#FF7800';
                 var paths = [];
                 for (var i=0;i < coords.length;i++){
                     for (var j=0;j<coords[i].length;j++){
@@ -608,7 +607,8 @@
                     strokeOpacity: 1,
                     strokeWeight: 2,
                     fillColor: fillColor,
-                    fillOpacity: 0.25
+                    fillOpacity: 0.25,
+                    zIndex: zIndex
                 });
             };
 
