@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
     <jsp:directive.tag import="java.net.URLEncoder"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag body-content="empty"
                        description="Used to add a meta tag to the document head. The meta tag will contain property and content attributes."/>
     <jsp:directive.attribute name="uri" required="true" type="java.lang.String" description="Full URI for this page"/>
@@ -29,7 +30,7 @@
         gs.web.util.PageHelper.addMetaProperty(request, "og:description", deck);
         gs.web.util.PageHelper.addMetaProperty(request, "og:url", unEncodedUrl);
         gs.web.util.PageHelper.addMetaProperty(request, "og:title", title);
-        if (imageUrl != null) {
+        if (StringUtils.isNotBlank(imageUrl)) {
             gs.web.util.PageHelper.addMetaProperty(request, "og:image", imageUrl);
         }
 

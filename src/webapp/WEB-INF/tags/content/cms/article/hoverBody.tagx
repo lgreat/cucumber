@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsweb="gstaglib"
+        >
+
+    <!-- TODO!!! are variables e.g. surveyDetails, isShowNlSubHover, isUserSubscribedToParentAdvisor, type, param.cpn, etc. working? any vars from article:hoverScriptlet? -->
+    <!-- WARNING: Relies heavily on requestScope variables -->
+    <!-- WARNING: Must be placed after article:hoverScriptlet tag is called -->
+
+    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
+    <!-- TODO-TAG! non-print view only for newsletter hovers -->
+    <communityHover:interruptSurvey surveyType="article"/>
+    <c:if test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari}">
+        <script type="text/javascript">
+            setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:escapeJavaScript(surveyDetails['url'])}')", 7000);
+        </script>
+    </c:if>
+
+    <!-- TODO! for marketing NL hover, what about for askTheExperts -->
+    <input type="hidden" value="${type}" id="cmsContentType"/>
+    <input type="hidden" value="${param.cpn}" id="cpnCodeFromNewsletter"/>
+
+    <content:nlSubscriptionHover/>
+    <content:nlSubscriptionThankYouHover/>
+
+    <c:choose>
+        <c:when test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari and !isSurveyCookieSet}">
+            <c:set var="isShowNlSubHover" value="false"/>
+        </c:when>
+        <c:when test="${!requestScope.context.crawler and !requestScope.context.cobranded and showNlSubHover and !isUserSubscribedToParentAdvisor}">
+            <c:set var="isShowNlSubHover" value="true"/>
+        </c:when>
+    </c:choose>
+
+    <input type="hidden" id="isShowNlSubHover" value="${isShowNlSubHover}"/>
+</jsp:root>

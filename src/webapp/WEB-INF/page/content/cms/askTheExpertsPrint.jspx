@@ -4,24 +4,14 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article"
           version="2.0">
     <html lang="en">
     <jsp:directive.page contentType="text/html"/>
-    <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.metaDescription}" title="${feature.title}"/>
+    <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}" imageUrl="${feature.imageUrl}"/>
 
     <head>
-        <c:choose>
-            <c:when test="${not empty feature.pageTitle}">
-                <c:set var="pageTitle">${feature.pageTitle}</c:set>
-            </c:when>
-            <c:when test="${not empty feature.promo}">
-                <c:set var="pageTitle">${feature.promo} - ${feature.primaryKategory.name}</c:set>
-            </c:when>
-            <c:otherwise>
-                <c:set var="pageTitle">${feature.title} - ${feature.primaryKategory.name}</c:set>
-            </c:otherwise>
-        </c:choose>
-        <title>${pageTitle} | GreatSchools</title>
+        <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}" primaryCategoryName="${feature.primaryKategory.name}"/>
 
         <meta name="description"
               content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
@@ -38,18 +28,7 @@
 
     <!--Licensor logo-->
     <c:if test="${not empty feature.licensorLogoUrl}">
-        <c:set var="licensorLogo">
-            <img class="float right pb pl"
-                 src="${feature.licensorLogoUrl}" alt="${feature.licensorLogoAltText}"/>
-        </c:set>
-        <c:choose>
-            <c:when test="${not empty feature.licensorUrl}">
-                <a href="${feature.licensorUrl}" target="_blank">${licensorLogo}</a>
-            </c:when>
-            <c:otherwise>
-                ${licensorLogo}
-            </c:otherwise>
-        </c:choose>
+        <article:licensorLogo logoUrl="${feature.licensorLogoUrl}" logoAltText="${feature.licensorLogoAltText}" licensorUrl="${feature.licensorUrl}"/>
     </c:if>
 
     <h3 class="text-uppercase">Ask the Experts</h3>

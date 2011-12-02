@@ -343,6 +343,15 @@ public class CmsFeatureController extends AbstractController {
             }
         }
 
+        if ((CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType()) ||
+            CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(feature.getContentKey().getType())) && isShowNew) {
+            if (print) {
+                return new ModelAndView("/content/cms/articleSlideshowPrint", model);
+            } else {
+                return new ModelAndView("/content/cms/articleSlideshowNew", model);
+            }
+        }
+
         return new ModelAndView(_viewName, model);
         //return new ModelAndView(getViewName(feature), model);
     }

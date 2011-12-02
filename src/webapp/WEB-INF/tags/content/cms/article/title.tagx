@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <jsp:directive.attribute name="pageTitle" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="promo" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="title" required="false" type="java.lang.String"/>
+    <jsp:directive.attribute name="primaryCategoryName" required="false" type="java.lang.String"/>
+
+    <c:choose>
+        <c:when test="${not empty pageScope.pageTitle}">
+            <c:set var="fullPageTitle">${pageScope.pageTitle}</c:set>
+        </c:when>
+        <c:when test="${not empty pageScope.promo}">
+            <c:set var="fullPageTitle">${pageScope.promo} - ${pageScope.primaryKategory.name}</c:set>
+        </c:when>
+        <c:otherwise>
+            <c:set var="fullPageTitle">${pageScope.title} - ${pageScope.primaryKategory.name}</c:set>
+        </c:otherwise>
+    </c:choose>
+    <title>${fullPageTitle} | GreatSchools</title>
+
+</jsp:root>

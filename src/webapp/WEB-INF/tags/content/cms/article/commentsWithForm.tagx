@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article">
+
+    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
+    <jsp:directive.attribute name="contentUrl" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="comments" required="true" type="java.util.List"/>
+
+    <script type="text/javascript">
+        function wrapCommentWithDelimiter(comment) {
+            return "BEGIN_ARTICLE_COMMENT\n" +
+                    comment +
+                    "\nEND_ARTICLE_COMMENT\n";
+        }
+    </script>
+    <article:cmsCommentForm feature="${pageScope.feature}" contentUrl="${pageScope.contentUrl}" type="article"/>
+
+    <!-- display comments for this article -->
+    <article:comments comments="${pageScope.comments}"/>
+
+</jsp:root>

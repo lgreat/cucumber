@@ -2,58 +2,34 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
-          xmlns:gsweb="gstaglib"
+          xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           version="2.0">
-<jsp:directive.page import="gs.web.util.CookieUtil"/>
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<c:choose>
-    <c:when test="${not empty feature.imageUrl}">
-        <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
-                                               imageUrl="${feature.imageUrl}"/>
-    </c:when>
-    <c:otherwise>
-        <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"/>
-    </c:otherwise>
-</c:choose>
+<pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
+                                       imageUrl="${feature.imageUrl}"/>
 
 <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
-
+<c:set var="omniturePageName" value="article"/>
 
 <head>
-    <c:choose>
-        <c:when test="${not empty feature.pageTitle}">
-            <c:set var="pageTitle">${feature.pageTitle}</c:set>
-        </c:when>
-        <c:when test="${not empty feature.promo}">
-            <c:set var="pageTitle">${feature.promo} - ${feature.primaryKategory.name}</c:set>
-        </c:when>
-        <c:otherwise>
-            <c:set var="pageTitle">${feature.title} - ${feature.primaryKategory.name}</c:set>
-        </c:otherwise>
-    </c:choose>
-    <title>${pageTitle} | GreatSchools</title>
+    <article:title pageTitle="${feature.pageTitle}" promo="${feature.promo}" title="${feature.title}"
+                   primaryCategoryName="${feature.primaryKategory.name}"/>
 
     <meta name="description" content="${feature.metaDescription}"/>
-
-
     <meta name="keywords" content="${feature.metaKeywords}"/>
+
+    <!-- TODO! what's this for? -->
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
+    <!-- TODO-REFACTOR/RENAME? -->
     <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
-    <!--<pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>-->
 
     <!-- GS-11430 -->
     <c:if test="${showCompanionAd}">
@@ -70,371 +46,171 @@
     </c:if>
 
     <!-- GS-11485,12225 -->
-    <c:if test="${type eq 'article'}">
-        <link rel="canonical" href="${contentUrl}"/>
-        <c:if test="${prevPageNum != null and prevPageNum != '' and prevPageNum ne -1}">
-            <link rel="prev" href="${contentUrl}?page=${prevPageNum}"/>
-        </c:if>
-        <c:if test="${nextPageNum != null and prevPageNum != '' and nextPageNum ne -1}">
-            <link rel="next" href="${contentUrl}?page=${nextPageNum}"/>
-        </c:if>
+    <link rel="canonical" href="${contentUrl}"/>
+    <c:if test="${prevPageNum != null and prevPageNum != '' and prevPageNum ne -1}">
+        <link rel="prev" href="${contentUrl}?page=${prevPageNum}"/>
+    </c:if>
+    <c:if test="${nextPageNum != null and prevPageNum != '' and nextPageNum ne -1}">
+        <link rel="next" href="${contentUrl}?page=${nextPageNum}"/>
     </c:if>
 
+    <article:hoverScriplet/>
     <k12:trafficDriverIncludes/>
 </head>
 
 <gsml:body adPageName="article" pageLayout="nocol">
 
-<c:if test="${not empty smallPhotos and fn:length(smallPhotos) > 0
-and not empty mediumPhotos and fn:length(mediumPhotos) > 0
-and not empty largePhotos and fn:length(largePhotos) > 0
-and not empty altTexts and fn:length(altTexts) > 0}">
-<c:set var="showPhotoGallery" value="${true}"/>
-</c:if>
+    <c:if test="${not empty smallPhotos and fn:length(smallPhotos) > 0
+                  and not empty mediumPhotos and fn:length(mediumPhotos) > 0
+                  and not empty largePhotos and fn:length(largePhotos) > 0
+                  and not empty altTexts and fn:length(altTexts) > 0}">
+        <c:set var="showPhotoGallery" value="${true}"/>
+    </c:if>
 
-<div class="container_24">
-<div class="grid_16 slStylesV1-0 slFormsV1-0">
-<div class="articleText clearfix">
-<p class="small ptm">
-    <link:home>Home</link:home> &amp;rsaquo;
-    <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
-        <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
-        <c:if test="${!status.last}"> &amp;rsaquo; </c:if>
-    </c:forEach>
-</p>
+    <div class="container_24">
+        <div class="grid_16 slStylesV1-0 slFormsV1-0">
+            <div class="articleText clearfix">
+                <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
+                <h1>${feature.title}</h1>
 
-<h1>${feature.title}</h1>
+                <!--Licensor logo-->
+                <!-- Example article with licensor logo and attrib: http://localhost:8080/special-education/LD-ADHD/560-get-organized-for-school.gs?page=1 -->
+                <c:if test="${not empty feature.licensorLogoUrl}">
+                    <article:licensorLogo logoUrl="${feature.licensorLogoUrl}"
+                                          logoAltText="${feature.licensorLogoAltText}"
+                                          licensorUrl="${feature.licensorUrl}"/>
+                </c:if>
 
-<!--Licensor logo-->
-<c:if test="${not empty feature.licensorLogoUrl}">
-    <c:set var="licensorLogo">
-        <img class="float right pb pl"
-             src="${feature.licensorLogoUrl}" alt="${feature.licensorLogoAltText}"/>
-    </c:set>
-    <c:choose>
-        <c:when test="${not empty feature.licensorUrl}">
-            <a href="${feature.licensorUrl}" target="_blank">${licensorLogo}</a>
-        </c:when>
-        <c:otherwise>
-            ${licensorLogo}
-        </c:otherwise>
-    </c:choose>
-</c:if>
+                <h4>${fn:escapeXml(article.summary)}</h4>
 
-<h4>${fn:escapeXml(article.summary)}</h4>
+                <ad:adTag position="Sponsor_610x30"/>
 
-<ad:adTag position="Sponsor_610x30"/>
+                <!--Sidebar-->
+                <div class="grid_6 alpha mrm">
 
-<!--Sidebar-->
-<div class="grid_6 alpha mrm">
+                    <article:tools feature="${feature}" uri="${uri}"/>
 
-    <div class="mod articleDistribution">
-        <div class="inner rnd4">
-            <div class="bd"><cms:articleDistributionNew1 includeFbSendBtn="true" includeShareBtn="false"/></div>
-            <div class="ft">
-                <ul>
-                    <li class="smaller">
-                        <gsml:url var="mailToFriendUrl"
-                                  value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
-                        <gsml:a href="${mailToFriendUrl}"
-                                onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
-                            <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</gsml:a>
-                    </li>
-                    <li class="smaller">
-                        <a href="javascript:void(0);"
-                           onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
-                                class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a></li>
-                    <c:if test="${not empty feature.otherLanguageUri}">
-                        <li class="smaller">
-                            <strong>
-                                <a href="${feature.otherLanguageUri}">
-                                    <c:choose>
-                                        <c:when test="${feature.language eq 'ES'}">In english</c:when>
-                                        <c:otherwise><span
-                                                class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
-                                    </c:choose>
-                                </a>
-                            </strong>
-                        </li>
+                    <c:if test="${showPhotoGallery}">
+                        <div id="js_photo_gallery_container">
+                            <article:photosCarousel/>
+                        </div>
                     </c:if>
-                </ul>
+
+                    <c:if test="${feature.relatedVideos != null and fn:length(feature.relatedVideos) >0 }">
+                        <div><article:relatedVideosCarousel feature="${feature}"/></div>
+                    </c:if>
+
+                    <c:if test="${not empty feature.relatedArticles}">
+                        <article:relatedArticles feature="${feature}"/>
+                    </c:if>
+
+                    <c:if test="${feature.sidebar}">
+                        ${feature.sidebar}
+                    </c:if>
+                </div>
+                <!--Sidebar-->
+
+                <!--Content-->
+                <div>
+                    <!--Image-->
+                    <article:mainImage feature="${feature}"/>
+                    <!--Image-->
+
+                    <!-- Byline -->
+                    <article:authorByline feature="${feature}"/>
+                    <!-- Byline -->
+
+                    ${currentPage}
+
+                    <c:if test="${not empty feature.pdfUri and (-1 eq feature.currentPageNum or feature.numPages eq feature.currentPageNum)}">
+                        <div class="fltlft">
+                            <a class="button-1" href="${feature.pdfUri}">Download <span
+                                    class="sprite i-downloadarrow"><!-- do not collapse --></span></a>
+                        </div>
+                        <div class="lineheight-25"><a class="padlft_10"
+                                                      href="${feature.pdfUri}">Download and print at home.</a>
+                        </div>
+                    </c:if>
+                </div>
+                <!--Content-->
+
+                <hr class="keyline1"/>
+
+                <!--Share buttons-->
+                <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
+                <!--Share buttons-->
+
+                <!-- Pagination -->
+                <c:if test="${feature.numPages > 1}">
+                    <div class="articlePagination">
+                        Page
+                        <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
+                            <c:choose>
+                                <c:when test="${pageNum == feature.currentPageNum}">
+                                    <span class="active rnd3">${pageNum}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${-1 == feature.currentPageNum}">
+                                <span class="active rnd3">Single Page</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${contentUrl}?page=all">Single Page</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </c:if>
+                <!-- Pagination -->
+
+                <!-- Author bios, Licensor attribution -->
+                <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
+                    <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}"
+                                         showDisclaimer="${false}"/>
+                </c:if>
+                <!-- Author bios, Licensor attribution -->
             </div>
+
+            <!-- Related links -->
+            <c:if test="${not empty feature.externalLinks}">
+                <article:relatedLinksList feature="${feature}"/>
+            </c:if>
+            <!-- Related links -->
+
+            <!-- Comments -->
+            <article:commentsWithForm feature="${feature}" contentUrl="${contentUrl}" comments="${comments}"/>
+            <!-- Comments -->
+        </div>
+
+        <div class="grid_8">
+            <article:rightColumn feature="${feature}" omniturePageName="${omniturePageName}"
+                                 showCompanionAd="${showCompanionAd}"/>
         </div>
     </div>
 
+    <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+
+    <mod:tracking pageName="${omniturePageName}"
+                  hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"
+                  events="event7"
+                  omitAlmondNet="${true}"
+            />
+
+    <!-- TODO!!! May be buggy, needs a second look at the variables used -->
+    <article:hoverBody feature="${feature}"/>
 
     <c:if test="${showPhotoGallery}">
-        <div id="js_photo_gallery_container">
-            <cms:photosCarousel/>
-        </div>
+        <article:photoGallery cssClass="js-photo-gallery-trigger" smallImages="${smallPhotos}"
+                                 largeImages="${largePhotos}"
+                                 altTexts="${altTexts}" prefix="article" photoCaptions="${photoCaptions}"/>
     </c:if>
 
-    <c:if test="${feature.relatedVideos != null and fn:length(feature.relatedVideos) >0 }">
-        <div><cms:relatedVideosCarousel feature="${feature}"/></div>
-    </c:if>
-
-    <c:if test="${not empty feature.relatedArticles}">
-
-        <div>
-            <hr class="keyline1"/>
-            <c:set var="hasPublishedRelatedArticles" value="${false}"/>
-            <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
-                <c:if test="${not empty relatedArticle.url}">
-                    <c:set var="hasPublishedRelatedArticles" value="${true}"/>
-                </c:if>
-            </c:forEach>
-
-            <c:if test="${hasPublishedRelatedArticles}">
-                <cms:relatedArticlesListNew feature="${feature}"/>
-            </c:if>
-        </div>
-
-    </c:if>
-    <c:if test="${feature.sidebar}">
-        ${feature.sidebar}
-    </c:if>
-</div>
-<!--Sidebar-->
-
-<!--Content-->
-<div>
-    <!--Image-->
-    <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
-        <div class="mainImage">
-            <c:if test="${not empty feature.imageUrl}">
-                <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
-            </c:if>
-
-            <div class="small quiet">${feature.imageTitle}</div>
-        </div>
-    </c:if>
-    <!--Image-->
-
-    <p class="small">
-        <!-- byline - for articles only -->
-        <c:if test="${not empty feature.authors}">
-            <c:choose>
-                <c:when test="${feature.language eq 'ES'}">Por </c:when>
-                <c:otherwise>By </c:otherwise>
-
-            </c:choose>
-            <c:forEach var="author"
-                       items="${feature.authors}"
-                       varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}</c:forEach>
-        </c:if>
-    </p>
-
-    ${currentPage}
-
-    <c:if test="${not empty feature.pdfUri and (-1 eq feature.currentPageNum or feature.numPages eq feature.currentPageNum)}">
-        <div class="fltlft">
-            <a class="button-1" href="${feature.pdfUri}">Download <span
-                    class="sprite i-downloadarrow"><!-- do not collapse --></span></a>
-        </div>
-        <div class="lineheight-25"><a class="padlft_10" href="${feature.pdfUri}">Download and print at home.</a>
-        </div>
-    </c:if>
-</div>
-<!--Content-->
-
-<hr class="keyline1"/>
-
-<!--Share buttons-->
-<cms:articleDistributionNew2 includeFbSendBtn="false" includeShareBtn="true"/>
-<!--Share buttons-->
-
-<!-- Pagination -->
-<c:if test="${feature.numPages > 1}">
-    <div class="articlePagination">
-        Page
-        <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
-            <c:choose>
-                <c:when test="${pageNum == feature.currentPageNum}">
-                    <span class="active rnd3">${pageNum}</span>
-                </c:when>
-                <c:otherwise>
-                    <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-        <c:choose>
-            <c:when test="${-1 == feature.currentPageNum}">
-                <span class="active rnd3">Single Page</span>
-            </c:when>
-            <c:otherwise>
-                <a href="${contentUrl}?page=all">Single Page</a>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</c:if>
-<!-- Pagination -->
-
-<!-- Licensor attribution -->
-<c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
-    <div class="licensorAttributionPageBar">
-        <div class="attribution">
-            ${feature.licensorAttribution}
-        </div>
-    </div>
-</c:if>
-<!-- Licensor attribution -->
-</div>
-
-<!-- Related links -->
-    <c:if test="${not empty feature.externalLinks}">
-        <cms:relatedLinksListNew feature="${feature}"/>
-    </c:if>
-<!-- Related links -->
-
-<!-- Article comment form -->
-<script type="text/javascript">
-    function wrapCommentWithDelimiter(comment) {
-        return "BEGIN_ARTICLE_COMMENT\n" +
-                comment +
-                "\nEND_ARTICLE_COMMENT\n";
-    }
-</script>
-<cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-
-<!-- display comments for this article -->
-    <cms:commentsNew comments="${comments}"/>
-
-</div>
-
-<c:set var="pageName" value="article"/>
-<c:set var="hier1" value="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"/>
-
-<div class="grid_8">
-    <c:choose>
-        <!--
-            GS-8341: Initial implementation
-            GS-8538: Removal of code. This block is currently not triggered, but I'm leaving it
-                     in so that it will automatically work if the model is updated.
-         -->
-        <c:when test="${not empty requestScope.targetSupplyItems}">
-            <pageHelper:externalJavascript file="/res/js/fixedElement.js"/>
-            <pageHelper:addOnLoadHandler handler="fixedMenu.init('targetList', 'targetContainer', 'main');"/>
-            <pageHelper:externalCss file="/res/css/content/targetSupplyList.css"/>
-
-            <div id="targetContainer">
-                <div id="targetList" style="
-                    right:0;
-                    top:10px;">
-                    <img class="targetLogo"
-                         src="/res/img/promo/target/targetLogo.gif" alt="Target Logo"/>
-
-                    <h2>Find everything on your school list at Target</h2>
-                    <c:forEach items="${requestScope.targetSupplyItems}" var="targetSupplyItem">
-                        <div class="targetSupplyItem">
-                            <img src="/res/img/promo/target/${targetSupplyItem.imageName}.jpg"
-                                 alt="${targetSupplyItem.text}" height="75" width="75"/>
-                            <a href="${targetSupplyItem.link}" target="target">${targetSupplyItem.text}</a>
-                        </div>
-                    </c:forEach>
-                    <a id="targetSearchMore" target="target"
-                       href="http://ad.doubleclick.net/clk;216461280;38927400;c?http://www.target.com/b/?node=1041972&amp;amp;ref=tgt_adv_XCGS3638&amp;amp;afid=d_greatschools&amp;amp;cpng=bts09&amp;amp;PlaceID=38927400&amp;amp;CreateID=31327056">Search more school supplies at Target &amp;raquo;</a>
-                    <![CDATA[
-                        <script language='JavaScript1.1'
-                                src="http://ad.doubleclick.net/adj/N3550.GreatSchools/B3776842.7;sz=1x1;ord=%n?">
-                        </script>
-                        <noscript>
-                            <a href="http://ad.doubleclick.net/jump/N3550.GreatSchools/B3776842.7;sz=1x1;ord=%n?">
-                            <img src="http://ad.doubleclick.net/ad/N3550.GreatSchools/B3776842.7;sz=1x1;ord=%n?"
-                                 border="0" width="1" height="1" alt="Click Here"></a>
-                        </noscript>
-                    ]]>
-                </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div id="squareadvert">
-                <ad:AboveFold_300x250/>
-            </div>
-            <!-- GS-11430 -->
-            <c:if test="${showCompanionAd}">
-                <div class="ad">
-                    <span class="jq-ghostText adCompanionHeader" style="display:none;">ADVERTISEMENT</span>
-
-                    <div id="adCompanionBanner"><!-- don't collapse --></div>
-                </div>
-            </c:if>
-
-            <jsp:include page="/content/cms/moreInCategory.module?topics=${feature.primaryKategory.id}&amp;excludeType=${
-                    feature.contentKey.type}&amp;excludeContentId=${feature.contentKey.identifier}&amp;language=${feature.language}&amp;strict=true"/>
-
-            <c:set var="ckid" value="${feature.contentKey.identifier}"/>
-            <c:if test="${ckid eq 2331 or ckid eq 2287 or ckid eq 2272 or ckid eq 2315 or ckid eq 2324 or ckid eq 2334 or ckid eq 2335 or ckid eq 2336 or ckid eq 2337 or ckid eq 2338 }">
-                <promo:searchRealtorDotCom omniturePageName="${pageName}" pageAdRatioKey="RDC_PCT_ARTICLE"
-                                           showAdPct="0"/>
-            </c:if>
-
-            <jsp:include page="/promo/emailSignUp.module"/>
-
-            <div id="articleBottomRightAd">
-                <c:choose>
-                    <c:when test="${type eq 'articleSlideshow'}">
-                        <ad:BelowFold_Top_300x125/>
-                    </c:when>
-                    <c:otherwise>
-                        <gsweb:adTagGenerator position="BelowFold2_300x250">
-                            <span class="jq-ghostText">ADVERTISEMENT</span>$AD
-                        </gsweb:adTagGenerator>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-
-        </c:otherwise>
-    </c:choose>
-</div>
-</div>
-
-<input type="hidden" value="${type}" id="cmsContentType"/>
-<input type="hidden" value="${param.cpn}" id="cpnCodeFromNewsletter"/>
-
-
-<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
-
-<mod:tracking pageName="${pageName}"
-              hier1="${hier1}"
-              events="event7"
-              omitAlmondNet="${true}"
-        />
-
-
-<communityHover:interruptSurvey surveyType="article"/>
-<c:if test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari}">
-    <script type="text/javascript">
-        setTimeout("GSType.hover.interruptSurvey.showHover('Article ${feature.contentKey.identifier}','Article','${gsweb:escapeJavaScript(surveyDetails['url'])}')", 7000);
-    </script>
-</c:if>
-
-<content:nlSubscriptionHover/>
-<content:nlSubscriptionThankYouHover/>
-
-<c:choose>
-    <c:when test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari and !isSurveyCookieSet}">
-        <c:set var="isShowNlSubHover" value="false"/>
-    </c:when>
-    <c:when test="${!requestScope.context.crawler and !requestScope.context.cobranded and showNlSubHover and !isUserSubscribedToParentAdvisor}">
-        <c:set var="isShowNlSubHover" value="true"/>
-    </c:when>
-</c:choose>
-
-<input type="hidden" id="isShowNlSubHover" value="${isShowNlSubHover}"/>
-<c:if test="${showPhotoGallery}">
-    <cms:articlePhotoGallery cssClass="js-photo-gallery-trigger" smallImages="${smallPhotos}" largeImages="${largePhotos}"
-                             altTexts="${altTexts}" prefix="article" photoCaptions="${photoCaptions}"/>
-</c:if>
-
-<div id="fade" class="black_overlay"><!-- do not collapse --></div>
+    <div id="fade" class="black_overlay"><!-- do not collapse --></div>
 </gsml:body>
-<jsp:scriptlet>
-    boolean surveyHoverCookie = CookieUtil.hasCookie(request, "survey_hover_seen");
-    boolean surveyHoverThisSessionCookie = CookieUtil.hasCookie(request, "survey_hover_seen_this_session");
-    request.setAttribute("isSurveyCookieSet", surveyHoverCookie || surveyHoverCookie);
-    SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-    request.setAttribute("showNlSubHover", context.isShowNlSubscriptionHover());
-</jsp:scriptlet>
+
 </html>
 </jsp:root>
