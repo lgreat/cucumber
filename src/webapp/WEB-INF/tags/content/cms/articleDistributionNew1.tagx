@@ -15,11 +15,11 @@
 
     <div>
 
-        <div class="mas">
+        <div class="mtm mhs mbs">
             <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
         </div>
 
-        <div class="mas">
+        <div class="mts mhs mbm">
                 <span class="mrs">
             <promo:tweetButtonArticle/>
                 </span>

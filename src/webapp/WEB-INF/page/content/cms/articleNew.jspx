@@ -130,25 +130,33 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 <div class="grid_6 alpha mrm">
 
     <div class="mod articleDistribution">
-        <div class="inner rnd3">
+        <div class="inner rnd4">
             <div class="bd"><cms:articleDistributionNew1 includeFbSendBtn="true" includeShareBtn="false"/></div>
             <div class="ft">
                 <ul>
-                    <li>
+                    <li class="smaller">
                         <gsml:url var="mailToFriendUrl"
                                   value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
                         <gsml:a href="${mailToFriendUrl}"
                                 onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
-                            <span class="sprite i-email vert-align-mid"><!-- do not collapse --></span> Email</gsml:a>
+                            <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</gsml:a>
                     </li>
-                    <li><a href="javascript:void(0);" onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span class="sprite i-print vert-align-mid"><!-- do not collapse --></span> Print</a></li>
+                    <li class="smaller">
+                        <a href="javascript:void(0);"
+                           onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
+                                class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a></li>
                     <c:if test="${not empty feature.otherLanguageUri}">
-                        <li><strong><a href="${feature.otherLanguageUri}">
-                            <c:choose>
-                                <c:when test="${feature.language eq 'ES'}">In english</c:when>
-                                <c:otherwise><span class="sprite i-sun vert-align-mid"><!-- do not collapse --></span> En espa&amp;ntilde;ol</c:otherwise>
-                            </c:choose>
-                        </a></strong></li>
+                        <li class="smaller">
+                            <strong>
+                                <a href="${feature.otherLanguageUri}">
+                                    <c:choose>
+                                        <c:when test="${feature.language eq 'ES'}">In english</c:when>
+                                        <c:otherwise><span
+                                                class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
+                                    </c:choose>
+                                </a>
+                            </strong>
+                        </li>
                     </c:if>
                 </ul>
             </div>
@@ -180,7 +188,6 @@ and not empty altTexts and fn:length(altTexts) > 0}">
             <c:if test="${hasPublishedRelatedArticles}">
                 <cms:relatedArticlesListNew feature="${feature}"/>
             </c:if>
-            <hr class="keyline1"/>
         </div>
 
     </c:if>
@@ -275,14 +282,9 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 </div>
 
 <!-- Related links -->
-<c:if test="${not empty feature.externalLinks}">
-    <hr class="keyline1"/>
-    <div class="mod relatedLinksList">
-        <div class="inner">
-            <cms:relatedLinksListNew feature="${feature}"/>
-        </div>
-    </div>
-</c:if>
+    <c:if test="${not empty feature.externalLinks}">
+        <cms:relatedLinksListNew feature="${feature}"/>
+    </c:if>
 <!-- Related links -->
 
 <!-- Article comment form -->
@@ -295,14 +297,8 @@ and not empty altTexts and fn:length(altTexts) > 0}">
 </script>
 <cms:cmsCommentFormNew feature="${feature}" contentUrl="${contentUrl}" type="article"/>
 
-<hr class="keyline1"/>
-
 <!-- display comments for this article -->
-<div class="mod articleComments">
-    <div class="inner">
-        <cms:commentsNew comments="${comments}"/>
-    </div>
-</div>
+    <cms:commentsNew comments="${comments}"/>
 
 </div>
 

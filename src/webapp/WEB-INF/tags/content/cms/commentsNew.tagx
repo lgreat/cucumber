@@ -18,17 +18,25 @@
           version="2.0" xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
         <jsp:directive.attribute name="comments" required="true" type="java.util.List"/>
 
-    <c:if test="${not empty comments and fn:length(comments) gt 0}">
-        <div class="hd">
-            <h3>Comments from GreatSchools.org readers</h3>
-        </div>
-        <div class="bd">
-            <c:forEach var="comment" items="${comments}">
-                <div class="small articleCommentDate"><fmt:formatDate value="${comment.posted}"
-                                                           pattern="MM/d/yyyy"/>:</div>
 
-                <div class="small articleCommentText">"${comment.text}"</div>
-            </c:forEach>
+    <c:if test="${not empty comments and fn:length(comments) gt 0}">
+        <hr class="keyline1"/>
+        <div class="mod articleComments">
+            <div class="inner">
+                <div class="hd">
+                    <h3>Comments from GreatSchools.org readers</h3>
+                </div>
+                <div class="bd">
+                    <c:forEach var="comment" items="${comments}">
+                        <div class="small articleCommentDate"><fmt:formatDate value="${comment.posted}"
+                                                                              pattern="MM/d/yyyy"/>:
+                        </div>
+
+                        <div class="small articleCommentText">"${comment.text}"</div>
+                    </c:forEach>
+                </div>
+            </div>
         </div>
     </c:if>
+
 </jsp:root>
