@@ -26,8 +26,6 @@
     <meta name="description" content="${feature.metaDescription}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
 
-    <!-- TODO! what's this for? -->
-    <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
     <pageHelper:externalJavascript file="/res/js/content/cms/article/combined.js"/>
 
     <!-- GS-11430 -->
