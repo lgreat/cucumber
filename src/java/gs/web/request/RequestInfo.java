@@ -1,10 +1,11 @@
 package gs.web.request;
 
+import gs.web.mobile.Device;
 import gs.web.util.CookieUtil;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import net.sourceforge.wurfl.core.Device;
+import net.sourceforge.wurfl.core.WURFLManager;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.mobile.device.site.SitePreferenceHandler;
 
@@ -15,15 +16,20 @@ public class RequestInfo {
 
     public static final String REQUEST_ATTRIBUTE_NAME = "requestInfo";
 
-    private final String _hostname;
-    private final String _currentSubdomain;
+    private String _hostname;
+    private String _currentSubdomain;
+    private String _requestURL;
+
+    private WURFLManager _springWurflManager;
 
     private Boolean _onPkSubdomain;
     private Boolean _developerWorkstation;
     private Boolean _isDevEnvironment;
     private Boolean _cobranded;
     private Boolean _productionHostname;
+
     private HttpServletRequest _request;
+
     private Device _device;
     private SitePreference _sitePreference;
 
@@ -31,17 +37,26 @@ public class RequestInfo {
 
     private static String[] PRODUCTION_HOSTNAMES = {"www.greatschools.org","pk.greatschools.org","m.greatschools.org"};
 
+    public RequestInfo() {
+    }
+
     public RequestInfo(HttpServletRequest request) {
-        if (request == null) {
+        _request = request;
+        init();
+    }
+
+    public void init() {
+        System.out.println("REQUESTINFO BEING INITIALIZED----------------");
+        if (_request == null) {
             throw new IllegalArgumentException("Cannot create RequestInfo with null hostname");
         }
-        if (request.getServerName() == null) {
+        if (_request.getServerName() == null) {
             throw new IllegalArgumentException("Cannot create RequestInfo with a request that contains a null servername");
         }
 
-        _request = request;
-        _hostname = request.getServerName();
+        _hostname = _request.getServerName();
         _currentSubdomain = UrlUtil.findLowestSubdomain(_hostname);
+        _requestURL = UrlUtil.getRequestURL(_request);
 
         //set up state of HostnameInfo
         _developerWorkstation = UrlUtil.isDeveloperWorkstation(_hostname);
@@ -49,23 +64,26 @@ public class RequestInfo {
         _onPkSubdomain = _hostname.contains(Subdomain.PK.toString() + ".");
         _productionHostname = org.apache.commons.lang.StringUtils.indexOfAny(_hostname, PRODUCTION_HOSTNAMES) > -1;
 
-        String cobrand = UrlUtil.cobrandFromUrl(_hostname);
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
-        _cobranded = cobrand != null || sessionContext.isCobranded();
-
-        //_device = DeviceUtils.getCurrentDevice(request);
-
-        Object sitePreferenceObj = request.getAttribute(SitePreferenceHandler.CURRENT_SITE_PREFERENCE_ATTRIBUTE);
+        Object sitePreferenceObj = _request.getAttribute(SitePreferenceHandler.CURRENT_SITE_PREFERENCE_ATTRIBUTE);
         if (sitePreferenceObj != null) {
             _sitePreference = (SitePreference) sitePreferenceObj;
         } else {
             _sitePreference = null;
         }
+        _request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, this);
     }
 
     /******************************************************************************/
     /* Support for mobile site                                                    */
     /******************************************************************************/
+    public Device getDevice() {
+        if (_device == null) {
+            if (_springWurflManager != null) {
+                _device = new Device(_springWurflManager.getDeviceForRequest(_request));
+            }
+        }
+        return _device;
+    }
 
     public boolean isMobileSiteEnabled() {
         Cookie cookie = CookieUtil.getCookie(_request, MOBILE_SITE_ENABLED_COOKIE_NAME);
@@ -73,10 +91,8 @@ public class RequestInfo {
     }
 
     public boolean isFromMobileDevice() {
-        if (_device == null) return false;
-
-        String capability = _device.getCapability("is_wireless_device");
-        return capability != null && capability.length() > 0 && Boolean.valueOf(capability);
+        if (getDevice() == null) return false;
+        return getDevice().isMobileDevice();
     }
 
     /**
@@ -84,7 +100,7 @@ public class RequestInfo {
      * @return
      */
     public String getSitePreferenceUrlForAlternateSite() {
-        String newUrl = getCurrentUrl();
+        String newUrl = getRequestURL();
 
         if (isDeveloperWorkstation()) {
             if (_sitePreference == SitePreference.MOBILE) {
@@ -214,14 +230,9 @@ public class RequestInfo {
         return _request.getScheme() + "://" + getBaseHostname() + ((_request.getServerPort() != 80) ? ":" + _request.getServerPort() : "");
     }
 
-    public String getCurrentUrl() {
-        String fullUrl = _request.getScheme() + "://" + _request.getServerName() + ((_request.getServerPort() != 80) ? ":" + _request.getServerPort() : "");
-        fullUrl += _request.getContextPath() + _request.getServletPath();
-        if (_request.getQueryString() != null) {
-            fullUrl += "?" + _request.getQueryString();
+    public String getRequestURL() {
+        return _requestURL;
         }
-        return fullUrl;
-    }
 
     public String getFullUrlAtBaseHost() {
         String fullUrl = getBaseHost();
@@ -270,14 +281,42 @@ public class RequestInfo {
     }
 
     public boolean isCobranded() {
-        return _cobranded;
+        if (_cobranded == null) {
+            String cobrand = UrlUtil.cobrandFromUrl(_hostname);
+            if (cobrand != null) {
+                _cobranded = Boolean.valueOf(true);
+    }
+
+            // if _cobranded is still null and we're not sure yet:
+            if (_cobranded == null) {
+                SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
+                if (sessionContext == null) {
+                    throw new IllegalStateException("SessionContext should not be null if caller is trying to find out about cobrands");
+                }
+                _cobranded = sessionContext.isCobranded();
+            }
+        }
+
+        return Boolean.valueOf(_cobranded);
     }
 
     public SitePreference getSitePreference() {
         return _sitePreference;
     }
 
-    public void setDevice(Device device) {
-        _device = device;
+    public HttpServletRequest getRequest() {
+        return _request;
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        _request = request;
+}
+
+    public WURFLManager getSpringWurflManager() {
+        return _springWurflManager;
+    }
+
+    public void setSpringWurflManager(WURFLManager springWurflManager) {
+        _springWurflManager = springWurflManager;
     }
 }
