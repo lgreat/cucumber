@@ -13,7 +13,7 @@
                              description="Whether to include the share button"/>
 
 
-    <div class="fltlft">
+    <div class="fltlft jq-socialTools">
 
         <c:if test="${includeShareBtn==true}">
             <span class="mrs vert-align-top iblock">

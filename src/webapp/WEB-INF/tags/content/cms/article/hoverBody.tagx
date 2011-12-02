@@ -7,12 +7,17 @@
           xmlns:gsweb="gstaglib"
         >
 
-    <!-- TODO!!! are variables e.g. surveyDetails, isShowNlSubHover, isUserSubscribedToParentAdvisor, type, param.cpn, etc. working? any vars from article:hoverScriptlet? -->
-    <!-- WARNING: Relies heavily on requestScope variables -->
+    <!-- WARNING: Relies heavily on variables in requestScope or in the model:
+                  - surveyDetails
+                  - showNlSubHover
+                  - isSurveyCookieSet
+                  - isUserSubscribedToParentAdvisor
+     -->
     <!-- WARNING: Must be placed after article:hoverScriptlet tag is called -->
 
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
-    <!-- TODO-TAG! non-print view only for newsletter hovers -->
+
+    <!-- research team survey hover -->
     <communityHover:interruptSurvey surveyType="article"/>
     <c:if test="${!requestScope.context.crawler and !requestScope.context.cobranded and not empty surveyDetails and surveyDetails['showSurveyHover'] and !requestScope.context.iosSafari}">
         <script type="text/javascript">
@@ -20,9 +25,12 @@
         </script>
     </c:if>
 
-    <!-- TODO! for marketing NL hover, what about for askTheExperts -->
+    <!-- for NL sub hover -->
     <input type="hidden" value="${type}" id="cmsContentType"/>
     <input type="hidden" value="${param.cpn}" id="cpnCodeFromNewsletter"/>
+    <c:if test="${pageScope.feature.contentKey.type eq 'ArticleSlideshow'}">
+        <input type="hidden" value="${param.page}" id="articleSlideshowNum"/>
+    </c:if>
 
     <content:nlSubscriptionHover/>
     <content:nlSubscriptionThankYouHover/>
