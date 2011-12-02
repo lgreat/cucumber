@@ -72,6 +72,8 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     private StateManager _stateManager;
 
+    private String _mobileViewName;
+
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
     public static final String BEAN_ID = "/search/search.page";
 
@@ -1538,6 +1540,14 @@ public class SchoolSearchController extends AbstractCommandController implements
 
             return districtSearchResults;
         }
+    }
+
+    public String getMobileViewName() {
+        return _mobileViewName;
+    }
+
+    public void setMobileViewName(String mobileViewName) {
+        _mobileViewName = mobileViewName;
     }
 }
 

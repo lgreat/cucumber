@@ -7,16 +7,23 @@ import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.mobile.device.site.SitePreferenceHandler;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Analyzes the request and the controller to determine if a redirect to the mobile version of the site (m.greatschools.org)
+ * needs to occur, or vice versa.
+ */
 public class SiteSwitcherInterceptor implements HandlerInterceptor {
 
     public static final String sitePreferenceUrlForAlternateSite = "sitePreferenceUrlForAlternateSite";
 
+    private RequestInfo _requestInfo;
+
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+        RequestInfo requestInfo = _requestInfo;
         boolean controllerHasMobileView = handler instanceof IControllerWithMobileView;
         boolean mobileOnlyController = handler instanceof IMobileOnlyController;
         boolean controllerHasDesktopView = !mobileOnlyController; //readability
@@ -72,5 +79,12 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    public RequestInfo getRequestInfo() {
+        return _requestInfo;
+    }
+
+    public void setRequestInfo(RequestInfo requestInfo) {
+        _requestInfo = requestInfo;
+    }
 }
 

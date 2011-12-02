@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Handles cases where one controller will be used to serve multiple views depending on the Device the request came from
+ */
 public class MobileViewSwitcherInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -26,12 +29,21 @@ public class MobileViewSwitcherInterceptor implements HandlerInterceptor {
 
             RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
 
-            if (controllerHasMobileView) {
-                MobileHelper.switchToMobileViewIfNeeded(request, modelAndView);
+            if (controllerHasMobileView && controllerHasDesktopView) {
+                String mobileViewName = ((IControllerWithMobileView) handler).getMobileViewName();
+                if (requestInfo.shouldRenderMobileView()) {
+                    if (mobileViewName == null) {
+                        // only use the "-mobile" view name convention if the controller hasn't already set a mobile view
+                        modelAndView.setViewName(modelAndView.getViewName() + MobileHelper.STANDARD_MOBILE_VIEW_NAME_SUFFIX);
+                    } else {
+                        modelAndView.setViewName(mobileViewName);
+                    }
+                }
             }
 
             //TODO: move map key name elsewhere
             if (requestInfo.isMobileSiteEnabled()) {
+                // allows view to render link to alternate (mobile | desktop) version if desired
                 modelAndView.getModel().put("hasMobileView", controllerHasMobileView);
             }
         }

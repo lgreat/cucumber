@@ -11,6 +11,7 @@ import gs.data.security.Permission;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.web.mobile.IControllerWithMobileView;
+import gs.web.mobile.IDeviceSpecificController;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.CookieUtil;
@@ -25,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
@@ -34,7 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
-public class CmsHomepageController extends AbstractController implements IControllerWithMobileView {
+public class CmsHomepageController extends AbstractController {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
 
     public static final String BEAN_ID = "/index.page";

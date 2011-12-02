@@ -25,6 +25,7 @@
     <context:component-scan base-package="gs.web.promo" />
     <context:component-scan base-package="gs.web.geo" />
 
+
     <!--
     - Application context definition for "springapp" DispatcherServlet.
     -->
@@ -49,8 +50,8 @@
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
-                <bean class="gs.web.mobile.SiteSwitcherInterceptor" autowire="byName"/>
-                <bean class="gs.web.mobile.MobileViewSwitcherInterceptor" autowire="byName"/>
+                <bean class="gs.web.mobile.SiteSwitcherInterceptor" autowire="byName" depends-on="requestInfo"/>
+                <bean class="gs.web.mobile.MobileViewSwitcherInterceptor" autowire="byName" depends-on="requestInfo"/>
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
@@ -278,7 +279,26 @@
     <bean id="nearbySchoolSearchCommandValidator" class="gs.web.search.NearbySchoolSearchCommandValidator"
           autowire="byName" lazy-init="true"/>
 
-    <bean name="/index.page"
+    <bean name="deviceSpecificControllerFactory" class="gs.web.mobile.DeviceSpecificControllerFactory" scope="request"  lazy-init="true">
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+
+    <bean name="/index.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" scope="request" lazy-init="true">
+        <constructor-arg>
+            <list>
+                <ref bean="cmsHomepageController"/> <!-- for desktop requests -->
+                <ref bean="mobileHomepageController"/> <!-- for mobile requests -->
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean name="mobileHomepageController" class="gs.web.MobileHomepageController">
+        <property name="mobileViewName">
+            <value>index-mobile</value>
+        </property>
+    </bean>
+
+    <bean name="cmsHomepageController"
           class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
         <property name="viewName">
             <value>index</value>
@@ -497,6 +517,9 @@
         </property>
         <property name="districtSearchService">
             <ref bean="solrDistrictSearchService"/>
+        </property>
+        <property name="mobileViewName">
+            <value>schoolSearchResults-mobile</value>
         </property>
     </bean>
 
@@ -2682,4 +2705,11 @@
         </property>
         -->
     </bean>
+
+
+    <bean id="requestInfo" class="gs.web.request.RequestInfo" scope="request" init-method="init" lazy-init="false" autowire="byType">
+        <aop:scoped-proxy />
+    </bean>
+
+
 </beans>
