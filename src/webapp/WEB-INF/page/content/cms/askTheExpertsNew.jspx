@@ -43,7 +43,6 @@
         <h1>${feature.title}</h1>
 
         <!--Licensor logo-->
-        <!-- TODO! Example article with licensor logo and attrib: http://localhost:8080/special-education/LD-ADHD/560-get-organized-for-school.gs?page=1 -->
         <c:if test="${not empty feature.licensorLogoUrl}">
             <article:licensorLogo logoUrl="${feature.licensorLogoUrl}" logoAltText="${feature.licensorLogoAltText}"
                                   licensorUrl="${feature.licensorUrl}"/>
