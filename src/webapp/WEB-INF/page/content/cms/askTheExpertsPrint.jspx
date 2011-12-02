@@ -35,65 +35,36 @@
 
     <h1>${feature.title}</h1>
 
-    <!-- start authors -->
-    <div class="authorPageBar">
-        <div class="authors">
-            <c:if test="${not empty feature.authors}">
-                <c:choose>
-                    <c:when test="${feature.language eq 'ES'}">Por </c:when>
-                    <c:otherwise>By </c:otherwise>
+    <!--Image-->
+    <article:mainImage feature="${feature}"/>
+    <!--Image-->
 
-                </c:choose>
-                <c:forEach var="author"
-                           items="${feature.authors}"
-                           varStatus="loopStatus"><c:if test="${not loopStatus.first}">, </c:if>${author}
-                </c:forEach>
-            </c:if>
-        </div>
-    </div>
-    <!-- end authors -->
+    <article:authorByline feature="${feature}"/>
 
-    <!-- start question -->
-    <div id="cmsAskTheExpertsQuestion">
+    <!-- Question -->
+    <div class="question">
         <h3 class="text-uppercase">Question:</h3>
         ${askTheExperts.question}
     </div>
-    <!-- end question -->
+    <!-- Question -->
 
-    <div id="cmsArticleText">
-        <!-- start main image -->
-        <c:if test="${feature.currentPageNum lt 2 and not empty feature.imageUrl}">
-            <div class="mainImage">
-                <c:if test="${not empty feature.imageUrl}">
-                    <img src="${feature.imageUrl}" alt="${feature.imageAltText}"/>
-                </c:if>
-
-                <div class="caption">${feature.imageTitle}</div>
-            </div>
-        </c:if>
-        <!-- end main image -->
-
-        <!-- start answer -->
-        <div id="cmsAskTheExpertsAnswer"><h3 class="text-uppercase">Answer:</h3></div>
+    <!-- Answer -->
+    <div class="answer">
+        <h3 class="text-uppercase">Answer:</h3>
         ${answer}
-        <!-- end answer -->
-
     </div>
+    <!-- Answer -->
 
-    <!-- start Licensor attribution -->
-    <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
-        <div class="licensorAttributionPageBar">
-            <div class="attribution">
-                ${feature.licensorAttribution}
-            </div>
-        </div>
-    </c:if>
-    <!-- end Licensor attribution -->
+    <!-- Author bios, Licensor attribution, and disclaimer -->
+    <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}"
+                         showDisclaimer="${true}"/>
+    <!-- Author bios, Licensor attribution, and disclaimer -->
 
-
-    <div id="disclaimer">
-        <p>Advice from our experts is not a substitute for professional diagnosis or treatment from a health-care provider or learning expert familiar with your unique situation. We recommend consulting a qualified professional if you have concerns about your child's condition.</p>
-    </div>
+    <!-- Related links -->
+        <c:if test="${not empty feature.externalLinks}">
+            <article:relatedLinksList feature="${feature}"/>
+        </c:if>
+    <!-- Related links -->
 
     <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
