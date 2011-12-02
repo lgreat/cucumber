@@ -24,7 +24,7 @@
           content="${(not empty feature.metaDescription) ? feature.metaDescription : askTheExperts.question}"/>
     <meta name="keywords" content="${feature.metaKeywords}"/>
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
-    <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
+    <pageHelper:externalJavascript file="/res/js/content/cms/article/combined.js"/>
 
     <article:hoverScriplet/>
     <k12:trafficDriverIncludes/>

@@ -13,7 +13,7 @@ $j(document).ready(function() {
 
     var type = $j("#cmsContentType").val();
     var isShowNlSubHover = $j("#isShowNlSubHover").val();
-    var socialButtons = $j('.articleDistribution:last');
+    var socialButtons = $j('.jq-socialTools:last');
 
     if (showNlHover && type == 'articleSlideshow' && isShowNlSubHover == 'true') {
         var slideNum = $j("#articleSlideshowNum").val();
@@ -23,7 +23,7 @@ $j(document).ready(function() {
     }
 
     $j(window).scroll(function() {
-        if (showNlHover && type == 'article' && isShowNlSubHover == 'true') {
+        if (showNlHover && (type == 'article' || type == 'askTheExperts') && isShowNlSubHover == 'true') {
             var reachedScrollPositionToSocialIcons = isScrolledIntoView(socialButtons);
             if (reachedScrollPositionToSocialIcons) {
                 GSType.hover.nlSubscription.showHover();

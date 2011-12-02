@@ -12,7 +12,7 @@
     <jsp:directive.attribute name="includeEmailBtn" required="false" type="java.lang.Boolean"
                              description="Whether to include the share button"/>
 
-    <div class="shareThis articleDistribution">
+    <div class="shareThis articleDistribution jq-socialTools">
 
         <!-- Share This -->
         <c:if test="${includeShareBtn==true}">

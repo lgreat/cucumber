@@ -28,8 +28,7 @@
 
     <!-- TODO! what's this for? -->
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
-    <!-- TODO-REFACTOR/RENAME? -->
-    <pageHelper:externalJavascript file="/res/js/slideshow/slideshow.js"/>
+    <pageHelper:externalJavascript file="/res/js/content/cms/article/combined.js"/>
 
     <!-- GS-11430 -->
     <c:if test="${showCompanionAd}">
@@ -200,7 +199,6 @@
                   omitAlmondNet="${true}"
             />
 
-    <!-- TODO!!! May be buggy, needs a second look at the variables used -->
     <article:hoverBody feature="${feature}"/>
 
     <c:if test="${showPhotoGallery}">
