@@ -53,7 +53,7 @@
         <!--Sidebar-->
         <div class="grid_6 alpha mrm">
 
-            <article:tools feature="${feature}" uri="${uri}"/>
+            <article:toolsLayout1 feature="${feature}" uri="${uri}"/>
 
             <c:if test="${not empty feature.relatedArticles}">
                 <article:relatedArticles feature="${feature}"/>
