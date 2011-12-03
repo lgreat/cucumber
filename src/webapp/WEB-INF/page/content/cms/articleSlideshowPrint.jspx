@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          version="2.0">
+    <html lang="en">
+    <jsp:directive.page contentType="text/html"/>
+
+    <pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
+                                       imageUrl="${feature.slides[0].imageUrl}"/>
+
+    <head>
+        <article:slideshowTitle articleSlideshow="${articleSlideshow}"/>
+
+        <meta name="keywords" content="${feature.metaKeywords}"/>
+
+        <script type="text/javascript" src="/res/js/global.js"><!--D not collapse--></script>
+    </head>
+
+    <body onload="window.print();">
+
+    TODO greatschools logo
+    <div class="grid_16">
+
+        <h1>${feature.title}</h1>
+
+        <h4>${fn:escapeXml(articleSlideshow.summary)}</h4>
+
+        <!--Licensor logo-->
+        <c:if test="${not empty feature.licensorLogoUrl}">
+            <article:licensorLogo logoUrl="${feature.licensorLogoUrl}" logoAltText="${feature.licensorLogoAltText}" licensorUrl="${feature.licensorUrl}"/>
+        </c:if>
+
+        <!-- Byline -->
+        <article:authorByline feature="${feature}"/>
+        <!-- Byline -->
+
+        <!-- Article slide content -->
+        <c:forEach var="slide" items="${currentSlides}">
+
+            <div id="ss_body">
+                <c:if test="${not empty slide.imageUrl}">
+                    <img class="ss_image" src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
+                </c:if>
+
+                <h2 class="ss_title">${slide.title}</h2>
+
+                <div class="ss_text">
+                    ${slide.body}
+                </div>
+            </div>
+            <!-- ss_body -->
+
+        </c:forEach>
+        <!-- Article slide content -->
+
+
+        <!-- Author bios, Licensor attribution -->
+        <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}"
+                             showDisclaimer="${false}"/>
+        <!-- Author bios, Licensor attribution -->
+
+    </div>
+
+    <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
+
+    <mod:tracking pageName="Article Slideshow"
+                  hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"
+                  omitAlmondNet="${true}"
+            />
+    </body>
+    </html>
+</jsp:root>

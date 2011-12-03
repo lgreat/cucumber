@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community">
+    <jsp:directive.tag import="java.net.URLEncoder"/>
+    <jsp:directive.attribute name="includeFbSendBtn" required="true" type="java.lang.Boolean"
+                             description="Whether to include the facebook send button"/>
+    <jsp:directive.attribute name="includeShareBtn" required="true" type="java.lang.Boolean"
+                             description="Whether to include the share button"/>
+    <jsp:directive.attribute name="includeEmailBtn" required="false" type="java.lang.Boolean"
+                             description="Whether to include the share button"/>
+
+
+    <span>
+
+        <span class="mtm mhs mbs">
+            <span class="mrs">
+                <promo:tweetButtonArticle/>
+            </span>
+
+            <span class="mls">
+                <community:addGooglePlusOne url="${fullUrl}"/>
+            </span>
+
+            <!-- TODO! fix mls/mrs, spacing, padding, alignment -->
+            <!-- TODO! temporarily moved FB to right side, contrary to mock,
+                       because of layout issues with FB like button,
+                       need to check with Stephen/Chuck? -->
+            <span class="mls">
+                <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
+            </span>
+        </span>
+
+    </span>
+
+</jsp:root>
