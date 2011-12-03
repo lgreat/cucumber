@@ -33,7 +33,7 @@
     TODO greatschools logo
     <div class="grid_16">
 
-        <h2>${feature.title}</h2>
+        <h1>${feature.title}</h1>
 
         <!--Licensor logo-->
         <c:if test="${not empty feature.licensorLogoUrl}">

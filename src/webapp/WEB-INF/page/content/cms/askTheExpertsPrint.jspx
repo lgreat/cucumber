@@ -18,7 +18,6 @@
         <meta name="keywords" content="${feature.metaKeywords}"/>
 
         <script type="text/javascript" src="/res/js/global.js"><!--Do not collapse--></script>
-
     </head>
 
     <body onload="window.print();">
