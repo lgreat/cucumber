@@ -66,7 +66,7 @@
         </c:if>
     <!-- Related links -->
 
-    <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+    <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
 
     <mod:tracking pageName="Ask the Experts Print"
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture},Print Ask the Experts"

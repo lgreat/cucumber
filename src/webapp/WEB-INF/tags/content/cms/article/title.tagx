@@ -8,17 +8,19 @@
     <jsp:directive.attribute name="title" required="false" type="java.lang.String"/>
     <jsp:directive.attribute name="primaryCategoryName" required="false" type="java.lang.String"/>
 
+    <!-- WARNING: pageTitle is set in request scope for use in containing page -->
+
     <c:choose>
         <c:when test="${not empty pageScope.pageTitle}">
-            <c:set var="fullPageTitle">${pageScope.pageTitle}</c:set>
+            <c:set var="pageTitle" scope="request">${pageScope.pageTitle}</c:set>
         </c:when>
         <c:when test="${not empty pageScope.promo}">
-            <c:set var="fullPageTitle">${pageScope.promo} - ${pageScope.primaryKategory.name}</c:set>
+            <c:set var="pageTitle" scope="request">${pageScope.promo} - ${pageScope.primaryCategoryName}</c:set>
         </c:when>
         <c:otherwise>
-            <c:set var="fullPageTitle">${pageScope.title} - ${pageScope.primaryKategory.name}</c:set>
+            <c:set var="pageTitle" scope="request">${pageScope.title} - ${pageScope.primaryCategoryName}</c:set>
         </c:otherwise>
     </c:choose>
-    <title>${fullPageTitle} | GreatSchools</title>
+    <title>${requestScope.pageTitle} | GreatSchools</title>
 
 </jsp:root>

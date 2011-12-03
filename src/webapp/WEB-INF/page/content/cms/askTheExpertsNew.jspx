@@ -113,7 +113,7 @@
 </div>
 </div>
 
-<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+<mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
 
 <mod:tracking pageName="${omniturePageName}"
               hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"

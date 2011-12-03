@@ -88,7 +88,7 @@
     </div>
     <input type="hidden" value="${type}" id="cmsContentType"/>
 
-    <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
+    <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
 
     <mod:tracking pageName="ArticlePrint"
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},${titleForOmniture},Print Article"
