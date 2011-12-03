@@ -163,7 +163,7 @@
                     </div>
                 </c:if>
                 <!-- Pagination -->
-
+                <div class="clearfloat"><!-- do not collapse --></div>
                 <!-- Author bios, Licensor attribution -->
                 <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
                     <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}"

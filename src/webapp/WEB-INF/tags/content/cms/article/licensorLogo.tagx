@@ -8,16 +8,18 @@
     <jsp:directive.attribute name="licensorUrl" required="false" type="java.lang.String"/>
 
     <c:set var="licensorLogo">
-        <img class="float right pb pl"
-             src="${pageScope.logoUrl}" alt="${pageScope.logoAltText}"/>
+        <img src="${pageScope.logoUrl}" alt="${pageScope.logoAltText}"/>
     </c:set>
-    <c:choose>
-        <c:when test="${not empty pageScope.licensorUrl}">
-            <a href="${pageScope.licensorUrl}" target="_blank">${licensorLogo}</a>
-        </c:when>
-        <c:otherwise>
-            ${licensorLogo}
-        </c:otherwise>
-    </c:choose>
+
+    <div class="fltrt">
+        <c:choose>
+            <c:when test="${not empty pageScope.licensorUrl}">
+                <a href="${pageScope.licensorUrl}" target="_blank">${licensorLogo}</a>
+            </c:when>
+            <c:otherwise>
+                ${licensorLogo}
+            </c:otherwise>
+        </c:choose>
+    </div>
 
 </jsp:root>

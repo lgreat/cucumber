@@ -19,23 +19,21 @@
         </c:if>
     </c:set>
 
-    <div class="mod">
-        <div class="inner rnd4">
+    <div class="mod articleAttribution">
+        <div class="inner">
             <div class="bd">
                 <c:if test="${hasNonEmptyBios}">
-                    <div class="authorBio">
+                    <div>
                         ${biosContent}
                     </div>
                 </c:if>
 
-                <div class="licensorAttribution">
+                <div class="quiet">
                     ${pageScope.licensorAttribution}
                 </div>
 
                 <c:if test="${pageScope.showDisclaimer}">
-                    <div class="disclaimer">
-                        <p>Advice from our experts is not a substitute for professional diagnosis or treatment from a health-care provider or learning expert familiar with your unique situation. We recommend consulting a qualified professional if you have concerns about your child's condition.</p>
-                    </div>
+                    <p>Advice from our experts is not a substitute for professional diagnosis or treatment from a health-care provider or learning expert familiar with your unique situation. We recommend consulting a qualified professional if you have concerns about your child's condition.</p>
                 </c:if>
             </div>
         </div>

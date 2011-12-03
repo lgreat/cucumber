@@ -897,7 +897,10 @@ h4.subhead2 a {
 .ie7 .photoGalleryWrapper .photoGalleryThumbnails{float:left;}
 .photoGalleryWrapper .gallery-thumbnail{display: inline-block;margin:0 5px;border: 1px solid #ccc;}
 .photoGalleryWrapper .gallery-thumbnail-selected{border: 2px solid #d61;}
-
+/* ----------- articleAttribution ------------ */
+.articleAttribution {margin-top: 20px;}
+.articleAttribution .bd p{margin-bottom: 0;}
+.articleAttribution .bd p{margin-bottom: 0;}
 /* ---------------- GS-11664 ----------------- */
 /* ------ btsSponsor (extends standard) ------ */
 .btsSponsor .inner{background-color:#f9eccd;}
