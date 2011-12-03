@@ -64,12 +64,6 @@
         ${currentPage}
         <!-- article content -->
 
-        <!-- Related articles -->
-        <c:if test="${not empty feature.relatedArticles}">
-            <article:relatedArticles feature="${feature}"/>
-        </c:if>
-        <!-- Related articles -->
-
         <!-- start Licensor attribution -->
         <c:if test="${not empty feature.licensorAttribution and (feature.currentPageNum eq -1 or feature.numPages eq feature.currentPageNum)}">
             <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}"
@@ -77,16 +71,7 @@
         </c:if>
         <!-- End Licensor attribution -->
 
-        <!-- Related links -->
-        <c:if test="${not empty feature.externalLinks}">
-            <div>
-                <article:relatedLinksList feature="${feature}"/>
-            </div>
-        </c:if>
-        <!-- Related links -->
-
     </div>
-    <input type="hidden" value="${type}" id="cmsContentType"/>
 
     <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
 

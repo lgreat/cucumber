@@ -60,12 +60,6 @@
                          showDisclaimer="${true}"/>
     <!-- Author bios, Licensor attribution, and disclaimer -->
 
-    <!-- Related links -->
-        <c:if test="${not empty feature.externalLinks}">
-            <article:relatedLinksList feature="${feature}"/>
-        </c:if>
-    <!-- Related links -->
-
     <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
 
     <mod:tracking pageName="Ask the Experts Print"
