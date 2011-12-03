@@ -25,7 +25,7 @@
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
 
-    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper">
+    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0">
         <div class="inner rnd9">
             <div class="hd gradient-5 rnd-top-9">
                 <div id="${prefix}-photo-gallery-close" class="photoGalleryClose">
@@ -39,25 +39,25 @@
                             <!--<div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize">-->
                             <img src="/res/img/pixel.gif" width="390" height="252"/>
 
-                            <span>${photoCaptions[index]}</span>
+                            <span class="small quiet">${photoCaptions[index]}</span>
                         </div>
                     </c:forEach>
                     <!--<br style="clear:both"/>-->
                 </div>
 
-                <div class="photo-gallery-controls">
-                    <div style="margin: auto;text-align: center;">
-                        <div id="${prefix}-photo-gallery-back" class="photo-gallery-back">
+                <div class="photoGalleryControls">
+                    <div class="galleryControls">
+                        <div id="${prefix}-photo-gallery-back" class="galleryBack">
                             <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
                         </div>
-                        <div class="photo-gallery-thumbnails">
+                        <div class="photoGalleryThumbnails">
                             <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                                 <div id="${prefix}-gallery-thumbnail-${index}" class="gallery-thumbnail">
                                     <img src="/res/img/pixel.gif" width="70" height="70"/>
                                 </div>
                             </c:forEach>
                         </div>
-                        <div id="${prefix}-photo-gallery-next" class="photo-gallery-next">
+                        <div id="${prefix}-photo-gallery-next" class="galleryNext">
                             <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
                         </div>
                         <!--<br style="clear:both"/>-->
