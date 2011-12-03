@@ -47,6 +47,7 @@
                                   licensorUrl="${feature.licensorUrl}"/>
         </c:if>
 
+        <!-- TODO! make sure these 610x ads look right -->
         <ad:adTag position="Sponsor_610x16"/>
         <ad:adTag position="Sponsor_610x30"/>
 
