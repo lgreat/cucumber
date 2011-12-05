@@ -218,7 +218,9 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         boolean sendEmailSubscriptionWelcomeEmail = StringUtils.isNotBlank(esw);
         if (sendEmailSubscriptionWelcomeEmail) {
             Map<String, String> attributes = ExactTargetUtil.getEmailSubWelcomeAttributes(esw);
-            _exactTargetAPI.sendTriggeredEmail(ExactTargetUtil.EMAIL_SUB_WELCOME_TRIGGER_KEY, user, attributes);
+            if (!attributes.isEmpty()) {
+                _exactTargetAPI.sendTriggeredEmail(ExactTargetUtil.EMAIL_SUB_WELCOME_TRIGGER_KEY, user, attributes);
+            }
         }
     }
 
