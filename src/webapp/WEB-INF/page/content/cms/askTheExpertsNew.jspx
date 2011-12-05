@@ -37,7 +37,7 @@
 
         <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
-        <h3 class="text-uppercase">Ask the Experts</h3>
+        <p class="small bottom make-f2791f make-uppercase"><strong>Ask the Experts</strong></p>
 
         <h1>${feature.title}</h1>
 
@@ -87,14 +87,17 @@
         </div>
         <!--Content-->
 
-        <hr class="keyline1"/>
+        <c:if test="${not empty feature.licensorAttribution}">
+            <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>
+        </c:if>
 
         <!--Share buttons-->
         <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
         <!--Share buttons-->
 
+        <div class="clearfloat"><!-- do not collapse --></div>
         <!-- Author bios, Licensor attribution, and disclaimer -->
-        <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}" showDisclaimer="${true}"/>
+        <article:attribution authorBios="${authorBios}" showDisclaimer="${true}"/>
         <!-- Author bios, Licensor attribution, and disclaimer -->
     </div>
 

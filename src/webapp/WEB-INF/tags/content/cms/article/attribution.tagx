@@ -4,36 +4,29 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <jsp:directive.attribute name="authorBios" required="true" type="java.util.List"/>
-    <jsp:directive.attribute name="licensorAttribution" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="showDisclaimer" required="true" type="java.lang.Boolean"/>
 
-    <c:set var="hasNonEmptyBios" value="${false}"/>
+    <c:set var="hasBios" value="${false}"/>
     <c:set var="biosContent">
         <c:if test="${not empty pageScope.authorBios}">
             <c:forEach var="bio" items="${pageScope.authorBios}">
                 <c:if test="${not empty bio}">
                     ${bio}
-                    <c:set var="hasNonEmptyBios" value="${true}"/>
+                    <c:set var="hasBios" value="${true}"/>
                 </c:if>
             </c:forEach>
         </c:if>
     </c:set>
 
     <div class="mod articleAttribution">
-        <div class="inner">
+        <div class="inner rnd3">
             <div class="bd">
-                <c:if test="${hasNonEmptyBios}">
-                    <div>
+                <c:if test="${hasBios}">
                         ${biosContent}
-                    </div>
                 </c:if>
 
-                <div class="quiet">
-                    ${pageScope.licensorAttribution}
-                </div>
-
                 <c:if test="${pageScope.showDisclaimer}">
-                    <p>Advice from our experts is not a substitute for professional diagnosis or treatment from a health-care provider or learning expert familiar with your unique situation. We recommend consulting a qualified professional if you have concerns about your child's condition.</p>
+                    <p><em>Advice from our experts is not a substitute for professional diagnosis or treatment from a health-care provider or learning expert familiar with your unique situation. We recommend consulting a qualified professional if you have concerns about your child's condition.</em></p>
                 </c:if>
             </div>
         </div>

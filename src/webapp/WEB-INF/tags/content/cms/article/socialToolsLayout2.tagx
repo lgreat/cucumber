@@ -13,6 +13,7 @@
                              description="Whether to include the share button"/>
 
 
+    <hr class="keyline1"/>
     <div class="fltlft jq-socialTools">
 
         <c:if test="${includeShareBtn==true}">
