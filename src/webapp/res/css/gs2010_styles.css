@@ -5755,14 +5755,14 @@ body.hover #startADiscussion .submit {
 #avatarFileInput {
     position: absolute;
     text-align: right;
-    -moz-opacity: 0;
-    opacity:0;
-    *filter: alpha(opacity:0);
+    filter: alpha(opacity = 0);
     opacity: 0;
     z-index: 2;
     left: 34px;
     top: 0;
     width: 520px;
+    zoom:1;
+    outline:none;
 }
 
 #fake_avatarFileBrowse {
