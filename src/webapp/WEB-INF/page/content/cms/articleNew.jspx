@@ -102,7 +102,7 @@
                         <article:relatedArticles feature="${feature}"/>
                     </c:if>
 
-                    <c:if test="${feature.sidebar}">
+                    <c:if test="${not empty feature.sidebar}">
                         ${feature.sidebar}
                     </c:if>
                 </div>
