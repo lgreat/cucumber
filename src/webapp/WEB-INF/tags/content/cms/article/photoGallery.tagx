@@ -25,7 +25,7 @@
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
 
-    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0">
+    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0 rnd9">
         <div class="inner rnd9">
             <div class="hd gradient-5 rnd-top-9">
                 <div id="${prefix}-photo-gallery-close" class="photoGalleryClose">
