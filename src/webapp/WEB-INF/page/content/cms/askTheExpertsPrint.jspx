@@ -55,8 +55,13 @@
     <!-- Answer -->
 
     <!-- Author bios, Licensor attribution, and disclaimer -->
-    <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}"
-                         showDisclaimer="${true}"/>
+    <c:if test="${not empty authorBios}">
+        <article:authorBios authorBios="${authorBios}"/>
+    </c:if>
+    <article:disclaimer showDisclaimer="${true}"/>
+    <c:if test="${not empty feature.licensorAttribution}">
+        <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>
+    </c:if>
     <!-- Author bios, Licensor attribution, and disclaimer -->
 
     <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>

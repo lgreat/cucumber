@@ -182,8 +182,13 @@
             <ad:adTag position="Sponsor_BelowFold_610x38"/>
 
             <!-- Author bios, Licensor attribution -->
-            <article:attribution authorBios="${authorBios}" licensorAttribution="${feature.licensorAttribution}"
-                                 showDisclaimer="${false}"/>
+            <c:if test="${not empty authorBios and ((feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum))}">
+                <article:authorBios authorBios="${authorBios}"/>
+            </c:if>
+            <article:disclaimer showDisclaimer="${false}"/>
+            <c:if test="${not empty feature.licensorAttribution}">
+                <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>
+            </c:if>
             <!-- Author bios, Licensor attribution -->
 
             <!-- Related articles -->
