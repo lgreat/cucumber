@@ -102,8 +102,16 @@
                         <article:relatedArticles feature="${feature}"/>
                     </c:if>
 
+
                     <c:if test="${not empty feature.sidebar}">
-                        ${feature.sidebar}
+                        <div class="mod articleSidebar">
+                            <div class="inner">
+                                <div class="bd">
+                                    <hr class="keyline1"/>
+                                    ${feature.sidebar}
+                                </div>
+                            </div>
+                        </div>
                     </c:if>
                 </div>
                 <!--Sidebar-->
@@ -131,6 +139,8 @@
                     </c:if>
                 </div>
                 <!--Content-->
+
+                <hr class="keyline1"/>
 
                 <!--Share buttons-->
                 <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
@@ -165,7 +175,7 @@
                 <div class="spacer_15"><!-- do not collapse --></div>
 
                 <!-- Author bios, Licensor attribution -->
-                <c:if test="${not empty authorBios and ((feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum))}">
+                <c:if test="${(feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum)}">
                     <article:authorBios authorBios="${authorBios}"/>
                 </c:if>
                 <article:disclaimer showDisclaimer="${false}"/>

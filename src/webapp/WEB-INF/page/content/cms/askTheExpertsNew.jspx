@@ -87,6 +87,8 @@
         </div>
         <!--Content-->
 
+        <hr class="keyline1"/>
+
         <!--Share buttons-->
         <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
         <!--Share buttons-->
@@ -94,9 +96,7 @@
         <div class="spacer_15"><!-- do not collapse --></div>
 
         <!-- Author bios, Licensor attribution, and disclaimer -->
-        <c:if test="${not empty authorBios}">
-            <article:authorBios authorBios="${authorBios}"/>
-        </c:if>
+        <article:authorBios authorBios="${authorBios}"/>
         <article:disclaimer showDisclaimer="${true}"/>
         <c:if test="${not empty feature.licensorAttribution}">
             <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>

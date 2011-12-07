@@ -27,7 +27,7 @@
     <pageHelper:externalJavascript file="/res/js/content/cms/article/combined.js"/>
 
     <!-- TODO! remove me -->
-    <pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>
+    <!--<pageHelper:externalCss file="/res/css/content/cmsArticle.css"/>-->
 
     <article:hoverScriplet/>
     <k12:trafficDriverIncludes/>
@@ -36,7 +36,7 @@
 
     <div class="container_24">
         <div class="grid_16 slStylesV1-0 slFormsV1-0">
-            <div class="clearfix">
+            <div class="articleText clearfix">
                 <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
                 <h1>${feature.title}</h1>
@@ -54,8 +54,12 @@
                 <article:authorByline feature="${feature}"/>
                 <!-- Byline -->
 
+                <!--Share buttons-->
+                <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
+                <!--Share buttons-->
+
                 <!-- TODO! fix toolsLayout 2 -->
-                <article:toolsLayout2 feature="${feature}" uri="${uri}"/>
+                <!--<article:toolsLayout2 feature="${feature}" uri="${uri}"/>-->
 
                 <!-- TODO! make sure these 610x ads look right -->
                 <ad:adTag position="Sponsor_610x16"/>
@@ -106,6 +110,7 @@
 
                 <!-- Article slide content -->
                 <div id="slideshow" class="rounded">
+                    
                     <div id="ss_header" class="rounded_top">
                         <ul id="ss_jsddm">
                             <li><a class="choose" href="javascript:void(0);">&amp;nbsp;</a>
@@ -182,7 +187,7 @@
             <ad:adTag position="Sponsor_BelowFold_610x38"/>
 
             <!-- Author bios, Licensor attribution -->
-            <c:if test="${not empty authorBios and ((feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum))}">
+            <c:if test="${(feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum)}">
                 <article:authorBios authorBios="${authorBios}"/>
             </c:if>
             <article:disclaimer showDisclaimer="${false}"/>
