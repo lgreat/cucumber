@@ -80,13 +80,130 @@
           return false;
         };
         var GS = GS || {};
-        GS.Boundaries = GS.Boundaries || {};
+        GS.Map = GS.Map || {};
+        GS.Map.Helper = new (function() {
+            this.highlightPolygon = function(polygon, options) {
+                options = options || {};
+                var duration = options.duration || 500;
+                var strokeWeight = options.strokeWeight || 4;
+                polygon.setOptions({strokeWeight:strokeWeight});
+                setTimeout(function() {
+                    polygon.setOptions({strokeWeight:2});
+                }, duration);
+            };
+            this.createMarker = function(options) {
+                var center = new google.maps.LatLng(options.center.latitude, options.center.longitude);
+                var size = new google.maps.Size(options.size.width,options.size.height);
+                var origin = undefined;
+                if (options.origin) {
+                    origin = new google.maps.Point(options.origin.x, options.origin.y);
+                }
+                var anchor = undefined;
+                if (options.anchor) {
+                    anchor = new google.maps.Point(options.anchor.x, options.anchor.y);
+                }
+                var markerImage = new google.maps.MarkerImage(options.url, size, origin, anchor);
+                var markerShape = undefined;
+                if (options.shape) {
+                    markerShape = {
+                        coord: options.shape.coord,
+                        type: options.shape.type
+                    }
+                }
+                var shadow = options.shadowUrl;
+                if (options.shadow) {
+                    shadow = new google.maps.MarkerImage(options.shadow.url, options.shadow.size,
+                            options.shadow.origin, options.shadow.anchor);
+                }
+                return new google.maps.Marker
+                        ({
+                             position: center,
+                             title:options.name,
+                             icon:markerImage,
+                             shape:markerShape,
+                             shadow:shadow
+                         });
+            };
+            this.createGoogleMapsPolygon = function(options){ // coordinates, zIndex, fillColor, strokeColor
+                var coords = options.coordinates;
+                var zIndex = options.zIndex || 1;
+                var fillColor = options.fillColor || '#46461F';
+                var strokeColor = options.strokeColor || '#FF7800';
+                var paths = [];
+                for (var i=0;i < coords.length;i++){
+                    for (var j=0;j<coords[i].length;j++){
+                        var path=[];
+                        for (var k=0;k<coords[i][j].length;k++){
+                            var ll = new google.maps.LatLng(coords[i][j][k][1],coords[i][j][k][0]);
+                            path.push(ll);
+                        }
+                        paths.push(path);
+                    }
+                }
+                return new google.maps.Polygon({
+                    paths: paths,
+                    strokeColor: strokeColor,
+                    strokeOpacity: 1,
+                    strokeWeight: 2,
+                    fillColor: fillColor,
+                    fillOpacity: 0.25,
+                    zIndex: zIndex
+                });
+            };
+            // requires Array.prototype.contains to be defined
+            this.geocodeAddress = function(searchInput, callbackFunc) {
+                var geocoder = new google.maps.Geocoder();
+                if (geocoder && searchInput) {
+                    geocoder.geocode({ 'address': searchInput + ' US'}, function(results, status) {
+                        var numResults = 0;
+                        var GS_geocodeResults = new Array();
+                        if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
+                            numResults = results.length;
+                            for (var x = 0; x < numResults; x++) {
+                                var geocodeResult = new Array();
+                                geocodeResult['lat'] = results[x].geometry.location.lat();
+                                geocodeResult['lon'] = results[x].geometry.location.lng();
+                                geocodeResult['normalizedAddress'] =results[x].formatted_address;
+                                geocodeResult['type'] = results[x].types.join();
+                                if (results[x].partial_match) {
+                                    geocodeResult['partial_match'] = true;
+                                } else {
+                                    geocodeResult['partial_match'] = false;
+                                }
+                                for (var i = 0; i < results[x].address_components.length; i++) {
+                                    if (results[x].address_components[i].types.contains('administrative_area_level_1')) {
+                                        geocodeResult['state'] = results[x].address_components[i].short_name;
+                                    }
+                                    if (results[x].address_components[i].types.contains('country')) {
+                                        geocodeResult['country'] = results[x].address_components[i].short_name;
+                                    }
+                                }
+                                // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
+                                if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
+                                        'state' in geocodeResult &&
+                                        'normalizedAddress' in geocodeResult &&
+                                        'country' in geocodeResult) ||
+                                        geocodeResult['country'] != 'US') {
+                                    geocodeResult = null;
+                                }
+                                if (geocodeResult != null) {
+                                    GS_geocodeResults.push(geocodeResult);
+                                }
+                            }
+                        }
+                        callbackFunc(GS_geocodeResults);
+                    });
+                }
+            };
+        })();
 
-        GS.Boundaries.BoundaryHelper = function() {
-            var districtBoundaryMap;
+        GS.Boundaries = GS.Boundaries || {};
+        GS.Boundaries.BoundaryHelper = new (function() {
+            var districtBoundaryMap = null;
             var stuffOnMap = {};
             var selectedDistrict = null;
             var mapClickListeners = new Array();
+            var centerMarker = null;
 
             // DATA STRUCTURES
             var MarkerWithBoundary = function() {
@@ -154,9 +271,9 @@
                 };
                 this.centerMap = function() {
                     if (typeof(this.centroid.lat) !== 'undefined' && typeof(this.centroid.lon) !== 'undefined') {
-                        districtBoundaryMap.panTo(new google.maps.LatLng(this.centroid.lat, this.centroid.lon));
+                        centerMap(new google.maps.LatLng(this.centroid.lat, this.centroid.lon));
                     } else if (this.isMarkerShown()) {
-                        districtBoundaryMap.panTo(this.marker.getPosition());
+                        centerMap(this.marker.getPosition());
                     }
                 }
             };
@@ -337,20 +454,22 @@
                 });
             };
             var loadDistrictsNearPointAjax = function(latitude, longitude) {
+                var lat = Math.round(latitude * 1000000)/1000000;
+                var lon = Math.round(longitude * 1000000)/1000000;
                 if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
                     // use HTML 5 history API to rewrite the current URL to represent the new state.
-                    window.History.replaceState(null, document.title, '?lat=' + latitude + '&lon=' + longitude);
+                    window.History.replaceState(null, document.title, '?lat=' + lat + '&lon=' + lon + '&level=' + $('.js_mapLevelCode:checked').val());
                 }
-                if (districtBoundaryMap === undefined) {
-                    var latLng = new google.maps.LatLng(latitude, longitude);
+                if (districtBoundaryMap == null) {
+                    var latLng = new google.maps.LatLng(lat, lon);
                     initMap(latLng);
                 }
-                jQuery.getJSON("/geo/boundary/ajax/getDistrictsNearPoint.page", {lat:latitude, lon:longitude, level:$('.js_mapLevelCode:checked').val()}
+                jQuery.getJSON("/geo/boundary/ajax/getDistrictsNearPoint.page", {lat:lat, lon:lon, level:$('.js_mapLevelCode:checked').val()}
                 ).success(function(data) {
                       try {
                           loadDistrictsNearPointSuccess(data.features);
                           updateDistrictList();
-                          districtBoundaryMap.panTo(new google.maps.LatLng(latitude, longitude));
+                          centerMap(new google.maps.LatLng(lat, lon));
                       } catch (e) {
                           alert("Error: "+ e.message);
                       }
@@ -367,12 +486,12 @@
                     var mapObject = createMapObject(feature.data);
                     if (feature.type == 'marker') {
                         if (!mapObject.hasMarker()) {
-                            mapObject.setMarker( createMarker(feature));
+                            mapObject.setMarker(GS.Map.Helper.createMarker(feature));
                         }
                         mapObject.showMarker();
                     } else if (feature.type == 'polygon') {
                         if (!mapObject.hasPolygon()) {
-                            mapObject.setPolygon(createGoogleMapsPolygon({coordinates:feature.coordinates}));
+                            mapObject.setPolygon(GS.Map.Helper.createGoogleMapsPolygon({coordinates:feature.coordinates}));
                         }
                         if (typeof(feature.centroid) !== 'undefined') {
                             mapObject.centroid = {lat: feature.centroid.lat, lon: feature.centroid.lon};
@@ -383,7 +502,7 @@
                         }
                         mapObject.showPolygon();
                         if (highlightPolygons) {
-                            highlightPolygon(mapObject.polygon, 200);
+                            GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
                         }
                     }
                     if (typeof(feature.dependents) !== 'undefined' && feature.dependents.length > 0) {
@@ -439,11 +558,27 @@
                 updateSchoolList();
             };
             // MISCELLANEOUS FUNCTIONS
-            var highlightPolygon = function(polygon, duration) {
-                polygon.setOptions({strokeWeight:4});
-                setTimeout(function() {
-                    polygon.setOptions({strokeWeight:2});
-                }, duration);
+            var centerMap = function(latLng) {
+                districtBoundaryMap.panTo(latLng);
+                setCenterMarkerAtLocation(latLng);
+            };
+            var setCenterMarkerAtLocation = function(latLng) {
+                if (centerMarker == null) {
+                    centerMarker = GS.Map.Helper.createMarker({
+                        center: {latitude:latLng.lat, longitude:latLng.lng},
+                        size: {width:39, height:34},
+                        url: '/res/img/map/green_arrow.png',
+                        shadow: {
+                            url: '/res/img/map/green_arrow_shadow.png',
+                            size:new google.maps.Size(39,34),
+                            anchor:new google.maps.Point(11, 34)},
+                        origin: {x:0, y:0},
+                        anchor: {x:11, y:34},
+                        shape: {type:'poly', coord:[0, 0, 23, 0, 23, 34, 0, 34]}
+                    });
+                } else {
+                    centerMarker.setPosition(latLng);
+                }
             };
             var initMap = function(center) {
                 districtBoundaryMap = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -452,6 +587,8 @@
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
                 $('.js_showWithMap').show();
+                setCenterMarkerAtLocation(center);
+                centerMarker.setMap(districtBoundaryMap);
             };
             var clearMap = function() {
                 for (var key in stuffOnMap) {
@@ -498,49 +635,6 @@
                         stuffOnMap[key].hideMarker();
                     }
                 }
-            };
-            var createMarker = function(markerJson) {
-                var markerImage = new google.maps.MarkerImage
-                        (markerJson.url, new google.maps.Size(markerJson.size.width,markerJson.size.height),
-                                new google.maps.Point(markerJson.origin.x, markerJson.origin.y),
-                                new google.maps.Point(markerJson.anchor.x, markerJson.anchor.y));
-                var markerShape = {
-                    coord: markerJson.shape.coord,
-                    type: markerJson.shape.type
-                };
-                return new google.maps.Marker
-                        ({
-                             position: new google.maps.LatLng(markerJson.center.latitude, markerJson.center.longitude),
-                             title:markerJson.name,
-                             icon:markerImage,
-                             shape:markerShape
-                         });
-            };
-            var createGoogleMapsPolygon = function(options){ //zIndex, fillColor, strokeColor
-                var coords = options.coordinates;
-                var zIndex = typeof(options.zIndex) !== 'undefined' ? options.zIndex : 1;
-                var fillColor = typeof(options.fillColor) !== 'undefined' ? options.fillColor : '#46461F';
-                var strokeColor = typeof(options.strokeColor) !== 'undefined' ? options.strokeColor : '#FF7800';
-                var paths = [];
-                for (var i=0;i < coords.length;i++){
-                    for (var j=0;j<coords[i].length;j++){
-                        var path=[];
-                        for (var k=0;k<coords[i][j].length;k++){
-                            var ll = new google.maps.LatLng(coords[i][j][k][1],coords[i][j][k][0]);
-                            path.push(ll);
-                        }
-                        paths.push(path);
-                    }
-                }
-                return new google.maps.Polygon({
-                    paths: paths,
-                    strokeColor: strokeColor,
-                    strokeOpacity: 1,
-                    strokeWeight: 2,
-                    fillColor: fillColor,
-                    fillOpacity: 0.25,
-                    zIndex: zIndex
-                });
             };
 
             // EVENT HANDLERS
@@ -681,50 +775,6 @@
                     schoolListDiv.append(li);
                 }
             };
-            var geocodeAddress = function(searchInput, callbackFunc) {
-                var geocoder = new google.maps.Geocoder();
-                if (geocoder && searchInput) {
-                    geocoder.geocode({ 'address': searchInput + ' US'}, function(results, status) {
-                        var numResults = 0;
-                        var GS_geocodeResults = new Array();
-                        if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
-                            numResults = results.length;
-                            for (var x = 0; x < numResults; x++) {
-                                var geocodeResult = new Array();
-                                geocodeResult['lat'] = results[x].geometry.location.lat();
-                                geocodeResult['lon'] = results[x].geometry.location.lng();
-                                geocodeResult['normalizedAddress'] =results[x].formatted_address;
-                                geocodeResult['type'] = results[x].types.join();
-                                if (results[x].partial_match) {
-                                    geocodeResult['partial_match'] = true;
-                                } else {
-                                    geocodeResult['partial_match'] = false;
-                                }
-                                for (var i = 0; i < results[x].address_components.length; i++) {
-                                    if (results[x].address_components[i].types.contains('administrative_area_level_1')) {
-                                        geocodeResult['state'] = results[x].address_components[i].short_name;
-                                    }
-                                    if (results[x].address_components[i].types.contains('country')) {
-                                        geocodeResult['country'] = results[x].address_components[i].short_name;
-                                    }
-                                }
-                                // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
-                                if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
-                                        'state' in geocodeResult &&
-                                        'normalizedAddress' in geocodeResult &&
-                                        'country' in geocodeResult) ||
-                                        geocodeResult['country'] != 'US') {
-                                    geocodeResult = null;
-                                }
-                                if (geocodeResult != null) {
-                                    GS_geocodeResults.push(geocodeResult);
-                                }
-                            }
-                        }
-                        callbackFunc(GS_geocodeResults);
-                    });
-                }
-            };
             var geocodeAddressSuccess = function(geocodeResults) {
                 if (geocodeResults.length == 0) {
                     alert("Cannot determine location for '" + searchInput + "'");
@@ -733,14 +783,14 @@
                     clearMap();
                     loadDistrictsNearPointAjax(geocodeResults[0]['lat'],
                                                geocodeResults[0]['lon']);
-                    districtBoundaryMap.panTo(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']));
+                    centerMap(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']));
                 } else {
                     // ignore multiple results for now
                     geocodeResults[0]['totalResults'] = geocodeResults.length;
                     clearMap();
                     loadDistrictsNearPointAjax(geocodeResults[0]['lat'],
                                                geocodeResults[0]['lon']);
-                    districtBoundaryMap.panTo(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']));
+                    centerMap(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']));
                 }
             };
             jQuery(function () {
@@ -803,13 +853,12 @@
                         schoolClickHandler({school:stuffOnMap[key], center:true});
                     }
                 });
-                $('#js_loadAddress').click(function() {
-                    geocodeAddress($('#js_mapAddressQuery').val(), geocodeAddressSuccess);
-                });
+                $('#searchLocationForm').submit(function() {
+                    GS.Map.Helper.geocodeAddress($('#js_mapAddressQuery').val(), geocodeAddressSuccess);
+                    return false;
+                })
             });
-        };
-
-        GS.Boundaries.boundaryHelper = new GS.Boundaries.BoundaryHelper();
+        })();
         ]]>
     </script>
 
@@ -830,12 +879,17 @@
     </div>
     <div class="rightSide fltrt">
         <div class="">
-            <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_e" value="e" checked="checked"/><label for="mapLevelCode_e">Elementary</label>
-            <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_m" value="m"/><label for="mapLevelCode_m">Middle</label>
-            <input type="radio" name="level_code" class="js_mapLevelCode" id="mapLevelCode_h" value="h"/><label for="mapLevelCode_h">High</label>
-            <label class="searchLocationLabel" for="js_mapAddressQuery">Search location:</label>
-            <input type="text" name="addressQuery" id="js_mapAddressQuery"/>
-            <button name="loadAddress" id="js_loadAddress">Search</button>
+            <form action="" id="searchLocationForm" onsubmit="return false;">
+                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_e" value="e" checked="${empty param.level or param.level == 'e'}"/>
+                <label for="mapLevelCode_e">Elementary</label>
+                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_m" value="m" checked="${param.level == 'm'}"/>
+                <label for="mapLevelCode_m">Middle</label>
+                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_h" value="h" checked="${param.level == 'h'}"/>
+                <label for="mapLevelCode_h">High</label>
+                <label class="searchLocationLabel" for="js_mapAddressQuery">Search location:</label>
+                <input type="text" name="addressQuery" id="js_mapAddressQuery"/>
+                <button type="submit" name="loadAddress" id="js_loadAddress">Search</button>
+            </form>
         </div>
         <div class="js_showWithMap hidden">
             <div id="map-canvas"><!-- no collapse --></div>
