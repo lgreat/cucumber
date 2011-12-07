@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+    <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
+
+    <c:set var="browserClass" value="${fn:contains(agent, 'msie') ? 'ie ' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 6') ? 'ie6' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 7') ? 'ie7' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 8') ? 'ie8' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 9') ? 'ie9' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 10') ? 'ie10' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox') ? 'ff ' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/3') ? 'ff3' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/4') ? 'ff4' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/5') ? 'ff5' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/6') ? 'ff6' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'version') ? 'safari' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'chrome') ? 'chrome' : ''}"/>
+
+    <c:set var="osClass" value="${fn:contains(agent, 'macintosh') ? ' mac ' : ''}"/>
+    <c:set var="osClass" value="${osClass}${fn:contains(agent, 'windows') ? ' win ' : ''}"/>
+
+    <c:set var="scopeClass" value="${requestScope.context.cobranded ? 'cobranded ' : 'www'}"/>
+    <c:set var="scopeClass" value="${scopeClass}${requestScope.context.cobranded ?  requestScope.context.cobrand : ''}"/>
+    <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageHelper.framed ? 'framed' : 'unframed'}"/>
+    <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageLayout}"/>
+
+    <c:set var="bodyClass" value="${scopeClass}${osClass}${browserClass}" scope="request"/>
+</jsp:root>

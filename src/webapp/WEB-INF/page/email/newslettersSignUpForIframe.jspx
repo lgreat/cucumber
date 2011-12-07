@@ -19,19 +19,11 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <meta name="robots" content="follow,noindex"/>
+        <meta name="robots" content="noindex"/>
         <title>Free Newsletters | GreatSchools</title>
-        <pageHelper:addMetaProperty property="og:title" content="Free newsletters from GreatSchools"/>
-        <pageHelper:addMetaProperty property="og:type" content="website"/>
-        <pageHelper:addMetaProperty property="og:url" content="${contentUrl}"/>
-        <pageHelper:addMetaProperty property="og:image" content="${facebookImgUrl}"/>
-        <pageHelper:addMetaProperty property="og:site_name" content="GreatSchools"/>
-        <pageHelper:addMetaProperty property="og:description"
-                                    content="Sign up for tips and ideas that will enrich your child's education."/>
-
     </head>
 
-    <gsml:body adPageName="email/newslettersSignUp" pageLayout="nocol">
+    <gsml:body adPageName="email/newslettersSignUpForIframe" pageLayout="nocol">
 
         <div id="topicMainGS" class="slStylesV1-0">
             <div id="newslettersSignUp" class="nlSubscription">
@@ -41,19 +33,21 @@
 
                     <newsletterSignUp:errorMessages/>
 
-                    <newsletterSignUp:emailAddress showInstructions="${true}"/>
+                    <newsletterSignUp:emailAddress showInstructions="${false}"/>
 
-                    <div class="line mtl nlSignUpFrom">
-                        <div class="unit size25of100 formStyles pas">
+                    <div class="lineForIframe mtl pbl clearfix">
+                        <div class="unit size1of2 formStyles pas">
                             <newsletterSignUp:dailyNewsletter/>
                         </div>
-                        <div class="unit size25of100 formStyles pas">
+                        <div class="unit size1of2 pas lastUnit">
                             <newsletterSignUp:weeklyNewsletter/>
                         </div>
-                        <div class="unit size25of100 formStyles pas">
+                    </div>
+                    <div class="lineForIframe last clearfix">
+                        <div class="unit size1of2 formStyles pas">
                             <newsletterSignUp:mySchoolStats/>
                         </div>
-                        <div class="unit size25of100 pas lastUnit">
+                        <div class="unit size1of2 pas lastUnit">
                             <newsletterSignUp:partnerOffers/>
                         </div>
                     </div>
@@ -66,8 +60,8 @@
             <!-- end manageNewsletters -->
         </div>
 
-        <mod:tracking pageName="NL Sign-up Landing Page"
-                      hier1="Newsletter,NLLandingPage"/>
+        <mod:tracking pageName="FB NL Sign-up Landing Page"
+                      hier1="Newsletter,FBNLLandingPage"/>
     </gsml:body>
     </html>
 </jsp:root>

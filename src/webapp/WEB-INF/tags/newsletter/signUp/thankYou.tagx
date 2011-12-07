@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        version="2.0"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns="http://www.w3.org/1999/xhtml"
+        >
+    <div id="topicMainGS" class="slStylesV1-0">
+        <div id="newslettersSignUpThankYou" class="pal">
+            <h1 class="bottom">Thank You</h1>
+
+            <h6 class="ptm">${ThankYouMsg}</h6>
+        </div>
+    </div>
+</jsp:root>

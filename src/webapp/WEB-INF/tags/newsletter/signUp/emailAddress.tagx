@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        version="2.0"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.attribute name="showInstructions" required="true" type="java.lang.Boolean"/>
+
+    <div class="emailSubscription pas">
+        <h6 class="bottom"><label for="js_email" class="fltlft mrm">Email address:</label></h6>
+        <input type="text" id="js_email"
+               onfocus="GS_textSwitch(this, '', '[Enter an email address]');"
+               onblur="GS_textSwitch(this, '[Enter an email address]', '');"
+               class="fltlft small quiet bottom" name="email"
+               value="${(newslettersSignUpCommand.email == null || newslettersSignUpCommand.email =='')?'[Enter an email address]':newslettersSignUpCommand.email}"/>
+        <fieldset class="submit fltlft mlm mrm">
+            <button class="button-1 fltlft" type="submit" id="js_submitButton" name="Submit" value="Submit">Subscribe
+            </button>
+        </fieldset>
+        <c:if test="${pageScope.showInstructions}">
+            <h6 class="fltlft  small mts bottom">Check or uncheck newsletters below and click "Subscribe."</h6>
+        </c:if>
+        <br class="clearfloat"/>
+    </div>
+    <input name="userId" type="hidden" value="${newslettersSignUpCommand.userId}"/>
+</jsp:root>

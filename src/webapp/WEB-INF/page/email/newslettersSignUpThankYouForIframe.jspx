@@ -30,8 +30,8 @@
             </div>
         </div>
 
-        <mod:tracking pageName="NL Sign-up Landing Page Thanks"
-                      hier1="Newsletter,NLLandingPageThanks" events="event53"/>
+        <mod:tracking pageName="FB NL Sign-up Landing Page Thanks"
+                      hier1="Newsletter,FBNLLandingPageThanks" events="event57"/>
 
     </gsml:body>
 

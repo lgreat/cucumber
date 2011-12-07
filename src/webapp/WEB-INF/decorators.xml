@@ -33,6 +33,10 @@
         <pattern>/splash/iphone.page</pattern>
     </decorator>
 
+    <decorator name="iframedNewsletterLandingPageDecorator" page="iframedNewsletterLandingPageDecorator.jspx">
+        <pattern>/email/newslettersSignUpForIframe.page</pattern>
+    </decorator>
+
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator2010.jspx">
         <pattern>/*</pattern>
         <pattern>/sandbox/hoverTest.page</pattern>

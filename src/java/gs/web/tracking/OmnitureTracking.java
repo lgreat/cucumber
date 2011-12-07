@@ -91,7 +91,9 @@ public abstract class  OmnitureTracking {
         FacebookSend(38),
         TwitterTweet(39),
         CmsVideo(47),
-        WorksheetView(48);
+        WorksheetView(48),
+        NLLandingPageSignup(53),
+        FBTabNLSignup(57);
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

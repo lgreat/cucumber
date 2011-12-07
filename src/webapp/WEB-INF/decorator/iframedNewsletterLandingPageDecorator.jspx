@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+<pageHelper:bodyClass/>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+
+<head profile="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+        <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
+    </title>
+
+    <pageHelper:addCss/>
+
+    ${requestScope.pageHelper.headCssElements}
+
+    <style type="text/css">
+        body {
+            background: none;
+            width: 520px;
+            min-width: 0px;
+        }
+    </style>
+
+    <!-- Begin JS files.  No CSS below this point. -->
+    <pageHelper:addJavaScript
+            uncompressedScripts="${param.uncompressedScripts}"
+            compressedScripts="${param.compressedScripts}"
+            serverName="${pageContext.request.serverName}"/>
+
+    ${requestScope.pageHelper.headElementsWithoutCss}
+
+    <decorator:head/>
+</head>
+
+<body class="${bodyClass}">
+
+<decorator:body/>
+
+</body>
+</html>
+</jsp:root>

@@ -2715,6 +2715,23 @@
         </property>
     </bean>
 
+    <bean name="/email/newslettersSignUpForIframe.page"
+          class="gs.web.email.NewslettersSignUpController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="newslettersSignUpCommand"/>
+        <property name="commandClass" value="gs.web.email.NewslettersSignUpCommand"/>
+        <property name="formView" value="/email/newslettersSignUpForIframe"/>
+        <property name="successView">
+            <value>email/newslettersSignUpThankYouForIframe</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
+        </property>
+    </bean>
+
     <bean id="springWurflManager" class="net.sourceforge.wurfl.spring.SpringWurflManager">
 
         <!--if you have only one patchfile , you can write this way-->

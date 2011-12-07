@@ -7861,6 +7861,16 @@ body.ie8 #savvysource span.arrow-right {
     background-repeat: repeat-y;
 }
 
+.nlSubscription div.lineForIframe {
+    border-top: 1px solid #ECECEC;
+    background-image: url(/res/img/nlSignUp/nlSignUpbackgroundForIframe.png);
+    background-repeat: repeat-y;
+}
+
+.nlSubscription div.lineForIframe.last {
+    border-bottom: 1px solid #ECECEC;
+}
+
 .nlSubscription .error{
     background: none;
     padding: 0 0 10px;
