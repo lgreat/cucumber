@@ -73,7 +73,7 @@
 
     <div id="searchResultsMapPage" align="center" data-role="page" class="mobilePage">
 
-        <tags:mobileStandardHeader/>
+        <tags:standardMobileHeader />
 
         <div data-role="navbar" id="mapNavbar">
             <ul>
