@@ -17,6 +17,7 @@ General comments:
 /* NOTE: If you add additional classes to IMAGE-LESS BUTTON, you may need to modify        */
 /* gs_jquery_extensions.js to incorporate the disableSelection function.                   */
 
+.slStylesV1-0 .button-1,
 .button-1 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -53,6 +54,7 @@ General comments:
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
+.slStylesV1-0 .button-1:hover,
 .button-1:hover {
     text-decoration: none; /* Background Gradients */
     background: #FFBD00; /* for non-css3 browsers */
@@ -66,6 +68,7 @@ General comments:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-1:active,
 .button-1:active {
 
 /* Background Gradients */
@@ -80,6 +83,7 @@ General comments:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-1-inactive,
 .button-1-inactive {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -114,12 +118,16 @@ General comments:
 }
 
 /* IE7 bug: vertical centering */
+*+html .slStylesV1-0 button.button-1,
+*+html .slStylesV1-0 button.button-1-inactive,
 *+html button.button-1,
 *+html button.button-1-inactive {
     line-height: 20px;
 }
 
 /* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-1::-moz-focus-inner,
+.slStylesV1-0 .button-1-inactive::-moz-focus-inner,
 .button-1::-moz-focus-inner,
 .button-1-inactive::-moz-focus-inner {
     border: none;
@@ -131,6 +139,7 @@ Extends button-1 by changing:
                 bold 11px Arial, Helvetica, sans-serif;
 */
 
+.slStylesV1-0 .button-1Ext-1,
 .button-1Ext-1 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -167,6 +176,7 @@ Extends button-1 by changing:
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
+.slStylesV1-0 .button-1Ext-1:hover,
 .button-1Ext-1:hover {
     text-decoration: none; /* Background Gradients */
     background: #FFBD00; /* for non-css3 browsers */
@@ -180,6 +190,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-1Ext-1:active,
 .button-1Ext-1:active {
 
 /* Background Gradients */
@@ -194,6 +205,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-1Ext-1-inactive,
 .button-1Ext-1-inactive {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -228,12 +240,16 @@ Extends button-1 by changing:
 }
 
 /* IE7 bug: vertical centering */
+*+html .slStylesV1-0 .button-button.button-1Ext-1,
+*+html .slStylesV1-0 .button-button.button-1Ext-1-inactive,
 *+html button.button-1Ext-1,
 *+html button.button-1Ext-1-inactive {
     line-height: 20px;
 }
 
 /* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-1Ext-1::-moz-focus-inner,
+.slStylesV1-0 .button-1Ext-1-inactive::-moz-focus-inner,
 .button-1Ext-1::-moz-focus-inner,
 .button-1Ext-1-inactive::-moz-focus-inner {
     border: none;
@@ -254,6 +270,7 @@ Extends button-1 by changing:
                     12px;
 */
 
+.slStylesV1-0 .button-1Ext-2,
 .button-1Ext-2 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -290,6 +307,7 @@ Extends button-1 by changing:
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
+.slStylesV1-0 .button-1Ext-2:hover,
 .button-1Ext-2:hover {
     text-decoration: none; /* Background Gradients */
     background: #FFBD00; /* for non-css3 browsers */
@@ -303,6 +321,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-1Ext-2:active,
 .button-1Ext-2:active {
 
 /* Background Gradients */
@@ -317,6 +336,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-1Ext-2-inactive,
 .button-1Ext-2-inactive {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -351,12 +371,16 @@ Extends button-1 by changing:
 }
 
 /* IE7 bug: vertical centering */
+*+html .slStylesV1-0 .button-button.button-1Ext-2,
+*+html .slStylesV1-0 .button-button.button-1Ext-2-inactive,
 *+html button.button-1Ext-2,
 *+html button.button-1Ext-2-inactive {
     line-height: 12px;
 }
 
 /* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-1Ext-2::-moz-focus-inner,
+.slStylesV1-0 .button-1Ext-2-inactive::-moz-focus-inner,
 .button-1Ext-2::-moz-focus-inner,
 .button-1Ext-2-inactive::-moz-focus-inner {
     border: none;
@@ -365,6 +389,7 @@ Extends button-1 by changing:
 /* kindercare button GS-11938
  */
 
+.slStylesV1-0 .button-2,
 .button-2 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -389,21 +414,25 @@ Extends button-1 by changing:
     border: none;
 }
 
+.slStylesV1-0 .button-2:hover,
 .button-2:hover {
     text-decoration: none; /* Background Gradients */
     background: #0f6487; /* for non-css3 browsers */
 }
 
+.slStylesV1-0 .button-2:active,
 .button-2:active {
     background: #0f6487; /* for non-css3 browsers */
 }
 
 /* IE7 bug: vertical centering */
-*+html button.button-2 {
+*+html .slStylesV1-0 .button-button.button-2,
+*+html .slStylesV1-0 .button-button.button-2 {
     line-height: 20px;
 }
 
 /* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-2::-moz-focus-inner,
 .button-2::-moz-focus-inner {
     border: none;
 }
@@ -411,6 +440,7 @@ Extends button-1 by changing:
 /* -------------------------- */
 /* larger version of button-1 */
 /* -------------------------- */
+.slStylesV1-0 .button-3,
 .button-3 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -447,6 +477,7 @@ Extends button-1 by changing:
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
+.slStylesV1-0 .button-3:hover,
 .button-3:hover {
     text-decoration: none; /* Background Gradients */
     background: #FFBD00; /* for non-css3 browsers */
@@ -460,6 +491,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-3:active,
 .button-3:active {
 
 /* Background Gradients */
@@ -474,6 +506,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-3-inactive,
 .button-3-inactive {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -508,18 +541,23 @@ Extends button-1 by changing:
 }
 
 /* IE7 bug: vertical centering */
+*+html .slStylesV1-0 .button-button.button-3,
+*+html .slStylesV1-0 .button-button.button-3-inactive,
 *+html button.button-3,
 *+html button.button-3-inactive {
     line-height: 30px;
 }
 
 /* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-3::-moz-focus-inner,
+.slStylesV1-0 .button-3-inactive::-moz-focus-inner,
 .button-3::-moz-focus-inner,
 .button-3-inactive::-moz-focus-inner {
     border: none;
 }
 
 /*---button-4 for FAS-----*/
+.slStylesV1-0 .button-4,
 .button-4 {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -556,6 +594,7 @@ Extends button-1 by changing:
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 
+.slStylesV1-0 .button-4:hover,
 .button-4:hover {
     text-decoration: none; /* Background Gradients */
     background: #FFBD00; /* for non-css3 browsers */
@@ -569,6 +608,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-4:active,
 .button-4:active {
 
 /* Background Gradients */
@@ -583,6 +623,7 @@ Extends button-1 by changing:
     border-top-color: #c4591b;
 }
 
+.slStylesV1-0 .button-4-inactive,
 .button-4-inactive {
     width: auto;
     overflow: visible; /* for button width bug in IE */
@@ -617,12 +658,16 @@ Extends button-1 by changing:
 }
 
 /* IE7 bug: vertical centering */
+*+html .slStylesV1-0 .button-button.button-4,
+*+html .slStylesV1-0 .button-button.button-4-inactive,
 *+html button.button-4,
 *+html button.button-4-inactive {
     line-height: 30px;
 }
 
 /* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-4::-moz-focus-inner,
+.slStylesV1-0 .button-4-inactive::-moz-focus-inner,
 .button-4::-moz-focus-inner,
 .button-4-inactive::-moz-focus-inner {
     border: none;

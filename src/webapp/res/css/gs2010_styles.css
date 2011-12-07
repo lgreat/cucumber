@@ -850,6 +850,14 @@ h4.subhead2 a {
 /* ---------------- GS-12260 ----------------- */
 /* ------ articleText (extends standard) ----- */
 .articleText {}
+.articleText h1,
+.articleText h2,
+.articleText h3 { font-weight: normal; color: #2b2b2b; }
+.articleText h2 { color: #f2791f; }
+
+.articleText h1 { font: bold 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 10px; }
+.articleText h2 { font: normal 18px/26px Arial, Helvetica, sans-serif; margin-bottom: 26px; }
+.articleText h3 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .articleText .mainImage{ margin-bottom: 16px; }
 /* ------------- articleSidebar -------------- */
 .articleSidebar{}
