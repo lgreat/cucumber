@@ -43,7 +43,7 @@
                     <beans:constructor-arg value="samson-sprouses-imac.local" />
                 </bean>-->
                 <!-- On pre-handle, manage the user's site preference (declare after DeviceResolverHandlerInterceptor) -->
-                <bean class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" />
+                <bean class="gs.web.mobile.GsSitePreferenceHandlerInterceptor" />
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
                 <!-- CookieInterceptor and SeoCobrandInterceptor are dependent on SessionContextInterceptor, and must come after it in config -->
@@ -286,23 +286,27 @@
     <bean name="/index.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" scope="request" lazy-init="true">
         <constructor-arg>
             <list>
-                <ref bean="cmsHomepageController"/> <!-- for desktop requests -->
-                <ref bean="mobileHomepageController"/> <!-- for mobile requests -->
+                <bean name="mobileHomepageController" class="gs.web.MobileHomepageController">
+                    <property name="controllerHandlesDesktopRequests" value="false" />
+                    <property name="controllerHandlesMobileRequests" value="true" />
+                </bean>
+                <bean name="cmsHomepageController" class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
+                    <property name="controllerHandlesDesktopRequests" value="true" />
+                    <property name="controllerHandlesMobileRequests" value="false" />
+                    <property name="viewName">
+                        <value>index</value>
+                    </property>
+                </bean>
             </list>
         </constructor-arg>
-    </bean>
-
-    <bean name="mobileHomepageController" class="gs.web.MobileHomepageController">
-        <property name="mobileViewName">
-            <value>index-mobile</value>
-        </property>
-    </bean>
-
-    <bean name="cmsHomepageController"
-          class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
-        <property name="viewName">
-            <value>index</value>
-        </property>
+        <constructor-arg>
+            <!-- boolean beanSupportsDesktopRequests -->
+            <value>true</value>
+        </constructor-arg>
+        <constructor-arg>
+            <!-- boolean beanSupportsMobileRequests-->
+            <value>true</value>
+        </constructor-arg>
     </bean>
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
@@ -506,21 +510,42 @@
         <property name="commandClass">
             <value>gs.web.search.SchoolSearchCommand</value>
         </property>
-        <property name="schoolSearchService">
-            <ref bean="solrSchoolSearchService"/>
-        </property>
-        <property name="looseSchoolSearchService">
-            <ref bean="looseSolrSchoolSearchService"/>
-        </property>
-        <property name="citySearchService">
-            <ref bean="solrCitySearchService"/>
-        </property>
-        <property name="districtSearchService">
-            <ref bean="solrDistrictSearchService"/>
-        </property>
+        <property name="schoolSearchService" ref="solrSchoolSearchService" />
+        <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
+        <property name="citySearchService" ref="solrCitySearchService" />
+        <property name="districtSearchService" ref="solrDistrictSearchService" />
         <property name="mobileViewName">
-            <value>schoolSearchResults-mobile</value>
+            <value>search/schoolSearchResults-mobile</value>
         </property>
+        <property name="beanSupportsMobileRequests" value="true"/>
+        <property name="beanSupportsDesktopRequests" value="true"/>
+        <property name="viewName" value="search/schoolSearchResults" />
+        <property name="ajaxViewName" value="search/schoolSearchResultsTable" />
+        <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
+        <property name="noResultsAjaxViewName" value="search/schoolSearchResults" />
+    </bean>
+
+    <bean name="/search/mapresults.page" class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
+        <property name="commandName">
+            <value>schoolSearchCommand</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref local="schoolSearchCommandValidator"/>
+            </list>
+        </property>
+        <property name="commandClass" value="gs.web.search.SchoolSearchCommand" />
+        <property name="schoolSearchService" ref="solrSchoolSearchService" />
+        <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
+        <property name="citySearchService" ref="solrCitySearchService" />
+        <property name="districtSearchService" ref="solrDistrictSearchService" />
+        <property name="mobileViewName" value="search/resultsmap" />
+        <property name="beanSupportsMobileRequests" value="true"/>
+        <property name="beanSupportsDesktopRequests" value="false"/>
+        <property name="viewName" value="search/resultsmap" />
+        <property name="ajaxViewName" value="search/resultsmap" />
+        <property name="noResultsViewName" value="search/resultsmap"/>
+        <property name="noResultsAjaxViewName" value="search/resultsmap" />
     </bean>
 
     <bean name="/search/nearbySearch.page"

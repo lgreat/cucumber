@@ -5,7 +5,6 @@ import gs.data.community.User;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
-import gs.data.geo.ICity;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
@@ -27,7 +26,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
 import gs.data.pagination.DefaultPaginationConfig;
-import gs.web.mobile.IControllerWithMobileView;
+import gs.web.mobile.IConntrollerWithDeviceSpecificViews;
 import gs.web.pagination.Page;
 import gs.data.pagination.PaginationConfig;
 import gs.web.pagination.RequestedPage;
@@ -43,7 +42,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.response.SpellCheckResponse;
-import org.apache.xpath.operations.Mod;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
@@ -54,7 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
-public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerWithMobileView {
+public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IConntrollerWithDeviceSpecificViews {
 
     private IDistrictDao _districtDao;
 
@@ -73,6 +71,15 @@ public class SchoolSearchController extends AbstractCommandController implements
     private StateManager _stateManager;
 
     private String _mobileViewName;
+
+    private boolean _beanSupportsMobileRequests;
+
+    private boolean _beanSupportsDesktopRequests;
+
+    private String _noResultsViewName;
+    private String _noResultsAjaxViewName;
+    private String _viewName;
+    private String _ajaxViewName;
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
     public static final String BEAN_ID = "/search/search.page";
@@ -474,15 +481,15 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
         if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
-                return new ModelAndView("/search/schoolSearchNoResultsTable", model);
+                return new ModelAndView(getNoResultsAjaxViewName(), model);
             } else {
-                return new ModelAndView("/search/schoolSearchResultsTable", model);
+                return new ModelAndView(getAjaxViewName(), model);
             }
         } else {
             if (searchResultsPage.getTotalResults() == 0 && !schoolSearchCommand.isNearbySearchByLocation()) {
-                return new ModelAndView("/search/schoolSearchNoResults", model);
+                return new ModelAndView(getNoResultsViewName(), model);
             } else {
-                return new ModelAndView("/search/schoolSearchResults", model);
+                return new ModelAndView(getViewName(), model);
             }
         }
     }
@@ -1548,6 +1555,54 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public void setMobileViewName(String mobileViewName) {
         _mobileViewName = mobileViewName;
+    }
+
+    public String getViewName() {
+        return _viewName;
+    }
+
+    public void setViewName(String viewName) {
+        _viewName = viewName;
+    }
+
+    public boolean beanSupportsMobileRequests() {
+        return _beanSupportsMobileRequests;
+    }
+
+    public boolean beanSupportsDesktopRequests() {
+        return _beanSupportsDesktopRequests;
+    }
+
+    public void setBeanSupportsMobileRequests(boolean beanSupportsMobileRequests) {
+        _beanSupportsMobileRequests = beanSupportsMobileRequests;
+    }
+
+    public void setBeanSupportsDesktopRequests(boolean beanSupportsDesktopRequests) {
+        _beanSupportsDesktopRequests = beanSupportsDesktopRequests;
+    }
+
+    public String getNoResultsViewName() {
+        return _noResultsViewName;
+    }
+
+    public void setNoResultsViewName(String noResultsViewName) {
+        _noResultsViewName = noResultsViewName;
+    }
+
+    public String getNoResultsAjaxViewName() {
+        return _noResultsAjaxViewName;
+    }
+
+    public void setNoResultsAjaxViewName(String noResultsAjaxViewName) {
+        _noResultsAjaxViewName = noResultsAjaxViewName;
+    }
+
+    public String getAjaxViewName() {
+        return _ajaxViewName;
+    }
+
+    public void setAjaxViewName(String ajaxViewName) {
+        _ajaxViewName = ajaxViewName;
     }
 }
 

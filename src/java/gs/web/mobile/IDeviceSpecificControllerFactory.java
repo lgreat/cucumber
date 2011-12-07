@@ -6,5 +6,5 @@ import org.springframework.web.servlet.mvc.Controller;
 import java.util.List;
 
 public interface IDeviceSpecificControllerFactory {
-    public Object getDeviceSpecificController(List<Controller> controllers);
+    public Object getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers, boolean beanSupportsDesktopRequests, boolean beanSupportsMobileRequests);
 }

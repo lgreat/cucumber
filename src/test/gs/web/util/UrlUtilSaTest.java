@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.87 2011/11/29 00:06:09 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.88 2011/12/07 03:45:37 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -716,5 +716,36 @@ public class UrlUtilSaTest extends TestCase {
         request.setServerPort(443);
 
         assertEquals("https://localhost/california/?decorator=blank", UrlUtil.getRequestURL(request));
+    }
+
+    public void testGetRequstURLAtNewHostname() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setAttribute("javax.servlet.include.request_uri", "/california/");
+        request.setAttribute("javax.servlet.include.query_string", "decorator=blank");
+        request.setRequestURI("/error404.jspx");
+        request.setScheme("https");
+        request.setQueryString("");
+        request.setServerPort(443);
+
+        request.setServerName("www.greatschools.org");
+
+        assertEquals("https://m.greatschools.org/california/?decorator=blank", UrlUtil.getRequestURLAtNewHostname(request,"m.greatschools.org"));
+
+        request = new GsMockHttpServletRequest();
+        request.setAttribute("javax.servlet.include.request_uri", "/california/");
+        request.setAttribute("javax.servlet.include.query_string", "decorator=blank");
+        request.setRequestURI("/error404.jspx");
+        request.setScheme("https");
+        request.setQueryString("");
+        request.setServerPort(443);
+
+        request.setServerName("www.greatschools.org");
+
+        try {
+            assertEquals("https://m.greatschools.org/california/?decorator=blank", UrlUtil.getRequestURLAtNewHostname(request,null));
+            fail("Illegal argument exception should have been thrown");
+        } catch (IllegalArgumentException e) {
+            // good
+        }
     }
 }

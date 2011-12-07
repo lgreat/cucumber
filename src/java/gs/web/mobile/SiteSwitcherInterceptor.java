@@ -1,13 +1,11 @@
 package gs.web.mobile;
 
-
 import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
+import gs.web.util.UrlUtil;
 import org.springframework.mobile.device.site.SitePreference;
-import org.springframework.mobile.device.site.SitePreferenceHandler;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Analyzes the request and the controller to determine if a redirect to the mobile version of the site (m.greatschools.org)
  * needs to occur, or vice versa.
+ *
+ * Two cases for redirecting:
+ * 1. User tries to access a page on the "wrong" subdomain (i.e. access a mobile-only page on www)
+ * 2. User tries to access a page from the "wrong" user-agent (i.e. accesses www on a mobile device without setting site preference cookie)
  */
 public class SiteSwitcherInterceptor implements HandlerInterceptor {
 
@@ -24,14 +26,26 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
 
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         RequestInfo requestInfo = _requestInfo;
-        boolean controllerHasMobileView = handler instanceof IControllerWithMobileView;
-        boolean mobileOnlyController = handler instanceof IMobileOnlyController;
-        boolean controllerHasDesktopView = !mobileOnlyController; //readability
-        boolean desktopOnlyController = !controllerHasMobileView; //readability
+
+        IDeviceSpecificController controller;
+        boolean controllerSupportsMobile = false;
+        boolean controllerSupportsMobileOnly = false;
+        boolean controllerSupportsDesktop = true;
+        boolean controllerSupportsDesktopOnly = true;
+
+        if (handler instanceof IDeviceSpecificController) {
+            controller = (IDeviceSpecificController) handler;
+            controllerSupportsMobile = controller.beanSupportsMobileRequests();
+            controllerSupportsMobileOnly = !controller.beanSupportsDesktopRequests();
+            controllerSupportsDesktop = !controllerSupportsMobileOnly; //readability
+            controllerSupportsDesktopOnly = !controllerSupportsMobile; //readability
+        }
 
         if (requestInfo.isDeveloperWorkstation()) {
             return true;
         }
+
+        Subdomain subdomainToRedirectTo = null;
 
         /*
         If request is on the mobile version of the site, and there's a desktop version of the current page (controller
@@ -42,22 +56,25 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
         if (
             requestInfo.isOnMobileSite()
             && (
-                ( controllerHasDesktopView && (!requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.NORMAL) && requestInfo.getSitePreference() != SitePreference.MOBILE)
-                || desktopOnlyController
+                ( controllerSupportsDesktop && (!requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.NORMAL) && requestInfo.getSitePreference() != SitePreference.MOBILE)
+                || controllerSupportsDesktopOnly
                 || !requestInfo.isMobileSiteEnabled()
             )
         ) {
-            String newUrl = requestInfo.getFullUrlAtNewSubdomain(Subdomain.WWW);
-            response.sendRedirect(newUrl);
-            return false;
+            subdomainToRedirectTo = Subdomain.WWW;
         } else if (
                 !requestInfo.isOnMobileSite()
                 && (
-                    (controllerHasMobileView && (requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.MOBILE ) && requestInfo.getSitePreference() != SitePreference.NORMAL)
+                    (controllerSupportsMobile && (requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.MOBILE ) && requestInfo.getSitePreference() != SitePreference.NORMAL)
                     && requestInfo.isMobileSiteEnabled()
                 )
         ) {
-            String newUrl = requestInfo.getFullUrlAtNewSubdomain(Subdomain.MOBILE);
+            subdomainToRedirectTo = Subdomain.MOBILE;
+        }
+
+        if (subdomainToRedirectTo != null) {
+            String newHostname = _requestInfo.getHostnameForTargetSubdomain(subdomainToRedirectTo);
+            String newUrl = UrlUtil.getRequestURLAtNewHostname(request, newHostname);
             response.sendRedirect(newUrl);
             return false;
         }
@@ -76,7 +93,6 @@ public class SiteSwitcherInterceptor implements HandlerInterceptor {
     }
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public RequestInfo getRequestInfo() {

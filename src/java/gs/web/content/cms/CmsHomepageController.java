@@ -10,8 +10,7 @@ import gs.data.search.fields.DocumentType;
 import gs.data.security.Permission;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
-import gs.web.mobile.IControllerWithMobileView;
-import gs.web.mobile.IDeviceSpecificController;
+import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.CookieUtil;
@@ -26,7 +25,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
@@ -36,7 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
-public class CmsHomepageController extends AbstractController {
+public class CmsHomepageController extends AbstractController implements IDeviceSpecificControllerPartOfPair {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
 
     public static final String BEAN_ID = "/index.page";
@@ -70,6 +68,11 @@ public class CmsHomepageController extends AbstractController {
 
     protected static Cache _gradeByGradeCache;
     protected static Cache _recentDiscussionsCache;
+
+    private boolean _beanSupportsMobileRequests;
+    private boolean _beanSupportsDesktopRequests;
+    private boolean _controllerHandlesMobileRequests;
+    private boolean _controllerHandlesDesktopRequests;
 
     static {
         // Preschool
@@ -529,5 +532,37 @@ public class CmsHomepageController extends AbstractController {
     }
     public void setSolrCmsFeatureSearchService(CmsFeatureSearchService cmsFeatureSearchService) {
         _cmsFeatureSearchService = cmsFeatureSearchService;
+    }
+
+    public boolean beanSupportsMobileRequests() {
+        return _beanSupportsMobileRequests;
+    }
+
+    public void setBeanSupportsMobileRequests(boolean beanSupportsMobileRequests) {
+        _beanSupportsMobileRequests = beanSupportsMobileRequests;
+    }
+
+    public boolean beanSupportsDesktopRequests() {
+        return _beanSupportsDesktopRequests;
+    }
+
+    public void setBeanSupportsDesktopRequests(boolean beanSupportsDesktopRequests) {
+        _beanSupportsDesktopRequests = beanSupportsDesktopRequests;
+    }
+
+    public boolean controllerHandlesMobileRequests() {
+        return _controllerHandlesMobileRequests;
+    }
+
+    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
+        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
+    }
+
+    public boolean controllerHandlesDesktopRequests() {
+        return _controllerHandlesDesktopRequests;
+    }
+
+    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
+        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
     }
 }

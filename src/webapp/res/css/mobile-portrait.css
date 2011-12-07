@@ -1,0 +1,24 @@
+
+ #logoBox {
+    background-color:gray;
+    padding: 4px;
+    height: 30px;
+}
+
+#searchForm {
+    padding: 4px;
+}
+
+input, button, select, label {
+    margin: 2px 4px 2px 0px;
+}
+
+
+ #searchResultsMapPage .logoBoxMobile {
+    display:block;
+}
+
+
+#mapNavbar {
+    display:block;
+}

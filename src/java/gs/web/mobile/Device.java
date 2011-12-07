@@ -31,6 +31,24 @@ public class Device {
         return _mobileDevice;
     }
 
+    public Integer getResolutionHeight() {
+        if (_device == null) {
+            return null;
+        }
+
+        Integer height = Integer.valueOf(_device.getCapability("resolution_height"));
+        return height;
+    }
+
+    public Integer getResolutionWidth() {
+        if (_device == null) {
+            return null;
+        }
+
+        Integer width = Integer.valueOf(_device.getCapability("resolution_width"));
+        return width;
+    }
+
     public String getId() {
         return _device.getId();
     }

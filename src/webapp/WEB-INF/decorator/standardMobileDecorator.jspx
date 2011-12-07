@@ -3,34 +3,137 @@
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
-        xmlns:gsweb="gstaglib"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-        xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+        xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+        xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
         >
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <c:set var="agent" value="${fn:toLowerCase(header['user-agent'])}"/>
+
+    <c:set var="browserClass" value="${fn:contains(agent, 'msie') ? 'ie ' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 6') ? 'ie6' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 7') ? 'ie7' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 8') ? 'ie8' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 9') ? 'ie9' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'msie 10') ? 'ie10' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox') ? 'ff ' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/3') ? 'ff3' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/4') ? 'ff4' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/5') ? 'ff5' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'firefox/6') ? 'ff6' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'version') ? 'safari' : ''}"/>
+    <c:set var="browserClass" value="${browserClass}${fn:contains(agent, 'chrome') ? 'chrome' : ''}"/>
+
+    <c:set var="osClass" value="${fn:contains(agent, 'macintosh') ? ' mac ' : ''}"/>
+    <c:set var="osClass" value="${osClass}${fn:contains(agent, 'windows') ? ' win ' : ''}"/>
+
+    <c:set var="scopeClass" value="${requestScope.context.cobranded ? 'cobranded ' : 'www'}"/>
+    <c:set var="scopeClass" value="${scopeClass}${requestScope.context.cobranded ?  requestScope.context.cobrand : ''}"/>
+    <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageHelper.framed ? 'framed' : 'unframed'}"/>
+    <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageLayout}"/>
+
+    <c:set var="bodyClass" value="${scopeClass}${osClass}${browserClass}"/>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
-<head>
+<c:choose>
+    <c:when test="${requestScope.pageHelper.pageName eq 'spp_overview'}">
+        <c:set var="profile" value="http://purl.org/NET/erdf/profile" />
+    </c:when>
+    <c:otherwise>
+        <c:set var="profile" value="" />
+    </c:otherwise>
+</c:choose>
+
+<jsp:scriptlet>
+    request.setAttribute("tabs", PageHelper.pageIds);
+</jsp:scriptlet>
+<c:set var="isHomePage" value="${requestScope.context.pathway == tabs.HOME}"/>
+
+<head profile="${profile}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Begin CSS files.  All CSS should be above JS files. -->
+    <c:choose>
+        <c:when test="${(not empty param.uncompressedScripts
+                         or pageContext.request.serverName eq 'localhost'
+                         or fn:contains(pageContext.request.serverName, 'samson')
+                         or pageContext.request.serverName eq '127.0.0.1')
+                         and empty param.compressedScripts}">
+            <gsml:url var="resetcss" value="/res/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="zindexreset" value="/res/css/00_reset/z_index_reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="textcss" value="/res/css/02_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="buttons" value="/res/css/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="spacing" value="/res/css/06_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="roundedcorners" value="/res/css/08_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="lineargradients" value="/res/css/08_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="opacityshadow" value="/res/css/08_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <![CDATA[<link rel="stylesheet" href="${resetcss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${zindexreset}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${textcss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+        </c:when>
+        <c:otherwise>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+        </c:otherwise>
+    </c:choose>
+
+    ${requestScope.pageHelper.headCssElements}
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link rel="stylesheet" href="/res/css/mobile-portrait.css" type="text/css" media="all and (orientation:portrait)"  />
+    <link rel="stylesheet" href="/res/css/mobile-landscape.css" type="text/css" media="all and (orientation:landscape)" />
+    <link rel="stylesheet" href="/res/css/jquery-mobile-gs.css"/>
+
+    <!-- Begin JS files.  No CSS below this point. -->
+    <pageHelper:addJavaScript
+            uncompressedScripts="${param.uncompressedScripts}"
+            compressedScripts="${param.compressedScripts}"
+            serverName="${pageContext.request.serverName}"/>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"><!-- no collapse --></script>
+    <!--<script type="text/javascript" src="/res/js/jquery.mobile-1.0.js"></script>-->
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"><!-- no collapse --></script>
+
+    <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
+
     <decorator:head/>
-    ${requestScope.pageHelper.headElements}
+
 </head>
 
-<body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}">
-    <div style="width:300px;">
+<body >
+
     <decorator:body/>
 
+    <div class="clearfloat"><!-- do not collapse --></div>
+
     <a href="${sitePreferenceUrlForAlternateSite}">View desktop version</a>
-</div>
+
 </body>
 </html>
 </jsp:root>

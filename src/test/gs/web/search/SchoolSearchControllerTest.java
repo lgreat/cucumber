@@ -68,6 +68,11 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         _controller.setStateManager(new StateManager());
         _controller.setLocalBoardDao(_localBoardDao);
 
+        _controller.setViewName("/search/schoolSearchResults");
+        _controller.setAjaxViewName("/search/schoolSearchResultsTable");
+        _controller.setNoResultsViewName("/search/schoolSearchNoResults");
+        _controller.setNoResultsAjaxViewName("/search/schoolSearchNoResultsTable");
+
         PageHelper pageHelper = new PageHelper(_sessionContext, _request);
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
     }

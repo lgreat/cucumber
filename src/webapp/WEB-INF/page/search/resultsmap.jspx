@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:pagination="pagination"
+          xmlns:tags="urn:jsptagdir:/WEB-INF/tags">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <c:if test="${not empty title}">
+        <title>${title}</title>
+    </c:if>
+    <c:if test="${not empty metaDescription}">
+        <meta name="description" content="${metaDescription}"/>
+    </c:if>
+    <c:if test="${not empty metaKeywords}">
+        <meta name="keywords" content="${metaKeywords}"/>
+    </c:if>
+
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
+
+    <c:if test="${isSearch}">
+        <meta name="robots" content="follow,noindex"/>
+    </c:if>
+
+    <!--<style type="text/css">
+        @media all and (orientation:portrait) {
+            .mobilePage {
+                width:${requestInfo.device.resolutionWidth}px;
+            }
+        }
+        @media all and (orientation:landscape) {
+            .mobilePage {
+                width:${requestInfo.device.resolutionHeight}px;
+            }
+        }
+    </style>-->
+
+<!--
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>-->
+
+    <script type="text/javascript" src="/res/js/search/schoolSearchResults.js"><!-- no collapse --></script>
+    <script type="text/javascript" src="/res/js/search/schoolSearchResultsTable.js"><!-- no collapse --></script>
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"><!-- no collapse --></script>
+    <script type="text/javascript" src="/res/js/map/schoolMap.js" ><!-- no collapse --></script>
+
+    <meta name="decorator" content="standardMobileDecorator"/>
+</head>
+<body>
+
+    <div id="searchResultsMapPage" align="center" data-role="page" class="mobilePage">
+
+        <tags:mobileStandardHeader/>
+
+        <div data-role="navbar" id="mapNavbar">
+            <ul>
+                <li><a href="/search/search.page?${pageContext.request.queryString}" >List</a></li>
+                <li><a href="${pageContext.request.queryString}" class="ui-btn-active">Map</a></li>
+            </ul>
+        </div>
+
+        <div id="content" >
+
+            <div id="nearbySchoolsSearchMap">
+                &#160;
+                <noscript>JavaScript is required in order to view a map of the city and its
+                    schools.
+                </noscript>
+            </div>
+
+            <map:schoolSearchMap
+                    id="nearbySchoolsSearchMap"
+                    tooltips="true"
+                    schools="${schoolSearchResults}"
+                    ratings="${ratings}"
+                    lat="${param.lat}"
+                    lon="${param.lon}"
+                    />
+
+            <!-- end map -->
+
+        </div>
+
+    </div>
+
+</body>
+</jsp:root>

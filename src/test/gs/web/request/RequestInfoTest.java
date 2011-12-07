@@ -3,17 +3,25 @@ package gs.web.request;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
-import org.apache.axis.session.Session;
+import net.sourceforge.wurfl.core.WURFLManager;
 import org.junit.Test;
+import org.junit.Before;
 
 import javax.servlet.http.HttpServletRequest;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.easymock.EasyMock.createMock;
 
 public class RequestInfoTest {
+
+    private WURFLManager _wurflManager;
+
+    @Before
+    public void setUp() {
+        _wurflManager = createMock(WURFLManager.class);
+    }
     
     public HttpServletRequest getHttpServletRequestForHostname(String hostname) {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();

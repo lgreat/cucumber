@@ -5,9 +5,7 @@ import gs.web.request.RequestInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.Controller;
-import org.springframework.mobile.device.Device;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -27,32 +25,44 @@ public class DeviceSpecificControllerFactory implements IDeviceSpecificControlle
     public DeviceSpecificControllerFactory(List<Controller> controllers) {
     }
 
-    public Controller getDeviceSpecificController(List<Controller> controllers) {
+    public Controller getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers, boolean beanSupportsDesktopRequests, boolean beanSupportsMobileRequests) {
         if (_requestInfo == null) {
             throw new IllegalStateException("requestInfo was null.");
         }
 
-        Controller chosenController = null;
+        IDeviceSpecificControllerPartOfPair chosenController = null;
 
-        for (Controller controller : controllers) {
-            // option 1: Controller implements IDeviceSpecificController and defines custom logic that looks at
-            // RequestInfo and determines if it can handle the request
-            if (controller instanceof IDeviceSpecificController) {
-                if (((IDeviceSpecificController)controller).shouldHandleRequest(_requestInfo)) {
+        // allow bean config in spring to pass in these optionis to factory method rather than setting these
+        // on each controller bean, since these values must be equal for each controller in the group
+        for (IDeviceSpecificControllerPartOfPair _controller : controllers) {
+            _controller.setBeanSupportsDesktopRequests(beanSupportsDesktopRequests);
+            _controller.setBeanSupportsMobileRequests(beanSupportsMobileRequests);
+        }
+
+        for (IDeviceSpecificControllerPartOfPair controller : controllers) {
+            boolean controllerSupportsMobile = false;
+            boolean controllerSupportsMobileOnly = false;
+            boolean controllerSupportsDesktop = true;
+            boolean controllerSupportsDesktopOnly = true;
+
+            if (controller instanceof IDeviceSpecificControllerPartOfPair) {
+                IDeviceSpecificControllerPartOfPair deviceController = (IDeviceSpecificControllerPartOfPair) controller;
+                controllerSupportsMobile = deviceController.controllerHandlesMobileRequests();
+                controllerSupportsMobileOnly = !deviceController.controllerHandlesDesktopRequests();
+                controllerSupportsDesktop = !controllerSupportsMobileOnly; //readability
+                controllerSupportsDesktopOnly = !controllerSupportsMobile; //readability
+            }
+
+            // Controller implements IDeviceSpecificControllerPartOfPair
+            // OR chooses not to implement any interface (default). Controller is chosen automatically based on
+            // whether or not a mobile-capable controller is needed.
+            if (_requestInfo.shouldRenderMobileView()) {
+                if (controllerSupportsMobile) {
                     chosenController = controller;
                 }
             } else {
-                // option 2 (preferred): Controller implements either IControllerWithMobileView or IMobileOnlyController
-                // OR chooses not to implement any interface (default). Controller is chosen automatically based on
-                // whether or not a mobile-capable controller is needed.
-                if (_requestInfo.shouldRenderMobileView()) {
-                    if (controller instanceof IControllerWithMobileView) {
-                        chosenController = controller;
-                    }
-                } else {
-                    if (!(controller instanceof IControllerWithMobileView)) {
-                        chosenController = controller;
-                    }
+                if (controllerSupportsDesktopOnly) {
+                    chosenController = controller;
                 }
             }
         }

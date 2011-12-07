@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.117 2011/11/29 00:06:10 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.118 2011/12/07 03:45:38 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -14,6 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ws.security.util.StringUtil;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -242,6 +243,15 @@ public final class UrlUtil {
             url = url + "?" + queryString;
         }
 
+        return url;
+    }
+
+    public static String getRequestURLAtNewHostname(HttpServletRequest request, String newHostname) {
+        if (newHostname == null) {
+            throw new IllegalArgumentException("new hostname cannot be null.");
+        }
+        String url = getRequestURL(request);
+        url = url.replaceFirst(request.getServerName(), newHostname);
         return url;
     }
 

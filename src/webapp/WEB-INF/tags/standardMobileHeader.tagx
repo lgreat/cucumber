@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+        xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+        xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
+        >
+
+    <div class="logoBoxMobile" align="center" style="background-color:#808080;">
+        <gsml:a href="/">
+            <gsml:img id="mobileLogo" src="/res/img/logo/logo_GS2010_330x110.png" height="30" alt="GreatSchools: Involved Parents. Successful Kids"/></gsml:a>
+    </div>
+</jsp:root>
