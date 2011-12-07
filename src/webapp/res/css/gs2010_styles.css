@@ -851,6 +851,10 @@ h4.subhead2 a {
 /* ------ articleText (extends standard) ----- */
 .articleText {}
 .articleText .mainImage{ margin-bottom: 16px; }
+/* ------------- articleSidebar -------------- */
+.articleSidebar{}
+.articleSidebar .inner .bd h3{color:#f2791f;font-weight:normal;}
+.articleSidebar .inner .bd p{font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px;}
 /* ----------- articleDistribution ----------- */
 .articleDistribution{margin-bottom:10px;}
 .articleDistribution .inner{border:1px solid #ddd;background-color: #fafafa;}
