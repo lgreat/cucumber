@@ -135,13 +135,15 @@ public class BoundaryAjaxController {
         response.setContentType("application/json");
         double lat = Double.valueOf(request.getParameter("lat"));
         double lon = Double.valueOf(request.getParameter("lon"));
-        LevelCode.Level districtLevel = null;
-        if (request.getParameter("level") != null) {
-            districtLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
-        }
+        LevelCode.Level level = LevelCode.Level.getLevelCode(request.getParameter("level"));
 
-        List<DistrictBoundary> districtBoundaries = _districtBoundaryDao.getDistrictBoundariesContainingPoint(lat, lon, districtLevel);
         JSONObject output = new JSONObject();
+        output.put("features", getDistrictsForLocation(lat, lon, level));
+        output.write(response.getWriter());
+    }
+
+    protected JSONArray getDistrictsForLocation(double lat, double lon, LevelCode.Level level) throws JSONException {
+        List<DistrictBoundary> districtBoundaries = _districtBoundaryDao.getDistrictBoundariesContainingPoint(lat, lon, level);
         JSONArray features = new JSONArray();
         for (DistrictBoundary boundary: districtBoundaries) {
             try {
@@ -163,8 +165,7 @@ public class BoundaryAjaxController {
                 _log.error("Can't find district " + boundary.getState() +"," + boundary.getDistrictId());
             }
         }
-        output.put("features", features);
-        output.write(response.getWriter());
+        return features;
     }
 
     protected MapPolygon getPolygonFromDistrict(DistrictBoundary boundary, District district, int ratingInt) throws JSONException {
@@ -202,12 +203,9 @@ public class BoundaryAjaxController {
         response.setContentType("application/json");
         double lat = Double.valueOf(request.getParameter("lat"));
         double lon = Double.valueOf(request.getParameter("lon"));
-        LevelCode.Level schoolLevel = null;
-        if (request.getParameter("level") != null) {
-            schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
-        }
+        LevelCode.Level level = LevelCode.Level.getLevelCode(request.getParameter("level"));
 
-        List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, schoolLevel);
+        List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, level);
         JSONObject output = new JSONObject();
         JSONArray features = new JSONArray();
         for (SchoolBoundary boundary: schoolBoundaries) {
@@ -226,6 +224,12 @@ public class BoundaryAjaxController {
                 features.put(marker.toJsonObject());
             } catch (ObjectRetrievalFailureException orfe) {
                 _log.error("Can't find school " + boundary.getState() +"," + boundary.getSchoolId());
+            }
+        }
+        JSONArray districts = getDistrictsForLocation(lat, lon, level);
+        if (districts != null) {
+            for (int x=0; x < districts.length(); x++) {
+                features.put(districts.get(x));
             }
         }
         output.put("features", features);
