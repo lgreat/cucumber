@@ -79,6 +79,11 @@
           }
           return false;
         };
+        function isScrolledIntoView(elem, parentElem) {
+            // position should be between 0 and height. parentElem must be relatively positioned!
+            var elemTop = $(elem).position().top;
+            return elemTop > 0 && elemTop < $(parentElem).height();
+        }
         var GS = GS || {};
         GS.Map = GS.Map || {};
         GS.Map.Helper = new (function() {
@@ -320,8 +325,10 @@
                         hideAllDistrictPolygons();
                     }
                     $('#' + this.getKey()).addClass("selected");
-//                    var scrollTop = $('#districtListDiv').scrollTop();
-//                    $('#districtListDiv').scrollTop(scrollTop + $('#' + this.getKey()).position().top);
+                    if (isScrolledIntoView($('#' + this.getKey()), $('#districtListDiv')) === false) {
+                        var scrollTop = $('#districtListDiv').scrollTop();
+                        $('#districtListDiv').scrollTop(scrollTop + $('#' + this.getKey()).position().top);
+                    }
                     selectedDistrict = this;
                     $('#currentlySelectedDistrict').html(this.name);
                 };
@@ -335,13 +342,11 @@
                     this.hideMarker();
                     this.marker = marker;
                     google.maps.event.addListener(marker, 'click', createDistrictMarkerClickListener(this));
-                    this.showMarker();
                 };
                 this.setPolygon = function(polygon) {
                     this.hidePolygon();
                     this.polygon = polygon;
                     polygon.setOptions({strokeColor:'#FF7800', zIndex:1});
-                    this.showPolygon();
                 };
                 this.getKey = function() {
                     return "district-" + this.state + "-" + this.id;
@@ -391,13 +396,11 @@
                     this.hideMarker();
                     this.marker = marker;
                     google.maps.event.addListener(marker, 'click', createSchoolMarkerClickListener(this));
-                    this.showMarker();
                 };
                 this.setPolygon = function(polygon) {
                     this.hidePolygon();
                     this.polygon = polygon;
                     polygon.setOptions({strokeColor:'#78FF00', zIndex:2});
-                    this.showPolygon();
                 };
                 this.isSchool = function() {return true;};
             };
@@ -423,7 +426,25 @@
                         alert("No school or district found at this point for level code " + $('.js_mapLevelCode:checked').val());
                     }
                     hideAllPolygons();
-                    loadFeatureResponse(data.features, {highlightPolygons:true});
+                    var mapObjectsAdded = loadFeatureResponse(data.features, {highlightPolygons:true, showFeatures:false});
+                    for (var x=0; x < mapObjectsAdded.length; x++) {
+                        if (mapObjectsAdded[x].isDistrict()) {
+                            mapObjectsAdded[x].showMarker();
+                            mapObjectsAdded[x].showPolygon();
+                            break;
+                        }
+                    }
+                    mapObjectsAdded.sort(sortByGSRating);
+                    var firstSchool = true;
+                    for (x=0; x < mapObjectsAdded.length; x++) {
+                        if (mapObjectsAdded[x].isSchool()) {
+                            mapObjectsAdded[x].showMarker();
+                            if (firstSchool) {
+                                mapObjectsAdded[x].showPolygon();
+                                firstSchool = false;
+                            }
+                        }
+                    }
                     updateDistrictList();
                     updateSchoolList();
                 }).error(function() {
@@ -508,8 +529,10 @@
             };
             // AJAX SUCCESS HANDLERS
             var loadFeatureResponse = function(features, options) {
-                options = typeof(options) !== 'undefined' ? options : {};
+                var mapObjectsAdded = new Array();
+                options = options || {};
                 var highlightPolygons = typeof(options.highlightPolygons) !== 'undefined' ? options.highlightPolygons : false;
+                var showFeatures = typeof(options.showFeatures) !== 'undefined' ? options.showFeatures : true;
                 for (var featureIndex = 0; featureIndex < features.length; featureIndex++) {
                     var feature = features[featureIndex];
                     var mapObject = createMapObject(feature.data);
@@ -517,7 +540,9 @@
                         if (!mapObject.hasMarker()) {
                             mapObject.setMarker(GS.Map.Helper.createMarker(feature));
                         }
-                        mapObject.showMarker();
+                        if (showFeatures) {
+                            mapObject.showMarker();
+                        }
                     } else if (feature.type == 'polygon') {
                         if (!mapObject.hasPolygon()) {
                             mapObject.setPolygon(GS.Map.Helper.createGoogleMapsPolygon({coordinates:feature.coordinates}));
@@ -529,17 +554,21 @@
                                 mapObject.centerOnLoad = false;
                             }
                         }
-                        mapObject.showPolygon();
-                        if (highlightPolygons) {
-                            GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
+                        if (showFeatures) {
+                            mapObject.showPolygon();
+                            if (highlightPolygons) {
+                                GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
+                            }
                         }
                     }
+                    mapObjectsAdded.push(mapObject);
                     if (typeof(feature.dependents) !== 'undefined' && feature.dependents.length > 0) {
                         for (var dependentIndex = 0; dependentIndex < feature.dependents.length; dependentIndex++) {
-                            loadFeatureResponse(feature.dependents, options);
+                            mapObjectsAdded = mapObjectsAdded.concat(loadFeatureResponse(feature.dependents, options));
                         }
                     }
                 }
+                return mapObjectsAdded;
             };
             var createMapObject = function(data) {
                 var thingOnMap;
@@ -589,7 +618,7 @@
             // MISCELLANEOUS FUNCTIONS
             var centerMap = function(latLng, options) {
                 options = options || {};
-                var moveMarker = options.moveMarker || false;
+                var moveMarker = typeof(options.moveMarker) !== 'undefined' ? options.moveMarker : false;
                 districtBoundaryMap.panTo(latLng);
                 if (moveMarker) {
                     setCenterMarkerAtLocation(latLng);

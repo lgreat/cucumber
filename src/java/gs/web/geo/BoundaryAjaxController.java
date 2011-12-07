@@ -208,6 +208,7 @@ public class BoundaryAjaxController {
         List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, level);
         JSONObject output = new JSONObject();
         JSONArray features = new JSONArray();
+        long start = System.currentTimeMillis();
         for (SchoolBoundary boundary: schoolBoundaries) {
             try {
                 if (boundary.getSchoolId() == null) {
@@ -226,12 +227,15 @@ public class BoundaryAjaxController {
                 _log.error("Can't find school " + boundary.getState() +"," + boundary.getSchoolId());
             }
         }
+        System.out.println("  getSchoolsForLocation fetchSchool,Rating,toJSON took " + (System.currentTimeMillis() - start) + " ms");
+        start = System.currentTimeMillis();
         JSONArray districts = getDistrictsForLocation(lat, lon, level);
         if (districts != null) {
             for (int x=0; x < districts.length(); x++) {
                 features.put(districts.get(x));
             }
         }
+        System.out.println("  getSchoolsForLocation addingDistrict took " + (System.currentTimeMillis() - start) + " ms");
         output.put("features", features);
         output.write(response.getWriter());
     }
@@ -299,16 +303,20 @@ public class BoundaryAjaxController {
         JSONObject rval = new JSONObject();
         JSONArray features = new JSONArray();
 
+        long start = System.currentTimeMillis();
         District district = _districtDao.findDistrictById(state, districtId);
         if (district != null) {
             List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
+            System.out.println(" getSchoolsForDistrict DB took " + (System.currentTimeMillis() - start) + " ms");
 
             if (schools != null && schools.size() > 0) {
+                start = System.currentTimeMillis();
                 for (School s: schools) {
                     int ratingInt = getGSRating(s);
                     MapMarker marker = getMarkerFromSchool(s, district, ratingInt);
                     features.put(marker.toJsonObject());
                 }
+                System.out.println(" getSchoolsForDistrict ratings took " + (System.currentTimeMillis() - start) + " ms");
             }
         }
         rval.put("features", features);
