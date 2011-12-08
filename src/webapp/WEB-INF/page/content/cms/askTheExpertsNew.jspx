@@ -72,14 +72,14 @@
 
             <!-- Question -->
             <div class="question">
-                <h3 class="text-uppercase">Question:</h3>
+                <h2 class="text-uppercase">Question:</h2>
                 ${askTheExperts.question}
             </div>
             <!-- Question -->
 
             <!-- Answer -->
             <div class="answer">
-                <h3 class="text-uppercase">Answer:</h3>
+                <h2 class="text-uppercase">Answer:</h2>
                 ${answer}
             </div>
             <!-- Answer -->
