@@ -1,0 +1,59 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Print Styles
+Description: Specific styles for the Article page.
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+body {
+  min-width: 960px;
+}
+
+.container_24 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 640px;
+}
+
+.grid_1 {
+  _display: inline;
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.container_24 .grid_1 {
+  width: 630px;
+}
+
+/*.articlePrint p,*/
+/*.articlePrint a,*/
+/*.articlePrint ul li,*/
+/*.articlePrint h2,*/
+/*.articlePrint h4,*/
+/*.articlePrint .mainImage{*/
+    /*color:#000;*/
+/*}*/
+
+.articlePrint .printLogo{
+    border-bottom: 1px solid #000;
+}
+
+.articlePrint a:hover{
+    text-decoration: none;
+}
+
+.articlePrint ul li{
+    font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;
+}
+
+

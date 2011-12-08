@@ -18,6 +18,10 @@
         <meta name="description" content="${feature.metaDescription}"/>
         <meta name="keywords" content="${feature.metaKeywords}"/>
         <script type="text/javascript" src="/res/js/global.js"><!--D not collapse--></script>
+        <link rel="stylesheet" type="text/css" href="/res/css/00_reset/neutral_reset.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/printTypography.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/print.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/06_spacing/spacing.css" />
 
     </head>
 
@@ -30,10 +34,20 @@
         <c:set var="showPhotoGallery" value="${true}"/>
     </c:if>
 
-    TODO greatschools logo
-    <div class="grid_16">
-
-        <h1>${feature.title}</h1>
+    <c:choose>
+        <c:when test="${feature.numPages == 1 or fromPage eq '1'}">
+            <c:set var="featureLink" value="${contentUrl}?showNew=true"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="featureLink" value="${contentUrl}?showNew=true&amp;page=${fromPage}"/>
+        </c:otherwise>
+    </c:choose>
+    <div class="container_24">
+    <div class="grid_1 slStylesV1-0 articlePrint">
+        <div class="mvl pbm printLogo">
+            <img src="/res/img/articlePrintNew/greatschool_print_logo.png" alt="Great Schools"/>
+        </div>
+        <h2><strong>${feature.title}</strong></h2>
 
         <!--Licensor logo-->
         <c:if test="${not empty feature.licensorLogoUrl}">
@@ -47,14 +61,19 @@
         <!--Image-->
 
         <!-- Byline -->
-        <article:authorByline feature="${feature}"/>
+        <div class="small">
+            <article:authorByline feature="${feature}"/>
+         </div>
         <!-- Byline -->
 
         <!-- photo gallery images -->
-        <div>
+        <div class="fltlft mbl mrl">
             <c:if test="${showPhotoGallery}">
                 <c:forEach var="galleryImage" items="${mediumPhotos}" varStatus="index">
                     <img src="${galleryImage}" alt="${altTexts[index.count]}"/>
+                    <div class="mts mbm">
+                        ${photoCaptions[index.count]}
+                    </div>
                 </c:forEach>
             </c:if>
         </div>
@@ -74,6 +93,7 @@
         </c:if>
         <!-- Author bios, Licensor attribution -->
 
+    </div>
     </div>
 
     <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
