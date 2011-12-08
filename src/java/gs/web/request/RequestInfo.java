@@ -233,7 +233,7 @@ public class RequestInfo {
 
         site_preference = _request.getParameter("site_preference");
 
-        if (site_preference == null) {
+        if (site_preference == null && cookies != null) {
             // hack alert: the interceptor which spring-mobile provides does not execute before spring uses DeviceSpecificControllerFactory
             // to get the appropriate controllers for beans which use that factory. The factory needs to know what the site preference is
             // TODO: figure out better way to accomplish this
