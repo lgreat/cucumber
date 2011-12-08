@@ -23,6 +23,7 @@ import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,11 +139,11 @@ public class BoundaryAjaxController {
         LevelCode.Level level = LevelCode.Level.getLevelCode(request.getParameter("level"));
 
         JSONObject output = new JSONObject();
-        output.put("features", getDistrictsForLocation(lat, lon, level));
+        output.put("features", getDistrictsForLocation(lat, lon, level, request));
         output.write(response.getWriter());
     }
 
-    protected JSONArray getDistrictsForLocation(double lat, double lon, LevelCode.Level level) throws JSONException {
+    protected JSONArray getDistrictsForLocation(double lat, double lon, LevelCode.Level level, HttpServletRequest request) throws JSONException {
         List<DistrictBoundary> districtBoundaries = _districtBoundaryDao.getDistrictBoundariesContainingPoint(lat, lon, level);
         JSONArray features = new JSONArray();
         for (DistrictBoundary boundary: districtBoundaries) {
@@ -155,7 +156,7 @@ public class BoundaryAjaxController {
                 if (rating != null && rating.getActive() == 1) {
                     ratingInt = rating.getRating();
                 }
-                MapMarker marker = getMarkerFromDistrict(district, ratingInt);
+                MapMarker marker = getMarkerFromDistrict(district, ratingInt, request);
 
                 MapPolygon polygon = getPolygonFromDistrict(boundary, district, ratingInt);
                 marker.addDependent(polygon);
@@ -178,24 +179,36 @@ public class BoundaryAjaxController {
         return polygon;
     }
 
-    protected MapMarker getMarkerFromDistrict(District district, int ratingInt) throws JSONException {
+    protected MapMarker getMarkerFromDistrict(District district, int ratingInt, HttpServletRequest request) throws JSONException {
+        return getMarkerForDistrict(district.getLat(), district.getLon(), district.getName(),
+                district.getDatabaseState(), district.getId(), district.getPhysicalAddress().getCity(), ratingInt, request);
+    }
+
+    protected MapMarker getMarkerForDistrict(double lat, double lon, String name, State state, Integer id, String city, int ratingInt, HttpServletRequest request) throws JSONException {
         String icon = "/res/img/map/pushpin_na.png";
         if (ratingInt > 0) {
             icon = "/res/img/map/pushpin_" + ratingInt + ".png";
         }
-        MapMarker marker = new MapMarker(district.getLat(), district.getLon(),
+        MapMarker marker = new MapMarker(lat, lon,
                 icon, 40, 40);
-        marker.setTooltip(district.getName());
+        marker.setTooltip(name);
         marker.setOrigin(0, 0);
         marker.setAnchor(11, 34);
         marker.setShape(MapMarker.MarkerShapeType.poly, new int[] {0, 0, 30, 0, 30, 37, 0, 37});
 
-        marker.getData().put("state", district.getDatabaseState());
-        marker.getData().put("id", district.getId());
-        marker.getData().put("name", district.getName());
+        marker.getData().put("state", state);
+        marker.getData().put("id", id);
+        marker.getData().put("name", name);
         marker.getData().put("rating", ratingInt);
         marker.getData().put("type", "district");
+        UrlBuilder urlBuilder = new UrlBuilder(state, id, name, city, UrlBuilder.DISTRICT_HOME);
+        marker.getData().put("url", urlBuilder.asSiteRelative(request));
         return marker;
+    }
+
+    protected MapMarker getMarkerFromDistrictSearch(IDistrictSearchResult district, int ratingInt, HttpServletRequest request) throws JSONException {
+        return getMarkerForDistrict(district.getLatitude(), district.getLongitude(), district.getName(),
+                district.getState(), district.getId(), district.getCity(), ratingInt, request);
     }
 
     @RequestMapping(value="getSchoolsForLocation.page", method=RequestMethod.GET)
@@ -229,7 +242,7 @@ public class BoundaryAjaxController {
         }
         System.out.println("  getSchoolsForLocation fetchSchool,Rating,toJSON took " + (System.currentTimeMillis() - start) + " ms");
         start = System.currentTimeMillis();
-        JSONArray districts = getDistrictsForLocation(lat, lon, level);
+        JSONArray districts = getDistrictsForLocation(lat, lon, level, request);
         if (districts != null) {
             for (int x=0; x < districts.length(); x++) {
                 features.put(districts.get(x));
@@ -259,24 +272,11 @@ public class BoundaryAjaxController {
                 districtFacade.setId(searchResult.getId());
                 districtFacade.setDatabaseState(searchResult.getState());
                 DistrictRating rating = _districtRatingDao.getDistrictRatingByDistrict(districtFacade);
-                String icon = "/res/img/map/pushpin_na.png";
                 int ratingInt = 0;
                 if (rating != null && rating.getActive() == 1) {
                     ratingInt = rating.getRating();
-                    icon = "/res/img/map/pushpin_" + ratingInt + ".png";
                 }
-                MapMarker marker = new MapMarker(searchResult.getLatitude(), searchResult.getLongitude(),
-                        icon, 40, 40);
-                marker.setTooltip(searchResult.getName());
-                marker.setOrigin(0, 0);
-                marker.setAnchor(11, 34);
-                marker.setShape(MapMarker.MarkerShapeType.poly, new int[] {0, 0, 30, 0, 30, 37, 0, 37});
-
-                marker.getData().put("state", searchResult.getState());
-                marker.getData().put("id", searchResult.getId());
-                marker.getData().put("name", searchResult.getName());
-                marker.getData().put("rating", ratingInt);
-                marker.getData().put("type", "district");
+                MapMarker marker = getMarkerFromDistrictSearch(searchResult, ratingInt, request);
                 mapObjects.put(marker.toJsonObject());
             }
             output.put("features", mapObjects);

@@ -220,6 +220,7 @@
                 this.id = null;
                 this.name = null;
                 this.rating = 0;
+                this.url = null;
                 this.showOnLoad = false;
                 this.centerOnLoad = false;
                 this.centroid = {};
@@ -231,6 +232,7 @@
                     if (typeof(params.rating) !== 'undefined') {
                         this.rating = params.rating;
                     }
+                    this.url = params.url || null;
                 };
                 this.isDistrict = function() {return false;};
                 this.isSchool = function() {return false;};
@@ -575,7 +577,7 @@
                 if (data.type == 'district') {
                     thingOnMap = stuffOnMap["district-" + data.state + "-" + data.id];
                     if (typeof(thingOnMap) === 'undefined') {
-                        thingOnMap = new DistrictWithBoundary({state:data.state, id:data.id, name:data.name, rating:data.rating});
+                        thingOnMap = new DistrictWithBoundary({state:data.state, id:data.id, name:data.name, rating:data.rating, url:data.url});
                         stuffOnMap["district-" + data.state + "-" + data.id] = thingOnMap;
                     }
                 } else if (data.type == 'school') {
@@ -805,6 +807,9 @@
                         selected = ' class="selected"';
                     }
                     var li = '<li id="' + districtKey + '"' + selected + '>' + district.name + ' ';
+                    if (district.url != null) {
+                        li += '<a href="' + district.url + '">link</a> ';
+                    }
                     li += '<span class="sprite badge_sm_';
                     if (district.rating > 0 && district.rating < 11) {
                         li += district.rating
@@ -894,8 +899,11 @@
                     clearMap();
                 });
                 $('#js_drawAllDistricts').click(function() {
+                    multiSelectDistrict = true;
                     for (var key in stuffOnMap) {
-                        stuffOnMap[key].loadAndShowPolygon();
+                        if (stuffOnMap[key].isDistrict()) {
+                            stuffOnMap[key].loadAndShowPolygon();
+                        }
                     }
                 });
                 $('#js_drawAllDistrictsAndSAZ').click(function() {
@@ -973,7 +981,7 @@
             <button name="reload" id="js_reloadMap">Reload at this location</button>
             <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
             <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
-            <button name="drawAllDistricts" id="js_drawAllDistricts" class="hidden">Debug: Draw all districts</button>
+            <button name="drawAllDistricts" id="js_drawAllDistricts" class="">Debug: Draw all districts</button>
             <button name="getSAZ" id="js_getSAZ" class="hidden">Debug: Load SAZ for selected district</button>
             <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ" class="hidden">Debug: Draw all districts and SAZ (Warning!)</button>
             <div class="options">
