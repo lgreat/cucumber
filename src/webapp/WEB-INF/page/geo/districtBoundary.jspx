@@ -327,12 +327,20 @@
                         hideAllDistrictPolygons();
                     }
                     $('#' + this.getKey()).addClass("selected");
-                    if (isScrolledIntoView($('#' + this.getKey()), $('#districtListDiv')) === false) {
+                    if ($('#' + this.getKey()).position() != null && isScrolledIntoView($('#' + this.getKey()), $('#districtListDiv')) === false) {
                         var scrollTop = $('#districtListDiv').scrollTop();
                         $('#districtListDiv').scrollTop(scrollTop + $('#' + this.getKey()).position().top);
                     }
                     selectedDistrict = this;
-                    $('#currentlySelectedDistrict').html(this.name);
+                    var nameHtml = '';
+                    if (this.url != null) {
+                        nameHtml += '<a href="' + this.url + '">'
+                    }
+                    nameHtml += this.name;
+                    if (this.url != null) {
+                        nameHtml += '</a>'
+                    }
+                    $('#currentlySelectedDistrict').html(nameHtml);
                 };
                 this.hidePolygonImpl = function() {
                     $('#' + this.getKey()).removeClass("selected");
@@ -798,6 +806,7 @@
                 }
                 // sort on district rating
                 districts.sort(sortByGSRating);
+                var scrollTo = null;
                 for (var districtIndex = 0; districtIndex < districts.length; districtIndex++) {
                     var district = districts[districtIndex];
                     var districtKey = "district-" + district.state + "-" + district.id;
@@ -805,11 +814,11 @@
                     var selected = '';
                     if (district.isPolygonShown()) {
                         selected = ' class="selected"';
+                        if (!multiSelectDistrict) {
+                            scrollTo=districtKey;
+                        }
                     }
                     var li = '<li id="' + districtKey + '"' + selected + '>' + district.name + ' ';
-                    if (district.url != null) {
-                        li += '<a href="' + district.url + '">link</a> ';
-                    }
                     li += '<span class="sprite badge_sm_';
                     if (district.rating > 0 && district.rating < 11) {
                         li += district.rating
@@ -820,6 +829,12 @@
                     li += '"><!-- do not collapse --></span>';
                     li += '</li>';
                     districtListDiv.append(li);
+                }
+                if (scrollTo != null) {
+                    if (isScrolledIntoView($('#' + scrollTo), $('#districtListDiv')) === false) {
+                        var scrollTop = $('#districtListDiv').scrollTop();
+                        $('#districtListDiv').scrollTop(scrollTop + $('#' + scrollTo).position().top);
+                    }
                 }
             };
             var updateSchoolList = function() {
