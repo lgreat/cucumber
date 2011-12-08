@@ -309,6 +309,8 @@
                         <param>08_css3/rounded_corners.css</param>
                         <param>08_css3/linear_gradients.css</param>
                         <param>08_css3/opacity_shadow.css</param>
+                        <param>38_special/cms_content.css</param>
+                        <param>38_special/community_hover.css</param>
                         <param>99_debugging/debug.css</param>
                         <param>gs2010_styles.css</param>
                         <param>jquery.autocomplete.css</param>

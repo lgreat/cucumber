@@ -35,6 +35,8 @@
             <gsml:url var="roundedcorners" value="/res/css/08_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="lineargradients" value="/res/css/08_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="opacityshadow" value="/res/css/08_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="debug" value="/res/css/99_debugging/debug.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -53,6 +55,8 @@
             <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>

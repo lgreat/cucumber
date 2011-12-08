@@ -117,7 +117,7 @@
                 <!--Sidebar-->
 
                 <!--Content-->
-                <div>
+                <div class="articleContent">
                     <!--Image-->
                     <article:mainImage feature="${feature}"/>
                     <!--Image-->
