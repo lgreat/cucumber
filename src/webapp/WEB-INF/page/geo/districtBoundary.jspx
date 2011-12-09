@@ -211,6 +211,7 @@
             var centerMarker = null;
             var multiSelectDistrict = false;
             var multiSelectSchool = false;
+            var mapInfoWindow = new google.maps.InfoWindow();
 
             // DATA STRUCTURES
             var MarkerWithBoundary = function() {
@@ -224,6 +225,7 @@
                 this.showOnLoad = false;
                 this.centerOnLoad = false;
                 this.centroid = {};
+                this.address = {};
 
                 this.init = function(params) {
                     this.state = params.state;
@@ -233,6 +235,14 @@
                         this.rating = params.rating;
                     }
                     this.url = params.url || null;
+                    this.address = {};
+                    if (params.address) {
+                        this.address = params.address;
+                    } else {
+                        this.address.street1 = params.street1;
+                        this.address.street2 = params.street2;
+                        this.address.cityStateZip = params.cityStateZip;
+                    }
                 };
                 this.isDistrict = function() {return false;};
                 this.isSchool = function() {return false;};
@@ -348,6 +358,34 @@
                     selectedDistrict = null;
                     this.hideSchools();
                 };
+                this.showInfoWindow = function() {
+                    var infoWindowElement = $('#boundaryMapDistrictInfoWindow');
+                    var nameLink = '<a href="' + this.url + '">' + this.name + '</a>';
+                    infoWindowElement.find('.js_name').html(nameLink);
+                    var ratingImg = '<span class="sprite badge_sm_';
+                    if (this.rating > 0 && this.rating < 11) {
+                        ratingImg += this.rating
+                    } else {
+                        ratingImg += 'na'
+                    }
+                    ratingImg += '"><!-- do not collapse --></span>';
+                    infoWindowElement.find('.js_rating').html(ratingImg);
+                    var addr = '';
+                    if (this.address.street1) {
+                        addr += this.address.street1 + '<br/>';
+                    }
+                    if (this.address.cityStateZip) {
+                        addr += this.address.cityStateZip;
+                    }
+                    infoWindowElement.find('.js_address').html(addr);
+                    mapInfoWindow.setContent(
+                        '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
+                    );
+                    mapInfoWindow.open(districtBoundaryMap, this.marker);
+                };
+                this.hideInfoWindow = function() {
+                    mapInfoWindow.close();
+                };
                 this.setMarker = function(marker) {
                     this.hideMarker();
                     this.marker = marker;
@@ -365,7 +403,7 @@
             };
             DistrictWithBoundary.prototype = new MarkerWithBoundary();
             var SchoolWithBoundary = function(params) {
-                this.district = params.district || null;
+                this.district = null;
                 this.init(params);
                 this.loadPolygon = function() {
                     if (this.hasPolygon()) {
@@ -392,6 +430,34 @@
                         hideAllSchoolPolygons();
                     }
                     $('#' + this.getKey()).addClass("selected");
+                };
+                this.showInfoWindow = function() {
+                    var infoWindowElement = $('#boundaryMapSchoolInfoWindow');
+                    var nameLink = '<a href="' + this.url + '">' + this.name + '</a>';
+                    infoWindowElement.find('.js_name').html(nameLink);
+                    var ratingImg = '<span class="sprite badge_sm_';
+                    if (this.rating > 0 && this.rating < 11) {
+                        ratingImg += this.rating
+                    } else {
+                        ratingImg += 'na'
+                    }
+                    ratingImg += '"><!-- do not collapse --></span>';
+                    infoWindowElement.find('.js_rating').html(ratingImg);
+                    var addr = '';
+                    if (this.address.street1) {
+                        addr += this.address.street1 + '<br/>';
+                    }
+                    if (this.address.cityStateZip) {
+                        addr += this.address.cityStateZip;
+                    }
+                    infoWindowElement.find('.js_address').html(addr);
+                    mapInfoWindow.setContent(
+                        '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
+                    );
+                    mapInfoWindow.open(districtBoundaryMap, this.marker);
+                };
+                this.hideInfoWindow = function() {
+                    mapInfoWindow.close();
                 };
                 this.hidePolygonImpl = function() {
                     $('#' + this.getKey()).removeClass("selected");
@@ -585,14 +651,15 @@
                 if (data.type == 'district') {
                     thingOnMap = stuffOnMap["district-" + data.state + "-" + data.id];
                     if (typeof(thingOnMap) === 'undefined') {
-                        thingOnMap = new DistrictWithBoundary({state:data.state, id:data.id, name:data.name, rating:data.rating, url:data.url});
+                        thingOnMap = new DistrictWithBoundary(data);
                         stuffOnMap["district-" + data.state + "-" + data.id] = thingOnMap;
                     }
                 } else if (data.type == 'school') {
                     thingOnMap = stuffOnMap["school-" + data.state + "-" + data.id];
                     if (typeof(thingOnMap) === 'undefined') {
                         var district = stuffOnMap["district-" + data.state + "-" + data.districtId];
-                        thingOnMap = new SchoolWithBoundary({district: district, state:data.state, id:data.id, name:data.name, rating:data.rating});
+                        thingOnMap = new SchoolWithBoundary(data);
+                        thingOnMap.district = district;
                         stuffOnMap["school-" + data.state + "-" + data.id] = thingOnMap;
                         if (typeof(district) !== 'undefined') {
                             district.schools.push(thingOnMap);
@@ -747,6 +814,7 @@
                 if (moveToCenter) {
                     district.centerMap();
                 }
+                district.showInfoWindow();
             };
             var schoolClickHandler = function(params) {
                 var school = params.school;
@@ -757,9 +825,8 @@
                         school.centerMap();
                     }
                     school.loadAndShowPolygon();
-                } else {
-                    school.hidePolygon();
                 }
+                school.showInfoWindow();
             };
             var loadDistrictsForLocationEventHandler = function(event) {
                 if (event.latLng) {
@@ -1003,6 +1070,30 @@
                 Map click behavior:
                 <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior" id="mapClickLoadSchool" value="loadSchool" checked="checked"/><label for="mapClickLoadSchool">Show Boundaries</label>
                 <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior" id="mapClickLoadDistrict" value="loadDistrict"/><label for="mapClickLoadDistrict">Show Only District Boundary</label>
+            </div>
+        </div>
+        <div class="hidden">
+            <div id="boundaryMapDistrictInfoWindow">
+                <div class="line">
+                    <div class="unit size6of7">
+                        <div class="js_name"><!-- not empty --></div>
+                        <div class="js_address"><!-- not empty --></div>
+                    </div>
+                    <div class="unit size1of7 lastUnit">
+                        <div class="js_rating"><!-- not empty --></div>
+                    </div>
+                </div>
+            </div>
+            <div id="boundaryMapSchoolInfoWindow">
+                <div class="line">
+                    <div class="unit size6of7">
+                        <div class="js_name"><!-- not empty --></div>
+                        <div class="js_address"><!-- not empty --></div>
+                    </div>
+                    <div class="unit size1of7 lastUnit">
+                        <div class="js_rating"><!-- not empty --></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

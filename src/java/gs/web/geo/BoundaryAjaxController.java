@@ -181,10 +181,12 @@ public class BoundaryAjaxController {
 
     protected MapMarker getMarkerFromDistrict(District district, int ratingInt, HttpServletRequest request) throws JSONException {
         return getMarkerForDistrict(district.getLat(), district.getLon(), district.getName(),
-                district.getDatabaseState(), district.getId(), district.getPhysicalAddress().getCity(), ratingInt, request);
+                district.getDatabaseState(), district.getId(), district.getPhysicalAddress().getCity(),
+                district.getPhysicalAddress().getStreet(), district.getPhysicalAddress().getStreetLine2(),
+                district.getPhysicalAddress().getCityStateZip(), ratingInt, request);
     }
 
-    protected MapMarker getMarkerForDistrict(double lat, double lon, String name, State state, Integer id, String city, int ratingInt, HttpServletRequest request) throws JSONException {
+    protected MapMarker getMarkerForDistrict(double lat, double lon, String name, State state, Integer id, String city, String street1, String street2, String cityStateZip, int ratingInt, HttpServletRequest request) throws JSONException {
         String icon = "/res/img/map/pushpin_na.png";
         if (ratingInt > 0) {
             icon = "/res/img/map/pushpin_" + ratingInt + ".png";
@@ -196,19 +198,29 @@ public class BoundaryAjaxController {
         marker.setAnchor(11, 34);
         marker.setShape(MapMarker.MarkerShapeType.poly, new int[] {0, 0, 30, 0, 30, 37, 0, 37});
 
-        marker.getData().put("state", state);
-        marker.getData().put("id", id);
-        marker.getData().put("name", name);
-        marker.getData().put("rating", ratingInt);
-        marker.getData().put("type", "district");
-        UrlBuilder urlBuilder = new UrlBuilder(state, id, name, city, UrlBuilder.DISTRICT_HOME);
-        marker.getData().put("url", urlBuilder.asSiteRelative(request));
+        populateDistrictData(marker.getData(), state, id, name, city, street1, street2, cityStateZip, ratingInt, request);
         return marker;
+    }
+
+    protected void populateDistrictData(JSONObject data, State state, Integer id, String name, String city,
+                                        String street1, String street2, String cityStateZip, int ratingInt,
+                                        HttpServletRequest request) throws JSONException {
+        data.put("state", state);
+        data.put("id", id);
+        data.put("name", name);
+        data.put("rating", ratingInt);
+        data.put("type", "district");
+        UrlBuilder urlBuilder = new UrlBuilder(state, id, name, city, UrlBuilder.DISTRICT_HOME);
+        data.put("url", urlBuilder.asSiteRelative(request));
+        data.put("street1", street1);
+        data.put("street2", street2);
+        data.put("cityStateZip", cityStateZip);
     }
 
     protected MapMarker getMarkerFromDistrictSearch(IDistrictSearchResult district, int ratingInt, HttpServletRequest request) throws JSONException {
         return getMarkerForDistrict(district.getLatitude(), district.getLongitude(), district.getName(),
-                district.getState(), district.getId(), district.getCity(), ratingInt, request);
+                district.getState(), district.getId(), district.getCity(), "", null,
+                district.getCity() + ", " + district.getState(), ratingInt, request);
     }
 
     @RequestMapping(value="getSchoolsForLocation.page", method=RequestMethod.GET)
@@ -232,7 +244,7 @@ public class BoundaryAjaxController {
                     continue;
                 }
                 int rating = getGSRating(school);
-                MapMarker marker = getMarkerFromSchool(school, null, rating);
+                MapMarker marker = getMarkerFromSchool(school, null, rating, request);
                 MapPolygon polygon = getPolygonFromSchool(boundary, school, rating);
                 marker.addDependent(polygon);
                 features.put(marker.toJsonObject());
@@ -313,7 +325,7 @@ public class BoundaryAjaxController {
                 start = System.currentTimeMillis();
                 for (School s: schools) {
                     int ratingInt = getGSRating(s);
-                    MapMarker marker = getMarkerFromSchool(s, district, ratingInt);
+                    MapMarker marker = getMarkerFromSchool(s, district, ratingInt, request);
                     features.put(marker.toJsonObject());
                 }
                 System.out.println(" getSchoolsForDistrict ratings took " + (System.currentTimeMillis() - start) + " ms");
@@ -323,7 +335,8 @@ public class BoundaryAjaxController {
         rval.write(response.getWriter());
     }
 
-    protected MapMarker getMarkerFromSchool(School s, District district, int ratingInt) throws JSONException {
+    protected MapMarker getMarkerFromSchool(School s, District district, int ratingInt,
+                                            HttpServletRequest request) throws JSONException {
         String icon = "/res/img/map/GS_gsr_na_forground.png";
         if (ratingInt > 0) {
             icon = "/res/img/map/GS_gsr_" + ratingInt + "_forground.png";
@@ -335,18 +348,30 @@ public class BoundaryAjaxController {
         marker.setAnchor(11, 34);
         marker.setShape(MapMarker.MarkerShapeType.poly, new int[] {0, 0, 30, 0, 30, 37, 0, 37});
 
-        marker.getData().put("state", s.getDatabaseState());
-        marker.getData().put("id", s.getId());
-        marker.getData().put("name", s.getName());
-        marker.getData().put("rating", ratingInt);
-        marker.getData().put("type", "school");
-        if (district != null) {
-            marker.getData().put("districtName", district.getName());
-            marker.getData().put("districtId", district.getId());
-        } else {
-            marker.getData().put("districtId", s.getDistrictId());
-        }
+        populateSchoolData(marker.getData(), s, ratingInt, district, request);
         return marker;
+    }
+
+    protected void populateSchoolData(JSONObject data, School school, int rating, District district,
+                                      HttpServletRequest request) throws JSONException {
+        data.put("state", school.getDatabaseState());
+        data.put("id", school.getId());
+        data.put("name", school.getName());
+        data.put("rating", rating);
+        data.put("type", "school");
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        data.put("url", urlBuilder.asSiteRelative(request));
+        JSONObject address = new JSONObject();
+        address.put("street1", school.getPhysicalAddress().getStreet());
+        address.put("street2", school.getPhysicalAddress().getStreetLine2());
+        address.put("cityStateZip", school.getPhysicalAddress().getCityStateZip());
+        data.put("address", address);
+        if (district != null) {
+            data.put("districtName", district.getName());
+            data.put("districtId", district.getId());
+        } else {
+            data.put("districtId", school.getDistrictId());
+        }
     }
 
     @RequestMapping(value="getSchoolBoundariesForDistrict.page", method=RequestMethod.GET)
@@ -380,7 +405,7 @@ public class BoundaryAjaxController {
                 for (School s: schools) {
                     SchoolBoundary boundary = idSchoolBoundaryMap.get(s.getId());
                     int rating = getGSRating(s);
-                    MapMarker marker = getMarkerFromSchool(s, district, rating);
+                    MapMarker marker = getMarkerFromSchool(s, district, rating, request);
                     if (boundary != null) {
                         MapPolygon polygon = getPolygonFromSchool(boundary, s, rating);
                         marker.addDependent(polygon);
