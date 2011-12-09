@@ -22,10 +22,10 @@ public class DeviceSpecificControllerFactory implements IDeviceSpecificControlle
 
     public DeviceSpecificControllerFactory(){}
 
-    public DeviceSpecificControllerFactory(List<Controller> controllers) {
+    public DeviceSpecificControllerFactory(List<IDeviceSpecificControllerPartOfPair> controllers) {
     }
 
-    public Controller getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers, boolean beanSupportsDesktopRequests, boolean beanSupportsMobileRequests) {
+    public IDeviceSpecificControllerPartOfPair getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers, boolean beanSupportsDesktopRequests, boolean beanSupportsMobileRequests) {
         if (_requestInfo == null) {
             throw new IllegalStateException("requestInfo was null.");
         }

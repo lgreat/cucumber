@@ -50,7 +50,7 @@
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
-                <bean class="gs.web.mobile.SiteSwitcherInterceptor" autowire="byName" depends-on="requestInfo"/>
+                <bean class="gs.web.mobile.MobileRedirectHandlerInterceptor" autowire="byName" depends-on="requestInfo"/>
                 <bean class="gs.web.mobile.MobileViewSwitcherInterceptor" autowire="byName" depends-on="requestInfo"/>
             </list>
         </property>

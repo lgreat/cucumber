@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * 1. User tries to access a page on the "wrong" subdomain (i.e. access a mobile-only page on www)
  * 2. User tries to access a page from the "wrong" user-agent (i.e. accesses www on a mobile device without setting site preference cookie)
  */
-public class SiteSwitcherInterceptor implements HandlerInterceptor {
+public class MobileRedirectHandlerInterceptor implements HandlerInterceptor {
 
     public static final String sitePreferenceUrlForAlternateSite = "sitePreferenceUrlForAlternateSite";
 
