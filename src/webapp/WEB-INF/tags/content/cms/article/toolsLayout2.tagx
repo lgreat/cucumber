@@ -11,40 +11,34 @@
     <div class="mod articleDistribution2">
         <div class="inner rnd4">
             <div class="bd">
-                <span class="fltlt">
-                    <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false"/>
-                </span>
+                <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false"/>
                 <span class="fltrt">
                     <!-- TODO! switch to correct button design (or ask to use same icons as in article:toolsLayout1 -->
                     <!-- TODO! fix layout -->
                     <!-- TODO! make sure EN/ES toggle looks fine (not in mockup) -->
-                    <ul>
-                        <li class="smaller">
-                            <gsml:url var="mailToFriendUrl"
-                                      value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
-                            <gsml:a href="${mailToFriendUrl}"
+
+                    <gsml:url var="mailToFriendUrl"
+                              value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
+                            <button class="button-5" href="${mailToFriendUrl}"
                                     onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
-                                <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</gsml:a>
-                        </li>
-                        <li class="smaller">
-                            <a href="javascript:void(0);"
-                               onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
-                                    class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a>
-                        </li>
+                                <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</button>
+
+                            <button class="button-5 mls" href="javascript:void(0);"
+                                    onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
+                                    class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</button>
+
                         <c:if test="${not empty feature.otherLanguageUri}">
-                            <li class="smaller">
-                                <strong>
-                                    <a href="${feature.otherLanguageUri}">
-                                        <c:choose>
-                                            <c:when test="${feature.language eq 'ES'}">In english</c:when>
-                                            <c:otherwise><span
-                                                    class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
-                                        </c:choose>
-                                    </a>
-                                </strong>
-                            </li>
+
+                            <button class="button-5 mls" href="${feature.otherLanguageUri}">
+                                <c:choose>
+                                    <c:when test="${feature.language eq 'ES'}">In english</c:when>
+                                    <c:otherwise>
+                                        <span class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
+                                </c:choose>
+                            </button>
+
                         </c:if>
-                    </ul>
+
                 </span>
             </div>
         </div>

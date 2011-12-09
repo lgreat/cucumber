@@ -12,11 +12,20 @@ General comments:
 
 [Table Of Contents]
 
+=1 standard button 1
+=1-1 standard button 1 extension-1
+=1-2 standard button 1 extension-2
+=2 special button for kindercare
+=3 standard button - larger version
+=4 special button for Find A School
+
 */
 
 /* NOTE: If you add additional classes to IMAGE-LESS BUTTON, you may need to modify        */
 /* gs_jquery_extensions.js to incorporate the disableSelection function.                   */
 
+/* =1 standard button 1
+-------------------------------------------------------------------------------------------*/
 .slStylesV1-0 .button-1,
 .button-1 {
     width: auto;
@@ -133,6 +142,8 @@ General comments:
     border: none;
 }
 
+/* =1-1 standard button extension-1
+-------------------------------------------------------------------------------------------*/
 /*
 Extends button-1 by changing:
     font:       bold 14px/23px Arial, Helvetica, sans-serif;
@@ -255,6 +266,8 @@ Extends button-1 by changing:
     border: none;
 }
 
+/* =1-2 standard button extension-2
+-------------------------------------------------------------------------------------------*/
 /*
 Extends button-1 by changing:
     padding:        0 15px;
@@ -386,8 +399,9 @@ Extends button-1 by changing:
     border: none;
 }
 
-/* kindercare button GS-11938
- */
+/* =2 special button for kindercare
+-------------------------------------------------------------------------------------------*/
+/* kindercare button GS-11938 */
 
 .slStylesV1-0 .button-2,
 .button-2 {
@@ -437,9 +451,10 @@ Extends button-1 by changing:
     border: none;
 }
 
-/* -------------------------- */
+/* =3 standard button - larger version
+-------------------------------------------------------------------------------------------*/
 /* larger version of button-1 */
-/* -------------------------- */
+
 .slStylesV1-0 .button-3,
 .button-3 {
     width: auto;
@@ -556,7 +571,10 @@ Extends button-1 by changing:
     border: none;
 }
 
+/* =4 special button for Find A School
+-------------------------------------------------------------------------------------------*/
 /*---button-4 for FAS-----*/
+
 .slStylesV1-0 .button-4,
 .button-4 {
     width: auto;
@@ -672,4 +690,115 @@ Extends button-1 by changing:
 .button-4-inactive::-moz-focus-inner {
     border: none;
 }
-/*---button-4 for FAS-----*/
+
+/* =5 special button for Article Slideshows GS-12262
+-------------------------------------------------------------------------------------------*/
+/* Email and Print buttons */
+
+.slStylesV1-0 .button-5,
+.button-5 {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 4px 0 3px;
+    height: 18px;
+    color: #0066bb;
+    text-decoration: none;
+    font: normal 11px/18px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline:0; /* Background Gradients */
+    background: white; /* for non-css3 browsers */
+    white-space: nowrap;
+
+    background: -moz-linear-gradient(top, #ffffff, #dddddd); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #dddddd)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#dddddd')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', endColorStr = '#dddddd'); /* IE6,IE7 */
+
+    /* Border Radius */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    border: 1px solid #cccccc;
+    border-top-color: #cccccc; /* highlight */
+
+}
+
+.slStylesV1-0 .button-5:hover,
+.button-5:hover {
+    text-decoration: none; /* Background Gradients */
+    background: #dddddd; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #dddddd, #ffffff); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #ffffff)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#dddddd', EndColorStr='#ffffff')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#dddddd', endColorStr = '#ffffff'); /* IE6,IE7 */
+
+    border: 1px solid #cccccc;
+    border-top-color: #cccccc;
+}
+
+.slStylesV1-0 .button-5:active,
+.button-5:active {
+
+    /* Background Gradients */
+    background: #dddddd; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #dddddd, #ffffff); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #ffffff)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#dddddd', EndColorStr='#ffffff')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#dddddd', endColorStr = '#ffffff'); /* IE6,IE7 */
+
+    border: 1px solid #cccccc;
+    border-top-color: #cccccc;
+}
+
+.slStylesV1-0 .button-5-inactive,
+.button-5-inactive {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 4px 0 3px;
+    height: 18px;
+    color: white;
+    text-decoration: none;
+    font: normal 11px/18px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: default;
+    outline:0; /* Background Gradients */
+    background: #787878; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #dddddd, #787878); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #787878)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#dddddd', EndColorStr='#787878')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#dddddd', endColorStr = '#787878'); /* IE6,IE7 */
+
+    /* Border Radius */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    border: 1px solid #555555;
+    border-top-color: #555555; /* Text Shadow */
+
+}
+
+/* IE7 bug: vertical centering */
+*+html .slStylesV1-0 .button-button.button-5,
+*+html .slStylesV1-0 .button-button.button-5-inactive,
+*+html button.button-5,
+*+html button.button-5-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-5::-moz-focus-inner,
+.slStylesV1-0 .button-5-inactive::-moz-focus-inner,
+.button-5::-moz-focus-inner,
+.button-5-inactive::-moz-focus-inner {
+    border: none;
+}
