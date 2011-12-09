@@ -5,17 +5,26 @@
           xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article">
 
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
-    <div>
-        <hr class="keyline1"/>
-        <c:set var="hasPublishedRelatedArticles" value="${false}"/>
-        <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
-            <c:if test="${not empty relatedArticle.url}">
-                <c:set var="hasPublishedRelatedArticles" value="${true}"/>
-            </c:if>
-        </c:forEach>
 
-        <c:if test="${hasPublishedRelatedArticles}">
-            <article:relatedArticlesList feature="${feature}"/>
+    <c:set var="hasPublishedRelatedArticles" value="${false}"/>
+    <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
+        <c:if test="${not empty relatedArticle.url}">
+            <c:set var="hasPublishedRelatedArticles" value="${true}"/>
         </c:if>
-    </div>
+    </c:forEach>
+
+    <c:if test="${hasPublishedRelatedArticles}">
+        <hr class="keyline1"/>
+        <div class="mod relatedArticles">
+            <div class="inner">
+                <div class="hd">
+                    <h3>Related articles</h3>
+                </div>
+                <div class="bd">
+                    <article:relatedArticlesList feature="${feature}"/>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
 </jsp:root>

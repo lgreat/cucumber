@@ -11,7 +11,7 @@
         <img src="${pageScope.logoUrl}" alt="${pageScope.logoAltText}"/>
     </c:set>
 
-    <div class="fltrt">
+    <div class="fltrt mll mbl">
         <c:choose>
             <c:when test="${not empty pageScope.licensorUrl}">
                 <a href="${pageScope.licensorUrl}" target="_blank">${licensorLogo}</a>

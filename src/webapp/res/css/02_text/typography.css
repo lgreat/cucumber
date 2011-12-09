@@ -46,12 +46,12 @@ Misc classes
 .slStylesV1-0 h4,
 .slStylesV1-0 h5,
 .slStylesV1-0 h6 { font-weight: normal; color: #2b2b2b; }
-.slStylesV1-0 h1 {color: #f2791f; }
+.slStylesV1-0 h1 {color: #d61; }
 
-.slStylesV1-0 h1 { font: normal 30px/32px Georgia, "Times New Roman", Times, serif; margin-bottom: 32px; }
-.slStylesV1-0 h2 { font: normal 24px/28px Arial, Helvetica, sans-serif; margin-bottom: 28px; }
-.slStylesV1-0 h3 { font: normal 18px/24px Arial, Helvetica, sans-serif; margin-bottom: 24px; }
-.slStylesV1-0 h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h1 { font: normal 30px/33px Georgia, "Times New Roman", Times, serif; margin-bottom: 33px; }
+.slStylesV1-0 h2 { font: normal 24px/33px Arial, Helvetica, sans-serif; margin-bottom: 33px; }
+.slStylesV1-0 h3 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 25px; }
+.slStylesV1-0 h4 { font: normal 16px/22px Arial, Helvetica, sans-serif; margin-bottom: 22px; }
 .slStylesV1-0 h5 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 
@@ -62,8 +62,8 @@ Misc classes
 .slStylesV1-0 h5 img,
 .slStylesV1-0 h6 img { margin: 0; }
 
-.slStylesV1-0 hr.keyline1 {background:#bcdeed;color:#bcdeed;clear:both;float:none;width:100%;height:1px;margin:0 0 10px;border:none;}
-.slStylesV1-0 hr.keyline2 {background:#e6e6e6;color:#e6e6e6;clear:both;float:none;width:100%;height:1px;margin:0 0 10px;border:none;}
+.slStylesV1-0 hr.keyline1 {background:#bcdeed;color:#bcdeed;clear:both;float:none;width:100%;height:1px;margin:0 0 8px;border:none;}
+.slStylesV1-0 hr.keyline2 {background:#e6e6e6;color:#e6e6e6;clear:both;float:none;width:100%;height:1px;margin:0 0 8px;border:none;}
 .slStylesV1-0 hr.space {background:#fff;color:#fff;visibility:hidden;}
 
 
@@ -73,10 +73,10 @@ Misc classes
 .slStylesV1-0 p,
 .slStylesV1-0 .default { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 .medium { font: normal 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.slStylesV1-0 .small { font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.slStylesV1-0 .small { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
 .slStylesV1-0 .smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 .slStylesV1-0 .smallest { font: normal 10px/14px Arial, Helvetica, sans-serif; margin-bottom: 14px; }
-.slStylesV1-0 .small_bold { font: bold 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.slStylesV1-0 .small_bold { font: bold 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
 .slStylesV1-0 .medium_bold { font: bold 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
 
 /*
@@ -119,8 +119,8 @@ Misc classes
 .slStylesV1-0 ul,
 .slStylesV1-0 ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }
 
-.slStylesV1-0 ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
-.slStylesV1-0 ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
+.slStylesV1-0 ul li       { list-style-type: disc; }
+.slStylesV1-0 ol li       { list-style-type: decimal; }
 
 .slStylesV1-0 dl          { margin: 0 0 1.5em 0; }
 .slStylesV1-0 dl dt       { font-weight: bold; }
@@ -161,7 +161,7 @@ Misc classes
 .slStylesV1-0 .quiet       { color: #787878; }
 .slStylesV1-0 .loud        { color: #2b2b2b; }
 .slStylesV1-0 .make-06b    { color: #06b; }
-.slStylesV1-0 .make-f2791f { color: #f2791f; }
+.slStylesV1-0 .make-d61 { color: #d61; }
 .slStylesV1-0 .error_msg   { color: #900; }
 .slStylesV1-0 .highlight   { background:#ff0; }
 .slStylesV1-0 .added       { background:#060; color: #fff; }

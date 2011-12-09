@@ -69,8 +69,6 @@
             <div class="articleText clearfix">
                 <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
-                <h1>${feature.title}</h1>
-
                 <!--Licensor logo-->
                 <!-- Example article with licensor logo and attrib: http://localhost:8080/special-education/LD-ADHD/560-get-organized-for-school.gs?page=1 -->
                 <c:if test="${not empty feature.licensorLogoUrl}">
@@ -78,6 +76,8 @@
                                           logoAltText="${feature.licensorLogoAltText}"
                                           licensorUrl="${feature.licensorUrl}"/>
                 </c:if>
+
+                <h1>${feature.title}</h1>
 
                 <h4>${fn:escapeXml(article.summary)}</h4>
 
@@ -104,10 +104,10 @@
 
 
                     <c:if test="${not empty feature.sidebar}">
+                        <hr class="keyline1"/>
                         <div class="mod articleSidebar">
                             <div class="inner">
                                 <div class="bd">
-                                    <hr class="keyline1"/>
                                     ${feature.sidebar}
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                 </c:if>
                 <!-- Pagination -->
 
-                <div class="spacer_15"><!-- do not collapse --></div>
+                <div class="spacer_20"><!-- do not collapse --></div>
 
                 <!-- Author bios, Licensor attribution -->
                 <c:if test="${(feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum)}">

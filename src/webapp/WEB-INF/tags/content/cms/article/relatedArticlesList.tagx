@@ -4,8 +4,7 @@
           version="2.0">
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
 
-    <p class="make-f2791f">Related articles</p>
-    <ul>
+    <ul class="small">
         <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
             <c:if test="${not empty relatedArticle.url}">
                 <li><a href="${relatedArticle.url}" class="GS_EV5_"

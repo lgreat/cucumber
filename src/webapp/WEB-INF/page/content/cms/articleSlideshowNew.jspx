@@ -51,15 +51,11 @@
                 </c:if>
 
                 <!-- Byline -->
-                <article:authorByline feature="${feature}"/>
+                <!--<article:authorByline feature="${feature}"/>-->
                 <!-- Byline -->
 
-                <!--Share buttons-->
-                <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
-                <!--Share buttons-->
-
                 <!-- TODO! fix toolsLayout 2 -->
-                <!--<article:toolsLayout2 feature="${feature}" uri="${uri}"/>-->
+                <article:toolsLayout2 feature="${feature}" uri="${uri}"/>
 
                 <!-- TODO! make sure these 610x ads look right -->
                 <ad:adTag position="Sponsor_610x16"/>

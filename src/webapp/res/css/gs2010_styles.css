@@ -853,16 +853,16 @@ h4.subhead2 a {
 .articleText h1,
 .articleText h2,
 .articleText h3 { font-weight: normal; color: #2b2b2b; }
-.articleText h2 { color: #f2791f; }
+.articleText h2 { color: #d61; }
 
-.articleText h1 { font: bold 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 10px; }
-.articleText h2 { font: normal 18px/26px Arial, Helvetica, sans-serif; margin-bottom: 26px; }
+.articleText h1 { font: bold 24px/33px Arial, Helvetica, sans-serif; margin-bottom: 10px; }
+.articleText h2 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 25px; }
 .articleText h3 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .articleText .mainImage{ margin-bottom: 16px; }
 /* ------------- articleSidebar -------------- */
-.articleSidebar{}
-.articleSidebar .inner .bd h3{color:#f2791f;font-weight:normal;}
-.articleSidebar .inner .bd p{font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px;}
+.articleSidebar .inner{padding-right: 10px;}
+.articleSidebar .inner .bd h3{color:#d61;font-weight:normal;}
+.articleSidebar .inner .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}
 /* ----------- articleDistribution ----------- */
 .articleDistribution{margin-bottom:10px;}
 .articleDistribution .inner{border:1px solid #ddd;background-color: #fafafa;}
@@ -870,13 +870,15 @@ h4.subhead2 a {
 .articleDistribution .inner .ft{border-top:1px solid #ddd;height:28px;}
 .articleDistribution .ft ul{float:left;margin:0;padding:0;}
 .articleDistribution .ft li{list-style:none outside none;float:left;margin:0 5px;padding:0;line-height:28px;}
+/* ------------- relatedArticles ------------- */
+.relatedArticles .inner .hd h3{color:#d61;font-weight:normal;}
 /* ------------ articlePagination ------------ */
-.articlePagination{font: normal 12px/16px Arial, Helvetica, sans-serif;float:right;}
+.articlePagination{font: normal 12px/18px Arial, Helvetica, sans-serif;float:right;}
 .articlePagination a{background-color:white;display: inline-block;padding:2px 7px; margin:0;}
 .articlePagination span.active{color:white;background-color: #06b;display: inline-block;padding:2px 7px; margin:0;}
 /* ------------ articleCommentForm ----------- */
 .articleCommentForm {margin-bottom: 20px;}
-.articleCommentForm .inner{border:1px solid #ddd;background-color: #fafafa;padding:20px;}
+.articleCommentForm .inner{border:1px solid #ddd;background-color: #fafafa;padding:18px 20px 20px;}
 .articleCommentForm .hd h3{margin-bottom: 15px;}
 .articleCommentForm .bd label{width:138px;}
 .articleCommentForm .bd input[type=text],
@@ -885,7 +887,7 @@ h4.subhead2 a {
 /* ------------- articleComments ------------- */
 .articleComments{margin-top: 15px;}
 .articleComments .hd h3{margin-bottom: 30px;}
-.articleComments .bd .articleCommentDate{font-weight:bold;margin-bottom: 5px;}
+.articleComments .bd .articleCommentDate{font-weight:bold;margin-bottom: 5px;color:#2b2b2b;}
 .articleComments .bd .articleCommentText{color:#333;margin-bottom: 25px;}
 /* ----------- photoGalleryWrapper ----------- */
 .photoGalleryWrapper{display: none;position: absolute;top: 110px;left: 215px;width: 530px;z-index: 1002;}
@@ -910,14 +912,14 @@ h4.subhead2 a {
 /* --------------- authorBios ---------------- */
 .authorBios {color: #2b2b2b;margin-bottom:20px;}
 .authorBios .inner {background-color: #fff;border: 1px solid #DDDDDD;padding: 20px 20px 4px;}
-.authorBios .bd p{font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px;}
+.authorBios .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}
 /* ------------ articleDisclaimer ------------ */
 .articleDisclaimer{color:#2b2b2b;margin-bottom:4px;}
 .articleDisclaimer .inner{}
-.articleDisclaimer .bd p{font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px;}
+.articleDisclaimer .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}
 /* ----------- licensorAttribution ----------- */
 .licensorAttribution{color: #2b2b2b;margin-bottom:4px;}
-.licensorAttribution .bd p{font: italic 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px;}
+.licensorAttribution .bd p{font: italic 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}
 /* ---------------- GS-11664 ----------------- */
 /* ------ btsSponsor (extends standard) ------ */
 .btsSponsor .inner{background-color:#f9eccd;}
