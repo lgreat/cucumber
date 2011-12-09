@@ -143,7 +143,7 @@ public class ContentSearchController extends AbstractController {
                 } else {
                     // If we have a specific contentSearchType to search with, use that. Otherwise get results for all
                     // Known content search types that will yield results
-                    ContentSearchResultsInfo resultsInfo = getContentSearchTypeResults(facetQuery.getSolrQuery().getQuery(), contentTypesToSearch);
+                    ContentSearchResultsInfo resultsInfo = getContentSearchTypeResults(facetQuery.getSolrQuery().getQuery(), contentTypesToSearch, requestedPage);
                     Map<ContentSearchType, List<ContentSearchResult>> contentSearchTypeResults = resultsInfo.contentSearchResults;
 
                     addResultCountsToModel(model, contentTypeFacetInfo);
@@ -316,11 +316,13 @@ public class ContentSearchController extends AbstractController {
         }
     }
 
-    private ContentSearchResultsInfo getContentSearchTypeResults(String searchQuery, List<ContentSearchType> contentTypesToSearch) throws SearchException {
+    protected ContentSearchResultsInfo getContentSearchTypeResults(String searchQuery, List<ContentSearchType> contentTypesToSearch, RequestedPage requestedPage) throws SearchException {
         if (contentTypesToSearch == null || contentTypesToSearch.size() == 0) {
             throw new IllegalArgumentException("No content types were provided, cannot search");
         }
 
+        // user is currently not able to change page size on content search
+        // so, use this rather than requestedPage.pageSize
         int pageSize = contentTypesToSearch.size()==1? PAGE_SIZE : ALL_RESULTS_PAGE_SIZE;
         int totalFound = 0;
         GsSolrQuery gsSolrQuery;
@@ -330,7 +332,7 @@ public class ContentSearchController extends AbstractController {
             if (contentTypesToSearch.contains(type)) {
                 gsSolrQuery = getQueryForContentType(type);
                 gsSolrQuery.query(searchQuery);
-                gsSolrQuery.page(0, pageSize);
+                gsSolrQuery.page(requestedPage.offset, pageSize);
                 SearchResultsPage<ContentSearchResult> searchResultsPage = _gsSolrSearcher.search(gsSolrQuery, ContentSearchResult.class);
                 List<ContentSearchResult> results = searchResultsPage.getSearchResults();
                 contentSearchTypeResults.put(type, results);
