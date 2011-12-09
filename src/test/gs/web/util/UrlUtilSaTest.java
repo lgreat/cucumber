@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.88 2011/12/07 03:45:37 ssprouse Exp $
+ * $Id: UrlUtilSaTest.java,v 1.89 2011/12/09 03:17:35 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -746,6 +746,32 @@ public class UrlUtilSaTest extends TestCase {
             fail("Illegal argument exception should have been thrown");
         } catch (IllegalArgumentException e) {
             // good
+        }
+    }
+    
+    public void testBuildHostAndPortString() {
+        assertEquals("http://www.greatschools.org", UrlUtil.buildHostAndPortString("http", "www.greatschools.org", 80).toString());
+        assertEquals("http://www.greatschools.org:443", UrlUtil.buildHostAndPortString("http", "www.greatschools.org", 443).toString());
+        assertEquals("https://www.greatschools.org", UrlUtil.buildHostAndPortString("https", "www.greatschools.org", 443).toString());
+        assertEquals("https://www.greatschools.org:80", UrlUtil.buildHostAndPortString("https", "www.greatschools.org", 80).toString());
+
+        try {
+            UrlUtil.buildHostAndPortString(" ", "www.greatschools.org", 80);
+            fail("IllegalArgumentException should have been thrown");
+        } catch (IllegalArgumentException e) {
+            //good
+        }
+        try {
+            UrlUtil.buildHostAndPortString("blah", null, 80);
+            fail("IllegalArgumentException should have been thrown");
+        } catch (IllegalArgumentException e) {
+            //good
+        }
+        try {
+            UrlUtil.buildHostAndPortString("https", "www.greatschools.org", -1);
+            fail("IllegalArgumentException should have been thrown");
+        } catch (IllegalArgumentException e) {
+            //good
         }
     }
 }

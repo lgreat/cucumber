@@ -177,6 +177,19 @@ public class RequestInfo {
         return baseHostname;
     }
 
+    /**
+     * Returns a host string (e.g. http://www.greatschools.org) at the base hostname.
+     * Base hostname is the hostname where relative paths should resolve to.
+     * For example, we might want relative paths on http://pk.greatschools.org to resolve to
+     * http://www.greatschools.org
+     *
+     * @return A host string like http://www.greatschools.org or http://dev.greatschools.org:8080
+     */
+    public String getBaseHost() {
+        String baseHostname = getBaseHostname();
+        return UrlUtil.getHostAtNewHostname(_request, baseHostname);
+    }
+
     /******************************************************************************/
     /* Support for pk subdomain                                                   */
     /******************************************************************************/

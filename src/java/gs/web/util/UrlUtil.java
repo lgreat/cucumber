@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.118 2011/12/07 03:45:38 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.119 2011/12/09 03:17:35 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -8,13 +8,10 @@ package gs.web.util;
 import gs.data.state.State;
 import gs.data.util.CdnUtil;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ws.security.util.StringUtil;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -197,20 +194,61 @@ public final class UrlUtil {
             requestUri = request.getRequestURI();
         }
 
+        StringBuffer buffer = buildHostAndPortString(scheme, serverName, serverPort);
+
+        buffer.append(requestUri);
+
+        return buffer.toString();
+    }
+
+    /**
+     * Builds a host string with protocol + hostname + port number. Decides whether or not to include port number
+     * based on the scheme (protocol)
+     *
+     * @param scheme e.g. http | https
+     * @param hostname e.g. www.greatschools.org
+     * @param port the port number
+     * @return
+     */
+    public static StringBuffer buildHostAndPortString(String scheme, String hostname, int port) {
+        if (StringUtils.isBlank(scheme)) {
+            throw new IllegalArgumentException("Schema was null or blank. Cannot build host string.");
+        }
+        if (StringUtils.isBlank(hostname)) {
+            throw new IllegalArgumentException("Hostname was null or blank. Cannot build host string.");
+        }
+        if (port < 1) {
+            throw new IllegalArgumentException("Port number was invalid. Cannot build host string.");
+        }
+
         StringBuffer buffer = new StringBuffer();
         buffer.append(scheme);
         buffer.append("://");
-        buffer.append(serverName);
+        buffer.append(hostname);
 
         //if not http:80 or https:443, then add the port number
         if (
-            !(scheme.equalsIgnoreCase("http") && serverPort == 80) &&
-            !(scheme.equalsIgnoreCase("https") && serverPort == 443)
+            !(scheme.equalsIgnoreCase("http") && port == 80) &&
+            !(scheme.equalsIgnoreCase("https") && port == 443)
         ) {
-            buffer.append(":").append(String.valueOf(serverPort));
+            buffer.append(":").append(String.valueOf(port));
         }
+        return buffer;
+    }
 
-        buffer.append(requestUri);
+    /**
+     * Given a request and new hostname, builds the host portion of URL (minus path and query params).
+     * Users the same scheme and port as the given request, but overrides with hostname with the provided newHostname
+     *
+     * @param request
+     * @param newHostname
+     * @return
+     */
+    public static String getHostAtNewHostname(HttpServletRequest request, String newHostname) {
+        String scheme = request.getScheme();
+        int serverPort = request.getServerPort();
+
+        StringBuffer buffer = buildHostAndPortString(scheme, newHostname, serverPort);
 
         return buffer.toString();
     }
@@ -410,7 +448,6 @@ public final class UrlUtil {
         }
         return cobrandName;
     }
-
 
     /**
      * Create the correct perl hostname, most useful in the development environment.
