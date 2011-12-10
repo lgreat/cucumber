@@ -9,7 +9,7 @@
     <jsp:directive.attribute name="uri" required="true" type="java.lang.String"/>
 
     <div class="mod articleDistribution2">
-        <div class="inner rnd4">
+        <div class="inner">
             <div class="bd">
                 <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false"/>
                 <span class="fltrt">

@@ -93,7 +93,11 @@ General comments:
 }
 
 .slStylesV1-0 .button-1-inactive,
-.button-1-inactive {
+.button-1-inactive,
+.slStylesV1-0 .button-1-inactive:hover,
+.button-1-inactive:hover,
+.slStylesV1-0 .button-1-inactive:active,
+.button-1-inactive:active{
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
