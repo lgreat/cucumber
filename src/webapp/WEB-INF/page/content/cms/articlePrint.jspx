@@ -79,8 +79,16 @@
         </div>
         <!-- photo gallery images -->
 
+        <!--Sidebar-->
+        <c:if test="${not empty feature.sidebar}">
+            <div class="articleSidebar">
+                ${feature.sidebar}
+            </div>
+        </c:if>
+        <!--Sidebar-->
+
         <!-- article content -->
-        ${currentPage}
+            ${currentPage}
         <!-- article content -->
 
         <!-- Author bios, Licensor attribution -->
