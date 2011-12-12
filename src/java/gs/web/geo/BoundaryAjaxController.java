@@ -10,6 +10,7 @@ import gs.data.json.JSONObject;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.SchoolWithRatings;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchException;
@@ -36,6 +37,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +108,7 @@ public class BoundaryAjaxController {
             schoolBoundary.setSchool(school);
             try {
                 response.setContentType("application/json");
-                MapPolygon polygon = getPolygonFromSchool(schoolBoundary, school, getGSRating(school));
+                MapPolygon polygon = getPolygonFromSchool(schoolBoundary, school, getGSRating(school), request);
                 JSONObject rval = new JSONObject();
                 JSONArray features = new JSONArray();
                 rval.put("features", features);
@@ -121,13 +123,9 @@ public class BoundaryAjaxController {
         }
     }
 
-    protected MapPolygon getPolygonFromSchool(SchoolBoundary boundary, School school, int ratingInt) throws JSONException {
+    protected MapPolygon getPolygonFromSchool(SchoolBoundary boundary, School school, int ratingInt, HttpServletRequest request) throws JSONException {
         MapPolygon polygon = new MapPolygon(boundary.getGeometry());
-        polygon.getData().put("state", school.getDatabaseState());
-        polygon.getData().put("id", school.getId());
-        polygon.getData().put("name", school.getName());
-        polygon.getData().put("rating", ratingInt);
-        polygon.getData().put("type", "school");
+        populateSchoolData(polygon.getData(), school, ratingInt, null, request);
         return polygon;
     }
 
@@ -230,10 +228,15 @@ public class BoundaryAjaxController {
         double lon = Double.valueOf(request.getParameter("lon"));
         LevelCode.Level level = LevelCode.Level.getLevelCode(request.getParameter("level"));
 
+        long start = System.currentTimeMillis();
         List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, level);
+        System.out.println("  getSchoolsForLocation getBoundaries took " + (System.currentTimeMillis() - start) + " ms");
         JSONObject output = new JSONObject();
         JSONArray features = new JSONArray();
-        long start = System.currentTimeMillis();
+        Map<Integer, SchoolBoundary> schoolIdToBoundaryMap = new HashMap<Integer, SchoolBoundary>(schoolBoundaries.size());
+        List<School> schools = new ArrayList<School>(schoolBoundaries.size());
+        State state = null;
+        start = System.currentTimeMillis();
         for (SchoolBoundary boundary: schoolBoundaries) {
             try {
                 if (boundary.getSchoolId() == null) {
@@ -243,16 +246,28 @@ public class BoundaryAjaxController {
                 if (school == null) {
                     continue;
                 }
-                int rating = getGSRating(school);
-                MapMarker marker = getMarkerFromSchool(school, null, rating, request);
-                MapPolygon polygon = getPolygonFromSchool(boundary, school, rating);
-                marker.addDependent(polygon);
-                features.put(marker.toJsonObject());
+                schools.add(school);
+                schoolIdToBoundaryMap.put(boundary.getSchoolId(), boundary);
+                state = school.getDatabaseState();
             } catch (ObjectRetrievalFailureException orfe) {
-                _log.error("Can't find school " + boundary.getState() +"," + boundary.getSchoolId());
+                _log.error("Can't find school " + boundary.getState() + "," + boundary.getSchoolId());
             }
         }
-        System.out.println("  getSchoolsForLocation fetchSchool,Rating,toJSON took " + (System.currentTimeMillis() - start) + " ms");
+        System.out.println("  getSchoolsForLocation fetchSchools took " + (System.currentTimeMillis() - start) + " ms");
+        start = System.currentTimeMillis();
+        if (schools.size() > 0) {
+            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
+            System.out.println("  getSchoolsForLocation Ratings took " + (System.currentTimeMillis() - start) + " ms");
+            start = System.currentTimeMillis();
+            for (SchoolWithRatings s: schoolsWithRatings) {
+                MapMarker marker = getMarkerFromSchool(s.getSchool(), null, s.getRating(), request);
+                MapPolygon polygon = getPolygonFromSchool
+                        (schoolIdToBoundaryMap.get(s.getSchool().getId()), s.getSchool(), s.getRating(), request);
+                marker.addDependent(polygon);
+                features.put(marker.toJsonObject());
+            }
+            System.out.println("  getSchoolsForLocation JSON took " + (System.currentTimeMillis() - start) + " ms");
+        }
         start = System.currentTimeMillis();
         JSONArray districts = getDistrictsForLocation(lat, lon, level, request);
         if (districts != null) {
@@ -321,14 +336,15 @@ public class BoundaryAjaxController {
             List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
             System.out.println(" getSchoolsForDistrict DB took " + (System.currentTimeMillis() - start) + " ms");
 
-            if (schools != null && schools.size() > 0) {
-                start = System.currentTimeMillis();
-                for (School s: schools) {
-                    int ratingInt = getGSRating(s);
-                    MapMarker marker = getMarkerFromSchool(s, district, ratingInt, request);
+            start = System.currentTimeMillis();
+            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings
+                    (district.getDatabaseState(), schools);
+            System.out.println(" getSchoolsForDistrict ratings took " + (System.currentTimeMillis() - start) + " ms");
+            if (schoolsWithRatings != null && schoolsWithRatings.size() > 0) {
+                for (SchoolWithRatings s: schoolsWithRatings) {
+                    MapMarker marker = getMarkerFromSchool(s.getSchool(), district, s.getRating(), request);
                     features.put(marker.toJsonObject());
                 }
-                System.out.println(" getSchoolsForDistrict ratings took " + (System.currentTimeMillis() - start) + " ms");
             }
         }
         rval.put("features", features);
@@ -390,10 +406,11 @@ public class BoundaryAjaxController {
 
             long dbStart = System.currentTimeMillis();
             List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
+            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
             long dbEnd = System.currentTimeMillis();
             long sazStart = 0;
             long sazEnd = 0;
-            if (schools.size() > 0) {
+            if (schoolsWithRatings != null && schoolsWithRatings.size() > 0) {
                 Map<Integer, SchoolBoundary> idSchoolBoundaryMap = new HashMap<Integer, SchoolBoundary>(schools.size());
                 sazStart = System.currentTimeMillis();
                 List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundaries(schools, schoolLevel);
@@ -402,12 +419,11 @@ public class BoundaryAjaxController {
                 for (SchoolBoundary boundary: schoolBoundaries) {
                     idSchoolBoundaryMap.put(boundary.getSchoolId(), boundary);
                 }
-                for (School s: schools) {
-                    SchoolBoundary boundary = idSchoolBoundaryMap.get(s.getId());
-                    int rating = getGSRating(s);
-                    MapMarker marker = getMarkerFromSchool(s, district, rating, request);
+                for (SchoolWithRatings s: schoolsWithRatings) {
+                    SchoolBoundary boundary = idSchoolBoundaryMap.get(s.getSchool().getId());
+                    MapMarker marker = getMarkerFromSchool(s.getSchool(), district, s.getRating(), request);
                     if (boundary != null) {
-                        MapPolygon polygon = getPolygonFromSchool(boundary, s, rating);
+                        MapPolygon polygon = getPolygonFromSchool(boundary, s.getSchool(), s.getRating(), request);
                         marker.addDependent(polygon);
                     }
                     features.put(marker.toJsonObject());
