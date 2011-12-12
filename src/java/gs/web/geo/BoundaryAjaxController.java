@@ -219,8 +219,8 @@ public class BoundaryAjaxController {
 
     protected MapMarker getMarkerFromDistrictSearch(IDistrictSearchResult district, int ratingInt, HttpServletRequest request) throws JSONException {
         return getMarkerForDistrict(district.getLatitude(), district.getLongitude(), district.getName(),
-                district.getState(), district.getId(), district.getCity(), "", null,
-                district.getCity() + ", " + district.getState(), ratingInt, request);
+                district.getState(), district.getId(), district.getCity(), district.getAddress().getStreet(), district.getAddress().getStreetLine2(),
+                district.getAddress().getCityStateZip(), ratingInt, request);
     }
 
     @RequestMapping(value="getSchoolsForLocation.page", method=RequestMethod.GET)
