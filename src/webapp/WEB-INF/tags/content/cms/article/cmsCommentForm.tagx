@@ -30,17 +30,17 @@
                     <input type="hidden" name="captchaResponse" value="the Response"/>
                     <input type="hidden" name="description" value=""/>
 
-                    <div class="">
+                    <div class="formRow">
                     <label for="name">Name (optional): </label>
                     <input name="name" id="name" type="text" class="text"/>
                     </div>
 
-                    <div class="">
+                    <div class="formRow">
                     <label for="email">Email (optional): </label>
                     <input name="email" id="email" type="text" class="text"/>
                     </div>
 
-                    <div class="">
+                    <div class="formRow">
                     <label for="commenttextarea">Comment:</label>
                     <textarea name="comment" id="commenttextarea" cols="50" rows="5" style="resize: none;"><!-- do not collapse --></textarea>
                     </div>

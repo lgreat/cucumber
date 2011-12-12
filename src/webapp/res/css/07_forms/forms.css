@@ -64,8 +64,8 @@ Misc classes
 /* Misc classes
 -------------------------------------------------------------- */
 
-.slFormsV1-0 form div { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
-.slFormsV1-0 form div label { float: left; }
+.slFormsV1-0 form .formRow { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
+.slFormsV1-0 form .formRow label { float: left; }
 
 .slFormsV1-0 .error, 
 .slFormsV1-0 .alert, 

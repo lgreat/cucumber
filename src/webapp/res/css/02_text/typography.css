@@ -142,11 +142,13 @@ Misc classes
 .slStylesV1-0 td,
 .slStylesV1-0 caption     { padding: 4px 10px 4px 5px; }
 /*
-	You can zebra-stripe your tables in outdated browsers by adding
-	the class "even" to every other table row.
- */
-.slStylesV1-0 tbody tr:nth-child(even) td,
-.slStylesV1-0 tbody tr.even td  { background: #e2f1f7; }
+    You can zebra-stripe your tables in outdated browsers by adding
+    the class "even" to every other table row.
+    NOTE: Had to comment out zebra-striping rows because they were
+          interfering with the reCaptcha widget.
+*/
+/*.slStylesV1-0 tbody tr:nth-child(even) td,*/
+/*.slStylesV1-0 tbody tr.even td  { background: #e2f1f7; }*/
 .slStylesV1-0 tfoot        { font-style: italic; }
 .slStylesV1-0 caption      { background: #e6e6e6; }
 
