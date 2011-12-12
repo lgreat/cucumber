@@ -40,25 +40,34 @@ Misc classes
 .slFormsV1-0 legend{}
 .slFormsV1-0 label{ margin: 5px 0; padding: 5px 0; }
 
-.slFormsV1-0 input[type=text], 
+.slFormsV1-0 select,
+.slFormsV1-0 input[type=text],
 .slFormsV1-0 input[type=password], 
 .slFormsV1-0 input.text,
 .slFormsV1-0 textarea { background-color: #fff;border: 1px solid #ddd; }
 
-.slFormsV1-0 input[type=text]:focus, 
+.slFormsV1-0 select:focus,
+.slFormsV1-0 input[type=text]:focus,
 .slFormsV1-0 input[type=password]:focus, 
 .slFormsV1-0 input.text:focus, 
 .slFormsV1-0 textarea:focus { border-color: #555;outline: none; }
 
-/*.slFormsV1-0  select {background-color:#fff;border-width:1px;border-style:solid;}*/
+/*.slFormsV1-0 select {background-color:#fff;border-width:1px;border-style:solid;}*/
+/*[selected] { *//* Text colour and font weight, red and bold *//*
+    color:#f00;
+    font-weight:bold;
+}*/
 .slFormsV1-0 input[type=text], 
 .slFormsV1-0 input[type=password], 
 .slFormsV1-0 input.text, 
 .slFormsV1-0 textarea,
 .slFormsV1-0 select { margin: 5px 0; }
 
-.slFormsV1-0 input.text { padding: 5px; }
+.slFormsV1-0 select { padding: 5px;outline: none; }
 
+.slFormsV1-0 option { outline: none;padding:5px; }
+
+.slFormsV1-0 input.text,
 .slFormsV1-0 textarea { padding: 5px; }
 
 /* Misc classes

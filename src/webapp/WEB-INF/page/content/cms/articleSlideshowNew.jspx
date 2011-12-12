@@ -82,7 +82,7 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <span class="stepNavText">
+                        <span class="stepNavText small loud">
                             Page ${pageNum} of ${articleSlideshow.totalSlides}
                         </span>
 
@@ -108,27 +108,23 @@
                 <div id="slideshow" class="mod articleSlideshow">
                     <div class="inner">
                         <div id="ss_header" class="hd gradient-5">
-                            <ul id="ss_jsddm">
-                                <li><a class="choose" href="javascript:void(0);">&amp;nbsp;</a>
-                                    <ul>
-                                        <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
-                                            <li>
-                                                <a href="${contentUrl}?page=${status.count}">
-                                                    <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
-                                                    <c:choose>
-                                                        <c:when test="${hasSlidePromo}">
-                                                            <c:out value="${slide.promo}"/>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:out value="${slide.title}"/>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </a>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <span class="skinSelect rnd4 small">Choose a page<span class="skinSelectArrow rnd4 gradient-7">&amp;#709;</span></span>
+                            <select onchange="window.location=this.value;">
+                                <option value="">Choose a page</option>
+                                <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
+                                    <option value="${contentUrl}?page=${status.count}">
+                                            <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
+                                            <c:choose>
+                                                <c:when test="${hasSlidePromo}">
+                                                    <c:out value="${slide.promo}"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:out value="${slide.title}"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                    </option>
+                                </c:forEach>
+                            </select>
                             ${stepNavContent}
                         </div>
                         <!-- ss_header -->
@@ -136,34 +132,36 @@
                         <c:forEach var="slide" items="${currentSlides}">
 
                             <div id="ss_body" class="bd">
+                                <div class="bd-content">
 
-                                <c:if test="${not empty slide.imageUrl}">
-                                    <img class="ss_image" src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
-                                </c:if>
+                                    <c:if test="${not empty slide.imageUrl}">
+                                        <img class="ss_image" src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
+                                    </c:if>
 
-                                <h2 class="ss_title">${slide.title}</h2>
+                                    <h2 class="ss_title">${slide.title}</h2>
 
-                                <div class="ss_text">
-                                    ${slide.body}
+                                    <div class="ss_text">
+                                        ${slide.body}
+                                    </div>
+
+                                    <c:if test="${hasNextSlide}">
+                                        <p class="ss_text ss_next">Next:&amp;nbsp;
+                                            <a href="${contentUrl}?page=${pageNum + 1}">
+                                                <c:set var="nextSlideHasPromo"
+                                                       value="${not empty articleSlideshow.nextSlide.promo}"/>
+                                                <c:choose>
+                                                    <c:when test="${nextSlideHasPromo}">
+                                                        <c:out value="${articleSlideshow.nextSlide.promo}"/> &amp;raquo;
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:out value="${articleSlideshow.nextSlide.title}"/> &amp;raquo;
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </a>
+                                        </p>
+                                    </c:if>
+
                                 </div>
-
-                                <c:if test="${hasNextSlide}">
-                                    <p class="ss_text ss_next">Next:&amp;nbsp;
-                                        <a href="${contentUrl}?page=${pageNum + 1}">
-                                            <c:set var="nextSlideHasPromo"
-                                                   value="${not empty articleSlideshow.nextSlide.promo}"/>
-                                            <c:choose>
-                                                <c:when test="${nextSlideHasPromo}">
-                                                    <c:out value="${articleSlideshow.nextSlide.promo}"/> &amp;raquo;
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:out value="${articleSlideshow.nextSlide.title}"/> &amp;raquo;
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </a>
-                                    </p>
-                                </c:if>
-
                             </div>
                             <!-- ss_body -->
 

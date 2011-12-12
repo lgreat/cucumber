@@ -65,6 +65,7 @@
                     </noscript>
                     ]]>
 
+                    <div class="spacer_20"><!-- do not collapse --></div>
                     <input id="permit" class="fltlft mrm" name="permit" type="checkbox" checked="checked"/>
                     <p class="small">Yes, I agree to the
                         <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
