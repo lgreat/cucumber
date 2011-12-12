@@ -37,7 +37,7 @@
 
         <article:breadcrumbs breadcrumbs="${breadcrumbs}"/>
 
-        <p class="small bottom make-f2791f make-uppercase"><strong>Ask the Experts</strong></p>
+        <p class="small bottom make-d61 make-uppercase"><strong>Ask the Experts</strong></p>
 
         <h1>${feature.title}</h1>
 
