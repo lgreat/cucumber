@@ -56,18 +56,11 @@
 
         <h4>${fn:escapeXml(article.summary)}</h4>
 
-        <!--Image-->
-        <article:mainImage feature="${feature}"/>
-        <!--Image-->
+        <div class="clearfloat"><!-- do not collapse --></div>
 
-        <!-- Byline -->
-        <div class="small">
-            <article:authorByline feature="${feature}"/>
-         </div>
-        <!-- Byline -->
-
+        <div class="fltlft">
         <!-- photo gallery images -->
-        <div class="fltlft mbl mrl">
+        <div class="mbl mrl">
             <c:if test="${showPhotoGallery}">
                 <c:forEach var="galleryImage" items="${mediumPhotos}" varStatus="index">
                     <img src="${galleryImage}" alt="${altTexts[index.count]}"/>
@@ -86,6 +79,17 @@
             </div>
         </c:if>
         <!--Sidebar-->
+        </div>
+
+        <!--Image-->
+        <article:mainImage feature="${feature}"/>
+        <!--Image-->
+
+        <!-- Byline -->
+        <div class="small">
+            <article:authorByline feature="${feature}"/>
+         </div>
+        <!-- Byline -->
 
         <!-- article content -->
             ${currentPage}
