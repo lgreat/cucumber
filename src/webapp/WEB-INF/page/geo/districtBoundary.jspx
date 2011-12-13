@@ -497,12 +497,14 @@
                     var mapObjectsAdded = loadFeatureResponse(data.features, {showMarkers:true, showPolygons:false});
                     var showFirst = true;
                     var districtsAdded = new Array();
-                    for (var x=0; x < mapObjectsAdded.length; x++) {
-                        if (mapObjectsAdded[x].isDistrict()) {
-                            districtsAdded.push(mapObjectsAdded[x]);
+                    var mapObject;
+                    for (var x=0; x < mapObjectsAdded.topLevel.length; x++) {
+                        mapObject = mapObjectsAdded.topLevel[x];
+                        if (mapObject.isDistrict()) {
+                            districtsAdded.push(mapObject);
                             if (showFirst) {
-                                mapObjectsAdded[x].showPolygon();
-                                GS.Map.Helper.highlightPolygon(mapObjectsAdded[x].polygon, {duration:200});
+                                mapObject.showPolygon();
+                                GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
                                 showFirst = false;
                             }
                         }
@@ -516,14 +518,20 @@
                         }
                     }
                     showFirst = true;
-                    for (x=0; x < mapObjectsAdded.length; x++) {
-                        if (mapObjectsAdded[x].isSchool()) {
+                    for (x=0; x < mapObjectsAdded.topLevel.length; x++) {
+                        mapObject = mapObjectsAdded.topLevel[x];
+                        if (mapObject.isSchool()) {
                             if (showFirst) {
-                                mapObjectsAdded[x].showPolygon();
-                                GS.Map.Helper.highlightPolygon(mapObjectsAdded[x].polygon, {duration:200});
+                                mapObject.showPolygon();
+                                GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
                                 showFirst = false;
+                                break;
                             }
                         }
+                    }
+                    if (showFirst) {
+                        // no schools intersect the given point.
+                        hideAllSchoolPolygons();
                     }
                     updateDistrictList();
                     updateSchoolList();
@@ -610,7 +618,9 @@
             };
             // AJAX SUCCESS HANDLERS
             var loadFeatureResponse = function(features, options) {
-                var mapObjectsAdded = new Array();
+                var mapObjectsAdded = {};
+                mapObjectsAdded.topLevel = [];
+                mapObjectsAdded.all = [];
                 try {
                 options = options || {};
                 var highlightPolygons = typeof(options.highlightPolygons) !== 'undefined' ? options.highlightPolygons : false;
@@ -644,10 +654,11 @@
                             }
                         }
                     }
-                    mapObjectsAdded.push(mapObject);
+                    mapObjectsAdded.all.push(mapObject);
+                    mapObjectsAdded.topLevel.push(mapObject);
                     if (typeof(feature.dependents) !== 'undefined' && feature.dependents.length > 0) {
                         for (var dependentIndex = 0; dependentIndex < feature.dependents.length; dependentIndex++) {
-                            mapObjectsAdded = mapObjectsAdded.concat(loadFeatureResponse(feature.dependents, options));
+                            mapObjectsAdded.all = mapObjectsAdded.all.concat(loadFeatureResponse(feature.dependents, options).all);
                         }
                     }
                 }
