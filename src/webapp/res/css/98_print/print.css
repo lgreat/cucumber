@@ -53,3 +53,15 @@ body {
     padding: 15px;
     border: 1px solid #000;
 }
+
+.articlePrint .authorBio{
+   border: 1px solid #000;
+}
+
+.articlePrint .licensorTitle{
+    width: 400px;
+}
+
+.articlePrint .licensorLogo{
+    width: 175px;
+}
