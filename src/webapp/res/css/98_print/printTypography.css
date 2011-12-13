@@ -45,15 +45,14 @@ h2,
 h3,
 h4,
 h5,
-h6 { font-weight: normal; color: #2b2b2b; }
-h1 {color: #d61; }
+h6 { font-weight: bold; color: #000; }
 
-h1 { font: normal 30px/32px Georgia, "Times New Roman", Times, serif; margin-bottom: 32px; }
-h2 { font: normal 24px/28px Arial, Helvetica, sans-serif; margin-bottom: 28px; }
-h3 { font: normal 18px/24px Arial, Helvetica, sans-serif; margin-bottom: 24px; }
+h1 { font: bold 24px/33px Arial, Helvetica, sans-serif; margin-bottom: 10px; }
+h2 { font: bold 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 25px; }
+h3 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 h5 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h6 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 
 h1 img,
 h2 img,
@@ -73,10 +72,10 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 p,
 .default { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .medium { font: normal 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.small { font: normal 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.small { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
 .smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 .smallest { font: normal 10px/14px Arial, Helvetica, sans-serif; margin-bottom: 14px; }
-.small_bold { font: bold 12px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.small_bold { font: bold 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
 .medium_bold { font: bold 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
 
 /*
@@ -89,10 +88,10 @@ p .left			{ margin: 1.5em 1.5em 1.5em 0; padding: 0; }
 p .right 		{ margin: 1.5em 0 1.5em 1.5em; padding: 0; }*/
 
 a:focus,
-a:hover     { text-decoration: underline; }
+a:hover     { text-decoration: none; }
 a           { color: #06b; text-decoration: none; }
 
-blockquote  { margin: 20px; color: #555; font-style: italic; }
+blockquote  { margin: 20px; color: #000; font-style: italic; }
 strong,
 dfn  { font-weight: bold; }
 em,
@@ -101,9 +100,9 @@ sup,
 sub    { line-height: 0; }
 
 abbr,
-acronym     { border-bottom: 1px dotted #555; }
+acronym     { border-bottom: 1px dotted #000; }
 address     { margin: 0 0 1.5em; font-style: italic; }
-del         { color:#555; }
+del         { color:#000; }
 
 pre         { margin: 1.5em 0; white-space: pre; }
 pre,
@@ -116,11 +115,11 @@ tt { font: 1em/1.5 'andale mono','lucida console', monospace; }
 
 li ul,
 li ol       { margin: 0; }
-/*ul,*/
-/*ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }*/
+ul,
+ol          { margin: 0 1.5em 20px 0; padding-left: 1.0em; }
 
-ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #000; }
-ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #000; }
+ul li       { list-style-type: disc; font: normal 14px/20px Arial, Helvetica, sans-serif; color: #000; }
+ol li       { list-style-type: decimal; font: normal 14px/20px Arial, Helvetica, sans-serif; color: #000; }
 
 dl          { margin: 0 0 1.5em 0; }
 dl dt       { font-weight: bold; }
@@ -158,14 +157,14 @@ caption      { background: #e6e6e6; }
 
 .hide        { display: none; }
 
-.quiet       { color: #787878; }
+/*.quiet       { color: #787878; }
 .loud        { color: #2b2b2b; }
 .make-06b    { color: #06b; }
 .make-f2791f { color: #f2791f; }
 .error_msg   { color: #900; }
 .highlight   { background:#ff0; }
 .added       { background:#060; color: #fff; }
-.removed     { background:#900; color: #fff; }
+.removed     { background:#900; color: #fff; }*/
 
 .first       { margin-left:0; padding-left:0; }
 .last        { margin-right:0; padding-right:0; }

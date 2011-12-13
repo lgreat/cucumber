@@ -437,22 +437,3 @@ body {
 .clearfix {
     zoom: 1;
 }
-
-.articlePrint .printLogo{
-    border-bottom: 1px solid #000;
-}
-
-.articlePrint a:hover{
-    text-decoration: none;
-}
-
-.articlePrint ul li{
-    font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;
-}
-
-.articlePrint .articleSidebar{
-    width: 188px;
-    /*float: left;*/
-    padding: 15px;
-    border: 1px solid #000;
-}
