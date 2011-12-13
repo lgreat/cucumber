@@ -1,0 +1,100 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:form="http://www.springframework.org/tags/form">
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:externalJavascript file="/res/js/school/espMembershipForm.js"/>
+    <head>
+        <title>ESP Sign up</title>
+    </head>
+
+    <gsml:body adPageName="school/esp" pageLayout="nocol">
+        <form:form commandName="schoolEspCommand">
+            <table>
+                <tr>
+                    <td><form:label path="firstName">First name:</form:label></td>
+                    <td><form:input path="firstName" cssClass="field"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="lastName">Last Name:</form:label></td>
+                    <td><form:input path="lastName" cssClass="field"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="email">Email:</form:label></td>
+                    <td><form:input path="email" cssClass="field"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="userName">User name:</form:label></td>
+                    <td><form:input path="userName" cssClass="field"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="password">Password:</form:label></td>
+                    <td><form:password path="password" cssClass="field"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="webPageUrl">Web page url:</form:label></td>
+                    <td><form:input path="webPageUrl" cssClass="field"/></td>
+                </tr>
+                <tr>
+                    <td><form:label path="jobTitle">Job Title :</form:label></td>
+                    <td><form:select path="jobTitle">
+                        <form:option value="">Choose One</form:option>
+                        <form:option value="principal">Principal</form:option>
+                        <form:option value="assistant principal">Asst. Principal</form:option>
+                        <form:option value="admissions representative">Admissions Rep.</form:option>
+                        <form:option value="development representative">Development Rep.</form:option>
+                        <form:option value="communications representative">Communications Rep.</form:option>
+                        <form:option value="administrator (other)">administrator (other)</form:option>
+                        <form:option value="administrative assistant">Administrative Asst.</form:option>
+                        <form:option value="webmaster">Webmaster</form:option>
+                        <form:option value="registrar">Registrar</form:option>
+                        <form:option value="teacher">Teacher</form:option>
+                    </form:select></td>
+                </tr>
+                <tr>
+                    <td><form:label path="state">State:</form:label></td>
+                    <td><gsweb:stateSelector styleId="jq-stateAdd"
+                                             name="state"
+                                             noStateLabel="1. Choose state"
+                                             allowNoState="false"
+                            /></td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td><select id="jq-citySelect" name="city">
+                        <option selected="selected" value="">2. Choose city</option>
+                        <c:forEach var="cityOption" items="">
+                            <![CDATA[<option ]]>
+                            <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                        </c:forEach>
+                    </select></td>
+                </tr>
+
+                <tr>
+                    <td><form:label path="schoolId">School:</form:label></td>
+                    <td><select name="schoolId" id="jq-school" class="selectChildSchool">
+                        <option selected="selected" value="0">3. Choose school</option>
+                        <c:forEach var="schoolOption" items="">
+                            <![CDATA[<option ]]>
+                            <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                        </c:forEach>
+                    </select></td>
+                </tr>
+            </table>
+
+            <input type="submit" value="submit"/>
+
+        </form:form>
+    </gsml:body>
+
+    </html>
+</jsp:root>
