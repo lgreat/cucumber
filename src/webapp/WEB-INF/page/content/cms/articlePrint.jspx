@@ -19,8 +19,8 @@
         <meta name="keywords" content="${feature.metaKeywords}"/>
         <script type="text/javascript" src="/res/js/global.js"><!--D not collapse--></script>
         <link rel="stylesheet" type="text/css" href="/res/css/00_reset/neutral_reset.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/printGrid_640.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/printTypography.css" />
-        <link rel="stylesheet" type="text/css" href="/res/css/98_print/print.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/06_spacing/spacing.css" />
 
     </head>
@@ -42,8 +42,8 @@
             <c:set var="featureLink" value="${contentUrl}?showNew=true&amp;page=${fromPage}"/>
         </c:otherwise>
     </c:choose>
-    <div class="container_24">
-    <div class="grid_1 slStylesV1-0 articlePrint">
+    <div class="container_16">
+    <div class="grid_16 articlePrint">
         <div class="mvl pbm printLogo">
             <img src="/res/img/articlePrintNew/greatschool_print_logo.png" alt="Great Schools"/>
         </div>
@@ -58,7 +58,7 @@
 
         <div class="clearfloat"><!-- do not collapse --></div>
 
-        <div class="fltlft">
+        <div class="grid_6">
         <!-- photo gallery images -->
         <div class="mbl mrl">
             <c:if test="${showPhotoGallery}">
