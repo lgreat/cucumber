@@ -169,12 +169,18 @@ public class BoundaryAjaxController {
         LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
 
         JSONObject rval = new JSONObject();
+        rval.put("features", getSchoolsForDistrict(state, districtId, schoolLevel, request));
+        rval.write(response.getWriter());
+    }
+    
+    public JSONArray getSchoolsForDistrict(State state, Integer districtId, LevelCode.Level level, 
+                                           HttpServletRequest request) throws JSONException {
         JSONArray features = new JSONArray();
 
         long start = System.currentTimeMillis();
         District district = _districtDao.findDistrictById(state, districtId);
         if (district != null) {
-            List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
+            List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, level);
             System.out.println(" getSchoolsForDistrict DB took " + (System.currentTimeMillis() - start) + " ms");
 
             start = System.currentTimeMillis();
@@ -188,8 +194,7 @@ public class BoundaryAjaxController {
                 }
             }
         }
-        rval.put("features", features);
-        rval.write(response.getWriter());
+        return features;
     }
 
     /**
@@ -294,12 +299,25 @@ public class BoundaryAjaxController {
         }
         start = System.currentTimeMillis();
         JSONArray districts = getDistrictsForLocation(lat, lon, level, request);
+        System.out.println("  getSchoolsForLocation addingDistrict took " + (System.currentTimeMillis() - start) + " ms");
         if (districts != null) {
+            start = System.currentTimeMillis();
             for (int x=0; x < districts.length(); x++) {
                 features.put(districts.get(x));
+                JSONObject districtJson = districts.getJSONObject(x);
+                JSONObject districtData = districtJson.getJSONObject("data");
+                int districtId = districtData.getInt("id");
+                state = State.fromString(districtData.getString("state"));
+                JSONArray districtSchools = getSchoolsForDistrict
+                        (state, districtId, level, request);
+                for (int y=0; y < districtSchools.length(); y++) {
+                    districtJson.getJSONArray("dependents").put(districtSchools.get(y));
+                }
+                // TODO: determine if district has schools with no boundaries
+
             }
+            System.out.println("  getSchoolsForLocation addingDistrictSchools took " + (System.currentTimeMillis() - start) + " ms");
         }
-        System.out.println("  getSchoolsForLocation addingDistrict took " + (System.currentTimeMillis() - start) + " ms");
         output.put("features", features);
         output.write(response.getWriter());
     }
