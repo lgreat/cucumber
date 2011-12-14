@@ -19,56 +19,71 @@
         <meta name="keywords" content="${feature.metaKeywords}"/>
 
         <script type="text/javascript" src="/res/js/global.js"><!--D not collapse--></script>
+        <link rel="stylesheet" type="text/css" href="/res/css/00_reset/neutral_reset.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/06_spacing/spacing.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/38_special/cms_content.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/printGrid_640.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/printTypography.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/printModuleBlocks.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/98_print/printModuleSkins.css" />
+
     </head>
 
     <body onload="window.print();">
 
-    TODO greatschools logo
-    <div class="grid_16">
+    <div class="container_16">
+        <div class="grid_16 articlePrint">
+            <div class="mvl pbm printLogo">
+                <img src="/res/img/articlePrintNew/greatschool_print_logo.png" alt="Great Schools"/>
+            </div>
 
-        <h1>${feature.title}</h1>
+            <h1>${feature.title}</h1>
 
-        <h4>${fn:escapeXml(articleSlideshow.summary)}</h4>
+            <h4>${fn:escapeXml(articleSlideshow.summary)}</h4>
 
-        <!--Licensor logo-->
-        <c:if test="${not empty feature.licensorLogoUrl}">
-            <article:licensorLogo logoUrl="${feature.licensorLogoUrl}" logoAltText="${feature.licensorLogoAltText}" licensorUrl="${feature.licensorUrl}"/>
-        </c:if>
+            <!--Licensor logo-->
+            <c:if test="${not empty feature.licensorLogoUrl}">
+                <article:licensorLogo logoUrl="${feature.licensorLogoUrl}" logoAltText="${feature.licensorLogoAltText}"
+                                      licensorUrl="${feature.licensorUrl}"/>
+            </c:if>
 
-        <!-- Byline -->
-        <article:authorByline feature="${feature}"/>
-        <!-- Byline -->
+            <!-- Byline -->
+            <div class="prefix_6 grid_10">
+                <article:authorByline feature="${feature}"/>
+            </div>
+            <!-- Byline -->
 
-        <!-- Article slide content -->
-        <c:forEach var="slide" items="${currentSlides}">
+            <!-- Article slide content -->
+            <c:forEach var="slide" items="${currentSlides}">
 
-            <div id="ss_body">
                 <c:if test="${not empty slide.imageUrl}">
-                    <img class="ss_image" src="${slide.imageUrl}" alt="${slide.imageAltText}"/>
+                    <div class="grid_6 alpha">
+                        <img class="ss_image" src="${slide.imageUrl}" width="200" height="130"
+                             alt="${slide.imageAltText}"/>
+                    </div>
                 </c:if>
 
-                <h2 class="ss_title">${slide.title}</h2>
+                <div class="grid_10 omega">
+                    <h2>${slide.title}</h2>
 
-                <div class="ss_text">
                     ${slide.body}
                 </div>
-            </div>
-            <!-- ss_body -->
 
-        </c:forEach>
-        <!-- Article slide content -->
+            </c:forEach>
+            <!-- Article slide content -->
 
 
-        <!-- Author bios, Licensor attribution -->
-        <c:if test="${not empty authorBios and ((feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum))}">
-            <article:authorBios authorBios="${authorBios}"/>
-        </c:if>
-        <article:disclaimer showDisclaimer="${false}"/>
-        <c:if test="${not empty feature.licensorAttribution}">
-            <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>
-        </c:if>
-        <!-- Author bios, Licensor attribution -->
+            <!-- Author bios, Licensor attribution -->
+            <c:if test="${not empty authorBios and ((feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum))}">
+                <article:authorBios authorBios="${authorBios}"/>
+            </c:if>
+            <article:disclaimer showDisclaimer="${false}"/>
+            <c:if test="${not empty feature.licensorAttribution}">
+                <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>
+            </c:if>
+            <!-- Author bios, Licensor attribution -->
 
+        </div>
     </div>
 
     <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
