@@ -31,15 +31,15 @@
                     <th>Note</th>
                 </tr>
 
-                <c:forEach var="membership" items="${membershipsToProcess}">
+                <c:forEach var="membership" items="${membershipsToProcess}" varStatus="index">
                     <tr>
-                        <td><form:checkbox path="espMembershipIds" value="${membership.id}"/></td>
+                        <td><form:checkbox path="espMembershipIds" value="${membership.id}-${index.count}"/></td>
                         <td>${membership.user.email}</td>
                         <td>${membership.state}</td>
                         <td>${membership.schoolName}</td>
                         <td>${membership.jobTitle}</td>
                         <td>${membership.webUrl}</td>
-                        <td>${membership.note}</td>
+                        <td><form:input path="note" value="${not empty membership.note? membership.note:'' }"/></td>
                     </tr>
                 </c:forEach>
             </table>
@@ -49,6 +49,7 @@
 
             <input type="submit" name="moderatorAction" value="approve"/>
             <input type="submit" name="moderatorAction" value="disapprove"/>
+            <input type="submit" name="moderatorAction" value="update"/>
 
         </form:form>
     </gsml:body>

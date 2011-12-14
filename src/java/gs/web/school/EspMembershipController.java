@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 
 @Controller
-@RequestMapping("/school/esp/**")
+@RequestMapping("/school/esp/form.page")
 public class EspMembershipController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspMembershipController.class);
 
@@ -36,7 +36,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     @Autowired
     private IUserDao _userDao;
 
-    @RequestMapping(value = "/school/esp/form.page", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String showForm(ModelMap modelMap) {
         EspMembershipCommand command = new EspMembershipCommand();
         modelMap.addAttribute("schoolEspCommand", command);
@@ -57,6 +57,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 user.setFirstName(command.getFirstName());
                 user.setLastName(command.getLastName());
                 UserProfile userProfile = new UserProfile();
+                userProfile.setState(command.getState());
                 userProfile.setScreenName(command.getUserName());
                 user.setUserProfile(userProfile);
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
@@ -68,7 +69,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             }
 
             EspMembership esp = new EspMembership();
-            esp.setIsActive(true);
+            esp.setIsActive(false);
             esp.setJobTitle(command.getJobTitle());
             esp.setState(command.getState());
             esp.setSchoolId(command.getSchoolId());

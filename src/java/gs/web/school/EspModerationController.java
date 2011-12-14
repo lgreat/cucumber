@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.community.IUserDao;
 import gs.data.school.*;
+import org.apache.commons.lang.StringUtils;
 import gs.web.util.ReadWriteAnnotationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/school/esp/moderation/**")
+@RequestMapping("/school/esp/moderation/form.page")
 public class EspModerationController implements ReadWriteAnnotationController {
     public static final String FORM_VIEW = "school/espModerationForm";
 
@@ -30,7 +31,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
     @Autowired
     private ISchoolDao _schoolDao;
 
-    @RequestMapping(value = "/school/esp/moderation/form.page", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String showForm(ModelMap modelMap) {
         EspModerationCommand command = new EspModerationCommand();
         modelMap.addAttribute("espModerationCommand", command);
@@ -44,12 +45,18 @@ public class EspModerationController implements ReadWriteAnnotationController {
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
 
-        for (Long id : command.getEspMembershipIds()) {
+        for (String idAndIndex : command.getEspMembershipIds()) {
+            Long id = new Long(idAndIndex.substring(0, idAndIndex.indexOf("-")));
+            int index = new Integer(idAndIndex.substring(idAndIndex.indexOf("-") + 1, idAndIndex.length())) - 1;
             EspMembership membership = getEspMembershipDao().findEspMembershipById(id);
             if ("approve".equals(command.getModeratorAction())) {
                 membership.setStatus(EspMembershipStatus.APPROVED);
             } else if ("disapprove".equals(command.getModeratorAction())) {
                 membership.setStatus(EspMembershipStatus.DISAPPROVED);
+            }
+
+            if (StringUtils.isNotBlank(command.getNote().get(index))) {
+                membership.setNote(command.getNote().get(index));
             }
             //TODO : do a bulk update.Also modify the pojo is ok?
             getEspMembershipDao().updateEspMembership(membership);
