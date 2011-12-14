@@ -5292,7 +5292,7 @@ a.ui-dialog-titlebar-close .ui-icon {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     overflow: visible;
-    z-index: 100;
+    z-index: 15001;
 }
 
 #pickGrade label,
