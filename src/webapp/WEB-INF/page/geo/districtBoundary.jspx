@@ -567,7 +567,8 @@
                         school.centerMap();
                     }
                     if (event.status == 404) {
-                        alert("No school boundary found: " + name + " (" + state + ":" + id + ")");
+                        hideAllSchoolPolygons();
+                        //alert("No school boundary found: " + name + " (" + state + ":" + id + ")");
                     } else {
                         alert("Error fetching school boundary: " + name + " (" + state + ":" + id + ")");
                     }

@@ -222,28 +222,7 @@ public class BoundaryAjaxController {
                 response.setStatus(500);
             }
         } else {
-            // try getting boundary from district
-            School school = _schoolDao.getSchoolById(state, id);
-            DistrictBoundary districtBoundary = _districtBoundaryDao.getDistrictBoundaryByGSId
-                    (school.getDatabaseState(), school.getDistrictId());
-            if (districtBoundary != null) {
-                try {
-                    response.setContentType("application/json");
-                    schoolBoundary = new SchoolBoundary(); // stub out a fake school boundary with the district's geometry
-                    schoolBoundary.setGeometry(districtBoundary.getGeometry());
-                    MapPolygon polygon = getPolygonFromSchool(schoolBoundary, school, getGSRating(school), request);
-                    JSONObject rval = new JSONObject();
-                    JSONArray features = new JSONArray();
-                    rval.put("features", features);
-                    features.put(polygon.toJsonObject());
-                    rval.write(response.getWriter());
-                } catch (Exception e) {
-                    _log.error("Error parsing geometry:" + e, e);
-                    response.setStatus(500);
-                }
-            } else {
-                response.setStatus(404);
-            }
+            response.setStatus(404);
         }
     }
 
@@ -304,17 +283,18 @@ public class BoundaryAjaxController {
             start = System.currentTimeMillis();
             for (int x=0; x < districts.length(); x++) {
                 features.put(districts.get(x));
-                JSONObject districtJson = districts.getJSONObject(x);
-                JSONObject districtData = districtJson.getJSONObject("data");
-                int districtId = districtData.getInt("id");
-                state = State.fromString(districtData.getString("state"));
-                JSONArray districtSchools = getSchoolsForDistrict
-                        (state, districtId, level, request);
-                for (int y=0; y < districtSchools.length(); y++) {
-                    districtJson.getJSONArray("dependents").put(districtSchools.get(y));
-                }
-                // TODO: determine if district has schools with no boundaries
-
+//                if (schoolBoundaries.size() == 0) {
+                    // failed to find any schools, let's just return all the schools in the district
+                    JSONObject districtJson = districts.getJSONObject(x);
+                    JSONObject districtData = districtJson.getJSONObject("data");
+                    int districtId = districtData.getInt("id");
+                    state = State.fromString(districtData.getString("state"));
+                    JSONArray districtSchools = getSchoolsForDistrict
+                            (state, districtId, level, request);
+                    for (int y=0; y < districtSchools.length(); y++) {
+                        districtJson.getJSONArray("dependents").put(districtSchools.get(y));
+                    }
+//                }
             }
             System.out.println("  getSchoolsForLocation addingDistrictSchools took " + (System.currentTimeMillis() - start) + " ms");
         }
