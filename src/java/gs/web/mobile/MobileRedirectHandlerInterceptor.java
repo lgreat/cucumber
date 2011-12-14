@@ -27,18 +27,27 @@ public class MobileRedirectHandlerInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         RequestInfo requestInfo = _requestInfo;
 
-        IDeviceSpecificController controller;
-        boolean controllerSupportsMobile = false;
-        boolean controllerSupportsMobileOnly = false;
-        boolean controllerSupportsDesktop = true;
-        boolean controllerSupportsDesktopOnly = true;
+        boolean beanSupportsMobile = false;
+        boolean beanSupportsMobileOnly = false;
+        boolean beanSupportsDesktop = true;
+        boolean beanSupportsDesktopOnly = true;
 
-        if (handler instanceof IDeviceSpecificController) {
-            controller = (IDeviceSpecificController) handler;
-            controllerSupportsMobile = controller.beanSupportsMobileRequests();
-            controllerSupportsMobileOnly = !controller.beanSupportsDesktopRequests();
-            controllerSupportsDesktop = !controllerSupportsMobileOnly; //readability
-            controllerSupportsDesktopOnly = !controllerSupportsMobile; //readability
+        if (handler instanceof IControllerWithMobileSupport) {
+            IControllerWithMobileSupport controller = (IControllerWithMobileSupport) handler;
+            beanSupportsMobile = controller.beanSupportsMobileRequests();
+            beanSupportsMobileOnly = !controller.beanSupportsDesktopRequests();
+            beanSupportsDesktop = !beanSupportsMobileOnly; //readability
+            beanSupportsDesktopOnly = !beanSupportsMobile; //readability
+        } else if (handler instanceof IDeviceSpecificControllerPartOfPair) {
+            // for consistency and safety, let's make sure the controller we have supports
+            // the device we're serving to. The IDeviceSpecificControllerPartOfPair controller we have here
+            // should always be the one we need, since spring uses a factory which chooses the correct controller
+            // based on the device we're serving to.
+            IDeviceSpecificControllerPartOfPair controller = (IDeviceSpecificControllerPartOfPair) handler;
+            beanSupportsMobile = controller.controllerHandlesMobileRequests();
+            beanSupportsMobileOnly = !controller.controllerHandlesDesktopRequests();
+            beanSupportsDesktop = !beanSupportsMobileOnly; //readability
+            beanSupportsDesktopOnly = !beanSupportsMobile; //readability
         }
 
         if (requestInfo.isDeveloperWorkstation()) {
@@ -56,8 +65,8 @@ public class MobileRedirectHandlerInterceptor implements HandlerInterceptor {
         if (
             requestInfo.isOnMobileSite()
             && (
-                ( controllerSupportsDesktop && (!requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.NORMAL) && requestInfo.getSitePreference() != SitePreference.MOBILE)
-                || controllerSupportsDesktopOnly
+                ( beanSupportsDesktop && (!requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.NORMAL) && requestInfo.getSitePreference() != SitePreference.MOBILE)
+                || beanSupportsDesktopOnly
                 || !requestInfo.isMobileSiteEnabled()
             )
         ) {
@@ -65,7 +74,7 @@ public class MobileRedirectHandlerInterceptor implements HandlerInterceptor {
         } else if (
                 !requestInfo.isOnMobileSite()
                 && (
-                    (controllerSupportsMobile && (requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.MOBILE ) && requestInfo.getSitePreference() != SitePreference.NORMAL)
+                    (beanSupportsMobile && (requestInfo.isFromMobileDevice() || requestInfo.getSitePreference() == SitePreference.MOBILE ) && requestInfo.getSitePreference() != SitePreference.NORMAL)
                     && requestInfo.isMobileSiteEnabled()
                 )
         ) {

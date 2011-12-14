@@ -33,16 +33,7 @@
           lazy-init="true">
         <property name="interceptors">
             <list>
-                <!--<bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor">
-                <beans:constructor-arg>
-                    <device:wurfl-device-resolver root-location="/WEB-INF/custom-wurfl.xml" />
-                </beans:constructor-arg>
-                </bean>-->
-                <!-- On pre-handle, redirects mobile users to "m.myapp.com" (declare after DeviceResolverHandlerInterceptor) -->
-                <!--<bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="mDot">
-                    <beans:constructor-arg value="samson-sprouses-imac.local" />
-                </bean>-->
-                <!-- On pre-handle, manage the user's site preference (declare after DeviceResolverHandlerInterceptor) -->
+                <!-- On pre-handle, manage the user's site preference -->
                 <bean class="gs.web.mobile.GsSitePreferenceHandlerInterceptor" />
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
@@ -51,7 +42,7 @@
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
                 <bean class="gs.web.mobile.MobileRedirectHandlerInterceptor" autowire="byName" depends-on="requestInfo"/>
-                <bean class="gs.web.mobile.MobileViewSwitcherInterceptor" autowire="byName" depends-on="requestInfo"/>
+                <bean class="gs.web.mobile.MobileViewResolverInterceptor" autowire="byName" depends-on="requestInfo"/>
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
@@ -279,11 +270,11 @@
     <bean id="nearbySchoolSearchCommandValidator" class="gs.web.search.NearbySchoolSearchCommandValidator"
           autowire="byName" lazy-init="true"/>
 
-    <bean name="deviceSpecificControllerFactory" class="gs.web.mobile.DeviceSpecificControllerFactory" scope="request"  lazy-init="true">
+    <bean name="deviceSpecificControllerFactory" class="gs.web.mobile.DeviceSpecificControllerFactory" lazy-init="true">
         <aop:scoped-proxy proxy-target-class="false"/>
     </bean>
 
-    <bean name="/index.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" scope="request" lazy-init="true">
+    <bean name="/index.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <bean name="mobileHomepageController" class="gs.web.MobileHomepageController">
@@ -298,14 +289,6 @@
                     </property>
                 </bean>
             </list>
-        </constructor-arg>
-        <constructor-arg>
-            <!-- boolean beanSupportsDesktopRequests -->
-            <value>true</value>
-        </constructor-arg>
-        <constructor-arg>
-            <!-- boolean beanSupportsMobileRequests-->
-            <value>true</value>
         </constructor-arg>
     </bean>
 
@@ -357,9 +340,12 @@
         <property name="redirectPath" value="/terms/"/>
     </bean>
 
-    <bean name="/terms/" class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+    <bean name="/terms/" class="gs.web.mobile.ParameterizableViewControllerWithMobileAndDesktopViews" lazy-init="true">
         <property name="viewName">
             <value>about/termsOfUse</value>
+        </property>
+        <property name="mobileViewName">
+            <value>about/termsOfUse-mobile</value>
         </property>
     </bean>
 
@@ -2750,6 +2736,7 @@
 
 
     <bean id="requestInfo" class="gs.web.request.RequestInfo" scope="request" init-method="init" lazy-init="false" autowire="byType">
+        <!-- Is scoped proxy so that this request-scoped bean plays well with singleton-scoped beans. -->
         <aop:scoped-proxy />
     </bean>
 

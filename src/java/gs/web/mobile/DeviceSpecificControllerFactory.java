@@ -4,8 +4,6 @@ package gs.web.mobile;
 import gs.web.request.RequestInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.mvc.Controller;
-
 import java.util.List;
 
 /**
@@ -25,19 +23,12 @@ public class DeviceSpecificControllerFactory implements IDeviceSpecificControlle
     public DeviceSpecificControllerFactory(List<IDeviceSpecificControllerPartOfPair> controllers) {
     }
 
-    public IDeviceSpecificControllerPartOfPair getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers, boolean beanSupportsDesktopRequests, boolean beanSupportsMobileRequests) {
+    public IDeviceSpecificControllerPartOfPair getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers) {
         if (_requestInfo == null) {
             throw new IllegalStateException("requestInfo was null.");
         }
 
         IDeviceSpecificControllerPartOfPair chosenController = null;
-
-        // allow bean config in spring to pass in these optionis to factory method rather than setting these
-        // on each controller bean, since these values must be equal for each controller in the group
-        for (IDeviceSpecificControllerPartOfPair _controller : controllers) {
-            _controller.setBeanSupportsDesktopRequests(beanSupportsDesktopRequests);
-            _controller.setBeanSupportsMobileRequests(beanSupportsMobileRequests);
-        }
 
         for (IDeviceSpecificControllerPartOfPair controller : controllers) {
             boolean controllerSupportsMobile = false;

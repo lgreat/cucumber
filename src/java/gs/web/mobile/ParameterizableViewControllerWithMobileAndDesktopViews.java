@@ -16,9 +16,17 @@ import javax.servlet.http.HttpServletResponse;
  * If you're configuring a mobile-only controller in spring, just use ParameterizableViewController as usual
  * and configure it with your mobile view name
  */
-public class MobileCapableParameterizableViewController extends ParameterizableViewController {
+public class ParameterizableViewControllerWithMobileAndDesktopViews extends ParameterizableViewController implements IControllerWithMobileSupport {
     
     private String _mobileViewName;
+
+    private boolean _beanSupportsDesktopRequests;
+    private boolean _beanSupportsMobileRequests;
+
+    public ParameterizableViewControllerWithMobileAndDesktopViews() {
+        _beanSupportsDesktopRequests = true;
+        _beanSupportsMobileRequests = true;
+    }
 
     @Autowired
     private RequestInfo _requestInfo;
@@ -47,5 +55,21 @@ public class MobileCapableParameterizableViewController extends ParameterizableV
 
     public void setRequestInfo(RequestInfo requestInfo) {
         _requestInfo = requestInfo;
+    }
+
+    public boolean beanSupportsDesktopRequests() {
+        return _beanSupportsDesktopRequests;
+    }
+
+    public void setBeanSupportsDesktopRequests(boolean beanSupportsDesktopRequests) {
+        _beanSupportsDesktopRequests = beanSupportsDesktopRequests;
+    }
+
+    public boolean beanSupportsMobileRequests() {
+        return _beanSupportsMobileRequests;
+    }
+
+    public void setBeanSupportsMobileRequests(boolean beanSupportsMobileRequests) {
+        _beanSupportsMobileRequests = beanSupportsMobileRequests;
     }
 }

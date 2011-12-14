@@ -1,7 +1,6 @@
 package gs.web;
 
 
-import gs.web.mobile.IDeviceSpecificController;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;

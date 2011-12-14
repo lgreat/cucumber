@@ -12,13 +12,13 @@ import static org.easymock.classextension.EasyMock.reset;
 import static org.junit.Assert.assertEquals;
 
 
-public class MobileCapableParameterizableViewControllerTest {
+public class ParameterizableViewControllerWithMobileAndDesktopViewsTest {
     RequestInfo _requestInfo;
-    MobileCapableParameterizableViewController _controller;
+    ParameterizableViewControllerWithMobileAndDesktopViews _controller;
 
     @Before
     public void setUp() {
-        _controller = new MobileCapableParameterizableViewController();
+        _controller = new ParameterizableViewControllerWithMobileAndDesktopViews();
 
         _requestInfo = createStrictMock(RequestInfo.class);
 
