@@ -271,10 +271,10 @@ GS.findASchool.setAllGrades = function() {
         jQuery('#js-grade-level-all').prop('checked', true);
         jQuery('#js-grade-level-label').empty().append('All grades')
     } else if (numGradeLevelsChecked === 0) {
-        jQuery('#js-grade-level-all').removeProp('checked');
+        jQuery('#js-grade-level-all').prop('checked', false);
         jQuery('#js-grade-level-label').empty().append('No grades');
     } else {
-        jQuery('#js-grade-level-all').removeProp('checked');
+        jQuery('#js-grade-level-all').prop('checked', false);
         jQuery('#js-grade-level-label').empty().append('Some grades');
     }
 };
@@ -288,10 +288,10 @@ GS.findASchool.setAllTypes = function() {
         jQuery('#js-school-type-all').prop('checked', true);
         jQuery('#js-school-type-label').empty().append('All types')
     } else if (numSchoolTypesChecked === 0) {
-        jQuery('#js-school-type-all').removeProp('checked');
+        jQuery('#js-school-type-all').prop('checked', false);
         jQuery('#js-school-type-label').empty().append('No types');
     } else {
-        jQuery('#js-school-type-all').removeProp('checked');
+        jQuery('#js-school-type-all').prop('checked', false);
         jQuery('#js-school-type-label').empty().append('Some types');
     }
 };
@@ -333,7 +333,7 @@ $(function() {
             if (jQuery(this).is(':checked')) {
                 gradeCheckboxes.prop('checked',true);
             } else {
-                gradeCheckboxes.removeProp('checked');
+                gradeCheckboxes.prop('checked', false);
             }
         }
 
@@ -350,7 +350,7 @@ $(function() {
             if (jQuery(this).is(':checked')) {
                 typeCheckboxes.prop('checked',true);
             } else {
-                typeCheckboxes.removeProp('checked');
+                typeCheckboxes.prop('checked', false);
             }
         }
         GS.findASchool.setAllTypes();
