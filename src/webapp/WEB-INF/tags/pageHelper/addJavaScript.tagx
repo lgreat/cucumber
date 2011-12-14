@@ -24,7 +24,7 @@
 
             <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.7.1.min.js" allowCdn="true"/>
             <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.16.min.js" allowCdn="true"/>
-            <!-- TODO-12010 remove jquery.autocomplete.js when upgrading jquery-ui -->
+            <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
             <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
 
             <gsml:url var="urijs" value="/res/js/uri/uri.js?v=$RELEASE_NUMBER" allowCdn="true"/>
