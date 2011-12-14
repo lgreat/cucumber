@@ -162,9 +162,7 @@ GSType.hover.JoinHover = function() {
         // hide BTS tip
         jQuery('#joinHover div.joinHover_btstip').hide();
         //check checkbox for greatnews
-        // TODO-JQ-12056 swap following lines
-        jQuery('#joinHover #opt1').attr('checked', true);
-//        jQuery('#joinHover #opt1').prop('checked', true);
+        jQuery('#joinHover #opt1').prop('checked', true);
     };
     //sets a notification message on the join form - can be used to explain why this hover was launched
     this.addMessage = function(text) {
@@ -176,9 +174,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover .message').hide();
     };
     this.setJoinHoverType = function(type) {
-        // TODO-JQ-12056 swap following lines
-        jQuery('#joinHover form#joinGS input#joinHoverType').attr("value", type);
-//        jQuery('#joinHover form#joinGS input#joinHoverType').val(type);
+        jQuery('#joinHover form#joinGS input#joinHoverType').val(type);
     };
     this.setTitle = function(title) {
         jQuery('#joinHover div.hoverTitle h2').html(title);
@@ -401,9 +397,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover .joinHover_ld').show();
 
         //set up checkboxes
-        // TODO-JQ-12056 swap following lines
-        jQuery('#joinHover #opt2').attr('checked', true);
-//        jQuery('#joinHover #opt2').prop('checked', true);
+        jQuery('#joinHover #opt2').prop('checked', true);
 
         GSType.hover.joinHover.setJoinHoverType("LearningDifficultiesNewsletter");
 
@@ -427,9 +421,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover .joinHover_partners').hide(); 
 
         //set up checkboxes
-        // TODO-JQ-12056 swap following lines
-        jQuery('#joinHover #opt4').attr('checked', true);
-//        jQuery('#joinHover #opt4').prop('checked', true);
+        jQuery('#joinHover #opt4').prop('checked', true);
 
         GSType.hover.joinHover.setJoinHoverType("BTSTip");
 
@@ -562,9 +554,7 @@ GSType.hover.JoinHover = function() {
     };
     this.clickSubmitHandler = function() {
         var params = jQuery('#joinGS').serialize();
-        // TODO-JQ-12056 swap following lines
-        jQuery('#joinBtn').attr('disabled', 'disabled');
-//        jQuery('#joinBtn').prop('disabled', true);
+        jQuery('#joinBtn').prop('disabled', true);
 
 
         //if - Choose city - is selected, just remove this from the form, as if no city was given
@@ -575,9 +565,7 @@ GSType.hover.JoinHover = function() {
         var first = true;
         var newsletters = [];
         jQuery('#joinGS [name="grades"]').each(function() {
-        // TODO-JQ-12056 swap following lines
-            if (jQuery(this).attr('checked')) {
-//            if (jQuery(this).prop('checked')) {
+            if (jQuery(this).prop('checked')) {
                 newsletters.push(encodeURIComponent(jQuery(this).val()));
             }
         });
@@ -1246,9 +1234,7 @@ GS.joinHover_checkValidationResponse2 = function(data) {
     });
     GSType.hover.joinHover.hide();
 
-    // TODO-JQ-12056 swap following lines
-    jQuery('#joinBtn').attr('disabled', '');
-//    jQuery('#joinBtn').prop('disabled', false);
+    jQuery('#joinBtn').prop('disabled', false);
 };
 
 GS.joinHover_checkValidationResponse = function(data) {
@@ -1266,9 +1252,7 @@ GS.joinHover_checkValidationResponse = function(data) {
             GSType.hover.joinHover.hide();
         }
     }
-    // TODO-JQ-12056 swap following lines
-    jQuery('#joinBtn').attr('disabled', '');
-//    jQuery('#joinBtn').prop('disabled', false);
+    jQuery('#joinBtn').prop('disabled', false);
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
