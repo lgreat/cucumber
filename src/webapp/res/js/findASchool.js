@@ -268,19 +268,13 @@ GS.findASchool.setAllGrades = function() {
     var numGradeLevels = gradeCheckboxes.size();
     var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
     if (numGradeLevelsChecked === numGradeLevels) {
-        // TODO-JQ-12088 swap following lines
-        jQuery('#js-grade-level-all').attr('checked', 'checked');
-//        jQuery('#js-grade-level-all').prop('checked', true);
+        jQuery('#js-grade-level-all').prop('checked', true);
         jQuery('#js-grade-level-label').empty().append('All grades')
     } else if (numGradeLevelsChecked === 0) {
-        // TODO-JQ-12088 swap following lines
-        jQuery('#js-grade-level-all').removeAttr('checked');
-//        jQuery('#js-grade-level-all').removeProp('checked');
+        jQuery('#js-grade-level-all').removeProp('checked');
         jQuery('#js-grade-level-label').empty().append('No grades');
     } else {
-        // TODO-JQ-12088 swap following lines
-        jQuery('#js-grade-level-all').removeAttr('checked');
-//        jQuery('#js-grade-level-all').removeProp('checked');
+        jQuery('#js-grade-level-all').removeProp('checked');
         jQuery('#js-grade-level-label').empty().append('Some grades');
     }
 };
@@ -291,19 +285,13 @@ GS.findASchool.setAllTypes = function() {
     var numSchoolTypes = typeCheckboxes.size();
     var numSchoolTypesChecked = typeCheckboxes.filter(':checked').size();
     if (numSchoolTypesChecked === numSchoolTypes) {
-        // TODO-JQ-12088 swap following lines
-        jQuery('#js-school-type-all').attr('checked', 'checked');
-//        jQuery('#js-school-type-all').prop('checked', true);
+        jQuery('#js-school-type-all').prop('checked', true);
         jQuery('#js-school-type-label').empty().append('All types')
     } else if (numSchoolTypesChecked === 0) {
-        // TODO-JQ-12088 swap following lines
-        jQuery('#js-school-type-all').removeAttr('checked');
-//        jQuery('#js-school-type-all').removeProp('checked');
+        jQuery('#js-school-type-all').removeProp('checked');
         jQuery('#js-school-type-label').empty().append('No types');
     } else {
-        // TODO-JQ-12088 swap following lines
-        jQuery('#js-school-type-all').removeAttr('checked');
-//        jQuery('#js-school-type-all').removeProp('checked');
+        jQuery('#js-school-type-all').removeProp('checked');
         jQuery('#js-school-type-label').empty().append('Some types');
     }
 };
@@ -341,17 +329,11 @@ $(function() {
 
         var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
 
-        // may need to change checkbox checking in jQuery 1.6+
-        // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
         if (cssId === 'js-grade-level-all') {
             if (jQuery(this).is(':checked')) {
-                // TODO-JQ-12088 swap following lines
-                gradeCheckboxes.attr('checked','checked');
-//                gradeCheckboxes.prop('checked',true);
+                gradeCheckboxes.prop('checked',true);
             } else {
-                // TODO-JQ-12088 swap following lines
-                gradeCheckboxes.removeAttr('checked');
-//                gradeCheckboxes.removeProp('checked');
+                gradeCheckboxes.removeProp('checked');
             }
         }
 
@@ -364,17 +346,11 @@ $(function() {
 
         var typeCheckboxes = jQuery('#js-schoolTypes .jq-school-type');
 
-        // may need to change checkbox checking in jQuery 1.6+
-        // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
         if (cssId === 'js-school-type-all') {
             if (jQuery(this).is(':checked')) {
-                // TODO-JQ-12088 swap following lines
-                typeCheckboxes.attr('checked','checked');
-//                typeCheckboxes.prop('checked',true);
+                typeCheckboxes.prop('checked',true);
             } else {
-                // TODO-JQ-12088 swap following lines
-                typeCheckboxes.removeAttr('checked');
-//                typeCheckboxes.removeProp('checked');
+                typeCheckboxes.removeProp('checked');
             }
         }
         GS.findASchool.setAllTypes();
