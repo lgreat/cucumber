@@ -150,7 +150,7 @@ GS.findASchool.attachSchoolAutocomplete = function(queryBoxId, stateSelectId) {
     var searchBox = $('#' + queryBoxId);
     var searchStateSelect = $('#' + stateSelectId);
     var url = "/search/schoolAutocomplete.page";
-    searchBox.autocomplete(url, {
+    searchBox.autocomplete2(url, {
         extraParams: {
             state: function() {
                 var rval = searchStateSelect.val();
@@ -188,7 +188,7 @@ GS.findASchool.attachCityAutocomplete = function(queryBoxId) {
         }
         return row;
     };
-    searchBox.autocomplete(url, {
+    searchBox.autocomplete2(url, {
         minChars: 3,
         selectFirst: false,
         cacheLength: 150,

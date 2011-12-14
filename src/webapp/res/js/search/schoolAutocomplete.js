@@ -8,7 +8,7 @@ GS.attachSchoolAutocomplete = function(domId) {
     var searchBox = jQuery('#' + domId);
     var searchStateSelect = jQuery('#stateSelector');
     var url = GS.uri.Uri.getBaseHostname() + "/search/schoolAutocomplete.page";
-    searchBox.autocomplete(url, {
+    searchBox.autocomplete2(url, {
         extraParams: {
             state: function() {
                 var rval = searchStateSelect.val();
@@ -36,5 +36,5 @@ GS.attachSchoolAutocomplete = function(domId) {
 GS.detachSchoolAutocomplete = function(domId) {
     var searchBox = jQuery('#' + domId);
     //jquery autocomplete plugin documentation sucks. .unautocomplete() and autocomplete("disable") don't work.
-    searchBox.unbind(".autocomplete");
+    searchBox.unbind(".autocomplete2");
 };
