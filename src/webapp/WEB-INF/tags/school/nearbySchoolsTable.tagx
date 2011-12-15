@@ -709,7 +709,7 @@
         } // IE fix
 
         jQuery('.compare-school-checkbox').click(function(item) {
-            if (jQuery(this).attr('checked') &amp;&amp; compareSchoolsArray.length >= 8) {
+            if (jQuery(this).prop('checked') &amp;&amp; compareSchoolsArray.length >= 8) {
                 var pageCode = "${(tab eq 'overview')?'spoverview':'spreviews'}";
                 var schoolCode = "${school.databaseState}${school.id}";
                 GSType.hover.compareSchoolsLimitReached.show(compareSchoolsArray.join(','), pageCode + schoolCode);
@@ -768,7 +768,7 @@
             });
 
             // change TD background color
-            if (jQuery(this).attr('checked')) {
+            if (jQuery(this).prop('checked')) {
                 theTR.children().addClass('bg-color-f4fafd');
                 compareSchoolsArray.push(jQuery(this).attr('id'));
             } else {
@@ -819,11 +819,11 @@
     function countChecked() {
         var n = jQuery('#nearby-schools-table-body input:checked').length;
         if (n >= 2) {
-            jQuery('#compareBtn').attr('disabled', '');
+            jQuery('#compareBtn').prop('disabled', false);
             jQuery('#compareBtn').removeClass('button-1-inactive');
             jQuery('#compareBtn').addClass('button-1');
         } else {
-            jQuery('#compareBtn').attr('disabled', 'disabled');
+            jQuery('#compareBtn').prop('disabled', true);
             jQuery('#compareBtn').removeClass('button-1');
             jQuery('#compareBtn').addClass('button-1-inactive');
         }
