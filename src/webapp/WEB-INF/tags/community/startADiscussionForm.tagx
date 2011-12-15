@@ -29,19 +29,19 @@
 
             jQuery('#topicSelect').change(function() {
                 if (this.value == '-1') {
-                    jQuery('#citySelect').removeAttr('disabled');
+                    jQuery('#citySelect').prop('disabled', false);
                     jQuery('.citySelect').show();
                 } else {
-                    jQuery('#citySelect').attr('disabled', true);
+                    jQuery('#citySelect').prop('disabled', true);
                     jQuery('.citySelect').hide();
                 }
             });
 
             if (jQuery('#topicSelect').val() == '-1') {
-                jQuery('#citySelect').removeAttr('disabled');
+                jQuery('#citySelect').prop('disabled', false);
                 jQuery('.citySelect').show();
             } else {
-                jQuery('#citySelect').attr('disabled', true);
+                jQuery('#citySelect').prop('disabled', true);
                 jQuery('.citySelect').hide();
             }
 
