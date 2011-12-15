@@ -167,11 +167,11 @@
                     <script type="text/javascript">
                         jQuery('#notesEdit').show();
                         jQuery('#notesSave').hide();
-                        jQuery('#notesInput').attr('disabled', 'disabled');
+                        jQuery('#notesInput').prop('disabled', true);
                         jQuery('#notesEdit').click(function() {
                             jQuery('#notesEdit').hide();
                             jQuery('#notesSave').show();
-                            jQuery('#notesInput').removeAttr('disabled');
+                            jQuery('#notesInput').prop('disabled', false);
                             jQuery('#notesInput').focus();
                         });
                     </script>
