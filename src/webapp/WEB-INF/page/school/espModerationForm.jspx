@@ -26,6 +26,8 @@
                     <th>Email</th>
                     <th>State</th>
                     <th>School</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Job Title</th>
                     <th>Web Url</th>
                     <th>Note</th>
@@ -37,6 +39,8 @@
                         <td>${membership.user.email}</td>
                         <td>${membership.state}</td>
                         <td>${membership.schoolName}</td>
+                        <td>${membership.user.firstName}</td>
+                        <td>${membership.user.lastName}</td>
                         <td>${membership.jobTitle}</td>
                         <td>${membership.webUrl}</td>
                         <td><form:input path="note" value="${not empty membership.note? membership.note:'' }"/></td>
