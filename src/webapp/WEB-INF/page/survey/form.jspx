@@ -39,13 +39,13 @@
            if (inp.val() == 'yes') {
                lc.removeClass('disabled');
                lc.find('input').each(function(i) {
-                   jQuery(this).removeAttr('disabled');
+                   jQuery(this).prop('disabled', false);
                });
            } else {
                lc.addClass('disabled');
                lc.find('input').each(function(i) {
-                   jQuery(this).attr('disabled', 'disabled');
-                   jQuery(this).removeAttr('checked');
+                   jQuery(this).prop('disabled', true);
+                   jQuery(this).prop('checked', false);
                });
            }
        }
