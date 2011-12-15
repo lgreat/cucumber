@@ -399,7 +399,7 @@ GS.form.SchoolReviewForm = function(id) {
             return element;
         };
         this.validate = function() {
-            var checked = element.attr('checked');
+            var checked = element.prop('checked');
             if (checked === true) {
                 error = null;
                 this.updateErrorDisplay();
@@ -415,7 +415,7 @@ GS.form.SchoolReviewForm = function(id) {
     };
 
     this.needToValidateEmail = function() {
-        var disabled = this.email.getElement().attr('disabled');
+        var disabled = this.email.getElement().prop('disabled');
         return !disabled || !GS.isMember();
     };
 
@@ -487,7 +487,7 @@ GS.form.SchoolReviewForm = function(id) {
     }.gs_bind(this);
 
     this.postReview = function(email, callerFormId) {
-        jQuery('#parentReviewFormSubmit').attr('disabled','disabled');
+        jQuery('#parentReviewFormSubmit').prop('disabled','disabled');
         var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page';
         //When this is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email != undefined && email != '') {
@@ -576,7 +576,7 @@ GS.form.SchoolReviewForm = function(id) {
         });
         form.find(':checkbox:visible').each(function() {
             var name = jQuery(this).attr('name');
-            var value = jQuery(this).attr('checked');
+            var value = jQuery(this).prop('checked');
             serialized[name] = value;
         });
         return serialized;
