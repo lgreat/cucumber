@@ -131,7 +131,7 @@
             setupStateCityAjax("espFields");
 
             // Do this last
-            mainSelect.removeAttr("disabled");
+            mainSelect.prop("disabled", false);
 
             var mainReset = $j('#mainFeedbackTopicSelect');
             mainReset.change(function(){
