@@ -868,9 +868,12 @@ h4.subhead2 a {
 .articleDistribution .inner{border:1px solid #ddd;background-color: #fafafa;}
 .articleDistribution .inner .bd{height:65px;}
 .articleDistribution .inner .ft{border-top:1px solid #ddd;height:28px;}
+.articleDistribution .bd-inner{padding:10px;}
 .articleDistribution .ft ul{float:left;margin:0;padding:0;}
 .articleDistribution .ft li{list-style:none outside none;float:left;margin:0 5px;padding:0;line-height:28px;}
 /* ------------- relatedArticles ------------- */
+.relatedArticles {margin-bottom:10px;}
+.relatedArticles .inner{border:1px solid #ddd;background-color: #fafafa;padding:10px;}
 .relatedArticles .inner .hd h3{color:#d61;font-weight:normal;}
 /* ------------ articlePagination ------------ */
 .articlePagination{font: normal 12px/18px Arial, Helvetica, sans-serif;float:right;}
@@ -4453,7 +4456,7 @@ body.cobranded #pageGS {
     height: 178px;
     border: 1px solid #ddd;
     position: relative;
-    margin-bottom:20px;
+    margin-bottom:10px;
     outline:0;
 
     /* backkground */

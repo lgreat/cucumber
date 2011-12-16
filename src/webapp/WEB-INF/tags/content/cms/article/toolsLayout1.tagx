@@ -11,7 +11,7 @@
             <div class="mod articleDistribution">
                 <div class="inner rnd4">
                     <div class="bd"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
-                    <div class="ft">
+                    <div class="ft mts pls">
                         <ul>
                             <li class="smaller">
                                 <gsml:url var="mailToFriendUrl"

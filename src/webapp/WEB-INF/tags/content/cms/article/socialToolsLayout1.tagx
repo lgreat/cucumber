@@ -12,14 +12,12 @@
     <jsp:directive.attribute name="includeEmailBtn" required="false" type="java.lang.Boolean"
                              description="Whether to include the share button"/>
 
-
-    <div>
-
-        <div class="mtm mhs mbs">
+    <div class="bd-inner">
+        <div class="mbm">
             <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
         </div>
 
-        <div class="mts mhs mbm">
+        <div class="mtm">
                 <span class="mrs">
             <promo:tweetButtonArticle/>
                 </span>
@@ -28,7 +26,6 @@
             <community:addGooglePlusOne url="${fullUrl}"/>
                 </span>
         </div>
-
     </div>
 
 </jsp:root>

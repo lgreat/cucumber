@@ -84,7 +84,7 @@
                 <ad:adTag position="Sponsor_610x30"/>
 
                 <!--Sidebar-->
-                <div class="grid_6 alpha mrm">
+                <div class="grid_6 alpha">
 
                     <article:toolsLayout1 feature="${feature}" uri="${uri}"/>
 
@@ -117,7 +117,7 @@
                 <!--Sidebar-->
 
                 <!--Content-->
-                <div class="articleContent">
+                <div class="grid_10 omega articleContent">
                     <!--Image-->
                     <article:mainImage feature="${feature}"/>
                     <!--Image-->
@@ -139,8 +139,6 @@
                     </c:if>
                 </div>
                 <!--Content-->
-
-                <hr class="keyline1"/>
 
                 <!--Share buttons-->
                 <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
