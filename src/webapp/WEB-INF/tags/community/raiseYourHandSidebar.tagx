@@ -4,8 +4,8 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community">
 
 <jsp:directive.attribute name="discussion" required="true" type="gs.data.community.Discussion"/>
 <jsp:directive.attribute name="replies" required="true" type="java.util.List"/>
@@ -14,11 +14,6 @@
 <jsp:directive.attribute name="signedIn" required="true" type="java.lang.Boolean"/>
 <jsp:directive.attribute name="redirectUrl" required="true" type="java.lang.String"/>
 <jsp:directive.attribute name="ryhMaxNumReplies" required="true" type="java.lang.Integer"/>
-<jsp:directive.attribute name="style" required="true" type="java.lang.String"/>
-<jsp:directive.attribute name="showViewAll" required="true" type="java.lang.Boolean"/>
-<jsp:directive.attribute name="allowEditsDeletesReports" required="true" type="java.lang.Boolean"/>
-<jsp:directive.attribute name="showFullReplies" required="true" type="java.lang.Boolean"/>
-<jsp:directive.attribute name="showSponsor" required="true" type="java.lang.Boolean"/>
 
 <c:if test="${not empty discussion}">
 
@@ -81,17 +76,15 @@
                             var body = data.body;
                             newRyhPost.html(newRyhPost.html().replace('discussionReplyId=1#reply_1', 'discussionReplyId=' + replyId + '#reply_' + replyId));
                             newRyhPost.html(newRyhPost.html().replace('DISCUSSION_REPLY_BODY', body));
-                            jQuery('.recentAnswers').prepend(newRyhPost.children());
-                            var numRecent = jQuery('.recentAnswers .ryh-reply').size();
+                            jQuery('.js-recentAnswers').prepend(newRyhPost.children());
+                            var numRecent = jQuery('.js-recentAnswers .js-ryh-reply').size();
                             if (numRecent > ${ryhMaxNumReplies}) {
-                                jQuery('.recentAnswers .ryh-reply:last').remove();
-                                jQuery('.recentAnswers br.clearfloat:last').remove();
+                                jQuery('.js-recentAnswers .js-ryh-reply:last').remove();
+                                jQuery('.js-recentAnswers br.clearfloat:last').remove();
                             }
                             jQuery('#ryhAnswer').val('');
                             limitChars('ryhAnswer', ryhAnswerCharacterLimit, 'ryhAnswerCount');
                             jQuery('.ryh-recentAnswers').show();
-                            // note: the following div is actually in discussion.jspx
-                            jQuery('.db_no_replies').hide();
                         } else {
                             alert('An error occurred. Please try again.');
                         }
@@ -99,90 +92,13 @@
             return true;
         });
 
-        //<c:if test="${allowEditsDeletesReports}">
-
-        jQuery('.ryh-yourAnswer .editLink').click(function() {
-            var ryhContainer = jQuery(this).parents('.ryh-yourAnswer');
-            var body = ryhContainer.children('.discussionBody').html();
-            var title = ryhContainer.find('.ryh-discussion-title').html();
-            var discussionId = ${discussion.id};
-            GS.startDiscussionHover.showEdit(title, body, discussionId);
-            return false;
-        });
-
-        // TODO-9419
-        jQuery('.db_replies .editLink, .recentAnswers .editLink').click(function() {
-            alert('boo');
-            var wrapper = jQuery(this).parents('.db_reply_topic');
-            var container = jQuery(this).parents('.db_replyContainer');
-            var reply = container.children('.db_reply_full');
-            var body = reply.children('.replyBody').html();
-            body = body.replace(/\<br[^>]*\>/gi, '\n');
-            body = unescapeHTML(body);
-            var replyId = reply.children('.replyId').text();
-            var replyForm = jQuery('.replyForm:first form').clone();
-            replyForm.find('textarea').val(body);
-            replyForm.find('input[name=submit]').val('Edit this reply');
-            var replyIdElem = document.createElement('input');
-            jQuery(replyIdElem).attr('name', 'discussionReplyId');
-            jQuery(replyIdElem).attr('type', 'hidden');
-            jQuery(replyIdElem).attr('value', replyId);
-            replyForm.append(replyIdElem);
-            container.append(replyForm);
-            wrapper.css('margin-left', '0');
-            reply.hide();
-            replyForm.show();
-        });
-
-        //<gsml:ifUserCanDeleteContent pageUser="${user}">
-        jQuery('.ryh-reply .deleteLink').click(function() {
-            var reply = jQuery(this).parents('.ryh-reply');
-            var replyId = reply.children('.replyId').text();
-            jQuery.post('/community/deactivateContent.page', {
-                contentId:replyId,
-                contentType:'reply'});
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 250);
-        });
-
-        jQuery('.ryh-reply .undeleteLink').click(function() {
-            var reply = jQuery(this).parents('.ryh-reply');
-            var replyId = reply.children('.replyId').text();
-            jQuery.post('/community/deactivateContent.page', {
-                contentId:replyId,
-                contentType:'reply',
-                reactivate:true});
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 250);
-        });
-
-        jQuery('.ryh-yourAnswer .deleteLink').click(function() {
-            $.post('/community/deactivateContent.page', {
-                contentId:${discussion.id},
-                contentType:'discussion'});
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 250);
-        });
-
-        jQuery('.ryh-yourAnswer .undeleteLink').click(function() {
-            $.post('/community/deactivateContent.page', {
-                contentId:${discussion.id},
-                contentType:'discussion',
-                reactivate:true});
-            window.setTimeout(function() {
-                window.location.reload();
-            }, 250);
-        });
-        //</gsml:ifUserCanDeleteContent>
-        //</c:if>
-
         //</c:if>
 
         //<c:if test="${!signedIn}">
-        jQuery('#ryhAnswer, #ryhSubmit').focus(function() {
+        jQuery('#ryhAnswer').focus(function() {
+            GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
+        });
+        jQuery('#ryhSubmit').click(function() {
             GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
         });
         //</c:if>
@@ -209,26 +125,6 @@
             <link:discussion discussionId="${discussion.id}"
                              fullUri="${discussion.discussionBoard.fullUri}">${discussion.title}
             </link:discussion>
-            <c:if test="${allowEditsDeletesReports}">
-                <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${discussion.user}"
-                                           contentPostedDate="${discussion.dateCreated}">
-                    | <a href="javascript:void(0);" class="editLink link">Edit</a>
-                </gsml:ifUserCanEditContent>
-                <c:choose>
-                    <c:when test="${discussion.active eq false}">
-                        | <span class="tint_c03"> (Deleted) </span>
-                        <gsml:ifUserCanDeleteContent pageUser="${user}">
-                            <a href="javascript:void(0);" class="undeleteLink link" onclick="return false;">Undelete</a>
-                        </gsml:ifUserCanDeleteContent>
-                    </c:when>
-                    <c:otherwise>
-                        <gsml:ifUserCanDeleteContent pageUser="${user}">
-                            | <a href="javascript:void(0);" class="deleteLink link" onclick="return false;">Delete</a>
-                        </gsml:ifUserCanDeleteContent>
-                    </c:otherwise>
-                </c:choose>
-                <span class="hidden discussionBody">${discussion.body}</span>
-            </c:if>
         </div>
     </div>
 </div>
@@ -252,9 +148,7 @@
                     value="Submit">Submit
             </button>
 
-            <c:if test="${showSponsor}">
-                <ad:adTag position="RYH_Sponsor_90x32"/>
-            </c:if>
+            <ad:adTag position="RYH_Sponsor_90x32"/>
         </div>
     </div>
 </div>
@@ -273,19 +167,15 @@
 
             <p class="text1bold fltlft">Recent Answers</p>
 
-            <c:if test="${showViewAll}">
-
-                <div class="fltrt">
+            <div class="fltrt">
                     <span class="smallAlertText">
                     <link:discussion discussionId="${discussion.id}"
                                      fullUri="${discussion.discussionBoard.fullUri}">View all replies <span
                             class="alertDoubleArrow">&amp;raquo;</span>
                     </link:discussion>
                     </span>
-                </div>
-                <br class="clearfloat"/>
-
-            </c:if>
+            </div>
+            <br class="clearfloat"/>
 
         </div>
         <div class="bd">
@@ -293,7 +183,7 @@
             <c:if test="${signedIn}">
 
                 <div id="recentAnswerTemplate" style="display: none;">
-                    <div class="mediaExt2-6">
+                    <div class="mediaExt2-6 js-ryh-reply">
                         <div class="img">
 
                             <link:userProfile user="${user}">
@@ -329,17 +219,17 @@
                         <!-- end ryh-reply-text -->
 
                     </div>
-                    <!-- end ryh-reply -->
+                    <!-- end js-ryh-reply -->
                 </div>
                 <!-- end recentAnswerTemplate -->
 
             </c:if>
 
-
+            <div class="js-recentAnswers">
                 <c:forEach var="reply" items="${replies}">
 
                     <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
-                    <div class="mediaExt2-6">
+                    <div class="mediaExt2-6 js-ryh-reply">
                         <div class="img">
                             <c:choose>
                                 <c:when test="${reply.user.userProfile.active}">
@@ -378,69 +268,29 @@
 
                                 <span class="smallText1"> ${gsweb:detailedPeriodBetweenDates(reply.dateCreated,requestScope.currentDate)}</span>
                             </p>
-                            <c:if test="${allowEditsDeletesReports}">
-                                <!-- TODO-9419 Edit Replies -->
-                                <!--
-                                <gsml:ifUserCanEditContent pageUser="${user}" contentUser="${reply.user}"
-                                                           contentPostedDate="${reply.dateCreated}">
-                                    | <a href="javascript:void(0);" class="editLink link" onclick="return false;">Edit</a>
-                                </gsml:ifUserCanEditContent>
-                                -->
-                                <c:choose>
-                                    <c:when test="${reply.active eq false}">
-                                        | <span class="tint_c03"> (Deleted) </span>
-                                        <c:if test="${discussion.active eq true}">
-                                            <gsml:ifUserCanDeleteContent pageUser="${user}">
-                                                <a href="javascript:void(0);" class="undeleteLink link"
-                                                   onclick="return false;">Undelete</a>
-                                            </gsml:ifUserCanDeleteContent>
-                                        </c:if>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <gsml:ifUserCanDeleteContent pageUser="${user}">
-                                            | <a href="javascript:void(0);" class="deleteLink link"
-                                                 onclick="return false;">Delete</a>
-                                        </gsml:ifUserCanDeleteContent>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:if>
 
-                            <c:choose>
-                                <c:when test="${requestScope.replyReports ne null and requestScope.replyReports[reply.id] eq true}">
+                            <c:if test="${requestScope.replyReports ne null and requestScope.replyReports[reply.id] eq true}">
                                     <p class="fltrt reported">You've reported this reply.</p>
-                                </c:when>
-                                <c:when test="${allowEditsDeletesReports}">
-                                    <p class="fltrt">
-                                        <a class="smallText1 reportIt link" href="${loginRedirectUrl}"
-                                           id="report_reply_${reply.id}">Report it</a>
-                                    </p>
-                                </c:when>
-                            </c:choose>
+                            </c:if>
                             <br class="clearfloat"/>
 
-                            <c:choose>
-                                <c:when test="${showFullReplies}">
-                                    <span class="text3 replyBody">${reply.body}</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <community:userContentTeaserText
-                                            textToDisplay="${reply.body}"
-                                            minLength="250" maxLength="260"
-                                            discussionId="${discussion.id}"
-                                            discussionFullUri="${discussion.discussionBoard.fullUri}"
-                                            discussionReplyId="${reply.id}"
-                                            textSpanClass="text3"/>
-                                </c:otherwise>
-                            </c:choose>
+                            <community:userContentTeaserText
+                                    textToDisplay="${reply.body}"
+                                    minLength="250" maxLength="260"
+                                    discussionId="${discussion.id}"
+                                    discussionFullUri="${discussion.discussionBoard.fullUri}"
+                                    discussionReplyId="${reply.id}"
+                                    textSpanClass="text3"/>
                         </div>
-                        <!-- end ryh-reply -->
+                        <!-- end js-ryh-reply -->
                         <span class="hidden replyId">${reply.id}</span>
                         </div>
                     </div>
                     <!-- end ryh-replies -->
 
                 </c:forEach>
-
+            </div>
+            <!-- end js-recentAnswers -->
         </div>
 
     </div>

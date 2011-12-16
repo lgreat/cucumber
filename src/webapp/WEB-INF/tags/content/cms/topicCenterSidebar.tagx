@@ -184,7 +184,7 @@
 
         <c:set var="raiseYourHand">
             <c:import
-                    url="/community/raiseYourHandSidebar.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=1&amp;style=topicCenter&amp;showViewAll=true&amp;showSponsor=true"/>
+                    url="/community/raiseYourHandSidebar.module?featureContentKey=${gsweb:urlEncode(topicCenter.contentKey)}&amp;limit=1"/>
         </c:set>
         ${raiseYourHand}
 

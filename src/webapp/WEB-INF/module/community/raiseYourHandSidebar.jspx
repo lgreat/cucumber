@@ -5,8 +5,6 @@
 
     <community:raiseYourHandSidebar discussion="${discussion}" replies="${replies}" currentDate="${currentDate}"
                                     user="${user}" signedIn="${signedIn}" redirectUrl="${redirectUrl}"
-                                    ryhMaxNumReplies="${ryhMaxNumReplies}" style="${style}" showViewAll="${showViewAll}"
-                                    allowEditsDeletesReports="false" showFullReplies="false"
-                                    showSponsor="${showSponsor}"/>
+                                    ryhMaxNumReplies="${ryhMaxNumReplies}"/>
 
 </jsp:root>
