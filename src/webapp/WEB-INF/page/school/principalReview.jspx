@@ -169,7 +169,7 @@
                     pass = false
                 }
 
-                if (!terms.attr("checked")) {
+                if (!terms.prop("checked")) {
                     termsError.show();
                     pass = false;
                 }
