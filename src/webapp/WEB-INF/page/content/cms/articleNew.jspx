@@ -136,6 +136,7 @@
                         <div class="lineheight-25"><a class="padlft_10"
                                                       href="${feature.pdfUri}">Download and print at home.</a>
                         </div>
+                        <div class="spacer_10"><!-- do not collapse --></div>
                     </c:if>
                 </div>
                 <!--Content-->

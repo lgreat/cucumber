@@ -8,38 +8,40 @@
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
     <jsp:directive.attribute name="uri" required="true" type="java.lang.String"/>
 
-            <div class="mod articleDistribution">
-                <div class="inner rnd4">
-                    <div class="bd"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
-                    <div class="ft mts pls">
-                        <ul>
+    <div class="mod articleDistribution">
+        <div class="inner rnd4">
+            <div class="bd"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
+            <div class="ft">
+                <div class="ft-inner">
+                    <ul>
+                        <li class="smaller">
+                            <gsml:url var="mailToFriendUrl"
+                                      value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
+                            <gsml:a href="${mailToFriendUrl}"
+                                    onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
+                                <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</gsml:a>
+                        </li>
+                        <li class="smaller">
+                            <a href="javascript:void(0);"
+                               onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
+                                    class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a>
+                        </li>
+                        <c:if test="${not empty feature.otherLanguageUri}">
                             <li class="smaller">
-                                <gsml:url var="mailToFriendUrl"
-                                          value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
-                                <gsml:a href="${mailToFriendUrl}"
-                                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
-                                    <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</gsml:a>
+                                <strong>
+                                    <a href="${feature.otherLanguageUri}">
+                                        <c:choose>
+                                            <c:when test="${feature.language eq 'ES'}">In english</c:when>
+                                            <c:otherwise><span
+                                                    class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
+                                        </c:choose>
+                                    </a>
+                                </strong>
                             </li>
-                            <li class="smaller">
-                                <a href="javascript:void(0);"
-                                   onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
-                                        class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a>
-                            </li>
-                            <c:if test="${not empty feature.otherLanguageUri}">
-                                <li class="smaller">
-                                    <strong>
-                                        <a href="${feature.otherLanguageUri}">
-                                            <c:choose>
-                                                <c:when test="${feature.language eq 'ES'}">In english</c:when>
-                                                <c:otherwise><span
-                                                        class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
-                                            </c:choose>
-                                        </a>
-                                    </strong>
-                                </li>
-                            </c:if>
-                        </ul>
-                    </div>
+                        </c:if>
+                    </ul>
                 </div>
             </div>
+        </div>
+    </div>
 </jsp:root>
