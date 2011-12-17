@@ -144,7 +144,7 @@ function GS_initCheckedSchools() {
     //add to array all of checkboxes which are checked, according to what's in the query string
     for (var i = 0; i < numberOfQueryStringSchools; i++) {
         var checkbox = jQuery('#' + ID_PREFIX + queryStringSchools[i]);
-        checkbox.attr("checked", true);
+        checkbox.prop("checked", true);
     }
     evaluateCheckboxes();
 }
