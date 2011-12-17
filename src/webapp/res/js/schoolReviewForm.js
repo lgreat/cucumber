@@ -494,7 +494,11 @@ GS.form.SchoolReviewForm = function(id) {
             this.email.getElement().val(email);
         }
         var formData = this.serialize();
-        jQuery.post(url, formData, function(data) {
+        var jqxhr = jQuery.ajax({
+            url: url,
+            data: formData,
+            dataType: "json"
+        }).done(function(data) {
             if (data.showHover !== undefined && data.showHover === 'emailNotValidated') {
                 GSType.hover.emailNotValidated.show();
                 return false;
@@ -541,7 +545,9 @@ GS.form.SchoolReviewForm = function(id) {
                     window.location.reload();
                 }
             }
-        }, 'json');
+        }).fail(function(data) {
+            alert("We're sorry, but we were not able to process your review submission. Please try again soon.");
+        });
     }.gs_bind(this);
 
     this.submitHandler = function() {

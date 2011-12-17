@@ -8,14 +8,18 @@ jQuery(function() {
 
     GS.form.ParentReviewTabSchoolReviewForm.prototype = new GS.form.SchoolReviewForm("frmPRModule");
     GS.form.ParentReviewTabSchoolReviewForm.prototype.postReview = function(email, callerFormId) {
-        var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview.page';
+        var url = GS.uri.Uri.getBaseHostname() + '/school/review/postReview2.page';
         
         //When this method is called by the "sign in" handler, overwrite review form's email with whatever user signed in with.
         if (email !== undefined && email !== '') {
             this.email.getElement().val(email);
         }
         var formData = this.serialize();
-        jQuery.post(url, formData, function(data) {
+        var jqxhr = jQuery.ajax({
+            url:url,
+            data:formData,
+            dataType:"json"
+        }).done(function(data) {
             if (data.showHover !== undefined && data.showHover === "emailNotValidated") {
                 GSType.hover.emailNotValidated.show();
                 return false;
@@ -62,7 +66,9 @@ jQuery(function() {
                     window.location.reload();
                 }
             }
-        }, "json");
+        }).fail(function(data){
+            alert("We're sorry, but we were not able to process your review submission. Please try again soon.");
+        });
     }.gs_bind(GS.form.ParentReviewTabSchoolReviewForm.prototype);
    //GS.form.schoolReviewForm = new GS.form.SchoolReviewForm("frmPRModule");
     GS.form.parentReviewTabSchoolReviewForm = new GS.form.ParentReviewTabSchoolReviewForm();
