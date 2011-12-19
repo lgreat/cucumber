@@ -96,9 +96,9 @@ GS.module.SchoolSelect = function() {
 
     this.onStateChange = function() {
         var state = this.stateSelect.$element.val();
-        this.citySelect.$element.attr("disabled", true);
+        this.citySelect.$element.prop("disabled", true);
         this.citySelect.reset();
-        this.schoolSelect.$element.attr("disabled", true);
+        this.schoolSelect.$element.prop("disabled", true);
         this.schoolSelect.reset();
         this.getCities(state);
         this.validateAllFields();
@@ -123,13 +123,13 @@ GS.module.SchoolSelect = function() {
                 }
             }
         }
-        this.citySelect.$element.attr("disabled", false);
+        this.citySelect.$element.prop("disabled", false);
     }.gs_bind(this);
 
     this.onCityChange = function() {
         var state = jQuery('#stateSelect').val();
         var city = jQuery('#citySelect').val();
-        this.schoolSelect.$element.attr("disabled", true);
+        this.schoolSelect.$element.prop("disabled", true);
         this.getSchools(state, city);
         this.validateAllFields();
         this.checkIfValid();
@@ -145,7 +145,7 @@ GS.module.SchoolSelect = function() {
         jQuery(data).find('option').each(function () {
             self.schoolSelect.$element.append("<option value=\"" + jQuery(this).attr('value') + "\">" + jQuery(this).text() + "</option>");
         });
-        self.schoolSelect.$element.attr("disabled", false);
+        self.schoolSelect.$element.prop("disabled", false);
     };
 
     this.onSchoolChange = function() {
