@@ -104,7 +104,6 @@
 
 
                     <c:if test="${not empty feature.sidebar}">
-                        <hr class="keyline1"/>
                         <div class="mod articleSidebar">
                             <div class="inner">
                                 <div class="bd">
