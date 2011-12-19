@@ -288,7 +288,6 @@ GS.search.SchoolSearchResultsTable = function() {
     this.update = function() {
 
         var onSearchSuccess = function(data) {
-            alert(1);
             var afterFadeIn = function() {
                 jQuery("#spinner").hide();
                 //reattach callbacks to dom element events
