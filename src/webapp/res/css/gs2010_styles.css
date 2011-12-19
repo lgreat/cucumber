@@ -877,7 +877,7 @@ h4.subhead2 a {
 .articleDistribution .ft-inner{border-top:1px solid #ddd;margin-top:5px;padding:0 5px 5px;}
 /* ------------- relatedArticles ------------- */
 .relatedArticles {margin-bottom:10px;}
-.relatedArticles .inner{border:1px solid #ddd;background-color: #fafafa;padding:10px;}
+.relatedArticles .inner{border:1px solid #e6e6e6;background-color: #fff;padding:10px;}
 .relatedArticles .inner .hd h3{color:#d61;font-weight:normal;}
 /* ------------ articlePagination ------------ */
 .articlePagination{font: normal 12px/18px Arial, Helvetica, sans-serif;float:right;}
@@ -4281,8 +4281,8 @@ body.cobranded #pageGS {
 -------------------------------------------------------------------------------------------*/
 
 .infiniteCarousel5 {
-    width: 228px;
-    height: 208px;
+    width: 188px;
+    height: 218px;
     border: 1px solid #ddd;
     position: relative;
     margin-bottom:10px;
@@ -4298,10 +4298,10 @@ body.cobranded #pageGS {
 
 .infiniteCarousel5 .wrapper {
     clear:both;
-    width: 200px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
+    width: 188px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: auto;
     height: 173px;
-    margin: 0 14px;
+    margin: 0;
     position: absolute;
     top: 35px;
 }
@@ -4321,7 +4321,7 @@ body.cobranded #pageGS {
     display: block;
     float: left;
     padding: 0 20px;
-    width: 200px;
+    width: 188px;
     height: 130px;
 }
 
@@ -4356,8 +4356,8 @@ body.cobranded #pageGS {
               filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
 }
 
-.infiniteCarousel5 .forward {right: 14px;}
-.infiniteCarousel5 .back {left: 133px;}
+.infiniteCarousel5 .forward {right: 10px;}
+.infiniteCarousel5 .back {left: 98px;}
 
 .infiniteCarousel5 .forward:hover {text-decoration: none;
     background-color: #ffffff;
@@ -4449,14 +4449,14 @@ body.cobranded #pageGS {
 .infiniteCarousel5 .carouselCounter{
     position:absolute;
     top:11px;
-    right:40px;
+    right:37px;
 }
 
 /* =12c-3.3.2 infinite carousel 6 (video: 1 up GS-12260)
 -------------------------------------------------------------------------------------------*/
 
 .infiniteCarousel6 {
-    width: 228px;
+    width: 188px;
     height: 178px;
     border: 1px solid #ddd;
     position: relative;
@@ -4476,7 +4476,7 @@ body.cobranded #pageGS {
     width: 120px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: auto;
     height: 136px;
-    margin: 0 53px;
+    margin: 0 33px;
     position: absolute;
     top: 42px;
 }
@@ -4530,8 +4530,8 @@ body.cobranded #pageGS {
               filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
 }
 
-.infiniteCarousel6 .forward {right: 14px;}
-.infiniteCarousel6 .back {left: 133px;}
+.infiniteCarousel6 .forward {right: 10px;}
+.infiniteCarousel6 .back {left: 98px;}
 
 .infiniteCarousel6 .forward:hover {text-decoration: none;
     background-color: #ffffff;
@@ -4623,7 +4623,7 @@ body.cobranded #pageGS {
 .infiniteCarousel6 .carouselCounter{
     position:absolute;
     top:11px;
-    right:40px;
+    right:37px;
 }
 
 /* =12c-4 browse schools by city

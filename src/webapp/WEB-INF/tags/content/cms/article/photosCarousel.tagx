@@ -19,7 +19,7 @@
                         <c:set var="index" value="${carouselStatus.count > 0 ? carouselStatus.count -1 :0}"></c:set>
                         <li>
                             <div class="captioned_photo js-photo-gallery-trigger">
-                                <img src="${carouselItem}" width="200" height="130"
+                                <img src="${carouselItem}" width="188" height="130"
                                      alt="${altTexts[index]}"/>
                                 <c:if test="${photoCaptions[index] != ''}">
                                     <span class="smaller loud">${photoCaptions[index]}</span>
