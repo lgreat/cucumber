@@ -91,7 +91,7 @@ GS.search.SchoolSearcher = function() {
             window.History.replaceState(null, document.title, buildQueryString(window.location.search));
         }
 
-        jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback});
+        jQuery.ajax({type: "post", url: this.url() + queryString, data:data, success: callback, error: errorCallback, traditional: true});
     };
 };
 
