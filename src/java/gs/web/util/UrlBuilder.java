@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.271 2011/12/14 21:26:53 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.272 2011/12/19 21:39:54 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -1763,7 +1763,7 @@ public class UrlBuilder {
         RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
 
         //get a new hostname for _subdomain, since subdomain might be pk or www
-        if (request != null) {
+        if (requestInfo != null) {
             serverName = requestInfo.getHostnameForTargetSubdomain(_subdomain);
         } else {
             serverName = request.getServerName();
