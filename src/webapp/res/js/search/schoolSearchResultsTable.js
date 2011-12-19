@@ -148,7 +148,7 @@ GS.search.SchoolSearchResultsTable = function() {
 
         //add to array all of checkboxes which are checked, according to what's in the query string
         for (var i = 0; i < numberOfQueryStringSchools; i++) {
-            jQuery('#' +queryStringSchools[i]).attr("checked", true);
+            jQuery('#' +queryStringSchools[i]).prop("checked", true);
             var index = checkedSchools.indexOf(queryStringSchools[i]);
             if (index === -1) {
                 checkedSchools.push(queryStringSchools[i]);
@@ -169,7 +169,7 @@ GS.search.SchoolSearchResultsTable = function() {
 
     this.onCompareCheckboxClicked = function(item) {
         var checkbox = jQuery(item.currentTarget);
-        var checked = checkbox.attr("checked");
+        var checked = checkbox.prop("checked");
         var rowId = checkbox.parent().parent().attr("id");
         var row = jQuery('#' + rowId);
         var statePlusSchoolId = row.find('input.compare-school-checkbox').attr('id');
@@ -198,7 +198,7 @@ GS.search.SchoolSearchResultsTable = function() {
 
         for (var i = 0; i < count; i++) {
             var id = checkedSchools[i];
-            jQuery('#' + id).attr('checked', true);
+            jQuery('#' + id).prop('checked', true);
             this.selectRow(jQuery('#'+id).parent().parent().attr("id"));
         }
         this.updateNumCheckedSchoolsText();
@@ -288,6 +288,7 @@ GS.search.SchoolSearchResultsTable = function() {
     this.update = function() {
 
         var onSearchSuccess = function(data) {
+            alert(1);
             var afterFadeIn = function() {
                 jQuery("#spinner").hide();
                 //reattach callbacks to dom element events
@@ -471,31 +472,31 @@ jQuery(function() {
         // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
         if (cssId === 'grade-level-all') {
             if (jQuery('#grade-level-all').is(':checked')) {
-                jQuery('#topicbarGS .jq-grade-level').attr('checked','checked');
+                jQuery('#topicbarGS .jq-grade-level').prop('checked',true);
             } else {
-                jQuery('#topicbarGS .jq-grade-level').removeAttr('checked');
+                jQuery('#topicbarGS .jq-grade-level').prop('checked', false);
             }
         } else if (cssId === 'school-type-all') {
             if (jQuery('#school-type-all').is(':checked')) {
-                jQuery('#topicbarGS .jq-school-type').attr('checked','checked');
+                jQuery('#topicbarGS .jq-school-type').prop('checked',true);
             } else {
-                jQuery('#topicbarGS .jq-school-type').removeAttr('checked');
+                jQuery('#topicbarGS .jq-school-type').prop('checked', false);
             }
         }
         var numGradeLevels = jQuery('#topicbarGS .jq-grade-level').size();
         var numGradeLevelsChecked = jQuery('#topicbarGS .jq-grade-level:checked').size();
         if (numGradeLevels == numGradeLevelsChecked) {
-            jQuery('#grade-level-all').attr('checked','checked');
+            jQuery('#grade-level-all').prop('checked',true);
         } else {
-            jQuery('#grade-level-all').removeAttr('checked');
+            jQuery('#grade-level-all').prop('checked', false);
         }
 
         var numSchoolTypes = jQuery('#topicbarGS .jq-school-type').size();
         var numSchoolTypesChecked = jQuery('#topicbarGS .jq-school-type:checked').size();
         if (numSchoolTypes == numSchoolTypesChecked) {
-            jQuery('#school-type-all').attr('checked','checked');
+            jQuery('#school-type-all').prop('checked',true);
         } else {
-            jQuery('#school-type-all').removeAttr('checked');
+            jQuery('#school-type-all').prop('checked', false);
         }
 
         GS.search.filterTracking.track(cssId);
