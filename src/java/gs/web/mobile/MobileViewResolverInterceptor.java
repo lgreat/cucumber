@@ -37,7 +37,7 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
             boolean controllerSupportsDesktop = true;
             boolean controllerSupportsDesktopOnly = true;
 
-            if (handler instanceof IControllerWithMobileAndDesktopViews) {
+            if (handler instanceof IViewSelectionYieldedToInterceptor) {
                 controller = (IControllerWithMobileSupport) handler;
                 controllerSupportsMobile = controller.beanSupportsMobileRequests();
                 controllerSupportsMobileOnly = !controller.beanSupportsDesktopRequests();
@@ -46,10 +46,10 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
 
                 if (controllerSupportsMobile && controllerSupportsDesktop) {
                     // get the name of the mobile view that was configured for the controller
-                    String mobileViewName = ((IControllerWithMobileAndDesktopViews) handler).getMobileViewName();
+                    String mobileViewName = ((IViewSelectionYieldedToInterceptor) handler).getMobileViewName();
                     
                     // get the name of the default view that was configured for the controller
-                    String viewName =  ((IControllerWithMobileAndDesktopViews) handler).getViewName();
+                    String viewName =  ((IViewSelectionYieldedToInterceptor) handler).getViewName();
 
                     if (_requestInfo.shouldRenderMobileView()) {
                         if (mobileViewName == null) {
