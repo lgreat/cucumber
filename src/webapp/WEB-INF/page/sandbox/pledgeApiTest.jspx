@@ -67,7 +67,7 @@
             var pledgeId = $("#pledgeId").val();
             var pledgeStr = $("#pledgeStr").val();
             var email = $("#email").val();
-            var signup = $("#signup").attr("checked");
+            var signup = $("#signup").prop("checked");
             $.post(
                     "/backToSchool/pledge/submitPersonalPledge.page",
                     {pledge_id: pledgeId, pledge: pledgeStr, email: email, signup: signup},
