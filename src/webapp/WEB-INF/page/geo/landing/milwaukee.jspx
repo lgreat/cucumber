@@ -75,7 +75,7 @@
                     <div class="m_list treb12B tint5bc">Vanna Lovan<br/>
                         <span class="treb12 tint666">Community Organizer</span></div>
                     <div class="m_list treb12B tint5bc">Nzinga Khalid<br/>
-                        <span class="treb12 tint666">Community Organizer</span></div>
+                        <span class="treb12 tint666">Project Manager</span></div>
                     <div class="m_list treb12B tint5bc">Jodi Goldberg<br/>
                         <span class="treb12 tint666">Director</span></div>
                     <div class="m_list treb12B tint5bc">Nelly Hernandez<br/>
@@ -162,6 +162,9 @@
                 </h3>
                 <ul>
                     <li><a href="mailto:milwaukee@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20Milwaukee" >E-mail us for more information</a></li>
+                    <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
+                        <gsml:a href="http://www.greatschools.org/catalog/pdf/gs-mkeFair-poster-11x17.pdf" target="_blank">2012 Milwaukee School Fair Poster</gsml:a>
+                    </li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="/res/pdf/schoolchooser/GreatSchools_Milwaukee_Chooser_2012-2013_English.pdf" target="_blank">Milwaukee School Chooser</gsml:a>
                     </li>
