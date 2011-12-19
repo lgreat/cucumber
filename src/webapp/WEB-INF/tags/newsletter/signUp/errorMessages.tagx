@@ -7,10 +7,13 @@
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         xmlns:form="http://www.springframework.org/tags/form"
         >
+
+    <jsp:directive.attribute name="openLinksInNewWindow" required="true" type="java.lang.Boolean"/>
+
     <c:if test="${newslettersSignUpCommand.tooManySchoolsError}">
         <div class="error_msg medium_bold bottom pbm">You have reached the maximum number of trackable schools.<a
                 href="/email/management.page?ref=${tooManySchoolsErrMemberId}"
-                class="mls">Click here to update your schools.</a>
+                class="mls" target="${pageScope.openLinksInNewWindow ? '_new' : '_self'}">Click here to update your schools.</a>
         </div>
     </c:if>
 

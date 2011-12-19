@@ -31,7 +31,7 @@
 
                 <form:form commandName="newslettersSignUpCommand" method="POST">
 
-                    <newsletterSignUp:errorMessages/>
+                    <newsletterSignUp:errorMessages openLinksInNewWindow="true"/>
 
                     <newsletterSignUp:emailAddress showInstructions="${false}"/>
 
