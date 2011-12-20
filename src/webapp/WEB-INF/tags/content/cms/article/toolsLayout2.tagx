@@ -24,12 +24,12 @@
                     <gsml:url var="mailToFriendUrl"
                               value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
                             <button class="button-5 mrs" href="${mailToFriendUrl}"
-                                    onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
+                                    onClick="window.open('${mailToFriendUrl}', 'win', 'width=700,height=600,scrollbars=yes'); return false;">
                                 <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email
                             </button>
 
                             <button class="button-5 mhs" href="javascript:void(0);"
-                                    onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
+                                    onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=700,height=600,scrollbars=yes'); return false;"><span
                                     class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print
                             </button>
 
