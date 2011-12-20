@@ -25,10 +25,10 @@ General comments:
 /* **************** BLOCK SKINS ***************** */
 
 
-.articlePrint .printLogo{
-    border-bottom: 1px solid #000;
-}
+.articlePrint .printLogo{border-bottom: 1px solid #000;}
 
-.articleSidebar{margin:0 10px 10px 0;}
+.articleSlideshow{margin-bottom: 10px;}
+
+.articleSidebar{margin-bottom:10px;}
 .articleSidebar .inner{border: 1px solid #000;padding: 15px;}
 .articleSidebar .inner .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}

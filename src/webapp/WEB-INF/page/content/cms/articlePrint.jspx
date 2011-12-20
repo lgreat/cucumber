@@ -63,18 +63,22 @@
 
         <div class="clearfloat"><!-- do not collapse --></div>
 
-        <div class="grid_6 alpha">
+        <div class="grid_5 alpha">
         <!-- photo gallery images -->
 
             <c:if test="${showPhotoGallery}">
-                <div class="mbl mrl">
-                    <c:forEach var="galleryImage" items="${mediumPhotos}" varStatus="index">
-                        <img src="${galleryImage}" alt="${altTexts[index.count]}"/>
+                <div class="mod articleSlideshow">
+                    <div class="inner">
+                        <div class="bd">
+                            <c:forEach var="galleryImage" items="${mediumPhotos}" varStatus="index">
+                                <img src="${galleryImage}" alt="${altTexts[index.count]}" width="188" height="130"/>
 
-                        <div class="mts mbm">
-                            ${photoCaptions[index.count]}
+                                <div class="small">
+                                    ${photoCaptions[index.count]}
+                                </div>
+                            </c:forEach>
                         </div>
-                    </c:forEach>
+                    </div>
                 </div>
             </c:if>
 
@@ -93,7 +97,7 @@
         <!--Sidebar-->
         </div>
 
-        <div class="articleContent">
+        <div class="grid_11 omega articleContent">
             <!--Image-->
             <article:mainImage feature="${feature}"/>
             <!--Image-->
