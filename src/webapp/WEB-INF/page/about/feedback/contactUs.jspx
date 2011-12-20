@@ -57,9 +57,7 @@
             });
 
             if (feedbackType != 'defaultOption') {
-                // TODO-JQ-12058 swap following lines
-                $("#mainFeedbackTopicSelect option[value='" + feedbackType + "']").attr('selected', 'selected');
-//                $("#mainFeedbackTopicSelect option[value='" + feedbackType + "']").prop('selected', true);
+                $("#mainFeedbackTopicSelect option[value='" + feedbackType + "']").prop('selected', true);
                 mainSelect.change()
             }
 
@@ -83,9 +81,7 @@
 
             });
             if (feedbackType == 'incorrectSchoolDistrictInfo' && (subFeedbackType == 'incorrectSchool' || subFeedbackType == 'incorrectDistrict')) {
-                // TODO-JQ-12058 swap following lines
-                $j("#incorrectSchoolDistrictSubTopicSelect option[value='" + subFeedbackType + "']").attr('selected', 'selected');
-//                $j("#incorrectSchoolDistrictSubTopicSelect option[value='" + subFeedbackType + "']").prop('selected', true);
+                $j("#incorrectSchoolDistrictSubTopicSelect option[value='" + subFeedbackType + "']").prop('selected', true);
                 incorrectSchoolSubSelect.change()
             }
 
@@ -1252,4 +1248,3 @@
 </gsml:body>
 </html>
 </jsp:root>
-
