@@ -326,7 +326,7 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem">
+<td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
     <div class="dropdownReference">
         <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">&amp;nbsp;College&amp;nbsp;</link:college>
 
@@ -368,10 +368,6 @@
         </div>
     </div>
 </td>
-<td class="${(pw == tabs.GIFT_GUIDE ? 'selected' : '')} menuItem lastNavUnit"><a href="/gift-guide-2011.topic?content=5083"
-                                                                     id="PN-GiftGuide"
-                                                                     class="menuItemAnchorText noDrop GS_CI9_"><span
-class="navSprite i-pn-gg"><!-- do not collapse --></span> Gift Guide</a></td>
 </tr>
 </tbody>
 </table>
