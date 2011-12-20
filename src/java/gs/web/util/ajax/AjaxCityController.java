@@ -60,6 +60,7 @@ public class AjaxCityController  implements Controller {
         String grade = request.getParameter("grade");
         String notListedOption = request.getParameter("notListedOption");
 
+        response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
         try {
             if (city != null) {
