@@ -860,6 +860,7 @@ h4.subhead2 a {
 .articleText h3 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .articleText .mainImage{ margin-bottom: 16px; }
 /* ------------- articleSidebar -------------- */
+.articleSidebar{margin-bottom:20px;}
 .articleSidebar .inner{border:1px solid #e6e6e6;background-color: #fff;padding:10px;}
 .articleSidebar .inner .bd h3{color:#d61;font-weight:normal;}
 .articleSidebar .inner .bd p{font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}

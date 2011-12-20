@@ -149,35 +149,37 @@
                 </div>
                 <!--Content-->
 
-                <!--Share buttons-->
-                <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
-                <!--Share buttons-->
+                <div class="grid_16 alpha omega">
+                    <!--Share buttons-->
+                    <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
+                    <!--Share buttons-->
 
-                <!-- Pagination -->
-                <c:if test="${feature.numPages > 1}">
-                    <div class="articlePagination">
-                        Page
-                        <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
+                    <!-- Pagination -->
+                    <c:if test="${feature.numPages > 1}">
+                        <div class="articlePagination">
+                            Page
+                            <c:forEach begin="1" end="${feature.numPages}" var="pageNum" varStatus="status">
+                                <c:choose>
+                                    <c:when test="${pageNum == feature.currentPageNum}">
+                                        <span class="active rnd3">${pageNum}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
                             <c:choose>
-                                <c:when test="${pageNum == feature.currentPageNum}">
-                                    <span class="active rnd3">${pageNum}</span>
+                                <c:when test="${-1 == feature.currentPageNum}">
+                                    <span class="active rnd3">Single Page</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
+                                    <a href="${contentUrl}?page=all">Single Page</a>
                                 </c:otherwise>
                             </c:choose>
-                        </c:forEach>
-                        <c:choose>
-                            <c:when test="${-1 == feature.currentPageNum}">
-                                <span class="active rnd3">Single Page</span>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="${contentUrl}?page=all">Single Page</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </c:if>
-                <!-- Pagination -->
+                        </div>
+                    </c:if>
+                    <!-- Pagination -->
+                </div>
 
                 <div class="spacer_20"><!-- do not collapse --></div>
 
