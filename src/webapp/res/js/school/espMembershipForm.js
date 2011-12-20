@@ -72,7 +72,6 @@ GS.form.EspForm = function() {
                             jQuery('#js_' + fields[i] + 'Div').show();
                         }
                         jQuery('#js_regPanel').show();
-//                        unbindSubmitHandler();
                         bindFormSubmit();
 
                     } else if (data.userAlreadyESPMember === true) {
@@ -85,7 +84,6 @@ GS.form.EspForm = function() {
                         jQuery('#js_userNameDiv').show();
                         jQuery('#js_passwordDiv').show();
                         jQuery('#js_confirmPasswordDiv').show();
-//                        unbindSubmitHandler();
                         bindFormSubmit();
                     }
                 });
@@ -117,6 +115,7 @@ GS.form.EspForm = function() {
         return validEmail;
     };
 
+    //TODO sync or async
     this.validateFirstName = function() {
         var fName = jQuery('#js_firstName').val();
         var rval = true;
@@ -264,12 +263,11 @@ jQuery(function() {
 
     bindEmailSubmit();
 
-    jQuery('#js_email').keydown(function(email) {
+    jQuery('#js_email').keydown(function() {
         var regPanel = jQuery('#js_regPanel');
         hideEmailErrors();
         if (regPanel.is(':visible')) {
             regPanel.hide();
-//            unbindSubmitHandler();
             bindEmailSubmit();
         }
     });
@@ -285,7 +283,7 @@ function bindEmailSubmit() {
     //Additional check that if the registration panel is not visible then the form should not submit.
     if (!regPanel.is(':visible')) {
         unbindSubmitHandler();
-        jQuery('#js_submit').click(function(email) {
+        jQuery('#js_submit').click(function() {
             var email = jQuery('#js_email').val().trim();
             if (GS.form.espForm.validateEmail(email)) {
                 GS.form.espForm.checkUser(email);
@@ -311,8 +309,7 @@ function bindFormSubmit() {
             var isJobTitleValid = GS.form.espForm.validateJobTitle();
             var isSchoolValid = GS.form.espForm.validateSchool();
 
-            var isAllValid = isFirstNameValid && isLastNameValid && isUserNameValid && isPasswordValid && isJobTitleValid && isSchoolValid;
-            return isAllValid;
+            return isFirstNameValid && isLastNameValid && isUserNameValid && isPasswordValid && isJobTitleValid && isSchoolValid;
         });
     }
 }
