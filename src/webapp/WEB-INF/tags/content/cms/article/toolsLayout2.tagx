@@ -11,21 +11,27 @@
     <div class="mod articleDistribution2">
         <div class="inner">
             <div class="bd">
-                <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false"/>
+                <div class="line">
+                    <div class="unit size50of100">
+                        <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false"/>
+                    </div>
+                    <div class="unit size50of100 lastUnit">
                 <span class="fltrt">
-                    <!-- TODO! switch to correct button design (or ask to use same icons as in article:toolsLayout1 -->
-                    <!-- TODO! fix layout -->
+                    <!-- DONE! switch to correct button design (or ask to use same icons as in article:toolsLayout1 -->
+                    <!-- DONE! fix layout -->
                     <!-- TODO! make sure EN/ES toggle looks fine (not in mockup) -->
 
                     <gsml:url var="mailToFriendUrl"
                               value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
-                            <button class="button-5" href="${mailToFriendUrl}"
+                            <button class="button-5 mrs" href="${mailToFriendUrl}"
                                     onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">
-                                <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email</button>
+                                <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>Email
+                            </button>
 
-                            <button class="button-5 mls" href="javascript:void(0);"
+                            <button class="button-5 mhs" href="javascript:void(0);"
                                     onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=600,height=550,scrollbars=yes'); return false;"><span
-                                    class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</button>
+                                    class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print
+                            </button>
 
                         <c:if test="${not empty feature.otherLanguageUri}">
 
@@ -40,6 +46,8 @@
                         </c:if>
 
                 </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

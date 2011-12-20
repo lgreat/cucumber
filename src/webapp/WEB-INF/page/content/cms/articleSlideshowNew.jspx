@@ -106,26 +106,33 @@
 
                 <!-- Article slide content -->
                 <div id="slideshow" class="mod articleSlideshow">
-                    <div class="inner">
-                        <div id="ss_header" class="hd gradient-5">
-                            <span class="skinSelect rnd4 small">Choose a page<span class="skinSelectArrow rnd4 gradient-7">&amp;#709;</span></span>
-                            <select onchange="window.location=this.value;">
-                                <option value="">Choose a page</option>
-                                <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
-                                    <option value="${contentUrl}?page=${status.count}">
-                                            <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
-                                            <c:choose>
-                                                <c:when test="${hasSlidePromo}">
-                                                    <c:out value="${slide.promo}"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:out value="${slide.title}"/>
-                                                </c:otherwise>
-                                            </c:choose>
-                                    </option>
-                                </c:forEach>
-                            </select>
-                            ${stepNavContent}
+                    <div class="inner rnd4">
+                        <div id="ss_header" class="hd gradient-6 rnd-top-4">
+                            <div class="line">
+                                <div class="unit size50of100">
+                                    <span class="skinSelect rnd4 small">Choose a page<span
+                                            class="skinSelectArrow rnd4 gradient-7">&amp;#709;</span></span>
+                                    <select onchange="window.location=this.value;">
+                                        <option value="">Choose a page</option>
+                                        <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
+                                            <option value="${contentUrl}?page=${status.count}">
+                                                <c:set var="hasSlidePromo" value="${not empty slide.promo}"/>
+                                                <c:choose>
+                                                    <c:when test="${hasSlidePromo}">
+                                                        <c:out value="${slide.promo}"/>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:out value="${slide.title}"/>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="unit size50of100 lastUnit">
+                                    ${stepNavContent}
+                                </div>
+                            </div>
                         </div>
                         <!-- ss_header -->
 
@@ -167,7 +174,7 @@
 
                         </c:forEach>
 
-                        <div id="ss_footer" class="ft gradient-6">
+                        <div id="ss_footer" class="ft gradient-6 rnd-bottom-4">
                             <article:socialToolsLayout2 includeFbSendBtn="false" includeShareBtn="true"/>
                             ${stepNavContent}
                         </div>
