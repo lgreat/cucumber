@@ -41,7 +41,7 @@
                     width: 645,
                     title: "Upload a picture",
                     bgiframe: true,
-                    zIndex: 99999999
+                    zIndex: 99999
                 });
             };
             this.open = function() {
