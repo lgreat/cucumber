@@ -19,34 +19,61 @@
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
         <form:form commandName="schoolEspCommand">
-            <table>
-                <tr>
-                    <td><form:label path="firstName">First name:</form:label></td>
-                    <td><form:input path="firstName" cssClass="field"/></td>
-                </tr>
-                <tr>
-                    <td><form:label path="lastName">Last Name:</form:label></td>
-                    <td><form:input path="lastName" cssClass="field"/></td>
-                </tr>
-                <tr>
-                    <td><form:label path="email">Email:</form:label></td>
-                    <td><form:input path="email" cssClass="field"/></td>
-                </tr>
-                <tr>
-                    <td><form:label path="userName">User name:</form:label></td>
-                    <td><form:input path="userName" cssClass="field"/></td>
-                </tr>
-                <tr>
-                    <td><form:label path="password">Password:</form:label></td>
-                    <td><form:password path="password" cssClass="field"/></td>
-                </tr>
-                <tr>
-                    <td><form:label path="webPageUrl">Web page url:</form:label></td>
-                    <td><form:input path="webPageUrl" cssClass="field"/></td>
-                </tr>
-                <tr>
-                    <td><form:label path="jobTitle">Job Title :</form:label></td>
-                    <td><form:select path="jobTitle">
+            <form:label path="email">Email:</form:label>
+            <form:input path="email" cssClass="field" id="js_email"/>
+            <span id="js_userAlreadyMember" class="error" style="display: none;">User already esp member</span>
+            <span id="js_invalidEmail" class="error" style="display: none;">Please enter a valid email.</span>
+
+            <div id="js_regPanel" style="display:none">
+
+                <div id="js_firstNameDiv" style="display: none">
+                    <form:label path="firstName">First name:</form:label>
+                    <form:input path="firstName" cssClass="field" id="js_firstName"/>
+                    <span class="js_firstName valid" style="display: none;">&amp;nbsp;</span>
+                    <span class="js_firstName invalid"
+                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
+                </div>
+
+                <div id="js_lastNameDiv" style="display: none">
+                    <form:label path="lastName">Last Name:</form:label>
+                    <form:input path="lastName" cssClass="field" id="js_lastName"/>
+                    <span class="js_lastName valid" style="display: none;">&amp;nbsp;</span>
+                    <span class="js_lastName invalid"
+                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
+                </div>
+
+                <div id="js_userNameDiv" style="display: none">
+                    <form:label path="userName">User name:</form:label>
+                    <form:input path="userName" cssClass="field" id="js_userName"/>
+                    <span class="js_userName valid" style="display: none;">&amp;nbsp;</span>
+                    <span class="js_userName invalid"
+                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
+                </div>
+
+                <div id="js_passwordDiv" style="display: none">
+                    <form:label path="password">Password:</form:label>
+                    <form:password path="password" cssClass="field" id="js_password"/>
+                    <span class="js_password valid" style="display: none;">&amp;nbsp;</span>
+                    <span class="js_password invalid"
+                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
+                </div>
+
+                <div id="js_confirmPasswordDiv" style="display: none">
+                    <form:label path="confirmPassword">Confirm Password:</form:label>
+                    <form:password path="confirmPassword" cssClass="field" id="js_confirmPassword"/>
+                    <span class="js_confirmPassword valid" style="display: none;">&amp;nbsp;</span>
+                    <span class="js_confirmPassword invalid"
+                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
+                </div>
+
+                <div>
+                    <form:label path="webPageUrl">Web page url:</form:label>
+                    <form:input path="webPageUrl" cssClass="field"/>
+                </div>
+
+                <div>
+                    <form:label path="jobTitle">Job Title :</form:label>
+                    <form:select path="jobTitle" id="js_jobTitle">
                         <form:option value="">Choose One</form:option>
                         <form:option value="principal">Principal</form:option>
                         <form:option value="assistant principal">Asst. Principal</form:option>
@@ -58,40 +85,47 @@
                         <form:option value="webmaster">Webmaster</form:option>
                         <form:option value="registrar">Registrar</form:option>
                         <form:option value="teacher">Teacher</form:option>
-                    </form:select></td>
-                </tr>
-                <tr>
-                    <td><form:label path="state">State:</form:label></td>
-                    <td><gsweb:stateSelector styleId="jq-stateAdd"
-                                             name="state"
-                                             noStateLabel="1. Choose state"
-                                             allowNoState="false"
-                            /></td>
-                </tr>
-                <tr>
-                    <td>City:</td>
-                    <td><select id="jq-citySelect" name="city">
+                    </form:select>
+                    <span class="js_jobTitle invalid" style="display: none;">Please specify your job title.</span>
+                </div>
+
+                <div>
+                    <form:label path="state">State:</form:label>
+                    <gsweb:stateSelector styleId="jq-stateAdd"
+                                         name="state"
+                                         noStateLabel="1. Choose state"
+                                         allowNoState="false"
+                            />
+                </div>
+                <div>
+                    City:
+                    <select id="jq-citySelect" name="city">
                         <option selected="selected" value="">2. Choose city</option>
                         <c:forEach var="cityOption" items="">
                             <![CDATA[<option ]]>
                             <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
                         </c:forEach>
-                    </select></td>
-                </tr>
+                    </select>
+                </div>
 
-                <tr>
-                    <td><form:label path="schoolId">School:</form:label></td>
-                    <td><select name="schoolId" id="jq-school" class="selectChildSchool">
+                <div>
+                    <form:label path="schoolId">School:</form:label>
+                    <select name="schoolId" id="jq-school" class="selectChildSchool">
                         <option selected="selected" value="0">3. Choose school</option>
                         <c:forEach var="schoolOption" items="">
                             <![CDATA[<option ]]>
                             <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
                         </c:forEach>
-                    </select></td>
-                </tr>
-            </table>
+                    </select>
+                    <span class="js_school invalid"
+                          style="display: none;">Please select a state, city and school.</span>
+                </div>
 
-            <input type="submit" value="submit"/>
+            </div>
+
+            <div>
+                <input type="submit" value="submit" id="js_submit"/>
+            </div>
 
         </form:form>
     </gsml:body>
