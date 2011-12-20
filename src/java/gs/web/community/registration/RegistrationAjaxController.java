@@ -72,7 +72,7 @@ public class RegistrationAjaxController implements Controller {
         }
 
         if (request.getParameter(EMAIL_PARAM) != null) {
-            validateEmail(request, out);
+            validateEmail(request, response, out);
             return null;
         }
 
@@ -89,9 +89,11 @@ public class RegistrationAjaxController implements Controller {
         return null;
     }
 
-    protected void validateEmail(HttpServletRequest request, PrintWriter out) {
+    protected void validateEmail(HttpServletRequest request,HttpServletResponse response, PrintWriter out) {
         String email = request.getParameter(EMAIL_PARAM);
         org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
+
+        response.setContentType("text/plain");
 
         //TODO: Check if email is in use by a full fledged member?
         if (!emv.isValid(email)) {
