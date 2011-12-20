@@ -52,7 +52,7 @@
         <ad:adTag position="Sponsor_610x30"/>
 
         <!--Sidebar-->
-        <div class="grid_6 alpha mrm">
+        <div class="grid_5 alpha">
 
             <article:toolsLayout1 feature="${feature}" uri="${uri}"/>
 
@@ -63,7 +63,7 @@
         <!--Sidebar-->
 
         <!--Content-->
-        <div>
+        <div class="grid_11 omega">
             <!--Image-->
             <article:mainImage feature="${feature}"/>
             <!--Image-->
