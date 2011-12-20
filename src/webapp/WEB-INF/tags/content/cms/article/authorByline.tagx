@@ -5,7 +5,7 @@
 
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
 
-    <p>
+    <p class="small">
         <!-- byline - for articles only -->
         <c:if test="${not empty feature.authors}">
             <c:choose>

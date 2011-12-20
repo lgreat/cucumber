@@ -79,7 +79,16 @@
 
                 <h1>${feature.title}</h1>
 
-                <h4>${fn:escapeXml(article.summary)}</h4>
+                <c:choose>
+                    <c:when test="${article.currentPageNum lt 2}">
+                        <h4>${fn:escapeXml(article.summary)}</h4>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="small quiet">
+                            <em>Page ${article.currentPageNum} of ${article.numPages}</em>
+                        </p>
+                    </c:otherwise>
+                </c:choose>
 
                 <ad:adTag position="Sponsor_610x30"/>
 
