@@ -9,9 +9,11 @@ public class EspMembershipCommand implements EmailValidator.IEmail {
     private String _email;
     private String _userName;
     private String _password;
+    private String _confirmPassword;
     private String _webPageUrl;
     private String _jobTitle;
     private State _state;
+    private String _city;
     private Long _schoolId;
 
 
@@ -55,6 +57,14 @@ public class EspMembershipCommand implements EmailValidator.IEmail {
         _password = password;
     }
 
+    public String getConfirmPassword() {
+        return _confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        _confirmPassword = confirmPassword;
+    }
+
     public String getWebPageUrl() {
         return _webPageUrl;
     }
@@ -69,6 +79,14 @@ public class EspMembershipCommand implements EmailValidator.IEmail {
 
     public void setState(State state) {
         _state = state;
+    }
+
+    public String getCity() {
+        return _city;
+    }
+
+    public void setCity(String city) {
+        _city = city;
     }
 
     public Long getSchoolId() {
