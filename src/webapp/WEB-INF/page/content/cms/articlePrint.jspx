@@ -63,8 +63,8 @@
 
         <div class="clearfloat"><!-- do not collapse --></div>
 
-        <div class="grid_5 alpha">
-        <!-- photo gallery images -->
+        <c:set var="sideBarContent">
+            <!-- photo gallery images -->
 
             <c:if test="${showPhotoGallery}">
                 <div class="mod articleSlideshow">
@@ -82,9 +82,9 @@
                 </div>
             </c:if>
 
-        <!-- photo gallery images -->
+            <!-- photo gallery images -->
 
-        <!--Sidebar-->
+            <!--Sidebar-->
             <c:if test="${not empty feature.sidebar}">
                 <div class="mod articleSidebar">
                     <div class="inner rnd3">
@@ -94,10 +94,9 @@
                     </div>
                 </div>
             </c:if>
-        <!--Sidebar-->
-        </div>
-
-        <div class="grid_11 omega articleContent">
+            <!--Sidebar-->
+        </c:set>
+        <c:set var="articleContent">
             <!--Image-->
             <article:mainImage feature="${feature}"/>
             <!--Image-->
@@ -111,7 +110,21 @@
             <!-- article content -->
             ${currentPage}
             <!-- article content -->
-        </div>
+        </c:set>
+
+        <c:choose>
+            <c:when test="${showPhotoGallery or not empty feature.sidebar}">
+                <div class="grid_5 alpha">
+                    ${sideBarContent}
+                </div>
+                <div class="grid_11 omega articleContent">
+                    ${articleContent}
+                </div>
+            </c:when>
+            <c:otherwise>
+                ${articleContent}
+            </c:otherwise>
+        </c:choose>
 
         <!-- Author bios, Licensor attribution -->
         <c:if test="${not empty authorBios and ((feature.currentPageNum eq -1) or (feature.numPages eq feature.currentPageNum))}">
