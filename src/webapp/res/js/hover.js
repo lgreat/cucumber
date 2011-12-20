@@ -273,11 +273,11 @@ GSType.hover.JoinHover = function() {
             GSType.hover.signInHover.loadOnExit(GSType.hover.joinHover.loadOnExitUrl);
             GSType.hover.joinHover.cancelLoadOnExit();
         }
+        GSType.hover.joinHover.hide();
         GSType.hover.signInHover.showHover(jQuery('#joinHover #jemail').val(),
                 jQuery('#joinHover .redirect_field').val(),
                 GSType.hover.signInHover.showJoinFunction,
                 GSType.hover.joinHover.onSubmitCallback);
-        GSType.hover.joinHover.hide();
         return false;
     };
     this.showMssAutoHoverOnExit = function(schoolName, schoolId, schoolState) {
@@ -1569,5 +1569,4 @@ jQuery(function() {
 
 
 });
-
 
