@@ -72,12 +72,12 @@
                         <c:choose>
                             <c:when test="${hasPreviousSlide}">
                                 <span class="prev"><a class="button-1"
-                                                      href="${contentUrl}?page=${pageNum - 1}">&amp;laquo; Previous</a>
+                                                      href="${contentUrl}?page=${pageNum - 1}"><span class="lineheight-20 vert-align-top">&amp;laquo;</span> Previous</a>
                                 </span>
                             </c:when>
                             <c:otherwise>
                                 <span class="prev"><a class="button-1-inactive"
-                                                      href="javascript:void(0);">&amp;laquo; Previous</a>
+                                                      href="javascript:void(0);"><span class="lineheight-20 vert-align-top">&amp;laquo;</span> Previous</a>
                                 </span>
                             </c:otherwise>
                         </c:choose>
@@ -90,12 +90,12 @@
                         <c:choose>
                             <c:when test="${hasNextSlide}">
                                 <span class="next"><a class="button-1"
-                                        href="${contentUrl}?page=${pageNum + 1}">Next &amp;raquo;</a>
+                                        href="${contentUrl}?page=${pageNum + 1}">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
                                 </span>
                             </c:when>
                             <c:otherwise>
                                 <span class="next"><a class="button-1-inactive"
-                                         href="javascript:void(0);">Next &amp;raquo;</a>
+                                         href="javascript:void(0);">Next <span class="lineheight-20 vert-align-top">&amp;raquo;</span></a>
                                 </span>
                             </c:otherwise>
                         </c:choose>

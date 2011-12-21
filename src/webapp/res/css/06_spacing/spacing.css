@@ -72,12 +72,16 @@ General comments:
     text-align: center;
 }
 
+.vert-align-top {
+    vertical-align: top;
+}
+
 .vert-align-mid {
     vertical-align: middle;
 }
 
-.vert-align-top {
-    vertical-align: top;
+.vert-align-bot {
+    vertical-align: bottom;
 }
 
 .wsnw{
