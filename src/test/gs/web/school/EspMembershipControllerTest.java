@@ -9,6 +9,8 @@ import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindingResult;
 
+import javax.jws.soap.SOAPBinding;
+
 import static org.easymock.EasyMock.*;
 
 public class EspMembershipControllerTest extends BaseControllerTestCase {
@@ -67,10 +69,90 @@ public class EspMembershipControllerTest extends BaseControllerTestCase {
         assertEquals("Everything went well.Return the success view.", EspMembershipController.SUCCESS_VIEW, view);
     }
 
-//    public void testCheckIfUserExists() {
-//        EspMembershipCommand command = new EspMembershipCommand();
-//        _controller.checkIfUserExists(getRequest(), getResponse(), command);
-//    }
+    public void testCheckIfUserExistsNullEmail() {
+        //No email was set in the command object.
+        EspMembershipCommand command = new EspMembershipCommand();
+        _controller.checkIfUserExists(getRequest(), getResponse(), command);
+    }
+
+    public void testCheckIfUserExistsValidEmailNewUser() throws Exception {
+        EspMembershipCommand command = new EspMembershipCommand();
+        command.setEmail("someemail@greatschools.org");
+
+        expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(null);
+
+        replayAllMocks();
+        _controller.checkIfUserExists(getRequest(), getResponse(), command);
+        verifyAllMocks();
+
+        assertEquals("There is no user.", "{\"userNotFound\":true}", getResponse().getContentAsString());
+    }
+
+    public void testCheckIfUserExistsValidEmailNullUserId() throws Exception {
+        EspMembershipCommand command = new EspMembershipCommand();
+        command.setEmail("someemail@greatschools.org");
+        User u = new User();
+        expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(u);
+
+        replayAllMocks();
+        _controller.checkIfUserExists(getRequest(), getResponse(), command);
+        verifyAllMocks();
+
+        assertEquals("The user object has no ID.", "{\"userNotFound\":true}", getResponse().getContentAsString());
+    }
+
+    public void testCheckIfUserExistsValidEmailExistingUser() throws Exception {
+        EspMembershipCommand command = new EspMembershipCommand();
+        command.setEmail("someemail@greatschools.org");
+        User u = new User();
+        u.setId(23);
+        expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(u);
+        expect(_espMembershipDao.findEspMembershipByUserId(new Long(23))).andReturn(null);
+
+        replayAllMocks();
+        _controller.checkIfUserExists(getRequest(), getResponse(), command);
+        verifyAllMocks();
+
+        assertEquals("None of the fields required by ESP are set on the user object.", "{\"fieldsToCollect\":\"firstName,lastName,userName,password\"}", getResponse().getContentAsString());
+    }
+
+    public void testCheckIfUserExistsValidEmailExistingUserCollectFewFields() throws Exception {
+        EspMembershipCommand command = new EspMembershipCommand();
+        command.setEmail("someemail@greatschools.org");
+        User u = new User();
+        u.setId(23);
+        u.setFirstName("firstName");
+        u.setLastName("lastName");
+        expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(u);
+        expect(_espMembershipDao.findEspMembershipByUserId(new Long(23))).andReturn(null);
+
+        replayAllMocks();
+        _controller.checkIfUserExists(getRequest(), getResponse(), command);
+        verifyAllMocks();
+
+        assertEquals("First and last names are already set on the user object.", "{\"fieldsToCollect\":\"userName,password\"}", getResponse().getContentAsString());
+    }
+
+    public void testCheckIfUserExistsValidEmailExistingUserCollectNoFields() throws Exception {
+        EspMembershipCommand command = new EspMembershipCommand();
+        command.setEmail("someemail@greatschools.org");
+        User u = new User();
+        u.setId(23);
+        u.setFirstName("firstName");
+        u.setLastName("lastName");
+        u.setPasswordMd5("something");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setScreenName("screenname");
+        u.setUserProfile(userProfile);
+        expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(u);
+        expect(_espMembershipDao.findEspMembershipByUserId(new Long(23))).andReturn(null);
+
+        replayAllMocks();
+        _controller.checkIfUserExists(getRequest(), getResponse(), command);
+        verifyAllMocks();
+
+        assertEquals("First and last names are already set on the user object.", "{\"isUserMember\":true}", getResponse().getContentAsString());
+    }
 
     public void testSetFieldsOnUserUsingCommand_NullCommand() {
         EspMembershipCommand command = new EspMembershipCommand();

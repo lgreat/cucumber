@@ -48,7 +48,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
         for (String idAndIndex : command.getEspMembershipIds()) {
             Long id = new Long(idAndIndex.substring(0, idAndIndex.indexOf("-")));
             int index = new Integer(idAndIndex.substring(idAndIndex.indexOf("-") + 1, idAndIndex.length())) - 1;
-            EspMembership membership = getEspMembershipDao().findEspMembershipById(id);
+            EspMembership membership = getEspMembershipDao().findEspMembershipById(id, false);
             if ("approve".equals(command.getModeratorAction())) {
                 membership.setStatus(EspMembershipStatus.APPROVED);
             } else if ("disapprove".equals(command.getModeratorAction())) {
@@ -67,7 +67,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
     }
 
     private void populateModelWithMemberships(ModelMap modelMap) {
-        List<EspMembership> memberships = getEspMembershipDao().findAllEspMemberships();
+        List<EspMembership> memberships = getEspMembershipDao().findAllEspMemberships(false);
         List<EspMembership> membershipsToProcess = new ArrayList<EspMembership>();
         List<EspMembership> approvedMemberships = new ArrayList<EspMembership>();
         List<EspMembership> disapprovedMemberships = new ArrayList<EspMembership>();
@@ -75,7 +75,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
         for (EspMembership membership : memberships) {
             long schoolId = membership.getSchoolId();
             School school = getSchoolDao().getSchoolById(membership.getState(), (int) schoolId);
-            membership.setSchoolName(school.getName());
+            membership.setSchool(school);
 
             if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
                 membershipsToProcess.add(membership);

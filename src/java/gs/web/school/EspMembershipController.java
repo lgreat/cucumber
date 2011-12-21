@@ -9,6 +9,7 @@ import gs.data.json.JSONObject;
 import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
 import gs.data.school.EspMembership;
+import gs.data.state.State;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
@@ -25,7 +26,6 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @Controller
@@ -49,25 +49,28 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         return FORM_VIEW;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "form.page", method = RequestMethod.POST)
     public String createEspMembership(@ModelAttribute("schoolEspCommand") EspMembershipCommand command,
                                       BindingResult result,
                                       HttpServletRequest request,
-                                      HttpServletResponse response) {
+                                      HttpServletResponse response) throws Exception {
         if (StringUtils.isNotBlank(command.getEmail())) {
             try {
-                User user = getUserDao().findUserFromEmailIfExists(command.getEmail().trim());
+                String email = command.getEmail().trim();
+                User user = getUserDao().findUserFromEmailIfExists(email);
                 //TODO: cookie based omniture?
-//            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+//                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
                 boolean userExists = false;
 
+                //If user already exists.
                 if (user != null) {
                     userExists = true;
                     setFieldsOnUserUsingCommand(command, user);
 
                 } else {
+                    //If no user already exists create a new one.
                     user = new User();
-                    user.setEmail(command.getEmail());
+                    user.setEmail(email);
                     //TODO .Is this right?
                     user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                     setFieldsOnUserUsingCommand(command, user);
@@ -76,100 +79,121 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                     ThreadLocalTransactionManager.commitOrRollback();
                 }
 
+                //Set the users password and save the user.
                 setUsersPassword(command, user);
-                //TODO :?
-                ThreadLocalTransactionManager.commitOrRollback();
                 getUserDao().updateUser(user);
+//                ThreadLocalTransactionManager.commitOrRollback();
+
+                //Set the users profile and save the user.
                 updateUserProfile(command, user);
-                //TODO is this needed twice?
                 getUserDao().updateUser(user);
 
-                // TODO: do some cookie  and email logic
+                // TODO: do some cookie  and welcome/verification email send.
 
-                //TODO:Should I defensively check the ESP_membership just in case?
-                //TODO: What if there is an error saving/updating the user?
+                //Save ESP membership for user.
                 saveEspMembership(command, user);
 
             } catch (Exception exception) {
                 _log.debug(exception);
-                return FORM_VIEW;
+                throw exception;
             }
             return SUCCESS_VIEW;
         }
-
-
         return FORM_VIEW;
     }
 
-    //TODO write unit tests for this.
+    //TODO write unit tests for this. and this should validate email also.
     @RequestMapping(value = "checkEspUser.page", method = RequestMethod.GET)
     public void checkIfUserExists(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) {
-        String email = command.getEmail().trim();
-        if (!StringUtils.isBlank(email)) {
-            User user = getUserDao().findUserFromEmailIfExists(email);
-            String fieldsToCollect = "";
-            boolean userAlreadyESPMember = false;
-            if (user != null) {
-                //Check if user is already an ESP member.TODO maybe just check the role?
-                EspMembership membership = getEspMembershipDao().findEspMembershipByUserId(new Long(user.getId()));
+        String email = command.getEmail();
+        String fieldsToCollect = "";
+        boolean isUserESPMember = false;
+        boolean isUserMember = false;
+        boolean isEmailValid = true;
 
-                if (membership != null) {
-                    //TODO If already an ESP member maybe check if all the required espmembership fields are present?
-                    userAlreadyESPMember = true;
-                } else {
-                    if (StringUtils.isBlank(user.getFirstName())) {
-                        fieldsToCollect += "firstName";
-                    }
-                    if (StringUtils.isBlank(user.getLastName())) {
-                        fieldsToCollect += fieldsToCollect.length() > 0 ? ",lastName" : "lastName";
-                    }
-                    if (user.getUserProfile() == null || (user.getUserProfile() != null && StringUtils.isBlank(user.getUserProfile().getScreenName()))) {
-                        fieldsToCollect += fieldsToCollect.length() > 0 ? ",userName" : "userName";
-                    }
-                    if (StringUtils.isBlank(user.getPasswordMd5())) {
-                        fieldsToCollect += fieldsToCollect.length() > 0 ? ",password" : "password";
+        if (StringUtils.isBlank(email)) {
+            isEmailValid = false;
+        } else if (!StringUtils.isBlank(email)) {
+
+            isEmailValid = validateEmail(email.trim());
+
+            if (isEmailValid) {
+                User user = getUserDao().findUserFromEmailIfExists(email.trim());
+
+                //Found a user
+                if (user != null && user.getId() != null) {
+                    isUserMember = true;
+
+                    //Check if the user is already an ESP member.TODO maybe just check the role?
+                    List<EspMembership> membership = getEspMembershipDao().findEspMembershipsByUserId(new Long(user.getId()), false);
+
+                    //User already an ESP member.Therefore he will have all the required fields.
+                    if (membership != null && membership.size() > 0) {
+                        isUserESPMember = true;
+                    } else {
+                        //User not a ESP member.He might be missing some of the required fields.Therefore collect them.
+                        if (StringUtils.isBlank(user.getFirstName())) {
+                            fieldsToCollect += "firstName";
+                        }
+                        if (StringUtils.isBlank(user.getLastName())) {
+                            fieldsToCollect += fieldsToCollect.length() > 0 ? ",lastName" : "lastName";
+                        }
+                        if (user.getUserProfile() == null || (user.getUserProfile() != null && StringUtils.isBlank(user.getUserProfile().getScreenName()))) {
+                            fieldsToCollect += fieldsToCollect.length() > 0 ? ",userName" : "userName";
+                        }
+                        if (StringUtils.isBlank(user.getPasswordMd5())) {
+                            fieldsToCollect += fieldsToCollect.length() > 0 ? ",password" : "password";
+                            fieldsToCollect += ",confirmPassword";
+                        }
                     }
                 }
             }
+        }
 
-            try {
-                JSONObject rval;
-                Map data = new HashMap();
+        try {
+            JSONObject rval;
+            Map data = new HashMap();
+            if (!isEmailValid) {
+                data.put("invalidEmail", "Please enter a valid email address.");
+            } else if (isUserMember) {
+                data.put("isUserMember", true);
                 if (fieldsToCollect.length() > 0) {
                     data.put("fieldsToCollect", fieldsToCollect);
-                } else if (userAlreadyESPMember) {
-                    data.put("userAlreadyESPMember", true);
-                } else {
-                    data.put("userNotFound", true);
                 }
-                rval = new JSONObject(data);
-                response.setContentType("application/json");
-                response.getWriter().print(rval.toString());
-                response.getWriter().flush();
-            } catch (Exception exp) {
-                _log.error("Error " + exp, exp);
-                //TODO return an error page?
+                if (isUserESPMember) {
+                    data.put("isUserESPMember", true);
+                }
+            } else {
+                data.put("userNotFound", true);
             }
+            rval = new JSONObject(data);
+            response.setContentType("application/json");
+            response.getWriter().print(rval.toString());
+            response.getWriter().flush();
+        } catch (Exception exp) {
+            _log.error("Error " + exp, exp);
+            //TODO return an json error .response code to 500.
         }
     }
 
 
     protected void setFieldsOnUserUsingCommand(EspMembershipCommand espMembershipCommand, User user) {
         //TODO validate before setting?
-        //TODO also should I check if the fields are set in the DB.It may not happen but in case it does, do not want to overwrite.
-        if (StringUtils.isNotBlank(espMembershipCommand.getFirstName())) {
-            user.setFirstName(espMembershipCommand.getFirstName().trim());
-        }
-        if (StringUtils.isNotBlank(espMembershipCommand.getLastName())) {
-            user.setLastName(espMembershipCommand.getLastName().trim());
-        }
-        //default gender.
-        if (StringUtils.isBlank(user.getGender())) {
-            user.setGender("u");
-        }
-        //Only set  "how" if it is not already set.
-        if (StringUtils.isBlank(user.getHow())) {
-            user.setHow("esp");
+        if (user != null) {
+            if (StringUtils.isNotBlank(espMembershipCommand.getFirstName()) && StringUtils.isBlank(user.getFirstName())) {
+                user.setFirstName(espMembershipCommand.getFirstName().trim());
+            }
+            if (StringUtils.isNotBlank(espMembershipCommand.getLastName()) && StringUtils.isBlank(user.getLastName())) {
+                user.setLastName(espMembershipCommand.getLastName().trim());
+            }
+            //default gender.
+            if (StringUtils.isBlank(user.getGender())) {
+                user.setGender("u");
+            }
+            //Only set  "how" if it is not already set.
+            if (StringUtils.isBlank(user.getHow())) {
+                user.setHow("esp");
+            }
         }
     }
 
@@ -182,17 +206,13 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             }
         } catch (Exception e) {
             _log.warn("Error setting password: " + e.getMessage(), e);
-            //TODO : uncomment the code below?
-//            if (!userExists) {
-//                // for new users, cancel the account on error
-//                _userDao.removeUser(user.getId());
-//            }
             throw e;
         }
     }
 
     protected void updateUserProfile(EspMembershipCommand espMembershipCommand, User user) {
         UserProfile userProfile;
+
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
             userProfile = user.getUserProfile();
             setUserProfileFieldsFromCommand(espMembershipCommand, userProfile);
@@ -205,38 +225,57 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
 
         //TODO set omniture success events here?
-        //TODO there is a "how" in user profile also?
-        //TODO set numschools to 0?
-        user.getUserProfile().setUpdated(new Date());
     }
 
     protected void setUserProfileFieldsFromCommand(EspMembershipCommand espMembershipCommand, UserProfile userProfile) {
-        //TODO check in the database before overwriting them just in case?
+        if (userProfile != null) {
+            if (StringUtils.isNotBlank(espMembershipCommand.getUserName()) && StringUtils.isBlank(userProfile.getScreenName())) {
+                userProfile.setScreenName(espMembershipCommand.getUserName().trim());
+            }
 
-        if (StringUtils.isNotBlank(espMembershipCommand.getUserName())) {
-            userProfile.setScreenName(espMembershipCommand.getUserName().trim());
-        }
+            if (StringUtils.isNotBlank(espMembershipCommand.getCity()) && StringUtils.isBlank(userProfile.getCity())) {
+                userProfile.setCity(espMembershipCommand.getCity().trim());
+            }
 
-        if (StringUtils.isNotBlank(espMembershipCommand.getCity())) {
-            userProfile.setCity(espMembershipCommand.getCity().trim());
-        }
+            if (espMembershipCommand.getState() != null && userProfile.getState() == null) {
+                userProfile.setState(espMembershipCommand.getState());
+            }
 
-        if (espMembershipCommand.getState() != null) {
-            userProfile.setState(espMembershipCommand.getState());
+            if (StringUtils.isBlank(userProfile.getHow())) {
+                userProfile.setHow("esp");
+            }
+
+            userProfile.setUpdated(new Date());
         }
     }
 
     //TODO write unit tests for this.
     protected void saveEspMembership(EspMembershipCommand command, User user) {
-        EspMembership esp = new EspMembership();
-        esp.setIsActive(false);
-        esp.setJobTitle(command.getJobTitle());
-        esp.setState(command.getState());
-        esp.setSchoolId(command.getSchoolId());
-        esp.setStatus(EspMembershipStatus.PROCESSING);
-        esp.setUser(user);
-        esp.setWebUrl(command.getWebPageUrl());
-        getEspMembershipDao().saveEspMembership(esp);
+        State state = command.getState();
+        Long schoolId = command.getSchoolId();
+        EspMembership espMembership = null;
+
+        if (state != null && schoolId != null && user != null && user.getId() != null) {
+            espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, new Long(user.getId()));
+
+            if (espMembership == null) {
+                EspMembership esp = new EspMembership();
+                esp.setActive(false);
+                esp.setJobTitle(command.getJobTitle());
+                esp.setState(command.getState());
+                esp.setSchoolId(command.getSchoolId());
+                esp.setStatus(EspMembershipStatus.PROCESSING);
+                esp.setUser(user);
+                esp.setWebUrl(command.getWebPageUrl());
+                getEspMembershipDao().saveEspMembership(esp);
+
+            }
+        }
+    }
+
+    protected boolean validateEmail(String email) {
+        org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
+        return emv.isValid(email);
     }
 
     public IEspMembershipDao getEspMembershipDao() {

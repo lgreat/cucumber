@@ -3,17 +3,14 @@ GS.form = GS.form || {};
 GS.form.EspForm = function() {
 
     //Handle State drop down change.
-    this.stateChange = function(stateSelect, citySelect, updateSchoolSelect) {
-
+    this.stateChange = function(stateSelect, citySelect) {
         var params = {
             state: stateSelect.val(),
             type: 'city',
             notListedOption: '2. Choose city'
         };
 
-        if (updateSchoolSelect) {
-            jQuery('#jq-school').html('<option value="0">3. Choose school</option>');
-        }
+        jQuery('#jq-school').html('<option value="0">3. Choose school</option>');
         citySelect.html('<option value="0">Loading ...</option>');
 
         jQuery.ajax({
@@ -52,10 +49,10 @@ GS.form.EspForm = function() {
             });
     };
 
-    //Checks if the email entered is already a
-    // i) Existing user with no ESP membership
-    // (ii)Already a ESP member
-    // (iii) New User
+    //Checks if the
+    //i)email entered is valid
+    //ii)email entered belongs to Existing user with no ESP membership OR already a ESP member
+    //(iii)email was not found.
     this.checkUser = function(email) {
         if (email !== "" && email !== undefined) {
             jQuery.ajax({
@@ -63,21 +60,32 @@ GS.form.EspForm = function() {
                 url: '/school/esp/checkEspUser.page',
                 data: {email:email},
                 dataType: 'json',
-                async: false
+                async: true
             }).done(function(data) {
-                    if (data.fieldsToCollect !== "" && data.fieldsToCollect !== undefined) {
-                        //The user is already a GS member.However he does not have all the data required for ESP.Therefore collect that.
-                        var fields = data.fieldsToCollect.split(",");
-                        for (var i = 0; i < fields.length; i++) {
-                            jQuery('#js_' + fields[i] + 'Div').show();
+
+                    if (data.invalidEmail !== "" && data.invalidEmail !== undefined) {
+                        jQuery('#js_invalidEmail').show();
+
+                    } else if (data.isUserMember === true || data.isUserESPMember === true) {
+
+                        //User already exists.However all the required fields are not filled in.Therefore collect them.
+                        if (data.fieldsToCollect !== "" && data.fieldsToCollect !== undefined) {
+                            var fields = data.fieldsToCollect.split(",");
+                            for (var i = 0; i < fields.length; i++) {
+                                jQuery('#js_' + fields[i] + 'Div').show();
+                            }
                         }
+
+                        //User is already ESP member.Therefore show a message.
+                        if (data.isUserESPMember === true) {
+                            jQuery('#js_userESPMember').show();
+                        }
+
                         jQuery('#js_regPanel').show();
                         bindFormSubmit();
 
-                    } else if (data.userAlreadyESPMember === true) {
-                        jQuery('#js_userAlreadyMember').show();
-
                     } else if (data.userNotFound === true) {
+
                         jQuery('#js_regPanel').show();
                         jQuery('#js_firstNameDiv').show();
                         jQuery('#js_lastNameDiv').show();
@@ -92,30 +100,6 @@ GS.form.EspForm = function() {
         return false;
     };
 
-    this.validateEmail = function(email) {
-        var validEmail = true;
-        if (email === "" || email === undefined) {
-            validEmail = false;
-        } else {
-            jQuery.ajax({
-                type: 'GET',
-                url: '/community/registrationAjax.page',
-                data: {email:email},
-                dataType: 'text',
-                async: false
-            }).done(function(data) {
-                    if (data === "invalid") {
-                        validEmail = false;
-                    }
-                });
-        }
-        if (!validEmail) {
-            jQuery('#js_invalidEmail').show();
-        }
-        return validEmail;
-    };
-
-    //TODO sync or async
     this.validateFirstName = function() {
         var fName = jQuery('#js_firstName').val();
         var rval = true;
@@ -136,9 +120,18 @@ GS.form.EspForm = function() {
     //TODO validate last Name ?
     this.validateLastName = function() {
         var lName = jQuery('#js_lastName').val();
+        var fieldError = jQuery('.js_lastName.invalid');
+        var fieldValid = jQuery('.js_lastName.valid');
         var rval = true;
+
+        fieldError.hide();
+        fieldValid.hide();
+
         if (lName === "" || lName === undefined) {
             rval = false;
+            fieldError.show();
+        } else {
+            fieldValid.show();
         }
         return rval;
     };
@@ -164,6 +157,7 @@ GS.form.EspForm = function() {
         var password = jQuery('#js_password').val();
         var confirmPassword = jQuery('#js_confirmPassword').val();
         var rval = true;
+
         jQuery.ajax({
             type: 'GET',
             url: '/community/registrationValidationAjax.page',
@@ -182,6 +176,7 @@ GS.form.EspForm = function() {
         var password = jQuery('#js_password').val();
         var confirmPassword = jQuery('#js_confirmPassword').val();
         var rval = true;
+
         jQuery.ajax({
             type: 'GET',
             url: '/community/registrationValidationAjax.page',
@@ -196,11 +191,13 @@ GS.form.EspForm = function() {
     };
 
     this.validateJobTitle = function() {
-        var schoolId = jQuery('#js_jobTitle').val();
-        var rval = true;
+        var jobTitle = jQuery('#js_jobTitle').val();
         var fieldError = jQuery('.js_jobTitle.invalid');
+        var rval = true;
+
         fieldError.hide();
-        if (schoolId === "" || schoolId === undefined) {
+
+        if (jobTitle === "" || jobTitle === undefined) {
             fieldError.show();
             rval = false;
         }
@@ -210,9 +207,11 @@ GS.form.EspForm = function() {
 
     this.validateSchool = function() {
         var schoolId = jQuery('#jq-school').val();
-        var rval = true;
         var fieldError = jQuery('.js_school.invalid');
+        var rval = true;
+
         fieldError.hide();
+
         if (schoolId === "" || schoolId === undefined || schoolId === "-1" || schoolId === "0") {
             fieldError.show();
             rval = false;
@@ -224,8 +223,10 @@ GS.form.EspForm = function() {
     this.handleValidationResponse = function(fieldSelector, fieldName, data) {
         var fieldError = jQuery(fieldSelector + '.invalid');
         var fieldValid = jQuery(fieldSelector + '.valid');
+
         fieldError.hide();
         fieldValid.hide();
+
         if (data && data[fieldName]) {
             fieldError.html(data[fieldName]);
             fieldError.show();
@@ -241,7 +242,7 @@ jQuery(function() {
     GS.form.espForm = GS.form.espForm || new GS.form.EspForm();
 
     jQuery('#jq-stateAdd').change(function() {
-        GS.form.espForm.stateChange(jQuery(this), jQuery('#jq-citySelect'), true);
+        GS.form.espForm.stateChange(jQuery(this), jQuery('#jq-citySelect'));
     });
 
     jQuery('#jq-citySelect').change(function() {
@@ -249,22 +250,19 @@ jQuery(function() {
     });
 
     jQuery('#js_firstName').blur(GS.form.espForm.validateFirstName);
+    jQuery('#js_lastName').blur(GS.form.espForm.validateLastName);
     jQuery('#js_userName').blur(GS.form.espForm.validateUsername);
     jQuery('#js_password').blur(GS.form.espForm.validatePassword);
     jQuery('#js_confirmPassword').blur(GS.form.espForm.validateConfirmPassword);
 
-    jQuery('#js_jobTitle').change(function() {
-        GS.form.espForm.validateJobTitle();
-    });
-
-    jQuery('#jq-school').change(function() {
-        GS.form.espForm.validateSchool();
-    });
+    jQuery('#js_jobTitle').change(GS.form.espForm.validateJobTitle);
+    jQuery('#jq-school').change(GS.form.espForm.validateSchool);
 
     bindEmailSubmit();
 
     jQuery('#js_email').keydown(function() {
         var regPanel = jQuery('#js_regPanel');
+        //TODO should the form be cleared when reg panel is hidden?
         hideEmailErrors();
         if (regPanel.is(':visible')) {
             regPanel.hide();
@@ -280,43 +278,61 @@ function unbindSubmitHandler() {
 
 function bindEmailSubmit() {
     var regPanel = jQuery('#js_regPanel');
+
     //Additional check that if the registration panel is not visible then the form should not submit.
     if (!regPanel.is(':visible')) {
+
+        //unbind the existing click handler.
         unbindSubmitHandler();
+
+        //Bind the new click handler which just validates user/email.
         jQuery('#js_submit').click(function() {
             var email = jQuery('#js_email').val().trim();
-            if (GS.form.espForm.validateEmail(email)) {
-                GS.form.espForm.checkUser(email);
-                //This should never submit the form.Hence always return false.
-                return false;
-            }
+            GS.form.espForm.checkUser(email);
             //This should never submit the form.Hence always return false.
             return false;
         });
+
     }
 }
 
 function bindFormSubmit() {
     var regPanel = jQuery('#js_regPanel');
+
     //If the registration panel is visible then the form should submit.
     if (regPanel.is(':visible')) {
+
+        //unbind the existing click handler.
         unbindSubmitHandler();
+
+        //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.
         jQuery('#js_submit').click(function() {
-            var isFirstNameValid = GS.form.espForm.validateFirstName();
-            var isLastNameValid = GS.form.espForm.validateLastName();
-            var isUserNameValid = GS.form.espForm.validateUsername();
-            var isPasswordValid = GS.form.espForm.validatePassword();
+
+            //check if the following fields are visible.
+            var firstNameDivVisible = jQuery('#js_firstName').is(':visible');
+            var lastNameDivVisible = jQuery('#js_lastName').is(':visible');
+            var userNameDivVisible = jQuery('#js_userName').is(':visible');
+            var passwordDivVisible = jQuery('#js_password').is(':visible');
+            var confirmPasswordDivVisible = jQuery('#js_confirmPassword').is(':visible');
+
+            //If they are visible then validate else return true.
+            var isFirstNameValid = firstNameDivVisible ? GS.form.espForm.validateFirstName() : true;
+            var isLastNameValid = lastNameDivVisible ? GS.form.espForm.validateLastName() : true;
+            var isUserNameValid = userNameDivVisible ? GS.form.espForm.validateUsername() : true;
+            var isPasswordValid = passwordDivVisible ? GS.form.espForm.validatePassword() : true;
+            var isConfirmPasswordValid = confirmPasswordDivVisible ? GS.form.espForm.validateConfirmPassword() : true;
+
+            //The school and the job title fields are always present.Hence always validate them.
             var isJobTitleValid = GS.form.espForm.validateJobTitle();
             var isSchoolValid = GS.form.espForm.validateSchool();
 
-            return isFirstNameValid && isLastNameValid && isUserNameValid && isPasswordValid && isJobTitleValid && isSchoolValid;
+            return isFirstNameValid && isLastNameValid && isUserNameValid && isPasswordValid && isConfirmPasswordValid && isJobTitleValid && isSchoolValid;
         });
     }
 }
 
 function hideEmailErrors() {
-    jQuery('#js_userAlreadyMember').hide();
+    jQuery('#js_userESPMember').hide();
     jQuery('#js_invalidEmail').hide();
-
 }
 

@@ -21,7 +21,7 @@
         <form:form commandName="schoolEspCommand">
             <form:label path="email">Email:</form:label>
             <form:input path="email" cssClass="field" id="js_email"/>
-            <span id="js_userAlreadyMember" class="error" style="display: none;">User already esp member</span>
+            <span id="js_userESPMember" style="display: none;">User already esp member for school.Sign in.</span>
             <span id="js_invalidEmail" class="error" style="display: none;">Please enter a valid email.</span>
 
             <div id="js_regPanel" style="display:none">
@@ -39,7 +39,7 @@
                     <form:input path="lastName" cssClass="field" id="js_lastName"/>
                     <span class="js_lastName valid" style="display: none;">&amp;nbsp;</span>
                     <span class="js_lastName invalid"
-                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
+                          style="display: none;">Please enter a valid last name.</span>
                 </div>
 
                 <div id="js_userNameDiv" style="display: none">
