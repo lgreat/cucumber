@@ -139,7 +139,7 @@ jQuery(function() {
         GS.form.emailManagement.toggleNthGraderNewsletters(jQuery(this));
     });
 
-    jQuery('#jq-mssSchoolSection input[type=checkbox]').livequery('click', function() {
+    jQuery('#jq-mssSchoolSection').on('click', 'input[type=checkbox]', function() {
         GS.form.emailManagement.removeMssSchool(jQuery(this));
     });
 

@@ -23,7 +23,6 @@
 
 <head>
     <title>Emails &amp;amp; Free Newsletters - GreatSchools</title>
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/livequery/1.0.3/jquery.livequery.js"/>
     <pageHelper:externalJavascript file="/res/js/email/management.js"/>
     <jsp:scriptlet>
         String comHost =

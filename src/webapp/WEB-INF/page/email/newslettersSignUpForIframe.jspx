@@ -8,7 +8,6 @@
           xmlns:newsletterSignUp="urn:jsptagdir:/WEB-INF/tags/newsletter/signUp"
         >
 
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/livequery/1.0.3/jquery.livequery.js"/>
     <pageHelper:externalJavascript file="/res/js/email/management.js"/>
     <html lang="en">
 
