@@ -31,7 +31,6 @@
     <meta name="description" content="Join parents as they discuss '${fn:escapeXml(discussion.title)}' on GreatSchools."/>
     <meta name="keywords" content=""/>
     <pageHelper:externalCss file="/res/css/discussionBoards/db_community.css"/>
-    <pageHelper:externalJavascript file="/res/js/jquery/plugins/livequery/1.0.3/jquery.livequery.js"/>
     <pageHelper:externalJavascript file="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js"/>
     <!-- pageHelper:externalJavascript file="/res/js/jquery/plugins/curvycorners/2.0.3/curvycorners.js"/ -->
     <script type="text/javascript">
@@ -161,7 +160,7 @@
                 return true;
             }
 
-            $j('.btn_preview').livequery('click', function() {
+            $j('#mainGS').on('click', '.btn_preview', function() {
                 if (validPost(this)) {
                     var previewBody = escapeHTML($j(this).parent().find(".db_textarea textarea").val());
                     <![CDATA[
@@ -182,17 +181,17 @@
                 return html.replace(/\&amp;amp;/g, '&amp;').replace(/\&amp;lt;/g, '&lt;').replace(/\&amp;gt;/g, '&gt;');
             }
 
-            $j('#previewReplyDialog .previewEditButton').livequery('click', function() {
+            $j('body').on('click', '#previewReplyDialog .previewEditButton', function() {
                 $j('#previewReplyDialog').dialog("close");
                 $j(postReplyForm).find(".db_textarea textarea").focus();
             });
 
-            $j('#previewReplyDialog .dialogCancelButton').livequery('click', function() {
+            $j('body').on('click', '#previewReplyDialog .dialogCancelButton', function() {
                 $j('#previewReplyDialog').dialog("close");
                 $j(postReplyForm).find(".db_textarea textarea").focus();
             });
 
-            $j('#previewReplyDialog .previewPostButton').livequery('click', function() {
+            $j('body').on('click', '#previewReplyDialog .previewPostButton', function() {
                 $j('#previewReplyDialog').dialog("close");
                 postReplyForm.submit();
             });
