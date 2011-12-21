@@ -915,7 +915,7 @@ h4.subhead2 a {
 .ie7 .photoGalleryWrapper .galleryNext{margin-top:24px;float:left;}
 .photoGalleryWrapper .photoGalleryThumbnails{display: inline-block;vertical-align: middle;margin:0;}
 .ie7 .photoGalleryWrapper .photoGalleryThumbnails{float:left;}
-.photoGalleryWrapper .gallery-thumbnail{display: inline-block;margin:0 5px;border: 1px solid #ccc;}
+.photoGalleryWrapper .gallery-thumbnail{display: inline-block;margin:0 5px;border: 1px solid #ccc;width:68px;height:68px;}
 .photoGalleryWrapper .gallery-thumbnail-selected{border: 2px solid #d61;}
 /* --------------- authorBios ---------------- */
 .authorBios {color: #2b2b2b;margin-bottom:20px;}
