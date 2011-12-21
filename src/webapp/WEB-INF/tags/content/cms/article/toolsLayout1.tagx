@@ -27,7 +27,7 @@
                                     class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a>
                         </li>
                         <c:if test="${not empty feature.otherLanguageUri}">
-                            <li class="smaller">
+                            <li class="smaller wsnw">
                                 <strong>
                                     <a href="${feature.otherLanguageUri}">
                                         <c:choose>
