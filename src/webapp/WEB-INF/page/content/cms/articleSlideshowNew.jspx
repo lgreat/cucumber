@@ -51,7 +51,7 @@
                 </c:if>
 
                 <!-- Byline -->
-                <!--<article:authorByline feature="${feature}"/>-->
+                <article:authorByline feature="${feature}"/>
                 <!-- Byline -->
 
                 <!-- TODO! fix toolsLayout 2 -->
