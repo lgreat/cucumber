@@ -20,31 +20,32 @@
     <gsml:body adPageName="school/esp" pageLayout="nocol">
         <form:form commandName="schoolEspCommand">
             <form:label path="email">Email:</form:label>
-            <form:input path="email" cssClass="field" id="js_email"/>
-            <span id="js_userESPMember" style="display: none;">User already esp member for school.Sign in.</span>
+            <form:input path="email" cssClass="field" id="js_email" value="${schoolEspCommand.email}"/>
+            <span id="js_userESPMember" style="display: none;">User already esp member.You will recive notification soon.</span>
             <span id="js_invalidEmail" class="error" style="display: none;">Please enter a valid email.</span>
 
-            <div id="js_regPanel" style="display:none">
 
-                <div id="js_firstNameDiv" style="display: none">
+               <div id="js_regPanel" style="${showRegPanel eq true? '':'display:none'}">
+
+                <div id="js_firstNameDiv" style="${showRegPanel eq true? '':'display:none'}">
                     <form:label path="firstName">First name:</form:label>
-                    <form:input path="firstName" cssClass="field" id="js_firstName"/>
+                    <form:input path="firstName" cssClass="field" id="js_firstName" value="${schoolEspCommand.firstName}"/>
                     <span class="js_firstName valid" style="display: none;">&amp;nbsp;</span>
                     <span class="js_firstName invalid"
                           style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
                 </div>
 
-                <div id="js_lastNameDiv" style="display: none">
+                <div id="js_lastNameDiv" style="${showRegPanel eq true? '':'display:none'}">
                     <form:label path="lastName">Last Name:</form:label>
-                    <form:input path="lastName" cssClass="field" id="js_lastName"/>
+                    <form:input path="lastName" cssClass="field" id="js_lastName" value="${schoolEspCommand.lastName}"/>
                     <span class="js_lastName valid" style="display: none;">&amp;nbsp;</span>
                     <span class="js_lastName invalid"
                           style="display: none;">Please enter a valid last name.</span>
                 </div>
 
-                <div id="js_userNameDiv" style="display: none">
+                <div id="js_userNameDiv" style="${showRegPanel eq true? '':'display:none'}">
                     <form:label path="userName">User name:</form:label>
-                    <form:input path="userName" cssClass="field" id="js_userName"/>
+                    <form:input path="userName" cssClass="field" id="js_userName" value="${schoolEspCommand.userName}"/>
                     <span class="js_userName valid" style="display: none;">&amp;nbsp;</span>
                     <span class="js_userName invalid"
                           style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
@@ -123,10 +124,20 @@
 
             </div>
 
+
+            <div id="js_registeredPasswordDiv" style="display: none">
+                <form:label path="registeredPassword">Password:</form:label>
+                <form:password path="registeredPassword" cssClass="field" id="js_registeredPassword"/>
+                <span id="js_registeredPasswordEmpty" style="display: none;">Please enter your password.</span>
+                <span id="js_registeredPasswordIncorrect" class="error"
+                      style="display: none;">The password does not match.</span>
+            </div>
+
             <div>
                 <input type="submit" value="submit" id="js_submit"/>
             </div>
 
+            <form:input type="hidden" value="" path="">seomthing</form:input>
         </form:form>
     </gsml:body>
 

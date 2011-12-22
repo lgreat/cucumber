@@ -10,14 +10,19 @@ import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
 import gs.data.school.EspMembership;
 import gs.data.state.State;
+import gs.web.community.registration.LoginCommand;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +31,8 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.wsdl.Binding;
+import java.io.PrintWriter;
 import java.util.*;
 
 @Controller
@@ -43,8 +50,27 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     private IUserDao _userDao;
 
     @RequestMapping(value = "form.page", method = RequestMethod.GET)
-    public String showForm(ModelMap modelMap) {
+    public String showForm(ModelMap modelMap, HttpServletRequest request) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
         EspMembershipCommand command = new EspMembershipCommand();
+        System.out.println("-user--------------" + user);
+        if (user != null && user.getId() != null) {
+
+            command.setEmail(user.getEmail());
+            if (!StringUtils.isBlank(user.getFirstName())) {
+                command.setFirstName(user.getFirstName());
+            }
+            if (!StringUtils.isBlank(user.getLastName())) {
+                command.setLastName(user.getLastName());
+            }
+            if (user.getUserProfile() != null && !StringUtils.isBlank(user.getUserProfile().getScreenName())) {
+                command.setUserName(user.getUserProfile().getScreenName());
+            }
+
+            modelMap.put("showRegPanel", true);
+        }
+
         modelMap.addAttribute("schoolEspCommand", command);
         return FORM_VIEW;
     }
@@ -54,55 +80,62 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                                       BindingResult result,
                                       HttpServletRequest request,
                                       HttpServletResponse response) throws Exception {
-        if (StringUtils.isNotBlank(command.getEmail())) {
-            try {
-                String email = command.getEmail().trim();
-                User user = getUserDao().findUserFromEmailIfExists(email);
-                //TODO: cookie based omniture?
-//                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-                boolean userExists = false;
 
-                //If user already exists.
-                if (user != null) {
-                    userExists = true;
-                    setFieldsOnUserUsingCommand(command, user);
-
-                } else {
-                    //If no user already exists create a new one.
-                    user = new User();
-                    user.setEmail(email);
-                    //TODO .Is this right?
-                    user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-                    setFieldsOnUserUsingCommand(command, user);
-                    getUserDao().saveUser(user);
-                    //TODO :?
-                    ThreadLocalTransactionManager.commitOrRollback();
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
+        boolean userExists = false;
+        String email = command.getEmail();
+        String registeredPassword = command.getRegisteredPassword();
+        if (user == null && StringUtils.isNotBlank(email) && StringUtils.isNotEmpty(registeredPassword)) {
+            email = email.trim();
+            user = getUserDao().findUserFromEmailIfExists(email);
+            if (user != null && user.isEmailValidated()) {
+                boolean matchesPassword = user.matchesPassword(registeredPassword);
+                if (matchesPassword) {
+                    PageHelper.setMemberAuthorized(request, response, user, true);
                 }
-
-                //Set the users password and save the user.
-                setUsersPassword(command, user);
-                getUserDao().updateUser(user);
-//                ThreadLocalTransactionManager.commitOrRollback();
-
-                //Set the users profile and save the user.
-                updateUserProfile(command, user);
-                getUserDao().updateUser(user);
-
-                // TODO: do some cookie  and welcome/verification email send.
-
-                //Save ESP membership for user.
-                saveEspMembership(command, user);
-
-            } catch (Exception exception) {
-                _log.debug(exception);
-                throw exception;
             }
+            return "redirect:" + "/school/esp/form.page";
+        } else {
+            if (user == null && StringUtils.isNotBlank(email)) {
+                email = email.trim();
+                user = getUserDao().findUserFromEmailIfExists(email);
+            }
+
+            //TODO: cookie based omniture?
+//            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+
+            //If user already exists.
+            if (user != null && user.getId() != null) {
+                userExists = true;
+                setFieldsOnUserUsingCommand(command, user);
+            } else {
+                //If no user already exists create a new one.
+                user = new User();
+                user.setEmail(email);
+                //TODO .Is this right?
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                setFieldsOnUserUsingCommand(command, user);
+                getUserDao().saveUser(user);
+                ThreadLocalTransactionManager.commitOrRollback();
+            }
+
+            //Set the users password and save the user.
+            setUsersPassword(command, user);
+            getUserDao().updateUser(user);
+            //Set the users profile and save the user.
+            updateUserProfile(command, user);
+            getUserDao().updateUser(user);
+
+            // TODO: do some cookie  and welcome/verification email send.
+
+            //Save ESP membership for user.
+            saveEspMembership(command, user);
             return SUCCESS_VIEW;
         }
-        return FORM_VIEW;
     }
 
-    //TODO write unit tests for this. and this should validate email also.
+    //TODO write unit tests for this.
     @RequestMapping(value = "checkEspUser.page", method = RequestMethod.GET)
     public void checkIfUserExists(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) {
         String email = command.getEmail();
@@ -110,6 +143,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         boolean isUserESPMember = false;
         boolean isUserMember = false;
         boolean isEmailValid = true;
+        boolean isUserEmailValidated = false;
 
         if (StringUtils.isBlank(email)) {
             isEmailValid = false;
@@ -119,13 +153,15 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
             if (isEmailValid) {
                 User user = getUserDao().findUserFromEmailIfExists(email.trim());
-
                 //Found a user
                 if (user != null && user.getId() != null) {
                     isUserMember = true;
-
                     //Check if the user is already an ESP member.TODO maybe just check the role?
                     List<EspMembership> membership = getEspMembershipDao().findEspMembershipsByUserId(new Long(user.getId()), false);
+
+                    if (user.isEmailValidated()) {
+                        isUserEmailValidated = true;
+                    }
 
                     //User already an ESP member.Therefore he will have all the required fields.
                     if (membership != null && membership.size() > 0) {
@@ -145,6 +181,8 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                             fieldsToCollect += fieldsToCollect.length() > 0 ? ",password" : "password";
                             fieldsToCollect += ",confirmPassword";
                         }
+
+
                     }
                 }
             }
@@ -155,6 +193,8 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             Map data = new HashMap();
             if (!isEmailValid) {
                 data.put("invalidEmail", "Please enter a valid email address.");
+            } else if (isUserEmailValidated) {
+                data.put("isUserEmailValidated", true);
             } else if (isUserMember) {
                 data.put("isUserMember", true);
                 if (fieldsToCollect.length() > 0) {
@@ -166,6 +206,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             } else {
                 data.put("userNotFound", true);
             }
+
             rval = new JSONObject(data);
             response.setContentType("application/json");
             response.getWriter().print(rval.toString());
@@ -174,6 +215,33 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             _log.error("Error " + exp, exp);
             //TODO return an json error .response code to 500.
         }
+    }
+
+    //TODO write unit tests for this.
+    @RequestMapping(value = "checkUserPassword.page", method = RequestMethod.GET)
+    public void checkUserPassword(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
+        String email = command.getEmail();
+        String registeredPassword = command.getRegisteredPassword();
+
+        boolean matchesPassword = false;
+        if (StringUtils.isNotBlank(email) && StringUtils.isNotEmpty(registeredPassword)) {
+            email = email.trim();
+            User user = getUserDao().findUserFromEmailIfExists(email);
+            if (user != null) {
+                matchesPassword = user.matchesPassword(registeredPassword);
+            }
+        }
+        Map data = new HashMap();
+        if (matchesPassword) {
+            data.put("correctPassword", true);
+        } else {
+            data.put("incorrectPassword", "The password you entered is incorrect.");
+        }
+
+        JSONObject rval = new JSONObject(data);
+        response.setContentType("application/json");
+        response.getWriter().print(rval.toString());
+        response.getWriter().flush();
     }
 
 
@@ -200,7 +268,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     protected void setUsersPassword(EspMembershipCommand espMembershipCommand, User user) throws Exception {
         //We accept just spaces as password.Therefore do NOT use : isBlank, use : isEmpty and do NOT trim().
         try {
-            if (StringUtils.isNotEmpty(espMembershipCommand.getPassword())) {
+            if (StringUtils.isNotEmpty(espMembershipCommand.getPassword()) && user.isPasswordEmpty()) {
                 user.setPlaintextPassword(espMembershipCommand.getPassword());
                 user.setEmailProvisional(espMembershipCommand.getPassword());
             }
@@ -256,9 +324,11 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         EspMembership espMembership = null;
 
         if (state != null && schoolId != null && user != null && user.getId() != null) {
+
             espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, new Long(user.getId()));
 
             if (espMembership == null) {
+
                 EspMembership esp = new EspMembership();
                 esp.setActive(false);
                 esp.setJobTitle(command.getJobTitle());
@@ -277,6 +347,12 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
         return emv.isValid(email);
     }
+//
+//    public void validateSomething(Errors errors) {
+////        EspMembershipCommand command = new EspMembershipCommand();
+//        errors.rejectValue("schoolId", "field.required", "required");
+//
+//    }
 
     public IEspMembershipDao getEspMembershipDao() {
         return _espMembershipDao;

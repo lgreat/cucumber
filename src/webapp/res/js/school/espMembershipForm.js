@@ -54,6 +54,7 @@ GS.form.EspForm = function() {
     //ii)email entered belongs to Existing user with no ESP membership OR already a ESP member
     //(iii)email was not found.
     this.checkUser = function(email) {
+
         if (email !== "" && email !== undefined) {
             jQuery.ajax({
                 type: 'GET',
@@ -65,6 +66,11 @@ GS.form.EspForm = function() {
 
                     if (data.invalidEmail !== "" && data.invalidEmail !== undefined) {
                         jQuery('#js_invalidEmail').show();
+
+
+                    } else if (data.isUserEmailValidated === true) {
+                        jQuery('#js_registeredPasswordDiv').show();
+                        bindLoginSubmit();
 
                     } else if (data.isUserMember === true || data.isUserESPMember === true) {
 
@@ -99,6 +105,31 @@ GS.form.EspForm = function() {
         //This should never submit the form.Hence always return false.
         return false;
     };
+
+    this.checkUserPassword = function() {
+        var email = jQuery('#js_email').val();
+        var password = jQuery('#js_registeredPassword').val();
+        var rval = true;
+        if (password !== '' && password !== undefined) {
+            jQuery.ajax({
+                type: 'GET',
+                url: '/school/esp/checkUserPassword.page',
+                data: {email:email, registeredPassword:password},
+                dataType: 'json',
+                async: false
+            }).done(function(data) {
+                    if (data.incorrectPassword !== '' && data.incorrectPassword !== undefined) {
+                        jQuery('#js_registeredPasswordIncorrect').show();
+                        rval = false;
+                    }
+                });
+        } else {
+            rval = false;
+            jQuery('#js_registeredPasswordEmpty').show();
+        }
+        return rval;
+    };
+
 
     this.validateFirstName = function() {
         var fName = jQuery('#js_firstName').val();
@@ -258,7 +289,14 @@ jQuery(function() {
     jQuery('#js_jobTitle').change(GS.form.espForm.validateJobTitle);
     jQuery('#jq-school').change(GS.form.espForm.validateSchool);
 
-    bindEmailSubmit();
+    var regPanel = jQuery('#js_regPanel');
+
+    if (regPanel.is(':visible')) {
+        bindFormSubmit();
+
+    } else if (!regPanel.is(':visible')) {
+        bindEmailSubmit();
+    }
 
     jQuery('#js_email').keydown(function() {
         var regPanel = jQuery('#js_regPanel');
@@ -266,6 +304,11 @@ jQuery(function() {
         hideEmailErrors();
         if (regPanel.is(':visible')) {
             regPanel.hide();
+            jQuery('#js_firstNameDiv').hide();
+            jQuery('#js_lastNameDiv').hide();
+            jQuery('#js_userNameDiv').hide();
+            jQuery('#js_passwordDiv').hide();
+            jQuery('#js_confirmPasswordDiv').hide();
             bindEmailSubmit();
         }
     });
@@ -293,6 +336,21 @@ function bindEmailSubmit() {
             return false;
         });
 
+    }
+}
+
+function bindLoginSubmit() {
+    var passwordDiv = jQuery('#js_registeredPasswordDiv');
+    var regPanel = jQuery('#js_regPanel');
+    var shouldSubmitForm = false;
+
+    //Additional check that if the registration panel is not visible and the password field is visible then form should submit.
+    if (!regPanel.is(':visible') && passwordDiv.is(':visible')) {
+        unbindSubmitHandler();
+        jQuery('#js_submit').click(function() {
+            shouldSubmitForm = GS.form.espForm.checkUserPassword();
+            return shouldSubmitForm;
+        });
     }
 }
 
@@ -325,7 +383,6 @@ function bindFormSubmit() {
             //The school and the job title fields are always present.Hence always validate them.
             var isJobTitleValid = GS.form.espForm.validateJobTitle();
             var isSchoolValid = GS.form.espForm.validateSchool();
-
             return isFirstNameValid && isLastNameValid && isUserNameValid && isPasswordValid && isConfirmPasswordValid && isJobTitleValid && isSchoolValid;
         });
     }

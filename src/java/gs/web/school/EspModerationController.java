@@ -52,7 +52,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
             if ("approve".equals(command.getModeratorAction())) {
                 membership.setStatus(EspMembershipStatus.APPROVED);
             } else if ("disapprove".equals(command.getModeratorAction())) {
-                membership.setStatus(EspMembershipStatus.DISAPPROVED);
+                membership.setStatus(EspMembershipStatus.REJECTED);
             }
 
             if (StringUtils.isNotBlank(command.getNote().get(index))) {
