@@ -149,8 +149,8 @@ $j(document).ready(function() {
             case (newpos >= (tabPosition['5']-halfHandleWidth) && newpos < theTabsWidth):
                 selectedLevel = '5';
                 break;
-            default:
-                alert("A valid position was not set.");
+//            default:
+//                alert("A valid position was not set.");
         }
         newpos = tabMarkerPosition[selectedLevel] - halfHandleWidth;
         theHandle.stop().animate({ 'left': newpos }, 200);

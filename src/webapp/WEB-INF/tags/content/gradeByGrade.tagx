@@ -231,8 +231,8 @@
                     newpos = tabhMarkerPosition - (theHandleWidth / 2);
                     selectedLevel = 'h';
                     break;
-                default:
-                    alert("A valid position was not set.");
+                //default:
+                    //alert("A valid position was not set.");
             }
             theHandle.stop().animate({ 'left': newpos }, 200);
             jQuery('#gbgTabs ul li').removeClass('selected');
