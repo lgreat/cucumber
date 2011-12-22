@@ -856,7 +856,7 @@ h4.subhead2 a {
 .articleText h2 { color: #d61; }
 
 .articleText h1 { font: bold 24px/33px Arial, Helvetica, sans-serif; margin-bottom: 10px; }
-.articleText h2 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 25px; }
+.articleText h2 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .articleText h3 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .articleText .mainImage{ margin-bottom: 16px; }
 /* ------------- articleSidebar -------------- */
