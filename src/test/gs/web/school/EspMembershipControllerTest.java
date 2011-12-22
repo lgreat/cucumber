@@ -41,26 +41,29 @@ public class EspMembershipControllerTest extends BaseControllerTestCase {
 
     public void verifyAllMocks() {
         super.verifyMocks(_userDao, _espMembershipDao);
-
     }
 
-    public void testCreateEspMembershipNullEmail() {
+    public void testCreateEspMembershipNullEmail() throws Exception {
         EspMembershipCommand command = new EspMembershipCommand();
         BindingResult bindingResult = createMock(BindingResult.class);
         String view = _controller.createEspMembership(command, bindingResult, getRequest(), getResponse());
         assertEquals("There is no email set.Therefore return the form view", EspMembershipController.FORM_VIEW, view);
     }
 
-    public void testCreateEspMembership() {
+    public void testCreateEspMembership() throws Exception {
         EspMembershipCommand command = new EspMembershipCommand();
         command.setEmail("someone@greatschools.org");
+        command.setState(State.CA);
+        command.setSchoolId(new Long(23));
 
         User user = new User();
         user.setEmail(command.getEmail());
+        user.setId(23);
 
         expect(_userDao.findUserFromEmailIfExists(command.getEmail())).andReturn(user);
         _userDao.updateUser(user);
         _userDao.updateUser(user);
+        expect(_espMembershipDao.findEspMembershipByStateSchoolIdUserId(isA(State.class),isA(Long.class),isA(Long.class))).andReturn(null);
         _espMembershipDao.saveEspMembership(isA(EspMembership.class));
 
         replayAllMocks();
@@ -107,13 +110,14 @@ public class EspMembershipControllerTest extends BaseControllerTestCase {
         User u = new User();
         u.setId(23);
         expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(u);
-        expect(_espMembershipDao.findEspMembershipByUserId(new Long(23))).andReturn(null);
+        expect(_espMembershipDao.findEspMembershipsByUserId(new Long(23), false)).andReturn(null);
 
         replayAllMocks();
         _controller.checkIfUserExists(getRequest(), getResponse(), command);
         verifyAllMocks();
 
-        assertEquals("None of the fields required by ESP are set on the user object.", "{\"fieldsToCollect\":\"firstName,lastName,userName,password\"}", getResponse().getContentAsString());
+        assertEquals("None of the fields required by ESP are set on the user object.",
+                "{\"isUserMember\":true,\"fieldsToCollect\":\"firstName,lastName,userName,password,confirmPassword\"}", getResponse().getContentAsString());
     }
 
     public void testCheckIfUserExistsValidEmailExistingUserCollectFewFields() throws Exception {
@@ -124,13 +128,13 @@ public class EspMembershipControllerTest extends BaseControllerTestCase {
         u.setFirstName("firstName");
         u.setLastName("lastName");
         expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(u);
-        expect(_espMembershipDao.findEspMembershipByUserId(new Long(23))).andReturn(null);
+        expect(_espMembershipDao.findEspMembershipsByUserId(new Long(23), false)).andReturn(null);
 
         replayAllMocks();
         _controller.checkIfUserExists(getRequest(), getResponse(), command);
         verifyAllMocks();
 
-        assertEquals("First and last names are already set on the user object.", "{\"fieldsToCollect\":\"userName,password\"}", getResponse().getContentAsString());
+        assertEquals("First and last names are already set on the user object.", "{\"isUserMember\":true,\"fieldsToCollect\":\"userName,password,confirmPassword\"}", getResponse().getContentAsString());
     }
 
     public void testCheckIfUserExistsValidEmailExistingUserCollectNoFields() throws Exception {
@@ -145,7 +149,7 @@ public class EspMembershipControllerTest extends BaseControllerTestCase {
         userProfile.setScreenName("screenname");
         u.setUserProfile(userProfile);
         expect(_userDao.findUserFromEmailIfExists("someemail@greatschools.org")).andReturn(u);
-        expect(_espMembershipDao.findEspMembershipByUserId(new Long(23))).andReturn(null);
+        expect(_espMembershipDao.findEspMembershipsByUserId(new Long(23), false)).andReturn(null);
 
         replayAllMocks();
         _controller.checkIfUserExists(getRequest(), getResponse(), command);
