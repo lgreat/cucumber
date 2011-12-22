@@ -930,7 +930,7 @@ h4.subhead2 a {
 .licensorAttribution .bd p{font: italic 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px;}
 
 /* ---------------- GS-12262 ----------------- */
-/* ----------- articleSlideshow ----------- */
+/* ------------ articleSlideshow ------------- */
 .articleSlideshow{margin-bottom:20px;}
 .articleSlideshow .inner{border:1px solid #bcdeed;}
 .articleSlideshow .hd, .articleSlideshow .ft {height:40px;}
@@ -944,7 +944,7 @@ h4.subhead2 a {
 .win .articleSlideshow .hd .skinSelectArrow{line-height:24px;}
 .articleSlideshow .bd .bd-content{padding:20px 10px 0;}
 .articleSlideshow .bd .bd-content img{float:left;margin:0 20px 20px 0;}
-/*articleDistribution2*/
+/* ---------- articleDistribution2 ----------- */
 .articleDistribution2{margin-bottom:20px;}
 
 /* ---------------- GS-11664 ----------------- */

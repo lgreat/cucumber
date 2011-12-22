@@ -20,6 +20,7 @@
         <script type="text/javascript" src="/res/js/global.js"><!--Do not collapse--></script>
         <link rel="stylesheet" type="text/css" href="/res/css/00_reset/neutral_reset.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/06_spacing/spacing.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/08_css3/rounded_corners.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/38_special/cms_content.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/printGrid_640.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/printTypography.css" />
@@ -80,15 +81,19 @@
     <!-- Answer -->
 
     <!-- Author bios, Licensor attribution, and disclaimer -->
-    <div class="authorBio pal">
-        <c:if test="${not empty authorBios}">
-            <article:authorBios authorBios="${authorBios}"/>
-        </c:if>
-        <article:disclaimer showDisclaimer="${true}"/>
-        <c:if test="${not empty feature.licensorAttribution}">
-            <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>
-        </c:if>
-     </div>
+            <c:if test="${not empty authorBios or not empty feature.licensorAttribution}">
+                <div class="authorBio">
+                    <div class="inner rnd3">
+                        <c:if test="${not empty authorBios}">
+                            <article:authorBios authorBios="${authorBios}"/>
+                        </c:if>
+                        <article:disclaimer showDisclaimer="${true}"/>
+                        <c:if test="${not empty feature.licensorAttribution}">
+                            <article:licensorAttribution licensorAttribution="${feature.licensorAttribution}"/>
+                        </c:if>
+                    </div>
+                </div>
+            </c:if>
     <!-- Author bios, Licensor attribution, and disclaimer -->
 
     <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
