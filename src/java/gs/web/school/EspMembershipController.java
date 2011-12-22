@@ -202,7 +202,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 }
                 if (isUserESPMember) {
                     data.put("isUserESPMember", true);
-                    data.put("isUserEmailValidated", isUserEmailValidated);
                 }
             } else {
                 data.put("userNotFound", true);

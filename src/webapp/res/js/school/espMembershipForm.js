@@ -74,25 +74,21 @@ GS.form.EspForm = function() {
 
                     } else if (data.isUserMember === true || data.isUserESPMember === true) {
 
-                        if (data.isUserESPMember === true && data.isUserEmailValidated === false) {
-                            jQuery('#js_userESPMember').show();
-                        } else {
-                            //User already exists.However all the required fields are not filled in.Therefore collect them.
-                            if (data.fieldsToCollect !== "" && data.fieldsToCollect !== undefined) {
-                                var fields = data.fieldsToCollect.split(",");
-                                for (var i = 0; i < fields.length; i++) {
-                                    jQuery('#js_' + fields[i] + 'Div').show();
-                                }
+                        //User already exists.However all the required fields are not filled in.Therefore collect them.
+                        if (data.fieldsToCollect !== "" && data.fieldsToCollect !== undefined) {
+                            var fields = data.fieldsToCollect.split(",");
+                            for (var i = 0; i < fields.length; i++) {
+                                jQuery('#js_' + fields[i] + 'Div').show();
                             }
-
-                            //User is already ESP member.Therefore show a message.
-//                        if (data.isUserESPMember === true) {
-//                            jQuery('#js_userESPMember').show();
-//                        }
-
-                            jQuery('#js_regPanel').show();
-                            bindFormSubmit();
                         }
+
+                        //User is already ESP member.Therefore show a message.
+                        if (data.isUserESPMember === true) {
+                            jQuery('#js_userESPMember').show();
+                        }
+
+                        jQuery('#js_regPanel').show();
+                        bindFormSubmit();
 
                     } else if (data.userNotFound === true) {
 
