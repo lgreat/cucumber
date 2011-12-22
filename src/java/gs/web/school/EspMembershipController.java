@@ -54,7 +54,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
         EspMembershipCommand command = new EspMembershipCommand();
-        System.out.println("-user--------------" + user);
+
         if (user != null && user.getId() != null) {
 
             command.setEmail(user.getEmail());
@@ -202,6 +202,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 }
                 if (isUserESPMember) {
                     data.put("isUserESPMember", true);
+                    data.put("isUserEmailValidated", isUserEmailValidated);
                 }
             } else {
                 data.put("userNotFound", true);
