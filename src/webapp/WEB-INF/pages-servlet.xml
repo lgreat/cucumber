@@ -508,7 +508,7 @@
         <property name="viewName" value="search/schoolSearchResults" />
         <property name="ajaxViewName" value="search/schoolSearchResultsTable" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
-        <property name="noResultsAjaxViewName" value="search/schoolSearchResults" />
+        <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
     </bean>
 
     <bean name="/search/mapresults.page" class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
