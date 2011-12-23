@@ -119,8 +119,8 @@ Misc classes
 .slStylesV1-0 ul,
 .slStylesV1-0 ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.5em; }
 
-.slStylesV1-0 ul li       { list-style-type: disc; }
-.slStylesV1-0 ol li       { list-style-type: decimal; }
+.slStylesV1-0 ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
+.slStylesV1-0 ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
 
 .slStylesV1-0 dl          { margin: 0 0 1.5em 0; }
 .slStylesV1-0 dl dt       { font-weight: bold; }

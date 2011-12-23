@@ -859,6 +859,9 @@ h4.subhead2 a {
 .articleText h2 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .articleText h3 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .articleText .mainImage{ margin-bottom: 16px; }
+
+.articleText ul li { list-style-type: disc; font: normal 14px/20px Arial, Helvetica, sans-serif; color:#555555; }
+.articleText ol li { list-style-type: decimal; font: normal 14px/20px Arial, Helvetica, sans-serif; color:#555555; }
 /* ------------- articleSidebar -------------- */
 .articleSidebar{margin-bottom:20px;}
 .articleSidebar .inner{border:1px solid #e6e6e6;background-color: #fff;padding:10px;}
