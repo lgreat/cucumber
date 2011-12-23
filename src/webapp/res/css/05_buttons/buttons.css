@@ -105,7 +105,7 @@ General comments:
     height: 23px;
     color: white;
     text-decoration: none;
-    font: bold 14px/23px Arial, Helvetica, sans-serif;
+    font: bold 14px/21px Arial, Helvetica, sans-serif;
     display: inline-block;
     text-align: center;
     position: relative;
@@ -708,7 +708,7 @@ Extends button-1 by changing:
     height: 18px;
     color: #0066bb;
     text-decoration: none;
-    font: normal 11px/18px Arial, Helvetica, sans-serif;
+    font: normal 11px/15px Arial, Helvetica, sans-serif;
     display: inline-block;
     text-align: center;
     position: relative;
@@ -769,7 +769,7 @@ Extends button-1 by changing:
     height: 18px;
     color: white;
     text-decoration: none;
-    font: normal 11px/18px Arial, Helvetica, sans-serif;
+    font: normal 11px/15px Arial, Helvetica, sans-serif;
     display: inline-block;
     text-align: center;
     position: relative;
