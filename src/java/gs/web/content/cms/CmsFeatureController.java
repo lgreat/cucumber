@@ -67,10 +67,6 @@ public class CmsFeatureController extends AbstractController {
         CmsFeature feature = null;
         boolean showSampleSlideshow = uri.contains("slideshows/sample-slideshow");
 
-        //GS-12260 if "showNew" param is present then show the new page.
-        String showNewParam =  request.getParameter("showNew");
-        boolean isShowNew = (StringUtils.isNotBlank(showNewParam)) ? ("true".equalsIgnoreCase(showNewParam) ? true : false) : false;
-
         if (!showSampleSlideshow) {
             Long contentId = null;
 
@@ -343,8 +339,8 @@ public class CmsFeatureController extends AbstractController {
             }
         }
 
-        if ((CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType()) ||
-            CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(feature.getContentKey().getType())) && isShowNew) {
+        if (CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType()) ||
+            CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
             if (print) {
                 return new ModelAndView("/content/cms/articleSlideshowPrint", model);
             } else {
