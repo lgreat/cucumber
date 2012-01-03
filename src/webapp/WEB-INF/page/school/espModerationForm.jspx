@@ -38,7 +38,7 @@
                         <td><form:checkbox path="espMembershipIds" value="${membership.id}-${index.count}"/></td>
                         <td>${membership.user.email}</td>
                         <td>${membership.state}</td>
-                        <td>${membership.schoolName}</td>
+                        <td>${membership.school.name}</td>
                         <td>${membership.user.firstName}</td>
                         <td>${membership.user.lastName}</td>
                         <td>${membership.jobTitle}</td>
