@@ -328,7 +328,7 @@
 </td>
 <td class="${(pw == tabs.COLLEGE ? 'selected' : '')} menuItem lastNavUnit">
     <div class="dropdownReference">
-        <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">&amp;nbsp;College&amp;nbsp;</link:college>
+        <link:college id="PN-College" styleClass="menuItemAnchorText drop GS_CI9_">College</link:college>
 
         <div class="dropdown_6 text2 dropdown_align_right">
             <div class="col_1">

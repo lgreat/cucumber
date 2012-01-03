@@ -131,8 +131,8 @@ General comments:
     border-right: 1px solid #c6c6c6;
 }
 
-#primary .dropdownReference.lastNavUnit{
-    border: 0 none;
+#primary .lastNavUnit .dropdownReference{
+    border-right: none;
 }
 
 #primary .dropdown_1,
