@@ -41,7 +41,7 @@ public class TeachersStudentsController extends PerlFetchController {
         relativePath = relativePath.replaceAll("\\$STATE", school.getDatabaseState().getAbbreviationLowerCase());
         relativePath = relativePath.replaceAll("\\$ID", String.valueOf(school.getId()));
 
-        String href = request.getScheme() + "://" + request.getServerName() +
+        String href = request.getScheme() + "://localhost" +
                 ((request.getServerPort() != 80)?(":" + request.getServerPort()):"") +
                 relativePath;
 

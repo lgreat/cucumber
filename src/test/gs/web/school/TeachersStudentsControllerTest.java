@@ -64,7 +64,7 @@ public class TeachersStudentsControllerTest extends BaseControllerTestCase {
         school.setId(1);
         school.setDatabaseState(State.CA);
         String href = _controller.getAbsoluteHref(school, getRequest());
-        assertEquals("http://dev.greatschools.org/ca/private/1", href);
+        assertEquals("http://localhost/ca/private/1", href);
     }
     
     public void testGetAbsoluteHrefPublic() throws Exception {
@@ -74,7 +74,7 @@ public class TeachersStudentsControllerTest extends BaseControllerTestCase {
         school.setId(1);
         school.setDatabaseState(State.CA);
         String href = _controller.getAbsoluteHref(school, getRequest());
-        assertEquals("http://dev.greatschools.org/ca/public/1", href);
+        assertEquals("http://localhost/ca/public/1", href);
     }
 
     public void testRedirectForPreschools() throws Exception {
