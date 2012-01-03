@@ -58,7 +58,7 @@
         jQuery('#ryhSubmit').click(function() {
 
             var body = jQuery('#ryhAnswer').val();
-            if (body == undefined || body == '') {
+            if (body == undefined || body === '' || body === 'Your answer...') {
                 alert("Please enter a reply. ");
                 return false;
             }
