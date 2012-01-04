@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0" >
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:directive.page contentType="text/html"/>
@@ -19,25 +20,14 @@
         div.rightSide {
             width: 720px;
         }
+        div.rightSide .js_spinny {
+            margin: 5px 15px 0 0;
+        }
         .searchLocationLabel {
             margin-left: 15px;
         }
-        #districtListDiv {
-            height: 350px;
-            overflow-y: scroll;
-            border: 1px solid;
-            position: relative;
-        }
-        #districtList li {
-            margin-bottom: 3px;
-            list-style: disc inside;
-            background-color: #ddd;
-            font-size: 12px;
-            padding: 1px;
-        }
-        #districtList li.selected {
-            border: 1px solid red;
-            padding: 0;
+        #districtListDiv select {
+            width: 233px;
         }
         #schoolListDiv {
             height: 350px;
@@ -64,146 +54,41 @@
     </style>
 
     <pageHelper:externalJavascript file="/res/js/history.min.js"/>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"><!-- no collapse --></script>
+    <pageHelper:externalJavascript file="/res/js/boundary.js"/>
+    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
 
     <script type="text/javascript">
         <![CDATA[
 
-        Array.prototype.contains = function(obj) {
-          var i = this.length;
-          while (i--) {
-            if (this[i] === obj) {
-              return true;
-            }
-          }
-          return false;
-        };
         function isScrolledIntoView(elem, parentElem) {
             // position should be between 0 and height. parentElem must be relatively positioned!
             var elemTop = $(elem).position().top;
             return elemTop > 0 && elemTop < $(parentElem).height();
         }
         var GS = GS || {};
-        GS.Map = GS.Map || {};
-        GS.Map.Helper = new (function() {
-            this.highlightPolygon = function(polygon, options) {
-                options = options || {};
-                var duration = options.duration || 500;
-                var strokeWeight = options.strokeWeight || 4;
-                polygon.setOptions({strokeWeight:strokeWeight});
-                setTimeout(function() {
-                    polygon.setOptions({strokeWeight:2});
-                }, duration);
-            };
-            this.createMarker = function(options) {
-                var center = new google.maps.LatLng(options.center.latitude, options.center.longitude);
-                var size = new google.maps.Size(options.size.width,options.size.height);
-                var origin = undefined;
-                if (options.origin) {
-                    origin = new google.maps.Point(options.origin.x, options.origin.y);
-                }
-                var anchor = undefined;
-                if (options.anchor) {
-                    anchor = new google.maps.Point(options.anchor.x, options.anchor.y);
-                }
-                var markerImage = new google.maps.MarkerImage(options.url, size, origin, anchor);
-                var markerShape = undefined;
-                if (options.shape) {
-                    markerShape = {
-                        coord: options.shape.coord,
-                        type: options.shape.type
-                    }
-                }
-                var shadow = options.shadowUrl;
-                if (options.shadow) {
-                    shadow = new google.maps.MarkerImage(options.shadow.url, options.shadow.size,
-                            options.shadow.origin, options.shadow.anchor);
-                }
-                return new google.maps.Marker
-                        ({
-                             position: center,
-                             title:options.name,
-                             icon:markerImage,
-                             shape:markerShape,
-                             shadow:shadow
-                         });
-            };
-            this.createGoogleMapsPolygon = function(options){ // coordinates, zIndex, fillColor, strokeColor
-                var coords = options.coordinates;
-                var zIndex = options.zIndex || 1;
-                var fillColor = options.fillColor || '#46461F';
-                var strokeColor = options.strokeColor || '#FF7800';
-                var paths = [];
-                for (var i=0;i < coords.length;i++){
-                    for (var j=0;j<coords[i].length;j++){
-                        var path=[];
-                        for (var k=0;k<coords[i][j].length;k++){
-                            var ll = new google.maps.LatLng(coords[i][j][k][1],coords[i][j][k][0]);
-                            path.push(ll);
-                        }
-                        paths.push(path);
-                    }
-                }
-                return new google.maps.Polygon({
-                    paths: paths,
-                    strokeColor: strokeColor,
-                    strokeOpacity: 1,
-                    strokeWeight: 2,
-                    fillColor: fillColor,
-                    fillOpacity: 0.25,
-                    zIndex: zIndex
-                });
-            };
-            // requires Array.prototype.contains to be defined
-            this.geocodeAddress = function(searchInput, callbackFunc) {
-                var geocoder = new google.maps.Geocoder();
-                if (geocoder && searchInput) {
-                    geocoder.geocode({ 'address': searchInput + ' US'}, function(results, status) {
-                        var numResults = 0;
-                        var GS_geocodeResults = new Array();
-                        if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
-                            numResults = results.length;
-                            for (var x = 0; x < numResults; x++) {
-                                var geocodeResult = new Array();
-                                geocodeResult['lat'] = results[x].geometry.location.lat();
-                                geocodeResult['lon'] = results[x].geometry.location.lng();
-                                geocodeResult['normalizedAddress'] =results[x].formatted_address;
-                                geocodeResult['type'] = results[x].types.join();
-                                if (results[x].partial_match) {
-                                    geocodeResult['partial_match'] = true;
-                                } else {
-                                    geocodeResult['partial_match'] = false;
-                                }
-                                for (var i = 0; i < results[x].address_components.length; i++) {
-                                    if (results[x].address_components[i].types.contains('administrative_area_level_1')) {
-                                        geocodeResult['state'] = results[x].address_components[i].short_name;
-                                    }
-                                    if (results[x].address_components[i].types.contains('country')) {
-                                        geocodeResult['country'] = results[x].address_components[i].short_name;
-                                    }
-                                }
-                                // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
-                                if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
-                                        'state' in geocodeResult &&
-                                        'normalizedAddress' in geocodeResult &&
-                                        'country' in geocodeResult) ||
-                                        geocodeResult['country'] != 'US') {
-                                    geocodeResult = null;
-                                }
-                                if (geocodeResult != null) {
-                                    GS_geocodeResults.push(geocodeResult);
-                                }
-                            }
-                        }
-                        callbackFunc(GS_geocodeResults);
-                    });
-                }
-            };
-        })();
 
         GS.Boundaries = GS.Boundaries || {};
-        GS.Boundaries.BoundaryHelper = new (function() {
-            var districtBoundaryMap = null;
+
+        GS.Boundaries.events = {};
+        GS.Boundaries.Event = function(name) {
+            var callbacks;
+            var event = name && GS.Boundaries.events[name];
+            if (!event) {
+                callbacks = jQuery.Callbacks();
+                event = {
+                    trigger: callbacks.fire,
+                    subscribe: callbacks.add,
+                    unsubscribe: callbacks.remove
+                };
+                if (name) {
+                    GS.Boundaries.events[name] = event;
+                }
+            }
+            return event;
+        };
+        var myEvent = new GS.Boundaries.Event('districtsLoaded');
+        var districtBoundaryMap = null;
+        new (function() {
             var stuffOnMap = {};
             var selectedDistrict = null;
             var mapClickListeners = new Array();
@@ -212,514 +97,7 @@
             var multiSelectSchool = false;
             var mapInfoWindow = new google.maps.InfoWindow();
 
-            // DATA STRUCTURES
-            var MarkerWithBoundary = function() {
-                this.marker = null;
-                this.polygon = null;
-                this.state = null;
-                this.id = null;
-                this.name = null;
-                this.rating = 0;
-                this.url = null;
-                this.centerOnLoad = false;
-                this.centroid = {};
-                this.address = {};
-
-                this.init = function(params) {
-                    this.state = params.state;
-                    this.id = params.id;
-                    this.name = params.name;
-                    if (typeof(params.rating) !== 'undefined') {
-                        this.rating = params.rating;
-                    }
-                    if (typeof(params.url) !== 'undefined') {
-                        this.url = params.url;
-                    }
-                    this.address = params.address || {};
-                };
-                this.isDistrict = function() {return false;};
-                this.isSchool = function() {return false;};
-                this.hasMarker = function() {
-                    return this.marker != null;
-                };
-                this.isMarkerShown = function() {
-                    return this.hasMarker() && this.marker.getMap() != null;
-                };
-                this.hideMarker = function() {
-                    if (this.isMarkerShown()) {
-                        this.marker.setMap(null);
-                    }
-                };
-                this.showMarker = function() {
-                    if (!this.isMarkerShown()) {
-                        this.marker.setMap(districtBoundaryMap);
-                    }
-                };
-                this.hasPolygon = function() {
-                    return this.polygon != null;
-                };
-                this.isPolygonShown = function() {
-                    return this.hasPolygon() && this.polygon.getMap() != null;
-                };
-                this.showPolygon = function() {
-                    if (!this.isPolygonShown()) {
-                        this.showPolygonImpl();
-                        this.polygon.setMap(districtBoundaryMap);
-                        updateDebugListeners(); // DEBUG
-                    }
-                };
-                this.hidePolygon = function() {
-                    if (this.isPolygonShown()) {
-                        this.polygon.setMap(null);
-                        this.hidePolygonImpl();
-                    }
-                };
-                this.togglePolygon = function() {
-                    if (this.isPolygonShown()) {
-                        this.hidePolygon();
-                    } else {
-                        this.loadAndShowPolygon();
-                    }
-                };
-                this.centerMap = function() {
-                    if (this.isMarkerShown()) {
-                        centerMap(this.marker.getPosition());
-                    }
-                }
-            };
-            var DistrictWithBoundary = function(params) {
-                this.schools = new Array();
-                this.schoolsLoaded = false;
-
-                this.init(params);
-                this.loadSchools = function() {
-                    this.showSchools();
-                    if (!this.schoolsLoaded) {
-                        getAllSchoolsForDistrictAjax(this.state, this.id, this.name);
-                        this.schoolsLoaded = true;
-                    }
-                };
-                this.hasSchools = function() {
-                    return this.schools.length > 0;
-                };
-                this.showSchools = function() {
-                    for (var x=0; x < this.schools.length; x++) {
-                        this.schools[x].showMarker();
-                    }
-                    updateSchoolList();
-                };
-                this.hideSchools = function() {
-                    for (var x=0; x < this.schools.length; x++) {
-                        this.schools[x].hideMarker();
-                        this.schools[x].hidePolygon();
-                    }
-                };
-                this.loadAndShowPolygon = function() {
-                    if (!this.hasPolygon()) {
-                        getDistrictBoundaryByIdAjax(this.state, this.id, this.name);
-                    } else if (!this.isPolygonShown()) {
-                        this.showPolygon();
-                    }
-                };
-                this.showPolygonImpl = function() {
-                    if (!multiSelectDistrict) {
-                        hideAllDistrictPolygons();
-                    }
-                    $('#' + this.getKey()).addClass("selected");
-                    if ($('#' + this.getKey()).position() != null && isScrolledIntoView($('#' + this.getKey()), $('#districtListDiv')) === false) {
-                        var scrollTop = $('#districtListDiv').scrollTop();
-                        $('#districtListDiv').scrollTop(scrollTop + $('#' + this.getKey()).position().top);
-                    }
-                    selectedDistrict = this;
-                    var nameHtml = '';
-                    if (this.url != null) {
-                        nameHtml += '<a href="' + this.url + '">'
-                    }
-                    nameHtml += this.name;
-                    if (this.url != null) {
-                        nameHtml += '</a>'
-                    }
-                    $('#currentlySelectedDistrict').html(nameHtml);
-                };
-                this.hidePolygonImpl = function() {
-                    $('#' + this.getKey()).removeClass("selected");
-                    $('#currentlySelectedDistrict').html('');
-                    selectedDistrict = null;
-                    this.hideSchools();
-                };
-                this.showInfoWindow = function() {
-                    var infoWindowElement = $('#boundaryMapDistrictInfoWindow');
-                    var nameLink = '<a href="' + this.url + '">' + this.name + '</a>';
-                    infoWindowElement.find('.js_name').html(nameLink);
-                    var ratingImg = '<span class="sprite badge_sm_';
-                    if (this.rating > 0 && this.rating < 11) {
-                        ratingImg += this.rating
-                    } else {
-                        ratingImg += 'na'
-                    }
-                    ratingImg += '"><!-- do not collapse --></span>';
-                    infoWindowElement.find('.js_rating').html(ratingImg);
-                    var addr = '';
-                    if (this.address.street1) {
-                        addr += this.address.street1 + '<br/>';
-                    }
-                    if (this.address.cityStateZip) {
-                        addr += this.address.cityStateZip;
-                    }
-                    infoWindowElement.find('.js_address').html(addr);
-                    mapInfoWindow.setContent(
-                        '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
-                    );
-                    mapInfoWindow.open(districtBoundaryMap, this.marker);
-                };
-                this.hideInfoWindow = function() {
-                    mapInfoWindow.close();
-                };
-                this.setMarker = function(marker) {
-                    this.hideMarker();
-                    this.marker = marker;
-                    google.maps.event.addListener(marker, 'click', createDistrictMarkerClickListener(this));
-                };
-                this.setPolygon = function(polygon) {
-                    this.hidePolygon();
-                    this.polygon = polygon;
-                    polygon.setOptions({strokeColor:'#FF7800', zIndex:1});
-                };
-                this.centerMap = function() {
-                    if (typeof(this.centroid.lat) !== 'undefined' && typeof(this.centroid.lon) !== 'undefined') {
-                        centerMap(new google.maps.LatLng(this.centroid.lat, this.centroid.lon));
-                    } else if (this.isMarkerShown()) {
-                        centerMap(this.marker.getPosition());
-                    }
-                };
-                this.getKey = function() {
-                    return "district-" + this.state + "-" + this.id;
-                };
-                this.isDistrict = function() {return true;};
-            };
-            DistrictWithBoundary.prototype = new MarkerWithBoundary();
-            var SchoolWithBoundary = function(params) {
-                this.district = null;
-                this.init(params);
-                this.loadPolygon = function() {
-                    if (!this.hasPolygon()) {
-                        getSchoolBoundaryByIdAjax(this.state, this.id, this.name);
-                    }
-                };
-                this.loadAndShowPolygon = function() {
-                    if (!this.hasPolygon()) {
-                        getSchoolBoundaryByIdAjax(this.state, this.id, this.name);
-                    } else if (!this.isPolygonShown()) {
-                        this.showPolygon();
-                    }
-                };
-                this.showPolygonImpl = function() {
-                    if (!multiSelectSchool) {
-                        hideAllSchoolPolygons();
-                    }
-                    $('#' + this.getKey()).addClass("selected");
-                    if ($('#' + this.getKey()).position() != null && isScrolledIntoView($('#' + this.getKey()), $('#schoolListDiv')) === false) {
-                        var scrollTop = $('#schoolListDiv').scrollTop();
-                        $('#schoolListDiv').scrollTop(scrollTop + $('#' + this.getKey()).position().top);
-                    }
-                };
-                this.showInfoWindow = function() {
-                    var infoWindowElement = $('#boundaryMapSchoolInfoWindow');
-                    var nameLink = '<a href="' + this.url + '">' + this.name + '</a>';
-                    infoWindowElement.find('.js_name').html(nameLink);
-                    var ratingImg = '<span class="sprite badge_sm_';
-                    if (this.rating > 0 && this.rating < 11) {
-                        ratingImg += this.rating
-                    } else {
-                        ratingImg += 'na'
-                    }
-                    ratingImg += '"><!-- do not collapse --></span>';
-                    infoWindowElement.find('.js_rating').html(ratingImg);
-                    var addr = '';
-                    if (this.address.street1) {
-                        addr += this.address.street1 + '<br/>';
-                    }
-                    if (this.address.cityStateZip) {
-                        addr += this.address.cityStateZip;
-                    }
-                    infoWindowElement.find('.js_address').html(addr);
-                    mapInfoWindow.setContent(
-                        '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
-                    );
-                    mapInfoWindow.open(districtBoundaryMap, this.marker);
-                };
-                this.hideInfoWindow = function() {
-                    mapInfoWindow.close();
-                };
-                this.hidePolygonImpl = function() {
-                    $('#' + this.getKey()).removeClass("selected");
-                    if (this.district == null || !this.district.isPolygonShown()) {
-                        this.hideMarker();
-                    }
-                };
-                this.getKey = function() {
-                    return "school-" + this.state + "-" + this.id;
-                };
-                this.setMarker = function(marker) {
-                    this.hideMarker();
-                    this.marker = marker;
-                    google.maps.event.addListener(marker, 'click', createSchoolMarkerClickListener(this));
-                };
-                this.setPolygon = function(polygon) {
-                    this.hidePolygon();
-                    this.polygon = polygon;
-                    polygon.setOptions({strokeColor:'#78FF00', zIndex:2});
-                };
-                this.isSchool = function() {return true;};
-            };
-            SchoolWithBoundary.prototype = new MarkerWithBoundary();
-
             // AJAX METHODS
-            var loadDistrictsServingLocationAjax = function(latitude, longitude) {
-                jQuery.getJSON("/geo/boundary/ajax/getDistrictsForLocation.page", {lat:latitude, lon:longitude, level:$('.js_mapLevelCode:checked').val()}
-                ).success(function(data) {
-                    if (data.features.length == 0) {
-                        alert("No district found at this point for level code " + $('.js_mapLevelCode:checked').val());
-                    }
-                    loadFeatureResponse(data.features, {highlightPolygons:true});
-                    updateDistrictList();
-                }).error(function() {
-                    alert("Error fetching districts for location: " + latitude + "," + longitude);
-                });
-            };
-            var loadSchoolsServingLocationAjax = function(latitude, longitude) {
-                jQuery.getJSON("/geo/boundary/ajax/getSchoolsForLocation.page", {lat:latitude, lon:longitude, level:$('.js_mapLevelCode:checked').val()}
-                ).success(function(data) {
-                    if (data.features.length == 0) {
-                        alert("No school or district found at this point for level code " + $('.js_mapLevelCode:checked').val());
-                    }
-                    var mapObjectsAdded = loadFeatureResponse(data.features, {showMarkers:true, showPolygons:false});
-                    var showFirst = true;
-                    var districtsAdded = new Array();
-                    var mapObject;
-                    for (var x=0; x < mapObjectsAdded.topLevel.length; x++) {
-                        mapObject = mapObjectsAdded.topLevel[x];
-                        if (mapObject.isDistrict()) {
-                            districtsAdded.push(mapObject);
-                            if (showFirst) {
-                                mapObject.showPolygon();
-                                GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
-                                showFirst = false;
-                            }
-                        }
-                    }
-                    // hide schools from districts not in result set
-                    for (var key in stuffOnMap) {
-                        if (stuffOnMap.hasOwnProperty(key)) {
-                            if (stuffOnMap[key].isDistrict() && !districtsAdded.contains(stuffOnMap[key])) {
-                                stuffOnMap[key].hideSchools();
-                            }
-                        }
-                    }
-                    showFirst = true;
-                    for (x=0; x < mapObjectsAdded.topLevel.length; x++) {
-                        mapObject = mapObjectsAdded.topLevel[x];
-                        if (mapObject.isSchool()) {
-                            if (showFirst) {
-                                mapObject.showPolygon();
-                                GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
-                                showFirst = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (showFirst) {
-                        // no schools intersect the given point.
-                        hideAllSchoolPolygons();
-                    }
-                    updateDistrictList();
-                    updateSchoolList();
-                }).error(function() {
-                    alert("Error fetching schools for location: " + latitude + "," + longitude);
-                });
-            };
-            var getDistrictBoundaryByIdAjax = function(state, id, name) {
-                jQuery.getJSON(
-                        "/geo/boundary/ajax/getDistrictBoundaryById.page",
-                        {state:state, id:id, level:$('.js_mapLevelCode:checked').val()}
-                ).success(getDistrictBoundaryByIdSuccess
-                ).error(function(event) {
-                    var district = stuffOnMap["district-" + state + "-" + id];
-                    if (district) {
-                        district.centerMap();
-                    }
-                    if (event.status == 404) {
-                        alert("No district boundary found: " + name + " (" + state + ":" + id + ")");
-                    } else {
-                        alert("Error fetching district boundary: " + name + " (" + state + ":" + id + ")");
-                    }
-                });
-            };
-            var getSchoolBoundaryByIdAjax = function(state, id, name) {
-                jQuery.getJSON(
-                        "/geo/boundary/ajax/getSchoolBoundaryById.page",
-                        {state:state, id:id, level:$('.js_mapLevelCode:checked').val()}
-                ).success(getSchoolBoundaryByIdSuccess
-                ).error(function(event) {
-                    var school = stuffOnMap["school-" + state + "-" + id];
-                    if (school) {
-                        school.centerMap();
-                    }
-                    if (event.status == 404) {
-                        hideAllSchoolPolygons();
-                        //alert("No school boundary found: " + name + " (" + state + ":" + id + ")");
-                    } else {
-                        alert("Error fetching school boundary: " + name + " (" + state + ":" + id + ")");
-                    }
-                });
-            };
-            var debug_getAllSchoolBoundariesForDistrictAjax = function(state, id, name) {
-                jQuery.getJSON(
-                        "/geo/boundary/ajax/debug_getSchoolBoundariesForDistrict.page",
-                        {state:state, districtId:id, level:$('.js_mapLevelCode:checked').val()}
-                ).success(debug_getAllSchoolBoundariesForDistrictSuccess
-                ).error(function() {
-                    alert("Error fetching school boundaries for district: " + name + " (" + state + ":" + id + ")");
-                });
-            };
-            var getAllSchoolsForDistrictAjax = function(state, id, name) {
-                jQuery.getJSON(
-                        "/geo/boundary/ajax/getSchoolsForDistrict.page",
-                        {state:state, districtId:id, level:$('.js_mapLevelCode:checked').val()}
-                ).success(getAllSchoolsForDistrictSuccess
-                ).error(function() {
-                    alert("Error fetching school list for district: " + name + " (" + state + ":" + id + ")");
-                });
-            };
-            var loadDistrictsNearPointAjax = function(latitude, longitude) {
-                var lat = Math.round(latitude * 1000000)/1000000;
-                var lon = Math.round(longitude * 1000000)/1000000;
-                if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-                    // use HTML 5 history API to rewrite the current URL to represent the new state.
-                    window.History.replaceState(null, document.title, '?lat=' + lat + '&lon=' + lon + '&level=' + $('.js_mapLevelCode:checked').val());
-                }
-                if (districtBoundaryMap == null) {
-                    var latLng = new google.maps.LatLng(lat, lon);
-                    initMap(latLng);
-                }
-                clearMap();
-                jQuery.getJSON("/geo/boundary/ajax/getDistrictsNearPoint.page", {lat:lat, lon:lon, level:$('.js_mapLevelCode:checked').val()}
-                ).success(function(data) {
-                    try {
-                        loadDistrictsNearPointSuccess(data.features);
-                        updateDistrictList();
-                        centerMap(new google.maps.LatLng(lat, lon));
-                    } catch (e) {
-                        alert("Error: "+ e.message);
-                    }
-                }).error(function() {
-                    alert("Error fetching district list");
-                });
-            };
-            // AJAX SUCCESS HANDLERS
-            var loadFeatureResponse = function(features, options) {
-                var mapObjectsAdded = {};
-                mapObjectsAdded.topLevel = [];
-                mapObjectsAdded.all = [];
-                try {
-                options = options || {};
-                var highlightPolygons = typeof(options.highlightPolygons) !== 'undefined' ? options.highlightPolygons : false;
-                var showMarkers = typeof(options.showMarkers) !== 'undefined' ? options.showMarkers : true;
-                var showPolygons = typeof(options.showPolygons) !== 'undefined' ? options.showPolygons : true;
-                for (var featureIndex = 0; featureIndex < features.length; featureIndex++) {
-                    var feature = features[featureIndex];
-                    var mapObject = createMapObject(feature.data);
-                    if (feature.type == 'marker') {
-                        if (!mapObject.hasMarker()) {
-                            mapObject.setMarker(GS.Map.Helper.createMarker(feature));
-                        }
-                        if (showMarkers) {
-                            mapObject.showMarker();
-                        }
-                    } else if (feature.type == 'polygon') {
-                        if (!mapObject.hasPolygon()) {
-                            mapObject.setPolygon(GS.Map.Helper.createGoogleMapsPolygon({coordinates:feature.coordinates}));
-                        }
-                        if (typeof(feature.centroid) !== 'undefined') {
-                            mapObject.centroid = {lat: feature.centroid.lat, lon: feature.centroid.lon};
-                            if (mapObject.centerOnLoad === true) {
-                                mapObject.centerMap();
-                                mapObject.centerOnLoad = false;
-                            }
-                        }
-                        if (showPolygons || highlightPolygons) {
-                            mapObject.showPolygon();
-                            if (highlightPolygons) {
-                                GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:200});
-                            }
-                        }
-                    }
-                    mapObjectsAdded.all.push(mapObject);
-                    mapObjectsAdded.topLevel.push(mapObject);
-                    if (typeof(feature.dependents) !== 'undefined' && feature.dependents.length > 0) {
-                        for (var dependentIndex = 0; dependentIndex < feature.dependents.length; dependentIndex++) {
-                            mapObjectsAdded.all = mapObjectsAdded.all.concat(loadFeatureResponse(feature.dependents, options).all);
-                        }
-                    }
-                }
-                } catch (e) {
-                    alert(e + ":" + e.message);
-                }
-                return mapObjectsAdded;
-            };
-            var createMapObject = function(data) {
-                var thingOnMap;
-                if (data.type == 'district') {
-                    thingOnMap = stuffOnMap["district-" + data.state + "-" + data.id];
-                    if (typeof(thingOnMap) === 'undefined') {
-                        thingOnMap = new DistrictWithBoundary(data);
-                        stuffOnMap["district-" + data.state + "-" + data.id] = thingOnMap;
-                    } else {
-                        thingOnMap.init(data);
-                    }
-                } else if (data.type == 'school') {
-                    thingOnMap = stuffOnMap["school-" + data.state + "-" + data.id];
-                    if (typeof(thingOnMap) === 'undefined') {
-                        thingOnMap = new SchoolWithBoundary(data);
-                        stuffOnMap["school-" + data.state + "-" + data.id] = thingOnMap;
-                        var district = stuffOnMap["district-" + data.state + "-" + data.districtId];
-                        if (typeof(district) !== 'undefined') {
-                            district.schools.push(thingOnMap);
-                        } else {
-                            district = new DistrictWithBoundary({state:data.state, id:data.districtId});
-                            district.schools.push(thingOnMap);
-                            stuffOnMap["district-" + data.state + "-" + data.districtId] = district;
-                        }
-                        thingOnMap.district = district;
-                    } else {
-                        thingOnMap.init(data);
-                    }
-                }
-                return thingOnMap;
-            };
-            var loadDistrictsNearPointSuccess = function(features) {
-                loadFeatureResponse(features);
-            };
-            var getDistrictBoundaryByIdSuccess = function(data) {
-                loadFeatureResponse(data.features);
-            };
-            var getSchoolBoundaryByIdSuccess = function(data) {
-                loadFeatureResponse(data.features);
-            };
-            var debug_getAllSchoolBoundariesForDistrictSuccess = function(data) {
-                if (data.features.length == 0) {
-                    alert("No school attendance zones found");
-                }
-                loadFeatureResponse(data.features);
-                updateSchoolList();
-            };
-            var getAllSchoolsForDistrictSuccess = function(data) {
-                if (data.features.length == 0) {
-                    alert("No schools found");
-                }
-                loadFeatureResponse(data.features);
-                updateSchoolList();
-            };
             // MISCELLANEOUS FUNCTIONS
             var centerMap = function(latLng, options) {
                 options = options || {};
@@ -753,74 +131,85 @@
                     center: center,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
+                try {
+                    GS.Boundaries.boundaryHelper.map = districtBoundaryMap;
+                } catch (e) {
+                    GS.Util.log("ERROR: " + e);
+                }
                 $('.js_showWithMap').show();
                 setCenterMarkerAtLocation(center);
                 centerMarker.setMap(districtBoundaryMap);
             };
             var clearMap = function() {
+                mapInfoWindow.close();
                 for (var key in stuffOnMap) {
-                    var thingOnMap = stuffOnMap[key];
-                    thingOnMap.hideMarker();
-                    thingOnMap.hidePolygon();
-                    delete stuffOnMap[key];
+                    if (stuffOnMap.hasOwnProperty(key)) {
+                        var thingOnMap = stuffOnMap[key];
+                        thingOnMap.hideMarker();
+                        thingOnMap.hidePolygon();
+                        delete stuffOnMap[key];
+                    }
                 }
-                $('#districtList').empty();
-                $('#schoolList').empty();
-            };
-            var getUrlVars = function() {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                    vars[key] = value;
-                });
-                return vars;
-            };
-            var sortByGSRating = function(a,b) {
-                if (a.rating > 0 && a.rating < 11 && b.rating > 0 && b.rating < 11) {
-                    return b.rating - a.rating;
-                } else if (a.rating > 0 && a.rating < 11) {
-                    return -1;
-                }
-                return 1;
-            };
-            var browserGetLocationSuccess = function(pos) {
-                var latitude = pos.coords.latitude;
-                var longitude = pos.coords.longitude;
-                loadDistrictsNearPointAjax(latitude, longitude);
-            };
-            var browserGetLocationFail = function() {
-                loadDistrictsNearPointAjax(37.790948, -122.3942572);
+                updateDistrictList();
+                updateSchoolList();
+                updateDebugListeners();
             };
             var hideAllPolygons = function() {
+                mapInfoWindow.close();
                 for (var key in stuffOnMap) {
-                    stuffOnMap[key].hidePolygon();
-                }
-            };
-            var hideAllDistrictPolygons = function() {
-                for (var key in stuffOnMap) {
-                    if (stuffOnMap[key].isDistrict()) {
+                    if (stuffOnMap.hasOwnProperty(key)) {
                         stuffOnMap[key].hidePolygon();
                     }
                 }
             };
             var hideAllSchoolPolygons = function() {
                 for (var key in stuffOnMap) {
-                    if (stuffOnMap[key].isSchool()) {
-                        stuffOnMap[key].hidePolygon();
+                    if (stuffOnMap.hasOwnProperty(key)) {
+                        var obj = stuffOnMap[key];
+                        if (obj.isSchool()) {
+                            obj.hidePolygon();
+                        }
                     }
                 }
             };
             var hideAllSchools = function() {
                 for (var key in stuffOnMap) {
-                    if (stuffOnMap[key].isSchool()) {
-                        stuffOnMap[key].hidePolygon();
-                        stuffOnMap[key].hideMarker();
+                    if (stuffOnMap.hasOwnProperty(key)) {
+                        var obj = stuffOnMap[key];
+                        if (obj.isSchool()) {
+                            obj.hide();
+                        }
+                    }
+                }
+            };
+            var showSchoolMarkersForDistrict = function(district) {
+                for (var key in stuffOnMap) {
+                    if (stuffOnMap.hasOwnProperty(key)) {
+                        var existingObj = stuffOnMap[key];
+                        if (existingObj.isSchool() && existingObj.getDistrictKey() == district.getKey()) {
+                            existingObj.showMarker();
+                        }
                     }
                 }
             };
             var hideSchoolsOutsideOfDistrict = function(district) {
                 for (var key in stuffOnMap) {
-                    if (stuffOnMap.hasOwnProperty(key) && stuffOnMap[key].isDistrict() && district != stuffOnMap[key]) {
-                        stuffOnMap[key].hideSchools();
+                    if (stuffOnMap.hasOwnProperty(key)) {
+                        var existingObj = stuffOnMap[key];
+                        if (existingObj.isSchool() && existingObj.getDistrictKey() != district.getKey()) {
+                            existingObj.hide();
+                        }
+                    }
+                }
+            };
+            var showInfoWindowForSelectedSchool = function() {
+                for (var key in stuffOnMap) {
+                    if (stuffOnMap.hasOwnProperty(key)) {
+                        var obj = stuffOnMap[key];
+                        if (obj.isSchool() && obj.isPolygonShown()) {
+                            showSchoolInfoWindow(obj);
+                            break;
+                        }
                     }
                 }
             };
@@ -828,52 +217,177 @@
             // EVENT HANDLERS
             var createDistrictMarkerClickListener = function(districtOnMap) {
                 return function() {
-                    districtClickHandler({district:districtOnMap, center:false});
+                    districtClickHandler(districtOnMap, {center:false});
                 };
             };
             var createSchoolMarkerClickListener = function(schoolOnMap) {
                 return function() {
-                    schoolClickHandler({school:schoolOnMap, center:false});
+                    schoolClickHandler(schoolOnMap, {center:false});
                 };
             };
-            var districtClickHandler = function(params) {
-                var district = params.district;
+            var showDistrictInfoWindow = function(district) {
+                var infoWindowElement = $('#boundaryMapDistrictInfoWindow');
+                var nameLink = '<a href="' + district.url + '">' + district.name + '</a>';
+                infoWindowElement.find('.js_name').html(nameLink);
+                var ratingImg = '<span class="sprite badge_sm_';
+                if (district.rating > 0 && district.rating < 11) {
+                    ratingImg += district.rating
+                } else {
+                    ratingImg += 'na'
+                }
+                ratingImg += '"><!-- do not collapse --></span>';
+                infoWindowElement.find('.js_rating').html(ratingImg);
+                var addr = '';
+                if (district.address.street1) {
+                    addr += district.address.street1 + '<br/>';
+                }
+                if (district.address.cityStateZip) {
+                    addr += district.address.cityStateZip;
+                }
+                infoWindowElement.find('.js_address').html(addr);
+                mapInfoWindow.setContent(
+                        '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
+                );
+                mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, district.marker);
+                selectedDistrict = district;
+            };
+            var showSchoolInfoWindow = function(school) {
+                var infoWindowElement = $('#boundaryMapSchoolInfoWindow');
+                var nameLink = '<a href="' + school.url + '">' + school.name + '</a>';
+                infoWindowElement.find('.js_name').html(nameLink);
+                var ratingImg = '<span class="sprite badge_sm_';
+                if (school.rating > 0 && school.rating < 11) {
+                    ratingImg += school.rating
+                } else {
+                    ratingImg += 'na'
+                }
+                ratingImg += '"><!-- do not collapse --></span>';
+                infoWindowElement.find('.js_rating').html(ratingImg);
+                var addr = '';
+                if (school.address.street1) {
+                    addr += school.address.street1 + '<br/>';
+                }
+                if (school.address.cityStateZip) {
+                    addr += school.address.cityStateZip;
+                }
+                infoWindowElement.find('.js_address').html(addr);
+                mapInfoWindow.setContent(
+                        '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
+                );
+                mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, school.marker);
+            };
+            var districtClickHandler = function(district, params) {
                 var moveToCenter = typeof(params.center) !== 'undefined' ? params.center : false;
                 district.centerOnLoad = moveToCenter;
+                hideSchoolsOutsideOfDistrict(district);
                 if (!district.isPolygonShown()) {
                     hideAllPolygons();
-                    hideSchoolsOutsideOfDistrict(district);
-                    district.loadAndShowPolygon();
-                    district.loadSchools();
-                } else {
-                    hideSchoolsOutsideOfDistrict(district);
-                    district.loadSchools()
-                }
-                if (moveToCenter) {
-                    district.centerMap();
-                }
-                district.showInfoWindow();
-            };
-            var schoolClickHandler = function(params) {
-                var school = params.school;
-                var moveToCenter = typeof(params.center) !== 'undefined' ? params.center : false;
-                school.centerOnLoad = moveToCenter;
-                if (!school.isPolygonShown()) {
-                    if (school.hasPolygon() && moveToCenter) {
-                        school.centerMap();
+                    if (district.hasPolygon()) {
+                        district.showPolygon();
+                        updateDistrictList();
+                        updateDebugListeners();
+                    } else {
+                        GS.Boundaries.boundaryHelper.getDistrictBoundaryByIdAjax(district.state, district.id, district.name
+                        ).done(function() {
+                            updateDistrictList();
+                            updateDebugListeners();
+                        });
                     }
-                    school.loadAndShowPolygon();
                 }
-                school.showInfoWindow();
+                if (!district.schoolsLoaded) {
+                    GS.Boundaries.boundaryHelper.getAllSchoolsForDistrictAjax(district.state, district.id, district.name
+                    ).done(function() {
+                        district.schoolsLoaded = true;
+                            updateSchoolList();
+                            updateDebugListeners();
+                    });
+                } else {
+                    showSchoolMarkersForDistrict(district);
+                    updateSchoolList();
+                }
+                if (moveToCenter && district.hasMarker()) {
+                    centerMap(district.marker.getPosition());
+                }
+                showDistrictInfoWindow(district);
+            };
+            var schoolClickHandler = function(school, params) {
+                var moveToCenter = typeof(params.center) !== 'undefined' ? params.center : false;
+                if (!school.isPolygonShown()) {
+                    hideAllSchoolPolygons();
+                    if (school.hasPolygon()) {
+                        school.showPolygon();
+                        updateSchoolList();
+                        updateDebugListeners();
+                    } else {
+                        GS.Boundaries.boundaryHelper.getSchoolBoundaryByIdAjax(school.state, school.id, school.name).done(function() {
+                            if (moveToCenter) {
+                                if (school.centroid && school.centroid.lat && school.centroid.lon) {
+                                    centerMap(new google.maps.LatLng(school.centroid.lat, school.centroid.lon));
+                                } else {
+                                    centerMap(school.marker.getPosition());
+                                }
+                            }
+                            updateSchoolList();
+                            updateDebugListeners();
+                        });
+                    }
+                }
+                showSchoolInfoWindow(school);
             };
             var loadDistrictsForLocationEventHandler = function(event) {
                 if (event.latLng) {
-                    loadDistrictsServingLocationAjax(event.latLng.lat(), event.latLng.lng());
+                    mapInfoWindow.close();
+                    selectedDistrict = null;
+                    GS.Boundaries.boundaryHelper.loadDistrictsServingLocationAjax
+                            (event.latLng.lat(), event.latLng.lng(), {showPolygons: true, showMarkers: true})
+                    .done(function(data) {
+                        updateDistrictList();
+                        updateDebugListeners();
+                    });
                 }
+            };
+            var storeData = function(data) {
+                var keyMap = data.keyMap;
+                for (var prop in keyMap) {
+                    if (keyMap.hasOwnProperty(prop)) {
+                        var existingObj = stuffOnMap[prop];
+                        var newObj = keyMap[prop];
+                        if (typeof(existingObj) !== 'undefined') {
+                            if (!newObj.hasMarker() && existingObj.hasMarker()) {
+                                newObj.setMarker(existingObj.marker);
+                            } else if (existingObj.hasMarker()) {
+                                existingObj.hideMarker(); // gonna get clobbered below
+                            }
+                            if (!newObj.hasPolygon() && existingObj.hasPolygon()) {
+                                newObj.setPolygon(existingObj.polygon);
+                            } else if (existingObj.hasPolygon()) {
+                                existingObj.hidePolygon(); // gonna get clobbered below
+                            }
+                        }
+                        if (newObj.hasMarker()) {
+                            google.maps.event.clearListeners(newObj.marker, 'click');
+                            google.maps.event.addListener(newObj.marker, 'click', newObj.isSchool()? createSchoolMarkerClickListener(newObj) : createDistrictMarkerClickListener(newObj));
+                        }
+                        stuffOnMap[prop] = newObj;
+                    }
+                }
+            };
+            var loadSchoolsServingLocation = function(lat, lon) {
+                hideAllSchools();
+                hideAllPolygons();
+                mapInfoWindow.close();
+                selectedDistrict = null;
+                GS.Boundaries.boundaryHelper.loadSchoolsServingLocationAjax(lat, lon)
+                .done(function(data) {
+                    updateDistrictList();
+                    updateSchoolList();
+                    updateDebugListeners();
+                    showInfoWindowForSelectedSchool();
+                });
             };
             var loadSchoolsForLocationEventHandler = function(event) {
                 if (event.latLng) {
-                    loadSchoolsServingLocationAjax(event.latLng.lat(), event.latLng.lng());
+                    loadSchoolsServingLocation(event.latLng.lat(), event.latLng.lng());
                 }
             };
             var updateDebugListeners = function() {
@@ -881,19 +395,18 @@
                     google.maps.event.removeListener(mapClickListeners[x]);
                 }
                 mapClickListeners = new Array();
-                var key;
+                var myClickHandler;
                 if ($('.js_mapClickBehavior:checked').val() == 'loadDistrict') {
-                    mapClickListeners.push(google.maps.event.addListener(districtBoundaryMap, 'click', loadDistrictsForLocationEventHandler));
-                    for (key in stuffOnMap) {
+                    myClickHandler = loadDistrictsForLocationEventHandler;
+                } else {
+                    myClickHandler = loadSchoolsForLocationEventHandler;
+                }
+                // clicking on map or a polygon triggers the selected click event (but not markers -- they have their own event)
+                mapClickListeners.push(google.maps.event.addListener(districtBoundaryMap, 'click', myClickHandler));
+                for (var key in stuffOnMap) {
+                    if (stuffOnMap.hasOwnProperty(key)) {
                         if (stuffOnMap[key].hasPolygon()) {
-                            mapClickListeners.push(google.maps.event.addListener(stuffOnMap[key].polygon, 'click', loadDistrictsForLocationEventHandler));
-                        }
-                    }
-                } else if ($('.js_mapClickBehavior:checked').val() == 'loadSchool') {
-                    mapClickListeners.push(google.maps.event.addListener(districtBoundaryMap, 'click', loadSchoolsForLocationEventHandler));
-                    for (key in stuffOnMap) {
-                        if (stuffOnMap[key].hasPolygon()) {
-                            mapClickListeners.push(google.maps.event.addListener(stuffOnMap[key].polygon, 'click', loadSchoolsForLocationEventHandler));
+                            mapClickListeners.push(google.maps.event.addListener(stuffOnMap[key].polygon, 'click', myClickHandler));
                         }
                     }
                 }
@@ -910,37 +423,26 @@
                     }
                 }
                 // sort on district rating
-                districts.sort(sortByGSRating);
-                var scrollTo = null;
+                districts.sort(GS.Util.sortByRating);
+                var htmlString = '<option value="">Select a district</option>';
                 for (var districtIndex = 0; districtIndex < districts.length; districtIndex++) {
                     var district = districts[districtIndex];
                     var districtKey = "district-" + district.state + "-" + district.id;
                     var districtRating = 'na';
                     var selected = '';
                     if (district.isPolygonShown()) {
-                        selected = ' class="selected"';
-                        if (!multiSelectDistrict) {
-                            scrollTo=districtKey;
-                        }
+                        selected = ' selected="selected"';
                     }
-                    var li = '<li id="' + districtKey + '"' + selected + '>' + district.name + ' ';
-                    li += '<span class="sprite badge_sm_';
+                    var li = '<option value="' + districtKey + '"' + selected + '>' + district.name;
                     if (district.rating > 0 && district.rating < 11) {
-                        li += district.rating
+                        li += ' (' + district.rating + ')';
                     } else {
-                        li += 'na'
+                        li += ' (N/A)'
                     }
-                    li += '_b';
-                    li += '"><!-- do not collapse --></span>';
-                    li += '</li>';
-                    districtListDiv.append(li);
+                    li += '</option>';
+                    htmlString += li;
                 }
-                if (scrollTo != null) {
-                    if (isScrolledIntoView($('#' + scrollTo), $('#districtListDiv')) === false) {
-                        var scrollTop = $('#districtListDiv').scrollTop();
-                        $('#districtListDiv').scrollTop(scrollTop + $('#' + scrollTo).position().top);
-                    }
-                }
+                districtListDiv.append(htmlString);
             };
             var updateSchoolList = function() {
                 var schoolListDiv = $('#schoolList');
@@ -954,8 +456,9 @@
                     }
                 }
                 // sort on school rating
-                schools.sort(sortByGSRating);
+                schools.sort(GS.Util.sortByRating);
                 var selectedSchool = null;
+                var htmlString = '';
                 for (var schoolIndex = 0; schoolIndex < schools.length; schoolIndex++) {
                     var school = schools[schoolIndex];
                     var schoolKey = "school-" + school.state + "-" + school.id;
@@ -975,12 +478,17 @@
                     li += '_b';
                     li += '"><!-- do not collapse --></span>';
                     li += '</li>';
-                    schoolListDiv.append(li);
+                    htmlString += li;
+                }
+                schoolListDiv.append(htmlString);
+                if (schools.length > 0) {
+                    $('#schoolListWrapper').show();
                 }
                 if (selectedSchool != null) {
-                    if ($('#' + selectedSchool.getKey()).position() != null && isScrolledIntoView($('#' + selectedSchool.getKey()), $('#schoolListDiv')) === false) {
+                    selectedSchool = $('#' + selectedSchool.getKey());
+                    if (selectedSchool.position() != null && isScrolledIntoView(selectedSchool, $('#schoolListDiv')) === false) {
                         var scrollTop = $('#schoolListDiv').scrollTop();
-                        $('#schoolListDiv').scrollTop(scrollTop + $('#' + selectedSchool.getKey()).position().top);
+                        $('#schoolListDiv').scrollTop(scrollTop + selectedSchool.position().top);
                     }
                 } else {
                     $('#schoolListDiv').scrollTop(0);
@@ -989,87 +497,133 @@
             var geocodeAddressSuccess = function(geocodeResults) {
                 if (geocodeResults.length == 0) {
                     alert("Cannot determine location for '" + searchInput + "'");
-                } else if (geocodeResults.length == 1) {
-                    geocodeResults[0]['totalResults'] = 1;
-                    clearMap();
-                    loadDistrictsNearPointAjax(geocodeResults[0]['lat'],
-                                               geocodeResults[0]['lon']);
-                    centerMap(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']), {moveMarker:true});
-                    loadSchoolsServingLocationAjax(geocodeResults[0]['lat'], geocodeResults[0]['lon']);
                 } else {
                     // ignore multiple results for now
                     geocodeResults[0]['totalResults'] = geocodeResults.length;
                     clearMap();
-                    loadDistrictsNearPointAjax(geocodeResults[0]['lat'],
-                                               geocodeResults[0]['lon']);
+                    GS.Boundaries.boundaryHelper.loadDistrictsNearPointAjax(geocodeResults[0]['lat'],
+                                                                            geocodeResults[0]['lon']
+                    ).always(function() {
+                        updateDistrictList();
+                        loadSchoolsServingLocation(geocodeResults[0]['lat'], geocodeResults[0]['lon']);
+                    });
                     centerMap(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']), {moveMarker:true});
-                    loadSchoolsServingLocationAjax(geocodeResults[0]['lat'], geocodeResults[0]['lon']);
                 }
             };
-            jQuery(function () {
-                try {
-                    var params = getUrlVars();
-                    if (params.lat && params.lon) {
-                        loadDistrictsNearPointAjax(params.lat, params.lon);
-                    } else {
-                        browserGetLocationFail();
-                        navigator.geolocation.getCurrentPosition(browserGetLocationSuccess);
-                    }
-                } catch (e) {
-                    browserGetLocationFail();
+            var loadDistrictsNearPoint = function(myLat, myLon) {
+                // drop unneeded precision
+                var lat = Math.round(myLat * 1000000)/1000000;
+                var lon = Math.round(myLon * 1000000)/1000000;
+                if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+                    // use HTML 5 history API to rewrite the current URL to represent the new state.
+                    window.History.replaceState(null, document.title, '?lat=' + lat + '&lon=' + lon + '&level=' + $('.js_mapLevelCode:checked').val());
                 }
 
-                $('#js_reloadMap').click(function() {
-                    clearMap();
-                    loadDistrictsNearPointAjax(districtBoundaryMap.getCenter().lat(),
-                                               districtBoundaryMap.getCenter().lng());
+                if (districtBoundaryMap == null) {
+                    var latLng = new google.maps.LatLng(lat, lon);
+                    initMap(latLng);
+                }
+                clearMap();
+                return GS.Boundaries.boundaryHelper.loadDistrictsNearPointAjax(lat, lon
+                ).done(function(data) {
+                    updateDistrictList();
                 });
-                $('#js_clearPolygons').click(function() {
-                    hideAllPolygons();
+            };
+            jQuery(document).ajaxStart(function() {
+                $('.js_spinny').show();
+            });
+            jQuery(document).ajaxStop(function() {
+                $('.js_spinny').hide();
+            });
+            jQuery(function () {
+                GS.Boundaries.boundaryHelper.setGlobalResponseHandler(storeData);
+                var params = GS.Util.getUrlVars();
+                if (params.lat && params.lon) {
+                    loadDistrictsNearPoint(params.lat, params.lon);
+                } else {
+                    loadDistrictsNearPoint(37.790948, -122.3942572).done(function() {
+                        navigator.geolocation.getCurrentPosition(function(pos) {
+                            loadDistrictsNearPoint(pos.coords.latitude, pos.coords.longitude);
+                        });
+                    });
+                }
+
+                $('#js_reloadMap').on('click', function() {
+                    loadDistrictsNearPoint(districtBoundaryMap.getCenter().lat(),
+                                           districtBoundaryMap.getCenter().lng());
                 });
-                $('#js_clearAll').click(function() {
-                    clearMap();
-                });
-                $('#js_drawAllDistricts').click(function() {
+                $('#js_clearPolygons').on('click', hideAllPolygons);
+                $('#js_clearAll').on('click', clearMap);
+                $('#js_drawAllDistricts').on('click', function() {
                     multiSelectDistrict = true;
+                    var districtQueue = new jQuery.Deferred();
+                    var nextQueue = null;
                     for (var key in stuffOnMap) {
                         if (stuffOnMap.hasOwnProperty(key) && stuffOnMap[key].isDistrict()) {
-                            stuffOnMap[key].loadAndShowPolygon();
+                            var district = stuffOnMap[key];
+                            if (!district.isPolygonShown()) {
+                                if (district.hasPolygon()) {
+                                    district.showPolygon();
+                                } else {
+                                    if (nextQueue == null) {
+                                        nextQueue = new jQuery.Deferred();
+                                        districtQueue.done(loadDistrictBoundaryFunc(district, nextQueue));
+                                    } else {
+                                        var newQueue = new jQuery.Deferred();
+                                        nextQueue.done(loadDistrictBoundaryFunc(district, newQueue));
+                                        nextQueue = newQueue;
+                                    }
+                                }
+                            }
                         }
                     }
+                    districtQueue.resolve(); // start the cascade
+                    updateDistrictList();
+                    updateDebugListeners();
                 });
-                $('#js_drawAllDistrictsAndSAZ').click(function() {
-                    for (var key in stuffOnMap) {
-                        if (stuffOnMap.hasOwnProperty(key) && stuffOnMap[key].isDistrict()) {
-                            stuffOnMap[key].loadAndShowPolygon();
-                            debug_getAllSchoolBoundariesForDistrictAjax(stuffOnMap[key].state, stuffOnMap[key].id, stuffOnMap[key].name);
-                        }
-                    }
-                });
-                $('#js_getSAZ').click(function() {
-                    if (selectedDistrict != null) {
-                        debug_getAllSchoolBoundariesForDistrictAjax(selectedDistrict.state, selectedDistrict.id, selectedDistrict.name);
-                    }
-                });
-                $('.js_mapLevelCode').change(function() {
+                var loadDistrictBoundaryFunc = function(district, deferred) {
+                    return function() {
+                        GS.Boundaries.boundaryHelper.getDistrictBoundaryByIdAjax(district.state, district.id, district.name
+                        ).done(function() {
+                            updateDistrictList();
+                            updateDebugListeners();
+                        }).always(function() {
+                            deferred.resolve();
+                        });
+                    };
+                };
+//                $('#js_drawAllDistrictsAndSAZ').on('click', function() {
+//                    for (var key in stuffOnMap) {
+//                        if (stuffOnMap.hasOwnProperty(key) && stuffOnMap[key].isDistrict()) {
+//                            stuffOnMap[key].loadAndShowPolygon();
+//                            debug_getAllSchoolBoundariesForDistrictAjax(stuffOnMap[key].state, stuffOnMap[key].id, stuffOnMap[key].name);
+//                        }
+//                    }
+//                });
+//                $('#js_getSAZ').on('click', function() {
+//                    if (selectedDistrict != null) {
+//                        debug_getAllSchoolBoundariesForDistrictAjax(selectedDistrict.state, selectedDistrict.id, selectedDistrict.name);
+//                    }
+//                });
+                $('.js_mapLevelCode').on('change', function() {
                     clearMap();
-                    loadDistrictsNearPointAjax(districtBoundaryMap.getCenter().lat(),
-                                               districtBoundaryMap.getCenter().lng());
+                    loadDistrictsNearPoint(districtBoundaryMap.getCenter().lat(),
+                                           districtBoundaryMap.getCenter().lng());
                 });
-                $('.js_mapClickBehavior').change(updateDebugListeners);
-                $('#districtList').delegate("li", "click", function() {
-                    var key = $(this).attr('id');
-                    if (stuffOnMap[key] !== undefined) {
-                        districtClickHandler({district:stuffOnMap[key], center:true});
+                $('.js_mapClickBehavior').on('change', updateDebugListeners);
+                $('#districtList').on('change', function() {
+                    var key = $(this).val();
+                    if (typeof(stuffOnMap[key]) !== 'undefined' && key != '') {
+                        districtClickHandler(stuffOnMap[key], {center:true});
                     }
                 });
-                $('#schoolList').delegate("li", "click", function() {
+                $('#schoolList').on('click', 'li', function() {
                     var key = $(this).attr('id');
-                    if (stuffOnMap[key] !== undefined) {
-                        schoolClickHandler({school:stuffOnMap[key], center:true});
+                    if (typeof(stuffOnMap[key]) !== 'undefined') {
+                        schoolClickHandler(stuffOnMap[key], {center:true});
                     }
                 });
-                $('#searchLocationForm').submit(function() {
+                $('#searchLocationForm').on('submit', function() {
                     GS.Map.Helper.geocodeAddress($('#js_mapAddressQuery').val(), geocodeAddressSuccess);
                     return false;
                 });
@@ -1085,17 +639,22 @@
         <h3>School &amp; District Map Tool</h3>
         <div class="js_showWithMap hidden">
             <div id="districtListDiv">
-                <ul id="districtList"><!-- not empty --></ul>
+                <p>Nearby districts:</p>
+                <select id="districtList"><!-- not empty --></select>
             </div>
-            <div>Currently selected district: <span id="currentlySelectedDistrict"><!-- no collapse --></span></div>
-            <div id="schoolListDiv">
-                Schools:
-                <ul id="schoolList"><!-- not empty --></ul>
+            <div id="schoolListWrapper" class="hidden">
+                <div>Schools:</div>
+                <div id="schoolListDiv">
+                    <ul id="schoolList"><!-- not empty --></ul>
+                </div>
             </div>
         </div>
     </div>
     <div class="rightSide fltrt">
         <div class="">
+            <div class="js_spinny hidden fltrt">
+                <img src="/res/img/community/indicator.gif" alt="Background process indicator"/>
+            </div>
             <form action="" id="searchLocationForm" onsubmit="return false;">
                 <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_e" value="e" checked="${empty param.level or param.level == 'e'}"/>
                 <label for="mapLevelCode_e">Elementary</label>
@@ -1116,7 +675,7 @@
             <button name="drawAllDistricts" id="js_drawAllDistricts" class="">Debug: Draw all districts</button>
             <button name="getSAZ" id="js_getSAZ" class="hidden">Debug: Load SAZ for selected district</button>
             <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ" class="hidden">Debug: Draw all districts and SAZ (Warning!)</button>
-            <div class="options">
+            <div class="options hidden">
                 Map click behavior:
                 <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior" id="mapClickLoadSchool" value="loadSchool" checked="checked"/><label for="mapClickLoadSchool">Show Boundaries</label>
                 <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior" id="mapClickLoadDistrict" value="loadDistrict"/><label for="mapClickLoadDistrict">Show Only District Boundary</label>
@@ -1146,6 +705,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div style="display:none;">
+        <mod:tracking pageName="Attendance Zones" hier1="TBD"/>
     </div>
 </gsml:body>
 </html>
