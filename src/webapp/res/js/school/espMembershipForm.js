@@ -10,7 +10,7 @@ GS.form.EspForm = function() {
             notListedOption: '2. Choose city'
         };
 
-        jQuery('#jq-school').html('<option value="0">3. Choose school</option>');
+        jQuery('#js_school').html('<option value="0">3. Choose school</option>');
         citySelect.html('<option value="0">Loading ...</option>');
 
         jQuery.ajax({
@@ -26,9 +26,9 @@ GS.form.EspForm = function() {
 
     //Handle City drop down change.
     this.emailCityChange = function(citySelect) {
-        var parentState = jQuery('#jq-stateAdd').val();
+        var parentState = jQuery('#js_stateAdd').val();
         var parentCity = citySelect.val();
-        var school = jQuery('#jq-school');
+        var school = jQuery('#js_school');
 
         var params = {
             state: parentState,
@@ -233,7 +233,7 @@ GS.form.EspForm = function() {
     };
 
     this.validateState = function() {
-        var state = jQuery('#jq-stateAdd').val();
+        var state = jQuery('#js_stateAdd').val();
         var fieldError = jQuery('.js_state.invalid');
         var rval = true;
 
@@ -246,7 +246,7 @@ GS.form.EspForm = function() {
     };
 
     this.validateSchool = function() {
-        var schoolId = jQuery('#jq-school').val();
+        var schoolId = jQuery('#js_school').val();
         var fieldError = jQuery('.js_school.invalid');
         var rval = true;
 
@@ -259,6 +259,29 @@ GS.form.EspForm = function() {
         return rval;
     };
 
+    this.validateStateSchoolUserUnique = function() {
+        var schoolId = jQuery('#js_school').val();
+        var state = jQuery('#js_stateAdd').val();
+        var email = jQuery('#js_email').val();
+        var rval = true;
+
+        jQuery.ajax({
+            type: 'GET',
+            url: '/school/esp/checkStateSchoolUserUnique.page',
+            data: {schoolId:schoolId, state:state,email:email},
+            dataType: 'json',
+            async: false
+        }).done(function(data) {
+                if (data.isUnique !== true) {
+                    jQuery('#js_userESPMember').hide();
+                    jQuery('#js_uniqueError').show();
+                    rval = false;
+                }
+            });
+
+        return rval;
+
+    };
 
     this.handleValidationResponse = function(fieldSelector, fieldName, data) {
         var fieldError = jQuery(fieldSelector + '.invalid');
@@ -281,11 +304,11 @@ GS.form.EspForm = function() {
 jQuery(function() {
     GS.form.espForm = GS.form.espForm || new GS.form.EspForm();
 
-    jQuery('#jq-stateAdd').change(function() {
-        GS.form.espForm.stateChange(jQuery(this), jQuery('#jq-citySelect'));
+    jQuery('#js_stateAdd').change(function() {
+        GS.form.espForm.stateChange(jQuery(this), jQuery('#js_citySelect'));
     });
 
-    jQuery('#jq-citySelect').change(function() {
+    jQuery('#js_citySelect').change(function() {
         GS.form.espForm.emailCityChange(jQuery(this));
     });
 
@@ -296,7 +319,7 @@ jQuery(function() {
     jQuery('#js_confirmPassword').blur(GS.form.espForm.validateConfirmPassword);
 
     jQuery('#js_jobTitle').change(GS.form.espForm.validateJobTitle);
-    jQuery('#jq-school').change(GS.form.espForm.validateSchool);
+    jQuery('#js_school').change(GS.form.espForm.validateSchool);
 
     var regPanel = jQuery('#js_regPanel');
 
@@ -398,9 +421,10 @@ function bindFormSubmit() {
             var isJobTitleValid = GS.form.espForm.validateJobTitle();
             var isStateValid = GS.form.espForm.validateState();
             var isSchoolValid = GS.form.espForm.validateSchool();
+            var isUniqueEsp = GS.form.espForm.validateStateSchoolUserUnique();
 
             return isFirstNameValid && isLastNameValid && isScreenNameValid && isPasswordValid && isConfirmPasswordValid
-                && isJobTitleValid && isStateValid && isSchoolValid;
+                && isJobTitleValid && isStateValid && isSchoolValid && isUniqueEsp;
         });
     }
 }

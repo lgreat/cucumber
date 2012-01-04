@@ -23,6 +23,7 @@
             <form:input path="email" cssClass="field" id="js_email" value="${schoolEspCommand.email}"/>
             <span id="js_userESPMember" style="display: none;">User already esp member.You will recive notification soon.</span>
             <span id="js_invalidEmail" class="error" style="display: none;">Please enter a valid email.</span>
+            <span id="js_uniqueError" class="error" style="display: none;">You are already registered for this school.</span>
 
 
                <div id="js_regPanel" style="${showRegPanel eq true? '':'display:none'}">
@@ -93,7 +94,7 @@
 
                 <div>
                     <form:label path="state">State:</form:label>
-                    <gsweb:stateSelector styleId="jq-stateAdd"
+                    <gsweb:stateSelector styleId="js_stateAdd"
                                          name="state"
                                          useNoState="true"
                                          noStateLabel="1. Choose state"
@@ -103,7 +104,7 @@
                 </div>
                 <div>
                     City:
-                    <select id="jq-citySelect" name="city">
+                    <select id="js_citySelect" name="city">
                         <option selected="selected" value="">2. Choose city</option>
                         <c:forEach var="cityOption" items="">
                             <![CDATA[<option ]]>
@@ -114,7 +115,7 @@
 
                 <div>
                     <form:label path="schoolId">School:</form:label>
-                    <select name="schoolId" id="jq-school" class="selectChildSchool">
+                    <select name="schoolId" id="js_school" class="selectChildSchool">
                         <option selected="selected" value="0">3. Choose school</option>
                         <c:forEach var="schoolOption" items="">
                             <![CDATA[<option ]]>

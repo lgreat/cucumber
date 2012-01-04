@@ -350,8 +350,43 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
     }
 
-    protected void validate(EspMembershipCommand espMembershipCommand, BindingResult result, User user) {
+
+    @RequestMapping(value = "checkStateSchoolUserUnique.page", method = RequestMethod.GET)
+    protected void checkStateSchoolUserUnique(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
+        State state = command.getState();
+        Long schoolId = command.getSchoolId();
+        String email = command.getEmail();
+        boolean isUnique = true;
+
+        if (state != null && schoolId != null & StringUtils.isNotBlank(email)) {
+            User user = getUserDao().findUserFromEmailIfExists(email.trim());
+            if (user != null && user.getId() != null) {
+                EspMembership espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, new Long(user.getId()));
+
+                if (espMembership != null) {
+                    isUnique = false;
+                }
+            }
+        }
+
+        Map data = new HashMap();
+        if (isUnique) {
+            data.put("isUnique", true);
+        } else {
+            data.put("isUnique", "You are already registered for this school.");
+        }
+
+        JSONObject rval = new JSONObject(data);
+        response.setContentType("application/json");
+        response.getWriter().print(rval.toString());
+        response.getWriter().flush();
+
+    }
+
+
+    protected void validate(EspMembershipCommand espMembershipCommand, BindingResult result, User user)  {
         UserCommandValidator validator = new UserCommandValidator();
+        validator.setUserDao(getUserDao());
         UserCommand userCommand = new UserCommand();
 
         userCommand.setFirstName(espMembershipCommand.getFirstName());
@@ -360,14 +395,25 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         userCommand.setConfirmPassword(espMembershipCommand.getConfirmPassword());
         userCommand.setScreenName(espMembershipCommand.getScreenName());
 
+        //First name, last name, password and screen name are not always visible on the form.
+        //Therefore check the command and validate them.
+        if(StringUtils.isNotBlank(espMembershipCommand.getFirstName())){
+            validator.validateFirstName(userCommand, result);
+        }
 
-        //validate first name, last name, password and screen name.
-        validator.validateFirstName(userCommand, result);
-        validator.validateLastName(userCommand, result);
-        validator.validatePassword(userCommand, result);
-        validator.validateUsername(userCommand, user, result);
+        if(StringUtils.isNotBlank(espMembershipCommand.getLastName())){
+            validator.validateLastName(userCommand, result);
+        }
 
-        //validate email, state, school, job title.
+        if(StringUtils.isNotBlank(espMembershipCommand.getPassword())){
+            validator.validatePassword(userCommand, result);
+        }
+
+        if(StringUtils.isNotBlank(espMembershipCommand.getScreenName())){
+            validator.validateUsername(userCommand, user, result);
+        }
+
+        //Email, state, school, job title are always visible on the form.Therefore validate them.
         String email = espMembershipCommand.getEmail();
         State state = espMembershipCommand.getState();
         Long schoolId = espMembershipCommand.getSchoolId();
