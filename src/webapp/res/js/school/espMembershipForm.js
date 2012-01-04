@@ -332,10 +332,13 @@ jQuery(function() {
 
     jQuery('#js_email').keydown(function() {
         var regPanel = jQuery('#js_regPanel');
+        var passwordDiv = jQuery('#js_registeredPasswordDiv');
+
         //TODO should the form be cleared when reg panel is hidden?
-        hideEmailErrors();
-        if (regPanel.is(':visible')) {
+        hideErrors();
+        if (regPanel.is(':visible') || passwordDiv.is(':visible')) {
             regPanel.hide();
+            passwordDiv.hide();
             jQuery('#js_firstNameDiv').hide();
             jQuery('#js_lastNameDiv').hide();
             jQuery('#js_screenNameDiv').hide();
@@ -429,8 +432,9 @@ function bindFormSubmit() {
     }
 }
 
-function hideEmailErrors() {
+function hideErrors() {
     jQuery('#js_userESPMember').hide();
     jQuery('#js_invalidEmail').hide();
+    jQuery('#js_uniqueError').hide();
 }
 
