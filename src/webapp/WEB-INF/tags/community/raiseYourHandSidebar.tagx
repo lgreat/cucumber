@@ -30,9 +30,9 @@
         var ryhAnswerCharacterLimit = 250;
         var ryhCharacterCountText = ' characters left.';
         jQuery('#ryhAnswerCount').html(ryhAnswerCharacterLimit + ' ' + ryhCharacterCountText);
-
-        //<c:if test="${signedIn}">
-
+]]>
+        <c:if test="${signedIn}">
+<![CDATA[
         // Counts down the number of characters remaining.
         function limitChars(textid, limit, divElement) {
 
@@ -91,18 +91,20 @@
                     }, "json");
             return true;
         });
+]]>
+        </c:if>
 
-        //</c:if>
-
-        //<c:if test="${!signedIn}">
+        <c:if test="${!signedIn}">
+<![CDATA[
         jQuery('#ryhAnswer').focus(function() {
             GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
         });
         jQuery('#ryhSubmit').click(function() {
             GS.showJoinHover('', '${redirectUrl}', GSType.hover.joinHover.showJoinPostComment, '${redirectUrl}');
         });
-        //</c:if>
-
+]]>
+        </c:if>
+<![CDATA[
     });
     //-->
 </script>
