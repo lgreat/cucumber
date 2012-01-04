@@ -94,9 +94,9 @@
                         </div>
 
                     </div>
-                    <div class="unit size1of3">
+                    <div class="unit size1of3 mhl">
 
-                        <div class="mod aboutOverview mll">
+                        <div class="mod aboutOverview">
                             <div class="inner">
                             <div class="hd">
                                 <h3>Guide your child</h3>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="unit size1of3 lastUnit">
 
-                        <div class="mod aboutOverview mll">
+                        <div class="mod aboutOverview">
                             <div class="inner">
                             <div class="hd">
                                 <h3>Improve your school</h3>
