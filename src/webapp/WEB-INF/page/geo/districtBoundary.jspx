@@ -278,7 +278,6 @@
             };
             var districtClickHandler = function(district, params) {
                 var moveToCenter = typeof(params.center) !== 'undefined' ? params.center : false;
-                district.centerOnLoad = moveToCenter;
                 hideSchoolsOutsideOfDistrict(district);
                 if (!district.isPolygonShown()) {
                     hideAllPolygons();
@@ -373,12 +372,32 @@
                 }
             };
             var loadSchoolsServingLocation = function(lat, lon) {
-                hideAllSchools();
-                hideAllPolygons();
-                mapInfoWindow.close();
-                selectedDistrict = null;
-                GS.Boundaries.boundaryHelper.loadSchoolsServingLocationAjax(lat, lon)
+                GS.Boundaries.boundaryHelper.loadSchoolsServingLocationAjax(lat, lon, {})
                 .done(function(data) {
+                    hideAllPolygons();
+                    mapInfoWindow.close();
+                    selectedDistrict = null;
+                    var smallestAreaSchool = null;
+                    var smallestArea = 9999999;
+                    var showFirstDistrict = true;
+                    for (var x=0; x < data.topLevel.length; x++) {
+                        var obj = data.topLevel[x];
+                        if (obj.isSchool() && obj.hasPolygon()) {
+                            if (obj.area < smallestArea)  {
+                                smallestAreaSchool = obj;
+                                smallestArea = obj.area;
+                            }
+                        } else if (obj.isDistrict() && obj.hasPolygon() && showFirstDistrict) {
+                            obj.showPolygon();
+                            showFirstDistrict = false;
+                            GS.Map.Helper.highlightPolygon(obj.polygon, {duration:600});
+                            hideSchoolsOutsideOfDistrict(obj);
+                        }
+                    }
+                    if (smallestAreaSchool != null) {
+                        smallestAreaSchool.showPolygon();
+                        GS.Map.Helper.highlightPolygon(smallestAreaSchool.polygon, {duration:600});
+                    }
                     updateDistrictList();
                     updateSchoolList();
                     updateDebugListeners();

@@ -142,6 +142,7 @@ public class MapObject {
             JSONObject centroid = new JSONObject();
             centroid.put("lon", _coordinates.getCentroid().getX());
             centroid.put("lat", _coordinates.getCentroid().getY());
+            rval.put("area", _coordinates.getArea());
             rval.put("centroid", centroid);
         }
 

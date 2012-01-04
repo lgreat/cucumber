@@ -25,8 +25,8 @@ GS.Boundaries.BoundaryHelper = function() {
         this.name = null;
         this.rating = 0;
         this.url = null;
-        this.centerOnLoad = false;
         this.centroid = {};
+        this.area = 0;
         this.address = {};
 
         this.init = function(params) {
@@ -158,7 +158,6 @@ GS.Boundaries.BoundaryHelper = function() {
         mapObjectsAdded.keyMap = {};
         try {
             options = options || {};
-            var highlightPolygons = typeof(options.highlightPolygons) !== 'undefined' ? options.highlightPolygons : false;
             var showMarkers = typeof(options.showMarkers) !== 'undefined' ? options.showMarkers : true;
             var showPolygons = typeof(options.showPolygons) !== 'undefined' ? options.showPolygons : true;
             var showFirstDistrict = typeof(options.showFirstDistrict) !== 'undefined' ? options.showFirstDistrict : false;
@@ -176,10 +175,9 @@ GS.Boundaries.BoundaryHelper = function() {
                     mapObject.setPolygon(GS.Map.Helper.createGoogleMapsPolygon({coordinates:feature.coordinates}));
                     if (typeof(feature.centroid) !== 'undefined') {
                         mapObject.centroid = {lat: feature.centroid.lat, lon: feature.centroid.lon};
-                        if (mapObject.centerOnLoad === true) {
-                            GS.Util.log("TODO: center map");
-                            mapObject.centerOnLoad = false;
-                        }
+                    }
+                    if (typeof(feature.area) !== 'undefined') {
+                        mapObject.area = feature.area;
                     }
                     if (showPolygons) {
                         mapObject.showPolygon();
@@ -193,9 +191,6 @@ GS.Boundaries.BoundaryHelper = function() {
                     showFirstDistrict = false;
                     options.showFirstDistrict = false;
                     mapObject.show();
-                }
-                if (highlightPolygons && mapObject.isPolygonShown()) {
-                    GS.Map.Helper.highlightPolygon(mapObject.polygon, {duration:300});
                 }
 
                 mapObjectsAdded.all.push(mapObject);
@@ -280,9 +275,11 @@ GS.Boundaries.BoundaryHelper = function() {
         ).done(function(data) {
                 if (data.features.length == 0) {
                     alert("No school or district found at this point for level code " + $('.js_mapLevelCode:checked').val());
+                    deferred.reject();
+                    return;
                 }
                 var mapObjectsAdded = GS.Boundaries.boundaryHelper.loadFeatureResponse
-                    (data.features, jQuery.extend({showMarkers:true, showPolygons:false, showFirstSchool:true, showFirstDistrict:true}, options));
+                    (data.features, jQuery.extend({showMarkers:true, showPolygons:false}, options));
                 if (GS.Boundaries.boundaryHelper.globalResponseHandler != null) {
                     GS.Boundaries.boundaryHelper.globalResponseHandler(mapObjectsAdded);
                 }
