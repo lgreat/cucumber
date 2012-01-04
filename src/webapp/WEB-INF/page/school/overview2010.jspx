@@ -178,6 +178,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     school="${school}"
                     showAllSchoolLinks="${requestScope.context.showDcNclbAllSchoolLinks}"
                     schoolCodesToShow="${requestScope.context.dcNclbSchoolCodesToShow}"
+                    districtCodesToShow="${requestScope.context.dcNclbDistrictCodesToShow}"
                     />
         </c:if>
 

@@ -9,8 +9,10 @@
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="showAllSchoolLinks" required="true" description="Whether or not to show all school report card links" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="schoolCodesToShow" required="true" description="Set of school codes for which to show school report card links (Set of String)" type="java.util.Set"/>
+    <jsp:directive.attribute name="districtCodesToShow" required="true" description="Set of LEA report card links" type="java.util.Set"/>
 
     <c:set var="schoolCode" value="${pageScope.school.stateId}"/>
+    <c:set var="showDistrictLink" value="${gsweb:contains(pageScope.districtCodesToShow, pageScope.school.district.stateId)}"/>
     <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
     <c:choose>
         <c:when test="${pageScope.school.districtId eq 0}">
@@ -43,7 +45,7 @@
                     </li>
                 </c:if>
                 <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
-                <c:if test="${pageScope.school.districtId ne 0}">
+                <c:if test="${pageScope.school.districtId ne 0 and pageScope.showDistrictLink}">
                     <li class="media">
                         <span class="sprite pdf_sm img"><!-- do not collapse --></span>
 
@@ -67,7 +69,7 @@
                 </li>
             </ul>
 
-            <img src="/res/img/school/overview/OSSE-2.png" class="logo" width="138" height="45"
+            <img src="/res/img/school/overview/OSSE-2-2011.png" class="logo" width="138" height="45"
                  alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
         </div>
     </div>
