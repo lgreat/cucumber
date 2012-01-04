@@ -45,6 +45,11 @@ public class UserCommandValidator implements IRequestAwareValidator {
     protected static final String ERROR_FIRST_NAME_BAD =
             "Please remove the numbers or symbols.";
 
+    protected static final String ERROR_LAST_NAME_LENGTH =
+            "Last name must be 1-24 characters long.";
+    protected static final String ERROR_LAST_NAME_INVALID_CHARACTERS =
+            "Last name may contain only letters, numbers, spaces, and the following punctuation:, . - _ &";
+
     protected static final String ERROR_SCREEN_NAME_LENGTH =
             "Username must be 6-14 characters.";
     protected static final String ERROR_SCREEN_NAME_BAD =
@@ -222,6 +227,16 @@ public class UserCommandValidator implements IRequestAwareValidator {
         } else if (!StringUtils.containsNone(command.getFirstName(), FIRST_NAME_DISALLOWED_CHARACTERS)) {
             errors.rejectValue("firstName", null, ERROR_FIRST_NAME_BAD);
             _log.info("Registration error: " + ERROR_FIRST_NAME_BAD);
+        }
+    }
+
+    public void validateLastName(UserCommand command, Errors errors) {
+        if (StringUtils.isEmpty(command.getLastName()) ||
+                command.getLastName().length() > 24 ||
+                command.getLastName().length() < 0) {
+            errors.rejectValue("lastName", null, ERROR_LAST_NAME_LENGTH);
+        } else if (!command.getLastName().matches("[0-9a-zA-Z\\-\\_\\.\\,\\&\\s]*")) {
+            errors.rejectValue("lastName", null, ERROR_LAST_NAME_INVALID_CHARACTERS);
         }
     }
 

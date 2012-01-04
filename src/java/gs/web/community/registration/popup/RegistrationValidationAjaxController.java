@@ -36,6 +36,7 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 
     public static final String FIELD_PARAMETER = "field";
     public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
     public static final String EMAIL = "email";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
@@ -117,7 +118,10 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
             _userCommandValidator.validatePasswordFormat(userCommand.getPassword(), "password", errors);
         } else if (StringUtils.equals(CONFIRM_PASSWORD, request.getParameter(FIELD_PARAMETER))) {
             _userCommandValidator.validatePasswordEquivalence
-                    (userCommand.getPassword(), userCommand.getConfirmPassword(), "confirmPassword", errors);        }
+                    (userCommand.getPassword(), userCommand.getConfirmPassword(), "confirmPassword", errors);
+        } else if (StringUtils.equals(LAST_NAME, request.getParameter(FIELD_PARAMETER))) {
+            _userCommandValidator.validateLastName(userCommand, errors);
+        }
     }
 
     public IUserDao getUserDao() {

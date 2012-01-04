@@ -10,13 +10,14 @@ import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
 import gs.data.school.EspMembership;
 import gs.data.state.State;
-import gs.web.community.registration.LoginCommand;
+import gs.web.community.registration.UserCommand;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.validator.UserCommandValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,8 +32,6 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.wsdl.Binding;
-import java.io.PrintWriter;
 import java.util.*;
 
 @Controller
@@ -56,6 +55,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         EspMembershipCommand command = new EspMembershipCommand();
 
         if (user != null && user.getId() != null) {
+            // User already exists in the session.Therefore pre-fill in form fields.
 
             command.setEmail(user.getEmail());
             if (!StringUtils.isBlank(user.getFirstName())) {
@@ -65,7 +65,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 command.setLastName(user.getLastName());
             }
             if (user.getUserProfile() != null && !StringUtils.isBlank(user.getUserProfile().getScreenName())) {
-                command.setUserName(user.getUserProfile().getScreenName());
+                command.setScreenName(user.getUserProfile().getScreenName());
             }
 
             modelMap.put("showRegPanel", true);
@@ -83,11 +83,17 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
-        boolean userExists = false;
+
         String email = command.getEmail();
-        String registeredPassword = command.getRegisteredPassword();
-        if (user == null && StringUtils.isNotBlank(email) && StringUtils.isNotEmpty(registeredPassword)) {
+        if (StringUtils.isNotBlank(email)) {
             email = email.trim();
+        }
+        String registeredPassword = command.getRegisteredPassword();
+
+        if (user == null && StringUtils.isNotBlank(email) && StringUtils.isNotEmpty(registeredPassword)) {
+            //There is no user cookie.The command has the registered password filled in.
+            //Therefore the user already exists, just match the password, log in the user and re-direct to the logged in view.
+
             user = getUserDao().findUserFromEmailIfExists(email);
             if (user != null && user.isEmailValidated()) {
                 boolean matchesPassword = user.matchesPassword(registeredPassword);
@@ -97,45 +103,48 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             }
             return "redirect:" + "/school/esp/form.page";
         } else {
+
+            //If there was no user cookie so get the user from the database.
             if (user == null && StringUtils.isNotBlank(email)) {
-                email = email.trim();
                 user = getUserDao().findUserFromEmailIfExists(email);
             }
 
             //TODO: cookie based omniture?
 //            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
 
+            //Server side validation.
+            validate(command, result, user);
+            if (result.hasErrors()) {
+                return FORM_VIEW;
+            }
+
             //If user already exists.
             if (user != null && user.getId() != null) {
-                userExists = true;
                 setFieldsOnUserUsingCommand(command, user);
             } else {
-                //If no user already exists create a new one.
+                //If no user already exists so create a new user.
                 user = new User();
                 user.setEmail(email);
-                //TODO .Is this right?
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 setFieldsOnUserUsingCommand(command, user);
                 getUserDao().saveUser(user);
                 ThreadLocalTransactionManager.commitOrRollback();
             }
-
             //Set the users password and save the user.
             setUsersPassword(command, user);
             getUserDao().updateUser(user);
+
             //Set the users profile and save the user.
             updateUserProfile(command, user);
             getUserDao().updateUser(user);
 
-            // TODO: do some cookie  and welcome/verification email send.
-
+            // TODO: do some cookie logic.
             //Save ESP membership for user.
             saveEspMembership(command, user);
             return SUCCESS_VIEW;
         }
     }
 
-    //TODO write unit tests for this.
     @RequestMapping(value = "checkEspUser.page", method = RequestMethod.GET)
     public void checkIfUserExists(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) {
         String email = command.getEmail();
@@ -175,7 +184,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                             fieldsToCollect += fieldsToCollect.length() > 0 ? ",lastName" : "lastName";
                         }
                         if (user.getUserProfile() == null || (user.getUserProfile() != null && StringUtils.isBlank(user.getUserProfile().getScreenName()))) {
-                            fieldsToCollect += fieldsToCollect.length() > 0 ? ",userName" : "userName";
+                            fieldsToCollect += fieldsToCollect.length() > 0 ? ",screenName" : "screenName";
                         }
                         if (StringUtils.isBlank(user.getPasswordMd5())) {
                             fieldsToCollect += fieldsToCollect.length() > 0 ? ",password" : "password";
@@ -217,7 +226,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
     }
 
-    //TODO write unit tests for this.
     @RequestMapping(value = "checkUserPassword.page", method = RequestMethod.GET)
     public void checkUserPassword(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
         String email = command.getEmail();
@@ -246,7 +254,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
 
     protected void setFieldsOnUserUsingCommand(EspMembershipCommand espMembershipCommand, User user) {
-        //TODO validate before setting?
         if (user != null) {
             if (StringUtils.isNotBlank(espMembershipCommand.getFirstName()) && StringUtils.isBlank(user.getFirstName())) {
                 user.setFirstName(espMembershipCommand.getFirstName().trim());
@@ -297,8 +304,8 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
     protected void setUserProfileFieldsFromCommand(EspMembershipCommand espMembershipCommand, UserProfile userProfile) {
         if (userProfile != null) {
-            if (StringUtils.isNotBlank(espMembershipCommand.getUserName()) && StringUtils.isBlank(userProfile.getScreenName())) {
-                userProfile.setScreenName(espMembershipCommand.getUserName().trim());
+            if (StringUtils.isNotBlank(espMembershipCommand.getScreenName()) && StringUtils.isBlank(userProfile.getScreenName())) {
+                userProfile.setScreenName(espMembershipCommand.getScreenName().trim());
             }
 
             if (StringUtils.isNotBlank(espMembershipCommand.getCity()) && StringUtils.isBlank(userProfile.getCity())) {
@@ -317,7 +324,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
     }
 
-    //TODO write unit tests for this.
+
     protected void saveEspMembership(EspMembershipCommand command, User user) {
         State state = command.getState();
         Long schoolId = command.getSchoolId();
@@ -343,16 +350,56 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
     }
 
+    protected void validate(EspMembershipCommand espMembershipCommand, BindingResult result, User user) {
+        UserCommandValidator validator = new UserCommandValidator();
+        UserCommand userCommand = new UserCommand();
+
+        userCommand.setFirstName(espMembershipCommand.getFirstName());
+        userCommand.setLastName(espMembershipCommand.getLastName());
+        userCommand.setPassword(espMembershipCommand.getPassword());
+        userCommand.setConfirmPassword(espMembershipCommand.getConfirmPassword());
+        userCommand.setScreenName(espMembershipCommand.getScreenName());
+
+
+        //validate first name, last name, password and screen name.
+        validator.validateFirstName(userCommand, result);
+        validator.validateLastName(userCommand, result);
+        validator.validatePassword(userCommand, result);
+        validator.validateUsername(userCommand, user, result);
+
+        //validate email, state, school, job title.
+        String email = espMembershipCommand.getEmail();
+        State state = espMembershipCommand.getState();
+        Long schoolId = espMembershipCommand.getSchoolId();
+        String jobTitle = espMembershipCommand.getJobTitle();
+
+        if (StringUtils.isNotBlank(email)) {
+            email = email.trim();
+            if (!validateEmail(email.trim())) {
+                result.rejectValue("email", "invalid_email");
+            }
+        } else {
+            result.rejectValue("email", "invalid_email");
+        }
+
+        if (state == null) {
+            result.rejectValue("state", null, "State cannot be null.");
+        }
+
+        if (schoolId == null || schoolId == 0 || schoolId == -1) {
+            result.rejectValue("schoolId", null, "School cannot be null.");
+        }
+
+        if (StringUtils.isBlank(jobTitle)) {
+            result.rejectValue("jobTitle", null, "Job Title cannot be empty.");
+        }
+
+    }
+
     protected boolean validateEmail(String email) {
         org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
         return emv.isValid(email);
     }
-//
-//    public void validateSomething(Errors errors) {
-////        EspMembershipCommand command = new EspMembershipCommand();
-//        errors.rejectValue("schoolId", "field.required", "required");
-//
-//    }
 
     public IEspMembershipDao getEspMembershipDao() {
         return _espMembershipDao;

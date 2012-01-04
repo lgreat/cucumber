@@ -4,6 +4,7 @@ import gs.data.community.*;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
+import gs.data.security.Role;
 import gs.data.util.DigestUtil;
 import gs.web.community.HoverHelper;
 import gs.web.school.review.ReviewService;
@@ -110,6 +111,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
             case PROVISIONAL:
 
                 summary = getReviewService().upgradeProvisionalReviewsAndSummarize(user);
+                boolean isESP = user.hasRole(Role.ESP_MEMBER);
 
                 // GS-9787 Users who have a review posted may get a custom welcome message
                 // per GS-8290 All users who complete registration should get a welcome message
@@ -151,6 +153,11 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 user.setEmailValidated();  //upgrades the user to registered member
                 _userDao.saveUser(user);
                 PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
+
+                if (isESP) {
+                    //TODO send ET welcome email.
+                }
+
                 break;
             
             case EMAIL_ONLY:

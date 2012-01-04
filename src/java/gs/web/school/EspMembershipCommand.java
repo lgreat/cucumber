@@ -7,7 +7,7 @@ public class EspMembershipCommand implements EmailValidator.IEmail {
     private String _firstName;
     private String _lastName;
     private String _email;
-    private String _userName;
+    private String _screenName;
     private String _password;
     private String _confirmPassword;
     private String _registeredPassword;
@@ -42,12 +42,12 @@ public class EspMembershipCommand implements EmailValidator.IEmail {
         _email = email;
     }
 
-    public String getUserName() {
-        return _userName;
+    public String getScreenName() {
+        return _screenName;
     }
 
-    public void setUserName(String userName) {
-        _userName = userName;
+    public void setScreenName(String screenName) {
+        _screenName = screenName;
     }
 
     public String getPassword() {

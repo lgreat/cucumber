@@ -95,7 +95,7 @@ GS.form.EspForm = function() {
                         jQuery('#js_regPanel').show();
                         jQuery('#js_firstNameDiv').show();
                         jQuery('#js_lastNameDiv').show();
-                        jQuery('#js_userNameDiv').show();
+                        jQuery('#js_screenNameDiv').show();
                         jQuery('#js_passwordDiv').show();
                         jQuery('#js_confirmPasswordDiv').show();
                         bindFormSubmit();
@@ -147,38 +147,34 @@ GS.form.EspForm = function() {
         return rval;
     };
 
-
-    //TODO validate last Name ?
     this.validateLastName = function() {
         var lName = jQuery('#js_lastName').val();
-        var fieldError = jQuery('.js_lastName.invalid');
-        var fieldValid = jQuery('.js_lastName.valid');
         var rval = true;
+        jQuery.ajax({
+            type: 'GET',
+            url: '/community/registrationValidationAjax.page',
+            data: {lastName:lName, field:'lastName'},
+            dataType: 'json',
+            async: false
+        }).done(function(data) {
+                rval = GS.form.espForm.handleValidationResponse('.js_lastName', 'lastName', data);
+            });
 
-        fieldError.hide();
-        fieldValid.hide();
-
-        if (lName === "" || lName === undefined) {
-            rval = false;
-            fieldError.show();
-        } else {
-            fieldValid.show();
-        }
         return rval;
     };
 
-    this.validateUsername = function() {
-        var userName = jQuery('#js_userName').val();
+    this.validateScreenName = function() {
+        var screenName = jQuery('#js_screenName').val();
         var rval = true;
 
         jQuery.ajax({
             type: 'GET',
             url: '/community/registrationValidationAjax.page',
-            data: {screenName:userName, email:jQuery('#js_email').val(), field:'username'},
+            data: {screenName:screenName, email:jQuery('#js_email').val(), field:'username'},
             dataType: 'json',
             async: false
         }).done(function(data) {
-                rval = GS.form.espForm.handleValidationResponse('.js_userName', 'screenName', data);
+                rval = GS.form.espForm.handleValidationResponse('.js_screenName', 'screenName', data);
             });
 
         return rval;
@@ -236,6 +232,19 @@ GS.form.EspForm = function() {
 
     };
 
+    this.validateState = function() {
+        var state = jQuery('#jq-stateAdd').val();
+        var fieldError = jQuery('.js_state.invalid');
+        var rval = true;
+
+        fieldError.hide();
+        if (state === "" || state === undefined ) {
+            fieldError.show();
+            rval = false;
+        }
+        return rval;
+    };
+
     this.validateSchool = function() {
         var schoolId = jQuery('#jq-school').val();
         var fieldError = jQuery('.js_school.invalid');
@@ -282,7 +291,7 @@ jQuery(function() {
 
     jQuery('#js_firstName').blur(GS.form.espForm.validateFirstName);
     jQuery('#js_lastName').blur(GS.form.espForm.validateLastName);
-    jQuery('#js_userName').blur(GS.form.espForm.validateUsername);
+    jQuery('#js_screenName').blur(GS.form.espForm.validateScreenName);
     jQuery('#js_password').blur(GS.form.espForm.validatePassword);
     jQuery('#js_confirmPassword').blur(GS.form.espForm.validateConfirmPassword);
 
@@ -306,7 +315,7 @@ jQuery(function() {
             regPanel.hide();
             jQuery('#js_firstNameDiv').hide();
             jQuery('#js_lastNameDiv').hide();
-            jQuery('#js_userNameDiv').hide();
+            jQuery('#js_screenNameDiv').hide();
             jQuery('#js_passwordDiv').hide();
             jQuery('#js_confirmPasswordDiv').hide();
             bindEmailSubmit();
@@ -346,11 +355,16 @@ function bindLoginSubmit() {
 
     //Additional check that if the registration panel is not visible and the password field is visible then form should submit.
     if (!regPanel.is(':visible') && passwordDiv.is(':visible')) {
+
+         //unbind the existing click handler.
         unbindSubmitHandler();
+
+         //Bind the new click handler
         jQuery('#js_submit').click(function() {
             shouldSubmitForm = GS.form.espForm.checkUserPassword();
             return shouldSubmitForm;
         });
+
     }
 }
 
@@ -369,21 +383,24 @@ function bindFormSubmit() {
             //check if the following fields are visible.
             var firstNameDivVisible = jQuery('#js_firstName').is(':visible');
             var lastNameDivVisible = jQuery('#js_lastName').is(':visible');
-            var userNameDivVisible = jQuery('#js_userName').is(':visible');
+            var screenNameDivVisible = jQuery('#js_screenName').is(':visible');
             var passwordDivVisible = jQuery('#js_password').is(':visible');
             var confirmPasswordDivVisible = jQuery('#js_confirmPassword').is(':visible');
 
             //If they are visible then validate else return true.
             var isFirstNameValid = firstNameDivVisible ? GS.form.espForm.validateFirstName() : true;
             var isLastNameValid = lastNameDivVisible ? GS.form.espForm.validateLastName() : true;
-            var isUserNameValid = userNameDivVisible ? GS.form.espForm.validateUsername() : true;
+            var isScreenNameValid = screenNameDivVisible ? GS.form.espForm.validateScreenName() : true;
             var isPasswordValid = passwordDivVisible ? GS.form.espForm.validatePassword() : true;
             var isConfirmPasswordValid = confirmPasswordDivVisible ? GS.form.espForm.validateConfirmPassword() : true;
 
-            //The school and the job title fields are always present.Hence always validate them.
+            //The school, state and the job title fields are always present.Hence always validate them.
             var isJobTitleValid = GS.form.espForm.validateJobTitle();
+            var isStateValid = GS.form.espForm.validateState();
             var isSchoolValid = GS.form.espForm.validateSchool();
-            return isFirstNameValid && isLastNameValid && isUserNameValid && isPasswordValid && isConfirmPasswordValid && isJobTitleValid && isSchoolValid;
+
+            return isFirstNameValid && isLastNameValid && isScreenNameValid && isPasswordValid && isConfirmPasswordValid
+                && isJobTitleValid && isStateValid && isSchoolValid;
         });
     }
 }
