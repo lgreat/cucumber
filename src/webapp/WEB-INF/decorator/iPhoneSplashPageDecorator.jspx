@@ -26,6 +26,8 @@
     ${requestScope.pageHelper.headElements}
         <!-- Begin JS files.  No CSS below this point. -->
     <pageHelper:addJavaScript uncompressedScripts="${param.uncompressedScripts}" compressedScripts="${param.compressedScripts}" serverName="${pageContext.request.serverName}"/>
+
+    <ad:xGAMSetup/>
 </head>
 
 <body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}">

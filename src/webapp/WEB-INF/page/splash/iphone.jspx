@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
     <html lang="en">
@@ -47,6 +48,9 @@
                     <img src="/res/img/splash/iPhoneSplash.png" width="128" height="276" alt="GreatSchools iPhone App"/>
                 </div>
             </div>
+
+            <ad:setSlotPrefix slotPrefix="iPhone_App_Download_Splash"/>
+            <ad:adTag position="Sponsor_320x50"/>
         </div>
     </div>
 
