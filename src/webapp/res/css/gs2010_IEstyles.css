@@ -164,7 +164,7 @@ body.ie .prefs ul.col li.grades, * + html .prefs ul.col li.grades {
 }
 
 body.ie7 #moreGrades.show, * + html #moreGrades.show {
-    z-index: 110;
+    z-index: 15011;
 }
 
 body.ie7 .prefs ul.col input, body.ie7 .prefs ul.col label, * + html .prefs ul.col input, * + html .prefs ul.col label {
@@ -189,7 +189,7 @@ body.ie7 #pickGrade, * + html #pickGrade {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     overflow: visible;
-    z-index: 100;
+    z-index: 15001;
 }
 
 *+html #footerAd {
