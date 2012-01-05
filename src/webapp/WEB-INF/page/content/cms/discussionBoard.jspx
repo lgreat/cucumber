@@ -45,7 +45,7 @@
             <c:set var="pageSizeUrlPrefix" value="${requestScope.uri}?pageSize="/>
         </c:when>
         <c:otherwise>
-            <c:set var="pageSizeUrlPrefix" value="${requestScope.uri}&amp;amp;pageSize="/>
+            <c:set var="pageSizeUrlPrefix" value="${requestScope.uri}&amp;pageSize="/>
         </c:otherwise>
     </c:choose>
 
