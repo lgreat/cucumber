@@ -83,9 +83,9 @@ GS.form.EspForm = function() {
                         }
 
                         //User is already ESP member.Therefore show a message.
-                        if (data.isUserESPMember === true) {
-                            jQuery('#js_userESPMember').show();
-                        }
+//                        if (data.isUserESPMember === true) {
+//                            jQuery('#js_userESPMember').show();
+//                        }
 
                         jQuery('#js_regPanel').show();
                         bindFormSubmit();
@@ -118,7 +118,7 @@ GS.form.EspForm = function() {
                 dataType: 'json',
                 async: false
             }).done(function(data) {
-                    if (data.incorrectPassword !== '' && data.incorrectPassword !== undefined) {
+                    if (data.matchesPassword !== true) {
                         jQuery('#js_registeredPasswordIncorrect').show();
                         rval = false;
                     }
@@ -238,7 +238,7 @@ GS.form.EspForm = function() {
         var rval = true;
 
         fieldError.hide();
-        if (state === "" || state === undefined ) {
+        if (state === "" || state === undefined) {
             fieldError.show();
             rval = false;
         }
@@ -382,10 +382,10 @@ function bindLoginSubmit() {
     //Additional check that if the registration panel is not visible and the password field is visible then form should submit.
     if (!regPanel.is(':visible') && passwordDiv.is(':visible')) {
 
-         //unbind the existing click handler.
+        //unbind the existing click handler.
         unbindSubmitHandler();
 
-         //Bind the new click handler
+        //Bind the new click handler
         jQuery('#js_submit').click(function() {
             shouldSubmitForm = GS.form.espForm.checkUserPassword();
             return shouldSubmitForm;

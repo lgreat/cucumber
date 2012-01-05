@@ -191,7 +191,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                             fieldsToCollect += ",confirmPassword";
                         }
 
-
                     }
                 }
             }
@@ -240,11 +239,12 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             }
         }
         Map data = new HashMap();
-        if (matchesPassword) {
-            data.put("correctPassword", true);
-        } else {
-            data.put("incorrectPassword", "The password you entered is incorrect.");
-        }
+        data.put("matchesPassword", matchesPassword);
+//        if (matchesPassword) {
+//            data.put("correctPassword", true);
+//        } else {
+//            data.put("incorrectPassword", "The password you entered is incorrect.");
+//        }
 
         JSONObject rval = new JSONObject(data);
         response.setContentType("application/json");
@@ -357,6 +357,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         Long schoolId = command.getSchoolId();
         String email = command.getEmail();
         boolean isUnique = true;
+        boolean isActive = false;
 
         if (state != null && schoolId != null & StringUtils.isNotBlank(email)) {
             User user = getUserDao().findUserFromEmailIfExists(email.trim());
@@ -365,16 +366,14 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
                 if (espMembership != null) {
                     isUnique = false;
+                    isActive = espMembership.getActive();
                 }
             }
         }
 
         Map data = new HashMap();
-        if (isUnique) {
-            data.put("isUnique", true);
-        } else {
-            data.put("isUnique", "You are already registered for this school.");
-        }
+        data.put("isUnique", isUnique);
+        data.put("isActive", isActive);
 
         JSONObject rval = new JSONObject(data);
         response.setContentType("application/json");
@@ -382,7 +381,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         response.getWriter().flush();
 
     }
-
 
     protected void validate(EspMembershipCommand espMembershipCommand, BindingResult result, User user)  {
         UserCommandValidator validator = new UserCommandValidator();
