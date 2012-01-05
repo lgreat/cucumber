@@ -337,10 +337,7 @@
                     }
                 }
                 if (showPrivateSchools()) {
-                    loadPrivateSchoolsNearPoint(district.marker.getPosition().lat(), district.marker.getPosition().lng()
-                    ).always(function() {
-                        updateSchoolList();
-                    });
+                    loadPrivateSchoolsNearPoint(district.marker.getPosition().lat(), district.marker.getPosition().lng());
                 }
                 if (moveToCenter && district.hasMarker()) {
                     centerMap(district.marker.getPosition());
@@ -590,10 +587,11 @@
             };
             var loadPrivateSchoolsNearPoint = function(myLat, myLon) {
                 hidePrivateSchools();
-                GS.Boundaries.boundaryHelper.loadPrivateSchoolsNearPoint(myLat, myLon
+                var promise = GS.Boundaries.boundaryHelper.loadPrivateSchoolsNearPoint(myLat, myLon
                 ).done(function(data) {
                     updateSchoolList();
                 });
+                return promise;
             };
             var loadDistrictsNearPoint = function(myLat, myLon) {
                 // drop unneeded precision
