@@ -125,6 +125,7 @@ GS.Boundaries.BoundaryHelper = function() {
     var SchoolWithBoundary = function(params) {
         this.district = null;
         this.districtId = params.districtId;
+        this.schoolType = params.schoolType || 'public';
         this.getDistrictKey = function() {
             if (this.districtId > 0) {
                 return "district-" + this.state + "-" + this.districtId;
@@ -351,6 +352,25 @@ GS.Boundaries.BoundaryHelper = function() {
                 } else {
                     alert("Error fetching school boundary: " + name + " (" + state + ":" + id + ")");
                 }
+            });
+        return deferred.promise();
+    };
+    this.loadPrivateSchoolsNearPoint = function(latitude, longitude, options) {
+        var deferred = new jQuery.Deferred();
+        jQuery.getJSON("/geo/boundary/ajax/getPrivateSchoolsNearPoint.page",
+            {lat:latitude, lon:longitude, level:$('.js_mapLevelCode:checked').val()}
+        ).done(function(data) {
+                if (data.features.length == 0) {
+                    GS.Util.log("WARN: No private schools found near this point for level code " + $('.js_mapLevelCode:checked').val());
+                }
+                var mapObjectsAdded = GS.Boundaries.boundaryHelper.loadFeatureResponse(data.features, jQuery.extend({showPolygons: false}, options));
+                if (GS.Boundaries.boundaryHelper.globalResponseHandler != null) {
+                    GS.Boundaries.boundaryHelper.globalResponseHandler(mapObjectsAdded);
+                }
+                deferred.resolve(mapObjectsAdded);
+            }).fail(function() {
+                deferred.reject();
+                alert("Error fetching private schools for location: " + latitude + "," + longitude);
             });
         return deferred.promise();
     };

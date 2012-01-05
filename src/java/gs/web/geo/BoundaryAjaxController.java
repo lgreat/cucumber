@@ -7,16 +7,15 @@ import gs.data.geo.SchoolBoundary;
 import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
-import gs.data.school.ISchoolDao;
-import gs.data.school.LevelCode;
-import gs.data.school.School;
-import gs.data.school.SchoolWithRatings;
+import gs.data.school.*;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.IDistrictSearchResult;
+import gs.data.search.beans.ISchoolSearchResult;
 import gs.data.search.services.DistrictSearchService;
+import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
 import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
@@ -25,6 +24,7 @@ import gs.data.test.rating.IDistrictRatingDao;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +66,8 @@ public class BoundaryAjaxController {
     private ISchoolBoundaryDao _schoolBoundaryDao;
     @Resource(name="solrDistrictSearchService")
     private DistrictSearchService _districtSearchService;
+    @Resource(name="solrSchoolSearchService")
+    private SchoolSearchService _schoolSearchService;
 
     /**
      * Return a list of districts near a location.
@@ -269,9 +271,6 @@ public class BoundaryAjaxController {
             start = System.currentTimeMillis();
             for (SchoolWithRatings s: schoolsWithRatings) {
                 MapObject marker = getMarkerFromSchool(s.getSchool(), null, s.getRating(), request);
-//                MapObject polygon = getPolygonFromSchool
-//                        (schoolIdToBoundaryMap.get(s.getSchool().getId()), s.getSchool(), s.getRating(), request);
-//                marker.addDependent(polygon);
                 marker.setCoordinates(schoolIdToBoundaryMap.get(s.getSchool().getId()).getGeometry());
                 features.put(marker.toJsonObject());
             }
@@ -284,18 +283,13 @@ public class BoundaryAjaxController {
             start = System.currentTimeMillis();
             for (int x=0; x < districts.length(); x++) {
                 features.put(districts.get(x));
-//                if (schoolBoundaries.size() == 0) {
-                    // failed to find any schools, let's just return all the schools in the district
-                    JSONObject districtJson = districts.getJSONObject(x);
-                    JSONObject districtData = districtJson.getJSONObject("data");
-                    int districtId = districtData.getInt("id");
-                    state = State.fromString(districtData.getString("state"));
-                    JSONArray districtSchools = getSchoolsForDistrict
-                            (state, districtId, level, request);
-//                    for (int y=0; y < districtSchools.length(); y++) {
-                        districtJson.put("dependents", districtSchools);
-//                    }
-//                }
+                JSONObject districtJson = districts.getJSONObject(x);
+                JSONObject districtData = districtJson.getJSONObject("data");
+                int districtId = districtData.getInt("id");
+                state = State.fromString(districtData.getString("state"));
+                JSONArray districtSchools = getSchoolsForDistrict
+                        (state, districtId, level, request);
+                districtJson.put("dependents", districtSchools);
             }
             System.out.println("  getSchoolsForLocation addingDistrictSchools took " + (System.currentTimeMillis() - start) + " ms");
         }
@@ -339,8 +333,6 @@ public class BoundaryAjaxController {
                     SchoolBoundary boundary = idSchoolBoundaryMap.get(s.getSchool().getId());
                     MapObject marker = getMarkerFromSchool(s.getSchool(), district, s.getRating(), request);
                     if (boundary != null) {
-//                        MapObject polygon = getPolygonFromSchool(boundary, s.getSchool(), s.getRating(), request);
-//                        marker.addDependent(polygon);
                         marker.setCoordinates(boundary.getGeometry());
                     }
                     features.put(marker.toJsonObject());
@@ -352,6 +344,54 @@ public class BoundaryAjaxController {
             System.out.println("      (" + districtId + ") DB took " + (dbEnd-dbStart) + " ms");
             System.out.println("      (" + districtId + ") SAZ took " + (sazEnd-sazStart) + " ms");
         }
+    }
+
+    /**
+     * Return a list of private schools near the specified location.
+     */
+    @RequestMapping(value="getPrivateSchoolsNearPoint.page", method=RequestMethod.GET)
+    public void getPrivateSchoolsNearPoint(HttpServletRequest request,
+                                           HttpServletResponse response) throws IOException, JSONException, SearchException {
+        long start = System.currentTimeMillis();
+        response.setContentType("application/json");
+        float lat = Float.valueOf(request.getParameter("lat"));
+        float lon = Float.valueOf(request.getParameter("lon"));
+        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
+        int limit = 50;
+        if (request.getParameter("limit") != null) {
+            limit = Integer.valueOf(request.getParameter("limit"));
+            if (limit > 1000) {
+                limit = 1000;
+            }
+        }
+        int radius = 10;
+        if (request.getParameter("radius") != null) {
+            radius = Integer.valueOf(request.getParameter("radius"));
+            if (radius > 100) {
+                radius = 100;
+            }
+        }
+        long solrStart = System.currentTimeMillis();
+        SearchResultsPage<ISchoolSearchResult> resultsPage =
+                _schoolSearchService.getSchoolsNear(lat, lon, radius, schoolLevel, SchoolType.PRIVATE, 0, limit);
+        long solrDuration = System.currentTimeMillis() - solrStart;
+        long jsonStart = System.currentTimeMillis();
+        JSONObject rval = new JSONObject();
+        JSONArray features = new JSONArray();
+        for (ISchoolSearchResult searchResult: resultsPage.getSearchResults()) {
+            int rating = 0;
+            if (searchResult.getGreatSchoolsRating() != null) {
+                rating = searchResult.getGreatSchoolsRating();
+            }
+            MapObject marker = getMarkerFromSchoolSearch(searchResult, null, rating, request);
+            features.put(marker.toJsonObject());
+        }
+        rval.put("features", features);
+        rval.write(response.getWriter());
+        long jsonDuration = System.currentTimeMillis() - jsonStart;
+        System.out.println("getPrivateSchoolsNearPoint took " + (System.currentTimeMillis()-start) + " ms");
+        System.out.println("  getPrivateSchoolsNearPoint.Solr took " + solrDuration + " ms");
+        System.out.println("  getPrivateSchoolsNearPoint.JSON took " + jsonDuration + " ms");
     }
 
     /**
@@ -371,9 +411,6 @@ public class BoundaryAjaxController {
                     ratingInt = rating.getRating();
                 }
                 MapObject marker = getMarkerFromDistrict(district, ratingInt, request);
-
-//                MapObject polygon = getPolygonFromDistrict(boundary, district, ratingInt, request);
-//                marker.addDependent(polygon);
                 marker.setCoordinates(boundary.getGeometry());
 
                 features.put(marker.toJsonObject());
@@ -430,14 +467,35 @@ public class BoundaryAjaxController {
         return marker;
     }
 
+    // TODO: Refactor following two methods together, similar to the district case
     protected MapObject getMarkerFromSchool(School s, District district, int ratingInt,
                                             HttpServletRequest request) throws JSONException {
         String icon = "/res/img/map/GS_gsr_na_forground.png";
         if (ratingInt > 0) {
             icon = "/res/img/map/GS_gsr_" + ratingInt + "_forground.png";
+        } else if (s.getType() == SchoolType.PRIVATE) {
+            icon = "/res/img/map/GS_gsr_private_forground.png";
         }
         MapObject marker = new MapObject(s.getLat(), s.getLon(),
                 icon, 40, 40);
+        marker.setTooltip(s.getName());
+        marker.setOrigin(0, 0);
+        marker.setAnchor(11, 34);
+        marker.setShape(MapObject.MarkerShapeType.poly, new int[]{0, 0, 30, 0, 30, 37, 0, 37});
+
+        populateSchoolData(marker.getData(), s, ratingInt, district, request);
+        return marker;
+    }
+
+    protected MapObject getMarkerFromSchoolSearch(ISchoolSearchResult s, District district, int ratingInt,
+                                                  HttpServletRequest request) throws JSONException {
+        String icon = "/res/img/map/GS_gsr_na_forground.png";
+        if (ratingInt > 0) {
+            icon = "/res/img/map/GS_gsr_" + ratingInt + "_forground.png";
+        } else if (StringUtils.equals("private", s.getSchoolType())) {
+            icon = "/res/img/map/GS_gsr_private_forground.png";
+        }
+        MapObject marker = new MapObject(s.getLatLon().getLat(), s.getLatLon().getLon(), icon, 40, 40);
         marker.setTooltip(s.getName());
         marker.setOrigin(0, 0);
         marker.setAnchor(11, 34);
@@ -464,6 +522,7 @@ public class BoundaryAjaxController {
         data.put("address", address);
     }
 
+    // TODO: Look at refactoring these two methods together as well
     protected void populateSchoolData(JSONObject data, School school, int rating, District district,
                                       HttpServletRequest request) throws JSONException {
         data.put("state", school.getDatabaseState());
@@ -471,12 +530,42 @@ public class BoundaryAjaxController {
         data.put("name", school.getName());
         data.put("rating", rating);
         data.put("type", "school");
+        data.put("schoolType", school.getType().getSchoolTypeName());
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         data.put("url", urlBuilder.asSiteRelative(request));
         JSONObject address = new JSONObject();
         address.put("street1", school.getPhysicalAddress().getStreet());
         address.put("street2", school.getPhysicalAddress().getStreetLine2());
         address.put("cityStateZip", school.getPhysicalAddress().getCityStateZip());
+        data.put("address", address);
+        if (district != null) {
+            data.put("districtName", district.getName());
+            data.put("districtId", district.getId());
+        } else {
+            data.put("districtId", school.getDistrictId());
+        }
+    }
+
+    protected void populateSchoolData(JSONObject data, ISchoolSearchResult school, int rating, District district,
+                                      HttpServletRequest request) throws JSONException {
+        data.put("state", school.getDatabaseState());
+        data.put("id", school.getId());
+        data.put("name", school.getName());
+        data.put("rating", rating);
+        data.put("type", "school");
+        data.put("schoolType", school.getSchoolType());
+        School schoolFacade = new School();
+        schoolFacade.setId(school.getId());
+        schoolFacade.setDatabaseState(school.getDatabaseState());
+        schoolFacade.setName(school.getName());
+        schoolFacade.setPhysicalAddress(school.getAddress());
+        schoolFacade.setLevelCode(LevelCode.createLevelCode(school.getLevelCode()));
+        UrlBuilder urlBuilder = new UrlBuilder(schoolFacade, UrlBuilder.SCHOOL_PROFILE);
+        data.put("url", urlBuilder.asSiteRelative(request));
+        JSONObject address = new JSONObject();
+        address.put("street1", school.getAddress().getStreet());
+        address.put("street2", school.getAddress().getStreetLine2());
+        address.put("cityStateZip", school.getAddress().getCityStateZip());
         data.put("address", address);
         if (district != null) {
             data.put("districtName", district.getName());
@@ -551,6 +640,14 @@ public class BoundaryAjaxController {
 
     public void setDistrictSearchService(DistrictSearchService districtSearchService) {
         _districtSearchService = districtSearchService;
+    }
+
+    public SchoolSearchService getSchoolSearchService() {
+        return _schoolSearchService;
+    }
+
+    public void setSchoolSearchService(SchoolSearchService schoolSearchService) {
+        _schoolSearchService = schoolSearchService;
     }
 
     public IDistrictBoundaryDao getDistrictBoundaryDao() {
