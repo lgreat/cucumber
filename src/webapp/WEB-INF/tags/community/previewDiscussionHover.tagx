@@ -108,9 +108,9 @@
                 <!-- end db_discussTopic -->
             </div>
 
-            <button class="button-1 fltlft previewEditButton sd-btn-layout" type="submit">Edit conversation</button>
+            <button class="button-1 previewEditButton sd-btn-layout" type="submit">Edit conversation</button>
 
-            <button class="button-1 fltlft previewPostButton" type="submit">Post your conversation</button>
+            <button class="button-1 previewPostButton" type="submit">Post your conversation</button>
         </div>
     </c:if>
 
