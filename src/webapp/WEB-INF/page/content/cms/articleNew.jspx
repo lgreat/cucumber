@@ -217,6 +217,9 @@
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Title: ${titleForOmniture}"
                   events="event7"
                   omitAlmondNet="${true}"
+                  isContentFirstPage="${article.currentPageNum eq 1}"
+                  isContentPage="${true}"
+                  contentId="${article.contentKey.identifier}"
             />
 
     <article:hoverBody feature="${feature}"/>

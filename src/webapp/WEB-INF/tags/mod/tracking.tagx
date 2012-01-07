@@ -123,6 +123,19 @@
         name="findASchoolByName" type="java.lang.Boolean"
         description="Indicates this is a search by name results page"
         required="false"/>
+    <!-- See GS-12376 -->
+    <jsp:directive.attribute
+        name="isContentFirstPage" type="java.lang.Boolean"
+        description="Indicates this is the first page of a content template"
+        required="false"/>
+    <jsp:directive.attribute
+        name="contentId" type="java.lang.Long"
+        description="Indicates the content id of the article or asktheexperts or articleslideshow"
+        required="false"/>
+    <jsp:directive.attribute
+        name="isContentPage" type="java.lang.Boolean"
+        description="Indicates this is a page of a content template (any page or single page view or any slide in a slideshow)"
+        required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -179,7 +192,7 @@
 
             s.pageName = "${pageName}";
             clickCapture.pageName = "${pageName}";
-            
+
             s.server = "${requestScope.context.hostName}";
             s.channel = "${not empty(state) ? state : not empty(requestScope.context.state) ? requestScope.context.state.abbreviation : ''}";
             s.pageType = "${pageType eq 'errorPage' ? pageType : ''}";
@@ -229,6 +242,8 @@
             s.prop34 = clickCapture.getProp(34,"${empty schoolPhotosTracking ? '': schoolPhotosTracking}");
             s.prop35 = clickCapture.getProp(35,"${findASchoolByAddress ? query: ''}");
             s.prop36 = clickCapture.getProp(36,"${findASchoolByName ? query: ''}");
+            s.prop38 = clickCapture.getProp(38,"${isContentFirstPage ? contentId : ''}");
+            s.prop39 = clickCapture.getProp(39,"${isContentPage ? contentId : ''}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

@@ -126,6 +126,9 @@
               hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture}"
               events="event7"
               omitAlmondNet="${true}"
+              isContentFirstPage = "${true}"
+              isContentPage="${true}"
+              contentId="${askTheExperts.contentKey.identifier}"
         />
 
 <article:hoverBody feature="${feature}"/>
