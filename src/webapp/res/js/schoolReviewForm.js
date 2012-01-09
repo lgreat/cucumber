@@ -376,7 +376,7 @@ GS.form.SchoolReviewForm = function(id) {
         var componentName = 'terms';
         var formComponent = form.find('.' + componentName);
         var element = formComponent.find('input');
-        var errorElement = formComponent.find('.form-error');
+        var errorElement = jQuery('#js-termsError');
         var error = null;
 
         this.updateErrorDisplay = function() {

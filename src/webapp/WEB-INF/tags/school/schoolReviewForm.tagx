@@ -350,7 +350,7 @@
                 </c:if>
 
                 <div class="spacer_15">
-                    <div class="form-error formErrorText mediaExt1-1">
+                    <div class="form-error formErrorText mediaExt1-1" id="js-termsError">
                         <span class="sprite i-alert img"><!-- do not collapse --></span>
 
                         <div class="bk">Please read and accept our Terms of Use to join GreatSchools.</div>
