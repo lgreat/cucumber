@@ -200,6 +200,7 @@ public class CmsHomepageController extends AbstractController implements IDevice
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
             pageHelper.addAdKeyword("template", "homepage");
+            pageHelper.addAdKeywordMulti("editorial", "pushdownad");
         }
 
         return new ModelAndView(_viewName, model);

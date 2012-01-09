@@ -90,6 +90,9 @@
                 if (sessionContext.getMemberId() != null) {
                     pageHelper.addAdKeyword("member", "true");
                 }
+
+                // GS-12370 add GAM ad attribute so that GAM ad targeting can be set up to serve to usera, userb, userc, etc.
+                pageHelper.addAdKeywordMulti("editorial", "user" + sessionContext.getABVersion());
             }
 
             if (CookieUtil.hasCookie(request, "pledged")) {
