@@ -287,6 +287,7 @@
                 <form:hidden path="state" id="state"/>
                 <form:hidden path="normalizedAddress" id="normalizedAddress"/>
                 <form:hidden path="cobrandHostname" id="cobrandHostname"/>
+                <form:hidden path="showLocationMarker" id="showLocationMarker"/>
                 <form:input path="searchQuery" id="searchInput" cssClass="searchInput"
                             onfocus="textSwitch(this, '', 'Enter city &amp; state or zip code');"
                             onblur="textSwitch(this, 'Enter city &amp; state or zip code', '');"/>

@@ -212,10 +212,12 @@ public class SchoolSearchWidgetController extends SimpleFormController {
         boolean hasResults = false;
         boolean shownError = false;
 
-        // reset location marker latitude and longitude (but not current lat, lon)
-        command.setShowLocationMarker(false);
-        command.setLocationMarkerLat(0);
-        command.setLocationMarkerLon(0);
+        // persist location marker setting, using whatever the current lat/lon is if necessary
+        if (command.isShowLocationMarker() &&
+                (command.getLocationMarkerLat() == 0 || command.getLocationMarkerLon() == 0)) {
+            command.setLocationMarkerLat(command.getLat());
+            command.setLocationMarkerLon(command.getLon());
+        }
 
         if (StringUtils.isNotBlank(searchQuery)) {
             searchQuery = searchQuery.trim();
