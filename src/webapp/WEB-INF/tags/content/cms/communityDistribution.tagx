@@ -43,11 +43,11 @@
         <script>function fbs_click() {u=location.href;t=document.title;window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&amp;t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}</script><style> html .fb_share_link { padding:2px 0 0 20px; height:16px; background:url(http://b.static.ak.fbcdn.net/images/share/facebook_share_icon.gif?8:26981) no-repeat top left; }</style><a href="http://www.facebook.com/share.php?u=${fullUrl}&amp;t=${encodedTitle}" onclick="return fbs_click()" target="_blank" class="fb_share_link">Facebook</a>&amp;nbsp;
 
         <!-- Twitter -->
-        <script charset='utf-8' src='http://bit.ly/javascript-api.js?version=latest&amp;amp;login=tweettrackjs&amp;amp;apiKey=R_7e9987b2fd13d7e4e881f9cbb168f523' type='text/javascript'><!--preserve layout--></script>
-        <script charset='utf-8' src='http://s.bit.ly/TweetAndTrack.js?v=1.01' type='text/javascript'><!--preserve layout--></script>
-        <span style='background: url(http://lh6.ggpht.com/_xn2gmPb9TfM/Sb_fZkjAxpI/AAAAAAAAD3E/_9xpsQgFfTg/s128/twitter-16x16.png) left no-repeat; padding-left: 20px;'>
-            <a onclick="return TweetAndTrack.open(this, '${fullUrlOrig}');" href='#'><span style='display:none;'>I'm reading: ${title}</span>Tweet this!</a>
-        </span>&amp;nbsp;
+        <!--<script charset='utf-8' src='http://bit.ly/javascript-api.js?version=latest&amp;amp;login=tweettrackjs&amp;amp;apiKey=R_7e9987b2fd13d7e4e881f9cbb168f523' type='text/javascript'>&lt;!&ndash;preserve layout&ndash;&gt;</script>-->
+        <!--<script charset='utf-8' src='http://s.bit.ly/TweetAndTrack.js?v=1.01' type='text/javascript'>&lt;!&ndash;preserve layout&ndash;&gt;</script>-->
+        <!--<span style='background: url(http://lh6.ggpht.com/_xn2gmPb9TfM/Sb_fZkjAxpI/AAAAAAAAD3E/_9xpsQgFfTg/s128/twitter-16x16.png) left no-repeat; padding-left: 20px;'>-->
+            <!--<a onclick="return TweetAndTrack.open(this, '${fullUrlOrig}');" href='#'><span style='display:none;'>I'm reading: ${title}</span>Tweet this!</a>-->
+        <!--</span>&amp;nbsp;-->
 
         <!-- Yahoo Buzz -->
         <!--<script type="text/javascript" src="http://d.yimg.com/ds/badge2.js" badgetype="text">&lt;!&ndash;preserve layout&ndash;&gt;</script>&amp;nbsp;-->
