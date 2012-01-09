@@ -1,4 +1,4 @@
-package gs.web.school;
+package gs.web.admin;
 
 import java.util.List;
 

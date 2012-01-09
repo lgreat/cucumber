@@ -240,11 +240,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
         Map data = new HashMap();
         data.put("matchesPassword", matchesPassword);
-//        if (matchesPassword) {
-//            data.put("correctPassword", true);
-//        } else {
-//            data.put("incorrectPassword", "The password you entered is incorrect.");
-//        }
 
         JSONObject rval = new JSONObject(data);
         response.setContentType("application/json");

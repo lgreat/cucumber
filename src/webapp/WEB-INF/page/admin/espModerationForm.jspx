@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+            xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:form="http://www.springframework.org/tags/form">
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <title>ESP Moderation</title>
+    </head>
+
+    <gsml:body adPageName="school/esp" pageLayout="nocol">
+
+        <form:form commandName="espModerationCommand">
+
+            <table border="2">
+                <tr>
+                    <th><!--Do no collapse--></th>
+                    <th>Date</th>
+                    <th>Email</th>
+                    <th>State</th>
+                    <th>School Id</th>
+                    <th>School</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Job Title</th>
+                    <th>Web Url</th>
+                    <th>Note</th>
+                </tr>
+
+                <c:forEach var="membership" items="${membershipsToProcess}" varStatus="index">
+                    <tr>
+                        <td><form:checkbox path="espMembershipIds" value="${membership.id}-${index.count}"/></td>
+                        <td>${membership.created}</td>
+                        <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
+                        <td>${membership.state}</td>
+                        <td>${membership.school.id}</td>
+                        <td>${membership.school.name}</td>
+                        <td>${membership.user.firstName}</td>
+                        <td>${membership.user.lastName}</td>
+                        <td>${membership.jobTitle}</td>
+                        <td>${membership.webUrl}</td>
+                        <td><textarea name="note" cols="5" rows="2">${membership.note}</textarea></td>
+                    </tr>
+                </c:forEach>
+            </table>
+
+            <br/>
+            <br/>
+
+            <input type="submit" name="moderatorAction" value="approve"/>
+            <input type="submit" name="moderatorAction" value="reject"/>
+            <input type="submit" name="moderatorAction" value="update"/>
+
+        </form:form>
+    </gsml:body>
+
+    </html>
+</jsp:root>
