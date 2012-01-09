@@ -347,13 +347,28 @@ public class BoundaryAjaxController {
     }
 
     /**
-     * Return a list of private schools near the specified location.
+     * Return a list of private schools near the specified location that do not belong to a district.
      */
     @RequestMapping(value="getPrivateSchoolsNearPoint.page", method=RequestMethod.GET)
     public void getPrivateSchoolsNearPoint(HttpServletRequest request,
                                            HttpServletResponse response) throws IOException, JSONException, SearchException {
-        long start = System.currentTimeMillis();
         response.setContentType("application/json");
+        getNonDistrictSchoolsNearPoint(request, response, SchoolType.PRIVATE);
+    }
+
+    /**
+     * Return a list of charter schools near the specified location that do not belong to a district.
+     */
+    @RequestMapping(value="getCharterSchoolsNearPoint.page", method=RequestMethod.GET)
+    public void getCharterSchoolsNearPoint(HttpServletRequest request,
+                                           HttpServletResponse response) throws IOException, JSONException, SearchException {
+        response.setContentType("application/json");
+        getNonDistrictSchoolsNearPoint(request, response, SchoolType.CHARTER);
+    }
+
+    protected void getNonDistrictSchoolsNearPoint(HttpServletRequest request, HttpServletResponse response,
+                                                  SchoolType schoolType) throws
+            SearchException, JSONException, IOException {
         float lat = Float.valueOf(request.getParameter("lat"));
         float lon = Float.valueOf(request.getParameter("lon"));
         LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
@@ -371,14 +386,26 @@ public class BoundaryAjaxController {
                 radius = 100;
             }
         }
+        getNonDistrictSchoolsNearPoint(request, response, lat, lon, schoolLevel, limit, radius, schoolType);
+    }
+
+    protected void getNonDistrictSchoolsNearPoint(HttpServletRequest request, HttpServletResponse response, float lat,
+                                                  float lon, LevelCode.Level schoolLevel, int limit, int radius,
+                                                  SchoolType schoolType) throws
+            SearchException, JSONException, IOException {
+        long start = System.currentTimeMillis();
         long solrStart = System.currentTimeMillis();
         SearchResultsPage<ISchoolSearchResult> resultsPage =
-                _schoolSearchService.getSchoolsNear(lat, lon, radius, schoolLevel, SchoolType.PRIVATE, 0, limit);
+                _schoolSearchService.getSchoolsNear(lat, lon, radius, schoolLevel, schoolType, 0, limit);
         long solrDuration = System.currentTimeMillis() - solrStart;
         long jsonStart = System.currentTimeMillis();
         JSONObject rval = new JSONObject();
         JSONArray features = new JSONArray();
         for (ISchoolSearchResult searchResult: resultsPage.getSearchResults()) {
+            if (searchResult.getDistrictId() != null) {
+                System.out.println("Skipping school " + searchResult.getName() + " which lives in district " + searchResult.getDistrictName());
+                continue;
+            }
             int rating = 0;
             if (searchResult.getGreatSchoolsRating() != null) {
                 rating = searchResult.getGreatSchoolsRating();
@@ -389,9 +416,9 @@ public class BoundaryAjaxController {
         rval.put("features", features);
         rval.write(response.getWriter());
         long jsonDuration = System.currentTimeMillis() - jsonStart;
-        System.out.println("getPrivateSchoolsNearPoint took " + (System.currentTimeMillis()-start) + " ms");
-        System.out.println("  getPrivateSchoolsNearPoint.Solr took " + solrDuration + " ms");
-        System.out.println("  getPrivateSchoolsNearPoint.JSON took " + jsonDuration + " ms");
+        System.out.println("getNonDistrictSchoolsNearPoint took " + (System.currentTimeMillis()-start) + " ms");
+        System.out.println("  getNonDistrictSchoolsNearPoint.Solr took " + solrDuration + " ms");
+        System.out.println("  getNonDistrictSchoolsNearPoint.JSON took " + jsonDuration + " ms");
     }
 
     /**
