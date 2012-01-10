@@ -76,6 +76,7 @@ public class NewsletterSubscriptionController extends SimpleFormController imple
             } else if (user == null) {
                 user = new User();
                 user.setEmail(email);
+                user.setHow("hover_article");
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.saveUser(user);
                 shouldSendVerificationEmail = true;

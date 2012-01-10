@@ -103,6 +103,12 @@ public class NewslettersSignUpController extends SimpleFormController implements
             if (user == null) {
                 user = new User();
                 user.setEmail(email);
+                if("nlSubscriptionPage".equals(command.getHow())){
+                    user.setHow("newsletter_LP");
+                }
+                else if("nlSubscriptionIframe".equals(command.getHow())){
+                    user.setHow("newsletter_LP_FB");
+                }
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.saveUser(user);
                 shouldSendVerificationEmail = true;

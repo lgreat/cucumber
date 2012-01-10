@@ -33,6 +33,7 @@
                     <newsletterSignUp:errorMessages openLinksInNewWindow="true"/>
 
                     <newsletterSignUp:emailAddress showInstructions="${false}"/>
+                    <input type="hidden" name="how" value="nlSubscriptionIframe"/>
 
                     <div class="lineForIframe mtl pbl clearfix">
                         <div class="unit size1of2 formStyles pas">

@@ -41,6 +41,7 @@
                     <newsletterSignUp:errorMessages openLinksInNewWindow="false"/>
 
                     <newsletterSignUp:emailAddress showInstructions="${true}"/>
+                    <input type="hidden" name="how" value="nlSubscriptionPage"/>
 
                     <div class="line mtl nlSignUpFrom">
                         <div class="unit size25of100 formStyles pas">

@@ -73,6 +73,7 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
             if (user == null) {
                 user = new User();
                 user.setEmail(command.getEmail());
+                user.setHow("social_module");
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                 _userDao.saveUser(user);
                 isNewMember = true;
@@ -232,4 +233,3 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
         }
     }
 }
-

@@ -11,6 +11,7 @@ import java.util.List;
 public class NewslettersSignUpCommand implements EmailValidator.IEmail{
     private String _email;
     private int userId;
+    private String _how;
 
     private boolean dailytip;
     private int dailytipId;
@@ -95,6 +96,14 @@ public class NewslettersSignUpCommand implements EmailValidator.IEmail{
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getHow() {
+        return _how;
+    }
+
+    public void setHow(String how) {
+        this._how = how;
     }
 
     public boolean isDailytip() {
