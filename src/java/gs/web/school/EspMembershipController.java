@@ -104,7 +104,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             return "redirect:" + "/school/esp/form.page";
         } else {
 
-            //If there was no user cookie so get the user from the database.
+            //If there was no user cookie, get the user from the database.
             if (user == null && StringUtils.isNotBlank(email)) {
                 user = getUserDao().findUserFromEmailIfExists(email);
             }
@@ -122,7 +122,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             if (user != null && user.getId() != null) {
                 setFieldsOnUserUsingCommand(command, user);
             } else {
-                //If no user already exists so create a new user.
+                //If no user exists so create a new user.
                 user = new User();
                 user.setEmail(email);
                 user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
@@ -260,7 +260,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             if (StringUtils.isBlank(user.getGender())) {
                 user.setGender("u");
             }
-            //Only set  "how" if it is not already set.
+            //Only set "how" if it is not already set.
             if (StringUtils.isBlank(user.getHow())) {
                 user.setHow("esp");
             }
@@ -398,7 +398,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             validator.validateLastName(userCommand, result);
         }
 
-        if(StringUtils.isNotBlank(espMembershipCommand.getPassword())){
+        if(StringUtils.isNotEmpty(espMembershipCommand.getPassword())){
             validator.validatePassword(userCommand, result);
         }
 
