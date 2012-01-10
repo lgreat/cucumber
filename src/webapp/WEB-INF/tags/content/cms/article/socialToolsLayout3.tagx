@@ -27,7 +27,7 @@
             <!-- TODO! temporarily moved FB to right side, contrary to mock,
                        because of layout issues with FB like button,
                        need to check with Stephen/Chuck? -->
-            <span class="fltrt mls vert-align-top">
+            <span class="mls vert-align-top articleFB">
                 <promo:facebookLikeButtonArticle includeFbSendBtn="${includeFbSendBtn}"/>
             </span>
         </span>

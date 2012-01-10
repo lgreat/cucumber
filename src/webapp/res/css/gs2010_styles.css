@@ -948,6 +948,7 @@ h4.subhead2 a {
 .win .articleSlideshow .hd .skinSelectArrow{line-height:24px;}
 .articleSlideshow .bd .bd-content{padding:20px 10px 0;}
 .articleSlideshow .bd .bd-content img{float:left;margin:0 20px 20px 0;}
+.chrome .articleFB{float: right;}
 /* ---------- articleDistribution2 ----------- */
 .articleDistribution2{margin-bottom:20px;}
 
