@@ -82,11 +82,6 @@ GS.form.EspForm = function() {
                             }
                         }
 
-                        //User is already ESP member.Therefore show a message.
-//                        if (data.isUserESPMember === true) {
-//                            jQuery('#js_userESPMember').show();
-//                        }
-
                         jQuery('#js_regPanel').show();
                         bindFormSubmit();
 
@@ -273,7 +268,6 @@ GS.form.EspForm = function() {
             async: false
         }).done(function(data) {
                 if (data.isUnique !== true) {
-                    jQuery('#js_userESPMember').hide();
                     jQuery('#js_uniqueError').show();
                     rval = false;
                 }
@@ -433,7 +427,6 @@ function bindFormSubmit() {
 }
 
 function hideErrors() {
-    jQuery('#js_userESPMember').hide();
     jQuery('#js_invalidEmail').hide();
     jQuery('#js_uniqueError').hide();
 }

@@ -34,8 +34,6 @@
             <form:label path="email">Email address *</form:label>
             <form:input path="email" cssClass="field" id="js_email" value="${schoolEspCommand.email}"
                         disabled="${isDisabled}"/>
-            <span id="js_userESPMember"
-                  style="display: none;">User already esp member.You will recive notification soon.</span>
             <span id="js_invalidEmail" class="error" style="display: none;">Please enter a valid email.</span>
             <span id="js_uniqueError" class="error"
                   style="display: none;">You are already registered for this school.</span>
