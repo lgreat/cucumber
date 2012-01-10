@@ -1191,7 +1191,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 #photo-gallery {
     display: none;
     position: absolute;
-    top: 110px;
+    top: -150px;
     width: 530px;
     left: 244px;
     z-index: 1002;
