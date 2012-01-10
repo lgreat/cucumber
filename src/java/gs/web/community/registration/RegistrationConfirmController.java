@@ -155,7 +155,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
 
                 if (isESP) {
-                    //TODO send ET welcome email.
+                    getExactTargetAPI().sendTriggeredEmail("ESP-welcome",user);
                 }
 
                 break;

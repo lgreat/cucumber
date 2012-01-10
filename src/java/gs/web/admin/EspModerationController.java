@@ -2,6 +2,7 @@ package gs.web.admin;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.*;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
@@ -46,6 +47,8 @@ public class EspModerationController implements ReadWriteAnnotationController {
 
     private EmailVerificationEmail _emailVerificationEmail;
 
+    private ExactTargetAPI _exactTargetAPI;
+
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(ModelMap modelMap) {
         EspModerationCommand command = new EspModerationCommand();
@@ -75,7 +78,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
                         membership.setStatus(EspMembershipStatus.APPROVED);
                         membership.setActive(true);
                         Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
-                        if(!user.hasRole(Role.ESP_MEMBER)){
+                        if (!user.hasRole(Role.ESP_MEMBER)) {
                             user.addRole(role);
                         }
                         getUserDao().updateUser(user);
@@ -95,7 +98,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
             }
         }
 
-        return "redirect:" + FORM_VIEW;
+        return "redirect:" + "/admin/espModerationForm.page";
     }
 
     private void populateModelWithMemberships(ModelMap modelMap) {
@@ -130,13 +133,16 @@ public class EspModerationController implements ReadWriteAnnotationController {
                     null,
                     hash + user.getId());
             builder.addParameter("date", nowAsString);
-            //TODO change this to ESP form.
+            //TODO change this to ESP landing page.
             String redirect = "school/esp/form.page";
             builder.addParameter("redirect", redirect);
 
             String verificationLink = builder.asAbsoluteAnchor(request, builder.asFullUrl(request)).asATag();
-            //TODO send ET email with verificationLink as param.
-            System.out.println("--verificationLink--------------" + verificationLink);
+            System.out.println("--verificationLink-1-------------" + verificationLink);
+            Map<String, String> emailAttributes = new HashMap<String, String>();
+            emailAttributes.put("espVerificationUrl", verificationLink);
+            getExactTargetAPI().sendTriggeredEmail("ESP-verification", user, emailAttributes);
+
         } catch (Exception e) {
             _log.error("Error sending verification email message: " + e, e);
         }
@@ -195,5 +201,12 @@ public class EspModerationController implements ReadWriteAnnotationController {
         _emailVerificationEmail = emailVerificationEmail;
     }
 
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
+    }
 
 }
