@@ -18,13 +18,13 @@
             http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd"
        default-autowire="byName" default-lazy-init="true">
 
+    <context:component-scan base-package="gs.web.photoUploader" />
     <context:component-scan base-package="gs.web.api" />
     <context:component-scan base-package="gs.web.school" />
     <context:component-scan base-package="gs.web.search" />
     <context:component-scan base-package="gs.web.community" />
     <context:component-scan base-package="gs.web.promo" />
     <context:component-scan base-package="gs.web.geo" />
-    <context:component-scan base-package="gs.web.admin" />
 
 
     <!--
