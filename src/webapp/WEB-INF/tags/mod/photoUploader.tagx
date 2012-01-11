@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <jsp:directive.attribute name="maxNumberOfPhotos" required="true" type="java.lang.Integer" />
+
+<div id="container">
+    <span id="jsUploadComplete" style="display: none; float:left;">
+        Upload complete.
+    </span>
+    <span id="jsUploadError" style="display: none; float:left;">
+        Error occurred.
+    </span>
+    <span id="jsUploadError" style="display: none; float:left;">
+        &amp;nbsp;
+    </span>
+    <table>
+        <thead>
+        <tr>
+            <th>Filename</th>
+            <th>Status</th>
+            <th>Size</th>
+            <th>&amp;nbsp;</th>
+        </tr>
+        </thead>
+        <tbody><!-- no collapse -->
+            <tr>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+            </tr>
+            <tr>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+            </tr>
+            <tr>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+            </tr>
+            <tr>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+                <td>&amp;nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="fileUploadButtons">
+        <button class="button-1" id="jsPhotoQueueButton" type="button" style="-moz-user-select: none;">Select files</button>
+        &amp;nbsp;
+        <button class="button-1" id="jsPhotoUploadButton" type="button" style="-moz-user-select: none;">Upload files</button>
+    </div>
+
+    <div id="photoUploadSpinner" class="spinner js-photoUploadSpinner" style=""><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
+</div>
+</jsp:root>
