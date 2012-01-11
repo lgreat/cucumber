@@ -1,6 +1,9 @@
 GS = GS || {};
 
-GS.PhotoUploader = function() {
+GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) {
+    this.url = url;
+    this.schoolId = schoolId;
+    this.schoolDatabaseState = schoolDatabaseState;
     this.totalItemsInList = 0;
     this.uploader = null;
     this.uploadButton = jQuery('#jsPhotoUploadButton');
@@ -9,7 +12,7 @@ GS.PhotoUploader = function() {
     this.spinner = jQuery('.js-photoUploadSpinner');
     this.errorMessage = null; // an error message for entire uploader to be displayed after uploader done
 
-    this.maxQueuedItems = 4;
+    this.maxQueuedItems = maxQueuedItems;
 
     this.blankRowClass = '';
     this.filledRowClass = '';
@@ -24,13 +27,13 @@ GS.PhotoUploader.prototype.createUploader = function() {
         container: 'container',
         max_file_size : '20mb',
         max_actual_queue : this.maxQueuedItems,
-        url : '/photoUploader/photoUploader.page',
+        url : this.url,
         resize : {width : 500, height : 500, quality : 80},
         flash_swf_url : '/res/js/plupload/plupload.flash.swf',
         silverlight_xap_url : '/res/js/plupload/plupload.silverlight.xap',
         multipart_params : {
-            'schoolId' : '${schoolId}',
-            'schoolDatabaseState' : '${schoolDatabaseState}'
+            'schoolId' : this.schoolId,
+            'schoolDatabaseState' :  this.schoolDatabaseState
         },
         filters : [
             {title : "Image files", extensions : "jpg,gif,png"},
@@ -62,7 +65,7 @@ GS.PhotoUploader.prototype.init = function() {
     this.uploader.bind("FileUploaded", function(up, file, response) {
         var stopTheUploader = false;
         var data = jQuery.parseJSON(response.response);
-        if (data.error && data.error.message) {
+        if (data && data.error && data.error.message) {
             self.setStatus(file, "Error");
             if (data.error.message == "Unauthorized") {
                 self.errorMessage = "Error: Not logged in";
@@ -74,7 +77,7 @@ GS.PhotoUploader.prototype.init = function() {
             self.uploader.stop();
             self.done();
         } else {
-            this.setStatusByPosition(file._gsPosition+1, "Preparing...");
+            self.setStatusByPosition(file._gsPosition+1, "Preparing...");
         }
     });
 

@@ -3,7 +3,11 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
+
+    <jsp:directive.attribute name="url" required="true" type="java.lang.String" description="URL for uploader to post to" />
     <jsp:directive.attribute name="maxNumberOfPhotos" required="true" type="java.lang.Integer" />
+    <jsp:directive.attribute name="schoolId" required="true" type="java.lang.Integer" />
+    <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
 
 <div id="container">
     <span id="jsUploadComplete" style="display: none; float:left;">
@@ -60,4 +64,15 @@
 
     <div id="photoUploadSpinner" class="spinner js-photoUploadSpinner" style=""><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
 </div>
+
+<script type="text/javascript">
+
+    jQuery(function() {
+        var photoUploader = new GS.PhotoUploader("${url}",${maxNumberOfPhotos}, ${schoolId}, "${schoolDatabaseState}");
+        console.log(photoUploader);
+        photoUploader.init();
+    });
+
+</script>
+
 </jsp:root>

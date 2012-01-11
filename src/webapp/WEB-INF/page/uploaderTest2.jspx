@@ -102,15 +102,9 @@
 </style>
 
 
-<mod:photoUploader maxNumberOfPhotos="4"/>
+<mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="4" schoolId="${schoolId}" schoolDatabaseState="${schoolDatabaseState}"/>
 
-<script type="text/javascript">
 
-    var photoUploader = new GS.PhotoUploader();
-    console.log(photoUploader);
-    photoUploader.init();
-
-</script>
 
 
 </body>
