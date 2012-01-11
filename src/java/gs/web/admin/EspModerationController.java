@@ -122,25 +122,26 @@ public class EspModerationController implements ReadWriteAnnotationController {
         modelMap.put("rejectedMemberships", rejectedMemberships);
     }
 
-    private void sendESPVerificationEmail(HttpServletRequest request, User user) {
+    protected void sendESPVerificationEmail(HttpServletRequest request, User user) {
         try {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             Date now = new Date();
             String nowAsString = String.valueOf(now.getTime());
             hash = DigestUtil.hashString(hash + nowAsString);
-
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION,
-                    null,
-                    hash + user.getId());
-            builder.addParameter("date", nowAsString);
-            //TODO change this to ESP landing page.
+//            //TODO change this to ESP landing page.
             String redirect = "school/esp/form.page";
-            builder.addParameter("redirect", redirect);
 
-            String verificationLink = builder.asAbsoluteAnchor(request, builder.asFullUrl(request)).asATag();
-            System.out.println("--verificationLink-1-------------" + verificationLink);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
+            urlBuilder.addParameter("date", nowAsString);
+            urlBuilder.addParameter("redirect", redirect);
+
+            StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
+            espVerificationUrl.append(urlBuilder.asFullUrl(request));
+            espVerificationUrl.append("\">Click here to verify</a>");
+
             Map<String, String> emailAttributes = new HashMap<String, String>();
-            emailAttributes.put("espVerificationUrl", verificationLink);
+            emailAttributes.put("HTML__espVerificationUrl", espVerificationUrl.toString());
+
             getExactTargetAPI().sendTriggeredEmail("ESP-verification", user, emailAttributes);
 
         } catch (Exception e) {
