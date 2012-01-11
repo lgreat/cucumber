@@ -30,8 +30,10 @@ $j(document).ready(function() {
         if (showNlHover && (type == 'article' || type == 'askTheExperts') && isShowNlSubHover == 'true') {
             var reachedScrollPositionToSocialIcons = isScrolledIntoView(socialButtons);
             if (reachedScrollPositionToSocialIcons) {
-                GSType.hover.nlSubscription.showHover();
-                showNlHover = false;
+                window.setTimeout(function() {
+                    GSType.hover.nlSubscription.showHover();
+                    showNlHover = false;
+                }, 10);
             }
         }
     });
