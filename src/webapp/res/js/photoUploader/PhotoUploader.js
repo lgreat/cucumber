@@ -19,6 +19,7 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
     this.blankRowClass = '';
     this.filledRowClass = '';
     this.PREPARING = "Preparing..."; // resizing photo, pre-upload
+    this.EMPTY_QUEUE_ROW_HTML = "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
 
     this.createUploader();
 };
@@ -240,7 +241,6 @@ GS.PhotoUploader.prototype.addItemAtPosition = function(file, position) {
 };
 
 GS.PhotoUploader.prototype.removeItem = function(id) {
-    var htmlBlock = "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
     this.totalItemsInList--;
 
     if (this.totalItemsInList < this.maxQueuedItems) {
@@ -255,7 +255,7 @@ GS.PhotoUploader.prototype.removeItem = function(id) {
     }
 
     this.container.find('#' + id).remove();
-    this.container.find('table tbody tr:last').after(htmlBlock);
+    this.container.find('table tbody tr:last').after(this.EMPTY_QUEUE_ROW_HTML);
 };
 
 GS.PhotoUploader.prototype.setStatus = function(file, status) {
