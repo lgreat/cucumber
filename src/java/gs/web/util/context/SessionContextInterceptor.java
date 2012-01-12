@@ -1,10 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.10 2011/12/02 03:28:40 ssprouse Exp $
+ * $Id: SessionContextInterceptor.java,v 1.11 2012/01/12 05:14:05 ssprouse Exp $
  */
 package gs.web.util.context;
 
+import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,12 +30,16 @@ public class SessionContextInterceptor implements HandlerInterceptor {
 
     private SessionContextUtil _sessionContextUtil;
 
+    @Autowired
+    private RequestInfo _requestInfo;
+
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object o) throws Exception {
         SessionContext context = _sessionContextUtil.prepareSessionContext(request, response);
         PageHelper pageHelper = new PageHelper(context, request);
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, _requestInfo);
         return true; // go on
     }
 

@@ -40,9 +40,6 @@ public class HostData {
         _onPkSubdomain = request.getServerName().contains(Subdomain.PK.toString() + ".");
         _productionHostname = StringUtils.indexOfAny(request.getServerName(), PRODUCTION_HOSTNAMES) > -1;
 
-
-        request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, this);
-
         // Determine if this is a cobrand (copied from SessionContextUtil)
         String cobrand = null;
         String paramCobrand = request.getParameter(SessionContextUtil.COBRAND_PARAM);
