@@ -88,8 +88,10 @@ GS.PhotoUploader.prototype.init = function() {
 
 GS.PhotoUploader.prototype.styleUploading = function() {
     this.container.fadeTo('slow', 0.7);
+    this.uploadButton.prop('disabled',true);
     this.uploadButton.removeClass('button-1');
     this.uploadButton.addClass('button-1-inactive');
+    this.queueButton.prop('disabled',true);
     this.queueButton.removeClass('button-1');
     this.queueButton.addClass('button-1-inactive');
     this.container.css('background-color', 'aaa');
@@ -167,32 +169,35 @@ GS.PhotoUploader.prototype.filesQueued = function(up, files) {
         return;
     }
 
+    console.log(files);
+
     self = this;
 
+    // add each file to the queue as long as status is "STOPPED"
     $.each(files, function(i, file) {
-        // add an item to the list
+        if (file.status === plupload.STOPPED) {
 
-        self.addItemAtPosition(file, self.totalItemsInList);
+            self.addItemAtPosition(file, self.totalItemsInList);
 
-        // when the item's delete icon is clicked, tell the uploader to remove it from the queue, and delete it
-        // from the list
-        jQuery('#' + file.id + ' .deleteFileUpload').click(function() {
-            console.log('deleting item with file id' + file.id);
-            self.uploader.removeFile(file);
-            self.removeItem(file.id);
-        });
+            // when the item's delete icon is clicked, tell the uploader to remove it from the queue, and delete it
+            // from the list
+            jQuery('#' + file.id + ' .deleteFileUpload').click(function() {
+                console.log('deleting item with file id' + file.id);
+                self.uploader.removeFile(file);
+                self.removeItem(file.id);
+            });
 
-        // add our own property to plupload file object
-        files[i]._gsPosition = self.totalItemsInList;
+            // add our own property to plupload file object
+            files[i]._gsPosition = self.totalItemsInList;
 
-        // keep track of how many non-blank items are in the list
-        self.totalItemsInList++;
+            // keep track of how many non-blank items are in the list
+            self.totalItemsInList++;
 
-        // stop when max is reached
-        if (self.totalItemsInList == self.maxQueuedItems) {
-            return false; // exit the $.each
+            // stop when max is reached
+            if (self.totalItemsInList == self.maxQueuedItems) {
+                return false; // exit the $.each
+            }
         }
-
     });
 
     if (self.totalItemsInList == this.maxQueuedItems) {
@@ -204,7 +209,7 @@ GS.PhotoUploader.prototype.displayUploaderError = function(message) {
     var errorElement = jQuery('#jsUploadError');
     errorElement.html(message);
     errorElement.show();
-}
+};
 
 GS.PhotoUploader.prototype.addItemAtPosition = function(file, position) {
     htmlblock = '<tr id="' + file.id + '" class="fileNumber'+ position +'"><td>' + file.name + '</td><td class="uploadStatus">Queued</td><td>' + file.size + '</td><td><span class="deleteFileUpload">X</span></td></tr>';

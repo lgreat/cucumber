@@ -1036,9 +1036,9 @@
                     for (i = 0; i < selected_files.length; i++) {
                         // LIMIT OF ACTUAL ADD QUEUE
                         // if there are more files settings.max_actual_queue dont add to array.
-                        if(settings.max_actual_queue !== undef && i == settings.max_actual_queue){ // NEW
+                        if(settings.max_actual_queue !== undef && files.length == settings.max_actual_queue){ // NEW
                             // Exirt of each
-                            alert(plupload.translate('There are a limit of ' + settings.max_actual_queue + ' files at same time'));
+                            alert(plupload.translate('You can upload a maximum of only ' + settings.max_actual_queue + ' photos.'));
                             break;
                         }
                         file = selected_files[i];
