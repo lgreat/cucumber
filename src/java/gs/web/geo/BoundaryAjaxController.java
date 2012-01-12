@@ -83,7 +83,7 @@ public class BoundaryAjaxController {
                 districtLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
             }
             SearchResultsPage<IDistrictSearchResult> resultsPage =
-                    _districtSearchService.getDistrictsNear(lat, lon, 50, null, districtLevel, 0, 30);
+                    _districtSearchService.getNonCharterDistrictsNear(lat, lon, 50, null, districtLevel, 0, 30);
             JSONObject output = new JSONObject();
             JSONArray mapObjects = new JSONArray();
             for (IDistrictSearchResult searchResult: resultsPage.getSearchResults()) {
@@ -396,16 +396,12 @@ public class BoundaryAjaxController {
         long start = System.currentTimeMillis();
         long solrStart = System.currentTimeMillis();
         SearchResultsPage<ISchoolSearchResult> resultsPage =
-                _schoolSearchService.getSchoolsNear(lat, lon, radius, schoolLevel, schoolType, 0, limit);
+                _schoolSearchService.getNonDistrictSchoolsNear(lat, lon, radius, schoolLevel, schoolType, 0, limit);
         long solrDuration = System.currentTimeMillis() - solrStart;
         long jsonStart = System.currentTimeMillis();
         JSONObject rval = new JSONObject();
         JSONArray features = new JSONArray();
         for (ISchoolSearchResult searchResult: resultsPage.getSearchResults()) {
-            if (searchResult.getDistrictId() != null) {
-                System.out.println("Skipping school " + searchResult.getName() + " which lives in district " + searchResult.getDistrictName());
-                continue;
-            }
             int rating = 0;
             if (searchResult.getGreatSchoolsRating() != null) {
                 rating = searchResult.getGreatSchoolsRating();
@@ -430,6 +426,10 @@ public class BoundaryAjaxController {
         for (DistrictBoundary boundary: districtBoundaries) {
             try {
                 District district = _districtDao.findDistrictById(boundary.getState(), boundary.getDistrictId());
+                if (district.isCharterOnly()) {
+                    _log.warn("Skipping charter only district: " + district.getName());
+                    continue;
+                }
                 DistrictRating rating = _districtRatingDao.getDistrictRatingByDistrict(district);
                 boundary.setDistrict(district);
 
