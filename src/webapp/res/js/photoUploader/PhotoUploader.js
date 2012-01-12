@@ -9,13 +9,16 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
     this.uploadButton = jQuery('#jsPhotoUploadButton');
     this.queueButton = jQuery('#jsPhotoQueueButton');
     this.container = jQuery('#container');
-    this.spinner = jQuery('.js-photoUploadSpinner');
+    this.spinner = jQuery('.js-photoUploaderSpinner');
+    this.uploadCompleteOverlay = jQuery('#jsUploadComplete');
+    this.uploadErrorOverlay = jQuery('#jsUploadError');
     this.errorMessage = null; // an error message for entire uploader to be displayed after uploader done
 
     this.maxQueuedItems = maxQueuedItems;
 
     this.blankRowClass = '';
     this.filledRowClass = '';
+    this.PREPARING = "Preparing..."; // resizing photo, pre-upload
 
     this.createUploader();
 };
@@ -77,13 +80,28 @@ GS.PhotoUploader.prototype.init = function() {
             self.uploader.stop();
             self.done();
         } else {
-            self.setStatusByPosition(file._gsPosition+1, "Preparing...");
+            if (self.uploader.files.length > file._gsPosition + 1) {
+                var nextFile = self.uploader.files[file._gsPosition + 1];
+                self.setStatus(nextFile, self.PREPARING);
+            }
         }
     });
 
     this.uploadButton.click(function() {
         self.startUpload.apply(self, arguments);
     });
+};
+
+GS.PhotoUploader.prototype.enableUploading = function() {
+    this.uploadButton.prop('disabled',false);
+    this.uploadButton.addClass('button-1');
+    this.uploadButton.removeClass('button-1-inactive');
+};
+
+GS.PhotoUploader.prototype.disableUploading = function() {
+    this.uploadButton.prop('disabled',true);
+    this.uploadButton.addClass('button-1-inactive');
+    this.uploadButton.removeClass('button-1');
 };
 
 GS.PhotoUploader.prototype.styleUploading = function() {
@@ -111,7 +129,7 @@ GS.PhotoUploader.prototype.styleDone = function() {
 
 GS.PhotoUploader.prototype.startUpload = function() {
     this.styleUploading();
-    this.setStatusByPosition(0, "Preparing...");
+    this.setStatus(this.uploader.files[0], this.PREPARING);
     this.uploader.start();
 };
 
@@ -127,7 +145,7 @@ GS.PhotoUploader.prototype.done = function() {
     if (this.errorMessage !== null) {
         this.displayUploaderError(this.errorMessage);
     } else {
-        jQuery('#jsUploadComplete').show();
+        this.uploadCompleteOverlay.show();
     }
     jQuery('.deleteFileUpload').off('click');
     this.styleDone();
@@ -169,8 +187,6 @@ GS.PhotoUploader.prototype.filesQueued = function(up, files) {
         return;
     }
 
-    console.log(files);
-
     self = this;
 
     // add each file to the queue as long as status is "STOPPED"
@@ -193,8 +209,13 @@ GS.PhotoUploader.prototype.filesQueued = function(up, files) {
             // keep track of how many non-blank items are in the list
             self.totalItemsInList++;
 
+            // if this is the first item added, enable the upload button
+            if (self.totalItemsInList === 1) {
+                self.enableUploading();
+            }
+
             // stop when max is reached
-            if (self.totalItemsInList == self.maxQueuedItems) {
+            if (self.totalItemsInList === self.maxQueuedItems) {
                 return false; // exit the $.each
             }
         }
@@ -206,27 +227,31 @@ GS.PhotoUploader.prototype.filesQueued = function(up, files) {
 };
 
 GS.PhotoUploader.prototype.displayUploaderError = function(message) {
-    var errorElement = jQuery('#jsUploadError');
-    errorElement.html(message);
-    errorElement.show();
+    this.uploadErrorOverlay.html(message);
+    this.uploadErrorOverlay.show();
 };
 
 GS.PhotoUploader.prototype.addItemAtPosition = function(file, position) {
     htmlblock = '<tr id="' + file.id + '" class="fileNumber'+ position +'"><td>' + file.name + '</td><td class="uploadStatus">Queued</td><td>' + file.size + '</td><td><span class="deleteFileUpload">X</span></td></tr>';
 
-    this.container.find('table tbody tr:eq('+ parseInt(position) +')').after(htmlblock);
-    this.container.find('table tbody tr:eq('+ parseInt(position) + ')').remove();
+    var tableBody = this.container.find('table tbody');
+    tableBody.find('tr:eq('+ parseInt(position) +')').after(htmlblock);
+    tableBody.find('tr:eq('+ parseInt(position) + ')').remove();
 };
 
 GS.PhotoUploader.prototype.removeItem = function(id) {
     var htmlBlock = "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
     this.totalItemsInList--;
-    console.log("total items in list = " + this.totalItemsInList);
 
     if (this.totalItemsInList < this.maxQueuedItems) {
         this.queueButton.addClass('button-1');
         this.queueButton.removeClass('button-1-inactive');
         this.queueButton.prop('disabled',false);
+    }
+
+    // no items in list, cannot upload
+    if (this.totalItemsInList === 0) {
+        this.disableUploading();
     }
 
     this.container.find('#' + id).remove();
