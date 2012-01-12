@@ -4,6 +4,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.school.IEspMembershipDao;
 import gs.data.school.EspMembership;
+import gs.data.security.Role;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
@@ -13,7 +14,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 
 import java.util.List;
 
@@ -25,15 +25,14 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 
 @Controller
 @RequestMapping("/school/esp/")
 public class EspSignInController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspMembershipController.class);
 
-    public static final String FORM_VIEW = "school/espSignIn";
-    public static final String ESP_LANDING_PAGE = "school/espMembershipSuccess";
+    public static final String VIEW = "school/espSignIn";
+    public static final String ESP_LANDING_PAGE = "school/esp/landing.page";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -47,25 +46,20 @@ public class EspSignInController implements ReadWriteAnnotationController {
         User user = sessionContext.getUser();
         EspMembershipCommand command = new EspMembershipCommand();
 
-        //member cookie is set.
-        if (user != null && user.getId() != null) {
-            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), true);
-            if (!espMemberships.isEmpty()) {
-                //There is at least one active ESP.Therefore take them to the landing page.
-                //TODO go to landing page of the first active school?
-                return ESP_LANDING_PAGE;
-            }
+        //member cookie is set and user has ESP role.
+        if (user != null && user.getId() != null && user.hasRole(Role.ESP_MEMBER)) {
+            return "redirect:" + ESP_LANDING_PAGE;
         }
 
         modelMap.addAttribute("schoolEspCommand", command);
-        return FORM_VIEW;
+        return VIEW;
     }
 
     @RequestMapping(value = "signIn.page", method = RequestMethod.POST)
-    public String createEspMembership(@ModelAttribute("schoolEspCommand") EspMembershipCommand command,
-                                      BindingResult result,
-                                      HttpServletRequest request,
-                                      HttpServletResponse response) throws Exception {
+    public String signIn(@ModelAttribute("schoolEspCommand") EspMembershipCommand command,
+                         BindingResult result,
+                         HttpServletRequest request,
+                         HttpServletResponse response) throws Exception {
 
 
         String email = command.getEmail();
@@ -82,23 +76,21 @@ public class EspSignInController implements ReadWriteAnnotationController {
                 boolean isUserEmailValidated = user.isEmailValidated();
 
                 if (user != null) {
+
+                    //Check if the user has any esp memberships.Active or Inactive.
                     espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+                    for (EspMembership membership : espMemberships) {
 
-                    if (!espMemberships.isEmpty()) {
-                        for (EspMembership membership : espMemberships) {
+                        if (membership.getActive() && isUserEmailValidated) {
 
-                            if (membership.getActive() && isUserEmailValidated) {
+                            foundActiveEspMembership = true;
+                            boolean matchesPassword = user.matchesPassword(password);
 
-                                foundActiveEspMembership = true;
-                                boolean matchesPassword = user.matchesPassword(password);
-
-                                if (matchesPassword) {
-                                    PageHelper.setMemberAuthorized(request, response, user, true);
-                                    return ESP_LANDING_PAGE;
-                                    //TODO go to landing page of the first active school?.
-                                } else {
-                                    result.rejectValue("password", null, "Incorrect password.");
-                                }
+                            if (matchesPassword) {
+                                PageHelper.setMemberAuthorized(request, response, user, true);
+                                return "redirect:" + ESP_LANDING_PAGE;
+                            } else {
+                                result.rejectValue("password", null, "Incorrect password.");
                             }
                         }
                     }
@@ -106,10 +98,9 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
                 if (user == null || espMemberships == null || espMemberships.isEmpty()) {
                     result.rejectValue("email", null, "There is no account associated with that email address.");
-                } else if (!isUserEmailValidated) {
+                } else if (!isUserEmailValidated && foundActiveEspMembership) {
                     result.rejectValue("email", null, "Please verify ur email.");
                 } else if (!foundActiveEspMembership) {
-
                     //TODO should there be a different message for rejected users?
                     result.rejectValue("email", null, "Your ESP request is still under consideration. Please be patient.");
                 }
@@ -125,7 +116,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
                 result.rejectValue("password", null, "Please enter a password.");
             }
         }
-        return FORM_VIEW;
+        return VIEW;
     }
 
     protected boolean validateEmail(String email) {

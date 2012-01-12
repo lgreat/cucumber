@@ -8,7 +8,6 @@ import gs.data.school.School;
 import gs.data.security.Role;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +52,7 @@ public class EspController {
 
             if (!espMemberships.isEmpty()) {
 
+                //Take the user to the first active school.
                 EspMembership espMembership = espMemberships.get(0);
                 School school = getSchoolDao().getSchoolById(espMembership.getState(), espMembership.getSchoolId());
                 if (school != null) {
