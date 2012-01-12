@@ -30,7 +30,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/admin/espModerationForm.page")
 public class EspModerationController implements ReadWriteAnnotationController {
-    public static final String FORM_VIEW = "admin/espModerationForm";
+    public static final String VIEW = "admin/espModerationForm";
+    public static final String ESP_LANDING_PAGE = "/school/esp/landing.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
     @Autowired
@@ -54,7 +55,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
         EspModerationCommand command = new EspModerationCommand();
         modelMap.addAttribute("espModerationCommand", command);
         populateModelWithMemberships(modelMap);
-        return FORM_VIEW;
+        return VIEW;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -128,8 +129,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
             Date now = new Date();
             String nowAsString = String.valueOf(now.getTime());
             hash = DigestUtil.hashString(hash + nowAsString);
-//            //TODO change this to ESP landing page.
-            String redirect = "school/esp/form.page";
+            String redirect = ESP_LANDING_PAGE;
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
             urlBuilder.addParameter("date", nowAsString);
