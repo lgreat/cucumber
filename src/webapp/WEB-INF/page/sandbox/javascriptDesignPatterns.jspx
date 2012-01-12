@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          >
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+    <head>
+        <title>JavaScript Design Patterns</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <script type="text/javascript" src="/res/js/jquery/jquery-1.7.1.min.js"><!-- not empty --></script>
+        <script type="text/javascript" src="/res/js/sandbox/javascriptDesignPatterns.js"><!-- not empty --></script>
+        <script type="text/javascript">
+            GS.javascriptDesignPatterns.module.mixIn = function() {
+                alert(typeof(privateVar));
+                alert(this.publicVar);
+            };
+
+            GS.javascriptDesignPatterns.revealingModule.mixIn = function() {
+                alert(typeof(privateVar));
+                alert(this.publicVar);
+            };
+
+            $(function() {
+                $('a').click(function() {
+                    try {
+                        eval(this.innerHTML);
+                    } catch (e) {
+                        alert("Error: " + e);
+                    }
+                    return false;
+                })
+            });
+        </script>
+    </head>
+    <body>
+    <h2>Module</h2>
+    <a href="#">GS.javascriptDesignPatterns.module.myFunc();</a><br/>
+    <a href="#">GS.javascriptDesignPatterns.module.myOtherFunc();</a><br/>
+    <a href="#">GS.javascriptDesignPatterns.module.mixIn();</a><br/>
+    <a href="#">alert(GS.javascriptDesignPatterns.module.publicVar);</a><br/>
+    <a href="#">alert(GS.javascriptDesignPatterns.module.privateVar);</a><br/>
+    <a href="#">alert(GS.javascriptDesignPatterns.module.doubleVar);</a><br/>
+
+    <h2>Revealing Module</h2>
+    <a href="#">GS.javascriptDesignPatterns.revealingModule.myFunc();</a><br/>
+    <a href="#">GS.javascriptDesignPatterns.revealingModule.myOtherFunc();</a><br/>
+    <a href="#">GS.javascriptDesignPatterns.revealingModule.mixIn();</a><br/>
+    <a href="#">alert(GS.javascriptDesignPatterns.revealingModule.publicVar);</a><br/>
+    <a href="#">alert(GS.javascriptDesignPatterns.revealingModule.privateVar);</a><br/>
+    <a href="#">alert(GS.javascriptDesignPatterns.revealingModule.doubleVar);</a><br/>
+
+    <h2>Prototypal Inheritance</h2>
+    <a href="#">alert(first.prototypalMethod === second.prototypalMethod)</a><br/>
+    <a href="#">alert(first.nonPrototypalMethod === second.nonPrototypalMethod)</a><br/>
+    <a href="#">first.nonPrototypalMethod()</a><br/>
+    <a href="#">second.nonPrototypalMethod()</a><br/>
+    <a href="#">first.prototypalMethod()</a><br/>
+    <a href="#">second.prototypalMethod()</a><br/>
+    <br/>
+    <a href="#">alert(first.z === second.z)</a><br/>
+    <a href="#">first.bumpZAndAlert()</a><br/>
+    <a href="#">second.bumpZAndAlert()</a><br/>
+    </body>
+    </html>
+</jsp:root>
