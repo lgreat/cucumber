@@ -49,7 +49,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
         //member cookie is set.
         if (user != null && user.getId() != null) {
-            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(new Long(user.getId()), true);
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), true);
             if (!espMemberships.isEmpty()) {
                 //There is at least one active ESP.Therefore take them to the landing page.
                 //TODO go to landing page of the first active school?
@@ -82,7 +82,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
                 boolean isUserEmailValidated = user.isEmailValidated();
 
                 if (user != null) {
-                    espMemberships = getEspMembershipDao().findEspMembershipsByUserId(new Long(user.getId()), false);
+                    espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
 
                     if (!espMemberships.isEmpty()) {
                         for (EspMembership membership : espMemberships) {

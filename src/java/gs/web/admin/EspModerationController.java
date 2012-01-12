@@ -64,7 +64,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
                                       HttpServletResponse response) {
 
         for (String idAndIndex : command.getEspMembershipIds()) {
-            Long id = new Long(idAndIndex.substring(0, idAndIndex.indexOf("-")));
+            int id = new Integer(idAndIndex.substring(0, idAndIndex.indexOf("-")));
             int index = new Integer(idAndIndex.substring(idAndIndex.indexOf("-") + 1, idAndIndex.length())) - 1;
 
             EspMembership membership = getEspMembershipDao().findEspMembershipById(id, false);

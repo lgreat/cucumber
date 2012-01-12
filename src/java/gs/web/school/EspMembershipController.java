@@ -6,15 +6,15 @@ import gs.data.community.UserProfile;
 import gs.data.community.WelcomeMessageStatus;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.json.JSONObject;
-import gs.data.school.EspMembershipStatus;
-import gs.data.school.IEspMembershipDao;
-import gs.data.school.EspMembership;
+import gs.data.school.*;
+import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.community.registration.UserCommand;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.UserCommandValidator;
@@ -23,7 +23,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +38,8 @@ import java.util.*;
 public class EspMembershipController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspMembershipController.class);
 
-    public static final String FORM_VIEW = "school/espMembershipForm";
-    public static final String SUCCESS_VIEW = "school/espMembershipSuccess";
+    public static final String VIEW = "school/espMembershipForm";
+    public static final String REGISTRATION_PAGE = "/school/esp/form.page";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -48,14 +47,17 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     @Autowired
     private IUserDao _userDao;
 
+    @Autowired
+    private ISchoolDao _schoolDao;
+
     @RequestMapping(value = "form.page", method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
         EspMembershipCommand command = new EspMembershipCommand();
 
-        if (user != null && user.getId() != null) {
-            // User already exists in the session.Therefore pre-fill in form fields.
+        if (user != null && user.getId() != null && user.hasRole(Role.ESP_MEMBER)) {
+            // User already exists in the session and has the role.Therefore pre-fill in form fields.
 
             command.setEmail(user.getEmail());
             if (!StringUtils.isBlank(user.getFirstName())) {
@@ -72,7 +74,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
 
         modelMap.addAttribute("schoolEspCommand", command);
-        return FORM_VIEW;
+        return VIEW;
     }
 
     @RequestMapping(value = "form.page", method = RequestMethod.POST)
@@ -101,7 +103,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                     PageHelper.setMemberAuthorized(request, response, user, true);
                 }
             }
-            return "redirect:" + "/school/esp/form.page";
+            return "redirect:" + REGISTRATION_PAGE;
         } else {
 
             //If there was no user cookie, get the user from the database.
@@ -115,7 +117,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             //Server side validation.
             validate(command, result, user);
             if (result.hasErrors()) {
-                return FORM_VIEW;
+                return VIEW;
             }
 
             //If user already exists.
@@ -141,7 +143,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             // TODO: do some cookie logic.
             //Save ESP membership for user.
             saveEspMembership(command, user);
-            return SUCCESS_VIEW;
+            return getSuccessView(request, command);
         }
     }
 
@@ -166,7 +168,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 if (user != null && user.getId() != null) {
                     isUserMember = true;
                     //Check if the user is already an ESP member.TODO maybe just check the role?
-                    List<EspMembership> membership = getEspMembershipDao().findEspMembershipsByUserId(new Long(user.getId()), false);
+                    List<EspMembership> membership = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
 
                     if (user.isEmailValidated()) {
                         isUserEmailValidated = true;
@@ -322,12 +324,12 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
     protected void saveEspMembership(EspMembershipCommand command, User user) {
         State state = command.getState();
-        Long schoolId = command.getSchoolId();
+        Integer schoolId = command.getSchoolId();
         EspMembership espMembership = null;
 
-        if (state != null && schoolId != null && user != null && user.getId() != null) {
+        if (state != null && schoolId != null && schoolId > 0 && user != null && user.getId() != null) {
 
-            espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, new Long(user.getId()));
+            espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, user.getId(), false);
 
             if (espMembership == null) {
 
@@ -349,7 +351,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     @RequestMapping(value = "checkStateSchoolUserUnique.page", method = RequestMethod.GET)
     protected void checkStateSchoolUserUnique(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
         State state = command.getState();
-        Long schoolId = command.getSchoolId();
+        Integer schoolId = command.getSchoolId();
         String email = command.getEmail();
         boolean isUnique = true;
         boolean isActive = false;
@@ -357,7 +359,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         if (state != null && schoolId != null & StringUtils.isNotBlank(email)) {
             User user = getUserDao().findUserFromEmailIfExists(email.trim());
             if (user != null && user.getId() != null) {
-                EspMembership espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, new Long(user.getId()));
+                EspMembership espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, user.getId(), false);
 
                 if (espMembership != null) {
                     isUnique = false;
@@ -377,7 +379,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
     }
 
-    protected void validate(EspMembershipCommand espMembershipCommand, BindingResult result, User user)  {
+    protected void validate(EspMembershipCommand espMembershipCommand, BindingResult result, User user) {
         UserCommandValidator validator = new UserCommandValidator();
         validator.setUserDao(getUserDao());
         UserCommand userCommand = new UserCommand();
@@ -390,26 +392,26 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
         //First name, last name, password and screen name are not always visible on the form.
         //Therefore check the command and validate them.
-        if(StringUtils.isNotBlank(espMembershipCommand.getFirstName())){
+        if (StringUtils.isNotBlank(espMembershipCommand.getFirstName())) {
             validator.validateFirstName(userCommand, result);
         }
 
-        if(StringUtils.isNotBlank(espMembershipCommand.getLastName())){
+        if (StringUtils.isNotBlank(espMembershipCommand.getLastName())) {
             validator.validateLastName(userCommand, result);
         }
 
-        if(StringUtils.isNotEmpty(espMembershipCommand.getPassword())){
+        if (StringUtils.isNotEmpty(espMembershipCommand.getPassword())) {
             validator.validatePassword(userCommand, result);
         }
 
-        if(StringUtils.isNotBlank(espMembershipCommand.getScreenName())){
+        if (StringUtils.isNotBlank(espMembershipCommand.getScreenName())) {
             validator.validateUsername(userCommand, user, result);
         }
 
         //Email, state, school, job title are always visible on the form.Therefore validate them.
         String email = espMembershipCommand.getEmail();
         State state = espMembershipCommand.getState();
-        Long schoolId = espMembershipCommand.getSchoolId();
+        Integer schoolId = espMembershipCommand.getSchoolId();
         String jobTitle = espMembershipCommand.getJobTitle();
 
         if (StringUtils.isNotBlank(email)) {
@@ -440,6 +442,19 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         return emv.isValid(email);
     }
 
+    protected String getSuccessView(HttpServletRequest request, EspMembershipCommand command) {
+        State state = command.getState();
+        int schoolId = command.getSchoolId();
+        if (state != null && schoolId > 0) {
+            School school = getSchoolDao().getSchoolById(state, schoolId);
+            if (school != null) {
+                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                return urlBuilder.asFullUrl(request);
+            }
+        }
+        return VIEW;
+    }
+
     public IEspMembershipDao getEspMembershipDao() {
         return _espMembershipDao;
     }
@@ -454,5 +469,13 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

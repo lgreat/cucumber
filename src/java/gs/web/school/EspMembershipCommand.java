@@ -15,7 +15,7 @@ public class EspMembershipCommand implements EmailValidator.IEmail {
     private String _jobTitle;
     private State _state;
     private String _city;
-    private Long _schoolId;
+    private Integer _schoolId;
 
 
     public String getFirstName() {
@@ -98,11 +98,11 @@ public class EspMembershipCommand implements EmailValidator.IEmail {
         _city = city;
     }
 
-    public Long getSchoolId() {
+    public Integer getSchoolId() {
         return _schoolId;
     }
 
-    public void setSchoolId(Long schoolId) {
+    public void setSchoolId(Integer schoolId) {
         _schoolId = schoolId;
     }
 
