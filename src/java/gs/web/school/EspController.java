@@ -22,10 +22,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/school/esp/")
 public class EspController {
-    public static final String SIGN_IN = "/school/esp/signIn.page";
-    public static final String ESP_LANDING_VIEW = "school/espLanding";
-//    public static final String STATE_PARAM = "state";
-//    public static final String SCHOOL_ID_PARAM = "schoolId";
+    public static final String SIGN_IN_PAGE = "/school/esp/signIn.page";
+    public static final String VIEW = "school/espLanding";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -41,34 +39,11 @@ public class EspController {
         boolean userHasESPAccess = checkUserHasAccess(modelMap, user, request);
 
         if (userHasESPAccess) {
-            return ESP_LANDING_VIEW;
+            return VIEW;
         }
 
-        return "redirect:" + SIGN_IN;
+        return "redirect:" + SIGN_IN_PAGE;
     }
-
-//    protected boolean checkUserHasAccess(ModelMap modelMap, User user, HttpServletRequest request) {
-//        String schoolIdStr = request.getParameter(SCHOOL_ID_PARAM);
-//        String stateStr = request.getParameter(STATE_PARAM);
-//        EspMembership espMembership = null;
-//        if (user != null && user.hasRole(Role.ESP_MEMBER) && StringUtils.isNotBlank(schoolIdStr) && StringUtils.isNotBlank(stateStr)) {
-//            int schoolId = Integer.parseInt(schoolIdStr);
-//            State state = State.fromString(stateStr);
-//            if (state != null && schoolId > 0) {
-//                School school = getSchoolDao().getSchoolById(state, schoolId);
-//                if (school != null) {
-//                    espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, user.getId(), true);
-//                    if (espMembership != null) {
-//                        modelMap.put("school", school);
-//                        modelMap.put("espMembership", espMembership);
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//    }
-
 
     protected boolean checkUserHasAccess(ModelMap modelMap, User user, HttpServletRequest request) {
 
@@ -85,7 +60,6 @@ public class EspController {
                     modelMap.put("espMembership", espMembership);
                 }
                 return true;
-
             }
         }
         return false;
