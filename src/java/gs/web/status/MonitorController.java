@@ -75,6 +75,8 @@ public class MonitorController implements ReadWriteController {
      * Used to determine index version number
      */
     private Searcher _searcher;
+    
+    private Long[] _blackHole;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
@@ -371,7 +373,11 @@ public class MonitorController implements ReadWriteController {
     
     public void selfDestruct() {
         
-        Long[] blackHole = new Long[Integer.MAX_VALUE];
+        _blackHole = new Long[(Integer.MAX_VALUE/2)-1];
+        
+        for (int i = 0; i < (Integer.MAX_VALUE/2)-1; i++) {
+            _blackHole[i] = Long.valueOf(i);
+        }
         
     }
 
