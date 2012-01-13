@@ -39,8 +39,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspMembershipController.class);
 
     public static final String VIEW = "school/espMembershipForm";
-    public static final String REGISTRATION_PAGE = "form.page";
-    public static final String ESP_LANDING_PAGE = "landing.page";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -109,9 +107,11 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
                     //If user already has esp_membership,then go to landing page else the registration form.
                     if (user.hasRole(Role.ESP_MEMBER)) {
-                        return "redirect:" + ESP_LANDING_PAGE;
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_LANDING);
+                        return "redirect:" + urlBuilder.asFullUrl(request);
                     } else {
-                        return "redirect:" + REGISTRATION_PAGE;
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
+                        return "redirect:" + urlBuilder.asFullUrl(request);
                     }
                 }
             }

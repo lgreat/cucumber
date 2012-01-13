@@ -7,6 +7,7 @@ import gs.data.school.EspMembership;
 import gs.data.security.Role;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +33,6 @@ public class EspSignInController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspMembershipController.class);
 
     public static final String VIEW = "school/espSignIn";
-    public static final String ESP_LANDING_PAGE = "landing.page";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -48,7 +48,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
         //member cookie is set and user has ESP role.
         if (user != null && user.getId() != null && user.hasRole(Role.ESP_MEMBER)) {
-            return "redirect:" + ESP_LANDING_PAGE;
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_LANDING);
+            return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
         modelMap.addAttribute("schoolEspCommand", command);
@@ -89,7 +90,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
                             if (matchesPassword) {
                                 PageHelper.setMemberAuthorized(request, response, user, true);
-                                return "redirect:" + ESP_LANDING_PAGE;
+                                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_LANDING);
+                                return "redirect:" + urlBuilder.asFullUrl(request);
                             } else {
                                 result.rejectValue("password", null, "Incorrect password.");
                             }

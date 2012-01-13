@@ -6,6 +6,7 @@ import gs.data.school.IEspMembershipDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.security.Role;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.ui.ModelMap;
@@ -21,7 +22,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/school/esp/")
 public class EspController {
-    public static final String SIGN_IN_PAGE = "/school/esp/signIn.page";
     public static final String VIEW = "school/espLanding";
 
     @Autowired
@@ -36,12 +36,12 @@ public class EspController {
         User user = sessionContext.getUser();
 
         boolean userHasESPAccess = checkUserHasAccess(modelMap, user, request);
-
         if (userHasESPAccess) {
             return VIEW;
         }
 
-        return "redirect:" + SIGN_IN_PAGE;
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+        return "redirect:" + urlBuilder.asFullUrl(request);
     }
 
     protected boolean checkUserHasAccess(ModelMap modelMap, User user, HttpServletRequest request) {

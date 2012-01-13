@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.272 2011/12/19 21:39:54 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.273 2012/01/13 22:57:55 npatury Exp $
  */
 
 package gs.web.util;
@@ -327,6 +327,12 @@ public class UrlBuilder {
      */
     public static final VPage TEST_PREP = new VPage("vpage:testPrep");
 
+    /**
+     * Esp pages
+     */
+    public static final VPage ESP_REGISTRATION = new VPage("vpage:espRegistration");
+    public static final VPage ESP_SIGN_IN = new VPage("vpage:espSignIn");
+    public static final VPage ESP_LANDING = new VPage("vpage:espLanding");
 
     private static void populateVPageNameMap() {
         Field[] fields = UrlBuilder.class.getFields();
@@ -950,6 +956,15 @@ public class UrlBuilder {
         } else if(NL_SIGN_UP_PAGE.equals(page)){
             _perlPage = false;
             _path = "/newsletters/";
+        } else if (ESP_REGISTRATION.equals(page)) {
+            _perlPage = false;
+            _path = "/school/esp/form.page";
+        } else if (ESP_SIGN_IN.equals(page)) {
+            _perlPage = false;
+            _path = "/school/esp/signIn.page";
+        } else if (ESP_LANDING.equals(page)) {
+            _perlPage = false;
+            _path = "/school/esp/landing.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }
