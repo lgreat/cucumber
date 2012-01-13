@@ -30,6 +30,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
         browse_button : 'jsPhotoQueueButton',
         container: 'container',
         max_file_size : '20mb',
+        max_gif_file_size : '2mb',
         max_actual_queue : this.maxQueuedItems,
         url : this.url,
         resize : {width : 500, height : 500, quality : 80},
@@ -41,7 +42,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
         },
         filters : [
             {title : "Image files", extensions : "jpg,gif,png"},
-            {title : "Zip files", extensions : "zip"}
         ]
     });
 

@@ -1011,6 +1011,11 @@
                 // Convert settings
                 settings.chunk_size = plupload.parseSize(settings.chunk_size);
                 settings.max_file_size = plupload.parseSize(settings.max_file_size);
+                // Greatschools GS hack to allow gifs to have different file size since they can't be resized
+                // and because plupload file size restriction is pre-resize
+                if (settings.max_gif_file_size !== undef) {
+                    settings.max_gif_file_size = plupload.parseSize(settings.max_gif_file_size);
+                }
 
                 // Add files to queue
                 self.bind('FilesAdded', function(up, selected_files) {
@@ -1066,6 +1071,16 @@
                             });
 
                             continue;
+                        }
+
+                        // Greatschools GS hack to allow gifs to have different file size since they can't be resized
+                        // and because plupload file size restriction is pre-resize
+                        if (file.size !== undef && settings.max_gif_file_size !== undef && file.size > settings.max_gif_file_size && file.name.indexOf('.gif',file.name.length - 4) !== -1) {
+                            up.trigger('Error', {
+                                code : plupload.FILE_SIZE_ERROR,
+                                message : plupload.translate('File size error.'),
+                                file : file
+                            });
                         }
 
                         // Add valid file to list
