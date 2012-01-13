@@ -2532,7 +2532,7 @@ Viewport: the defines width and height of each icon
 .standard .bd .bk p{margin-left:auto;padding:0;}
 
 /* ------ iphone (extends mod) ------- */
-.iphone{width:300px;margin: 0 auto;}
+.iphone{width:320px;margin: 0 auto;}
 .iphone .hd h2{padding: 15px 10px 0; margin-bottom: 17px;}
 .iphone .bd p {padding: 0 10px; margin-bottom: 17px;}
 
@@ -3527,4 +3527,3 @@ Extends button-1 by changing:
 .outline3 {
     outline: 1px solid blue;
 }
-

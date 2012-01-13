@@ -31,7 +31,7 @@
                 <h2 class="introTextbold">Using an iPhone? Get the FREE<br/>GreatSchools Finder App</h2>
             </div>
             <div class="bd line">
-                <div class="unit size57of100">
+                <div class="unit size59of100">
                     <p class="text1">Map and compare<br/>schools for any city.</p>
 
                     <p class="text1">Browse parent reviews,<br/>and recent test scores.</p>
@@ -44,7 +44,7 @@
                         <a href="${referrer}">No thanks.<br/>Take me to the web site.</a>
                     </p>
                 </div>
-                <div class="unit size43of100 lastUnit">
+                <div class="unit size41of100 lastUnit">
                     <img src="/res/img/splash/iPhoneSplash.png" width="128" height="276" alt="GreatSchools iPhone App"/>
                 </div>
             </div>
