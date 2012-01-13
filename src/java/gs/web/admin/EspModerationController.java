@@ -31,7 +31,6 @@ import java.util.*;
 @RequestMapping("/admin/espModerationForm.page")
 public class EspModerationController implements ReadWriteAnnotationController {
     public static final String VIEW = "admin/espModerationForm";
-    public static final String ESP_LANDING_PAGE = "/school/esp/landing.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
     @Autowired
@@ -129,7 +128,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
             Date now = new Date();
             String nowAsString = String.valueOf(now.getTime());
             hash = DigestUtil.hashString(hash + nowAsString);
-            String redirect = ESP_LANDING_PAGE;
+            String redirect = new UrlBuilder(UrlBuilder.ESP_LANDING).toString();
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
             urlBuilder.addParameter("date", nowAsString);
