@@ -1,4 +1,4 @@
-GS = GS || {};
+var GS = GS || {};
 GS.form = GS.form || {};
 GS.form.EspForm = function() {
 
@@ -51,8 +51,9 @@ GS.form.EspForm = function() {
 
     //Checks if the
     //i)email entered is valid
-    //ii)email entered belongs to Existing user with no ESP membership OR already a ESP member
-    //(iii)email was not found.
+    //ii)email entered belongs to an existing user who is email validated ,with no ESP membership OR already a ESP member
+    //iii)email entered belongs to a provisional GS user.
+    //iv)email was not found.
     this.checkUser = function(email) {
 
         if (email !== "" && email !== undefined) {
@@ -101,14 +102,14 @@ GS.form.EspForm = function() {
         return false;
     };
 
-    this.checkUserPassword = function() {
+    this.matchUserPassword = function() {
         var email = jQuery('#js_email').val();
         var password = jQuery('#js_registeredPassword').val();
         var rval = true;
         if (password !== '' && password !== undefined) {
             jQuery.ajax({
                 type: 'GET',
-                url: '/school/esp/checkUserPassword.page',
+                url: '/school/esp/matchUserPassword.page',
                 data: {email:email, registeredPassword:password},
                 dataType: 'json',
                 async: false
@@ -311,7 +312,6 @@ jQuery(function() {
     jQuery('#js_screenName').blur(GS.form.espForm.validateScreenName);
     jQuery('#js_password').blur(GS.form.espForm.validatePassword);
     jQuery('#js_confirmPassword').blur(GS.form.espForm.validateConfirmPassword);
-
     jQuery('#js_jobTitle').change(GS.form.espForm.validateJobTitle);
     jQuery('#js_school').change(GS.form.espForm.validateSchool);
 
@@ -381,7 +381,7 @@ function bindLoginSubmit() {
 
         //Bind the new click handler
         jQuery('#js_submit').click(function() {
-            shouldSubmitForm = GS.form.espForm.checkUserPassword();
+            shouldSubmitForm = GS.form.espForm.matchUserPassword();
             return shouldSubmitForm;
         });
 

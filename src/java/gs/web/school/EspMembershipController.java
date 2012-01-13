@@ -58,8 +58,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         EspMembershipCommand command = new EspMembershipCommand();
 
         if (user != null && user.getId() != null) {
-            // User already exists in the session and has the role.Therefore pre-fill in form fields.
-
+            // User already exists in the session .Therefore pre-fill in form fields.
             command.setEmail(user.getEmail());
 
             if (!StringUtils.isBlank(user.getFirstName())) {
@@ -145,6 +144,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 getUserDao().saveUser(user);
                 ThreadLocalTransactionManager.commitOrRollback();
             }
+
             //Set the users password and save the user.
             setUsersPassword(command, user);
             getUserDao().updateUser(user);
@@ -178,19 +178,21 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
             if (isEmailValid) {
                 User user = getUserDao().findUserFromEmailIfExists(email);
+
                 //Found a user
                 if (user != null && user.getId() != null) {
-                    isUserGSMember = true;
 
+                    isUserGSMember = true;
                     if (user.isEmailValidated()) {
                         isUserEmailValidated = true;
                     }
 
-                    //User already an ESP member.Therefore he will have all the required fields.
+                    //User already an approved ESP member.Therefore he will have all the required fields.
                     if (user.hasRole(Role.ESP_MEMBER)) {
                         isUserApprovedESPMember = true;
                     } else {
-                        //User not a ESP member.He might be missing some of the required fields.Therefore collect them.
+                        //User not a approved ESP member.(Unapproved ESP members also enter this block.But that is ok.)
+                        //He might be missing some of the required fields.Therefore collect them.
                         if (StringUtils.isBlank(user.getFirstName())) {
                             fieldsToCollect += "firstName";
                         }
@@ -215,11 +217,9 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             Map data = new HashMap();
             if (!isEmailValid) {
                 data.put("invalidEmail", "Please enter a valid email address.");
-            } else if (isUserApprovedESPMember) {
-                data.put("isUserApprovedESPMember", true);
-            } else if (isUserEmailValidated) {
+            }else if (isUserEmailValidated) {
                 data.put("isUserEmailValidated", true);
-            } else if (isUserGSMember) {
+            }else if (isUserGSMember) {
                 data.put("isUserGSMember", true);
                 if (fieldsToCollect.length() > 0) {
                     data.put("fieldsToCollect", fieldsToCollect);
@@ -238,8 +238,8 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
     }
 
-    @RequestMapping(value = "checkUserPassword.page", method = RequestMethod.GET)
-    public void checkUserPassword(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
+    @RequestMapping(value = "matchUserPassword.page", method = RequestMethod.GET)
+    public void matchUserPassword(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
         String email = command.getEmail();
         String registeredPassword = command.getRegisteredPassword();
 
@@ -336,14 +336,12 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     protected void saveEspMembership(EspMembershipCommand command, User user) {
         State state = command.getState();
         Integer schoolId = command.getSchoolId();
-        EspMembership espMembership = null;
 
         if (state != null && schoolId != null && schoolId > 0 && user != null && user.getId() != null) {
 
-            espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, user.getId(), false);
+            EspMembership espMembership = getEspMembershipDao().findEspMembershipByStateSchoolIdUserId(state, schoolId, user.getId(), false);
 
             if (espMembership == null) {
-
                 EspMembership esp = new EspMembership();
                 esp.setActive(false);
                 esp.setJobTitle(command.getJobTitle());
@@ -353,7 +351,6 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 esp.setUser(user);
                 esp.setWebUrl(command.getWebPageUrl());
                 getEspMembershipDao().saveEspMembership(esp);
-
             }
         }
     }
@@ -411,10 +408,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             validator.validateLastName(userCommand, result);
         }
 
-//        System.out.println("------13--------" + espMembershipCommand.getPassword());
-//        System.out.println("------14--------" + espMembershipCommand.getLastName());
-
-        if (StringUtils.isNotBlank(espMembershipCommand.getPassword())) {
+        if (StringUtils.isNotEmpty(espMembershipCommand.getPassword())) {
             validator.validatePassword(userCommand, result);
         }
 
