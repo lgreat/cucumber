@@ -27,24 +27,28 @@
 
         <c:set var="isDisabled" value="false"/>
         <c:if test="${userLoggedIn eq true}">
-            <c:set var="isDisabled" value="true"/>
+            <c:set var="isReadOnly" value="true"/>
         </c:if>
 
         <form:form commandName="schoolEspCommand">
             <form:label path="email">Email address *</form:label>
             <form:input path="email" cssClass="field" id="js_email" value="${schoolEspCommand.email}"
-                        disabled="${isDisabled}"/>
+                        readonly="${isReadOnly}"/>
             <span id="js_invalidEmail" class="error" style="display: none;">Please enter a valid email.</span>
+
             <span id="js_uniqueError" class="error"
                   style="display: none;">You are already registered for this school.</span>
 
+            <c:if test="${isUserApprovedESPMember eq true}">
+                       <span>You are already a member go to landing page.</span>
+            </c:if>
 
             <div id="js_regPanel" style="${showRegPanel eq true? '':'display:none'}">
 
                 <div id="js_screenNameDiv" style="${showRegPanel eq true? '':'display:none'}">
                     <form:label path="screenName">User name *</form:label>
                     <form:input path="screenName" cssClass="field" id="js_screenName"
-                                value="${schoolEspCommand.screenName}" disabled="${isDisabled}"/>
+                                value="${schoolEspCommand.screenName}" readonly="${isReadOnly}"/>
                     <span class="js_screenName valid" style="display: none;">&amp;nbsp;</span>
                     <span class="js_screenName invalid"
                           style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>

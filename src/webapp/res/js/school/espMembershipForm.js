@@ -68,11 +68,11 @@ GS.form.EspForm = function() {
                         jQuery('#js_invalidEmail').show();
 
 
-                    } else if (data.isUserEmailValidated === true) {
+                    } else if (data.isUserEmailValidated === true || data.isUserApprovedESPMember === true) {
                         jQuery('#js_registeredPasswordDiv').show();
                         bindLoginSubmit();
 
-                    } else if (data.isUserMember === true || data.isUserESPMember === true) {
+                    } else if (data.isUserGSMember === true) {
 
                         //User already exists.However all the required fields are not filled in.Therefore collect them.
                         if (data.fieldsToCollect !== "" && data.fieldsToCollect !== undefined) {
