@@ -27,12 +27,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/school/esp/")
+@RequestMapping("/school/esp/signIn.page")
 public class EspSignInController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspMembershipController.class);
 
     public static final String VIEW = "school/espSignIn";
-    public static final String ESP_LANDING_PAGE = "school/esp/landing.page";
+    public static final String ESP_LANDING_PAGE = "landing.page";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -40,7 +40,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
     @Autowired
     private IUserDao _userDao;
 
-    @RequestMapping(value = "signIn.page", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
@@ -55,7 +55,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
         return VIEW;
     }
 
-    @RequestMapping(value = "signIn.page", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String signIn(@ModelAttribute("schoolEspCommand") EspMembershipCommand command,
                          BindingResult result,
                          HttpServletRequest request,
@@ -73,16 +73,17 @@ public class EspSignInController implements ReadWriteAnnotationController {
             if (isEmailValid) {
                 user = getUserDao().findUserFromEmailIfExists(email);
                 boolean foundActiveEspMembership = false;
-                boolean isUserEmailValidated = user.isEmailValidated();
+                boolean isUserEmailValidated = false;
 
                 if (user != null) {
+
+                    isUserEmailValidated = user.isEmailValidated();
 
                     //Check if the user has any esp memberships.Active or Inactive.
                     espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
                     for (EspMembership membership : espMemberships) {
 
                         if (membership.getActive() && isUserEmailValidated) {
-
                             foundActiveEspMembership = true;
                             boolean matchesPassword = user.matchesPassword(password);
 
@@ -98,7 +99,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
                 if (user == null || espMemberships == null || espMemberships.isEmpty()) {
                     result.rejectValue("email", null, "There is no account associated with that email address.");
-                } else if (!isUserEmailValidated && foundActiveEspMembership) {
+                } else if (!isUserEmailValidated) {
                     result.rejectValue("email", null, "Please verify ur email.");
                 } else if (!foundActiveEspMembership) {
                     //TODO should there be a different message for rejected users?
