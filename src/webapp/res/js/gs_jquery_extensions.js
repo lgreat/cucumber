@@ -333,6 +333,7 @@ function debug(what) {
 
 /* =6 infiniteCarousel
 ---------------------------------------------------------------------------*/
+
 // create closure
 (function($) {
 

@@ -110,8 +110,10 @@
                         <div id="ss_header" class="hd gradient-6 rnd-top-4">
                             <div class="line">
                                 <div class="unit size50of100">
+                                    <a class="behaviorSelect" href="javascript:void(0);">
                                     <span class="skinSelect rnd4 small">Choose a page<span
                                             class="skinSelectArrow rnd4 gradient-7">&amp;#709;</span></span>
+                                    </a>
                                     <select onchange="window.location=this.value;">
                                         <option value="">Choose a page</option>
                                         <c:forEach var="slide" items="${articleSlideshow.slides}" varStatus="status">
@@ -152,7 +154,7 @@
                                     </div>
 
                                     <c:if test="${hasNextSlide}">
-                                        <p class="ss_text ss_next">Next:&amp;nbsp;
+                                        <p class="ss_text ss_next fltrt">Next:&amp;nbsp;
                                             <a href="${contentUrl}?page=${pageNum + 1}">
                                                 <c:set var="nextSlideHasPromo"
                                                        value="${not empty articleSlideshow.nextSlide.promo}"/>
