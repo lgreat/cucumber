@@ -481,7 +481,7 @@ public class BoundaryAjaxController {
     protected MapObject getMarkerForDistrict(double lat, double lon, String name, State state, Integer id, String city, String street1, String street2, String cityStateZip, int ratingInt, HttpServletRequest request) throws JSONException {
         String icon = "/res/img/map/pushpin_na.png";
         if (ratingInt > 0) {
-            icon = "/res/img/map/pushpin_" + ratingInt + ".png";
+            icon = "/res/img/map/district_" + ratingInt + ".png";
         }
         MapObject marker = new MapObject(lat, lon,
                 icon, 40, 40);
@@ -499,9 +499,9 @@ public class BoundaryAjaxController {
                                             HttpServletRequest request) throws JSONException {
         String icon = "/res/img/map/GS_gsr_na_forground.png";
         if (ratingInt > 0) {
-            icon = "/res/img/map/GS_gsr_" + ratingInt + "_forground.png";
+            icon = "/res/img/map/GS_gsr_" + ratingInt + "_small.png";
         } else if (s.getType() == SchoolType.PRIVATE) {
-            icon = "/res/img/map/GS_gsr_private_forground.png";
+            icon = "/res/img/map/GS_gsr_private_small.png";
         }
         MapObject marker = new MapObject(s.getLat(), s.getLon(),
                 icon, 40, 40);
@@ -518,9 +518,9 @@ public class BoundaryAjaxController {
                                                   HttpServletRequest request) throws JSONException {
         String icon = "/res/img/map/GS_gsr_na_forground.png";
         if (ratingInt > 0) {
-            icon = "/res/img/map/GS_gsr_" + ratingInt + "_forground.png";
+            icon = "/res/img/map/GS_gsr_" + ratingInt + "_small.png";
         } else if (StringUtils.equals("private", s.getSchoolType())) {
-            icon = "/res/img/map/GS_gsr_private_forground.png";
+            icon = "/res/img/map/GS_gsr_private_small.png";
         }
         MapObject marker = new MapObject(s.getLatLon().getLat(), s.getLatLon().getLon(), icon, 40, 40);
         marker.setTooltip(s.getName());
