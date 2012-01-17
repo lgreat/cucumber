@@ -163,7 +163,7 @@ Extends button-1 by changing:
     height: 23px;
     color: white;
     text-decoration: none;
-    font: bold 11px Arial, Helvetica, sans-serif;
+    font: bold 11px/21px Arial, Helvetica, sans-serif;
     display: inline-block;
     text-align: center;
     position: relative;
