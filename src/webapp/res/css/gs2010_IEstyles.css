@@ -94,6 +94,7 @@ body.ie7 #navbar, *+html #navbar {
 }
 
 body.ie7 #mainWrap, *+html #mainWrap {
+    position: relative;
     z-index: 5;
 }
 
