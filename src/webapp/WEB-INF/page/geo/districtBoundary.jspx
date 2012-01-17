@@ -191,7 +191,8 @@
                 for (var key in stuffOnMap) {
                     if (stuffOnMap.hasOwnProperty(key)) {
                         var obj = stuffOnMap[key];
-                        if (obj.isSchool() && obj.schoolType == 'private') {
+                        if (obj.isSchool() && obj.schoolType == 'private' &&
+                                (typeof(obj.districtId) === 'undefined' || obj.isCharterOnly === true)) {
                             obj.hide();
                         }
                     }
@@ -201,7 +202,8 @@
                 for (var key in stuffOnMap) {
                     if (stuffOnMap.hasOwnProperty(key)) {
                         var obj = stuffOnMap[key];
-                        if (obj.isSchool() && obj.schoolType == 'charter' && typeof(obj.districtId) === 'undefined') {
+                        if (obj.isSchool() && obj.schoolType == 'charter' &&
+                                (typeof(obj.districtId) === 'undefined' || obj.isCharterOnly === true)) {
                             obj.hide();
                         }
                     }
@@ -423,6 +425,7 @@
                     workQueue = GS.Boundaries.boundaryHelper.loadSchoolsServingLocationAjax(lat, lon, {showPolygons:false});
                 } else {
                     workQueue = new jQuery.Deferred();
+                    workQueue.resolve({topLevel:[]});
                 }
 
                 workQueue.done(function(data) {
@@ -430,25 +433,31 @@
                     mapInfoWindow.close();
                     selectedDistrict = null;
                     var smallestAreaSchool = null;
-                    var smallestArea = 9999999;
-                    var showFirstDistrict = true;
+                    var smallestSchoolArea = 9999999;
+                    var smallestAreaDistrict = null;
+                    var smallestDistrictArea = 9999999;
                     for (var x=0; x < data.topLevel.length; x++) {
                         var obj = data.topLevel[x];
                         if (obj.isSchool() && obj.hasPolygon()) {
-                            if (obj.area < smallestArea)  {
+                            if (obj.area < smallestSchoolArea)  {
                                 smallestAreaSchool = obj;
-                                smallestArea = obj.area;
+                                smallestSchoolArea = obj.area;
                             }
-                        } else if (obj.isDistrict() && obj.hasPolygon() && showFirstDistrict) {
-                            obj.showPolygon();
-                            showFirstDistrict = false;
-                            GS.Map.Helper.highlightPolygon(obj.polygon, {duration:600});
-                            hideSchoolsOutsideOfDistrict(obj);
+                        } else if (obj.isDistrict() && obj.hasPolygon()) {
+                            if (obj.area < smallestDistrictArea) {
+                                smallestAreaDistrict = obj;
+                                smallestDistrictArea = obj.area;
+                            }
                         }
                     }
                     if (smallestAreaSchool != null) {
                         smallestAreaSchool.showPolygon();
                         GS.Map.Helper.highlightPolygon(smallestAreaSchool.polygon, {duration:600});
+                    }
+                    if (smallestAreaDistrict != null) {
+                        smallestAreaDistrict.showPolygon();
+                        GS.Map.Helper.highlightPolygon(smallestAreaDistrict.polygon, {duration:600});
+                        hideSchoolsOutsideOfDistrict(smallestAreaDistrict);
                     }
                     updateDistrictList();
                     updateSchoolList();
@@ -464,9 +473,6 @@
                             }
                         }
                 );
-                if (!showPublicSchools()) {
-                    workQueue.resolve({topLevel:[]});
-                }
             };
             var loadSchoolsForLocationEventHandler = function(event) {
                 if (event.latLng) {
@@ -585,20 +591,28 @@
             var geocodeAddressSuccess = function(geocodeResults) {
                 // ignore multiple results for now
                 geocodeResults[0]['totalResults'] = geocodeResults.length;
+                var lat = geocodeResults[0]['lat'];
+                var lon = geocodeResults[0]['lon'];
                 clearMap();
-                GS.Boundaries.boundaryHelper.loadDistrictsNearPointAjax(geocodeResults[0]['lat'],
-                                                                        geocodeResults[0]['lon']
+                loadDistrictsNearPoint(lat, lon
                 ).always(function() {
-                    updateDistrictList();
-                    loadSchoolsServingLocation(geocodeResults[0]['lat'], geocodeResults[0]['lon']);
+                    loadSchoolsServingLocation(lat, lon);
                 });
-                centerMap(new google.maps.LatLng(geocodeResults[0]['lat'], geocodeResults[0]['lon']), {moveMarker:true});
+                centerMap(new google.maps.LatLng(lat, lon), {moveMarker:true});
             };
             var loadPrivateSchoolsNearPoint = function(myLat, myLon) {
                 hidePrivateSchools();
                 return GS.Boundaries.boundaryHelper.loadNonDistrictSchoolsNearPoint(myLat, myLon, {type:'private', showPolygons: false}
                 ).done(function(data) {
                     updateSchoolList();
+                    for (var key in data.keyMap) {
+                        if (data.keyMap.hasOwnProperty(key)) {
+                            var obj = data.keyMap[key];
+                            if (obj.isSchool()) {
+                                obj.isCharterOnly = true;
+                            }
+                        }
+                    }
                 });
             };
             var loadCharterSchoolsNearPoint = function(myLat, myLon) {
@@ -606,6 +620,14 @@
                 return GS.Boundaries.boundaryHelper.loadNonDistrictSchoolsNearPoint(myLat, myLon, {type:'charter', showPolygons: false}
                 ).done(function(data) {
                     updateSchoolList();
+                    for (var key in data.keyMap) {
+                        if (data.keyMap.hasOwnProperty(key)) {
+                            var obj = data.keyMap[key];
+                            if (obj.isSchool()) {
+                                obj.isCharterOnly = true;
+                            }
+                        }
+                    }
                 });
             };
             var loadDistrictsNearPoint = function(myLat, myLon) {
@@ -634,7 +656,7 @@
                 $('#js_loading').hide();
             });
             jQuery(function () {
-                GS.Boundaries.boundaryHelper.setGlobalResponseHandler(storeData);
+                GS.Boundaries.boundaryHelper.globalResponseHandler = storeData;
                 var params = GS.Util.getUrlVars();
                 if (params.lat && params.lon) {
                     loadDistrictsNearPoint(params.lat, params.lon);
@@ -729,11 +751,9 @@
                 });
                 $('#js_schoolType_charter').on('change', function() {
                     if (showCharterSchools()) {
-                        $('#js_charterWarning').show();
                         loadCharterSchoolsNearPoint(districtBoundaryMap.getCenter().lat(),
                                                     districtBoundaryMap.getCenter().lng())
                     } else {
-                        $('#js_charterWarning').hide();
                         hideCharterSchools();
                         updateSchoolList();
                     }
@@ -814,9 +834,6 @@
                 <input type="text" name="addressQuery" id="js_mapAddressQuery"/>
                 <button type="submit" name="loadAddress" id="js_loadAddress">Search</button>
             </form>
-        </div>
-        <div id="js_charterWarning" class="hidden">
-            Note: This does not yet include charter schools in charter-only districts
         </div>
         <div class="js_showWithMap hidden">
             <div id="map-wrapper">
