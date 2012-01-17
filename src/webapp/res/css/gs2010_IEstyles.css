@@ -94,7 +94,7 @@ body.ie7 #navbar, *+html #navbar {
 }
 
 body.ie7 #mainWrap, *+html #mainWrap {
-    z-index: 1;
+    z-index: 5;
 }
 
 
