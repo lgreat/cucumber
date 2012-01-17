@@ -71,14 +71,14 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-findaschool-1.jpg" width="130" height="66" alt="find a school hot topic" />-->
                     <!-- for java pages -->
-                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-1.jpg" width="130" height="66"
+                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-19.3.jpg" width="130" height="66"
                               alt="find a school hot topic"/>
 
                     <p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/find-a-school/3644-mistakes-choosing-elementary.gs?page=1"
-                          id="PN_F_HT-3MistakesPickingAnElementarySchool"
-                          class="GS_CI9_">3 mistakes picking an elementary school</a></p>
+                    <p><a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1"
+                          id="PN_F_HT-Moving?HowToChooseASchoolFromADistance"
+                          class="GS_CI9_">Moving? How to choose a school from a distance.</a></p>
                 </div>
             </div>
         </div>
@@ -120,14 +120,14 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-preschool-1.jpg" width="130" height="66" alt="preschool hot topic" />-->
                     <!-- for java pages -->
-                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-preschool-1.jpg" width="130" height="66"
+                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-preschool-19.3.jpg" width="130" height="66"
                               alt="preschool hot topic"/>
 
                     <p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/find-a-school/defining-your-ideal/1093-10-signs-great-preschool.gs?page=1"
-                          id="PN_P_HT-10SignsOfAGreatPreschool"
-                          class="GS_CI9_">10 signs of a great preschool</a></p>
+                    <p><a href="/parenting/social-skills/1579-making-friends-in-preschool.gs"
+                          id="PN_P_HT-HowCanIHelpMyPreschoolerMakeFriends"
+                          class="GS_CI9_">How can I help my preschooler make friends?</a></p>
                 </div>
             </div>
         </div>
@@ -157,9 +157,9 @@
                         <li><a href="/fifth-grade.topic?content=2664" id="PN_E_1-FifthGrade"
                                class="GS_CI9_">Fifth Grade</a>
                         </li>
-                        <li><a href="/articles/?topics=209&amp;grades=217" id="PN_E_1-Math" class="GS_CI9_">Math</a>
+                        <li><a href="/elementary-school-math.topic?content=5069" id="PN_E_1-Math" class="GS_CI9_">Math</a>
                         </li>
-                        <li class="lastone"><a href="/articles/?topics=211&amp;grades=217" id="PN_E_1-Reading"
+                        <li class="lastone"><a href="/elementary-school-reading.topic?content=5256" id="PN_E_1-Reading"
                                                class="GS_CI9_">Reading</a></li>
                     </ul>
                 </div>
@@ -194,13 +194,13 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-elementaryschool-1.jpg" width="130" height="66" alt="elementary school hot topic"/>-->
                     <!-- for java pages -->
-                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-elementaryschool-1.jpg" width="130"
+                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-elementaryschool-19.3.jpg" width="130"
                               height="66" alt="elementary school hot topic"/>
 
                     <p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/improvement/quality-teaching/3001-mediocre-teacher.gs?page=1"
-                          id="PN_E_HT-DealingWithASoSoTeacher" class="GS_CI9_">Dealing with a so-so teacher</a></p>
+                    <p><a href="/students/academic-skills/2430-teaching-persistence-3rd-through-5th-grade.gs?page=1"
+                          id="PN_E_HT-TeachingPersistence" class="GS_CI9_">Teaching persistence</a></p>
                 </div>
             </div>
         </div>
@@ -215,7 +215,7 @@
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
                     <ul> <!-- bullet type: disc/square/circle-->
-                        <li><a href="/articles/?grades=205&amp;topics=209" id="PN_M_1-Math" class="GS_CI9_">Math</a>
+                        <li><a href="/middle-school-math.topic?content=5062" id="PN_M_1-Math" class="GS_CI9_">Math</a>
                         </li>
                         <li><a href="/articles/?grades=205&amp;topics=211" id="PN_M_1-Reading"
                                class="GS_CI9_">Reading</a>
@@ -226,8 +226,10 @@
                         <li><a href="/articles/?grades=205&amp;topics=212" id="PN_M_1-Science"
                                class="GS_CI9_">Science</a>
                         </li>
-                        <li class="lastone"><a href="/articles/?grades=205&amp;topics=213" id="PN_M_1-SocialStudies"
+                        <li><a href="/articles/?grades=205&amp;topics=213" id="PN_M_1-SocialStudies"
                                                class="GS_CI9_">Social Studies</a></li>
+                        <li class="lastone"><a href="/Tween-Troubles.topic?content=4885" id="PN_M_1-TweenTroubles"
+                                               class="GS_CI9_">Tween Troubles</a></li>
                     </ul>
                 </div>
             </div>
@@ -253,14 +255,14 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-middleschool-1.jpg" width="130" height="66" alt="middle school hot topic"/>-->
                     <!-- for java pages -->
-                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-middleschool-1.jpg" width="130"
+                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-middleschool-19.3.jpg" width="130"
                               height="66" alt="middle school hot topic"/>
 
                     <p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/find-a-school/defining-your-ideal/121-school-uniforms.gs?page=1"
-                          id="PN_M_HT-ProsAndConsOfSchoolUniforms"
-                          class="GS_CI9_">Pros and cons of school uniforms</a></p>
+                    <p><a href="/parenting/bullying/5063-when-the-teacher-is-the-bully.gs?page=1"
+                          id="PN_M_HT-WhenTheTeacherIsTheBully"
+                          class="GS_CI9_">When the teacher is the bully</a></p>
                 </div>
             </div>
         </div>
@@ -304,8 +306,10 @@
                         </li>
                         <li><a href="/articles/?topics=125&amp;grades=206" id="PN_H_2-ImproveYourSchool"
                                class="GS_CI9_">Improve Your School</a></li>
-                        <li class="lastone"><a href="/high-school/community.gs?content=1639" id="PN_H_2-Community"
+                        <li><a href="/high-school/community.gs?content=1639" id="PN_H_2-Community"
                                                class="GS_CI9_">Community</a></li>
+                        <li class="lastone"><a href="/Sex-Drugs-and-Your-Teen.topic?content=4880" id="PN_H_2-SexDrugsAndYourTeen"
+                                               class="GS_CI9_">Sex, Drugs &amp;amp; Your Teen</a></li>
                     </ul>
                 </div>
             </div>
@@ -314,13 +318,13 @@
                     <!-- for perl pages -->
                     <!--<img class="fltlft" src="/res/img/primaryNav/mm-highschool-1.jpg" width="130" height="66" alt="high school hot topic"/>-->
                     <!-- for java pages -->
-                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-highschool-1.jpg" width="130" height="66"
+                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-highschool-19.3.jpg" width="130" height="66"
                               alt="high school hot topic"/>
 
                     <p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/parenting/4503-dangerous-teen-trends.gs?page=1"
-                          id="PN_H_HT-7DangerousTeenTrends" class="GS_CI9_">7 dangerous teen trends</a></p>
+                    <p><a href="/parenting/4486-parent-rules-teen-alcohol-drug-use.gs?page=1"
+                          id="PN_H_HT-HouseRulesOnDrugsAndAlcohol" class="GS_CI9_">House rules on drugs and alcohol</a></p>
                 </div>
             </div>
         </div>
@@ -361,8 +365,8 @@
 
                     <p class="text3 allCaps">Hot Topic</p>
 
-                    <p><a href="/college-prep/applying/slideshows/3199-five-ways-to-ace-college-applications.gs"
-                          id="PN_C_HT-HowToAceCollegeApps" class="GS_CI9_">How to ace college apps</a></p>
+                    <p><a href="/college-prep/applying/338-easing-college-admissions-anxiety.gs?page=1"
+                          id="PN_C_HT-EasingCollegeAdmissionsAnxiety" class="GS_CI9_">Easing college admissions anxiety</a></p>
                 </div>
             </div>
         </div>
