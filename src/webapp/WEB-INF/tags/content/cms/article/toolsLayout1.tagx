@@ -31,7 +31,8 @@
                                 <strong>
                                     <a href="${feature.otherLanguageUri}">
                                         <c:choose>
-                                            <c:when test="${feature.language eq 'ES'}">In english</c:when>
+                                            <c:when test="${feature.language eq 'ES'}"><span
+                                                    class="sprite i-usa vert-align-mid mrs"><!-- do not collapse --></span>In english</c:when>
                                             <c:otherwise><span
                                                     class="sprite i-sun vert-align-mid mrs"><!-- do not collapse --></span>En espa&amp;ntilde;ol</c:otherwise>
                                         </c:choose>
