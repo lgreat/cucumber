@@ -482,6 +482,15 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 </div>
 <div id="fade" class="black_overlay"><!-- do not collapse --></div>
+
+
+<c:if test="${param.showEspHover eq 'true'}">
+    <school:schoolEspThankYou/>
+    <script type="text/javascript">
+        setTimeout("GSType.hover.schoolEspThankYou.showHover()", 5);
+    </script>
+</c:if>
+
 </gsml:body>
 </html>
 </jsp:root>

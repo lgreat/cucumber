@@ -853,6 +853,20 @@ GSType.hover.EmailValidatedSchoolReview = function() {
 };
 GSType.hover.EmailValidatedSchoolReview.prototype = new GSType.hover.HoverDialog("emailValidatedSchoolReviewHover",640);
 
+//ESP Thank You Hover
+GSType.hover.SchoolEspThankYou = function() {
+    this.loadDialog = function() {
+    };
+    this.showHover = function() {
+        GSType.hover.schoolEspThankYou.show();
+    };
+
+    this.onClose = function() {
+    };
+};
+
+GSType.hover.SchoolEspThankYou.prototype = new GSType.hover.HoverDialog("schoolEspThankYou",640);
+
 //Email to a friend hover
 GSType.hover.EmailToFriend = function() {
     this.loadDialog = function() {
@@ -1047,6 +1061,7 @@ GSType.hover.validateLinkExpired = new GSType.hover.ValidateLinkExpired();
 GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedThankYou();
 GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPostedThankYou();
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
+GSType.hover.schoolEspThankYou = new GSType.hover.SchoolEspThankYou();
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
 GSType.hover.nlSubscription = new GSType.hover.NlSubscription();
@@ -1391,6 +1406,7 @@ jQuery(function() {
     GSType.hover.schoolReviewPostedThankYou.loadDialog();
     GSType.hover.schoolReviewNotPostedThankYou.loadDialog();
     GSType.hover.emailValidatedSchoolReview.loadDialog();
+    GSType.hover.schoolEspThankYou.loadDialog();
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.interruptSurvey.loadDialog();
     GSType.hover.nlSubscription.loadDialog();
