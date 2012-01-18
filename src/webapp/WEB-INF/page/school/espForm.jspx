@@ -5,6 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
           version="2.0" >
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -16,8 +17,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>ESP Form</title>
         <style type="text/css">
-            #espFormNavigation {
-                padding-right: 30px;
+            #espFormWrapper {
+                border: 1px solid blue;
+            }
+            #espFormHeader, #espFormFooter {
+                background-color: #bbbbdd;
+                padding: 5px;
+            }
+            #espFormBody {
+                padding:25px;
             }
             #espFormNavigation div button, #espFormNavigation div span {
                 margin-left: 15px;
@@ -28,86 +36,15 @@
             GS.espForm = GS.espForm || {}; // packages and below do not need "var"
             GS.espForm.currentPage = ${page};
             GS.espForm.maxPage = ${maxPage};
-
-            <![CDATA[
-            // True globals here. Must be namespaced
-
-            new (function() {
-                GS.util = GS.util || {};
-                GS.util.getUrlVars = function() {
-                    var vars = {};
-                    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                        vars[key] = value;
-                    });
-                    return vars;
-                };
-
-                var saveForm = function() {
-                    var form = jQuery('#espFormPage' + GS.espForm.currentPage);
-                    var data = form.serializeArray();
-                    var deferred = jQuery.ajax({type: 'POST', url: document.location, data: data}
-                    ).fail(function() {
-                                alert("Error");
-                            }
-                    );
-                    return deferred.promise();
-                };
-                var sendToLandingPage = function() {
-                    window.location = '/school/esp/landing.page';
-                };
-                var sendToPageNumber = function(pageNum) {
-                    var myParams = GS.util.getUrlVars();
-                    window.location = '/school/esp/form.page?page=' + pageNum + '&schoolId=' + myParams.schoolId + '&state=' + myParams.state;
-                };
-                var nextPage = function() {
-                    saveForm().done(function() {
-                        // fetch next page
-                        var nextPage = GS.espForm.currentPage + 1;
-                        if (nextPage > GS.espForm.maxPage) {
-                            sendToLandingPage();
-                        } else {
-                            sendToPageNumber(nextPage);
-                        }
-                    });
-                };
-                var previousPage = function() {
-                    saveForm().done(function() {
-                        // fetch previous page
-                        var previousPage = GS.espForm.currentPage - 1;
-                        if (previousPage < 1) {
-                            sendToLandingPage();
-                        } else {
-                            sendToPageNumber(previousPage);
-                        }
-                    });
-                };
-                var landingPage = function() {
-                    saveForm().done(function() {
-                        // redirect to landing page
-                        window.location = '/school/esp/landing.page';
-                    });
-                };
-                jQuery(function() {
-                    $('#js_saveButton').on('click', function() {
-                        landingPage();
-                        return false;
-                    });
-                    $('#js_nextPageButton').on('click', function() {
-                        nextPage();
-                        return false;
-                    });
-                    $('#js_prevPageButton').on('click', function() {
-                        previousPage();
-                        return false;
-                    });
-                });
-            })();
-            ]]>
         </script>
+        <pageHelper:externalJavascript file="/res/js/school/espForm.js"/>
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
 
+        <h2>Edit Your Online School Profile</h2>
+        <div>Your school: ${school.name}</div>
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
         <c:choose>
             <c:when test="${page eq 1}">
                 <school:espFormPage1/>
@@ -116,20 +53,6 @@
                 <school:espFormPage2/>
             </c:when>
         </c:choose>
-        <br/>
-        <div id="espFormNavigation">
-            <button id="js_saveButton" class="fltlt">Save &amp;amp; Finish Later</button>
-
-            <div class="fltrt">
-                <c:if test="${page gt 1}">
-                    <button id="js_prevPageButton">&amp;lt; Previous</button>
-                </c:if>
-                <span>Page ${page} of ${maxPage}</span>
-                <c:if test="${page lt maxPage}">
-                    <button id="js_nextPageButton">Next &amp;gt;</button>
-                </c:if>
-            </div>
-        </div>
         <div style="display:none;">
             <mod:tracking school="${school}" pageName="ESP Form Page ${page}"
                           hier1="School,SchoolProfileEspForm,${gsweb:capitalize(school.type.schoolTypeName)}"/>

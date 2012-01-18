@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:form="http://www.springframework.org/tags/form"
+        >
+<jsp:directive.tag body-content="scriptless"/>
+<jsp:directive.attribute name="page" required="true" description="Current page" type="java.lang.Integer"/>
+<jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
+<jsp:directive.attribute name="headerText" required="true" description="Header text" type="java.lang.String"/>
+
+    <div id="espFormWrapper">
+        <div id="espFormHeader">
+            <div class="fltrt">
+                <c:if test="${page gt 1}">
+                    <button class="js_prevPageButton">&amp;lt; Previous</button>
+                </c:if>
+                <span>Page ${page} of ${maxPage}</span>
+                <c:if test="${page lt maxPage}">
+                    <button class="js_nextPageButton">Next &amp;gt;</button>
+                </c:if>
+            </div>
+            <div>${headerText}</div>
+        </div>
+        <div id="espFormBody">
+            <form:form id="espFormPage${page}">
+                <jsp:doBody/>
+            </form:form>
+        </div>
+        <div id="espFormFooter">
+            <div class="fltrt">
+                <c:if test="${page gt 1}">
+                    <button class="js_prevPageButton">&amp;lt; Previous</button>
+                </c:if>
+                <span>Page ${page} of ${maxPage}</span>
+                <c:if test="${page lt maxPage}">
+                    <button class="js_nextPageButton">Next &amp;gt;</button>
+                </c:if>
+            </div>
+
+            <button class="js_saveButton">Save &amp;amp; Finish Later</button>
+        </div>
+    </div>
+
+</jsp:root>
