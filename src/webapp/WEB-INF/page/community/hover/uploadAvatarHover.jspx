@@ -104,7 +104,7 @@
                                        styleClass="text3 photoGuidelines">
         GreatSchools photo guidelines</gsml:popupWindow>-->
     <p class="text1bold">Upload your own photo</p>
-    <p class="text2">Photos must be in .jpg or .gif format.</p>
+    <p class="text2">Photos must be in .jpeg or .gif format.</p>
     <div class="spacer_5"><!--do not collapse--></div>
     <div style="display:none" class="field_message" id="pic_message">
         <p style="display:none" id="pic_no" class="formErrorText"><span
