@@ -1198,10 +1198,6 @@ body.ie8 .btsSupplyListsTag .arrow {
     z-index: 1002;
 }
 
-.ie7 #photo-gallery{
-    top: 10px;
-}
-
 #photo-gallery-schoolname {
     float: left;
     margin: 11px 0 10px 10px;
