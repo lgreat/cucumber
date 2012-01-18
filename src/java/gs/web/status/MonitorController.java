@@ -76,7 +76,8 @@ public class MonitorController implements ReadWriteController {
      */
     private Searcher _searcher;
     
-    private Long[] _blackHole;
+    long[] _blackHole;
+    long[] _blackHole2;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
@@ -373,12 +374,8 @@ public class MonitorController implements ReadWriteController {
     
     public void selfDestruct() {
         
-        _blackHole = new Long[(Integer.MAX_VALUE/2)-1];
-        
-        for (int i = 0; i < (Integer.MAX_VALUE/2)-1; i++) {
-            _blackHole[i] = Long.valueOf(i);
-        }
-        
+        _blackHole = new long[(int)Math.pow(2,26)];
+        _blackHole2 = new long[(int)Math.pow(2,26)];
     }
 
     public void setSearcher(Searcher searcher) {
