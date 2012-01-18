@@ -457,6 +457,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             School school = getSchoolDao().getSchoolById(state, schoolId);
             if (school != null) {
                 UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                urlBuilder.addParameter("showEspHover","true");
                 return urlBuilder.asFullUrl(request);
             }
         }

@@ -135,7 +135,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         response.getWriter().flush();
     }
 
-    protected boolean checkUserHasAccess(User user, State state, Integer schoolId) throws ObjectRetrievalFailureException {
+    protected boolean checkUserHasAccess(User user, State state, Integer schoolId) {
         if (user != null && state != null && schoolId > 0) {
             if (user.hasRole(Role.ESP_MEMBER)) {
                 return _espMembershipDao.findEspMembershipByStateSchoolIdUserId
