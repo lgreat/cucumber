@@ -15,68 +15,12 @@
          ]]>
     </description>
 
-    <tag>
-        <name>blogFeed</name>
-        <tag-class>gs.web.content.BlogFeedTagHandler</tag-class>
-        <body-content>empty</body-content>
-        <display-name>Link to a blog.</display-name>
-        <description>
-            <![CDATA[Presents a teaser and a link to a blog entry.]]>
-        </description>
-        <!--attribute>
-            <name>styleClass</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>CSS class name(s)</description>
-        </attribute-->
-        <attribute>
-            <name>atomUrl</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>Url to an Atom.xml file</description>
-        </attribute>
-        <attribute>
-            <name>defaultTitle</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>Title to be used if the atom feed does not deliver a title for the most recent entry.
-            </description>
-        </attribute>
-        <attribute>
-            <name>defaultUrl</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>Link to the blog, used only if the feed doesn't return a link to the most recent entry.
-            </description>
-        </attribute>
-        <attribute>
-            <name>type</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>Determines how to display the blog content; valid values are currently 'billsBlog' and
-                'gsBlog'.
-            </description>
-        </attribute>
-        <attribute>
-            <name>showDate</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Boolean</type>
-            <description>True to display published date, supported by gsBlog type only.</description>
-        </attribute>
-        <attribute>
-            <name>hideAuthorImages</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Boolean</type>
-            <description>True to hide blogger photos.</description>
-        </attribute>
-    </tag>
+    <!--GS-12398 new function to return the list of blog entries to be displayed in sidebar blog module-->
+    <function>
+        <name>getBlogEntries</name>
+        <function-class>gs.web.content.BlogFeedContentUtil</function-class>
+        <function-signature>java.util.List getBlogEntries(java.lang.String,int,boolean,boolean)</function-signature>
+    </function>
 
     <tag>
         <name>feed</name>
@@ -183,4 +127,3 @@
 
 
 </taglib>
-

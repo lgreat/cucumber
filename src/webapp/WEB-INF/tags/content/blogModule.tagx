@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
+        >
+
+    <c:set var="numBlogEntries" property="java.lang.Integer" value="${2}"/>
+    <c:set var="atomURL" property="java.lang.String" value="http://feeds2.feedburner.com/GreatschoolsBlog"/>
+    <c:set var="fetchAuthorImage" property="java.lang.Boolean" value="${true}"/>
+    <c:set var="fetchBlogEntryText" property="java.lang.Boolean" value="${true}"/>
+    <c:set var="blogEntries" value="${content:getBlogEntries(atomURL, numBlogEntries, fetchAuthorImage, fetchBlogEntryText)}" property="java.util.List"/>
+
+    <c:forEach var="blogEntry" items="${blogEntries}">
+        <div class="blogpromo">
+            <div class="blogpromo_image_wrap">
+                <c:choose>
+                    <c:when test="${blogEntry.title eq null}">
+                        <img class="blogpromo_image" src="/res/img/pixel.gif" alt="${blogEntry.author}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <a onclick="Popup=window.open('${blogEntry.link}','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;" href="${blogEntry.link}">
+                            <img class="blogpromo_image" src="${blogEntry.authorImage}" alt="${blogEntry.author}"/>
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            <div class="blogpromo_entry text3">
+                <a onclick="Popup=window.open('${blogEntry.link}','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;" href="${blogEntry.link}"> ${blogEntry.title} </a>
+                <div class="authorDate">
+                    <span class="smallAlertTextBoldNeutral"> ${blogEntry.author} </span>
+                    <span class="smallText1">${blogEntry.date}</span>
+                </div>
+                <c:if test="${blogEntry.text != null}">
+                    <span class="blogpromo_description"> ${blogEntry.text} </span>
+                </c:if>
+            </div>
+        </div>
+    </c:forEach>
+</jsp:root>

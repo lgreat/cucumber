@@ -10,10 +10,10 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gsweb="gstaglib"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
-          xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
+          xmlns:gsweb="gstaglib"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -169,22 +169,19 @@
                 <!--&amp;nbsp;-->
             <!--</div>-->
         <!--</div>-->
+        <gsweb:cache key="gsweb_pressroompage_blog">
         <div class="mod fromBlog">
             <div class="mod_hd">
                 <h3>From Our Blog</h3>
             </div>
             <div class="mod_bd">
-                    <content:blogFeed atomUrl="http://feeds2.feedburner.com/GreatschoolsBlog"
-                                      defaultTitle="GreatSchools blog"
-                                      defaultUrl="http://blogs.greatschools.org/greatschoolsblog"
-                                      type="aboutBlog"
-                                      showDate="true"
-                            />
+                <content:blogModule/>
                 <a href="http://blogs.greatschools.org/greatschoolsblog" target="_blank"
                    class="fltrt smallAlertText moveUp">View more <span class="go">&amp;#187;</span></a>
                 <br class="clearfloat"/>
             </div>
         </div>
+        </gsweb:cache>
         <div class="mod mediaTwitter">
             <div class="mod_hd">
                 <h3>Twitter</h3>
@@ -221,4 +218,3 @@
 </gsml:body>
 </html>
 </jsp:root>
-

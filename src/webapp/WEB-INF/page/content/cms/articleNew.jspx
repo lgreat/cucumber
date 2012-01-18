@@ -9,6 +9,8 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:gsweb="gstaglib"
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
@@ -97,22 +99,29 @@
 
                     <article:toolsLayout1 feature="${feature}" uri="${uri}"/>
 
+                    <!--GS-12398 Display sidebar blog module only when there is no photo gallery or related videos or related articles or feature sidebar is displayed-->
+                    <c:set var="showBlogModule" value="${true}" property="java.lang.Boolean"/>
+
                     <c:if test="${showPhotoGallery}">
+                        <c:set var="showBlogModule" value="${false}"/>
                         <div id="js_photo_gallery_container">
                             <article:photosCarousel/>
                         </div>
                     </c:if>
 
                     <c:if test="${feature.relatedVideos != null and fn:length(feature.relatedVideos) >0 }">
+                        <c:set var="showBlogModule" value="${false}"/>
                         <div><article:relatedVideosCarousel feature="${feature}"/></div>
                     </c:if>
 
                     <c:if test="${not empty feature.relatedArticles}">
+                        <c:set var="showBlogModule" value="${false}"/>
                         <article:relatedArticles feature="${feature}"/>
                     </c:if>
 
 
                     <c:if test="${not empty feature.sidebar}">
+                        <c:set var="showBlogModule" value="${false}"/>
                         <div class="mod articleSidebar">
                             <div class="inner">
                                 <div class="bd">
@@ -120,6 +129,12 @@
                                 </div>
                             </div>
                         </div>
+                    </c:if>
+
+                    <c:if test="${showBlogModule}">
+                        <gsweb:cache key="article_sidebar_blog">
+                            <content:articleSidebarBlogModule/>
+                        </gsweb:cache>
                     </c:if>
                 </div>
                 <!--Sidebar-->

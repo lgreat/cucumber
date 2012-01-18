@@ -1795,12 +1795,6 @@
         <property name="viewName" value="/community/registration/getUserProfile"/>
     </bean>
 
-    <bean name="/community/localCommunity.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/community/local/localCommunity"/>
-    </bean>
-
     <bean name="/community/deactivateUser.page"
           class="gs.web.community.DeactivateUserController"
           autowire="byName" lazy-init="true"/>
