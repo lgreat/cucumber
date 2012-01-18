@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.273 2012/01/13 22:57:55 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.274 2012/01/18 15:37:57 aroy Exp $
  */
 
 package gs.web.util;
@@ -958,7 +958,7 @@ public class UrlBuilder {
             _path = "/newsletters/";
         } else if (ESP_REGISTRATION.equals(page)) {
             _perlPage = false;
-            _path = "/school/esp/form.page";
+            _path = "/school/esp/register.page";
         } else if (ESP_SIGN_IN.equals(page)) {
             _perlPage = false;
             _path = "/school/esp/signIn.page";

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/school/esp/")
+@RequestMapping("/school/esp/landing.page")
 public class EspController {
     public static final String VIEW = "school/espLanding";
 
@@ -30,7 +30,7 @@ public class EspController {
     @Autowired
     private ISchoolDao _schoolDao;
 
-    @RequestMapping(value = "landing.page", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String showLandingPage(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();

@@ -49,7 +49,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     @Autowired
     private ISchoolDao _schoolDao;
 
-    @RequestMapping(value = "form.page", method = RequestMethod.GET)
+    @RequestMapping(value = "register.page", method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
@@ -80,7 +80,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         return VIEW;
     }
 
-    @RequestMapping(value = "form.page", method = RequestMethod.POST)
+    @RequestMapping(value = "register.page", method = RequestMethod.POST)
     public String createEspMembership(@ModelAttribute("schoolEspCommand") EspMembershipCommand command,
                                       BindingResult result,
                                       HttpServletRequest request,

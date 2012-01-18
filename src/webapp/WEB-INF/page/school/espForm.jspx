@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:form="http://www.springframework.org/tags/form"
+          version="2.0" >
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>ESP Form</title>
+        <script type="text/javascript">
+            var GS = GS || {};
+            GS.espForm = GS.espForm || {}; // packages and below do not need "var"
+            GS.espForm.currentPage = ${page};
+            GS.espForm.maxPage = 2;
+
+            <![CDATA[
+            // True globals here. Must be namespaced
+
+            new (function() {
+                GS.util = GS.util || {};
+                GS.util.getUrlVars = function() {
+                    var vars = {};
+                    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                        vars[key] = value;
+                    });
+                    return vars;
+                };
+
+                var saveForm = function() {
+                    var form = jQuery('#espFormPage' + GS.espForm.currentPage);
+
+                    var data = form.serializeArray();
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: document.location,
+                        data: data
+                    }).done(function() {
+                                // fetch next page
+                                var nextPage = GS.espForm.currentPage+1;
+                                if (nextPage > GS.espForm.maxPage) {
+                                    // redirect to landing page
+                                } else {
+                                    // redirect to next page
+                                    var myParams = GS.util.getUrlVars();
+                                    var newUrl = '/school/esp/form.page?state=' + myParams.state + '&schoolId=' + myParams.schoolId + '&page=' + nextPage;
+                                    window.location = newUrl;
+                                }
+
+                            }
+                    ).fail(function() {
+                                alert("Error");
+                            }
+                    );
+                };
+
+                // on document load block, keep this inside closure to have access to closure-scoped variables
+                jQuery(function() {
+
+                    // event handlers that require document to be loaded go here
+                    $('#espFormPage' + GS.espForm.currentPage).on('submit', function() {
+                        saveForm();
+                        return false;
+                    });
+                });
+            })();
+            ]]>
+        </script>
+    </head>
+
+    <gsml:body adPageName="school/esp" pageLayout="nocol">
+
+        <c:choose>
+            <c:when test="${page eq 1}">
+                <school:espFormPage1/>
+            </c:when>
+            <c:when test="${page eq 2}">
+                <school:espFormPage2/>
+            </c:when>
+        </c:choose>
+        <div style="display:none;">
+            <mod:tracking pageName="ESP Form" hier1="TBD"/>
+        </div>
+    </gsml:body>
+    </html>
+</jsp:root>
