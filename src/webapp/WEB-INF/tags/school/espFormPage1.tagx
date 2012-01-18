@@ -14,9 +14,6 @@
         <h2>Page 1 for ${school.name}</h2>
         <label for="form_admissions_url">Admissions URL: </label>
         <input id="form_admissions_url" type="text" name="admissions_url" value="${admissions_url}"/>
-
-        <br/><br/>
-        <button name="submit" type="submit">Submit</button>
     </form:form>
 
 

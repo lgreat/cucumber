@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.274 2012/01/18 15:37:57 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.275 2012/01/18 17:02:26 aroy Exp $
  */
 
 package gs.web.util;
@@ -21,6 +21,7 @@ import gs.data.util.SpringUtil;
 import gs.data.community.User;
 import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
+import gs.web.school.EspFormController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
@@ -180,6 +181,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
     public static final VPage SCHOOL_PROFILE_ESP_LOGIN = new VPage("vpage:schoolEspLogin");
     public static final VPage SCHOOL_PROFILE_ESP = new VPage("vpage:schoolEspView");
+    public static final VPage SCHOOL_PROFILE_ESP_FORM = new VPage("vpage:schoolEspForm");
     public static final VPage SCHOOL_AUTHORIZER = new VPage("vpage:schoolAuthorizer");
 
     public static final VPage SCHOOL_START_SURVEY = new VPage("vpage:schoolStartSurvey");
@@ -608,6 +610,12 @@ public class UrlBuilder {
     public UrlBuilder(School school, Integer pageNumber, VPage page) {
         if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), pageNumber);
+        } else if (SCHOOL_PROFILE_ESP_FORM.equals(page)) {
+            _perlPage = false;
+            _path = EspFormController.PATH_TO_FORM;
+            setParameter(EspFormController.PARAM_STATE, school.getDatabaseState().getAbbreviationLowerCase());
+            setParameter(EspFormController.PARAM_SCHOOL_ID, String.valueOf(school.getId()));
+            setParameter(EspFormController.PARAM_PAGE, String.valueOf(pageNumber));
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

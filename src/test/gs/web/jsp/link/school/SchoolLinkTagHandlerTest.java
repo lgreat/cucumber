@@ -134,4 +134,17 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
                 builder.asSiteRelativeXml(null));
 
     }
+    
+    public void testEspFormTagHandler() {
+        EspFormTagHandler tagHandler = new EspFormTagHandler();
+        
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        tagHandler.setSchool(school);
+        tagHandler.setPage(2);
+
+        UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
+        assertEquals("/school/esp/form.page?page=2&schoolId=1&state=ca", urlBuilder.asSiteRelative(null));
+    }
 }

@@ -14,9 +14,6 @@
         <h2>Page 2 for ${school.name}</h2>
         <label for="form_facebook_url">Facebook URL: </label>
         <input id="form_facebook_url" type="text" name="facebook_url" value="${facebook_url}"/>
-
-        <br/><br/>
-        <button name="submit" type="submit">Submit</button>
     </form:form>
 
 
