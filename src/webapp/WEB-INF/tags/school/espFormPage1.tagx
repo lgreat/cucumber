@@ -6,7 +6,7 @@
     <school:espFormTemplate page="${page}" maxPage="${maxPage}" headerText="School basic info">
 
         <label for="form_admissions_url">Admissions URL: </label>
-        <input id="form_admissions_url" type="text" name="admissions_url" value="${admissions_url}"/>
+        <input id="form_admissions_url" type="text" name="admissions_url" value="${responseMap['admissions_url']['_value']}"/>
 
     </school:espFormTemplate>
 </jsp:root>

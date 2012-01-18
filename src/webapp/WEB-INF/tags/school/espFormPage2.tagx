@@ -2,20 +2,48 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <school:espFormTemplate page="${page}" maxPage="${maxPage}" headerText="School model">
 
+        <label>Please indicate if your school has a special academic theme or area of focus</label>
+        <br/>
+        <label for="form_academic_focus_vocational">Vocational education</label>
+        <gsml:checkbox styleId="form_academic_focus_vocational" name="academic_focus" value="vocational"
+                       checked="${not empty responseMap['academic_focus']['vocational']}"/>
+        <br/>
+        <label for="form_academic_focus_mathematics">Mathematics</label>
+        <gsml:checkbox styleId="form_academic_focus_mathematics" name="academic_focus" value="mathematics"
+                       checked="${not empty responseMap['academic_focus']['mathematics']}"/>
+
+
+        <!--Science-->
+        <!--Technology-->
+        <!--Arts (all)-->
+        <!--Foreign languages-->
+        <!--Religious-->
+        <!--Business-->
+        <!--Visual arts-->
+        <!--Performing arts-->
+        <!--Medical-->
+        <!--Music-->
+        <!--Engineering-->
+        <!--Service learning-->
+        <!--Special Education-->
+
+        <br/><br/>
+
         <label for="form_best_known_for">What is your school best known for?</label>
-        <input id="form_best_known_for" type="text" name="best_known_for" value="${best_known_for}"/>
+        <input id="form_best_known_for" type="text" name="best_known_for" value="${responseMap['best_known_for']['_value']}"/>
 
         <br/><br/>
         <label>What colleges do most students attend after graduation?</label>
         <br/>
-        <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${college_destination_1}"/>
+        <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${responseMap['college_destination_1']['_value']}"/>
         <br/>
-        <label for="form_college_destination_2">2: </label><input id="form_college_destination_2" type="text" name="college_destination_2" value="${college_destination_2}"/>
+        <label for="form_college_destination_2">2: </label><input id="form_college_destination_2" type="text" name="college_destination_2" value="${responseMap['college_destination_2']['_value']}"/>
         <br/>
-        <label for="form_college_destination_3">3: </label><input id="form_college_destination_3" type="text" name="college_destination_3" value="${college_destination_3}"/>
+        <label for="form_college_destination_3">3: </label><input id="form_college_destination_3" type="text" name="college_destination_3" value="${responseMap['college_destination_3']['_value']}"/>
         <br/>
 
     </school:espFormTemplate>

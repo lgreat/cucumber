@@ -19,7 +19,7 @@ new (function() {
         return deferred.promise();
     };
     var sendToLandingPage = function() {
-        window.location = '/school/esp/landing.page';
+        window.location = '/school/esp/dashboard.page';
     };
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();

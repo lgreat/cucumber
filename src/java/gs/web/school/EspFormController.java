@@ -13,7 +13,6 @@ import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author aroy@greatschools.org
@@ -74,12 +70,28 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("school", school);
         modelMap.put("page", page);
         modelMap.put("maxPage", maxPage);
+
+        putResponsesInModel(school, page, modelMap);
+
+        return VIEW;
+    }
+    
+    protected void putResponsesInModel(School school, int page, ModelMap modelMap) {
+        Map<String, Object> responseMap = new HashMap<String, Object>();
+        
         Set<String> keysForPage = getKeysForPage(page);
         List<EspResponse> responses = _espResponseDao.getResponsesByKeys(school, keysForPage);
         for (EspResponse response: responses) {
-            modelMap.put(response.getKey(), response.getValue());
+            Map<String, String> valueMap = (Map<String, String>) responseMap.get(response.getKey());
+            if (valueMap == null) {
+                valueMap = new HashMap<String, String>();
+                valueMap.put("_value", response.getValue());
+            }
+            valueMap.put(response.getValue(), "1");
+            responseMap.put(response.getKey(), valueMap);
         }
-        return VIEW;
+        
+        modelMap.put("responseMap", responseMap);
     }
 
     @RequestMapping(value="form.page", method=RequestMethod.POST)
@@ -114,6 +126,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         Set<String> keysForPage = getKeysForPage(page);
         _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
 
+        Date now = new Date();
         // Save page
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         // this way saves null for anything not provided
@@ -122,16 +135,20 @@ public class EspFormController implements ReadWriteAnnotationController {
         for (String key: keysForPage) {
             // Do not save null values -- these are keys that might be present on a page
             // but aren't included in the request.
-            String responseValue = request.getParameter(key);
-            if (responseValue == null) {
+            String[] responseValues = request.getParameterValues(key);
+            
+            if (responseValues == null || responseValues.length == 0) {
                 continue;
             }
-            EspResponse espResponse = new EspResponse();
-            espResponse.setKey(key);
-            espResponse.setValue(responseValue);
-            espResponse.setSchool(school);
-            espResponse.setMemberId(user.getId());
-            responseList.add(espResponse);
+            for (String responseValue: responseValues) {
+                EspResponse espResponse = new EspResponse();
+                espResponse.setKey(key);
+                espResponse.setValue(responseValue);
+                espResponse.setSchool(school);
+                espResponse.setMemberId(user.getId());
+                espResponse.setCreated(now);
+                responseList.add(espResponse);
+            }
         }
         
         _espResponseDao.saveResponses(school, responseList);
@@ -205,6 +222,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         if (page == 1) {
             keys.add("admissions_url");
         } else if (page == 2) {
+            keys.add("academic_focus");
             keys.add("best_known_for");
             keys.add("college_destination_1");
             keys.add("college_destination_2");
