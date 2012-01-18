@@ -3,10 +3,20 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
-    <school:espFormTemplate page="${page}" maxPage="${maxPage}" headerText="School basics &amp;amp; parents">
+    <school:espFormTemplate page="${page}" maxPage="${maxPage}" headerText="School model">
 
-        <label for="form_facebook_url">Facebook URL: </label>
-        <input id="form_facebook_url" type="text" name="facebook_url" value="${facebook_url}"/>
+        <label for="form_best_known_for">What is your school best known for?</label>
+        <input id="form_best_known_for" type="text" name="best_known_for" value="${best_known_for}"/>
+
+        <br/><br/>
+        <label>What colleges do most students attend after graduation?</label>
+        <br/>
+        <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${college_destination_1}"/>
+        <br/>
+        <label for="form_college_destination_2">2: </label><input id="form_college_destination_2" type="text" name="college_destination_2" value="${college_destination_2}"/>
+        <br/>
+        <label for="form_college_destination_3">3: </label><input id="form_college_destination_3" type="text" name="college_destination_3" value="${college_destination_3}"/>
+        <br/>
 
     </school:espFormTemplate>
 </jsp:root>

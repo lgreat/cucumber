@@ -18,11 +18,12 @@
         <title>ESP Form</title>
         <style type="text/css">
             #espFormWrapper {
-                border: 1px solid blue;
+                border: 1px solid #D1E9F3;
+                margin-top: 15px;
             }
-            #espFormHeader, #espFormFooter {
-                background-color: #bbbbdd;
-                padding: 5px;
+            #espFormWrapper dd {
+                line-height: 38px;
+                margin: 0 15px;
             }
             #espFormBody {
                 padding:25px;
@@ -42,17 +43,22 @@
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
 
-        <h2>Edit Your Online School Profile</h2>
-        <div>Your school: ${school.name}</div>
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-        <c:choose>
-            <c:when test="${page eq 1}">
-                <school:espFormPage1/>
-            </c:when>
-            <c:when test="${page eq 2}">
-                <school:espFormPage2/>
-            </c:when>
-        </c:choose>
+        <div class="container_24">
+            <div class="grid_22 prefix_1 suffix_1">
+                <h2>Edit Your Online School Profile</h2>
+                <div class="text2bold">Your school: ${school.name}</div>
+                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                <c:choose>
+                    <c:when test="${page eq 1}">
+                        <school:espFormPage1/>
+                    </c:when>
+                    <c:when test="${page eq 2}">
+                        <school:espFormPage2/>
+                    </c:when>
+                </c:choose>
+            </div>
+        </div>
+
         <div style="display:none;">
             <mod:tracking school="${school}" pageName="ESP Form Page ${page}"
                           hier1="School,SchoolProfileEspForm,${gsweb:capitalize(school.type.schoolTypeName)}"/>

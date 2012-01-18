@@ -10,36 +10,40 @@
 <jsp:directive.attribute name="headerText" required="true" description="Header text" type="java.lang.String"/>
 
     <div id="espFormWrapper">
-        <div id="espFormHeader">
-            <div class="fltrt">
-                <c:if test="${page gt 1}">
-                    <button class="js_prevPageButton">&amp;lt; Previous</button>
-                </c:if>
-                <span>Page ${page} of ${maxPage}</span>
-                <c:if test="${page lt maxPage}">
-                    <button class="js_nextPageButton">Next &amp;gt;</button>
-                </c:if>
-            </div>
-            <div>${headerText}</div>
-        </div>
+        <dl class="gradient-3">
+            <dd class="bottom">
+                <div class="fltrt">
+                    <c:if test="${page gt 1}">
+                        <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                    </c:if>
+                    <span class="mlm">Page ${page} of ${maxPage}</span>
+                    <c:if test="${page lt maxPage}">
+                        <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
+                    </c:if>
+                </div>
+                <div>${headerText}</div>
+            </dd>
+        </dl>
         <div id="espFormBody">
             <form:form id="espFormPage${page}">
                 <jsp:doBody/>
             </form:form>
         </div>
-        <div id="espFormFooter">
-            <div class="fltrt">
-                <c:if test="${page gt 1}">
-                    <button class="js_prevPageButton">&amp;lt; Previous</button>
-                </c:if>
-                <span>Page ${page} of ${maxPage}</span>
-                <c:if test="${page lt maxPage}">
-                    <button class="js_nextPageButton">Next &amp;gt;</button>
-                </c:if>
-            </div>
+        <dl class="gradient-3">
+            <dd class="bottom">
+                <div class="fltrt">
+                    <c:if test="${page gt 1}">
+                        <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                    </c:if>
+                    <span class="mlm">Page ${page} of ${maxPage}</span>
+                    <c:if test="${page lt maxPage}">
+                        <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
+                    </c:if>
+                </div>
 
-            <button class="js_saveButton">Save &amp;amp; Finish Later</button>
-        </div>
+                <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
+            </dd>
+        </dl>
     </div>
 
 </jsp:root>

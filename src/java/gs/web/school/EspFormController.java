@@ -120,10 +120,15 @@ public class EspFormController implements ReadWriteAnnotationController {
         // and won't save any extra data that isn't in keysForPage
         // I'm not yet sure that's a good thing
         for (String key: keysForPage) {
+            // Do not save null values -- these are keys that might be present on a page
+            // but aren't included in the request.
+            String responseValue = request.getParameter(key);
+            if (responseValue == null) {
+                continue;
+            }
             EspResponse espResponse = new EspResponse();
             espResponse.setKey(key);
-            // TODO: what to do with null?
-            espResponse.setValue(request.getParameter(key));
+            espResponse.setValue(responseValue);
             espResponse.setSchool(school);
             espResponse.setMemberId(user.getId());
             responseList.add(espResponse);
@@ -200,7 +205,10 @@ public class EspFormController implements ReadWriteAnnotationController {
         if (page == 1) {
             keys.add("admissions_url");
         } else if (page == 2) {
-            keys.add("facebook_url");
+            keys.add("best_known_for");
+            keys.add("college_destination_1");
+            keys.add("college_destination_2");
+            keys.add("college_destination_3");
         } else {
             _log.error("Unknown page provided to getKeysForPage: " + page);
         }

@@ -66,5 +66,9 @@ new (function() {
             saveAndPreviousPage();
             return false;
         });
+        formWrapper.find('form').on('submit', function() {
+            saveForm();
+            return false;
+        });
     });
 })();
