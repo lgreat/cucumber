@@ -10,8 +10,6 @@ import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.community.registration.UserCommand;
-import gs.web.tracking.CookieBasedOmnitureTracking;
-import gs.web.tracking.OmnitureTracking;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
@@ -35,10 +33,10 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/school/esp/")
-public class EspMembershipController implements ReadWriteAnnotationController {
-    private static final Log _log = LogFactory.getLog(EspMembershipController.class);
+public class EspRegistrationController implements ReadWriteAnnotationController {
+    private static final Log _log = LogFactory.getLog(EspRegistrationController.class);
 
-    public static final String VIEW = "school/espMembershipForm";
+    public static final String VIEW = "school/espRegistration";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -53,7 +51,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
-        EspMembershipCommand command = new EspMembershipCommand();
+        EspRegistrationCommand command = new EspRegistrationCommand();
 
         if (user != null && user.getId() != null) {
             // User already exists in the session .Therefore pre-fill in form fields.
@@ -76,12 +74,12 @@ public class EspMembershipController implements ReadWriteAnnotationController {
             modelMap.put("showRegPanel", true);
         }
 
-        modelMap.addAttribute("schoolEspCommand", command);
+        modelMap.addAttribute("espRegistrationCommand", command);
         return VIEW;
     }
 
     @RequestMapping(value = "register.page", method = RequestMethod.POST)
-    public String createEspMembership(@ModelAttribute("schoolEspCommand") EspMembershipCommand command,
+    public String createEspMembership(@ModelAttribute("espRegistrationCommand") EspRegistrationCommand command,
                                       BindingResult result,
                                       HttpServletRequest request,
                                       HttpServletResponse response) throws Exception {
@@ -162,7 +160,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(value = "checkEspUser.page", method = RequestMethod.GET)
-    public void checkIfUserExists(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) {
+    public void checkIfUserExists(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) {
         String email = command.getEmail();
         String fieldsToCollect = "";
         boolean isUserApprovedESPMember = false;
@@ -239,7 +237,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(value = "matchUserPassword.page", method = RequestMethod.GET)
-    public void matchUserPassword(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
+    public void matchUserPassword(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) throws Exception {
         String email = command.getEmail();
         String registeredPassword = command.getRegisteredPassword();
 
@@ -261,7 +259,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     }
 
 
-    protected void setFieldsOnUserUsingCommand(EspMembershipCommand espMembershipCommand, User user) {
+    protected void setFieldsOnUserUsingCommand(EspRegistrationCommand espMembershipCommand, User user) {
         if (user != null) {
             if (StringUtils.isNotBlank(espMembershipCommand.getFirstName()) && StringUtils.isBlank(user.getFirstName())) {
                 user.setFirstName(espMembershipCommand.getFirstName().trim());
@@ -280,7 +278,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
     }
 
-    protected void setUsersPassword(EspMembershipCommand espMembershipCommand, User user) throws Exception {
+    protected void setUsersPassword(EspRegistrationCommand espMembershipCommand, User user) throws Exception {
         //We accept just spaces as password.Therefore do NOT use : isBlank, use : isEmpty and do NOT trim().
         try {
             if (StringUtils.isNotEmpty(espMembershipCommand.getPassword()) && user.isPasswordEmpty()) {
@@ -293,7 +291,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         }
     }
 
-    protected void updateUserProfile(EspMembershipCommand espMembershipCommand, User user) {
+    protected void updateUserProfile(EspRegistrationCommand espMembershipCommand, User user) {
         UserProfile userProfile;
 
         if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
@@ -310,7 +308,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         //TODO set omniture success events here?
     }
 
-    protected void setUserProfileFieldsFromCommand(EspMembershipCommand espMembershipCommand, UserProfile userProfile) {
+    protected void setUserProfileFieldsFromCommand(EspRegistrationCommand espMembershipCommand, UserProfile userProfile) {
         if (userProfile != null) {
             if (StringUtils.isNotBlank(espMembershipCommand.getScreenName()) && StringUtils.isBlank(userProfile.getScreenName())) {
                 userProfile.setScreenName(espMembershipCommand.getScreenName().trim());
@@ -333,7 +331,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
     }
 
 
-    protected void saveEspMembership(EspMembershipCommand command, User user) {
+    protected void saveEspMembership(EspRegistrationCommand command, User user) {
         State state = command.getState();
         Integer schoolId = command.getSchoolId();
 
@@ -357,7 +355,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
 
     @RequestMapping(value = "checkStateSchoolUserUnique.page", method = RequestMethod.GET)
-    protected void checkStateSchoolUserUnique(HttpServletRequest request, HttpServletResponse response, EspMembershipCommand command) throws Exception {
+    protected void checkStateSchoolUserUnique(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) throws Exception {
         State state = command.getState();
         Integer schoolId = command.getSchoolId();
         String email = command.getEmail();
@@ -387,7 +385,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
 
     }
 
-    protected void validate(EspMembershipCommand espMembershipCommand, BindingResult result, User user) {
+    protected void validate(EspRegistrationCommand espMembershipCommand, BindingResult result, User user) {
         UserCommandValidator validator = new UserCommandValidator();
         validator.setUserDao(getUserDao());
         UserCommand userCommand = new UserCommand();
@@ -450,7 +448,7 @@ public class EspMembershipController implements ReadWriteAnnotationController {
         return emv.isValid(email);
     }
 
-    protected String getSchoolOverview(HttpServletRequest request, EspMembershipCommand command) {
+    protected String getSchoolOverview(HttpServletRequest request, EspRegistrationCommand command) {
         State state = command.getState();
         int schoolId = command.getSchoolId();
         if (state != null && schoolId > 0) {

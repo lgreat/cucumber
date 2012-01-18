@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/school/esp/signIn.page")
 public class EspSignInController implements ReadWriteAnnotationController {
-    private static final Log _log = LogFactory.getLog(EspMembershipController.class);
+    private static final Log _log = LogFactory.getLog(EspRegistrationController.class);
 
     public static final String VIEW = "school/espSignIn";
 
@@ -44,7 +44,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
-        EspMembershipCommand command = new EspMembershipCommand();
+        EspRegistrationCommand command = new EspRegistrationCommand();
 
         //member cookie is set and user has ESP role.
         if (user != null && user.getId() != null && user.hasRole(Role.ESP_MEMBER)) {
@@ -52,12 +52,12 @@ public class EspSignInController implements ReadWriteAnnotationController {
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
-        modelMap.addAttribute("schoolEspCommand", command);
+        modelMap.addAttribute("espRegistrationCommand", command);
         return VIEW;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String signIn(@ModelAttribute("schoolEspCommand") EspMembershipCommand command,
+    public String signIn(@ModelAttribute("espRegistrationCommand") EspRegistrationCommand command,
                          BindingResult result,
                          HttpServletRequest request,
                          HttpServletResponse response) throws Exception {

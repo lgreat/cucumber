@@ -19,9 +19,9 @@
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
 
-        <form:form commandName="schoolEspCommand">
+        <form:form commandName="espRegistrationCommand">
             <form:label path="email">Email address </form:label>
-            <form:input path="email" cssClass="field" id="js_email" value="${schoolEspCommand.email}"/>
+            <form:input path="email" cssClass="field" id="js_email" value="${espRegistrationCommand.email}"/>
             <!--<form:errors path="email" cssClass="error" />-->
             <form:errors path="email">
                 <c:forEach items="${messages}" var="message">

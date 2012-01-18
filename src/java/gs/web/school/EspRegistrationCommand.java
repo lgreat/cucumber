@@ -3,7 +3,7 @@ package gs.web.school;
 import gs.web.util.validator.EmailValidator;
 import gs.data.state.State;
 
-public class EspMembershipCommand implements EmailValidator.IEmail {
+public class EspRegistrationCommand implements EmailValidator.IEmail {
     private String _firstName;
     private String _lastName;
     private String _email;
