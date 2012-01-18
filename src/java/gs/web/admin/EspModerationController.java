@@ -128,7 +128,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
             Date now = new Date();
             String nowAsString = String.valueOf(now.getTime());
             hash = DigestUtil.hashString(hash + nowAsString);
-            String redirect = new UrlBuilder(UrlBuilder.ESP_LANDING).toString();
+            String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
             urlBuilder.addParameter("date", nowAsString);

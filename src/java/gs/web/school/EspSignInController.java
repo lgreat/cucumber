@@ -48,7 +48,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
         //member cookie is set and user has ESP role.
         if (user != null && user.getId() != null && user.hasRole(Role.ESP_MEMBER)) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_LANDING);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
 
@@ -90,7 +90,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
                             if (matchesPassword) {
                                 PageHelper.setMemberAuthorized(request, response, user, true);
-                                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_LANDING);
+                                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
                                 return "redirect:" + urlBuilder.asFullUrl(request);
                             } else {
                                 result.rejectValue("password", null, "Incorrect password.");

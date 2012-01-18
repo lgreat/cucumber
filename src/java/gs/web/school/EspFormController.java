@@ -68,7 +68,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         int page = getPage(request);
         int maxPage = getMaxPageForSchool(school);
         if (page < 1 || page > maxPage) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_LANDING);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
         modelMap.put("school", school);

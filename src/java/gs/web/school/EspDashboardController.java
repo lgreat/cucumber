@@ -10,7 +10,6 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping("/school/esp/landing.page")
-public class EspController {
-    public static final String VIEW = "school/espLanding";
+@RequestMapping("/school/esp/dashboard.page")
+public class EspDashboardController {
+    public static final String VIEW = "school/espDashboard";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -35,8 +34,7 @@ public class EspController {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
 
-        boolean userHasESPAccess = checkUserHasAccess(modelMap, user, request);
-        if (userHasESPAccess) {
+        if (checkUserHasAccess(modelMap, user)) {
             return VIEW;
         }
 
@@ -44,22 +42,20 @@ public class EspController {
         return "redirect:" + urlBuilder.asFullUrl(request);
     }
 
-    protected boolean checkUserHasAccess(ModelMap modelMap, User user, HttpServletRequest request) {
+    protected boolean checkUserHasAccess(ModelMap modelMap, User user) {
 
         if (user != null && user.hasRole(Role.ESP_MEMBER)) {
-
             List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), true);
 
             if (!espMemberships.isEmpty()) {
-
                 //Take the user to the first active school.
                 EspMembership espMembership = espMemberships.get(0);
                 School school = getSchoolDao().getSchoolById(espMembership.getState(), espMembership.getSchoolId());
-                if (school != null) {
+                if (school != null && school.isActive()) {
                     espMembership.setSchool(school);
                     modelMap.put("espMembership", espMembership);
+                    return true;
                 }
-                return true;
             }
         }
         return false;

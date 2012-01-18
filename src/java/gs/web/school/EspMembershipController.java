@@ -105,9 +105,9 @@ public class EspMembershipController implements ReadWriteAnnotationController {
                 if (matchesPassword) {
                     PageHelper.setMemberAuthorized(request, response, user, true);
 
-                    //If user already has esp_membership,then go to landing page else the registration form.
+                    //If user already has esp_membership,then go to dashboard page else the registration form.
                     if (user.hasRole(Role.ESP_MEMBER)) {
-                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_LANDING);
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
                         return "redirect:" + urlBuilder.asFullUrl(request);
                     } else {
                         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
