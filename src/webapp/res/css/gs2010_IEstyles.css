@@ -95,6 +95,7 @@ body.ie7 #navbar, *+html #navbar {
 
 body.ie7 #mainWrap, *+html #mainWrap {
     z-index: 1;
+    position: relative;
 }
 
 body.ie7 #navbar #topnav_menusubnav .nav_menu, *+html #navbar #topnav_menusubnav .nav_menu {

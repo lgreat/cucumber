@@ -178,6 +178,7 @@ GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
     jQuery('#' + this.closeButtonDomId).click(function() {
         this.hide();
         document.getElementById("fade").style.display="none";
+        document.getElementById("mainWrap").style.zIndex="0";
     }.gs_bind(this));
 };
 
@@ -196,6 +197,7 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
 GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
     jQuery("#school-photo-medium ." + cssClass).click(function() {
         this.loadFullSizeImages();
+        document.getElementById("mainWrap").style.zIndex="5";
         document.getElementById("fade").style.display="block";
         this.show();
         $(window).resize(function() {
