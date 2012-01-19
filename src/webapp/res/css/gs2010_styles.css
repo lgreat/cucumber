@@ -953,6 +953,17 @@ h4.subhead2 a {
 /* ---------- articleDistribution2 ----------- */
 .articleDistribution2{margin-bottom:20px;}
 
+/* ---------------- GS-12324 ----------------- */
+/* -------------- espSignInForm -------------- */
+.espSignInForm {margin-bottom: 20px;}
+.espSignInForm .inner{background-color: #fafafa;padding:18px 20px 20px;}
+.espSignInForm .hd h3{margin-bottom: 15px;}
+.espSignInForm .bd label{width:138px;}
+.espSignInForm .bd input[type=text],
+.espSignInForm .bd input.text{ width: 220px;}
+.espSignInForm .bd input[type=password],
+.espSignInForm .bd input.password{ width: 220px;}
+
 /* ---------------- GS-11664 ----------------- */
 /* ------ btsSponsor (extends standard) ------ */
 .btsSponsor .inner{background-color:#f9eccd;}

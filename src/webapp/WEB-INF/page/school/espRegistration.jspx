@@ -26,6 +26,7 @@
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
+        <div class="container_24 slStylesV1-0 slFormsV1-0">
 
         <c:if test="${userLoggedIn eq true}">
             <c:set var="isReadOnly" value="true"/>
@@ -165,6 +166,7 @@
             </div>
 
         </form:form>
+        </div>
     </gsml:body>
 
     </html>

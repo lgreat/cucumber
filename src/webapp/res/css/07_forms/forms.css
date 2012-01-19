@@ -38,7 +38,7 @@ Misc classes
 -------------------------------------------------------------- */
 .slFormsV1-0 fieldset{}
 .slFormsV1-0 legend{}
-.slFormsV1-0 label{ margin: 5px 0; padding: 5px 0; }
+.slFormsV1-0 label{ margin: 5px 0; }
 
 .slFormsV1-0 select,
 .slFormsV1-0 input[type=text],
@@ -80,7 +80,7 @@ Misc classes
 .slFormsV1-0 .alert, 
 .slFormsV1-0 .notice, 
 .slFormsV1-0 .success, 
-.slFormsV1-0 .info {padding: 0.8em;margin-bottom: 1em;border: 2px solid #ddd;}
+.slFormsV1-0 .info {padding: 0.2em 0.8em;margin: 0 0 1em 1em;border: 2px solid #ddd;}
 
 .slFormsV1-0 .error, 
 .slFormsV1-0 .alert {background: #fbe3e4;color: #8a1f11;border-color: #fbc2c4;}

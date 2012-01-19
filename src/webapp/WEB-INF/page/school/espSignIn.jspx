@@ -18,38 +18,81 @@
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
+        <div class="spacer_20"><!-- do not collapse --></div>
+        <div class="container_24 slStylesV1-0 slFormsV1-0">
+            <div class="grid_16">
 
-        <form:form commandName="espRegistrationCommand">
-            <form:label path="email">Email address </form:label>
-            <form:input path="email" cssClass="field" id="js_email" value="${espRegistrationCommand.email}"/>
-            <!--<form:errors path="email" cssClass="error" />-->
-            <form:errors path="email">
-                <c:forEach items="${messages}" var="message">
-                    <strong class="errorMessage1 formErrorText">
-                        &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                    </strong>
-                </c:forEach>
-            </form:errors>
+                <h1 class="">Sign in to access your Online School Profile</h1>
+
+                <p class="">You must be a school official with a special access account on GreatSchools to edit an Online School Profile.</p>
+
+                <div class="mod espSignInForm">
+                    <div class="inner">
+                        <div class="hd">
+                            <h3 class="">Returning school official sign in</h3>
+                        </div>
+                        <div class="bd">
+                            <form:form commandName="espRegistrationCommand">
+
+                                <div class="formRow">
+                                    <form:label path="email">Email address </form:label>
+                                    <form:input path="email" cssClass="field" id="js_email"
+                                                value="${espRegistrationCommand.email}"/>
+                                    <!--<form:errors path="email" cssClass="error" />-->
+                                    <form:errors path="email">
+                                        <c:forEach items="${messages}" var="message">
+                                            <span class="alert">${message}</span>
+                                        </c:forEach>
+                                    </form:errors>
+                                </div>
 
 
-            <div id="js_passwordDiv">
-                <form:label path="password">Password </form:label>
-                <form:password path="password" cssClass="field" id="js_password"/>
-                <!--<form:errors path="password" cssClass="error" />-->
-                <form:errors path="password">
-                    <c:forEach items="${messages}" var="message">
-                        <strong class="errorMessage1 formErrorText">
-                            &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
-                    </c:forEach>
-                </form:errors>
+                                <div id="js_passwordDiv">
+                                    <div class="formRow">
+                                        <form:label path="password">Password </form:label>
+                                        <form:password path="password" cssClass="field" id="js_password"/>
+                                        <!--<form:errors path="password" cssClass="error" />-->
+                                        <form:errors path="password">
+                                            <c:forEach items="${messages}" var="message">
+                                                <span class="alert">${message}</span>
+                                            </c:forEach>
+                                        </form:errors>
+                                    </div>
+                                </div>
+
+                                <div class="formRow">
+                                    <input class="button-1" type="submit" value="Sign in" id="js_submit"/>
+                                </div>
+
+                                <div class="">
+                                <a href="javascript:void(0);">Forgot your password?</a>
+                                </div>
+
+                            </form:form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="grid_8">
+                <p class="">New to GreatSchools? <a href="javascript:void(0);">Create a School Official account.</a></p>
 
-            <div>
-                <input type="submit" value="submit" id="js_submit"/>
+                <h3 class="">Want to create an Online School Profile?</h3>
+
+                <ul>
+                    <li>It's absolutely free and simple to create!</li>
+                    <li>It highlights your school's strenghts</li>
+                    <li>It provides a common place to post all of your school's information</li>
+                    <li>It's a community resource that many people will see</li>
+                    <li>It can link to your school or district website</li>
+                </ul>
+
+                <p class="">You must be a principal or a school official to create an Online School Profile. We will verify your identity after you sign up.</p>
+
+                <a class="button-1" href="javascript:void(0);">Create an account</a>
+
             </div>
-
-        </form:form>
+        </div>
     </gsml:body>
 
     </html>
