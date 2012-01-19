@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.11 2012/01/12 05:14:05 ssprouse Exp $
+ * $Id: SessionContextInterceptor.java,v 1.12 2012/01/19 18:33:14 ssprouse Exp $
  */
 package gs.web.util.context;
 
@@ -30,16 +30,12 @@ public class SessionContextInterceptor implements HandlerInterceptor {
 
     private SessionContextUtil _sessionContextUtil;
 
-    @Autowired
-    private RequestInfo _requestInfo;
-
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object o) throws Exception {
         SessionContext context = _sessionContextUtil.prepareSessionContext(request, response);
         PageHelper pageHelper = new PageHelper(context, request);
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
-        request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, _requestInfo);
         return true; // go on
     }
 
@@ -57,4 +53,3 @@ public class SessionContextInterceptor implements HandlerInterceptor {
     }
 
 }
-

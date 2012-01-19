@@ -4,6 +4,8 @@ package gs.web.mobile;
 import gs.web.request.RequestInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -15,8 +17,7 @@ import java.util.List;
 public class DeviceSpecificControllerFactory implements IDeviceSpecificControllerFactory {
     private static Logger _log = Logger.getLogger(DeviceSpecificControllerFactory.class);
 
-    @Autowired
-    private RequestInfo _requestInfo;
+    HttpServletRequest _httpServletRequest;
 
     public DeviceSpecificControllerFactory(){}
 
@@ -24,7 +25,11 @@ public class DeviceSpecificControllerFactory implements IDeviceSpecificControlle
     }
 
     public IDeviceSpecificControllerPartOfPair getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers) {
-        if (_requestInfo == null) {
+        if (_httpServletRequest == null) {
+            throw new IllegalStateException("Request cannot be null.");
+        }
+        RequestInfo requestInfo =  RequestInfo.getRequestInfo(_httpServletRequest);
+        if (requestInfo == null) {
             throw new IllegalStateException("requestInfo was null.");
         }
 
@@ -47,7 +52,7 @@ public class DeviceSpecificControllerFactory implements IDeviceSpecificControlle
             // Controller implements IDeviceSpecificControllerPartOfPair
             // OR chooses not to implement any interface (default). Controller is chosen automatically based on
             // whether or not a mobile-capable controller is needed.
-            if (_requestInfo.shouldRenderMobileView()) {
+            if (requestInfo.shouldRenderMobileView()) {
                 if (controllerSupportsMobile) {
                     chosenController = controller;
                 }
@@ -60,7 +65,7 @@ public class DeviceSpecificControllerFactory implements IDeviceSpecificControlle
 
         if (chosenController == null) {
             String msg = "No valid controller configured for request needing ";
-            if (_requestInfo.shouldRenderMobileView()) {
+            if (requestInfo.shouldRenderMobileView()) {
                 msg += "mobile controller";
             } else {
                 msg += "desktop-only controller";
@@ -72,4 +77,3 @@ public class DeviceSpecificControllerFactory implements IDeviceSpecificControlle
     }
 
 }
-

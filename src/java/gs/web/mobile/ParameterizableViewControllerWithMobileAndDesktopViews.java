@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * and configure it with your mobile view name
  */
 public class ParameterizableViewControllerWithMobileAndDesktopViews extends ParameterizableViewController implements IControllerWithMobileSupport {
-    
+
     private String _mobileViewName;
 
     private boolean _beanSupportsDesktopRequests;
@@ -28,11 +28,8 @@ public class ParameterizableViewControllerWithMobileAndDesktopViews extends Para
         _beanSupportsMobileRequests = true;
     }
 
-    @Autowired
-    private RequestInfo _requestInfo;
-
-    public String resolveViewName() {
-        if (_requestInfo.shouldRenderMobileView()) {
+    public String resolveViewName(RequestInfo requestInfo) {
+        if (requestInfo.shouldRenderMobileView()) {
             return getMobileViewName();
         } else {
             return getViewName();
@@ -42,7 +39,8 @@ public class ParameterizableViewControllerWithMobileAndDesktopViews extends Para
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        return new ModelAndView(resolveViewName());
+        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+        return new ModelAndView(resolveViewName(requestInfo));
     }
 
     public String getMobileViewName() {
@@ -51,10 +49,6 @@ public class ParameterizableViewControllerWithMobileAndDesktopViews extends Para
 
     public void setMobileViewName(String mobileViewName) {
         _mobileViewName = mobileViewName;
-    }
-
-    public void setRequestInfo(RequestInfo requestInfo) {
-        _requestInfo = requestInfo;
     }
 
     public boolean beanSupportsDesktopRequests() {
@@ -72,4 +66,5 @@ public class ParameterizableViewControllerWithMobileAndDesktopViews extends Para
     public void setBeanSupportsMobileRequests(boolean beanSupportsMobileRequests) {
         _beanSupportsMobileRequests = beanSupportsMobileRequests;
     }
+
 }

@@ -2766,10 +2766,6 @@
     </bean>
 
 
-    <bean id="requestInfo" class="gs.web.request.RequestInfo" scope="request" init-method="init" lazy-init="false" autowire="byType">
-        <!-- Is scoped proxy so that this request-scoped bean plays well with singleton-scoped beans. -->
-        <aop:scoped-proxy />
-    </bean>
 
 
 </beans>

@@ -47,6 +47,10 @@ public class RequestInfo {
         }
         _request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, this);
     }
+    
+    public static RequestInfo getRequestInfo(HttpServletRequest request) {
+        return (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+    }
 
     /******************************************************************************/
     /* Support for mobile site                                                    */

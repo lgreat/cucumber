@@ -81,6 +81,12 @@ public class RequestInfoTest {
 
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("localhost"));
         assertEquals("localhost", hostnameInfo.getBaseHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("maddy.greatschools.org"));
+        assertEquals("maddy.greatschools.org", hostnameInfo.getBaseHostname());
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("pk.maddy.greatschools.org"));
+        assertEquals("maddy.greatschools.org", hostnameInfo.getBaseHostname());
     }
 
     @Test
@@ -124,6 +130,11 @@ public class RequestInfoTest {
         hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("localhost"));
         assertEquals("localhost", hostnameInfo.getHostnameForTargetSubdomain(null));
 
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("maddy.greatschools.org"));
+        assertEquals("maddy.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(null));
+
+        hostnameInfo = new RequestInfo(getHttpServletRequestForHostname("qa.greatschools.org"));
+        assertEquals("qa.greatschools.org", hostnameInfo.getHostnameForTargetSubdomain(null));
     }
 
     @Test

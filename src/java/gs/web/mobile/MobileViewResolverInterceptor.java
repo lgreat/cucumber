@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MobileViewResolverInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    RequestInfo _requestInfo;
-    
     public static final String HAS_MOBILE_VIEW_MODEL_KEY = "hasMobileView";
     public static final String MOBILE_VIEW_NAME_SUFFIX = "-mobile";
 
@@ -29,6 +26,11 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
 	}
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+        if (requestInfo == null) {
+            throw new IllegalStateException("RequestInfo cannot be null");
+        }
+
         if (modelAndView != null && modelAndView.getModel() != null) {
 
             IControllerWithMobileSupport controller;
@@ -51,7 +53,7 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
                     // get the name of the default view that was configured for the controller
                     String viewName =  ((IViewSelectionYieldedToInterceptor) handler).getViewName();
 
-                    if (_requestInfo.shouldRenderMobileView()) {
+                    if (requestInfo.shouldRenderMobileView()) {
                         if (mobileViewName == null) {
                             // if no mobile name was configured, use the default naming convention
                             modelAndView.setViewName(modelAndView.getViewName() + MOBILE_VIEW_NAME_SUFFIX);
@@ -68,7 +70,7 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
                 }
             }
 
-            if (_requestInfo.isMobileSiteEnabled()) {
+            if (requestInfo.isMobileSiteEnabled()) {
                 // allows view to render link to alternate (mobile | desktop) version if desired
                 modelAndView.getModel().put(HAS_MOBILE_VIEW_MODEL_KEY, controllerSupportsMobile);
             }
@@ -79,4 +81,3 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
     }
 
 }
-

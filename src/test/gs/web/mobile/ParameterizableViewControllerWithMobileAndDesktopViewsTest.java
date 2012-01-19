@@ -3,6 +3,7 @@ package gs.web.mobile;
 import gs.web.request.RequestInfo;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import static org.easymock.classextension.EasyMock.expect;
 import static org.easymock.classextension.EasyMock.verify;
@@ -22,7 +23,6 @@ public class ParameterizableViewControllerWithMobileAndDesktopViewsTest {
 
         _requestInfo = createStrictMock(RequestInfo.class);
 
-        _controller.setRequestInfo(_requestInfo);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class ParameterizableViewControllerWithMobileAndDesktopViewsTest {
         expect(_requestInfo.shouldRenderMobileView()).andReturn(false);
         replay(_requestInfo);
 
-        assertEquals("view-name", _controller.resolveViewName());
+        assertEquals("view-name", _controller.resolveViewName(_requestInfo));
         verify(_requestInfo);
         reset(_requestInfo);
 
@@ -43,7 +43,7 @@ public class ParameterizableViewControllerWithMobileAndDesktopViewsTest {
         expect(_requestInfo.shouldRenderMobileView()).andReturn(false);
         replay(_requestInfo);
 
-        assertEquals("view-name", _controller.resolveViewName());
+        assertEquals("view-name", _controller.resolveViewName(_requestInfo));
         verify(_requestInfo);
     }
 
