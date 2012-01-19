@@ -51,7 +51,7 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
         _schoolMediaDao.delete(schoolMedia);
         replay(_schoolMediaDao);
         
-        _controller.handleDelete(String.valueOf(mediaId), String.valueOf(schoolId), stateAbbreviation,  getResponse());
+        _controller.handleDelete(mediaId, schoolId, stateAbbreviation,  getResponse());
 
         verify(_schoolMediaDao);
         
@@ -66,7 +66,7 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
         expect(_schoolMediaDao.getById(eq(mediaId))).andReturn(null);
         replay(_schoolMediaDao);
 
-        _controller.handleDelete(String.valueOf(mediaId), String.valueOf(schoolId), stateAbbreviation,  getResponse());
+        _controller.handleDelete(mediaId, schoolId, stateAbbreviation,  getResponse());
 
         verify(_schoolMediaDao);
 
@@ -78,7 +78,7 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
         int schoolId = new Integer(1);
         String stateAbbreviation = "zz";
 
-        _controller.handleDelete(String.valueOf(mediaId), String.valueOf(schoolId), stateAbbreviation,  getResponse());
+        _controller.handleDelete(mediaId, schoolId, stateAbbreviation,  getResponse());
 
         assertTrue(getResponse().getContentAsString().contains("error"));
     }

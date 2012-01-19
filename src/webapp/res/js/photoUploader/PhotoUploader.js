@@ -154,6 +154,7 @@ GS.PhotoUploader.prototype.done = function() {
 
 GS.PhotoUploader.prototype.handleError = function(up, err) {
     var file = err.file, message;
+    var fileExtension = file.name.substring(file.name.lenth-4, file.name.length);
 
     this.spinner.hide();
 
@@ -164,9 +165,14 @@ GS.PhotoUploader.prototype.handleError = function(up, err) {
             message += " (" + err.details + ")";
         }
         if (err.code == plupload.FILE_SIZE_ERROR) {
+            if (file.name.indexOf('.gif',file.name.length - 4) !== -1) {
+                alert("There was an error. GIF files have a limit of 2MB. File: " + file.name + " will not be added to the queue.");
+            } else {
+                alert("There was an error. " + fileExtension.toUpperCase() + " files have a limit of 20MB before resizing. File: " + file.name + " will not be added to the queue.");
+            }
             alert("Error: File too large: " + file.name);
         } else if (err.code == plupload.FILE_EXTENSION_ERROR) {
-            alert("Error: Invalid file extension: " + file.name);
+            alert("There was an error. " + fileExtension.toUpperCase() + " files cannot be uploaded as a photo. Images must be JPEG, GIF or PNG. File: " + file.name + " will not be added to the queue.");
         } else {
             this.setStatus(file, "Error");
         }
@@ -269,4 +275,82 @@ GS.PhotoUploader.prototype.setStatusByPosition = function(position, status) {
 // mark a file upload row as done
 GS.PhotoUploader.prototype.itemComplete = function(position) {
     this.setStatusByPosition(position, "Done");
+};
+
+
+
+GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
+    this.id = id; // dom id of the viewer
+    this.url = url; // url to poll from
+    this.schoolId = schoolId;
+    this.schoolDatabaseState = schoolDatabaseState;
+
+    this.container = jQuery('#' + id);
+
+    this.STATUS_ACTIVE = 1;
+    this.numberPending = 0;
+    this.numberActive = 0;
+
+    this.pollFrequency = 5000; //ms
+    self = this;
+
+
+    this.container.find('.js-deletePhoto').click(function() {
+        var schoolMediaId = this.id.substring(15,this.id.length);
+        console.log("attacing del event for id=" + schoolMediaId);
+        GSType.hover.photoDeleteConfirmation.show(schoolMediaId, self.schoolId, self.schoolDatabaseState);
+    });
+
+    this.init = function() {
+        this.numberPending = jQuery(this.container).find('.photo-pending').length;
+        this.numberActive = jQuery(this.container).find('.photo-active').length;
+        //setTimeout(this.poll, this.pollFrequency);
+    };
+
+    this.poll = function() {
+
+        if (this.numberPending === 0) {
+            return;
+        }
+
+        var self = this;
+        var jqxhr = jQuery.get(this.url, function() {
+            console.log("get completed")
+        })
+                .done(function(data) {
+                    console.log(data);
+
+                    var photos = data.schoolMedias;
+
+                    console.log('photos length is ' + photos.length);
+
+                    for (i = 0; i < photos.length; i++) {
+                        if (photos[i].status === self.STATUS_ACTIVE) {
+
+                            var id = photos[i].id;
+
+                            var domPhoto = self.container.find('#' + id);
+                            if (domPhoto.hasClass('photo-pending')) {
+                                console.log('activating photo, updating src');
+                                domPhoto.prop('src',photos[i].smallFileName);
+                                domPhoto.removeClass('photo-pending');
+                                domPhoto.addClass('photo-active');
+                                self.numberActive+=1;
+                                self.numberPending-=1;
+                                console.log('done updating photo');
+                            }
+                        }
+                    }
+
+                    setTimeout(self.poll, self.pollFrequency);
+
+                })
+                .fail(function() { alert("error"); })
+                .complete(function() { alert("complete"); });
+    };
+
+    //every 5s poll
+    //iterate over returned photos
+    // for each photo where status = 1, if the class of the matching dom element is photo-pending, update the src of the img
+
 };

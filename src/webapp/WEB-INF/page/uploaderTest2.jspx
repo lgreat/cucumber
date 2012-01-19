@@ -28,6 +28,8 @@
     <script type="text/javascript" src="/res/js/plupload/plupload.browserplus.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/plupload/plupload.html4.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/plupload/plupload.html5.js"><!-- no collapse --></script>
+
+    <script tpe="text/javascript" src="/res/js/hover.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/photoUploader/PhotoUploader.js"><!-- no collapse --></script>
 
 </head>
@@ -101,7 +103,7 @@
 </style>
 
 
-<mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="4" schoolId="${schoolId}" schoolDatabaseState="${schoolDatabaseState}"/>
+<mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="4" schoolId="${schoolId}" schoolDatabaseState="${schoolDatabaseState}" existingPhotos="${schoolMedias}"/>
 
 
 

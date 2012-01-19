@@ -4,6 +4,7 @@ import gs.data.community.User;
 import gs.data.json.JSONObject;
 import gs.data.school.ISchoolMediaDao;
 import gs.data.school.SchoolMedia;
+import gs.data.school.SchoolMediaDaoHibernate;
 import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
@@ -17,6 +18,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +27,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.beans.PropertyEditorSupport;
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/photoUploader/photoUploaderTest.page")
+@RequestMapping("/photoUploader/photoUploaderTest")
 public class PhotoUploadController implements ReadWriteAnnotationController {
 
     private static final String RESP_SUCCESS = "{\"jsonrpc\" : \"2.0\", \"result\" : null, \"id\" : \"id\"}";
@@ -39,14 +44,36 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     
     public static final String NOT_LOGGED_IN_ERROR = "Unauthorized"; // value referenced in JS
 
-    SchoolPhotoProcessor _schoolPhotoForwarder;
-
     private ISchoolMediaDao _schoolMediaDao;
 
     protected static final Log _log = LogFactory.getLog(PhotoUploadController.class);
 
+    private class StateEditor extends PropertyEditorSupport {
+        public void setAsText(String stateAbbreviation) throws IllegalArgumentException {
+            State state = State.fromString(stateAbbreviation);
+            super.setValue(state);
+        }
+    }
+    
+    @InitBinder
+    public void initBinder(final WebDataBinder binder) {
+        binder.registerCustomEditor(State.class, null, new StateEditor());
+    }
+
     @RequestMapping(method=RequestMethod.GET)
-    public String handleGet(HttpServletRequest request, ModelMap modelMap) {
+    public String handleGet(
+            @RequestParam(value="schoolId", required=false) Integer schoolId,
+            @RequestParam(value="schoolDatabaseState", required=false) State schoolDatabaseState,
+            HttpServletRequest request, ModelMap modelMap) {
+
+        /*SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();*/
+
+        if (schoolId != null && schoolDatabaseState != null) {
+            List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(schoolId, schoolDatabaseState);
+            modelMap.put("schoolMedias", schoolMedias);
+        }
+
         modelMap.put("schoolId",1);
         modelMap.put("schoolDatabaseState","ca");
 
@@ -59,9 +86,6 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
         User user = sessionContext.getUser();
         Integer schoolId;
         State schoolDatabaseState;
-
-        schoolId = 1;
-        schoolDatabaseState = State.CA;
         Map<String,String> formFields = new HashMap<String,String>();
 
         // handle user not logged in
@@ -91,7 +115,7 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                             }
 
                             SchoolPhotoProcessor processor = createSchoolPhotoProcessor(fileStream);
-                            SchoolMedia schoolMedia = createSchoolMediaObject(schoolId, schoolDatabaseState, fileStream.getName());
+                            SchoolMedia schoolMedia = createSchoolMediaObject(user.getId(), schoolId, schoolDatabaseState, fileStream.getName());
                             getSchoolMediaDao().save(schoolMedia);
                             processor.handleScaledPhoto(user, schoolMedia.getId());
                             processor.finish();
@@ -126,22 +150,21 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     }
 
     @RequestMapping(method=RequestMethod.DELETE)
-    protected void handleDelete(@RequestParam(value="mediaId", required=true) String mediaIdString,
-                                @RequestParam(value="schoolId", required=true) String schoolIdString,
-                                @RequestParam(value="state", required=true) String state,
+    protected void handleDelete(@RequestParam(value="schoolMediaId", required=false) Integer schoolMediaId,
+                                @RequestParam(value="schoolId", required=false) Integer schoolId,
+                                @RequestParam(value="schoolDatabaseState", required=false) String schoolDatabaseState,
                                 HttpServletResponse response) {
-        Integer mediaId = Integer.valueOf(mediaIdString);
-        Integer schoolId = Integer.valueOf(schoolIdString);
+
         State databaseState = null;
         
         try {
-            databaseState = State.fromString(state);
+            databaseState = State.fromString(schoolDatabaseState);
         } catch (IllegalArgumentException e) {
             error(response, "102", "Error deleting photo.");
             return;
         }
 
-        SchoolMedia schoolMedia = _schoolMediaDao.getById((int)mediaId);
+        SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
 
         if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(databaseState)) {
             _schoolMediaDao.delete(schoolMedia);
@@ -153,10 +176,11 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
         success(response);
     }
 
-    public SchoolMedia createSchoolMediaObject(Integer schoolId, State schoolState, String fileName) {
-        int schoolMediaStatusProcessing = 0; //TODO: determine which actual value to use
+    public SchoolMedia createSchoolMediaObject(Integer memberId, Integer schoolId, State schoolState, String fileName) {
+        int schoolMediaStatusProcessing = SchoolMediaDaoHibernate.Status.PENDING.value;
 
         SchoolMedia schoolMedia = new SchoolMedia(schoolId, schoolState);
+        schoolMedia.setMemberId(memberId);
         schoolMedia.setStatus(schoolMediaStatusProcessing);
         schoolMedia.setOriginalFileName(fileName);
         return schoolMedia;

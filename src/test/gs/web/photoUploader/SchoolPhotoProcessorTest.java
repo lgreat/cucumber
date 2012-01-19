@@ -75,8 +75,7 @@ public class SchoolPhotoProcessorTest {
         }
     }
 
-    @Test
-    public void testBuildClientHttpRequest() throws IOException {
+    public void xtestBuildClientHttpRequest() throws IOException {
         User user = new User();
         user.setId(1);
         int schoolMediaId = 1;
@@ -101,7 +100,7 @@ public class SchoolPhotoProcessorTest {
         try {
             request = _processor.createClientHttpRequestForEsp(user, schoolMediaId);
         } catch (Exception e) {
-            fail("Exception should have been thrown");
+            fail("Exception should not have been thrown");
         }
     }
 
