@@ -27,7 +27,6 @@
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
 
-        <c:set var="isDisabled" value="false"/>
         <c:if test="${userLoggedIn eq true}">
             <c:set var="isReadOnly" value="true"/>
         </c:if>

@@ -10,11 +10,11 @@
         <br/>
         <label for="form_academic_focus_vocational">Vocational education</label>
         <gsml:checkbox styleId="form_academic_focus_vocational" name="academic_focus" value="vocational"
-                       checked="${not empty responseMap['academic_focus']['vocational']}"/>
+                       checked="${not empty responseMap['academic_focus'].valueMap['vocational']}"/>
         <br/>
         <label for="form_academic_focus_mathematics">Mathematics</label>
         <gsml:checkbox styleId="form_academic_focus_mathematics" name="academic_focus" value="mathematics"
-                       checked="${not empty responseMap['academic_focus']['mathematics']}"/>
+                       checked="${not empty responseMap['academic_focus'].valueMap['mathematics']}"/>
 
 
         <!--Science-->
@@ -33,17 +33,34 @@
 
         <br/><br/>
 
+        <label>What instructional and/or curriculum modes does your school use, if any?</label>
+        <br/>
+        <gsml:checkbox styleId="form_instructional_model_AP_courses" name="instructional_model" value="AP_courses"
+                       checked="${not empty responseMap['instructional_model'].valueMap['AP_courses']}"/>
+        <label for="form_instructional_model_AP_courses">Advanced placement courses</label>
+        <br/>
+        <gsml:checkbox styleId="js_instructional_model_other" name="instructional_model" value="other"
+                       checked="${not empty responseMap['instructional_model'].valueMap['other']}"
+                       styleClass="js_otherField"/>
+        <label for="js_instructional_model_other">Other:</label>
+        <gsml:input type="text" name="instructional_model_other" value="${responseMap['instructional_model_other'].value}"/>
+        <br/>
+
+
+        <br/><br/>
         <label for="form_best_known_for">What is your school best known for?</label>
-        <input id="form_best_known_for" type="text" name="best_known_for" value="${responseMap['best_known_for']['_value']}"/>
+        <input id="form_best_known_for" type="text" name="best_known_for" value="${responseMap['best_known_for'].value}"/>
 
         <br/><br/>
         <label>What colleges do most students attend after graduation?</label>
         <br/>
-        <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${responseMap['college_destination_1']['_value']}"/>
+        <label>Does not apply</label><gsml:checkbox name="foo"/>
         <br/>
-        <label for="form_college_destination_2">2: </label><input id="form_college_destination_2" type="text" name="college_destination_2" value="${responseMap['college_destination_2']['_value']}"/>
+        <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${responseMap['college_destination_1'].value}"/>
         <br/>
-        <label for="form_college_destination_3">3: </label><input id="form_college_destination_3" type="text" name="college_destination_3" value="${responseMap['college_destination_3']['_value']}"/>
+        <label for="form_college_destination_2">2: </label><input id="form_college_destination_2" type="text" name="college_destination_2" value="${responseMap['college_destination_2'].value}"/>
+        <br/>
+        <label for="form_college_destination_3">3: </label><input id="form_college_destination_3" type="text" name="college_destination_3" value="${responseMap['college_destination_3'].value}"/>
         <br/>
 
     </school:espFormTemplate>

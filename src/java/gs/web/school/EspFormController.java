@@ -82,16 +82,33 @@ public class EspFormController implements ReadWriteAnnotationController {
         Set<String> keysForPage = getKeysForPage(page);
         List<EspResponse> responses = _espResponseDao.getResponsesByKeys(school, keysForPage);
         for (EspResponse response: responses) {
-            Map<String, String> valueMap = (Map<String, String>) responseMap.get(response.getKey());
-            if (valueMap == null) {
-                valueMap = new HashMap<String, String>();
-                valueMap.put("_value", response.getValue());
+            EspResponseStruct responseStruct = (EspResponseStruct) responseMap.get(response.getKey());
+            if (responseStruct == null) {
+                responseStruct = new EspResponseStruct();
+                responseMap.put(response.getKey(), responseStruct);
             }
-            valueMap.put(response.getValue(), "1");
-            responseMap.put(response.getKey(), valueMap);
+            responseStruct.addValue(response.getValue());
         }
         
         modelMap.put("responseMap", responseMap);
+    }
+    
+    protected static class EspResponseStruct {
+        private String _value;
+        private Map<String, String> _valueMap = new HashMap<String, String>();
+
+        public String getValue() {
+            return _value;
+        }
+
+        public Map<String, String> getValueMap() {
+            return _valueMap;
+        }
+        
+        public void addValue(String value) {
+            _value = value;
+            _valueMap.put(value, "1");
+        }
     }
 
     @RequestMapping(value="form.page", method=RequestMethod.POST)
@@ -223,6 +240,8 @@ public class EspFormController implements ReadWriteAnnotationController {
             keys.add("admissions_url");
         } else if (page == 2) {
             keys.add("academic_focus");
+            keys.add("instructional_model");
+            keys.add("instructional_model_other");
             keys.add("best_known_for");
             keys.add("college_destination_1");
             keys.add("college_destination_2");

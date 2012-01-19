@@ -70,5 +70,13 @@ new (function() {
             saveForm();
             return false;
         });
+        formWrapper.find('.js_otherField').on('change', function() {
+            var field = $(this);
+            var otherFieldName = field.attr('id').substring(3);
+            var otherField = formWrapper.find('[name=' + otherFieldName + ']');
+            if (!field.prop('checked')) { // TODO: Might not work for radios?
+                otherField.val(''); // TODO: Only works for text inputs
+            }
+        });
     });
 })();
