@@ -6,6 +6,7 @@ import gs.web.mobile.UnknownDevice;
 import gs.web.util.CookieUtil;
 import gs.web.util.UrlUtil;
 import net.sourceforge.wurfl.core.WURFLManager;
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.mobile.device.site.SitePreferenceHandler;
 import org.springframework.mobile.device.site.SitePreferenceUtils;
@@ -129,8 +130,10 @@ public class RequestInfo {
         if (!isCobranded() && !_hostData.getHostname().startsWith(String.valueOf(targetSubdomain) + ".")) {
             if ((targetSubdomain == null || targetSubdomain.equals(Subdomain.WWW))) {
                 if (!isProductionHostname()) {
-                    //on some servers we just need to remove pk and not replace it with www
-                    newHostname = _hostData.getHostname().replaceFirst(_hostData.getCurrentSubdomain() + ".", "");
+                    // only non-production servers, just remove the content subdomain and go to servername.greatschools.org
+                    if (ArrayUtils.contains(HostData.CONTENT_SUBDOMAINS, Subdomain.getByValue(_hostData.getCurrentSubdomain()))) {
+                        newHostname = _hostData.getHostname().replaceFirst(_hostData.getCurrentSubdomain() + ".", "");
+                    }
                 } else {
                     newHostname = _hostData.getHostname().replaceFirst(_hostData.getCurrentSubdomain() + ".", Subdomain.WWW.toString() + ".");
                 }

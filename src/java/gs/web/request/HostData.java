@@ -29,6 +29,8 @@ public class HostData {
 
     private static String[] PRODUCTION_HOSTNAMES = {"www.greatschools.org","pk.greatschools.org","m.greatschools.org","api.greatschools.org"};
 
+    public static Subdomain[] CONTENT_SUBDOMAINS = {Subdomain.WWW, Subdomain.PK, Subdomain.MOBILE};
+
     public HostData(HttpServletRequest request) {
         _hostname = request.getServerName();
         _currentSubdomain = UrlUtil.findLowestSubdomain(request.getServerName());

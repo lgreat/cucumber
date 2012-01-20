@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.276 2012/01/18 19:12:54 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.277 2012/01/20 23:39:44 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -77,7 +77,7 @@ public class UrlBuilder {
     private boolean _perlPage = false;
     private VPage _vPage; // used for some urls
     private static UrlUtil _urlUtil = new UrlUtil();
-    private Subdomain _subdomain;
+    private Subdomain _subdomain = Subdomain.WWW; // default to the main GS product site
 
     /**
      * Provides type-safety for identifying our unique "pages".
