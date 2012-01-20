@@ -1492,6 +1492,7 @@ jQuery(function() {
 
     jQuery('#signInHover_launchJoin').click(GSType.hover.signInHover.showJoin);
     jQuery('#signInHover_launchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
+    jQuery('#esp_launchForgotPassword').click(GSType.hover.signInHover.showForgotPassword);
 
     jQuery('#signin').attr("action", "/community/loginOrRegister.page");
 // TODO-10568

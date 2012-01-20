@@ -65,7 +65,7 @@
                                 </div>
 
                                 <div class="formRow">
-                                <a href="javascript:void(0);">Forgot your password?</a>
+                                <a href="javascript:void(0);" id="esp_launchForgotPassword" onclick="">Forgot your password?</a>
                                 </div>
 
                             </form:form>
@@ -94,6 +94,11 @@
             </div>
         </div>
         <div class="spacer_60"><!-- do not collapse --></div>
+
+        <div style="display:none;">
+            <mod:tracking pageName="ESP Signin Page ${page}"
+                          hier1="ESP Signin Page"/>
+        </div>
     </gsml:body>
 
     </html>

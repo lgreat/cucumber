@@ -1,5 +1,6 @@
 package gs.web.community.registration;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -198,7 +199,12 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             getUserDao().updateUser(user);
             // log in user automatically
             PageHelper.setMemberAuthorized(request, response, user);
-            targetUrl += "?msg=updatedPassword";
+
+            if (StringUtils.isNotBlank(request.getParameter("redirectParam"))) {
+                targetUrl = request.getParameter("redirectParam");
+            } else {
+                targetUrl += "?msg=updatedPassword";
+            }
         }
         mAndV.setViewName("redirect:" + targetUrl);
 

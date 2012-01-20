@@ -6,6 +6,7 @@ package gs.web.community.registration;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.data.util.email.EmailHelper;
+import org.apache.commons.lang.StringUtils;
 import gs.web.util.AbstractSendEmailBean;
 import gs.web.util.UrlBuilder;
 import org.springframework.mail.MailException;
@@ -49,6 +50,7 @@ public class ForgotPasswordEmail extends AbstractSendEmailBean {
         emailContent.append("Dear GreatSchools member,\n\n");
         emailContent.append("You requested that we reset your password on GreatSchools. ");
         emailContent.append("Please click on the following link to select a new password: ");
+        addEspRedirectParam(request,builder);
         emailContent.append(builder.asFullUrl(request)).append("\n\n");
         emailContent.append("Thanks!\n\nThe GreatSchools Team\n");
         return emailContent.toString();
@@ -62,10 +64,21 @@ public class ForgotPasswordEmail extends AbstractSendEmailBean {
         emailContent.append("<p>Dear GreatSchools member,</p>\n\n");
         emailContent.append("<p>You requested that we reset your password on GreatSchools. ");
         emailContent.append("Please ");
+        addEspRedirectParam(request,builder);
         emailContent.append(builder.asAbsoluteAnchor(request, "click here to select a new password").asATag());
         emailContent.append(".</p>\n\n");
         emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
         return emailContent.toString();
+    }
+
+    protected void addEspRedirectParam(HttpServletRequest request, UrlBuilder builder) {
+        if (StringUtils.isNotBlank(request.getHeader("REFERER"))) {
+            UrlBuilder espBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            boolean isEsp = request.getHeader("REFERER").indexOf(espBuilder.toString()) > 0;
+            if (isEsp) {
+                builder.addParameter("redirect", espBuilder.asFullUrl(request));
+            }
+        }
     }
 
 }
