@@ -50,15 +50,15 @@
         <property name="interceptors">
             <list>
                 <!-- On pre-handle, manage the user's site preference -->
-                <bean class="gs.web.mobile.GsSitePreferenceHandlerInterceptor" />
+               <!-- <bean class="gs.web.mobile.GsSitePreferenceHandlerInterceptor" />-->
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
                 <!-- CookieInterceptor and SeoCobrandInterceptor are dependent on SessionContextInterceptor, and must come after it in config -->
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
-                <bean class="gs.web.mobile.MobileRedirectHandlerInterceptor" autowire="byName" depends-on="requestInfo"/>
-                <bean class="gs.web.mobile.MobileViewResolverInterceptor" autowire="byName" depends-on="requestInfo"/>
+                <!--<bean class="gs.web.mobile.MobileRedirectHandlerInterceptor" autowire="byName" />
+                <bean class="gs.web.mobile.MobileViewResolverInterceptor" autowire="byName" />-->
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
