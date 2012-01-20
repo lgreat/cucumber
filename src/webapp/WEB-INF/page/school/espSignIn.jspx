@@ -64,7 +64,7 @@
                                     <input class="button-1" type="submit" value="Sign in" id="js_submit"/>
                                 </div>
 
-                                <div class="">
+                                <div class="formRow">
                                 <a href="javascript:void(0);">Forgot your password?</a>
                                 </div>
 
@@ -93,6 +93,7 @@
 
             </div>
         </div>
+        <div class="spacer_60"><!-- do not collapse --></div>
     </gsml:body>
 
     </html>
