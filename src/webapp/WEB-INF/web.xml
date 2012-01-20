@@ -7,6 +7,17 @@
 
     <display-name>GSWeb</display-name>
 
+    <filter>
+        <filter-name>hiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>hiddenHttpMethodFilter</filter-name>
+        <servlet-name>pages</servlet-name>
+    </filter-mapping>
+
+
     <!--
       - Loads the root application context of this web app at startup,
       - by default from "/WEB-INF/applicationContext.xml".
@@ -46,6 +57,11 @@
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
         <url-pattern>*.page</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>*.json</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
