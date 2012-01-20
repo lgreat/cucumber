@@ -81,6 +81,9 @@ public class EspFormController implements ReadWriteAnnotationController {
         
         Set<String> keysForPage = getKeysForPage(page);
         List<EspResponse> responses = _espResponseDao.getResponsesByKeys(school, keysForPage);
+
+        modelMap.put("percentCompleted", getPercentCompletionForPage(page, school));
+
         for (EspResponse response: responses) {
             EspResponseStruct responseStruct = (EspResponseStruct) responseMap.get(response.getKey());
             if (responseStruct == null) {
@@ -234,10 +237,25 @@ public class EspFormController implements ReadWriteAnnotationController {
         return 2; // TODO: implement
     }
 
+    protected int getPercentCompletionForPage(int page, School school) {
+        Set<String> keys = getKeysForPercentCompletion(page);
+
+        if (!keys.isEmpty() && school != null) {
+            int count = _espResponseDao.getKeyCount(school, keys);
+            if (count > 0) {
+                float percent = (count / keys.size()) * 100;
+                return Math.round(percent);
+            }
+        }
+
+        return Integer.valueOf("0");
+    }
+
     protected Set<String> getKeysForPage(int page) {
         Set<String> keys = new HashSet<String>();
         if (page == 1) {
             keys.add("admissions_url");
+            keys.add("student_enrollment");
         } else if (page == 2) {
             keys.add("academic_focus");
             keys.add("instructional_model");
@@ -250,6 +268,25 @@ public class EspFormController implements ReadWriteAnnotationController {
             _log.error("Unknown page provided to getKeysForPage: " + page);
         }
 
+        return keys;
+    }
+
+    protected Set<String> getKeysForPercentCompletion(int page) {
+        Set<String> keys = new HashSet<String>();
+        if (page == 1) {
+            keys.add("admissions_url");
+            keys.add("student_enrollment");
+        } else if (page == 2) {
+            keys.add("academic_focus");
+            keys.add("instructional_model");
+            keys.add("instructional_model_other");
+            keys.add("best_known_for");
+            keys.add("college_destination_1");
+            keys.add("college_destination_2");
+            keys.add("college_destination_3");
+        } else {
+            _log.error("Unknown page provided to getKeysForPage: " + page);
+        }
         return keys;
     }
 }
