@@ -17,6 +17,7 @@ import java.util.List;
 public class DeviceSpecificControllerFactory implements IDeviceSpecificControllerFactory {
     private static Logger _log = Logger.getLogger(DeviceSpecificControllerFactory.class);
 
+    @Autowired
     HttpServletRequest _httpServletRequest;
 
     public DeviceSpecificControllerFactory(){}

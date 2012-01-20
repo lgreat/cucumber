@@ -49,7 +49,11 @@ public class RequestInfo {
     }
     
     public static RequestInfo getRequestInfo(HttpServletRequest request) {
-        return (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+        RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+        if (requestInfo == null) {
+            requestInfo = new RequestInfo(request);
+        }
+        return requestInfo;
     }
 
     /******************************************************************************/
