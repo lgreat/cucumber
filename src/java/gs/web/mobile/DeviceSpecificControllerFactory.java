@@ -4,6 +4,8 @@ package gs.web.mobile;
 import gs.web.request.RequestInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -17,19 +19,18 @@ import java.util.List;
 public class DeviceSpecificControllerFactory implements IDeviceSpecificControllerFactory {
     private static Logger _log = Logger.getLogger(DeviceSpecificControllerFactory.class);
 
-    @Autowired
-    HttpServletRequest _httpServletRequest;
-
     public DeviceSpecificControllerFactory(){}
 
     public DeviceSpecificControllerFactory(List<IDeviceSpecificControllerPartOfPair> controllers) {
     }
 
     public IDeviceSpecificControllerPartOfPair getDeviceSpecificController(List<IDeviceSpecificControllerPartOfPair> controllers) {
-        if (_httpServletRequest == null) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+
+        if (request == null) {
             throw new IllegalStateException("Request cannot be null.");
         }
-        RequestInfo requestInfo =  RequestInfo.getRequestInfo(_httpServletRequest);
+        RequestInfo requestInfo =  RequestInfo.getRequestInfo(request);
         if (requestInfo == null) {
             throw new IllegalStateException("requestInfo was null.");
         }
