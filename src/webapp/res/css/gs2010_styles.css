@@ -1335,7 +1335,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 /*----------------GS-11926 starts(FAS)----------------*/
 .tabBar{
-    margin-bottom: 7px;
+    margin-bottom: 6px;
 }
 
 .tabBar span {
@@ -1382,28 +1382,34 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 .searchBarFas {
-    height: 34px;
+    height: 36px;
 }
 
 .searchInput {
-    width: 480px;
-    height: 30px;
+    width: 479px;
+    height: 35px;
     color: #777;
     border: 1px solid #A5D3E7;
+    margin-right: 15px;
+    padding-left: 5px;
 }
 
 #byNameTabBody .searchBarFas {
-    height: 34px;
+    height: 36px;
     border: 1px solid #A5D3E7;
     background-color: #fff;
-    width:480px;
+    width:484px;
 }
 
 #byNameTabBody .searchInput {
     width: 370px;
-    height: 33px;
+    height: 35px;
     color: #777;
     border: 0;
+}
+
+#byNameTabBody button{
+    margin-left: 6px;
 }
 
 .ie7 .searchInput {

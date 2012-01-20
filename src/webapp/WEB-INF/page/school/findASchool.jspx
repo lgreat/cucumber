@@ -60,12 +60,12 @@
                 <input type="hidden" name="totalResults" value="0"/>
 
                 <div class="searchBarFas">
-                    <h6 class="fltlft bottom"><input type="text" name="searchString" class="searchInput small bottom mrs"
+                    <h6 class="fltlft bottom"><input type="text" name="searchString" class="searchInput small bottom"
                                                      id="js-findByLocationBox"
                                                      onfocus="GS_textSwitch(this, '', '   Search by city AND state or address ...');"
                                                      onblur="GS_textSwitch(this, '   Search by city AND state or address ...', '');"
                                                      value="   Search by city AND state or address ..."/></h6>
-                    <button class="button-4 searchSubmit fltlft mlm" type="submit">Search</button>
+                    <button class="button-4 searchSubmit fltlft" type="submit">Search</button>
                 </div>
                 <div class="smallest bottom fltlft pts">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
 
@@ -270,7 +270,7 @@
                         <div class="smallest fltlft pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
                     </div>
                     <div class="unit size15of100 lastUnit">
-                        <button class="button-4 searchSubmit mls" type="submit">Search</button>
+                        <button class="button-4 searchSubmit" type="submit">Search</button>
                     </div>
                 </div>
 
