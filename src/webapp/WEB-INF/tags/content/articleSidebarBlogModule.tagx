@@ -12,18 +12,25 @@
     <c:set var="blogEntries" value="${content:getBlogEntries(atomURL, numBlogEntries, fetchAuthorImage, fetchBlogEntryText)}" property="java.util.List"/>
 
     <c:if test="${not empty blogEntries}">
-        <div class="mod articleDistribution">
+        <div class="mod articleSidebarBlogModule">
             <div class="inner rnd4">
-                <h6>GreatSchools Blog</h6>
-                <ul>
-                    <c:forEach var="blogEntry" items="${blogEntries}">
-                        <li>
-                            <a onclick="Popup=window.open('${blogEntry.link}','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;" href="${blogEntry.link}"> ${blogEntry.title} </a><br/>
-                            ${blogEntry.author} <br/>
-                            ${blogEntry.date} <br/>
-                        </li>
-                    </c:forEach>
-                </ul>
+                <div class="hd">
+                    <h6>GreatSchools Blog</h6>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <c:forEach var="blogEntry" items="${blogEntries}">
+                            <li>
+                                <hr class="keyline2"/>
+                                <a class="small" onclick="Popup=window.open('${blogEntry.link}','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=917,height=600,left=50,top=50'); return false;" href="${blogEntry.link}"> ${blogEntry.title} </a><br/>
+                                <span class="smaller">
+                                    ${blogEntry.author} <br/>
+                                    ${blogEntry.date} <br/>
+                                </span>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </div>
         </div>
     </c:if>
