@@ -585,7 +585,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
-    height: 34px;
+    height: 37px;
     color: white;
     text-decoration: none;
     font: bold 18px/33px Arial, Helvetica, sans-serif;
