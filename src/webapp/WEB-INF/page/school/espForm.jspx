@@ -46,6 +46,7 @@
         <div class="container_24">
             <div class="grid_22 prefix_1 suffix_1">
                 <h2>Edit Your Online School Profile</h2>
+                <div>${percentCompleted}% completed</div>
                 <div class="text2bold">Your school: ${school.name}</div>
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                 <c:choose>
