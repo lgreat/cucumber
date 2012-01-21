@@ -9,212 +9,337 @@
           xmlns:gsweb="gstaglib"
           version="2.0" >
 
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-    <jsp:directive.page import="gs.web.util.PageHelper"/>
-    <jsp:directive.page contentType="text/html"/>
-    <pageHelper:externalJavascript file="/res/js/school/espRegistration.js"/>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:externalJavascript file="/res/js/school/espRegistration.js"/>
 
-    <head>
-        <title>ESP Sign up</title>
-        <jsp:scriptlet>
-            request.setAttribute("userLoggedIn",
-                    Boolean.valueOf(gs.web.util.PageHelper.isCommunityCookieSet(request)));
-        </jsp:scriptlet>
-    </head>
+<head>
+    <title>ESP Sign up</title>
+    <jsp:scriptlet>
+        request.setAttribute("userLoggedIn",
+                Boolean.valueOf(gs.web.util.PageHelper.isCommunityCookieSet(request)));
+    </jsp:scriptlet>
+</head>
 
-    <gsml:body adPageName="school/esp" pageLayout="nocol">
-        <div class="spacer_20"><!-- do not collapse --></div>
-        <div class="container_24 slStylesV1-0 slFormsV1-0">
+<gsml:body adPageName="school/esp" pageLayout="nocol">
+    <div class="spacer_20"><!-- do not collapse --></div>
+    <div class="container_24 slStylesV1-0 slFormsV1-0">
 
-            <c:if test="${userLoggedIn eq true}">
-                <c:set var="isReadOnly" value="true"/>
-            </c:if>
+        <c:if test="${userLoggedIn eq true}">
+            <c:set var="isReadOnly" value="true"/>
+        </c:if>
 
-            <div class="grid_16">
+        <div class="grid_16">
 
-                <h1 class="">Submit request to create a school official account</h1>
+            <h1 class="">Submit request to create a school official account</h1>
 
-                <p class="">For principals and school officials, we offer a special Online School Profile which allows you to update an dadd information about your school as well as respond to reviews. If you are a school official, enter your details below. We will verify your identity after you register.</p>
+            <p class="">For principals and school officials, we offer a special Online School Profile which allows you to update an dadd information about your school as well as respond to reviews. If you are a school official, enter your details below. We will verify your identity after you register.</p>
 
-                <div class="mod espSignInForm">
-                    <div class="inner">
-                        <div class="hd">
-                            <h3 class="">Your account</h3>
+            <form:form commandName="espRegistrationCommand">
+                <fieldset>
+                    <legend>Your account</legend>
+
+                    <div class="formRow clearfix">
+                        <div class="prefix_1 grid_4 alpha">
+                            <form:label path="email" for="js_email">Email address</form:label>
                         </div>
-                        <div class="bd">
-                            <form:form commandName="espRegistrationCommand">
+                        <div class="grid_6">
+                            <form:input path="email" cssClass="field" id="js_email"
+                                        value="${espRegistrationCommand.email}"
+                                        readonly="${isReadOnly}"/>
+                        </div>
 
-                                <div class="formRow">
-                                    <form:label path="email">Email address </form:label>
-                                    <form:input path="email" cssClass="field" id="js_email"
-                                                value="${espRegistrationCommand.email}"
-                                                readonly="${isReadOnly}"/>
-                                <span id="js_invalidEmail" class="error"
-                                      style="display: none;">Please enter a valid email.</span>
+                        <div class="grid_5 omega">
+                            <div class="info">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.ca.us)</div>
+                            <div id="js_invalidEmail" class="error"
+                                 style="display: none;">Please enter a valid email.
+                            </div>
 
-            <span id="js_uniqueError" class="error"
-                  style="display: none;">You are already registered for this school.</span>
-                                </div>
-
-                                <c:if test="${isUserApprovedESPMember eq true}">
-                                    <span>You are already a member go to landing page.</span>
-                                </c:if>
-
-                                <div id="js_regPanel" style="${showRegPanel eq true? '':'display:none'}">
-
-                                    <div id="js_screenNameDiv" class="formRow" style="${showRegPanel eq true? '':'display:none'}">
-                                        <form:label path="screenName">User name </form:label>
-                                        <form:input path="screenName" cssClass="field" id="js_screenName"
-                                                    value="${espRegistrationCommand.screenName}"
-                                                    readonly="${isReadOnly}"/>
-                                        <span class="js_screenName valid" style="display: none;">&amp;nbsp;</span>
-                    <span class="js_screenName invalid"
-                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
-                                    </div>
-
-                                    <div id="js_passwordDiv" class="formRow" style="display: none">
-                                        <form:label path="password">Password </form:label>
-                                        <form:password path="password" cssClass="field" id="js_password"/>
-                                        <span class="js_password valid" style="display: none;">&amp;nbsp;</span>
-                    <span class="js_password invalid"
-                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
-                                    </div>
-
-                                    <div id="js_confirmPasswordDiv" class="formRow" style="display: none">
-                                        <form:label path="confirmPassword">Retype Password </form:label>
-                                        <form:password path="confirmPassword" cssClass="field" id="js_confirmPassword"/>
-                                        <span class="js_confirmPassword valid" style="display: none;">&amp;nbsp;</span>
-                    <span class="js_confirmPassword invalid"
-                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
-                                    </div>
-
-                                    <h5> Your school</h5>
-
-                                    <div class="formRow">
-                                        <form:label path="state">State </form:label>
-                                        <gsweb:stateSelector styleId="js_stateAdd"
-                                                             name="state"
-                                                             useNoState="true"
-                                                             noStateLabel="1. Choose state"
-                                                             allowNoState="false"
-                                                />
-                                        <span class="js_state invalid"
-                                              style="display: none;">Please select a state.</span>
-                                    </div>
-                                    <div class="formRow">
-                                        <form:label path="city">City </form:label>
-                                        <select id="js_citySelect" name="city">
-                                            <option selected="selected" value="">2. Choose city</option>
-                                            <c:forEach var="cityOption" items="">
-                                                <![CDATA[<option ]]>
-                                                <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-
-                                    <div class="formRow">
-                                        <form:label path="schoolId">School </form:label>
-                                        <select name="schoolId" id="js_school" class="selectChildSchool">
-                                            <option selected="selected" value="0">3. Choose school</option>
-                                            <c:forEach var="schoolOption" items="">
-                                                <![CDATA[<option ]]>
-                                                <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
-                                            </c:forEach>
-                                        </select>
-                    <span class="js_school invalid"
-                          style="display: none;">Please select a state, city and school.</span>
-                                    </div>
-
-                                    <h5>Your contact info</h5>
-
-                                    <div id="js_firstNameDiv" class="formRow" style="${showRegPanel eq true? '':'display:none'}">
-                                        <form:label path="firstName">First name </form:label>
-                                        <form:input path="firstName" cssClass="field" id="js_firstName"
-                                                    value="${espRegistrationCommand.firstName}"/>
-                                        <span class="js_firstName valid" style="display: none;">&amp;nbsp;</span>
-                    <span class="js_firstName invalid"
-                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
-                                    </div>
-
-                                    <div id="js_lastNameDiv" class="formRow" style="${showRegPanel eq true? '':'display:none'}">
-                                        <form:label path="lastName">Last Name </form:label>
-                                        <form:input path="lastName" cssClass="field" id="js_lastName"
-                                                    value="${espRegistrationCommand.lastName}"/>
-                                        <span class="js_lastName valid" style="display: none;">&amp;nbsp;</span>
-                    <span class="js_lastName invalid"
-                          style="display: none;"><!--Do not collapse.Invalid Error Message.--></span>
-                                    </div>
-
-                                    <div class="formRow">
-                                        <form:label path="jobTitle">Your title </form:label>
-                                        <form:select path="jobTitle" id="js_jobTitle">
-                                            <form:option value="">Choose One</form:option>
-                                            <form:option value="principal">Principal</form:option>
-                                            <form:option value="assistant principal">Asst. Principal</form:option>
-                                            <form:option value="admissions representative">Admissions Rep.</form:option>
-                                            <form:option
-                                                    value="development representative">Development Rep.</form:option>
-                                            <form:option
-                                                    value="communications representative">Communications Rep.</form:option>
-                                            <form:option
-                                                    value="administrator (other)">administrator (other)</form:option>
-                                            <form:option
-                                                    value="administrative assistant">Administrative Asst.</form:option>
-                                            <form:option value="webmaster">Webmaster</form:option>
-                                            <form:option value="registrar">Registrar</form:option>
-                                            <form:option value="teacher">Teacher</form:option>
-                                        </form:select>
-                                        <span class="js_jobTitle invalid"
-                                              style="display: none;">Please specify your job title.</span>
-                                    </div>
-
-                                    <div class="formRow">
-                                        <form:label path="webPageUrl">School website (optional) </form:label>
-                                        <form:input path="webPageUrl" cssClass="field"/>
-                                    </div>
-
-                                </div>
-
-                                <div id="js_registeredPasswordDiv" class="formRow" style="display: none">
-                                    <form:label path="registeredPassword">Password </form:label>
-                                    <form:password path="registeredPassword" cssClass="field"
-                                                   id="js_registeredPassword"/>
-                                    <span id="js_registeredPasswordEmpty"
-                                          style="display: none;">Please enter your password.</span>
-                <span id="js_registeredPasswordIncorrect" class="error"
-                      style="display: none;">The password does not match.</span>
-                                </div>
-
-                                <div class="formRow">
-                                    <input class="button-1" type="submit" value="Continue »" id="js_submit"/>
-                                </div>
-
-                            </form:form>
-
+                            <div id="js_uniqueError" class="error"
+                                 style="display: none;">You are already registered for this school.
+                            </div>
                         </div>
                     </div>
+
+                </fieldset>
+
+                <c:if test="${isUserApprovedESPMember eq true}">
+                    <span>You are already a member go to landing page.</span>
+                </c:if>
+
+                <div id="js_regPanel" style="${showRegPanel eq true? '':'display:none'}">
+
+                    <fieldset>
+
+                        <div id="js_screenNameDiv" class="formRow clearfix"
+                             style="${showRegPanel eq true? '':'display:none'}">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="screenName" for="js_screenName">User name</form:label>
+                            </div>
+                            <div class="grid_6">
+                                <form:input path="screenName" cssClass="field" id="js_screenName"
+                                            value="${espRegistrationCommand.screenName}"
+                                            readonly="${isReadOnly}"/>
+                            </div>
+
+                            <div class="grid_5 omega">
+                                <div class="info">6-14 characters</div>
+                                <div class="js_screenName valid" style="display: none">&amp;nbsp;</div>
+                                <div class="js_screenName invalid error"
+                                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                            </div>
+                        </div>
+
+                        <div id="js_passwordDiv" class="formRow clearfix" style="display: none">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="password" for="js_password">Password</form:label>
+                            </div>
+                            <div class="grid_6">
+                                <form:password path="password" cssClass="field" id="js_password"/>
+                            </div>
+
+                            <div class="grid_5 omega">
+                                <div class="info">6-14 characters</div>
+                                <div class="js_password valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_password invalid error"
+                                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                            </div>
+                        </div>
+
+                        <div id="js_confirmPasswordDiv" class="formRow clearfix" style="display: none">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="confirmPassword" for="js_confirmPassword">Retype Password</form:label>
+                            </div>
+                            <div class="grid_6">
+                                <form:password path="confirmPassword" cssClass="field" id="js_confirmPassword"/>
+                            </div>
+
+                            <div class="grid_5 omega">
+                                <div class="js_confirmPassword valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_confirmPassword invalid error"
+                                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend> Your school</legend>
+
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="state" for="js_stateAdd">State</form:label>
+                            </div>
+                            <div class="grid_5">
+                                <gsweb:stateSelector styleId="js_stateAdd"
+                                                     name="state"
+                                                     useNoState="true"
+                                                     noStateLabel="1. Choose state"
+                                                     allowNoState="false"
+                                        />
+                            </div>
+                            <div class="prefix_1 grid_5 omega">
+                                <div class="js_state invalid error"
+                                     style="display: none;">Please select a state.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="city" for="js_citySelect">City</form:label>
+                            </div>
+                            <div class="grid_5">
+                                <select id="js_citySelect" name="city">
+                                    <option selected="selected" value="">2. Choose city</option>
+                                    <c:forEach var="cityOption" items="">
+                                        <![CDATA[<option ]]>
+                                        <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="prefix_1 grid_5 omega"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="schoolId" for="js_school">School</form:label>
+                            </div>
+                            <div class="grid_5">
+                                <select name="schoolId" id="js_school" class="selectChildSchool">
+                                    <option selected="selected" value="0">3. Choose school</option>
+                                    <c:forEach var="schoolOption" items="">
+                                        <![CDATA[<option ]]>
+                                        <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </div>
+
+                            <div class="prefix_1 grid_5 omega">
+                                <div class="js_school invalid error"
+                                     style="display: none;">Please select a state, city and school.
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Your contact info</legend>
+
+                        <div id="js_firstNameDiv" class="formRow clearfix"
+                             style="${showRegPanel eq true? '':'display:none'}">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="firstName" for="js_firstName">First name</form:label>
+                            </div>
+                            <div class="grid_6">
+                                <form:input path="firstName" cssClass="field" id="js_firstName"
+                                            value="${espRegistrationCommand.firstName}"/>
+                            </div>
+
+                            <div class="grid_5 omega">
+                                <div class="js_firstName valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_firstName invalid error"
+                                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                            </div>
+                        </div>
+
+                        <div id="js_lastNameDiv" class="formRow clearfix"
+                             style="${showRegPanel eq true? '':'display:none'}">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="lastName" for="js_lastName">Last Name</form:label>
+                            </div>
+                            <div class="grid_6">
+                                <form:input path="lastName" cssClass="field" id="js_lastName"
+                                            value="${espRegistrationCommand.lastName}"/>
+                            </div>
+
+                            <div class="grid_5 omega">
+                                <div class="js_lastName valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_lastName invalid error"
+                                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                            </div>
+                        </div>
+
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="jobTitle" for="js_jobTitle">Your title</form:label>
+                            </div>
+                            <div class="grid_5">
+                                <form:select path="jobTitle" id="js_jobTitle">
+                                    <form:option value="">Choose One</form:option>
+                                    <form:option value="principal">Principal</form:option>
+                                    <form:option value="assistant principal">Asst. Principal</form:option>
+                                    <form:option value="admissions representative">Admissions Rep.</form:option>
+                                    <form:option
+                                            value="development representative">Development Rep.</form:option>
+                                    <form:option
+                                            value="communications representative">Communications Rep.</form:option>
+                                    <form:option
+                                            value="administrator (other)">administrator (other)</form:option>
+                                    <form:option
+                                            value="administrative assistant">Administrative Asst.</form:option>
+                                    <form:option value="webmaster">Webmaster</form:option>
+                                    <form:option value="registrar">Registrar</form:option>
+                                    <form:option value="teacher">Teacher</form:option>
+                                </form:select>
+                            </div>
+
+                            <div class="prefix_1 grid_5 omega">
+                                <div class="js_jobTitle invalid error"
+                                     style="display: none;">Please specify your job title.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="webPageUrl" for="webPageUrl">School website (optional)</form:label>
+                            </div>
+                            <div class="grid_6">
+                                <form:input path="webPageUrl" cssClass="field" id="webPageUrl"/>
+                            </div>
+
+                            <div class="grid_5 omega">
+                                <div class="info">Example: http://www.yourschool.edu<br/>Your website domain should match your email address.
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
                 </div>
-            </div>
-            <div class="grid_8">
-                <p class="">Already a School Official member? <a href="javascript:void(0);">Sign in.</a></p>
 
-                <h3 class="">Why create an Online School Profile?</h3>
+                <div id="js_registeredPasswordDiv" class="formRow clearfix" style="display: none">
 
-                <ul>
-                    <li>It's absolutely free and simple to create!</li>
-                    <li>It highlights your school's strenghts</li>
-                    <li>It provides a common place to post all of your school's information</li>
-                    <li>It's a community resource that many people will see</li>
-                    <li>It can link to your school or district website</li>
-                </ul>
+                    <fieldset>
 
-            </div>
+                        <div class="prefix_1 grid_4 alpha">
+                            <form:label path="registeredPassword" for="js_registeredPassword">Password</form:label>
+                        </div>
+                        <div class="grid_6">
+                            <form:password path="registeredPassword" cssClass="field"
+                                           id="js_registeredPassword"/>
+                        </div>
+
+                        <div class="grid_5 omega">
+                            <div id="js_registeredPasswordEmpty" class="error"
+                                 style="display: none;">Please enter your password.
+                            </div>
+                            <div id="js_registeredPasswordIncorrect" class="error"
+                                 style="display: none;">The password does not match.
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <fieldset>
+
+                    <div class="formRow clearfix">
+                        <div class="prefix_1 grid_15 alpha omega">
+
+                            <p class="small">By joining GreatSchools, you agree to our
+                                <gsml:popupWindow width="1025" height="600" left="50" top="50"
+                                                  title="GreatSchools Terms of Use"
+                                                  href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>
+                                and
+                                <gsml:popupWindow width="1025" height="600" left="50" top="50"
+                                                  title="GreatSchools Community Standards"
+                                                  href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
+                            </p>
+
+                            <input class="button-1" type="submit" value="Continue »" id="js_submit"/>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form:form>
+
         </div>
-        <div class="spacer_60"><!-- do not collapse --></div>
-    </gsml:body>
+        <div class="grid_8">
+            <p class="">Already a School Official member? <a href="javascript:void(0);">Sign in.</a></p>
 
-    </html>
+            <h3 class="">Why create an Online School Profile?</h3>
+
+            <ul>
+                <li>It's absolutely free and simple to create!</li>
+                <li>It highlights your school's strenghts</li>
+                <li>It provides a common place to post all of your school's information</li>
+                <li>It's a community resource that many people will see</li>
+                <li>It can link to your school or district website</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="spacer_60"><!-- do not collapse --></div>
+</gsml:body>
+
+</html>
 </jsp:root>

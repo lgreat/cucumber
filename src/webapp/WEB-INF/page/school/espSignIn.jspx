@@ -26,53 +26,70 @@
 
                 <p class="">You must be a school official with a special access account on GreatSchools to edit an Online School Profile.</p>
 
-                <div class="mod espSignInForm">
-                    <div class="inner">
-                        <div class="hd">
-                            <h3 class="">Returning school official sign in</h3>
-                        </div>
-                        <div class="bd">
-                            <form:form commandName="espRegistrationCommand">
+                <form:form commandName="espRegistrationCommand">
 
-                                <div class="formRow">
-                                    <form:label path="email">Email address </form:label>
-                                    <form:input path="email" cssClass="field" id="js_email"
-                                                value="${espRegistrationCommand.email}"/>
-                                    <!--<form:errors path="email" cssClass="error" />-->
-                                    <form:errors path="email">
+                    <fieldset>
+                        <legend>Returning school official sign in</legend>
+
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <form:label path="email" for="js_email">Email address </form:label>
+                            </div>
+                            <div class="grid_6">
+                                <form:input path="email" cssClass="field" id="js_email"
+                                            value="${espRegistrationCommand.email}"/>
+                            </div>
+
+                            <div class="grid_5 omega">
+                                <!--<form:errors path="email" cssClass="error" />-->
+                                <form:errors path="email">
+                                    <c:forEach items="${messages}" var="message">
+                                        <div class="alert">${message}</div>
+                                    </c:forEach>
+                                </form:errors>
+                            </div>
+                        </div>
+
+
+                        <div id="js_passwordDiv">
+                            <div class="formRow clearfix">
+                                <div class="prefix_1 grid_4 alpha">
+                                    <form:label path="password" for="js_password">Password </form:label>
+                                </div>
+                                <div class="grid_6">
+                                    <form:password path="password" cssClass="field" id="js_password"/>
+                                </div>
+
+                                <div class="grid_5 omega ">
+                                    <!--<form:errors path="password" cssClass="error" />-->
+                                    <form:errors path="password">
                                         <c:forEach items="${messages}" var="message">
-                                            <span class="alert">${message}</span>
+                                            <div class="alert">${message}</div>
                                         </c:forEach>
                                     </form:errors>
                                 </div>
-
-
-                                <div id="js_passwordDiv">
-                                    <div class="formRow">
-                                        <form:label path="password">Password </form:label>
-                                        <form:password path="password" cssClass="field" id="js_password"/>
-                                        <!--<form:errors path="password" cssClass="error" />-->
-                                        <form:errors path="password">
-                                            <c:forEach items="${messages}" var="message">
-                                                <span class="alert">${message}</span>
-                                            </c:forEach>
-                                        </form:errors>
-                                    </div>
-                                </div>
-
-                                <div class="formRow">
-                                    <input class="button-1" type="submit" value="Sign in" id="js_submit"/>
-                                </div>
-
-                                <div class="formRow">
-                                <a href="javascript:void(0);" id="esp_launchForgotPassword" onclick="">Forgot your password?</a>
-                                </div>
-
-                            </form:form>
-
+                            </div>
                         </div>
-                    </div>
-                </div>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_15 alpha">
+                                <input class="button-1" type="submit" value="Sign in" id="js_submit"/>
+                            </div>
+                        </div>
+
+                        <div class="prefix_1 grid_15 alpha">
+                            <a href="javascript:void(0);" id="esp_launchForgotPassword"
+                               onclick="">Forgot your password?</a>
+                        </div>
+
+                    </fieldset>
+
+                </form:form>
+
             </div>
             <div class="grid_8">
                 <p class="">New to GreatSchools? <a href="javascript:void(0);">Create a School Official account.</a></p>

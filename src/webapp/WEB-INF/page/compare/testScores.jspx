@@ -102,7 +102,7 @@
                                                 <div class="th-compareContainer">
                                                 <c:if test="${not empty testCell.extraInfo}">
                                                     <a onclick="window.open(this.href, 'info', 'width=500,height=400,scrollbars=yes'); return false;"
-                                                       href="${testCell.extraInfo}" class="fltrt"><span class="sprite info"><!-- not empty --></span></a>
+                                                       href="${testCell.extraInfo}" class="fltrt"><span class="sprite i-info"><!-- not empty --></span></a>
                                                 </c:if>
                                                 <div class="mainLabel">${testCell.headerText}</div>
                                                 <c:choose>
@@ -163,4 +163,3 @@
     </gsml:body>
     </html>
 </jsp:root>
-

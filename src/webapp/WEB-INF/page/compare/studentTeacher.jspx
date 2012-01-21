@@ -83,7 +83,7 @@
                                                 <c:if test="${not empty censusCell.extraInfo}">
                                                     <a onclick="window.open(this.href, 'info', 'width=500,height=400,scrollbars=yes'); return false;"
                                                        href="${censusCell.extraInfo}" class="fltrt"><span
-                                                            class="sprite info"><!-- not empty --></span></a>
+                                                            class="sprite i-info"><!-- not empty --></span></a>
                                                 </c:if>
                                                 ${censusCell.headerText}
                                                 <p class="year"><em>${censusCell.year}</em></p>
@@ -149,4 +149,3 @@
     </gsml:body>
     </html>
 </jsp:root>
-
