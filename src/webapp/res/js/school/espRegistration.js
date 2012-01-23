@@ -54,9 +54,11 @@ GS.form.EspForm = function() {
     //ii)email entered belongs to an existing user who is email validated ,with no ESP membership OR already a ESP member
     //iii)email entered belongs to a provisional GS user.
     //iv)email was not found.
-    this.checkUser = function(email) {
+    this.checkUser = function() {
+        var email = jQuery('#js_email').val().trim();
 
         if (email !== "" && email !== undefined) {
+            email = email.trim();
             jQuery.ajax({
                 type: 'GET',
                 url: '/school/esp/checkEspUser.page',
@@ -67,7 +69,6 @@ GS.form.EspForm = function() {
 
                     if (data.invalidEmail !== "" && data.invalidEmail !== undefined) {
                         jQuery('#js_invalidEmail').show();
-
 
                     } else if (data.isUserEmailValidated === true || data.isUserApprovedESPMember === true) {
                         jQuery('#js_registeredPasswordDiv').show();
@@ -98,7 +99,7 @@ GS.form.EspForm = function() {
                     }
                 });
         } else {
-            alert("error");
+            jQuery('#js_invalidEmail').show();
         }
         //This should never submit the form.Hence always return false.
         return false;
@@ -258,8 +259,7 @@ GS.form.EspForm = function() {
     };
 
     this.emailSubmit = function() {
-        var email = jQuery('#js_email').val().trim();
-        GS.form.espForm.checkUser(email);
+        GS.form.espForm.checkUser();
         //This should never submit the form.Hence always return false.
         return false;
     };
@@ -305,7 +305,7 @@ GS.form.EspForm = function() {
 
     this.unbindSubmitHandler = function () {
         jQuery('#js_submit').unbind('click');
-    }
+    };
 
     this.bindEmailSubmit = function() {
         var regPanel = jQuery('#js_regPanel');
@@ -316,12 +316,16 @@ GS.form.EspForm = function() {
             //unbind the existing click handler.
             GS.form.espForm.unbindSubmitHandler();
 
+            //change the text of the button.
+            var submitBtn = jQuery('#js_submit');
+            submitBtn.val('Continue >>');
+
             //Bind the new click handler which just validates user/email.
-            jQuery('#js_submit').click(
+            submitBtn.click(
                 GS.form.espForm.emailSubmit
             );
         }
-    }
+    };
 
     this.bindLoginSubmit = function() {
         var passwordDiv = jQuery('#js_registeredPasswordDiv');
@@ -333,12 +337,16 @@ GS.form.EspForm = function() {
             //unbind the existing click handler.
             GS.form.espForm.unbindSubmitHandler();
 
+            //change the text of the button.
+            var submitBtn = jQuery('#js_submit');
+            submitBtn.val('Sign In');
+
             //Bind the new click handler which logs in the user if the correct password is entered.
-            jQuery('#js_submit').click(
+            submitBtn.click(
                 GS.form.espForm.loginSubmit
             );
         }
-    }
+    };
 
     this.bindRegistrationSubmit = function() {
         var regPanel = jQuery('#js_regPanel');
@@ -349,17 +357,21 @@ GS.form.EspForm = function() {
             //unbind the existing click handler.
             GS.form.espForm.unbindSubmitHandler();
 
+            //change the text of the button.
+            var submitBtn = jQuery('#js_submit');
+            submitBtn.val('Submit request');
+
             //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.
-            jQuery('#js_submit').click(
+            submitBtn.click(
                 GS.form.espForm.registrationSubmit
             );
         }
-    }
+    };
 
     this.hideErrors = function() {
         jQuery('#js_invalidEmail').hide();
         jQuery('#js_uniqueError').hide();
-    }
+    };
 };
 
 GS.form.espForm = new GS.form.EspForm();
