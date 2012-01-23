@@ -9,7 +9,9 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
 <jsp:directive.attribute name="headerText" required="true" description="Header text" type="java.lang.String"/>
 
-    <div id="espFormWrapper">
+    <!-- No ids are to be used in this file unless they include ${page}. This template can be included multiple times
+         per page! -->
+    <div class="espFormWrapper">
         <dl class="gradient-3">
             <dd class="bottom">
                 <div class="fltrt">
@@ -24,9 +26,10 @@
                 <div>${headerText}</div>
             </dd>
         </dl>
-        <div id="espFormBody">
-            <form:form id="espFormPage${page}">
+        <div class="espFormBody">
+            <form:form id="espFormPage-${page}">
                 <jsp:doBody/>
+                <input type="submit" name="Save" style="display:none;"/>
             </form:form>
         </div>
         <dl class="gradient-3">

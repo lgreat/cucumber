@@ -17,46 +17,49 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>ESP Form</title>
         <style type="text/css">
-            #espFormWrapper {
+            .espFormWrapper {
                 border: 1px solid #D1E9F3;
                 margin-top: 15px;
             }
-            #espFormWrapper dd {
+            .espFormWrapper dd {
                 line-height: 38px;
                 margin: 0 15px;
             }
-            #espFormBody {
+            .espFormBody {
                 padding:25px;
-            }
-            #espFormNavigation div button, #espFormNavigation div span {
-                margin-left: 15px;
             }
         </style>
         <script type="text/javascript">
             var GS = GS || {};
-            GS.espForm = GS.espForm || {}; // packages and below do not need "var"
+            GS.espForm = GS.espForm || {};
             GS.espForm.currentPage = ${page};
             GS.espForm.maxPage = ${maxPage};
+            GS.espForm.percentComplete = {};
+            //<c:forEach items="${percentComplete}" var="perc" varStatus="status">
+                GS.espForm.percentComplete[${perc.key}]=${perc.value};
+            //</c:forEach>
         </script>
+        <pageHelper:externalJavascript file="/res/js/history.min.js"/>
         <pageHelper:externalJavascript file="/res/js/school/espForm.js"/>
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
-
         <div class="container_24">
             <div class="grid_22 prefix_1 suffix_1">
                 <h2>Edit Your Online School Profile</h2>
-                <div>${percentCompleted}% completed</div>
+                <div>
+                    <span id="js_espPercentComplete">${percentComplete[page]}</span>% completed
+                </div>
                 <div class="text2bold">Your school: ${school.name}</div>
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                <c:choose>
-                    <c:when test="${page eq 1}">
-                        <school:espFormPage1/>
-                    </c:when>
-                    <c:when test="${page eq 2}">
-                        <school:espFormPage2/>
-                    </c:when>
-                </c:choose>
+                <div id="js_pageContainer">
+                    <div id="js_pageWrapper-1" class="js_pageWrapper ${(page eq 1)?'':'hidden'}">
+                        <school:espFormPage1 maxPage="${maxPage}"/>
+                    </div>
+                    <div id="js_pageWrapper-2" class="js_pageWrapper ${(page eq 2)?'':'hidden'}">
+                        <school:espFormPage2 maxPage="${maxPage}"/>
+                    </div>
+                </div>
             </div>
         </div>
 

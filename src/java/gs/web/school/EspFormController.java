@@ -79,10 +79,15 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected void putResponsesInModel(School school, int page, ModelMap modelMap) {
         Map<String, Object> responseMap = new HashMap<String, Object>();
         
-        Set<String> keysForPage = getKeysForPage(page);
-        List<EspResponse> responses = _espResponseDao.getResponsesByKeys(school, keysForPage);
+//        Set<String> keysForPage = getKeysForPage(page);
+        // fetch all responses for now to allow page to use ajax page switching if desired.
+        List<EspResponse> responses = _espResponseDao.getResponses(school);
 
-        modelMap.put("percentCompleted", getPercentCompletionForPage(page, school));
+        Map<Integer, Integer> percentCompleteMap = new HashMap<Integer, Integer>();
+        for (int x=1; x <= getMaxPageForSchool(school); x++) {
+            percentCompleteMap.put(x, getPercentCompletionForPage(x, school));
+        }
+        modelMap.put("percentComplete", percentCompleteMap);
 
         for (EspResponse response: responses) {
             EspResponseStruct responseStruct = (EspResponseStruct) responseMap.get(response.getKey());
@@ -173,7 +178,9 @@ public class EspFormController implements ReadWriteAnnotationController {
         
         _espResponseDao.saveResponses(school, responseList);
         JSONObject successObj = new JSONObject();
-        successObj.put("success", "1");
+        // let page know new completion percentage
+        successObj.put("percentComplete", getPercentCompletionForPage(page, school));
+        successObj.write(response.getWriter());
         response.getWriter().flush();
     }
 

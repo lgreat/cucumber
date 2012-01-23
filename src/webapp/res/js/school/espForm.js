@@ -1,29 +1,111 @@
-new (function() {
-    GS.util = GS.util || {};
-    GS.util.getUrlVars = function() {
-        var vars = {};
-        window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = value;
-        });
-        return vars;
-    };
+GS.history5Enabled = typeof(window.History) !== 'undefined' && window.History.enabled === true;
 
-    var saveForm = function() {
-        var form = jQuery('#espFormPage' + GS.espForm.currentPage);
-        var data = form.serializeArray();
-        var deferred = jQuery.ajax({type: 'POST', url: document.location, data: data}
-        ).fail(function() {
-                alert("Error");
+GS.validation = GS.validation || {};
+GS.validation.validateRequired = function(fieldSelector, errorSelector) {
+    var isValid = true;
+    jQuery(errorSelector).hide();
+    var formFields = jQuery(fieldSelector);
+    if (formFields.filter(':visible').size() == 0) {
+        return true; // only validate visible fields
+    }
+    if (formFields !== undefined && formFields.size() > 0) {
+        var fieldType = formFields.attr('type');
+
+        if (fieldType === 'checkbox') {
+            // require at least one to be checked
+            var numChecked = formFields.filter(':checked').size();
+            if (numChecked == 0) {
+                isValid = false;
             }
-        );
-        return deferred.promise();
+        } else if (fieldType == 'text') {
+            // require each one to have text
+            formFields.each(function() {
+                var fieldVal = jQuery.trim(jQuery(this).val());
+                if (fieldVal == "") {
+                    isValid = false;
+                    return false;
+                }
+            });
+        }
+
+        if (!isValid) {
+            jQuery(errorSelector).show();
+        }
+    }
+    return isValid;
+};
+
+GS.validation.validateInteger = function(fieldSelector, errorSelector) {
+    var isValid = true;
+    jQuery(errorSelector).hide();
+    var formFields = jQuery(fieldSelector);
+    if (formFields.filter(':visible').size() == 0) {
+        return true; // only validate visible fields
+    }
+    if (formFields !== undefined && formFields.size() > 0) {
+        var fieldType = formFields.attr('type');
+
+        if (fieldType == 'text') {
+            // require each one to be numeric
+            formFields.each(function() {
+                var fieldVal = parseInt(jQuery.trim(jQuery(this).val()), 10);
+                if (!jQuery.isNumeric(fieldVal)) {
+                    isValid = false;
+                    return false; // breaks out of loop
+                }
+            });
+        }
+
+        if (!isValid) {
+            jQuery(errorSelector).show();
+        }
+    }
+    return isValid;
+};
+
+GS.util = GS.util || {};
+GS.util.getUrlVars = function(url) {
+    var myUrl = url || window.location.href;
+    var vars = {};
+    myUrl.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+};
+GS.util.log = function(msg) {
+    if (typeof(console) !== 'undefined') {
+        console.log(msg);
+    }
+};
+
+new (function() {
+    var saveForm = function() {
+        if (!doValidations()) {
+            return new jQuery.Deferred().reject().promise();
+        }
+        var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
+        var data = form.serializeArray();
+        return jQuery.ajax({type: 'POST', url: document.location, data: data}
+        ).fail(function() {
+            alert("Error");
+        }).done(function(data) {
+            if (data.percentComplete !== undefined) {
+                GS.util.log("Updating percent complete for page " + GS.espForm.currentPage + " to " + parseInt(data.percentComplete));
+                GS.espForm.percentComplete[GS.espForm.currentPage] = parseInt(data.percentComplete);
+            }
+        });
     };
     var sendToLandingPage = function() {
         window.location = '/school/esp/dashboard.page';
     };
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();
-        window.location = '/school/esp/form.page?page=' + pageNum + '&schoolId=' + myParams.schoolId + '&state=' + myParams.state;
+        if (GS.history5Enabled) {
+            // use HTML 5 history API to rewrite the current URL to represent the new state.
+            window.History.pushState({page:pageNum}, document.title, '?page=' + pageNum + '&schoolId=' + myParams.schoolId + '&state=' + myParams.state);
+        } else {
+            window.location = '/school/esp/form.page?page=' + pageNum + '&schoolId=' + myParams.schoolId + '&state=' + myParams.state;
+        }
     };
     var saveAndNextPage = function() {
         saveForm().done(function() {
@@ -49,7 +131,7 @@ new (function() {
     };
     var saveAndFinish = function() {
         saveForm().done(function() {
-            sendToLandingPage();
+//            sendToLandingPage();
         });
     };
 
@@ -81,30 +163,42 @@ new (function() {
 
 
     var doValidations = function() {
-        var isValidAcademicFocus = validateField($('[name=academic_focus]'), $('#academic_focus_error'));
-        var isValidStudentEnrollment = validateField($('#form_student_enrollment'), $('#form_student_enrollment_error'));
+        var isValidAcademicFocus = GS.validation.validateRequired('[name=academic_focus]', '#academic_focus_error');
+        var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
+            && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_error');
         return  isValidAcademicFocus && isValidStudentEnrollment;
     };
 
+    if (GS.history5Enabled) {
+        History.Adapter.bind(window, 'statechange', function() {
+            var state = History.getState();
+            var pageNum = parseInt(GS.util.getUrlVars(state.url).page,10) || 1;
+            GS.util.log("Loading state for page " + pageNum);
+            GS.espForm.currentPage = pageNum;
+            $('#js_pageContainer').find('.js_pageWrapper').hide();
+            $('#js_pageWrapper-' + pageNum).show();
+            $('#js_espPercentComplete').html(GS.espForm.percentComplete[pageNum]);
+        });
+    }
     jQuery(function() {
-        var formWrapper = $('#espFormWrapper');
-        formWrapper.find('.js_saveButton').on('click', function() {
+        var formWrapper = $('#js_pageContainer');
+        formWrapper.on('click', '.js_saveButton', function() {
             saveAndFinish();
             return false;
         });
-        formWrapper.find('.js_nextPageButton').on('click', function() {
+        formWrapper.on('click', '.js_nextPageButton', function() {
             saveAndNextPage();
             return false;
         });
-        formWrapper.find('.js_prevPageButton').on('click', function() {
+        formWrapper.on('click', '.js_prevPageButton', function() {
             saveAndPreviousPage();
             return false;
         });
-        formWrapper.find('form').on('submit', function() {
+        formWrapper.on('submit', 'form', function() {
             saveForm();
             return false;
         });
-        formWrapper.find('.js_otherField').on('change', function() {
+        formWrapper.on('change', '.js_otherField', function() {
             var field = $(this);
             var otherFieldName = field.attr('id').substring(3);
             var otherField = formWrapper.find('[name=' + otherFieldName + ']');

@@ -2,8 +2,9 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-        >
-    <school:espFormTemplate page="${page}" maxPage="${maxPage}" headerText="School basic info">
+>
+<jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
+    <school:espFormTemplate page="1" maxPage="${maxPage}" headerText="School basic info">
 
         <label for="form_admissions_url">Admissions URL: </label>
         <input id="form_admissions_url" type="text" name="admissions_url" value="${responseMap['admissions_url'].value}"/>
@@ -14,7 +15,6 @@
         <input id="form_student_enrollment" type="text" name="student_enrollment"
                value="${responseMap['student_enrollment'].value}"/>
         <span id="form_student_enrollment_error" style="display: none">Please enter enrollment data.</span>
-
 
     </school:espFormTemplate>
 </jsp:root>
