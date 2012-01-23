@@ -131,7 +131,7 @@ new (function() {
     };
     var saveAndFinish = function() {
         saveForm().done(function() {
-//            sendToLandingPage();
+            sendToLandingPage();
         });
     };
 
