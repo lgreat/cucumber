@@ -319,7 +319,7 @@ GS.form.EspForm = function() {
 
             //change the text of the button.
             var submitBtn = jQuery('#js_submit');
-            submitBtn.val('Continue >>');
+            submitBtn.val('Continue \xBB');
 
             //Bind the new click handler which just validates user/email.
             submitBtn.click(

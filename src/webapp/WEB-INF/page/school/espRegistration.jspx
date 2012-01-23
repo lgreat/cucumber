@@ -88,7 +88,7 @@
 
                             <div class="grid_5 omega">
                                 <div class="info">6-14 characters</div>
-                                <div class="js_screenName valid" style="display: none"><span class="sprite checkmark"><!-- do not collapse --></span></div>
+                                <div class="js_screenName success" style="display: none">User name is available</div>
                                 <div class="js_screenName invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -104,7 +104,7 @@
 
                             <div class="grid_5 omega">
                                 <div class="info">6-14 characters</div>
-                                <div class="js_password valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
+                                <div class="js_password success" style="display: none;">Password is available</div>
                                 <div class="js_password invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -119,7 +119,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="js_confirmPassword valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
+                                <div class="js_confirmPassword success" style="display: none;">Password confirmed</div>
                                 <div class="js_confirmPassword invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -202,7 +202,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="js_firstName valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
+                                <div class="js_firstName success" style="display: none;">Updated first name</div>
                                 <div class="js_firstName invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -219,7 +219,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="js_lastName valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
+                                <div class="js_lastName success" style="display: none;">Updated last name</div>
                                 <div class="js_lastName invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
