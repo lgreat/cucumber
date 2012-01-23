@@ -49,9 +49,9 @@ GS.form.EspForm = function() {
             });
     };
 
-    //Checks if the
+    //Checks for the following cases and displays the form accordingly
     //i)email entered is valid
-    //ii)email entered belongs to an existing user who is email validated ,with no ESP membership OR already a ESP member
+    //ii)email entered belongs to an existing user who is email validated ,with no ESP membership OR with ESP membership
     //iii)email entered belongs to a provisional GS user.
     //iv)email was not found.
     this.checkUser = function() {
@@ -101,6 +101,7 @@ GS.form.EspForm = function() {
         } else {
             jQuery('#js_invalidEmail').show();
         }
+
         //This should never submit the form.Hence always return false.
         return false;
     };
@@ -258,11 +259,11 @@ GS.form.EspForm = function() {
         }
     };
 
-    this.emailSubmit = function() {
-        GS.form.espForm.checkUser();
-        //This should never submit the form.Hence always return false.
-        return false;
-    };
+//    this.emailSubmit = function() {
+//        GS.form.espForm.checkUser();
+//        //This should never submit the form.Hence always return false.
+//        return false;
+//    };
 
     this.loginSubmit = function() {
         GS.form.espForm.matchUserPassword(
@@ -322,7 +323,7 @@ GS.form.EspForm = function() {
 
             //Bind the new click handler which just validates user/email.
             submitBtn.click(
-                GS.form.espForm.emailSubmit
+                GS.form.espForm.checkUser
             );
         }
     };
