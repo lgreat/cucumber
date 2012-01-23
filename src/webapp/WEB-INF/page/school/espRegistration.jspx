@@ -29,7 +29,7 @@
     <div class="spacer_20"><!-- do not collapse --></div>
     <div class="container_24 slStylesV1-0 slFormsV1-0">
 
-        <c:if test="${userLoggedIn eq true}">
+        <c:if test="${userLoggedIn}">
             <c:set var="isReadOnly" value="true"/>
         </c:if>
 
@@ -67,16 +67,16 @@
 
                 </fieldset>
 
-                <c:if test="${isUserApprovedESPMember eq true}">
+                <c:if test="${isUserApprovedESPMember}">
                     <span>You are already a member go to landing page.</span>
                 </c:if>
 
-                <div id="js_regPanel" style="${showRegPanel eq true? '':'display:none'}">
+                <div id="js_regPanel" style="${showRegPanel ? '':'display:none'}">
 
                     <fieldset>
 
                         <div id="js_screenNameDiv" class="formRow clearfix"
-                             style="${showRegPanel eq true? '':'display:none'}">
+                             style="${showRegPanel ? '':'display:none'}">
                             <div class="prefix_1 grid_4 alpha">
                                 <form:label path="screenName" for="js_screenName">User name</form:label>
                             </div>
@@ -192,7 +192,7 @@
                         <legend>Your contact info</legend>
 
                         <div id="js_firstNameDiv" class="formRow clearfix"
-                             style="${showRegPanel eq true? '':'display:none'}">
+                             style="${showRegPanel ? '':'display:none'}">
                             <div class="prefix_1 grid_4 alpha">
                                 <form:label path="firstName" for="js_firstName">First name</form:label>
                             </div>
@@ -209,7 +209,7 @@
                         </div>
 
                         <div id="js_lastNameDiv" class="formRow clearfix"
-                             style="${showRegPanel eq true? '':'display:none'}">
+                             style="${showRegPanel ? '':'display:none'}">
                             <div class="prefix_1 grid_4 alpha">
                                 <form:label path="lastName" for="js_lastName">Last Name</form:label>
                             </div>
