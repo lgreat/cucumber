@@ -83,6 +83,7 @@ Misc classes
 .slFormsV1-0 .notice, 
 .slFormsV1-0 .success, 
 .slFormsV1-0 .info {padding: 0.2em 0.8em;margin: 3px 0;border: 2px solid #ddd;}
+.slFormsV1-0 .valid {padding: 0.2em 0.8em;margin: 3px 0;border-width: 2px;}
 
 .slFormsV1-0 .error, 
 .slFormsV1-0 .alert {background: #fbe3e4;color: #8a1f11;border-color: #fbc2c4;}

@@ -5226,8 +5226,7 @@ a.ui-dialog-titlebar-close .ui-icon {
     margin-bottom:9px;
 }
 
-#joinGS .valid,
-.valid {
+#joinGS .valid {
     color: #180;
     background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);
 }

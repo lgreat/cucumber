@@ -88,7 +88,7 @@
 
                             <div class="grid_5 omega">
                                 <div class="info">6-14 characters</div>
-                                <div class="js_screenName valid" style="display: none">&amp;nbsp;</div>
+                                <div class="js_screenName valid" style="display: none"><span class="sprite checkmark"><!-- do not collapse --></span></div>
                                 <div class="js_screenName invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -104,7 +104,7 @@
 
                             <div class="grid_5 omega">
                                 <div class="info">6-14 characters</div>
-                                <div class="js_password valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_password valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
                                 <div class="js_password invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -119,7 +119,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="js_confirmPassword valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_confirmPassword valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
                                 <div class="js_confirmPassword invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -202,7 +202,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="js_firstName valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_firstName valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
                                 <div class="js_firstName invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -219,7 +219,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="js_lastName valid" style="display: none;">&amp;nbsp;</div>
+                                <div class="js_lastName valid" style="display: none;"><span class="sprite checkmark"><!-- do not collapse --></span></div>
                                 <div class="js_lastName invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -265,7 +265,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="info">Example: http://www.yourschool.edu<br/>Your website domain should match your email address.
+                                <div class="info">Example: http://www.springfield.k12.ca.us<br/>Your website domain should match your email address.
                                 </div>
                             </div>
                         </div>
