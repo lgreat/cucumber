@@ -17,7 +17,7 @@
         <gsml:checkbox styleId="form_academic_focus_mathematics" name="academic_focus" value="mathematics"
                        checked="${not empty responseMap['academic_focus'].valueMap['mathematics']}"/>
 
-        <span style="display: none" id="academic_focus_error">Please select atleast one academic area.</span>
+        <span style="display: none" class="error" id="academic_focus_error">Please select at least one academic area.</span>
         <!--Science-->
         <!--Technology-->
         <!--Arts (all)-->

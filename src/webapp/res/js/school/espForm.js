@@ -135,33 +135,6 @@ new (function() {
         });
     };
 
-    var validateField = function(formField, error) {
-        var isValid = true;
-        if (formField != undefined) {
-            var fieldType = formField.attr('type');
-
-            if (fieldType == 'checkbox' && formField.length > 0) {
-                var numChecked = $(formField).filter(':checked').size();
-//                var firstElem = formElem[0];
-//                alert($(firstElem).is(':checked'));
-                if (numChecked <= 0) {
-                    isValid = false;
-                }
-            } else if (fieldType == 'text') {
-                formField = $.trim(formField.val());
-                if (formField == "") {
-                    isValid = false;
-                }
-            }
-
-            if (!isValid) {
-                $(error).show();
-            }
-        }
-        return isValid;
-    };
-
-
     var doValidations = function() {
         var isValidAcademicFocus = GS.validation.validateRequired('[name=academic_focus]', '#academic_focus_error');
         var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
