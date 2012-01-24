@@ -203,36 +203,6 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_jaime.jpg" width="97" height="108"
-                              alt="Jaime Uzeta"/></td>
-        <td valign="top">
-            <div class="text3boldOrange">Jaime Uzeta, Vice President, Growth Strategy and Development</div>
-            <div class="text3">
-                Jaime has worked at the intersection of media and social change for over a
-                decade, with his experience spanning the corporate, nonprofit and government
-                sectors. Prior to GreatSchools, he co-developed MTV's socially oriented
-                marketing campaigns, including the Emmy Award-winning <em>Choose or Lose</em>
-                and <em>Fight for Your Rights</em> initiatives. As the partner of a consulting
-                firm, he advised organizations such as CNN and the Bill &amp;amp; Melinda
-                Gates Foundation on program and marketing strategies. During the Clinton
-                Administration, Jaime held appointments at the White House and the
-                Departments of Treasury and Commerce. He graduated from the University of
-                Houston with a BA in political science and earned his MBA from Columbia
-                University. Jaime liked to pretend he was a big shot Hollywood film
-                producer while working on extracurricular film projects at
-                <c:choose>
-                    <c:when test="${coronado_school ne null}">
-                        <link:schoolProfileOverview
-                                school="${coronado_school}">Coronado High School</link:schoolProfileOverview>.
-                    </c:when>
-                    <c:otherwise>
-                        Coronado High School.
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </td>
-    </tr>
-    <tr>
         <td valign="top"><img src="/res/img/about/seniormanagement_molly.jpg" width="97" height="108"
                               alt="Molly Vitorte"/></td>
         <td valign="top">
