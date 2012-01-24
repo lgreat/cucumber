@@ -4,6 +4,10 @@ import gs.data.community.User;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
+import gs.data.school.census.CensusDataSet;
+import gs.data.school.census.CensusDataType;
+import gs.data.school.census.ICensusDataSetDao;
+import gs.data.school.census.SchoolCensusValue;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
@@ -43,6 +47,8 @@ public class EspFormController implements ReadWriteAnnotationController {
     private IEspResponseDao _espResponseDao;
     @Autowired
     private ISchoolDao _schoolDao;
+    @Autowired
+    private ICensusDataSetDao _dataSetDao;
 
     // TODO: If user is valid but school/state is not, redirect to landing page
     @RequestMapping(value="form.page", method=RequestMethod.GET)
@@ -95,9 +101,10 @@ public class EspFormController implements ReadWriteAnnotationController {
                 responseStruct = new EspResponseStruct();
                 responseMap.put(response.getKey(), responseStruct);
             }
+            overwriteResponseValue(response, school);
             responseStruct.addValue(response.getValue());
         }
-        
+
         modelMap.put("responseMap", responseMap);
     }
     
@@ -116,6 +123,27 @@ public class EspFormController implements ReadWriteAnnotationController {
         public void addValue(String value) {
             _value = value;
             _valueMap.put(value, "1");
+        }
+    }
+
+    /*
+    * Some of the form Data needs to be stored in other tables.
+    * */
+    protected void overwriteResponseValue(EspResponse response, School school) {
+        Map specialKeys = getKeysForCensusAndSchoolData();
+
+        if (specialKeys.get(response.getKey()) != null) {
+            if ("student_enrollemnt".equals(response.getKey()) && school.getEnrollment() != null) {
+                response.setValue(String.valueOf(school.getEnrollment()));
+            }
+        }
+    }
+
+    protected void saveCensusData(School school, int data) {
+        CensusDataSet dataSet = _dataSetDao.findDataSet(school.getDatabaseState(), CensusDataType.STUDENTS_ENROLLMENT, 0, null, /* breakdown */null);
+        // TODO what if there is no existing data set?
+        if (dataSet != null) {
+            _dataSetDao.addValue(dataSet, school, data, "ESP");
         }
     }
 
@@ -250,7 +278,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         if (!keys.isEmpty() && school != null) {
             int count = _espResponseDao.getKeyCount(school, keys);
             if (count > 0) {
-                float percent = (count / keys.size()) * 100;
+                float percent = ((float) count / keys.size()) * 100;
                 return Math.round(percent);
             }
         }
@@ -294,6 +322,12 @@ public class EspFormController implements ReadWriteAnnotationController {
         } else {
             _log.error("Unknown page provided to getKeysForPage: " + page);
         }
+        return keys;
+    }
+
+    protected Map<String, String> getKeysForCensusAndSchoolData() {
+        Map<String, String> keys = new HashMap<String, String>();
+        keys.put("student_enrollment", "student_enrollment");
         return keys;
     }
 }
