@@ -78,7 +78,7 @@
                         <div id="js_screenNameDiv" class="formRow clearfix"
                              style="${showRegPanel ? '':'display:none'}">
                             <div class="prefix_1 grid_4 alpha">
-                                <form:label path="screenName" for="js_screenName">User name</form:label>
+                                <form:label path="screenName" for="js_screenName">Username</form:label>
                             </div>
                             <div class="grid_6">
                                 <form:input path="screenName" cssClass="field" id="js_screenName"
@@ -88,7 +88,7 @@
 
                             <div class="grid_5 omega">
                                 <div class="info">6-14 characters</div>
-                                <div class="js_screenName success" style="display: none">User name is available</div>
+                                <div class="js_screenName success" style="display: none">Username is available</div>
                                 <div class="js_screenName invalid error"
                                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                             </div>
@@ -112,7 +112,7 @@
 
                         <div id="js_confirmPasswordDiv" class="formRow clearfix" style="display: none">
                             <div class="prefix_1 grid_4 alpha">
-                                <form:label path="confirmPassword" for="js_confirmPassword">Retype Password</form:label>
+                                <form:label path="confirmPassword" for="js_confirmPassword">Retype password</form:label>
                             </div>
                             <div class="grid_6">
                                 <form:password path="confirmPassword" cssClass="field" id="js_confirmPassword"/>
@@ -211,7 +211,7 @@
                         <div id="js_lastNameDiv" class="formRow clearfix"
                              style="${showRegPanel ? '':'display:none'}">
                             <div class="prefix_1 grid_4 alpha">
-                                <form:label path="lastName" for="js_lastName">Last Name</form:label>
+                                <form:label path="lastName" for="js_lastName">Last name</form:label>
                             </div>
                             <div class="grid_6">
                                 <form:input path="lastName" cssClass="field" id="js_lastName"
