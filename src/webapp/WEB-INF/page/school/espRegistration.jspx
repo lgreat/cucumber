@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="grid_5 omega">
-                            <div class="info">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.ca.us)</div>
+                            <div class="info">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</div>
                             <div id="js_invalidEmail" class="error"
                                  style="display: none;">Please enter a valid email.
                             </div>
@@ -265,7 +265,7 @@
                             </div>
 
                             <div class="grid_5 omega">
-                                <div class="info">Example: http://www.springfield.k12.ca.us<br/>Your website domain should match your email address.
+                                <div class="info">Example: http://www.springfield.k12.il.us<br/>Your website domain should match your email address.
                                 </div>
                             </div>
                         </div>
