@@ -1,11 +1,12 @@
 package gs.web.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EspModerationCommand {
-    private List<String> _espMembershipIds;
+    private List<String> _espMembershipIds = new ArrayList<String>();
     private String _moderatorAction;
-    private List<String> _note;
+    private List<String> _note = new ArrayList<String>();
 
     public List<String> getEspMembershipIds() {
         return _espMembershipIds;

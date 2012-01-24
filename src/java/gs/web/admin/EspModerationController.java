@@ -63,37 +63,39 @@ public class EspModerationController implements ReadWriteAnnotationController {
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
 
-        for (String idAndIndex : command.getEspMembershipIds()) {
-            int id = new Integer(idAndIndex.substring(0, idAndIndex.indexOf("-")));
-            int index = new Integer(idAndIndex.substring(idAndIndex.indexOf("-") + 1, idAndIndex.length())) - 1;
+        if (command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
+            for (String idAndIndex : command.getEspMembershipIds()) {
+                int id = new Integer(idAndIndex.substring(0, idAndIndex.indexOf("-")));
+                int index = new Integer(idAndIndex.substring(idAndIndex.indexOf("-") + 1, idAndIndex.length())) - 1;
 
-            EspMembership membership = getEspMembershipDao().findEspMembershipById(id, false);
-            if (membership != null) {
+                EspMembership membership = getEspMembershipDao().findEspMembershipById(id, false);
+                if (membership != null) {
 
-                User user = membership.getUser();
-                if (user != null) {
+                    User user = membership.getUser();
+                    if (user != null) {
 
-                    if ("approve".equals(command.getModeratorAction())) {
+                        if ("approve".equals(command.getModeratorAction())) {
 
-                        membership.setStatus(EspMembershipStatus.APPROVED);
-                        membership.setActive(true);
-                        Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
-                        if (!user.hasRole(Role.ESP_MEMBER)) {
-                            user.addRole(role);
+                            membership.setStatus(EspMembershipStatus.APPROVED);
+                            membership.setActive(true);
+                            Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
+                            if (!user.hasRole(Role.ESP_MEMBER)) {
+                                user.addRole(role);
+                            }
+                            getUserDao().updateUser(user);
+                            sendESPVerificationEmail(request, user);
+
+                        } else if ("reject".equals(command.getModeratorAction())) {
+                            membership.setStatus(EspMembershipStatus.REJECTED);
+                            sendGSVerificationEmail(request, user);
                         }
-                        getUserDao().updateUser(user);
-                        sendESPVerificationEmail(request, user);
 
-                    } else if ("reject".equals(command.getModeratorAction())) {
-                        membership.setStatus(EspMembershipStatus.REJECTED);
-                        sendGSVerificationEmail(request, user);
+                        if (command.getNote() != null && !command.getNote().isEmpty() && StringUtils.isNotBlank(command.getNote().get(index))) {
+                            membership.setNote(command.getNote().get(index));
+                        }
+                        membership.setUpdated(new Date());
+                        getEspMembershipDao().updateEspMembership(membership);
                     }
-
-                    if (StringUtils.isNotBlank(command.getNote().get(index))) {
-                        membership.setNote(command.getNote().get(index));
-                    }
-                    membership.setUpdated(new Date());
-                    getEspMembershipDao().updateEspMembership(membership);
                 }
             }
         }
