@@ -244,7 +244,7 @@ GS.form.EspForm = function() {
 
     this.handleValidationResponse = function(fieldSelector, fieldName, data) {
         var fieldError = jQuery(fieldSelector + '.invalid');
-        var fieldValid = jQuery(fieldSelector + '.valid');
+        var fieldValid = jQuery(fieldSelector + '.success');
 
         fieldError.hide();
         fieldValid.hide();
