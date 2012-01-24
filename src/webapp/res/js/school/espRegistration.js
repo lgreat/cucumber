@@ -369,9 +369,8 @@ GS.form.EspForm = function() {
         }
     };
 
-    this.hideErrors = function() {
-        jQuery('#js_invalidEmail').hide();
-        jQuery('#js_uniqueError').hide();
+    this.hideAllErrors = function() {
+        jQuery('.error').hide();
     };
 };
 
@@ -422,13 +421,17 @@ jQuery(function() {
         GS.form.espForm.bindEmailSubmit();
     }
 
-    jQuery('#js_email').keydown(function() {
+    jQuery('#js_email').click(function() {
         var regPanel = jQuery('#js_regPanel');
         var passwordDiv = jQuery('#js_registeredPasswordDiv');
+        var email = jQuery('#js_email');
+
+        var isEmailEditable = email.attr('readonly') === 'readonly';
 
         //TODO should the form be cleared when reg panel is hidden?
-        GS.form.espForm.hideErrors();
-        if (regPanel.is(':visible') || passwordDiv.is(':visible')) {
+        GS.form.espForm.hideAllErrors();
+
+        if ((regPanel.is(':visible') || passwordDiv.is(':visible')) && !isEmailEditable) {
             regPanel.hide();
             passwordDiv.hide();
             jQuery('#js_firstNameDiv').hide();
