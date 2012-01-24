@@ -268,14 +268,13 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
 
         Object currentPage = mAndV.getModel().get("currentPage");
         assertNotNull("Expect entire article to be injected into model", currentPage);
-        assertEquals("First pageSecond page", currentPage);
+        assertEquals("First page", currentPage);
 
         // Test fetching the 1st page explicitly  
         resetAll();
         getRequest().setParameter("page", "1");
 
         expect(_cmsFeatureDao.get(23L)).andReturn(feature);
-        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
 
         replayAll();
         CmsUtil.enableCms();
@@ -283,9 +282,9 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         CmsUtil.disableCms();
         verifyAll();
 
-        currentPage = mAndV.getModel().get("currentPage");
-        assertNotNull("Expect current article page to be injected into model", currentPage);
-        assertEquals("First page", currentPage);
+        assertNotNull(mAndV);
+        assertTrue(mAndV.getView() instanceof RedirectView301);
+        assertEquals("/blah/blah/23-blah.gs", ((RedirectView301) mAndV.getView()).getUrl());
 
         // Now test fetching the 2nd page
         resetAll();
