@@ -421,7 +421,7 @@ jQuery(function() {
         GS.form.espForm.bindEmailSubmit();
     }
 
-    jQuery('#js_email').click(function() {
+    jQuery('#js_email').blur(function() {
         var regPanel = jQuery('#js_regPanel');
         var passwordDiv = jQuery('#js_registeredPasswordDiv');
         var email = jQuery('#js_email');
