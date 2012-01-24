@@ -44,13 +44,23 @@
         </script>
     </c:if>
 
-    <!-- GS-11485,12225 -->
-    <link rel="canonical" href="${contentUrl}"/>
-    <c:if test="${prevPageNum != null and prevPageNum != '' and prevPageNum ne -1}">
-        <link rel="prev" href="${contentUrl}?page=${prevPageNum}"/>
+    <!-- GS-12332 -->
+    <c:choose>
+        <c:when test="${feature.currentPageNum == 1}">
+            <link rel="canonical" href="${contentUrl}"/>
+        </c:when>
+        <c:when test="${feature.currentPageNum == -1}">
+            <link rel="canonical" href="${singlePageContentUrl}"/>
+        </c:when>
+        <c:otherwise>
+            <link rel="canonical" href="${contentUrl}?page=${feature.currentPageNum}"/>
+        </c:otherwise>
+    </c:choose>
+    <c:if test="${prevPageNum != -1}">
+        <link rel="prev" href="${prevPageContentUrl}"/>
     </c:if>
-    <c:if test="${nextPageNum != null and prevPageNum != '' and nextPageNum ne -1}">
-        <link rel="next" href="${contentUrl}?page=${nextPageNum}"/>
+    <c:if test="${nextPageNum != -1}">
+        <link rel="next" href="${nextPageContentUrl}"/>
     </c:if>
 
     <article:hoverScriplet/>
@@ -179,7 +189,14 @@
                                         <span class="active rnd3">${pageNum}</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
+                                        <c:choose>
+                                            <c:when test="${pageNum == 1}">
+                                                <a href="${contentUrl}">${pageNum}</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${contentUrl}?page=${pageNum}">${pageNum}</a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
@@ -188,7 +205,7 @@
                                     <span class="active rnd3">Single Page</span>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${contentUrl}?page=all">Single Page</a>
+                                    <a href="${singlePageContentUrl}">Single Page</a>
                                 </c:otherwise>
                             </c:choose>
                         </div>

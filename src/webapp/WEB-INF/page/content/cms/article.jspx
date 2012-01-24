@@ -137,10 +137,10 @@
     <!-- GS-11485 -->
     <c:if test="${type eq 'article'}">
         <link rel="canonical" href="${contentUrl}"/>
-        <c:if test="${prevPageNum != null and prevPageNum != '' and prevPageNum ne -1}">
+        <c:if test="${prevPageNum != -1}">
             <link rel="prev" href="${contentUrl}?page=${prevPageNum}"/>
         </c:if>
-        <c:if test="${nextPageNum != null and prevPageNum != '' and nextPageNum ne -1}">
+        <c:if test="${nextPageNum != -1}">
             <link rel="next" href="${contentUrl}?page=${nextPageNum}"/>
         </c:if>
     </c:if>

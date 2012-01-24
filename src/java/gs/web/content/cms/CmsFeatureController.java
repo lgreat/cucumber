@@ -151,16 +151,13 @@ public class CmsFeatureController extends AbstractController {
 
         UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), feature.getFullUri());
 
-        // GS-11485
-        // if the user has already been on the website during this browser session,
-        boolean showAll = false;
-        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) && request.getParameter("page") == null) {
-            if (CookieUtil.hasCookie(request, SessionContextUtil.TRACKING_NUMBER) && !(uri.indexOf("/print-view/") >= 0)) {
-                String queryString = request.getQueryString();
-                return new ModelAndView(new RedirectView(urlBuilder.asSiteRelative(request) +
-                        (queryString != null ? "?" + queryString + "&page=1" : "?page=1")));
-            }
-            showAll = true;
+        // GS-12332
+        // Cookie logic removed so that Google would show component pages in the search results and that would take users directly to that page.
+        // URL with no page parameter is the first page and URL with page=1 parameter to be redirected to page with no params.
+        int prevPageNum = -1, nextPageNum = -1;
+        String page = request.getParameter("page");
+        if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) && page!=null && page.equals("1")) {
+            return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
         }
 
         try {
@@ -200,34 +197,44 @@ public class CmsFeatureController extends AbstractController {
         if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(feature.getContentKey().getType()) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(feature.getContentKey().getType())) {
             String pageNum = request.getParameter("page");
             // GS-11485
-            if (StringUtils.equals("all", pageNum) || print || showAll) {
+            if (StringUtils.equals("all", pageNum) || print) {
                 pageNum = "-1";
             }
+            // GS-12332
+            else if (pageNum == null) {
+                if(feature.getNumPages() > 1){
+                    nextPageNum = 2;
+                }
+            }
+            
             if (StringUtils.isNotBlank(pageNum) && StringUtils.isNumeric(pageNum) ||
                     StringUtils.equals("-1", pageNum)) {
                 try {
                     int p = Integer.parseInt(pageNum);
                     feature.setCurrentPageNum(p);
                     if (!StringUtils.equals("-1", pageNum)) {
-                        int prevPage = p-1;
-                        int nextPage = p+1;
-                        model.put("prevPageNum",prevPage );
-                        model.put("nextPageNum", nextPage);
-                        if((nextPage > feature.getNumPages())){
-                            model.put("nextPageNum", "-1");
+                        prevPageNum = p-1;
+                        nextPageNum = p+1;
+                        if((nextPageNum > feature.getNumPages())){
+                            nextPageNum = -1;
                         }
-                         if(!(prevPage >= 1)){
-                            model.put("prevPageNum", "-1");
+                         if(!(prevPageNum >= 1)){
+                            prevPageNum = -1;
                          }
                     }
-
                 } catch (NumberFormatException e) {
                     _log.warn("Invalid page number " + pageNum + " for feature uri " + uri);
+                    return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                 } catch(IllegalArgumentException iae) {
                     return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                 }
             }
+            else if (pageNum != null) {
+                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
+            }
         }
+        model.put("prevPageNum", prevPageNum);
+        model.put("nextPageNum", nextPageNum);
 
         List<ArticleComment> comments;
         if (feature.getLegacyId() != null) {
@@ -290,6 +297,19 @@ public class CmsFeatureController extends AbstractController {
         model.put("titleForOmniture", StringEscapeUtils.escapeHtml(feature.getTitle().replaceAll(",","").replaceAll("\"","")));
 
         model.put("contentUrl", urlBuilder.asFullUrl(request));
+        model.put("singlePageContentUrl", urlBuilder.asFullUrl(request)+"?page=all");
+        if (prevPageNum != -1){
+            if (prevPageNum == 1){
+                model.put("prevPageContentUrl", urlBuilder.asFullUrl(request));
+            }
+            else {
+                model.put("prevPageContentUrl", urlBuilder.asFullUrl(request) + "?page=" + prevPageNum);
+            }
+        }
+        if (nextPageNum != -1){
+            model.put("nextPageContentUrl", urlBuilder.asFullUrl(request) + "?page=" + nextPageNum);
+        }
+
         model.put("comments", comments);
         model.put("feature", feature);
 
