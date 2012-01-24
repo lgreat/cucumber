@@ -891,7 +891,6 @@ h4.subhead2 a {
 .articleCommentForm {margin-bottom: 20px;}
 .articleCommentForm .inner{border:1px solid #ddd;background-color: #fafafa;padding:18px 20px 20px;}
 .articleCommentForm .hd h3{margin-bottom: 15px;}
-.articleCommentForm .bd .formRow{padding-bottom: 0.5em;}
 .articleCommentForm .bd label{width:138px;}
 .articleCommentForm .bd input[type=text],
 .articleCommentForm .bd input.text{ width: 220px;}
@@ -953,7 +952,6 @@ h4.subhead2 a {
 .articleSlideshow .stepNavText{margin: 0 5px;}
 .articleSlideshow .hd select{width:130px;height:25px;opacity:0;position:relative;padding:0;margin:0 0 0 5px;filter: alpha(opacity = 0);zoom: 1;}
 .ie7 .articleSlideshow .hd select, .ie8 .articleSlideshow .hd select{width: 260px;}
-.articleSlideshow .hd option{padding:5px;}
 .articleSlideshow .hd .behaviorSelect{position:absolute;left:5px;width:130px;height:24px;}
 .articleSlideshow .hd .skinSelect{display:inline-block;background-color:#fff;border:1px solid #79bddb;border-bottom-color:#79bddb;position:absolute;padding:2px 15px 2px 5px;width:108px;height:18px;color:#777;}
 .articleSlideshow .hd .skinSelectArrow{font: bold 14px/18px Arial, Helvetica, sans-serif;color:#4da7cf;display:inline-block;padding:2px 0;border:1px solid #79bdd8;position:absolute;right:-1px;top:-1px;width:22px;height:18px;text-align:center;}
@@ -963,6 +961,17 @@ h4.subhead2 a {
 .chrome .articleFB{float: right;}
 /* ---------- articleDistribution2 ----------- */
 .articleDistribution2{margin-bottom:20px;}
+
+/* ---------------- GS-12324 ----------------- */
+/* -------------- espSignInForm -------------- */
+.espSignInForm {margin-bottom: 20px;}
+.espSignInForm .inner{background-color: #fafafa;padding:18px 20px 20px;}
+.espSignInForm .hd h3{margin-bottom: 15px;}
+.espSignInForm .bd label{width:138px;}
+.espSignInForm .bd input[type=text],
+.espSignInForm .bd input.text{ width: 220px;}
+.espSignInForm .bd input[type=password],
+.espSignInForm .bd input.password{ width: 220px;}
 
 /* ---------------- GS-11664 ----------------- */
 /* ------ btsSponsor (extends standard) ------ */
@@ -5211,7 +5220,7 @@ a.ui-dialog-titlebar-close .ui-icon {
 
 #joinGS .error,
 .error{
-    /*font: 11px / 1.3 Arial, Helvetica, sans-serif;*/
+    font: 11px / 1.3 Arial, Helvetica, sans-serif;
     color: #c03;
     padding: 0 0 3px 15px;
     background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 0 1px no-repeat;
@@ -5226,7 +5235,8 @@ a.ui-dialog-titlebar-close .ui-icon {
     margin-bottom:9px;
 }
 
-#joinGS .valid {
+#joinGS .valid,
+.valid {
     color: #180;
     background-image: url(/res/img/discussion_boards/cbi_checkOk_gfx.gif);
 }
@@ -7155,8 +7165,8 @@ body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
     position: absolute;
     top: 0;
     right: 0;
-    width: 160px;
-    _width: 161px;
+    width: 66px;
+    _width: 67px;
 }
 
 #reviewContainer .reported {
