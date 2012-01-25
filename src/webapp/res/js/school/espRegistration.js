@@ -3,50 +3,74 @@ GS.form = GS.form || {};
 GS.form.EspForm = function() {
 
     //Handle State drop down change.
-    this.stateChange = function(stateSelect, citySelect) {
-        var params = {
-            state: stateSelect.val(),
-            type: 'city',
-            notListedOption: '2. Choose city'
-        };
+    this.stateChange = function() {
 
-        jQuery('#js_school').html('<option value="0">3. Choose school</option>');
+        var stateSelect = jQuery('#js_stateAdd');
+        var citySelect = jQuery('#js_city');
+        var schoolSelect = jQuery('#js_school');
+
         citySelect.html('<option value="0">Loading ...</option>');
+        schoolSelect.html('<option value="0">- Choose school -</option>');
 
         jQuery.ajax({
             type: 'GET',
-            url: '/util/ajax/ajaxCity.page',
-            data: params,
-            dataType: 'text',
+            url: "/community/registrationAjax.page",
+            data: {state: stateSelect.val(),type: 'city',format: 'json'},
+            dataType: 'json',
             async: true
         }).done(function(data) {
-                citySelect.html(data.replace('</select>', ''));
+                GS.form.espForm.parseCities(data);
             });
+
     };
 
     //Handle City drop down change.
-    this.emailCityChange = function(citySelect) {
-        var parentState = jQuery('#js_stateAdd').val();
-        var parentCity = citySelect.val();
-        var school = jQuery('#js_school');
+    this.cityChange = function() {
+        var stateSelect = jQuery('#js_stateAdd');
+        var citySelect = jQuery('#js_city');
 
-        var params = {
-            state: parentState,
-            city: parentCity,
-            notListedOption: '3. Choose school'
-        };
+        var state = stateSelect.val();
+        var city = citySelect.val();
 
-        school.html('<option value="0">Loading ...</option>');
+        if (state !== '' && city !== '- Choose city -' && city !== 'My city is not listed') {
+            jQuery('#js_school').html("<option>Loading...</option>");
+            jQuery.ajax({
+                type: 'GET',
+                url: "/community/registration2Ajax.page",
+                data: {state:state, city:city, format:'json', type:'school'},
+                dataType: 'json',
+                async: true
+            }).done(function(data) {
+                    GS.form.espForm.parseSchools(data);
+                });
+        }
 
-        jQuery.ajax({
-            type: 'GET',
-            url: '/util/ajax/ajaxCity.page',
-            data: params,
-            dataType: 'text',
-            async: true
-        }).done(function(data) {
-                school.html(data.replace('</select>', ''));
-            });
+    };
+
+    this.parseCities = function(data) {
+        var citySelect = jQuery('#js_city');
+        if (data.cities) {
+            citySelect.empty();
+            for (var x = 0; x < data.cities.length; x++) {
+                var city = data.cities[x];
+                if (city.name) {
+                    citySelect.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
+                }
+            }
+        }
+    };
+
+    this.parseSchools = function(data) {
+        var schoolSelect = jQuery('#js_school');
+        if (data.schools) {
+            schoolSelect.empty();
+            for (var x = 0; x < data.schools.length; x++) {
+                var school = data.schools[x];
+                if (school.name && school.id) {
+                    schoolSelect.append("<option value=\"" + school.id + "\">" + school.name + "</option>");
+                }
+            }
+        }
     };
 
     //Checks for the following cases and displays the form accordingly
@@ -379,11 +403,11 @@ GS.form.espForm = new GS.form.EspForm();
 jQuery(function() {
 
     jQuery('#js_stateAdd').change(function() {
-        GS.form.espForm.stateChange(jQuery(this), jQuery('#js_citySelect'));
+        GS.form.espForm.stateChange();
     });
 
-    jQuery('#js_citySelect').change(function() {
-        GS.form.espForm.emailCityChange(jQuery(this));
+    jQuery('#js_city').change(function() {
+        GS.form.espForm.cityChange();
     });
 
     jQuery('#js_firstName').blur(function() {

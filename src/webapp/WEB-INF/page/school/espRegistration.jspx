@@ -138,7 +138,7 @@
                                 <gsweb:stateSelector styleId="js_stateAdd"
                                                      name="state"
                                                      useNoState="true"
-                                                     noStateLabel="1. Choose state"
+                                                     noStateLabel="- Choose state -"
                                                      allowNoState="false"
                                         />
                             </div>
@@ -151,11 +151,11 @@
 
                         <div class="formRow clearfix">
                             <div class="prefix_1 grid_4 alpha">
-                                <form:label path="city" for="js_citySelect">City</form:label>
+                                <form:label path="city" for="js_city">City</form:label>
                             </div>
                             <div class="grid_5">
-                                <select id="js_citySelect" name="city">
-                                    <option selected="selected" value="">2. Choose city</option>
+                                <select id="js_city" name="city">
+                                    <option selected="selected" value="">- Choose city -</option>
                                     <c:forEach var="cityOption" items="">
                                         <![CDATA[<option ]]>
                                         <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -171,7 +171,7 @@
                             </div>
                             <div class="grid_5">
                                 <select name="schoolId" id="js_school" class="selectChildSchool">
-                                    <option selected="selected" value="0">3. Choose school</option>
+                                    <option selected="selected" value="0">- Choose school -</option>
                                     <c:forEach var="schoolOption" items="">
                                         <![CDATA[<option ]]>
                                         <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
