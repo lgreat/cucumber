@@ -1,6 +1,7 @@
 package gs.web.photoUploader;
 
 import gs.data.community.User;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.json.JSONObject;
 import gs.data.school.ISchoolMediaDao;
 import gs.data.school.SchoolMedia;
@@ -144,7 +145,37 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
 
         success(response);
     }
-    
+
+    @RequestMapping(method=RequestMethod.PUT)
+    protected void handleUpdate(@RequestParam(value="schoolMediaId", required=false) Integer schoolMediaId,
+                                @RequestParam(value="schoolId", required=false) Integer schoolId,
+                                @RequestParam(value="schoolDatabaseState", required=false) String schoolDatabaseState,
+                                HttpServletResponse response) {
+
+        State databaseState = null;
+
+        try {
+            databaseState = State.fromString(schoolDatabaseState);
+        } catch (IllegalArgumentException e) {
+            error(response, "102", "Error updating photo.");
+            return;
+        }
+
+        SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
+
+        if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(databaseState)) {
+            schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.ACTIVE.value);
+            _schoolMediaDao.save(schoolMedia);
+            ThreadLocalTransactionManager.commitOrRollback();
+        } else {
+            error(response, "102", "Error updating photo.");
+            return;
+        }
+
+        success(response);
+
+    }
+
     public SchoolPhotoProcessor createSchoolPhotoProcessor(FileItemStream fileItemStream) throws IOException {
         return new SchoolPhotoProcessor(fileItemStream);
     }
@@ -156,20 +187,22 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                                 HttpServletResponse response) {
 
         State databaseState = null;
-        
+
         try {
             databaseState = State.fromString(schoolDatabaseState);
         } catch (IllegalArgumentException e) {
-            error(response, "102", "Error deleting photo.");
+            error(response, "102", "Error updating photo.");
             return;
         }
 
         SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
 
         if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(databaseState)) {
-            _schoolMediaDao.delete(schoolMedia);
+            schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.DELETED.value);
+            _schoolMediaDao.save(schoolMedia);
+            ThreadLocalTransactionManager.commitOrRollback();
         } else {
-            error(response, "102", "Error deleting photo.");
+            error(response, "102", "Error updating photo.");
             return;
         }
 

@@ -26,16 +26,17 @@
                 jQuery('#' + this.hoverId).dialog('open');
                 return false;
             };
+
+            this.updateHoverWithImage = function(imageElement) {
+                var placeholder = jQuery('#photoConfirmationImagePlaceholder');
+                placeholder.html(imageElement);
+            }
         };
         GSType.hover.PhotoDeleteConfirmation.prototype = new GSType.hover.HoverDialog("photoDeleteConfirmationHover",640);
 
         jQuery(function() {
 
             jQuery('#submitPhotoDeleteConfirmation').click(function() {
-                jQuery('#photoDeleteConfirmationForm').submit();
-            });
-
-            jQuery('#photoDeleteConfirmationForm').submit(function () {
                 var data = {
                     schoolMediaId:GSType.hover.photoDeleteConfirmation.schoolMediaId.toString(),
                     schoolId:GSType.hover.photoDeleteConfirmation.schoolId.toString(),
@@ -43,14 +44,20 @@
                     _method:"DELETE"
                 };
 
-                console.log(data);
                 var jqxhr = jQuery.ajax({
                     url:'/photoUploader/photoUploaderTest.page',
                     type:'POST',
                     data:data
+                }).fail(function() {
+                    alert("Sorry, an error occurred trying to delete the photo. Please try again soon.");
                 }).done(function() {
-                    console.log("done with delete call");
+                    var id = '#js-photo-' + GSType.hover.photoDeleteConfirmation.schoolMediaId;
+                    jQuery(id).parent().remove();
+                    GSType.hover.photoDeleteConfirmation.hide();
                 });
+            });
+
+            jQuery('#photoDeleteConfirmationForm').submit(function () {
                 return false;
             });
 
@@ -62,8 +69,9 @@
     <div id="photoDeleteConfirmationHover" style="display:none;">
         <h2>Are you sure you want to delete this photo?</h2>
 
-        <form name="photoDeleteConfirmation" id="photoDeleteConfirmationForm" method="get">
+        <div id="photoConfirmationImagePlaceholder"><!-- no collapse --></div>
 
+        <form name="photoDeleteConfirmation" id="photoDeleteConfirmationForm" method="get">
 
             <div class="spacer_10"><!-- do not collapse --></div>
 

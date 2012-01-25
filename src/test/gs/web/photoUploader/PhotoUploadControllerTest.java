@@ -3,6 +3,7 @@ package gs.web.photoUploader;
 import gs.data.community.User;
 import gs.data.school.ISchoolMediaDao;
 import gs.data.school.SchoolMedia;
+import gs.data.school.SchoolMediaDaoHibernate;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import org.apache.commons.fileupload.FileItemStream;
@@ -48,7 +49,8 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
         schoolMedia.setSchoolState(State.fromString(stateAbbreviation));
 
         expect(_schoolMediaDao.getById(eq(mediaId))).andReturn(schoolMedia);
-        _schoolMediaDao.delete(schoolMedia);
+        schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.DELETED.value);
+        _schoolMediaDao.save(eq(schoolMedia));
         replay(_schoolMediaDao);
         
         _controller.handleDelete(mediaId, schoolId, stateAbbreviation,  getResponse());

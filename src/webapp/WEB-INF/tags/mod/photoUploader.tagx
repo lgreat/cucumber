@@ -19,6 +19,11 @@
 
 
         <div id="pollingPhotoViewer">
+            <div style="width:150px; height:75px; min-width:150px; min-height: 75px; display:none;float:left" id="js-photo-template">
+                <span id="js-deletePhoto-placeholder" class="js-deletePhoto" style="border:1px solid #808080;padding:1px;float:left">X</span> |
+                <span id="js-makePhotoActive-placeholder" class="js-makePhotoActive">Activate photo</span>
+                <img id="js-photo-placeholder" alt="placeholder" class="js-photo-pending" src="pending-photo.png" style="border:1px solid grey;min-height: 75px;display:block;" width="75" height="75"/>
+            </div>
             <c:forEach items="${existingPhotos}" var="existingPhoto">
                 <c:if test="${existingPhoto.status eq STATUS_ACTIVE}">
                     <c:set var="photoStatus" value="active"/>
@@ -26,9 +31,10 @@
                 <c:if test="${existingPhoto.status eq STATUS_PENDING}">
                     <c:set var="photoStatus" value="pending"/>
                 </c:if>
-                <div style="width:75px; height:75px; min-width:75px; min-height: 75px; display:block;">
-                    <span id="js-deletePhoto-${existingPhoto.id}" class="js-deletePhoto">X</span>
-                    <img alt="${photoStatus} ${existingPhoto.originalFileName}" id="photo${existingPhoto.id}" class="photo-${photoStatus}" src="${existingPhoto.smallSizeFile}" style="border:1px solid grey;min-height: 75px;display:block;" width="75" height="75"/>
+                <div style="width:150px; height:75px; min-width:150px; min-height: 75px; display:block;float:left;">
+                    <span id="js-deletePhoto-${existingPhoto.id}" class="js-deletePhoto" style="border:1px solid #808080;padding:1px;float:left">X</span> |
+                    <span id="js-makePhotoActive-${existingPhoto.id}" class="js-makePhotoActive">Activate photo</span>
+                    <img alt="${photoStatus} ${existingPhoto.originalFileName}" id="js-photo-${existingPhoto.id}" class="js-photo-${photoStatus}" src="pending-photo.png" style="border:1px solid grey;min-height: 75px;display:block;" width="75" height="75"/>
                 </div>
             </c:forEach>
 
@@ -37,6 +43,7 @@
                     <img src="/res/img/pixel.gif" width="75" height="75"/>
                 </div>
             </c:forEach>-->
+            <br class="clearfloat" />
         </div>
     </c:if>
 
