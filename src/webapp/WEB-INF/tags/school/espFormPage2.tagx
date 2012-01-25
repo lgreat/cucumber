@@ -55,8 +55,6 @@
         <br/><br/>
         <label>What colleges do most students attend after graduation?</label>
         <br/>
-        <label>Does not apply</label><gsml:checkbox name="foo"/>
-        <br/>
         <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${responseMap['college_destination_1'].value}"/>
         <br/>
         <label for="form_college_destination_2">2: </label><input id="form_college_destination_2" type="text" name="college_destination_2" value="${responseMap['college_destination_2'].value}"/>

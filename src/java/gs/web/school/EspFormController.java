@@ -40,6 +40,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
+    public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
     public static final boolean ENABLE_EXTERNAL_DATA_SAVING = false;
     
     @Autowired
@@ -164,7 +165,9 @@ public class EspFormController implements ReadWriteAnnotationController {
         int page = getPage(request);
 
         // Deactivate page
-        Set<String> keysForPage = getKeysForPage(page);
+        String[] visibleKeys = StringUtils.split(request.getParameter(FORM_VISIBLE_KEYS_PARAM), ",");
+        Set<String> keysForPage = new HashSet<String>();
+        keysForPage.addAll(Arrays.asList(visibleKeys));
         _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
 
         Date now = new Date();
@@ -182,9 +185,12 @@ public class EspFormController implements ReadWriteAnnotationController {
             if (responseValues == null || responseValues.length == 0) {
                 continue;
             }
+            boolean active = true;
             if (ENABLE_EXTERNAL_DATA_SAVING && keysForExternalData.contains(key)) {
                 saveExternalValue(key, responseValues, school);
+                active = false; // data saved elsewhere should be inactive
             }
+            // TODO: If key is external data, then EspResponse should be inactive
             for (String responseValue: responseValues) {
                 EspResponse espResponse = new EspResponse();
                 espResponse.setKey(key);
@@ -192,10 +198,11 @@ public class EspFormController implements ReadWriteAnnotationController {
                 espResponse.setSchool(school);
                 espResponse.setMemberId(user.getId());
                 espResponse.setCreated(now);
+                espResponse.setActive(active);
                 responseList.add(espResponse);
             }
         }
-        
+
         _espResponseDao.saveResponses(school, responseList);
         JSONObject successObj = new JSONObject();
         // let page know new completion percentage
@@ -278,26 +285,6 @@ public class EspFormController implements ReadWriteAnnotationController {
         return Integer.valueOf("0");
     }
 
-    protected Set<String> getKeysForPage(int page) {
-        Set<String> keys = new HashSet<String>();
-        if (page == 1) {
-            keys.add("admissions_url");
-            keys.add("student_enrollment");
-        } else if (page == 2) {
-            keys.add("academic_focus");
-            keys.add("instructional_model");
-            keys.add("instructional_model_other");
-            keys.add("best_known_for");
-            keys.add("college_destination_1");
-            keys.add("college_destination_2");
-            keys.add("college_destination_3");
-        } else {
-            _log.error("Unknown page provided to getKeysForPage: " + page);
-        }
-
-        return keys;
-    }
-
     protected Set<String> getKeysForPercentCompletion(int page) {
         Set<String> keys = new HashSet<String>();
         if (page == 1) {
@@ -332,6 +319,8 @@ public class EspFormController implements ReadWriteAnnotationController {
                 }
                 responseMap.put(key, espResponse);
             } else {
+                // don't let esp_response values for external data show up on form
+                // external data has to come from external sources!
                 responseMap.remove(key);
             }
         }
@@ -342,7 +331,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             return; // early exit
         }
         if (StringUtils.equals("student_enrollment", key)) {
-            System.err.println("Saving student_enrollment elsewhere: " + values[0]);
+            _log.debug("Saving student_enrollment elsewhere: " + values[0]);
             saveCensusData(school, Integer.parseInt(values[0]));
         }
 

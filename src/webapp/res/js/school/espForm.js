@@ -85,6 +85,7 @@ new (function() {
         }
         var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
         var data = form.serializeArray();
+        data.push({name:"_visibleKeys", value:getVisibleFormInputNames(form)});
         return jQuery.ajax({type: 'POST', url: document.location, data: data}
         ).fail(function() {
             alert("Error");
@@ -133,6 +134,21 @@ new (function() {
         saveForm().done(function() {
             sendToLandingPage();
         });
+    };
+    var getVisibleFormInputNames = function(formElem) {
+        var form = $(formElem);
+        var allVisibleFormFields = form.find(":input").not(":button").not(":submit");
+        var formNames = {};
+        allVisibleFormFields.each(function() {
+            formNames[this.name] = 1;
+        });
+        var formNameArr = new Array();
+        for (var formName in formNames) {
+            if (formNames.hasOwnProperty(formName) && formNames[formName] === 1) {
+                formNameArr.push(formName);
+            }
+        }
+        return formNameArr.join(',');
     };
 
     var doValidations = function() {
