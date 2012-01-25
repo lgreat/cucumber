@@ -281,7 +281,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
 
 
-
 GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.id = id; // dom id of the viewer
     this.url = url; // url to poll from
@@ -290,8 +289,8 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
 
     this.container = jQuery('#' + id);
 
-    this.STATUS_ACTIVE = 1;
-    this.STATUS_PENDING = 0;
+    this.STATUS_ACTIVE = 'active';
+    this.STATUS_PENDING = 'pending';
     this.numberPending = 0;
     this.numberActive = 0;
     this.IMG_ID_PREFIX = 'js-photo-';
@@ -299,27 +298,9 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.pollFrequency = 5000; //ms
     var pollingPhotoViewerSelf = this;
 
-    this.container.on('click','.js-makePhotoActive',function() {
-        var schoolMediaId = jQuery(this).prop('id').substring(19,this.id.length);
-
-        var data = {
-            schoolMediaId:schoolMediaId,
-            schoolId:pollingPhotoViewerSelf.schoolId,
-            schoolDatabaseState:pollingPhotoViewerSelf.schoolDatabaseState,
-            _method:"PUT"
-        };
-
-        var jqxhr = jQuery.ajax({
-            url:'/photoUploader/photoUploaderTest.json',
-            type:'POST',
-            data:data
-        }).done(function() {
-            console.log("done with PUT call");
-        });
-    });
-
     this.deletePhoto = function(schoolMedia) {
-        var photoId = schoolMedia.id.substring(15,this.id.length);
+        var pollingPhotoViewerItem = jQuery(schoolMedia).parent();
+        var photoId = pollingPhotoViewerItem.prop('id').substring(26, pollingPhotoViewerItem.prop('id').length);
         GSType.hover.photoDeleteConfirmation.updateHoverWithImage(jQuery(schoolMedia).siblings('img').clone());
         GSType.hover.photoDeleteConfirmation.show(photoId, this.schoolId, this.schoolDatabaseState);
     }.gs_bind(this);
@@ -329,6 +310,26 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
         this.numberActive = this.container.find('.js-photo-active').length;
         setTimeout(this.poll, this.pollFrequency);
     }.gs_bind(this);
+
+    this.container.on('click','.js-makePhotoActive',function() {
+        var pollingPhotoViewerItem = jQuery(this).parent();
+        var schoolMediaId = pollingPhotoViewerItem.prop('id').substring(26, pollingPhotoViewerItem.prop('id').length);
+
+        var data = {
+            schoolMediaId:schoolMediaId,
+            schoolId:pollingPhotoViewerSelf.schoolId,
+            schoolDatabaseState:pollingPhotoViewerSelf.schoolDatabaseState,
+            _method:"PUT"
+        };
+
+        var jqxhr = jQuery.ajax({
+            url:pollingPhotoViewerSelf.url,
+            type:'POST',
+            data:data
+        }).done(function() {
+                    console.log("done with PUT call");
+                });
+    });
 
     this.container.on('click', '.js-deletePhoto', function() {
         pollingPhotoViewerSelf.deletePhoto(this);
@@ -349,14 +350,12 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
                 schoolDatabaseState:self.schoolDatabaseState
             }
         }).done(function(data) {
-            console.log(data);
-
             var photos = data.schoolMedias;
 
             if (photos !== undefined) {
                 for (i = 0; i < photos.length; i++) {
                     var imgId = self.IMG_ID_PREFIX + photos[i].id;
-                    if (photos[i].status === self.STATUS_ACTIVE) {
+                    if (photos[i].statusAsString === self.STATUS_ACTIVE) {
                         var domPhoto = self.container.find('#' + imgId);
                         if (domPhoto.hasClass('js-photo-pending')) {
                             domPhoto.prop('src',photos[i].smallFileName);
@@ -366,14 +365,12 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
                             self.numberActive+=1;
                             self.numberPending-=1;
                         }
-                    } else if (photos[i].status === self.STATUS_PENDING) {
+                    } else if (photos[i].statusAsString === self.STATUS_PENDING) {
                         if (jQuery(self.container).has('#' + imgId).length === 0) {
                             var newPhotoContainer = jQuery('#js-photo-template').clone();
-                            newPhotoContainer.prop('id','');
+                            newPhotoContainer.prop('id','js-pollingPhotoViewerItem-' + photos[i].id);
                             newPhotoContainer.find('#' + self.IMG_ID_PREFIX + 'placeholder').prop('id',imgId);
                             newPhotoContainer.css('display','block');
-                            newPhotoContainer.find('#js-deletePhoto-placeholder').prop('id','js-deletePhoto-' + photos[i].id);
-                            newPhotoContainer.find('#js-makePhotoActive-placeholder').prop('id','js-makePhotoActive-' + photos[i].id);
                             jQuery(self.container).find('div:last').after(newPhotoContainer);
                             jQuery('#' + imgId).prop('alt', 'pending ' + photos[i].originalFileName);
                         }
@@ -387,9 +384,5 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
             alert("error");
         });
     }.gs_bind(this);
-
-    //every 5s poll
-    //iterate over returned photos
-    // for each photo where status = 1, if the class of the matching dom element is photo-pending, update the src of the img
 
 };

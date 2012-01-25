@@ -11,29 +11,30 @@
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="existingPhotos" required="false" type="java.util.List" description="List of SchoolMedia" />
 
-    <c:set var="STATUS_ACTIVE" value="1"/>
-    <c:set var="STATUS_PENDING"  value="0"/>
-
     <c:if test="${fn:length(existingPhotos) gt 0}">
         <c:set var="numberOfExistingPhotos" value="${fn:length(existingPhotos)}"/>
 
         <div id="pollingPhotoViewer">
-            <div style="width:150px; height:75px; min-width:150px; min-height: 75px; display:none;float:left" id="js-photo-template">
-                <span id="js-deletePhoto-placeholder" class="js-deletePhoto" style="border:1px solid #808080;padding:1px;float:left">X</span> |
-                <span id="js-makePhotoActive-placeholder" class="js-makePhotoActive">Activate photo</span>
-                <img id="js-photo-placeholder" alt="placeholder" class="js-photo-pending" src="pending-photo.png" style="border:1px solid grey;min-height: 75px;display:block;" width="75" height="75"/>
+            <div style="display:none;" id="js-photo-template" class="polling-photo-viewer-item">
+                <span class="js-deletePhoto deletePhoto">X</span> |
+                <span class="js-makePhotoActive">Activate photo</span>
+
+                <img id="js-photo-placeholder"
+                      class="js-photo-pending"
+                      src="/res/img/pending-photo.png"
+                      width="75" height="75"
+                      alt="placeholder"/>
             </div>
             <c:forEach items="${existingPhotos}" var="existingPhoto">
-                <c:if test="${existingPhoto.status eq STATUS_ACTIVE}">
-                    <c:set var="photoStatus" value="active"/>
-                </c:if>
-                <c:if test="${existingPhoto.status eq STATUS_PENDING}">
-                    <c:set var="photoStatus" value="pending"/>
-                </c:if>
-                <div style="width:150px; height:75px; min-width:150px; min-height: 75px; display:block;float:left;">
-                    <span id="js-deletePhoto-${existingPhoto.id}" class="js-deletePhoto" style="border:1px solid #808080;padding:1px;float:left">X</span> |
-                    <span id="js-makePhotoActive-${existingPhoto.id}" class="js-makePhotoActive">Activate photo</span>
-                    <img alt="${photoStatus} ${existingPhoto.originalFileName}" id="js-photo-${existingPhoto.id}" class="js-photo-${photoStatus}" src="pending-photo.png" style="border:1px solid grey;min-height: 75px;display:block;" width="75" height="75"/>
+                <div id="js-pollingPhotoViewerItem-${existingPhoto.id}" class="polling-photo-viewer-item">
+                    <span class="js-deletePhoto deletePhoto">X</span> |
+                    <span class="js-makePhotoActive">Activate photo</span>
+
+                    <img id="js-photo-${existingPhoto.id}"
+                         class="js-photo-${existingPhoto.statusAsString}"
+                         src="/res/img/pending-photo.png"
+                         width="75" height="75"
+                         alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
                 </div>
             </c:forEach>
 

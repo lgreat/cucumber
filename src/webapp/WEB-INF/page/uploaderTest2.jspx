@@ -99,6 +99,29 @@
         color: red;
     }
 
+    .polling-photo-viewer-item {
+        width:150px;
+        height:75px;
+        min-width:150px;
+        min-height: 75px;
+        display:block;
+        float:left;
+    }
+
+    .polling-photo-viewer-item img, #photoConfirmationImagePlaceholder img {
+        border:1px solid grey;
+        min-height: 75px;
+        display:block;
+    }
+
+    .deletePhoto {
+        border:1px solid #808080;
+        padding:1px;
+        float:left;
+    }
+
+
+
 </style>
 
 
