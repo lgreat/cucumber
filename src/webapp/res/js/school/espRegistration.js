@@ -283,12 +283,6 @@ GS.form.EspForm = function() {
         }
     };
 
-//    this.emailSubmit = function() {
-//        GS.form.espForm.checkUser();
-//        //This should never submit the form.Hence always return false.
-//        return false;
-//    };
-
     this.loginSubmit = function() {
         GS.form.espForm.matchUserPassword(
         ).done(

@@ -30,6 +30,12 @@
                 <li><link:schoolEspForm school="${espMembership.school}" page="2">Page 2</link:schoolEspForm></li>
             </ol>
         </c:if>
+
+        <div style="display:none;">
+            <mod:tracking pageName="ESP dashboard Page"
+                          hier1="ESP dashboard Page"/>
+        </div>
+
     </gsml:body>
 
     </html>
