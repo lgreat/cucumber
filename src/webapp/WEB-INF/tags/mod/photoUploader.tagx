@@ -90,18 +90,6 @@
 
     <mod:photoDeleteConfirmHover/>
 
-    <script type="text/javascript">
 
-        jQuery(function() {
-            var photoUploader = new GS.PhotoUploader("${url}",${maxNumberOfPhotos}, ${schoolId}, "${schoolDatabaseState}");
-            photoUploader.init();
-
-
-            var pollingPhotoViewer = new GS.PollingPhotoViewer('pollingPhotoViewer', '/photoUploader/photoUploaderTest.json', ${schoolId}, '${schoolDatabaseState}');
-
-            pollingPhotoViewer.init();
-        });
-
-    </script>
 
 </jsp:root>

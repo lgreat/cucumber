@@ -55,7 +55,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.uploader.init();
 
     this.init = function() {
-        self = this;
+        var self = this;
         this.uploader.bind('FilesAdded', this.filesQueued);
 
         this.uploader.bind("UploadProgress",this.updateProgress);
@@ -186,7 +186,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.filesQueued = function(up, files) {
-        console.log('files added');
         var index = 0;
         var htmlblock = '';
         var tbody = jQuery ('#container table tbody');
@@ -195,7 +194,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
             return;
         }
 
-        self = this;
+        var self = this;
 
         // add each file to the queue as long as status is "STOPPED"
         $.each(files, function(i, file) {
@@ -298,7 +297,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.IMG_ID_PREFIX = 'js-photo-';
 
     this.pollFrequency = 5000; //ms
-    self = this;
+    var pollingPhotoViewerSelf = this;
 
 
     this.container.find('.js-makePhotoActive').click(function() {
@@ -306,8 +305,8 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
 
         var data = {
             schoolMediaId:schoolMediaId,
-            schoolId:self.schoolId,
-            schoolDatabaseState:self.schoolDatabaseState,
+            schoolId:pollingPhotoViewerSelf.schoolId,
+            schoolDatabaseState:pollingPhotoViewerSelf.schoolDatabaseState,
             _method:"PUT"
         };
 
@@ -323,7 +322,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.deletePhoto = function(schoolMedia) {
         var photoId = schoolMedia.id.substring(15,this.id.length);
         GSType.hover.photoDeleteConfirmation.updateHoverWithImage(jQuery(schoolMedia).siblings('img').clone());
-        GSType.hover.photoDeleteConfirmation.show(photoId, self.schoolId, self.schoolDatabaseState);
+        GSType.hover.photoDeleteConfirmation.show(photoId, this.schoolId, this.schoolDatabaseState);
     }.gs_bind(this);
 
     this.init = function() {
@@ -333,7 +332,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     }.gs_bind(this);
 
     this.container.find('.js-deletePhoto').click(function() {
-        this.deletePhoto(this);
+        pollingPhotoViewerSelf.deletePhoto(this);
     });
 
     this.poll = function() {
@@ -344,7 +343,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
         }
 
         var jqxhr = jQuery.ajax({
-            url:self.url,
+            url:pollingPhotoViewerSelf.url,
             type:'GET',
             data:{
                 schoolId:self.schoolId,
