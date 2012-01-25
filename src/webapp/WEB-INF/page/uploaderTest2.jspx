@@ -115,6 +115,9 @@
     });
 </script>
 
+<div id="tracking">
+    <mod:tracking pageName="photoUploaderTest" hier1="photoUploaderTest"/>
+</div>
 
 </body>
 
