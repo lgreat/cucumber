@@ -299,9 +299,8 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.pollFrequency = 5000; //ms
     var pollingPhotoViewerSelf = this;
 
-
-    this.container.find('.js-makePhotoActive').click(function() {
-        var schoolMediaId = this.id.substring(19,this.id.length);
+    this.container.on('click','.js-makePhotoActive',function() {
+        var schoolMediaId = jQuery(this).prop('id').substring(19,this.id.length);
 
         var data = {
             schoolMediaId:schoolMediaId,
@@ -331,7 +330,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
         setTimeout(this.poll, this.pollFrequency);
     }.gs_bind(this);
 
-    this.container.find('.js-deletePhoto').click(function() {
+    this.container.on('click', '.js-deletePhoto', function() {
         pollingPhotoViewerSelf.deletePhoto(this);
     });
 
@@ -373,6 +372,8 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
                             newPhotoContainer.prop('id','');
                             newPhotoContainer.find('#' + self.IMG_ID_PREFIX + 'placeholder').prop('id',imgId);
                             newPhotoContainer.css('display','block');
+                            newPhotoContainer.find('#js-deletePhoto-placeholder').prop('id','js-deletePhoto-' + photos[i].id);
+                            newPhotoContainer.find('#js-makePhotoActive-placeholder').prop('id','js-makePhotoActive-' + photos[i].id);
                             jQuery(self.container).find('div:last').after(newPhotoContainer);
                             jQuery('#' + imgId).prop('alt', 'pending ' + photos[i].originalFileName);
                         }
