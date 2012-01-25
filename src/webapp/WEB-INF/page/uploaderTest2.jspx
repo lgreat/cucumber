@@ -99,21 +99,12 @@
         color: red;
     }
 
-
 </style>
 
 
-<mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="4" schoolId="${schoolId}" schoolDatabaseState="${schoolDatabaseState}" existingPhotos="${schoolMedias}"/>
+<mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="4" schoolId="${schoolId}" schoolDatabaseState="${schoolDatabaseState}" existingPhotos="${schoolMedias}"/>
 
-<script type="text/javascript">
-    jQuery(function() {
-        var photoUploader = new GS.PhotoUploader("/photoUploader/photoUploaderTest.page", 4, ${schoolId}, "${schoolDatabaseState}");
-        photoUploader.init();
-
-        var pollingPhotoViewer = new GS.PollingPhotoViewer('pollingPhotoViewer', '/photoUploader/photoUploaderTest.json', ${schoolId}, '${schoolDatabaseState}');
-        pollingPhotoViewer.init();
-    });
-</script>
+<mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="4" schoolId="${schoolId}" schoolDatabaseState="${schoolDatabaseState}" />
 
 <div id="tracking">
     <mod:tracking pageName="photoUploaderTest" hier1="photoUploaderTest"/>
