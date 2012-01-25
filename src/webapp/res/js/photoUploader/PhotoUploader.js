@@ -58,13 +58,9 @@ GS.PhotoUploader.prototype.createUploader = function() {
         self = this;
         this.uploader.bind('FilesAdded', this.filesQueued);
 
-        this.uploader.bind("UploadProgress",function() {
-            self.updateProgress.apply(self, arguments);
-        });
+        this.uploader.bind("UploadProgress",this.updateProgress);
 
-        this.uploader.bind("Error", function() {
-            self.handleError.apply(self, arguments);
-        });
+        this.uploader.bind("Error", this.handleError);
 
         this.uploader.bind("UploadComplete", function() {
             self.done();
@@ -337,7 +333,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     }.gs_bind(this);
 
     this.container.find('.js-deletePhoto').click(function() {
-        self.deletePhoto(this);
+        this.deletePhoto(this);
     });
 
     this.poll = function() {
