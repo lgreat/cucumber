@@ -240,6 +240,7 @@
               hier1="${hier1}"
               events="event48"
               omitAlmondNet="${true}"
+              worksheetLicensorName="${feature.licensorName}"
         />
 
 <!-- even though this is the video template, surveyType should remain "article" -->

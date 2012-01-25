@@ -136,6 +136,11 @@
         name="isContentPage" type="java.lang.Boolean"
         description="Indicates this is a page of a content template (any page or single page view or any slide in a slideshow)"
         required="false"/>
+    <!--GS-12416-->
+    <jsp:directive.attribute
+        name="worksheetLicensorName" type="java.lang.String"
+        description="Name of the worksheet's licensor"
+        required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
         <c:set var="omitAlmondNet" value="${false}"/>
@@ -244,6 +249,7 @@
             s.prop36 = clickCapture.getProp(36,"${findASchoolByName ? query: ''}");
             s.prop38 = clickCapture.getProp(38,"${isContentFirstPage ? contentId : ''}");
             s.prop39 = clickCapture.getProp(39,"${isContentPage ? contentId : ''}");
+            s.prop40 = clickCapture.getProp(40,"${worksheetLicensorName != null ? worksheetLicensorName : ''}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
