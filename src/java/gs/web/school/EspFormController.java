@@ -190,7 +190,6 @@ public class EspFormController implements ReadWriteAnnotationController {
                 saveExternalValue(key, responseValues, school);
                 active = false; // data saved elsewhere should be inactive
             }
-            // TODO: If key is external data, then EspResponse should be inactive
             for (String responseValue: responseValues) {
                 EspResponse espResponse = new EspResponse();
                 espResponse.setKey(key);
