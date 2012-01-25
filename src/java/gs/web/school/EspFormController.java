@@ -7,13 +7,13 @@ import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusDataSetDao;
-import gs.data.school.census.SchoolCensusValue;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
+    public static final boolean ENABLE_EXTERNAL_DATA_SAVING = false;
     
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -83,9 +84,8 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
     
     protected void putResponsesInModel(School school, int page, ModelMap modelMap) {
-        Map<String, Object> responseMap = new HashMap<String, Object>();
+        Map<String, EspResponseStruct> responseMap = new HashMap<String, EspResponseStruct>();
         
-//        Set<String> keysForPage = getKeysForPage(page);
         // fetch all responses for now to allow page to use ajax page switching if desired.
         List<EspResponse> responses = _espResponseDao.getResponses(school);
 
@@ -96,18 +96,19 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("percentComplete", percentCompleteMap);
 
         for (EspResponse response: responses) {
-            EspResponseStruct responseStruct = (EspResponseStruct) responseMap.get(response.getKey());
+            EspResponseStruct responseStruct = responseMap.get(response.getKey());
             if (responseStruct == null) {
                 responseStruct = new EspResponseStruct();
                 responseMap.put(response.getKey(), responseStruct);
             }
-            overwriteResponseValue(response, school);
             responseStruct.addValue(response.getValue());
         }
 
+        fetchExternalValues(responseMap, school); // fetch data that lives outside of esp_response
+
         modelMap.put("responseMap", responseMap);
     }
-    
+
     protected static class EspResponseStruct {
         private String _value;
         private Map<String, String> _valueMap = new HashMap<String, String>();
@@ -123,19 +124,6 @@ public class EspFormController implements ReadWriteAnnotationController {
         public void addValue(String value) {
             _value = value;
             _valueMap.put(value, "1");
-        }
-    }
-
-    /*
-    * Some of the form Data needs to be stored in other tables.
-    * */
-    protected void overwriteResponseValue(EspResponse response, School school) {
-        Map specialKeys = getKeysForCensusAndSchoolData();
-
-        if (specialKeys.get(response.getKey()) != null) {
-            if ("student_enrollemnt".equals(response.getKey()) && school.getEnrollment() != null) {
-                response.setValue(String.valueOf(school.getEnrollment()));
-            }
         }
     }
 
@@ -182,6 +170,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         Date now = new Date();
         // Save page
         List<EspResponse> responseList = new ArrayList<EspResponse>();
+        Set<String> keysForExternalData = getKeysForExternalData(school);
         // this way saves null for anything not provided
         // and won't save any extra data that isn't in keysForPage
         // I'm not yet sure that's a good thing
@@ -192,6 +181,9 @@ public class EspFormController implements ReadWriteAnnotationController {
             
             if (responseValues == null || responseValues.length == 0) {
                 continue;
+            }
+            if (ENABLE_EXTERNAL_DATA_SAVING && keysForExternalData.contains(key)) {
+                saveExternalValue(key, responseValues, school);
             }
             for (String responseValue: responseValues) {
                 EspResponse espResponse = new EspResponse();
@@ -325,9 +317,55 @@ public class EspFormController implements ReadWriteAnnotationController {
         return keys;
     }
 
-    protected Map<String, String> getKeysForCensusAndSchoolData() {
-        Map<String, String> keys = new HashMap<String, String>();
-        keys.put("student_enrollment", "student_enrollment");
+    /**
+     * Fetch the keys whose values live outside of esp_response and put them in responseMap
+     * (overwriting existing keys if present).
+     */
+    protected void fetchExternalValues(Map<String, EspResponseStruct> responseMap, School school) {
+        for (String key: getKeysForExternalData(school)) {
+            // fetch data from external source
+            String[] vals = getExternalValuesForKey(key, school);
+            if (vals != null && vals.length > 0) {
+                EspResponseStruct espResponse = new EspResponseStruct();
+                for (String val: vals) {
+                    espResponse.addValue(val);
+                }
+                responseMap.put(key, espResponse);
+            } else {
+                responseMap.remove(key);
+            }
+        }
+    }
+    
+    protected void saveExternalValue(String key, String[] values, School school) {
+        if (values == null || values.length == 0) {
+            return; // early exit
+        }
+        if (StringUtils.equals("student_enrollment", key)) {
+            System.err.println("Saving student_enrollment elsewhere: " + values[0]);
+            saveCensusData(school, Integer.parseInt(values[0]));
+        }
+
+    }
+
+    /**
+     * The set of keys that exist in external places.
+     * @param school This might depend on the type or other attribute of the school.
+     */
+    protected Set<String> getKeysForExternalData(School school) {
+        Set<String> keys = new HashSet<String>();
+        keys.add("student_enrollment");
         return keys;
+    }
+
+    /**
+     * Fetch external value, e.g. from census or school table.
+     */
+    protected String[] getExternalValuesForKey(String key, School school) {
+        if (StringUtils.equals("student_enrollment", key) && school.getEnrollment() != null) {
+            _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
+            return new String[] {String.valueOf(school.getEnrollment())};
+        }
+        return new String[0];
     }
 }
