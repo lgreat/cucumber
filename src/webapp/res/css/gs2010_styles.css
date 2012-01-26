@@ -111,6 +111,7 @@ General comments:
 =video gallery (GS-11651)
 =z-index resets
 =samson's random stylings
+=ESP styles
 */
 
 /* =0 reset
@@ -10192,3 +10193,28 @@ p#btsBubbleOpts {
 
 /* =samson's random stylings
 -------------------------------------------------------------------------------------------*/
+
+
+/* =ESP styles
+-------------------------------------------------------------------------------------------*/
+
+.espModerationTable table{
+    margin:0px;
+    table-layout: fixed;
+    border: 1px solid #555;
+}
+
+.espModerationTable td, .espModerationTable th{
+    padding: 4px;
+    text-align: center;
+    border-right: 1px solid #555;
+    word-wrap:break-word;
+}
+
+.espModerationTable table.espModerationHeader{
+    background-color:#787878;
+    color: #fff;
+    margin-top: 10px;
+    /*border-right: 1px solid #fff;*/
+}
+

@@ -18,49 +18,80 @@
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
+        <div class="container_24">
+            <div class="grid_24 slStylesV1-0 espModerationTable">
 
-        <form:form commandName="espModerationCommand">
+                <form:form commandName="espModerationCommand">
+                    <table width="950" class="espModerationHeader">
+                        <col width="32px"/>
+                        <col width="210px"/>
+                        <col width="206px"/>
+                        <col width="130px"/>
+                        <col width="70px"/>
+                        <col width="90px"/>
+                        <col width="213px"/>
+                        <tr>
+                            <th rowspan="2"><!--Do no collapse--></th>
+                            <!--First row-->
+                            <th>Email</th>
+                            <th>School</th>
+                            <th>First Name</th>
+                            <th>State</th>
+                            <th>Date</th>
+                            <th>Contact Name</th>
+                        </tr>
+                        <tr>
+                            <!--Second Row-->
+                            <th>Contact Email</th>
+                            <th>Web Url</th>
+                            <th>Last Name</th>
+                            <th>School Id</th>
+                            <th>Job Title</th>
+                            <th>Note</th>
+                        </tr>
+                    </table>
+                    <c:forEach var="membership" items="${membershipsToProcess}" varStatus="index">
+                        <table width="950">
+                            <col width="32px"/>
+                            <col width="210px"/>
+                            <col width="206px"/>
+                            <col width="130px"/>
+                            <col width="70px"/>
+                            <col width="90px"/>
+                            <col width="213px"/>
+                            <tr>
+                                <td><form:checkbox path="espMembershipIds" value="${membership.id}-${index.count}"/>
+                                </td>
+                                <!--First Row-->
+                                <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
+                                <td>${membership.school.name}</td>
+                                <td>${membership.user.firstName}</td>
+                                <td>${membership.state}</td>
+                                <td>${membership.created}</td>
+                                <td></td><!--Contact Name-->
+                            </tr>
+                            <tr>
+                                <td><!--Do no collapse--></td>
+                                <!--Second Row-->
+                                <td></td><!--Contact Email-->
+                                <td>${membership.webUrl}</td>
+                                <td>${membership.user.lastName}</td>
+                                <td>${membership.school.id}</td>
+                                <td>${membership.jobTitle}</td>
+                                <td><textarea name="note" cols="23" rows="3">${membership.note}</textarea></td>
+                            </tr>
+                        </table>
+                    </c:forEach>
+                    <br/>
+                    <br/>
+                    <input type="submit" name="moderatorAction" value="approve"/>
+                    <input type="submit" name="moderatorAction" value="reject"/>
+                    <input type="submit" name="moderatorAction" value="update"/>
 
-            <table border="2">
-                <tr>
-                    <th><!--Do no collapse--></th>
-                    <th>Date</th>
-                    <th>Email</th>
-                    <th>State</th>
-                    <th>School Id</th>
-                    <th>School</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Job Title</th>
-                    <th>Web Url</th>
-                    <th>Note</th>
-                </tr>
+                </form:form>
 
-                <c:forEach var="membership" items="${membershipsToProcess}" varStatus="index">
-                    <tr>
-                        <td><form:checkbox path="espMembershipIds" value="${membership.id}-${index.count}"/></td>
-                        <td>${membership.created}</td>
-                        <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
-                        <td>${membership.state}</td>
-                        <td>${membership.school.id}</td>
-                        <td>${membership.school.name}</td>
-                        <td>${membership.user.firstName}</td>
-                        <td>${membership.user.lastName}</td>
-                        <td>${membership.jobTitle}</td>
-                        <td>${membership.webUrl}</td>
-                        <td><textarea name="note" cols="5" rows="2">${membership.note}</textarea></td>
-                    </tr>
-                </c:forEach>
-            </table>
-
-            <br/>
-            <br/>
-
-            <input type="submit" name="moderatorAction" value="approve"/>
-            <input type="submit" name="moderatorAction" value="reject"/>
-            <input type="submit" name="moderatorAction" value="update"/>
-
-        </form:form>
+            </div>
+        </div>
 
         <div style="display:none;">
             <mod:tracking pageName="ESP moderation Page"
