@@ -88,9 +88,9 @@
                         </div>
                         <div data-role="navbar">
                             <ul>
-                                <li><a href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sort','distance')}" class="ui-btn-active">Distance</a></li>
-                                <li><a href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sort','SCHOOL_NAME_ASCENDING')}">Name</a></li>
-                                <li><a href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sort','GS_RATING_DESCENDING')}">Rating</a></li>
+                                <li><a href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active">Distance</a></li>
+                                <li><a href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}">Name</a></li>
+                                <li><a href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}">Rating</a></li>
                             </ul>
                         </div>
 
