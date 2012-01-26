@@ -78,6 +78,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("school", school);
         modelMap.put("page", page);
         modelMap.put("maxPage", maxPage);
+        modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
 
         putResponsesInModel(school, page, modelMap);
 
@@ -215,8 +216,10 @@ public class EspFormController implements ReadWriteAnnotationController {
             if (user.hasRole(Role.ESP_MEMBER)) {
                 return _espMembershipDao.findEspMembershipByStateSchoolIdUserId
                         (state, schoolId, user.getId(), true) != null;
+            } else if (user.hasRole(Role.ESP_SUPERUSER)) {
+                return true;
             } else {
-                _log.warn("User " + user + " does not have required role " + Role.ESP_MEMBER + " to access ESP form.");
+                _log.warn("User " + user + " does not have required role " + Role.ESP_MEMBER + " or " + Role.ESP_SUPERUSER + " to access ESP form.");
             }
         } else {
             _log.warn("Invalid or null user/state/schoolId: " + user + "/" + state + "/" + schoolId);

@@ -31,6 +31,15 @@
             </ol>
         </c:if>
 
+        <br/>
+
+        <c:if test="${espSuperuser}">
+            <mod:cityStateSchoolSelect url="/school/esp/form.page?page=1"
+                                       defaultState="${param.defaultState}"
+                                       defaultCity="${param.defaultCity}"
+                                       defaultSchoolId="${param.defaultSchoolId}"/>
+        </c:if>
+
         <div style="display:none;">
             <mod:tracking pageName="ESP dashboard Page"
                           hier1="ESP dashboard Page"/>

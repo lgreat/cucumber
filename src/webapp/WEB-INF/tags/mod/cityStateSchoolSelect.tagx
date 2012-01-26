@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo" xmlns:gsweb="gstaglib"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+
+    <jsp:directive.attribute name="url" type="java.lang.String" required="true" description="The url to post to upon choosing a school"/>
+    <jsp:directive.attribute name="defaultState" type="java.lang.String" required="false" description="Begin with this state selected"/>
+    <jsp:directive.attribute name="defaultCity" type="java.lang.String" required="false" description="Begin with this city selected"/>
+    <jsp:directive.attribute name="defaultSchoolId" type="java.lang.Integer" required="false" description="Begin with this school selected"/>
+
+    <pageHelper:externalJavascript file="/res/js/util/cityStateSchoolSelect.js"/>
+
+    <div id="js-cityStateSchoolSelect">
+        <div class="formRow clearfix">
+            <div class="prefix_1 grid_4 alpha">
+                State
+            </div>
+            <div class="grid_5">
+                <c:choose>
+                    <c:when test="${not empty defaultState}">
+                        <gsweb:stateSelector styleId="js_stateAdd"
+                                             name="state"
+                                             state="${defaultState}"
+                                />
+                    </c:when>
+                    <c:otherwise>
+                        <gsweb:stateSelector styleId="js_stateAdd"
+                                             name="state"
+                                             useNoState="true"
+                                             noStateLabel="- Choose state -"
+                                             allowNoState="false"
+                                />
+                    </c:otherwise>
+                </c:choose>
+
+
+            </div>
+            <div class="prefix_1 grid_5 omega">
+                <div class="js_stateAdd invalid error"
+                     style="display: none;">Please select a state.
+                </div>
+            </div>
+        </div>
+
+        <div class="formRow clearfix">
+            <div class="prefix_1 grid_4 alpha">
+                City
+            </div>
+            <div class="grid_5">
+                <select id="js_city" name="city">
+                    <option selected="selected" value="">- Choose city -</option>
+                    <c:forEach var="cityOption" items="">
+                        <![CDATA[<option ]]>
+                        <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="prefix_1 grid_5 omega"><!-- do not collapse --></div>
+        </div>
+
+        <div class="formRow clearfix">
+            <div class="prefix_1 grid_4 alpha">
+                School
+            </div>
+            <div class="grid_5">
+                <select name="schoolId" id="js_school" class="selectChildSchool">
+                    <option selected="selected" value="0">- Choose school -</option>
+                    <c:forEach var="schoolOption" items="">
+                        <![CDATA[<option ]]>
+                        <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                    </c:forEach>
+                </select>
+            </div>
+
+            <div class="prefix_1 grid_5 omega">
+                <div class="js_school invalid error"
+                     style="display: none;">Please select a state, city and school.
+                </div>
+            </div>
+        </div>
+
+        <button>Go</button>
+    </div>
+
+
+    <script type="text/javascript">
+        var options = {
+            defaultState:'${defaultState}',
+            defaultCity:'${defaultCity}',
+            defaultSchoolId:'${defaultSchoolId}'
+        };
+        var cityStateSchoolSelects = new GS.util.CityStateSchoolSelect('#js-cityStateSchoolSelect', function(state,city,schoolId) {
+            window.location.href = '${url}&amp;schoolId=' + schoolId + '&amp;state=' + state;
+        }, options);
+
+
+    </script>
+
+
+
+
+
+</jsp:root>

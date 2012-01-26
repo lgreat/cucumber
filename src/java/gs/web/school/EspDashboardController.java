@@ -57,7 +57,11 @@ public class EspDashboardController {
                     return true;
                 }
             }
+        } else if (user.hasRole(Role.ESP_SUPERUSER)) {
+            modelMap.put("espSuperuser", Boolean.TRUE);
+            return true;
         }
+        
         return false;
     }
 

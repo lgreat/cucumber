@@ -60,6 +60,10 @@
                         <school:espFormPage2 maxPage="${maxPage}"/>
                     </div>
                 </div>
+                <c:if test="${espSuperuser}">
+                    <br/>
+                    <a href="/school/esp/dashboard.page?defaultState=${school.databaseState}&amp;defaultCity=${school.city}&amp;defaultSchoolId=${school.id}">Back to dashboard</a>
+                </c:if>
             </div>
         </div>
 

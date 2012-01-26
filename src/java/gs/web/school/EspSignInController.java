@@ -47,7 +47,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
         EspRegistrationCommand command = new EspRegistrationCommand();
 
         //member cookie is set and user has ESP role.
-        if (user != null && user.getId() != null && user.hasRole(Role.ESP_MEMBER)) {
+        if (user != null && user.getId() != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
