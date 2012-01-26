@@ -44,7 +44,7 @@ public class EspDashboardController {
 
     protected boolean checkUserHasAccess(ModelMap modelMap, User user) {
 
-        if (user != null && user.hasRole(Role.ESP_MEMBER)) {
+        if (user != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
             List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), true);
 
             if (!espMemberships.isEmpty()) {
@@ -54,14 +54,12 @@ public class EspDashboardController {
                 if (school != null && school.isActive()) {
                     espMembership.setSchool(school);
                     modelMap.put("espMembership", espMembership);
+                    modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
                     return true;
                 }
             }
-        } else if (user.hasRole(Role.ESP_SUPERUSER)) {
-            modelMap.put("espSuperuser", Boolean.TRUE);
-            return true;
         }
-        
+
         return false;
     }
 
