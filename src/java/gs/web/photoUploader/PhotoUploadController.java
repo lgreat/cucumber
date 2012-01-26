@@ -63,20 +63,17 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
 
     @RequestMapping(method=RequestMethod.GET)
     public String handleGet(
-            @RequestParam(value="schoolId", required=false) Integer schoolId,
-            @RequestParam(value="schoolDatabaseState", required=false) State schoolDatabaseState,
-            HttpServletRequest request, ModelMap modelMap) {
-
-        /*SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = sessionContext.getUser();*/
+            @RequestParam(value="schoolId", required=false, defaultValue="1") Integer schoolId,
+            @RequestParam(value="schoolDatabaseState", required=false, defaultValue="CA") State schoolDatabaseState,
+            ModelMap modelMap) {
 
         if (schoolId != null && schoolDatabaseState != null) {
             List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(schoolId, schoolDatabaseState);
             modelMap.put("schoolMedias", schoolMedias);
         }
 
-        modelMap.put("schoolId",1);
-        modelMap.put("schoolDatabaseState","ca");
+        modelMap.put("schoolId",schoolId);
+        modelMap.put("schoolDatabaseState",schoolDatabaseState.getAbbreviation());
 
         return "uploaderTest2";
     }
@@ -149,17 +146,10 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     @RequestMapping(method=RequestMethod.PUT)
     protected void handleUpdate(@RequestParam(value="schoolMediaId", required=false) Integer schoolMediaId,
                                 @RequestParam(value="schoolId", required=false) Integer schoolId,
-                                @RequestParam(value="schoolDatabaseState", required=false) String schoolDatabaseState,
+                                @RequestParam(value="schoolDatabaseState", required=false) State schoolDatabaseState,
                                 HttpServletResponse response) {
 
         State databaseState = null;
-
-        try {
-            databaseState = State.fromString(schoolDatabaseState);
-        } catch (IllegalArgumentException e) {
-            error(response, "102", "Error updating photo.");
-            return;
-        }
 
         SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
 
@@ -183,21 +173,12 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     @RequestMapping(method=RequestMethod.DELETE)
     protected void handleDelete(@RequestParam(value="schoolMediaId", required=false) Integer schoolMediaId,
                                 @RequestParam(value="schoolId", required=false) Integer schoolId,
-                                @RequestParam(value="schoolDatabaseState", required=false) String schoolDatabaseState,
+                                @RequestParam(value="schoolDatabaseState", required=false) State schoolDatabaseState,
                                 HttpServletResponse response) {
-
-        State databaseState = null;
-
-        try {
-            databaseState = State.fromString(schoolDatabaseState);
-        } catch (IllegalArgumentException e) {
-            error(response, "102", "Error updating photo.");
-            return;
-        }
 
         SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
 
-        if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(databaseState)) {
+        if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(schoolDatabaseState)) {
             schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.DELETED.value);
             _schoolMediaDao.save(schoolMedia);
             ThreadLocalTransactionManager.commitOrRollback();

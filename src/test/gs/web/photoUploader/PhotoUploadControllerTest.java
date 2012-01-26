@@ -41,19 +41,19 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
     public void testHandleDelete() throws Exception {
         int mediaId = 1;
         int schoolId = 1;
-        String stateAbbreviation = "ca";
+        State schoolDatabaseState = State.CA;
         
         SchoolMedia schoolMedia = new SchoolMedia();
         schoolMedia.setId(mediaId);
         schoolMedia.setSchoolId(schoolId);
-        schoolMedia.setSchoolState(State.fromString(stateAbbreviation));
+        schoolMedia.setSchoolState(schoolDatabaseState);
 
         expect(_schoolMediaDao.getById(eq(mediaId))).andReturn(schoolMedia);
         schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.DELETED.value);
         _schoolMediaDao.save(eq(schoolMedia));
         replay(_schoolMediaDao);
         
-        _controller.handleDelete(mediaId, schoolId, stateAbbreviation,  getResponse());
+        _controller.handleDelete(mediaId, schoolId, schoolDatabaseState,  getResponse());
 
         verify(_schoolMediaDao);
         
@@ -63,28 +63,17 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
     public void testHandleDeleteFailure() throws Exception {
         int mediaId = new Integer(1);
         int schoolId = new Integer(1);
-        String stateAbbreviation = "ca";
+        State schoolDatabaseState = State.CA;
 
         expect(_schoolMediaDao.getById(eq(mediaId))).andReturn(null);
         replay(_schoolMediaDao);
 
-        _controller.handleDelete(mediaId, schoolId, stateAbbreviation,  getResponse());
+        _controller.handleDelete(mediaId, schoolId, schoolDatabaseState,  getResponse());
 
         verify(_schoolMediaDao);
 
         assertTrue(getResponse().getContentAsString().contains("error"));
     }
-
-    public void testHandleDeleteFailureInvalidState() throws Exception {
-        int mediaId = new Integer(1);
-        int schoolId = new Integer(1);
-        String stateAbbreviation = "zz";
-
-        _controller.handleDelete(mediaId, schoolId, stateAbbreviation,  getResponse());
-
-        assertTrue(getResponse().getContentAsString().contains("error"));
-    }
-
 
     public void xtestHandlePost() throws Exception {
         getRequest().setContentType("multipart/form-data; boundary=\"blah\"");
