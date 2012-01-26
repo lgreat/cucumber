@@ -76,47 +76,71 @@
                          or fn:contains(pageContext.request.serverName, 'samson')
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
-            <gsml:url var="resetcss" value="/res/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="zindexreset" value="/res/css/00_reset/z_index_reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="textcss" value="/res/css/02_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="buttons" value="/res/css/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="spacing" value="/res/css/06_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="roundedcorners" value="/res/css/08_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="lineargradients" value="/res/css/08_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="opacityshadow" value="/res/css/08_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="resetcss" value="/res/css/mobile/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="zindexreset" value="/res/css/mobile/00_reset/z_index_reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gridoocss" value="/res/css/mobile/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="textcss" value="/res/css/mobile/02_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="iconspritecss" value="/res/css/03_sprites/icons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="uispritecss" value="/res/css/03_sprites/ui.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="buttons" value="/res/css/mobile/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="mapcss" value="/res/css/mobile/map.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${resetcss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${zindexreset}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${textcss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${iconspritecss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${uispritecss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${mapcss}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gs2010_stylescss" value="/res/css/gs-mobile-styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
         </c:otherwise>
     </c:choose>
 
     ${requestScope.pageHelper.headCssElements}
 
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
-    <link rel="stylesheet" href="/res/css/mobile-portrait.css" type="text/css" media="all and (orientation:portrait)"  />
-    <link rel="stylesheet" href="/res/css/mobile-landscape.css" type="text/css" media="all and (orientation:landscape)" />
-    <link rel="stylesheet" href="/res/css/jquery-mobile-gs.css"/>
+    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />-->
+    <!--<link rel="stylesheet" href="/res/css/jquery-mobile-gs.css"/>-->
+<!-- compressedScripts = ${compressedScripts} -->
+    <!-- uncompressedScripts = ${uncompressedScripts} -->
+            <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+
+            <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.3.2.min.js" allowCdn="true"/>
+            <!-- TODO-12010 -->
+            <!--gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.6.2.min.js" allowCdn="true"/-->
+            <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.7.2.min.js" allowCdn="true"/>
+            <!-- TODO-12010 -->
+            <!--gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.15.min.js" allowCdn="true"/-->
+            <!-- TODO-12010 remove jquery.autocomplete.js when upgrading jquery-ui -->
+
+            <gsml:url var="urijs" value="/res/js/uri/uri.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js" allowCdn="true"/>
+            <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
+            <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${urijs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${jquerybgiframejs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
+
 
     <!-- Begin JS files.  No CSS below this point. -->
-    <pageHelper:addJavaScript
+    <!--<pageHelper:addJavaScript
             uncompressedScripts="${param.uncompressedScripts}"
             compressedScripts="${param.compressedScripts}"
-            serverName="${pageContext.request.serverName}"/>
+            serverName="${pageContext.request.serverName}"/>-->
 
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"><!-- no collapse --></script>
+	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js">&lt;!&ndash; no collapse &ndash;&gt;</script>-->
     <script type="text/javascript">
         $(document).bind("mobileinit", function(){
             $.extend(  $.mobile , {
@@ -125,7 +149,7 @@
         });
     </script>
     <!--<script type="text/javascript" src="/res/js/jquery.mobile-1.0.js"></script>-->
-    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"><!-- no collapse --></script>
+    <!--<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js">&lt;!&ndash; no collapse &ndash;&gt;</script>-->
 
     <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
 
@@ -136,8 +160,6 @@
 <body >
 
     <decorator:body/>
-
-    <div class="clearfloat"><!-- do not collapse --></div>
 
     <a href="${sitePreferenceUrlForAlternateSite}">View desktop version</a>
 
