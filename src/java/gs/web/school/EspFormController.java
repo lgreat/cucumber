@@ -409,14 +409,20 @@ public class EspFormController implements ReadWriteAnnotationController {
             }
         }
     }
-    
+
     protected void saveExternalValue(String key, String[] values, School school) {
-        if (values == null || values.length == 0) {
+        if (values == null || values.length == 0 && school == null) {
             return; // early exit
         }
         if (StringUtils.equals("student_enrollment", key)) {
             _log.debug("Saving student_enrollment elsewhere: " + values[0]);
             saveEnrollment(school, Integer.parseInt(values[0]));
+        } else if (StringUtils.equals("grade_levels", key)) {
+            _log.debug("Saving grade_levels " + values + "elsewhere for school:" + school.getName());
+            saveGradeLevels(school, values);
+        } else if (StringUtils.equals("school_type", key)) {
+            _log.debug("Saving school type " + values[0] + "elsewhere for school:" + school.getName());
+            saveSchoolType(school, values[0]);
         }
     }
 
@@ -432,23 +438,66 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
 
     /**
+     * Save grade levels to the db
+     */
+    protected void saveGradeLevels(School school, String[] data) {
+        List<String> gradesList = new ArrayList<String>();
+        Collections.addAll(gradesList, data);
+        if (!gradesList.isEmpty()) {
+            Grades grades = Grades.createGrades(StringUtils.join(gradesList, ","));
+            school.setGradeLevels(grades);
+            //TODO should the 'modified by' be the user?
+            _schoolDao.saveSchool(school.getDatabaseState(), school, "ESP");
+            //TODO set the following?
+//            school.setModifiedBy();
+//            school.setManualEditBy();
+//            school.setManualEditDate();
+        }
+    }
+
+    /**
+     * Save grade levels to the db
+     */
+    protected void saveSchoolType(School school, String data) {
+        SchoolType type = SchoolType.getSchoolType(data);
+        if (type != null) {
+            school.setType(type);
+            //TODO should the 'modified by' be the user?
+            _schoolDao.saveSchool(school.getDatabaseState(), school, "ESP");
+            //TODO set the following?
+//            school.setModifiedBy();
+//            school.setManualEditBy();
+//            school.setManualEditDate();
+        }
+    }
+
+    /**
      * The set of keys that exist in external places.
      * @param school This might depend on the type or other attribute of the school.
      */
     protected Set<String> getKeysForExternalData(School school) {
         Set<String> keys = new HashSet<String>();
         keys.add("student_enrollment");
+        keys.add("grade_levels");
+        keys.add("school_type");
+        keys.add("school_type_affiliation");
+        keys.add("school_type_affiliation_other");
         return keys;
     }
 
     /**
      * Fetch external value, e.g. from census or school table. This returns an array of strings
-     * representing the values for that key (e.g. {"K", "1", "2"} for grade_level or {"100"} for enrollment
+     * representing the values for that key (e.g. {"KG", "1", "2"} for grade_level or {"100"} for enrollment
      */
     protected String[] getExternalValuesForKey(String key, School school) {
         if (StringUtils.equals("student_enrollment", key) && school.getEnrollment() != null) {
             _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
-            return new String[] {String.valueOf(school.getEnrollment())};
+            return new String[]{String.valueOf(school.getEnrollment())};
+        } else if (StringUtils.equals("grade_levels", key) && school.getGradeLevels() != null) {
+            String gradeLevels = school.getGradeLevels().getCommaSeparatedString();
+            return gradeLevels.split(",");
+        } else if (StringUtils.equals("school_type", key) && school.getType() != null) {
+            return new String[]{school.getType().getSchoolTypeName()};
         }
         return new String[0];
     }

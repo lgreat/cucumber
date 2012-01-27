@@ -2,16 +2,218 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
->
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="1" maxPage="${maxPage}" headerText="School basic info">
 
-        <label for="form_admissions_url">Admissions URL: </label>
-        <input id="form_admissions_url" type="text" name="admissions_url" value="${responseMap['admissions_url'].value}"/>
+        <label for="form_average_class_size">Average class size: </label>
+        <input id="form_average_class_size" type="text" name="average_class_size" value="${responseMap['average_class_size'].value}"/>
+        <br/>
+        <br/>
 
+        <label>Does your school have before or after care on site?</label>
+        <br/>
+        <label for="form_before_after_care_before">Before school care</label>
+        <gsml:checkbox styleId="form_before_after_care" name="before_after_care" value="before"
+                       checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
+        <label for="form_before_after_care_start">Start time</label>
+        <input id="form_before_after_care_start" type="text" name="before_after_care_start"
+               value="${responseMap['before_after_care_start'].value}"/>
+        <br/>
+        <label for="form_before_after_care_after">After school care</label>
+        <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
+                       checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
+        <label for="form_before_after_care_end">End time</label>
+        <input id="form_before_after_care_end" type="text" name="before_after_care_end"
+               value="${responseMap['before_after_care_end'].value}"/>
         <br/>
         <br/>
-        <label for="form_student_enrollment">Student Enrollment: </label>
+
+        <label>Grade levels offered</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_pk" name="grade_levels" value="PK"
+                       checked="${not empty responseMap['grade_levels'].valueMap['PK']}"/>
+        <label for="form_grade_levels_pk">PK</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_k" name="grade_levels" value="KG"
+                       checked="${not empty responseMap['grade_levels'].valueMap['KG']}"/>
+        <label for="form_grade_levels_k">K</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_k3" name="grade_levels" value="K3"
+                       checked="${not empty responseMap['grade_levels'].valueMap['K3']}"/>
+        <label for="form_grade_levels_k3">K3</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_k4" name="grade_levels" value="K4"
+                       checked="${not empty responseMap['grade_levels'].valueMap['K4']}"/>
+        <label for="form_grade_levels_k4">K4</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_k5" name="grade_levels" value="K5"
+                       checked="${not empty responseMap['grade_levels'].valueMap['K5']}"/>
+        <label for="form_grade_levels_k5">K5</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_1" name="grade_levels" value="1"
+                       checked="${not empty responseMap['grade_levels'].valueMap['1']}"/>
+        <label for="form_grade_levels_1">First Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_2" name="grade_levels" value="2"
+                       checked="${not empty responseMap['grade_levels'].valueMap['2']}"/>
+         <label for="form_grade_levels_2">Second Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_3" name="grade_levels" value="3"
+                       checked="${not empty responseMap['grade_levels'].valueMap['3']}"/>
+        <label for="form_grade_levels_3">Third Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_4" name="grade_levels" value="4"
+                       checked="${not empty responseMap['grade_levels'].valueMap['4']}"/>
+        <label for="form_grade_levels_4">Fourth Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_5" name="grade_levels" value="5"
+                       checked="${not empty responseMap['grade_levels'].valueMap['5']}"/>
+        <label for="form_grade_levels_5">Fifth Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_6" name="grade_levels" value="6"
+                       checked="${not empty responseMap['grade_levels'].valueMap['6']}"/>
+        <label for="form_grade_levels_6">Sixth Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_7" name="grade_levels" value="7"
+                       checked="${not empty responseMap['grade_levels'].valueMap['7']}"/>
+        <label for="form_grade_levels_7">Seventh Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_8" name="grade_levels" value="8"
+                       checked="${not empty responseMap['grade_levels'].valueMap['8']}"/>
+        <label for="form_grade_levels_8">Eighth Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_9" name="grade_levels" value="9"
+                       checked="${not empty responseMap['grade_levels'].valueMap['9']}"/>
+        <label for="form_grade_levels_9">Ninth Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_10" name="grade_levels" value="10"
+                       checked="${not empty responseMap['grade_levels'].valueMap['10']}"/>
+        <label for="form_grade_levels_10">Tenth Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_11" name="grade_levels" value="11"
+                       checked="${not empty responseMap['grade_levels'].valueMap['11']}"/>
+        <label for="form_grade_levels_11">Eleventh Grade</label>
+        <br/>
+        <gsml:checkbox styleId="form_grade_levels_12" name="grade_levels" value="12"
+                       checked="${not empty responseMap['grade_levels'].valueMap['12']}"/>
+        <label for="form_grade_levels_12">Twelfth Grade</label>
+        <br/>
+        <br/>
+
+        <label>Is there a school-run shuttle from nearby metro and bus stops? If so, indicate which metro and bus lines the shuttle serves.</label>
+        <br/>
+        <gsml:radio styleId="form_transportation_shuttle_no" name="transportation_shuttle" value="no"
+                       checked="${not empty responseMap['transportation_shuttle'].valueMap['no']}"/>
+        <label for="form_transportation_shuttle_no">No</label>
+        <br/>
+        <gsml:radio styleId="form_transportation_shuttle_yes" name="transportation_shuttle" value="yes"
+                       checked="${not empty responseMap['transportation_shuttle'].valueMap['yes']}"/>
+        <label for="form_transportation_shuttle_yes">Yes</label>
+        <br/>
+        <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other"
+               value="${responseMap['transportation_shuttle_other'].value}"/>
+        <p>Indicate which metro and bus lines the shuttle serves,sperated by commas.</p>
+        <br/>
+        <br/>
+
+        <label>Is your school coeducational or single sex?</label>
+        <br/>
+        <gsml:radio styleId="form_coed_all_boys" name="coed" value="all_boys"
+                    checked="${not empty responseMap['coed'].valueMap['all_boys']}"/>
+        <label for="form_coed_all_boys">All boys</label>
+        <gsml:radio styleId="form_coed_all_girls" name="coed" value="all_girls"
+                       checked="${not empty responseMap['coed'].valueMap['all_girls']}"/>
+        <label for="form_coed_all_girls">All girls</label>
+        <gsml:radio styleId="form_coed_coed" name="coed" value="coed"
+                       checked="${not empty responseMap['coed'].valueMap['coed']}"/>
+        <label for="form_coed_coed">Coed</label>
+        <br/>
+        <br/>
+
+        <label>School type</label>
+        <br/>
+        <gsml:radio styleId="form_school_type_public" name="school_type" value="public"
+                    checked="${not empty responseMap['school_type'].valueMap['public']}"/>
+        <label for="form_school_type_public">Public</label>
+        <gsml:radio styleId="form_school_type_charter" name="school_type" value="charter"
+                    checked="${not empty responseMap['school_type'].valueMap['charter']}"/>
+        <label for="form_school_type_charter">Public Charter</label>
+        <gsml:radio styleId="form_school_type_private" name="school_type" value="private"
+                    checked="${not empty responseMap['school_type'].valueMap['private']}"/>
+        <label for="form_school_type_private">Private</label>
+        <br/>
+        <br/>
+
+        <label>School type Select type</label>
+        <br/>
+        <gsml:radio styleId="form_school_type_affiliation_independent" name="school_type_affiliation" value="independent"
+                    checked="${not empty responseMap['school_type_affiliation'].valueMap['independent']}"/>
+        <label for="form_school_type_affiliation_independent">Independent</label>
+        <gsml:radio styleId="form_school_type_affiliation_religious_paroch" name="school_type_affiliation" value="religious_paroch"
+                    checked="${not empty responseMap['school_type_affiliation'].valueMap['religious_paroch']}"/>
+        <label for="form_school_type_affiliation_religious_paroch">Religious / Parochial</label>
+        <br/>
+        <label for="form_school_type_affiliation_other">Affiliation:</label>
+        <input id="form_school_type_affiliation_other" type="text" name="school_type_affiliation_other"
+               value="${responseMap['school_type_affiliation_other'].value}"/>
+        <br/>
+        <br/>
+
+
+        <label>What age does your early childhood or Pre-K program begin?</label>
+        <br/>
+        <gsml:radio styleId="form_age_pk_start_01" name="age_pk_start" value="0/1"
+                    checked="${not empty responseMap['age_pk_start'].valueMap['0/1']}"/>
+        <label for="form_age_pk_start_01">Infant</label>
+        <gsml:radio styleId="form_age_pk_start_2" name="age_pk_start" value="2"
+                    checked="${not empty responseMap['age_pk_start'].valueMap['2']}"/>
+        <label for="form_age_pk_start_2">2 years old</label>
+        <gsml:radio styleId="form_age_pk_start_3" name="age_pk_start" value="3"
+                    checked="${not empty responseMap['age_pk_start'].valueMap['3']}"/>
+        <label for="form_age_pk_start_3">3 years old</label>
+        <gsml:radio styleId="form_age_pk_start_4" name="age_pk_start" value="4"
+                    checked="${not empty responseMap['age_pk_start'].valueMap['4']}"/>
+        <label for="form_age_pk_start_4">4 years old</label>
+        <br/>
+        <br/>
+
+        <label>What kind of transportation is provided for students by the school/district?</label>
+        <br/>
+        <gsml:checkbox styleId="form_transportation_none" name="transportation" value="none"
+                       checked="${not empty responseMap['transportation'].valueMap['none']}"/>
+        <label for="form_transportation_none">None</label>
+        <br/>
+        <gsml:checkbox styleId="form_transportation_passes" name="transportation" value="passes"
+                       checked="${not empty responseMap['transportation'].valueMap['passes']}"/>
+        <label for="form_transportation_passes">Passes/tokens for public transportation </label>
+        <br/>
+        <gsml:checkbox styleId="form_transportation_busses" name="transportation" value="busses"
+                       checked="${not empty responseMap['transportation'].valueMap['busses']}"/>
+        <label for="form_transportation_busses">Busses/vans for our students only</label>
+        <br/>
+        <gsml:checkbox styleId="form_transportation_shared_bus" name="transportation" value="shared_bus"
+                       checked="${not empty responseMap['transportation'].valueMap['shared_bus']}"/>
+        <label for="form_transportation_shared_bus">School shares bus/van with other schools</label>
+        <br/>
+        <gsml:checkbox styleId="form_transportation_special_ed_only" name="transportation" value="special_ed_only"
+                       checked="${not empty responseMap['transportation'].valueMap['special_ed_only']}"/>
+        <label for="form_transportation_special_ed_only">Transportation provided for special education students only</label>
+        <br/>
+        <gsml:checkbox styleId="form_transportation_other" name="transportation" value="other"
+                       checked="${not empty responseMap['transportation'].valueMap['other']}"/>
+        <label for="form_transportation_other">Other</label>
+        <input id="form_transportation_other" type="text" name="transportation_other" value="${responseMap['transportation_other'].value}"/>
+        <br/>
+        <br/>
+
+        <!--<label for="form_admissions_url">Admissions URL: </label>-->
+        <!--<input id="form_admissions_url" type="text" name="admissions_url" value="${responseMap['admissions_url'].value}"/>-->
+        <!--<br/>-->
+        <!--<br/>-->
+
+        <label for="form_student_enrollment">School size </label>
         <input id="form_student_enrollment" type="text" name="student_enrollment"
                value="${responseMap['student_enrollment'].value}"/>
         <span id="form_student_enrollment_error" class="error" style="display: none">Please enter enrollment data.</span>
