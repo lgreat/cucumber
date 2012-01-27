@@ -151,6 +151,18 @@
         <p><span class="emphasis">Incorrect</span>:  &amp;lt;a href=&amp;quot;http://www.greatschools.org&amp;quot; rel=&amp;quot;nofollow&amp;quot;&amp;gt;GreatSchools&amp;lt;/a&amp;gt;</p>
         <p>When linking to the GreatSchools homepage, avoid non-descriptive anchor text, such as &amp;quot;click here&amp;quot;.  Instead, use &amp;quot;GreatSchools&amp;quot; or &amp;quot;school ratings&amp;quot; or &amp;quot;school information&amp;quot; as your anchor text.</p>
 
+        <div class="apiTermsTitle">Specifying Canonical URLs</div>
+
+        <p>Partner agrees that on any pages containing school profile data the page must also include a cross domain canonicalization tag to avoid either party being penalized by search engines for duplicate content.  The rel=”canonical” link below shall be added to the &amp;lt;head&amp;gt; section of all non-canonical versions of each HTML page:</p>
+        <ul>
+            <li>&amp;lt;link rel=&amp;quot;canonical&amp;quot; href=&amp;quot;[<span class="strong">school overview page URL</span>]&amp;quot;/&amp;gt;</li>
+            <li>For example, the HTML link for a page containing Lowell High School data shall read:
+                <ul>
+                    <li>&amp;lt;link rel=&amp;quot;canonical&amp;quot; href=&amp;quot;http://www.greatschools.org/california/san-francisco/6397-Lowell-High-School/&amp;quot;/&amp;gt;</li>
+                </ul>
+            </li>
+        </ul>
+
         <div class="apiTermsSection attrLinks">A.  School Profiles</div>
 
         <p>Partner will provide text links to School Profile pages on GreatSchools using the school name within the anchor text, for every school name listed on their website.</p>
