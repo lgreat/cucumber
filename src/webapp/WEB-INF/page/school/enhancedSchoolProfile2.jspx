@@ -1,0 +1,349 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          version="2.0" xmlns:gsweb="gstaglib">
+<html>
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <title>The Principal's View of ${school.name} - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}</title>
+    <meta name="description" content="See what the principal of ${school.name} has to say about this ${school.city}, ${school.databaseState.longName} - ${school.databaseState} school"/>
+    <c:set var="pageName" value="Principal Questionnaire"/>
+
+    <style type="text/css">
+        .espDisplay {
+
+        }
+
+        h4 {
+
+        }
+
+        .lbl {
+            color: #a9a9a9;
+        }
+
+        .val {
+            color: black;
+        }
+    </style>
+
+</head>
+<gsml:body adPageName="overview" pageLayout="nocol">
+    <c:set var="adSlotPrefix" value="School_Profile_Page_Academic_Performance"/>
+    <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
+    <school:profile2010 school="${school}" tab="schoolStats" subtab="official" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
+
+        <div class="slStylesV1-0 espDisplay">
+
+            <h4>School Basics</h4>
+            <p class="lbl">Number of students enrolled: <span class="val"><gsweb:lts list="${responses.student_enrollment}" /></span></p>
+
+            <c:if test="fn:length(average_class_size) > 0"><p class="lbl">Average class size: <span class="val"><gsweb:lts list="${average_class_size}" /></span></p></c:if>
+
+            <c:if test="fn:length(grade_levels) > 0"><p class="lbl">Grade levels offered: <span class="val">${grade_levels}</span></p></c:if>
+
+            <c:set var="agePkStart"><gsweb:lts list="${responses.age_pk_start}" /></c:set>
+            <c:if test="fn:length(agePkStart) > 0"><p class="lbl">Age at which early childhood or Pre-K program begins: <span class="val">${agePkStart}</span></p></c:if>
+
+            <p class="lbl">School start time: <span class="val"><gsweb:lts list="${responses.start_time}" /></span></p>
+            <p class="lbl">School end time: <span class="val"><gsweb:lts list="${responses.end_time}" /></span></p>
+
+            <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
+            <c:set var="schoolSubtypes" value="school.subtype.commaSeparatedString"/>
+            <p class="lbl">School type: <span class="val">${school.type.schoolTypeName}.
+                <c:if test="not empty school.affiliation"> ${school.affiliation}.</c:if>
+                <c:if test="not empty schoolSubtypes"> ${schoolSubtypes}.</c:if></span></p>
+
+            <c:set var="adminName"><gsweb:lts list="${responses.administrator_name}" /></c:set>
+            <c:if test="${fn:length(adminName) > 0}"><p class="lbl">School Leader’s name: <span class="val">${adminName}</span></p></c:if>
+
+            <c:set var="adminEmail"><gsweb:lts list="${responses.administrator_email}" /></c:set>
+            <c:if test="${fn:length(adminEmail) > 0}"><p class="lbl">School Leader’s email: <span class="val">${adminEmail}</span></p></c:if>
+
+            <c:set var="cmEmail"><gsweb:lts list="${responses.contact_method_email}" /></c:set>
+            <c:set var="cmPhone"><gsweb:lts list="${responses.contact_method_phone}" /></c:set>
+            <c:set var="cmOther"><gsweb:lts list="${responses.contact_method_other}" /></c:set>
+            <c:if test="${fn:length(cmEmail) > 0 or fn:length(cmPhone) > 0 or fn:length(cmOther) > 0}">
+            <p class="lbl">Best ways for parents to contact the school:</p>
+            <ul>
+                <c:if test="cmEmail"><li>Email</li></c:if>
+                <c:if test="cmPhone"><li>Phone</li></c:if>
+                <c:if test="cmOther"><li>Other</li></c:if>
+            </ul>
+            </c:if>
+
+            <p class="lbl">Before school or after school care / program onsite: <span class="val"><gsweb:lts list="${responses.before_after_care}" /></span></p>
+            <c:set var="scStart"><gsweb:lts list="${responses.before_after_care_start}" /></c:set>
+            <c:set var="scEnd"><gsweb:lts list="${responses.before_after_care_end}" /></c:set>
+            <c:if test="${fn:length(scStart) > 0 or fn:length(scEnd) > 0}">
+            <ul>
+                <c:if test="fn:length(scStart) > 0"><li>Before school care / program starts: ${scStart}</li></c:if>
+                <c:if test="fn:length(scEnd) > 0"><li>After school care / program ends: ${scEnd}</li></c:if>
+            </ul>
+            </c:if>
+
+            <c:set var="transportation"><gsweb:lts list="${responses.transportation}" /></c:set>
+            <c:if test="fn:length(transportation) > 0"><p class="lbl">Transportation provided for students by the school / district: <span class="val">${transportation}</span></p></c:if>
+
+            <c:set var="transportationShuttle"><gsweb:lts list="${responses.transportation_shuttle}" /></c:set>
+            <c:set var="transportationShuttleOther"><gsweb:lts list="${responses.transportation_shuttle_other}" /></c:set>
+            <c:if test="fn:length(transportation)>0 or fn:length(transportationShuttle)>0"><p class="lbl">School-run shuttle from nearby metro and bus stops: <span class="val">${transportationShuttle} ${transportationShuttleOther}</span></p></c:if>
+
+            <p class="lbl"><b>Our school is best known for: </b><span class="val"><gsweb:lts list="${responses.best_known_for}" /></span></p>
+
+            <c:set var="instModel"><gsweb:lts list="${responses.instructional_model}" /></c:set>
+            <c:if test="fn:length(instModel)>0"><p class="lbl">Instructional and/or curriculum models used: <span class="val">${instModel}</span></p></c:if>
+
+            <c:set var="acadFocus"><gsweb:lts list="${responses.academicFocus}" /></c:set>
+            <c:if test="fn:length(acadFocus)>0"><p class="lbl">Special academic themes or areas of focus: <span class="val">${acadFocus}</span></p></c:if>
+
+            <c:set var="immersion"><gsweb:lts list="${responses.immersion}" /></c:set>
+            <c:if test="fn:length(immersion)>0"><p class="lbl">Bi-lingual or language immersion programs offered: <span class="val">${immersion}</span></p></c:if>
+
+            <h4>Application Enrollment</h4>
+            <c:set var="isAppProcess"><gsweb:lts list="${responses.application_process}" /></c:set>
+            <c:if test="fn:length(isAppProcess)>0"><p class="lbl">Does this school have an application or enrollment process? <span class="val">${isAppProcess}</span></p></c:if>
+
+            <c:set var="admissionsUrl"><gsweb:lts list="${responses.adminissions_url}" /></c:set>
+            <c:set var="appUpload"><gsweb:lts list="${responses.application_upload}" /></c:set>
+            <c:set var="phone"><gsweb:lts list="${responses.phone}" /></c:set>
+            <c:if test="fn:length(admissionsUrl)>0 or fn:length(appUpload)>0 or fn:length(phone)>0">
+            <p class="lbl">To obtain application information, parents may:</p>
+            <ul>
+                <c:if test="fn:length(admissionsUrl)>0"><li>Visit the school’s website: <span class="val">${admissionsUrl}</span></li></c:if>
+                <c:if test="fn:length(appUpload)>0"><li>Download application information: <span class="val">${appUpload}</span></li></c:if>
+                <c:if test="fn:length(phone)>0"><li>Call the school: <span class="val">${phone}</span></li></c:if>
+            </ul>
+            </c:if>
+
+            <c:set var="appsRcdYr"><gsweb:lts list="${responses.applications_received_year}" /></c:set>
+            <c:set var="appsRcd"><gsweb:lts list="${responses.applications_received}" /></c:set>
+            <p class="lbl">Number of applications received for the ${appsRcdYr} school year: <span class="val">${appsRcd}</span></p>
+
+            <c:set var="stdsAcptdYr"><gsweb:lts list="${responses.students_accepted_year}" /></c:set>
+            <c:set var="stdsAcptd"><gsweb:lts list="${responses.students_accepted}" /></c:set>
+            <p class="lbl">Number of students accepted for the ${stdsAcptdYr} year: <span class="val">${stdsAcptd}</span></p>
+
+            <c:set var="appFeeAmt"><gsweb:lts list="${responses.application_fee_amount}" /></c:set>
+            <c:set var="appFee"><gsweb:lts list="${responses.application_fee}" /></c:set>
+            <c:set var="isAppFee" value="${fn:toLowerCase(appFee) == 'no'}" />
+            <c:set var="appFeeDesc" value="${isAppFee ? 'Fee waivers available' : 'No fee waivers available'}" />
+            <c:if test="${fn:length(appFeeAmt)>0}"><p class="lbl">Application Fee: <span class="val">${appFeeAmt} ${appFeeDesc}</span></p></c:if>
+
+            <c:set var="tuitionYr"><gsweb:lts list="${responses.tuition_year}" /></c:set>
+            <c:set var="tuitionAmt"><gsweb:lts list="${responses.tuition_high}"/> - <gsweb:lts list="${responses.tuition_low}"/></c:set>
+            <p class="lbl">Tuition range for the ${tuitionYr} school year: <span class="val">${tuitionAmt}</span></p>
+
+            <c:set var="fnclAid"><gsweb:lts list="${responses.financial_aid}" /></c:set>
+            <c:set var="fnclAidType"><gsweb:lts list="${responses.financial_aid_type}" /></c:set>
+            <c:set var="isFnclAid" value="${fn:toLowerCase(fnclAid) == 'yes'}" />
+            <c:if test="${isFnclAid == true}"><p class="lbl">Financial aid offered: <span class="val">${fnclAidType}</span></p></c:if>
+
+            <c:set var="vouchers"><gsweb:lts list="${responses.students_vouchers}" /></c:set>
+            <c:if test="${fn:length(vouchers)>0}"><p class="lbl">Vouchers accepted: <span class="val">${vouchers}</span></p></c:if>
+
+            <c:set var="fdrSchoolYesNo"><gsweb:lts list="${responses.feeder_school}" /></c:set>
+            <c:if test="${fn:length(feederSchools)>0}"><p class="lbl">Students typically attend these schools prior to attending this school: <span class="val">${fdrSchoolYesNo} ${feederSchools}</span></p></c:if>
+
+            <c:set var="destSchoolYesNo"><gsweb:lts list="${responses.destination_school}" /></c:set>
+            <p class="lbl">Students typically attend these schools after graduating from this school: <span class="val">${destSchoolYesNo} ${destinationSchools}</span></p>
+
+            <h4>Programs and Resources</h4>
+
+            <c:set var="frgnLang"><gsweb:lts list="${responses.foreign_language}" /></c:set>
+            <c:set var="frgnLangOther"><gsweb:lts list="${responses.foreign_language_other}" /></c:set>
+            <c:if test="${fn:length(frgnLang)>0 or fn:length(frgnLangOther)>0}"><p class="lbl">Foreign languages taught: <span class="val">${frgnLang} ${frgnLangOther}</span></p></c:if>
+
+            <c:set var="ellLvl"><gsweb:lts list="${responses.ell_level}" /></c:set>
+            <c:set var="ellLangs"><gsweb:lts list="${responses.ell_languages}" /></c:set>
+            <c:if test="${fn:length(ellLvl)>0}"><p class="lbl">ESL/ELL programming offered: <span class="val">${ellLvl} ${ellLangs}</span></p></c:if>
+
+            <c:set var="seLvl"><gsweb:lts list="${responses.spec_ed_level}" /></c:set>
+            <c:if test="${fn:length(seLvl)>0}"><p class="lbl">Special education programming offered: <span class="val">${seLvl}</span></p></c:if>
+
+            <c:set var="seProgs"><gsweb:lts list="${responses.special_ed_programs}" /></c:set>
+            <c:if test="${fn:length(seProgs)>0}"><p class="lbl">Specialized programs for specific types of special education students: <span class="val">${seProgs}</span></p></c:if>
+
+            <c:set var="schedule"><gsweb:lts list="${responses.schedule}" /></c:set>
+            <c:if test="${fn:length(schedule)>0}"><p class="lbl">Special schedule: <span class="val">${schedule}</span></p></c:if>
+
+            <c:set var="boarding"><gsweb:lts list="${responses.boarding}" /></c:set>
+            <c:if test="${fn:length(boarding)>0}"><p class="lbl">Boarding options: <span class="val">${boarding}</span></p></c:if>
+
+            <c:set var="staffResources"><gsweb:lts list="${responses.boarding}" /></c:set>
+            <c:if test="${fn:length(staffResources)>0}"><p class="lbl">Special staff resources available to students: <span class="val">${staffResources}</span></p></c:if>
+
+            <c:set var="staffLangs"><gsweb:lts list="${responses.staff_languages}" /></c:set>
+            <c:set var="staffLangsOther"><gsweb:lts list="${responses.staff_languages_other}" /></c:set>
+            <c:if test="${fn:length(staffLangs)>0 or fn:length(staffLangsOther)>0}"><p class="lbl">Languages spoken by school staff: <span class="val">${staffLangs} ${staffLangsOther}</span></p></c:if>
+
+            <c:set var="elr"><gsweb:lts list="${responses.extra_learning_resources}" /></c:set>
+            <c:if test="${fn:length(elr)>0}"><p class="lbl">Extra learning resources offered: <span class="val">${elr}</span></p></c:if>
+
+            <c:set var="pn1"><gsweb:lts list="${responses.partnerships_name_1}" /></c:set>
+            <c:set var="pu1"><gsweb:lts list="${responses.partnerships_url_1}" /></c:set>
+            <c:set var="pn2"><gsweb:lts list="${responses.partnerships_name_2}" /></c:set>
+            <c:set var="pu2"><gsweb:lts list="${responses.partnerships_url_2}" /></c:set>
+            <c:set var="pn3"><gsweb:lts list="${responses.partnerships_name_3}" /></c:set>
+            <c:set var="pu3"><gsweb:lts list="${responses.partnerships_url_3}" /></c:set>
+            <c:set var="pn4"><gsweb:lts list="${responses.partnerships_name_4}" /></c:set>
+            <c:set var="pu4"><gsweb:lts list="${responses.partnerships_url_4}" /></c:set>
+            <c:set var="pn5"><gsweb:lts list="${responses.partnerships_name_5}" /></c:set>
+            <c:set var="pu5"><gsweb:lts list="${responses.partnerships_url_5}" /></c:set>
+            <c:set var="isP1" value="${fn:length(pn1)>0 and fn:length(pu1)>0}"/>
+            <c:set var="isP2" value="${fn:length(pn2)>0 and fn:length(pu2)>0}"/>
+            <c:set var="isP3" value="${fn:length(pn3)>0 and fn:length(pu3)>0}"/>
+            <c:set var="isP4" value="${fn:length(pn4)>0 and fn:length(pu4)>0}"/>
+            <c:set var="isP5" value="${fn:length(pn5)>0 and fn:length(pu5)>0}"/>
+            <p class="lbl">Partnerships with local resources and organizations: <span class="val">?</span></p>
+            <c:if test="${isP1 == true}"><a href="${pu1}">${pn1}</a></c:if><c:if test="isP2 == true or isP3 == true or isP4 == true or isP5 == true">; </c:if>
+            <c:if test="${isP2 == true}"><a href="${pu2}">${pn2}</a></c:if><c:if test="isP3 == true or isP4 == true or isP5 == true">; </c:if>
+            <c:if test="${isP3 == true}"><a href="${pu3}">${pn3}</a></c:if><c:if test="isP4 == true or isP5 == true">; </c:if>
+            <c:if test="${isP4 == true}"><a href="${pu4}">${pn4}</a></c:if><c:if test="isP5 == true">; </c:if>
+            <c:if test="${isP5 == true}"><a href="${pu3}">${pn3}</a></c:if>
+
+            <c:set var="facilities"><gsweb:lts list="${responses.facilities}" /></c:set>
+            <c:if test="${fn:length(facilities)>0 and fn:toLowerCase(facilities) != 'none'}"><p class="lbl">School facilities: <span class="val">${facilities}</span></p></c:if>
+
+            <c:set var="collegePrep"><gsweb:lts list="${responses.college_prep}" /></c:set>
+            <c:set var="collegePrepOther"><gsweb:lts list="${responses.college_prep_other}" /></c:set>
+            <c:if test="${fn:length(collegePrep)>0 or fn:length(collegePrepOther)>0}"><p class="lbl">College preparation / awareness resources offered: <span class="val">${collegePrep} ${collegePrepOther}</span></p></c:if>
+
+            <c:set var="skillsTraining"><gsweb:lts list="${responses.skills_training}" /></c:set>
+            <c:if test="${fn:length(skillsTraining)>0 and fn:toLowerCase(skillsTraining) != 'none'}"><p class="lbl">Vocational or skills-based training offered: <span class="val">${skillsTraining}</span></p></c:if>
+
+            <c:if test="fn:length(collegeDestinations)>0"><p class="lbl">Colleges most students attend after graduation: <span class="val">${collegeDestinations}</span></p></c:if>
+
+            <c:set var="pgy"><gsweb:lts list="${responses.post_graduation_year}" /></c:set>
+            <c:if test="fn:length(pgy)>0">
+                <c:set var="pgA"><gsweb:lts list="${responses.post_graduation_2-yr}" /></c:set>
+                <c:set var="pgB"><gsweb:lts list="${responses.post_graduation_4-yr}" /></c:set>
+                <c:set var="pgC"><gsweb:lts list="${responses.post_graduation_military}" /></c:set>
+                <c:set var="pgD"><gsweb:lts list="${responses.post_graduation_vocational}" /></c:set>
+                <c:set var="pgE"><gsweb:lts list="${responses.post_graduation_workforce}" /></c:set>
+                <p class="lbl">Post-graduation statistics:</p>
+                <p class="lbl">For school year: ${pgy}</p>
+                <table class="todo">
+                    <tr><td>${pgA}</td><td>Graduates going to a 2-year college</td></tr>
+                    <tr><td>${pgB}</td><td>Graduates going to a 4-year college</td></tr>
+                    <tr><td>${pgC}</td><td>Graduates going into military service</td></tr>
+                    <tr><td>${pgD}</td><td>Graduates going into vocational programs</td></tr>
+                    <tr><td>${pgE}</td><td>Graduates going directly into the workforce</td></tr>
+                </table>
+            </c:if>
+
+            <h4>Enrichment, Extracurriculars, and Specials</h4>
+
+            <c:set var="artsMedia"><gsweb:lts list="${responses.arts_media}" /></c:set>
+            <c:if test="fn:length(artsMedia)>0 and fn:toLowerCase(artsMedia) != 'none'"><p class="lbl">Arts – Media: <span class="val">${artsMedia}</span></p></c:if>
+
+            <c:set var="artsMusic"><gsweb:lts list="${responses.arts_music}" /></c:set>
+            <c:if test="fn:length(artsMusic)>0 and fn:toLowerCase(artsMusic) != 'none'"><p class="lbl">Arts – Music: <span class="val">${artsMusic}</span></p></c:if>
+
+            <c:set var="artsPerfWrtn"><gsweb:lts list="${responses.arts_performing_written}" /></c:set>
+            <c:if test="fn:length(artsPerfWrtn)>0 and fn:toLowerCase(artsPerfWrtn) != 'none'"><p class="lbl">Arts – Performing and Written: <span class="val">${artsPerfWrtn}</span></p></c:if>
+
+            <c:set var="artsVisual"><gsweb:lts list="${responses.arts_visual}" /></c:set>
+            <c:if test="fn:length(artsVisual)>0 and fn:toLowerCase(artsVisual) != 'none'"><p class="lbl">Arts – Visual: <span class="val">${artsVisual}</span></p></c:if>
+
+            <c:set var="boysSports"><gsweb:lts list="${responses.boys_sports}" /></c:set>
+            <c:set var="boysSportsOther"><gsweb:lts list="${responses.boys_sports_other}" /></c:set>
+            <c:if test="(fn:length(boysSports)>0 and fn:toLowerCase(boysSports) != 'none') or (fn:length(boysSportsOther)>0 and fn:toLowerCase(boysSportsOther) != 'none')"><p class="lbl">Boys Sports: <span class="val">${boysSports} ${boysSportsOther}</span></p></c:if>
+
+            <c:set var="girlsSports"><gsweb:lts list="${responses.girls_sports}" /></c:set>
+            <c:set var="girlsSportsOther"><gsweb:lts list="${responses.girls_sports_other}" /></c:set>
+            <c:if test="(fn:length(girlsSports)>0 and fn:toLowerCase(girlsSports) != 'none') or (fn:length(girlsSportsOther)>0 and fn:toLowerCase(girlsSportsOther) != 'none')"><p class="lbl">Girls Sports: <span class="val">${girlsSports} ${girlsSportsOther}</span></p></c:if>
+
+            <c:if test="fn:length(studentClubs)>0"><p class="lbl">Student Clubs: <span class="val">${studentClubs}</span></p></c:if>
+
+            <c:if test="fn:length(academicAwards)>0"><p class="lbl">Academic awards received in the past 3 years: <span class="val">${academicAwards}</span></p></c:if>
+
+            <c:if test="fn:length(serviceAwards)>0"><p class="lbl">Community service awards received in the past 3 years: <span class="val">${serviceAwards}</span></p></c:if>
+
+            <h4>School Culture</h4>
+
+            <c:set var="dressCode"><gsweb:lts list="${responses.dress_code}" /></c:set>
+            <c:if test="fn:length(dressCode)>0"><p class="lbl">School Attire: <span class="val">${dressCode}</span></p></c:if>
+
+            <c:set var="bullying"><gsweb:lts list="${responses.bullying_policy}" /></c:set>
+            <c:if test="fn:toLowerCase(bullying)} == 'yes'"><p class="lbl">Bullying and/or cyber bullying policy in place</p></c:if>
+
+            <c:set var="parentInvolvement"><gsweb:lts list="${responses.parent_involvement}" /></c:set>
+            <c:if test="fn:toLowerCase(parentInvolvement) == 'yes'"><p class="lbl">Opportunities for parent involvement: <span class="val">${parentInvolvement}</span></p></c:if>
+
+            <c:set var="schoolColors"><gsweb:lts list="${responses.school_colors}" /></c:set>
+            <c:if test="fn:length(schoolColors)>0"><p class="lbl">School colors: <span class="val">${schoolColors}</span></p></c:if>
+
+            <c:set var="schoolMascot"><gsweb:lts list="${responses.school_mascot}" /></c:set>
+            <c:if test="fn:length(schoolMascot)>0"><p class="lbl">School mascot: <span class="val">${schoolMascot}</span></p></c:if>
+
+            <c:set var="facebookUrl"><gsweb:lts list="${responses.facebookUrl}" /></c:set>
+            <c:if test="fn:length(facebookUrl)>0"><p class="lbl">School Facebook page: <a href="${facebookUrl}" class="val">${facebookUrl}</a></p></c:if>
+
+            <h4>Student Information</h4>
+
+            <c:set var="privateEthnicity"><gsweb:lts list="${responses.private_ethnicity}" /></c:set>
+            <p class="lbl">Student ethnicity breakdown:</p>
+            <c:choose>
+                <c:when test="fn:length(privateEthnicity)>0 and fn:toLowerCase(privateEthnicity) != 'data unavailable'">
+                    <c:set var="peA"><gsweb:lts list="${responses.private_ethnicity_americanindian}" /></c:set>
+                    <c:set var="peB"><gsweb:lts list="${responses.private_ethnicity_asian}" /></c:set>
+                    <c:set var="peC"><gsweb:lts list="${responses.private_ethnicity_black}" /></c:set>
+                    <c:set var="peD"><gsweb:lts list="${responses.private_ethnicity_hispanic}" /></c:set>
+                    <c:set var="peE"><gsweb:lts list="${responses.private_ethnicity_white}" /></c:set>
+                    <c:set var="peF"><gsweb:lts list="${responses.private_ethnicity_other}" /></c:set>
+                    <table>
+                        <tr><td>${peA}</td><td>Asian / Pacific Islander</td></tr>
+                        <tr><td>${peB}</td><td>Black, not Hispanic</td></tr>
+                        <tr><td>${peC}</td><td>Hispanic</td></tr>
+                        <tr><td>${peD}</td><td>American Indian / Alaskan Native</td></tr>
+                        <tr><td>${peE}</td><td>White, not Hispanic</td></tr>
+                        <tr><td>${peF}</td><td>Other</td></tr>
+                    </table>
+                </c:when>
+                <c:otherwise><span class="val">No data available.</span></c:otherwise>
+            </c:choose>
+
+            <c:set var="privateGender"><gsweb:lts list="${responses.private_gender}" /></c:set>
+            <p class="lbl">Student gender breakdown:</p>
+            <c:choose>
+                <c:when test="fn:length(privateGender)>0 and fn:toLowerCase(privateGender) != 'data unavailable'">
+                    <c:set var="pgMale"><gsweb:lts list="${responses.private_gender_male}" /></c:set>
+                    <c:set var="pgFemale"><gsweb:lts list="${responses.private_gender_female}" /></c:set>
+                    <table>
+                        <tr><td>${pgMale}</td><td>Male</td></tr>
+                        <tr><td>${pgFemale}</td><td>Female</td></tr>
+                    </table>
+                </c:when>
+                <c:otherwise><span class="val">No data available.</span></c:otherwise>
+            </c:choose>
+
+            <c:set var="privateEll"><gsweb:lts list="${responses.private_ell}" /></c:set>
+            <p class="lbl">Percentage of students that participate in ELL or ESL programs: <span class="val"><c:out value="${(fn:length(privateEll)>0 and fn:toLowerCase(privateEll) != 'data unavailable') ? privateEll : 'Data Unavailable'}"/></span></p>
+
+            <c:set var="privateSpecialEd"><gsweb:lts list="${private_special_ed}" /></c:set>
+            <p class="lbl">Percentage of students that take advantage of some kind of Special Education service: <span class="val"><c:out value="${(fn:length(privateSpecialEd)>0 and fn:toLowerCase(privateSpecialEd) != 'data unavailable') ? privateSpecialEd : 'Data Unavailable'}"/></span></p>
+
+            <c:set var="privateRFL"><gsweb:lts list="${private_free_reduced_lunch}" /></c:set>
+            <p class="lbl">Percentage of students eligible for free or reduced-price lunch: <span class="val"><c:out value="${(fn:length(privateRFL)>0 and fn:toLowerCase(privateRFL) != 'data unavailable') ? privateRFL : 'Data Unavailable'}"/></span></p>
+
+            <c:set var="actYr"><gsweb:lts list="${responses.private_act_results_year}" /></c:set>
+            <c:set var="actRs"><gsweb:lts list="${responses.private_act_results}" /></c:set>
+            <c:if test="fn:length(actYr)>0 and fn:length(actRs)>0"><p class="lbl">School’s average comprehensive ACT results for ths ${actYr} year: <span class="val">${actRs}</span></p></c:if>
+
+            <c:set var="satYr"><gsweb:lts list="${responses.private_sat_results_year}" /></c:set>
+            <c:set var="satRs"><gsweb:lts list="${responses.private_sat_results}" /></c:set>
+            <c:if test="fn:length(satYr)>0 and fn:length(satRs)>0"><p class="lbl">School’s average comprehensive SAT results for the ${satYr} year: <span class="val">${satRs}</span></p></c:if>
+
+        </div><!-- .slStylesV1-0 -->
+
+    </school:profile2010>
+    <mod:tracking pageName="${pageName}" hier1="School,ESP" schoolGSRating="${gs_rating}"/>
+</gsml:body>
+</html>
+</jsp:root>

@@ -312,6 +312,36 @@
     </function>
 
     <tag>
+        <name>lts</name>
+        <tag-class>gs.web.jsp.ListToStringTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>list</name>
+            <description>The list object to be converted to a single string.</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>dlm</name>
+            <description>Token separating the list elements.  When not specified, ', ' is used.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>nullListToken</name>
+            <description>Token output when the given list is null.  When not specified, nothing is output for this case.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>emptyListToken</name>
+            <description>Token output when the given list is empty.  When not specified, nothing is output for this case.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
         <body-content>empty</body-content>
