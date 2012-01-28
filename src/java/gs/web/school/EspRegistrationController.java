@@ -66,19 +66,19 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             if (user.getUserProfile() != null && !StringUtils.isBlank(user.getUserProfile().getScreenName())) {
                 command.setScreenName(user.getUserProfile().getScreenName());
             }
-        }
 
-        //Check if user is awaiting ESP access.
-        List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
-        //If there is a "accepted" status then redirect the user to dashboard.Else if there are pending memberships
-        //display a message to the user.We do not care about rejected or inactive users yet.
-        //TODO what happens to for loop on return?
-        for (EspMembership membership : memberships) {
-            if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                return "redirect:" + urlBuilder.asFullUrl(request);
-            } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                modelMap.addAttribute("isUserAwaitingESPMembership", true);
+            //Check if user is awaiting ESP access.
+            List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+            //If there is a "accepted" status then redirect the user to dashboard.Else if there are pending memberships
+            //display a message to the user.We do not care about rejected or inactive users yet.
+            //TODO what happens to for loop on return?
+            for (EspMembership membership : memberships) {
+                if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                    return "redirect:" + urlBuilder.asFullUrl(request);
+                } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
+                    modelMap.addAttribute("isUserAwaitingESPMembership", true);
+                }
             }
         }
 
@@ -146,73 +146,40 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     @RequestMapping(value = "checkEspUser.page", method = RequestMethod.GET)
     public void checkIfUserExists(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) {
         String email = command.getEmail();
-        boolean isEmailValid = true;
-//        boolean isUserGSMember = false;
-        boolean isPasswordEmpty = false;
-        boolean isUserProvisionalGSMember = true;
-        boolean isUserEmailValidated = false;
-        boolean isUserApprovedESPMember = false;
-        boolean isUserAwaitingESPMembership = false;
-
-        Map data = new HashMap();
+        UserStateStruct userState = new UserStateStruct();
 
         if (StringUtils.isBlank(email)) {
-            isEmailValid = false;
-//            data.put("someKey", "emailNotValid");
+            userState.setEmailValid(false);
         } else if (!StringUtils.isBlank(email)) {
             email = email.trim();
-            isEmailValid = validateEmail(email);
+            userState.setEmailValid(validateEmail(email));
 
-            if (isEmailValid) {
+            if (userState.isEmailValid()) {
                 User user = getUserDao().findUserFromEmailIfExists(email);
                 //Found a user
                 if (user != null && user.getId() != null) {
-
-//                    isUserGSMember = true;
                     if (user.isPasswordEmpty()) {
-//                        data.put("someKey", "passwordEmpty");
-                        isPasswordEmpty = true;
+                        userState.setPasswordEmpty(true);
                     } else if (user.isEmailValidated()) {
-//                        data.put("someKey", "userEmailValidated");
-                        isUserEmailValidated = true;
-                        isUserProvisionalGSMember = false;
+                        userState.setUserEmailValidated(true);
+                        userState.setUserProvisionalGSMember(false);
                     }
 
                     if (user.hasRole(Role.ESP_MEMBER)) {
-                        isUserApprovedESPMember = true;
-//                        data.put("someKey", "userApprovedESPMember");
+                        userState.setUserApprovedESPMember(true);
                     } else {
                         List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
                         if (memberships.size() > 0) {
-//                            data.put("someKey", "userAwaitingESPMembership");
-                            isUserAwaitingESPMembership = true;
+                            userState.setUserAwaitingESPMembership(true);
                         }
                     }
                 }
-            } else {
-//                data.put("someKey", "emailNotValid");
             }
         }
 
         try {
             JSONObject rval;
-//            Map data = new HashMap();
-            if (!isEmailValid) {
-                data.put("invalidEmail", true);
-            } else if (isUserApprovedESPMember) {
-                data.put("isUserApprovedESPMember", true);
-            } else if (isUserAwaitingESPMembership) {
-                data.put("isUserAwaitingESPMembership", true);
-            } else if (isUserEmailValidated) {
-                data.put("isUserEmailValidated", true);
-            } else if (isPasswordEmpty) {
-                data.put("isPasswordEmpty", true);
-            } else if (isUserProvisionalGSMember) {
-                data.put("isUserProvisionalGSMember", true);
-            } else {
-                data.put("userNotFound", "userNotFound");
-            }
-
+            Map data = setStructState(userState);
             rval = new JSONObject(data);
             response.setContentType("application/json");
             response.getWriter().print(rval.toString());
@@ -221,6 +188,26 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             _log.error("Error " + exp, exp);
             //TODO return an json error .response code to 500.
         }
+    }
+
+    protected Map setStructState(UserStateStruct userStateStruct) {
+        Map data = new HashMap();
+        if (!userStateStruct.isEmailValid()) {
+            data.put("invalidEmail", true);
+        } else if (userStateStruct.isUserApprovedESPMember()) {
+            data.put("isUserApprovedESPMember", true);
+        } else if (userStateStruct.isUserAwaitingESPMembership()) {
+            data.put("isUserAwaitingESPMembership", true);
+        } else if (userStateStruct.isUserEmailValidated()) {
+            data.put("isUserEmailValidated", true);
+        } else if (userStateStruct.isPasswordEmpty()) {
+            data.put("isPasswordEmpty", true);
+        } else if (userStateStruct.isUserProvisionalGSMember) {
+            data.put("isUserProvisionalGSMember", true);
+        } else {
+            data.put("userNotFound", "userNotFound");
+        }
+        return data;
     }
 
     protected void setFieldsOnUserUsingCommand(EspRegistrationCommand espMembershipCommand, User user) {
@@ -439,4 +426,62 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
     }
+
+    protected static class UserStateStruct {
+        private boolean isEmailValid = true;
+        private boolean isPasswordEmpty = false;
+        private boolean isUserProvisionalGSMember = true;
+        private boolean isUserEmailValidated = false;
+        private boolean isUserApprovedESPMember = false;
+        private boolean isUserAwaitingESPMembership = false;
+
+        public boolean isEmailValid() {
+            return isEmailValid;
+        }
+
+        public void setEmailValid(boolean emailValid) {
+            isEmailValid = emailValid;
+        }
+
+        public boolean isPasswordEmpty() {
+            return isPasswordEmpty;
+        }
+
+        public void setPasswordEmpty(boolean passwordEmpty) {
+            isPasswordEmpty = passwordEmpty;
+        }
+
+        public boolean isUserProvisionalGSMember() {
+            return isUserProvisionalGSMember;
+        }
+
+        public void setUserProvisionalGSMember(boolean userProvisionalGSMember) {
+            isUserProvisionalGSMember = userProvisionalGSMember;
+        }
+
+        public boolean isUserEmailValidated() {
+            return isUserEmailValidated;
+        }
+
+        public void setUserEmailValidated(boolean userEmailValidated) {
+            isUserEmailValidated = userEmailValidated;
+        }
+
+        public boolean isUserApprovedESPMember() {
+            return isUserApprovedESPMember;
+        }
+
+        public void setUserApprovedESPMember(boolean userApprovedESPMember) {
+            isUserApprovedESPMember = userApprovedESPMember;
+        }
+
+        public boolean isUserAwaitingESPMembership() {
+            return isUserAwaitingESPMembership;
+        }
+
+        public void setUserAwaitingESPMembership(boolean userAwaitingESPMembership) {
+            isUserAwaitingESPMembership = userAwaitingESPMembership;
+        }
+    }
+
 }
