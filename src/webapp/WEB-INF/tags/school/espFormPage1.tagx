@@ -8,7 +8,8 @@
     <school:espFormTemplate page="1" maxPage="${maxPage}" headerText="School basic info">
 
         <label for="form_average_class_size">Average class size: </label>
-        <input id="form_average_class_size" type="text" name="average_class_size" value="${responseMap['average_class_size'].value}"/>
+        <input id="form_average_class_size" type="text" name="average_class_size" maxlength="2" value="${responseMap['average_class_size'].value}"/>
+        <span id="form_average_class_size_error" class="error" style="display: none">Average class size must be numeric.</span>
         <br/>
         <br/>
 
@@ -36,12 +37,7 @@
         <br/>
         <school:espCheckboxWithLabel key="grade_levels" value="KG" label="K"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="K3" label="K3"/>
-        <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="K4" label="K4"/>
-        <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="K5" label="K5"/>
-        <br/>
+
         <school:espCheckboxWithLabel key="grade_levels" value="1" label="First Grade"/>
         <br/>
         <school:espCheckboxWithLabel key="grade_levels" value="2" label="Second Grade"/>
@@ -67,6 +63,24 @@
         <school:espCheckboxWithLabel key="grade_levels" value="12" label="Twelfth Grade"/>
         <br/>
         <br/>
+
+        <div id="form_k3_offered_group">
+            <label>Do you offer K3?</label>
+            <br/>
+            <school:espCheckboxWithLabel key="k3_offered" value="no" label="No"/>
+            <school:espCheckboxWithLabel key="k3_offered" value="yes" label="Yes"/>
+            <br/>
+            <br/>
+        </div>
+
+        <div id="form_k4_offered_group">
+            <label>Do you offer K4?</label>
+            <br/>
+            <school:espCheckboxWithLabel key="k4_offered" value="no" label="No"/>
+            <school:espCheckboxWithLabel key="k4_offered" value="yes" label="Yes"/>
+            <br/>
+            <br/>
+        </div>
 
         <label>Is there a school-run shuttle from nearby metro and bus stops? If so, indicate which metro and bus lines the shuttle serves.</label>
         <br/>
@@ -96,16 +110,18 @@
         <br/>
         <br/>
 
-        <label>School type Select type</label>
-        <br/>
-        <school:espRadioWithLabel key="school_type_affiliation" value="independent" label="Independent"/>
-        <school:espRadioWithLabel key="school_type_affiliation" value="religious_paroch" label="Religious / Parochial"/>
-        <br/>
-        <label for="form_school_type_affiliation_other">Affiliation:</label>
-        <input id="form_school_type_affiliation_other" type="text" name="school_type_affiliation_other"
-               value="${responseMap['school_type_affiliation_other'].value}"/>
-        <br/>
-        <br/>
+        <div id="school_type_affiliation_group">
+            <label>School type Select type</label>
+            <br/>
+            <school:espRadioWithLabel key="school_type_affiliation" value="independent" label="Independent"/>
+            <school:espRadioWithLabel key="school_type_affiliation" value="religious_paroch" label="Religious / Parochial"/>
+            <br/>
+            <label for="form_school_type_affiliation_other">Affiliation:</label>
+            <input id="form_school_type_affiliation_other" type="text" name="school_type_affiliation_other"
+                   value="${responseMap['school_type_affiliation_other'].value}"/>
+            <br/>
+            <br/>
+        </div>
 
 
         <label>What age does your early childhood or Pre-K program begin?</label>

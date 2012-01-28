@@ -1,5 +1,62 @@
 GS.history5Enabled = typeof(window.History) !== 'undefined' && window.History.enabled === true;
 
+GS.form = GS.form || {};
+// make the visibility of a dom element(s) depend on the value of a form field
+// for checkboxes, input value should be a boolean.
+// TODO: need better name for this function?
+// TODO: migrate elsewhere
+// TODO: how to maintain state when event handler executes on multiple elements, to reduce number of iterations necessary
+// to be able to correctly show/hide the "selectorOfElementToControl"
+GS.form.controlVisibilityOfElement = function(selectorOfElementToControl, masterFieldSelector, value, options) {
+    // match any and match all only compatable with checkboxes
+    var matchAny = (options !== undefined && options.matchAny === true);
+    var matchAll = (options !== undefined && options.matchAll === true);
+
+    $(masterFieldSelector).on('change', function() {
+        var objectsToCheck;
+        var match = false; // whether or not field value matches provided value
+        if (matchAll) {
+            match = true;
+        }
+
+        // if we're going to inspect multiple fields, set objectsToCheck to all of elements the selector matches
+        // otherwise just set it to the element that triggered this event
+        if (matchAny || matchAll) {
+            objectsToCheck = jQuery(masterFieldSelector);
+        } else {
+            objectsToCheck = jQuery(this);
+        }
+
+        objectsToCheck.each(function() {
+            var thisObject = jQuery(this);
+            var itemMatch;
+            if (thisObject.is(':checkbox')) {
+                itemMatch = (value === thisObject.prop('checked'));
+            } else if (thisObject.is(':radio')) {
+                itemMatch = (thisObject.val() === value && thisObject.prop('checked'));
+            } else {
+                itemMatch = (thisObject.val() === value);
+            }
+
+            // use options to determine whether to OR or AND the checkbox match results together
+            if (matchAny) {
+                match = match || itemMatch;
+            } else if (matchAll) {
+                match = match && itemMatch;
+            } else {
+                match = itemMatch;
+            }
+        });
+
+        if (match) {
+            jQuery(selectorOfElementToControl).show();
+        } else {
+            jQuery(selectorOfElementToControl).hide();
+        }
+    });
+    $(masterFieldSelector).change(); // trigger right away to set default state
+};
+
 GS.validation = GS.validation || {};
 GS.validation.validateRequired = function(fieldSelector, errorSelector) {
     var isValid = true;
@@ -38,10 +95,7 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
 GS.validation.validateInteger = function(fieldSelector, errorSelector) {
     var isValid = true;
     jQuery(errorSelector).hide();
-    var formFields = jQuery(fieldSelector);
-    if (formFields.filter(':visible').size() == 0) {
-        return true; // only validate visible fields
-    }
+    var formFields = jQuery(fieldSelector).filter(':visible'); // only validate visible fields
     if (formFields !== undefined && formFields.size() > 0) {
         var fieldType = formFields.attr('type');
 
@@ -155,7 +209,11 @@ new (function() {
         var isValidAcademicFocus = GS.validation.validateRequired('[name=academic_focus]', '#academic_focus_error');
         var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
             && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_error');
-        return  isValidAcademicFocus && isValidStudentEnrollment;
+
+        var isValidClassSize = GS.validation.validateInteger('#form_average_class_size', '#form_average_class_size_error');
+
+
+        return  isValidClassSize && isValidAcademicFocus && isValidStudentEnrollment;
     };
 
     if (GS.history5Enabled) {
@@ -195,5 +253,18 @@ new (function() {
                 otherField.val(''); // TODO: Only works for text inputs
             }
         });
+
+        /*$('#form_grade_levels_pk, #form_grade_levels_kg').on('change', function() {
+            if ($('#form_grade_levels_pk').prop('checked') || $('#form_grade_levels_kg').prop('checked')) {
+                $('#form_k3_offered_group, #form_k4_offered_group').show();
+            } else {
+                $('#form_k3_offered_group, #form_k4_offered_group').hide();
+            }
+        });
+        $('#form_grade_levels_pk').change(); // trigger k3_offered and k3_offered update
+        */
+        GS.form.controlVisibilityOfElement('#form_k3_offered_group, #form_k4_offered_group', '#form_grade_levels_pk, #form_grade_levels_kg', true, {matchAny:true});
+        GS.form.controlVisibilityOfElement('#school_type_affiliation_group', '[name=school_type]', 'private');
+
     });
 })();
