@@ -31,7 +31,7 @@
 
 <c:if test="${userLoggedIn}">
     <c:set var="isReadOnly" value="true"/>
-    <c:set var="showPassword" value="false"/>
+    <c:set var="doNotShowPassword" value="true"/>
 </c:if>
 
 <div class="grid_16">
@@ -56,23 +56,25 @@
 
         <div class="grid_5 omega">
             <div class="notice">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</div>
-            <div id="js_invalidEmail" class="error"
+            <div id="js_invalidEmail" class="error js_emailErr"
                  style="display: none;">Please enter a valid email.
             </div>
 
             <div id="js_uniqueError" class="error"
                  style="display: none;">You are already registered for this school.
             </div>
-
-            <div id="js_emailError_gsSignIn" class="error"
-                 style="display: none;"><a href="#" id="js_espLaunchSignin">Please Sign in.</a></div>
-            <div id="js_emailError_espSignIn" class="error"
-                 style="display: none;"><a href="/school/esp/signIn.page">Please Sign in.</a></div>
-            <div id="js_emailError_espPending" style="${isUserAwaitingESPMembership ? '' : 'display:none'}"
-                 class="error">Please be patient.We are reviewing your request.
+            <div id="js_emailError" class="error js_emailErr"
+                 style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+            <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}"
+                 class="error js_emailErr">Please be patient.We are reviewing your request.
             </div>
-            <div id="js_emailError_verifyEmail" class="error"
-                 style="display: none;"><a href="/school/esp/signIn.page">Please verify your email address</a></div>
+
+            <!--<div id="js_emailError_gsSignIn" class="error"-->
+                 <!--style="display: none;"><a href="#" id="js_espLaunchSignin">Please Sign in.</a></div>-->
+            <!--<div id="js_emailError_espSignIn" class="error"-->
+                 <!--style="display: none;"><a href="/school/esp/signIn.page">Please Sign in.</a></div>-->
+            <!--<div id="js_emailError_verifyEmail" class="error"-->
+                 <!--style="display: none;"><a href="/school/esp/signIn.page">Please verify your email address</a></div>-->
 
         </div>
     </div>
@@ -101,7 +103,7 @@
             </div>
         </div>
 
-        <div id="js_passwordDiv" class="formRow clearfix" style="${showPassword ? '' : 'display:none'}">
+        <div id="js_passwordDiv" class="formRow clearfix" style="${doNotShowPassword ? 'display:none' : ''}">
             <div class="prefix_1 grid_4 alpha">
                 <form:label path="password" for="js_password">Password</form:label>
             </div>
@@ -117,7 +119,7 @@
             </div>
         </div>
 
-        <div id="js_confirmPasswordDiv" class="formRow clearfix" style="${showPassword ? '' : 'display:none'}">
+        <div id="js_confirmPasswordDiv" class="formRow clearfix" style="${doNotShowPassword ? 'display:none' : ''}">
             <div class="prefix_1 grid_4 alpha">
                 <form:label path="confirmPassword" for="js_confirmPassword">Retype password</form:label>
             </div>

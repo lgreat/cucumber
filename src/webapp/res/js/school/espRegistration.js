@@ -75,8 +75,9 @@ GS.form.EspForm = function() {
 
     //Checks the state of the various users and displays messages accordingly.
     this.checkUser = function() {
-        var email = jQuery('#js_email').val().trim();
-        GS.form.espForm.hideAllEmailErrors();
+        var emailField = jQuery('#js_email');
+        var email = emailField.val().trim();
+        jQuery('.js_emailErr').hide();
         var dfd = jQuery.Deferred();
 
         if (email !== "" && email !== undefined) {
@@ -88,31 +89,34 @@ GS.form.EspForm = function() {
                 dataType: 'json',
                 async: true
             }).done(function(data) {
-                    if (data.invalidEmail !== "" && data.invalidEmail !== undefined) {
-                        jQuery('#js_invalidEmail').show();
+                    if (data.emailError !== "" && data.emailError !== undefined) {
+                        GS.form.espForm.appendActionsToErrors(data,email);
+                        jQuery('#js_emailError').html(data.emailError);
+                        jQuery('#js_emailError').show();
                         dfd.reject();
-                    } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember !== true) {
-                        jQuery('#js_emailError_espSignIn').show();
-                        dfd.reject();
-                    } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember === true) {
-                        jQuery('#js_emailError_verifyEmail').show();
-                        dfd.reject();
-                    } else if (data.isUserAwaitingESPMembership === true) {
-                        jQuery('#js_emailError_espPending').show();
-                        dfd.reject();
-                    } else if (data.isUserEmailValidated === true) {
-                        jQuery('#js_emailError_gsSignIn').show();
-                        dfd.reject();
-                    } else if (data.isPasswordEmpty === true || data.isUserProvisionalGSMember === true || data.userNotFound === true) {
+                    } else {
                         dfd.resolve();
                     }
-                });
+                }
+            ).fail(function() {
+                dfd.reject();
+            });
         } else {
             jQuery('#js_invalidEmail').show();
-              dfd.reject();
+            dfd.reject();
         }
         return dfd.promise();
     };
+
+    this.appendActionsToErrors = function(data, email) {
+        if (data.userNotEmailValidated !== "" && data.userNotEmailValidated !== undefined) {
+            data.emailError += "<a href='#' id=''>VerificationHover</a>";
+        } else if (data.userEspMember !== "" && data.userEspMember !== undefined) {
+            data.emailError += "<a href='/school/esp/signIn.page'>Sign in</a>";
+        } else if (data.userGSMember !== "" && data.userGSMember !== undefined) {
+            data.emailError += "<a href='#' id='js_espLaunchSignin' onclick='GSType.hover.signInHover.showHover();'>Sign in</a>";
+        }
+    }
 
     this.validateRequiredFields = function(fieldName) {
         var fieldVal = jQuery('#js_' + fieldName).val();
@@ -184,12 +188,13 @@ GS.form.EspForm = function() {
         var fieldName = fieldName;
         var fieldVal = elem.val();
         var isFieldVisible = elem.is(':visible');
+        var isReadOnly = elem.attr('readonly') === 'readonly';
         var dfd = jQuery.Deferred();
         var dataParams = {field:fieldName};
         dataParams[fieldName] = fieldVal;
         jQuery.extend(dataParams, ajaxParams);
 
-        if (isFieldVisible) {
+        if (isFieldVisible && !isReadOnly) {
             jQuery.ajax({
                 type: 'GET',
                 url: '/community/registrationValidationAjax.page',
@@ -234,9 +239,10 @@ GS.form.EspForm = function() {
 
     this.registrationSubmit = function() {
         jQuery.when(
+            GS.form.espForm.checkUser(),
             GS.form.espForm.validateFields('firstName'),
             GS.form.espForm.validateFields('lastName'),
-            GS.form.espForm.validateFields('screenName', {email:jQuery('#js_email').val(), field:'username'}),
+            GS.form.espForm.validateFields('screenName', {field:'username'}),
             GS.form.espForm.validateFields('password', {confirmPassword:jQuery('#js_confirmPassword').val()}),
             GS.form.espForm.validateFields('confirmPassword', {password:jQuery('#js_password').val()}),
             GS.form.espForm.validateRequiredFields('jobTitle'),
@@ -258,12 +264,6 @@ GS.form.EspForm = function() {
 
     this.hideAllErrors = function() {
         jQuery('.error').hide();
-    };
-
-    this.hideAllEmailErrors = function() {
-        jQuery('#js_emailError_gsSignIn').hide();
-        jQuery('#js_emailError_espSignIn').hide();
-        jQuery('#js_emailError_espPending').hide();
     };
 };
 
