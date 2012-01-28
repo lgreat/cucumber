@@ -1473,6 +1473,7 @@ jQuery(function() {
     });
 
     jQuery('#joinHover #lnchSignin').click(GSType.hover.joinHover.showSignin);
+    jQuery('#js_espLaunchSignin').click(GSType.hover.joinHover.showSignin);
 
     jQuery('#hover_forgotPassword').bind('dialogclose', function() {
         GSType.hover.forgotPassword.clearMessages();

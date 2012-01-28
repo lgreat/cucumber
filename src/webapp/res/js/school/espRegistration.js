@@ -73,13 +73,11 @@ GS.form.EspForm = function() {
         }
     };
 
-    //Checks for the following cases and displays the form accordingly
-    //i)email entered is valid
-    //ii)email entered belongs to an existing user who is email validated ,with no ESP membership OR with ESP membership
-    //iii)email entered belongs to a provisional GS user.
-    //iv)email was not found.
+    //Checks the state of the various users and displays messages accordingly.
     this.checkUser = function() {
         var email = jQuery('#js_email').val().trim();
+        GS.form.espForm.hideAllEmailErrors();
+        var dfd = jQuery.Deferred();
 
         if (email !== "" && email !== undefined) {
             email = email.trim();
@@ -90,77 +88,28 @@ GS.form.EspForm = function() {
                 dataType: 'json',
                 async: true
             }).done(function(data) {
-
                     if (data.invalidEmail !== "" && data.invalidEmail !== undefined) {
                         jQuery('#js_invalidEmail').show();
-
-                    } else if (data.isUserEmailValidated === true || data.isUserApprovedESPMember === true) {
-                        jQuery('#js_registeredPasswordDiv').show();
-                        GS.form.espForm.bindLoginSubmit();
-
-                    } else if (data.isUserGSMember === true) {
-
-                        //User already exists.However all the required fields are not filled in.Therefore collect them.
-                        if (data.fieldsToCollect !== "" && data.fieldsToCollect !== undefined) {
-                            var fields = data.fieldsToCollect.split(",");
-                            for (var i = 0; i < fields.length; i++) {
-                                jQuery('#js_' + fields[i] + 'Div').show();
-                            }
-                        }
-
-                        jQuery('#js_regPanel').show();
-                        GS.form.espForm.bindRegistrationSubmit();
-
-                    } else if (data.userNotFound === true) {
-
-                        jQuery('#js_regPanel').show();
-                        jQuery('#js_firstNameDiv').show();
-                        jQuery('#js_lastNameDiv').show();
-                        jQuery('#js_screenNameDiv').show();
-                        jQuery('#js_passwordDiv').show();
-                        jQuery('#js_confirmPasswordDiv').show();
-                        GS.form.espForm.bindRegistrationSubmit();
+                        dfd.reject();
+                    } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember !== true) {
+                        jQuery('#js_emailError_espSignIn').show();
+                        dfd.reject();
+                    } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember === true) {
+                        jQuery('#js_emailError_verifyEmail').show();
+                        dfd.reject();
+                    } else if (data.isUserAwaitingESPMembership === true) {
+                        jQuery('#js_emailError_espPending').show();
+                        dfd.reject();
+                    } else if (data.isUserEmailValidated === true) {
+                        jQuery('#js_emailError_gsSignIn').show();
+                        dfd.reject();
+                    } else if (data.isPasswordEmpty === true || data.isUserProvisionalGSMember === true || data.userNotFound === true) {
+                        dfd.resolve();
                     }
                 });
         } else {
             jQuery('#js_invalidEmail').show();
-        }
-
-        //This should never submit the form.Hence always return false.
-        return false;
-    };
-
-    this.matchUserPassword = function() {
-        var email = jQuery('#js_email').val();
-        var password = jQuery('#js_registeredPassword').val();
-        var dfd = jQuery.Deferred();
-        var pwdIncorrectErr = jQuery('#js_registeredPasswordIncorrect');
-        var pwdEmptyErr = jQuery('#js_registeredPasswordEmpty');
-        pwdIncorrectErr.hide();
-        pwdEmptyErr.hide();
-
-        if (password !== '' && password !== undefined) {
-            jQuery.ajax({
-                type: 'GET',
-                url: '/school/esp/matchUserPassword.page',
-                data: {email:email, registeredPassword:password},
-                dataType: 'json',
-                async: true
-            }).done(
-                function(data) {
-                    if (data.matchesPassword !== true) {
-                        pwdIncorrectErr.show();
-                        dfd.reject();
-                    } else {
-                        dfd.resolve();
-                    }
-                }
-            ).fail(function(data) {
-                    dfd.reject();
-                });
-        } else {
-            pwdEmptyErr.show();
-            dfd.reject();
+              dfd.reject();
         }
         return dfd.promise();
     };
@@ -283,21 +232,6 @@ GS.form.EspForm = function() {
         }
     };
 
-    this.loginSubmit = function() {
-        GS.form.espForm.matchUserPassword(
-        ).done(
-            function() {
-                //submit the form if the password is correct.
-                document.getElementById('espRegistrationCommand').submit();
-            }
-        ).fail(
-            function() {
-                // Error messages are already displayed as part of ajax validations.
-            }
-        )
-        return false;
-    };
-
     this.registrationSubmit = function() {
         jQuery.when(
             GS.form.espForm.validateFields('firstName'),
@@ -322,73 +256,14 @@ GS.form.EspForm = function() {
         return false;
     };
 
-    this.unbindSubmitHandler = function () {
-        jQuery('#js_submit').unbind('click');
-    };
-
-    this.bindEmailSubmit = function() {
-        var regPanel = jQuery('#js_regPanel');
-
-        //Additional check that if the registration panel is not visible then the form should not submit.
-        if (!regPanel.is(':visible')) {
-
-            //unbind the existing click handler.
-            GS.form.espForm.unbindSubmitHandler();
-
-            //change the text of the button.
-            var submitBtn = jQuery('#js_submit');
-            submitBtn.val('Continue \xBB');
-
-            //Bind the new click handler which just validates user/email.
-            submitBtn.click(
-                GS.form.espForm.checkUser
-            );
-        }
-    };
-
-    this.bindLoginSubmit = function() {
-        var passwordDiv = jQuery('#js_registeredPasswordDiv');
-        var regPanel = jQuery('#js_regPanel');
-
-        //Additional check that if the registration panel is not visible and the password field is visible then form should submit.
-        if (!regPanel.is(':visible') && passwordDiv.is(':visible')) {
-
-            //unbind the existing click handler.
-            GS.form.espForm.unbindSubmitHandler();
-
-            //change the text of the button.
-            var submitBtn = jQuery('#js_submit');
-            submitBtn.val('Sign In');
-
-            //Bind the new click handler which logs in the user if the correct password is entered.
-            submitBtn.click(
-                GS.form.espForm.loginSubmit
-            );
-        }
-    };
-
-    this.bindRegistrationSubmit = function() {
-        var regPanel = jQuery('#js_regPanel');
-
-        //If the registration panel is visible then the form should submit.
-        if (regPanel.is(':visible')) {
-
-            //unbind the existing click handler.
-            GS.form.espForm.unbindSubmitHandler();
-
-            //change the text of the button.
-            var submitBtn = jQuery('#js_submit');
-            submitBtn.val('Submit request');
-
-            //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.
-            submitBtn.click(
-                GS.form.espForm.registrationSubmit
-            );
-        }
-    };
-
     this.hideAllErrors = function() {
         jQuery('.error').hide();
+    };
+
+    this.hideAllEmailErrors = function() {
+        jQuery('#js_emailError_gsSignIn').hide();
+        jQuery('#js_emailError_espSignIn').hide();
+        jQuery('#js_emailError_espPending').hide();
     };
 };
 
@@ -403,6 +278,10 @@ jQuery(function() {
     jQuery('#js_city').change(function() {
         GS.form.espForm.cityChange();
     });
+
+    jQuery('#js_email').blur(
+        GS.form.espForm.checkUser
+    );
 
     jQuery('#js_firstName').blur(function() {
         GS.form.espForm.validateFields('firstName');
@@ -430,36 +309,11 @@ jQuery(function() {
     });
     jQuery('#js_school').change(GS.form.espForm.validateSchool);
 
-    var regPanel = jQuery('#js_regPanel');
 
-    if (regPanel.is(':visible')) {
-        GS.form.espForm.bindRegistrationSubmit();
-
-    } else if (!regPanel.is(':visible')) {
-        GS.form.espForm.bindEmailSubmit();
-    }
-
-    jQuery('#js_email').blur(function() {
-        var regPanel = jQuery('#js_regPanel');
-        var passwordDiv = jQuery('#js_registeredPasswordDiv');
-        var email = jQuery('#js_email');
-
-        var isEmailEditable = email.attr('readonly') === 'readonly';
-
-        //TODO should the form be cleared when reg panel is hidden?
-        GS.form.espForm.hideAllErrors();
-
-        if ((regPanel.is(':visible') || passwordDiv.is(':visible')) && !isEmailEditable) {
-            regPanel.hide();
-            passwordDiv.hide();
-            jQuery('#js_firstNameDiv').hide();
-            jQuery('#js_lastNameDiv').hide();
-            jQuery('#js_screenNameDiv').hide();
-            jQuery('#js_passwordDiv').hide();
-            jQuery('#js_confirmPasswordDiv').hide();
-            GS.form.espForm.bindEmailSubmit();
-        }
-    });
+    //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.
+    jQuery('#js_submit').click(
+        GS.form.espForm.registrationSubmit
+    );
 
 });
 

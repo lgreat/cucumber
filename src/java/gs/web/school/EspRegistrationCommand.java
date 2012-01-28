@@ -10,7 +10,6 @@ public class EspRegistrationCommand implements EmailValidator.IEmail {
     private String _screenName;
     private String _password;
     private String _confirmPassword;
-    private String _registeredPassword;
     private String _webPageUrl;
     private String _jobTitle;
     private State _state;
@@ -64,14 +63,6 @@ public class EspRegistrationCommand implements EmailValidator.IEmail {
 
     public void setConfirmPassword(String confirmPassword) {
         _confirmPassword = confirmPassword;
-    }
-
-    public String getRegisteredPassword() {
-        return _registeredPassword;
-    }
-
-    public void setRegisteredPassword(String registeredPassword) {
-        _registeredPassword = registeredPassword;
     }
 
     public String getWebPageUrl() {
