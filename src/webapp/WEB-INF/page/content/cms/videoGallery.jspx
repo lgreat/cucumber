@@ -14,19 +14,13 @@
 <c:set var="pageName" value="${omnitureTopicCenterName} Videos" scope="request"/>
 
 <head>
-    <c:choose>
-        <c:when test="${not empty topicCenter.pageTitle}">
-            <c:set var="pageTitle">${topicCenter.pageTitle}</c:set>
-        </c:when>
-        <c:otherwise>
-            <c:set var="pageTitle">${topicCenter.title}</c:set>
-        </c:otherwise>
-    </c:choose>
-    <title>${pageTitle} Videos | GreatSchools</title>
+    <c:set var="pageTitle">Parenting Videos</c:set>
+
+    <title>${pageTitle} | GreatSchools</title>
 
     <meta name="description" content="${topicCenter.metaDescription}"/>
     <meta name="keywords" content="${topicCenter.metaKeywords}"/>
-    
+
     <pageHelper:externalJavascript file="/res/js/topiccenter/topicCenter2010.js"/>
     <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
     <pageHelper:externalJavascript file="/res/js/content/cms/videoGallery.js"/>
@@ -77,7 +71,7 @@
 
             <cms:topicCenterBreadcrumbs topicCenter="${topicCenter}"/>
 
-            <h1 class="mlm pls">${topicCenter.title} Videos</h1>
+            <h1 class="mlm pls">${pageTitle}</h1>
 
             <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <cms:contentProviderLogoAd topicCenter="${topicCenter}"/>
