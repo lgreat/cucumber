@@ -358,7 +358,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
                     if (photos[i].statusAsString === self.STATUS_ACTIVE) {
                         var domPhoto = self.container.find('#' + imgId);
                         if (domPhoto.hasClass('js-photo-pending')) {
-                            domPhoto.prop('src',photos[i].smallFileName);
+                            domPhoto.prop('src',data.basePhotoPath + photos[i].smallSizeFile);
                             domPhoto.prop('alt','active ' + photos[i].originalFileName);
                             domPhoto.removeClass('js-photo-pending');
                             domPhoto.addClass('js-photo-active');

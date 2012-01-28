@@ -30,11 +30,23 @@
                     <span class="js-deletePhoto deletePhoto">X</span> |
                     <span class="js-makePhotoActive">Activate photo</span>
 
-                    <img id="js-photo-${existingPhoto.id}"
-                         class="js-photo-${existingPhoto.statusAsString}"
-                         src="/res/img/pending-photo.png"
-                         width="75" height="75"
-                         alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
+                    <c:choose>
+                        <c:when test="${existingPhoto.status eq 1}">
+                            <img id="js-photo-${existingPhoto.id}"
+                                 class="js-photo-${existingPhoto.statusAsString}"
+                                 src="${basePhotoPath}${existingPhoto.smallSizeFile}"
+                                 width="75" height="75"
+                                 alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <img id="js-photo-${existingPhoto.id}"
+                                 class="js-photo-${existingPhoto.statusAsString}"
+                                 src="/res/img/pending-photo.png"
+                                 width="75" height="75"
+                                 alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
             </c:forEach>
 

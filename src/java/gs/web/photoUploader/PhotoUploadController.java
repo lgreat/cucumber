@@ -7,6 +7,7 @@ import gs.data.school.ISchoolMediaDao;
 import gs.data.school.SchoolMedia;
 import gs.data.school.SchoolMediaDaoHibernate;
 import gs.data.state.State;
+import gs.data.util.CommunityUtil;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -74,6 +75,7 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
 
         modelMap.put("schoolId",schoolId);
         modelMap.put("schoolDatabaseState",schoolDatabaseState.getAbbreviation());
+        modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
 
         return "uploaderTest2";
     }
@@ -149,11 +151,9 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                                 @RequestParam(value="schoolDatabaseState", required=false) State schoolDatabaseState,
                                 HttpServletResponse response) {
 
-        State databaseState = null;
-
         SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
 
-        if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(databaseState)) {
+        if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(schoolDatabaseState)) {
             schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.ACTIVE.value);
             _schoolMediaDao.save(schoolMedia);
             ThreadLocalTransactionManager.commitOrRollback();
