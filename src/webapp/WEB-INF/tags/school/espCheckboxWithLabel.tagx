@@ -12,7 +12,7 @@
     <c:set var="prefix" value="form"/>
 
     <gsml:checkbox styleId="${prefix}_${key}_${fn:toLowerCase(value)}" name="${key}" value="${value}"
-                       checked="${not empty responseMap['${key}'].valueMap['${value}']}"/>
+                       checked="${not empty responseMap[key].valueMap[value]}"/>
     <label for="${prefix}_${key}_${fn:toLowerCase(value)}">${label}</label>
 
 </jsp:root>
