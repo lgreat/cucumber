@@ -110,7 +110,7 @@
         <br/>
         <br/>
 
-        <div id="school_type_affiliation_group">
+        <div id="form_school_type_affiliation_group">
             <label>School type Select type</label>
             <br/>
             <school:espRadioWithLabel key="school_type_affiliation" value="independent" label="Independent"/>
@@ -123,15 +123,16 @@
             <br/>
         </div>
 
-
-        <label>What age does your early childhood or Pre-K program begin?</label>
-        <br/>
-        <school:espRadioWithLabel key="age_pk_start" value="0/1" label="Infant"/>
-        <school:espRadioWithLabel key="age_pk_start" value="2" label="2 years old"/>
-        <school:espRadioWithLabel key="age_pk_start" value="3" label="3 years old"/>
-        <school:espRadioWithLabel key="age_pk_start" value="4" label="4 years old"/>
-        <br/>
-        <br/>
+        <div id="form_age_pk_start_group">
+            <label>What age does your early childhood or Pre-K program begin?</label>
+            <br/>
+            <school:espRadioWithLabel key="age_pk_start" value="0/1" label="Infant"/>
+            <school:espRadioWithLabel key="age_pk_start" value="2" label="2 years old"/>
+            <school:espRadioWithLabel key="age_pk_start" value="3" label="3 years old"/>
+            <school:espRadioWithLabel key="age_pk_start" value="4" label="4 years old"/>
+            <br/>
+            <br/>
+        </div>
 
         <label>What kind of transportation is provided for students by the school/district?</label>
         <br/>
