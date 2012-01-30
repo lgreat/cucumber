@@ -110,7 +110,7 @@ GS.form.EspForm = function() {
 
     this.appendActionsToErrors = function(data, email) {
         if (data.userNotEmailValidated !== "" && data.userNotEmailValidated !== undefined) {
-            data.emailError += "<a href='#' id=''>VerificationHover</a>";
+            GSType.hover.emailNotValidated.show();
         } else if (data.userEspMember !== "" && data.userEspMember !== undefined) {
             data.emailError += "<a href='/school/esp/signIn.page'>Sign in</a>";
         } else if (data.userGSMember !== "" && data.userGSMember !== undefined) {
@@ -242,7 +242,7 @@ GS.form.EspForm = function() {
             GS.form.espForm.checkUser(),
             GS.form.espForm.validateFields('firstName'),
             GS.form.espForm.validateFields('lastName'),
-            GS.form.espForm.validateFields('screenName', {field:'username'}),
+            GS.form.espForm.validateFields('screenName', {email:jQuery('#js_email').val(), field:'username'}),
             GS.form.espForm.validateFields('password', {confirmPassword:jQuery('#js_confirmPassword').val()}),
             GS.form.espForm.validateFields('confirmPassword', {password:jQuery('#js_password').val()}),
             GS.form.espForm.validateRequiredFields('jobTitle'),
