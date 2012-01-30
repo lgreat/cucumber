@@ -245,12 +245,14 @@ new (function() {
             saveForm();
             return false;
         });
+        // any text field with class js_otherField will cause another field with class "js_otherField{this.id}"
+        // to become checked when the text field is modified to contain text.
         formWrapper.on('change', '.js_otherField', function() {
             var field = $(this);
-            var otherFieldName = field.attr('id').substring(3);
-            var otherField = formWrapper.find('[name=' + otherFieldName + ']');
-            if (!field.prop('checked')) { // TODO: Might not work for radios?
-                otherField.val(''); // TODO: Only works for text inputs
+            if (field.val().length > 0) {
+                var otherClassSelector = '.js_otherField_' + this.id;
+                var otherField = formWrapper.find(otherClassSelector);
+                otherField.prop('checked', true);
             }
         });
 

@@ -145,8 +145,8 @@
         <br/>
         <school:espCheckboxWithLabel key="transportation" value="special_ed_only" label="Transportation provided for special education students only"/>
         <br/>
-        <school:espCheckboxWithLabel key="transportation" value="other" label="Other"/>
-        <input id="form_transportation_other" type="text" name="transportation_other" value="${responseMap['transportation_other'].value}"/>
+        <school:espCheckboxWithLabel key="transportation" value="other" label="Other" styleClass="js_otherField_form_transportation_other"/>
+        <input id="form_transportation_other" class='js_otherField' type="text" name="transportation_other" value="${responseMap['transportation_other'].value}"/>
         <br/>
         <br/>
 
