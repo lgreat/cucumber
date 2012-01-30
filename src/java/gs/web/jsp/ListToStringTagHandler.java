@@ -1,6 +1,6 @@
 package gs.web.jsp;
 
-import org.apache.commons.lang.StringUtils;
+import gs.data.util.string.StringUtils;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -21,7 +21,7 @@ public class ListToStringTagHandler extends SimpleTagSupport {
     
     private String _emptyListToken;
     
-    private List<Object> _list;
+    private List<?> _list;
 
     @Override
     public void doTag() throws JspException, IOException {
@@ -39,10 +39,8 @@ public class ListToStringTagHandler extends SimpleTagSupport {
         
         if(_dlm == null || _dlm.length() == 0) _dlm = ", ";
 
-        String s = StringUtils.join(_list, _dlm);
+        String s = StringUtils.joinPretty(_list.iterator(), _dlm);
         
-        if(s != null) s = s.trim();
-
         jspWriter.write(s);
     }
 
@@ -58,7 +56,7 @@ public class ListToStringTagHandler extends SimpleTagSupport {
         return _emptyListToken;
     }
 
-    public List<Object> getList() {
+    public List<?> getList() {
         return _list;
     }
 
@@ -66,7 +64,7 @@ public class ListToStringTagHandler extends SimpleTagSupport {
         this._dlm = dlm;
     }
 
-    public void setList(List<Object> list) {
+    public void setList(List<?> list) {
         this._list = list;
     }
 

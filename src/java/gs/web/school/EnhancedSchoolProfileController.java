@@ -4,18 +4,20 @@ import gs.data.school.EspResponse;
 import gs.data.school.IEspResponseDao;
 import gs.data.school.School;
 import gs.data.school.census.CensusDataType;
-import gs.data.school.census.CensusInfoFactory;
 import gs.data.school.census.ICensusDataSetDao;
+import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.web.servlet.ModelAndView;
+import gs.data.util.string.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Backs the display of ESP response data for a particular school.
@@ -36,7 +38,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
             List<?> list = mapResponses.get(key);
             if(list != null) glist.addAll(list);
         }
-        String s = glist.size() == 0 ? null : StringUtils.join(glist, delim);
+        String s = glist.size() == 0 ? null : StringUtils.joinPretty(glist.iterator(), delim);
         return s;
     }
 
@@ -54,10 +56,10 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
         StringBuilder sb = new StringBuilder();
         for(String[] entry : keyPairs) {
             sb.setLength(0);
-            List listLft = mapResponses.get(entry[0]);
-            List listRgt = mapResponses.get(entry[1]);
-            String lft = listLft == null ? null : StringUtils.join(listLft, " ");
-            String rgt = listRgt == null ? null : StringUtils.join(listRgt, " ");
+            List<?> listLft = mapResponses.get(entry[0]);
+            List<?> listRgt = mapResponses.get(entry[1]);
+            String lft = listLft == null ? null : StringUtils.joinPretty(listLft.iterator(), " ");
+            String rgt = listRgt == null ? null : StringUtils.joinPretty(listRgt.iterator(), " ");
             if(lft != null && rgt != null && lft.length() > 0 && rgt.length() > 0) {
                 sb.append(lft);
                 sb.append(subDelim);
@@ -65,7 +67,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
                 slist.add(sb.toString());
             }
         }
-        String s = slist.size() == 0 ? null : StringUtils.join(slist, delim);
+        String s = slist.size() == 0 ? null : StringUtils.joinPretty(slist.iterator(), delim);
         return s;
     }
 
@@ -117,29 +119,29 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
         model.put("serviceAwards", serviceAwards);
 
         // obtain "external" datapoints
-        CensusInfoFactory cif = new CensusInfoFactory(_censusDataSetDao);
+        ICensusInfo ci = school.getCensusInfo();
         SchoolCensusValue cv;
         String s;
               
-        cv = cif.getCensusInfo().getEnrollment(school);
+        cv = ci.getEnrollment(school);
         s = cv == null ? null : cv.getValueText();
         model.put("student_enrollment", s);
 
-        cv = cif.getCensusInfo().getLatestValue(school, CensusDataType.CLASS_SIZE);
+        cv = ci.getLatestValue(school, CensusDataType.CLASS_SIZE);
         s = cv == null ? null : cv.getValueText();
         model.put("average_class_size", s);
 
         model.put("grade_levels", school.getGradeLevels().getCommaSeparatedString());
 
-        cv = cif.getCensusInfo().getLatestValue(school, CensusDataType.STUDENTS_ETHNICITY);
+        cv = ci.getLatestValue(school, CensusDataType.STUDENTS_ETHNICITY);
         s = cv == null ? null : cv.getValueText();
         model.put("students_ethnicity", s);
 
-        cv = cif.getCensusInfo().getLatestValue(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH);
+        cv = ci.getLatestValue(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH);
         s = cv == null ? null : cv.getValueText();
         model.put("private_free_reduced_lunch", s);
 
-        cv = cif.getCensusInfo().getLatestValue(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
+        cv = ci.getLatestValue(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
         s = cv == null ? null : cv.getValueText();
         model.put("private_special_ed", s);
 
