@@ -355,15 +355,25 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
             if (photos !== undefined) {
                 for (i = 0; i < photos.length; i++) {
                     var imgId = self.IMG_ID_PREFIX + photos[i].id;
+                    var domPhoto = self.container.find('#' + imgId);
                     if (photos[i].statusAsString === self.STATUS_ACTIVE) {
-                        var domPhoto = self.container.find('#' + imgId);
-                        if (domPhoto.hasClass('js-photo-pending')) {
-                            domPhoto.prop('src',data.basePhotoPath + photos[i].smallSizeFile);
-                            domPhoto.prop('alt','active ' + photos[i].originalFileName);
-                            domPhoto.removeClass('js-photo-pending');
-                            domPhoto.addClass('js-photo-active');
-                            self.numberActive+=1;
-                            self.numberPending-=1;
+                        if (domPhoto.length === 1) {
+                            if (domPhoto.hasClass('js-photo-pending')) {
+                                domPhoto.prop('src',data.basePhotoPath + photos[i].smallSizeFile);
+                                domPhoto.prop('alt','active ' + photos[i].originalFileName);
+                                domPhoto.removeClass('js-photo-pending');
+                                domPhoto.addClass('js-photo-active');
+                                self.numberActive+=1;
+                                self.numberPending-=1;
+                            }
+                        } else if (domPhoto.length == 0) {
+                            var newPhotoContainer = jQuery('#js-photo-template').clone();
+                            newPhotoContainer.prop('id','js-pollingPhotoViewerItem-' + photos[i].id);
+                            newPhotoContainer.find('#' + self.IMG_ID_PREFIX + 'placeholder').prop('id',imgId);
+                            newPhotoContainer.css('display','block');
+                            jQuery(self.container).find('div:last').after(newPhotoContainer);
+                            jQuery('#' + imgId).prop('alt', 'active ' + photos[i].originalFileName);
+                            jQuery('#' + imgId).prop('src', data.basePhotoPath + photos[i].smallSizeFile);
                         }
                     } else if (photos[i].statusAsString === self.STATUS_PENDING) {
                         if (jQuery(self.container).has('#' + imgId).length === 0) {
