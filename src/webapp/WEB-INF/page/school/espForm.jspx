@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
@@ -28,6 +29,22 @@
             .espFormBody {
                 padding:25px;
             }
+            #js_espFormNav ul {
+                position: relative;
+            }
+            #js_espFormNav li {
+                width: 80px;
+                padding: 0 3px;
+                display: block;
+                float: left;
+                border: 1px solid #ccc;
+            }
+            #js_espFormNav li.selected {
+                font-weight: bold;
+            }
+            #js_espFormNav li.completed {
+                border: 1px solid #00ff00;
+            }
         </style>
         <script type="text/javascript">
             var GS = GS || {};
@@ -45,14 +62,77 @@
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
         <div class="container_24">
-            <div class="grid_22 prefix_1 suffix_1">
-                <h2>Edit Your Online School Profile</h2>
-                <div>
-                    <span id="js_espPercentComplete">${percentComplete[page]}</span>% completed
+            <div class="grid_24">
+                <h2>Your School Profile</h2>
+                <p>Select a section to complete your School Profile. You may save, continue and edit your profile at any time.</p>
+
+                <div id="espFormNavWrapper">
+                    <div id="js_espFormNav" class="fltrt">
+                        <ul>
+                            <li class="${(page eq 1)?'selected':''} ${(percentComplete[1] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="1">
+                                    School basics
+                                </link:schoolEspForm>
+                            </li>
+                            <li class="${(page eq 2)?'selected':''} ${(percentComplete[2] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="2">
+                                    Instructional model
+                                </link:schoolEspForm>
+                            </li>
+                            <li class="${(page eq 3)?'selected':''} ${(percentComplete[3] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="3">
+                                    Apply &amp;amp; enroll
+                                </link:schoolEspForm>
+                            </li>
+                            <li class="${(page eq 4)?'selected':''} ${(percentComplete[4] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="4">
+                                    Programs &amp;amp; resources
+                                </link:schoolEspForm>
+                            </li>
+                            <li class="${(page eq 5)?'selected':''} ${(percentComplete[5] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="5">
+                                    Enrichment &amp;amp; extras
+                                </link:schoolEspForm>
+                            </li>
+                            <li class="${(page eq 6)?'selected':''} ${(percentComplete[6] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="6">
+                                    School culture
+                                </link:schoolEspForm>
+                            </li>
+                            <li class="${(page eq 7)?'selected':''} ${(percentComplete[7] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="7">
+                                    Contact info
+                                </link:schoolEspForm>
+                            </li>
+                            <c:if test="${maxPage eq 8}">
+                                <li class="${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
+                                    <link:schoolEspForm school="${school}" page="8">
+                                        Student info
+                                    </link:schoolEspForm>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </div>
+                    <dl class="gradient-3 grid_8">
+                        <dd class="bottom">
+                            <div id="espFormSchoolInfo">
+                                <p>${school.name}</p>
+                                <p>${school.city}, ${school.databaseState}</p>
+                                <p>
+                                    <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview>
+                                    |
+                                    <link:schoolEspDashboard>Back to Dashboard</link:schoolEspDashboard>
+                                </p>
+                            </div>
+                        </dd>
+                    </dl>
                 </div>
-                <div class="text2bold">Your school: ${school.name}</div>
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                <div id="js_pageContainer">
+                <!--<div>-->
+                    <!--<span id="js_espPercentComplete">${percentComplete[page]}</span>% completed-->
+                <!--</div>-->
+                <!--<div class="text2bold">Your school: ${school.name}</div>-->
+                <!--<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>-->
+                <div id="js_pageContainer" class="clearLft">
                     <div id="js_pageWrapper-1" class="js_pageWrapper ${(page eq 1)?'':'hidden'}">
                         <school:espFormPage1 maxPage="${maxPage}"/>
                     </div>
@@ -62,7 +142,7 @@
                 </div>
                 <c:if test="${espSuperuser}">
                     <br/>
-                    <a href="/school/esp/dashboard.page?defaultState=${school.databaseState}&amp;defaultCity=${school.city}&amp;defaultSchoolId=${school.id}">Back to dashboard</a>
+                    <link:schoolEspDashboard defaultState="${school.databaseState}" defaultCity="${school.city}" defaultSchoolId="${school.id}">Back to Dashboard</link:schoolEspDashboard>
                 </c:if>
             </div>
         </div>

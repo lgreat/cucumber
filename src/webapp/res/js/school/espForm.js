@@ -1,4 +1,4 @@
-GS.history5Enabled = typeof(window.History) !== 'undefined' && window.History.enabled === true;
+GS.history5Enabled = false && typeof(window.History) !== 'undefined' && window.History.enabled === true;
 
 GS.form = GS.form || {};
 // make the visibility of a dom element(s) depend on the value of a form field
@@ -279,6 +279,13 @@ new (function() {
             saveAndPreviousPage();
             return false;
         });
+//        $('#js_espFormNav').on('click', 'li', function() {
+//            var elem = this;
+//            saveForm().done(function() {
+//                sendToPageNumber($('#js_espFormNav li').index(elem) + 1);
+//            });
+//            return false;
+//        });
         // TODO: Remove following handler. Keep for now as it is useful for debugging to trigger saves w/o page change
         formWrapper.on('submit', 'form', function() {
             saveForm();

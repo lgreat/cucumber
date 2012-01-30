@@ -82,7 +82,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         }
         // populate basic model data
         modelMap.put("school", school);
-        modelMap.put("page", page);
+        modelMap.put("page", (long)page);
         modelMap.put("maxPage", maxPage);
         modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
 
@@ -93,9 +93,10 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
     
     protected void putPercentCompleteInModel(School school, ModelMap modelMap) {
-        Map<Integer, Integer> percentCompleteMap = new HashMap<Integer, Integer>();
+        // Map must be keyed by long to be accessible via EL
+        Map<Long, Integer> percentCompleteMap = new HashMap<Long, Integer>();
         for (int x=1; x <= getMaxPageForSchool(school); x++) {
-            percentCompleteMap.put(x, getPercentCompletionForPage(x, school));
+            percentCompleteMap.put((long)x, getPercentCompletionForPage(x, school));
         }
         modelMap.put("percentComplete", percentCompleteMap);
     }

@@ -4528,5 +4528,35 @@
             <description>HTML element id</description>
         </attribute>
     </tag>
+    <tag>
+        <name>schoolEspDashboard</name>
+        <tag-class>gs.web.jsp.link.school.EspDashboardTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>ESP Dashboard</display-name>
+        <description>
+            <![CDATA[ESP Form page]]>
+        </description>
+        <attribute>
+            <name>defaultState</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>Default State to select</description>
+        </attribute>
+        <attribute>
+            <name>defaultCity</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Default city to select</description>
+        </attribute>
+        <attribute>
+            <name>defaultSchoolId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Default school id to select</description>
+        </attribute>
+    </tag>
 
 </taglib>
