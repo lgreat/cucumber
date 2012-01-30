@@ -92,6 +92,8 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
     return isValid;
 };
 
+// Enforces non-negative
+// TODO: add option to enforce non-zero?
 GS.validation.validateInteger = function(fieldSelector, errorSelector) {
     var isValid = true;
     jQuery(errorSelector).hide();
@@ -103,7 +105,7 @@ GS.validation.validateInteger = function(fieldSelector, errorSelector) {
             // require each one to be numeric
             formFields.each(function() {
                 var fieldVal = parseInt(jQuery.trim(jQuery(this).val()), 10);
-                if (!jQuery.isNumeric(fieldVal)) {
+                if (isNaN(fieldVal) || fieldVal < 0) {
                     isValid = false;
                     return false; // breaks out of loop
                 }
@@ -134,24 +136,60 @@ GS.util.log = function(msg) {
 
 new (function() {
     var saveForm = function() {
-        if (!doValidations()) {
-            return new jQuery.Deferred().reject().promise();
-        }
-        var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
-        var data = form.serializeArray();
-        data.push({name:"_visibleKeys", value:getVisibleFormInputNames(form)});
-        return jQuery.ajax({type: 'POST', url: document.location, data: data}
-        ).fail(function() {
-            alert("Error");
-        }).done(function(data) {
-            if (data.percentComplete !== undefined) {
-                GS.util.log("Updating percent complete for page " + GS.espForm.currentPage + " to " + parseInt(data.percentComplete));
-                GS.espForm.percentComplete[GS.espForm.currentPage] = parseInt(data.percentComplete);
+        var masterDeferred = new jQuery.Deferred();
+        try {
+            if (!doValidations()) {
+                return masterDeferred.reject().promise();
             }
-        });
+            var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
+            var data = form.serializeArray();
+            data.push({name:"_visibleKeys", value:getVisibleFormInputNames(form)});
+            jQuery.ajax({type: 'POST', url: document.location, data: data}
+            ).fail(function() {
+                    masterDeferred.reject();
+                    alert("Sorry! There was an unexpected error saving your form. Please wait a minute and try again.");
+                }).done(function(data) {
+                    if (data.error !== undefined) {
+                        masterDeferred.reject();
+                        var genericErrorMessage = data.error;
+                        if (genericErrorMessage == 'noUser') {
+                            sendToSignInPage();
+                        } else if (genericErrorMessage == 'noSchool') {
+                            sendToLandingPage();
+                        } else {
+                            alert("There was an error saving the form. Please double-check all the fields and try again.");
+                        }
+                        return;
+                    } else if (data.errors !== undefined) {
+                        masterDeferred.reject();
+                        var validationErrorMessage = "The following field(s) had validation errors: \n\n";
+                        for (var errorKey in data) {
+                            if (data.hasOwnProperty(errorKey)) {
+                                if (errorKey != 'errors' && errorKey != 'error') {
+                                    validationErrorMessage += errorKey + ": " + data[errorKey] + '\n';
+                                }
+                            }
+                        }
+                        alert(validationErrorMessage);
+                        return;
+                    }
+                    if (data.percentComplete !== undefined) {
+                        GS.util.log("Updating percent complete for page " + GS.espForm.currentPage + " to " + parseInt(data.percentComplete));
+                        GS.espForm.percentComplete[GS.espForm.currentPage] = parseInt(data.percentComplete);
+                    }
+                    masterDeferred.resolve();
+                });
+        } catch (e) {
+            alert("Sorry! There was an unexpected error saving your form. Please double-check all the fields and try again.");
+            GS.util.log(e);
+        }
+        return masterDeferred.promise();
     };
     var sendToLandingPage = function() {
         window.location = '/school/esp/dashboard.page';
+    };
+    var sendToSignInPage = function() {
+        window.location = '/school/esp/signIn.page';
     };
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();
@@ -241,6 +279,7 @@ new (function() {
             saveAndPreviousPage();
             return false;
         });
+        // TODO: Remove following handler. Keep for now as it is useful for debugging to trigger saves w/o page change
         formWrapper.on('submit', 'form', function() {
             saveForm();
             return false;
