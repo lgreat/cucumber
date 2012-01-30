@@ -74,7 +74,7 @@ GS.form.EspForm = function() {
     };
 
     //Checks the various states of the user and displays messages accordingly.
-    this.checkUser = function() {
+    this.validateUserState = function() {
         var emailField = jQuery('#js_email');
         var email = emailField.val().trim();
         jQuery('.js_emailErr').hide();
@@ -84,13 +84,13 @@ GS.form.EspForm = function() {
             email = email.trim();
             jQuery.ajax({
                 type: 'GET',
-                url: '/school/esp/checkEspUser.page',
+                url: '/school/esp/checkUserState.page',
                 data: {email:email},
                 dataType: 'json',
                 async: true
             }).done(
                 function(data) {
-                    var isValid = GS.form.espForm.handleEmailErrors(data);
+                    var isValid = GS.form.espForm.handleEmailErrors(data,email);
                     if (isValid === false) {
                         dfd.reject();
                     } else {
@@ -107,9 +107,10 @@ GS.form.EspForm = function() {
         return dfd.promise();
     };
 
-    this.handleEmailErrors = function(data) {
+    //Handles the logic to allow the registrations to go through or display an error.
+    this.handleEmailErrors = function(data,email) {
         var isValid = false;
-        if (data.isEmailValid != true) {
+        if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email.");
         } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember === true) {
             GSType.hover.emailNotValidated.show();
@@ -119,7 +120,8 @@ GS.form.EspForm = function() {
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             GS.form.espForm.showEmailError("Please sign in to esp.<a href='/school/esp/signIn.page'>Sign in</a>");
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            GS.form.espForm.showEmailError("Please sign in to GS.<a href='#' id='js_espLaunchSignin' onclick='GSType.hover.signInHover.showHover();'>Sign in</a>");
+            var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/school/esp/register.page')";
+            GS.form.espForm.showEmailError("Please sign in to GS.<a href='#' onclick=" + onclickStr + ">Sign in</a>");
         } else {
             isValid = true;
         }
@@ -252,7 +254,7 @@ GS.form.EspForm = function() {
 
     this.registrationSubmit = function() {
         jQuery.when(
-            GS.form.espForm.checkUser(),
+            GS.form.espForm.validateUserState(),
             GS.form.espForm.validateFields('firstName'),
             GS.form.espForm.validateFields('lastName'),
             GS.form.espForm.validateFields('screenName', {email:jQuery('#js_email').val(), field:'username'}),
@@ -293,7 +295,7 @@ jQuery(function() {
     });
 
     jQuery('#js_email').blur(
-        GS.form.espForm.checkUser
+        GS.form.espForm.validateUserState
     );
 
     jQuery('#js_firstName').blur(function() {
