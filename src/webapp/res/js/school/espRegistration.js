@@ -73,7 +73,7 @@ GS.form.EspForm = function() {
         }
     };
 
-    //Checks the state of the various users and displays messages accordingly.
+    //Checks the various states of the user and displays messages accordingly.
     this.checkUser = function() {
         var emailField = jQuery('#js_email');
         var email = emailField.val().trim();
@@ -88,19 +88,18 @@ GS.form.EspForm = function() {
                 data: {email:email},
                 dataType: 'json',
                 async: true
-            }).done(function(data) {
-                    if (data.emailError !== "" && data.emailError !== undefined) {
-                        GS.form.espForm.appendActionsToErrors(data,email);
-                        jQuery('#js_emailError').html(data.emailError);
-                        jQuery('#js_emailError').show();
+            }).done(
+                function(data) {
+                    var isValid = GS.form.espForm.handleEmailErrors(data);
+                    if (isValid === false) {
                         dfd.reject();
                     } else {
                         dfd.resolve();
                     }
                 }
             ).fail(function() {
-                dfd.reject();
-            });
+                    dfd.reject();
+                });
         } else {
             jQuery('#js_invalidEmail').show();
             dfd.reject();
@@ -108,15 +107,29 @@ GS.form.EspForm = function() {
         return dfd.promise();
     };
 
-    this.appendActionsToErrors = function(data, email) {
-        if (data.userNotEmailValidated !== "" && data.userNotEmailValidated !== undefined) {
+    this.handleEmailErrors = function(data) {
+        var isValid = false;
+        if (data.isEmailValid != true) {
+            GS.form.espForm.showEmailError("Please enter a valid email.");
+        } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember === true) {
             GSType.hover.emailNotValidated.show();
-        } else if (data.userEspMember !== "" && data.userEspMember !== undefined) {
-            data.emailError += "<a href='/school/esp/signIn.page'>Sign in</a>";
-        } else if (data.userGSMember !== "" && data.userGSMember !== undefined) {
-            data.emailError += "<a href='#' id='js_espLaunchSignin' onclick='GSType.hover.signInHover.showHover();'>Sign in</a>";
+            GS.form.espForm.showEmailError("Please verify your email.");
+        } else if (data.isUserAwaitingESPMembership === true) {
+            GS.form.espForm.showEmailError("Please be patient.");
+        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
+            GS.form.espForm.showEmailError("Please sign in to esp.<a href='/school/esp/signIn.page'>Sign in</a>");
+        } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
+            GS.form.espForm.showEmailError("Please sign in to GS.<a href='#' id='js_espLaunchSignin' onclick='GSType.hover.signInHover.showHover();'>Sign in</a>");
+        } else {
+            isValid = true;
         }
-    }
+        return isValid;
+    };
+
+    this.showEmailError = function(errMsg) {
+        jQuery('#js_emailError').html(errMsg);
+        jQuery('#js_emailError').show();
+    };
 
     this.validateRequiredFields = function(fieldName) {
         var fieldVal = jQuery('#js_' + fieldName).val();

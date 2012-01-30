@@ -71,7 +71,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
             //If there is a "accepted" status then redirect the user to dashboard.Else if there are pending memberships
             //display a message to the user.We do not care about rejected or inactive users yet.
-            //TODO  does the return statement break?
             for (EspMembership membership : memberships) {
                 if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
@@ -148,12 +147,14 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         String email = command.getEmail();
         UserStateStruct userState = new UserStateStruct();
+        User user = null;
 
+        //check if user cookie exists
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        if(sessionContext != null){
-            User user = sessionContext.getUser();
-            if(user != null && user.getId() != null){
-              userState.setUserCookieSet(true);
+        if (sessionContext != null) {
+            user = sessionContext.getUser();
+            if (user != null && user.getId() != null) {
+                userState.setUserCookieSet(true);
             }
         }
 
@@ -164,14 +165,16 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             userState.setEmailValid(validateEmail(email));
 
             if (userState.isEmailValid()) {
-                User user = getUserDao().findUserFromEmailIfExists(email);
+
+                //No user cookie ,therefore check if user exists in the DB.
+                if (user == null) {
+                    user = getUserDao().findUserFromEmailIfExists(email);
+                }
+
                 //Found a user
                 if (user != null && user.getId() != null) {
-                    if (user.isPasswordEmpty()) {
-                        userState.setPasswordEmpty(true);
-                    } else if (user.isEmailValidated()) {
+                    if (!user.isPasswordEmpty() && user.isEmailValidated()) {
                         userState.setUserEmailValidated(true);
-                        userState.setUserProvisionalGSMember(false);
                     }
 
                     if (user.hasRole(Role.ESP_MEMBER)) {
@@ -190,7 +193,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         try {
             JSONObject rval;
-            Map data = setStructState(userState);
+            Map<String,Boolean> data = userState.getUserState();
             rval = new JSONObject(data);
             response.setContentType("application/json");
             response.getWriter().print(rval.toString());
@@ -199,25 +202,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             _log.error("Error " + exp, exp);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    protected Map setStructState(UserStateStruct userStateStruct) {
-        Map data = new HashMap();
-        if (!userStateStruct.isEmailValid()) {
-            data.put("emailError", "Please enter a valid email.");
-        } else if (userStateStruct.isUserApprovedESPMember() && userStateStruct.isUserProvisionalGSMember()) {
-            data.put("emailError", "Please verify your email.");
-            data.put("userNotEmailValidated", true);
-        }else if (userStateStruct.isUserAwaitingESPMembership()) {
-            data.put("emailError", "Please be patient.");
-        } else if (userStateStruct.isUserApprovedESPMember() && userStateStruct.isUserEmailValidated() && !userStateStruct.isUserCookieSet()) {
-            data.put("emailError", "Please sign in to esp.");
-            data.put("userEspMember", true);
-        } else if (userStateStruct.isUserEmailValidated() && !userStateStruct.isUserCookieSet()) {
-            data.put("emailError", "Please sign in to gs.");
-            data.put("userGSMember", true);
-        }
-        return data;
     }
 
     protected void setFieldsOnUserUsingCommand(EspRegistrationCommand espMembershipCommand, User user) {
@@ -437,7 +421,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
     protected static class UserStateStruct {
         private boolean isEmailValid = true;
-        private boolean isPasswordEmpty = false;
         private boolean isUserProvisionalGSMember = true;
         private boolean isUserEmailValidated = false;
         private boolean isUserApprovedESPMember = false;
@@ -450,14 +433,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         public void setEmailValid(boolean emailValid) {
             isEmailValid = emailValid;
-        }
-
-        public boolean isPasswordEmpty() {
-            return isPasswordEmpty;
-        }
-
-        public void setPasswordEmpty(boolean passwordEmpty) {
-            isPasswordEmpty = passwordEmpty;
         }
 
         public boolean isUserProvisionalGSMember() {
@@ -474,6 +449,9 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         public void setUserEmailValidated(boolean userEmailValidated) {
             isUserEmailValidated = userEmailValidated;
+            if (userEmailValidated == true) {
+                setUserProvisionalGSMember(false);
+            }
         }
 
         public boolean isUserApprovedESPMember() {
@@ -499,6 +477,19 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         public void setUserCookieSet(boolean userCookieSet) {
             isUserCookieSet = userCookieSet;
         }
+
+        public Map<String,Boolean> getUserState() {
+            Map<String,Boolean> data = new HashMap<String,Boolean>();
+
+            data.put("isEmailValid", isEmailValid());
+            data.put("isUserApprovedESPMember", isUserApprovedESPMember());
+            data.put("isUserProvisionalGSMember", isUserProvisionalGSMember());
+            data.put("isUserAwaitingESPMembership", isUserAwaitingESPMembership());
+            data.put("isUserEmailValidated", isUserEmailValidated());
+            data.put("isUserCookieSet", isUserCookieSet());
+            return data;
+        }
+
     }
 
 }
