@@ -64,6 +64,9 @@ public class EspModerationController implements ReadWriteAnnotationController {
                                       HttpServletResponse response) {
 
         if (command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
+
+            //Id is needed to identify the membership row.The index is needed to identify the notes row from the list.
+            //Therefore the checkbox has a key of id-index to help enable this.
             for (String idAndIndex : command.getEspMembershipIds()) {
                 int id = new Integer(idAndIndex.substring(0, idAndIndex.indexOf("-")));
                 int index = new Integer(idAndIndex.substring(idAndIndex.indexOf("-") + 1, idAndIndex.length())) - 1;
