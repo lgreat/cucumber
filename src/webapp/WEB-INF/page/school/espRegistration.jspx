@@ -238,20 +238,22 @@
             <div class="grid_5">
                 <form:select path="jobTitle" id="js_jobTitle">
                     <form:option value="">Choose One</form:option>
-                    <form:option value="principal">Principal</form:option>
+                    <form:option value="administrative assistant">Administrative Asst.</form:option>
+                    <form:option value="administrator (other)">Administrator (Other)</form:option>
+                    <form:option value="admissions representative">Admissions Rep</form:option>
                     <form:option value="assistant principal">Asst. Principal</form:option>
-                    <form:option value="admissions representative">Admissions Rep.</form:option>
-                    <form:option
-                            value="development representative">Development Rep.</form:option>
-                    <form:option
-                            value="communications representative">Communications Rep.</form:option>
-                    <form:option
-                            value="administrator (other)">administrator (other)</form:option>
-                    <form:option
-                            value="administrative assistant">Administrative Asst.</form:option>
-                    <form:option value="webmaster">Webmaster</form:option>
+                    <form:option value="communications representative">Communications Rep</form:option>
+                    <form:option value="consultant">Consultant</form:option>
+                    <form:option value="department head">Department Head</form:option>
+                    <form:option value="development representative">Development Rep</form:option>
+                    <form:option value="headmaster">Headmaster</form:option>
+                    <form:option value="president">President</form:option>
+                    <form:option value="principal">Principal</form:option>
                     <form:option value="registrar">Registrar</form:option>
+                    <form:option value="special education director">Special Ed Director</form:option>
+                    <form:option value="superintendent">Superintendent</form:option>
                     <form:option value="teacher">Teacher</form:option>
+                    <form:option value="webmaster">Webmaster</form:option>
                 </form:select>
             </div>
 
