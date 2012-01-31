@@ -7,6 +7,7 @@ import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusDataSetDao;
+import gs.data.school.census.SchoolCensusValue;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
@@ -452,6 +453,13 @@ public class EspFormController implements ReadWriteAnnotationController {
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
+        } else if (StringUtils.equals("average_class_size", key)) {
+            try {
+                _log.debug("Saving average_class_size elsewhere: " + values[0]);
+                saveCensusInteger(school, Integer.parseInt(values[0]), CensusDataType.CLASS_SIZE, user);
+            } catch (NumberFormatException nfe) {
+                return "Must be an integer.";
+            }
         } else if (StringUtils.equals("grade_levels", key)) {
             _log.debug("Saving grade_levels " + values + " elsewhere for school:" + school.getName());
             return saveGradeLevels(school, values, user, now);
@@ -519,6 +527,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected Set<String> getKeysForExternalData(School school) {
         Set<String> keys = new HashSet<String>();
         keys.add("student_enrollment");
+        keys.add("average_class_size");
         keys.add("grade_levels");
         keys.add("school_type");
         keys.add("school_type_affiliation");
@@ -534,6 +543,12 @@ public class EspFormController implements ReadWriteAnnotationController {
         if (StringUtils.equals("student_enrollment", key) && school.getEnrollment() != null) {
             _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
             return new String[]{String.valueOf(school.getEnrollment())};
+        } else if (StringUtils.equals("average_class_size", key)) {
+            SchoolCensusValue value = school.getCensusInfo().getLatestValue(school, CensusDataType.CLASS_SIZE);
+            if (value != null && value.getValueInteger() != null) {
+                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
+                return new String[]{String.valueOf(value.getValueInteger())};
+            }
         } else if (StringUtils.equals("grade_levels", key) && school.getGradeLevels() != null) {
             String gradeLevels = school.getGradeLevels().getCommaSeparatedString();
             return gradeLevels.split(",");
