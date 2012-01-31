@@ -70,8 +70,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         
         School school = getSchool(state, schoolId);
         if (school == null) {
-            // TODO: proper error handling
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
         int page = getPage(request);
@@ -197,7 +196,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             // values that live elsewhere get saved out here
             // these values also go in esp_response but are disabled to clearly mark that they are not sourced from there
             if (ENABLE_EXTERNAL_DATA_SAVING && keysForExternalData.contains(key)) {
-                String error = saveExternalValue(key, responseValues, school);
+                String error = saveExternalValue(key, responseValues, school, user, now);
                 if (error != null) {
                     errorFieldToMsgMap.put(key, error);
                 }
@@ -442,66 +441,75 @@ public class EspFormController implements ReadWriteAnnotationController {
     /**
      * Return error message on error.
      */
-    protected String saveExternalValue(String key, String[] values, School school) {
+    protected String saveExternalValue(String key, String[] values, School school, User user, Date now) {
         if (values == null || values.length == 0 && school == null) {
             return null; // early exit
         }
         if (StringUtils.equals("student_enrollment", key)) {
-            _log.debug("Saving student_enrollment elsewhere: " + values[0]);
-            saveEnrollment(school, Integer.parseInt(values[0]));
+            try {
+                _log.debug("Saving student_enrollment elsewhere: " + values[0]);
+                saveCensusInteger(school, Integer.parseInt(values[0]), CensusDataType.STUDENTS_ENROLLMENT, user);
+            } catch (NumberFormatException nfe) {
+                return "Must be an integer.";
+            }
         } else if (StringUtils.equals("grade_levels", key)) {
-            _log.debug("Saving grade_levels " + values + "elsewhere for school:" + school.getName());
-            saveGradeLevels(school, values);
+            _log.debug("Saving grade_levels " + values + " elsewhere for school:" + school.getName());
+            return saveGradeLevels(school, values, user, now);
         } else if (StringUtils.equals("school_type", key)) {
-            _log.debug("Saving school type " + values[0] + "elsewhere for school:" + school.getName());
-            saveSchoolType(school, values[0]);
+            _log.debug("Saving school type " + values[0] + " elsewhere for school:" + school.getName());
+            return saveSchoolType(school, values[0], user, now);
         }
         return null;
     }
 
-    /**
-     * Save out enrollment data to the db
-     */
-    protected void saveEnrollment(School school, int data) {
-        CensusDataSet dataSet = _dataSetDao.findDataSet(school.getDatabaseState(), CensusDataType.STUDENTS_ENROLLMENT, 0, null, /* breakdown */null);
-        // TODO what if there is no existing data set?
-        if (dataSet != null) {
-            _dataSetDao.addValue(dataSet, school, data, "ESP");
+    protected void saveCensusInteger(School school, int data, CensusDataType censusDataType, User user) {
+        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, "ESP-" + user.getId());
+    }
+
+    protected CensusDataSet findOrCreateManualDataSet(School school, CensusDataType censusDataType) {
+        CensusDataSet dataSet = _dataSetDao.findDataSet(school.getDatabaseState(), censusDataType, 0, null, null);
+        if (dataSet == null) {
+            dataSet = _dataSetDao.createDataSet(school.getDatabaseState(), censusDataType, 0, null, null);
         }
+        return dataSet;
     }
 
     /**
-     * Save grade levels to the db
+     * Save grade levels to the db. Return error string if necessary.
      */
-    protected void saveGradeLevels(School school, String[] data) {
+    protected String saveGradeLevels(School school, String[] data, User user, Date now) {
         List<String> gradesList = new ArrayList<String>();
         Collections.addAll(gradesList, data);
         if (!gradesList.isEmpty()) {
             Grades grades = Grades.createGrades(StringUtils.join(gradesList, ","));
             school.setGradeLevels(grades);
-            //TODO should the 'modified by' be the user?
-            _schoolDao.saveSchool(school.getDatabaseState(), school, "ESP");
-            //TODO set the following?
-//            school.setModifiedBy();
-//            school.setManualEditBy();
-//            school.setManualEditDate();
+            saveSchool(school, user, now);
+        } else {
+            return "You must select a grade level.";
         }
+        return null;
+    }
+    
+    protected void saveSchool(School school, User user, Date now) {
+        String modifiedBy = "ESP-" + user.getId();
+        school.setManualEditBy(modifiedBy);
+        school.setManualEditDate(now);
+        school.setModified(now);
+        _schoolDao.saveSchool(school.getDatabaseState(), school, modifiedBy);
     }
 
     /**
      * Save grade levels to the db
      */
-    protected void saveSchoolType(School school, String data) {
+    protected String saveSchoolType(School school, String data, User user, Date now) {
         SchoolType type = SchoolType.getSchoolType(data);
         if (type != null) {
             school.setType(type);
-            //TODO should the 'modified by' be the user?
-            _schoolDao.saveSchool(school.getDatabaseState(), school, "ESP");
-            //TODO set the following?
-//            school.setModifiedBy();
-//            school.setManualEditBy();
-//            school.setManualEditDate();
+            saveSchool(school, user, now);
+        } else {
+            return "Must select a valid school type.";
         }
+        return null;
     }
 
     /**
