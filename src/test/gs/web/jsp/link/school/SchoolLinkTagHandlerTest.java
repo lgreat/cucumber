@@ -147,4 +147,32 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
         assertEquals("/school/esp/form.page?page=2&schoolId=1&state=ca", urlBuilder.asSiteRelative(null));
     }
+
+    public void testEspDashboardTagHandler() {
+        EspDashboardTagHandler tagHandler = new EspDashboardTagHandler();
+        
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        tagHandler.setDefaultCity("Alameda");
+        tagHandler.setDefaultSchoolId(2);
+        tagHandler.setDefaultState(State.CA);
+
+        UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
+        assertEquals("/school/esp/dashboard.page?defaultCity=Alameda&defaultSchoolId=2&defaultState=ca", urlBuilder.asSiteRelative(null));
+    }
+
+    public void testEspSignInTagHandler() {
+        EspSignInTagHandler tagHandler = new EspSignInTagHandler();
+
+        UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
+        assertEquals("/school/esp/signIn.page", urlBuilder.asSiteRelative(null));
+    }
+
+    public void testEspRegisterTagHandler() {
+        EspRegisterTagHandler tagHandler = new EspRegisterTagHandler();
+
+        UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
+        assertEquals("/school/esp/register.page", urlBuilder.asSiteRelative(null));
+    }
 }
