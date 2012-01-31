@@ -78,6 +78,22 @@
             <br/>
         </div>
 
+        <label>What time does school start each day?</label>
+        <br/>
+        <br/>
+
+        <label>What time does school end each day?</label>
+        <br/>
+        <br/>
+
+        <label>School type</label>
+        <br/>
+        <school:espRadioWithLabel key="school_type" value="public" label="Public"/>
+        <school:espRadioWithLabel key="school_type" value="charter" label="Public Charter"/>
+        <school:espRadioWithLabel key="school_type" value="private" label="Private"/>
+        <br/>
+        <br/>
+
         <div id="form_school_type_affiliation_group">
             <label>School type Select type</label>
             <br/>
@@ -145,16 +161,7 @@
                     </c:choose>
                 </gsml:forEachMinute>
             </select>
-            <br/>
-            <br/>
         </div>
-
-        <label>School type</label>
-        <br/>
-        <school:espRadioWithLabel key="school_type" value="public" label="Public"/>
-        <school:espRadioWithLabel key="school_type" value="charter" label="Public Charter"/>
-        <school:espRadioWithLabel key="school_type" value="private" label="Private"/>
-        <br/>
         <br/>
 
         <label>What kind of transportation is provided for students by the school/district?</label>
