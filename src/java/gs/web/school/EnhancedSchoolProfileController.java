@@ -83,7 +83,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
 
         // esp raw responses
         List<EspResponse> listResponses = _espResponseDao.getResponses(school);
-        Map<String, List<String>> responses = EspResponse.toMap(listResponses);
+        Map<String, List<String>> responses = EspResponse.toMap(listResponses, true);
         model.put("responses", responses);
 
         // merge feeder school fields
