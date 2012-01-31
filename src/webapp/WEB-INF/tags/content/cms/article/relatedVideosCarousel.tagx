@@ -23,7 +23,7 @@
                                 <a href="${carouselItem.url}" target="_blank">
                                 <img src="${carouselItem.imageUrl}" width="120" height="86"
                                      alt="${carouselItem.imageAltText}"/>
-                                <span class="smaller loud">${carouselItem.imageTitle}</span>
+                                <span class="smaller loud">${carouselItem.linkText}</span>
                                 </a>
                             </div>
                         </li>
