@@ -14,63 +14,12 @@
         <br/>
         <br/>
 
-        <label>Does your school have before or after care on site?</label>
-        <br/>
-        <label for="form_before_after_care_before">Before school care</label>
-        <gsml:checkbox styleId="form_before_after_care" name="before_after_care" value="before"
-                       checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
-        <br/>
-        <div id="form_before_after_care_before_group">
-            <label for="form_before_after_care_start">Start time</label>
-            <!--<input id="form_before_after_care_start" type="text" name="before_after_care_start"
-                   value="${responseMap['before_after_care_start'].value}"/>-->
-            <select id="form_before_after_care_start">
-                <gsml:forEachMinute var="hourAndMinute" begin="5:30" end="8:30" step="15">
-                    <!--<gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}" selected="${responseMap['before_after_care_start'].value}"/>-->
-                    <c:choose>
-                        <c:when test="${not empty responseMap['before_after_care'].valueMap['before']}}">
-                            <option value="${forEachMinuteHourAndMinutes}" selected="true">${forEachMinuteHourAndMinutes}</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${forEachMinuteHourAndMinutes}" >${forEachMinuteHourAndMinutes}</option>
-                        </c:otherwise>
-                    </c:choose>
-                </gsml:forEachMinute>
-            </select>
-            <br/>
-        </div>
-            <label for="form_before_after_care_after">After school care</label>
-            <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
-                           checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
-        <br/>
-        <div id="form_before_after_care_after_group">
-            <label for="form_before_after_care_end">End time</label>
-            <!--<input id="form_before_after_care_end" type="text" name="before_after_care_end"
-                   value="${responseMap['before_after_care_end'].value}"/>-->
-            <select id="form_before_after_care_end">
-                <gsml:forEachMinute var="hourAndMinute" begin="2:30" end="6:30" step="30">
-                    <!--<gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}" selected="${responseMap['before_after_care_end'].value}"/>-->
-                    <c:choose>
-                        <c:when test="${not empty responseMap['before_after_care_end'].value}}">
-                            <option value="${forEachMinuteHourAndMinutes}" selected="true">${forEachMinuteHourAndMinutes}</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${forEachMinuteHourAndMinutes}" >${forEachMinuteHourAndMinutes}</option>
-                        </c:otherwise>
-                    </c:choose>
-                </gsml:forEachMinute>
-            </select>
-            <br/>
-            <br/>
-        </div>
-
         <label>Grade levels offered</label>
         <br/>
         <school:espCheckboxWithLabel key="grade_levels" value="PK" label="PK"/>
         <br/>
         <school:espCheckboxWithLabel key="grade_levels" value="KG" label="K"/>
         <br/>
-
         <school:espCheckboxWithLabel key="grade_levels" value="1" label="First Grade"/>
         <br/>
         <school:espCheckboxWithLabel key="grade_levels" value="2" label="Second Grade"/>
@@ -129,34 +78,6 @@
             <br/>
         </div>
 
-        <label>Is there a school-run shuttle from nearby metro and bus stops? If so, indicate which metro and bus lines the shuttle serves.</label>
-        <br/>
-        <school:espRadioWithLabel key="transportation_shuttle" value="no" label="No"/>
-        <br/>
-        <school:espRadioWithLabel key="transportation_shuttle" value="yes" label="Yes" styleClass="js_otherField_form_transportation_shuttle_other"/>
-        <br/>
-        <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other" class="js_otherField"
-               value="${responseMap['transportation_shuttle_other'].value}" maxlength="30"/>
-        <p>Indicate which metro and bus lines the shuttle serves,sperated by commas.</p>
-        <br/>
-        <br/>
-
-        <label>Is your school coeducational or single sex?</label>
-        <br/>
-        <school:espRadioWithLabel key="coed" value="all_boys" label="All boys"/>
-        <school:espRadioWithLabel key="coed" value="all_girls" label="All girls"/>
-        <school:espRadioWithLabel key="coed" value="coed" label="Coed"/>
-        <br/>
-        <br/>
-
-        <label>School type</label>
-        <br/>
-        <school:espRadioWithLabel key="school_type" value="public" label="Public"/>
-        <school:espRadioWithLabel key="school_type" value="charter" label="Public Charter"/>
-        <school:espRadioWithLabel key="school_type" value="private" label="Private"/>
-        <br/>
-        <br/>
-
         <div id="form_school_type_affiliation_group">
             <label>School type Select type</label>
             <br/>
@@ -170,6 +91,71 @@
             <br/>
         </div>
 
+        <label>Is your school coeducational or single sex?</label>
+        <br/>
+        <school:espRadioWithLabel key="coed" value="all_boys" label="All boys"/>
+        <school:espRadioWithLabel key="coed" value="all_girls" label="All girls"/>
+        <school:espRadioWithLabel key="coed" value="coed" label="Coed"/>
+        <br/>
+        <br/>
+
+        <label>Does your school have before or after care on site?</label>
+        <br/>
+        <label for="form_before_after_care_before">Before school care</label>
+        <gsml:checkbox styleId="form_before_after_care" name="before_after_care" value="before"
+                       checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
+        <br/>
+        <div id="form_before_after_care_before_group">
+            <label for="form_before_after_care_start">Start time</label>
+            <!--<input id="form_before_after_care_start" type="text" name="before_after_care_start"
+                   value="${responseMap['before_after_care_start'].value}"/>-->
+            <select id="form_before_after_care_start">
+                <gsml:forEachMinute var="hourAndMinute" begin="5:30" end="8:30" step="15">
+                    <!--<gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}" selected="${responseMap['before_after_care_start'].value}"/>-->
+                    <c:choose>
+                        <c:when test="${not empty responseMap['before_after_care'].valueMap['before']}}">
+                            <option value="${forEachMinuteHourAndMinutes}" selected="true">${forEachMinuteHourAndMinutes}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${forEachMinuteHourAndMinutes}" >${forEachMinuteHourAndMinutes}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </gsml:forEachMinute>
+            </select>
+            <br/>
+        </div>
+        <label for="form_before_after_care_after">After school care</label>
+        <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
+                       checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
+        <br/>
+        <div id="form_before_after_care_after_group">
+            <label for="form_before_after_care_end">End time</label>
+            <!--<input id="form_before_after_care_end" type="text" name="before_after_care_end"
+                   value="${responseMap['before_after_care_end'].value}"/>-->
+            <select id="form_before_after_care_end">
+                <gsml:forEachMinute var="hourAndMinute" begin="2:30" end="6:30" step="30">
+                    <!--<gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}" selected="${responseMap['before_after_care_end'].value}"/>-->
+                    <c:choose>
+                        <c:when test="${not empty responseMap['before_after_care_end'].value}}">
+                            <option value="${forEachMinuteHourAndMinutes}" selected="true">${forEachMinuteHourAndMinutes}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${forEachMinuteHourAndMinutes}" >${forEachMinuteHourAndMinutes}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </gsml:forEachMinute>
+            </select>
+            <br/>
+            <br/>
+        </div>
+
+        <label>School type</label>
+        <br/>
+        <school:espRadioWithLabel key="school_type" value="public" label="Public"/>
+        <school:espRadioWithLabel key="school_type" value="charter" label="Public Charter"/>
+        <school:espRadioWithLabel key="school_type" value="private" label="Private"/>
+        <br/>
+        <br/>
 
         <label>What kind of transportation is provided for students by the school/district?</label>
         <br/>
@@ -185,6 +171,18 @@
         <br/>
         <school:espCheckboxWithLabel key="transportation" value="other" label="Other" styleClass="js_otherField_form_transportation_other"/>
         <input id="form_transportation_other" class='js_otherField' type="text" name="transportation_other" value="${responseMap['transportation_other'].value}" maxlength="40"/>
+        <br/>
+        <br/>
+
+        <label>Is there a school-run shuttle from nearby metro and bus stops? If so, indicate which metro and bus lines the shuttle serves.</label>
+        <br/>
+        <school:espRadioWithLabel key="transportation_shuttle" value="no" label="No"/>
+        <br/>
+        <school:espRadioWithLabel key="transportation_shuttle" value="yes" label="Yes" styleClass="js_otherField_form_transportation_shuttle_other"/>
+        <br/>
+        <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other" class="js_otherField"
+               value="${responseMap['transportation_shuttle_other'].value}" maxlength="30"/>
+        <p>Indicate which metro and bus lines the shuttle serves,sperated by commas.</p>
         <br/>
         <br/>
 
