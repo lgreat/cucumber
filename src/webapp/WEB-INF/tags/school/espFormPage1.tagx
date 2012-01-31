@@ -74,8 +74,8 @@
         <div id="form_k3_offered_group">
             <label>Do you offer K3?</label>
             <br/>
-            <school:espCheckboxWithLabel key="k3_offered" value="no" label="No"/>
-            <school:espCheckboxWithLabel key="k3_offered" value="yes" label="Yes"/>
+            <school:espRadioWithLabel key="k3_offered" value="no" label="No"/>
+            <school:espRadioWithLabel key="k3_offered" value="yes" label="Yes"/>
             <br/>
             <br/>
         </div>
@@ -83,17 +83,17 @@
         <div id="form_k4_offered_group">
             <label>Do you offer K4?</label>
             <br/>
-            <school:espCheckboxWithLabel key="k4_offered" value="no" label="No"/>
-            <school:espCheckboxWithLabel key="k4_offered" value="yes" label="Yes"/>
+            <school:espRadioWithLabel key="k4_offered" value="no" label="No"/>
+            <school:espRadioWithLabel key="k4_offered" value="yes" label="Yes"/>
             <br/>
             <br/>
         </div>
 
         <label>Is there a school-run shuttle from nearby metro and bus stops? If so, indicate which metro and bus lines the shuttle serves.</label>
         <br/>
-        <school:espCheckboxWithLabel key="transportation_shuttle" value="no" label="No"/>
+        <school:espRadioWithLabel key="transportation_shuttle" value="no" label="No"/>
         <br/>
-        <school:espCheckboxWithLabel key="transportation_shuttle" value="yes" label="Yes"/>
+        <school:espRadioWithLabel key="transportation_shuttle" value="yes" label="Yes"/>
         <br/>
         <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other"
                value="${responseMap['transportation_shuttle_other'].value}"/>
