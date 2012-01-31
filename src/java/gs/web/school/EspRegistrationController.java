@@ -169,6 +169,11 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
             if (userState.isEmailValid()) {
 
+                //In case we have the user object from the cookie, validate that the email on the form is the same as the one in the cookie.
+                if (!validateUserCookie(user, email)) {
+                   userState.setCookieMatched(false);
+                }
+
                 //No user cookie ,therefore check if user exists in the DB.
                 if (user == null) {
                     user = getUserDao().findUserFromEmailIfExists(email);
@@ -365,6 +370,10 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         } else {
             result.rejectValue("email", "invalid_email");
         }
+        //In case we have the user object from the cookie, validate that the email on the form is the same as the one in the cookie.
+        if (!validateUserCookie(user, email)) {
+            result.rejectValue("email", "Email in the cookie does not match the one on the form.");
+        }
 
         State state = espMembershipCommand.getState();
         if (state == null) {
@@ -380,6 +389,11 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         if (StringUtils.isBlank(jobTitle)) {
             result.rejectValue("jobTitle", null, "Job Title cannot be empty.");
         }
+    }
+
+    protected boolean validateUserCookie(User user, String email) {
+        //Protect against js and cookie manipulation.
+        return ((user != null && StringUtils.isNotBlank(email) && !user.getEmail().equals(email.trim())) ? false : true);
     }
 
     protected boolean validateEmail(String email) {
@@ -435,6 +449,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         private boolean isUserApprovedESPMember = false;
         private boolean isUserAwaitingESPMembership = false;
         private boolean isUserCookieSet = false;
+        private boolean isCookieMatched = true;
 
         public boolean isEmailValid() {
             return isEmailValid;
@@ -487,6 +502,14 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             isUserCookieSet = userCookieSet;
         }
 
+        public boolean isCookieMatched() {
+            return isCookieMatched;
+        }
+
+        public void setCookieMatched(boolean cookieMatched) {
+            isCookieMatched = cookieMatched;
+        }
+
         public Map getUserState() {
             Map data = new HashMap();
 
@@ -496,6 +519,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             data.put("isUserAwaitingESPMembership", isUserAwaitingESPMembership());
             data.put("isUserEmailValidated", isUserEmailValidated());
             data.put("isUserCookieSet", isUserCookieSet());
+            data.put("isCookieMatched", isCookieMatched());
             return data;
         }
 

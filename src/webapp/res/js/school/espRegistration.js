@@ -122,6 +122,8 @@ GS.form.EspForm = function() {
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/school/esp/register.page')";
             GS.form.espForm.showEmailError("Please sign in to GS.<a href='#' onclick=" + onclickStr + ">Sign in</a>");
+        }else if (data.isCookieMatched !== true ) {
+            GS.form.espForm.showEmailError("An error has occurred.");
         } else {
             isValid = true;
         }
