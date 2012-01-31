@@ -18,17 +18,24 @@
         <label for="form_before_after_care_before">Before school care</label>
         <gsml:checkbox styleId="form_before_after_care" name="before_after_care" value="before"
                        checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
-        <label for="form_before_after_care_start">Start time</label>
-        <input id="form_before_after_care_start" type="text" name="before_after_care_start"
-               value="${responseMap['before_after_care_start'].value}"/>
         <br/>
-        <label for="form_before_after_care_after">After school care</label>
-        <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
-                       checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
-        <label for="form_before_after_care_end">End time</label>
-        <input id="form_before_after_care_end" type="text" name="before_after_care_end"
-               value="${responseMap['before_after_care_end'].value}"/>
+        <div id="form_before_after_care_before_group">
+            <label for="form_before_after_care_start">Start time</label>
+            <input id="form_before_after_care_start" type="text" name="before_after_care_start"
+                   value="${responseMap['before_after_care_start'].value}"/>
+            <br/>
+        </div>
+            <label for="form_before_after_care_after">After school care</label>
+            <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
+                           checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
         <br/>
+        <div id="form_before_after_care_after_group">
+            <label for="form_before_after_care_end">End time</label>
+            <input id="form_before_after_care_end" type="text" name="before_after_care_end"
+                   value="${responseMap['before_after_care_end'].value}"/>
+            <br/>
+            <br/>
+        </div>
         <br/>
 
         <label>Grade levels offered</label>
