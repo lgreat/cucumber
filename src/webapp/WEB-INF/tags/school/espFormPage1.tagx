@@ -96,7 +96,7 @@
         <school:espRadioWithLabel key="transportation_shuttle" value="yes" label="Yes"/>
         <br/>
         <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other"
-               value="${responseMap['transportation_shuttle_other'].value}"/>
+               value="${responseMap['transportation_shuttle_other'].value}" maxlength="30"/>
         <p>Indicate which metro and bus lines the shuttle serves,sperated by commas.</p>
         <br/>
         <br/>
@@ -154,7 +154,7 @@
         <school:espCheckboxWithLabel key="transportation" value="special_ed_only" label="Transportation provided for special education students only"/>
         <br/>
         <school:espCheckboxWithLabel key="transportation" value="other" label="Other" styleClass="js_otherField_form_transportation_other"/>
-        <input id="form_transportation_other" class='js_otherField' type="text" name="transportation_other" value="${responseMap['transportation_other'].value}"/>
+        <input id="form_transportation_other" class='js_otherField' type="text" name="transportation_other" value="${responseMap['transportation_other'].value}" maxlength="40"/>
         <br/>
         <br/>
 
