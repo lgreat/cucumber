@@ -14,7 +14,7 @@
 
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <title>ESP Moderation</title>
+        <title>Admin ESP Moderation</title>
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">

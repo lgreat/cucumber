@@ -15,7 +15,7 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <head>
-        <title>ESP Sign In</title>
+        <title>Official School Profile - Sign in | GreatSchools</title>
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
