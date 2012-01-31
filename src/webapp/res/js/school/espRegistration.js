@@ -113,6 +113,7 @@ GS.form.EspForm = function() {
         if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email.");
         } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember === true) {
+            GSType.hover.emailNotValidated.setEmail(email);
             GSType.hover.emailNotValidated.show();
             GS.form.espForm.showEmailError("Please verify your email.");
         } else if (data.isUserAwaitingESPMembership === true) {

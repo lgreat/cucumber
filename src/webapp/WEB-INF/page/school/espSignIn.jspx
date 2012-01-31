@@ -5,6 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
           version="2.0" >
@@ -92,7 +93,7 @@
 
             </div>
             <div class="grid_8">
-                <p class="">New to GreatSchools? <a href="javascript:void(0);">Create a School Official account.</a></p>
+                <p class="">New to GreatSchools? <link:schoolEspRegister>Create a School Official account.</link:schoolEspRegister></p>
 
                 <h3 class="">Want to create an Online School Profile?</h3>
 
@@ -106,7 +107,7 @@
 
                 <p class="">You must be a principal or a school official to create an Online School Profile. We will verify your identity after you sign up.</p>
 
-                <a class="button-1" href="javascript:void(0);">Create an account</a>
+                <link:schoolEspRegister styleClass="button-1">Create an account</link:schoolEspRegister>
 
             </div>
         </div>

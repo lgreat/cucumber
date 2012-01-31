@@ -4558,5 +4558,37 @@
             <description>Default school id to select</description>
         </attribute>
     </tag>
+    <tag>
+        <name>schoolEspSignIn</name>
+        <tag-class>gs.web.jsp.link.school.EspSignInTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>ESP Sign in</display-name>
+        <description>
+            <![CDATA[ESP sign in page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolEspRegister</name>
+        <tag-class>gs.web.jsp.link.school.EspRegisterTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>ESP Register</display-name>
+        <description>
+            <![CDATA[ESP register page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
 
 </taglib>
