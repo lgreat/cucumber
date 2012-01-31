@@ -7,12 +7,13 @@
     <jsp:directive.attribute name="key" required="true" description="ESP answer key"/>
     <jsp:directive.attribute name="value" required="true" description="ESP answer value"/>
     <jsp:directive.attribute name="label" required="true" description="Text value for the label" />
+    <jsp:directive.attribute name="styleClass" required="false" description="Element class" />
 
 
     <c:set var="prefix" value="form"/>
 
     <gsml:radio styleId="${prefix}_${key}_${fn:toLowerCase(value)}" name="${key}" value="${value}"
-                       checked="${not empty responseMap[key].valueMap[value]}"/>
+                       checked="${not empty responseMap[key].valueMap[value]}" styleClass="${styleClass}"/>
     <label for="${prefix}_${key}_${fn:toLowerCase(value)}">${label}</label>
 
 </jsp:root>

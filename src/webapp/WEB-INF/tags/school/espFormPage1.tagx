@@ -7,9 +7,10 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="1" maxPage="${maxPage}" headerText="School basic info">
 
-        <label for="form_average_class_size">Average class size: </label>
-        <input id="form_average_class_size" type="text" name="average_class_size" maxlength="2" value="${responseMap['average_class_size'].value}"/>
-        <span id="form_average_class_size_error" class="error" style="display: none">Average class size must be numeric.</span>
+        <label for="form_student_enrollment">School size </label>
+        <input id="form_student_enrollment" type="text" name="student_enrollment"
+               value="${responseMap['student_enrollment'].value}" maxlength="4"/>
+        <span id="form_student_enrollment_error" class="error" style="display: none">Please enter enrollment data.</span>
         <br/>
         <br/>
 
@@ -62,7 +63,6 @@
             <br/>
             <br/>
         </div>
-        <br/>
 
         <label>Grade levels offered</label>
         <br/>
@@ -115,13 +115,27 @@
             <br/>
         </div>
 
+        <div id="form_age_pk_start_group">
+            <label>What age does your early childhood or Pre-K program begin?</label>
+            <br/>
+            <select id="form_age_pk_start" name="age_pk_start">
+                <gsml:selectOption value="" selected="${empty responseMap['age_pk_start']}">[Select age]</gsml:selectOption>
+                <gsml:selectOption value="0/1" selected="${not empty responseMap['age_pk_start'].valueMap['0/1']}">Infant</gsml:selectOption>
+                <gsml:selectOption value="2" selected="${not empty responseMap['age_pk_start'].valueMap['2']}">2 years old</gsml:selectOption>
+                <gsml:selectOption value="3" selected="${not empty responseMap['age_pk_start'].valueMap['3']}">3 years old</gsml:selectOption>
+                <gsml:selectOption value="4" selected="${not empty responseMap['age_pk_start'].valueMap['4']}">4 years old</gsml:selectOption>
+            </select>
+            <br/>
+            <br/>
+        </div>
+
         <label>Is there a school-run shuttle from nearby metro and bus stops? If so, indicate which metro and bus lines the shuttle serves.</label>
         <br/>
         <school:espRadioWithLabel key="transportation_shuttle" value="no" label="No"/>
         <br/>
-        <school:espRadioWithLabel key="transportation_shuttle" value="yes" label="Yes"/>
+        <school:espRadioWithLabel key="transportation_shuttle" value="yes" label="Yes" styleClass="js_otherField_form_transportation_shuttle_other"/>
         <br/>
-        <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other"
+        <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other" class="js_otherField"
                value="${responseMap['transportation_shuttle_other'].value}" maxlength="30"/>
         <p>Indicate which metro and bus lines the shuttle serves,sperated by commas.</p>
         <br/>
@@ -156,16 +170,6 @@
             <br/>
         </div>
 
-        <div id="form_age_pk_start_group">
-            <label>What age does your early childhood or Pre-K program begin?</label>
-            <br/>
-            <school:espRadioWithLabel key="age_pk_start" value="0/1" label="Infant"/>
-            <school:espRadioWithLabel key="age_pk_start" value="2" label="2 years old"/>
-            <school:espRadioWithLabel key="age_pk_start" value="3" label="3 years old"/>
-            <school:espRadioWithLabel key="age_pk_start" value="4" label="4 years old"/>
-            <br/>
-            <br/>
-        </div>
 
         <label>What kind of transportation is provided for students by the school/district?</label>
         <br/>
@@ -188,11 +192,10 @@
         <!--<input id="form_admissions_url" type="text" name="admissions_url" value="${responseMap['admissions_url'].value}"/>-->
         <!--<br/>-->
         <!--<br/>-->
+        <label for="form_average_class_size">Average class size: </label>
+        <input id="form_average_class_size" type="text" name="average_class_size" maxlength="2" value="${responseMap['average_class_size'].value}"/>
+        <span id="form_average_class_size_error" class="error" style="display: none">Average class size must be a positive integer.</span>
 
-        <label for="form_student_enrollment">School size </label>
-        <input id="form_student_enrollment" type="text" name="student_enrollment"
-               value="${responseMap['student_enrollment'].value}"/>
-        <span id="form_student_enrollment_error" class="error" style="display: none">Please enter enrollment data.</span>
 
     </school:espFormTemplate>
 </jsp:root>
