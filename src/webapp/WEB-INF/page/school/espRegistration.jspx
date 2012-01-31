@@ -322,8 +322,8 @@
 <div class="spacer_60"><!-- do not collapse --></div>
 
 <div style="display:none;">
-    <mod:tracking pageName="ESP registraion Page"
-                  hier1="ESP registraion Page"/>
+    <mod:tracking pageName="ESP Registration Page"
+                  hier1="ESP"/>
 </div>
 
 </gsml:body>

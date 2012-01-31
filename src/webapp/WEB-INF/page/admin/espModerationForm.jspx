@@ -94,8 +94,8 @@
         </div>
 
         <div style="display:none;">
-            <mod:tracking pageName="ESP moderation Page"
-                          hier1="ESP moderation Page"/>
+            <mod:tracking pageName="ESP Moderation"
+                          hier1="ESP"/>
         </div>
 
     </gsml:body>

@@ -14,7 +14,7 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <head>
-        <title>ESP Landing</title>
+        <title>ESP Dashboard</title>
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
@@ -41,8 +41,8 @@
         </c:if>
 
         <div style="display:none;">
-            <mod:tracking pageName="ESP dashboard Page"
-                          hier1="ESP dashboard Page"/>
+            <mod:tracking pageName="ESP Dashboard"
+                          hier1="ESP"/>
         </div>
 
     </gsml:body>
