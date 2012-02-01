@@ -7,13 +7,15 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="2" maxPage="${maxPage}" headerText="School model">
 
-
-        <br/><br/>
         <label for="form_best_known_for">What is your school best known for?</label>
-        <input id="form_best_known_for" type="text" name="best_known_for" value="${responseMap['best_known_for'].value}"/>
+        <input id="form_best_known_for" type="text" name="best_known_for" value="${responseMap['best_known_for'].value}" maxlength="45"/>
+        <br/>
+        Please use complete sentences, for example, “Our school is best known for our championship football team.”
+        <br/>
+        <br/>
 
-        <br/><br/>
-        <label>What colleges do most students attend after graduation?</label>
+        <!-- TODO: goes to page 4 -->
+        <!--<label>What colleges do most students attend after graduation?</label>
         <br/>
         <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${responseMap['college_destination_1'].value}"/>
         <br/>
@@ -21,9 +23,8 @@
         <br/>
         <label for="form_college_destination_3">3: </label><input id="form_college_destination_3" type="text" name="college_destination_3" value="${responseMap['college_destination_3'].value}"/>
         <br/>
-        <br/>
+        <br/>-->
 
-        <!-- TODO: gifted / talented ? -->
         <label>What instructional and/or curriculum modes does your school use, if any?</label>
         <br/>
         <school:espCheckboxWithLabel key="instructional_model" value="none" label="None"/>
@@ -44,7 +45,7 @@
         <br/>
         <school:espCheckboxWithLabel key="instructional_model" value="ged" label="GED"/>
         <br/>
-        <school:espCheckboxWithLabel key="instructional_model" value="gifted" label="Gifted / Talented"/> <!-- TODO: double check this -->
+        <school:espCheckboxWithLabel key="instructional_model" value="gifted" label="Gifted / High performing"/> <!-- TODO: double check this -->
         <br/>
         <school:espCheckboxWithLabel key="instructional_model" value="honors" label="Honors track"/>
         <br/>
@@ -75,7 +76,7 @@
         <school:espCheckboxWithLabel key="instructional_model" value="other" label="Other" styleClass="js_otherField_form_instructional_model_other"/>
         <br/>
         <label for="js_instructional_model_other">Other:</label>
-        <gsml:input styleId="form_instructional_model_other" styleClass="js_otherField" type="text" name="instructional_model_other" value="${responseMap['instructional_model_other'].value}"/>
+        <input id="form_instructional_model_other" class="js_otherField" type="text" name="instructional_model_other" value="${responseMap['instructional_model_other'].value}" maxlength="40"/>
         <br/>
         <br/>
 
@@ -158,61 +159,6 @@
             <br/>
         </div>
         <br/>
-
-        <!--
-
-“What is your school best known for?” Ghost text: Please use complete sentences, for example, “Our school is best known for our championship football team.”
-	•	Open text box, 45 character limit; ghost text: “Please use complete sentences”
-Example text: Example: “Our school is best known for our championship football team”
-
-“What instructional and/or curriculum models does your school use, if any?”
-	•	Checkboxes
-	•	None
-•	Accelerated credit earning
-	•	Adult education
-	•	Advanced placement courses
-	•	Classical (e.g., focuses on the “classics”)
-	•	Core knowledge
-	•	Direct instruction
-	•	GED
-	•	Honors track
-•	Independent study
-	•	Individually guided instruction
-	•	International Baccalaureate (IB)
-	•	Internships
-	•	Montessori
-•	Outdoor / Farm-based
-	•	Project-based
-	•	Reggio Emilio
-•	Standards-based
-•	Therapeutic
-	•	Virtual school
-	•	Waldorf
-	•	Other (textbox – 40 character limit) Ghost text: [Please indicate]
-
-
-“Indicate if your school has a special academic theme or area of focus.”
-	•	Checkbox with options
-		•	None
-	•	Arts (all)
-Business
-Engineering
-Foreign languages
-Mathematics
-Medical
-Music
-Performing arts
-	•	Religious
-Science
-	•	Service Learning
-•	Special Education
-Technology
-			•	Visual arts
-	•	Vocational education
-
-“Does your school offer any bilingual/language immersion programs?”
-
-        -->
 
     </school:espFormTemplate>
 </jsp:root>
