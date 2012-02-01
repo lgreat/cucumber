@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+>
+<jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
+    <school:espFormTemplate page="5" maxPage="${maxPage}" headerText="Enrichment &amp;amp; extracurriculars">
+
+        Placeholder for page 5
+
+    </school:espFormTemplate>
+</jsp:root>

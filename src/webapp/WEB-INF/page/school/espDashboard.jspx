@@ -28,6 +28,14 @@
             <ol>
                 <li><link:schoolEspForm school="${espMembership.school}" page="1">Page 1</link:schoolEspForm></li>
                 <li><link:schoolEspForm school="${espMembership.school}" page="2">Page 2</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${espMembership.school}" page="3">Page 3</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${espMembership.school}" page="4">Page 4</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${espMembership.school}" page="5">Page 5</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${espMembership.school}" page="6">Page 6</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${espMembership.school}" page="7">Page 7</link:schoolEspForm></li>
+                <c:if test="${espMembership.school.type.schoolTypeName == 'private'}">
+                    <li><link:schoolEspForm school="${espMembership.school}" page="8">Page 8</link:schoolEspForm></li>
+                </c:if>
             </ol>
         </c:if>
 
@@ -41,8 +49,7 @@
         </c:if>
 
         <div style="display:none;">
-            <mod:tracking pageName="ESP Dashboard"
-                          hier1="ESP"/>
+            <mod:tracking pageName="ESP Dashboard" hier1="ESP"/>
         </div>
 
     </gsml:body>

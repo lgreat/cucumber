@@ -374,7 +374,10 @@ public class EspFormController implements ReadWriteAnnotationController {
      * How many pages are on the form for a given school
      */
     protected int getMaxPageForSchool(School school) {
-        return 2; // TODO: implement
+        if (SchoolType.PRIVATE == school.getType()) {
+            return 8;
+        }
+        return 7;
     }
 
     /**
@@ -411,8 +414,14 @@ public class EspFormController implements ReadWriteAnnotationController {
             keys.add("college_destination_1");
             keys.add("college_destination_2");
             keys.add("college_destination_3");
+        } else if (page == 3) {
+        } else if (page == 4) {
+        } else if (page == 5) {
+        } else if (page == 6) {
+        } else if (page == 7) {
+        } else if (page == 8) {
         } else {
-            _log.error("Unknown page provided to getKeysForPage: " + page);
+            _log.error("Unknown page provided to getKeysForPercentCompletion: " + page);
         }
         return keys;
     }

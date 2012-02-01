@@ -127,11 +127,6 @@
                         </dd>
                     </dl>
                 </div>
-                <!--<div>-->
-                    <!--<span id="js_espPercentComplete">${percentComplete[page]}</span>% completed-->
-                <!--</div>-->
-                <!--<div class="text2bold">Your school: ${school.name}</div>-->
-                <!--<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>-->
                 <div id="js_pageContainer" class="clearLft">
                     <div id="js_pageWrapper-1" class="js_pageWrapper ${(page eq 1)?'':'hidden'}">
                         <school:espFormPage1 maxPage="${maxPage}"/>
@@ -139,6 +134,26 @@
                     <div id="js_pageWrapper-2" class="js_pageWrapper ${(page eq 2)?'':'hidden'}">
                         <school:espFormPage2 maxPage="${maxPage}"/>
                     </div>
+                    <div id="js_pageWrapper-3" class="js_pageWrapper ${(page eq 3)?'':'hidden'}">
+                        <school:espFormPage3 maxPage="${maxPage}"/>
+                    </div>
+                    <div id="js_pageWrapper-4" class="js_pageWrapper ${(page eq 4)?'':'hidden'}">
+                        <school:espFormPage4 maxPage="${maxPage}"/>
+                    </div>
+                    <div id="js_pageWrapper-5" class="js_pageWrapper ${(page eq 5)?'':'hidden'}">
+                        <school:espFormPage5 maxPage="${maxPage}"/>
+                    </div>
+                    <div id="js_pageWrapper-6" class="js_pageWrapper ${(page eq 6)?'':'hidden'}">
+                        <school:espFormPage6 maxPage="${maxPage}"/>
+                    </div>
+                    <div id="js_pageWrapper-7" class="js_pageWrapper ${(page eq 7)?'':'hidden'}">
+                        <school:espFormPage7 maxPage="${maxPage}"/>
+                    </div>
+                    <c:if test="${school.type.schoolTypeName == 'private'}">
+                        <div id="js_pageWrapper-8" class="js_pageWrapper ${(page eq 8)?'':'hidden'}">
+                            <school:espFormPage8 maxPage="${maxPage}"/>
+                        </div>
+                    </c:if>
                 </div>
                 <c:if test="${espSuperuser}">
                     <br/>
@@ -148,8 +163,7 @@
         </div>
 
         <div style="display:none;">
-            <mod:tracking school="${school}" pageName="ESP Form Page ${page}"
-                          hier1="School,SchoolProfileEspForm,${gsweb:capitalize(school.type.schoolTypeName)}"/>
+            <mod:tracking school="${school}" pageName="ESP Form Page ${page}" hier1="ESP"/>
         </div>
     </gsml:body>
     </html>
