@@ -126,11 +126,10 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             ThreadLocalTransactionManager.commitOrRollback();
         }
 
-        //Set the users password and save the user.
+        //Set the user's password.
         setUsersPassword(command, user);
-//        getUserDao().updateUser(user);
 
-        //Set the users profile and save the user.
+        //Set the user's profile and save the user.
         updateUserProfile(command, user);
         getUserDao().updateUser(user);
 
@@ -444,7 +443,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
      */
     protected static class UserStateStruct {
         private boolean isEmailValid = true;
-        private boolean isUserProvisionalGSMember = true;
         private boolean isUserEmailValidated = false;
         private boolean isUserApprovedESPMember = false;
         private boolean isUserAwaitingESPMembership = false;
@@ -459,23 +457,12 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             isEmailValid = emailValid;
         }
 
-        public boolean isUserProvisionalGSMember() {
-            return isUserProvisionalGSMember;
-        }
-
-        public void setUserProvisionalGSMember(boolean userProvisionalGSMember) {
-            isUserProvisionalGSMember = userProvisionalGSMember;
-        }
-
         public boolean isUserEmailValidated() {
             return isUserEmailValidated;
         }
 
         public void setUserEmailValidated(boolean userEmailValidated) {
             isUserEmailValidated = userEmailValidated;
-            if (userEmailValidated == true) {
-                setUserProvisionalGSMember(false);
-            }
         }
 
         public boolean isUserApprovedESPMember() {
@@ -515,7 +502,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
             data.put("isEmailValid", isEmailValid());
             data.put("isUserApprovedESPMember", isUserApprovedESPMember());
-            data.put("isUserProvisionalGSMember", isUserProvisionalGSMember());
             data.put("isUserAwaitingESPMembership", isUserAwaitingESPMembership());
             data.put("isUserEmailValidated", isUserEmailValidated());
             data.put("isUserCookieSet", isUserCookieSet());

@@ -112,10 +112,10 @@ GS.form.EspForm = function() {
         var isValid = false;
         if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email.");
-        } else if (data.isUserApprovedESPMember === true && data.isUserProvisionalGSMember === true) {
+        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
             GSType.hover.emailNotValidated.setEmail(email);
-            GSType.hover.emailNotValidated.show();
-            GS.form.espForm.showEmailError("Please verify your email.");
+            var onclickStr = "GSType.hover.emailNotValidated.show()";
+            GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>");
         } else if (data.isUserAwaitingESPMembership === true) {
             GS.form.espForm.showEmailError("Please be patient.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
@@ -334,6 +334,5 @@ jQuery(function() {
     );
 
 });
-
 
 

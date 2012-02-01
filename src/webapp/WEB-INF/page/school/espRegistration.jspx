@@ -70,13 +70,6 @@
                  class="error js_emailErr">Please be patient.We are reviewing your request.
             </div>
 
-            <!--<div id="js_emailError_gsSignIn" class="error"-->
-                 <!--style="display: none;"><a href="#" id="js_espLaunchSignin">Please Sign in.</a></div>-->
-            <!--<div id="js_emailError_espSignIn" class="error"-->
-                 <!--style="display: none;"><a href="/school/esp/signIn.page">Please Sign in.</a></div>-->
-            <!--<div id="js_emailError_verifyEmail" class="error"-->
-                 <!--style="display: none;"><a href="/school/esp/signIn.page">Please verify your email address</a></div>-->
-
         </div>
     </div>
 
