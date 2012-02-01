@@ -104,7 +104,7 @@
                                 <td><!--Do no collapse--></td>
                                 <!--Second Row-->
                                 <td>${mrow.contactEmail}</td>
-                                <td><a href="${membership.webUrl}">${membership.webUrl}</a></td>
+                                <td><a href="${mrow.absoluteWebUrl}">${membership.webUrl}</a></td>
                                 <td>${membership.user.lastName}</td>
                                 <td>${membership.school.id}</td>
                                 <td>${membership.jobTitle}</td>

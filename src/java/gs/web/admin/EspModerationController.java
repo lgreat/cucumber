@@ -88,6 +88,14 @@ public class EspModerationController implements ReadWriteAnnotationController {
             if(_contactEmail == null || _membership.getUser() == null) return false;
             return _contactEmail.equals(_membership.getUser().getEmail());
         }
+        
+        public String getAbsoluteWebUrl() {
+            String webUrl = _membership.getWebUrl();
+            if (StringUtils.isNotEmpty(webUrl) && !StringUtils.startsWithIgnoreCase("http://", webUrl)) {
+                return "http://" + webUrl;
+            }
+            return webUrl;
+        }
     }
     
     public static final String VIEW = "admin/espModerationForm";
