@@ -297,7 +297,6 @@ new (function() {
             var field = $(this);
             if (field.val().length > 0) {
                 var otherClassSelector = '.js_otherField_' + this.id;
-                console.log("other class = " + otherClassSelector);
                 var otherField = formWrapper.find(otherClassSelector);
                 otherField.prop('checked', true);
             }
@@ -317,6 +316,8 @@ new (function() {
         GS.form.controlVisibilityOfElement('#form_age_pk_start_group', '#form_grade_levels_pk', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);
+
+        GS.form.controlVisibilityOfElement('#form_immersion_language_group','[name=immersion]', 'yes');
 
     });
 })();
