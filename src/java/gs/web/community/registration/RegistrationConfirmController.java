@@ -105,8 +105,13 @@ public class RegistrationConfirmController extends AbstractCommandController imp
         switch (userState) {
             case REGISTERED:
                 // already confirmed email, so just sign them in and redirect to /account/
+                //or if they are an esp member take them to the dashboard.
                 PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
-                return new ModelAndView(new RedirectView("/account/")); // E A R L Y   E X I T
+                viewName = "/account/";
+                if (user.hasRole(Role.ESP_MEMBER) && StringUtils.isNotBlank(requestedRedirect)) {
+                    viewName = requestedRedirect;
+                }
+                return new ModelAndView(new RedirectView(viewName)); // E A R L Y   E X I T
 
             case PROVISIONAL:
 
