@@ -96,7 +96,7 @@
                                 <td><!--Do no collapse--></td>
                                 <!--Second Row-->
                                 <td>${mrow.contactEmail}</td>
-                                <td>${membership.webUrl}</td>
+                                <td><a href="${membership.webUrl}">${membership.webUrl}</a></td>
                                 <td>${membership.user.lastName}</td>
                                 <td>${membership.school.id}</td>
                                 <td>${membership.jobTitle}</td>
