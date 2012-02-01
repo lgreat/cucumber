@@ -4,7 +4,6 @@ import gs.data.school.EspResponse;
 import gs.data.school.IEspResponseDao;
 import gs.data.school.School;
 import gs.data.school.census.CensusDataType;
-import gs.data.school.census.ICensusDataSetDao;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.util.string.StringUtils;
@@ -72,8 +71,6 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
     }
 
     private IEspResponseDao _espResponseDao;
-
-    private ICensusDataSetDao _censusDataSetDao;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
@@ -153,9 +150,4 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
     public void setEspResponseDao(IEspResponseDao dao) {
         this._espResponseDao = dao;
     }
-
-    public void setCensusDataSetDao(ICensusDataSetDao dao) {
-        this._censusDataSetDao = dao;
-    }
-
 }
