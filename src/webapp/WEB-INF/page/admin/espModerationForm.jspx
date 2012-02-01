@@ -4,6 +4,7 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:form="http://www.springframework.org/tags/form">
     <html lang="en">
@@ -15,12 +16,31 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>Admin ESP Moderation</title>
-    </head>
 
+        <style type="text/css">
+        	.legend {
+        		padding: 3px;
+        	}
+        	.legend span {
+        		margin-right: 10px;
+        	}
+        	.emailMatch, .emailMatch * {
+        		background-color: #aad4ff;
+        	}
+        	.disabledUserReRequestingAccess, .disabledUserReRequestingAccess * {
+        		color: red;
+        		font-weight: bold;
+        	}
+        </style>
+
+    </head>
     <gsml:body adPageName="school/esp" pageLayout="nocol">
         <div class="container_24">
             <div class="grid_24 slStylesV1-0 espModerationTable">
-
+								<div class="legend">
+									<span class="emailMatch">User email matches contact email</span>
+									<span class="disabledUserReRequestingAccess">Disabled user re-requesting access</span>
+								</div>
                 <form:form commandName="espModerationCommand">
                     <table width="950" class="espModerationHeader">
                         <col width="32px"/>
@@ -50,8 +70,10 @@
                             <th>Note</th>
                         </tr>
                     </table>
-                    <c:forEach var="membership" items="${membershipsToProcess}" varStatus="index">
-                        <table width="950">
+                    <c:forEach var="mrow" items="${membershipsToProcess}" varStatus="index">
+                    		<c:set var="membership" value="${mrow.membership}"/>
+                    		<c:set var="emailMatchClass" value="${mrow.emailMatch? 'emailMatch' : ''}"/>
+                    		<table width="950" class="${emailMatchClass}">
                             <col width="32px"/>
                             <col width="210px"/>
                             <col width="206px"/>
@@ -67,13 +89,13 @@
                                 <td>${membership.school.name}</td>
                                 <td>${membership.user.firstName}</td>
                                 <td>${membership.state}</td>
-                                <td>${membership.created}</td>
-                                <td></td><!--Contact Name-->
+                                <td><fmt:formatDate pattern="MM-dd-yyyy hh:mm" value="${membership.created}" /></td>
+                                <td>${mrow.contactName}</td>
                             </tr>
                             <tr>
                                 <td><!--Do no collapse--></td>
                                 <!--Second Row-->
-                                <td></td><!--Contact Email-->
+                                <td>${mrow.contactEmail}</td>
                                 <td>${membership.webUrl}</td>
                                 <td>${membership.user.lastName}</td>
                                 <td>${membership.school.id}</td>
@@ -92,12 +114,10 @@
 
             </div>
         </div>
-
-        <div style="display:none;">
-            <mod:tracking pageName="ESP Moderation"
-                          hier1="ESP"/>
-        </div>
-
+        <div style="display:none;"><mod:tracking pageName="ESP Moderation" hier1="ESP"/></div>
+        <script type="text/javascript">
+        	
+        </script>
     </gsml:body>
 
     </html>

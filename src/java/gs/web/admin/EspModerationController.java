@@ -3,15 +3,31 @@ package gs.web.admin;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.integration.exacttarget.ExactTargetAPI;
-import gs.data.school.*;
+import gs.data.school.EspMembership;
+import gs.data.school.EspMembershipStatus;
+import gs.data.school.EspResponse;
+import gs.data.school.IEspMembershipDao;
+import gs.data.school.IEspResponseDao;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
 import gs.data.util.DigestUtil;
-import gs.web.admin.EspModerationCommand;
 import gs.web.community.registration.EmailVerificationEmail;
-import gs.web.util.UrlBuilder;
-import org.apache.commons.lang.StringUtils;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +38,58 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
-
 @Controller
 @RequestMapping("/admin/espModerationForm.page")
 public class EspModerationController implements ReadWriteAnnotationController {
+    
+    /**
+     * Dedicated data struct for each moderation row.
+     */
+    public static class ModerationRow {
+        private EspMembership _membership;
+        private String _contactName;
+        private String _contactEmail;
+        private boolean _isDisabledUserReRequestingAccess;
+        
+        public ModerationRow(EspMembership _membership) {
+            super();
+            this._membership = _membership;
+        }
+
+        public EspMembership getMembership() {
+            return _membership;
+        }
+
+        public String getContactName() {
+            return _contactName;
+        }
+
+        public void setContactName(String contactName) {
+            this._contactName = contactName;
+        }
+
+        public String getContactEmail() {
+            return _contactEmail;
+        }
+
+        public void setContactEmail(String contactEmail) {
+            this._contactEmail = contactEmail;
+        }
+
+        public boolean isDisabledUserReRequestingAccess() {
+            return _isDisabledUserReRequestingAccess;
+        }
+
+        public void setDisabledUserReRequestingAccess(boolean isDisabledUserReRequestingAccess) {
+            this._isDisabledUserReRequestingAccess = isDisabledUserReRequestingAccess;
+        }
+        
+        public boolean isEmailMatch() {
+            if(_contactEmail == null || _membership.getUser() == null) return false;
+            return _contactEmail.equals(_membership.getUser().getEmail());
+        }
+    }
+    
     public static final String VIEW = "admin/espModerationForm";
     protected final Log _log = LogFactory.getLog(getClass());
 
@@ -44,6 +104,8 @@ public class EspModerationController implements ReadWriteAnnotationController {
 
     @Autowired
     private IRoleDao _roleDao;
+    
+    private IEspResponseDao _espResponseDao;
 
     private EmailVerificationEmail _emailVerificationEmail;
 
@@ -108,7 +170,7 @@ public class EspModerationController implements ReadWriteAnnotationController {
 
     private void populateModelWithMemberships(ModelMap modelMap) {
         List<EspMembership> memberships = getEspMembershipDao().findAllEspMemberships(false);
-        List<EspMembership> membershipsToProcess = new ArrayList<EspMembership>();
+        List<ModerationRow> membershipsToProcess = new ArrayList<ModerationRow>();
         List<EspMembership> approvedMemberships = new ArrayList<EspMembership>();
         List<EspMembership> rejectedMemberships = new ArrayList<EspMembership>();
 
@@ -118,10 +180,41 @@ public class EspModerationController implements ReadWriteAnnotationController {
             membership.setSchool(school);
 
             if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                membershipsToProcess.add(membership);
+                ModerationRow mrow = new ModerationRow(membership);
+                membershipsToProcess.add(mrow);
+            
+                // contact name and email
+                HashSet<String> espResponseKeys = new HashSet<String>();
+                espResponseKeys.add("old_contact_name");
+                espResponseKeys.add("old_contact_email");
+                List<EspResponse> list = _espResponseDao.getResponsesByKeys(school, espResponseKeys, true);
+                if(list != null) {
+                    for(EspResponse r : list) {
+                        if("old_contact_name".equals(r.getKey())) mrow.setContactName(r.getValue());
+                        if("old_contact_email".equals(r.getKey())) mrow.setContactEmail(r.getValue());
+                    }
+                }
+                
+                // is disabled user re-requesting access?
+                for(EspMembership rejected : rejectedMemberships) {
+                    try {
+                        long membershipSchoolId = membership.getSchoolId() == null ? -1 : membership.getSchoolId().longValue();
+                        long rejectedSchoolId = rejected.getSchoolId() == null ? -1 : rejected.getSchoolId().longValue();
+                        long membershipUserId = membership.getUser().getId().longValue();
+                        long rejectedUserId = rejected.getUser().getId().longValue();
+                        if(membershipSchoolId == rejectedSchoolId && membershipUserId == rejectedUserId) {
+                            mrow.setDisabledUserReRequestingAccess(true);
+                            break;
+                        }
+                    }
+                    catch(NullPointerException e) {
+                        continue;
+                    }
+                }
             }
-        }
 
+        }
+        
         modelMap.put("membershipsToProcess", membershipsToProcess);
         modelMap.put("approvedMemberships", approvedMemberships);
         modelMap.put("rejectedMemberships", rejectedMemberships);
@@ -196,6 +289,14 @@ public class EspModerationController implements ReadWriteAnnotationController {
 
     public void setRoleDao(IRoleDao roleDao) {
         _roleDao = roleDao;
+    }
+    
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
+    }
+    
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        this._espResponseDao = espResponseDao;
     }
 
     public EmailVerificationEmail getEmailVerificationEmail() {
