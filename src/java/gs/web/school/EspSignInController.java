@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
 import gs.data.school.EspMembership;
 import gs.data.security.Role;
@@ -11,8 +12,6 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
@@ -30,8 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/school/esp/signIn.page")
 public class EspSignInController implements ReadWriteAnnotationController {
-    private static final Log _log = LogFactory.getLog(EspRegistrationController.class);
-
     public static final String VIEW = "school/espSignIn";
 
     @Autowired
@@ -46,7 +43,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
         User user = sessionContext.getUser();
         EspRegistrationCommand command = new EspRegistrationCommand();
 
-        //member cookie is set and user has ESP role.
+        //member cookie is set and user has ESP role.Therefore take the user to the dashboard.
         if (user != null && user.getId() != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
             return "redirect:" + urlBuilder.asFullUrl(request);
@@ -62,64 +59,83 @@ public class EspSignInController implements ReadWriteAnnotationController {
                          HttpServletRequest request,
                          HttpServletResponse response) throws Exception {
 
+        validateFormFields(command, result);
+        if (!result.hasErrors()) {
+            UserStateStruct userStateStruct = new UserStateStruct();
 
-        String email = command.getEmail();
-        String password = command.getPassword();
-        User user = null;
-        List<EspMembership> espMemberships = null;
+            //Set the state of the user.
+            User user = setUserState(command, userStateStruct);
+            //validate the various states of the user.
+            validateUserState(userStateStruct, result);
 
-        if (StringUtils.isNotBlank(email) && StringUtils.isNotEmpty(password)) {
-            email = email.trim();
-            boolean isEmailValid = validateEmail(email);
-            if (isEmailValid) {
-                user = getUserDao().findUserFromEmailIfExists(email);
-                boolean foundActiveEspMembership = false;
-                boolean isUserEmailValidated = false;
-
-                if (user != null) {
-
-                    isUserEmailValidated = user.isEmailValidated();
-
-                    //Check if the user has any esp memberships.Active or Inactive.
-                    espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
-                    for (EspMembership membership : espMemberships) {
-
-                        if (membership.getActive() && isUserEmailValidated) {
-                            foundActiveEspMembership = true;
-                            boolean matchesPassword = user.matchesPassword(password);
-
-                            if (matchesPassword) {
-                                PageHelper.setMemberAuthorized(request, response, user, true);
-                                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                                return "redirect:" + urlBuilder.asFullUrl(request);
-                            } else {
-                                result.rejectValue("password", null, "Incorrect password.");
-                            }
-                        }
+            //If there are no errors validate that the password entered is correct.
+            //Else if the user is validated,log in the user.We dont care if there are error or not.
+            if (!result.hasErrors() && user != null && !user.matchesPassword(command.getPassword())) {
+                result.rejectValue("password", null, "Incorrect password.");
+            } else {
+                if (user != null && userStateStruct.isUserEmailValidated()) {
+                    PageHelper.setMemberAuthorized(request, response, user, true);
+                    if (!result.hasErrors() && userStateStruct.isUserApprovedESPMember()) {
+                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                        return "redirect:" + urlBuilder.asFullUrl(request);
                     }
                 }
-
-                if (user == null || espMemberships == null || espMemberships.isEmpty()) {
-                    result.rejectValue("email", null, "There is no account associated with that email address.");
-                } else if (!isUserEmailValidated) {
-                    result.rejectValue("email", null, "Please verify ur email.");
-                } else if (!foundActiveEspMembership) {
-                    //TODO should there be a different message for rejected users?
-                    result.rejectValue("email", null, "Your ESP request is still under consideration. Please be patient.");
-                }
-
-            } else {
-                result.rejectValue("email", null, "Invalid email address.");
-            }
-        } else {
-            if (StringUtils.isBlank(email)) {
-                result.rejectValue("email", null, "Please enter an email address.");
-            }
-            if (StringUtils.isEmpty(password)) {
-                result.rejectValue("password", null, "Please enter a password.");
             }
         }
         return VIEW;
+    }
+
+    protected void validateFormFields(EspRegistrationCommand command, BindingResult result) {
+        String email = command.getEmail();
+        String password = command.getPassword();
+
+        if (StringUtils.isBlank(email)) {
+            result.rejectValue("email", null, "Please enter an email address.");
+        } else {
+            email = email.trim();
+            if (!validateEmail(email)) {
+                result.rejectValue("email", null, "Invalid email address.");
+            }
+        }
+
+        if (StringUtils.isEmpty(password)) {
+            result.rejectValue("password", null, "Please enter a password.");
+        }
+
+    }
+
+    protected void validateUserState(UserStateStruct userStateStruct, BindingResult result) {
+        if (userStateStruct.isNewUser() || (!userStateStruct.isUserRequestedESP())) {
+            result.rejectValue("email", null, "There is no account associated with that email address.<a href='/school/esp/register.page'>Register here.</a>");
+        } else if (userStateStruct.isUserAwaitingESPMembership()) {
+            result.rejectValue("email", null, "Your ESP request is still under consideration. Please be patient.");
+        } else if (userStateStruct.isUserApprovedESPMember() && !userStateStruct.isUserEmailValidated()) {
+            result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");
+        }
+    }
+
+    protected User setUserState(EspRegistrationCommand command, UserStateStruct userStateStruct) {
+
+        User user = getUserDao().findUserFromEmailIfExists(command.getEmail().trim());
+        if (user != null) {
+            userStateStruct.setNewUser(false);
+            userStateStruct.setUserEmailValidated(user.isEmailValidated());
+
+            //Check if the user has any esp memberships.
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+            for (EspMembership membership : espMemberships) {
+                userStateStruct.setUserRequestedESP(true);
+                //User has at least one active membership.
+                if (membership.getActive()) {
+                    userStateStruct.setUserApprovedESPMember(true);
+                    break;
+                } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
+                    //User is awaiting moderator decision.
+                    userStateStruct.setUserAwaitingESPMembership(true);
+                }
+            }
+        }
+        return user;
     }
 
     protected boolean validateEmail(String email) {
@@ -141,5 +157,54 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    protected static class UserStateStruct {
+        private boolean isNewUser = true;
+        private boolean isUserEmailValidated = false;
+        private boolean isUserRequestedESP = false;
+        private boolean isUserAwaitingESPMembership = false;
+        private boolean isUserApprovedESPMember = false;
+
+        public boolean isNewUser() {
+            return isNewUser;
+        }
+
+        public void setNewUser(boolean newUser) {
+            isNewUser = newUser;
+        }
+
+        public boolean isUserEmailValidated() {
+            return isUserEmailValidated;
+        }
+
+        public void setUserEmailValidated(boolean userEmailValidated) {
+            isUserEmailValidated = userEmailValidated;
+        }
+
+        public boolean isUserRequestedESP() {
+            return isUserRequestedESP;
+        }
+
+        public void setUserRequestedESP(boolean userRequestedESP) {
+            isUserRequestedESP = userRequestedESP;
+        }
+
+        public boolean isUserAwaitingESPMembership() {
+            return isUserAwaitingESPMembership;
+        }
+
+        public void setUserAwaitingESPMembership(boolean userAwaitingESPMembership) {
+            isUserAwaitingESPMembership = userAwaitingESPMembership;
+        }
+
+        public boolean isUserApprovedESPMember() {
+            return isUserApprovedESPMember;
+        }
+
+        public void setUserApprovedESPMember(boolean userApprovedESPMember) {
+            isUserApprovedESPMember = userApprovedESPMember;
+        }
+
     }
 }
