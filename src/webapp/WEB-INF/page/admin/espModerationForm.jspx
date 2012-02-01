@@ -19,17 +19,23 @@
 
         <style type="text/css">
         	.legend {
-        		padding: 3px;
+        		margin: 3px;
+        		margin-top: 6px;
+        		padding: 4px;
+        		border-radius: 4px;
+        		text-align: right;
         	}
         	.legend span {
         		margin-right: 10px;
+        		padding: 4px;
+        		border-radius: 4px;
         	}
         	.emailMatch, .emailMatch * {
-        		background-color: #aad4ff;
+        		background-color: #aad4ff !important;
         	}
-        	.disabledUserReRequestingAccess, .disabledUserReRequestingAccess * {
-        		color: red;
-        		font-weight: bold;
+        	.durra, .durra * { /* disabled user re-requesting accerss (durra) */
+        		background-color: pink !important;
+        		color: red !important;
         	}
         </style>
 
@@ -38,8 +44,9 @@
         <div class="container_24">
             <div class="grid_24 slStylesV1-0 espModerationTable">
 								<div class="legend">
+									<b style="margin-right:20px;">Legend: </b>
 									<span class="emailMatch">User email matches contact email</span>
-									<span class="disabledUserReRequestingAccess">Disabled user re-requesting access</span>
+									<span class="durra">Disabled user re-requesting access</span>
 								</div>
                 <form:form commandName="espModerationCommand">
                     <table width="950" class="espModerationHeader">
@@ -73,7 +80,8 @@
                     <c:forEach var="mrow" items="${membershipsToProcess}" varStatus="index">
                     		<c:set var="membership" value="${mrow.membership}"/>
                     		<c:set var="emailMatchClass" value="${mrow.emailMatch? 'emailMatch' : ''}"/>
-                    		<table width="950" class="${emailMatchClass}">
+                    		<c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess? 'durra' : ''}"/>
+                    		<table width="950" class="${emailMatchClass} ${durraClass}">
                             <col width="32px"/>
                             <col width="210px"/>
                             <col width="206px"/>
