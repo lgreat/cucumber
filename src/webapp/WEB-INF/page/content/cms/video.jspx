@@ -78,8 +78,15 @@
         <div class="smallText1 mtm pts">
             <link:home>Home</link:home> &amp;gt;
             <c:forEach var="breadcrumb" items="${breadcrumbs}" varStatus="status">
-                <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
-                <c:if test="${!status.last}"> &amp;gt; </c:if>
+                <c:choose>
+                    <c:when test="${!status.last}">
+                        <a href="${breadcrumb.url}"><c:out value="${breadcrumb.linkText}" escapeXml="true"/></a>
+                        <c:if test="${!status.last}"> &amp;gt; </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${breadcrumb.url}">Parenting Videos</a>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </div>
 
