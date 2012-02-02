@@ -90,7 +90,7 @@
                             <col width="90px"/>
                             <col width="213px"/>
                             <tr>
-                                <td><form:checkbox path="espMembershipIds" value="${membership.id}-${index.count}"/>
+                                <td><form:checkbox path="espMembershipIds" value="${membership.id}"/>
                                 </td>
                                 <!--First Row-->
                                 <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
@@ -108,7 +108,7 @@
                                 <td>${membership.user.lastName}</td>
                                 <td>${membership.school.id}</td>
                                 <td>${membership.jobTitle}</td>
-                                <td><textarea name="note" cols="23" rows="3">${membership.note}</textarea></td>
+                                <td><textarea name="notes[${membership.id}]" cols="23" rows="3">${membership.note}</textarea></td>
                             </tr>
                         </table>
                     </c:forEach>

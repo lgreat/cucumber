@@ -1,18 +1,20 @@
 package gs.web.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EspModerationCommand {
-    private List<String> _espMembershipIds = new ArrayList<String>();
+    private List<Integer> _espMembershipIds = new ArrayList<Integer>();
     private String _moderatorAction;
-    private List<String> _note = new ArrayList<String>();
+    private Map<Integer,String> _notes = new HashMap<Integer,String>();
 
-    public List<String> getEspMembershipIds() {
+    public List<Integer> getEspMembershipIds() {
         return _espMembershipIds;
     }
 
-    public void setEspMembershipIds(List<String> espMembershipIds) {
+    public void setEspMembershipIds(List<Integer> espMembershipIds) {
         _espMembershipIds = espMembershipIds;
     }
 
@@ -24,11 +26,11 @@ public class EspModerationCommand {
         _moderatorAction = moderatorAction;
     }
 
-    public List<String> getNote() {
-        return _note;
+    public Map<Integer, String> getNotes() {
+        return _notes;
     }
 
-    public void setNote(List<String> note) {
-        _note = note;
+    public void setNotes(Map<Integer, String> notes) {
+        _notes = notes;
     }
 }

@@ -133,22 +133,21 @@ public class EspModerationController implements ReadWriteAnnotationController {
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
 
-        if (command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
+        //The user has to check the check boxes in order to approve or reject.Hence we iterate over the checked check boxes for those "approve" or "reject" actions.
+        //The user does not have to check the check boxes for the update action.Hence we loop over all the notes for the "update" action.
+        if (("approve".equals(command.getModeratorAction()) || "reject".equals(command.getModeratorAction()) && command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty())) {
 
-            //Id is needed to identify the membership row.The index is needed to identify the notes row from the list.
-            //Therefore the checkbox has a key of id-index to help enable this.
-            for (String idAndIndex : command.getEspMembershipIds()) {
-                int id = new Integer(idAndIndex.substring(0, idAndIndex.indexOf("-")));
-                int index = new Integer(idAndIndex.substring(idAndIndex.indexOf("-") + 1, idAndIndex.length())) - 1;
+            //The checkbox has a key of membership id.
+            for (Integer membershipId : command.getEspMembershipIds()) {
 
-                EspMembership membership = getEspMembershipDao().findEspMembershipById(id, false);
+                //get the membership row.
+                EspMembership membership = getEspMembershipDao().findEspMembershipById(membershipId, false);
                 if (membership != null) {
 
                     User user = membership.getUser();
                     if (user != null) {
 
                         if ("approve".equals(command.getModeratorAction())) {
-
                             membership.setStatus(EspMembershipStatus.APPROVED);
                             membership.setActive(true);
                             Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
@@ -165,9 +164,25 @@ public class EspModerationController implements ReadWriteAnnotationController {
                             }
                         }
 
-                        if (command.getNote() != null && !command.getNote().isEmpty() && StringUtils.isNotBlank(command.getNote().get(index))) {
-                            membership.setNote(command.getNote().get(index));
+                        //In case a note was added while approving or rejecting.
+                        //Notes is the Map of membership id to string.
+                        if (command.getNotes() != null && !command.getNotes().isEmpty() && command.getNotes().get(membership.getId()) != null) {
+                            membership.setNote(command.getNotes().get(membership.getId()));
                         }
+                        membership.setUpdated(new Date());
+                        getEspMembershipDao().updateEspMembership(membership);
+                    }
+                }
+            }
+        } else if ("update".equals(command.getModeratorAction()) && command.getNotes() != null && !command.getNotes().isEmpty()) {
+            //Notes is the Map of membership id to string.
+            for (int membershipId : command.getNotes().keySet()) {
+                if (command.getNotes().get(membershipId) != null) {
+                    //get the membership row.
+                    EspMembership membership = getEspMembershipDao().findEspMembershipById(membershipId, false);
+
+                    if (membership != null) {
+                        membership.setNote(command.getNotes().get(membership.getId()));
                         membership.setUpdated(new Date());
                         getEspMembershipDao().updateEspMembership(membership);
                     }
