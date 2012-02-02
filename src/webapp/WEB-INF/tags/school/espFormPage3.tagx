@@ -7,7 +7,217 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="3" maxPage="${maxPage}" headerText="Apply &amp;amp; enroll">
 
-        Placeholder for page 3
+    <!--
+            fee_waivers
+    fee_waivers
+    students_vouchers
+    students_vouchers
+    financial_aid
+    financial_aid
+    financial_aid_type
+    financial_aid_type
+    financial_aid_type
+    financial_aid_type
+    financial_aid_type
+    applications_received
+    applications_received_year
+    applications_received_year
+    applications_received_year
+    students_accepted
+    students_accepted_year
+    students_accepted_year
+    students_accepted_year
+    application_fee
+    application_fee
+    application_fee_amount
+    admissions_url
+    application_upload
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_high
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_low
+    tuition_year
+    tuition_year
+    tuition_year
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    tuition
+    destination_school_1
+    destination_school_2
+    destination_school_3
+    destination_school
+    feeder_school_1
+    feeder_school_2
+    feeder_school_3
+    feeder_school
+    -->
+
+    <label for="form_application_process">Is there an application or enrollment process for your school?</label>
+    <br/>
+    <school:espRadioWithLabel key="application_process" value="no" label="No"/>
+    <school:espRadioWithLabel key="application_process" value="yes" label="Yes"/>
+    <br/>
+
+    <div id="form_application_TBD_group">
+        <label for="form_application_process_TBD">Please choose one or more options below to provide application information to parents</label>
+        <br/>
+        <school:espCheckboxWithLabel key="form_application_process_TBD" value="directly" label="Send parents directly to your admissions page"/>
+        <br/>
+        <input id="form_admissions_url" name="admissions_url" value="${responseMap['application_process_TBD'].value}" placeholder="[Enter URL for page on your website]"/>
+
+    </div>
+
+
+
+
+    <!--
+
+        •	If yes, then the following two options for telling us about their process appears.
+    “Please choose one or more option below to provide application information to parents”
+        •	 “Send parents directly to your admissions page”
+        •	Textbox to provide URL
+    Ghost text: [Enter URL for page on your website]
+        •	 Example text: http://www.yourschool.edu/apply
+    Upload application package
+    •	PDF upload capability
+    •	Ghost text: [Click browse to upload a PDF file]
+    •	Contact school
+    •	Parents should call the school for application information
+    •	- Checkbox
+
+    “How many applications did you receive this year?” (only display if “yes” to “is there an application” question)
+        •	open text field with digit limit; only allow numerical values, 4 digit maximum
+    -	Need “year” value as well. Drop-down with the following ranges:
+    o	2011-2012
+    o	2012-2013
+    o	2013-2014
+
+        Ghost text: [Enter number]
+    Example text: “Example: 1135”
+
+    “How many students did you accept this year?” (only display if “yes” to “is there an application” question)
+        •	open text field with digit limit, only allow numerical values, 4 digit maximum
+    -	Need “year” value as well. Drop-down with the following ranges:
+    o	2011-2012
+    o	2012-2013
+    o	2013-2014
+
+        Ghost text: [Enter number]
+    Example text: “Example: 60”
+
+    “Is there an application fee?” (Private school only; only display if “yes” to “is there an application” question)
+    -	Radio buttons, Yes/no
+    -	If yes, open text field with 3-digit limit; Only allow numerical values
+    -	Before the field, add “$” so they do not try to enter it themselves
+    -	Ghost text: [Enter amount]
+    -	Instructional text: Enter amount of application fee
+        •
+    “Are fee waivers available?” (only ask if “yes” to “is there an application fee” question); (private schools only)
+    -	Yes/No
+
+    “What is your school’s tuition range?” For private schools only
+
+        •	Two drop-downs so they are indicating a range. Each drop-down much include $1000 increments including $0, $1000, $2000…. Up until $20000; Then ranges should go$25000, $30000, $35000, $40000
+    -	Must include a year field, just a drop-down with the following ranges:
+    o	2011-2012
+    o	2012-2013
+    o	2013-2014
+
+    “Does your school offer or accept financial aid?” For private schools only
+        •	Radio button, yes/no
+        •	If yes,  Check box dropdown appears – allow for multiple selections:
+        •	School-based aid
+        •	Outside scholarships
+        •	Voucher program participant
+            Tax credits
+        •	Other forms of aid (text box - 40 character limit) Ghost text: [Please indicate]
+
+    “Do you accept students on vouchers? (private schools only)
+    -	Yes/No
+
+    “What school(s) do students typically attend before yours?”  Do not display for elementary
+
+        •	School name open text field (with predictive text of schools in the same state)
+        •	X 3
+    •	Ghost text: [Type in school name] (use autocomplete if possible)
+    -	Add checkbox for “Do not know / not applicable”
+
+     “What school(s) do many of your  students typically attend after they graduate your school?” Do not display for high school.
+
+        •	School name open text field (with predictive text of schools in the same state)
+    •	      X 3
+    •	Ghost text: [Type in school name] (use autocomplete if possible)
+    •
+    •	Add checkbox for “Do not know / not applicable”
+
+    -->
 
     </school:espFormTemplate>
 </jsp:root>
