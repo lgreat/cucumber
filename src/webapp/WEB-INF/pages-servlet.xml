@@ -2247,6 +2247,8 @@
           autowire="byType" scope="request" lazy-init="true">
         <property name="controllers">
             <list>
+                <ref bean="/school/enhancedSchoolProfile2.page"/>
+
                 <!-- TODO-10701 uncomment the following to use OLD search -->
                 <!-- TODO-10701 comment out the following to use NEW search -->
                 <!--<ref bean="directoryStructureUrlNoSchoolTypesController"/>-->

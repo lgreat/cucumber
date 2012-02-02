@@ -1,24 +1,25 @@
 package gs.web.school;
 
-import org.springframework.web.servlet.mvc.Controller;
-import org.springframework.web.servlet.mvc.LastModified;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.WebContentGenerator;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
+import gs.data.school.School;
+import gs.data.state.State;
+import gs.web.path.DirectoryStructureUrlFields;
+import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
+import gs.web.util.UrlBuilder.VPage;
+import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.data.school.School;
-import gs.data.school.ISchoolDao;
-import gs.data.school.LevelCode;
-import gs.data.state.State;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.util.UrlBuilder;
-import gs.web.util.RedirectView301;
-import gs.web.path.DirectoryStructureUrlFields;
-import gs.web.path.IDirectoryStructureUrlController;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.web.servlet.mvc.LastModified;
+import org.springframework.web.servlet.support.WebContentGenerator;
 
 /**
  * This class is intended to be the base class for School Profile pages and other pages that need
@@ -27,6 +28,17 @@ import gs.web.path.IDirectoryStructureUrlController;
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public abstract class AbstractSchoolController extends WebContentGenerator implements Controller {
+    
+    private static VPage resolveVPage(DirectoryStructureUrlFields fields) {
+        if(fields.getExtraResourceIdentifier() != null) {
+            switch(fields.getExtraResourceIdentifier()) {
+                case ESP_DISPLAY_PAGE:
+                    return UrlBuilder.SCHOOL_PROFILE_ESP_DISPLAY;
+            }
+        }
+        // default
+        return UrlBuilder.SCHOOL_PROFILE;
+    }
 
     private static final Logger _log = Logger.getLogger(AbstractSchoolController.class);
     private ISchoolDao _schoolDao;
@@ -77,16 +89,21 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                     _log.warn("Could not get a valid or active school: " +
                             schoolId + " in state: " + state, e);
                 }
-            } else if (this instanceof SchoolOverview2010Controller) {
+            } 
+            if (this instanceof IDirectoryStructureUrlController) {
                 DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+                assert fields != null;
                 //if (shouldHandleRequest(fields)) {
                     try {
                         Integer id = new Integer(fields.getSchoolID());
                         School s = _schoolDao.getSchoolById(state, id);
                         if (s.isActive()) {
-                            UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
+                            VPage vpage = resolveVPage(fields);
+                            assert vpage != null;
+                            UrlBuilder urlBuilder = new UrlBuilder(s, vpage);
                             // 301-redirect if discrepancy between expected url and actual url, e.g. due to uppercase/lowercase in school name or change in school name
-                            if (!request.getRequestURI().equals(urlBuilder.asSiteRelative(request))) {
+                            String ruri = request.getRequestURI(), urlb = urlBuilder.asSiteRelative(request);
+                            if (!ruri.equals(urlb)) {
                                 return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
                             }
 

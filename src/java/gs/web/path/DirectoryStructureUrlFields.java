@@ -22,16 +22,31 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:yfan@greatschools.org">Young Fan</a>
  */
 public class DirectoryStructureUrlFields {
+    
+    /**
+     * Identifier providing additional information for identifying a single url
+     * resource wrt the {@link DirectoryStructureUrlFields} approach.
+     * <p>
+     * <code>IDirectoryStructureUrlController</code> implementing controllers
+     * may base their shouldSupport(...) decision making using this type.
+     */
+    public static enum ExtraResourceIdentifier {
+        /**
+         * Display of the ESP data for a school.
+         */
+        ESP_DISPLAY_PAGE;
+    }
+    
     private State _state = null;
     private String _cityName = null;
     private String _districtName = null;
-    private Set<SchoolType> _schoolTypes = new HashSet<SchoolType>();
+    private final Set<SchoolType> _schoolTypes = new HashSet<SchoolType>();
     private String[] _schoolTypesParams = null;
     private LevelCode _levelCode = null;
     private String _schoolName = null;
     private String _schoolID = null; 
-
     private boolean _hasSchoolsLabel = false;
+    private ExtraResourceIdentifier _eri;
 
     public static final String LEVEL_LABEL_PRESCHOOLS = "preschools";
     public static final String LEVEL_LABEL_ELEMENTARY_SCHOOLS = "elementary-schools";
@@ -59,7 +74,24 @@ public class DirectoryStructureUrlFields {
         _state = context.getState();
 
         String[] pathComponents = requestUri.split("/");
-
+        set(pathComponents);
+    }
+    
+    private void clear() {
+        _cityName = null;
+        _districtName = null;
+        _schoolTypes.clear();
+        _schoolTypesParams = null;
+        _levelCode = null;
+        _schoolName = null;
+        _schoolID = null; 
+        _hasSchoolsLabel = false;
+        _eri = null;
+    }
+    
+    private void set(String[] pathComponents) {
+        clear();
+        
         // first, since statement above requires requestUri to start and end with /, there cannot be fewer than 2 elements in the split array;
         // the Java String split function does not include trailing empty strings in the resulting array. 
         // second, this also means element [0] is an empty string and element [n-1] is the last string before the closing slash
@@ -95,7 +127,8 @@ public class DirectoryStructureUrlFields {
             }
         } else if (pathComponents.length == 5) {
             // /california/sonoma/public-charter/schools/ or
-            // /california/san-francisco/San-Francisco-Unified-School-District/schools/
+            // /california/san-francisco/San-Francisco-Unified-School-District/schools/ or
+            // /california/alameda/1-Alameda-High-School/{eri}
             _cityName = pathComponents[2];
             Matcher schoolTypeMatcher = SCHOOL_TYPE_PATTERN.matcher(pathComponents[3]);
             Matcher levelCodeMatcher = LEVEL_CODE_PATTERN.matcher(pathComponents[4]);
@@ -112,6 +145,13 @@ public class DirectoryStructureUrlFields {
                 } catch (UnsupportedEncodingException uee) {
                     _districtName = pathComponents[3];
                 }
+            } else {
+                // assume trailing eri token in URI
+                String[] newPathComponents = new String[4];
+                System.arraycopy(pathComponents, 0, newPathComponents, 0, 4);
+                set(newPathComponents);
+                _eri = ExtraResourceIdentifier.ESP_DISPLAY_PAGE;
+                return;
             }
         } else if (pathComponents.length == 6) {
             // /california/sonoma/preschools/Preschool-Name/123/
@@ -163,7 +203,8 @@ public class DirectoryStructureUrlFields {
             paramSchoolType = schoolTypes.toArray(new String[schoolTypes.size()]);
         }
 
-        _schoolTypes = schoolTypeSet;
+        _schoolTypes.clear();
+        _schoolTypes.addAll(schoolTypeSet);
         _schoolTypesParams = paramSchoolType;
     }
 
@@ -209,7 +250,8 @@ public class DirectoryStructureUrlFields {
             paramSchoolType = schoolTypes.toArray(new String[schoolTypes.size()]);
         }
 
-        _schoolTypes = schoolTypeSet;
+        _schoolTypes.clear();
+        _schoolTypes.addAll(schoolTypeSet);
         _schoolTypesParams = paramSchoolType;
     }
 
@@ -276,6 +318,10 @@ public class DirectoryStructureUrlFields {
 
     public boolean hasSchoolID() {
         return _schoolID != null;
+    }
+    
+    public ExtraResourceIdentifier getExtraResourceIdentifier() {
+        return _eri;
     }
 
     @Override

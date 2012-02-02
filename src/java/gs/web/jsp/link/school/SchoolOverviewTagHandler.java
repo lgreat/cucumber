@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolOverviewTagHandler.java,v 1.2 2011/09/15 00:36:23 ssprouse Exp $
+ * $Id: SchoolOverviewTagHandler.java,v 1.3 2012/02/02 21:14:41 jkirton Exp $
  */
 package gs.web.jsp.link.school;
 
@@ -83,7 +83,8 @@ public class SchoolOverviewTagHandler extends BaseSchoolTagHandler {
                     getName(),
                     getPhysicalAddress(), 
                     LevelCode.createLevelCode(getLevelCode()),
-                    getShowConfirmation()
+                    getShowConfirmation(),
+                    null
             );
         } else {
             return new UrlBuilder(
@@ -93,7 +94,8 @@ public class SchoolOverviewTagHandler extends BaseSchoolTagHandler {
                     getName(),
                     getPhysicalAddress(), 
                     LevelCode.createLevelCode(getLevelCode()),
-                    false
+                    false,
+                    null
             );
         }
     }

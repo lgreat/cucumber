@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.277 2012/01/20 23:39:44 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.278 2012/02/02 21:14:41 jkirton Exp $
  */
 
 package gs.web.util;
@@ -19,6 +19,7 @@ import gs.data.util.Address;
 import gs.data.util.CmsUtil;
 import gs.data.util.SpringUtil;
 import gs.data.community.User;
+import gs.web.path.DirectoryStructureUrlFields.ExtraResourceIdentifier;
 import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
 import gs.web.school.EspFormController;
@@ -103,6 +104,11 @@ public class UrlBuilder {
         public int hashCode() {
             return _name.hashCode();
         }
+        
+        @Override
+        public String toString() {
+            return _name;
+        }
     }
 
     /**
@@ -182,6 +188,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_ESP_LOGIN = new VPage("vpage:schoolEspLogin");
     public static final VPage SCHOOL_PROFILE_ESP = new VPage("vpage:schoolEspView");
     public static final VPage SCHOOL_PROFILE_ESP_FORM = new VPage("vpage:schoolEspForm");
+    public static final VPage SCHOOL_PROFILE_ESP_DISPLAY = new VPage("vpage:schoolEspDisplay");
     public static final VPage SCHOOL_AUTHORIZER = new VPage("vpage:schoolAuthorizer");
 
     public static final VPage SCHOOL_START_SURVEY = new VPage("vpage:schoolStartSurvey");
@@ -395,7 +402,7 @@ public class UrlBuilder {
             String schoolIdStr = params.get("id");
             ISchoolDao schoolDao = (ISchoolDao) SpringUtil.getApplicationContext().getBean(ISchoolDao.BEAN_ID);
             School school = schoolDao.getSchoolById(state, Integer.parseInt(schoolIdStr));
-            handleSchoolProfile(school, false);
+            handleSchoolProfile(school, false, null);
         } else if (RESEARCH.equals(vPage)) {
             State state = null;
             if (params.get("state") != null) {
@@ -623,10 +630,12 @@ public class UrlBuilder {
 
     public UrlBuilder(School school, VPage page) {
         if (SCHOOL_PROFILE.equals(page)) {
-            handleSchoolProfile(school, false);
+            handleSchoolProfile(school, false, null);
         } else if (SCHOOL_PARENT_REVIEWS_WITH_HOVER.equals(page)) {
             handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), null);
             setParameter("showThankyouHover", "true");
+        } else if (SCHOOL_PROFILE_ESP_DISPLAY.equals(page)) {
+            handleSchoolProfile(school, false, ExtraResourceIdentifier.ESP_DISPLAY_PAGE);
         } else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             handleParentReviews(school.getDatabaseState(), school.getId(), school.getLevelCode(), null);
         }else if (SCHOOL_PROFILE_CENSUS.equals(page)) {
@@ -1036,9 +1045,9 @@ public class UrlBuilder {
         }
     }
 
-    public UrlBuilder(VPage page, Integer id, State databaseState, String name, Address physicalAddress, LevelCode levelCode, boolean showConfirmation) {
+    public UrlBuilder(VPage page, Integer id, State databaseState, String name, Address physicalAddress, LevelCode levelCode, boolean showConfirmation, ExtraResourceIdentifier eri) {
         if (SCHOOL_PROFILE.equals(page)) {
-            handleSchoolProfile(id, databaseState, name, physicalAddress, levelCode, showConfirmation);
+            handleSchoolProfile(id, databaseState, name, physicalAddress, levelCode, showConfirmation, eri);
         }
     }
 
@@ -1163,11 +1172,11 @@ public class UrlBuilder {
     }
 
     // WARNING: if this changes, GSFeed's SiteMapFeedGenerator needs to be changed too!!!
-    public void handleSchoolProfile(School school, boolean showConfirmation) {
-        handleSchoolProfile(school.getId(), school.getDatabaseState(), school.getName(), school.getPhysicalAddress(), school.getLevelCode(), showConfirmation);
+    public void handleSchoolProfile(School school, boolean showConfirmation, ExtraResourceIdentifier eri) {
+        handleSchoolProfile(school.getId(), school.getDatabaseState(), school.getName(), school.getPhysicalAddress(), school.getLevelCode(), showConfirmation, eri);
     }
 
-    public void handleSchoolProfile(Integer id, State databaseState, String name, Address physicalAddress, LevelCode levelCode, boolean showConfirmation) {
+    public void handleSchoolProfile(Integer id, State databaseState, String name, Address physicalAddress, LevelCode levelCode, boolean showConfirmation, ExtraResourceIdentifier eri) {
         _perlPage = true;
 
         if (LevelCode.PRESCHOOL.equals(levelCode)) {
@@ -1196,7 +1205,14 @@ public class UrlBuilder {
                         .replaceAll("#", ""),
                     new char[]{'-'}
             ));
+            
+            if(eri == ExtraResourceIdentifier.ESP_DISPLAY_PAGE) {
+                _perlPage = false;
+                path.append("/official-info");
+            }
+            
             path.append("/");
+
             if (showConfirmation) {
                 path.append("?confirm=true");
             }
@@ -1260,7 +1276,7 @@ public class UrlBuilder {
     public UrlBuilder(VPage page, boolean showConfirmation, School school) {
         // GS-7917
         if (SCHOOL_PROFILE.equals(page)) {
-            handleSchoolProfile(school, showConfirmation);
+            handleSchoolProfile(school, showConfirmation, null);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

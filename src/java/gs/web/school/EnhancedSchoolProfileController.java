@@ -7,6 +7,9 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.util.string.StringUtils;
+import gs.web.path.DirectoryStructureUrlFields;
+import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.path.DirectoryStructureUrlFields.ExtraResourceIdentifier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Backs the display of ESP response data for a particular school.
  * @author jkirton
  */
-public class EnhancedSchoolProfileController extends AbstractSchoolController {
+public class EnhancedSchoolProfileController extends AbstractSchoolController implements IDirectoryStructureUrlController {
 
     /**
      * Merges the lists under one or more given key names into a single token.
@@ -145,6 +148,12 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController {
         // TODO(jkirton): complete the external dataset bindings - some are not declared here yet!
 
         return new ModelAndView("/school/enhancedSchoolProfile2", model);
+    }
+
+    @Override
+    public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
+        if(!super.shouldHandleRequest(fields)) return false;
+        return fields.getExtraResourceIdentifier() == ExtraResourceIdentifier.ESP_DISPLAY_PAGE;
     }
 
     public void setEspResponseDao(IEspResponseDao dao) {
