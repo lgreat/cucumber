@@ -119,10 +119,10 @@ GS.form.EspForm = function() {
         } else if (data.isUserAwaitingESPMembership === true) {
             GS.form.espForm.showEmailError("You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            GS.form.espForm.showEmailError("You already have access to this school’s Official School Profile.<a href='/school/esp/signIn.page'>Sign in to your account here.</a>");
+            GS.form.espForm.showEmailError("You already have access to this school’s Official School Profile.<a href='/school/esp/signIn.page'>Sign in</a> to your account here.");
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/school/esp/register.page')";
-            GS.form.espForm.showEmailError("Please sign in to GS.<a href='#' onclick=" + onclickStr + ">Sign in</a>");
+            GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>");
         }else if (data.isCookieMatched !== true ) {
             GS.form.espForm.showEmailError("An error has occurred.");
         } else {

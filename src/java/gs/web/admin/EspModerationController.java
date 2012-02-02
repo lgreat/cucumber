@@ -160,7 +160,9 @@ public class EspModerationController implements ReadWriteAnnotationController {
 
                         } else if ("reject".equals(command.getModeratorAction())) {
                             membership.setStatus(EspMembershipStatus.REJECTED);
-                            sendGSVerificationEmail(request, user);
+                            if (!user.isEmailValidated()) {
+                                sendGSVerificationEmail(request, user);
+                            }
                         }
 
                         if (command.getNote() != null && !command.getNote().isEmpty() && StringUtils.isNotBlank(command.getNote().get(index))) {
