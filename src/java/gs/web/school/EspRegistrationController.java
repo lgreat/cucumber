@@ -10,7 +10,8 @@ import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.community.registration.UserCommand;
-import gs.web.util.PageHelper;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -104,9 +105,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             user = getUserDao().findUserFromEmailIfExists(email);
         }
 
-        //TODO: cookie based omniture?
-//            OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-
         //Server side validation.
         validate(command, result, user);
         if (result.hasErrors()) {
@@ -135,6 +133,10 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         //Save ESP membership for user.
         saveEspMembership(command, user);
+
+        OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
+        omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EspRegistration);
+
         return "redirect:" + getSchoolOverview(request, command);
     }
 
