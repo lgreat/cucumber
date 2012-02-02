@@ -60,10 +60,10 @@
                 <c:if test="${not empty schoolSubtypes}"> ${schoolSubtypes}.</c:if></span></p>
 
             <c:set var="adminName"><gsweb:lts list="${responses.administrator_name}" /></c:set>
-            <c:if test="${not empty adminName}"><p class="lbl">School Leaderâ€™s name: <span class="val">${adminName}</span></p></c:if>
+            <c:if test="${not empty adminName}"><p class="lbl">School Leader'€™s name: <span class="val">${adminName}</span></p></c:if>
 
             <c:set var="adminEmail"><gsweb:lts list="${responses.administrator_email}" /></c:set>
-            <c:if test="${not empty adminEmail}"><p class="lbl">School Leaderâ€™s email: <span class="val">${adminEmail}</span></p></c:if>
+            <c:if test="${not empty adminEmail}"><p class="lbl">School Leader'€™s email: <span class="val">${adminEmail}</span></p></c:if>
 
             <c:set var="cmEmail"><gsweb:lts list="${responses.contact_method_email}" /></c:set>
             <c:set var="cmPhone"><gsweb:lts list="${responses.contact_method_phone}" /></c:set>
@@ -115,7 +115,7 @@
             <c:if test="${not empty admissionsUrl or not empty appUpload or not empty phone}">
             <p class="lbl">To obtain application information, parents may:</p>
             <ul>
-                <c:if test="${not empty admissionsUrl}"><li>Visit the schoolâ€™s website: <span class="val">${admissionsUrl}</span></li></c:if>
+                <c:if test="${not empty admissionsUrl}"><li>Visit the school'€™s website: <span class="val">${admissionsUrl}</span></li></c:if>
                 <c:if test="${not empty appUpload}"><li>Download application information: <span class="val">${appUpload}</span></li></c:if>
                 <c:if test="${not empty phone}"><li>Call the school: <span class="val">${phone}</span></li></c:if>
             </ul>
@@ -238,16 +238,16 @@
             <h4>Enrichment, Extracurriculars, and Specials</h4>
 
             <c:set var="artsMedia"><gsweb:lts list="${responses.arts_media}" /></c:set>
-            <c:if test="${not empty artsMedia and fn:toLowerCase(artsMedia) ne 'none'}"><p class="lbl">Arts â€“ Media: <span class="val">${artsMedia}</span></p></c:if>
+            <c:if test="${not empty artsMedia and fn:toLowerCase(artsMedia) ne 'none'}"><p class="lbl">Arts€“ - Media: <span class="val">${artsMedia}</span></p></c:if>
 
             <c:set var="artsMusic"><gsweb:lts list="${responses.arts_music}" /></c:set>
-            <c:if test="${not empty artsMusic and fn:toLowerCase(artsMusic) ne 'none'}"><p class="lbl">Arts â€“ Music: <span class="val">${artsMusic}</span></p></c:if>
+            <c:if test="${not empty artsMusic and fn:toLowerCase(artsMusic) ne 'none'}"><p class="lbl">Arts - Music: <span class="val">${artsMusic}</span></p></c:if>
 
             <c:set var="artsPerfWrtn"><gsweb:lts list="${responses.arts_performing_written}" /></c:set>
-            <c:if test="${not empty artsPerfWrtn and fn:toLowerCase(artsPerfWrtn) ne 'none'}"><p class="lbl">Arts â€“ Performing and Written: <span class="val">${artsPerfWrtn}</span></p></c:if>
+            <c:if test="${not empty artsPerfWrtn and fn:toLowerCase(artsPerfWrtn) ne 'none'}"><p class="lbl">Arts -€“ Performing and Written: <span class="val">${artsPerfWrtn}</span></p></c:if>
 
             <c:set var="artsVisual"><gsweb:lts list="${responses.arts_visual}" /></c:set>
-            <c:if test="${not empty artsVisual and fn:toLowerCase(artsVisual) ne 'none'}"><p class="lbl">Arts â€“ Visual: <span class="val">${artsVisual}</span></p></c:if>
+            <c:if test="${not empty artsVisual and fn:toLowerCase(artsVisual) ne 'none'}"><p class="lbl">Arts -€“ Visual: <span class="val">${artsVisual}</span></p></c:if>
 
             <c:set var="boysSports"><gsweb:lts list="${responses.boys_sports}" /></c:set>
             <c:set var="boysSportsOther"><gsweb:lts list="${responses.boys_sports_other}" /></c:set>
@@ -337,11 +337,11 @@
 
             <c:set var="actYr"><gsweb:lts list="${responses.private_act_results_year}" /></c:set>
             <c:set var="actRs"><gsweb:lts list="${responses.private_act_results}" /></c:set>
-            <c:if test="${not empty actYr and not empty actRs}"><p class="lbl">Schoolâ€™s average comprehensive ACT results for ths ${actYr} year: <span class="val">${actRs}</span></p></c:if>
+            <c:if test="${not empty actYr and not empty actRs}"><p class="lbl">School'€™s average comprehensive ACT results for ths ${actYr} year: <span class="val">${actRs}</span></p></c:if>
 
             <c:set var="satYr"><gsweb:lts list="${responses.private_sat_results_year}" /></c:set>
             <c:set var="satRs"><gsweb:lts list="${responses.private_sat_results}" /></c:set>
-            <c:if test="${not empty satYr and not empty satRs}"><p class="lbl">Schoolâ€™s average comprehensive SAT results for the ${satYr} year: <span class="val">${satRs}</span></p></c:if>
+            <c:if test="${not empty satYr and not empty satRs}"><p class="lbl">School'€™s average comprehensive SAT results for the ${satYr} year: <span class="val">${satRs}</span></p></c:if>
 
         </div><!-- .slStylesV1-0 -->
 
