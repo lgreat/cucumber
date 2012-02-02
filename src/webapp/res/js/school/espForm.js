@@ -60,6 +60,8 @@ GS.form.controlVisibilityOfElement = function(selectorOfElementToControl, master
 // TODO: move to util/detect.js
 GS.util = GS.util || {};
 GS.util.isAttributeSupported = function(tagName, attrName) {
+    http://pietschsoft.com/post/2010/11/16/HTML5-Day-3-Detecting-HTML5-Support-via-JavaScript.aspx
+
     var val = false;
     // Create element
     var input = document.createElement(tagName);
