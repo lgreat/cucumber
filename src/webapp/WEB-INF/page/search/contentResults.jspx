@@ -513,6 +513,7 @@
 <mod:tracking pageName="${siteSearchFilterType} Search Results: ${requestScope.page}"
               hier1="Search,${siteSearchFilterType}"
               community="true"
+              contentSearchQuery="${searchQuery}"
               siteSearchFilterType="${siteSearchFilterType}"/>
 </body>
 </html>

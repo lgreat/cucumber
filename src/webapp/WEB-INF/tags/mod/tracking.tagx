@@ -39,7 +39,7 @@
             required="false"/>
     <jsp:directive.attribute
             name="query"
-            description="The query that the user typed, presumably for searching. Ends up in prop6."
+            description="The query that the user typed, presumably for searching schools. Ends up in prop6."
             required="false"/>
     <jsp:directive.attribute
             name="hier1"
@@ -140,6 +140,11 @@
     <jsp:directive.attribute
         name="worksheetLicensorName" type="java.lang.String"
         description="Name of the worksheet's licensor"
+        required="false"/>
+    <!--GS-12433-->
+    <jsp:directive.attribute
+        name="contentSearchQuery"
+        description="The query that the user typed, presumably for searching article, worksheets and more. Ends up in prop41."
         required="false"/>
 
     <c:if test="${empty omitAlmondNet}">
@@ -250,6 +255,7 @@
             s.prop38 = clickCapture.getProp(38,"${isContentFirstPage ? contentId : ''}");
             s.prop39 = clickCapture.getProp(39,"${isContentPage ? contentId : ''}");
             s.prop40 = clickCapture.getProp(40,"${worksheetLicensorName != null ? worksheetLicensorName : ''}");
+            s.prop41 = clickCapture.getProp(41,"${contentSearchQuery}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
