@@ -148,7 +148,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     public void checkUserState(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) {
 
         String email = command.getEmail();
-        UserStateStruct userState = new UserStateStruct();
+        EspUserStateStruct userState = new EspUserStateStruct();
         User user = null;
 
         //check if user cookie exists
@@ -437,78 +437,4 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
     }
-
-    /**
-     * Maintains the state of the user.
-     */
-    protected static class UserStateStruct {
-        private boolean isEmailValid = true;
-        private boolean isUserEmailValidated = false;
-        private boolean isUserApprovedESPMember = false;
-        private boolean isUserAwaitingESPMembership = false;
-        private boolean isUserCookieSet = false;
-        private boolean isCookieMatched = true;
-
-        public boolean isEmailValid() {
-            return isEmailValid;
-        }
-
-        public void setEmailValid(boolean emailValid) {
-            isEmailValid = emailValid;
-        }
-
-        public boolean isUserEmailValidated() {
-            return isUserEmailValidated;
-        }
-
-        public void setUserEmailValidated(boolean userEmailValidated) {
-            isUserEmailValidated = userEmailValidated;
-        }
-
-        public boolean isUserApprovedESPMember() {
-            return isUserApprovedESPMember;
-        }
-
-        public void setUserApprovedESPMember(boolean userApprovedESPMember) {
-            isUserApprovedESPMember = userApprovedESPMember;
-        }
-
-        public boolean isUserAwaitingESPMembership() {
-            return isUserAwaitingESPMembership;
-        }
-
-        public void setUserAwaitingESPMembership(boolean userAwaitingESPMembership) {
-            isUserAwaitingESPMembership = userAwaitingESPMembership;
-        }
-
-        public boolean isUserCookieSet() {
-            return isUserCookieSet;
-        }
-
-        public void setUserCookieSet(boolean userCookieSet) {
-            isUserCookieSet = userCookieSet;
-        }
-
-        public boolean isCookieMatched() {
-            return isCookieMatched;
-        }
-
-        public void setCookieMatched(boolean cookieMatched) {
-            isCookieMatched = cookieMatched;
-        }
-
-        public Map getUserState() {
-            Map data = new HashMap();
-
-            data.put("isEmailValid", isEmailValid());
-            data.put("isUserApprovedESPMember", isUserApprovedESPMember());
-            data.put("isUserAwaitingESPMembership", isUserAwaitingESPMembership());
-            data.put("isUserEmailValidated", isUserEmailValidated());
-            data.put("isUserCookieSet", isUserCookieSet());
-            data.put("isCookieMatched", isCookieMatched());
-            return data;
-        }
-
-    }
-
 }
