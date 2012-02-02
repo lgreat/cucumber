@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -55,6 +56,8 @@ public class EspDashboardController {
                     espMembership.setSchool(school);
                     modelMap.put("espMembership", espMembership);
                     modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
+                    //Get the information about who else has ESP access to this school
+                    getOtherEspMembersForSchool(school,user, modelMap);
                     return true;
                 }
             }
@@ -63,6 +66,26 @@ public class EspDashboardController {
         return false;
     }
 
+    /**
+     * Get the information about who else has ESP access to the same school as the user
+     *
+     * @param school
+     * @param user
+     * @param modelMap
+     */
+    protected void getOtherEspMembersForSchool(School school, User user, ModelMap modelMap) {
+        List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsBySchool(school, true);
+        if (espMemberships != null && !espMemberships.isEmpty() && user != null && user.getId() != null) {
+            Iterator<EspMembership> iter = espMemberships.iterator();
+            //remove the current user from the list.
+            while (iter.hasNext()) {
+                if (iter.next().getUser().getId() == user.getId()) {
+                    iter.remove();
+                }
+            }
+            modelMap.put("otherEspMemberships", espMemberships);
+        }
+    }
 
     public IEspMembershipDao getEspMembershipDao() {
         return _espMembershipDao;

@@ -48,6 +48,13 @@
                                        defaultSchoolId="${param.defaultSchoolId}"/>
         </c:if>
 
+        <div>Other ESP:
+            <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
+                ${otherEsp.user.firstName} ${otherEsp.user.lastName}
+                <br/>
+            </c:forEach>
+        </div>
+
         <div style="display:none;">
             <mod:tracking pageName="ESP Dashboard" hier1="ESP"/>
         </div>
