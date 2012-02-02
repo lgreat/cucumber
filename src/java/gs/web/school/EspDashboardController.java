@@ -35,35 +35,60 @@ public class EspDashboardController {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
 
-        if (checkUserHasAccess(modelMap, user)) {
-            return VIEW;
+        if (user != null) {
+            EspMembership espMembership = getEspMembershipForUser(user);
+            if (espMembership != null) {
+                School school = getSchool(espMembership);
+                if (school != null) {
+
+                    //set the school on the espMembership
+                    espMembership.setSchool(school);
+                    modelMap.put("espMembership", espMembership);
+                    modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
+
+                    //Get the information about who else has ESP access to this school
+                    List<EspMembership> otherEspMemberships = getOtherEspMembersForSchool(school, user);
+                    if (otherEspMemberships != null && !otherEspMemberships.isEmpty()) {
+                        modelMap.put("otherEspMemberships", otherEspMemberships);
+                    }
+
+                    return VIEW;
+                }
+            }
         }
 
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
         return "redirect:" + urlBuilder.asFullUrl(request);
     }
 
-    protected boolean checkUserHasAccess(ModelMap modelMap, User user) {
+    /**
+     * Get the esp membership for the user.
+     *
+     * @param user
+     */
 
+    protected EspMembership getEspMembershipForUser(User user) {
         if (user != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
             List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), true);
-
             if (!espMemberships.isEmpty()) {
                 //Take the user to the first active school.
-                EspMembership espMembership = espMemberships.get(0);
-                School school = getSchoolDao().getSchoolById(espMembership.getState(), espMembership.getSchoolId());
-                if (school != null && school.isActive()) {
-                    espMembership.setSchool(school);
-                    modelMap.put("espMembership", espMembership);
-                    modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
-                    //Get the information about who else has ESP access to this school
-                    getOtherEspMembersForSchool(school,user, modelMap);
-                    return true;
-                }
+                return espMemberships.get(0);
             }
         }
+        return null;
+    }
 
-        return false;
+    /**
+     * Get the school for the esp membership for the user.
+     *
+     * @param espMembership
+     */
+    protected School getSchool(EspMembership espMembership) {
+        School school = getSchoolDao().getSchoolById(espMembership.getState(), espMembership.getSchoolId());
+        if (school != null && school.isActive()) {
+            return school;
+        }
+        return null;
     }
 
     /**
@@ -71,9 +96,8 @@ public class EspDashboardController {
      *
      * @param school
      * @param user
-     * @param modelMap
      */
-    protected void getOtherEspMembersForSchool(School school, User user, ModelMap modelMap) {
+    protected List<EspMembership> getOtherEspMembersForSchool(School school, User user) {
         List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsBySchool(school, true);
         if (espMemberships != null && !espMemberships.isEmpty() && user != null && user.getId() != null) {
             Iterator<EspMembership> iter = espMemberships.iterator();
@@ -83,8 +107,8 @@ public class EspDashboardController {
                     iter.remove();
                 }
             }
-            modelMap.put("otherEspMemberships", espMemberships);
         }
+        return espMemberships;
     }
 
     public IEspMembershipDao getEspMembershipDao() {
