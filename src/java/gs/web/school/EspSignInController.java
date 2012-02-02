@@ -71,14 +71,12 @@ public class EspSignInController implements ReadWriteAnnotationController {
             //If there are no errors validate that the password entered is correct.
             //Else if the user is validated,log in the user.We dont care if there are error or not.
             if (!result.hasErrors() && user != null && !user.matchesPassword(command.getPassword())) {
-                result.rejectValue("password", null, "Incorrect password.");
+                result.rejectValue("password", null, "The password you entered is incorrect.");
             } else {
-                if (user != null && userStateStruct.isUserEmailValidated()) {
+                if (user != null && userStateStruct.isUserEmailValidated() && !result.hasErrors() && userStateStruct.isUserApprovedESPMember()) {
                     PageHelper.setMemberAuthorized(request, response, user, true);
-                    if (!result.hasErrors() && userStateStruct.isUserApprovedESPMember()) {
-                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                        return "redirect:" + urlBuilder.asFullUrl(request);
-                    }
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                    return "redirect:" + urlBuilder.asFullUrl(request);
                 }
             }
         }
@@ -90,11 +88,11 @@ public class EspSignInController implements ReadWriteAnnotationController {
         String password = command.getPassword();
 
         if (StringUtils.isBlank(email)) {
-            result.rejectValue("email", null, "Please enter an email address.");
+            result.rejectValue("email", null, "Please enter a valid email address.");
         } else {
             email = email.trim();
             if (!validateEmail(email)) {
-                result.rejectValue("email", null, "Invalid email address.");
+                result.rejectValue("email", null, "Please enter a valid email address.");
             }
         }
 
@@ -106,9 +104,9 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
     protected void validateUserState(UserStateStruct userStateStruct, BindingResult result) {
         if (userStateStruct.isNewUser() || (!userStateStruct.isUserRequestedESP())) {
-            result.rejectValue("email", null, "There is no account associated with that email address.<a href='/school/esp/register.page'>Register here.</a>");
+            result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/school/esp/register.page'>register here.</a>");
         } else if (userStateStruct.isUserAwaitingESPMembership()) {
-            result.rejectValue("email", null, "Your ESP request is still under consideration. Please be patient.");
+            result.rejectValue("email", null, "You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (userStateStruct.isUserApprovedESPMember() && !userStateStruct.isUserEmailValidated()) {
             result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");
         }

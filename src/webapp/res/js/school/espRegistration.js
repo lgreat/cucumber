@@ -111,15 +111,15 @@ GS.form.EspForm = function() {
     this.handleEmailErrors = function(data,email) {
         var isValid = false;
         if (data.isEmailValid !== true) {
-            GS.form.espForm.showEmailError("Please enter a valid email.");
+            GS.form.espForm.showEmailError("Please enter a valid email address.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
             GSType.hover.emailNotValidated.setEmail(email);
             var onclickStr = "GSType.hover.emailNotValidated.show()";
             GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>");
         } else if (data.isUserAwaitingESPMembership === true) {
-            GS.form.espForm.showEmailError("Please be patient.");
+            GS.form.espForm.showEmailError("You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            GS.form.espForm.showEmailError("Please sign in to esp.<a href='/school/esp/signIn.page'>Sign in</a>");
+            GS.form.espForm.showEmailError("You already have access to this school’s Official School Profile.<a href='/school/esp/signIn.page'>Sign in to your account here.</a>");
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/school/esp/register.page')";
             GS.form.espForm.showEmailError("Please sign in to GS.<a href='#' onclick=" + onclickStr + ">Sign in</a>");

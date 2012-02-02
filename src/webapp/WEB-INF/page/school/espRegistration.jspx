@@ -58,7 +58,7 @@
         <div class="grid_5 omega">
             <div class="notice">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</div>
             <div id="js_invalidEmail" class="error js_emailErr"
-                 style="display: none;">Please enter a valid email.
+                 style="display: none;">Please enter your official school email address.
             </div>
 
             <div id="js_uniqueError" class="error"
@@ -67,7 +67,7 @@
             <div id="js_emailError" class="error js_emailErr"
                  style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}"
-                 class="error js_emailErr">Please be patient.We are reviewing your request.
+                 class="error js_emailErr">You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
             </div>
 
         </div>
@@ -182,7 +182,7 @@
             </div>
 
             <div class="prefix_1 grid_5 omega">
-                <div class="js_school invalid error">Please select a state, city and school.
+                <div class="js_school invalid error">Please select the school you are affiliated with.
                 </div>
             </div>
         </div>
