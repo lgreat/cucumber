@@ -69,15 +69,13 @@ public class EspSignInController implements ReadWriteAnnotationController {
             validateUserState(userStateStruct, result);
 
             //If there are no errors validate that the password entered is correct.
-            //Else if the user is validated,log in the user.We dont care if there are error or not.
+            //Else check if the user has ESP access and log them in.
             if (!result.hasErrors() && user != null && !user.matchesPassword(command.getPassword())) {
                 result.rejectValue("password", null, "The password you entered is incorrect.");
-            } else {
-                if (user != null && userStateStruct.isUserEmailValidated() && !result.hasErrors() && userStateStruct.isUserApprovedESPMember()) {
-                    PageHelper.setMemberAuthorized(request, response, user, true);
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
-                    return "redirect:" + urlBuilder.asFullUrl(request);
-                }
+            } else if (!result.hasErrors() && user != null && userStateStruct.isUserEmailValidated() && userStateStruct.isUserApprovedESPMember()) {
+                PageHelper.setMemberAuthorized(request, response, user, true);
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                return "redirect:" + urlBuilder.asFullUrl(request);
             }
         }
         return VIEW;
@@ -89,11 +87,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
         if (StringUtils.isBlank(email)) {
             result.rejectValue("email", null, "Please enter a valid email address.");
-        } else {
-            email = email.trim();
-            if (!validateEmail(email)) {
-                result.rejectValue("email", null, "Please enter a valid email address.");
-            }
+        } else if (!validateEmail(email.trim())) {
+            result.rejectValue("email", null, "Please enter a valid email address.");
         }
 
         if (StringUtils.isEmpty(password)) {
