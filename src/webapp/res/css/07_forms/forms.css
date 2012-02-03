@@ -49,7 +49,7 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 input[type=password],
 .slFormsV1-0 input.text,
 /*.slFormsV1-0 input.title, */
-.slFormsV1-0 textarea {background-color:#fff;border:1px solid #cccccc;font: normal 12px/18px Arial, Helvetica, sans-serif;}
+.slFormsV1-0 textarea {background-color:#fff;border:1px solid #cccccc;font: normal 12px/18px Arial, Helvetica, sans-serif;outline:0;}
 
 /* Form element focus style */
 .slFormsV1-0 input[type=text]:focus,
@@ -65,7 +65,7 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 /*.slFormsV1-0 input.title.highlight, */
 .slFormsV1-0 textarea.warning {border-color:#cc0033;}
 
-/*.slFormsV1-0 select {background-color:#fff;border-width:1px;border-style:solid;}*/
+.slFormsV1-0 select { outline:0; }
 
 .slFormsV1-0 .lal select { margin: 5px; }
 .slFormsV1-0 .ral select { margin: 5px; }

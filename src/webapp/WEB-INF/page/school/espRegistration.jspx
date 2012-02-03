@@ -41,100 +41,116 @@
 
 <p class="">For principals and school officials, we offer a special Online School Profile which allows you to update an dadd information about your school as well as respond to reviews. If you are a school official, enter your details below. We will verify your identity after you register.</p>
 
+<div class="mod form">
+<div class="inner">
+<div class="bd">
 <form:form commandName="espRegistrationCommand">
 <fieldset>
     <legend>Your account</legend>
+    <hr class="legend"/>
 
     <div class="formRow clearfix">
-        <div class="prefix_1 grid_4 alpha">
-            <form:label path="email" for="js_email">Email address</form:label>
-        </div>
-        <div class="grid_6">
-            <form:input path="email" cssClass="field" id="js_email"
-                        value="${espRegistrationCommand.email}"
-                        readonly="${isReadOnly}"/>
-        </div>
-
-        <div class="grid_5 omega">
-            <div class="notice">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</div>
-            <div id="js_invalidEmail" class="error js_emailErr"
-                 style="display: none;">Please enter your official school email address.
-            </div>
-
-            <div id="js_uniqueError" class="error"
-                 style="display: none;">You are already registered for this school.
-            </div>
-            <div id="js_emailError" class="error js_emailErr"
-                 style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
-            <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}"
-                 class="error js_emailErr">You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
-            </div>
-
-        </div>
-    </div>
-
-</fieldset>
-
-<div id="js_regPanel">
-
-    <fieldset>
-
-        <div id="js_screenNameDiv" class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
-                <form:label path="screenName" for="js_screenName">Username</form:label>
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
+                <form:label path="email" for="js_email">Email address</form:label>
             </div>
             <div class="grid_6">
-                <form:input path="screenName" cssClass="field" id="js_screenName"
-                            value="${espRegistrationCommand.screenName}"
+                <form:input path="email" cssClass="text input_6" id="js_email"
+                            value="${espRegistrationCommand.email}"
                             readonly="${isReadOnly}"/>
+
+                <p class="hint">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</p>
             </div>
 
             <div class="grid_5 omega">
-                <div class="info">6-14 characters</div>
-                <div class="js_screenName success" style="display: none">Username is available</div>
+                <div id="js_invalidEmail" class="error js_emailErr" style="display: none;">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter your official school email address.
+                </div>
+
+                <div id="js_uniqueError" class="error" style="display: none;">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You are already registered for this school.
+                </div>
+                <div id="js_emailError" class="error js_emailErr"
+                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<!--<div id="js_regPanel">-->
+
+    <div id="js_screenNameDiv">
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
+                <form:label path="screenName" for="js_screenName">Username</form:label>
+            </div>
+            <div class="grid_6">
+                <form:input path="screenName" cssClass="text input_6" id="js_screenName"
+                            value="${espRegistrationCommand.screenName}"
+                            readonly="${isReadOnly}"/>
+                <p class="hint">6-14 characters</p>
+            </div>
+
+            <div class="grid_5 omega">
+                <div class="js_screenName success" style="display: none">
+                    <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Username is available
+                </div>
                 <div class="js_screenName invalid error"
                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             </div>
         </div>
+    </div>
 
-        <div id="js_passwordDiv" class="formRow clearfix" style="${doNotShowPassword ? 'display:none' : ''}">
-            <div class="prefix_1 grid_4 alpha">
+    <div id="js_passwordDiv" style="${doNotShowPassword ? 'display:none' : ''}">
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
                 <form:label path="password" for="js_password">Password</form:label>
             </div>
             <div class="grid_6">
-                <form:password path="password" cssClass="field" id="js_password"/>
+                <form:password path="password" cssClass="text input_6" id="js_password"/>
+                <p class="hint">6-14 characters</p>
             </div>
 
             <div class="grid_5 omega">
-                <div class="info">6-14 characters</div>
-                <div class="js_password success" style="display: none;">Password is available</div>
+                <div class="js_password success" style="display: none;">
+                    <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Password is available
+                </div>
                 <div class="js_password invalid error"
                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             </div>
         </div>
+    </div>
 
-        <div id="js_confirmPasswordDiv" class="formRow clearfix" style="${doNotShowPassword ? 'display:none' : ''}">
-            <div class="prefix_1 grid_4 alpha">
+    <div id="js_confirmPasswordDiv" style="${doNotShowPassword ? 'display:none' : ''}">
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
                 <form:label path="confirmPassword" for="js_confirmPassword">Retype password</form:label>
             </div>
             <div class="grid_6">
-                <form:password path="confirmPassword" cssClass="field" id="js_confirmPassword"/>
+                <form:password path="confirmPassword" cssClass="text input_6" id="js_confirmPassword"/>
             </div>
 
             <div class="grid_5 omega">
-                <div class="js_confirmPassword success" style="display: none;">Password match confirmed</div>
+                <div class="js_confirmPassword success" style="display: none;">
+                    <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Password match confirmed
+                </div>
                 <div class="js_confirmPassword invalid error"
                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             </div>
         </div>
+    </div>
 
     </fieldset>
 
     <fieldset>
         <legend> Your school</legend>
+        <hr class="legend"/>
 
-        <div class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
                 <form:label path="state" for="js_stateAdd">State</form:label>
             </div>
             <div class="grid_5">
@@ -146,13 +162,14 @@
                         />
             </div>
             <div class="prefix_1 grid_5 omega">
-                <div class="js_stateAdd invalid error">Please select a state.
+                <div class="js_stateAdd invalid error">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select a state.
                 </div>
             </div>
         </div>
 
-        <div class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
                 <form:label path="city" for="js_city">City</form:label>
             </div>
             <div class="grid_5">
@@ -164,11 +181,11 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="prefix_1 grid_5 omega"><!-- do not collapse --></div>
+            <div class="grid_6 omega"><!-- do not collapse --></div>
         </div>
 
-        <div class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
                 <form:label path="schoolId" for="js_school">School</form:label>
             </div>
             <div class="grid_5">
@@ -182,7 +199,8 @@
             </div>
 
             <div class="prefix_1 grid_5 omega">
-                <div class="js_school invalid error">Please select the school you are affiliated with.
+                <div class="js_school invalid error">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select the school you are affiliated with.
                 </div>
             </div>
         </div>
@@ -191,41 +209,50 @@
 
     <fieldset>
         <legend>Your contact info</legend>
+        <hr class="legend"/>
 
-        <div id="js_firstNameDiv" class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
-                <form:label path="firstName" for="js_firstName">First name</form:label>
-            </div>
-            <div class="grid_6">
-                <form:input path="firstName" cssClass="field" id="js_firstName"
-                            value="${espRegistrationCommand.firstName}"/>
-            </div>
+        <div id="js_firstNameDiv">
+            <div class="lal clearfix">
+                <div class="alpha grid_4">
+                    <form:label path="firstName" for="js_firstName">First name</form:label>
+                </div>
+                <div class="grid_6">
+                    <form:input path="firstName" cssClass="text input_6" id="js_firstName"
+                                value="${espRegistrationCommand.firstName}"/>
+                </div>
 
-            <div class="grid_5 omega">
-                <div class="js_firstName success" style="display: none;">Updated first name</div>
-                <div class="js_firstName invalid error"
-                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                <div class="grid_5 omega">
+                    <div class="js_firstName success" style="display: none;">
+                        <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Updated first name
+                    </div>
+                    <div class="js_firstName invalid error"
+                         style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                </div>
             </div>
         </div>
 
-        <div id="js_lastNameDiv" class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
-                <form:label path="lastName" for="js_lastName">Last name</form:label>
-            </div>
-            <div class="grid_6">
-                <form:input path="lastName" cssClass="field" id="js_lastName"
-                            value="${espRegistrationCommand.lastName}"/>
-            </div>
+        <div id="js_lastNameDiv">
+            <div class="lal clearfix">
+                <div class="alpha grid_4">
+                    <form:label path="lastName" for="js_lastName">Last name</form:label>
+                </div>
+                <div class="grid_6">
+                    <form:input path="lastName" cssClass="text input_6" id="js_lastName"
+                                value="${espRegistrationCommand.lastName}"/>
+                </div>
 
-            <div class="grid_5 omega">
-                <div class="js_lastName success" style="display: none;">Updated last name</div>
-                <div class="js_lastName invalid error"
-                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                <div class="grid_5 omega">
+                    <div class="js_lastName success" style="display: none;">
+                        <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Updated last name
+                    </div>
+                    <div class="js_lastName invalid error"
+                         style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                </div>
             </div>
         </div>
 
-        <div class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
                 <form:label path="jobTitle" for="js_jobTitle">Your title</form:label>
             </div>
             <div class="grid_5">
@@ -251,35 +278,30 @@
             </div>
 
             <div class="prefix_1 grid_5 omega">
-                <div class="js_jobTitle invalid error"
-                     style="display: none;">Please specify your job title.
+                <div class="js_jobTitle invalid error" style="display: none;">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please specify your job title.
                 </div>
             </div>
         </div>
 
-        <div class="formRow clearfix">
-            <div class="prefix_1 grid_4 alpha">
-                <form:label path="webPageUrl" for="webPageUrl">School website (optional)</form:label>
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
+                <form:label path="webPageUrl" for="webPageUrl">School website<span class="hint"> (optional)</span></form:label>
             </div>
             <div class="grid_6">
-                <form:input path="webPageUrl" cssClass="field" id="webPageUrl"/>
+                <form:input path="webPageUrl" cssClass="text input_6" id="webPageUrl"/>
+                <p class="hint">Example: http://www.springfield.k12.il.us Your website domain should match your email address.</p>
             </div>
 
             <div class="grid_5 omega">
-                <div class="notice">Example: http://www.springfield.k12.il.us<br/>Your website domain should match your email address.
-                </div>
+                <!-- do not collapse -->
             </div>
         </div>
 
-    </fieldset>
+<!--</div>-->
 
-</div>
-
-<fieldset>
-    <div class="formRow clearfix">
-        <div class="prefix_1 grid_15 alpha omega">
-
-            <p class="small">By joining GreatSchools, you agree to our
+        <div class="nal">
+            <p class="mumbo">By joining GreatSchools, you agree to our
                 <gsml:popupWindow width="1025" height="600" left="50" top="50"
                                   title="GreatSchools Terms of Use"
                                   href="/terms/?state=$STATE">GreatSchools Terms of Use</gsml:popupWindow>
@@ -288,13 +310,18 @@
                                   title="GreatSchools Community Standards"
                                   href="/terms/?state=$STATE#communityStandards">Community Guidelines</gsml:popupWindow>.
             </p>
+        </div>
 
+        <div class="nal">
             <input class="button-1" type="submit" value="Continue »" id="js_submit"/>
         </div>
-    </div>
+
 </fieldset>
 
 </form:form>
+</div>
+</div>
+</div>
 
 </div>
 <div class="grid_8">

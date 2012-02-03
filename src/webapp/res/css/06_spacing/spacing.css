@@ -60,27 +60,27 @@ General comments:
 
 .mha{margin-right: auto;margin-left: auto;}
 
-.text-align-rt {
+.tar, .text-align-rt {
     text-align: right;
 }
 
-.text-align-lft {
+.tal, .text-align-lft {
     text-align: left;
 }
 
-.text-align-cen {
+.tac, .text-align-cen {
     text-align: center;
 }
 
-.vert-align-top {
+.vat, .vert-align-top {
     vertical-align: top;
 }
 
-.vert-align-mid {
+.vam, .vert-align-mid {
     vertical-align: middle;
 }
 
-.vert-align-bot {
+.vab, .vert-align-bot {
     vertical-align: bottom;
 }
 
