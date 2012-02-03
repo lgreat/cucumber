@@ -7,7 +7,15 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="7" maxPage="${maxPage}" headerText="School contact information">
 
-        Placeholder for page 7
+        <label for="form_physical_address_street">Street address</label>
+
+        <input id="form_physical_address_street" type="text" name="physical_address_street" value="${responseMap['physical_address_street'].value}" />
+        <br/>
+        <input id="form_physical_address_city" type="text" name="physical_address_city" value="${responseMap['physical_address_city'].value}" />
+        <br/>
+        <input id="form_physical_address_zip" type="text" name="physical_address_zip" value="${responseMap['physical_address_zip'].value}" />
+        <br/>
+
 
     </school:espFormTemplate>
 </jsp:root>

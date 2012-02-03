@@ -10,6 +10,7 @@ import gs.data.school.census.ICensusDataSetDao;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.security.Role;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -44,7 +45,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
-    public static final boolean ENABLE_EXTERNAL_DATA_SAVING = false;
+    public static final boolean ENABLE_EXTERNAL_DATA_SAVING = true;
     
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -157,8 +158,9 @@ public class EspFormController implements ReadWriteAnnotationController {
         List<EspResponse> responseList = new ArrayList<EspResponse>();
         Set<String> keysForExternalData = getKeysForExternalData(school);
 
-        // TODO: This is immutable per java api spec, will need to copy to a mutable map to get save hooks working
-        Map<String, String[]> requestParameterMap = (Map<String, String[]>) request.getParameterMap();
+        // copy requestParameterMap to a mutable map, and allow value to be any Object, so that we can store
+        // complex objects in the map if necessary (e.g. Address)
+        Map<String, Object[]> requestParameterMap = cloneAndConvert(request.getParameterMap());
 
         // SAVE HOOKS GO HERE
         // Any data that needs to be transformed from a view specific format into a database representation
@@ -168,6 +170,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         // into a new param "address" with the concatenated values. The DB only knows about "address" while
         // the page has the fields split out.
 //        handleEndTimeSave(requestParameterMap, keysForPage);
+        handleAddressSave(requestParameterMap, keysForPage);
+        
 
         // Basic validation goes here
         // Note: This should only validate data going into esp_response. Data going to external places MUST be
@@ -183,7 +187,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         // this won't save any extra data that isn't in keysForPage
         // I'm not yet sure that's a good thing
         for (String key: keysForPage) {
-            String[] responseValues;
+            Object[] responseValues;
             
             responseValues = requestParameterMap.get(key);
 
@@ -203,14 +207,13 @@ public class EspFormController implements ReadWriteAnnotationController {
                 }
                 active = false; // data saved elsewhere should be inactive
             }
-            for (String responseValue: responseValues) {
-                EspResponse espResponse = new EspResponse();
-                espResponse.setKey(key);
-                espResponse.setValue(responseValue);
-                espResponse.setSchool(school);
-                espResponse.setMemberId(user.getId());
-                espResponse.setCreated(now);
-                espResponse.setActive(active);
+            for (Object responseValue: responseValues) {
+                EspResponse espResponse;
+                if (StringUtils.equals("address", key)) {
+                    espResponse = createEspResponse(user, school, now, key, active, (Address) responseValue);
+                } else {
+                    espResponse = createEspResponse(user, school, now, key, active, (String) responseValue);
+                }
                 responseList.add(espResponse);
             }
         }
@@ -230,6 +233,28 @@ public class EspFormController implements ReadWriteAnnotationController {
         successObj.put("percentComplete", getPercentCompletionForPage(page, school));
         successObj.write(response.getWriter());
         response.getWriter().flush();
+    }
+
+    protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, String responseValue) {
+        EspResponse espResponse = new EspResponse();
+        espResponse.setKey(key);
+        espResponse.setValue(responseValue);
+        espResponse.setSchool(school);
+        espResponse.setMemberId(user.getId());
+        espResponse.setCreated(now);
+        espResponse.setActive(active);
+        return espResponse;
+    }
+
+    protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, Address responseValue) {
+        EspResponse espResponse = new EspResponse();
+        espResponse.setKey(key);
+        espResponse.setValue(responseValue.toString());
+        espResponse.setSchool(school);
+        espResponse.setMemberId(user.getId());
+        espResponse.setCreated(now);
+        espResponse.setActive(active);
+        return espResponse;
     }
 
     protected void outputJsonErrors(Map<String, String> errorFieldToMsgMap, HttpServletResponse response) throws JSONException, IOException {
@@ -271,6 +296,35 @@ public class EspFormController implements ReadWriteAnnotationController {
                 _log.error(e, e);
                 // TODO: ???
             }
+        }
+    }
+
+    protected void handleAddressSave(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
+        String[] street = (String[]) requestParameterMap.get("physical_address_street");
+        String[] city = (String[]) requestParameterMap.get("physical_address_city");
+        String[] stateString = (String[]) requestParameterMap.get("state");
+        String[] zip = (String[]) requestParameterMap.get("physical_address_zip");
+        
+        /*if (zip != null && zip.length == 1) {
+            if (zip isnt a valid zip)
+            throw IAE
+        }*/
+        // TODO: need to validate zip?
+        
+        if (street != null && city != null && stateString != null && zip != null && 
+                street.length == 1 && city.length == 1 && stateString.length == 1 && zip.length == 1) {
+            
+            State state = State.fromString(stateString[0]);
+
+            Address address = new Address(street[0], city[0], state, zip[0]);
+
+            requestParameterMap.put("address", new Object[]{address});
+            keysForPage.add("address");
+
+            keysForPage.remove("physical_address_street");
+            keysForPage.remove("physical_address_city");
+            keysForPage.remove("state");
+            keysForPage.remove("physical_address_zip");
         }
     }
 
@@ -432,49 +486,84 @@ public class EspFormController implements ReadWriteAnnotationController {
      */
     protected void fetchExternalValues(Map<String, EspResponseStruct> responseMap, School school) {
         for (String key: getKeysForExternalData(school)) {
-            // fetch data from external source
-            String[] vals = getExternalValuesForKey(key, school);
-            if (vals != null && vals.length > 0) {
-                EspResponseStruct espResponse = new EspResponseStruct();
-                for (String val: vals) {
-                    espResponse.addValue(val);
-                }
-                responseMap.put(key, espResponse);
+
+            // for keys where the external data doesn't map 1:1 between EspResponse and the form, handle them here
+            if (StringUtils.equals("address", key)) {
+                insertEspResponseStructForAddress(responseMap, school);
+                responseMap.remove("address");
             } else {
-                // don't let esp_response values for external data show up on form
-                // external data has to come from external sources!
-                responseMap.remove(key);
+                // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
+                String[] vals = getExternalValuesForKey(key, school);
+                if (vals != null && vals.length > 0) {
+                    EspResponseStruct espResponse = new EspResponseStruct();
+                    for (String val: vals) {
+                        espResponse.addValue(val);
+                    }
+                    responseMap.put(key, espResponse);
+                } else {
+                    // don't let esp_response values for external data show up on form
+                    // external data has to come from external sources!
+                    responseMap.remove(key);
+                }
             }
+        }
+    }
+
+    /**
+     * Converts an <code>Address</code> on a <code>School</code> to multiple <code>EspResponseStruct</code>s and adds
+     * them to the specified map
+     */
+    private void insertEspResponseStructForAddress(Map<String, EspResponseStruct> responseMap, School school) {
+        Address address = school.getPhysicalAddress();
+        if (address != null) {
+            EspResponseStruct streetStruct = new EspResponseStruct();
+            streetStruct.addValue(address.getStreet());
+            responseMap.put("physical_address_street", streetStruct);
+            EspResponseStruct cityStruct = new EspResponseStruct();
+            cityStruct.addValue(address.getCity());
+            responseMap.put("physical_address_city", cityStruct);
+            EspResponseStruct stateStruct = new EspResponseStruct();
+            stateStruct.addValue(address.getState().getAbbreviation());
+            responseMap.put("physical_address_state", stateStruct);
+            EspResponseStruct zipStruct = new EspResponseStruct();
+            zipStruct.addValue(address.getZip());
+            responseMap.put("physical_address_zip", zipStruct);
         }
     }
 
     /**
      * Return error message on error.
      */
-    protected String saveExternalValue(String key, String[] values, School school, User user, Date now) {
+    protected String saveExternalValue(String key, Object[] values, School school, User user, Date now) {
         if (values == null || values.length == 0 && school == null) {
             return null; // early exit
         }
         if (StringUtils.equals("student_enrollment", key)) {
             try {
                 _log.debug("Saving student_enrollment elsewhere: " + values[0]);
-                saveCensusInteger(school, Integer.parseInt(values[0]), CensusDataType.STUDENTS_ENROLLMENT, user);
+                saveCensusInteger(school, Integer.parseInt((String)values[0]), CensusDataType.STUDENTS_ENROLLMENT, user);
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
         } else if (StringUtils.equals("average_class_size", key)) {
             try {
                 _log.debug("Saving average_class_size elsewhere: " + values[0]);
-                saveCensusInteger(school, Integer.parseInt(values[0]), CensusDataType.CLASS_SIZE, user);
+                saveCensusInteger(school, Integer.parseInt((String)values[0]), CensusDataType.CLASS_SIZE, user);
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
         } else if (StringUtils.equals("grade_levels", key)) {
             _log.debug("Saving grade_levels " + values + " elsewhere for school:" + school.getName());
-            return saveGradeLevels(school, values, user, now);
+            return saveGradeLevels(school, (String[])values, user, now);
         } else if (StringUtils.equals("school_type", key)) {
             _log.debug("Saving school type " + values[0] + " elsewhere for school:" + school.getName());
-            return saveSchoolType(school, values[0], user, now);
+            return saveSchoolType(school, (String)values[0], user, now);
+        } else if (StringUtils.equals("address", key)) {
+            Address address = (Address) values[0];
+            _log.debug("Saving physical address " + address.toString() + " elsewhere for school:" + school.getName());
+            school.setPhysicalAddress(address);
+            saveSchool(school, user, now);
+            return null;
         }
         return null;
     }
@@ -541,6 +630,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         keys.add("school_type");
         keys.add("school_type_affiliation");
         keys.add("school_type_affiliation_other");
+        keys.add("address");
         return keys;
     }
 
@@ -565,6 +655,10 @@ public class EspFormController implements ReadWriteAnnotationController {
             return new String[]{school.getType().getSchoolTypeName()};
         }
         return new String[0];
+    }
+    
+    protected Map<String, Object[]> cloneAndConvert(Map<String,String[]> requestParameterMap) {
+        return new HashMap<String, Object[]>(requestParameterMap);
     }
 
     /**

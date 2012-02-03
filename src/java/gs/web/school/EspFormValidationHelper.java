@@ -25,13 +25,13 @@ public class EspFormValidationHelper {
      * WARNING: This should only validate data going into esp_response. Data going to external places MUST be
      * validated at save-time by their respective save methods!
      */
-    public Map<String, String> performValidation(Map<String, String[]> requestParameterMap,
+    public Map<String, String> performValidation(Map<String, Object[]> requestParameterMap,
                                                 Set<String> keysForPage, School school) {
         Map<String, String> errors = new HashMap<String, String>();
 
         if (keysForPage.contains("average_class_size")) {
             _log.debug("Validating average_class_size");
-            String value = getSingleValue(requestParameterMap, "average_class_size");
+            String value = (String) getSingleValue(requestParameterMap, "average_class_size");
             if (value != null) {
                 try {
                     int classSize = Integer.parseInt(value);
@@ -48,8 +48,8 @@ public class EspFormValidationHelper {
         return errors;
     }
     
-    protected String getSingleValue(Map<String, String[]> requestParameterMap, String key) {
-        String[] values = requestParameterMap.get(key);
+    protected Object getSingleValue(Map<String, Object[]> requestParameterMap, String key) {
+        Object[] values = requestParameterMap.get(key);
         if (values != null && values.length == 1) {
             return values[0];
         }
