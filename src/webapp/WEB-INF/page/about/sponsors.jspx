@@ -104,22 +104,21 @@
                         <li>BrainPop</li>
                         <li><a href="http://www.cafemom.com" target="_blank">CafeMom</a></li>
                         <li><a href="http://www.commonsensemedia.com" target="_blank">Common Sense Media</a></li>
-                        <li><a href="http://dallasnews.greatschools.org" target="_blank">Dallas Morning News</a>
-                        </li>
+                        <li>Digital Map</li>
                         <li><a href="http://www.donorschoose.org" target="_blank">Donor's Choose</a></li>
+                        <li>Dunn &amp; Bradstreet</li>
                         <li><a href="http://www.hearst.com/" target="_blank">Hearst Coorporation</a></li>
+                        <li>HSBC</li>
                         <li><a href="http://www.medianewsgroup.com/Pages/default.aspx"
                                target="_blank">Media News Group</a></li>
                         <li>Michael &amp;amp; Susan Dell Foundation</li>
                         <li><a href="http://momshomeroom.msn.greatschools.org/"
                                target="_blank">Microsoft, Mom's Homeroom</a></li>
                         <li><a href="http://mysanantonio.greatschools.org" target="_blank">MySanAntonio.com</a></li>
-                        <li><a href="http://ocregister.greatschools.org" target="_blank">OCRegister</a></li>
                         <li>Optum Health</li>
                         <li><a href="http://www.policymap.com" target="_blank">Policy Map</a></li>
                         <li><a href="http://mercurynews.greatschools.org" target="_blank">San Jose Mercury News</a>
                         </li>
-                        <li><a href="http://sfgate.greatschools.org" target="_blank">SFGate.com</a></li>
                         <li>
                             <a href="http://realestate.yahoo.com/California/San_Francisco/Schools/San_Francisco_Unified_School_District"
                                target="_blank">Yahoo! Real Estate</a></li>
@@ -247,7 +246,6 @@
                 <div class="bd">
                     <ul>
 
-                        <li>#1 Best Expert</li>
                         <li>Alan Pinel Realtors</li>
                         <li>Connecting Neighbors</li>
                         <li>HomeGain</li>
@@ -256,6 +254,7 @@
                         <li>OnBoard, LLC</li>
                         <li>Realtor Association of Greater Miami</li>
                         <li>Realtors Property Resource</li>
+                        <li>Wolfnet</li>
                     </ul>
                 </div>
             </div>
@@ -338,4 +337,3 @@
 </gsml:body>
 </html>
         </jsp:root>
-
