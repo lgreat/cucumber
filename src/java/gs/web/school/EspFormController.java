@@ -9,6 +9,7 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusDataSetDao;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.security.Role;
+import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.util.ReadWriteAnnotationController;
@@ -45,8 +46,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
-    public static final boolean ENABLE_EXTERNAL_DATA_SAVING = true;
-    
+
     @Autowired
     private IEspMembershipDao _espMembershipDao;
     @Autowired
@@ -55,6 +55,8 @@ public class EspFormController implements ReadWriteAnnotationController {
     private ISchoolDao _schoolDao;
     @Autowired
     private ICensusDataSetDao _dataSetDao;
+    @Autowired
+    private INoEditDao _noEditDao;
     @Autowired
     private EspFormValidationHelper _espFormValidationHelper;
 
@@ -89,6 +91,8 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         putResponsesInModel(school, page, modelMap); // fetch responses for school, including external data
         putPercentCompleteInModel(school, modelMap);
+
+        modelMap.put("stateLocked", _noEditDao.isStateLocked(state));
 
         return VIEW;
     }
@@ -183,6 +187,9 @@ public class EspFormController implements ReadWriteAnnotationController {
             return; // early exit
         }
 
+        // Check if the State is locked for a data load
+        boolean stateIsLocked = _noEditDao.isStateLocked(state);
+
         Date now = new Date(); // consistent time stamp for this save
         // this won't save any extra data that isn't in keysForPage
         // I'm not yet sure that's a good thing
@@ -200,10 +207,12 @@ public class EspFormController implements ReadWriteAnnotationController {
             boolean active = true;
             // values that live elsewhere get saved out here
             // these values also go in esp_response but are disabled to clearly mark that they are not sourced from there
-            if (ENABLE_EXTERNAL_DATA_SAVING && keysForExternalData.contains(key)) {
-                String error = saveExternalValue(key, responseValues, school, user, now);
-                if (error != null) {
-                    errorFieldToMsgMap.put(key, error);
+            if (keysForExternalData.contains(key)) {
+                if (!stateIsLocked) {
+                    String error = saveExternalValue(key, responseValues, school, user, now);
+                    if (error != null) {
+                        errorFieldToMsgMap.put(key, error);
+                    }
                 }
                 active = false; // data saved elsewhere should be inactive
             }
