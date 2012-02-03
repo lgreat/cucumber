@@ -36,69 +36,72 @@
 
                 <p class="">You must be a school official with a special access account on GreatSchools to edit an Online School Profile.</p>
 
-                <form:form commandName="espRegistrationCommand">
+                <div class="mod form">
+                    <div class="inner">
+                        <div class="bd">
+                            <form:form commandName="espRegistrationCommand">
 
-                    <fieldset>
-                        <legend>Returning school official sign in</legend>
+                                <fieldset>
+                                    <legend>Returning school official sign in</legend>
+                                    <hr class="legend"/>
 
-                        <div class="formRow clearfix">
-                            <div class="prefix_1 grid_4 alpha">
-                                <form:label path="email" for="js_email">Email address </form:label>
-                            </div>
-                            <div class="grid_6">
-                                <form:input path="email" cssClass="field" id="js_email"
-                                            value="${espRegistrationCommand.email}"/>
-                            </div>
+                                    <div class="lal clearfix">
+                                        <form:label path="email" for="js_email"
+                                                    cssClass="alpha grid_4">Email address </form:label>
 
-                            <div class="grid_5 omega">
-                                <!--<form:errors path="email" cssClass="error" />-->
-                                <form:errors path="email">
-                                    <c:forEach items="${messages}" var="message">
-                                        <div class="alert">${message}</div>
-                                    </c:forEach>
-                                </form:errors>
-                            </div>
+                                        <div class="grid_6">
+                                            <form:input path="email" cssClass="text input_6" id="js_email"
+                                                        value="${espRegistrationCommand.email}"/>
+                                        </div>
+
+                                        <div class="grid_5 omega">
+                                            <!--<form:errors path="email" cssClass="error" />-->
+                                            <form:errors path="email">
+                                                <c:forEach items="${messages}" var="message">
+                                                    <div class="error">
+                                                        <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                    </div>
+                                                </c:forEach>
+                                            </form:errors>
+                                        </div>
+                                    </div>
+
+                                    <div class="lal clearfix">
+                                        <form:label path="password" cssClass="alpha grid_4">Password </form:label>
+
+                                        <div class="grid_6">
+                                            <form:password path="password" cssClass="text input_6"/>
+                                        </div>
+
+                                        <div class="grid_5 omega ">
+                                            <!--<form:errors path="password" cssClass="error" />-->
+                                            <form:errors path="password">
+                                                <c:forEach items="${messages}" var="message">
+                                                    <div class="error">
+                                                        <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                    </div>
+                                                </c:forEach>
+                                            </form:errors>
+                                        </div>
+                                    </div>
+
+                                    <div class="nal">
+                                        <input class="button-1" type="submit" value="Sign in"/>
+                                    </div>
+
+                                    <div class="nal">
+                                        <p class="mumbo">
+                                            <a href="javascript:void(0);" id="js_espLaunchForgotPassword"
+                                               onclick="">Forgot your password?</a>
+                                        </p>
+                                    </div>
+
+                                </fieldset>
+
+                            </form:form>
                         </div>
-
-
-                        <div>
-                            <div class="formRow clearfix">
-                                <div class="prefix_1 grid_4 alpha">
-                                    <form:label path="password">Password </form:label>
-                                </div>
-                                <div class="grid_6">
-                                    <form:password path="password" cssClass="field"/>
-                                </div>
-
-                                <div class="grid_5 omega ">
-                                    <!--<form:errors path="password" cssClass="error" />-->
-                                    <form:errors path="password">
-                                        <c:forEach items="${messages}" var="message">
-                                            <div class="alert">${message}</div>
-                                        </c:forEach>
-                                    </form:errors>
-                                </div>
-                            </div>
-                        </div>
-
-                    </fieldset>
-
-                    <fieldset>
-
-                        <div class="formRow clearfix">
-                            <div class="prefix_1 grid_15 alpha">
-                                <input class="button-1" type="submit" value="Sign in" />
-                            </div>
-                        </div>
-
-                        <div class="prefix_1 grid_15 alpha">
-                            <a href="javascript:void(0);" id="js_espLaunchForgotPassword"
-                               onclick="">Forgot your password?</a>
-                        </div>
-
-                    </fieldset>
-
-                </form:form>
+                    </div>
+                </div>
 
             </div>
             <div class="grid_8">

@@ -49,34 +49,32 @@
     <legend>Your account</legend>
     <hr class="legend"/>
 
-    <div class="formRow clearfix">
-        <div class="lal clearfix">
-            <div class="alpha grid_4">
-                <form:label path="email" for="js_email">Email address</form:label>
+    <div class="lal clearfix">
+        <div class="alpha grid_4">
+            <form:label path="email" for="js_email">Email address</form:label>
+        </div>
+        <div class="grid_6">
+            <form:input path="email" cssClass="text input_6" id="js_email"
+                        value="${espRegistrationCommand.email}"
+                        readonly="${isReadOnly}"/>
+
+            <p class="hint">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</p>
+        </div>
+
+        <div class="grid_5 omega">
+            <div id="js_invalidEmail" class="error js_emailErr" style="display: none;">
+                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter your official school email address.
             </div>
-            <div class="grid_6">
-                <form:input path="email" cssClass="text input_6" id="js_email"
-                            value="${espRegistrationCommand.email}"
-                            readonly="${isReadOnly}"/>
 
-                <p class="hint">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</p>
+            <div id="js_uniqueError" class="error" style="display: none;">
+                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You are already registered for this school.
+            </div>
+            <div id="js_emailError" class="error js_emailErr"
+                 style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+            <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
+                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
             </div>
 
-            <div class="grid_5 omega">
-                <div id="js_invalidEmail" class="error js_emailErr" style="display: none;">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter your official school email address.
-                </div>
-
-                <div id="js_uniqueError" class="error" style="display: none;">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You are already registered for this school.
-                </div>
-                <div id="js_emailError" class="error js_emailErr"
-                     style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
-                <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
-                </div>
-
-            </div>
         </div>
     </div>
 
