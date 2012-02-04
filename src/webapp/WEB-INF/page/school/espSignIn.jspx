@@ -32,9 +32,9 @@
         <div class="container_24 slStylesV1-0 slFormsV1-0">
             <div class="grid_16" id="js_espSignIn">
 
-                <h1 class="">Sign in to access your Online School Profile</h1>
+                <h1 class="">Sign in to your Official School Profile</h1>
 
-                <p class="">You must be a school official with a special access account on GreatSchools to edit an Online School Profile.</p>
+                <p class="">You must be a school official with a special membership on GreatSchools to edit an Official School Profile.</p>
 
                 <div class="mod form">
                     <div class="inner">
@@ -105,16 +105,15 @@
 
             </div>
             <div class="grid_8">
-                <p class="">New to GreatSchools? <link:schoolEspRegister>Create a School Official account.</link:schoolEspRegister></p>
+                <p class="">New to GreatSchools? <link:schoolEspRegister>Create a school official account.</link:schoolEspRegister></p>
 
-                <h3 class="">Want to create an Online School Profile?</h3>
+                <h3 class="">Why you should create an Official School Profile</h3>
 
                 <ul>
                     <li>It's absolutely free and simple to create!</li>
-                    <li>It highlights your school's strenghts</li>
-                    <li>It provides a common place to post all of your school's information</li>
-                    <li>It's a community resource that many people will see</li>
-                    <li>It can link to your school or district website</li>
+                    <li>It helps parents and students understand your school's special qualities</li>
+                    <li>It lets you respond to a parent review</li>
+                    <li>It lets you update your school's contact information</li>
                 </ul>
 
                 <p class="">You must be a principal or a school official to create an Online School Profile. We will verify your identity after you sign up.</p>

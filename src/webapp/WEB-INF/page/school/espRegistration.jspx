@@ -37,9 +37,9 @@
 
 <div class="grid_16">
 
-<h1 class="">Submit request to create a school official account</h1>
+<h1 class="">Request a school official account</h1>
 
-<p class="">For principals and school officials, we offer a special Online School Profile which allows you to update an dadd information about your school as well as respond to reviews. If you are a school official, enter your details below. We will verify your identity after you register.</p>
+<p class="">GreatSchools offers a special account that allows principals and other school officials to build an Official School Profile. If you are a school official, please register below, including your school's webpage where our team can check that you are affiliated with the school. After you submit, we will verify that you are a school official and email you a link to get started on your Official School Profile.</p>
 
 <div class="mod form">
 <div class="inner">
@@ -69,8 +69,7 @@
             <div id="js_uniqueError" class="error" style="display: none;">
                 <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You are already registered for this school.
             </div>
-            <div id="js_emailError" class="error js_emailErr"
-                 style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+            <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
                 <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
             </div>
@@ -223,8 +222,7 @@
                     <div class="js_firstName success" style="display: none;">
                         <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Updated first name
                     </div>
-                    <div class="js_firstName invalid error"
-                         style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                    <div class="js_firstName invalid error" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                 </div>
             </div>
         </div>
@@ -243,8 +241,7 @@
                     <div class="js_lastName success" style="display: none;">
                         <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Updated last name
                     </div>
-                    <div class="js_lastName invalid error"
-                         style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
+                    <div class="js_lastName invalid error" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                 </div>
             </div>
         </div>
@@ -323,16 +320,15 @@
 
 </div>
 <div class="grid_8">
-    <p class="">Already a School Official member? <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
+    <p class="">Already have a school official account? <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
 
-    <h3 class="">Why create an Online School Profile?</h3>
+    <h3 class="">Why you should create an Official School Profile</h3>
 
     <ul>
         <li>It's absolutely free and simple to create!</li>
-        <li>It highlights your school's strenghts</li>
-        <li>It provides a common place to post all of your school's information</li>
-        <li>It's a community resource that many people will see</li>
-        <li>It can link to your school or district website</li>
+        <li>It helps parents and students understand your school's special qualities</li>
+        <li>It lets you respond to a parent review</li>
+        <li>It lets you update your school's contact information</li>
     </ul>
 
 </div>
