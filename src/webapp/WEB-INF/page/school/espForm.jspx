@@ -66,11 +66,6 @@
                 <h2>Your School Profile</h2>
                 <p>Select a section to complete your School Profile. You may save, continue and edit your profile at any time.</p>
 
-                <c:if test="${stateLocked}">
-                    <p>Note: We are in the process of loading data for this State. You will be unable to
-                        edit certain fields until the load is complete.</p>
-                </c:if>
-
                 <div id="espFormNavWrapper">
                     <div id="js_espFormNav" class="fltrt">
                         <ul>
