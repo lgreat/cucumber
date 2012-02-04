@@ -31,7 +31,7 @@
                 <p>
                     We are currently updating your state's data, so some of this school's information
                     is temporarily unavailable for editing. If you need to edit information that is
-                    not available, please try again in two weeks. We apologize for the inconvenience.
+                    unavailable, please try again in two weeks. We apologize for the inconvenience.
                 </p>
             </c:if>
             <form:form id="espFormPage-${page}">
