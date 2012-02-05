@@ -175,6 +175,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         // the page has the fields split out.
 //        handleEndTimeSave(requestParameterMap, keysForPage);
         handleAddressSave(requestParameterMap, keysForPage);
+        handleSchoolPhone(requestParameterMap, keysForPage);
         
 
         // Basic validation goes here
@@ -335,6 +336,54 @@ public class EspFormController implements ReadWriteAnnotationController {
             keysForPage.remove("state");
             keysForPage.remove("physical_address_zip");
         }
+    }
+    
+    protected void handleSchoolPhone(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
+        String schoolPhoneAreaCode = (String) getSingleValue(requestedParameterMap, "school_phone_area_code");
+        String schoolPhoneOfficeCode = (String) getSingleValue(requestedParameterMap, "school_phone_office_code");
+        String schoolPhoneLastFour = (String) getSingleValue(requestedParameterMap, "school_phone_last_four");
+        
+        if (schoolPhoneAreaCode != null && schoolPhoneOfficeCode != null && schoolPhoneLastFour != null) {
+            String phoneNumberString = schoolPhoneAreaCode + schoolPhoneOfficeCode + schoolPhoneLastFour;
+            
+            if (phoneNumberString.matches("\\d+")) {
+                requestedParameterMap.put("school_phone", new String[] {phoneNumberString});
+                keysForPage.add("phone_phone");
+                requestedParameterMap.remove("school_phone_area_code");
+                requestedParameterMap.remove("school_phone_office_code");
+                requestedParameterMap.remove("school_phone_last_four");
+            } else {
+                throw new IllegalArgumentException("Phone number must be numeric");
+            }
+        }
+    }
+    
+    protected void handleSchoolFax(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
+        String schoolFaxAreaCode = (String) getSingleValue(requestedParameterMap, "school_fax_area_code");
+        String schoolFaxOfficeCode = (String) getSingleValue(requestedParameterMap, "school_fax_office_code");
+        String schoolFaxLastFour = (String) getSingleValue(requestedParameterMap, "school_fax_last_four");
+
+        if (schoolFaxAreaCode != null && schoolFaxOfficeCode != null && schoolFaxLastFour != null) {
+            String faxNumberString = schoolFaxAreaCode + schoolFaxOfficeCode + schoolFaxLastFour;
+
+            if (faxNumberString.matches("\\d+")) {
+                requestedParameterMap.put("school_fax", new String[] {faxNumberString});
+                keysForPage.add("fax_fax");
+                requestedParameterMap.remove("school_fax_area_code");
+                requestedParameterMap.remove("school_fax_office_code");
+                requestedParameterMap.remove("school_fax_last_four");
+            } else {
+                throw new IllegalArgumentException("Fax number must be numeric");
+            }
+        }
+    }
+    
+    protected Object getSingleValue(Map<String, Object[]> map, String key) {
+        Object[] values = map.get(key);
+        if (values != null && values.length >= 1) {
+            return values[0];
+        }
+        return null;
     }
 
     /**
@@ -499,7 +548,8 @@ public class EspFormController implements ReadWriteAnnotationController {
             // for keys where the external data doesn't map 1:1 between EspResponse and the form, handle them here
             if (StringUtils.equals("address", key)) {
                 insertEspResponseStructForAddress(responseMap, school);
-                responseMap.remove("address");
+            } else if (StringUtils.equals("school_phone", key)) {
+                    insertEspResponseStructForPhone(responseMap, school);
             } else {
                 // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
                 String[] vals = getExternalValuesForKey(key, school);
@@ -537,6 +587,27 @@ public class EspFormController implements ReadWriteAnnotationController {
             EspResponseStruct zipStruct = new EspResponseStruct();
             zipStruct.addValue(address.getZip());
             responseMap.put("physical_address_zip", zipStruct);
+            responseMap.remove("address");
+        }
+    }
+    
+    protected void insertEspResponseStructForPhone(Map<String, EspResponseStruct> responseMap, School school) {
+        String phone = school.getPhone();
+        if (phone != null) { //TODO: what if the phone isn't 10 digits? DB limit = 31
+            String areaCode = phone.substring(0,3);
+            EspResponseStruct areaCodeStruct = new EspResponseStruct();
+            areaCodeStruct.addValue(areaCode);
+            responseMap.put("school_phone_area_code", areaCodeStruct);
+
+            String officeCode = phone.substring(3,6);
+            EspResponseStruct officeCodeStruct = new EspResponseStruct();
+            officeCodeStruct.addValue(officeCode);
+            responseMap.put("school_phone_office_code", officeCodeStruct);
+
+            String lastFour = phone.substring(6,10);
+            EspResponseStruct lastFourStruct = new EspResponseStruct();
+            lastFourStruct.addValue(lastFour);
+            responseMap.put("school_phone_last_four", lastFourStruct);
         }
     }
 
@@ -571,6 +642,16 @@ public class EspFormController implements ReadWriteAnnotationController {
             Address address = (Address) values[0];
             _log.debug("Saving physical address " + address.toString() + " elsewhere for school:" + school.getName());
             school.setPhysicalAddress(address);
+            saveSchool(school, user, now);
+            return null;
+        } else if (StringUtils.equals("school_phone", key)) {
+            String phone = (String) values[0];
+            school.setPhone(phone);
+            saveSchool(school, user, now);
+            return null;
+        } else if (StringUtils.equals("school_fax", key)) {
+            String fax = (String) values[0];
+            school.setFax(fax);
             saveSchool(school, user, now);
             return null;
         }
@@ -640,6 +721,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         keys.add("school_type_affiliation");
         keys.add("school_type_affiliation_other");
         keys.add("address");
+        keys.add("school_phone");
+        keys.add("school_fax");
         return keys;
     }
 

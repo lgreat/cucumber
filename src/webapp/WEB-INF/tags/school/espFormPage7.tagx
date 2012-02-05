@@ -7,7 +7,7 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="7" maxPage="${maxPage}" headerText="School contact information">
 
-        <label for="form_physical_address_street">Street address</label>
+        <label for="form_physical_address_street">School site address</label>
 
         <input id="form_physical_address_street" type="text" name="physical_address_street" value="${responseMap['physical_address_street'].value}" />
         <br/>
@@ -16,6 +16,70 @@
         <input id="form_physical_address_zip" type="text" name="physical_address_zip" value="${responseMap['physical_address_zip'].value}" />
         <br/>
 
+        <div class="inline">
+            <div class="grid_3 alpha">
+                <label for="form_school_phone">School phone:</label>
+                <input id="form_school_phone_area_code" type="text" name="school_phone_area_code" maxlength="3" value="${responseMap['school_phone_area_code'].value}" />-
+            </div>
+
+            <div class="grid_3">
+                <span><input id="form_school_phone_office_code" type="text" name="school_phone_office_code" maxlength="3" value="${responseMap['school_phone_office_code'].value}" />-</span>
+            </div>
+
+            <div class="grid_4 omega">
+                <input id="form_school_phone_last_four" type="text" name="school_phone_last_four" maxlength="4" value="${responseMap['school_phone_last_four'].value}" />-
+            </div>
+        </div>
+
+        <div class="inline">
+            <div class="grid_3 alpha">
+                <label for="form_school_fax">School phone:</label>
+                <input id="form_school_fax_area_code" type="text" name="school_fax_area_code" maxlength="3" value="${responseMap['school_fax_area_code'].value}"  />-
+            </div>
+
+            <div class="grid_3">
+                <span><input id="form_school_fax_office_code" type="text" name="school_fax_office_code" maxlength="3" value="${responseMap['school_fax_office_code'].value}" />-</span>
+            </div>
+
+            <div class="grid_4 omega">
+                <input id="form_fax_phone_last_four" type="text" name="school_fax_last_four" maxlength="4" value="${responseMap['school_fax_last_four'].value}" />-
+            </div>
+        </div>
+
+        <div class="lal clearfix">
+            <label for="form_website_url" class="alpha grid_3">School website</label>
+            <div class="grid_6">
+                <input type="text" value="${responseMap['website_url'].value}" id="form_website_url" name="website_url" class="text input_6"/>
+                <p class="hint">Example: http://www.yourschool.edu</p>
+            </div>
+            <div class="grid_6 omega"><!-- do not collapse --></div>
+        </div>
+
+        <div class="lal clearfix">
+            <label for="form_facebook_url" class="alpha grid_3">School Facebook page</label>
+            <div class="grid_6">
+                <input type="text" value="${responseMap['facebook_url'].value}" id="form_facebook_url" name="facebook_url" class="text input_6"/>
+                <p class="hint">Example: http://www.facebook.com/pages/lowell-high-school/112106402</p>
+            </div>
+            <div class="grid_6 omega"><!-- do not collapse --></div>
+        </div>
+
+        <div class="lal clearfix">
+            <label for="form_administrator_name" class="alpha grid_3">School leader's name</label>
+            <div class="grid_6">
+                <input type="text" value="${responseMap['administrator_name'].value}" id="form_administrator_name" name="administrator_name" class="text input_6"/>
+            </div>
+            <div class="grid_6 omega"><!-- do not collapse --></div>
+        </div>
+
+        <div class="lal clearfix">
+            <label for="form_administrator_email" class="alpha grid_3">School leader's email</label>
+            <div class="grid_6">
+                <input type="text" value="${responseMap['administrator_name']}" id="form_administrator_email" name="administrator_email" class="text input_6"/>
+                <p class="hint">Example: leader@school.edu</p>
+            </div>
+            <div class="grid_6 omega"><!-- do not collapse --></div>
+        </div>
 
     </school:espFormTemplate>
 </jsp:root>
