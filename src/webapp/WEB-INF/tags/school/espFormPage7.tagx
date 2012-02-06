@@ -87,7 +87,7 @@
         <div class="lal clearfix">
             <label for="form_administrator_email" class="alpha grid_3">School leader's email</label>
             <div class="grid_6">
-                <input type="text" value="${responseMap['administrator_name']}" id="form_administrator_email" name="administrator_email" class="text input_6"/>
+                <input type="text" value="${responseMap['administrator_email'].value}" id="form_administrator_email" name="administrator_email" class="text input_6"/>
                 <p class="hint">Example: leader@school.edu</p>
             </div>
             <div class="grid_6 omega"><!-- do not collapse --></div>

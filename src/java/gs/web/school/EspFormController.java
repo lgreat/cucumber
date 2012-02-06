@@ -160,6 +160,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         // complex objects in the map if necessary (e.g. Address)
         Map<String, Object[]> requestParameterMap = cloneAndConvert(request.getParameterMap());
 
+        Map<String, String> errorFieldToMsgMap = new HashMap<String, String>();
+
         // SAVE HOOKS GO HERE
         // Any data that needs to be transformed from a view specific format into a database representation
         // must be handled here. These methods should SET keys in requestParameterMap with the final
@@ -167,16 +169,21 @@ public class EspFormController implements ReadWriteAnnotationController {
         // e.g. form posts address_street, address_city, address_zip which get composed by a method here
         // into a new param "address" with the concatenated values. The DB only knows about "address" while
         // the page has the fields split out.
-//        handleEndTimeSave(requestParameterMap, keysForPage);
         handleAddressSave(requestParameterMap, keysForPage);
-        handleSchoolPhone(requestParameterMap, keysForPage);
-        
+        String fieldError = handleSchoolPhone(requestParameterMap, keysForPage);
+        if (fieldError != null) {
+            errorFieldToMsgMap.put("school_phone", fieldError);
+        }
+        fieldError = handleSchoolFax(requestParameterMap, keysForPage);
+        if (fieldError != null) {
+            errorFieldToMsgMap.put("school_fax", fieldError);
+        }
 
         // Basic validation goes here
         // Note: This should only validate data going into esp_response. Data going to external places MUST be
         // validated by their respective save method below!
-        Map<String, String> errorFieldToMsgMap = _espFormValidationHelper.performValidation
-                (requestParameterMap, keysForPage, school);
+        errorFieldToMsgMap.putAll(_espFormValidationHelper.performValidation
+                (requestParameterMap, keysForPage, school));
         if (!errorFieldToMsgMap.isEmpty()) {
             outputJsonErrors(errorFieldToMsgMap, response);
             return; // early exit
@@ -301,7 +308,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         }
     }
     
-    protected void handleSchoolPhone(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
+    protected String handleSchoolPhone(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
         String schoolPhoneAreaCode = (String) getSingleValue(requestedParameterMap, "school_phone_area_code");
         String schoolPhoneOfficeCode = (String) getSingleValue(requestedParameterMap, "school_phone_office_code");
         String schoolPhoneLastFour = (String) getSingleValue(requestedParameterMap, "school_phone_last_four");
@@ -320,12 +327,13 @@ public class EspFormController implements ReadWriteAnnotationController {
                 keysForPage.remove("school_phone_office_code");
                 keysForPage.remove("school_phone_last_four");
             } else {
-                throw new IllegalArgumentException("Phone number must be numeric");
+                return "Phone number must be numeric";
             }
         }
+        return null;
     }
     
-    protected void handleSchoolFax(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
+    protected String handleSchoolFax(Map<String, Object[]> requestedParameterMap, Set<String> keysForPage) {
         String schoolFaxAreaCode = (String) getSingleValue(requestedParameterMap, "school_fax_area_code");
         String schoolFaxOfficeCode = (String) getSingleValue(requestedParameterMap, "school_fax_office_code");
         String schoolFaxLastFour = (String) getSingleValue(requestedParameterMap, "school_fax_last_four");
@@ -339,10 +347,14 @@ public class EspFormController implements ReadWriteAnnotationController {
                 requestedParameterMap.remove("school_fax_area_code");
                 requestedParameterMap.remove("school_fax_office_code");
                 requestedParameterMap.remove("school_fax_last_four");
+                keysForPage.remove("school_fax_area_code");
+                keysForPage.remove("school_fax_office_code");
+                keysForPage.remove("school_fax_last_four");
             } else {
-                throw new IllegalArgumentException("Fax number must be numeric");
+                return "Fax number must be numeric";
             }
         }
+        return null;
     }
     
     protected Object getSingleValue(Map<String, Object[]> map, String key) {

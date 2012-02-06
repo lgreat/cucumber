@@ -31,4 +31,8 @@ public class EspFormResponseStruct {
         _value = value;
         _valueMap.put(value, true);
     }
+    
+    public String toString() {
+        return getValue();
+    }
 }

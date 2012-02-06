@@ -42,6 +42,8 @@ public class EspFormExternalDataHelper {
                 insertEspFormResponseStructForAddress(responseMap, school);
             } else if (StringUtils.equals("school_phone", key)) {
                 insertEspFormResponseStructForPhone(responseMap, school);
+            } else if (StringUtils.equals("school_fax", key)) {
+                insertEspFormResponseStructForFax(responseMap, school);
             } else {
                 // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
                 String[] vals = getExternalValuesForKey(key, school);
@@ -102,6 +104,28 @@ public class EspFormExternalDataHelper {
             EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
             lastFourStruct.addValue(lastFour);
             responseMap.put("school_phone_last_four", lastFourStruct);
+        }
+    }
+
+    void insertEspFormResponseStructForFax(Map<String, EspFormResponseStruct> responseMap, School school) {
+        String fax = school.getFax();
+        if (fax != null) {
+            // "(510) 865-2194"
+            // TODO: what if the fax isn't 14 digits? DB limit = 31
+            String areaCode = fax.substring(1,4);
+            EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
+            areaCodeStruct.addValue(areaCode);
+            responseMap.put("school_fax_area_code", areaCodeStruct);
+
+            String officeCode = fax.substring(6,9);
+            EspFormResponseStruct officeCodeStruct = new EspFormResponseStruct();
+            officeCodeStruct.addValue(officeCode);
+            responseMap.put("school_fax_office_code", officeCodeStruct);
+
+            String lastFour = fax.substring(10,14);
+            EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
+            lastFourStruct.addValue(lastFour);
+            responseMap.put("school_fax_last_four", lastFourStruct);
         }
     }
 
