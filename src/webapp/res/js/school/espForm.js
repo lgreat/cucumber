@@ -339,6 +339,26 @@ new (function() {
         return formNameArr.join(',');
     };
 
+    var validateGradeLevels = function() {
+        var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
+        // only validate if current page contains grade levels
+        var gradeLevels = form.find('[name=grade_levels]');
+        if (gradeLevels.size() > 0) {
+            var checkedLevels = gradeLevels.filter(':checked');
+            var numChecked = checkedLevels.size();
+            if (numChecked == 0) {
+                alert("You must choose at least one grade level.");
+                return false;
+            } else if (numChecked == 1) {
+                if (checkedLevels.filter('#form_grade_levels_pk').size() == 1) {
+                    alert("You cannot choose only PK as your grade level.");
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+
     var doValidations = function() {
         var isValidAcademicFocus = GS.validation.validateRequired('[name=academic_focus]', '#academic_focus_error');
         var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
@@ -346,8 +366,9 @@ new (function() {
 
         var isValidClassSize = GS.validation.validateInteger('#form_average_class_size', '#form_average_class_size_error');
 
+        var isValidGradeLevels = validateGradeLevels();
 
-        return  isValidClassSize && isValidAcademicFocus && isValidStudentEnrollment;
+        return  isValidClassSize && isValidAcademicFocus && isValidStudentEnrollment && isValidGradeLevels;
     };
 
     if (GS.history5Enabled) {

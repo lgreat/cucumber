@@ -420,6 +420,11 @@ public class EspFormController implements ReadWriteAnnotationController {
             _log.error("School is null or inactive: " + school);
             return null;
         }
+        
+        if (school.isPreschoolOnly()) {
+            _log.error("School is preschool only! " + school);
+            return null;
+        }
 
         return school;
     }

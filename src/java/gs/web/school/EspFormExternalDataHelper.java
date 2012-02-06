@@ -1,10 +1,7 @@
 package gs.web.school;
 
 import gs.data.community.User;
-import gs.data.school.Grades;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
-import gs.data.school.SchoolType;
+import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusDataSetDao;
@@ -181,8 +178,8 @@ public class EspFormExternalDataHelper {
             return saveSchoolType(school, (String)values[0], user, now);
         } else if (StringUtils.equals("address", key)) {
             Address address = (Address) values[0];
-            _log.debug("Saving physical address " + address.toString() + " elsewhere for school:" + school.getName());
-            school.setPhysicalAddress(address);
+            _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
+            school.getPhysicalAddress().setStreet((address.getStreet()));
             saveSchool(school, user, now);
             return null;
         } else if (StringUtils.equals("school_phone", key)) {
@@ -220,6 +217,11 @@ public class EspFormExternalDataHelper {
         Collections.addAll(gradesList, data);
         if (!gradesList.isEmpty()) {
             Grades grades = Grades.createGrades(StringUtils.join(gradesList, ","));
+            if (grades.containsOnly(Grade.PRESCHOOL)) {
+                return "You can not set preschool as your only grade.";
+            } else if (StringUtils.isBlank(grades.getCommaSeparatedString())) {
+                return "You must select a grade level.";
+            }
             school.setGradeLevels(grades);
             saveSchool(school, user, now);
         } else {
