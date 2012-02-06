@@ -9,43 +9,55 @@
 
         <label for="form_physical_address_street">School site address</label>
 
-        <input id="form_physical_address_street" type="text" name="physical_address_street" value="${responseMap['physical_address_street'].value}" />
+        <gsml:input styleId="form_physical_address_street" type="text" name="physical_address_street"
+                    value="${responseMap['physical_address_street'].value}" readonly="${stateLocked}"/>
         <br/>
-        <input id="form_physical_address_city" type="text" name="physical_address_city" value="${responseMap['physical_address_city'].value}" />
+        <gsml:input styleId="form_physical_address_city" type="text" name="physical_address_city"
+                    value="${responseMap['physical_address_city'].value}" readonly="${true}"/>
         <br/>
-        <input id="form_physical_address_zip" type="text" name="physical_address_zip" value="${responseMap['physical_address_zip'].value}" />
+        <gsml:input styleId="form_physical_address_zip" type="text" name="physical_address_zip"
+                    value="${responseMap['physical_address_zip'].value}" readonly="${true}"/>
         <br/>
 
-        <div class="inline">
+        <div class="clearfix lal">
             <div class="grid_3 alpha">
-                <label for="form_school_phone">School phone:</label>
-                <input id="form_school_phone_area_code" type="text" name="school_phone_area_code" maxlength="3" value="${responseMap['school_phone_area_code'].value}" />-
+                <label for="form_school_phone_area_code">School phone:</label>
             </div>
-
             <div class="grid_3">
-                <span><input id="form_school_phone_office_code" type="text" name="school_phone_office_code" maxlength="3" value="${responseMap['school_phone_office_code'].value}" />-</span>
+                <gsml:input styleId="form_school_phone_area_code" type="text" name="school_phone_area_code"
+                            maxlength="3" value="${responseMap['school_phone_area_code'].value}" readonly="${stateLocked}"/>
+                -
             </div>
-
+            <div class="grid_3">
+                <span><gsml:input styleId="form_school_phone_office_code" type="text" name="school_phone_office_code"
+                                  maxlength="3" value="${responseMap['school_phone_office_code'].value}" readonly="${stateLocked}"/>
+                    -</span>
+            </div>
             <div class="grid_4 omega">
-                <input id="form_school_phone_last_four" type="text" name="school_phone_last_four" maxlength="4" value="${responseMap['school_phone_last_four'].value}" />-
+                <gsml:input styleId="form_school_phone_last_four" type="text" name="school_phone_last_four"
+                            maxlength="4" value="${responseMap['school_phone_last_four'].value}" readonly="${stateLocked}"/>
             </div>
         </div>
-
-        <div class="inline">
+        <div class="clearfix lal">
             <div class="grid_3 alpha">
-                <label for="form_school_fax">School phone:</label>
-                <input id="form_school_fax_area_code" type="text" name="school_fax_area_code" maxlength="3" value="${responseMap['school_fax_area_code'].value}"  />-
+                <label for="form_school_fax_area_code">School fax:</label>
             </div>
-
             <div class="grid_3">
-                <span><input id="form_school_fax_office_code" type="text" name="school_fax_office_code" maxlength="3" value="${responseMap['school_fax_office_code'].value}" />-</span>
+                <gsml:input styleId="form_school_fax_area_code" type="text" name="school_fax_area_code" maxlength="3"
+                       value="${responseMap['school_fax_area_code'].value}" readonly="${stateLocked}" />
+                -
             </div>
-
+            <div class="grid_3">
+                <span><gsml:input styleId="form_school_fax_office_code" type="text" name="school_fax_office_code" maxlength="3"
+                             value="${responseMap['school_fax_office_code'].value}" readonly="${stateLocked}"/>
+                    -</span>
+            </div>
             <div class="grid_4 omega">
-                <input id="form_fax_phone_last_four" type="text" name="school_fax_last_four" maxlength="4" value="${responseMap['school_fax_last_four'].value}" />-
+                <gsml:input styleId="form_fax_phone_last_four" type="text" name="school_fax_last_four" maxlength="4"
+                       value="${responseMap['school_fax_last_four'].value}" readonly="${stateLocked}"/>
             </div>
         </div>
-
+        <br/><br/>
         <div class="lal clearfix">
             <label for="form_website_url" class="alpha grid_3">School website</label>
             <div class="grid_6">

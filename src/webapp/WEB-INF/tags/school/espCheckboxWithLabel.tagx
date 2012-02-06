@@ -8,13 +8,14 @@
     <jsp:directive.attribute name="value" required="true" description="ESP answer value"/>
     <jsp:directive.attribute name="label" required="true" description="Text value for the label" />
     <jsp:directive.attribute name="styleClass" required="false" description="Element class" />
-
+    <jsp:directive.attribute name="disabled" required="false" type="java.lang.Boolean" description="True if element should be disabled" />
 
     <c:set var="prefix" value="form"/>
 
     <gsml:checkbox styleId="${prefix}_${key}_${fn:toLowerCase(value)}" styleClass="${styleClass}"
                    name="${key}" value="${value}"
-                   checked="${not empty responseMap[key].valueMap[value]}"/>
+                   checked="${not empty responseMap[key].valueMap[value]}"
+                   disabled="${disabled}"/>
     <label for="${prefix}_${key}_${fn:toLowerCase(value)}">${label}</label>
 
 </jsp:root>

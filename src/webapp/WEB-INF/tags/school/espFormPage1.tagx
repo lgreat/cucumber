@@ -8,41 +8,41 @@
     <school:espFormTemplate page="1" maxPage="${maxPage}" headerText="School basic info">
 
         <label for="form_student_enrollment">School size </label>
-        <input id="form_student_enrollment" type="text" name="student_enrollment"
-               value="${responseMap['student_enrollment'].value}" maxlength="4"/>
+        <gsml:input styleId="form_student_enrollment" type="text" name="student_enrollment"
+                    value="${responseMap['student_enrollment'].value}" maxlength="4" readonly="${stateLocked}"/>
         <span id="form_student_enrollment_error" class="error" style="display: none">Please enter enrollment data.</span>
         <br/>
         <br/>
 
         <label>Grade levels offered</label>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="PK" label="PK"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="PK" label="PK" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="KG" label="K"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="KG" label="K" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="1" label="First Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="1" label="First Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="2" label="Second Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="2" label="Second Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="3" label="Third Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="3" label="Third Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="4" label="Fourth Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="4" label="Fourth Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="5" label="Fifth Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="5" label="Fifth Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="6" label="Sixth Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="6" label="Sixth Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="7" label="Seventh Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="7" label="Seventh Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="8" label="Eighth Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="8" label="Eighth Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="9" label="Ninth Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="9" label="Ninth Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="10" label="Tenth Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="10" label="Tenth Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="11" label="Eleventh Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="11" label="Eleventh Grade" disabled="${stateLocked}"/>
         <br/>
-        <school:espCheckboxWithLabel key="grade_levels" value="12" label="Twelfth Grade"/>
+        <school:espCheckboxWithLabel key="grade_levels" value="12" label="Twelfth Grade" disabled="${stateLocked}"/>
         <br/>
         <br/>
 
@@ -88,21 +88,21 @@
 
         <label>School type</label>
         <br/>
-        <school:espRadioWithLabel key="school_type" value="public" label="Public"/>
-        <school:espRadioWithLabel key="school_type" value="charter" label="Public Charter"/>
-        <school:espRadioWithLabel key="school_type" value="private" label="Private"/>
+        <school:espRadioWithLabel key="school_type" value="public" label="Public" disabled="${stateLocked}"/>
+        <school:espRadioWithLabel key="school_type" value="charter" label="Public Charter" disabled="${stateLocked}"/>
+        <school:espRadioWithLabel key="school_type" value="private" label="Private" disabled="${stateLocked}"/>
         <br/>
         <br/>
 
         <div id="form_school_type_affiliation_group">
             <label>School type Select type</label>
             <br/>
-            <school:espRadioWithLabel key="school_type_affiliation" value="independent" label="Independent"/>
-            <school:espRadioWithLabel key="school_type_affiliation" value="religious_paroch" label="Religious / Parochial"/>
+            <school:espRadioWithLabel key="school_type_affiliation" value="independent" label="Independent" disabled="${stateLocked}"/>
+            <school:espRadioWithLabel key="school_type_affiliation" value="religious_paroch" label="Religious / Parochial" disabled="${stateLocked}"/>
             <br/>
             <label for="form_school_type_affiliation_other">Affiliation:</label>
-            <input id="form_school_type_affiliation_other" type="text" name="school_type_affiliation_other"
-                   value="${responseMap['school_type_affiliation_other'].value}"/>
+            <gsml:input styleId="form_school_type_affiliation_other" type="text" name="school_type_affiliation_other"
+                   value="${responseMap['school_type_affiliation_other'].value}" readonly="${stateLocked}"/>
             <br/>
             <br/>
         </div>
@@ -198,7 +198,8 @@
         <!--<br/>-->
         <!--<br/>-->
         <label for="form_average_class_size">Average class size: </label>
-        <input id="form_average_class_size" type="text" name="average_class_size" maxlength="2" value="${responseMap['average_class_size'].value}"/>
+        <gsml:input styleId="form_average_class_size" type="text" name="average_class_size"
+                    maxlength="2" value="${responseMap['average_class_size'].value}" readonly="${stateLocked}"/>
         <span id="form_average_class_size_error" class="error" style="display: none">Average class size must be a positive integer.</span>
 
 
