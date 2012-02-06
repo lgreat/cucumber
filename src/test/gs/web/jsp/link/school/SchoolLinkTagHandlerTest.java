@@ -159,7 +159,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         tagHandler.setDefaultState(State.CA);
 
         UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
-        assertEquals("/school/esp/dashboard.page?defaultCity=Alameda&defaultSchoolId=2&defaultState=ca", urlBuilder.asSiteRelative(null));
+        assertEquals("/official-school-profile/dashboard/?defaultCity=Alameda&defaultSchoolId=2&defaultState=ca", urlBuilder.asSiteRelative(null));
     }
 
     public void testEspSignInTagHandler() {
