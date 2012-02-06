@@ -14,7 +14,7 @@
         <div class="mod form">
             <div class="inner">
                 <div class="hd">
-                    <div class="grid_11 alpha">
+                    <div class="alpha prefix_1 grid_10">
                         <h3>${headerText}</h3>
                     </div>
                     <div class="grid_12 omega">
