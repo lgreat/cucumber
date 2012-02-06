@@ -285,7 +285,7 @@ new (function() {
         window.location = '/official-school-profile/dashboard/';
     };
     var sendToSignInPage = function() {
-        window.location = '/school/esp/signIn.page';
+        window.location = '/official-school-profile/signin.page';
     };
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();

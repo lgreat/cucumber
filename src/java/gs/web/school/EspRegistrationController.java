@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Controller
-@RequestMapping("/school/esp/")
+@RequestMapping("/official-school-profile/")
 public class EspRegistrationController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspRegistrationController.class);
 

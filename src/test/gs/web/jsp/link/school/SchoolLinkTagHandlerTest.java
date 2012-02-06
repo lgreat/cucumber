@@ -166,13 +166,13 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         EspSignInTagHandler tagHandler = new EspSignInTagHandler();
 
         UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
-        assertEquals("/school/esp/signIn.page", urlBuilder.asSiteRelative(null));
+        assertEquals("/official-school-profile/signin.page", urlBuilder.asSiteRelative(null));
     }
 
     public void testEspRegisterTagHandler() {
         EspRegisterTagHandler tagHandler = new EspRegisterTagHandler();
 
         UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
-        assertEquals("/school/esp/register.page", urlBuilder.asSiteRelative(null));
+        assertEquals("/official-school-profile/register.page", urlBuilder.asSiteRelative(null));
     }
 }

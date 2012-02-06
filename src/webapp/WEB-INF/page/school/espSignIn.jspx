@@ -15,7 +15,7 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <head>
-        <title>Official School Profile - Sign in | GreatSchools</title>
+        <title>Official School Profile - Sign in</title>
         <script type="text/javascript">
             jQuery(function() {
                 jQuery('#js_espSignIn .js_espEmailNotVerifiedHover').click(function() {
@@ -27,7 +27,7 @@
         </script>
     </head>
 
-    <gsml:body adPageName="school/esp" pageLayout="nocol">
+    <gsml:body adPageName="ESP/signin" pageLayout="nocol">
         <div class="spacer_20"><!-- do not collapse --></div>
         <div class="container_24 slStylesV1-0 slFormsV1-0">
             <div class="grid_16" id="js_espSignIn">

@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-@RequestMapping("/school/esp/signIn.page")
+@RequestMapping("/official-school-profile/signin.page")
 public class EspSignInController implements ReadWriteAnnotationController {
     public static final String VIEW = "school/espSignIn";
 
@@ -99,7 +99,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
     protected void validateUserState(EspUserStateStruct userState, BindingResult result) {
         if (userState.isNewUser() || (!userState.isUserRequestedESP())) {
-            result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/school/esp/register.page'>register here.</a>");
+            result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page'>register here.</a>");
         } else if (userState.isUserAwaitingESPMembership()) {
             result.rejectValue("email", null, "You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (userState.isUserApprovedESPMember() && !userState.isUserEmailValidated()) {

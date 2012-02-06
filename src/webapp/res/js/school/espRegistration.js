@@ -84,7 +84,7 @@ GS.form.EspForm = function() {
             email = email.trim();
             jQuery.ajax({
                 type: 'GET',
-                url: '/school/esp/checkUserState.page',
+                url: '/official-school-profile/checkUserState.page',
                 data: {email:email},
                 dataType: 'json',
                 async: true
@@ -119,9 +119,9 @@ GS.form.EspForm = function() {
         } else if (data.isUserAwaitingESPMembership === true) {
             GS.form.espForm.showEmailError("You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            GS.form.espForm.showEmailError("You already have access to this school’s Official School Profile.<a href='/school/esp/signIn.page'>Sign in</a> to your account here.");
+            GS.form.espForm.showEmailError("You already have access to this school’s Official School Profile.<a href='/official-school-profile/signin.page'>Sign in</a> to your account here.");
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/school/esp/register.page')";
+            var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
             GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>");
         }else if (data.isCookieMatched !== true ) {
             GS.form.espForm.showEmailError("An error has occurred.");
@@ -181,7 +181,7 @@ GS.form.EspForm = function() {
 
         jQuery.ajax({
             type: 'GET',
-            url: '/school/esp/checkStateSchoolUserUnique.page',
+            url: '/official-school-profile/checkStateSchoolUserUnique.page',
             data: {schoolId:schoolId, state:state,email:email},
             dataType: 'json',
             async: true

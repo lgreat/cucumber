@@ -17,7 +17,7 @@
         <title>Official School Profile Dashboard | GreatSchools</title>
     </head>
 
-    <gsml:body adPageName="school/esp" pageLayout="nocol">
+    <gsml:body adPageName="ESP/dashboard" pageLayout="nocol">
 
         ESP LANDING PAGE FOR SCHOOL: ${espMembership.school.name}
         <br/>YOUR NAME: ${espMembership.user.firstName}
