@@ -1579,6 +1579,8 @@ jQuery(function() {
         pageTracking.send();
 
         GSType.hover.principalReviewSubmitted.show();
+    } else if (showHover == "schoolEspThankYou") {
+        GSType.hover.schoolEspThankYou.show();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");

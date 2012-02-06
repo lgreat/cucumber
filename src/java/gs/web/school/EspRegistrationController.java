@@ -13,6 +13,7 @@ import gs.web.community.registration.UserCommand;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -137,7 +138,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
         omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EspRegistration);
 
-        return "redirect:" + getSchoolOverview(request, command);
+        return "redirect:" + getSchoolOverview(request, response, command);
     }
 
     /**
@@ -402,14 +403,15 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         return emv.isValid(email);
     }
 
-    protected String getSchoolOverview(HttpServletRequest request, EspRegistrationCommand command) {
+    protected String getSchoolOverview(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) {
         State state = command.getState();
         int schoolId = command.getSchoolId();
         if (state != null && schoolId > 0) {
             School school = getSchoolDao().getSchoolById(state, schoolId);
             if (school != null) {
                 UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-                urlBuilder.addParameter("showEspHover", "true");
+                SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
+                sitePrefCookie.setProperty("showHover", "schoolEspThankYou");
                 return urlBuilder.asFullUrl(request);
             }
         }

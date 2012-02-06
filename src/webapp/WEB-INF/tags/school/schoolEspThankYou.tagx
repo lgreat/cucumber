@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
-    <div id="schoolEspThankYou" class="dialog_white">
-        <h2>Thank you for submitting Esp data.</h2>
-        <p><strong>Thank you for submitting Esp data.</strong></p>
+    <div id="schoolEspThankYou" class="dialog_white" style="display:none;">
+        <h2>Your request has been submited</h2>
+        <p>
+            Thank you for registering for a GreatSchools School Official account!
+            You will receive an email in 2-4 days confirming that your account has been approved.
+            Please click on the link in the email to activate your account and begin editing
+            your Official School Profile.
+        </p>
+        <button class="button-1 schoolEspThankYou_hideHover" type="button">OK</button>
     </div>
 </jsp:root>
