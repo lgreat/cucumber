@@ -11,49 +11,58 @@
 
     <!-- No ids are to be used in this file unless they include ${page}. This template can be included multiple times
          per page! -->
-    <div class="espFormWrapper">
-        <dl class="gradient-3">
-            <dd class="bottom">
-                <div class="fltrt">
-                    <c:if test="${page gt 1}">
-                        <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
-                    </c:if>
-                    <span class="mlm">Page ${page} of ${maxPage}</span>
-                    <c:if test="${page lt maxPage}">
-                        <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
-                    </c:if>
-                </div>
-                <div>${headerText}</div>
-            </dd>
-        </dl>
-        <div class="espFormBody">
-            <c:if test="${stateLocked}">
-                <p>
-                    We are currently updating your state's data, so some of this school's information
-                    is temporarily unavailable for editing. If you need to edit information that is
-                    unavailable, please try again in two weeks. We apologize for the inconvenience.
-                </p>
-            </c:if>
-            <form:form id="espFormPage-${page}">
-                <jsp:doBody/>
-                <input type="submit" name="Save" style="display:none;"/>
-            </form:form>
-        </div>
-        <dl class="gradient-3">
-            <dd class="bottom">
-                <div class="fltrt">
-                    <c:if test="${page gt 1}">
-                        <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
-                    </c:if>
-                    <span class="mlm">Page ${page} of ${maxPage}</span>
-                    <c:if test="${page lt maxPage}">
-                        <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
+        <div class="mod form">
+            <div class="inner">
+                <div class="hd">
+                    <div class="grid_11 alpha">
+                        <h3>${headerText}</h3>
+                    </div>
+                    <div class="grid_12 omega">
+                        <div class="fltrt">
+                            <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
+                            <c:if test="${page gt 1}">
+                                <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                            </c:if>
+                            <span class="mlm">Page ${page} of ${maxPage}</span>
+                            <c:if test="${page lt maxPage}">
+                                <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
+                            </c:if>
+                        </div>
+                    </div>
+                    <div class="clear"><!--Do not collapse--></div>
+                    <c:if test="${stateLocked}">
+                        <p>
+                            We are currently updating your state's data, so some of this school's information
+                            is temporarily unavailable for editing. If you need to edit information that is
+                            unavailable, please try again in two weeks. We apologize for the inconvenience.
+                        </p>
                     </c:if>
                 </div>
 
-                <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
-            </dd>
-        </dl>
-    </div>
+                <div class="bd">
+                        <form:form id="espFormPage-${page}">
+                            <jsp:doBody/>
+                            <input type="submit" name="Save" style="display:none;"/>
+                        </form:form>
+                </div>
+
+                <div class="ft">
+                    <div class="grid_23 omega alpha">
+                        <div class="fltrt">
+                            <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
+                            <div class="fltrt">
+                                <c:if test="${page gt 1}">
+                                    <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                                </c:if>
+                                <span class="mlm">Page ${page} of ${maxPage}</span>
+                                <c:if test="${page lt maxPage}">
+                                    <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </jsp:root>
