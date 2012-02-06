@@ -4,10 +4,6 @@ import gs.data.community.User;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
-import gs.data.school.census.CensusDataSet;
-import gs.data.school.census.CensusDataType;
-import gs.data.school.census.ICensusDataSetDao;
-import gs.data.school.census.SchoolCensusValue;
 import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
@@ -29,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -54,11 +48,11 @@ public class EspFormController implements ReadWriteAnnotationController {
     @Autowired
     private ISchoolDao _schoolDao;
     @Autowired
-    private ICensusDataSetDao _dataSetDao;
-    @Autowired
     private INoEditDao _noEditDao;
     @Autowired
     private EspFormValidationHelper _espFormValidationHelper;
+    @Autowired
+    private EspFormExternalDataHelper _espFormExternalDataHelper;
 
     // TODO: If user is valid but school/state is not, redirect to landing page
     @RequestMapping(value="form.page", method=RequestMethod.GET)
@@ -89,7 +83,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("maxPage", maxPage);
         modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
 
-        putResponsesInModel(school, page, modelMap); // fetch responses for school, including external data
+        putResponsesInModel(school, modelMap); // fetch responses for school, including external data
         putPercentCompleteInModel(school, modelMap);
 
         modelMap.put("stateLocked", _noEditDao.isStateLocked(state));
@@ -106,22 +100,22 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("percentComplete", percentCompleteMap);
     }
     
-    protected void putResponsesInModel(School school, int page, ModelMap modelMap) {
-        Map<String, EspResponseStruct> responseMap = new HashMap<String, EspResponseStruct>();
+    protected void putResponsesInModel(School school, ModelMap modelMap) {
+        Map<String, EspFormResponseStruct> responseMap = new HashMap<String, EspFormResponseStruct>();
         
         // fetch all responses to allow page to use ajax page switching if desired.
         List<EspResponse> responses = _espResponseDao.getResponses(school);
 
         for (EspResponse response: responses) {
-            EspResponseStruct responseStruct = responseMap.get(response.getKey());
+            EspFormResponseStruct responseStruct = responseMap.get(response.getKey());
             if (responseStruct == null) {
-                responseStruct = new EspResponseStruct();
+                responseStruct = new EspFormResponseStruct();
                 responseMap.put(response.getKey(), responseStruct);
             }
             responseStruct.addValue(response.getValue());
         }
 
-        fetchExternalValues(responseMap, school); // fetch data that lives outside of esp_response
+        _espFormExternalDataHelper.fetchExternalValues(responseMap, school); // fetch data that lives outside of esp_response
 
         // READ HOOKS GO HERE
         // This is for data that needs to be transformed from the database representation to a view-specific one
@@ -160,7 +154,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         // Save page
         List<EspResponse> responseList = new ArrayList<EspResponse>();
-        Set<String> keysForExternalData = getKeysForExternalData(school);
+        Set<String> keysForExternalData = _espFormExternalDataHelper.getKeysForExternalData(school);
 
         // copy requestParameterMap to a mutable map, and allow value to be any Object, so that we can store
         // complex objects in the map if necessary (e.g. Address)
@@ -210,7 +204,8 @@ public class EspFormController implements ReadWriteAnnotationController {
             // these values also go in esp_response but are disabled to clearly mark that they are not sourced from there
             if (keysForExternalData.contains(key)) {
                 if (!stateIsLocked) {
-                    String error = saveExternalValue(key, responseValues, school, user, now);
+                    String error = _espFormExternalDataHelper.saveExternalValue
+                            (key, responseValues, school, user, now);
                     if (error != null) {
                         errorFieldToMsgMap.put(key, error);
                     }
@@ -257,14 +252,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
 
     protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, Address responseValue) {
-        EspResponse espResponse = new EspResponse();
-        espResponse.setKey(key);
-        espResponse.setValue(responseValue.toString());
-        espResponse.setSchool(school);
-        espResponse.setMemberId(user.getId());
-        espResponse.setCreated(now);
-        espResponse.setActive(active);
-        return espResponse;
+        return createEspResponse(user, school, now, key, active, responseValue.toString());
     }
 
     protected void outputJsonErrors(Map<String, String> errorFieldToMsgMap, HttpServletResponse response) throws JSONException, IOException {
@@ -282,31 +270,6 @@ public class EspFormController implements ReadWriteAnnotationController {
         errorObj.put("error", msg);
         errorObj.write(response.getWriter());
         response.getWriter().flush();
-    }
-
-    /**
-     * Sample read hook. Modifies responseMap in place, adding any new key/value pairs that the view
-     * might need to display the data.
-     */
-    protected void handleEndTimeRead(Map<String, EspResponseStruct> responseMap) {
-        EspResponseStruct responseStruct = responseMap.get("end_time");
-        if (responseStruct != null) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("militaryTimeFormatStr");
-                Date date = sdf.parse(responseStruct.getValue());
-                sdf.applyPattern("hh:mm:ss");
-                EspResponseStruct textStruct = new EspResponseStruct();
-                textStruct.addValue(sdf.format(date));
-                sdf.applyPattern("ZZ");
-                EspResponseStruct ampmStruct = new EspResponseStruct();
-                ampmStruct.addValue(sdf.format(date));
-                responseMap.put("end_time_text", textStruct);
-                responseMap.put("end_time_ampm", ampmStruct);
-            } catch (ParseException e) {
-                _log.error(e, e);
-                // TODO: ???
-            }
-        }
     }
 
     protected void handleAddressSave(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
@@ -520,247 +483,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         return keys;
     }
 
-    /**
-     * Fetch the keys whose values live outside of esp_response and put them in responseMap
-     * (overwriting existing keys if present).
-     */
-    protected void fetchExternalValues(Map<String, EspResponseStruct> responseMap, School school) {
-        for (String key: getKeysForExternalData(school)) {
-
-            // for keys where the external data doesn't map 1:1 between EspResponse and the form, handle them here
-            if (StringUtils.equals("address", key)) {
-                insertEspResponseStructForAddress(responseMap, school);
-            } else if (StringUtils.equals("school_phone", key)) {
-                    insertEspResponseStructForPhone(responseMap, school);
-            } else {
-                // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
-                String[] vals = getExternalValuesForKey(key, school);
-                if (vals != null && vals.length > 0) {
-                    EspResponseStruct espResponse = new EspResponseStruct();
-                    for (String val: vals) {
-                        espResponse.addValue(val);
-                    }
-                    responseMap.put(key, espResponse);
-                } else {
-                    // don't let esp_response values for external data show up on form
-                    // external data has to come from external sources!
-                    responseMap.remove(key);
-                }
-            }
-        }
-    }
-
-    /**
-     * Converts an <code>Address</code> on a <code>School</code> to multiple <code>EspResponseStruct</code>s and adds
-     * them to the specified map
-     */
-    private void insertEspResponseStructForAddress(Map<String, EspResponseStruct> responseMap, School school) {
-        Address address = school.getPhysicalAddress();
-        if (address != null) {
-            EspResponseStruct streetStruct = new EspResponseStruct();
-            streetStruct.addValue(address.getStreet());
-            responseMap.put("physical_address_street", streetStruct);
-            EspResponseStruct cityStruct = new EspResponseStruct();
-            cityStruct.addValue(address.getCity());
-            responseMap.put("physical_address_city", cityStruct);
-            EspResponseStruct stateStruct = new EspResponseStruct();
-            stateStruct.addValue(address.getState().getAbbreviation());
-            responseMap.put("physical_address_state", stateStruct);
-            EspResponseStruct zipStruct = new EspResponseStruct();
-            zipStruct.addValue(address.getZip());
-            responseMap.put("physical_address_zip", zipStruct);
-            responseMap.remove("address");
-        }
-    }
-    
-    protected void insertEspResponseStructForPhone(Map<String, EspResponseStruct> responseMap, School school) {
-        String phone = school.getPhone();
-        if (phone != null) { //TODO: what if the phone isn't 10 digits? DB limit = 31
-            //"(510) 337-7022"
-            String areaCode = phone.substring(1,4);
-            EspResponseStruct areaCodeStruct = new EspResponseStruct();
-            areaCodeStruct.addValue(areaCode);
-            responseMap.put("school_phone_area_code", areaCodeStruct);
-
-            String officeCode = phone.substring(6,9);
-            EspResponseStruct officeCodeStruct = new EspResponseStruct();
-            officeCodeStruct.addValue(officeCode);
-            responseMap.put("school_phone_office_code", officeCodeStruct);
-
-            String lastFour = phone.substring(10,14);
-            EspResponseStruct lastFourStruct = new EspResponseStruct();
-            lastFourStruct.addValue(lastFour);
-            responseMap.put("school_phone_last_four", lastFourStruct);
-        }
-    }
-
-    /**
-     * Return error message on error.
-     */
-    protected String saveExternalValue(String key, Object[] values, School school, User user, Date now) {
-        if (values == null || values.length == 0 && school == null) {
-            return null; // early exit
-        }
-        if (StringUtils.equals("student_enrollment", key)) {
-            try {
-                _log.debug("Saving student_enrollment elsewhere: " + values[0]);
-                saveCensusInteger(school, Integer.parseInt((String)values[0]), CensusDataType.STUDENTS_ENROLLMENT, user);
-            } catch (NumberFormatException nfe) {
-                return "Must be an integer.";
-            }
-        } else if (StringUtils.equals("average_class_size", key)) {
-            try {
-                _log.debug("Saving average_class_size elsewhere: " + values[0]);
-                saveCensusInteger(school, Integer.parseInt((String)values[0]), CensusDataType.CLASS_SIZE, user);
-            } catch (NumberFormatException nfe) {
-                return "Must be an integer.";
-            }
-        } else if (StringUtils.equals("grade_levels", key)) {
-            _log.debug("Saving grade_levels " + values + " elsewhere for school:" + school.getName());
-            return saveGradeLevels(school, (String[])values, user, now);
-        } else if (StringUtils.equals("school_type", key)) {
-            _log.debug("Saving school type " + values[0] + " elsewhere for school:" + school.getName());
-            return saveSchoolType(school, (String)values[0], user, now);
-        } else if (StringUtils.equals("address", key)) {
-            Address address = (Address) values[0];
-            _log.debug("Saving physical address " + address.toString() + " elsewhere for school:" + school.getName());
-            school.setPhysicalAddress(address);
-            saveSchool(school, user, now);
-            return null;
-        } else if (StringUtils.equals("school_phone", key)) {
-            String phone = (String) values[0];
-            school.setPhone(phone);
-            saveSchool(school, user, now);
-            return null;
-        } else if (StringUtils.equals("school_fax", key)) {
-            String fax = (String) values[0];
-            school.setFax(fax);
-            saveSchool(school, user, now);
-            return null;
-        }
-        return null;
-    }
-
-    protected void saveCensusInteger(School school, int data, CensusDataType censusDataType, User user) {
-        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, "ESP-" + user.getId());
-    }
-
-    protected CensusDataSet findOrCreateManualDataSet(School school, CensusDataType censusDataType) {
-        CensusDataSet dataSet = _dataSetDao.findDataSet(school.getDatabaseState(), censusDataType, 0, null, null);
-        if (dataSet == null) {
-            dataSet = _dataSetDao.createDataSet(school.getDatabaseState(), censusDataType, 0, null, null);
-        }
-        return dataSet;
-    }
-
-    /**
-     * Save grade levels to the db. Return error string if necessary.
-     */
-    protected String saveGradeLevels(School school, String[] data, User user, Date now) {
-        List<String> gradesList = new ArrayList<String>();
-        Collections.addAll(gradesList, data);
-        if (!gradesList.isEmpty()) {
-            Grades grades = Grades.createGrades(StringUtils.join(gradesList, ","));
-            school.setGradeLevels(grades);
-            saveSchool(school, user, now);
-        } else {
-            return "You must select a grade level.";
-        }
-        return null;
-    }
-    
-    protected void saveSchool(School school, User user, Date now) {
-        String modifiedBy = "ESP-" + user.getId();
-        school.setManualEditBy(modifiedBy);
-        school.setManualEditDate(now);
-        school.setModified(now);
-        _schoolDao.saveSchool(school.getDatabaseState(), school, modifiedBy);
-    }
-
-    /**
-     * Save grade levels to the db
-     */
-    protected String saveSchoolType(School school, String data, User user, Date now) {
-        SchoolType type = SchoolType.getSchoolType(data);
-        if (type != null) {
-            school.setType(type);
-            saveSchool(school, user, now);
-        } else {
-            return "Must select a valid school type.";
-        }
-        return null;
-    }
-
-    /**
-     * The set of keys that exist in external places.
-     * @param school This might depend on the type or other attribute of the school.
-     */
-    protected Set<String> getKeysForExternalData(School school) {
-        Set<String> keys = new HashSet<String>();
-        keys.add("student_enrollment");
-        keys.add("average_class_size");
-        keys.add("grade_levels");
-        keys.add("school_type");
-        keys.add("school_type_affiliation");
-        keys.add("school_type_affiliation_other");
-        keys.add("address");
-        keys.add("school_phone");
-        keys.add("school_fax");
-        return keys;
-    }
-
-    /**
-     * Fetch external value, e.g. from census or school table. This returns an array of strings
-     * representing the values for that key (e.g. {"KG", "1", "2"} for grade_level or {"100"} for enrollment
-     */
-    protected String[] getExternalValuesForKey(String key, School school) {
-        if (StringUtils.equals("student_enrollment", key) && school.getEnrollment() != null) {
-            _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
-            return new String[]{String.valueOf(school.getEnrollment())};
-        } else if (StringUtils.equals("average_class_size", key)) {
-            SchoolCensusValue value = school.getCensusInfo().getLatestValue(school, CensusDataType.CLASS_SIZE);
-            if (value != null && value.getValueInteger() != null) {
-                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
-                return new String[]{String.valueOf(value.getValueInteger())};
-            }
-        } else if (StringUtils.equals("grade_levels", key) && school.getGradeLevels() != null) {
-            String gradeLevels = school.getGradeLevels().getCommaSeparatedString();
-            return gradeLevels.split(",");
-        } else if (StringUtils.equals("school_type", key) && school.getType() != null) {
-            return new String[]{school.getType().getSchoolTypeName()};
-        }
-        return new String[0];
-    }
-    
     protected Map<String, Object[]> cloneAndConvert(Map<String,String[]> requestParameterMap) {
         return new HashMap<String, Object[]>(requestParameterMap);
-    }
-
-    /**
-     * A simple data structure that presents data to the view in two ways. ${struct.value} fetches a single
-     * string value and should be used for keys with 1-to-1 mappings to values. ${struct.valueMap} returns a
-     * map of answer_key to (irrelevant) which should be used for 1-to-many mappings of key to value. It would
-     * be checked like ${not empty struct.valueMap['K']}.
-     *
-     * Behind the scenes, addValue both sets value and creates a key in valueMap. At this point in development
-     * there is no way of knowing whether any given key is 1-to-1 or 1-to-many, so this structure basically
-     * separates out needing to know that.
-     */
-    protected static class EspResponseStruct {
-        private String _value;
-        private Map<String, Boolean> _valueMap = new HashMap<String, Boolean>();
-
-        public String getValue() {
-            return _value;
-        }
-
-        public Map<String, Boolean> getValueMap() {
-            return _valueMap;
-        }
-
-        public void addValue(String value) {
-            _value = value;
-            _valueMap.put(value, true);
-        }
     }
 }
