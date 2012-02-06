@@ -7,12 +7,13 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="2" maxPage="${maxPage}" headerText="School model">
 
-        <label for="form_best_known_for">What is your school best known for?</label>
-        <input id="form_best_known_for" type="text" name="best_known_for" value="${responseMap['best_known_for'].value}" maxlength="45"/>
-        <br/>
-        Please use complete sentences, for example, “Our school is best known for our championship football team.”
-        <br/>
-        <br/>
+        <div class="lal clearfix">
+            <label for="form_best_known_for">What is your school best known for?</label>
+            <input id="form_best_known_for" type="text" name="best_known_for" value="${responseMap['best_known_for'].value}" maxlength="45"/>
+        </div>
+        <div class="lal clearfix">
+            <p>Please use complete sentences, for example, "Our school is best known for our championship football team."</p>
+        </div>
 
         <!-- TODO: goes to page 4 -->
         <!--<label>What colleges do most students attend after graduation?</label>
@@ -124,7 +125,7 @@
         <school:espRadioWithLabel key="immersion" value="no" label="No"/>
         <school:espRadioWithLabel key="immersion" value="yes" label="Yes" styleClass="js_otherField_form_immersion_language"/>
         <br/>
-        <div id="form_immersion_language_group">
+        <div id="js_form_immersion_language_group">
             <school:espCheckboxWithLabel key="immersion_language" value="cantonese" label="Chinese (Cantonese)"/>
             <br/>
             <school:espCheckboxWithLabel key="immersion_language" value="mandarin" label="Chinese (Mandarin)"/>

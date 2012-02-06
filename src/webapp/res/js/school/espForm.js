@@ -389,7 +389,7 @@ new (function() {
             saveForm();
             return false;
         });
-        // any text field with class js_otherField will cause another field with class "js_otherField{this.id}"
+        // any text field with class js_otherField will cause another field with class "js_otherField_{this.id}"
         // to become checked when the text field is modified to contain text.
         formWrapper.on('change', '.js_otherField', function() {
             var field = $(this);
@@ -415,7 +415,7 @@ new (function() {
         GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);
 
-        GS.form.controlVisibilityOfElement('#form_immersion_language_group','[name=immersion]', 'yes');
+        GS.form.controlVisibilityOfElement('#js_form_immersion_language_group','[name=immersion]', 'yes');
 
         GS.form.findAndApplyGhostTextSwitching('#espFormPage-' + GS.espForm.currentPage);
 

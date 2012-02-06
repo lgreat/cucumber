@@ -18,22 +18,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>ESP Form</title>
         <style type="text/css">
-            .espFormWrapper {
-                border: 1px solid #D1E9F3;
-                margin-top: 15px;
-            }
-            .espFormWrapper dd {
-                line-height: 38px;
-                margin: 0 15px;
-            }
-            .espFormBody {
-                padding:25px;
-            }
             #js_espFormNav ul {
                 position: relative;
             }
             #js_espFormNav li {
-                width: 80px;
+                width: 76px;
                 padding: 0 3px;
                 display: block;
                 float: left;
@@ -61,13 +50,26 @@
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
-        <div class="container_24">
+        <div class="container_24 slStylesV1-0 slFormsV1-0">
             <div class="grid_24">
                 <h2>Your School Profile</h2>
                 <p>Select a section to complete your School Profile. You may save, continue and edit your profile at any time.</p>
 
                 <div id="espFormNavWrapper">
-                    <div id="js_espFormNav" class="fltrt">
+                    <dl class="gradient-3 grid_8 alpha">
+                        <dd class="bottom">
+                            <div id="espFormSchoolInfo">
+                                <p>${school.name}</p>
+                                <p>${school.city}, ${school.databaseState}</p>
+                                <p>
+                                    <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview>
+                                    |
+                                    <link:schoolEspDashboard>Back to Dashboard</link:schoolEspDashboard>
+                                </p>
+                            </div>
+                        </dd>
+                    </dl>
+                    <div id="js_espFormNav" class="grid_16 omega">
                         <ul>
                             <li class="${(page eq 1)?'selected':''} ${(percentComplete[1] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="1">
@@ -113,21 +115,8 @@
                             </c:if>
                         </ul>
                     </div>
-                    <dl class="gradient-3 grid_8">
-                        <dd class="bottom">
-                            <div id="espFormSchoolInfo">
-                                <p>${school.name}</p>
-                                <p>${school.city}, ${school.databaseState}</p>
-                                <p>
-                                    <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview>
-                                    |
-                                    <link:schoolEspDashboard>Back to Dashboard</link:schoolEspDashboard>
-                                </p>
-                            </div>
-                        </dd>
-                    </dl>
                 </div>
-                <div id="js_pageContainer" class="clearLft">
+                <div id="js_pageContainer" class="grid_24 alpha omega">
                     <div id="js_pageWrapper-1" class="js_pageWrapper ${(page eq 1)?'':'hidden'}">
                         <school:espFormPage1 maxPage="${maxPage}"/>
                     </div>
