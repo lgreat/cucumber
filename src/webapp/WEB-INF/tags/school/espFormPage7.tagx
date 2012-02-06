@@ -7,20 +7,33 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="7" maxPage="${maxPage}" headerText="School contact information">
 
-        <label for="form_physical_address_street">School site address</label>
+        <div class="lal clearfix">
+            <div class="alpha grid_5">
+                <label for="form_physical_address_street">School site address</label>
+            </div>
+            <div class="grid_6">
+                <gsml:input styleId="form_physical_address_street" styleClass="text input_6" type="text"
+                            name="physical_address_street"
+                            value="${responseMap['physical_address_street'].value}" readonly="${stateLocked}"/>
+            </div>
+            <div class="grid_12 omega"><!-- do not collapse --></div>
+        </div>
 
-        <gsml:input styleId="form_physical_address_street" type="text" name="physical_address_street"
-                    value="${responseMap['physical_address_street'].value}" readonly="${stateLocked}"/>
-        <br/>
-        <gsml:input styleId="form_physical_address_city" type="text" name="physical_address_city"
-                    value="${responseMap['physical_address_city'].value}" readonly="${true}"/>
-        <br/>
-        <gsml:input styleId="form_physical_address_zip" type="text" name="physical_address_zip"
-                    value="${responseMap['physical_address_zip'].value}" readonly="${true}"/>
-        <br/>
+        <div class="nal clearfix">
+            <div class="alpha prefix_5 grid_4">
+                <gsml:input styleId="form_physical_address_city" styleClass="text input_4" type="text"
+                            name="physical_address_city"
+                            value="${responseMap['physical_address_city'].value}" readonly="${true}"/>
+            </div>
+            <div class="grid_2 suffix_12 omega">
+                <gsml:input styleId="form_physical_address_zip" styleClass="text input_2" type="text"
+                            name="physical_address_zip"
+                            value="${responseMap['physical_address_zip'].value}" readonly="${true}"/>
+            </div>
+        </div>
 
-        <div class="clearfix lal">
-            <div class="grid_3 alpha">
+        <div class="lal clearfix">
+            <div class="alpha grid_5">
                 <label for="form_school_phone_area_code">School phone:</label>
             </div>
             <div class="grid_3">
