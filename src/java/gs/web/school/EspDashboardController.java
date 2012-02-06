@@ -19,8 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The request mapping does not have a trailing slash.This handles the url with and without a trailing slash.
+ */
 @Controller
-@RequestMapping("/school/esp/dashboard.page")
+@RequestMapping("/official-school-profile/dashboard")
 public class EspDashboardController {
     public static final String VIEW = "school/espDashboard";
 

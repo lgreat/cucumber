@@ -282,7 +282,7 @@ new (function() {
         return masterDeferred.promise();
     };
     var sendToLandingPage = function() {
-        window.location = '/school/esp/dashboard.page';
+        window.location = '/official-school-profile/dashboard/';
     };
     var sendToSignInPage = function() {
         window.location = '/school/esp/signIn.page';
