@@ -320,7 +320,9 @@
 
 </div>
 <div class="grid_8">
-    <p class="">Already have a school official account? <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
+    <c:if test="${!userLoggedIn}">
+        <p class="">Already have a school official account? <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
+    </c:if>
 
     <h3 class="">Why you should create an Official School Profile</h3>
 
