@@ -347,11 +347,15 @@ public class EspFormController implements ReadWriteAnnotationController {
             String phoneNumberString = schoolPhoneAreaCode + schoolPhoneOfficeCode + schoolPhoneLastFour;
             
             if (phoneNumberString.matches("\\d+")) {
+                phoneNumberString = "(" + schoolPhoneAreaCode + ") " + schoolPhoneOfficeCode + "-" + schoolPhoneLastFour;
                 requestedParameterMap.put("school_phone", new String[] {phoneNumberString});
-                keysForPage.add("phone_phone");
+                keysForPage.add("school_phone");
                 requestedParameterMap.remove("school_phone_area_code");
                 requestedParameterMap.remove("school_phone_office_code");
                 requestedParameterMap.remove("school_phone_last_four");
+                keysForPage.remove("school_phone_area_code");
+                keysForPage.remove("school_phone_office_code");
+                keysForPage.remove("school_phone_last_four");
             } else {
                 throw new IllegalArgumentException("Phone number must be numeric");
             }
@@ -368,7 +372,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
             if (faxNumberString.matches("\\d+")) {
                 requestedParameterMap.put("school_fax", new String[] {faxNumberString});
-                keysForPage.add("fax_fax");
+                keysForPage.add("school_fax");
                 requestedParameterMap.remove("school_fax_area_code");
                 requestedParameterMap.remove("school_fax_office_code");
                 requestedParameterMap.remove("school_fax_last_four");
@@ -384,28 +388,6 @@ public class EspFormController implements ReadWriteAnnotationController {
             return values[0];
         }
         return null;
-    }
-
-    /**
-     * Sample write hook. Modifies requestParameterMap in place, adding any new key/value pairs that the
-     * DB will persist. If value is to be persisted, the key better be in keysOnPage!
-     */
-    protected void handleEndTimeSave(Map<String, String[]> requestParameterMap) {
-        String[] endTimeTextArr = requestParameterMap.get("end_time_text");
-        String[] endTimeAmPmArr = requestParameterMap.get("end_time_ampm");
-        if (endTimeTextArr != null && endTimeAmPmArr != null && endTimeTextArr.length == 1 && endTimeAmPmArr.length == 1) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm ZZ");
-                Date endTimeDate = sdf.parse(endTimeTextArr[0] + " " + endTimeAmPmArr[0]);
-                sdf.applyPattern("hhmm");
-                String endTime = sdf.format(endTimeDate);
-                // TODO: The request map is immutable
-                requestParameterMap.put("end_time", new String[] {endTime});
-            } catch (ParseException e) {
-                _log.error(e, e);
-                // TODO: ??
-            }
-        }
     }
 
     /**
@@ -594,17 +576,18 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected void insertEspResponseStructForPhone(Map<String, EspResponseStruct> responseMap, School school) {
         String phone = school.getPhone();
         if (phone != null) { //TODO: what if the phone isn't 10 digits? DB limit = 31
-            String areaCode = phone.substring(0,3);
+            //"(510) 337-7022"
+            String areaCode = phone.substring(1,4);
             EspResponseStruct areaCodeStruct = new EspResponseStruct();
             areaCodeStruct.addValue(areaCode);
             responseMap.put("school_phone_area_code", areaCodeStruct);
 
-            String officeCode = phone.substring(3,6);
+            String officeCode = phone.substring(6,9);
             EspResponseStruct officeCodeStruct = new EspResponseStruct();
             officeCodeStruct.addValue(officeCode);
             responseMap.put("school_phone_office_code", officeCodeStruct);
 
-            String lastFour = phone.substring(6,10);
+            String lastFour = phone.substring(10,14);
             EspResponseStruct lastFourStruct = new EspResponseStruct();
             lastFourStruct.addValue(lastFour);
             responseMap.put("school_phone_last_four", lastFourStruct);
