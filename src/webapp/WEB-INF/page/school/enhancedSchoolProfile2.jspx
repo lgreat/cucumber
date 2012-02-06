@@ -45,7 +45,7 @@
             <c:set var="numStudentsEnrolled"><gsweb:lts list="${student_enrollment}" /></c:set>
             <c:if test="${not empty numStudentsEnrolled}"><p class="lbl">Number of students enrolled: <span class="val">${numStudentsEnrolled}</span></p></c:if>
 
-            <c:if test="${not empty average_class_size}"><p class="lbl">Average class size: <span class="val"><gsweb:lts list="${average_class_size}" /></span></p></c:if>
+            <c:if test="${not empty responses.average_class_size}"><p class="lbl">Average class size: <span class="val"><gsweb:lts list="${responses.average_class_size}" /></span></p></c:if>
 
             <c:if test="${not empty grade_levels}"><p class="lbl">Grade levels offered: <span class="val">${grade_levels}</span></p></c:if>
 
@@ -61,11 +61,8 @@
                 <c:if test="${not empty school.affiliation}"> ${school.affiliation}.</c:if>
                 <c:if test="${not empty schoolSubtypes}"> ${schoolSubtypes}.</c:if></span></p>
 
-            <c:set var="adminName"><gsweb:lts list="${responses.administrator_name}" /></c:set>
-            <c:if test="${not empty adminName}"><p class="lbl">School Leader's name: <span class="val">${adminName}</span></p></c:if>
-
-            <c:set var="adminEmail"><gsweb:lts list="${responses.administrator_email}" /></c:set>
-            <c:if test="${not empty adminEmail}"><p class="lbl">School Leader's email: <span class="val">${adminEmail}</span></p></c:if>
+            <c:if test="${not empty administrator_name}"><p class="lbl">School Leader's name: <span class="val">${administrator_name}</span></p></c:if>
+            <c:if test="${not empty administrator_email}"><p class="lbl">School Leader's email: <span class="val">${administrator_email}</span></p></c:if>
 
             <c:set var="cmEmail"><gsweb:lts list="${responses.contact_method_email}" /></c:set>
             <c:set var="cmPhone"><gsweb:lts list="${responses.contact_method_phone}" /></c:set>
@@ -255,8 +252,8 @@
             <c:set var="artsVisual"><gsweb:lts list="${responses.arts_visual}" /></c:set>
             <c:if test="${not empty artsVisual and fn:toLowerCase(artsVisual) ne 'none'}"><p class="lbl">Arts - Visual: <span class="val">${artsVisual}</span></p></c:if>
 
-            <c:set var="boysSports"><gsweb:lts list="${responses.boys_sports}" /></c:set>
-            <c:set var="boysSportsOther"><gsweb:lts list="${responses.boys_sports_other}" /></c:set>
+            <c:set var="boysSports"><gsweb:lts list="${responses.boys_sports}" dlm="; "/></c:set>
+            <c:set var="boysSportsOther"><gsweb:lts list="${responses.boys_sports_other}" dlm="; "/></c:set>
             <c:if
                 test="${(not empty boysSports and fn:toLowerCase(boysSports) ne 'none') or (not empty boysSportsOther and fn:toLowerCase(boysSportsOther) ne 'none')}">
                 <p class="lbl">
@@ -264,8 +261,8 @@
                 </p>
             </c:if>
 
-            <c:set var="girlsSports"><gsweb:lts list="${responses.girls_sports}" /></c:set>
-            <c:set var="girlsSportsOther"><gsweb:lts list="${responses.girls_sports_other}" /></c:set>
+            <c:set var="girlsSports"><gsweb:lts list="${responses.girls_sports}" dlm="; "/></c:set>
+            <c:set var="girlsSportsOther"><gsweb:lts list="${responses.girls_sports_other}" dlm="; "/></c:set>
             <c:if test="${(not empty girlsSports and fn:toLowerCase(girlsSports) ne 'none') or (fn:length(girlsSportsOther)>0 and fn:toLowerCase(girlsSportsOther) ne 'none')}"><p class="lbl">Girls Sports: <span class="val">${girlsSports} ${girlsSportsOther}</span></p></c:if>
 
             <c:if test="${not empty studentClubs}"><p class="lbl">Student Clubs: <span class="val">${studentClubs}</span></p></c:if>
@@ -296,10 +293,11 @@
 
             <h4>Student Information</h4>
 
-            <c:set var="privateEthnicity"><gsweb:lts list="${responses.private_ethnicity}" /></c:set>
+            <c:set var="studentsEthnicity"><gsweb:lts list="${students_ethnicity}" /></c:set>
             <p class="lbl">Student ethnicity breakdown:</p>
             <c:choose>
-                <c:when test="${not empty privateEthnicity and fn:toLowerCase(privateEthnicity) ne 'data unavailable'}">
+                <c:when test="${not empty studentsEthnicity and fn:toLowerCase(studentsEthnicity) ne 'data unavailable'}">
+                    <!-- TODO (jkirton) fix student ethnicity breakdown datapoints -->
                     <c:set var="peA"><gsweb:lts list="${responses.private_ethnicity_americanindian}" /></c:set>
                     <c:set var="peB"><gsweb:lts list="${responses.private_ethnicity_asian}" /></c:set>
                     <c:set var="peC"><gsweb:lts list="${responses.private_ethnicity_black}" /></c:set>
