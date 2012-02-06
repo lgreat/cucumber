@@ -15,7 +15,7 @@
 
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <title>Admin ESP Moderation</title>
+        <title>Admin ESP Moderation${isPending ? ' - Pending' : ''}</title>
 
         <style type="text/css">
         	.legend {
@@ -43,7 +43,16 @@
     <gsml:body adPageName="school/esp" pageLayout="nocol">
         <div class="container_24">
             <div class="grid_24 slStylesV1-0 espModerationTable">
-								<div class="legend">
+                
+                <div>
+                  <b>${isPendingView ? 'Pending View Requests' : 'Main View Requests'}</b>
+                  &#160;&#160;&#160;
+                  <a href="/admin/espModerationForm.page?pending=${isPendingView? '0' : '1'}"><c:out value="${isPendingView? 'View Main Requests' : 'View Pending Requests' }"/></a>
+                  &#160;&#160;&#160;
+                  <a href="/admin/espModerationSearch.page">Search Moderation Requests</a>
+                </div>
+								
+                <div class="legend">
 									<b style="margin-right:20px;">Legend: </b>
 									<span class="emailMatch">User email matches contact email</span>
 									<span class="durra">Disabled user re-requesting access</span>
@@ -77,7 +86,9 @@
                             <th>Note</th>
                         </tr>
                     </table>
-                    <c:forEach var="mrow" items="${membershipsToProcess}" varStatus="index">
+                    <c:choose>
+                    <c:when test="${not empty mrows}">
+                    <c:forEach var="mrow" items="${mrows}" varStatus="index">
                     		<c:set var="membership" value="${mrow.membership}"/>
                     		<c:set var="emailMatchClass" value="${mrow.emailMatch? 'emailMatch' : ''}"/>
                     		<c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess? 'durra' : ''}"/>
@@ -117,9 +128,10 @@
                     <input type="submit" name="moderatorAction" value="approve"/>
                     <input type="submit" name="moderatorAction" value="reject"/>
                     <input type="submit" name="moderatorAction" value="update"/>
-
+                    </c:when>
+                    <c:otherwise><h4>${isPending? 'No pending entries exist.' : 'No main entries exist.'}</h4></c:otherwise>
+                    </c:choose>                
                 </form:form>
-
             </div>
         </div>
         <div style="display:none;"><mod:tracking pageName="ESP Moderation" hier1="ESP"/></div>

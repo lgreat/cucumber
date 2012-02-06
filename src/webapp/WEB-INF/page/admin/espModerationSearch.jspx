@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+  xmlns:gsweb="gstaglib" xmlns:form="http://www.springframework.org/tags/form">
+  <html lang="en">
+
+<jsp:output doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+  doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
+<jsp:directive.page contentType="text/html" />
+<head>
+<title>Admin ESP Search</title>
+
+<style type="text/css">
+  .legend {
+    margin: 3px;
+    margin-top: 6px;
+    padding: 4px;
+    border-radius: 4px;
+    text-align: right;
+  }
+  
+  .legend span {
+    margin-right: 10px;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  
+  .emailMatch,.emailMatch * {
+    background-color: #aad4ff !important;
+  }
+  
+  .durra,.durra * { /* disabled user re-requesting accerss (durra) */
+    background-color: pink !important;
+    color: red !important;
+  }
+</style>
+
+</head>
+<gsml:body adPageName="school/esp" pageLayout="nocol">
+  <div class="container_24">
+    <div class="grid_24 slStylesV1-0 espModerationTable">
+      
+      <div>
+        <a href="/admin/espModerationForm.page">View Main Requests</a>
+        &#160;&#160;&#160;
+        <a href="/admin/espModerationForm.page?pending=1">View Pending Requests</a>
+        &#160;&#160;&#160;
+        <b>Moderation Search</b>
+      </div>
+      
+      <div>
+        <form:form commandName="espModerationSearchCommand">
+          <fieldset style="border:1px solid gray; padding:15px;">
+            <legend>Search</legend>
+            <!-- <hr class="legend" /> -->
+            <div class="ral clearfix">
+              <label class="alpha grid_3" for="stateString" style="white-space: nowrap;">State / School ID</label>
+              <div class="grid_5">
+                <gsweb:stateSelector styleId="stateString" name="stateString" state="${espModerationSearchCommand.stateString}" allowNoState="true"/>
+                <input type="text" id="schoolId" name="schoolId" length="4" maxlength="4" value="${espModerationSearchCommand.schoolId}" />
+              </div>
+            </div>
+            <div class="ral clearfix">
+              <label class="alpha grid_3" for="userId">User account ID</label>
+              <div class="grid_5">
+                <input type="text" id="userId" name="userId" class="text_grid_7" length="4" maxlength="4" value="${espModerationSearchCommand.userId}" />
+              </div>
+            </div>
+            <div class="ral clearfix">
+              <label class="alpha grid_3" for="email">Email</label>
+              <div class="grid_5">
+                <input type="text" id="email" name="email" class="text_grid_7" length="25" maxlength="64" value="${espModerationSearchCommand.email}" />
+              </div>
+            </div>
+            <input type="submit" name="search" value="search" />
+          </fieldset>
+        </form:form>
+        <c:if test="${not empty currentSearchCriteria}">
+        <div><h4>Current Search Criteria: ${currentSearchCriteria}</h4></div>
+        </c:if>
+      </div>
+
+      <div class="legend">
+        <b style="margin-right: 20px;">Legend:</b> <span class="emailMatch">User email matches contact email</span> <span
+          class="durra">Disabled user re-requesting access</span>
+      </div>
+      <form:form commandName="espModerationSearchCommand">
+        <table width="950" class="espModerationHeader">
+          <col width="32px" />
+          <col width="210px" />
+          <col width="206px" />
+          <col width="130px" />
+          <col width="70px" />
+          <col width="90px" />
+          <col width="213px" />
+          <tr>
+            <th rowspan="2">
+              <!--Do no collapse-->
+            </th>
+            <!--First row-->
+            <th>Email</th>
+            <th>School</th>
+            <th>First Name</th>
+            <th>State</th>
+            <th>Date</th>
+            <th>Contact Name</th>
+          </tr>
+          <tr>
+            <!--Second Row-->
+            <th>Contact Email</th>
+            <th>Web Url</th>
+            <th>Last Name</th>
+            <th>School Id</th>
+            <th>Job Title</th>
+            <th>Note</th>
+          </tr>
+        </table>
+        <c:choose>
+        <c:when test="${not empty mrows}">
+        <c:forEach var="mrow" items="${mrows}" varStatus="index">
+          <c:set var="membership" value="${mrow.membership}" />
+          <c:set var="emailMatchClass" value="${mrow.emailMatch? 'emailMatch' : ''}" />
+          <c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess? 'durra' : ''}" />
+          <table width="950" class="${emailMatchClass} ${durraClass}">
+            <col width="32px" />
+            <col width="210px" />
+            <col width="206px" />
+            <col width="130px" />
+            <col width="70px" />
+            <col width="90px" />
+            <col width="213px" />
+            <tr>
+              <td><form:checkbox path="espMembershipIds" value="${membership.id}" /></td>
+              <!--First Row-->
+              <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
+              <td>${membership.school.name}</td>
+              <td>${membership.user.firstName}</td>
+              <td>${membership.state}</td>
+              <td><fmt:formatDate pattern="MM-dd-yyyy hh:mm" value="${membership.created}" /></td>
+              <td>${mrow.contactName}</td>
+            </tr>
+            <tr>
+              <td><!-- do not collapse --> </td>
+              <!--Second Row-->
+              <td>${mrow.contactEmail}</td>
+              <td><a href="${mrow.absoluteWebUrl}" target="_blank">${membership.webUrl}</a></td>
+              <td>${membership.user.lastName}</td>
+              <td>${membership.school.id}</td>
+              <td>${membership.jobTitle}</td>
+              <td><textarea name="notes[${membership.id}]" cols="23" rows="3">${membership.note}</textarea></td>
+            </tr>
+          </table>
+        </c:forEach>
+        <br />
+        <br />
+        <input type="submit" name="moderatorAction" value="approve" />
+        <input type="submit" name="moderatorAction" value="reject" />
+        <input type="submit" name="moderatorAction" value="update" />
+        </c:when>
+        <c:otherwise><h4>No matching search results.</h4></c:otherwise>
+        </c:choose>
+      </form:form>
+    </div>
+  </div>
+  <div style="display: none;">
+    <mod:tracking pageName="ESP Moderation" hier1="ESP" />
+  </div>
+</gsml:body>
+
+  </html>
+</jsp:root>
