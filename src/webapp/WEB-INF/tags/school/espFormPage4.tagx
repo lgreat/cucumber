@@ -7,7 +7,60 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="4" maxPage="${maxPage}" headerText="Programs and resources">
 
-        Placeholder for page 4
+        <label>What foreign languages are taught at your school?</label>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="none" label="None"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="arabic" label="Arabic languages"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="amharic" label="Amharic"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="cantonese" label="Chinese (Cantonese)"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="mandarin" label="Chinese (Mandarin)"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="dutch" label="Dutch"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="french" label="French"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="german" label="German"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="hmong" label="Hmong"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="italian" label="Italian"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="japanese" label="Japanese"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="korean" label="Korean"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="latin" label="Latin"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="russian" label="Russian"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="spanish" label="Spanish"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="tagalog" label="Tagalog"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="urdu" label="Urdu"/>
+        <br/>
+        <school:espCheckboxWithLabel key="foreign_language" value="vietnamese" label="Vietnamese"/>
+        <br/>
+        <label for="js_foreign_language_other">Other:</label>
+        <input id="form_foreign_language_other" class="js_otherField" type="text" name="foreign_language_other" value="${responseMap['foreign_language_other'].value}" maxlength="40" placeholder="[Please indicate]"/>
+        <br/>
+
+
+        <label>Select one of these options to best describe the ESL/ELL programming at your school:</label>
+        <br/>
+        <school:espRadioWithLabel key="ell_level" value="none" label="None - we offer no services"/>
+        <br/>
+        <school:espRadioWithLabel key="ell_level" value="basic" label="Basic - we offer or partner to provide services based on the needs of individual students"/>
+        <br/>
+        <school:espRadioWithLabel key="ell_level" value="moderate" label="Moderate - we consistently offer a full program for particular ESL/ELL needs"/>
+        <br/>
+        <school:espRadioWithLabel key="ell_level" value="intensive" label="Intensive - we offer a full program for many languages and/or we offer at least one very comprehensive program school-wide for at least 25% of our population"/>
+        <br/>
+
 
     </school:espFormTemplate>
 </jsp:root>
