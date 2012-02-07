@@ -129,23 +129,23 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
 
         model.put("grade_levels", school.getGradeLevels().getCommaSeparatedString().replace(",", "; ").replace("  ", " "));
 
-        cv = ci.getLatestValue(school, CensusDataType.STUDENTS_ETHNICITY);
+        cv = ci.getManual(school, CensusDataType.STUDENTS_ETHNICITY);
         s = cv == null ? null : cv.getValueText();
         model.put("students_ethnicity", s);
         
-        cv = ci.getLatestValue(school, CensusDataType.HEAD_OFFICIAL_NAME);
+        cv = ci.getManual(school, CensusDataType.HEAD_OFFICIAL_NAME);
         s = cv == null ? null : cv.getValueText();
         model.put("administrator_name", s);
 
-        cv = ci.getLatestValue(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
+        cv = ci.getManual(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
         s = cv == null ? null : cv.getValueText();
         model.put("administrator_email", s);
 
-        cv = ci.getLatestValue(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH);
+        cv = ci.getManual(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH);
         s = cv == null ? null : cv.getValueText();
         model.put("private_free_reduced_lunch", s);
 
-        cv = ci.getLatestValue(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
+        cv = ci.getManual(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
         s = cv == null ? null : cv.getValueText();
         model.put("private_special_ed", s);
 
