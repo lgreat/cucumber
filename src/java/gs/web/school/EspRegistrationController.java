@@ -188,7 +188,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                     }
 
                     //Check is user is already approved or if the decision is pending.
-                    if (user.hasRole(Role.ESP_MEMBER)) {
+                    if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
                         userState.setUserApprovedESPMember(true);
                     } else {
                         List<EspMembership> memberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
