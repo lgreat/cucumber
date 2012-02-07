@@ -99,6 +99,12 @@
             </tr>
         </table>
     </div>
+    <!-- GS-12447 Move along if no ad served for interstitial -->
+    <script type="text/javascript">
+        if (jQuery('#google_ads_div_${pos}_ad_container').length === 0) {
+            continueToDestination();
+        }
+    </script>
     <mod:tracking pageName="Interstitial Ad"
                   hier1="Advertising,Interstitial Ad"/>
     </gsml:body>
