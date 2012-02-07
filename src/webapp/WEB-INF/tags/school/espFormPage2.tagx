@@ -39,53 +39,32 @@
                 <school:espCheckboxWithLabel key="instructional_model" value="none" label="None"/><br/>
                 <school:espCheckboxWithLabel key="instructional_model" value="accellerated_credit" label="Accelerated credit learning"/><br/>
                 <school:espCheckboxWithLabel key="instructional_model" value="adult_ed" label="Adult education"/><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="AP_courses" label=""/>
-                <span class="smaller quiet">Advanced placement courses</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="classical" label=""/>
-                <span class="smaller quiet">Classical (e.g., focuses on the "classics")</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="core_knowledge" label=""/>
-                <span class="smaller quiet">Core knowledge</span>
+                <school:espCheckboxWithLabel key="instructional_model" value="AP_courses" label="Advanced placement courses"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="classical" label='Classical (e.g., focuses on the "classics")'/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="core_knowledge" label="Core knowledge"/>
             </div>
             <div class="grid_5">
-                <school:espCheckboxWithLabel key="instructional_model" value="continuation" label=""/> <!-- TODO: double check this -->
-                <span class="smaller quiet">Continuation</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="direct_instruction" label=""/>
-                <span class="smaller quiet">Direct instruction</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="ged" label=""/>
-                <span class="smaller quiet">GED</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="gifted" label=""/> <!-- TODO: double check this -->
-                <span class="smaller quiet">Gifted / High performing</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="honors" label=""/>
-                <span class="smaller quiet">Honors track</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="independent_study" label=""/>
-                <span class="smaller quiet">Independent study</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="individual_instruction" label=""/>
-                <span class="smaller quiet">Individually guided instruction</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="ib" label=""/>
-                <span class="smaller quiet">International Baccalaureate (IB)</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="internships" label=""/>
-                <span class="smaller quiet">Internships</span>
+                <school:espCheckboxWithLabel key="instructional_model" value="continuation" label="Continuation"/> <!-- TODO: double check this --><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="direct_instruction" label="Direct instruction"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="ged" label="GED"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="gifted" label="Gifted / High performing"/> <!-- TODO: double check this --><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="honors" label="Honors track"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="independent_study" label="Independent study"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="individual_instruction" label="Individually guided instruction"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="ib" label="International Baccalaureate (IB)"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="internships" label="Internships"/>
             </div>
             <div class="grid_6 omega">
-                <school:espCheckboxWithLabel key="instructional_model" value="montessori" label=""/>
-                <span class="smaller quiet">Montessori</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="outdoor" label=""/>
-                <span class="smaller quiet">Outdoor / Farm-based</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="project_based" label=""/>
-                <span class="smaller quiet">Project-based</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="reggio" label=""/>
-                <span class="smaller quiet">Reggio Emilio</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="standards-based" label=""/>
-                <span class="smaller quiet">Standards-based</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="therapeutic" label=""/>
-                <span class="smaller quiet">Therapeutic</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="virtual" label=""/>
-                <span class="smaller quiet">Virtual school</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="waldorf" label=""/>
-                <span class="smaller quiet">Waldorf</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="other" label="" styleClass="js_otherField_form_instructional_model_other"/>
-                <span class="smaller quiet mrs">Other:</span>
-                <input id="form_instructional_model_other" class="js_otherField text input_4" type="text"
+                <school:espCheckboxWithLabel key="instructional_model" value="montessori" label="Montessori"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="outdoor" label="Outdoor / Farm-based"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="project_based" label="Project-based"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="reggio" label="Reggio Emilio"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="standards-based" label="Standards-based"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="therapeutic" label="Therapeutic"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="virtual" label="Virtual school"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="waldorf" label="Waldorf"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="other" label="Other:" styleClass="js_otherField_form_instructional_model_other"/>
+                <input id="form_instructional_model_other" class="mls js_otherField text input_4" type="text"
                        name="instructional_model_other" value="${responseMap['instructional_model_other'].value}"
                        maxlength="40" placeholder="[Please indicate]"/>
             </div>
@@ -99,45 +78,28 @@
                 </div>
             </div>
             <div class="grid_5">
-                <school:espCheckboxWithLabel key="academic_focus" value="none" label=""/>
-                <span class="smaller quiet">None</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="all_arts" label=""/>
-                <span class="smaller quiet">Arts (all)</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="business" label=""/>
-                <span class="smaller quiet">Business</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="engineering" label=""/>
-                <span class="smaller quiet">Engineering</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="foreign_lang" label=""/>
-                <span class="smaller quiet">Foreign languages</span>
+                <school:espCheckboxWithLabel key="academic_focus" value="none" label="None"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="all_arts" label="Arts (all)"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="business" label="Business"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="engineering" label="Engineering"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="foreign_lang" label="Foreign languages"/>
             </div>
             <div class="grid_5">
-                <school:espCheckboxWithLabel key="academic_focus" value="mathematics" label=""/>
-                <span class="smaller quiet">Mathematics</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="medical" label=""/>
-                <span class="smaller quiet">Medical</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="music" label=""/>
-                <span class="smaller quiet">Music</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="performing_arts" label=""/>
-                <span class="smaller quiet">Performing arts</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="religious" label=""/>
-                <span class="smaller quiet">Religious</span>
+                <school:espCheckboxWithLabel key="academic_focus" value="mathematics" label="Mathematics"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="medical" label="Medical"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="music" label="Music"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="performing_arts" label="Performing arts"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="religious" label="Religious"/>
             </div>
             <div class="grid_6 omega">
-                <school:espCheckboxWithLabel key="academic_focus" value="science" label=""/>
-                <span class="smaller quiet">Science</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="service_learning" label=""/>
-                <span class="smaller quiet">Service learning</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="special_education" label=""/>
-                <span class="smaller quiet">Special Education</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="technology" label=""/>
-                <span class="smaller quiet">Technology</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="visual_arts" label=""/>
-                <span class="smaller quiet">Visual arts</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="vocational" label=""/>
-                <span class="smaller quiet">Vocational education</span><br/>
-                <school:espCheckboxWithLabel key="academic_focus" value="other" label="" styleClass="js_otherField_form_academic_focus_other"/>
-                <span class="smaller quiet mrs">Other:</span>
-                <input id="form_academic_focus_other" class="js_otherField text input_4" type="text"
+                <school:espCheckboxWithLabel key="academic_focus" value="science" label="Science"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="service_learning" label="Service learning"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="special_education" label="Special Education"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="technology" label="Technology"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="visual_arts" label="Visual arts"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="vocational" label="Vocational education"/><br/>
+                <school:espCheckboxWithLabel key="academic_focus" value="other" label="Other:" styleClass="js_otherField_form_academic_focus_other"/>
+                <input id="form_academic_focus_other" class="mls js_otherField text input_4" type="text"
                        name="academic_focus_other" value="${responseMap['academic_focus_other'].value}"
                        maxlength="40" placeholder="[Please indicate]"/>
             </div>
@@ -148,52 +110,33 @@
                 <p class="labelGroup">Does your school offer any bilingual/language immersion programs?</p>
             </div>
             <div class="grid_5">
-                <school:espRadioWithLabel key="immersion" value="no" label=""/>
-                <span class="smaller quiet">No</span><br/>
-                <school:espRadioWithLabel key="immersion" value="yes" label=""
+                <school:espRadioWithLabel key="immersion" value="no" label="No"/><br/>
+                <school:espRadioWithLabel key="immersion" value="yes" label="Yes"
                                           styleClass="js_otherField_form_immersion_language"/>
-                <span class="smaller quiet">Yes</span>
             </div>
             <div id="js_form_immersion_language_group" class="clearfix grid_11 omega">
                 <div class="alpha grid_5">
-                    <school:espCheckboxWithLabel key="immersion_language" value="cantonese" label=""/>
-                    <span class="smaller quiet">Chinese (Cantonese)</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="mandarin" label=""/>
-                    <span class="smaller quiet">Chinese (Mandarin)</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="french" label=""/>
-                    <span class="smaller quiet">French</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="german" label=""/>
-                    <span class="smaller quiet">German</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="italian" label=""/>
-                    <span class="smaller quiet">Italian</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="japanese" label=""/>
-                    <span class="smaller quiet">Japanese</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="korean" label=""/>
-                    <span class="smaller quiet">Korean</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="russian" label=""/>
-                    <span class="smaller quiet">Russian</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="spanish" label=""/>
-                    <span class="smaller quiet">Spanish</span><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="cantonese" label="Chinese (Cantonese)"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="mandarin" label="Chinese (Mandarin)"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="french" label="French"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="german" label="German"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="italian" label="Italian"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="japanese" label="Japanese"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="korean" label="Korean"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="russian" label="Russian"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="spanish" label="Spanish"/>
                 </div>
                 <div class="grid_6 omega">
-                    <school:espCheckboxWithLabel key="immersion_language" value="tagalog" label=""/>
-                    <span class="smaller quiet">Tagalog</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="arabic" label=""/>
-                    <span class="smaller quiet">Arabic languages</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="amharic" label=""/>
-                    <span class="smaller quiet">Amharic</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="dutch" label=""/>
-                    <span class="smaller quiet">Dutch</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="hmong" label=""/>
-                    <span class="smaller quiet">Hmong</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="urdu" label=""/>
-                    <span class="smaller quiet">Urdu</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="vietnamese" label=""/>
-                    <span class="smaller quiet">Vietnamese</span><br/>
-                    <school:espCheckboxWithLabel key="immersion_language" value="other" label=""
+                    <school:espCheckboxWithLabel key="immersion_language" value="tagalog" label="Tagalog"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="arabic" label="Arabic languages"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="amharic" label="Amharic"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="dutch" label="Dutch"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="hmong" label="Hmong"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="urdu" label="Urdu"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="vietnamese" label="Vietnamese"/><br/>
+                    <school:espCheckboxWithLabel key="immersion_language" value="other" label="Other:"
                                                  styleClass="js_otherField_form_immersion_language_other"/>
-                    <span class="smaller quiet mrs">Other:</span>
-                    <input id="form_immersion_language_other" class="js_otherField text input_4" type="text"
+                    <input id="form_immersion_language_other" class="mls js_otherField text input_4" type="text"
                            name="immersion_language_other" value="${responseMap['immersion_language_other'].value}"
                            maxlength="40" placeholder="[Please indicate]"/>
                 </div>
