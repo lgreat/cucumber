@@ -122,6 +122,10 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 .input_23 { width: 898px; } /* grid_23 width: 910px - (6px + 6px + 1px + 1px) */
 .slFormsV1-0 .input_24 { width: 938px; } /* grid_24 width: 950px - (6px + 6px + 1px + 1px) */
 
+/* Special widths for phone numbers */
+.slFormsV1-0 .digits_3 { width: 28px; }
+.slFormsV1-0 .digits_4 { width: 33px; }
+
 /* Misc classes
 -------------------------------------------------------------- */
 .slFormsV1-0 .mumbo { font: normal 11px/16px Arial, Helvetica, sans-serif; color: #787878; }
