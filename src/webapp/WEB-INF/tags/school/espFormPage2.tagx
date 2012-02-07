@@ -33,15 +33,12 @@
 
         <div class="lal clearfix">
             <div class="alpha grid_7">
-                <label>What instructional and/or curriculum modes does your school use, if any?</label>
+                <p class="labelGroup">What instructional and/or curriculum modes does your school use, if any?</p>
             </div>
             <div class="grid_5">
-                <school:espCheckboxWithLabel key="instructional_model" value="none" label=""/>
-                <span class="smaller quiet">None</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="accellerated_credit" label=""/>
-                <span class="smaller quiet">Accelerated credit learning</span><br/>
-                <school:espCheckboxWithLabel key="instructional_model" value="adult_ed" label=""/>
-                <span class="smaller quiet">Adult education</span><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="none" label="None"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="accellerated_credit" label="Accelerated credit learning"/><br/>
+                <school:espCheckboxWithLabel key="instructional_model" value="adult_ed" label="Adult education"/><br/>
                 <school:espCheckboxWithLabel key="instructional_model" value="AP_courses" label=""/>
                 <span class="smaller quiet">Advanced placement courses</span><br/>
                 <school:espCheckboxWithLabel key="instructional_model" value="classical" label=""/>
@@ -96,7 +93,7 @@
 
         <div class="lal clearfix">
             <div class="alpha grid_7">
-                <label>Please indicate if your school has a special academic theme or area of focus</label>
+                <p class="labelGroup">Please indicate if your school has a special academic theme or area of focus</p>
                 <div style="display: none" class="error" id="academic_focus_error">
                     <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select at least one academic area.
                 </div>
@@ -148,7 +145,7 @@
 
         <div class="lal clearfix">
             <div class="alpha grid_7">
-                <label>Does your school offer any bilingual/language immersion programs?</label>
+                <p class="labelGroup">Does your school offer any bilingual/language immersion programs?</p>
             </div>
             <div class="grid_5">
                 <school:espRadioWithLabel key="immersion" value="no" label=""/>

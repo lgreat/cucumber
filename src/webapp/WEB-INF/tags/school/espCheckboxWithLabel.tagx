@@ -16,6 +16,6 @@
                    name="${key}" value="${value}"
                    checked="${not empty responseMap[key].valueMap[value]}"
                    disabled="${disabled}"/>
-    <label for="${prefix}_${key}_${fn:toLowerCase(value)}">${label}</label>
+    <label for="${prefix}_${key}_${fn:toLowerCase(value)}" class="checkbox">${label}</label>
 
 </jsp:root>

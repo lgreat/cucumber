@@ -39,12 +39,17 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 .lal, .slFormsV1-0 .ral { margin-bottom: 20px; } /* left align label, right align label */
 .slFormsV1-0 .nal { margin-bottom: 15px; } /* no align label */
 
-.slFormsV1-0 label {font: bold 12px/18px Arial, Helvetica, sans-serif;}
+.slFormsV1-0 label, .slFormsV1-0 .labelGroup {font: bold 12px/18px Arial, Helvetica, sans-serif;}
+.slFormsV1-0 .labelGroup{ margin-bottom:0; }
 .slFormsV1-0 .tal label { display:block; }
 .slFormsV1-0 .lal label, .ral label { display:inline-block; padding:6px 0; }
 .slFormsV1-0 .ral label { text-align:right; }
 
+.slFormsV1-0 label.checkbox, .slFormsV1-0 label.radio { font: normal 11px/16px Arial, Helvetica, sans-serif; color: #787878; display: inline; }
+
 /* Form element standard style */
+.slFormsV1-0 input[type=checkbox],
+.slFormsV1-0 input[type=radio] { outline:0 }
 .slFormsV1-0 input[type=text],
 .slFormsV1-0 input[type=password],
 .slFormsV1-0 input.text,

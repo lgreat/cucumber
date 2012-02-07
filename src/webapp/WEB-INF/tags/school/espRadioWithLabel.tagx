@@ -14,6 +14,6 @@
 
     <gsml:radio styleId="${prefix}_${key}_${fn:toLowerCase(value)}" name="${key}" value="${value}"
                        checked="${not empty responseMap[key].valueMap[value]}" styleClass="${styleClass}" disabled="${disabled}"/>
-    <label for="${prefix}_${key}_${fn:toLowerCase(value)}">${label}</label>
+    <label for="${prefix}_${key}_${fn:toLowerCase(value)}" class="radio">${label}</label>
 
 </jsp:root>
