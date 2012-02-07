@@ -102,7 +102,7 @@
             <c:set var="instModel"><gsweb:lts list="${responses.instructional_model}" /></c:set>
             <c:if test="${not empty instModel}"><p class="lbl">Instructional and/or curriculum models used: <span class="val">${instModel}</span></p></c:if>
 
-            <c:set var="acadFocus"><gsweb:lts list="${responses.academicFocus}" /></c:set>
+            <c:set var="acadFocus"><gsweb:lts list="${responses.academic_focus}" /></c:set>
             <c:if test="${not empty acadFocus}"><p class="lbl">Special academic themes or areas of focus: <span class="val">${acadFocus}</span></p></c:if>
 
             <c:set var="immersion"><gsweb:lts list="${responses.immersion}" /></c:set>
@@ -291,6 +291,7 @@
             <c:set var="facebookUrl"><gsweb:lts list="${responses.facebookUrl}" /></c:set>
             <c:if test="${not empty facebookUrl}"><p class="lbl">School Facebook page: <a href="${facebookUrl}" class="val">${facebookUrl}</a></p></c:if>
 
+            <c:if test="${school.schoolTypeName != 'public'}">
             <h4>Student Information</h4>
 
             <c:set var="studentsEthnicity"><gsweb:lts list="${students_ethnicity}" /></c:set>
@@ -346,6 +347,7 @@
             <c:set var="satYr"><gsweb:lts list="${responses.private_sat_results_year}" /></c:set>
             <c:set var="satRs"><gsweb:lts list="${responses.private_sat_results}" /></c:set>
             <c:if test="${not empty satYr and not empty satRs}"><p class="lbl">School's average comprehensive SAT results for the ${satYr} year: <span class="val">${satRs}</span></p></c:if>
+            </c:if>
 
         </div><!-- .slStylesV1-0 -->
 
