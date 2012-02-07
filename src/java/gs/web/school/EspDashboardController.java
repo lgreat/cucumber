@@ -57,6 +57,9 @@ public class EspDashboardController {
 
                     return VIEW;
                 }
+            } else if (user.hasRole(Role.ESP_SUPERUSER)) {
+                modelMap.put("espSuperuser", true);
+                return VIEW;
             }
         }
 
