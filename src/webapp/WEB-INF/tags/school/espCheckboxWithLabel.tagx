@@ -7,8 +7,9 @@
     <jsp:directive.attribute name="key" required="true" description="ESP answer key"/>
     <jsp:directive.attribute name="value" required="true" description="ESP answer value"/>
     <jsp:directive.attribute name="label" required="true" description="Text value for the label" />
-    <jsp:directive.attribute name="styleClass" required="false" description="Element class" />
+    <jsp:directive.attribute name="styleClass" required="false" description="Element class for check box" />
     <jsp:directive.attribute name="disabled" required="false" type="java.lang.Boolean" description="True if element should be disabled" />
+    <jsp:directive.attribute name="nobr" required="false" type="java.lang.Boolean" description="True if final br tag should be excluded" />
 
     <c:set var="prefix" value="form"/>
 
@@ -17,5 +18,6 @@
                    checked="${not empty responseMap[key].valueMap[value]}"
                    disabled="${disabled}"/>
     <label for="${prefix}_${key}_${fn:toLowerCase(value)}" class="checkbox">${label}</label>
+    <c:if test="${empty nobr}"><br/></c:if>
 
 </jsp:root>
