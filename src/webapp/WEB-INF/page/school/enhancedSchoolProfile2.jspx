@@ -291,7 +291,7 @@
             <c:set var="facebookUrl"><gsweb:lts list="${responses.facebookUrl}" /></c:set>
             <c:if test="${not empty facebookUrl}"><p class="lbl">School Facebook page: <a href="${facebookUrl}" class="val">${facebookUrl}</a></p></c:if>
 
-            <c:if test="${school.schoolTypeName != 'public'}">
+            <c:if test="${school.type.schoolTypeName != 'public'}">
             <h4>Student Information</h4>
 
             <c:set var="studentsEthnicity"><gsweb:lts list="${students_ethnicity}" /></c:set>
