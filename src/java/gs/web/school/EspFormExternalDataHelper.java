@@ -111,7 +111,7 @@ public class EspFormExternalDataHelper {
 
     void insertEspFormResponseStructForFax(Map<String, EspFormResponseStruct> responseMap, School school) {
         String fax = school.getFax();
-        if (fax != null) {
+        if (StringUtils.isNotBlank(fax)) {
             // "(510) 865-2194"
             // TODO: what if the fax isn't 14 digits? DB limit = 31
             String areaCode = fax.substring(1,4);
