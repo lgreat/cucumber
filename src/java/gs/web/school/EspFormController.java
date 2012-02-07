@@ -342,6 +342,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             String faxNumberString = schoolFaxAreaCode + schoolFaxOfficeCode + schoolFaxLastFour;
 
             if (faxNumberString.matches("\\d+")) {
+                faxNumberString = "(" + schoolFaxAreaCode + ") " + schoolFaxOfficeCode + "-" + schoolFaxLastFour;
                 requestedParameterMap.put("school_fax", new String[] {faxNumberString});
                 keysForPage.add("school_fax");
                 requestedParameterMap.remove("school_fax_area_code");

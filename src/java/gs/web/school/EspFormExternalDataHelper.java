@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * Workflow for adding external data point with 1-to-1 form-to-database mapping:
  * 1) Add key to getKeysForExternalData
- * 2) Add block in getExternalValuesForKey to fetch value from DB for view
+ * 2) Add block in fetchExternalValues or getExternalValuesForKey to fetch value from DB for view
  * 3) Add block in saveExternalValue to save value from view into the DB
  *
  * @author aroy@greatschools.org
@@ -89,7 +89,7 @@ public class EspFormExternalDataHelper {
 
     void insertEspFormResponseStructForPhone(Map<String, EspFormResponseStruct> responseMap, School school) {
         String phone = school.getPhone();
-        if (phone != null) {
+        if (StringUtils.length(phone) >= 14) {
             // "(510) 337-7022"
             // TODO: what if the phone isn't 14 digits? DB limit = 31
             String areaCode = phone.substring(1,4);
@@ -111,7 +111,7 @@ public class EspFormExternalDataHelper {
 
     void insertEspFormResponseStructForFax(Map<String, EspFormResponseStruct> responseMap, School school) {
         String fax = school.getFax();
-        if (StringUtils.isNotBlank(fax)) {
+        if (StringUtils.length(fax) >= 14) {
             // "(510) 865-2194"
             // TODO: what if the fax isn't 14 digits? DB limit = 31
             String areaCode = fax.substring(1,4);
