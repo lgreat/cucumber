@@ -132,7 +132,7 @@ GS.form.EspForm = function() {
     };
 
     this.showEmailError = function(errMsg) {
-        jQuery('#js_emailError').html(errMsg);
+        jQuery('#js_emailError').html('<span class="sprite i-alert vam"></span>&nbsp;' + errMsg);
         jQuery('#js_emailError').show();
     };
 
@@ -246,7 +246,7 @@ GS.form.EspForm = function() {
         fieldValid.hide();
 
         if (data && data[fieldName]) {
-            fieldError.html(data[fieldName]);
+            fieldError.html('<span class="sprite i-alert vam"></span>&nbsp;' + data[fieldName]);
             fieldError.show();
             return false;
         } else {
