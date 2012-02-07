@@ -212,39 +212,37 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             School school = getSchoolDao().getSchoolById(membership.getState(), (int) schoolId);
             membership.setSchool(school);
 
-            //if (membership.getStatus() == EspMembershipStatus.PROCESSING) {
-                ModerationRow mrow = new ModerationRow(membership);
-                mrows.add(mrow);
+            ModerationRow mrow = new ModerationRow(membership);
+            mrows.add(mrow);
+        
+            // contact name and email
+            HashSet<String> espResponseKeys = new HashSet<String>();
+            espResponseKeys.add("old_contact_name");
+            espResponseKeys.add("old_contact_email");
+            List<EspResponse> list = _espResponseDao.getResponsesByKeys(school, espResponseKeys, true);
+            if(list != null) {
+                for(EspResponse r : list) {
+                    if("old_contact_name".equals(r.getKey())) mrow.setContactName(r.getValue());
+                    if("old_contact_email".equals(r.getKey())) mrow.setContactEmail(r.getValue());
+                }
+            }
             
-                // contact name and email
-                HashSet<String> espResponseKeys = new HashSet<String>();
-                espResponseKeys.add("old_contact_name");
-                espResponseKeys.add("old_contact_email");
-                List<EspResponse> list = _espResponseDao.getResponsesByKeys(school, espResponseKeys, true);
-                if(list != null) {
-                    for(EspResponse r : list) {
-                        if("old_contact_name".equals(r.getKey())) mrow.setContactName(r.getValue());
-                        if("old_contact_email".equals(r.getKey())) mrow.setContactEmail(r.getValue());
+            // is disabled user re-requesting access?
+            for(EspMembership rejected : rejectedMemberships) {
+                try {
+                    long membershipSchoolId = membership.getSchoolId() == null ? -1 : membership.getSchoolId().longValue();
+                    long rejectedSchoolId = rejected.getSchoolId() == null ? -1 : rejected.getSchoolId().longValue();
+                    long membershipUserId = membership.getUser().getId().longValue();
+                    long rejectedUserId = rejected.getUser().getId().longValue();
+                    if(membershipSchoolId == rejectedSchoolId && membershipUserId == rejectedUserId) {
+                        mrow.setDisabledUserReRequestingAccess(true);
+                        break;
                     }
                 }
-                
-                // is disabled user re-requesting access?
-                for(EspMembership rejected : rejectedMemberships) {
-                    try {
-                        long membershipSchoolId = membership.getSchoolId() == null ? -1 : membership.getSchoolId().longValue();
-                        long rejectedSchoolId = rejected.getSchoolId() == null ? -1 : rejected.getSchoolId().longValue();
-                        long membershipUserId = membership.getUser().getId().longValue();
-                        long rejectedUserId = rejected.getUser().getId().longValue();
-                        if(membershipSchoolId == rejectedSchoolId && membershipUserId == rejectedUserId) {
-                            mrow.setDisabledUserReRequestingAccess(true);
-                            break;
-                        }
-                    }
-                    catch(NullPointerException e) {
-                        continue;
-                    }
+                catch(NullPointerException e) {
+                    continue;
                 }
-            //}
+            }
         }
 
         modelMap.put("mrows", mrows);

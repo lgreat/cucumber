@@ -15,7 +15,7 @@
 
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <title>Admin ESP Moderation${isPending ? ' - Pending' : ''}</title>
+        <title>Admin ESP Moderation${isPendingView ? ' - Pending' : ''}</title>
 
         <style type="text/css">
         	.legend {
@@ -129,7 +129,7 @@
                     <input type="submit" name="moderatorAction" value="reject"/>
                     <input type="submit" name="moderatorAction" value="update"/>
                     </c:when>
-                    <c:otherwise><h4>${isPending? 'No pending entries exist.' : 'No main entries exist.'}</h4></c:otherwise>
+                    <c:otherwise><h4>${isPendingView? 'No pending entries exist.' : 'No main entries exist.'}</h4></c:otherwise>
                     </c:choose>                
                 </form:form>
             </div>

@@ -51,7 +51,7 @@
       </div>
       
       <div>
-        <form:form commandName="espModerationSearchCommand">
+        <form:form commandName="espModerationSearchCommand" action="/admin/espModerationSearch.page">
           <fieldset style="border:1px solid gray; padding:15px;">
             <legend>Search</legend>
             <!-- <hr class="legend" /> -->
@@ -78,7 +78,7 @@
           </fieldset>
         </form:form>
         <c:if test="${not empty currentSearchCriteria}">
-        <div><h4>Current Search Criteria: ${currentSearchCriteria}</h4></div>
+        <div><p>Displaying results for: ${currentSearchCriteria}</p></div>
         </c:if>
       </div>
 

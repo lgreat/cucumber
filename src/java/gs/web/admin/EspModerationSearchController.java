@@ -4,18 +4,18 @@ import static org.apache.commons.lang.StringUtils.*;
 import gs.data.school.EspMembership;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.web.util.UrlUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +29,10 @@ public class EspModerationSearchController extends AbstractEspModerationControll
         private String _schoolId;
         private String _userId;
         private String _email;
+        
+        public boolean isCommandEmpty() {
+            return isEmpty(_stateString) && isEmpty(_schoolId) && isEmpty(_userId) && isEmpty(_email);
+        }
         
         /**
          * @return the resolved State or null
@@ -99,41 +103,35 @@ public class EspModerationSearchController extends AbstractEspModerationControll
             }
             return sb.length() == 0 ? null : sb.substring(2);
         }
+        
+        public String getSearchQueryString() {
+            Map<String, String> vmap = new HashMap<String, String>(4);
+            vmap.put("stateString", _stateString);
+            vmap.put("schoolId", _schoolId);
+            vmap.put("userId", _userId);
+            vmap.put("email", _email);
+            return UrlUtil.getQueryStringFromMap(vmap);
+        }
     }
     
     public static final String VIEW = "admin/espModerationSearch";
     
-    static final String searchStateKey, searchBindingKey;
-    
-    static {
-        String cname = EspModerationSearchController.class.getName();
-        searchStateKey = cname + ".command";
-        searchBindingKey = cname + ".binding";
-    }
-
     @Override
     protected String getViewName() {
         return VIEW;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String display(ModelMap modelMap, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if(session == null) throw new IllegalStateException();
-        
-        EspModerationSearchCommand command = (EspModerationSearchCommand) session.getAttribute(searchStateKey);
-        BindingResult binding = (BindingResult) session.getAttribute(searchBindingKey);
+    public String display(ModelMap modelMap, HttpServletRequest request, @ModelAttribute("espModerationSearchCommand") EspModerationSearchCommand command) {
         List<EspMembership> memberships = null;
         
         if(command == null) {
             command = new EspModerationSearchCommand();
         }
-        else {
-            assert binding != null;
-            memberships = doSearch(command, binding);
+        if(!command.isCommandEmpty()) {
+            memberships = doSearch(command);
         }
         modelMap.addAttribute("espModerationSearchCommand", command);
-        modelMap.addAttribute("binding", binding); // TODO (jkirton) make use of BindingResult in espModerationSearch.jspx view
         
         if(memberships != null) populateModelWithMemberships(memberships, modelMap);
         
@@ -144,47 +142,43 @@ public class EspModerationSearchController extends AbstractEspModerationControll
     
     @RequestMapping(method = RequestMethod.POST)
     public String handlePost(@ModelAttribute("espModerationSearchCommand") EspModerationSearchCommand command,
-                                      BindingResult binding,
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
+        String redirect = String.format("redirect:/%s.page", getViewName());
         if("search".equals(request.getParameter("search"))) {
-            HttpSession session = request.getSession(false);
-            if(session == null) throw new IllegalStateException();
-            // retain search command and binding
-            session.setAttribute(searchStateKey, command);
-            session.setAttribute(searchBindingKey, binding);
+            // convert posted search params to query params and redirect
+            String qs = command.getSearchQueryString();
+            redirect = String.format("%s?%s", redirect, qs);
         } else {
             // row data submission
             updateEspMembership(command, request, response);
         }
-        return String.format("redirect:/%s.page", getViewName());
+        return redirect;
     }
     
-    protected int resolveSchoolId(EspModerationSearchCommand command, BindingResult binding) {
+    protected int resolveSchoolId(EspModerationSearchCommand command) {
         try {
             return Integer.parseInt(command.getSchoolId()); 
         } catch(NumberFormatException e) {
-            binding.addError(new FieldError("espModerationSearchCommand", "schoolId", String.format("Invalid school ID: %s", command.getSchoolId())));
             return -1;
         }
     }
     
-    protected int resolveUserId(EspModerationSearchCommand command, BindingResult binding) {
+    protected int resolveUserId(EspModerationSearchCommand command) {
         try {
             return Integer.parseInt(command.getUserId()); 
         } catch(NumberFormatException e) {
-            binding.addError(new FieldError("espModerationSearchCommand", "userId", String.format("Invalid user ID: %s", command.getUserId())));
             return -1;
         }
     }
     
-    protected List<EspMembership> doSearch(EspModerationSearchCommand command, BindingResult binding) {
+    protected List<EspMembership> doSearch(EspModerationSearchCommand command) {
         List<EspMembership> results = null;
         
         // by state, school and user?
         if(!isEmpty(command.getStateString()) && !isEmpty(command.getSchoolId()) && !isEmpty(command.getUserId())) {
-            int schoolId = resolveSchoolId(command, binding);
-            int userId = resolveUserId(command, binding);
+            int schoolId = resolveSchoolId(command);
+            int userId = resolveUserId(command);
             if(schoolId != -1 && userId != -1) {
                 EspMembership em = _espMembershipDao.findEspMembershipByStateSchoolIdUserId(command.getState(), schoolId, userId, false);
                 if(em != null) {
@@ -196,12 +190,10 @@ public class EspModerationSearchController extends AbstractEspModerationControll
 
         // by state and school?
         else if(!isEmpty(command.getStateString()) && !isEmpty(command.getSchoolId())) {
-            int schoolId = resolveSchoolId(command, binding);
+            int schoolId = resolveSchoolId(command);
             State state = command.getState();
             School school = _schoolDao.getSchoolById(state, schoolId);
-            if(school == null) {
-                binding.addError(new FieldError("espModerationSearchCommand", "schoolId", String.format("No school with id %s found in %s", command.getSchoolId(), command.getStateString())));
-            } else {
+            if(school != null) {
                 results = _espMembershipDao.findEspMembershipsBySchool(school, false);
             }
             
@@ -219,7 +211,7 @@ public class EspModerationSearchController extends AbstractEspModerationControll
                 
                 // filter by user?
                 if(!isEmpty(command.getEmail())) {
-                    int userId = resolveUserId(command, binding);
+                    int userId = resolveUserId(command);
                     ArrayList<EspMembership> tmplist = new ArrayList<EspMembership>(results.size());
                     for(EspMembership m : results) {
                         int mUserId = m.getUser() == null ? -1 : m.getUser().getId().intValue();
@@ -239,7 +231,7 @@ public class EspModerationSearchController extends AbstractEspModerationControll
         
         // by user only?
         else if(!isEmpty(command.getUserId())) {
-            int userId = resolveUserId(command, binding);
+            int userId = resolveUserId(command);
             if(userId != -1) results = _espMembershipDao.findEspMembershipsByUserId(userId, false);
         }
         
