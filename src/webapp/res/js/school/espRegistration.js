@@ -117,9 +117,9 @@ GS.form.EspForm = function() {
             var onclickStr = "GSType.hover.emailNotValidated.show()";
             GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>");
         } else if (data.isUserAwaitingESPMembership === true) {
-            GS.form.espForm.showEmailError("You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
+            GS.form.espForm.showEmailError("You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            GS.form.espForm.showEmailError("You already have access to this school’s Official School Profile.<a href='/official-school-profile/signin.page'>Sign in</a> to your account here.");
+            GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<a href='/official-school-profile/signin.page'>Sign in</a> to your account here.");
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
             GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>");

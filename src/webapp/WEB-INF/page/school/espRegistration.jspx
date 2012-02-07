@@ -71,7 +71,7 @@
             </div>
             <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
-                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
+                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
             </div>
 
         </div>
