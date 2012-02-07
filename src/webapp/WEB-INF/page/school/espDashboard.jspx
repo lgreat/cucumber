@@ -24,6 +24,7 @@
 
         <br/>
         <c:if test="${not empty espMembership.school}">
+            <p>Link to <link:schoolPrincipalReview school="${espMembership.school}">Principal Review form</link:schoolPrincipalReview>.</p>
             <p>Form access:</p>
             <ol>
                 <li><link:schoolEspForm school="${espMembership.school}" page="1">Page 1</link:schoolEspForm></li>
@@ -48,12 +49,14 @@
                                        defaultSchoolId="${param.defaultSchoolId}"/>
         </c:if>
 
-        <div>Other ESP:
-            <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
-                ${otherEsp.user.firstName} ${otherEsp.user.lastName}
-                <br/>
-            </c:forEach>
-        </div>
+        <c:if test="${not empty otherEspMemberships}">
+            <div>Other ESP:
+                <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
+                    ${otherEsp.user.firstName} ${otherEsp.user.lastName} (${otherEsp.jobTitle})
+                    <br/>
+                </c:forEach>
+            </div>
+        </c:if>
 
         <div style="display:none;">
             <mod:tracking pageName="ESP Dashboard" hier1="ESP"/>

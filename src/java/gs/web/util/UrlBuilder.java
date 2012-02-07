@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.280 2012/02/06 21:35:10 npatury Exp $
+ * $Id: UrlBuilder.java,v 1.281 2012/02/07 21:44:35 aroy Exp $
  */
 
 package gs.web.util;
@@ -190,6 +190,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_ESP_FORM = new VPage("vpage:schoolEspForm");
     public static final VPage SCHOOL_PROFILE_ESP_DISPLAY = new VPage("vpage:schoolEspDisplay");
     public static final VPage SCHOOL_AUTHORIZER = new VPage("vpage:schoolAuthorizer");
+    public static final VPage SCHOOL_PRINCIPAL_REVIEW = new VPage("vpage:schoolPrincipalReview");
 
     public static final VPage SCHOOL_START_SURVEY = new VPage("vpage:schoolStartSurvey");
     public static final VPage SCHOOL_TAKE_SURVEY = new VPage("vpage:schoolTakeSurvey");
@@ -740,6 +741,14 @@ public class UrlBuilder {
             }
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
+        } else if (SCHOOL_PRINCIPAL_REVIEW.equals(page)) {
+            _perlPage = false;
+            _path = "/school/principalComments.page";
+            if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+                _subdomain = Subdomain.PK;
+            }
+            setParameter("id", String.valueOf(school.getId()));
+            setParameter("state", school.getDatabaseState().getAbbreviationLowerCase());
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

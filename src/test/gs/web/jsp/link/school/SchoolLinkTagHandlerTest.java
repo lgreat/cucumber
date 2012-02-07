@@ -175,4 +175,15 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
         assertEquals("/official-school-profile/register.page", urlBuilder.asSiteRelative(null));
     }
+
+    public void testPrincipalReviewTagHandler() {
+        PrincipalReviewTagHandler tagHandler = new PrincipalReviewTagHandler();
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        tagHandler.setSchool(school);
+
+        UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
+        assertEquals("/school/principalComments.page?id=1&state=ca", urlBuilder.asSiteRelative(null));
+    }
 }
