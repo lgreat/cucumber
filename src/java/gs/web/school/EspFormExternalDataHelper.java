@@ -16,6 +16,11 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
+ * Workflow for adding external data point with 1-to-1 form-to-database mapping:
+ * 1) Add key to getKeysForExternalData
+ * 2) Add block in getExternalValuesForKey to fetch value from DB for view
+ * 3) Add block in saveExternalValue to save value from view into the DB
+ *
  * @author aroy@greatschools.org
  */
 @Component("espFormExternalDataHelper")
@@ -135,10 +140,22 @@ public class EspFormExternalDataHelper {
             _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
             return new String[]{String.valueOf(school.getEnrollment())};
         } else if (StringUtils.equals("average_class_size", key)) {
-            SchoolCensusValue value = school.getCensusInfo().getLatestValue(school, CensusDataType.CLASS_SIZE);
+            SchoolCensusValue value = school.getCensusInfo().getManual(school, CensusDataType.CLASS_SIZE);
             if (value != null && value.getValueInteger() != null) {
                 _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
                 return new String[]{String.valueOf(value.getValueInteger())};
+            }
+        } else if (StringUtils.equals("administrator_name", key)) {
+            SchoolCensusValue value = school.getCensusInfo().getManual(school, CensusDataType.HEAD_OFFICIAL_NAME);
+            if (value != null && value.getValueText() != null) {
+                _log.debug("Overwriting key " + key + " with value " + value.getValueText());
+                return new String[]{value.getValueText()};
+            }
+        } else if (StringUtils.equals("administrator_email", key)) {
+            SchoolCensusValue value = school.getCensusInfo().getManual(school, CensusDataType.HEAD_OFFICIAL_EMAIL);
+            if (value != null && value.getValueText() != null) {
+                _log.debug("Overwriting key " + key + " with value " + value.getValueText());
+                return new String[]{value.getValueText()};
             }
         } else if (StringUtils.equals("grade_levels", key) && school.getGradeLevels() != null) {
             String gradeLevels = school.getGradeLevels().getCommaSeparatedString();
@@ -170,6 +187,12 @@ public class EspFormExternalDataHelper {
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
+        } else if (StringUtils.equals("administrator_name", key)) {
+            _log.debug("Saving administrator_name elsewhere: " + values[0]);
+            saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_NAME, user);
+        } else if (StringUtils.equals("administrator_email", key)) {
+            _log.debug("Saving administrator_email elsewhere: " + values[0]);
+            saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_EMAIL, user);
         } else if (StringUtils.equals("grade_levels", key)) {
             _log.debug("Saving grade_levels " + Arrays.toString(values) + " elsewhere for school:" + school.getName());
             return saveGradeLevels(school, (String[])values, user, now);
@@ -196,6 +219,9 @@ public class EspFormExternalDataHelper {
         return null;
     }
 
+    void saveCensusString(School school, String data, CensusDataType censusDataType, User user) {
+        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, "ESP-" + user.getId());
+    }
 
     void saveCensusInteger(School school, int data, CensusDataType censusDataType, User user) {
         _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, "ESP-" + user.getId());
@@ -267,6 +293,8 @@ public class EspFormExternalDataHelper {
         keys.add("address");
         keys.add("school_phone");
         keys.add("school_fax");
+        keys.add("administrator_name");
+        keys.add("administrator_email");
         return keys;
     }
 }
