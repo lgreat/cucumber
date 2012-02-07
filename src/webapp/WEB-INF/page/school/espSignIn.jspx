@@ -58,7 +58,7 @@
                                             <!--<form:errors path="email" cssClass="error" />-->
                                             <form:errors path="email">
                                                 <c:forEach items="${messages}" var="message">
-                                                    <div class="error">
+                                                    <div class="error" style="display:block">
                                                         <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
                                                     </div>
                                                 </c:forEach>
@@ -77,7 +77,7 @@
                                             <!--<form:errors path="password" cssClass="error" />-->
                                             <form:errors path="password">
                                                 <c:forEach items="${messages}" var="message">
-                                                    <div class="error">
+                                                    <div class="error" style="display:block">
                                                         <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
                                                     </div>
                                                 </c:forEach>
