@@ -185,8 +185,8 @@
             <div class="alpha grid_4">
                 <form:label path="schoolId" for="js_school">School</form:label>
             </div>
-            <div class="grid_5">
-                <select name="schoolId" id="js_school" class="selectChildSchool">
+            <div class="grid_6">
+                <select name="schoolId" id="js_school" class="selectChildSchool input_6">
                     <option selected="selected" value="0">- Choose school -</option>
                     <c:forEach var="schoolOption" items="">
                         <![CDATA[<option ]]>
