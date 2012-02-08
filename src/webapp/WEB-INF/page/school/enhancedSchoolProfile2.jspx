@@ -52,11 +52,10 @@
                 </thead>
                 <tbody>
 
-                <c:set var="numStudentsEnrolled"><gsweb:lts list="${student_enrollment}" /></c:set>
-                <c:if test="${not empty numStudentsEnrolled}">
+                <c:if test="${not empty student_enrollment}">
                     <tr>
                         <td class="small_bold">Number of students enrolled</td>
-                        <td>${numStudentsEnrolled}</td>
+                        <td>${student_enrollment}</td>
                     </tr>
                 </c:if>
 
