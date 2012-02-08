@@ -40,7 +40,7 @@
         <school:espCheckboxWithLabel key="foreign_language" value="other" label="Other:"
                                                  styleClass="js_otherField_js_form_foreign_language_other" nobr="true"/>
         <input id="js_form_foreign_language_other" class="js_otherField" type="text" name="foreign_language_other"
-               value="${responseMap['foreign_language_other'].value}" maxlength="40"
+               value="${responseMap['foreign_language_other'].value}"
                placeholder="[Please indicate]"/>
     </div>
 </div>
@@ -248,12 +248,12 @@
         <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
                                                  styleClass="js_otherField_js_form_staff_languages_other" nobr="true"/>
         <input id="js_form_staff_languages_other" class="js_otherField" type="text" name="staff_languages_other"
-               value="${responseMap['staff_languages_other'].value}" maxlength="40"
+               value="${responseMap['staff_languages_other'].value}"
                placeholder="[Please indicate]"/>
     </div>
 </div>
 
-<!--TODO 30 charcter limit-->
+
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">What extra learning resources are offered for students?</p>
@@ -275,7 +275,7 @@
         <input id="js_form_extra_learning_resources_other" class="js_otherField" type="text"
                name="extra_learning_resources_other"
                value="${responseMap['extra_learning_resources_other'].value}"
-               placeholder="[Please indicate]"/>
+               placeholder="[Please indicate]" maxlength="30"/>
     </div>
 </div>
 
@@ -291,51 +291,51 @@
     <div class="grid_5">
         <input id="js_form_partnerships_name_1" type="text"
                name="partnerships_name_1"
-               value="${responseMap['partnerships_name_1'].value}" maxlength="40"
+               value="${responseMap['partnerships_name_1'].value}"
                placeholder="1.[partner name]"/>
         <input id="js_form_partnerships_url_1" type="text"
                name="partnerships_url_1"
-               value="${responseMap['partnerships_url_1'].value}" maxlength="40"
+               value="${responseMap['partnerships_url_1'].value}"
                placeholder="1.[partner website]"/>
         <br/>
         <br/>
         <input id="js_form_partnerships_name_2" type="text"
                name="partnerships_name_2"
-               value="${responseMap['partnerships_name_2'].value}" maxlength="40"
+               value="${responseMap['partnerships_name_2'].value}"
                placeholder="2.[partner name]"/>
         <input id="js_form_partnerships_url_2" type="text"
                name="partnerships_url_2"
-               value="${responseMap['partnerships_url_2'].value}" maxlength="40"
+               value="${responseMap['partnerships_url_2'].value}"
                placeholder="2.[partner website]"/>
         <br/>
         <br/>
         <input id="js_form_partnerships_name_3" type="text"
                name="partnerships_name_3"
-               value="${responseMap['partnerships_name_3'].value}" maxlength="40"
+               value="${responseMap['partnerships_name_3'].value}"
                placeholder="3.[partner name]"/>
         <input id="js_form_partnerships_url_3" type="text"
                name="partnerships_url_3"
-               value="${responseMap['partnerships_url_3'].value}" maxlength="40"
+               value="${responseMap['partnerships_url_3'].value}"
                placeholder="3.[partner website]"/>
         <br/>
         <br/>
         <input id="js_form_partnerships_name_4" type="text"
                name="partnerships_name_4"
-               value="${responseMap['partnerships_name_4'].value}" maxlength="40"
+               value="${responseMap['partnerships_name_4'].value}"
                placeholder="4.[partner name]"/>
         <input id="js_form_partnerships_url_4" type="text"
                name="partnerships_url_4"
-               value="${responseMap['partnerships_url_4'].value}" maxlength="40"
+               value="${responseMap['partnerships_url_4'].value}"
                placeholder="4.[partner website]"/>
         <br/>
         <br/>
         <input id="js_form_partnerships_name_5" type="text"
                name="partnerships_name_5"
-               value="${responseMap['partnerships_name_5'].value}" maxlength="40"
+               value="${responseMap['partnerships_name_5'].value}"
                placeholder="5.[partner name]"/>
         <input id="js_form_partnerships_url_5" type="text"
                name="partnerships_url_5"
-               value="${responseMap['partnerships_url_5'].value}" maxlength="40"
+               value="${responseMap['partnerships_url_5'].value}"
                placeholder="5.[partner website]"/>
     </div>
 </div>
@@ -404,13 +404,13 @@
                                          nobr="true"/>
             <input id="js_form_college_prep_other" class="js_otherField" type="text"
                    name="college_prep_other"
-                   value="${responseMap['college_prep_other'].value}" maxlength="40"
+                   value="${responseMap['college_prep_other'].value}"
                    placeholder="[Please indicate]"/>
         </div>
     </div>
 </c:if>
 
-<!--TODO only 3 digits for percentage input-->
+
 <!--Only show for schools with level 'h'-->
 <c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
     <div class="lal clearfix">
@@ -438,28 +438,28 @@
 
             <input id="js_form_post_graduation_2yr" type="text"
                    name="post_graduation_2yr"
-                   value="${responseMap['post_graduation_2yr'].value}"/>
+                   value="${responseMap['post_graduation_2yr'].value}" maxlength="3"/>
             <label>% Graduates going to a 2 year college</label>
 
             <input id="js_form_post_graduation_4yr" type="text"
                    name="post_graduation_4yr"
-                   value="${responseMap['post_graduation_4yr'].value}"/>
+                   value="${responseMap['post_graduation_4yr'].value}" maxlength="3"/>
             <label>% Graduates going to a 4 year college</label>
 
 
             <input id="js_form_post_graduation_military" type="text"
                    name="post_graduation_military"
-                   value="${responseMap['post_graduation_military'].value}"/>
+                   value="${responseMap['post_graduation_military'].value}" maxlength="3"/>
             <label>% Graduates going into military service</label>
 
             <input id="js_form_post_graduation_vocational" type="text"
                    name="post_graduation_vocational"
-                   value="${responseMap['post_graduation_vocational'].value}"/>
+                   value="${responseMap['post_graduation_vocational'].value}" maxlength="3"/>
             <label>% Graduates going into vocational programs</label>
 
             <input id="js_form_post_graduation_workforce" type="text"
                    name="post_graduation_workforce"
-                   value="${responseMap['post_graduation_workforce'].value}"/>
+                   value="${responseMap['post_graduation_workforce'].value}" maxlength="3"/>
             <label>% Graduates going directly into the workforce</label>
 
         </div>
@@ -491,7 +491,7 @@
         <school:espCheckboxWithLabel key="skills_training" value="other" label="Other:" styleClass="js_otherField_js_form_skills_training_other" nobr="true"/>
         <input id="js_form_skills_training_other" class="js_otherField" type="text"
                name="skills_training_other"
-               value="${responseMap['skills_training_other'].value}" maxlength="40"
+               value="${responseMap['skills_training_other'].value}"
                placeholder="[Please indicate]"/>
     </div>
 </div>
@@ -508,17 +508,17 @@
 
         <input id="js_form_college_destination_1" type="text"
                name="college_destination_1"
-               value="${responseMap['college_destination_1'].value}" maxlength="40"
+               value="${responseMap['college_destination_1'].value}"
                placeholder="[Name of college/university]"/>
 
         <input id="js_form_college_destination_2" type="text"
                name="college_destination_2"
-               value="${responseMap['college_destination_2'].value}" maxlength="40"
+               value="${responseMap['college_destination_2'].value}"
                placeholder="[Name of college/university]"/>
 
         <input id="js_form_college_destination_3" type="text"
                name="college_destination_3"
-               value="${responseMap['college_destination_3'].value}" maxlength="40"
+               value="${responseMap['college_destination_3'].value}"
                placeholder="[Name of college/university]"/>
     </div>
 </div>
