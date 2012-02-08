@@ -304,10 +304,11 @@
                             <link:schoolEspDashboard>Edit the Official School Profile for ${requestScope.espFormSchool.name}</link:schoolEspDashboard>
                         </c:when>
                         <c:when test="${requestScope.espSuperUser eq true}">
-                            <link:schoolEspDashboard>Edit an Official School Profile</link:schoolEspDashboard>
+                            <link:schoolEspDashboard>Edit Official School Profiles</link:schoolEspDashboard>
                         </c:when>
                         <c:otherwise>
-                            <link:schoolEspDashboard>Edit one of your Official School Profiles</link:schoolEspDashboard>
+                            <!-- Case for regular user with access to multiple schools -->
+                            <link:schoolEspDashboard>Edit Official School Profiles</link:schoolEspDashboard>
                         </c:otherwise>
                     </c:choose>
                 </strong>
