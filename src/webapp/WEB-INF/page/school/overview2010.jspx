@@ -58,7 +58,8 @@
     <c:if test="${noIndexFlag}">
         <meta name="robots" content="follow,noindex"/>
     </c:if>
-    <title>${gsweb:schoolPageTitle(school)}</title>
+    <c:set var="schoolPageTitle" value="${gsweb:schoolPageTitle(school)}"/>
+    <title>${schoolPageTitle}</title>
     <!-- SearchMonkey eRDF support-->
     <link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/"/>
     <link rel="schema.sioc" href="http://rdfs.org/sioc/ns#"/>
@@ -312,11 +313,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <!-- principal link box -->
             <c:if test="${school.levelCode != 'p'}">
                 <div class="spacer_10"><!-- do not collapse --></div>
-                <div id="js-esp-principal-link" class="noticeBox">
+                <div class="noticeBox">
                     <div class="mediaExt1">
                         <span class="sprite pencil_med img"><!-- do not collapse --></span>
-                        <div class="bk"><strong>Are you the principal? </strong><a
-                            href="javascript:void(0);" class="no_interrupt">Complete your school's profile</a>
+                        <div class="bk"><strong>Are you the principal? </strong>
+                            <link:schoolProfileEspLogin school="${school}">Complete your school's profile</link:schoolProfileEspLogin>
                         </div>
                     </div>
                 </div>
@@ -448,29 +449,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <script type="text/javascript">
     jQuery(function() {
-
-        jQuery('#js-esp-principal-link a').click(function() {
-            var schoolId = '${school.id}';
-            var schoolState = '${school.databaseState}';
-
-            if (s.tl) {
-                s.tl(this, 'o', 'PrincipalUpdate_Parent_Reviews');
-            }
-
-            pageTracking.pageName = "School Officials Pre Signup Hover";
-            pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
-            pageTracking.server = "www.greatschools.org";
-            pageTracking.send();
-
-            GSType.hover.principalConfirmation.show(schoolId, schoolState);
-
-            return false;
-        });
-
-        document.title = '${gsweb:schoolPageTitle(school)}';
-
+        document.title = '${gsweb:escapeJavaScript(schoolPageTitle)}';
     });
-
 </script>
 
 
