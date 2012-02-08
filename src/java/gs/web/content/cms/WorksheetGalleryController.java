@@ -119,16 +119,19 @@ public class WorksheetGalleryController extends CmsTopicCenterController2010 {
         SUBJECT_CHOICES.put("math", "Math");
         SUBJECT_CHOICES.put("reading", "Reading");
         SUBJECT_CHOICES.put("writing", "Writing");
+        SUBJECT_CHOICES.put("science", "Science");
 
         SUBJECT_URL_COMPONENT_LOOKUP.put("math",CmsConstants.MATH_CATEGORY_ID);
         SUBJECT_URL_COMPONENT_LOOKUP.put("reading",CmsConstants.READING_CATEGORY_ID);
         SUBJECT_URL_COMPONENT_LOOKUP.put("writing",CmsConstants.WRITING_CATEGORY_ID);
+        SUBJECT_URL_COMPONENT_LOOKUP.put("science",CmsConstants.SCIENCE_CATEGORY_ID);
 
         // GS-12144 START constants for meta keywords & meta descriptions
 
         META_KEYWORDS_SUBJECT_ONLY.put("math", "math worksheets, math worksheet, mathematics worksheet, maths worksheet, worksheets for math");
         META_KEYWORDS_SUBJECT_ONLY.put("reading", "reading worksheets, reading comprehension worksheets, language worksheets, nouns worksheets, grammar worksheets");
         META_KEYWORDS_SUBJECT_ONLY.put("writing", "writing worksheets, writing worksheet");
+        META_KEYWORDS_SUBJECT_ONLY.put("science", "science worksheets, science worksheet");
 
         META_GRADE_KEY_TO_NUMERIC_NAME.put("kindergarten","kindergarten");
         META_GRADE_KEY_TO_NUMERIC_NAME.put("first-grade","1st grade");

@@ -88,7 +88,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
 
     final private static List<Map<CmsLink,List<CmsLink>>> WORKSHEETS_LINKS = new ArrayList<Map<CmsLink,List<CmsLink>>>();
     final private static String[] WORKSHEETS_LINKS_GRADES = { "Preschool", "Kindergarten", "First Grade", "Second Grade", "Third Grade", "Fourth Grade", "Fifth Grade" };
-    final private static String[] WORKSHEETS_LINKS_SUBJECTS = { "Math", "Reading", "Writing" };
+    final private static String[] WORKSHEETS_LINKS_SUBJECTS = { "Math", "Reading", "Writing", "Science" };
 
     static {
         for (int i = 0; i < WORKSHEETS_LINKS_GRADES.length; i++) {
