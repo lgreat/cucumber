@@ -72,19 +72,29 @@
             <!--<br/>-->
             <!--<br/>-->
         <!--</div>-->
+    <div class="lal clearfix">
         <div id="form_age_pk_start_group">
-            <label>What age does your early childhood or Pre-K program begin?</label>
-            <br/>
-            <select id="form_age_pk_start" name="age_pk_start">
-                <gsml:selectOption value="" selected="${empty responseMap['age_pk_start']}">[Select age]</gsml:selectOption>
-                <gsml:selectOption value="0/1" selected="${not empty responseMap['age_pk_start'].valueMap['0/1']}">Infant</gsml:selectOption>
-                <gsml:selectOption value="2" selected="${not empty responseMap['age_pk_start'].valueMap['2']}">2 years old</gsml:selectOption>
-                <gsml:selectOption value="3" selected="${not empty responseMap['age_pk_start'].valueMap['3']}">3 years old / PS 3 / K3</gsml:selectOption>
-                <gsml:selectOption value="4" selected="${not empty responseMap['age_pk_start'].valueMap['4']}">4 years old / PS 4 / K4</gsml:selectOption><!--Remove it-->
-            </select>
+            <div class="grid_7 alpha">
+                <label>What age does your early childhood or Pre-K program begin?</label>
+            </div>
+            <div class="grid_16 omega">
+                <select id="form_age_pk_start" name="age_pk_start">
+                    <gsml:selectOption value=""
+                                       selected="${empty responseMap['age_pk_start']}">[Select age]</gsml:selectOption>
+                    <gsml:selectOption value="0/1"
+                                       selected="${not empty responseMap['age_pk_start'].valueMap['0/1']}">Infant</gsml:selectOption>
+                    <gsml:selectOption value="2"
+                                       selected="${not empty responseMap['age_pk_start'].valueMap['2']}">2 years old</gsml:selectOption>
+                    <gsml:selectOption value="3"
+                                       selected="${not empty responseMap['age_pk_start'].valueMap['3']}">3 years old / PS 3 / K3</gsml:selectOption>
+                    <gsml:selectOption value="4"
+                                       selected="${not empty responseMap['age_pk_start'].valueMap['4']}">4 years old / PS 4 / K4</gsml:selectOption><!--Remove it-->
+                </select>
+            </div>
             <br/>
             <br/>
         </div>
+    </div>
 
 
     <div class="lal clearfix">
@@ -109,7 +119,7 @@
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
-            <label>School type</label>
+            <p class="labelGroup">School type</p>
         </div>
         <div class="grid_16 omega">
             <school:espRadioWithLabel key="school_type" value="public" label="Public" disabled="${stateLocked}"/>
@@ -136,7 +146,7 @@
 
     <div class="lal clearfix">
         <div class="grid_7 alpha">
-            <label>Is your school coeducational or single sex?</label>
+            <p class="labelGroup">Is your school coeducational or single sex?</p>
         </div>
         <div class=" grid_16 omega">
             <school:espRadioWithLabel key="coed" value="all_boys" label="All boys"/>
@@ -153,10 +163,10 @@
             <div>
                 <gsml:checkbox styleId="form_before_after_care" name="before_after_care" value="before"
                                checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
-                <label for="form_before_after_care_before" class="checkbox">Before school care</label>
+                <label for="form_before_after_care_before" class="checkbox">Before school care </label>
 
-                <span id="form_before_after_care_before_group" class="mlm">
-                    <label for="form_before_after_care_start" class="checkbox">Start time</label>
+                <span id="form_before_after_care_before_group">
+                    <label for="form_before_after_care_start" class="checkbox">| Start time</label>
                     <!--<input id="form_before_after_care_start" type="text" name="before_after_care_start"
                     value="${responseMap['before_after_care_start'].value}"/>-->
                     <select id="form_before_after_care_start">
@@ -176,13 +186,12 @@
                 </span>
             </div>
             <div>
-
                 <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
                                checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
-                <label for="form_before_after_care_after" class="checkbox">After school care</label>
+                <label for="form_before_after_care_after" class="checkbox">After school care </label>
 
-                <span id="form_before_after_care_after_group" class="mlm">
-                    <label for="form_before_after_care_end" class="checkbox">End time</label>
+                <span id="form_before_after_care_after_group">
+                    <label for="form_before_after_care_end" class="checkbox">| End time</label>
                     <!--<input id="form_before_after_care_end" type="text" name="before_after_care_end"
                     value="${responseMap['before_after_care_end'].value}"/>-->
                     <select id="form_before_after_care_end">
@@ -216,20 +225,20 @@
             <school:espCheckboxWithLabel key="transportation" value="special_ed_only" label="Transportation provided for special education students only"/>
             <school:espCheckboxWithLabel key="transportation" value="other" label="Other" styleClass="js_otherField_form_transportation_other" nobr="true"/>
             <input id="form_transportation_other" class='js_otherField mls text input_4' type="text" name="transportation_other"
-                   value="${responseMap['transportation_other'].value}" maxlength="40"/>
+                   value="${responseMap['transportation_other'].value}" maxlength="40" placeholder="[Please indicate]"/>
         </div>
     </div>
 
     <div class="lal clearfix">
         <div class="grid_7 alpha">
-            <label>Is there a school-run shuttle from nearby metro and bus stops?</label>
+            <p class="labelGroup">Is there a school-run shuttle from nearby metro and bus stops?</p>
         </div>
         <div class="grid_16 omega">
             <school:espRadioWithLabel key="transportation_shuttle" value="no" label="No"/>
             <school:espRadioWithLabel key="transportation_shuttle" value="yes" label="Yes"
                                       styleClass="js_otherField_form_transportation_shuttle_other" nobr="true"/>
             <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other"
-                   class="js_otherField text input_4 mls" value="${responseMap['transportation_shuttle_other'].value}" maxlength="30"/>
+                   class="js_otherField text input_4 mls" value="${responseMap['transportation_shuttle_other'].value}" maxlength="30" placeholder="[Enter metro/bus lines]"/>
             <p class="hint">Indicate which metro and bus lines the shuttle serves,separated by commas.</p>
         </div>
     </div>
