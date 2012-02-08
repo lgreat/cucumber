@@ -58,7 +58,7 @@
 									<span class="durra">Disabled user re-requesting access</span>
 								</div>
                 <form:form commandName="espModerationCommand">
-                    <table width="950" class="espModerationHeader">
+                    <table width="950">
                         <col width="32px"/>
                         <col width="210px"/>
                         <col width="206px"/>
