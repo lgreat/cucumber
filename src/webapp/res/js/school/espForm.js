@@ -90,7 +90,7 @@ GS.form.findAndApplyGhostTextSwitching = function(containerSelector) {
 
     ghostTextableInputs.on('focus blur', function(eventData) {
         var jQueryObject = $(this);
-        var ghostText = jQueryObject.prop('placeholder');
+        var ghostText = jQueryObject.attr('placeholder');
         if (eventData.type === 'focus') {
             if (jQueryObject.val() === ghostText) {
                 jQueryObject.val('');
@@ -104,7 +104,7 @@ GS.form.findAndApplyGhostTextSwitching = function(containerSelector) {
     // set up initial state of items on page
     ghostTextableInputs.each(function() {
         var jQueryObject = $(this);
-        var ghostText = jQueryObject.prop('placeholder');
+        var ghostText = jQueryObject.attr('placeholder');
         if (jQueryObject.val().length === 0) {
             jQueryObject.val(ghostText);
         }
@@ -113,7 +113,7 @@ GS.form.findAndApplyGhostTextSwitching = function(containerSelector) {
 GS.form.clearGhostTextOnInputs = function(containerSelector) {
     $(containerSelector + ' ' + GS.form.GHOST_TEXTABLE_INPUT_SELECTOR).each(function() {
        var jQueryObject = $(this);
-        if (jQueryObject.val() === jQueryObject.prop('placeholder')) {
+        if (jQueryObject.val() === jQueryObject.attr('placeholder')) {
             jQueryObject.val('');
         }
     });
@@ -123,8 +123,8 @@ GS.form.findInputsWithGhostTextAsValue = function(containerSelector) {
     var inputsWithGhostText = [];
     $(containerSelector + ' ' + GS.form.GHOST_TEXTABLE_INPUT_SELECTOR).each(function() {
         var jQueryObject = $(this);
-        if (jQueryObject.val() === jQueryObject.prop('placeholder')) {
-            inputsWithGhostText.push(jQueryObject.prop('name'));
+        if (jQueryObject.val() === jQueryObject.attr('placeholder')) {
+            inputsWithGhostText.push(jQueryObject.attr('name'));
         }
     });
     return inputsWithGhostText;
