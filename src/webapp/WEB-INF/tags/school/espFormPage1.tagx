@@ -27,11 +27,11 @@
         </div>
 
     </div>
+
     <div class="lal clearfix">
         <div class="alpha grid_7">
             <p class="labelGroup">Grade levels offered</p>
         </div>
-        <!--1st Coloumn-->
         <div class="grid_5">
             <school:espCheckboxWithLabel key="grade_levels" value="PK" label="PK" disabled="${stateLocked}"/>
             <school:espCheckboxWithLabel key="grade_levels" value="KG" label="K" disabled="${stateLocked}"/>
@@ -39,7 +39,6 @@
             <school:espCheckboxWithLabel key="grade_levels" value="2" label="Second Grade" disabled="${stateLocked}"/>
             <school:espCheckboxWithLabel key="grade_levels" value="3" label="Third Grade" nobr="true" disabled="${stateLocked}"/>
         </div>
-        <!--2nd coloumn-->
         <div class="grid_5">
             <school:espCheckboxWithLabel key="grade_levels" value="4" label="Fourth Grade" disabled="${stateLocked}"/>
             <school:espCheckboxWithLabel key="grade_levels" value="5" label="Fifth Grade" disabled="${stateLocked}"/>
@@ -47,7 +46,6 @@
             <school:espCheckboxWithLabel key="grade_levels" value="7" label="Seventh Grade" disabled="${stateLocked}"/>
             <school:espCheckboxWithLabel key="grade_levels" value="8" label="Eighth Grade" nobr="true" disabled="${stateLocked}"/>
         </div>
-        <!--3rd coloumn-->
         <div class="grid_6 omega">
             <school:espCheckboxWithLabel key="grade_levels" value="9" label="Ninth Grade" disabled="${stateLocked}"/>
             <school:espCheckboxWithLabel key="grade_levels" value="10" label="Tenth Grade" disabled="${stateLocked}"/>
@@ -55,23 +53,7 @@
             <school:espCheckboxWithLabel key="grade_levels" value="12" label="Twelfth Grade" nobr="true" disabled="${stateLocked}"/>
         </div>
     </div>
-        <!--<div id="form_k3_offered_group">-->
-            <!--<label>Do you offer K3?</label>-->
-            <!--<br/>-->
-            <!--<school:espRadioWithLabel key="k3_offered" value="no" label="No"/>-->
-            <!--<school:espRadioWithLabel key="k3_offered" value="yes" label="Yes"/>-->
-            <!--<br/>-->
-            <!--<br/>-->
-        <!--</div>-->
 
-        <!--<div id="form_k4_offered_group">-->
-            <!--<label>Do you offer K4?</label>-->
-            <!--<br/>-->
-            <!--<school:espRadioWithLabel key="k4_offered" value="no" label="No"/>-->
-            <!--<school:espRadioWithLabel key="k4_offered" value="yes" label="Yes"/>-->
-            <!--<br/>-->
-            <!--<br/>-->
-        <!--</div>-->
     <div class="lal clearfix">
         <div id="form_age_pk_start_group">
             <div class="grid_7 alpha">
@@ -96,6 +78,15 @@
         </div>
     </div>
 
+    <div class="lal clearfix">
+        <div class="grid_7 alpha">
+            <p class="labelGroup">Do you offer any early childhood or preschool programs?</p>
+        </div>
+        <div class="grid_16 omega">
+            <school:espRadioWithLabel key="" value="" label="Yes"/>
+            <school:espRadioWithLabel key="" value="" label="No"/>
+        </div>
+    </div>
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
