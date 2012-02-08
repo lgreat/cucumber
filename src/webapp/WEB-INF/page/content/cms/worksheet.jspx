@@ -163,7 +163,7 @@
 
         <!-- share this -->
         <!-- TODO-11818 switch to new version; see GS-11856 -->
-        <cms:communityDistribution content="${feature}"/>
+        <cms:communityDistribution content="${feature}" hideShareThis="true"/>
 
         <div class="spacer_10"><!-- do not collapse --></div>
 
