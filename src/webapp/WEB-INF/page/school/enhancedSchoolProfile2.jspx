@@ -14,6 +14,7 @@
     <meta name="description" content="View official information for ${school.name} including information about school culture, programs, and extracurriculars ${school.city}, ${school.databaseState.longName} - ${school.databaseState.abbreviation}"/>
     <c:set var="pageName" value="Principal Questionnaire"/>
 
+    <!-- TODO(rcox) Delete these internal styles after all profile data are in tables. -->
     <style type="text/css">
         .espDisplay {
 
@@ -38,76 +39,171 @@
     <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
     <school:profile2010 school="${school}" tab="schoolStats" subtab="official" omniturePageName="${pageName}" adSlotPrefix="${adSlotPrefix}">
 
-        <div class="slStylesV1-0 espDisplay">
+        <div class="slStylesV1-0">
 
-            <h4>School Basics</h4>
-            
-            <c:set var="numStudentsEnrolled"><gsweb:lts list="${student_enrollment}" /></c:set>
-            <c:if test="${not empty numStudentsEnrolled}"><p class="lbl">Number of students enrolled: <span class="val">${numStudentsEnrolled}</span></p></c:if>
+        <!-- SECTION 1: School Basics -->
+            <table>
+                <col width="210"/>
+                <col width="auto"/>
+                <thead>
+                    <tr>
+                        <th colspan="2">School Basics</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            <c:if test="${not empty responses.average_class_size}"><p class="lbl">Average class size: <span class="val"><gsweb:lts list="${responses.average_class_size}" /></span></p></c:if>
+                <c:set var="numStudentsEnrolled"><gsweb:lts list="${student_enrollment}" /></c:set>
+                <c:if test="${not empty numStudentsEnrolled}">
+                    <tr>
+                        <td class="small_bold">Number of students enrolled</td>
+                        <td>${numStudentsEnrolled}</td>
+                    </tr>
+                </c:if>
 
-            <c:if test="${not empty grade_levels}"><p class="lbl">Grade levels offered: <span class="val">${grade_levels}</span></p></c:if>
+                <c:if test="${not empty responses.average_class_size}">
+                    <tr>
+                        <td class="small_bold">Average class size</td>
+                        <td><gsweb:lts list="${responses.average_class_size}"/></td>
+                    </tr>
+                </c:if>
 
-            <c:set var="agePkStart"><gsweb:lts list="${responses.age_pk_start}" /></c:set>
-            <c:if test="${not empty agePkStart}"><p class="lbl">Age at which early childhood or Pre-K program begins: <span class="val">${agePkStart}</span></p></c:if>
+                <c:if test="${not empty grade_levels}">
+                    <tr>
+                        <td class="small_bold">Grade levels offered</td>
+                        <td>${grade_levels}</td>
+                    </tr>
+                </c:if>
 
-            <p class="lbl">School start time: <span class="val"><gsweb:lts list="${responses.start_time}" /></span></p>
-            <p class="lbl">School end time: <span class="val"><gsweb:lts list="${responses.end_time}" /></span></p>
+                <c:set var="agePkStart"><gsweb:lts list="${responses.age_pk_start}" /></c:set>
+                <c:if test="">
+                    <tr>
+                        <td class="small_bold">Age at which early childhood or Pre-K program begins</td>
+                        <td>${agePkStart}</td>
+                    </tr>
+                </c:if>
 
-            <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
-            <c:set var="schoolSubtypes" value="${school.subtype.commaSeparatedString}"/>
-            <p class="lbl">School type: <span class="val">${school.type.schoolTypeName}.
-                <c:if test="${not empty school.affiliation}"> ${school.affiliation}.</c:if>
-                <c:if test="${not empty schoolSubtypes}"> ${schoolSubtypes}.</c:if></span></p>
+                <tr>
+                    <td class="small_bold">School start time</td>
+                    <td><gsweb:lts list="${responses.start_time}" /></td>
+                </tr>
 
-            <c:if test="${not empty administrator_name}"><p class="lbl">School Leader's name: <span class="val">${administrator_name}</span></p></c:if>
-            <c:if test="${not empty administrator_email}"><p class="lbl">School Leader's email: <span class="val">${administrator_email}</span></p></c:if>
+                <tr>
+                    <td class="small_bold">School end time</td>
+                    <td><gsweb:lts list="${responses.end_time}" /></td>
+                </tr>
 
-            <c:set var="cmEmail"><gsweb:lts list="${responses.contact_method_email}" /></c:set>
-            <c:set var="cmPhone"><gsweb:lts list="${responses.contact_method_phone}" /></c:set>
-            <c:set var="cmOther"><gsweb:lts list="${responses.contact_method_other}" /></c:set>
-            <c:if test="${not empty cmEmail or not empty cmPhone or not empty cmOther}">
-            <p class="lbl">Best ways for parents to contact the school:</p>
-            <ul>
-                <c:if test="${cmEmail}"><li>Email</li></c:if>
-                <c:if test="${cmPhone}"><li>Phone</li></c:if>
-                <c:if test="${cmOther}"><li>Other</li></c:if>
-            </ul>
-            </c:if>
+                <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
+                <c:set var="schoolSubtypes" value="${school.subtype.commaSeparatedString}"/>
+                <tr>
+                    <td class="small_bold">School type</td>
+                    <td>
+                        ${school.type.schoolTypeName}.
+                        <c:if test="${not empty school.affiliation}"> ${school.affiliation}.</c:if>
+                        <c:if test="${not empty schoolSubtypes}"> ${schoolSubtypes}.</c:if>
+                    </td>
+                </tr>
 
-            <c:set var="bacare"><gsweb:lts list="${responses.before_after_care}"/></c:set>
-            <c:if test="${not empty bacare}">
-            <p class="lbl">Before school or after school care / program onsite: <span class="val">${bacare}</span></p>
-            <c:set var="scStart"><gsweb:lts list="${responses.before_after_care_start}" /></c:set>
-            <c:set var="scEnd"><gsweb:lts list="${responses.before_after_care_end}" /></c:set>
-            <c:if test="${not empty scStart or not empty scEnd}">
-            <ul>
-                <c:if test="${not empty scStart}"><li>Before school care / program starts: ${scStart}</li></c:if>
-                <c:if test="${not empty scEnd}"><li>After school care / program ends: ${scEnd}</li></c:if>
-            </ul>
-            </c:if>
-            </c:if>
+                <c:if test="${not empty administrator_name}">
+                    <tr>
+                        <td class="small_bold">School Leader's name</td>
+                        <td>${administrator_name}</td>
+                    </tr>
+                </c:if>
 
-            <c:set var="transportation"><gsweb:lts list="${responses.transportation}" /></c:set>
-            <c:if test="${not empty transportation}"><p class="lbl">Transportation provided for students by the school / district: <span class="val">${transportation}</span></p></c:if>
+                <c:if test="${not empty administrator_email}">
+                    <tr>
+                        <td class="small_bold">School Leader's email</td>
+                        <td>${administrator_email}</td>
+                    </tr>
+                </c:if>
 
-            <c:set var="transportationShuttle"><gsweb:lts list="${responses.transportation_shuttle}" /></c:set>
-            <c:set var="transportationShuttleOther"><gsweb:lts list="${responses.transportation_shuttle_other}" /></c:set>
-            <c:if test="${not empty transportation or not empty transportationShuttle}"><p class="lbl">School-run shuttle from nearby metro and bus stops: <span class="val">${transportationShuttle} ${transportationShuttleOther}</span></p></c:if>
+                <c:set var="cmEmail"><gsweb:lts list="${responses.contact_method_email}" /></c:set>
+                <c:set var="cmPhone"><gsweb:lts list="${responses.contact_method_phone}" /></c:set>
+                <c:set var="cmOther"><gsweb:lts list="${responses.contact_method_other}" /></c:set>
+                <c:if test="${not empty cmEmail or not empty cmPhone or not empty cmOther}">
+                    <tr>
+                        <td class="small_bold">Best ways for parents to contact the school</td>
+                        <td>
+                            <ul>
+                                <c:if test="${cmEmail}"><li>Email</li></c:if>
+                                <c:if test="${cmPhone}"><li>Phone</li></c:if>
+                                <c:if test="${cmOther}"><li>Other</li></c:if>
+                            </ul>
+                        </td>
+                    </tr>
+                </c:if>
 
-            <c:set var="bestKnownFor"><gsweb:lts list="${responses.best_known_for}"/></c:set>
-            <c:if test="${not empty bestKnownFor}"><p class="lbl"><b>Our school is best known for: </b><span class="val">${bestKnownFor}</span></p></c:if>
+                <c:set var="bacare"><gsweb:lts list="${responses.before_after_care}"/></c:set>
+                <c:if test="${not empty bacare}">
+                    <tr>
+                        <td class="small_bold">Before school or after school care / program onsite</td>
+                        <td>
+                            ${bacare}
+                            <c:set var="scStart"><gsweb:lts list="${responses.before_after_care_start}" /></c:set>
+                            <c:set var="scEnd"><gsweb:lts list="${responses.before_after_care_end}" /></c:set>
+                            <c:if test="${not empty scStart or not empty scEnd}">
+                            <ul>
+                                <c:if test="${not empty scStart}"><li>Before school care / program starts: ${scStart}</li></c:if>
+                                <c:if test="${not empty scEnd}"><li>After school care / program ends: ${scEnd}</li></c:if>
+                            </ul>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:if>
 
-            <c:set var="instModel"><gsweb:lts list="${responses.instructional_model}" /></c:set>
-            <c:if test="${not empty instModel}"><p class="lbl">Instructional and/or curriculum models used: <span class="val">${instModel}</span></p></c:if>
+                <c:set var="transportation"><gsweb:lts list="${responses.transportation}" /></c:set>
+                <c:if test="${not empty transportation}">
+                    <tr>
+                        <td class="small_bold">Transportation provided for students by the school / district</td>
+                        <td>${transportation}</td>
+                    </tr>
+                </c:if>
 
-            <c:set var="acadFocus"><gsweb:lts list="${responses.academic_focus}" /></c:set>
-            <c:if test="${not empty acadFocus}"><p class="lbl">Special academic themes or areas of focus: <span class="val">${acadFocus}</span></p></c:if>
+                <c:set var="transportationShuttle"><gsweb:lts list="${responses.transportation_shuttle}" /></c:set>
+                <c:set var="transportationShuttleOther"><gsweb:lts list="${responses.transportation_shuttle_other}" /></c:set>
+                <c:if test="${not empty transportation or not empty transportationShuttle}">
+                    <tr>
+                        <td class="small_bold">School-run shuttle from nearby metro and bus stops</td>
+                        <td>${transportationShuttle} ${transportationShuttleOther}</td>
+                    </tr>
+                </c:if>
 
-            <c:set var="immersion"><gsweb:lts list="${responses.immersion}" /></c:set>
-            <c:if test="${not empty immersion}"><p class="lbl">Bi-lingual or language immersion programs offered: <span class="val">${immersion}</span></p></c:if>
+                <c:set var="bestKnownFor"><gsweb:lts list="${responses.best_known_for}"/></c:set>
+                <c:if test="${not empty bestKnownFor}">
+                    <tr>
+                        <td class="small_bold">Our school is best known for</td>
+                        <td>${bestKnownFor}</td>
+                    </tr>
+                </c:if>
 
+                <c:set var="instModel"><gsweb:lts list="${responses.instructional_model}" /></c:set>
+                <c:if test="${not empty instModel}">
+                    <tr>
+                        <td class="small_bold">Instructional and/or curriculum models used</td>
+                        <td>${instModel}</td>
+                    </tr>
+                </c:if>
+
+                <c:set var="acadFocus"><gsweb:lts list="${responses.academic_focus}" /></c:set>
+                <c:if test="${not empty acadFocus}">
+                    <tr>
+                        <td class="small_bold">Special academic themes or areas of focus</td>
+                        <td>${acadFocus}</td>
+                    </tr>
+                </c:if>
+
+                <c:set var="immersion"><gsweb:lts list="${responses.immersion}" /></c:set>
+                <c:if test="${not empty immersion}">
+                    <tr>
+                        <td class="small_bold">>Bi-lingual or language immersion programs offered</td>
+                        <td>${immersion}</td>
+                    </tr>
+                </c:if>
+
+                </tbody>
+            </table>
+
+            <!-- SECTION 2: Application Enrollment -->
             <h4>Application Enrollment</h4>
             <c:set var="isAppProcess"><gsweb:lts list="${responses.application_process}" /></c:set>
             <c:if test="${not empty isAppProcess}"><p class="lbl">Does this school have an application or enrollment process? <span class="val">${isAppProcess}</span></p></c:if>
