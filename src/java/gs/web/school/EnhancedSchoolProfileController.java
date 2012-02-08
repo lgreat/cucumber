@@ -121,10 +121,12 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         // obtain "external" datapoints
         ICensusInfo ci = school.getCensusInfo();
         SchoolCensusValue cv;
-        String s;
+        String s = null;
               
         cv = ci.getEnrollment(school);
-        s = cv == null ? null : cv.getValueText();
+        if (cv != null && cv.getValueInteger() != null) {
+            s = String.valueOf(cv.getValueInteger());
+        }
         model.put("student_enrollment", s);
 
         model.put("grade_levels", school.getGradeLevels().getCommaSeparatedString().replace(",", "; ").replace("  ", " "));
