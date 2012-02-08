@@ -101,7 +101,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
         if (userState.isNewUser() || (!userState.isUserRequestedESP())) {
             result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page'>register here.</a>");
         } else if (userState.isUserAwaitingESPMembership()) {
-            result.rejectValue("email", null, "You have already requested access to this school’s Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
+            result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (userState.isUserApprovedESPMember() && !userState.isUserEmailValidated()) {
             result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");
         }
