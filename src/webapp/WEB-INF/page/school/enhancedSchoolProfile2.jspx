@@ -10,7 +10,7 @@
 <html>
 <jsp:directive.page contentType="text/html"/>
 <head>
-    <title>${school.name} Official Information - ${school.city}, ${school.databaseState.abbreviation} | GreatSchools</title>
+    <title>${school.name} Official Information - ${school.city}, ${school.databaseState.abbreviation}</title>
     <meta name="description" content="View official information for ${school.name} including information about school culture, programs, and extracurriculars ${school.city}, ${school.databaseState.longName} - ${school.databaseState.abbreviation}"/>
     <c:set var="pageName" value="Principal Questionnaire"/>
 
