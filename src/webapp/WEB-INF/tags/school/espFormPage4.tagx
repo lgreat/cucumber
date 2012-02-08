@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages"
                          type="java.lang.Integer"/>
 <school:espFormTemplate page="4" maxPage="${maxPage}" headerText="Programs and resources">
 
-<!--TODO ghost text-->
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">What foreign languages are taught at your school?</p>
@@ -154,7 +155,8 @@
     </div>
 </div>
 
-<!--TODO for private schools only-->
+<!--Only show for private schools-->
+<c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">Is your school boarding or day?</p>
@@ -165,6 +167,7 @@
         <school:espRadioWithLabel key="boarding" value="boarding" label="Boarding school"/>
     </div>
 </div>
+</c:if>
 
 
 <div class="lal clearfix">
@@ -213,7 +216,7 @@
     </div>
 </div>
 
-<!--TODO ghost text-->
+
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">What languages other than English does the school staff speak?</p>
@@ -250,7 +253,7 @@
     </div>
 </div>
 
-<!--TODO ghost text and 30 charcter limit-->
+<!--TODO 30 charcter limit-->
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">What extra learning resources are offered for students?</p>
@@ -276,7 +279,7 @@
     </div>
 </div>
 
-<!--TODO display the text boxes if yes is selected and ghost text-->
+<!--TODO display the text boxes if yes is selected -->
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">Does your school have partnerships with local resources and organizations?</p>
@@ -376,89 +379,96 @@
     </div>
 </div>
 
-
-<!--TODO ghost text and only for level h-->
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">What college preparation/awareness resources does your school provide to students?</p>
+<!--Only show for schools with level 'h'-->
+<c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What college preparation/awareness resources does your school provide to students?</p>
+        </div>
+        <div class="grid_5">
+            <school:espCheckboxWithLabel key="college_prep" value="none" label="None"/>
+            <school:espCheckboxWithLabel key="college_prep" value="prep_classes"
+                                         label="College prep programs/courses during the year"/>
+            <school:espCheckboxWithLabel key="college_prep" value="info_sessions"
+                                         label="College presentations or information sessions"/>
+            <school:espCheckboxWithLabel key="college_prep" value="community_college"
+                                         label="Community college courses"/>
+            <school:espCheckboxWithLabel key="college_prep" value="sat_act_prep" label="SAT/ACT prep classes"/>
+            <school:espCheckboxWithLabel key="college_prep" value="summer_prep" label="Summer college prep programs"/>
+            <school:espCheckboxWithLabel key="college_prep" value="college_trips"
+                                         label="School-sponsored trips to college campuses"/>
+            <school:espCheckboxWithLabel key="college_prep" value="visiting_lecturers"
+                                         label="Visiting teachers or lecturers from colleges"/>
+            <school:espCheckboxWithLabel key="college_prep" value="other"
+                                         label="Other:" styleClass="js_otherField_js_form_college_prep_other"
+                                         nobr="true"/>
+            <input id="js_form_college_prep_other" class="js_otherField" type="text"
+                   name="college_prep_other"
+                   value="${responseMap['college_prep_other'].value}" maxlength="40"
+                   placeholder="[Please indicate]"/>
+        </div>
     </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="college_prep" value="none" label="None"/>
-        <school:espCheckboxWithLabel key="college_prep" value="prep_classes"
-                                     label="College prep programs/courses during the year"/>
-        <school:espCheckboxWithLabel key="college_prep" value="info_sessions"
-                                     label="College presentations or information sessions"/>
-        <school:espCheckboxWithLabel key="college_prep" value="community_college" label="Community college courses"/>
-        <school:espCheckboxWithLabel key="college_prep" value="sat_act_prep" label="SAT/ACT prep classes"/>
-        <school:espCheckboxWithLabel key="college_prep" value="summer_prep" label="Summer college prep programs"/>
-        <school:espCheckboxWithLabel key="college_prep" value="college_trips"
-                                     label="School-sponsored trips to college campuses"/>
-        <school:espCheckboxWithLabel key="college_prep" value="visiting_lecturers"
-                                     label="Visiting teachers or lecturers from colleges"/>
-        <school:espCheckboxWithLabel key="college_prep" value="other"
-                                     label="Other:" styleClass="js_otherField_js_form_college_prep_other" nobr="true"/>
-        <input id="js_form_college_prep_other" class="js_otherField" type="text"
-               name="college_prep_other"
-               value="${responseMap['college_prep_other'].value}" maxlength="40"
-               placeholder="[Please indicate]"/>
+</c:if>
+
+<!--TODO only 3 digits for percentage input-->
+<!--Only show for schools with level 'h'-->
+<c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What percent of students at your school attend the following immediately after graduation? Please indicate the school year for the data you provide.</p>
+        </div>
+        <div class="grid_5">
+            <school:espCheckboxWithLabel key="post_graduation_exists" value="no_data" label="Data is unavailable"/>
+
+            <select name="post_graduation_year">
+                <gsml:selectOption value="">Select Year</gsml:selectOption>
+                <gsml:selectOption value="2007-2008"
+                                   selected="${responseMap['post_graduation_year'].valueMap['2007-2008']}">2007-2008</gsml:selectOption>
+                <gsml:selectOption value="2008-2009"
+                                   selected="${responseMap['post_graduation_year'].valueMap['2008-2009']}">2008-2009</gsml:selectOption>
+                <gsml:selectOption value="2009-2010"
+                                   selected="${responseMap['post_graduation_year'].valueMap['2009-2010']}">2009-2010</gsml:selectOption>
+                <gsml:selectOption value="2010-2011"
+                                   selected="${responseMap['post_graduation_year'].valueMap['2010-2011']}">2010-2011</gsml:selectOption>
+                <gsml:selectOption value="2011-2012"
+                                   selected="${responseMap['post_graduation_year'].valueMap['2011-2012']}">2011-2012</gsml:selectOption>
+                <gsml:selectOption value="2012-2013"
+                                   selected="${responseMap['post_graduation_year'].valueMap['2012-2013']}">2012-2013</gsml:selectOption>
+            </select>
+
+            <input id="js_form_post_graduation_2yr" type="text"
+                   name="post_graduation_2yr"
+                   value="${responseMap['post_graduation_2yr'].value}"/>
+            <label>% Graduates going to a 2 year college</label>
+
+            <input id="js_form_post_graduation_4yr" type="text"
+                   name="post_graduation_4yr"
+                   value="${responseMap['post_graduation_4yr'].value}"/>
+            <label>% Graduates going to a 4 year college</label>
+
+
+            <input id="js_form_post_graduation_military" type="text"
+                   name="post_graduation_military"
+                   value="${responseMap['post_graduation_military'].value}"/>
+            <label>% Graduates going into military service</label>
+
+            <input id="js_form_post_graduation_vocational" type="text"
+                   name="post_graduation_vocational"
+                   value="${responseMap['post_graduation_vocational'].value}"/>
+            <label>% Graduates going into vocational programs</label>
+
+            <input id="js_form_post_graduation_workforce" type="text"
+                   name="post_graduation_workforce"
+                   value="${responseMap['post_graduation_workforce'].value}"/>
+            <label>% Graduates going directly into the workforce</label>
+
+        </div>
     </div>
-</div>
-
-<!--TODO only for level h and only 3 digits for percentage input-->
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">What percent of students at your school attend the following immediately after graduation? Please indicate the school year for the data you provide.</p>
-    </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="post_graduation_exists" value="no_data" label="Data is unavailable"/>
-
-        <select name="post_graduation_year">
-            <gsml:selectOption value="">Select Year</gsml:selectOption>
-            <gsml:selectOption value="2007-2008"
-                               selected="${responseMap['post_graduation_year'].valueMap['2007-2008']}">2007-2008</gsml:selectOption>
-            <gsml:selectOption value="2008-2009"
-                               selected="${responseMap['post_graduation_year'].valueMap['2008-2009']}">2008-2009</gsml:selectOption>
-            <gsml:selectOption value="2009-2010"
-                               selected="${responseMap['post_graduation_year'].valueMap['2009-2010']}">2009-2010</gsml:selectOption>
-            <gsml:selectOption value="2010-2011"
-                               selected="${responseMap['post_graduation_year'].valueMap['2010-2011']}">2010-2011</gsml:selectOption>
-            <gsml:selectOption value="2011-2012"
-                               selected="${responseMap['post_graduation_year'].valueMap['2011-2012']}">2011-2012</gsml:selectOption>
-            <gsml:selectOption value="2012-2013"
-                               selected="${responseMap['post_graduation_year'].valueMap['2012-2013']}">2012-2013</gsml:selectOption>
-        </select>
-
-        <input id="js_form_post_graduation_2yr" type="text"
-               name="post_graduation_2yr"
-               value="${responseMap['post_graduation_2yr'].value}"/>
-        <label>% Graduates going to a 2 year college</label>
-
-        <input id="js_form_post_graduation_4yr" type="text"
-               name="post_graduation_4yr"
-               value="${responseMap['post_graduation_4yr'].value}"/>
-        <label>% Graduates going to a 4 year college</label>
+</c:if>
 
 
-        <input id="js_form_post_graduation_military" type="text"
-               name="post_graduation_military"
-               value="${responseMap['post_graduation_military'].value}"/>
-        <label>% Graduates going into military service</label>
-
-        <input id="js_form_post_graduation_vocational" type="text"
-               name="post_graduation_vocational"
-               value="${responseMap['post_graduation_vocational'].value}"/>
-        <label>% Graduates going into vocational programs</label>
-
-        <input id="js_form_post_graduation_workforce" type="text"
-               name="post_graduation_workforce"
-               value="${responseMap['post_graduation_workforce'].value}"/>
-        <label>% Graduates going directly into the workforce</label>
-
-    </div>
-</div>
-
-
-<!--TODO ghost text and only for level h-->
+<!--Only show for schools with level 'h'-->
+<c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">What vocational or skills-based training programs does your school offer students, if any?</p>
@@ -485,9 +495,10 @@
                placeholder="[Please indicate]"/>
     </div>
 </div>
+</c:if>
 
-
-<!--TODO ghost text and only for level h-->
+<!--Only show for schools with level 'h'-->
+<c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">What colleges do most students attend after graduation?</p>
@@ -511,6 +522,7 @@
                placeholder="[Name of college/university]"/>
     </div>
 </div>
+</c:if>
 
 </school:espFormTemplate>
 </jsp:root>
