@@ -295,6 +295,14 @@
             </div>
         </c:if>
 
+        <c:if test="${not empty requestScope.espFormSchool}">
+            <p class="clearLft ptm">
+                <span class="sprite pencil_med"><!-- do not collapse --></span>
+                <strong class="pls">
+                    <link:schoolEspDashboard>Edit the Official School Profile for ${requestScope.espFormSchool.name}</link:schoolEspDashboard>
+                </strong>
+            </p>
+        </c:if>
     </c:if>
 
 </div>

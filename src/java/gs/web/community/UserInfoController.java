@@ -1,5 +1,10 @@
 package gs.web.community;
 
+import gs.data.school.EspMembership;
+import gs.data.school.IEspMembershipDao;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
+import gs.data.security.Role;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -59,6 +64,7 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_SHOW_VIEW_ALL_ACTIVITY_LINK = "showViewAllActivityLink";
     public static final String MODEL_MEMBER_REPORT = "memberReport";
+    public static final String MODEL_ESP_FORM_SCHOOL = "espFormSchool";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
@@ -76,6 +82,8 @@ public class UserInfoController extends AbstractController {
     private IPublicationDao _publicationDao;
     private IUserDao _userDao;
     private IReportedEntityDao _reportedEntityDao;
+    private ISchoolDao _schoolDao;
+    private IEspMembershipDao _espMembershipDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -140,6 +148,24 @@ public class UserInfoController extends AbstractController {
             if (viewer != null && pageUser != null && !viewingOwnProfile) {
                 model.put(MODEL_MEMBER_REPORT, _reportedEntityDao.hasUserReportedEntity
                         (viewer, ReportedEntity.ReportedEntityType.member, pageUser.getId()));
+            }
+            if (viewingOwnProfile) {
+                try {
+                    boolean hasEspRole = pageUser.hasRole(Role.ESP_MEMBER) || pageUser.hasRole(Role.ESP_SUPERUSER);
+                    if (hasEspRole) {
+                        List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(pageUser.getId(), true);
+                        if (memberships != null && memberships.size() > 0) {
+                            EspMembership membership = memberships.get(0);
+                            School school = _schoolDao.getSchoolById(membership.getState(), membership.getSchoolId());
+                            if (school != null && school.isActive()) {
+                                model.put(MODEL_ESP_FORM_SCHOOL, school);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    _log.error("Error determining ESP Form access rights: " + e, e);
+                    // continue
+                }
             }
         } else if (USER_ACCOUNT_PAGE_TYPE.equals(_pageType)) {
             // if viewing My Account and user is not logged in, redirect to login page
@@ -370,5 +396,21 @@ public class UserInfoController extends AbstractController {
 
     public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
         _reportedEntityDao = reportedEntityDao;
+    }
+
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }
