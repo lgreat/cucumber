@@ -295,11 +295,21 @@
             </div>
         </c:if>
 
-        <c:if test="${not empty requestScope.espFormSchool}">
+        <c:if test="${requestScope.espDashboardAccess eq true}">
             <p class="clearLft ptm">
                 <span class="sprite pencil_med"><!-- do not collapse --></span>
                 <strong class="pls">
-                    <link:schoolEspDashboard>Edit the Official School Profile for ${requestScope.espFormSchool.name}</link:schoolEspDashboard>
+                    <c:choose>
+                        <c:when test="${not empty requestScope.espFormSchool}">
+                            <link:schoolEspDashboard>Edit the Official School Profile for ${requestScope.espFormSchool.name}</link:schoolEspDashboard>
+                        </c:when>
+                        <c:when test="${requestScope.espSuperUser eq true}">
+                            <link:schoolEspDashboard>Edit an Official School Profile</link:schoolEspDashboard>
+                        </c:when>
+                        <c:otherwise>
+                            <link:schoolEspDashboard>Edit one of your Official School Profiles</link:schoolEspDashboard>
+                        </c:otherwise>
+                    </c:choose>
                 </strong>
             </p>
         </c:if>

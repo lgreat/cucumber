@@ -64,7 +64,9 @@ public class UserInfoController extends AbstractController {
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_SHOW_VIEW_ALL_ACTIVITY_LINK = "showViewAllActivityLink";
     public static final String MODEL_MEMBER_REPORT = "memberReport";
+    public static final String MODEL_ESP_DASHBOARD_ACCESS = "espDashboardAccess";
     public static final String MODEL_ESP_FORM_SCHOOL = "espFormSchool";
+    public static final String MODEL_ESP_SUPER_USER = "espSuperUser";
 
     public static final String USER_ACCOUNT_PAGE_TYPE = "userAccount";
     public static final String USER_PROFILE_PAGE_TYPE = "userProfile";
@@ -151,14 +153,20 @@ public class UserInfoController extends AbstractController {
             }
             if (viewingOwnProfile) {
                 try {
-                    boolean hasEspRole = pageUser.hasRole(Role.ESP_MEMBER) || pageUser.hasRole(Role.ESP_SUPERUSER);
-                    if (hasEspRole) {
+                    if (pageUser.hasRole(Role.ESP_SUPERUSER)) {
+                        model.put(MODEL_ESP_DASHBOARD_ACCESS, true);
+                        model.put(MODEL_ESP_SUPER_USER, true);
+                    } else if (pageUser.hasRole(Role.ESP_MEMBER)) {
                         List<EspMembership> memberships = _espMembershipDao.findEspMembershipsByUserId(pageUser.getId(), true);
                         if (memberships != null && memberships.size() > 0) {
-                            EspMembership membership = memberships.get(0);
-                            School school = _schoolDao.getSchoolById(membership.getState(), membership.getSchoolId());
-                            if (school != null && school.isActive()) {
-                                model.put(MODEL_ESP_FORM_SCHOOL, school);
+                            model.put(MODEL_ESP_DASHBOARD_ACCESS, true);
+
+                            if (memberships.size() == 1) {
+                                EspMembership membership = memberships.get(0);
+                                School school = _schoolDao.getSchoolById(membership.getState(), membership.getSchoolId());
+                                if (school != null && school.isActive()) {
+                                    model.put(MODEL_ESP_FORM_SCHOOL, school);
+                                }
                             }
                         }
                     }
