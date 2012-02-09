@@ -15,7 +15,8 @@
 
         <div class="grid_4">
             <gsml:input styleId="form_student_enrollment" type="text" styleClass="text input_3" name="student_enrollment"
-                        value="${responseMap['student_enrollment'].value}" maxlength="4" readonly="${stateLocked}"/>
+                        value="${responseMap['student_enrollment'].value}" maxlength="4" readonly="${stateLocked}"
+                        placeholder="[Enter number]"/>
             <p class="hint">Number of students enrolled</p>
         </div>
 
@@ -83,8 +84,8 @@
             <p class="labelGroup">Do you offer any early childhood or preschool programs?</p>
         </div>
         <div class="grid_16 omega">
-            <school:espRadioWithLabel key="" value="" label="Yes"/>
-            <school:espRadioWithLabel key="" value="" label="No"/>
+            <school:espRadioWithLabel key="early_childhood_program" value="yes" label="Yes"/>
+            <school:espRadioWithLabel key="early_childhood_program" value="no" label="No"/>
         </div>
     </div>
 
@@ -152,7 +153,7 @@
         </div>
         <div class="grid_16 omega">
             <div>
-                <gsml:checkbox styleId="form_before_after_care" name="before_after_care" value="before"
+                <gsml:checkbox styleId="form_before_after_care_before" name="before_after_care" value="before"
                                checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
                 <label for="form_before_after_care_before" class="checkbox">Before school care </label>
 
@@ -244,7 +245,8 @@
         </div>
         <div class="grid_16 omega">
             <gsml:input styleId="form_average_class_size" styleClass="text input_4" type="text" name="average_class_size"
-                        maxlength="2" value="${responseMap['average_class_size'].value}" readonly="${stateLocked}"/>
+                        maxlength="2" value="${responseMap['average_class_size'].value}" readonly="${stateLocked}"
+                        placeholder="[Enter number]"/>
             <span id="form_average_class_size_error" class="error"
                   style="display: none">Average class size must be a positive integer.</span>
         </div>

@@ -476,7 +476,7 @@ new (function() {
         GS.form.controlVisibilityOfElement('#form_k3_offered_group, #form_k4_offered_group', '#form_grade_levels_pk, #form_grade_levels_kg', true, {matchAny:true});
         GS.form.controlVisibilityOfElement('#form_school_type_affiliation_group', '[name=school_type]', 'private');
         GS.form.controlVisibilityOfElement('#form_age_pk_start_group', '#form_grade_levels_pk', true);
-        GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care', true);
+        GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care_before', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);
         GS.form.controlVisibilityOfElement('#js_special_ed_programs','[name=special_ed_programs_exists]', 'yes',{matchAny:true});
         GS.form.controlVisibilityOfElement('#js_schedule','[name=schedule_exists]', 'yes',{matchAny:true});
