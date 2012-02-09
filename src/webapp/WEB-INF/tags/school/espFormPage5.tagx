@@ -170,58 +170,7 @@
               <input id="boys_sports_other" class="mls js_otherField text input_4" type="text" name="girls_sports_other" value="${responseMap['girls_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             </div>
             <div class="grid_3 omega"><!-- do not collapse --></div>
-          </div>          
-
-          <div id="sctn_academic_awards" class="lal clearfix">
-            <div class="alpha grid_5">
-              <p class="labelGroup">Has your school received any academic awards in the past 3 years?</p>
-            </div>
-            <div class="grid_10">
-              <school:espRadioWithLabel key="academic_award_exists" value="no" label="No"/>
-              <school:espRadioWithLabel key="academic_award_exists" value="yes" label="Yes"/>
-                <div class="grid_9 mll">
-                    <input id="form_academic_award_1" class="mls mts js_otherField text input_4" type="text"
-                           name="academic_award_1" value="${responseMap['academic_award_1'].value}"
-                           maxlength="30" placeholder="[Academic award name]"/>
-                    <school:espYearSelect key="academic_award_1_year" placeholder="[Select year]"/>
-                    <input id="form_academic_award_2" class="mls mts js_otherField text input_4" type="text"
-                           name="academic_award_2" value="${responseMap['academic_award_2'].value}"
-                           maxlength="30" placeholder="[Academic award name]"/>
-                    <school:espYearSelect key="academic_award_2_year" placeholder="[Select year]"/>
-                    <input id="form_academic_award_3" class="mls mts js_otherField text input_4" type="text"
-                           name="academic_award_3" value="${responseMap['academic_award_3'].value}"
-                           maxlength="30" placeholder="[Academic award name]"/>
-                    <school:espYearSelect key="academic_award_3_year" placeholder="[Select year]"/>
-                </div>
-            </div>
-              <div class="grid_4 omega"><!-- do not collapse --></div>
-          </div>          
-
-          <div id="sctn_service_awards" class="lal clearfix">
-            <div class="alpha grid_5">
-              <p class="labelGroup">Has your school received any community service awards in the past 3 years?</p>
-            </div>
-            <div class="grid_10">
-              <school:espRadioWithLabel key="service_award_exists" value="no" label="No"/>
-              <school:espRadioWithLabel key="service_award_exists" value="yes" label="Yes"/>
-
-                <div class="grid_9 mll">
-                    <input id="form_service_award_1" class="mls mts js_otherField text input_4" type="text"
-                           name="service_award_1" value="${responseMap['service_award_1'].value}" maxlength="30"
-                           placeholder="[Service award name]"/>
-                    <school:espYearSelect key="service_award_1_year" placeholder="[Select year]"/>
-                    <input id="form_service_award_2" class="mls mts js_otherField text input_4" type="text"
-                           name="service_award_2" value="${responseMap['service_award_2'].value}" maxlength="30"
-                           placeholder="[Service award name]"/>
-                    <school:espYearSelect key="service_award_2_year" placeholder="[Select year]"/>
-                    <input id="form_service_award_3" class="mls mts js_otherField text input_4" type="text"
-                           name="service_award_3" value="${responseMap['service_award_3'].value}" maxlength="30"
-                           placeholder="[Service award name]"/>
-                    <school:espYearSelect key="service_award_3_year" placeholder="[Select year]"/>
-                </div>
-            </div>
-            <div class="grid_4 omega"><!-- do not collapse --></div>
-          </div>          
+          </div>
 
           <div id="sctn_student_clubs" class="lal clearfix">
             <div class="alpha grid_5">
@@ -300,6 +249,59 @@
               <input id="form_student_clubs_other" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other" value="${responseMap['student_clubs_other_3'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
             </div>
           </div>
+
+          <div id="sctn_academic_awards" class="lal clearfix">
+            <div class="alpha grid_5">
+              <p class="labelGroup">Has your school received any academic awards in the past 3 years?</p>
+            </div>
+            <div class="grid_10">
+              <school:espRadioWithLabel key="academic_award_exists" value="no" label="No"/>
+              <school:espRadioWithLabel key="academic_award_exists" value="yes" label="Yes"/>
+                <div class="grid_9 mll">
+                    <input id="form_academic_award_1" class="mls mts js_otherField text input_4" type="text"
+                           name="academic_award_1" value="${responseMap['academic_award_1'].value}"
+                           maxlength="30" placeholder="[Academic award name]"/>
+                    <school:espYearSelect key="academic_award_1_year" placeholder="[Select year]"/>
+                    <input id="form_academic_award_2" class="mls mts js_otherField text input_4" type="text"
+                           name="academic_award_2" value="${responseMap['academic_award_2'].value}"
+                           maxlength="30" placeholder="[Academic award name]"/>
+                    <school:espYearSelect key="academic_award_2_year" placeholder="[Select year]"/>
+                    <input id="form_academic_award_3" class="mls mts js_otherField text input_4" type="text"
+                           name="academic_award_3" value="${responseMap['academic_award_3'].value}"
+                           maxlength="30" placeholder="[Academic award name]"/>
+                    <school:espYearSelect key="academic_award_3_year" placeholder="[Select year]"/>
+                </div>
+            </div>
+              <div class="grid_4 omega"><!-- do not collapse --></div>
+          </div>          
+
+          <div id="sctn_service_awards" class="lal clearfix">
+            <div class="alpha grid_5">
+              <p class="labelGroup">Has your school received any community service awards in the past 3 years?</p>
+            </div>
+            <div class="grid_10">
+              <school:espRadioWithLabel key="service_award_exists" value="no" label="No"/>
+              <school:espRadioWithLabel key="service_award_exists" value="yes" label="Yes"/>
+
+                <div class="grid_9 mll">
+                    <input id="form_service_award_1" class="mls mts js_otherField text input_4" type="text"
+                           name="service_award_1" value="${responseMap['service_award_1'].value}" maxlength="30"
+                           placeholder="[Service award name]"/>
+                    <school:espYearSelect key="service_award_1_year" placeholder="[Select year]"/>
+                    <input id="form_service_award_2" class="mls mts js_otherField text input_4" type="text"
+                           name="service_award_2" value="${responseMap['service_award_2'].value}" maxlength="30"
+                           placeholder="[Service award name]"/>
+                    <school:espYearSelect key="service_award_2_year" placeholder="[Select year]"/>
+                    <input id="form_service_award_3" class="mls mts js_otherField text input_4" type="text"
+                           name="service_award_3" value="${responseMap['service_award_3'].value}" maxlength="30"
+                           placeholder="[Service award name]"/>
+                    <school:espYearSelect key="service_award_3_year" placeholder="[Select year]"/>
+                </div>
+            </div>
+            <div class="grid_4 omega"><!-- do not collapse --></div>
+          </div>          
+
+
 
         </fieldset>
 
