@@ -99,6 +99,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
     protected void validateUserState(EspUserStateStruct userState, BindingResult result) {
         if (userState.isNewUser() || (!userState.isUserRequestedESP())) {
+            // TODO: Shouldn't this be (!userState.isUserApprovedESPMember())?
             result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page'>register here.</a>");
         } else if (userState.isUserAwaitingESPMembership()) {
             result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
@@ -126,6 +127,11 @@ public class EspSignInController implements ReadWriteAnnotationController {
                     //User is awaiting moderator decision.
                     userState.setUserAwaitingESPMembership(true);
                 }
+            }
+            
+            if (user.hasRole(Role.ESP_SUPERUSER)) {
+                userState.setUserRequestedESP(true); // hack to bypass validation
+                userState.setUserApprovedESPMember(true);
             }
         }
         return user;
