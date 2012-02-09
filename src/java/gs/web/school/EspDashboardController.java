@@ -6,16 +6,21 @@ import gs.data.school.IEspMembershipDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.security.Role;
+import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,46 +30,69 @@ import java.util.List;
 @Controller
 @RequestMapping("/official-school-profile/dashboard")
 public class EspDashboardController {
+    private static final Log _log = LogFactory.getLog(EspDashboardController.class);
     public static final String VIEW = "school/espDashboard";
+    public static final String PARAM_STATE = "state";
+    public static final String PARAM_SCHOOL_ID = "schoolId";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
-
     @Autowired
     private ISchoolDao _schoolDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showLandingPage(ModelMap modelMap, HttpServletRequest request) {
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User user = sessionContext.getUser();
+    public String showLandingPage(ModelMap modelMap, HttpServletRequest request,
+                                  @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
+                                  @RequestParam(value=PARAM_STATE, required=false) State state) {
+        User user = getValidUser(request);
+        if (user == null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
+            return "redirect:" + urlBuilder.asFullUrl(request);
+        }
+        // if school is explicitly specified in the URL, grab it here
+        School school = getSchool(state, schoolId);
 
-        if (user != null) {
-            EspMembership espMembership = getEspMembershipForUser(user);
-            if (espMembership != null) {
-                School school = getSchool(espMembership);
-                if (school != null) {
-
-                    //set the school on the espMembership
-                    espMembership.setSchool(school);
-                    modelMap.put("espMembership", espMembership);
-                    modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
-
-                    //Get the information about who else has ESP access to this school
-                    List<EspMembership> otherEspMemberships = getOtherEspMembersForSchool(school, user);
-                    if (otherEspMemberships != null && !otherEspMemberships.isEmpty()) {
-                        modelMap.put("otherEspMemberships", otherEspMemberships);
-                    }
-
-                    return VIEW;
+        if (user.hasRole(Role.ESP_SUPERUSER)) {
+            // super users need nothing else besides the school
+            modelMap.put("espSuperuser", true);
+        } else if (user.hasRole(Role.ESP_MEMBER)) {
+            // for regular esp members
+            // Let's find the list of schools they have access to, which could appear in some sort of list
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), true);
+            List<EspMembership> validMemberships = new ArrayList<EspMembership>(espMemberships.size());
+            for (EspMembership membership: espMemberships) {
+                School membershipSchool = getSchool(membership);
+                if (membershipSchool != null) {
+                    // this is a valid membership
+                    membership.setSchool(membershipSchool);
+                    validMemberships.add(membership);
                 }
-            } else if (user.hasRole(Role.ESP_SUPERUSER)) {
-                modelMap.put("espSuperuser", true);
-                return VIEW;
+            }
+            modelMap.put("espMemberships", validMemberships);
+            // now let's have the page default to a school if it makes sense
+            if (school == null) {
+                if (validMemberships.size() == 1) {
+                    // If only one membership, always default view to that school
+                    school = validMemberships.get(0).getSchool();
+                } else if (validMemberships.size() > 1) {
+                    // For now default to the first one, ultimately we'll probably remove this and have the
+                    // user pick which one they want.
+                    school = validMemberships.get(0).getSchool();
+                }
             }
         }
 
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_SIGN_IN);
-        return "redirect:" + urlBuilder.asFullUrl(request);
+        modelMap.put("school", school);
+
+        if (school != null) {
+            //Get the information about who else has ESP access to this school
+            List<EspMembership> otherEspMemberships = getOtherEspMembersForSchool(school, user);
+            if (otherEspMemberships != null && !otherEspMemberships.isEmpty()) {
+                modelMap.put("otherEspMemberships", otherEspMemberships);
+            }
+        }
+
+        return VIEW;
     }
 
     /**
@@ -115,6 +143,49 @@ public class EspDashboardController {
             }
         }
         return espMemberships;
+    }
+
+    /**
+     * Pulls the user out of the session context. Returns null if there is no user, or if the user fails
+     * checkUserAccess
+     */
+    protected User getValidUser(HttpServletRequest request) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = null;
+        if (sessionContext != null) {
+            user = sessionContext.getUser();
+        }
+        if (user != null && (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER))) {
+            return user;
+        }
+        return null;
+    }
+
+    /**
+     * Parses the state and schoolId out of the request and fetches the school. Returns null if
+     * it can't parse parameters, can't find school, or the school is inactive
+     */
+    protected School getSchool(State state, Integer schoolId) {
+        if (state == null || schoolId == null) {
+            return null;
+        }
+        School school = null;
+        try {
+            school = _schoolDao.getSchoolById(state, schoolId);
+        } catch (Exception e) {
+            // handled below
+        }
+        if (school == null || !school.isActive()) {
+            _log.error("School is null or inactive: " + school);
+            return null;
+        }
+
+        if (school.isPreschoolOnly()) {
+            _log.error("School is preschool only! " + school);
+            return null;
+        }
+
+        return school;
     }
 
     public IEspMembershipDao getEspMembershipDao() {

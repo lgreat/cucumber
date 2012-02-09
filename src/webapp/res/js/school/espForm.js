@@ -320,7 +320,11 @@ new (function() {
         return masterDeferred.promise();
     };
     var sendToLandingPage = function() {
-        window.location = '/official-school-profile/dashboard/';
+        if (GS.espForm.school) {
+            window.location = '/official-school-profile/dashboard/?schoolId=' + GS.espForm.school.id + '&state=' + GS.espForm.school.state;
+        } else {
+            window.location = '/official-school-profile/dashboard/';
+        }
     };
     var sendToSignInPage = function() {
         window.location = '/official-school-profile/signin.page';

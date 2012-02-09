@@ -14,16 +14,16 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <c:set var="pageTitle" value="GreatSchools Official School Profile Dashboard"/>
-    <c:if test="${not empty espMembership and not empty espMembership.school}">
+    <c:if test="${not empty school}">
         <c:choose>
-            <c:when test="${espMembership.school.databaseState eq 'DC'}">
+            <c:when test="${school.databaseState eq 'DC'}">
                 <c:set var="addr" value="Washington, DC"/>
             </c:when>
             <c:otherwise>
-                <c:set var="addr" value="${espMembership.school.physicalAddress.city}, ${espMembership.school.databaseState}"/>
+                <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState}"/>
             </c:otherwise>
         </c:choose>
-        <c:set var="pageTitle" value="${pageTitle} - ${espMembership.school.name}, ${addr}"/>
+        <c:set var="pageTitle" value="${pageTitle} - ${school.name}, ${addr}"/>
     </c:if>
     <head>
         <title>${pageTitle}</title>
@@ -46,25 +46,35 @@
         </script>
     </head>
 
-    <gsml:body adPageName="ESP/dashboard" pageLayout="nocol">
+    <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
 
-        <c:if test="${not empty espMembership.school}">
-            ESP LANDING PAGE FOR SCHOOL: ${espMembership.school.name}
-            <br/>YOUR NAME: ${espMembership.user.firstName}
+        <c:if test="${not empty school}">
+            OSP LANDING PAGE FOR SCHOOL: ${school.name}
+            <br/>YOUR NAME: ${context.user.firstName}
+
+
+            <c:if test="${not empty otherEspMemberships}">
+                <div>Other OSP users for this school:
+                    <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
+                        ${otherEsp.user.firstName} ${otherEsp.user.lastName} (${otherEsp.jobTitle})
+                        <br/>
+                    </c:forEach>
+                </div>
+            </c:if>
 
             <br/>
-            <p>Link to <link:schoolPrincipalReview school="${espMembership.school}">Principal Review form</link:schoolPrincipalReview>.</p>
+            <p>Link to <link:schoolPrincipalReview school="${school}">Principal Review form</link:schoolPrincipalReview>.</p>
             <p>Form access:</p>
             <ol>
-                <li><link:schoolEspForm school="${espMembership.school}" page="1">Page 1</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${espMembership.school}" page="2">Page 2</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${espMembership.school}" page="3">Page 3</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${espMembership.school}" page="4">Page 4</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${espMembership.school}" page="5">Page 5</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${espMembership.school}" page="6">Page 6</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${espMembership.school}" page="7">Page 7</link:schoolEspForm></li>
-                <c:if test="${espMembership.school.type.schoolTypeName == 'private'}">
-                    <li><link:schoolEspForm school="${espMembership.school}" page="8">Page 8</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${school}" page="1">Page 1</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${school}" page="2">Page 2</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${school}" page="3">Page 3</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${school}" page="4">Page 4</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${school}" page="5">Page 5</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${school}" page="6">Page 6</link:schoolEspForm></li>
+                <li><link:schoolEspForm school="${school}" page="7">Page 7</link:schoolEspForm></li>
+                <c:if test="${school.type.schoolTypeName == 'private'}">
+                    <li><link:schoolEspForm school="${school}" page="8">Page 8</link:schoolEspForm></li>
                 </c:if>
             </ol>
         </c:if>
@@ -73,26 +83,23 @@
 
         <c:if test="${espSuperuser}">
             <p>Super user: Please select a school to view the form.</p>
-            <mod:cityStateSchoolSelect url="/school/esp/form.page?page=1"
-                                       defaultState="${param.defaultState}"
-                                       defaultCity="${param.defaultCity}"
-                                       defaultSchoolId="${param.defaultSchoolId}"/>
+            <mod:cityStateSchoolSelect url=""
+                                       defaultState="${school.databaseState}"
+                                       defaultCity="${school.city}"
+                                       defaultSchoolId="${school.id}"/>
         </c:if>
 
-        <c:if test="${not empty otherEspMemberships}">
-            <div>Other ESP:
-                <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
-                    ${otherEsp.user.firstName} ${otherEsp.user.lastName} (${otherEsp.jobTitle})
-                    <br/>
-                </c:forEach>
-            </div>
-        </c:if>
-
+        <!-- Confirmation hover that shows after clicking "Save and finish later" on form -->
         <div id="confirmEspSaveHover" class="dialog_white" style="display:none;">
             <h2>Your Official School Profile has been saved.</h2>
             <p>
                 You can come back and add more information anytime.
             </p>
+            <c:if test="${not empty school}">
+                <p>
+                    <link:schoolEspDisplay school="${school}">See your changes on the school profile</link:schoolEspDisplay>.
+                </p>
+            </c:if>
 
             <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
         </div>

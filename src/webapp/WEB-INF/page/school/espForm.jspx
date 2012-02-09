@@ -40,6 +40,7 @@
             GS.espForm = GS.espForm || {};
             GS.espForm.currentPage = ${page};
             GS.espForm.maxPage = ${maxPage};
+            GS.espForm.school = {state:'${school.databaseState.abbreviationLowerCase}', id:'${school.id}'};
             GS.espForm.percentComplete = {};
             //<c:forEach items="${percentComplete}" var="perc" varStatus="status">
                 GS.espForm.percentComplete[${perc.key}]=${perc.value};
@@ -64,7 +65,7 @@
                                 <p>
                                     <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview>
                                     |
-                                    <link:schoolEspDashboard>Back to Dashboard</link:schoolEspDashboard>
+                                    <link:schoolEspDashboard school="${school}">Back to Dashboard</link:schoolEspDashboard>
                                 </p>
                             </div>
                         </dd>
@@ -144,10 +145,6 @@
                         </div>
                     </c:if>
                 </div>
-                <c:if test="${espSuperuser}">
-                    <br/>
-                    <link:schoolEspDashboard defaultState="${school.databaseState}" defaultCity="${school.city}" defaultSchoolId="${school.id}">Back to Dashboard</link:schoolEspDashboard>
-                </c:if>
             </div>
         </div>
 

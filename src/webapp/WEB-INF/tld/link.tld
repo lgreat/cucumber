@@ -4537,25 +4537,11 @@
             <![CDATA[ESP Form page]]>
         </description>
         <attribute>
-            <name>defaultState</name>
+            <name>school</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>gs.data.state.State</type>
-            <description>Default State to select</description>
-        </attribute>
-        <attribute>
-            <name>defaultCity</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>Default city to select</description>
-        </attribute>
-        <attribute>
-            <name>defaultSchoolId</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.Integer</type>
-            <description>Default school id to select</description>
+            <type>gs.data.school.School</type>
+            <description>School</description>
         </attribute>
     </tag>
     <tag>
@@ -4611,6 +4597,22 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolEspDisplay</name>
+        <tag-class>gs.web.jsp.link.school.EspDisplayTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>ESP Form Display</display-name>
+        <description>
+            <![CDATA[ESP Form Display]]>
+        </description>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
         </attribute>
     </tag>
 
