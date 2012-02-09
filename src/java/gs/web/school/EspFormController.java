@@ -326,6 +326,15 @@ public class EspFormController implements ReadWriteAnnotationController {
                 keysForPage.remove("school_phone_area_code");
                 keysForPage.remove("school_phone_office_code");
                 keysForPage.remove("school_phone_last_four");
+            } else if (StringUtils.isBlank(phoneNumberString)){
+                requestedParameterMap.put("school_phone", new String[] {""});
+                keysForPage.add("school_phone");
+                requestedParameterMap.remove("school_phone_area_code");
+                requestedParameterMap.remove("school_phone_office_code");
+                requestedParameterMap.remove("school_phone_last_four");
+                keysForPage.remove("school_phone_area_code");
+                keysForPage.remove("school_phone_office_code");
+                keysForPage.remove("school_phone_last_four");
             } else {
                 return "Phone number must be numeric";
             }
@@ -344,6 +353,15 @@ public class EspFormController implements ReadWriteAnnotationController {
             if (faxNumberString.matches("\\d+")) {
                 faxNumberString = "(" + schoolFaxAreaCode + ") " + schoolFaxOfficeCode + "-" + schoolFaxLastFour;
                 requestedParameterMap.put("school_fax", new String[] {faxNumberString});
+                keysForPage.add("school_fax");
+                requestedParameterMap.remove("school_fax_area_code");
+                requestedParameterMap.remove("school_fax_office_code");
+                requestedParameterMap.remove("school_fax_last_four");
+                keysForPage.remove("school_fax_area_code");
+                keysForPage.remove("school_fax_office_code");
+                keysForPage.remove("school_fax_last_four");
+            } else if (StringUtils.isBlank(faxNumberString)){
+                requestedParameterMap.put("school_fax", new String[] {""});
                 keysForPage.add("school_fax");
                 requestedParameterMap.remove("school_fax_area_code");
                 requestedParameterMap.remove("school_fax_office_code");
