@@ -201,19 +201,28 @@ public class EspFormExternalDataHelper {
             return saveSchoolType(school, (String)values[0], user, now);
         } else if (StringUtils.equals("address", key)) {
             Address address = (Address) values[0];
-            _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
-            school.getPhysicalAddress().setStreet((address.getStreet()));
-            saveSchool(school, user, now);
+            // only save if different
+            if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet())) {
+                _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
+                school.getPhysicalAddress().setStreet((address.getStreet()));
+                saveSchool(school, user, now);
+            }
             return null;
         } else if (StringUtils.equals("school_phone", key)) {
             String phone = (String) values[0];
-            school.setPhone(phone);
-            saveSchool(school, user, now);
+            // only save if different
+            if (!StringUtils.equals(school.getPhone(), phone)) {
+                school.setPhone(phone);
+                saveSchool(school, user, now);
+            }
             return null;
         } else if (StringUtils.equals("school_fax", key)) {
             String fax = (String) values[0];
-            school.setFax(fax);
-            saveSchool(school, user, now);
+            // only save if different
+            if (!StringUtils.equals(school.getFax(), fax)) {
+                school.setFax(fax);
+                saveSchool(school, user, now);
+            }
             return null;
         }
         return null;
@@ -270,8 +279,11 @@ public class EspFormExternalDataHelper {
     String saveSchoolType(School school, String data, User user, Date now) {
         SchoolType type = SchoolType.getSchoolType(data);
         if (type != null) {
-            school.setType(type);
-            saveSchool(school, user, now);
+            // only save if different
+            if (type != school.getType()) {
+                school.setType(type);
+                saveSchool(school, user, now);
+            }
         } else {
             return "Must select a valid school type.";
         }
