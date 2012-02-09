@@ -126,7 +126,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected void updateEspMembership(EspModerationCommand command, HttpServletRequest request, HttpServletResponse response) {
         //The user has to check the check boxes in order to approve or reject.Hence we iterate over the checked check boxes for those "approve" or "reject" actions.
         //The user does not have to check the check boxes for the update action.Hence we loop over all the notes for the "update" action.
-        if (("approve".equals(command.getModeratorAction()) || "reject".equals(command.getModeratorAction()) && command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty())) {
+        if (("approve".equals(command.getModeratorAction()) || "reject".equals(command.getModeratorAction())) && command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
 
             //The checkbox has a key of membership id.
             for (Integer membershipId : command.getEspMembershipIds()) {
