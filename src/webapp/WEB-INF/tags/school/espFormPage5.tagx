@@ -12,25 +12,25 @@
         
           <div id="sctn_arts_media" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Arts - Media</p>
+              <p class="labelGroup">Arts - Media</p>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_media" value="none" label="None"/>
               <school:espCheckboxWithLabel key="arts_media" value="animation" label="Computer animation"/>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_media" value="graphics" label="Graphics"/>          
               <school:espCheckboxWithLabel key="arts_media" value="tech_design" label="Technical design and production"/>
               <school:espCheckboxWithLabel key="arts_media" value="video" label="Video / Film production"/>
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>
+            <div class="grid_3 omega"><!-- do not collapse --></div>
           </div><!-- #sctn_arts_media -->
           
           <div id="sctn_arts_music" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Arts - Music</p>
+              <p class="labelGroup">Arts - Music</p>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_media" value="none" label="None"/>
               <school:espCheckboxWithLabel key="arts_music" value="band" label="Band"/>
               <school:espCheckboxWithLabel key="arts_music" value="bells" label="Bell / Handbell choir"/>
@@ -38,7 +38,7 @@
               <school:espCheckboxWithLabel key="arts_music" value="chorus" label="Choir / Chorus"/>
               <school:espCheckboxWithLabel key="arts_music" value="music_lessons" label="Instrumental music lessons"/>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_music" value="jazz_band" label="Jazz Band"/>
               <school:espCheckboxWithLabel key="arts_music" value="opera" label="Opera"/>
               <school:espCheckboxWithLabel key="arts_music" value="orchestra" label="Orchestra"/>
@@ -46,31 +46,31 @@
               <school:espCheckboxWithLabel key="arts_music" value="music_theory" label="Theory"/>
               <school:espCheckboxWithLabel key="arts_music" value="voice" label="Vocal lessons / coaching"/>
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>            
+            <div class="grid_3 omega"><!-- do not collapse --></div>
           </div>          
           
           <div id="sctn_arts_performing_written" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Arts - Performing and Written</p>
+              <p class="labelGroup">Arts - Performing and Written</p>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_performing_written" value="none" label="None"/>
               <school:espCheckboxWithLabel key="arts_performing_written" value="creative_writing" label="Creative Writing"/>
               <school:espCheckboxWithLabel key="arts_performing_written" value="dance" label="Dance"/>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_performing_written" value="drama" label="Drama"/>
               <school:espCheckboxWithLabel key="arts_performing_written" value="improv" label="Improv"/>
               <school:espCheckboxWithLabel key="arts_performing_written" value="poetry" label="Poetry"/>
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>            
+            <div class="grid_3 omega"><!-- do not collapse --></div>
           </div>          
 
           <div id="sctn_arts_visual" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Arts - Visual</p>
+              <p class="labelGroup">Arts - Visual</p>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_visual" value="none" label="None"/>
               <school:espCheckboxWithLabel key="arts_visual" value="architecture" label="Architecture"/>
               <school:espCheckboxWithLabel key="arts_visual" value="ceramics" label="Ceramics"/>
@@ -78,21 +78,21 @@
               <school:espCheckboxWithLabel key="arts_visual" value="drawing" label="Drawing / Sketching"/>
               <school:espCheckboxWithLabel key="arts_visual" value="painting" label="Painting"/>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_visual" value="photography" label="Photography"/>
               <school:espCheckboxWithLabel key="arts_visual" value="printmaking" label="Printmaking"/>
               <school:espCheckboxWithLabel key="arts_visual" value="sculpture" label="Sculpture "/>
               <school:espCheckboxWithLabel key="arts_visual" value="textiles" label="Textile design"/>
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>
+            <div class="grid_3 omega"><!-- do not collapse --></div>
           </div>          
 
           <div id="sctn_sports" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Sports</p>
+              <p class="labelGroup">Sports</p>
             </div>
-            <div class="grid_5">
-              <p>Boys Sports</p>
+            <div class="grid_6">
+              <p class="labelGroup">Boys Sports</p>
               <school:espCheckboxWithLabel key="boys_sports" value="None" label="None"/>
               <school:espCheckboxWithLabel key="boys_sports" value="badminton" label="Badminton"/>
               <school:espCheckboxWithLabel key="boys_sports" value="baseball" label="Baseball"/>
@@ -127,11 +127,11 @@
               <school:espCheckboxWithLabel key="boys_sports" value="water_polo" label="Water Polo"/>
               <school:espCheckboxWithLabel key="boys_sports" value="wrestling" label="Wrestling"/>
               <school:espCheckboxWithLabel key="boys_sports" value="ultimate" label="Ultimate Frisbee"/>
-              <school:espCheckboxWithLabel key="boys_sports_other_cb" value="1" label="Other: "/>
+              <school:espCheckboxWithLabel key="boys_sports_other_cb" value="1" nobr="true" label="Other: "/>
               <input id="boys_sports_other" class="mls js_otherField text input_4" type="text" name="boys_sports_other" value="${responseMap['boys_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             </div>
-            <div class="grid_5">
-              <p>Girls Sports</p>
+            <div class="grid_6">
+              <p class="labelGroup">Girls Sports</p>
               <school:espCheckboxWithLabel key="girls_sports" value="none" label="None"/>
               <school:espCheckboxWithLabel key="girls_sports" value="badminton" label="Badminton"/>
               <school:espCheckboxWithLabel key="girls_sports" value="basketball" label="Basketball"/>
@@ -166,68 +166,69 @@
               <school:espCheckboxWithLabel key="girls_sports" value="volleyball" label="Volleyball"/>
               <school:espCheckboxWithLabel key="girls_sports" value="water_polo" label="Water Polo"/>
               <school:espCheckboxWithLabel key="girls_sports" value="wrestling" label="Wrestling"/>
-              <school:espCheckboxWithLabel key="girls_sports_other_cb" value="1" label="Other: "/>
+              <school:espCheckboxWithLabel key="girls_sports_other_cb" value="1" nobr="true" label="Other: "/>
               <input id="boys_sports_other" class="mls js_otherField text input_4" type="text" name="girls_sports_other" value="${responseMap['girls_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>            
+            <div class="grid_3 omega"><!-- do not collapse --></div>
           </div>          
 
           <div id="sctn_academic_awards" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Has your school received any academic awards in the past 3 years?</p>
+              <p class="labelGroup">Has your school received any academic awards in the past 3 years?</p>
             </div>
-            <div class="grid_9">
+            <div class="grid_10">
               <school:espRadioWithLabel key="academic_award_exists" value="no" label="No"/>
               <school:espRadioWithLabel key="academic_award_exists" value="yes" label="Yes"/>
-              <ol>
-                <li>
-                  <input id="form_academic_award_1" class="mls js_otherField text input_4" type="text" name="academic_award_1" value="${responseMap['academic_award_1'].value}" maxlength="30" placeholder="[Academic award name]"/>
-                  <school:espYearSelect key="academic_award_1_year" placeholder="[Select year]"/>
-                </li>
-                <li>
-                  <input id="form_academic_award_2" class="mls js_otherField text input_4" type="text" name="academic_award_2" value="${responseMap['academic_award_2'].value}" maxlength="30" placeholder="[Academic award name]"/>
-                  <school:espYearSelect key="academic_award_2_year" placeholder="[Select year]"/>
-                </li>
-                <li>
-                  <input id="form_academic_award_3" class="mls js_otherField text input_4" type="text" name="academic_award_3" value="${responseMap['academic_award_3'].value}" maxlength="30" placeholder="[Academic award name]"/>
-                  <school:espYearSelect key="academic_award_3_year" placeholder="[Select year]"/>
-                </li>
-              </ol>
+                <div class="grid_9 mll">
+                    <input id="form_academic_award_1" class="mls mts js_otherField text input_4" type="text"
+                           name="academic_award_1" value="${responseMap['academic_award_1'].value}"
+                           maxlength="30" placeholder="[Academic award name]"/>
+                    <school:espYearSelect key="academic_award_1_year" placeholder="[Select year]"/>
+                    <input id="form_academic_award_2" class="mls mts js_otherField text input_4" type="text"
+                           name="academic_award_2" value="${responseMap['academic_award_2'].value}"
+                           maxlength="30" placeholder="[Academic award name]"/>
+                    <school:espYearSelect key="academic_award_2_year" placeholder="[Select year]"/>
+                    <input id="form_academic_award_3" class="mls mts js_otherField text input_4" type="text"
+                           name="academic_award_3" value="${responseMap['academic_award_3'].value}"
+                           maxlength="30" placeholder="[Academic award name]"/>
+                    <school:espYearSelect key="academic_award_3_year" placeholder="[Select year]"/>
+                </div>
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>            
+              <div class="grid_4 omega"><!-- do not collapse --></div>
           </div>          
 
           <div id="sctn_service_awards" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Has your school received any community service awards in the past 3 years?</p>
+              <p class="labelGroup">Has your school received any community service awards in the past 3 years?</p>
             </div>
-            <div class="grid_9">
+            <div class="grid_10">
               <school:espRadioWithLabel key="service_award_exists" value="no" label="No"/>
               <school:espRadioWithLabel key="service_award_exists" value="yes" label="Yes"/>
-              <ol>
-                <li>
-                  <input id="form_service_award_1" class="mls js_otherField text input_4" type="text" name="service_award_1" value="${responseMap['service_award_1'].value}" maxlength="30" placeholder="[Service award name]"/>
-                  <school:espYearSelect key="service_award_1_year" placeholder="[Select year]"/>
-                </li>
-                <li>
-                  <input id="form_service_award_2" class="mls js_otherField text input_4" type="text" name="service_award_2" value="${responseMap['service_award_2'].value}" maxlength="30" placeholder="[Service award name]"/>
-                  <school:espYearSelect key="service_award_2_year" placeholder="[Select year]"/>
-                </li>
-                <li>
-                  <input id="form_service_award_3" class="mls js_otherField text input_4" type="text" name="service_award_3" value="${responseMap['service_award_3'].value}" maxlength="30" placeholder="[Service award name]"/>
-                  <school:espYearSelect key="service_award_3_year" placeholder="[Select year]"/>
-                </li>
-              </ol>
+
+                <div class="grid_9 mll">
+                    <input id="form_service_award_1" class="mls mts js_otherField text input_4" type="text"
+                           name="service_award_1" value="${responseMap['service_award_1'].value}" maxlength="30"
+                           placeholder="[Service award name]"/>
+                    <school:espYearSelect key="service_award_1_year" placeholder="[Select year]"/>
+                    <input id="form_service_award_2" class="mls mts js_otherField text input_4" type="text"
+                           name="service_award_2" value="${responseMap['service_award_2'].value}" maxlength="30"
+                           placeholder="[Service award name]"/>
+                    <school:espYearSelect key="service_award_2_year" placeholder="[Select year]"/>
+                    <input id="form_service_award_3" class="mls mts js_otherField text input_4" type="text"
+                           name="service_award_3" value="${responseMap['service_award_3'].value}" maxlength="30"
+                           placeholder="[Service award name]"/>
+                    <school:espYearSelect key="service_award_3_year" placeholder="[Select year]"/>
+                </div>
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>            
+            <div class="grid_4 omega"><!-- do not collapse --></div>
           </div>          
 
           <div id="sctn_student_clubs" class="lal clearfix">
             <div class="alpha grid_5">
-              <p class="groupLabel">Student clubs</p>
+              <p class="labelGroup">Student clubs</p>
               <p class="hint">Note that clubs are distinct from courses</p>
             </div>
-            <div class="grid_5">
+            <div class="grid_6">
               <school:espCheckboxWithLabel key="student_clubs" value="none" label="None"/>
               <school:espCheckboxWithLabel key="student_clubs" value="amnesty_international" label="Amnesty International"/>
               <school:espCheckboxWithLabel key="student_clubs" value="anime" label="Anime club"/>
@@ -239,8 +240,9 @@
               <school:espCheckboxWithLabel key="student_clubs" value="cooking" label="Cooking club"/>
               <school:espCheckboxWithLabel key="student_clubs" value="community_service" label="Community service"/>
               <school:espCheckboxWithLabel key="student_clubs" value="cub_scouts" label="Cub Scouts"/>
-              <school:espCheckboxWithLabel key="student_clubs" value="dance" label="Dance club" styleClass="js_otherField_form_student_clubs_dance" nobr="true"/>
-              <input id="form_student_clubs_other" class="mls js_otherField text input_4" type="text" name="student_clubs_other" value="${responseMap['student_clubs_dance'].value}" maxlength="30" placeholder="type of dance..."/><br />
+              <school:espCheckboxWithLabel key="student_clubs" value="dance" label="Dance club" styleClass="js_otherField_form_student_clubs_dance"/>
+              <label for="form_student_clubs_other" class="checkbox mll">Style: </label>
+              <input id="form_student_clubs_other" class="mls js_otherField text input_3" type="text" name="student_clubs_other" value="${responseMap['student_clubs_dance'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs" value="debate" label="Debate"/>
               <school:espCheckboxWithLabel key="student_clubs" value="deca" label="DECA"/>
               <school:espCheckboxWithLabel key="student_clubs" value="drama_club" label="Drama club"/>
@@ -249,9 +251,10 @@
               <school:espCheckboxWithLabel key="student_clubs" value="fca" label="Fellowship of Christian Athletes (FCA)"/>
               <school:espCheckboxWithLabel key="student_clubs" value="flag_girls" label="Flag girls"/>
             </div>
-            <div class="grid_5">
-              <school:espCheckboxWithLabel key="student_clubs" value="language_club" label="Foreign language and culture club" styleClass="js_otherField_form_student_clubs_language" nobr="true"/>
-              <input id="form_student_clubs_language" class="mls js_otherField text input_4" type="text" name="student_clubs_language" value="${responseMap['student_clubs_language'].value}" maxlength="30" placeholder="types of language club..."/><br />
+            <div class="grid_6">
+              <school:espCheckboxWithLabel key="student_clubs" value="language_club" label="Foreign language and culture club" styleClass="js_otherField_form_student_clubs_language"/>
+               <label for="form_student_clubs_language" class="checkbox mll">Languages: </label>
+              <input id="form_student_clubs_language" class="mls js_otherField text input_3" type="text" name="student_clubs_language" value="${responseMap['student_clubs_language'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs" value="forensics" label="Forensics club"/>
               <school:espCheckboxWithLabel key="student_clubs" value="fbla" label="Future Business Leaders of America (FBLA)"/>
               <school:espCheckboxWithLabel key="student_clubs" value="game_club" label="Game club"/>
@@ -271,7 +274,7 @@
               <school:espCheckboxWithLabel key="student_clubs" value="model_congress" label="Model Congress"/>
               <school:espCheckboxWithLabel key="student_clubs" value="model_oas" label="Model OAS"/>
             </div>
-            <div class="grid_5">
+            <div class="grid_6 omega">
               <school:espCheckboxWithLabel key="student_clubs" value="model_un" label="Model UN "/>
               <school:espCheckboxWithLabel key="student_clubs" value="nhs" label="National Honor Society"/>
               <school:espCheckboxWithLabel key="student_clubs" value="origami" label="Origami club"/>
@@ -290,13 +293,12 @@
               <school:espCheckboxWithLabel key="student_clubs" value="yearbook" label="Yearbook"/>
               <school:espCheckboxWithLabel key="student_clubs" value="yoga" label="Yoga club"/>
               <school:espCheckboxWithLabel key="student_clubs_other_1" value="other" label="Other:" styleClass="js_otherField_form_student_clubs_other" nobr="true"/>
-              <input id="form_student_clubs_other" class="mls js_otherField text input_4" type="text" name="student_clubs_other" value="${responseMap['student_clubs_other_1'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_other" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other" value="${responseMap['student_clubs_other_1'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs_other_2" value="other" label="Other:" styleClass="js_otherField_form_student_clubs_other" nobr="true"/>
-              <input id="form_student_clubs_other" class="mls js_otherField text input_4" type="text" name="student_clubs_other" value="${responseMap['student_clubs_other_2'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_other" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other" value="${responseMap['student_clubs_other_2'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs_other_3" value="other" label="Other:" styleClass="js_otherField_form_student_clubs_other" nobr="true"/>
-              <input id="form_student_clubs_other" class="mls js_otherField text input_4" type="text" name="student_clubs_other" value="${responseMap['student_clubs_other_3'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_other" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other" value="${responseMap['student_clubs_other_3'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
             </div>
-            <div class="grid_5 omega"><!-- do not collapse --></div>            
           </div>
 
         </fieldset>

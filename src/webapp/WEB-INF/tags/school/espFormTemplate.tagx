@@ -21,7 +21,7 @@
                         <div class="fltrt">
                             <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
                             <c:if test="${page gt 1}">
-                                <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                                <button class="button-1 js_prevPageButton mlm">&amp;laquo; Previous</button>
                             </c:if>
                             <span class="mlm">Page ${page} of ${maxPage}</span>
                             <c:if test="${page lt maxPage}">
@@ -52,7 +52,7 @@
                             <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
                             <div class="fltrt">
                                 <c:if test="${page gt 1}">
-                                    <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                                    <button class="button-1 js_prevPageButton mlm">&amp;laquo; Previous</button>
                                 </c:if>
                                 <span class="mlm">Page ${page} of ${maxPage}</span>
                                 <c:if test="${page lt maxPage}">
