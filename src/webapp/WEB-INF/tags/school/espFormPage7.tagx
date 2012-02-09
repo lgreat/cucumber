@@ -12,16 +12,20 @@
                 <div class="alpha grid_5">
                     <label for="form_physical_address_street">School site address</label>
                 </div>
-                <div class="grid_6 suffix_12 omega">
+                <div class="grid_5 suffix_1">
                     <gsml:input styleId="form_physical_address_street" styleClass="text input_6" type="text"
                                 name="physical_address_street"
                                 value="${responseMap['physical_address_street'].value}" readonly="${stateLocked}"/>
+
+                </div>
+                <div style="display: none" class="grid_6 omega error" id="form_physical_address_street_error">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a street address.
                 </div>
             </div>
 
             <div class="nal clearfix">
                 <div class="alpha prefix_5 grid_4">
-                    <gsml:input styleId="form_physical_address_city" styleClass="text input_4" type="text"
+                    <gsml:input styleId="form_physical_address_city" styleClass="text input_6" type="text"
                                 name="physical_address_city"
                                 value="${responseMap['physical_address_city'].value}" readonly="${true}"/>
                 </div>
@@ -82,13 +86,16 @@
             </div>
 
             <div class="lal clearfix">
-                <label for="form_website_url" class="alpha grid_5">School website</label>
+                <label for="form_school_url" class="alpha grid_5">School website</label>
 
                 <div class="grid_6 suffix_12 omega">
-                    <input type="text" value="${responseMap['website_url'].value}" id="form_website_url"
-                           name="website_url" class="text input_6"/>
+                    <input type="text" value="${responseMap['school_url'].value}" id="form_school_url"
+                           name="school_url" class="text input_6"/>
 
                     <p class="hint">Example: http://www.yourschool.edu</p>
+                    <div class="grid_6 suffix_12 alpha omega">
+                        <school:espCheckboxWithLabel key="school_url_none" value="none" label="None"/>
+                    </div>
                 </div>
             </div>
 
@@ -100,6 +107,9 @@
                            name="facebook_url" class="text input_6"/>
 
                     <p class="hint">Example: http://www.facebook.com/pages/lowell-high-school/112106402</p>
+                    <div class="alpha grid_6 suffix_12 omega">
+                        <school:espCheckboxWithLabel key="facebook_url_none" value="none" label="None"/>
+                    </div>
                 </div>
             </div>
 
@@ -108,18 +118,21 @@
 
                 <div class="grid_6 suffix_12 omega">
                     <input type="text" value="${responseMap['administrator_name'].value}" id="form_administrator_name"
-                           name="administrator_name" class="text input_6"/>
+                           name="administrator_name" class="text input_6" />
                 </div>
             </div>
 
             <div class="lal clearfix">
                 <label for="form_administrator_email" class="alpha grid_5">School leader's email</label>
 
-                <div class="grid_6 suffix_12 omega">
+                <div class="grid_5 suffix_1">
                     <input type="text" value="${responseMap['administrator_email'].value}" id="form_administrator_email"
                            name="administrator_email" class="text input_6"/>
 
                     <p class="hint">Example: leader@school.edu</p>
+                </div>
+                <div style="display: none" class="grid_6 omega error" id="form_administrator_email_error">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a valid email address.
                 </div>
             </div>
         </fieldset>

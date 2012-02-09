@@ -214,6 +214,44 @@ GS.validation.validateInteger = function(fieldSelector, errorSelector) {
     return isValid;
 };
 
+// taken from UrlValidator (and modified to proper JS syntax) in apache commons, which references RFC2396
+GS.validation.URL_PATTERN = /^(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/;
+GS.validation.validateUrl = function(url) {
+    return GS.validation.URL_PATTERN.test(url);
+};
+
+GS.validation.EMAIL_PATTERN = /^(.+)@(.+)$/;
+// GS.validation.EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/;
+GS.validation.LEGAL_ASCII_PATTERN = /^[\000-\\177]+$/;
+
+// very loose match, allows false positives
+GS.validation.validateEmailFormat = function(email) {
+    return GS.validation.EMAIL_PATTERN.test(email);
+};
+
+GS.validation.validateEmail = function(fieldSelector, errorSelector) {
+    var pattern = /^(.+)@(.+)$/;
+    var isValid = true;
+    jQuery(errorSelector).hide();
+    var formFields = jQuery(fieldSelector).filter(':visible');
+    if (formFields !== undefined && formFields.size() > 0) {
+        var fieldType = formFields.attr('type');
+
+        if (fieldType == 'text') {
+            // require each one to be numeric
+            formFields.each(function() {
+               var fieldVal = jQuery.trim(jQuery(this).val());
+               isValid = fieldVal.length > 0 && GS.validation.validateEmailFormat(fieldVal);
+            });
+        }
+
+        if (!isValid) {
+            jQuery(errorSelector).show();
+        }
+    }
+    return isValid;
+};
+
 GS.util = GS.util || {};
 GS.util.getUrlVars = function(url) {
     var myUrl = url || window.location.href;
@@ -368,7 +406,12 @@ new (function() {
 
         var isValidGradeLevels = validateGradeLevels();
 
-        return  isValidClassSize && isValidAcademicFocus && isValidStudentEnrollment && isValidGradeLevels;
+        var isValidAdministratorEmail =
+                GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error');
+
+        var isValidPhysicalAddressStreet = GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error');
+
+        return  isValidClassSize && isValidAcademicFocus && isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet;
     };
 
     if (GS.history5Enabled) {
@@ -439,6 +482,23 @@ new (function() {
         GS.form.controlVisibilityOfElement('#js_form_immersion_language_group','[name=immersion]', 'yes');
 
         GS.form.findAndApplyGhostTextSwitching('#espFormPage-' + GS.espForm.currentPage);
+
+        // validate all visible fields when any input textbox value is changed
+        formWrapper.on('change', 'input', function() {
+            doValidations();
+        });
+
+        // page 7 specific //
+        $('#form_facebook_url_none_none').on('change', function() {
+            var noFacebookUrl = $(this).prop('checked');
+            $('#form_facebook_url').prop('disabled', noFacebookUrl);
+        });
+
+        $('#form_school_url_none_none').on('change', function() {
+            var noSchoolUrl = $(this).prop('checked');
+            $('#form_school_url').prop('disabled', noSchoolUrl);
+        });
+        // end page 7 specific //
 
 
     });
