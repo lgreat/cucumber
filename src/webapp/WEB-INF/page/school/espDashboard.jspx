@@ -47,61 +47,94 @@
     </head>
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
+        <div class="container_24">
 
-        <c:if test="${not empty school}">
-            OSP LANDING PAGE FOR SCHOOL: ${school.name}
-            <br/>YOUR NAME: ${context.user.firstName}
+            <c:if test="${not empty school}">
+                <div class="mod alpha grid_12 gradient-3">
+                    <div>
+                        <p>${school.name}</p>
+                        <p>${school.city}, ${school.databaseState}</p>
+                        <p>
+                            <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview>
+                        </p>
+                        <p>
+                            <link:schoolPrincipalReview school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                        </p>
+                    </div>
+                </div>
+                <div class="grid_12 omega"><!-- do not collapse --></div>
 
+                <c:if test="${not empty otherEspMemberships}">
+                    <div class="grid_24 alpha omega">Other OSP users for this school:
+                        <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
+                            ${otherEsp.user.firstName} ${otherEsp.user.lastName} (${otherEsp.jobTitle})
+                            <br/>
+                        </c:forEach>
+                    </div>
+                </c:if>
 
-            <c:if test="${not empty otherEspMemberships}">
-                <div>Other OSP users for this school:
-                    <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
-                        ${otherEsp.user.firstName} ${otherEsp.user.lastName} (${otherEsp.jobTitle})
-                        <br/>
-                    </c:forEach>
+                <br class="clearBoth"/>
+                <div class="mod grid_24 alpha omega">
+                    <p>Official School Profile Progress</p>
+                    <p>Select a section to get started. You may save, continue and edit your Online School Profile at any time.</p>
+
+                    <div class="grid_12 alpha">
+                        <div class="grid_12 alpha omega">
+                            <link:schoolEspForm school="${school}" page="1">School basics</link:schoolEspForm>
+                        </div>
+                        <div class="grid_12 alpha omega">
+                            <link:schoolEspForm school="${school}" page="2">Instructional model</link:schoolEspForm>
+                        </div>
+                        <div class="grid_12 alpha omega">
+                            <link:schoolEspForm school="${school}" page="3">Applying &amp;amp; enrolling</link:schoolEspForm>
+                        </div>
+                        <div class="grid_12 alpha omega">
+                            <link:schoolEspForm school="${school}" page="4">Programs &amp;amp; resources</link:schoolEspForm>
+                        </div>
+                    </div>
+                    <div class="grid_12 omega">
+                        <div class="grid_12 alpha omega">
+                            <link:schoolEspForm school="${school}" page="5">Enrichment &amp;amp; extracurriculars</link:schoolEspForm>
+                        </div>
+                        <div class="grid_12 alpha omega">
+                            <link:schoolEspForm school="${school}" page="6">School culture</link:schoolEspForm>
+                        </div>
+                        <div class="grid_12 alpha omega">
+                            <link:schoolEspForm school="${school}" page="7">Contact info</link:schoolEspForm>
+                        </div>
+                        <c:if test="${school.type.schoolTypeName == 'private'}">
+                            <div class="grid_12 alpha omega">
+                                <link:schoolEspForm school="${school}" page="8">Student info</link:schoolEspForm>
+                            </div>
+                        </c:if>
+                    </div>
                 </div>
             </c:if>
 
             <br/>
-            <p>Link to <link:schoolPrincipalReview school="${school}">Principal Review form</link:schoolPrincipalReview>.</p>
-            <p>Form access:</p>
-            <ol>
-                <li><link:schoolEspForm school="${school}" page="1">Page 1</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${school}" page="2">Page 2</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${school}" page="3">Page 3</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${school}" page="4">Page 4</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${school}" page="5">Page 5</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${school}" page="6">Page 6</link:schoolEspForm></li>
-                <li><link:schoolEspForm school="${school}" page="7">Page 7</link:schoolEspForm></li>
-                <c:if test="${school.type.schoolTypeName == 'private'}">
-                    <li><link:schoolEspForm school="${school}" page="8">Page 8</link:schoolEspForm></li>
-                </c:if>
-            </ol>
-        </c:if>
 
-        <br/>
-
-        <c:if test="${espSuperuser}">
-            <p>Super user: Please select a school to view the form.</p>
-            <mod:cityStateSchoolSelect url=""
-                                       defaultState="${school.databaseState}"
-                                       defaultCity="${school.city}"
-                                       defaultSchoolId="${school.id}"/>
-        </c:if>
-
-        <!-- Confirmation hover that shows after clicking "Save and finish later" on form -->
-        <div id="confirmEspSaveHover" class="dialog_white" style="display:none;">
-            <h2>Your Official School Profile has been saved.</h2>
-            <p>
-                You can come back and add more information anytime.
-            </p>
-            <c:if test="${not empty school}">
-                <p>
-                    <link:schoolEspDisplay school="${school}">See your changes on the school profile</link:schoolEspDisplay>.
-                </p>
+            <c:if test="${espSuperuser}">
+                <p>Super user: Please select a school to view the form.</p>
+                <mod:cityStateSchoolSelect url=""
+                                           defaultState="${school.databaseState}"
+                                           defaultCity="${school.city}"
+                                           defaultSchoolId="${school.id}"/>
             </c:if>
 
-            <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
+            <!-- Confirmation hover that shows after clicking "Save and finish later" on form -->
+            <div id="confirmEspSaveHover" class="dialog_white" style="display:none;">
+                <h2>Your Official School Profile has been saved.</h2>
+                <p>
+                    You can come back and add more information anytime.
+                </p>
+                <c:if test="${not empty school}">
+                    <p>
+                        <link:schoolEspDisplay school="${school}">See your changes on the school profile</link:schoolEspDisplay>.
+                    </p>
+                </c:if>
+
+                <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
+            </div>
         </div>
 
         <div style="display:none;">
