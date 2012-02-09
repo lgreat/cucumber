@@ -34,6 +34,7 @@ import java.util.*;
 @RequestMapping("/school/esp/")
 public class EspFormController implements ReadWriteAnnotationController {
     private static final Log _log = LogFactory.getLog(EspFormController.class);
+    public static final int MAX_RESPONSE_VALUE_LENGTH = 3000;
     public static final String VIEW = "school/espForm";
     public static final String PATH_TO_FORM = "/school/esp/form.page"; // used by UrlBuilder
     public static final String PARAM_PAGE = "page";
@@ -250,7 +251,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected EspResponse createEspResponse(User user, School school, Date now, String key, boolean active, String responseValue) {
         EspResponse espResponse = new EspResponse();
         espResponse.setKey(key);
-        espResponse.setValue(responseValue);
+        espResponse.setValue(StringUtils.left(responseValue, MAX_RESPONSE_VALUE_LENGTH));
         espResponse.setSchool(school);
         espResponse.setMemberId(user.getId());
         espResponse.setCreated(now);
