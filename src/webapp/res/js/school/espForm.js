@@ -402,8 +402,6 @@ new (function() {
         var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
             && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_error');
 
-        var isValidClassSize = GS.validation.validateInteger('#form_average_class_size', '#form_average_class_size_error');
-
         var isValidGradeLevels = validateGradeLevels();
 
         var isValidAdministratorEmail =
@@ -411,7 +409,7 @@ new (function() {
 
         var isValidPhysicalAddressStreet = GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error');
 
-        return  isValidClassSize && isValidAcademicFocus && isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet;
+        return isValidAcademicFocus && isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet && isValidAdministratorEmail;
     };
 
     if (GS.history5Enabled) {

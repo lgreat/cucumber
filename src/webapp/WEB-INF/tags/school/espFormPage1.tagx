@@ -84,8 +84,8 @@
             <p class="labelGroup">Do you offer any early childhood or preschool programs?</p>
         </div>
         <div class="grid_16 omega">
-            <school:espRadioWithLabel key="early_childhood_program" value="yes" label="Yes"/>
-            <school:espRadioWithLabel key="early_childhood_program" value="no" label="No"/>
+            <school:espRadioWithLabel key="early_childhood_programs" value="yes" label="Yes"/>
+            <school:espRadioWithLabel key="early_childhood_programs" value="no" label="No"/>
         </div>
     </div>
 
@@ -232,23 +232,6 @@
             <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other"
                    class="js_otherField text input_4 mls" value="${responseMap['transportation_shuttle_other'].value}" maxlength="30" placeholder="[Enter metro/bus lines]"/>
             <p class="hint">Indicate which metro and bus lines the shuttle serves,separated by commas.</p>
-        </div>
-    </div>
-
-    <!--<label for="form_admissions_url">Admissions URL: </label>-->
-        <!--<input id="form_admissions_url" type="text" name="admissions_url" value="${responseMap['admissions_url'].value}"/>-->
-        <!--<br/>-->
-        <!--<br/>-->
-    <div class="lal clearfix">
-        <div class="grid_7 alpha">
-            <label for="form_average_class_size">Average class size: </label>
-        </div>
-        <div class="grid_16 omega">
-            <gsml:input styleId="form_average_class_size" styleClass="text input_4" type="text" name="average_class_size"
-                        maxlength="2" value="${responseMap['average_class_size'].value}" readonly="${stateLocked}"
-                        placeholder="[Enter number]"/>
-            <span id="form_average_class_size_error" class="error"
-                  style="display: none">Average class size must be a positive integer.</span>
         </div>
     </div>
 
