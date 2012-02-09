@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:hideFooterAd/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>GreatSchools Advertiser Opportunities</title>
+</head>
+
+<gsml:body adPageName="partnerOpportunities" pageLayout="leftside">
+
+    <mod:tracking pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
+
+    <div class="container_24 slStylesV1-0">
+
+        <div class="grid_20 suffix_4">
+        <div class="mod">
+            <div class="inner">
+                <div class="hd">
+                    <h1>Advertise on GreatSchools</h1>
+                </div>
+
+            <div class="bd">
+
+                    <p>Advertise on GreatSchools and get your message in front of our large
+                        audience of active, educated and affluent parents. GreatSchools can
+                        target your campaign by state or grade level; we offer all traditional
+                        ad units as well as newsletter sponsorships.</p>
+
+                    <p>
+                        For advertising information and opportunities, you can download our ad sales media kit here:
+                        <a
+                                href="http://www.greatschools.org/catalog/pdf/GreatSchoolsAdvertisingMediaKit.pdf"
+                                target="_blank">GreatSchools Advertising Media Kit </a><a
+                            href="http://get.adobe.com/reader/"
+                            target="blank"><span class="sprite pdf_sm"><!-- do not collapse --></span>
+                    </a>
+                    </p>
+
+                    <p>
+                        For additional questions or to get started today, please contact:
+                    </p>
+
+                    <p class="contact">
+                        Advertising Sales Team<br/>
+                        <a href="mailto:MediaSales@GreatSchools.org">MediaSales@GreatSchools.org</a><br/>
+                        (415) 983-3817
+                    </p>
+
+                    <h3>Advertiser Guidelines and Specs</h3>
+                    <p>Last Updated: December 19, 2011</p>
+
+                    <h5>Overall Advertising Acceptability Guidelines</h5>
+                    <p>All Advertising materials submitted to GreatSchools must be in accordance with existing advertising criteria and specifications, and are subject to approval of GreatSchools.
+                    </p>
+
+                    <p>
+                        GreatSchools reserves the right to remove or reject any Advertisement that doesn't meet our standards of acceptance, doesn’t comply with our policies and guidelines (including our
+                        <a href="http://www.greatschools.org/privacy/?state=CA"> Privacy Policy</a>), or that does not comply with any applicable law or regulation.  GreatSchools will attempt to negotiate
+                        changes with the Advertiser/Agency, however, if changes cannot be negotiated, the Advertisement will be declined. No change will be made without the written consent of the Agency/Advertiser.
+                    </p>
+
+                    <p>
+                        GreatSchools maintains clear separation between editorial matter and its Advertisements, and reserves the right to label an Advertisement with the word "Advertisement" or "Ad" to
+                        make clear the distinction between editorial material and Advertising.  The Advertiser name must appear with all Advertisements.
+                    </p>
+
+                    <p>
+                        GreatSchools may decline to accept advertising that is misleading, inaccurate, fraudulent, makes unfair competitive claims, or doesn't comply with our standards of decency and dignity
+                        (including but not limited to Better Business Bureau’s 'top scam' lists: <a href ="http://www.bbb.org/us/article/bbb-lists-top-10-scams-and-rip-offs-of-2009-14436">http://www.bbb.org/us/
+                        article/bbb-lists-top-10-scams-and-rip-offs-of-2009-14436</a>).
+                    </p>
+
+                    <h3>Advertisements containing the following will not be accepted on GreatSchools</h3>
+
+                    <h5>Advocacy/Opinion Advertising</h5>
+                    <ul>
+                        <li>Advertisements that attacks, criticizes or demeans any individual, race, ethnicity, religion, sex, institution, firm, business, profession, organization or sexual orientation
+                            will not be accepted.</li>
+                        <li>Any Advertisement that promotes illegal activities or actions are not acceptable.</li>
+                    </ul>
+
+                    <h5>Cigarettes/Cigars/Tobacco</h5>
+                    <ul>
+                        <li>Advertisements for cigarettes, cigars, pipe tobacco, chewing tobacco and snuff are unacceptable.</li>
+                    </ul>
+
+                    <h5>Content Sensitivity</h5>
+                    <ul>
+                        <li>GreatSchools may decline to run advertisements adjacent to any content that it deems sensitive, at the discretion of GreatSchools.</li>
+                    </ul>
+
+                    <h5>Firearms</h5>
+                    <ul>
+                        <li>Advertisements for firearms, handguns, rifles and ammunition are unacceptable.</li>
+                    </ul>
+
+                    <h5>Language and "Good Taste"</h5>
+                    <ul>
+                        <li>In the opinion of GreatSchools, any Advertisement that is indecent, vulgar, suggestive or otherwise offensive to good taste is unacceptable.</li>
+                    </ul>
+
+                    <h5>Political</h5>
+                    <ul>
+                        <li>Advertisements that endorse an individual political candidate or political party will not be accepted.</li>
+                        <li>Advertisements that endorse a non-educational political proposition or policy will not be accepted.</li>
+                        <li>As an unbiased site, GreatSchools will accept Advertisements for ballot issues that are Educational in nature, subject to approval.</li>
+                    </ul>
+
+                    <h5>Simulation of Editorial Content</h5>
+                    <ul>
+                        <li>Any Advertisement that includes elements usually associated with GreatSchools editorial content or is intended to mimic any element of GreatSchools
+                            will not be accepted.</li>
+                        <li>The use of typefaces, type sizes, colors, or other design elements that mimic the GreatSchools.org editorial content in any way is not acceptable.</li>
+                        <li>Where an Advertiser's logo and style guide is similar to that of GreatSchools.org, both parties will come to an agreement that clearly
+                            distinguishes Advertisement from the GreatSchools.org product and/or content.</li>
+                    </ul>
+
+                    <h5>Unsubstantiated Claims</h5>
+                    <ul>
+                        <li>Advertisements that offer "miracle" diet pills or regimens (i.e. those that claim incredible, unreasonable and/or unsubstantiated weight loss) are unacceptable.</li>
+                        <li>At our own discretion, GreatSchools may decline any banner Advertisement and any Google Ad Sense Advertisement that promotes or represents products or
+                            therapies that have not been proven safe and/or effective for children, especially- though not limited to- children with learning disabilities or AD/HD.</li>
+                    </ul>
+
+                    <h3>General Advertising Guidelines</h3>
+
+                    <h5>Data Collection and Disclosure<sup>1</sup></h5>
+                    <ul>
+                        <li>Advertisers and their agents must disclose to GreatSchools what data is being collected by them or their agent, what other organizations have access to the data,
+                            and how the data will be used.</li>
+                        <li>Advertiser should not allow their agents to disclose to other parties (not included in the ad serving chain) any data collected from their media placement for
+                            analytical purposes without permission from GreatSchools.</li>
+                        <li>Advertisers and their agents should not use data to retarget advertisements without permission from GreatSchools.</li>
+                        <li>Advertisers and their agents should not use publisher-provided data to retarget customers in a subsequent campaign, without a separate compensation agreement.</li>
+                        <li>Advertisers and their agents should ensure that all parties collecting data from technology placed within their own media placements adhere to the same usage and
+                            control restrictions to which they are held.</li>
+                    </ul>
+
+                    <h5>Animation/Looping</h5>
+                    <ul>
+                        <li>All audio play and video play within banner units must be user-initiated on click.</li>
+                        <li>All other rich media ad expansion may be user-initiated on mouse-over.</li>
+                        <li>In Banners:  Within ad units defined by fixed in-page dimensions, uninitiated animation can run for a maximum of 30 seconds without being re-initiated by the user,
+                            3 loop maximum.</li>
+                        <li>Outside Banner:  Animation spawned from a fixed dimension ad unit must automatically close after a maximum of 15 seconds and most have a clearly marked "close"
+                            button in close proximity to the animation.</li>
+                    </ul>
+
+                    <h5>Display Guidelines and Time Limits</h5>
+                    <ul>
+                        <li>Expansion panel must be retractable by mouse-off and have clearly marked 'close' button.</li>
+                        <li>Full page interstitial ads that appear between pages can appear for a maximum of 15 seconds and must close automatically after that. Such ads must also include a
+                            clearly marked 'close' or 'skip' button.</li>
+                        <li>Ads that partially overlay page content can appear for a maximum of 15 seconds and must close automatically after that, and must include a clearly marked 'close'
+                            button.</li>
+                        <li>Survey Floating Ads:  GreatSchools reserves the right to limit the number of Survey Ads that are spawned from the site at any given point.</li>
+                    </ul>
+
+                    <h5>Sounds</h5>
+                    <ul>
+                        <li>All sound must be user-initiated on click.</li>
+                    </ul>
+
+                    <h5>Close Buttons</h5>
+                    <ul>
+                        <li>Any ad or portion of an ad that appears outside of the confines of a fixed in-page ad space must include a clearly marked 'close' button.</li>
+                        <li>For ads that overlay a page, a clearly marked ‘close’ button must be included in close proximity to the overlay portion of the ad.  The ad must automatically close after
+                            15 seconds.</li>
+                        <li>For interstitial ads, a clearly marked 'close' or 'skip' button must be included in the upper right quadrant of the ad.  The ad will automatically redirect after a maximum
+                            of 15 seconds.</li>
+                    </ul>
+
+                    <h5>Frequency Caps</h5>
+                    <ul>
+                        <li>Frequency cap limitations can be imposed on all ads that overlay or interrupt editorial content. These frequency caps may vary by section and is at the discretion of
+                            GreatSchools.</li>
+                        <li>Frequency caps can also be applied to campaigns at advertiser request, on either a session, hourly or lifetime of a campaign basis. A maximum of one type of cap will be
+                            applied per campaign.</li>
+                        <li>All campaign level frequency caps on ‘directly sold’ campaigns must be applied through GreatSchools ad server. They cannot be set through third party servers.</li>
+                    </ul>
+
+                    <h5>Clicking to Other Websites</h5>
+                    <ul>
+                        <li>All click interactions that initiate the load of a new web page must open that web page in a new browser window when clicked.</li>
+                        <li>A click thru can launch only one new browser window.</li>
+                        <li>Mouse-over interaction cannot link a user to a new web site.</li>
+                        <li>Any click-thru included with an ad must take users to the web site of the advertiser who purchased the ad space.</li>
+                    </ul>
+
+                    <h5>Deceptive or Obtrusive Functionality</h5>
+                    <ul>
+                        <li>All functionality visually indicated within ads must be working and not designed to deceive.</li>
+                        <li>Non-functioning drop down menus, radio buttons and text boxes will not be accepted.</li>
+                        <li>Ads that change a user’s cursor must do so on mouse-over only.</li>
+                        <li>Ads must not modify any element of a user’s browser or computer settings.</li>
+                        <li>Ads must not "follow" the users mouse.</li>
+                    </ul>
+
+                    <h5>Creative Submission</h5>
+                    <ul>
+                        <li>All ads, including ads running through third party code, must be submitted to GreatSchools for approval.</li>
+                        <li>Ads for new campaigns or mid-campaign changes that require new creative to be uploaded into the GreatSchools ad server should be provided for testing and review according
+                            to normal lead time requirements:  3 business days for standard ads and 5 business days for rich media.</li>
+                    </ul>
+
+                    <h3>Technical Specifications.</h3>
+                    <h5>General Guidelines</h5>
+                    <ul>
+                        <li>An active URL must be provided with all creative and cannot exceed 128 characters.</li>
+                        <li>Alt text must be provided and cannot exceed 50 characters.</li>
+                        <li>Maximum Z-Index is 500.</li>
+                    </ul>
+
+                    <h5>Flash Guidelines</h5>
+                    <ul>
+                        <li>Recommended Flash Version:  9</li>
+                        <li>Wmode must be set to 'opaque'.</li>
+                        <li>Please refer to Adobe’s recommendations
+                            <ul>
+                                <li>Best practices: <a href="http://www.adobe.com/devnet/flash/articles/as_bestpractices.html">http://www.adobe.com/devnet/flash/articles/as_bestpractices.html</a>.</li>
+                                <li>Designers guide:  <a href="http://www.adobe.com/resources/richmedia/tracking/designers_guide/">http://www.adobe.com/resources/richmedia/tracking/designers_guide/</a>.</li>
+                                <li>Additional information:  <a href="http://www.adobe.com/cfusion/search/index.cfm?loc=en_us&amp;term=clickTag">http://www.adobe.com/cfusion/search/index.cfm?loc=en_us&amp;term=clickTag</a>.</li>
+                            </ul>
+                        </li>
+                        <li>SWF file is required.</li>
+                        <li>GIF/JPG fallback gif is required; Maximum file size is 40k.</li>
+                        <li>Do not hardcode URLS.</li>
+                        <li>Include target URL associated with the correct "clickTag" designation.
+                            <ul>
+                                <li>Please attempt to limit clickTags to one per creative.</li>
+                            </ul>
+                        </li>
+                        <li>The entire unit should be clickable, not just the final frame and animation.</li>
+                        <li>Flash ads must include clickTAG tracking containing the following actionscript:<br/>
+                            <code>On (release)}</code><br/>
+                            <code>getURL(clickTAG, "_blank")</code><br/>
+                            <code>}</code>
+                        </li>
+                    </ul>
+
+                    <h3>Video Guidelines</h3>
+                    <h4>300k Specs</h4>
+                    <h5>Total data rate</h5>
+                    <ul>
+                        <li>300 kbps.</li>
+                    </ul>
+
+                    <h5>Audio</h5>
+                    <ul>
+                        <li>Sound will be site initiated upon play.</li>
+                        <li>Codec:  Fraunhofer mp3.</li>
+                        <li>Data range:  48 kbps.</li>
+                        <li>Sample size:  16.</li>
+                        <li>Sample rate:  44100.</li>
+                        <li>Channels:  mono.</li>
+                    </ul>
+
+                    <h5>Video</h5>
+                    <ul>
+                        <li>Codec:  On2 VP6 Pro</li>
+                        <li>Method:  2 Pass VBR</li>
+                        <li>Data rate:  252 kbps</li>
+                        <li>Frame size:   480x360</li>
+                        <li>Maintain aspect ratio:  yes</li>
+                        <li>Frame rate:  29.97 frames/second</li>
+                    </ul>
+
+                    <h4>500k Specs</h4>
+                    <h5>Total data rate</h5>
+                    <ul>
+                        <li>500 kbps.</li>
+                    </ul>
+
+                    <h5>Audio</h5>
+                    <ul>
+                        <li>Sound will be site initiated upon play.</li>
+                        <li>Codec:  Fraunhofer mp3.</li>
+                        <li>Data range:  64 kbps.</li>
+                        <li>Sample size:  16.</li>
+                        <li>Sample rate:  44100.</li>
+                        <li>Channels:  mono.</li>
+                    </ul>
+
+                    <h5>Video</h5>
+                    <ul>
+                        <li>Codec:  On2 VP6 Pro.</li>
+                        <li>Method:  2 Pass VBR.</li>
+                        <li>Data rate:  436 kbps.</li>
+                        <li>Frame size:  480x360.</li>
+                        <li>Maintain aspect ratio:  yes.</li>
+                        <li>Frame rate:  29.97 frames/second.</li>
+                    </ul>
+
+                    <h5>Third Party Tab Guidelines</h5>
+                    <ul>
+                        <li>GreatSchools must be able to see each ad rotated through a given tag (max of 5 creatives rotated).</li>
+                        <li>Username/password must be provided to view daily reporting within third party platform.</li>
+                        <li>Default images must be in place for users who are not flash –enabled.</li>
+                        <li>Third party servers should contact GreatSchools at least 1 business day prior to rotating new ads in an existing ad campaign and provide the new ads for review.</li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <div class="grid_22 suffix_2">
+            <div class="mod">
+                <div class="inner">
+
+                    <div class="bd">
+                    <table>
+                        <caption>Advertising Specifications</caption>
+                        <col width="90"/>
+                        <col width="90"/>
+                        <col width="100"/>
+                        <col width="110"/>
+                        <col width="105"/>
+                        <col width="75"/>
+                        <col width="85"/>
+                        <col width="80"/>
+                        <col width="125"/>
+                        <thead>
+                        <tr>
+                            <th >Ad Unit</th>
+                            <th>Dimensions</th>
+                            <th>Max File Size (initial load)</th>
+                            <th>Flash/Looping Animations</th>
+                            <th>File Types Accepted</th>
+                            <th>3rd Party Serving</th>
+                            <th>Expansion Direction</th>
+                            <th>Max Expansion</th>
+                            <th>Max Secondary Size (subsequent load)</th>
+                        </tr></thead>
+                        <tbody><tr>
+                            <td>Leaderboard</td>
+                            <td>728x90</td>
+                            <td>40K</td>
+                            <td>3 loops/30 sec max (18 fps)</td>
+                            <td>GIF, JPG, SWF, 3rd Party Tags</td>
+                            <td>Yes</td>
+                            <td>Down</td>
+                            <td>745x180</td>
+                            <td>100K</td>
+                        </tr>
+                        <tr>
+                            <td>Box</td>
+                            <td>300x250</td>
+                            <td>40K</td>
+                            <td>3 loops/30 sec max (18 fps)</td>
+                            <td>GIF, JPG, SWF, 3rd Party Tags</td>
+                            <td>Yes</td>
+                            <td>Left/Down/ Up</td>
+                            <td>672x280</td>
+                            <td>100K</td>
+                        </tr>
+                        <tr>
+                            <td>Super Box</td>
+                            <td>300x600</td>
+                            <td>60K</td>
+                            <td>3 loops/30 sec max (18 fps)</td>
+                            <td>GIF, JPG, SWF, 3rd Party Tags</td>
+                            <td>Yes</td>
+                            <td>Left</td>
+                            <td>450x600</td>
+                            <td>100K</td>
+                        </tr>
+                        <tr>
+                            <td>Skyscraper</td>
+                            <td>160x600</td>
+                            <td>40K</td>
+                            <td>3 loops/30 sec max (18 fps)</td>
+                            <td>GIF, JPG, SWF, 3rd Party Tags</td>
+                            <td>Yes</td>
+                            <td>Right</td>
+                            <td>240x600</td>
+                            <td>100K</td>
+                        </tr>
+                        <tr>
+                            <td>Interstitial</td>
+                            <td>640x480</td>
+                            <td>100K</td>
+                            <td>10 sec max (18 fps)</td>
+                            <td>GIF, JPG, SWF, 3rd Party Tags</td>
+                            <td>Yes</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Logo</td>
+                            <td>88x31</td>
+                            <td>30K</td>
+                            <td>N/A</td>
+                            <td>GIF, JPG</td>
+                            <td>No; 1x1 tracking pixel OK</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Text Link</td>
+                            <td>Varies</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>Text</td>
+                            <td>No; 1x1 tracking pixel OK</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Newsletter Box</td>
+                            <td>300x250</td>
+                            <td>50K</td>
+                            <td>N/A</td>
+                            <td>GIF, JPG</td>
+                            <td>No</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Dedicated Email</td>
+                            <td>640x480</td>
+                            <td>100K</td>
+                            <td>N/A</td>
+                            <td>GIF, JPG</td>
+                            <td>No</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Takeover Unit</td>
+                            <td>790x600</td>
+                            <td>40K</td>
+                            <td>No looping (18-24 fps)</td>
+                            <td>Background:  as per concept; Area to cover:  up to 100%</td>
+                            <td>Yes</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile iPhone app</td>
+                            <td>320x50</td>
+                            <td>30K</td>
+                            <td>N/A</td>
+                            <td>GIF, JPG, 3rd Party Tags</td>
+                            <td>Yes</td>
+                            <td>No</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Peelback</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                        </tr>
+                        <tr>
+                            <td>Meebo Toolbar</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                            <td>Custom</td>
+                        </tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid_20 suffix_4">
+        <hr class="keyline2"/>
+        <p><sup>1</sup>This section is in compliance with IAB suggested best practices. For more information, see “Data Usage and Control Primer: Best Practices and Definitions”, May
+        2010 <a href="http://www.iab.net/media/file/data-primer-final.pdf">http://www.iab.net/media/file/data-primer-final.pdf</a></p>
+    </div>
+    </div>
+</gsml:body>
+</html>
+</jsp:root>

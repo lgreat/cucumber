@@ -956,6 +956,12 @@
         </property>
     </bean>
 
+    <bean name="/about/advertiserOpportunities.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="about/advertiserOpportunities"/>
+    </bean>
+
     <bean id="feedbackValidator" class="gs.web.about.feedback.FeedbackValidator"
           autowire="byName" lazy-init="true"/>
     <bean name="/about/feedback.page"
