@@ -113,7 +113,7 @@
     </div>
 </div>
 
-<!--TODO grey out if no is selected-->
+
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">Does your school have a specialized program for specific types of special education students? If so, please indicate below.</p>
@@ -123,22 +123,28 @@
         <school:espRadioWithLabel key="special_ed_programs_exists" value="no" label="No"/>
     </div>
     <div class="grid_6 omega">
-        <school:espCheckboxWithLabel key="special_ed_programs" value="autism" label="Autism"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="cognitive" label="Cognitive disability"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="emotional" label="Emotional behavioral disabilities"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="deafness" label="Hearing impairments"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="multiple" label="Multiple disabilities"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="orthopedic" label="Orthopedic impairments"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="other" label="Other health impairments"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="ld" label="Specific learning disabilities"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="speech" label="Speech and language impairments"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="blindness" label="Visual impairments"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="developmental_delay" label="Significant developmental delay"/>
-        <school:espCheckboxWithLabel key="special_ed_programs" value="behavioral" label="Behavioral and/or emotional disabilities"/>
+        <div id="js_special_ed_programs">
+            <school:espCheckboxWithLabel key="special_ed_programs" value="autism" label="Autism"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="cognitive" label="Cognitive disability"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="emotional"
+                                         label="Emotional behavioral disabilities"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="deafness" label="Hearing impairments"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="multiple" label="Multiple disabilities"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="orthopedic" label="Orthopedic impairments"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="other" label="Other health impairments"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="ld" label="Specific learning disabilities"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="speech"
+                                         label="Speech and language impairments"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="blindness" label="Visual impairments"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="developmental_delay"
+                                         label="Significant developmental delay"/>
+            <school:espCheckboxWithLabel key="special_ed_programs" value="behavioral"
+                                         label="Behavioral and/or emotional disabilities"/>
+        </div>
     </div>
 </div>
 
-<!--TODO grey out if no is selected-->
+
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">Is there anything special about your school's schedule?</p>
@@ -148,10 +154,12 @@
         <school:espRadioWithLabel key="schedule_exists" value="no" label="No"/>
     </div>
     <div class="grid_6 omega">
-        <school:espCheckboxWithLabel key="schedule" value="yearround" label="Year-round"/>
-        <school:espCheckboxWithLabel key="schedule" value="extended" label="Extended/longer school day"/>
-        <school:espCheckboxWithLabel key="schedule" value="block" label="Block scheduling"/>
-        <school:espCheckboxWithLabel key="schedule" value="parttime" label="Part-time study"/>
+        <div id="js_schedule">
+            <school:espCheckboxWithLabel key="schedule" value="yearround" label="Year-round"/>
+            <school:espCheckboxWithLabel key="schedule" value="extended" label="Extended/longer school day"/>
+            <school:espCheckboxWithLabel key="schedule" value="block" label="Block scheduling"/>
+            <school:espCheckboxWithLabel key="schedule" value="parttime" label="Part-time study"/>
+        </div>
     </div>
 </div>
 
@@ -279,7 +287,7 @@
     </div>
 </div>
 
-<!--TODO display the text boxes if yes is selected -->
+
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">Does your school have partnerships with local resources and organizations?</p>
@@ -289,54 +297,56 @@
         <school:espRadioWithLabel key="partnerships" value="no" label="No"/>
     </div>
     <div class="grid_5">
-        <input id="js_form_partnerships_name_1" type="text"
-               name="partnerships_name_1"
-               value="${responseMap['partnerships_name_1'].value}"
-               placeholder="1.[partner name]"/>
-        <input id="js_form_partnerships_url_1" type="text"
-               name="partnerships_url_1"
-               value="${responseMap['partnerships_url_1'].value}"
-               placeholder="1.[partner website]"/>
-        <br/>
-        <br/>
-        <input id="js_form_partnerships_name_2" type="text"
-               name="partnerships_name_2"
-               value="${responseMap['partnerships_name_2'].value}"
-               placeholder="2.[partner name]"/>
-        <input id="js_form_partnerships_url_2" type="text"
-               name="partnerships_url_2"
-               value="${responseMap['partnerships_url_2'].value}"
-               placeholder="2.[partner website]"/>
-        <br/>
-        <br/>
-        <input id="js_form_partnerships_name_3" type="text"
-               name="partnerships_name_3"
-               value="${responseMap['partnerships_name_3'].value}"
-               placeholder="3.[partner name]"/>
-        <input id="js_form_partnerships_url_3" type="text"
-               name="partnerships_url_3"
-               value="${responseMap['partnerships_url_3'].value}"
-               placeholder="3.[partner website]"/>
-        <br/>
-        <br/>
-        <input id="js_form_partnerships_name_4" type="text"
-               name="partnerships_name_4"
-               value="${responseMap['partnerships_name_4'].value}"
-               placeholder="4.[partner name]"/>
-        <input id="js_form_partnerships_url_4" type="text"
-               name="partnerships_url_4"
-               value="${responseMap['partnerships_url_4'].value}"
-               placeholder="4.[partner website]"/>
-        <br/>
-        <br/>
-        <input id="js_form_partnerships_name_5" type="text"
-               name="partnerships_name_5"
-               value="${responseMap['partnerships_name_5'].value}"
-               placeholder="5.[partner name]"/>
-        <input id="js_form_partnerships_url_5" type="text"
-               name="partnerships_url_5"
-               value="${responseMap['partnerships_url_5'].value}"
-               placeholder="5.[partner website]"/>
+        <div id="js_partnerships">
+            <input id="js_form_partnerships_name_1" type="text"
+                   name="partnerships_name_1"
+                   value="${responseMap['partnerships_name_1'].value}"
+                   placeholder="1.[partner name]"/>
+            <input id="js_form_partnerships_url_1" type="text"
+                   name="partnerships_url_1"
+                   value="${responseMap['partnerships_url_1'].value}"
+                   placeholder="1.[partner website]"/>
+            <br/>
+            <br/>
+            <input id="js_form_partnerships_name_2" type="text"
+                   name="partnerships_name_2"
+                   value="${responseMap['partnerships_name_2'].value}"
+                   placeholder="2.[partner name]"/>
+            <input id="js_form_partnerships_url_2" type="text"
+                   name="partnerships_url_2"
+                   value="${responseMap['partnerships_url_2'].value}"
+                   placeholder="2.[partner website]"/>
+            <br/>
+            <br/>
+            <input id="js_form_partnerships_name_3" type="text"
+                   name="partnerships_name_3"
+                   value="${responseMap['partnerships_name_3'].value}"
+                   placeholder="3.[partner name]"/>
+            <input id="js_form_partnerships_url_3" type="text"
+                   name="partnerships_url_3"
+                   value="${responseMap['partnerships_url_3'].value}"
+                   placeholder="3.[partner website]"/>
+            <br/>
+            <br/>
+            <input id="js_form_partnerships_name_4" type="text"
+                   name="partnerships_name_4"
+                   value="${responseMap['partnerships_name_4'].value}"
+                   placeholder="4.[partner name]"/>
+            <input id="js_form_partnerships_url_4" type="text"
+                   name="partnerships_url_4"
+                   value="${responseMap['partnerships_url_4'].value}"
+                   placeholder="4.[partner website]"/>
+            <br/>
+            <br/>
+            <input id="js_form_partnerships_name_5" type="text"
+                   name="partnerships_name_5"
+                   value="${responseMap['partnerships_name_5'].value}"
+                   placeholder="5.[partner name]"/>
+            <input id="js_form_partnerships_url_5" type="text"
+                   name="partnerships_url_5"
+                   value="${responseMap['partnerships_url_5'].value}"
+                   placeholder="5.[partner website]"/>
+        </div>
     </div>
 </div>
 
