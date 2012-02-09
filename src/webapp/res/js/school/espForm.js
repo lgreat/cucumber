@@ -358,6 +358,7 @@ new (function() {
     };
     var saveAndFinish = function() {
         saveForm().done(function() {
+            subCookie.setObjectProperty("site_pref", "showHover", "confirmEspSave", 3);
             sendToLandingPage();
         });
     };

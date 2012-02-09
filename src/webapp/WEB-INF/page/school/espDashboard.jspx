@@ -27,6 +27,23 @@
     </c:if>
     <head>
         <title>${pageTitle}</title>
+        <script type="text/javascript">
+            // <![CDATA[
+            jQuery(function() {
+                var sitePreferences = subCookie.getObject("site_pref");
+                var showHover = "";
+
+                if (sitePreferences != undefined && sitePreferences.showHover != undefined) {
+                    showHover = sitePreferences.showHover;
+                }
+
+                if (showHover == "confirmEspSave") {
+                    alert("Show esp save!");
+                    subCookie.deleteObjectProperty("site_pref", "showHover");
+                }
+            });
+            // ]]>
+        </script>
     </head>
 
     <gsml:body adPageName="ESP/dashboard" pageLayout="nocol">
@@ -71,11 +88,19 @@
             </div>
         </c:if>
 
+        <div id="confirmEspSaveHover" class="dialog_white" style="display:none;">
+            <h2>Your Official School Profile has been saved.</h2>
+            <p>
+                You can come back and add more information anytime.
+            </p>
+            <link:enhancedSchoolProfile school=""
+
+            <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
+        </div>
+
         <div style="display:none;">
             <mod:tracking pageName="OSP Dashboard" hier1="ESP"/>
         </div>
-
     </gsml:body>
-
     </html>
 </jsp:root>

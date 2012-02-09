@@ -867,6 +867,20 @@ GSType.hover.SchoolEspThankYou = function() {
 
 GSType.hover.SchoolEspThankYou.prototype = new GSType.hover.HoverDialog("schoolEspThankYou",640);
 
+// Confirm ESP Save hover
+GSType.hover.ConfirmEspSave = function() {
+    this.loadDialog = function() {
+    };
+    this.showHover = function() {
+        GSType.hover.confirmEspSave.show();
+    };
+
+    this.onClose = function() {
+    };
+};
+
+GSType.hover.ConfirmEspSave.prototype = new GSType.hover.HoverDialog("confirmEspSaveHover",640);
+
 //Email to a friend hover
 GSType.hover.EmailToFriend = function() {
     this.loadDialog = function() {
@@ -1062,6 +1076,7 @@ GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedTha
 GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPostedThankYou();
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
 GSType.hover.schoolEspThankYou = new GSType.hover.SchoolEspThankYou();
+GSType.hover.confirmEspSave = new GSType.hover.ConfirmEspSave();
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
 GSType.hover.nlSubscription = new GSType.hover.NlSubscription();
@@ -1581,6 +1596,8 @@ jQuery(function() {
         GSType.hover.principalReviewSubmitted.show();
     } else if (showHover == "schoolEspThankYou") {
         GSType.hover.schoolEspThankYou.show();
+    } else if (showHover == "confirmEspSave") {
+        GSType.hover.confirmEspSave.show();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");
