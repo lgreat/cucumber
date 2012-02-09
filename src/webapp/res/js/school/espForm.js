@@ -403,7 +403,6 @@ new (function() {
     };
 
     var doValidations = function() {
-        var isValidAcademicFocus = GS.validation.validateRequired('[name=academic_focus]', '#academic_focus_error');
         var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
             && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_error');
 
@@ -414,7 +413,7 @@ new (function() {
 
         var isValidPhysicalAddressStreet = GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error');
 
-        return isValidAcademicFocus && isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet && isValidAdministratorEmail;
+        return isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet && isValidAdministratorEmail;
     };
 
     if (GS.history5Enabled) {
