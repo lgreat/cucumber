@@ -9,8 +9,8 @@ GS.form.EspForm = function() {
         var citySelect = jQuery('#js_city');
         var schoolSelect = jQuery('#js_school');
 
-        citySelect.html('<option value="0">Loading ...</option>');
-        schoolSelect.html('<option value="0">- Choose school -</option>');
+        citySelect.html('<option value="">Loading ...</option>');
+        schoolSelect.html('<option value="">- Choose school -</option>');
 
         jQuery.ajax({
             type: 'GET',
@@ -28,11 +28,14 @@ GS.form.EspForm = function() {
     this.cityChange = function() {
         var stateSelect = jQuery('#js_stateAdd');
         var citySelect = jQuery('#js_city');
+        var schoolSelect = jQuery('#js_school');
+
+        schoolSelect.html('<option value="">- Choose school -</option>');
 
         var state = stateSelect.val();
         var city = citySelect.val();
 
-        if (state !== '' && city !== '- Choose city -' && city !== 'My city is not listed') {
+        if (state !== '' && city !== '' && city !== '- Choose city -' && city !== 'My city is not listed') {
             jQuery('#js_school').html("<option>Loading...</option>");
             jQuery.ajax({
                 type: 'GET',
@@ -53,8 +56,9 @@ GS.form.EspForm = function() {
             citySelect.empty();
             for (var x = 0; x < data.cities.length; x++) {
                 var city = data.cities[x];
-                if (city.name) {
-                    citySelect.append("<option value=\"" + city.name + "\">" + city.name + "</option>");
+                if (city.name !== '') {
+                    var cityVal = city.name === '- Choose city -' ? '' : city.name;
+                    citySelect.append("<option value=\"" + cityVal + "\">" + city.name + "</option>");
                 }
             }
         }
@@ -269,6 +273,7 @@ GS.form.EspForm = function() {
             GS.form.espForm.validateFields('confirmPassword', {password:jQuery('#js_password').val()}),
             GS.form.espForm.validateRequiredFields('jobTitle'),
             GS.form.espForm.validateRequiredFields('stateAdd'),
+            GS.form.espForm.validateRequiredFields('city'),
             GS.form.espForm.validateSchool(),
             GS.form.espForm.validateStateSchoolUserUnique()
         ).done(

@@ -178,7 +178,12 @@
                     </c:forEach>
                 </select>
             </div>
-            <div class="grid_6 omega"><!-- do not collapse --></div>
+
+            <div class="prefix_1 grid_5 omega">
+                <div class="js_city invalid error">
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select a city.
+                </div>
+            </div>
         </div>
 
         <div class="lal clearfix">
