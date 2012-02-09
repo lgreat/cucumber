@@ -91,10 +91,10 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 .notice {background:transparent;color:#514721;border-color:transparent;}
 .slFormsV1-0 .success {background:transparent;color:#118800;border-color:transparent;}
 .slFormsV1-0 .slFormsV1-0 .info {background:transparent;color:#205791;border-color:transparent;}
-.slFormsV1-0 .error a, .slFormsV1-0 .alert a {color:#cc0033;}
-.slFormsV1-0 .notice a {color:#514721;}
-.slFormsV1-0 .success a {color:#118800;}
-.slFormsV1-0 .info a {color:#205791;}
+.slFormsV1-0 .error a, .slFormsV1-0 .alert a { color:#cc0033; text-decoration:underline; }
+.slFormsV1-0 .notice a { color:#514721; text-decoration:underline; }
+.slFormsV1-0 .success a { color:#118800; text-decoration:underline; }
+.slFormsV1-0 .info a { color:#205791; text-decoration:underline; }
 
 /* Grid widths for top aligned labels (tal) */
 .slFormsV1-0 .input_1 { width: 18px; } /* grid_1 width: 30px - (6px + 6px + 1px + 1px) */

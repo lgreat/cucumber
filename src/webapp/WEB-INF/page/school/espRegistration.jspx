@@ -58,7 +58,7 @@
                         value="${espRegistrationCommand.email}"
                         readonly="${isReadOnly}"/>
 
-            <p class="hint">The domain for your email address must match the school's website domain (e.g., name@springfield.k12.il.us)</p>
+            <p class="hint">Please use your official school email address, if you have one.<br/>(e.g. name@springfield.k12.il.us)</p>
         </div>
 
         <div class="grid_5 omega">
@@ -67,7 +67,7 @@
             </div>
 
             <div id="js_uniqueError" class="error" style="display: none;">
-                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You are already registered for this school.
+                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You already have access to this school's Official School Profile. <link:schoolEspSignIn>Sign in</link:schoolEspSignIn> to your account.
             </div>
             <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
@@ -88,7 +88,7 @@
                 <form:input path="screenName" cssClass="text input_6" id="js_screenName"
                             value="${espRegistrationCommand.screenName}"
                             readonly="${isReadOnly}"/>
-                <p class="hint">6-14 characters</p>
+                <p class="hint">6-14 characters (e.g. jjohnson)</p>
             </div>
 
             <div class="grid_5 omega">
@@ -200,9 +200,9 @@
                 </select>
             </div>
 
-            <div class="prefix_1 grid_5 omega">
+            <div class="grid_5 omega">
                 <div class="js_school invalid error">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select the school you are affiliated with.
+                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select the school with which you are affiliated.
                 </div>
             </div>
         </div>
@@ -290,7 +290,7 @@
             </div>
             <div class="grid_6">
                 <form:input path="webPageUrl" cssClass="text input_6" id="webPageUrl"/>
-                <p class="hint">Example: http://www.springfield.k12.il.us Your website domain should match your email address.</p>
+                <p class="hint">Please provide a website that will help us verify your role at the school, such as a homepage or faculty page.</p>
             </div>
 
             <div class="grid_5 omega">
@@ -329,14 +329,17 @@
         <p class="">Already have a school official account? <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
     </c:if>
 
-    <h3 class="">Why you should create an Official School Profile</h3>
+    <h3>New to GreatSchools? Register for a school official's account.</h3>
 
-    <ul>
-        <li>It's absolutely free and simple to create!</li>
-        <li>It helps parents and students understand your school's special qualities</li>
-        <li>It lets you respond to a parent review</li>
-        <li>It lets you update your school's contact information</li>
-    </ul>
+    <p>Five reasons to create an Official School Profile</p>
+
+    <ol>
+        <li>Give your school more visibility - get noticed by more families.</li>
+        <li>Publish changes to your school's profile immediately.</li>
+        <li>Highlight your school's unique qualities and strengths.</li>
+        <li>Add photos and videos that bring your school profile to life.</li>
+        <li>Boost enrollment.</li>
+    </ol>
 
 </div>
 </div>

@@ -126,7 +126,7 @@ GS.form.EspForm = function() {
             GS.form.espForm.showEmailError("You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             // users who have been approved and validated their emails.We check the cookie, since a signed in user should be able to submit one request.
-            GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<a href='/official-school-profile/signin.page'>Sign in</a> to your account here.");
+            GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<br/><a href='/official-school-profile/signin.page'>Sign in</a> to your account here.");
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             // valid GS users who never request ESP.We check the cookie, since a signed in user should be able to submit one request.
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
