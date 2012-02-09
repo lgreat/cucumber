@@ -69,12 +69,14 @@ public class Registration2AjaxController implements Controller {
         State state = _stateManager.getState(request.getParameter("state"));
         String grade = request.getParameter("grade");
         String schoolTypes = request.getParameter("schoolTypes");
+        boolean excludePreschoolsOnly = (StringUtils.isNotBlank(request.getParameter("excludePreschoolsOnly"))) ?
+                new Boolean(request.getParameter("excludePreschoolsOnly")) : false;
         PrintWriter out = response.getWriter();
 
         if (StringUtils.equals("json", request.getParameter(FORMAT_PARAM))) {
             String type = request.getParameter(TYPE_PARAM);
             if (StringUtils.equals(SCHOOL_TYPE, type)) {
-                outputSchoolJson(state, city, grade, schoolTypes, out,request);
+                outputSchoolJson(state, city, grade, schoolTypes, excludePreschoolsOnly, out, request);
             }
             return null;
         }
@@ -144,7 +146,7 @@ public class Registration2AjaxController implements Controller {
         out.print("</select>");
     }
 
-    protected void outputSchoolJson(State state, String city, String grades, String schoolTypes, PrintWriter out, HttpServletRequest request) {
+    protected void outputSchoolJson(State state, String city, String grades, String schoolTypes, boolean excludePreschoolsOnly, PrintWriter out, HttpServletRequest request) {
         List<School> schools = null;
         JSONObject rval = new JSONObject();
         if (state != null && !StringUtils.isBlank(city)) {
@@ -164,6 +166,8 @@ public class Registration2AjaxController implements Controller {
 
             if (!schoolTypeSet.isEmpty() || gs != null) {
                 schools = _schoolDao.findSchoolsInCityByGradesAndTypes(state, city, gs, schoolTypeSet);
+            }else if(excludePreschoolsOnly){
+                schools = _schoolDao.findSchoolsInCity(state, city, 2000,excludePreschoolsOnly);
             } else {
                 schools = _schoolDao.findSchoolsInCity(state, city, 2000); // 2000 is arbitrary - CK
             }

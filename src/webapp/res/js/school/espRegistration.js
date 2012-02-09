@@ -37,7 +37,7 @@ GS.form.EspForm = function() {
             jQuery.ajax({
                 type: 'GET',
                 url: "/community/registration2Ajax.page",
-                data: {state:state, city:city, format:'json', type:'school'},
+                data: {state:state, city:city, format:'json', type:'school',excludePreschoolsOnly:true},
                 dataType: 'json',
                 async: true
             }).done(function(data) {
@@ -113,14 +113,18 @@ GS.form.EspForm = function() {
         if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email address.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
+            // users who have been approved but haven't followed through by clicking through the link in email
             GSType.hover.emailNotValidated.setEmail(email);
             var onclickStr = "GSType.hover.emailNotValidated.show()";
             GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>");
         } else if (data.isUserAwaitingESPMembership === true) {
+            // users who have requested access but are still being processed
             GS.form.espForm.showEmailError("You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
+            // users who have been approved and validated their emails.We check the cookie, since a signed in user should be able to submit one request.
             GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<a href='/official-school-profile/signin.page'>Sign in</a> to your account here.");
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
+            // valid GS users who never request ESP.We check the cookie, since a signed in user should be able to submit one request.
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
             GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>");
         }else if (data.isCookieMatched !== true ) {
