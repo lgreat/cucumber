@@ -35,6 +35,8 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
 
     private ILeadGenDao _leadGenDao;
 
+    public static final String CAMPAIGN_KINDERCARE_2011 = "kindercare082011";
+    public static final String CAMPAIGN_PRIMROSE_2012 = "primrose032012";
     public static final String TARGET_URL = "https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
     public static final String PARAM_FIRST_NAME = "first_name";
     public static final String PARAM_LAST_NAME = "last_name";
@@ -54,8 +56,10 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
             logData(command);
 
             //submit data
-            submitLeadGen(request, command.getFirstName(), command.getLastName(), command.getEmail(), command.getZip());
-            _log.info("Lead generated successfully for " + command.getEmail());
+            if (CAMPAIGN_KINDERCARE_2011.equals(command.getCampaign())) {
+                submitLeadGen(request, command.getFirstName(), command.getLastName(), command.getEmail(), command.getZip());
+                _log.info("Lead generated successfully for " + command.getEmail());
+            }
 
             response.getWriter().print(SUCCESS);
             return;
@@ -88,13 +92,21 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
                 errorList.add("email");
             }
         }
+        // validate not null/blank zip matching pattern
         if (command.getZip() == null || !command.getZip().matches(ZIP_PATTERN)) {
             errorList.add("zip");
+        }
+        // validate not null/blank child's age
+        if (CAMPAIGN_PRIMROSE_2012.equals(command.getCampaign())) {
+            if (StringUtils.isBlank(command.getChildsAge())) {
+                errorList.add("childsAge");
+            }
         }
 
         return StringUtils.join(errorList, ',');
     }
 
+    // GS-11938 For Kindercare 2011 lead gen widget only
     public void submitLeadGen(HttpServletRequest request, String firstName, String lastName, String email, String zip) {
 
         HttpClient client = getHttpClient();
@@ -137,6 +149,7 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
         method.addParameter("Campaign_ID", "701G0000000YWlz");
     }
 
+    // GS-11938 For Kindercare 2011 lead gen widget only
     private void addInDebugData(PostMethod method) {
         //email = "dflagg@klcorp.com";
         
@@ -146,6 +159,7 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
     }
 
     // for unit tests
+    // GS-11938 For Kindercare 2011 lead gen widget only
     public HttpClient getHttpClient() {
         if (_httpClient == null) {
             return new HttpClient();
@@ -156,7 +170,7 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
     private void logData(LeadGenCommand command) {
         LeadGen leadGen =
                 new LeadGen(command.getCampaign(), new Date(), command.getFirstName(),
-                                      command.getLastName(), command.getEmail(), command.getZip());
+                            command.getLastName(), command.getEmail(), command.getZip(), command.getChildsAge());
         _leadGenDao.save(leadGen);
     }
 

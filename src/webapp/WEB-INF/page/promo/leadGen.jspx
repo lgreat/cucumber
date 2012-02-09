@@ -17,10 +17,10 @@
     <p>Multiple forms on one page are not usually expected, but the code should allow it.</p>
 
     <h1>First form goes here</h1>
-    <promo:leadGen/>
+    <promo:leadGenPrimrose2012/>
 
     <h1>Second form goes here</h1>
-    <promo:leadGen/>
+    <promo:leadGenPrimrose2012/>
     </body>
     </html>
 </jsp:root>

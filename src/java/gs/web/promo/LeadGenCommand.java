@@ -8,6 +8,7 @@ public class LeadGenCommand {
     private String _lastName;
     private String _email;
     private String _zip;
+    private String _childsAge;
 
     public String getCampaign() {
         return _campaign;
@@ -67,6 +68,18 @@ public class LeadGenCommand {
         }
     }
 
+    public String getChildsAge() {
+        return _childsAge;
+    }
+
+    public void setChildsAge(String childsAge) {
+        if (StringUtils.isNotBlank(childsAge)) {
+            _childsAge = childsAge.trim();
+        } else {
+            _childsAge = null;
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -76,6 +89,7 @@ public class LeadGenCommand {
         sb.append(", _lastName='").append(_lastName).append('\'');
         sb.append(", _email='").append(_email).append('\'');
         sb.append(", _zip='").append(_zip).append('\'');
+        sb.append(", _childsAge='").append(_childsAge).append('\'');
         sb.append('}');
         return sb.toString();
     }

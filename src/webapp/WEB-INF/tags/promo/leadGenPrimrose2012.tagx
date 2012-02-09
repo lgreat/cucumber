@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.tag body-content="empty"/>
+
+    <!--
+       When providing the code to Albert, remove the <![CDATA[ and ]]> and
+       do not double-escape any character entities, e.g. change &amp;amp; back to &amp;
+       Please merge any changes and new files to both currel and nextrel, and deploy on clone.
+
+       Remove "do not collapse" comment between javascript open and close tags before providing to ad ops
+    -->
+    <![CDATA[
+
+    <div class="mod primrose js_leadGenWrapper">
+        <script type="text/javascript" src="/res/js/promo/leadGen.js"></script>
+        <div class="inner">
+            <div class="hd"><!-- do not collapse --></div>
+            <div class="bd">
+
+                <div class="leadGenErrors">
+                    <div class="hidden mediaExt0-1 js_leadGenError js_leadGenError-all">
+                        <div class="img sprite i-alert"><!-- do not collapse --></div>
+                        <div class="bk formErrorText">All fields are required</div>
+                    </div>
+                </div>
+
+                <form class="js_leadGenForm" action="#" method="POST">
+                    <input type="hidden" class="js_leadGenCampaign" name="campaign" value="primrose2012"/>
+                    <fieldset class="contact">
+                        <div class="line">
+                            <label class="unit size3of13 smallText2">First name:</label>
+                            <input type="text" class="js_leadGenFirstName unit size4of11 formText2" name="firstName"/>
+
+                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="line">
+                            <label class="unit size3of13 smallText2">Last name:</label>
+                            <input type="text" class="js_leadGenLastName unit size4of11 formText2" name="lastName"/>
+
+                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="line">
+                            <label class="unit size3of13 smallText2">Email:</label>
+                            <input type="text" class="js_leadGenEmail unit size4of11 formText2" name="email"/>
+
+                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="line">
+                            <label class="unit size3of13 smallText2">Zip code:</label>
+                            <input type="text" class="js_leadGenZip unit size4of11 formText2" name="zip"/>
+
+                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                        </div>
+
+                        <div class="line">
+                            <label class="unit size3of13 smallText2">Child's age:</label>
+                            <input type="text" class="js_leadGenChildsAge unit size4of11 formText2" name="childsAge"/>
+
+                            <div class="unit size2of5 lastUnit"><!-- do not collapse --></div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="submit">
+                        <button class="button-2 js_leadGenSubmit" type="submit">Request Information</button>
+                    </fieldset>
+                </form>
+                <div class="hidden js_leadGenThankYou leadGenThankYou">
+                    <p>
+                        Thanks for your info.<br/>
+                        Someone from Primrose<br/>
+                        Schools will be in contact<br/>
+                        with you soon.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    ]]>
+
+</jsp:root>
