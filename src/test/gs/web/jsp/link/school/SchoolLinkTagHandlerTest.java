@@ -152,14 +152,12 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         EspDashboardTagHandler tagHandler = new EspDashboardTagHandler();
         
         School school = new School();
-        school.setId(1);
+        school.setId(2);
         school.setDatabaseState(State.CA);
-        tagHandler.setDefaultCity("Alameda");
-        tagHandler.setDefaultSchoolId(2);
-        tagHandler.setDefaultState(State.CA);
+        tagHandler.setSchool(school);
 
         UrlBuilder urlBuilder = tagHandler.createUrlBuilder();
-        assertEquals("/official-school-profile/dashboard/?defaultCity=Alameda&defaultSchoolId=2&defaultState=ca", urlBuilder.asSiteRelative(null));
+        assertEquals("/official-school-profile/dashboard/?schoolId=2&state=ca", urlBuilder.asSiteRelative(null));
     }
 
     public void testEspSignInTagHandler() {
