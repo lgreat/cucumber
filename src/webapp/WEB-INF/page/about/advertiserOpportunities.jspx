@@ -249,7 +249,7 @@
                         </li>
                         <li>The entire unit should be clickable, not just the final frame and animation.</li>
                         <li>Flash ads must include clickTAG tracking containing the following actionscript:<br/>
-                            <code>On (release)}</code><br/>
+                            <code>On (release){</code><br/>
                             <code>getURL(clickTAG, "_blank")</code><br/>
                             <code>}</code>
                         </li>
