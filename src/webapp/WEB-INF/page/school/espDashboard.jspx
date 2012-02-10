@@ -47,22 +47,47 @@
     </head>
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
-        <div class="container_24">
+        <div class="container_24 slStylesV1-0 slFormsV1-0">
+            <div class="spacer_20"><!-- do not collapse --></div>
+            <div class="grid_24">
+                <h1 class="fltlft">Your Official School Profile</h1>
+                <p class="small fltrt mtm"><a href="javascript:void(0);">Need Help?</a></p>
+            </div>
 
             <c:if test="${not empty school}">
-                <div class="mod alpha grid_12 gradient-3">
-                    <div>
-                        <p>${school.name}</p>
-                        <p>${school.city}, ${school.databaseState}</p>
-                        <p>
-                            <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview>
-                        </p>
-                        <p>
-                            <link:schoolPrincipalReview school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
-                        </p>
+                <div class="grid_13 suffix_1">
+                    <div class="mod form">
+                        <div class="inner">
+                            <div class="bd">
+                                <div class="line">
+                                    <div class="unit size45of100">
+                                        <p>
+                                            ${school.name}<br/>
+                                            <span class="small"><br/>
+                                            ${school.city}, ${school.databaseState}</span></p>
+                                    </div>
+                                    <div class="unit size55of100 lastUnit">
+                                        <p class="small">
+                                            <link:schoolProfileOverview
+                                                    school="${school}">View profile</link:schoolProfileOverview><br/>
+                                            <link:schoolPrincipalReview
+                                                    school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="grid_12 omega"><!-- do not collapse --></div>
+                <div class="grid_10">
+                    <div class="spacer_25"><!-- do not collapse --></div>
+                    <div class="alpha grid_5">
+                        <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
+                    </div>
+                    <div class="grid_4 suffix_1 omega">
+                        <input class="button-3 fltrt" type="button" name="getStarted" value="Get started" onclick="javascript:void(0);" />
+                    </div>
+                </div>
 
                 <c:if test="${not empty otherEspMemberships}">
                     <div class="grid_24 alpha omega">Other OSP users for this school:
@@ -73,39 +98,43 @@
                     </div>
                 </c:if>
 
-                <br class="clearBoth"/>
-                <div class="mod grid_24 alpha omega">
-                    <p>Official School Profile Progress</p>
-                    <p>Select a section to get started. You may save, continue and edit your Online School Profile at any time.</p>
+                <div class="grid_24">
+                    <h3 class="bottom">Official School Profile Progress</h3>
+
+                    <p class="small">Select a section to get started. You may save, continue and edit your Online School Profile at any time.</p>
 
                     <div class="grid_12 alpha">
-                        <div class="grid_12 alpha omega">
-                            <link:schoolEspForm school="${school}" page="1">School basics</link:schoolEspForm>
-                        </div>
-                        <div class="grid_12 alpha omega">
-                            <link:schoolEspForm school="${school}" page="2">Instructional model</link:schoolEspForm>
-                        </div>
-                        <div class="grid_12 alpha omega">
-                            <link:schoolEspForm school="${school}" page="3">Applying &amp;amp; enrolling</link:schoolEspForm>
-                        </div>
-                        <div class="grid_12 alpha omega">
-                            <link:schoolEspForm school="${school}" page="4">Programs &amp;amp; resources</link:schoolEspForm>
-                        </div>
+
+                        <p class=""><link:schoolEspForm school="${school}" page="1">School basics</link:schoolEspForm>
+                        </p>
+
+                        <p class=""><link:schoolEspForm school="${school}"
+                                                        page="2">Instructional model</link:schoolEspForm></p>
+
+                        <p class=""><link:schoolEspForm school="${school}"
+                                                        page="3">Applying &amp;amp; enrolling</link:schoolEspForm></p>
+
+                        <p class=""><link:schoolEspForm school="${school}"
+                                                        page="4">Programs &amp;amp; resources</link:schoolEspForm></p>
+
                     </div>
                     <div class="grid_12 omega">
-                        <div class="grid_12 alpha omega">
-                            <link:schoolEspForm school="${school}" page="5">Enrichment &amp;amp; extracurriculars</link:schoolEspForm>
-                        </div>
-                        <div class="grid_12 alpha omega">
-                            <link:schoolEspForm school="${school}" page="6">School culture</link:schoolEspForm>
-                        </div>
-                        <div class="grid_12 alpha omega">
-                            <link:schoolEspForm school="${school}" page="7">Contact info</link:schoolEspForm>
-                        </div>
+
+                        <p class=""><link:schoolEspForm school="${school}"
+                                                        page="5">Enrichment &amp;amp; extracurriculars</link:schoolEspForm>
+                        </p>
+
+                        <p class=""><link:schoolEspForm school="${school}" page="6">School culture</link:schoolEspForm>
+                        </p>
+
+                        <p class=""><link:schoolEspForm school="${school}" page="7">Contact info</link:schoolEspForm>
+                        </p>
+
                         <c:if test="${school.type.schoolTypeName == 'private'}">
-                            <div class="grid_12 alpha omega">
-                                <link:schoolEspForm school="${school}" page="8">Student info</link:schoolEspForm>
-                            </div>
+
+                            <p class=""><link:schoolEspForm school="${school}"
+                                                            page="8">Student info</link:schoolEspForm></p>
+
                         </c:if>
                     </div>
                 </div>
