@@ -10,46 +10,46 @@ GS.form = GS.form || {};
 GS.form.LeadGenCampaign = function() {
 
     this.validate = function(wrapper) {
-        wrapper.find('.js_leadGenError').hide();
+        wrapper.find('.jq-leadGenError').hide();
 
         var passed = true;
 
-        if (wrapper.find('.js_leadGenFirstName').val() == '') {
+        if (wrapper.find('.jq-leadGenFirstName').val() == '') {
             passed = false;
         }
-        if (wrapper.find('.js_leadGenLastName').val() == '') {
+        if (wrapper.find('.jq-leadGenLastName').val() == '') {
             passed = false;
         }
-        if (wrapper.find('.js_leadGenEmail').val() == '') {
+        if (wrapper.find('.jq-leadGenEmail').val() == '') {
             passed = false;
         }
-        if (wrapper.find('.js_leadGenZip').val() == '' || isNaN(wrapper.find('.js_leadGenZip').val())) {
+        if (wrapper.find('.jq-leadGenZip').val() == '' || isNaN(wrapper.find('.jq-leadGenZip').val())) {
             passed = false;
         }
-        var childsAge = wrapper.find('.js_leadGenChildsAge');
+        var childsAge = wrapper.find('.jq-leadGenChildsAge');
         if (childsAge.size() === 1 && childsAge.val() == '') {
             passed = false;
         }
 
         if (!passed) {
-            wrapper.find('.js_leadGenError-all').show();
+            wrapper.find('.jq-leadGenError-all').show();
         }
 
         return passed;
     };
 
     this.submit = function(submitButton) {
-        var wrapper = submitButton.closest('.js_leadGenWrapper');
+        var wrapper = submitButton.closest('.jq-leadGenWrapper');
 
         if (this.validate(wrapper)) {
             submitButton.hide();
             var params = {
-                campaign: wrapper.find('.js_leadGenCampaign').val(),
-                firstName: wrapper.find('.js_leadGenFirstName').val(),
-                lastName: wrapper.find('.js_leadGenLastName').val(),
-                email: wrapper.find('.js_leadGenEmail').val(),
-                zip: wrapper.find('.js_leadGenZip').val(),
-                childsAge: wrapper.find('.js_leadGenChildsAge').val()
+                campaign: wrapper.find('.jq-leadGenCampaign').val(),
+                firstName: wrapper.find('.jq-leadGenFirstName').val(),
+                lastName: wrapper.find('.jq-leadGenLastName').val(),
+                email: wrapper.find('.jq-leadGenEmail').val(),
+                zip: wrapper.find('.jq-leadGenZip').val(),
+                childsAge: wrapper.find('.jq-leadGenChildsAge').val()
             };
 
             jQuery.ajax({
@@ -59,29 +59,34 @@ GS.form.LeadGenCampaign = function() {
                 dataType: 'text',
                 success: function(data, textStatus, jqXHR) {
                     if (data == "OK") {
-                        wrapper.find('.js_leadGenIntroText').hide();
-                        wrapper.find('.js_leadGenForm').hide();
-                        wrapper.find('.js_leadGenThankYou').show();
+                        wrapper.find('.jq-leadGenIntroText').hide();
+                        wrapper.find('.jq-leadGenForm').hide();
+                        wrapper.find('.jq-leadGenThankYou').show();
                     } else {
                         if (data.indexOf('email') > -1) {
-                            wrapper.find('.js_leadGenError-all').show();
-                        } else if (data.indexOf('firstName') > -1) {
-                            wrapper.find('.js_leadGenError-all').show();
-                        } else if (data.indexOf('lastName') > -1) {
-                            wrapper.find('.js_leadGenError-all').show();
-                        } else if (data.indexOf('zip') > -1) {
-                            wrapper.find('.js_leadGenError-all').show();
-                        } else if (data.indexOf('childsAge') > -1) {
-                            wrapper.find('.js_leadGenError-all').show();
+                            // for Kindercare
+                            wrapper.find('.jq-leadGenError-email').show();
+                            // for Primrose
+                            wrapper.find('.jq-leadGenError-all').show();
+                        } else {
+                            if (data.indexOf('firstName') > -1) {
+                                wrapper.find('.jq-leadGenError-all').show();
+                            } else if (data.indexOf('lastName') > -1) {
+                                wrapper.find('.jq-leadGenError-all').show();
+                            } else if (data.indexOf('zip') > -1) {
+                                wrapper.find('.jq-leadGenError-all').show();
+                            } else if (data.indexOf('childsAge') > -1) {
+                                wrapper.find('.jq-leadGenError-all').show();
+                            }
                         }
 
                         submitButton.show();
                     }
                 },
                 error: function(jqXHR,textStatus,errorThrown) {
-                    wrapper.find('.js_leadGenIntroText').show();
-                    wrapper.find('.js_leadGenForm').show();
-                    wrapper.find('.js_leadGenThankYou').hide();
+                    wrapper.find('.jq-leadGenIntroText').show();
+                    wrapper.find('.jq-leadGenForm').show();
+                    wrapper.find('.jq-leadGenThankYou').hide();
                 }
             });
         }
@@ -97,7 +102,7 @@ jQuery(function() {
 
     GS.form.leadGenCampaign = GS.form.leadGenCampaign || new GS.form.LeadGenCampaign();
 
-    jQuery('.js_leadGenForm .js_leadGenSubmit').unbind('click').click(function() {
+    jQuery('.jq-leadGenForm .jq-leadGenSubmit').unbind('click').click(function() {
         return GS.form.leadGenCampaign.submit(jQuery(this));
     });
 });
