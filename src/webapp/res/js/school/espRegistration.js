@@ -40,7 +40,7 @@ GS.form.EspForm = function() {
             jQuery.ajax({
                 type: 'GET',
                 url: "/community/registration2Ajax.page",
-                data: {state:state, city:city, format:'json', type:'school',excludePreschoolsOnly:true},
+                data: {state:state, city:city, format:'json', type:'school', excludePreschoolsOnly:true},
                 dataType: 'json',
                 async: true
             }).done(function(data) {
@@ -57,7 +57,7 @@ GS.form.EspForm = function() {
             for (var x = 0; x < data.cities.length; x++) {
                 var city = data.cities[x];
                 if (city.name !== '') {
-                    var cityVal = city.name === '- Choose city -' ? '' : city.name;
+                    var cityVal = (city.name === '- Choose city -') ? '' : city.name;
                     citySelect.append("<option value=\"" + cityVal + "\">" + city.name + "</option>");
                 }
             }
@@ -82,6 +82,7 @@ GS.form.EspForm = function() {
         var emailField = jQuery('#js_email');
         var email = emailField.val().trim();
         jQuery('.js_emailErr').hide();
+        GS.form.espForm.removeWarningClassFromElem(emailField);
         var dfd = jQuery.Deferred();
 
         if (email !== "" && email !== undefined) {
@@ -94,7 +95,7 @@ GS.form.EspForm = function() {
                 async: true
             }).done(
                 function(data) {
-                    var isValid = GS.form.espForm.handleEmailErrors(data,email);
+                    var isValid = GS.form.espForm.handleEmailErrors(data, email, emailField);
                     if (isValid === false) {
                         dfd.reject();
                     } else {
@@ -106,53 +107,58 @@ GS.form.EspForm = function() {
                 });
         } else {
             jQuery('#js_invalidEmail').show();
+            GS.form.espForm.addWarningClassToElem(emailField);
             dfd.reject();
         }
         return dfd.promise();
     };
 
     //Handles the logic to allow the registrations to go through or display an error.
-    this.handleEmailErrors = function(data,email) {
+    this.handleEmailErrors = function(data,email,emailField) {
         var isValid = false;
         if (data.isEmailValid !== true) {
-            GS.form.espForm.showEmailError("Please enter a valid email address.");
+            GS.form.espForm.showEmailError("Please enter a valid email address.", emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
             // users who have been approved but haven't followed through by clicking through the link in email
             GSType.hover.emailNotValidated.setEmail(email);
             var onclickStr = "GSType.hover.emailNotValidated.show()";
-            GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>");
+            GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
         } else if (data.isUserAwaitingESPMembership === true) {
             // users who have requested access but are still being processed
-            GS.form.espForm.showEmailError("You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
+            GS.form.espForm.showEmailError("You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.", emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             // users who have been approved and validated their emails.We check the cookie, since a signed in user should be able to submit one request.
-            GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<br/><a href='/official-school-profile/signin.page'>Sign in</a> to your account here.");
+            GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<br/><a href='/official-school-profile/signin.page'>Sign in</a> to your account here.", emailField);
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             // valid GS users who never request ESP.We check the cookie, since a signed in user should be able to submit one request.
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
-            GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>");
+            GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>", emailField);
         }else if (data.isCookieMatched !== true ) {
-            GS.form.espForm.showEmailError("An error has occurred.");
+            GS.form.espForm.showEmailError("An error has occurred.", emailField);
         } else {
             isValid = true;
         }
         return isValid;
     };
 
-    this.showEmailError = function(errMsg) {
+    this.showEmailError = function(errMsg, emailField) {
         jQuery('#js_emailError').html('<span class="sprite i-alert vam"></span>&nbsp;' + errMsg);
+        GS.form.espForm.addWarningClassToElem(emailField);
         jQuery('#js_emailError').show();
     };
 
     this.validateRequiredFields = function(fieldName) {
-        var fieldVal = jQuery('#js_' + fieldName).val();
+        var field = jQuery('#js_' + fieldName);
+        var fieldVal = field.val();
         var fieldError = jQuery('.js_' + fieldName + '.invalid');
         var dfd = jQuery.Deferred();
 
         fieldError.hide();
+        GS.form.espForm.removeWarningClassFromElem(field);
 
-        if (fieldVal === "" || fieldVal === undefined) {
+        if (fieldVal === '' || fieldVal === undefined || fieldVal === '-1' || fieldVal === '0' || fieldVal === 'My city is not listed') {
             fieldError.show();
+            GS.form.espForm.addWarningClassToElem(field);
             dfd.reject();
         } else {
             dfd.resolve();
@@ -161,22 +167,25 @@ GS.form.EspForm = function() {
         return dfd.promise();
     };
 
-    this.validateSchool = function() {
-        var schoolId = jQuery('#js_school').val();
-        var fieldError = jQuery('.js_school.invalid');
-        var dfd = jQuery.Deferred();
-
-        fieldError.hide();
-
-        if (schoolId === "" || schoolId === undefined || schoolId === "-1" || schoolId === "0") {
-            fieldError.show();
-            dfd.reject();
-        } else {
-            dfd.resolve();
-        }
-
-        return dfd.promise();
-    };
+//    this.validateSchool = function() {
+//        var schoolField = jQuery('#js_school');
+//        var schoolId = schoolField.val();
+//        var fieldError = jQuery('.js_school.invalid');
+//        var dfd = jQuery.Deferred();
+//
+//        fieldError.hide();
+//        GS.form.espForm.removeWarningClassFromElem(schoolField);
+//
+//        if (schoolId === "" || schoolId === undefined || schoolId === "-1" || schoolId === "0") {
+//            fieldError.show();
+//            GS.form.espForm.addWarningClassToElem(schoolField);
+//            dfd.reject();
+//        } else {
+//            dfd.resolve();
+//        }
+//
+//        return dfd.promise();
+//    };
 
     this.validateStateSchoolUserUnique = function() {
         var schoolId = jQuery('#js_school').val();
@@ -229,7 +238,7 @@ GS.form.EspForm = function() {
                 async: true
             }).done(
                 function(data) {
-                    var rval = GS.form.espForm.handleValidationResponse('.js_' + fieldName, fieldName, data);
+                    var rval = GS.form.espForm.handleValidationResponse('.js_' + fieldName, fieldName, data, elem);
                     if (rval) {
                         dfd.resolve();
                     } else {
@@ -246,21 +255,31 @@ GS.form.EspForm = function() {
         return dfd.promise();
     };
 
-    this.handleValidationResponse = function(fieldSelector, fieldName, data) {
+    this.handleValidationResponse = function(fieldSelector, fieldName, data, elem) {
         var fieldError = jQuery(fieldSelector + '.invalid');
         var fieldValid = jQuery(fieldSelector + '.success');
 
+        GS.form.espForm.removeWarningClassFromElem(elem);
         fieldError.hide();
         fieldValid.hide();
 
         if (data && data[fieldName]) {
             fieldError.html('<span class="sprite i-alert vam"></span>&nbsp;' + data[fieldName]);
+            GS.form.espForm.addWarningClassToElem(elem);
             fieldError.show();
             return false;
         } else {
             fieldValid.show();
             return true;
         }
+    };
+
+    this.addWarningClassToElem = function(elem) {
+        elem.addClass("warning");
+    };
+
+    this.removeWarningClassFromElem = function(elem) {
+        elem.removeClass("warning");
     };
 
     this.registrationSubmit = function() {
@@ -274,7 +293,8 @@ GS.form.EspForm = function() {
             GS.form.espForm.validateRequiredFields('jobTitle'),
             GS.form.espForm.validateRequiredFields('stateAdd'),
             GS.form.espForm.validateRequiredFields('city'),
-            GS.form.espForm.validateSchool(),
+            GS.form.espForm.validateRequiredFields('school'),
+//            GS.form.espForm.validateSchool(),
             GS.form.espForm.validateStateSchoolUserUnique()
         ).done(
             function() {
@@ -300,10 +320,12 @@ jQuery(function() {
 
     jQuery('#js_stateAdd').change(function() {
         GS.form.espForm.stateChange();
+        GS.form.espForm.validateRequiredFields('stateAdd');
     });
 
     jQuery('#js_city').change(function() {
         GS.form.espForm.cityChange();
+        GS.form.espForm.validateRequiredFields('city');
     });
 
     jQuery('#js_email').blur(
@@ -334,8 +356,10 @@ jQuery(function() {
     jQuery('#js_jobTitle').change(function() {
         GS.form.espForm.validateRequiredFields('jobTitle');
     });
-    jQuery('#js_school').change(GS.form.espForm.validateSchool);
-
+//    jQuery('#js_school').change(GS.form.espForm.validateSchool);
+    jQuery('#js_school').change(function() {
+        GS.form.espForm.validateRequiredFields('school');
+    });
 
     //Bind the new click handler which validates all the visible fields and submits the form if everything is valid.
     jQuery('#js_submit').click(
@@ -343,5 +367,4 @@ jQuery(function() {
     );
 
 });
-
 
