@@ -24,6 +24,9 @@
                     GSType.hover.emailNotValidated.show();
                 });
             });
+            function addWarningToInputs(elem) {
+                elem.addClass('warning');
+            }
         </script>
     </head>
 
@@ -57,6 +60,9 @@
                                         <div class="grid_5 omega">
                                             <!--<form:errors path="email" cssClass="error" />-->
                                             <form:errors path="email">
+                                                <script type="text/javascript">
+                                                    addWarningToInputs(jQuery('#js_email'));
+                                                </script>
                                                 <c:forEach items="${messages}" var="message">
                                                     <div class="error" style="display:block">
                                                         <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
@@ -70,12 +76,15 @@
                                         <form:label path="password" cssClass="alpha grid_4">Password </form:label>
 
                                         <div class="grid_6">
-                                            <form:password path="password" cssClass="text input_6"/>
+                                            <form:password path="password" cssClass="text input_6" id="js_password"/>
                                         </div>
 
                                         <div class="grid_5 omega ">
                                             <!--<form:errors path="password" cssClass="error" />-->
                                             <form:errors path="password">
+                                                <script type="text/javascript">
+                                                    addWarningToInputs(jQuery('#js_password'));
+                                                </script>
                                                 <c:forEach items="${messages}" var="message">
                                                     <div class="error" style="display:block">
                                                         <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
