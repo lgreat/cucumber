@@ -15,6 +15,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+import gs.data.admin.cobrand.ICobrandDao;
+import gs.data.admin.cobrand.Cobrand;
+import gs.data.json.IJSONDao;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
+import gs.data.json.JSONArray;
+import java.net.*;
+import java.io.*;
+
 /**
  * Workflow for adding external data point with 1-to-1 form-to-database mapping:
  * 1) Add key to getKeysForExternalData
@@ -26,12 +35,16 @@ import java.util.*;
 @Component("espFormExternalDataHelper")
 public class EspFormExternalDataHelper {
     private static final Log _log = LogFactory.getLog(EspFormExternalDataHelper.class);
+    private static final String G_GEO_SUCCESS = "200";
 
     @Autowired
     private ISchoolDao _schoolDao;
     @Autowired
     private ICensusDataSetDao _dataSetDao;
-
+    @Autowired
+    private ICobrandDao _cobrandDao;
+    @Autowired
+    private IJSONDao _jsonDao;
     /**
      * Fetch the keys whose values live outside of esp_response and put them in responseMap
      * (overwriting existing keys if present).
@@ -205,6 +218,8 @@ public class EspFormExternalDataHelper {
             if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet())) {
                 _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
                 school.getPhysicalAddress().setStreet((address.getStreet()));
+                //Todo
+                setSchoolLatLon(school);
                 saveSchool(school, user, now);
             }
             return null;
@@ -242,6 +257,81 @@ public class EspFormExternalDataHelper {
             dataSet = _dataSetDao.createDataSet(school.getDatabaseState(), censusDataType, 0, null, null);
         }
         return dataSet;
+    }
+
+    /**
+     * Calculate the new lat, lon if the school address has been changed by the user.
+     */
+    void setSchoolLatLon(School school) {
+        Float lat = null;
+        Float lon = null;
+
+        if (school != null && school.getPhysicalAddress() != null) {
+            Address schoolAddress = school.getPhysicalAddress();
+
+            if (StringUtils.isNotBlank(schoolAddress.getStreet()) && StringUtils.isNotBlank(schoolAddress.getCity())
+                    && schoolAddress.getState() != null && StringUtils.isNotBlank(schoolAddress.getZip())) {
+
+                String address = schoolAddress.getStreet() + "," + schoolAddress.getCity() + "," + schoolAddress.getState().toString() + "," + schoolAddress.getZip();
+                try {
+                    String geocodeUrl = "http://maps.google.com/maps/geo?q=" + URLEncoder.encode(address, "UTF-8") +
+                            "&output=json&sensor=false" + (getGoogleApiKey() != null ? "&key=" + getGoogleApiKey() : "");
+                    URL url = new URL(geocodeUrl);
+                    JSONObject result = _jsonDao.fetch(url, "UTF-8");
+                    JSONObject status = result.getJSONObject("Status");
+                    String code = status.getString("code");
+
+                    if (G_GEO_SUCCESS.equals(code)) {
+                        JSONArray placemarks = result.getJSONArray("Placemark");
+
+                        if (placemarks.length() == 1) {
+                            JSONObject firstMatch = placemarks.getJSONObject(0);
+                            JSONObject addressDetails = firstMatch.getJSONObject("AddressDetails");
+                            JSONObject country = addressDetails.getJSONObject("Country");
+                            // get the state
+                            JSONObject adminArea = country.getJSONObject("AdministrativeArea");
+                            String stateAbbrev = adminArea.getString("AdministrativeAreaName");
+                            // Extra check to ensure that the geo coded state is the same as the school state.
+
+                            if (StringUtils.isNotBlank(stateAbbrev) && school.getStateAbbreviation() != null
+                                    && stateAbbrev.equals(school.getStateAbbreviation().getAbbreviation())) {
+                                JSONObject point = firstMatch.getJSONObject("Point");
+                                JSONArray coordinates = point.getJSONArray("coordinates");
+                                if (coordinates.length() == 3) {
+                                    lon = Float.parseFloat(coordinates.getString(0));
+                                    lat = Float.parseFloat(coordinates.getString(1));
+                                }
+                            }
+                        }
+                    }
+
+                } catch (IOException ioE) {
+                    _log.error("IO Exception while geo coding " + ioE);
+                } catch (JSONException jsonE) {
+                    _log.error("JSON Exception while geo coding " + jsonE);
+                } catch (Exception e) {
+                    _log.error("Exception while geo coding " + e);
+                } finally {
+                    System.out.println("lat------------"+lat);
+                    System.out.println("lon------------"+lon);
+                    school.setLat(lat);
+                    school.setLon(lon);
+                }
+            }
+        }
+    }
+
+    protected String getGoogleApiKey() {
+        String googleApiKey;
+        //TODO what should the server name be?
+        //TODO move this into a more common place.
+        Cobrand c = _cobrandDao.getCobrandByHostname("dev.greatschools.org");
+        if (c == null) {
+            return null;
+        } else {
+            googleApiKey = c.getGoogleMapsKey();
+        }
+        return googleApiKey;
     }
 
     /**
