@@ -154,11 +154,9 @@ GS.form.EspForm = function() {
         var dfd = jQuery.Deferred();
 
         fieldError.hide();
-        GS.form.espForm.removeWarningClassFromElem(field);
 
         if (fieldVal === '' || fieldVal === undefined || fieldVal === '-1' || fieldVal === '0' || fieldVal === 'My city is not listed') {
             fieldError.show();
-            GS.form.espForm.addWarningClassToElem(field);
             dfd.reject();
         } else {
             dfd.resolve();
