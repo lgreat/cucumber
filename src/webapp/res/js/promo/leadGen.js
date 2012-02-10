@@ -64,20 +64,15 @@ GS.form.LeadGenCampaign = function() {
                         wrapper.find('.js_leadGenThankYou').show();
                     } else {
                         if (data.indexOf('email') > -1) {
-                            wrapper.find('.js_leadGenError-email').show();
-                        } else {
-                            if (data.indexOf('firstName') > -1) {
-                                wrapper.find('.js_leadGenError-all').show();
-                            }
-                            if (data.indexOf('lastName') > -1) {
-                                wrapper.find('.js_leadGenError-all').show();
-                            }
-                            if (data.indexOf('zip') > -1) {
-                                wrapper.find('.js_leadGenError-all').show();
-                            }
-                            if (data.indexOf('childsAge') > -1) {
-                                wrapper.find('.js_leadGenError-all').show();
-                            }
+                            wrapper.find('.js_leadGenError-all').show();
+                        } else if (data.indexOf('firstName') > -1) {
+                            wrapper.find('.js_leadGenError-all').show();
+                        } else if (data.indexOf('lastName') > -1) {
+                            wrapper.find('.js_leadGenError-all').show();
+                        } else if (data.indexOf('zip') > -1) {
+                            wrapper.find('.js_leadGenError-all').show();
+                        } else if (data.indexOf('childsAge') > -1) {
+                            wrapper.find('.js_leadGenError-all').show();
                         }
 
                         submitButton.show();
