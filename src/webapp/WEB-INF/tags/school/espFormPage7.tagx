@@ -15,7 +15,7 @@
                 <div class="grid_5 suffix_1">
                     <gsml:input styleId="form_physical_address_street" styleClass="text input_6" type="text"
                                 name="physical_address_street"
-                                value="${responseMap['physical_address_street'].value}" readonly="${stateLocked}"/>
+                                value="${responseMap['physical_address_street'].value}" disabled="${stateLocked}"/>
 
                 </div>
                 <div style="display: none" class="grid_6 omega error" id="form_physical_address_street_error">
@@ -27,12 +27,12 @@
                 <div class="alpha prefix_5 grid_4">
                     <gsml:input styleId="form_physical_address_city" styleClass="text input_6" type="text"
                                 name="physical_address_city"
-                                value="${responseMap['physical_address_city'].value}" readonly="${true}"/>
+                                value="${responseMap['physical_address_city'].value}" disabled="${true}"/>
                 </div>
                 <div class="grid_2 suffix_12 omega">
                     <gsml:input styleId="form_physical_address_zip" styleClass="text input_2" type="text"
                                 name="physical_address_zip"
-                                value="${responseMap['physical_address_zip'].value}" readonly="${true}"/>
+                                value="${responseMap['physical_address_zip'].value}" disabled="${true}"/>
                 </div>
             </div>
 
@@ -44,21 +44,21 @@
                     <gsml:input styleId="form_school_phone_area_code" styleClass="text digits_3" type="text"
                                 name="school_phone_area_code"
                                 maxlength="3" value="${responseMap['school_phone_area_code'].value}"
-                                readonly="${stateLocked}"/>
+                                disabled="${stateLocked}"/>
 
                     <span> - </span>
 
                     <gsml:input styleId="form_school_phone_office_code" styleClass="text digits_3" type="text"
                                 name="school_phone_office_code"
                                 maxlength="3" value="${responseMap['school_phone_office_code'].value}"
-                                readonly="${stateLocked}"/>
+                                disabled="${stateLocked}"/>
 
                     <span> - </span>
 
                     <gsml:input styleId="form_school_phone_last_four" styleClass="text digits_4" type="text"
                                 name="school_phone_last_four"
                                 maxlength="4" value="${responseMap['school_phone_last_four'].value}"
-                                readonly="${stateLocked}"/>
+                                disabled="${stateLocked}"/>
                 </div>
             </div>
 
@@ -69,19 +69,19 @@
                 <div class="grid_4 suffix_14 omega wsnw">
                     <gsml:input styleId="form_school_fax_area_code" styleClass="text digits_3" type="text"
                                 name="school_fax_area_code" maxlength="3"
-                                value="${responseMap['school_fax_area_code'].value}" readonly="${stateLocked}"/>
+                                value="${responseMap['school_fax_area_code'].value}" disabled="${stateLocked}"/>
 
                     <span> - </span>
 
                     <gsml:input styleId="form_school_fax_office_code" styleClass="text digits_3" type="text"
                                 name="school_fax_office_code" maxlength="3"
-                                value="${responseMap['school_fax_office_code'].value}" readonly="${stateLocked}"/>
+                                value="${responseMap['school_fax_office_code'].value}" disabled="${stateLocked}"/>
 
                     <span> - </span>
 
                     <gsml:input styleId="form_fax_phone_last_four" styleClass="text digits_4" type="text"
                                 name="school_fax_last_four" maxlength="4"
-                                value="${responseMap['school_fax_last_four'].value}" readonly="${stateLocked}"/>
+                                value="${responseMap['school_fax_last_four'].value}" disabled="${stateLocked}"/>
                 </div>
             </div>
 
@@ -118,7 +118,7 @@
 
                 <div class="grid_6 suffix_12 omega">
                     <input type="text" value="${responseMap['administrator_name'].value}" id="form_administrator_name"
-                           name="administrator_name" class="text input_6" />
+                           name="administrator_name" class="text input_6" disabled="${stateLocked}"/>
                 </div>
             </div>
 
@@ -127,7 +127,7 @@
 
                 <div class="grid_5 suffix_1">
                     <input type="text" value="${responseMap['administrator_email'].value}" id="form_administrator_email"
-                           name="administrator_email" class="text input_6"/>
+                           name="administrator_email" class="text input_6" disabled="${stateLocked}"/>
 
                     <p class="hint">Example: leader@school.edu</p>
                 </div>

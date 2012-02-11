@@ -15,7 +15,7 @@
 
         <div class="grid_4">
             <gsml:input styleId="form_student_enrollment" type="text" styleClass="text input_3" name="student_enrollment"
-                        value="${responseMap['student_enrollment'].value}" maxlength="4" readonly="${stateLocked}"
+                        value="${responseMap['student_enrollment'].value}" maxlength="4" disabled="${stateLocked}"
                         placeholder="[Enter number]"/>
             <p class="hint">Number of students enrolled</p>
         </div>
@@ -130,7 +130,7 @@
                                 styleClass="mls text input_4"
                                 name="school_type_affiliation_other"
                                 value="${responseMap['school_type_affiliation_other'].value}"
-                                readonly="${stateLocked}"/>
+                                disabled="${stateLocked}"/>
                 </div>
             </div>
         </div>

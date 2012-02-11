@@ -31,7 +31,7 @@
                     </div>
                     <div class="clear"><!--Do not collapse--></div>
                     <c:if test="${stateLocked}">
-                        <p>
+                        <p class="alert">
                             We are currently updating your state's data, so some of this school's information
                             is temporarily unavailable for editing. If you need to edit information that is
                             unavailable, please try again in two weeks. We apologize for the inconvenience.
