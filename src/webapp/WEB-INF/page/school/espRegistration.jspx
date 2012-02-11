@@ -63,15 +63,30 @@
 
         <div class="grid_5 omega">
             <div id="js_invalidEmail" class="error js_emailErr" style="display: none;">
-                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter your official school email address.
+                <div class="mediaExt1-1">
+                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                    <div class="bk">Please enter your official school email address.</div>
+                </div>
             </div>
 
             <div id="js_uniqueError" class="error" style="display: none;">
-                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You already have access to this school's Official School Profile. <link:schoolEspSignIn>Sign in</link:schoolEspSignIn> to your account.
+                <div class="mediaExt1-1">
+                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                    <div class="bk">You already have access to this school's Official School Profile.
+                        <link:schoolEspSignIn>Sign in</link:schoolEspSignIn> to your account.
+                    </div>
+                </div>
             </div>
+
             <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
-                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.
+                <div class="mediaExt1-1">
+                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                    <div class="bk">You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.</div>
+                </div>
             </div>
 
         </div>
@@ -93,8 +108,13 @@
 
             <div class="grid_5 omega">
                 <div class="js_screenName success" style="display: none">
-                    <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Username is available
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
+
+                        <div class="bk">Username is available</div>
+                    </div>
                 </div>
+
                 <div class="js_screenName invalid error"
                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             </div>
@@ -113,8 +133,13 @@
 
             <div class="grid_5 omega">
                 <div class="js_password success" style="display: none;">
-                    <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Password is available
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
+
+                        <div class="bk">Password is available</div>
+                    </div>
                 </div>
+
                 <div class="js_password invalid error"
                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             </div>
@@ -132,8 +157,13 @@
 
             <div class="grid_5 omega">
                 <div class="js_confirmPassword success" style="display: none;">
-                    <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Password match confirmed
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
+
+                        <div class="bk">Password match confirmed</div>
+                    </div>
                 </div>
+
                 <div class="js_confirmPassword invalid error"
                      style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             </div>
@@ -160,7 +190,11 @@
             </div>
             <div class="prefix_1 grid_5 omega">
                 <div class="js_stateAdd invalid error">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select a state.
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                        <div class="bk">Please select a state.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -181,7 +215,11 @@
 
             <div class="prefix_1 grid_5 omega">
                 <div class="js_city invalid error">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select a city.
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                        <div class="bk">Please select a city.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -202,7 +240,11 @@
 
             <div class="grid_5 omega">
                 <div class="js_school invalid error">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please select the school with which you are affiliated.
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                        <div class="bk">Please select the school with which you are affiliated.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -225,8 +267,13 @@
 
                 <div class="grid_5 omega">
                     <div class="js_firstName success" style="display: none;">
-                        <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Updated first name
+                        <div class="mediaExt1-1">
+                            <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
+
+                            <div class="bk">Updated first name</div>
+                        </div>
                     </div>
+
                     <div class="js_firstName invalid error" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                 </div>
             </div>
@@ -244,8 +291,13 @@
 
                 <div class="grid_5 omega">
                     <div class="js_lastName success" style="display: none;">
-                        <span class="sprite checkmark vam"><!-- do not collapse --></span>&amp;nbsp;Updated last name
+                        <div class="mediaExt1-1">
+                            <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
+
+                            <div class="bk">Updated last name</div>
+                        </div>
                     </div>
+
                     <div class="js_lastName invalid error" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
                 </div>
             </div>
@@ -279,7 +331,11 @@
 
             <div class="prefix_1 grid_5 omega">
                 <div class="js_jobTitle invalid error" style="display: none;">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please specify your job title.
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                        <div class="bk">Please specify your job title.</div>
+                    </div>
                 </div>
             </div>
         </div>

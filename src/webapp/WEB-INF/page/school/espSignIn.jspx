@@ -65,7 +65,11 @@
                                                 </script>
                                                 <c:forEach items="${messages}" var="message">
                                                     <div class="error" style="display:block">
-                                                        <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                        <div class="mediaExt1-1">
+                                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                                                            <div class="bk">${message}</div>
+                                                        </div>
                                                     </div>
                                                 </c:forEach>
                                             </form:errors>
@@ -87,7 +91,11 @@
                                                 </script>
                                                 <c:forEach items="${messages}" var="message">
                                                     <div class="error" style="display:block">
-                                                        <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;${message}
+                                                        <div class="mediaExt1-1">
+                                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                                                            <div class="bk">${message}</div>
+                                                        </div>
                                                     </div>
                                                 </c:forEach>
                                             </form:errors>
