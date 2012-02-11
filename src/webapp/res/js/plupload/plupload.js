@@ -1041,7 +1041,12 @@
                     for (i = 0; i < selected_files.length; i++) {
                         // LIMIT OF ACTUAL ADD QUEUE
                         // if there are more files settings.max_actual_queue dont add to array.
-                        if(settings.max_actual_queue !== undef && files.length == settings.max_actual_queue){ // NEW
+                        var numberExistingPhotos = 0;
+                        if (typeof pollingPhotoViewer != 'undefined') {
+                            numberExistingPhotos = pollingPhotoViewer.numberPhotos;
+                        }
+
+                        if(settings.max_actual_queue !== undef && files.length + numberExistingPhotos >= settings.max_actual_queue){ // NEW
                             // Exirt of each
                             alert(plupload.translate('You can upload a maximum of only ' + settings.max_actual_queue + ' photos.'));
                             break;

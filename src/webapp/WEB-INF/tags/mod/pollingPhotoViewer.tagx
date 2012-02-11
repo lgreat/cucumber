@@ -16,20 +16,15 @@
 
         <div id="pollingPhotoViewer">
             <div style="display:none;" id="js-photo-template" class="polling-photo-viewer-item">
-                <span class="js-deletePhoto deletePhoto">X</span> |
-                <span class="js-makePhotoActive">Activate photo</span>
-
                 <img id="js-photo-placeholder"
                       class="js-photo-pending"
                       src="/res/img/pending-photo.png"
                       width="75" height="75"
                       alt="placeholder"/>
+                <span class="js-deletePhoto deletePhoto">X</span>
             </div>
             <c:forEach items="${existingPhotos}" var="existingPhoto">
                 <div id="js-pollingPhotoViewerItem-${existingPhoto.id}" class="polling-photo-viewer-item">
-                    <span class="js-deletePhoto deletePhoto">X</span> |
-                    <span class="js-makePhotoActive">Activate photo</span>
-
                     <c:choose>
                         <c:when test="${existingPhoto.status eq 1}">
                             <img id="js-photo-${existingPhoto.id}"
@@ -46,7 +41,7 @@
                                  alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
                         </c:otherwise>
                     </c:choose>
-
+                    <span class="js-deletePhoto deletePhoto">X</span>
                 </div>
             </c:forEach>
 
@@ -64,7 +59,7 @@
 
     <script type="text/javascript">
         jQuery(function() {
-            var pollingPhotoViewer = new GS.PollingPhotoViewer('pollingPhotoViewer', '${url}', ${schoolId}, '${schoolDatabaseState}');
+            pollingPhotoViewer = new GS.PollingPhotoViewer('pollingPhotoViewer', '${url}', ${schoolId}, '${schoolDatabaseState}');
             pollingPhotoViewer.init();
         });
     </script>

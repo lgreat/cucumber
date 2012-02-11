@@ -8,6 +8,7 @@ import gs.data.security.Role;
 import gs.data.state.INoEditDao;
 import gs.data.state.State;
 import gs.data.util.Address;
+import gs.data.util.CommunityUtil;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -54,6 +55,7 @@ public class EspFormController implements ReadWriteAnnotationController {
     private EspFormValidationHelper _espFormValidationHelper;
     @Autowired
     private EspFormExternalDataHelper _espFormExternalDataHelper;
+    @Autowired SchoolMediaDaoHibernate _schoolMediaDao;
 
     // TODO: If user is valid but school/state is not, redirect to landing page
     @RequestMapping(value="form.page", method=RequestMethod.GET)
@@ -83,6 +85,11 @@ public class EspFormController implements ReadWriteAnnotationController {
         modelMap.put("page", (long)page);
         modelMap.put("maxPage", maxPage);
         modelMap.put("espSuperuser", user.hasRole(Role.ESP_SUPERUSER));
+
+        // required for photo uploader
+        modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
+        List<SchoolMedia> schoolMedias = _schoolMediaDao.getAllActiveAndPendingBySchool(school.getId(), school.getDatabaseState());
+        modelMap.put("schoolMedias", schoolMedias);
 
         putResponsesInModel(school, modelMap); // fetch responses for school, including external data
         putPercentCompleteInModel(school, modelMap);

@@ -15,7 +15,7 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
     this.uploader = null;
     this.uploadButton = jQuery('#jsPhotoUploadButton');
     this.queueButton = jQuery('#jsPhotoQueueButton');
-    this.container = jQuery('#container');
+    this.container = jQuery('#photo-upload-container');
     this.spinner = jQuery('.js-photoUploaderSpinner');
     this.uploadCompleteOverlay = jQuery('#jsUploadComplete');
     this.uploadErrorOverlay = jQuery('#jsUploadError');
@@ -35,7 +35,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.uploader = new plupload.Uploader({
         runtimes : 'gears,html5,flash,silverlight,browserplus',
         browse_button : 'jsPhotoQueueButton',
-        container: 'container',
+        container: 'photo-upload-container',
         max_file_size : '20mb',
         max_gif_file_size : '2mb',
         max_actual_queue : this.maxQueuedItems,
@@ -188,7 +188,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.filesQueued = function(up, files) {
         var index = 0;
         var htmlblock = '';
-        var tbody = jQuery ('#container table tbody');
+        var tbody = jQuery ('#photo-upload-container table tbody');
 
         if (this.totalItemsInList === this.maxQueuedItems) {
             return;
@@ -205,7 +205,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
                 // when the item's delete icon is clicked, tell the uploader to remove it from the queue, and delete it
                 // from the list
                 jQuery('#' + file.id + ' .deleteFileUpload').click(function() {
-                    console.log('deleting item with file id' + file.id);
                     self.uploader.removeFile(file);
                     self.removeItem(file.id);
                 });
@@ -291,6 +290,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
 
     this.STATUS_ACTIVE = 'active';
     this.STATUS_PENDING = 'pending';
+    this.numberPhotos = 0;
     this.numberPending = 0;
     this.numberActive = 0;
     this.IMG_ID_PREFIX = 'js-photo-';
@@ -298,20 +298,45 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.pollFrequency = 5000; //ms
     var pollingPhotoViewerSelf = this;
 
-    this.deletePhoto = function(schoolMedia) {
-        var pollingPhotoViewerItem = jQuery(schoolMedia).parent();
+    this.deletePhoto = function(deleteTrigger) {
+        var pollingPhotoViewerItem = jQuery(deleteTrigger).parent();
         var photoId = pollingPhotoViewerItem.prop('id').substring(26, pollingPhotoViewerItem.prop('id').length);
-        GSType.hover.photoDeleteConfirmation.updateHoverWithImage(jQuery(schoolMedia).siblings('img').clone());
-        GSType.hover.photoDeleteConfirmation.show(photoId, this.schoolId, this.schoolDatabaseState);
+        GSType.hover.photoDeleteConfirmation.updateHoverWithImage(jQuery(deleteTrigger).siblings('img').clone());
+        GSType.hover.photoDeleteConfirmation.show(function() {
+            var data = {
+                schoolMediaId:photoId,
+                schoolId:this.schoolId,
+                schoolDatabaseState:this.schoolDatabaseState,
+                _method:"DELETE"
+            };
+
+            var jqxhr = jQuery.ajax({
+                url:'/photoUploader/photoUploaderTest.page',
+                type:'POST',
+                data:data
+            }).fail(function() {
+                alert("Sorry, an error occurred trying to delete the photo. Please try again soon.");
+            }).done(function() {
+                var id = '#js-photo-' + photoId;
+                jQuery(id).parent().remove();
+                if ($(pollingPhotoViewerItem).find('.js-photo-pending').length > 0) {
+                    this.numberPending--;
+                } else if ($(pollingPhotoViewerItem).find('.js-photo-active').length > 0) {
+                    this.numberActive--;
+                }
+                GSType.hover.photoDeleteConfirmation.hide();
+            });
+        }.gs_bind(this));
     }.gs_bind(this);
 
     this.init = function() {
-        this.numberPending = this.container.find('.js-photo-pending').length;
+        this.numberPending = this.container.find('.js-photo-pending').not('#js-photo-placeholder').length;
         this.numberActive = this.container.find('.js-photo-active').length;
+        this.numberPhotos = this.numberPending + this.numberActive;
         setTimeout(this.poll, this.pollFrequency);
     }.gs_bind(this);
 
-    this.container.on('click','.js-makePhotoActive',function() {
+    /*this.container.on('click','.js-makePhotoActive',function() {
         var pollingPhotoViewerItem = jQuery(this).parent();
         var schoolMediaId = pollingPhotoViewerItem.prop('id').substring(26, pollingPhotoViewerItem.prop('id').length);
 
@@ -329,7 +354,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
         }).done(function() {
                     console.log("done with PUT call");
                 });
-    });
+    });*/
 
     this.container.on('click', '.js-deletePhoto', function() {
         pollingPhotoViewerSelf.deletePhoto(this);
@@ -338,9 +363,6 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.poll = function() {
 
         var self = this;
-        if (this.numberPending === 0) {
-            return;
-        }
 
         var jqxhr = jQuery.ajax({
             url:pollingPhotoViewerSelf.url,
@@ -353,6 +375,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
             var photos = data.schoolMedias;
 
             if (photos !== undefined) {
+                self.numberPhotos = photos.length;
                 for (i = 0; i < photos.length; i++) {
                     var imgId = self.IMG_ID_PREFIX + photos[i].id;
                     var domPhoto = self.container.find('#' + imgId);

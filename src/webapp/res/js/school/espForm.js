@@ -8,7 +8,7 @@ GS.form = GS.form || {};
 // TODO: how to maintain state when event handler executes on multiple elements, to reduce number of iterations necessary
 // to be able to correctly show/hide the "selectorOfElementToControl"
 GS.form.controlVisibilityOfElement = function(selectorOfElementToControl, masterFieldSelector, value, options) {
-    // match any and match all only compatable with checkboxes
+    // matchAll only compatible with checkboxes, matchAny should be set if dealing with radio buttons
     var matchAny = (options !== undefined && options.matchAny === true);
     var matchAll = (options !== undefined && options.matchAll === true);
 
@@ -476,7 +476,7 @@ new (function() {
         $('#form_grade_levels_pk').change(); // trigger k3_offered and k3_offered update
         */
         GS.form.controlVisibilityOfElement('#form_k3_offered_group, #form_k4_offered_group', '#form_grade_levels_pk, #form_grade_levels_kg', true, {matchAny:true});
-        GS.form.controlVisibilityOfElement('#form_school_type_affiliation_group', '[name=school_type]', 'private');
+        GS.form.controlVisibilityOfElement('#form_school_type_affiliation_group', '[name=school_type]', 'private', {matchAny:true});
         GS.form.controlVisibilityOfElement('#form_age_pk_start_group', '#form_grade_levels_pk', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care_before', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);

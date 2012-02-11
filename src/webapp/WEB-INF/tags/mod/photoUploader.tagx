@@ -10,7 +10,7 @@
     <jsp:directive.attribute name="schoolId" required="true" type="java.lang.Integer" />
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
 
-    <div id="container">
+    <div id="photo-upload-container">
         <span id="jsUploadComplete" style="display: none; float:left;">
             Upload complete.
         </span>

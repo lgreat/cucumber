@@ -7,22 +7,16 @@
 
     <script type="text/javascript">
         GSType.hover.PhotoDeleteConfirmation = function() {
-            this.schoolMediaId = '';
-            this.schoolId = '';
-            this.schoolDatabaseState = '';
+            this.confirmCallback = function() {};
 
-            this.loadDialog = function() {
-                //this.dialogByWidth();
-            };
+            this.loadDialog = function() {};
 
-            this.show = function(schoolMediaId, schoolId, schoolDatabaseState) {
+            this.show = function(confirmCallback) {
                 if (!this.initialized) {
                     this.dialogByWidth();
                     this.initialized = true;
                 }
-                GSType.hover.photoDeleteConfirmation.schoolMediaId = schoolMediaId;
-                GSType.hover.photoDeleteConfirmation.schoolId = schoolId;
-                GSType.hover.photoDeleteConfirmation.schoolDatabaseState = schoolDatabaseState;
+                GSType.hover.photoDeleteConfirmation.confirmCallback = confirmCallback;
                 jQuery('#' + this.hoverId).dialog('open');
                 return false;
             };
@@ -37,24 +31,7 @@
         jQuery(function() {
 
             jQuery('#submitPhotoDeleteConfirmation').click(function() {
-                var data = {
-                    schoolMediaId:GSType.hover.photoDeleteConfirmation.schoolMediaId.toString(),
-                    schoolId:GSType.hover.photoDeleteConfirmation.schoolId.toString(),
-                    schoolDatabaseState:GSType.hover.photoDeleteConfirmation.schoolDatabaseState.toString(),
-                    _method:"DELETE"
-                };
-
-                var jqxhr = jQuery.ajax({
-                    url:'/photoUploader/photoUploaderTest.page',
-                    type:'POST',
-                    data:data
-                }).fail(function() {
-                    alert("Sorry, an error occurred trying to delete the photo. Please try again soon.");
-                }).done(function() {
-                    var id = '#js-photo-' + GSType.hover.photoDeleteConfirmation.schoolMediaId;
-                    jQuery(id).parent().remove();
-                    GSType.hover.photoDeleteConfirmation.hide();
-                });
+                GSType.hover.photoDeleteConfirmation.confirmCallback();
             });
 
             jQuery('#photoDeleteConfirmationForm').submit(function () {

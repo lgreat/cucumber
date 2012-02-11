@@ -35,6 +35,54 @@
                 border: 1px solid #00ff00;
             }
         </style>
+        <style type="text/css">
+
+            #photoUploaderButtons {
+                background-color:#EBEBEB;
+                padding:6px;
+            }
+
+            #photoUploaderSpinner {
+                display:none;
+                position:relative;
+                left: 235px;
+                top: -25px;
+            }
+
+            #jsUploadComplete, #jsUploadError {
+                display: none;
+                position: relative;
+                padding: 8px;
+                border: 1px solid #808080;
+                color:green;
+                width: 115px;
+                left: 180px;
+                top: 70px;
+                background: #fafafa;
+                font-weight: bold;
+                float:left;
+            }
+
+            #jsUploadError {
+                color: red;
+            }
+
+            .polling-photo-viewer-item {
+                width:100px;
+                height:75px;
+                min-width:100px;
+                min-height: 75px;
+                display:block;
+                float:left;
+                margin-bottom: 25px;
+            }
+
+            .polling-photo-viewer-item img, #photoConfirmationImagePlaceholder img {
+                border:1px solid grey;
+                min-height: 75px;
+                display:block;
+            }
+        </style>
         <script type="text/javascript">
             var GS = GS || {};
             GS.espForm = GS.espForm || {};
@@ -48,6 +96,10 @@
         </script>
         <pageHelper:externalJavascript file="/res/js/history.min.js"/>
         <pageHelper:externalJavascript file="/res/js/school/espForm.js"/>
+
+
+
+
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
