@@ -212,7 +212,7 @@
               <school:espCheckboxWithLabel key="student_clubs" value="girls_on_the_run" label="Girls on the Run"/>
               <school:espCheckboxWithLabel key="student_clubs" value="habitat" label="Habitat for Humanity"/>
               <school:espCheckboxWithLabel key="student_clubs" value="homework_help" label="Homework help/study buddy club"/>
-              <school:espCheckboxWithLabel key="student_clubs" value="its_academic" label="It’s Academic"/>
+              <school:espCheckboxWithLabel key="student_clubs" value="its_academic" label="It's Academic"/>
               <school:espCheckboxWithLabel key="student_clubs" value="jrotc" label="JROTC"/>
               <school:espCheckboxWithLabel key="student_clubs" value="lesbian_gay_transgender" label="Lesbian, gay, transgender club"/>
               <school:espCheckboxWithLabel key="student_clubs" value="literary_mag" label="Literary magazine"/>
