@@ -19,14 +19,14 @@
 <pageHelper:externalJavascript file="/res/js/school/espRegistration.js"/>
 
 <head>
-    <title>Official School Profile - Register</title>
+    <title>Official School Profile - Request an account</title>
     <jsp:scriptlet>
         request.setAttribute("userLoggedIn",
                 Boolean.valueOf(gs.web.util.PageHelper.isCommunityCookieSet(request)));
     </jsp:scriptlet>
 </head>
 
-<gsml:body adPageName="ESP/registration" pageLayout="nocol">
+<gsml:body adPageName="OSP/registration" pageLayout="nocol">
 <div class="spacer_20"><!-- do not collapse --></div>
 <div class="container_24 slStylesV1-0 slFormsV1-0">
 
@@ -402,7 +402,7 @@
 <div class="spacer_60"><!-- do not collapse --></div>
 
 <div style="display:none;">
-    <mod:tracking pageName="ESP Registration Page"
+    <mod:tracking pageName="OSP Registration Page"
                   hier1="ESP"/>
 </div>
 

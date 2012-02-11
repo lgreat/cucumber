@@ -15,7 +15,7 @@
 
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <title>Admin ESP Moderation${isPendingView ? ' - Pending' : ''}</title>
+        <title>Admin OSP Moderation${isPendingView ? ' - Pending' : ''}</title>
 
         <style type="text/css">
         	.legend {
@@ -134,7 +134,7 @@
                 </form:form>
             </div>
         </div>
-        <div style="display:none;"><mod:tracking pageName="ESP Moderation" hier1="ESP"/></div>
+        <div style="display:none;"><mod:tracking pageName="OSP Moderation" hier1="ESP"/></div>
     </gsml:body>
 
     </html>

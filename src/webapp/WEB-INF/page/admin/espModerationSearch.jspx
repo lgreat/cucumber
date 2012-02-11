@@ -10,7 +10,7 @@
 <jsp:directive.page contentType="text/html" />
 <html lang="en">
 <head>
-<title>Admin ESP Moderation Search</title>
+<title>Admin OSP Moderation Search</title>
 
 <style type="text/css">
   .legend {
@@ -171,7 +171,7 @@
     </div>
   </div>
   <div style="display: none;">
-    <mod:tracking pageName="ESP Moderation" hier1="ESP" />
+    <mod:tracking pageName="OSP Moderation" hier1="ESP" />
   </div>
 </gsml:body>
 
