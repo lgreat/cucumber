@@ -142,7 +142,7 @@ GS.form.EspForm = function() {
     };
 
     this.showEmailError = function(errMsg, emailField) {
-        jQuery('#js_emailError').html(<div class="mediaExt1-1"><span class="iconx16 i-16-alert img"></span><div class="bk">' + errMsg + '</div></div>');
+        jQuery('#js_emailError').html('<div class="mediaExt1-1"><span class="iconx16 i-16-alert img"></span><div class="bk">' + errMsg + '</div></div>');
         GS.form.espForm.addWarningClassToElem(emailField);
         jQuery('#js_emailError').show();
     };
