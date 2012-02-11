@@ -136,7 +136,7 @@
                             </li>
                             <li class="${(page eq 3)?'selected':''} ${(percentComplete[3] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="3">
-                                    Apply &amp;amp; enroll
+                                    Applying &amp;amp; enrolling
                                 </link:schoolEspForm>
                             </li>
                             <li class="${(page eq 4)?'selected':''} ${(percentComplete[4] ge 100)?'completed':''}">
