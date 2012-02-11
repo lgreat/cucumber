@@ -51,7 +51,11 @@
             <div class="spacer_20"><!-- do not collapse --></div>
             <div class="grid_24">
                 <h1 class="fltlft">Your Official School Profile</h1>
-                <p class="small fltrt mtm"><a href="javascript:void(0);">Need Help?</a></p>
+
+                <div class="fltrt mtm">
+                    <span class="small mrm"><a href="javascript:void(0);">Need Help?</a></span>
+                    <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
+                </div>
             </div>
 
             <c:if test="${not empty school}">
