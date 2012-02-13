@@ -1,5 +1,9 @@
 package gs.web.community.registration;
 
+import gs.data.school.EspMembership;
+import gs.data.school.IEspMembershipDao;
+import gs.data.security.IRoleDao;
+import gs.data.security.Role;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -34,6 +38,8 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             "The email address you entered has already been registered with GreatSchools.";
 
     private IUserDao _userDao;
+    private IRoleDao _roleDao;
+    private IEspMembershipDao _espMembershipDao;
     private EmailVerificationEmail _emailVerificationEmail;
     private boolean _requireEmailValidation;
 
@@ -94,7 +100,19 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             if (_requireEmailValidation) {
                 user.setEmailProvisional("changeEmail");
             }
+
+            //If user is an ESP member then remove the role and set all esp memberships to inactive.
+            boolean isUserEspMember =  user.hasRole(Role.ESP_MEMBER);
+            if(isUserEspMember){
+                Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
+                user.removeRole(role);
+            }
             _userDao.updateUser(user);
+
+            if (isUserEspMember) {
+                _espMembershipDao.deactivateAllEspMembershipsForUser(user.getId());
+            }
+
             if (_requireEmailValidation) {
                 // GS-8865 If a user changes their email address and clicks save, the new email address should
                 // replace the old one in the database and we should send them the [verification email
@@ -142,6 +160,22 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         _requireEmailValidation = requireEmailValidation;
+    }
+
+    public IRoleDao getRoleDao() {
+        return _roleDao;
+    }
+
+    public void setRoleDao(IRoleDao roleDao) {
+        _roleDao = roleDao;
+    }
+
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
     }
 
     public static class ChangeEmailCommand implements EmailValidator.IEmail {

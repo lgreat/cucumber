@@ -63,6 +63,10 @@
                       <div class="spacer_5"><!-- do not collapse --></div>
                       <p class="text3">Please enter a new email address for your account in the form below. Keep in mind that you'll need to verify your new email before you're able to sign in again.</p>
 
+                      <gsml:ifUserHasEspRole pageUser="${requestScope.context.user}">
+                          Warning: If you change your email address you will lose school official's access to edit school information. You may request access again after changing your email address. Please contact us at gs_support@greatschools.org if you need assistance.
+                      </gsml:ifUserHasEspRole>
+
                       <gsweb:form action="/community/changeEmail.page" method="post">
                           <fieldset class="changeEmail">
                               <ul>
