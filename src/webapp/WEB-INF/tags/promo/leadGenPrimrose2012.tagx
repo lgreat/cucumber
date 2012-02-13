@@ -64,7 +64,7 @@
                         </div>
                     </fieldset>
                     <fieldset class="submit">
-                        <button class="button-2 jq-leadGenSubmit" type="submit">Request Information</button>
+                        <button class="button-2 jq-leadGenSubmit" type="submit">Submit</button>
                     </fieldset>
                 </form>
                 <div class="hidden jq-leadGenThankYou leadGenThankYou">

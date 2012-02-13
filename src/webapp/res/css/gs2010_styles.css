@@ -821,13 +821,13 @@ h4.subhead2 a {
 .sponsors .bd li{list-style: disc;}
 .sponsors .bd img{margin:0 0 0.75em;}
 /* ------ primrose (extends mod) ------- */
-.primrose .inner {margin:0;padding:0;width:300px;height:250px; background: #fef6df url(/res/img/primrose/primrose2012.gif) no-repeat;}
-.primrose .hd {width:300px; height:38px;}
-.primrose .leadGenErrors {width:300px; height:17px; position: relative;}
+.primrose .inner {margin:0;padding:0;width:300px;height:250px; background: #fef6df url(/res/img/primrose/primrose2012.jpg) no-repeat;}
+.primrose .hd {width:300px; height:42px;}
+.primrose .leadGenErrors {width:300px; height:15px; position: relative;}
 .primrose .jq-leadGenError-all {position: absolute; top: 0; left: 59px;}
 .primrose .bd label{font-size:10.5px; text-align:right; line-height:20px;}
 .primrose .bd input{margin:2px 3px;padding:0; height:11px;}
-.primrose .bd button{margin:5px 0 0 72px; background-color:#336799; font:11px Arial,Helvetica,sans-serif; }
+.primrose .bd button{margin:4px 0 0 72px; background-color:#336799; font:11px Arial,Helvetica,sans-serif; }
 .primrose .leadGenThankYou{width:180px;margin:3px 0 0 27px;font:16px/1.25 Georgia, "Times New Roman", Times, serif; color:#666633;}
 /* --------- kindercare (extends mod) ---------- */
 .kindercare .inner {margin:0;padding:0;width:300px;height:250px;}
