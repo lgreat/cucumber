@@ -18,7 +18,7 @@
         <c:set var="tabTitle_2" value="Instructional model"/>
         <c:set var="tabTitle_3" value="Applying &amp;amp; enrolling"/>
         <c:set var="tabTitle_4" value="Programs &amp;amp; resources"/>
-        <c:set var="tabTitle_5" value="Enrichment &amp;amp; extras"/>
+        <c:set var="tabTitle_5" value="Enrichment &amp;amp; extracurriculars"/>
         <c:set var="tabTitle_6" value="School culture"/>
         <c:set var="tabTitle_7" value="Contact info"/>
         <c:set var="tabTitle_8" value="Student info"/>
