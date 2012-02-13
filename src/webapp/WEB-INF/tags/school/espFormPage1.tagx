@@ -132,7 +132,7 @@
                 <div id="form_school_type_affiliation_group">
                     <school:espRadioWithLabel key="school_type_affiliation" value="independent" label="Independent"
                                               disabled="${stateLocked}"/>
-                    <school:espRadioWithLabel key="school_type_affiliation" value="religious_paroch" nobr="true"
+                    <school:espRadioWithLabel key="school_type_affiliation" value="religious" nobr="true"
                                               label="Religious / Parochial" disabled="${stateLocked}"/>
                     <label for="form_school_type_affiliation_other" class="mlm">Affiliation:</label>
                     <gsml:input styleId="form_school_type_affiliation_other" type="text"
@@ -150,9 +150,9 @@
             <p class="labelGroup">Is your school coeducational or single sex?</p>
         </div>
         <div class=" grid_16 omega">
-            <school:espRadioWithLabel key="coed" value="all_boys" label="All boys"/>
-            <school:espRadioWithLabel key="coed" value="all_girls" label="All girls"/>
-            <school:espRadioWithLabel key="coed" value="coed" label="Coed"/>
+            <school:espRadioWithLabel key="coed" value="all_boys" label="All boys" disabled="${stateLocked}"/>
+            <school:espRadioWithLabel key="coed" value="all_girls" label="All girls" disabled="${stateLocked}"/>
+            <school:espRadioWithLabel key="coed" value="coed" label="Coed" disabled="${stateLocked}"/>
         </div>
     </div>
 
