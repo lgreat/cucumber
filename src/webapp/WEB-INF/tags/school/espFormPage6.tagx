@@ -66,7 +66,7 @@
                     <school:espCheckboxWithLabel key="parent_involvement" value="after_school_req" label="Volunteer time after school"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="other" label="Other"
                                                  styleClass="js_otherField_form_parent_involvement_other" nobr="true"/>
-                    <input id="form_parent_involvement_other" class="mls js_otherField text input_4" type="text"
+                    <gsml:input styleId="form_parent_involvement_other" styleClass="mls js_otherField text input_4" type="text"
                            name="parent_involvement_other" value="${responseMap['parent_involvement_other'].value}"
                            maxlength="40" placeholder="[Please indicate]"/>
                 </div>
@@ -80,7 +80,7 @@
                     <div class="grid_6 omega">
                         <school:espRadioWithLabel key="school_colors" value="" label="None"/>
 
-                        <input id="form_school_colors" class="mls js_otherField text input_4" type="text"
+                        <gsml:input styleId="form_school_colors" styleClass="mls js_otherField text input_4" type="text"
                                name="school_colors" value="${responseMap['school_colors'].value}"
                                maxlength="40" placeholder="[Enter colors separated by commas]"/>
                         <p class="hint">Example: blue, gold</p>
@@ -96,7 +96,7 @@
                     <div class="grid_6 omega">
                         <school:espRadioWithLabel key="school_mascot" value="" label="None"/>
 
-                        <input id="form_school_mascot" class="mls js_otherField text input_4" type="text"
+                        <gsml:input styleId="form_school_mascot" styleClass="mls js_otherField text input_4" type="text"
                                name="school_mascot" value="${responseMap['school_mascot'].value}"
                                maxlength="40" placeholder="[Enter mascot name]"/>
                     </div>
@@ -130,7 +130,7 @@
                 <div class="grid_6 omega">
                     <school:espCheckboxWithLabel key="school_video" value="none" label="No videos to share at this time"/>
 
-                    <input id="form_school_video" class="mls js_otherField text input_4" type="text"
+                    <gsml:input styleId="form_school_video" styleClass="mls js_otherField text input_4" type="text"
                            name="school_video" value="${responseMap['school_video'].value}"
                            placeholder="[Paste video URL or web address here]"/>
                     <p class="hint">Example: http://youtu.be/schoolvideo</p>
@@ -143,7 +143,7 @@
                         <p class="labelGroup">Is there anything else you would like parents and students to know about your school?</p>
                     </div>
                     <div class="grid_6 omega">
-                        <input id="form_anything_else" class="mls js_otherField text input_4" type="text"
+                        <gsml:input styleId="form_anything_else" styleClass="mls js_otherField text input_4" type="text"
                                name="anything_else" value="${responseMap['anything_else'].value}"
                                maxlength="500"/>
                     </div>

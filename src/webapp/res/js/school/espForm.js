@@ -256,7 +256,7 @@ GS.validation.validateEmailFormat = function(email) {
     return GS.validation.EMAIL_PATTERN.test(email);
 };
 
-GS.validation.validateEmail = function(fieldSelector, errorSelector) {
+GS.validation.validateEmail = function(fieldSelector, errorSelector, required) {
     var pattern = /^(.+)@(.+)$/;
     var isValid = true;
     jQuery(errorSelector).hide();
@@ -268,7 +268,11 @@ GS.validation.validateEmail = function(fieldSelector, errorSelector) {
             // require each one to be numeric
             formFields.each(function() {
                var fieldVal = jQuery.trim(jQuery(this).val());
-               isValid = fieldVal.length > 0 && GS.validation.validateEmailFormat(fieldVal);
+                if (required === true) {
+                    isValid = fieldVal.length > 0 && GS.validation.validateEmailFormat(fieldVal);
+                } else {
+                    isValid = fieldVal.length === 0 || GS.validation.validateEmailFormat(fieldVal);
+                }
             });
         }
 
@@ -448,7 +452,7 @@ new (function() {
         // END PAGE 1
 
         var isValidAdministratorEmail =
-                GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error');
+                GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error', false);
 
         var isValidPhysicalAddressStreet = GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error');
 
