@@ -425,7 +425,7 @@ new (function() {
                 jQuery('#form_grade_levels_error').show();
                 return false;
             } else if (numChecked == 1) {
-                if (checkedLevels.filter('#form_grade_levels_pk').size() == 1) {
+                if (checkedLevels.filter('#form_grade_levels__pk').size() == 1) {
                     jQuery('#form_grade_levels_error').show();
                     return false;
                 }
