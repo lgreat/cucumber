@@ -12,9 +12,15 @@
     <jsp:directive.attribute name="disabled" required="false" type="java.lang.Boolean" description="Disable element" />
     <jsp:directive.attribute name="nobr" required="false" type="java.lang.Boolean" description="True if final br tag should be excluded" />
 
+    <jsp:useBean id="tuitionValues" class="java.util.ArrayList" scope="application" />
+    <jsp:scriptlet><![CDATA[
+      if(tuitionValues.size() == 0) {
+          for(int i = 0; i <= 20000; i+=1000) tuitionValues.add(i);
+          for(int i = 25000; i <= 40000; i+=5000) tuitionValues.add(i);
+      }
+    ]]></jsp:scriptlet>
+
     <c:set var="prefix" value="form"/>
-    <jsp:useBean id='currentDate' class='java.util.Date'/>
-    <fmt:formatDate var='currentYear' value='${currentDate}' pattern='yyyy'/>
     <c:set var="value" value="${responseMap[key].value}"/>
 
     <![CDATA[<select ]]>
@@ -24,13 +30,13 @@
     <c:if test="${disabled}"><c:out value=' disabled="disabled" ' escapeXml="false"/></c:if>
     <![CDATA[>]]>
       <option value="" disabled="disabled">${placeholder}</option>
-      <c:choose><c:when test="${value == currentYear-3}"><option selected="selected">${currentYear-3}</option></c:when><c:otherwise><option>${currentYear-3}</option></c:otherwise></c:choose>
-      <c:choose><c:when test="${value == currentYear-2}"><option selected="selected">${currentYear-2}</option></c:when><c:otherwise><option>${currentYear-2}</option></c:otherwise></c:choose>
-      <c:choose><c:when test="${value == currentYear-1}"><option selected="selected">${currentYear-1}</option></c:when><c:otherwise><option>${currentYear-1}</option></c:otherwise></c:choose>
-      <c:choose><c:when test="${value == currentYear}"><option selected="selected">${currentYear}</option></c:when><c:otherwise><option>${currentYear}</option></c:otherwise></c:choose>
-      <c:if test="${not empty value and value ne currentYear-3 and value ne currentYear-2 and value ne currentYear-1 and value ne currentYear}">
-      <option selected="selected">${value}</option>
-      </c:if>
+      <c:forEach var="te" items="${tuitionValues}">
+        <![CDATA[<option]]>
+        <c:if test="${te == value}"><![CDATA[ selected="selected"]]></c:if>
+        <![CDATA[>$]]>
+        <c:out value="${te}"/>
+        <![CDATA[</option>]]>
+      </c:forEach>
     <![CDATA[</select>]]>
     <c:if test="${empty nobr}"><br/></c:if>
 

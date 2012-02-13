@@ -119,24 +119,171 @@
     feeder_school
     -->
 
-    <label for="form_application_process">Is there an application or enrollment process for your school?</label>
-    <br/>
-    <school:espRadioWithLabel key="application_process" value="no" label="No"/>
-    <school:espRadioWithLabel key="application_process" value="yes" label="Yes"/>
-    <br/>
+      <fieldset>
+      
+        <div class="lal clearfix">
+          <div class="alpha grid_8">
+            <label>Is there an application or enrollment process for your school?</label>
+          </div>
+          <div class="grid_5 omaga">
+            <school:espRadioWithLabel key="application_process" value="no" label="No"/>
+            <school:espRadioWithLabel key="application_process" value="yes" label="Yes"/>
+          </div>
+        </div>
+        
+        <p>Please choose one or more options below to provide application information to parents</p>
+        
+        <div class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_admissions_url">Send parents directly to your admissions page</label>
+          </div>
+          <div class="grid_9 omega">
+            <input id="form_admissions_url" name="admissions_url" class="mls js_otherField text input_6" value="${responseMap['admissions_url'].value}" placeholder="[Enter URL for page on your website]" size="30" maxlength="30"/>
+            <p class="hint">Example: http://www.yourschool.edu/apply</p>
+          </div>
+        </div>
+        
+        <div id="sctn_application_package" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_application_upload">Upload photos of your school or events at your school that will appear on the GreatSchools profile. Limit is 5 photos.</label>
+          </div>
+          <div class="grid_9 omega">
+            <input type="file" id="form_application_upload" name="application_upload" class="mls js_otherField text input_6" value="${responseMap['application_upload'].value}" placeholder="[Enter URL for page on your website]" size="30" maxlength="30"/>
+          </div>
+        </div>
+        
+        <div id="sctn_application_package" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_parents_contact">Contact school</label>
+          </div>
+          <div class="grid_9 omega">
+            <school:espCheckboxWithLabel key="parents_contact" value="1" label="Parents should call the school for application information"/>
+          </div>
+        </div>
+        
+        <hr />
+        
+        <div id="sctn_application_deadline" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_parents_contact">When is the application deadline?</label>
+          </div>
+          <div class="grid_10 omega">
+            <school:espRadioWithLabel key="application_deadline" value="yearround" label="Year-round / Rolling admissions, if space is available"/>
+            <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true"/>
+            <input id="form_application_deadline_date" name="application_deadline_date" class="mls js_otherField text input_4" value="${responseMap['application_deadline_date'].value}" placeholder="[Select date]" size="10" maxlength="10"/><br />
+            <school:espRadioWithLabel key="application_deadline" value="parents_contact" label="Parents should contact the school for more information or if there are multiple deadlines"/>
+          </div>
+        </div>
 
-    <div id="form_application_TBD_group">
-        <label for="form_application_process_TBD">Please choose one or more options below to provide application information to parents</label>
-        <br/>
-        <school:espCheckboxWithLabel key="form_application_process_TBD" value="directly" label="Send parents directly to your admissions page"/>
-        <br/>
-        <input id="form_admissions_url" name="admissions_url" value="${responseMap['application_process_TBD'].value}" placeholder="[Enter URL for page on your website]"/>
-
-    </div>
-
-
-
-
+        <div id="sctn_applications_received" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_applications_received">How many applications did you receive this year?</label>
+          </div>
+          <div class="grid_9 omega">
+            <input id="form_applications_received" name="applications_received" class="mls js_otherField text input_4" value="${responseMap['applications_received'].value}" placeholder="[Enter number]" size="4" maxlength="4"/>
+            <p class="hint">Example: 1135</p>
+            <school:espCrntSchoolYearSelect key="applications_received_year" placeholder="[Select year]"/>
+          </div>
+        </div>
+        
+        <div id="sctn_students_accepted" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_students_accepted">How many students did you accept this year?</label>
+          </div>
+          <div class="grid_9 omega">
+            <input id="form_students_accepted" name="students_accepted" class="mls js_otherField text input_4" value="${responseMap['students_accepted'].value}" placeholder="[Enter number]" size="4" maxlength="4"/>
+            <p class="hint">Example: 60</p>
+            <school:espCrntSchoolYearSelect key="students_accepted_year" placeholder="[Select year]"/>
+          </div>
+        </div>
+        
+        <div id="sctn_application_fee" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_application_fee">Is there an application fee?</label>
+          </div>
+          <div class="grid_9 omega">
+            <school:espRadioWithLabel key="application_fee" value="no" label="No"/>
+            <school:espRadioWithLabel key="application_fee" value="yes" label="Yes"/>
+            $<input id="form_application_fee_amount" name="application_fee_amount" class="mls js_otherField text input_4" value="${responseMap['application_fee_amount'].value}" placeholder="[Enter number]" size="3" maxlength="3"/>
+            <span class="hint">Enter amount of application fee</span>
+            <div class="grid_7">
+              <div class="grid_3 alpha"><p>Are fee waivers available?</p></div>
+              <div class="grid_3 omega">
+                <school:espRadioWithLabel key="fee_waivers" value="no" label="No"/>
+                <school:espRadioWithLabel key="fee_waivers" value="yes" label="Yes"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="sctn_tuition_range" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_tuition_log">What's your school's tuition range?</label>
+          </div>
+          <div class="grid_13 omega">
+            <school:espTuitionSelect key="tuition_low" placeholder="[Select lowest amount]" nobr="true"/>&#160;to&#160;<school:espTuitionSelect key="tuition_high" placeholder="[Select highest amount]" nobr="true"/>
+            <school:espCrntSchoolYearSelect key="tuition_year" placeholder="[Select year]"/>
+          </div>
+        </div>
+        
+        <div id="sctn_students_vouchers" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_students_vouchers">Do you accept students on vouchers?</label>
+          </div>
+          <div class="grid_13 omega">
+            <school:espRadioWithLabel key="students_vouchers" value="no" label="No"/>
+            <school:espRadioWithLabel key="students_vouchers" value="yes" label="Yes"/>
+          </div>
+        </div>
+        
+        <div id="sctn_financial_aid" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_financial_aid">Does your school offer or accept financial aid?</label>
+          </div>
+          <div class="grid_13 omega">
+            <school:espRadioWithLabel key="financial_aid" value="no" label="No"/>
+            <school:espRadioWithLabel key="financial_aid" value="yes" label="Yes"/>
+            <div class="grid_11">
+              <school:espCheckboxWithLabel key="financial_aid_type" value="school_based" label="School-based aid"/>
+              <school:espCheckboxWithLabel key="financial_aid_type" value="outside" label="Outside scholarships"/>
+              <school:espCheckboxWithLabel key="financial_aid_type" value="voucher" label="Voucher program participants"/>
+              <school:espCheckboxWithLabel key="financial_aid_type" value="tax_credits" label="Tax credits"/>
+              <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other: " nobr="true"/>
+              <input id="form_financial_aid_type_other" name="financial_aid_type_other" class="mls js_otherField text input_6" value="${responseMap['financial_aid_type_other'].value}" placeholder="[Please indiciate]" size="6" maxlength="100"/>
+            </div>
+          </div>
+        </div>
+        
+        <div id="sctn_feeder_school" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_feeder_school_1">What school(s) do students typically attend before yours?</label>
+          </div>
+          <div class="grid_13 omega">
+          <ol>
+            <li><input id="form_feeder_school_1" name="feeder_school_1" class="mls js_otherField text input_6" value="${responseMap['feeder_school_1'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+            <li><input id="form_feeder_school_2" name="feeder_school_2" class="mls js_otherField text input_6" value="${responseMap['feeder_school_2'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+            <li><input id="form_feeder_school_3" name="feeder_school_3" class="mls js_otherField text input_6" value="${responseMap['feeder_school_3'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+            <school:espCheckboxWithLabel key="feeder_school" value="1" label="Do not know / Not applicable"/>
+          </ol>
+          </div>
+        </div>
+        
+        <div id="sctn_destination_school" class="lal clearfix">
+          <div class="alpha grid_8">
+            <label for="form_destination_school_1">What school(s) do many of your students typically attend after they graduate your school?</label>
+          </div>
+          <div class="grid_13 omega">
+          <ol>
+            <li><input id="form_destination_school_1" name="destination_school_1" class="mls js_otherField text input_6" value="${responseMap['destination_school_1'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+            <li><input id="form_destination_school_2" name="destination_school_2" class="mls js_otherField text input_6" value="${responseMap['destination_school_2'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+            <li><input id="form_destination_school_3" name="destination_school_3" class="mls js_otherField text input_6" value="${responseMap['destination_school_3'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+            <school:espCheckboxWithLabel key="destination_school" value="1" label="Do not know / Not applicable"/>
+          </ol>
+          </div>
+        </div>
+        
+      </fieldset>
+        
     <!--
 
         •	If yes, then the following two options for telling us about their process appears.
