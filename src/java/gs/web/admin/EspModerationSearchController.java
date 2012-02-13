@@ -144,15 +144,14 @@ public class EspModerationSearchController extends AbstractEspModerationControll
     public String handlePost(@ModelAttribute("espModerationSearchCommand") EspModerationSearchCommand command,
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
-        String redirect = String.format("redirect:/%s.page", getViewName());
-        if("search".equals(request.getParameter("search"))) {
-            // convert posted search params to query params and redirect
-            String qs = command.getSearchQueryString();
-            redirect = String.format("%s?%s", redirect, qs);
-        } else {
+        if(!"search".equals(request.getParameter("search"))) {
             // row data submission
             updateEspMembership(command, request, response);
         }
+
+        String redirect = String.format("redirect:/%s.page", getViewName());
+        String qs = command.getSearchQueryString();
+        redirect = String.format("%s?%s", redirect, qs);
         return redirect;
     }
     

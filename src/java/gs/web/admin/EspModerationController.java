@@ -43,8 +43,9 @@ public class EspModerationController extends AbstractEspModerationController {
                                       BindingResult result,
                                       HttpServletRequest request,
                                       HttpServletResponse response) {
+        boolean isPendingView = "1".equals(request.getParameter("pending"));
         updateEspMembership(command, request, response);
-        return String.format("redirect:/%s.page", getViewName());
+        return String.format("redirect:/%s.page?pending=%s", getViewName(), isPendingView? "1" : "0");
     }
 
     @Override

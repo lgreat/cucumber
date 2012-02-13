@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -126,7 +127,12 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected void updateEspMembership(EspModerationCommand command, HttpServletRequest request, HttpServletResponse response) {
         //The user has to check the check boxes in order to approve or reject.Hence we iterate over the checked check boxes for those "approve" or "reject" actions.
         //The user does not have to check the check boxes for the update action.Hence we loop over all the notes for the "update" action.
-        if (("approve".equals(command.getModeratorAction()) || "reject".equals(command.getModeratorAction())) && command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
+        
+        String moderatorAction = command.getModeratorAction();
+        if(moderatorAction == null) return;
+        
+        if (("approve".equals(moderatorAction) || "reject".equals(moderatorAction) || moderatorAction.contains("deactivate")) 
+                && command.getEspMembershipIds() != null && !command.getEspMembershipIds().isEmpty()) {
 
             //The checkbox has a key of membership id.
             for (Integer membershipId : command.getEspMembershipIds()) {
@@ -137,8 +143,9 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
                     User user = membership.getUser();
                     if (user != null) {
+                        boolean updateMembership = false;
 
-                        if ("approve".equals(command.getModeratorAction())) {
+                        if ("approve".equals(moderatorAction)) {
                             membership.setStatus(EspMembershipStatus.APPROVED);
                             membership.setActive(true);
                             Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
@@ -147,33 +154,41 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                             }
                             getUserDao().updateUser(user);
                             sendESPVerificationEmail(request, user);
-
-                        } else if ("reject".equals(command.getModeratorAction())) {
+                            updateMembership = true;
+                        } else if ("reject".equals(moderatorAction)) {
                             membership.setStatus(EspMembershipStatus.REJECTED);
+                            membership.setActive(false);
                             if (!user.isEmailValidated()) {
                                 sendGSVerificationEmail(request, user);
                             }
+                            updateMembership = true;
+                        } else if (moderatorAction.contains("deactivate")) {
+                            membership.setActive(false);
+                            updateMembership = true;
                         }
-
+    
                         //In case a note was added while approving or rejecting.
                         //Notes is the Map of membership id to string.
                         if (command.getNotes() != null && !command.getNotes().isEmpty() && command.getNotes().get(membership.getId()) != null) {
                             membership.setNote(command.getNotes().get(membership.getId()));
+                            updateMembership = true;
                         }
-                        membership.setUpdated(new Date());
-                        getEspMembershipDao().updateEspMembership(membership);
+                        
+                        if(updateMembership) {
+                            membership.setUpdated(new Date());
+                            getEspMembershipDao().updateEspMembership(membership);
+                        }
                     }
                 }
             }
-        } else if ("update".equals(command.getModeratorAction()) && command.getNotes() != null && !command.getNotes().isEmpty()) {
+        } else if ("update".equals(moderatorAction) && command.getNotes() != null && !command.getNotes().isEmpty()) {
             //Notes is the Map of membership id to string.
             for (int membershipId : command.getNotes().keySet()) {
-                if (command.getNotes().get(membershipId) != null) {
+                String noteVal = command.getNotes().get(membershipId);
+                if (noteVal != null) {
                     //get the membership row.
                     EspMembership membership = getEspMembershipDao().findEspMembershipById(membershipId, false);
-
-                    if (membership != null) {
-                        String noteVal = command.getNotes().get(membership.getId());
+                    if (membership != null && !ObjectUtils.equals(noteVal, membership.getNote())) {
                         membership.setNote(noteVal);
                         membership.setUpdated(new Date());
                         getEspMembershipDao().updateEspMembership(membership);

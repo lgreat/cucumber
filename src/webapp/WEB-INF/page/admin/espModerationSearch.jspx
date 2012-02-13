@@ -86,7 +86,12 @@
         <b style="margin-right: 20px;">Legend:</b> <span class="emailMatch">User email matches contact email</span> <span
           class="durra">Disabled user re-requesting access</span>
       </div>
-      <form:form commandName="espModerationSearchCommand">
+      <form:form commandName="espModerationSearchCommand" action="/admin/espModerationSearch.page">
+        <input type="hidden" name="stateString" value="${espModerationSearchCommand.stateString}"/>
+        <input type="hidden" name="schoolId" value="${espModerationSearchCommand.schoolId}"/>
+        <input type="hidden" name="userId" value="${espModerationSearchCommand.userId}"/>
+        <input type="hidden" name="email" value="${espModerationSearchCommand.email}"/>
+
         <table width="950">
           <col width="32px" />
           <col width="70px" />
@@ -111,7 +116,7 @@
           </tr>
           <tr>
             <!--Second Row-->
-            <th>&#160;</th>
+            <th>Active</th>
             <th>Contact Email</th>
             <th>Web Url</th>
             <th>Last Name</th>
@@ -138,7 +143,7 @@
             <tr>
               <td><form:checkbox path="espMembershipIds" value="${membership.id}" /></td>
               <!--First Row-->
-              <td>${membership.status.status}</td>
+              <td class="smallest">${membership.status.status}</td>
               <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
               <td>${membership.school.name}</td>
               <td>${membership.user.firstName}</td>
@@ -149,7 +154,7 @@
             <tr>
               <td><!-- do not collapse --> </td>
               <!--Second Row-->
-              <td>&#160;</td>
+              <td class="smallest">${membership.active? 'Yes' : 'No'}</td>
               <td>${mrow.contactEmail}</td>
               <td><a href="${mrow.absoluteWebUrl}" target="_blank">${membership.webUrl}</a></td>
               <td>${membership.user.lastName}</td>
@@ -160,9 +165,8 @@
           </table>
         </c:forEach>
         <br />
-        <br />
         <input type="submit" name="moderatorAction" value="approve" />
-        <input type="submit" name="moderatorAction" value="reject" />
+        <input type="submit" name="moderatorAction" value="reject/deactivate" />
         <input type="submit" name="moderatorAction" value="update" />
         </c:when>
         <c:otherwise><h4>No matching search results.</h4></c:otherwise>

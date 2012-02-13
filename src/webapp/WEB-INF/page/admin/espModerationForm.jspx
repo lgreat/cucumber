@@ -58,6 +58,7 @@
 									<span class="durra">Disabled user re-requesting access</span>
 								</div>
                 <form:form commandName="espModerationCommand">
+                    <c:if test="${isPendingView}"><input type="hidden" name="pending" value="1"/></c:if>
                     <table width="950">
                         <col width="32px"/>
                         <col width="210px"/>
@@ -124,9 +125,9 @@
                         </table>
                     </c:forEach>
                     <br/>
-                    <br/>
                     <input type="submit" name="moderatorAction" value="approve"/>
                     <input type="submit" name="moderatorAction" value="reject"/>
+                    <input type="submit" name="moderatorAction" value="deactivate"/>
                     <input type="submit" name="moderatorAction" value="update"/>
                     </c:when>
                     <c:otherwise><h4>${isPendingView? 'No pending entries exist.' : 'No main entries exist.'}</h4></c:otherwise>
