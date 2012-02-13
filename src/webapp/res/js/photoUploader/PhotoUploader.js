@@ -414,7 +414,8 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
             setTimeout(self.poll, self.pollFrequency);
 
         }).fail(function() {
-            alert("error");
+            //alert("error");
+            //do nothing
         });
     }.gs_bind(this);
 
