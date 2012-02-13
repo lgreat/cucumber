@@ -103,8 +103,8 @@
                 <label for="form_facebook_url" class="alpha grid_5">School Facebook page</label>
 
                 <div class="grid_6 suffix_12 omega">
-                    <input type="text" value="${responseMap['facebook_url'].value}" id="form_facebook_url"
-                           name="facebook_url" class="text input_6"/>
+                    <gsml:input type="text" value="${responseMap['facebook_url'].value}" styleId="form_facebook_url"
+                           name="facebook_url" styleClass="text input_6"/>
 
                     <p class="hint">Example: http://www.facebook.com/pages/lowell-high-school/112106402</p>
                     <div class="alpha grid_6 suffix_12 omega">
@@ -117,8 +117,8 @@
                 <label for="form_administrator_name" class="alpha grid_5">School leader's name</label>
 
                 <div class="grid_6 suffix_12 omega">
-                    <input type="text" value="${responseMap['administrator_name'].value}" id="form_administrator_name"
-                           name="administrator_name" class="text input_6" disabled="${stateLocked}"/>
+                    <gsml:input type="text" value="${responseMap['administrator_name'].value}" styleId="form_administrator_name"
+                           name="administrator_name" styleClass="text input_6" disabled="${stateLocked}"/>
                 </div>
             </div>
 
@@ -126,13 +126,16 @@
                 <label for="form_administrator_email" class="alpha grid_5">School leader's email</label>
 
                 <div class="grid_5 suffix_1">
-                    <input type="text" value="${responseMap['administrator_email'].value}" id="form_administrator_email"
-                           name="administrator_email" class="text input_6" disabled="${stateLocked}"/>
+                    <gsml:input type="text" value="${responseMap['administrator_email'].value}" styleId="form_administrator_email"
+                           name="administrator_email" styleClass="text input_6" disabled="${stateLocked}"/>
 
-                    <p class="hint">Example: leader@school.edu</p>
+                    <p class="hint">Example: leader@school.edu statelocked = ${stateLocked}</p>
                 </div>
                 <div style="display: none" class="grid_6 omega error" id="form_administrator_email_error">
                     <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a valid email address.
+                </div>
+                <div class="grid_6 suffix_12 prefix_5 alpha omega">
+                    <school:espCheckboxWithLabel key="administrator_email_none" value="none" label="Unavailable / School would rather not disclose"/>
                 </div>
             </div>
         </fieldset>
