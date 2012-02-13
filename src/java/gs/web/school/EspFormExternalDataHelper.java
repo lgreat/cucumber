@@ -449,19 +449,17 @@ public class EspFormExternalDataHelper {
     public Set<String> getKeysForExternalData(School school) {
         Set<String> keys = new HashSet<String>();
         keys.add("student_enrollment");
-        keys.add("average_class_size");
         keys.add("grade_levels");
-        keys.add("coed");
         keys.add("school_type");
         keys.add("school_type_affiliation");
         keys.add("school_type_affiliation_other");
+        keys.add("coed");
         keys.add("address");
         keys.add("school_phone");
         keys.add("school_fax");
+        keys.add("school_url");
         keys.add("administrator_name");
         keys.add("administrator_email");
-        keys.add("administrator_email");
-        keys.add("school_url");
         return keys;
     }
 }
