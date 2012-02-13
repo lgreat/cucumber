@@ -89,12 +89,12 @@
                 <label for="form_school_url" class="alpha grid_5">School website</label>
 
                 <div class="grid_6 suffix_12 omega">
-                    <input type="text" value="${responseMap['school_url'].value}" id="form_school_url"
-                           name="school_url" class="text input_6"/>
+                    <gsml:input type="text" value="${responseMap['school_url'].value}" styleId="form_school_url"
+                           name="school_url" styleClass="text input_6" disabled="${stateLocked}"/>
 
                     <p class="hint">Example: http://www.yourschool.edu</p>
                     <div class="grid_6 suffix_12 alpha omega">
-                        <school:espCheckboxWithLabel key="school_url_none" value="none" label="None"/>
+                        <school:espCheckboxWithLabel key="school_url_none" value="none" label="None" disabled="${stateLocked}"/>
                     </div>
                 </div>
             </div>

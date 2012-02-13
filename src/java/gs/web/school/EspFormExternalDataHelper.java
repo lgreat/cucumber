@@ -173,6 +173,8 @@ public class EspFormExternalDataHelper {
         } else if (StringUtils.equals("grade_levels", key) && school.getGradeLevels() != null) {
             String gradeLevels = school.getGradeLevels().getCommaSeparatedString();
             return gradeLevels.split(",");
+        } else if (StringUtils.equals("school_url", key) && school.getWebSite() != null) {
+            return new String[] {school.getWebSite()};
         } else if (StringUtils.equals("school_type", key) && school.getType() != null) {
             return new String[]{school.getType().getSchoolTypeName()};
         } else if (StringUtils.equals("school_type_affiliation", key) && school.getSubtype() != null) {
@@ -227,6 +229,13 @@ public class EspFormExternalDataHelper {
         } else if (StringUtils.equals("administrator_email", key)) {
             _log.debug("Saving administrator_email elsewhere: " + values[0]);
             saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_EMAIL, user);
+        } else if (StringUtils.equals("school_url", key)) {
+            _log.debug("Saving school home_page_url elsewhere: " + values[0]);
+            String url = (String) values[0];
+            if (!StringUtils.equals(url, school.getWebSite())) {
+                school.setWebSite(url);
+                saveSchool(school, user, now);
+            }
         } else if (StringUtils.equals("grade_levels", key)) {
             _log.debug("Saving grade_levels " + Arrays.toString(values) + " elsewhere for school:" + school.getName());
             return saveGradeLevels(school, (String[])values, user, now);
@@ -451,6 +460,8 @@ public class EspFormExternalDataHelper {
         keys.add("school_fax");
         keys.add("administrator_name");
         keys.add("administrator_email");
+        keys.add("administrator_email");
+        keys.add("school_url");
         return keys;
     }
 }
