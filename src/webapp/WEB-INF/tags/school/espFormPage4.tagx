@@ -12,39 +12,82 @@
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
-        <p class="labelGroup">What foreign languages are taught at your school?</p>
+        <p class="labelGroup">Select one of these options to best describe the special education programming at your school:</p>
     </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="foreign_language" value="none" label="None"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="arabic" label="Arabic languages"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="amharic" label="Amharic"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="cantonese" label="Chinese (Cantonese)"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="mandarin" label="Chinese (Mandarin)"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="dutch" label="Dutch"/>
-    </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="foreign_language" value="french" label="French"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="german" label="German"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="hmong" label="Hmong"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="italian" label="Italian"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="japanese" label="Japanese"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="korean" label="Korean"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="latin" label="Latin"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="russian" label="Russian"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="spanish" label="Spanish"/>
-    </div>
-    <div class="grid_6 omega">
-        <school:espCheckboxWithLabel key="foreign_language" value="tagalog" label="Tagalog"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="urdu" label="Urdu"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="vietnamese" label="Vietnamese"/>
-        <school:espCheckboxWithLabel key="foreign_language" value="other" label="Other:"
-                                                 styleClass="js_otherField_js_form_foreign_language_other" nobr="true"/>
-        <input id="js_form_foreign_language_other" class="js_otherField" type="text" name="foreign_language_other"
-               value="${responseMap['foreign_language_other'].value}"
-               placeholder="[Please indicate]"/>
+    <div class="grid_16 omega">
+        <school:espRadioWithLabel key="spec_ed_level" value="none" label="none"/>
+        <school:espRadioWithLabel key="spec_ed_level" value="basic"
+                                  label="Basic - we offer or partner to provide services based on the needs of individual students"/>
+        <school:espRadioWithLabel key="spec_ed_level" value="limited"
+                                  label="Moderate -we consistently offer a full program for particular special education needs"/>
+        <school:espRadioWithLabel key="spec_ed_level" value="intensive"
+                                  label="Intensive - we offer a full program for many needs and/or we offer at least one very comprehensive program for very challenging needs such as autism or complete visual impairment"/>
     </div>
 </div>
 
+<div class="lal clearfix">
+    <div class="alpha grid_7">
+        <p class="labelGroup">Does your school have a specialized program for specific types of special education students? If so, please indicate below.</p>
+    </div>
+    <div class="grid_16 omega">
+        <school:espRadioWithLabel key="special_ed_programs_exists" value="no" label="No"/>
+        <school:espRadioWithLabel key="special_ed_programs_exists" value="yes" label="Yes"/>
+        <div class="grid_14 prefix_1 omega">
+            <div id="js_special_ed_programs">
+                <div class="grid_7">
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="autism" label="Autism"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="cognitive"
+                                                 label="Cognitive disability"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="emotional"
+                                                 label="Emotional behavioral disabilities"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="deafness"
+                                                 label="Hearing impairments"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="multiple"
+                                                 label="Multiple disabilities"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="orthopedic"
+                                                 label="Orthopedic impairments"/>
+                </div>
+                <div class="grid_6">
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="other"
+                                                 label="Other health impairments"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="ld"
+                                                 label="Specific learning disabilities"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="speech"
+                                                 label="Speech and language impairments"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="blindness"
+                                                 label="Visual impairments"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="developmental_delay"
+                                                 label="Significant developmental delay"/>
+                    <school:espCheckboxWithLabel key="special_ed_programs" value="behavioral"
+                                                 label="Behavioral and/or emotional disabilities"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="lal clearfix">
+    <div class="alpha grid_7">
+        <p class="labelGroup">What extra learning resources are offered for students?</p>
+    </div>
+    <div class="grid_16 omega">
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="none" label="None"/>
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="remediation" label="Remediation"/>
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="acceleration" label="Acceleration"/>
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="mentoring" label="Mentoring"/>
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="counseling" label="Counseling"/>
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="career_counseling"
+                                     label="Career/college counseling"/>
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="differentiated"
+                                     label="Differentiated learning programs"/>
+        <school:espCheckboxWithLabel key="extra_learning_resources" value="other" label="Other:"
+                                     styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true"/>
+        <input id="js_form_extra_learning_resources_other" class="js_otherField text input_4 mls" type="text"
+               name="extra_learning_resources_other"
+               value="${responseMap['extra_learning_resources_other'].value}"
+               placeholder="[Please indicate]" maxlength="30"/>
+    </div>
+</div>
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -97,54 +140,6 @@
     </div>
 </div>
 
-
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">Select one of these options to best describe the special education programming at your school:</p>
-    </div>
-    <div class="grid_5">
-        <school:espRadioWithLabel key="spec_ed_level" value="none" label="none"/>
-        <school:espRadioWithLabel key="spec_ed_level" value="basic"
-                                  label="Basic - we offer or partner to provide services based on the needs of individual students"/>
-        <school:espRadioWithLabel key="spec_ed_level" value="limited"
-                                  label="Moderate -we consistently offer a full program for particular special education needs"/>
-        <school:espRadioWithLabel key="spec_ed_level" value="intensive"
-                                  label="Intensive - we offer a full program for many needs and/or we offer at least one very comprehensive program for very challenging needs such as autism or complete visual impairment"/>
-    </div>
-</div>
-
-
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">Does your school have a specialized program for specific types of special education students? If so, please indicate below.</p>
-    </div>
-    <div class="grid_5">
-        <school:espRadioWithLabel key="special_ed_programs_exists" value="yes" label="Yes"/>
-        <school:espRadioWithLabel key="special_ed_programs_exists" value="no" label="No"/>
-    </div>
-    <div class="grid_6 omega">
-        <div id="js_special_ed_programs">
-            <school:espCheckboxWithLabel key="special_ed_programs" value="autism" label="Autism"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="cognitive" label="Cognitive disability"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="emotional"
-                                         label="Emotional behavioral disabilities"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="deafness" label="Hearing impairments"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="multiple" label="Multiple disabilities"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="orthopedic" label="Orthopedic impairments"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="other" label="Other health impairments"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="ld" label="Specific learning disabilities"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="speech"
-                                         label="Speech and language impairments"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="blindness" label="Visual impairments"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="developmental_delay"
-                                         label="Significant developmental delay"/>
-            <school:espCheckboxWithLabel key="special_ed_programs" value="behavioral"
-                                         label="Behavioral and/or emotional disabilities"/>
-        </div>
-    </div>
-</div>
-
-
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">Is there anything special about your school's schedule?</p>
@@ -177,15 +172,17 @@
 </div>
 </c:if>
 
+<legend>School Resources</legend>
+<hr class="legend"><!--Do not collapse--></hr>
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">What staff resources are available to students?</p>
     </div>
-    <div class="grid_5">
+    <div class="grid_8">
         <school:espCheckboxWithLabel key="staff_resources" value="none" label="None listed here"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="art_teacher" label="Art teacher(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="assistant_principal" label="Assistant principal(s)"/>
+        <school:espCheckboxWithLabel key="staff_resources" value="art_teacher" label="Art teacher(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="college_counselor" label="College counselor(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="computer_specialist" label="Computer specialist(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="cooking_teacher"
@@ -193,28 +190,27 @@
         <school:espCheckboxWithLabel key="staff_resources" value="dance_teacher" label="Dance teacher(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="ell_esl_coord" label="ELL/ESL Coordinator"/>
         <school:espCheckboxWithLabel key="staff_resources" value="garden_teacher" label="Gardening teacher(s)"/>
-    </div>
-    <div class="grid_5">
         <school:espCheckboxWithLabel key="staff_resources" value="gifted_specialist" label="Gifted specialist(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="instructional_aid" label="Instructional aide(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="librarian" label="Librarian/media specialist(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="math_specialist" label="Math specialist(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="music_teacher" label="Music teacher(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="nurse" label="Nurse(s)"/>
+    </div>
+    <div class="grid_8 omega">
+
         <school:espCheckboxWithLabel key="staff_resources" value="pe_instructor" label="PE instructor(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="priest"
-                                     label="Priest, pastor, or other religious personnel"/>
+        <school:espCheckboxWithLabel key="staff_resources" value="nurse" label="Nurse(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="poetry_teacher"
                                      label="Poetry/Creative writing teacher(s)"/>
-    </div>
-    <div class="grid_6 omega">
+        <school:espCheckboxWithLabel key="staff_resources" value="priest"
+                                     label="Priest, pastor, or other religious personnel"/>
         <school:espCheckboxWithLabel key="staff_resources" value="reading_specialist" label="Reading specialist(s)"/>
         <school:espCheckboxWithLabel key="staff_resources" value="robotics_teacher"
                                      label="Robotics/Technology specialist(s)"/>
+        <school:espCheckboxWithLabel key="staff_resources" value="security" label="Security personnel"/>
         <school:espCheckboxWithLabel key="staff_resources" value="school_psychologist" label="School psychologist"/>
         <school:espCheckboxWithLabel key="staff_resources" value="school_counslor"
                                      label="School social worker/counselors(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="security" label="Security personnel"/>
         <school:espCheckboxWithLabel key="staff_resources" value="special_ed_coordinator"
                                      label="Special education coordinator"/>
         <school:espCheckboxWithLabel key="staff_resources" value="speech_therapist"
@@ -223,7 +219,6 @@
         <school:espCheckboxWithLabel key="staff_resources" value="tutor" label="Tutor(s)"/>
     </div>
 </div>
-
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -261,32 +256,40 @@
     </div>
 </div>
 
-
 <div class="lal clearfix">
     <div class="alpha grid_7">
-        <p class="labelGroup">What extra learning resources are offered for students?</p>
+        <p class="labelGroup">What foreign languages are taught at your school?</p>
     </div>
     <div class="grid_5">
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="none" label="None"/>
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="remediation" label="Remediation"/>
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="acceleration" label="Acceleration"/>
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="mentoring" label="Mentoring"/>
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="counseling" label="Counseling"/>
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="career_counseling"
-                                     label="Career/college counseling"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="none" label="None"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="arabic" label="Arabic languages"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="amharic" label="Amharic"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="cantonese" label="Chinese (Cantonese)"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="mandarin" label="Chinese (Mandarin)"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="dutch" label="Dutch"/>
     </div>
     <div class="grid_5">
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="differentiated"
-                                     label="Differentiated learning programs"/>
-        <school:espCheckboxWithLabel key="extra_learning_resources" value="other" label="Other:"
-                                     styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true"/>
-        <input id="js_form_extra_learning_resources_other" class="js_otherField" type="text"
-               name="extra_learning_resources_other"
-               value="${responseMap['extra_learning_resources_other'].value}"
-               placeholder="[Please indicate]" maxlength="30"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="french" label="French"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="german" label="German"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="hmong" label="Hmong"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="italian" label="Italian"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="japanese" label="Japanese"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="korean" label="Korean"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="latin" label="Latin"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="russian" label="Russian"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="spanish" label="Spanish"/>
+    </div>
+    <div class="grid_6 omega">
+        <school:espCheckboxWithLabel key="foreign_language" value="tagalog" label="Tagalog"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="urdu" label="Urdu"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="vietnamese" label="Vietnamese"/>
+        <school:espCheckboxWithLabel key="foreign_language" value="other" label="Other:"
+                                                 styleClass="js_otherField_js_form_foreign_language_other" nobr="true"/>
+        <input id="js_form_foreign_language_other" class="js_otherField" type="text" name="foreign_language_other"
+               value="${responseMap['foreign_language_other'].value}"
+               placeholder="[Please indicate]"/>
     </div>
 </div>
-
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -350,6 +353,8 @@
     </div>
 </div>
 
+<legend>Facilities</legend>
+<hr class="legend"><!--Do not collapse--></hr>
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -388,6 +393,9 @@
         <school:espCheckboxWithLabel key="facilities" value="swimming" label="Swimming pool"/>
     </div>
 </div>
+
+<legend>College and career</legend>
+<hr class="legend"><!--Do not collapse--></hr>
 
 <!--Only show for schools with level 'h'-->
 <c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
