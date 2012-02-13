@@ -187,6 +187,15 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
     return isValid;
 };
 
+GS.validation.validateRequiredIfChecked = function(fieldSelector, fieldCheckedSelector, errorSelector) {
+    jQuery(errorSelector).hide();
+    var checkedFields = jQuery(fieldCheckedSelector);
+    if (checkedFields.filter(':checked').size() == 0) {
+        return true;
+    }
+    return GS.validation.validateRequired(fieldSelector, errorSelector);
+};
+
 // Enforces non-negative
 // TODO: add option to enforce non-zero?
 GS.validation.validateInteger = function(fieldSelector, errorSelector) {
@@ -199,10 +208,12 @@ GS.validation.validateInteger = function(fieldSelector, errorSelector) {
         if (fieldType == 'text') {
             // require each one to be numeric
             formFields.each(function() {
-                var fieldVal = parseInt(jQuery.trim(jQuery(this).val()), 10);
-                if (isNaN(fieldVal) || fieldVal < 0) {
+                var fieldVal = jQuery.trim(jQuery(this).val());
+                if (fieldVal == '' || GS.validation.POSITIVE_INTEGER_PATTERN.test(fieldVal)) {
+                    return true;
+                } else {
                     isValid = false;
-                    return false; // breaks out of loop
+                    return false;
                 }
             });
         }
@@ -214,6 +225,7 @@ GS.validation.validateInteger = function(fieldSelector, errorSelector) {
     return isValid;
 };
 
+GS.validation.POSITIVE_INTEGER_PATTERN = /^\d+$/;
 // taken from UrlValidator (and modified to proper JS syntax) in apache commons, which references RFC2396
 GS.validation.URL_PATTERN = /^(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/;
 GS.validation.validateUrl = function(url) {
@@ -383,6 +395,7 @@ new (function() {
     };
 
     var validateGradeLevels = function() {
+        jQuery('#form_grade_levels_error').hide();
         var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
         // only validate if current page contains grade levels
         var gradeLevels = form.find('[name=grade_levels]');
@@ -390,11 +403,11 @@ new (function() {
             var checkedLevels = gradeLevels.filter(':checked');
             var numChecked = checkedLevels.size();
             if (numChecked == 0) {
-                alert("You must choose at least one grade level.");
+                jQuery('#form_grade_levels_error').show();
                 return false;
             } else if (numChecked == 1) {
                 if (checkedLevels.filter('#form_grade_levels_pk').size() == 1) {
-                    alert("You cannot choose only PK as your grade level.");
+                    jQuery('#form_grade_levels_error').show();
                     return false;
                 }
             }
@@ -403,17 +416,26 @@ new (function() {
     };
 
     var doValidations = function() {
+        // PAGE 1
+        jQuery('#form_student_enrollment_error').hide();
+        jQuery('#form_student_enrollment_number_error').hide();
         var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
-            && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_error');
-
+            && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_number_error');
         var isValidGradeLevels = validateGradeLevels();
+        var isValidTransportationOther = GS.validation.validateRequiredIfChecked
+            ('#form_transportation_other', '.js_otherField_form_transportation_other', '#form_transportation_error');
+        var isValidTransportationShuttleOther = GS.validation.validateRequiredIfChecked
+            ('#form_transportation_shuttle_other', '.js_otherField_form_transportation_shuttle_other', '#form_transportation_shuttle_error');
+        // END PAGE 1
 
         var isValidAdministratorEmail =
                 GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error');
 
         var isValidPhysicalAddressStreet = GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error');
 
-        return isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet && isValidAdministratorEmail;
+        return isValidStudentEnrollment && isValidGradeLevels && isValidTransportationOther &&
+            isValidTransportationShuttleOther && isValidTransportationOther && isValidPhysicalAddressStreet &&
+            isValidAdministratorEmail;
     };
 
     if (GS.history5Enabled) {
@@ -477,7 +499,7 @@ new (function() {
         */
         GS.form.controlVisibilityOfElement('#form_k3_offered_group, #form_k4_offered_group', '#form_grade_levels_pk, #form_grade_levels_kg', true, {matchAny:true});
         GS.form.controlVisibilityOfElement('#form_school_type_affiliation_group', '[name=school_type]', 'private', {matchAny:true});
-        GS.form.controlVisibilityOfElement('#form_age_pk_start_group', '#form_grade_levels_pk', true);
+        GS.form.controlVisibilityOfElement('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes');
         GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care_before', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);
         GS.form.controlVisibilityOfElement('#js_special_ed_programs','[name=special_ed_programs_exists]', 'yes',{matchAny:true});

@@ -13,7 +13,7 @@
 
     <c:set var="prefix" value="form"/>
 
-    <gsml:checkbox styleId="${prefix}_${key}_${fn:toLowerCase(value)}" styleClass="${styleClass}"
+    <gsml:checkbox styleId="${prefix}_${key}__${fn:toLowerCase(value)}" styleClass="${styleClass}"
                    name="${key}" value="${value}"
                    checked="${not empty responseMap[key].valueMap[value]}"
                    disabled="${disabled}"/>

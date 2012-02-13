@@ -347,8 +347,11 @@ public class EspFormExternalDataHelper {
             } else if (StringUtils.isBlank(grades.getCommaSeparatedString())) {
                 return "You must select a grade level.";
             }
-            school.setGradeLevels(grades);
-            saveSchool(school, user, now);
+            if (!grades.equals(school.getGradeLevels())) {
+                school.setGradeLevels(grades);
+                school.setLevelCode(LevelCode.createLevelCode(grades, school.getName()));
+                saveSchool(school, user, now);
+            }
         } else {
             return "You must select a grade level.";
         }
