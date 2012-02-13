@@ -117,6 +117,26 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
                 { "service_award_3", "service_award_3_year" },
         });
         model.put("serviceAwards", serviceAwards);
+        
+        // merge foreign language keys
+        String foreignLanguage = mergeValuesForKeys(responses, "; ", "foreign_language", "foreign_language_other");
+        model.put("foreign_language", foreignLanguage);
+
+        // merge staff foreign language keys
+        String staffLanguages = mergeValuesForKeys(responses, "; ", "staff_languages", "staff_languages_other");
+        model.put("staff_languages", staffLanguages);
+
+        // merge boys sports keys
+        String boysSports = mergeValuesForKeys(responses, "; ", "boys_sports", "boys_sports_other");
+        model.put("boys_sports", boysSports);
+
+        // merge girls sports keys
+        String girlsSports = mergeValuesForKeys(responses, "; ", "girls_sports", "girls_sports_other");
+        model.put("girls_sports", girlsSports);
+
+        // merge college prep keys
+        String collegePrep = mergeValuesForKeys(responses, "; ", "college_prep", "college_prep_other");
+        model.put("college_prep", collegePrep);
 
         // obtain "external" datapoints
         ICensusInfo ci = school.getCensusInfo();
@@ -150,16 +170,13 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         cv = ci.getManual(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
         s = cv == null ? null : cv.getValueText();
         model.put("private_special_ed", s);
-
-        // TODO(jkirton): complete the external dataset bindings - some are not declared here yet!
-
+        
         return new ModelAndView("/school/enhancedSchoolProfile2", model);
     }
 
     @Override
     public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
-        if(!super.shouldHandleRequest(fields)) return false;
-        return fields.getExtraResourceIdentifier() == ExtraResourceIdentifier.ESP_DISPLAY_PAGE;
+        return super.shouldHandleRequest(fields) && fields.getExtraResourceIdentifier() == ExtraResourceIdentifier.ESP_DISPLAY_PAGE;
     }
 
     public void setEspResponseDao(IEspResponseDao dao) {

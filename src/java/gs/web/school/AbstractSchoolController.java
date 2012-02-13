@@ -92,8 +92,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
             } 
             if (this instanceof IDirectoryStructureUrlController) {
                 DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-                assert fields != null;
-                //if (shouldHandleRequest(fields)) {
+                if (fields != null) {
                     try {
                         Integer id = new Integer(fields.getSchoolID());
                         School s = _schoolDao.getSchoolById(state, id);
@@ -124,7 +123,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                         urlBuilder.addParameter("noSchoolAlert", "1");
                         return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
                     }
-                //}
+                }
             }
         }
 

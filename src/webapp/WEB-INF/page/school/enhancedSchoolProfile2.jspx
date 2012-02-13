@@ -74,7 +74,7 @@
                 </c:if>
 
                 <c:set var="agePkStart"><gsweb:lts list="${responses.age_pk_start}" /></c:set>
-                <c:if test="">
+                <c:if test="${not empty agePkStart}">
                     <tr>
                         <td class="small_bold">Age at which early childhood or Pre-K program begins</td>
                         <td>${agePkStart}</td>
@@ -192,12 +192,11 @@
                 </c:if>
 
                 <c:set var="immersion"><gsweb:lts list="${responses.immersion}" /></c:set>
-                <c:if test="${not empty immersion}">
+                <c:set var="immersionLanguages"><gsweb:lts list="${responses.immersion_languages}" dlm="; "/></c:set>
                     <tr>
-                        <td class="small_bold">>Bi-lingual or language immersion programs offered</td>
-                        <td>${immersion}</td>
+                        <td class="small_bold">Bi-lingual or language immersion programs offered</td>
+                        <td>${immersion}<c:if test="${not empty immersionLanguages}">.&#160;&#160;${immersionLanguages}</c:if></td>
                     </tr>
-                </c:if>
 
                 </tbody>
             </table>
@@ -238,9 +237,8 @@
             <p class="lbl">Tuition range for the ${tuitionYr} school year: <span class="val">${tuitionAmt}</span></p>
 
             <c:set var="fnclAid"><gsweb:lts list="${responses.financial_aid}" /></c:set>
-            <c:set var="fnclAidType"><gsweb:lts list="${responses.financial_aid_type}" /></c:set>
-            <c:set var="isFnclAid" value="${fn:toLowerCase(fnclAid) eq 'yes'}" />
-            <c:if test="${isFnclAid}"><p class="lbl">Financial aid offered: <span class="val">${fnclAidType}</span></p></c:if>
+            <c:set var="fnclAidType"><gsweb:lts list="${responses.financial_aid_type}" dlm="; "/></c:set>
+            <p class="lbl">Financial aid offered: <span class="val">${fnclAid}<c:if test="${not empty fnclAidType}">.&#160;&#160;${fnclAidType}</c:if></span></p>
 
             <c:set var="vouchers"><gsweb:lts list="${responses.students_vouchers}" /></c:set>
             <c:if test="${not empty vouchers}"><p class="lbl">Vouchers accepted: <span class="val">${vouchers}</span></p></c:if>
@@ -251,9 +249,7 @@
 
             <h4>Programs and Resources</h4>
 
-            <c:set var="frgnLang"><gsweb:lts list="${responses.foreign_language}" /></c:set>
-            <c:set var="frgnLangOther"><gsweb:lts list="${responses.foreign_language_other}" /></c:set>
-            <c:if test="${not empty frgnLang or not empty frgnLangOther}"><p class="lbl">Foreign languages taught: <span class="val">${frgnLang} ${frgnLangOther}</span></p></c:if>
+            <c:if test="${not empty foreign_language}"><p class="lbl">Foreign languages taught: <span class="val">${foreign_language}</span></p></c:if>
 
             <c:set var="ellLvl"><gsweb:lts list="${responses.ell_level}" /></c:set>
             <c:set var="ellLangs"><gsweb:lts list="${responses.ell_languages}" /></c:set>
@@ -274,9 +270,7 @@
             <c:set var="staffResources"><gsweb:lts list="${responses.boarding}" /></c:set>
             <c:if test="${not empty staffResources}"><p class="lbl">Special staff resources available to students: <span class="val">${staffResources}</span></p></c:if>
 
-            <c:set var="staffLangs"><gsweb:lts list="${responses.staff_languages}" /></c:set>
-            <c:set var="staffLangsOther"><gsweb:lts list="${responses.staff_languages_other}" /></c:set>
-            <c:if test="${not empty staffLangs or not empty staffLangsOther}"><p class="lbl">Languages spoken by school staff: <span class="val">${staffLangs} ${staffLangsOther}</span></p></c:if>
+            <c:if test="${not empty staff_languages}"><p class="lbl">Languages spoken by school staff: <span class="val">${staff_languages}</span></p></c:if>
 
             <c:set var="elr"><gsweb:lts list="${responses.extra_learning_resources}" /></c:set>
             <c:if test="${not empty elr}"><p class="lbl">Extra learning resources offered: <span class="val">${elr}</span></p></c:if>
@@ -296,19 +290,17 @@
             <c:set var="isP3" value="${fn:length(pn3)>0 and fn:length(pu3)>0}"/>
             <c:set var="isP4" value="${fn:length(pn4)>0 and fn:length(pu4)>0}"/>
             <c:set var="isP5" value="${fn:length(pn5)>0 and fn:length(pu5)>0}"/>
-            <p class="lbl">Partnerships with local resources and organizations: <span class="val">?</span></p>
+            <p class="lbl">Partnerships with local resources and organizations: 
             <c:if test="${isP1}"><a href="${pu1}">${pn1}</a></c:if><c:if test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
             <c:if test="${isP2}"><a href="${pu2}">${pn2}</a></c:if><c:if test="${isP3 or isP4 or isP5}">; </c:if>
             <c:if test="${isP3}"><a href="${pu3}">${pn3}</a></c:if><c:if test="${isP4 or isP5}">; </c:if>
             <c:if test="${isP4}"><a href="${pu4}">${pn4}</a></c:if><c:if test="${isP5}">; </c:if>
-            <c:if test="${isP5}"><a href="${pu3}">${pn3}</a></c:if>
+            <c:if test="${isP5}"><a href="${pu3}">${pn3}</a></c:if></p>
 
             <c:set var="facilities"><gsweb:lts list="${responses.facilities}" /></c:set>
             <c:if test="${not empty facilities and fn:toLowerCase(facilities) ne 'none'}"><p class="lbl">School facilities: <span class="val">${facilities}</span></p></c:if>
 
-            <c:set var="collegePrep"><gsweb:lts list="${responses.college_prep}" /></c:set>
-            <c:set var="collegePrepOther"><gsweb:lts list="${responses.college_prep_other}" /></c:set>
-            <c:if test="${not empty collegePrep or not empty collegePrepOther}"><p class="lbl">College preparation / awareness resources offered: <span class="val">${collegePrep} ${collegePrepOther}</span></p></c:if>
+            <c:if test="${not empty college_prep}"><p class="lbl">College preparation / awareness resources offered: <span class="val">${college_prep}</span></p></c:if>
 
             <c:set var="skillsTraining"><gsweb:lts list="${responses.skills_training}" /></c:set>
             <c:if test="${not empty skillsTraining and fn:toLowerCase(skillsTraining) ne 'none'}"><p class="lbl">Vocational or skills-based training offered: <span class="val">${skillsTraining}</span></p></c:if>
@@ -347,20 +339,11 @@
             <c:set var="artsVisual"><gsweb:lts list="${responses.arts_visual}" /></c:set>
             <c:if test="${not empty artsVisual and fn:toLowerCase(artsVisual) ne 'none'}"><p class="lbl">Arts - Visual: <span class="val">${artsVisual}</span></p></c:if>
 
-            <c:set var="boysSports"><gsweb:lts list="${responses.boys_sports}" dlm="; "/></c:set>
-            <c:set var="boysSportsOther"><gsweb:lts list="${responses.boys_sports_other}" dlm="; "/></c:set>
-            <c:if
-                test="${(not empty boysSports and fn:toLowerCase(boysSports) ne 'none') or (not empty boysSportsOther and fn:toLowerCase(boysSportsOther) ne 'none')}">
-                <p class="lbl">
-                    Boys Sports: <span class="val">${boysSports} ${boysSportsOther}</span>
-                </p>
-            </c:if>
+            <c:if test="${not empty boys_sports}"><p class="lbl">Boys Sports: <span class="val">${boys_sports}</span></p></c:if>
 
-            <c:set var="girlsSports"><gsweb:lts list="${responses.girls_sports}" dlm="; "/></c:set>
-            <c:set var="girlsSportsOther"><gsweb:lts list="${responses.girls_sports_other}" dlm="; "/></c:set>
-            <c:if test="${(not empty girlsSports and fn:toLowerCase(girlsSports) ne 'none') or (fn:length(girlsSportsOther)>0 and fn:toLowerCase(girlsSportsOther) ne 'none')}"><p class="lbl">Girls Sports: <span class="val">${girlsSports} ${girlsSportsOther}</span></p></c:if>
+            <c:if test="${not empty girls_sports}"><p class="lbl">Girls Sports: <span class="val">${girls_sports}</span></p></c:if>
 
-            <c:if test="${not empty studentClubs}"><p class="lbl">Student Clubs: <span class="val">${studentClubs}</span></p></c:if>
+            <c:if test="${not empty student_clubs}"><p class="lbl">Student Clubs: <span class="val">${student_clubs}</span></p></c:if>
 
             <c:if test="${not empty academicAwards}"><p class="lbl">Academic awards received in the past 3 years: <span class="val">${academicAwards}</span></p></c:if>
 
@@ -375,7 +358,7 @@
             <c:if test="${fn:toLowerCase(bullying) eq 'yes'}"><p class="lbl">Bullying and/or cyber bullying policy in place</p></c:if>
 
             <c:set var="parentInvolvement"><gsweb:lts list="${responses.parent_involvement}" /></c:set>
-            <c:if test="${fn:toLowerCase(parentInvolvement) eq 'yes'}"><p class="lbl">Opportunities for parent involvement: <span class="val">${parentInvolvement}</span></p></c:if>
+            <c:if test="${not empty parentInvolvement}"><p class="lbl">Opportunities for parent involvement: <span class="val">${parentInvolvement}</span></p></c:if>
 
             <c:set var="schoolColors"><gsweb:lts list="${responses.school_colors}" /></c:set>
             <c:if test="${not empty schoolColors}"><p class="lbl">School colors: <span class="val">${schoolColors}</span></p></c:if>
@@ -383,7 +366,7 @@
             <c:set var="schoolMascot"><gsweb:lts list="${responses.school_mascot}" /></c:set>
             <c:if test="${not empty schoolMascot}"><p class="lbl">School mascot: <span class="val">${schoolMascot}</span></p></c:if>
 
-            <c:set var="facebookUrl"><gsweb:lts list="${responses.facebookUrl}" /></c:set>
+            <c:set var="facebookUrl"><gsweb:lts list="${responses.facebook_url}" /></c:set>
             <c:if test="${not empty facebookUrl}"><p class="lbl">School Facebook page: <a href="${facebookUrl}" class="val">${facebookUrl}</a></p></c:if>
 
             <c:if test="${school.type.schoolTypeName != 'public'}">
