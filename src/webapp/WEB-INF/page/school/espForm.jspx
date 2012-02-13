@@ -7,7 +7,6 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:gsweb="gstaglib"
           version="2.0" >
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <jsp:directive.page contentType="text/html"/>
@@ -15,8 +14,26 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <head>
+        <c:set var="tabTitle_1" value="School basics"/>
+        <c:set var="tabTitle_2" value="Instructional model"/>
+        <c:set var="tabTitle_3" value="Applying &amp;amp; enrolling"/>
+        <c:set var="tabTitle_4" value="Programs &amp;amp; resources"/>
+        <c:set var="tabTitle_5" value="Enrichment &amp;amp; extras"/>
+        <c:set var="tabTitle_6" value="School culture"/>
+        <c:set var="tabTitle_7" value="Contact info"/>
+        <c:set var="tabTitle_8" value="Student info"/>
+        <c:choose>
+            <c:when test="${page eq 1}"><c:set var="tabTitle" value="${tabTitle_1}"/></c:when>
+            <c:when test="${page eq 2}"><c:set var="tabTitle" value="${tabTitle_2}"/></c:when>
+            <c:when test="${page eq 3}"><c:set var="tabTitle" value="${tabTitle_3}"/></c:when>
+            <c:when test="${page eq 4}"><c:set var="tabTitle" value="${tabTitle_4}"/></c:when>
+            <c:when test="${page eq 5}"><c:set var="tabTitle" value="${tabTitle_5}"/></c:when>
+            <c:when test="${page eq 6}"><c:set var="tabTitle" value="${tabTitle_6}"/></c:when>
+            <c:when test="${page eq 7}"><c:set var="tabTitle" value="${tabTitle_7}"/></c:when>
+            <c:when test="${page eq 8}"><c:set var="tabTitle" value="${tabTitle_8}"/></c:when>
+        </c:choose>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>ESP Form</title>
+        <title>GreatSchools Official School Profile, ${tabTitle} - ${school.name}, ${school.physicalAddress.city}, ${school.databaseState}</title>
         <style type="text/css">
             #js_espFormNav ul {
                 position: relative;
@@ -126,43 +143,43 @@
                         <ul>
                             <li class="${(page eq 1)?'selected':''} ${(percentComplete[1] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="1">
-                                    School basics
+                                    ${tabTitle_1}
                                 </link:schoolEspForm>
                             </li>
                             <li class="${(page eq 2)?'selected':''} ${(percentComplete[2] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="2">
-                                    Instructional model
+                                    ${tabTitle_2}
                                 </link:schoolEspForm>
                             </li>
                             <li class="${(page eq 3)?'selected':''} ${(percentComplete[3] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="3">
-                                    Applying &amp;amp; enrolling
+                                    ${tabTitle_3}
                                 </link:schoolEspForm>
                             </li>
                             <li class="${(page eq 4)?'selected':''} ${(percentComplete[4] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="4">
-                                    Programs &amp;amp; resources
+                                    ${tabTitle_4}
                                 </link:schoolEspForm>
                             </li>
                             <li class="${(page eq 5)?'selected':''} ${(percentComplete[5] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="5">
-                                    Enrichment &amp;amp; extras
+                                    ${tabTitle_5}
                                 </link:schoolEspForm>
                             </li>
                             <li class="${(page eq 6)?'selected':''} ${(percentComplete[6] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="6">
-                                    School culture
+                                    ${tabTitle_6}
                                 </link:schoolEspForm>
                             </li>
                             <li class="${(page eq 7)?'selected':''} ${(percentComplete[7] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="7">
-                                    Contact info
+                                    ${tabTitle_7}
                                 </link:schoolEspForm>
                             </li>
                             <c:if test="${maxPage eq 8}">
                                 <li class="${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
                                     <link:schoolEspForm school="${school}" page="8">
-                                        Student info
+                                        ${tabTitle_8}
                                     </link:schoolEspForm>
                                 </li>
                             </c:if>
@@ -201,7 +218,7 @@
         </div>
 
         <div style="display:none;">
-            <mod:tracking school="${school}" pageName="ESP Form Page ${page}" hier1="ESP"/>
+            <mod:tracking school="${school}" pageName="OSP Form Page ${page}" hier1="ESP"/>
         </div>
     </gsml:body>
     </html>
