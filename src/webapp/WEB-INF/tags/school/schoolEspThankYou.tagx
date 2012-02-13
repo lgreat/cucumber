@@ -3,7 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
     <div id="schoolEspThankYou" class="dialog_white" style="display:none;">
-        <h2>Your request has been submited</h2>
+        <h2>Your request has been submitted</h2>
         <p>
             Thank you for registering for a GreatSchools School Official account!
             You will receive an email in 2-4 days confirming that your account has been approved.
