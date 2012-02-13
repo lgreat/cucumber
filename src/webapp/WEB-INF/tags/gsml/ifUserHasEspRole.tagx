@@ -10,7 +10,7 @@
     <jsp:scriptlet>
         boolean espMember = false;
         if (pageUser != null) {
-            espMember = pageUser.hasRole(Role.ESP_MEMBER);
+            espMember = pageUser.hasRole(Role.ESP_MEMBER) &amp;&amp; !pageUser.hasRole(Role.ESP_SUPERUSER);
         }
         request.setAttribute("espMember", espMember);
     </jsp:scriptlet>
