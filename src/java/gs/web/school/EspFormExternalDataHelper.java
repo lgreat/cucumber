@@ -312,8 +312,6 @@ public class EspFormExternalDataHelper {
                 } catch (Exception e) {
                     _log.error("Exception while geo coding " + e);
                 } finally {
-                    System.out.println("lat------------"+lat);
-                    System.out.println("lon------------"+lon);
                     school.setLat(lat);
                     school.setLon(lon);
                 }
