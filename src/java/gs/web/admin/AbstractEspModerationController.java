@@ -13,7 +13,7 @@ import gs.data.school.School;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
 import gs.data.util.DigestUtil;
-import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.school.EspRejectionEmail;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 
@@ -112,7 +112,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     @Autowired
     protected IEspResponseDao _espResponseDao;
 
-    protected EmailVerificationEmail _emailVerificationEmail;
+    protected EspRejectionEmail _espRejectionEmail;
 
     protected ExactTargetAPI _exactTargetAPI;
     
@@ -158,9 +158,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                         } else if ("reject".equals(moderatorAction)) {
                             membership.setStatus(EspMembershipStatus.REJECTED);
                             membership.setActive(false);
-                            if (!user.isEmailValidated()) {
-                                sendGSVerificationEmail(request, user);
-                            }
+                            sendRejectionEmail(user);
                             updateMembership = true;
                         } else if (moderatorAction.contains("deactivate")) {
                             membership.setActive(false);
@@ -291,15 +289,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         }
     }
 
-    private void sendGSVerificationEmail(HttpServletRequest request, User user) {
+    private void sendRejectionEmail(User user) {
         try {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
-            String redirectUrl = urlBuilder.asFullUrl(request);
-            Map<String, String> otherParams = new HashMap<String, String>();
-            getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
-
+            _espRejectionEmail.sendRejectionEmail(user);
         } catch (Exception e) {
-            _log.error("Error sending verification email message: " + e, e);
+            _log.error("Error sending rejection email message: " + e, e);
         }
 
     }
@@ -344,12 +338,12 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         this._espResponseDao = espResponseDao;
     }
 
-    public EmailVerificationEmail getEmailVerificationEmail() {
-        return _emailVerificationEmail;
+    public EspRejectionEmail getEspRejectionEmail() {
+        return _espRejectionEmail;
     }
 
-    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
-        _emailVerificationEmail = emailVerificationEmail;
+    public void setEspRejectionEmail(EspRejectionEmail espRejectionEmail) {
+        _espRejectionEmail = espRejectionEmail;
     }
 
     public ExactTargetAPI getExactTargetAPI() {
