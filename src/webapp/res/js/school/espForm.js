@@ -529,6 +529,8 @@ new (function() {
         GS.form.controlVisibilityOfElement('#js_schedule','[name=schedule_exists]', 'yes',{matchAny:true});
         GS.form.controlVisibilityOfElement('#js_partnerships','[name=partnerships]', 'yes',{matchAny:true});
         GS.form.controlVisibilityOfElement('#js_form_immersion_language_group','[name=immersion]', 'yes');
+        GS.form.controlVisibilityOfElement('#js_ell_languages','[name=ell_level]', 'moderate');
+        GS.form.controlVisibilityOfElement('#js_ell_languages','[name=ell_level]', 'intensive');
 
         GS.form.findAndApplyGhostTextSwitching('#espFormPage-' + GS.espForm.currentPage);
 
