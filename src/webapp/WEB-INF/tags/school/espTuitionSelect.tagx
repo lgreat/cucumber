@@ -22,6 +22,7 @@
 
     <c:set var="prefix" value="form"/>
     <c:set var="value" value="${responseMap[key].value}"/>
+    <fmt:parseNumber var="nvalue" type="currency" value="${value}"/>
 
     <![CDATA[<select ]]>
     <c:out value='id="${prefix}_${key}"' escapeXml="false"/>
@@ -32,7 +33,7 @@
       <option value="" disabled="disabled">${placeholder}</option>
       <c:forEach var="te" items="${tuitionValues}">
         <![CDATA[<option]]>
-        <c:if test="${te == value}"><![CDATA[ selected="selected"]]></c:if>
+        <c:if test="${te == nvalue}"><![CDATA[ selected="selected"]]></c:if>
         <![CDATA[>$]]>
         <c:out value="${te}"/>
         <![CDATA[</option>]]>
