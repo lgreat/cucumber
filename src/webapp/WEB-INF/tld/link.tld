@@ -917,6 +917,13 @@
             <![CDATA[Contact Us.]]>
         </description>
         <attribute>
+            <name>feedbackType</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Feedback type to auto-select in form</description>
+        </attribute>
+        <attribute>
             <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

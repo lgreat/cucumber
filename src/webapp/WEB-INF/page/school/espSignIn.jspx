@@ -133,6 +133,8 @@
                     <li>It lets you update your school's contact information</li>
                 </ul>
 
+                <p>Need help? <link:contactUs feedbackType="esp">Contact us</link:contactUs>.</p>
+
                 <p class="">You must be a principal or a school official to create an Online School Profile. We will verify your identity after you sign up.</p>
 
                 <link:schoolEspRegister styleClass="button-1">Create an account</link:schoolEspRegister>

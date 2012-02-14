@@ -39,7 +39,16 @@
 
 <h1 class="">Request a school official account</h1>
 
-<p class="">GreatSchools offers a special account that allows principals and other school officials to build an Official School Profile. If you are a school official, please register below, including your school's webpage where our team can check that you are affiliated with the school. After you submit, we will verify that you are a school official and email you a link to get started on your Official School Profile.</p>
+<p class="">
+    Welcome principals and school officials! Raise the visibility of your school by taking advantage of GreatSchools'
+    FREE Official School Profile. Fill out the registration form below to get started.
+</p>
+<p>
+    If you already have access to edit your school's profile, note that
+    <strong>we recently updated our system</strong> to make it easier for you to edit your school's profile information.
+    <strong>Please register here to gain access through the new system</strong>.
+    We promise this will be a better experience and we apologize for the inconvenience.
+</p>
 
 <div class="mod form">
 <div class="inner">
@@ -81,11 +90,16 @@
             </div>
 
             <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
-            <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" class="error js_emailErr">
+            <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" id="js_userAwaitingMembershipError" class="error js_emailErr">
                 <div class="mediaExt1-1">
                     <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
 
-                    <div class="bk">You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.</div>
+                    <div class="bk">
+                        Our records show that you have recently requested a school official's account.
+                        New requests are typically reviewed within 2-4 weekdays.
+                        Please standby for an email containing a link to get started.
+                        If you require immediate support, you may <link:contactUs feedbackType="esp">contact us</link:contactUs>.
+                    </div>
                 </div>
             </div>
 
@@ -421,6 +435,8 @@
         <li>Add photos and videos that bring your school profile to life.</li>
         <li>Boost enrollment.</li>
     </ol>
+
+    <p>Need help? <link:contactUs feedbackType="esp">Contact us</link:contactUs>.</p>
 
 </div>
 </div>

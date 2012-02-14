@@ -125,7 +125,8 @@ GS.form.EspForm = function() {
             GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
         } else if (data.isUserAwaitingESPMembership === true) {
             // users who have requested access but are still being processed
-            GS.form.espForm.showEmailError("You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.", emailField);
+            jQuery('#js_userAwaitingMembershipError').show();
+            GS.form.espForm.addWarningClassToElem(emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             // users who have been approved and validated their emails.We check the cookie, since a signed in user should be able to submit one request.
             GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<br/><a href='/official-school-profile/signin.page'>Sign in</a> to your account here.", emailField);
