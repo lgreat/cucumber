@@ -106,8 +106,8 @@
                                         <input class="button-1" type="submit" value="Sign in"/>
                                     </div>
 
-                                    <div class="nal">
-                                        <p class="mumbo">
+                                    <div class="">
+                                        <p class="mumbo bottom">
                                             <a href="javascript:void(0);" id="js_espLaunchForgotPassword"
                                                onclick="">Forgot your password?</a>
                                         </p>

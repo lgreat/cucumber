@@ -60,7 +60,13 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 input[type=password]:focus,
 .slFormsV1-0 input.text:focus,
 /*.slFormsV1-0 input.title:focus, */
-.slFormsV1-0 textarea:focus {border-color:#2092c4;}
+.slFormsV1-0 textarea:focus {border-color:#2092c4;
+    -webkit-transition: all 0.3s ease-in;  /* Saf3.2+, Chrome */
+       -moz-transition: all 0.3s ease-in;  /* FF4+ */
+        -ms-transition: all 0.3s ease-in;  /* IE10 */
+         -o-transition: all 0.3s ease-in;  /* Opera 10.5+ */
+            transition: all 0.3s ease-in;
+}
 
 /* Form element error warning style */
 .slFormsV1-0 input[type=text].warning,
