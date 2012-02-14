@@ -74,6 +74,11 @@ GS.PhotoUploader.prototype.createUploader = function() {
                 if (data.error.message == "Unauthorized") {
                     self.errorMessage = "Error: Not logged in";
                     stopTheUploader = true;
+                } else if (data.error.message == "Request too large") {
+                    self.setStatus(file, "Error: File too large.");
+                    self.errorMessage = "Some files were not uploaded. File size limit is 2MB";
+                } else {
+                    self.errorMessage = data.error.message;
                 }
             }
 

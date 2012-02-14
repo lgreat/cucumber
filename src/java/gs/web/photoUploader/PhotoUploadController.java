@@ -43,8 +43,10 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     private static final String RESP_ERROR = "{\"jsonrpc\" : \"2.0\", \"error\" : {\"code\": 101, \"message\": \"Failed to open input stream.\"}, \"id\" : \"id\"}";
     public static final String JSON = "application/json";
     public static final int FULL_SIZE_IMAGE_MAX_DIMENSION = 500;
+    public static final int MAX_CONTENT_LENGTH = 2500000;
     
     public static final String NOT_LOGGED_IN_ERROR = "Unauthorized"; // value referenced in JS
+    public static final String REQUEST_TOO_LARGE_ERROR = "Request too large"; // value referenced in JS
 
     private ISchoolMediaDao _schoolMediaDao;
 
@@ -91,11 +93,18 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
         // handle user not logged in
         if (user == null) {
             error(response, "-1", NOT_LOGGED_IN_ERROR);
+            return;
         }
 
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         if (isMultipart) {
+            // not meant to be accurate. Error when content length (which mostly contains an image) is overly large
+            if (request.getContentLength() > MAX_CONTENT_LENGTH) {
+                error(response, "-1", REQUEST_TOO_LARGE_ERROR);
+                return;
+            }
+            
             ServletFileUpload upload = new ServletFileUpload();
 
             try {
