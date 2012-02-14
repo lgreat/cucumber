@@ -259,7 +259,7 @@
             <school:espCheckboxWithLabel key="staff_languages" value="vietnamese" label="Vietnamese"/>
             <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
                                          styleClass="js_otherField_js_form_staff_languages_other" nobr="true"/>
-            <input id="js_form_staff_languages_other" class="js_otherField" type="text" name="staff_languages_other"
+            <input id="js_form_staff_languages_other" class="js_otherField text input_4 mls" type="text" name="staff_languages_other"
                    value="${responseMap['staff_languages_other'].value}"
                    placeholder="[Please indicate]" maxlength="30"/>
         </div>
@@ -480,32 +480,37 @@
                                    selected="${responseMap['post_graduation_year'].valueMap['2013']}">2012-2013</gsml:selectOption>
             </select>
             <div>
+                <div class="lal clearfix">
+                    <input id="js_form_post_graduation_2yr" type="text"
+                           name="post_graduation_2yr" class=" text input_1 mhs"
+                           value="${responseMap['post_graduation_2yr'].value}" maxlength="3"/>
+                    <label class="checkbox">% Graduates going to a 2 year college</label>
+                </div>
 
-            <input id="js_form_post_graduation_2yr" type="text"
-                   name="post_graduation_2yr" class=" text input_1 mls"
-                   value="${responseMap['post_graduation_2yr'].value}" maxlength="3"/>
-            <label class="checkbox">% Graduates going to a 2 year college</label>
-
-            <input id="js_form_post_graduation_4yr" type="text"
-                   name="post_graduation_4yr" class=" text input_1 mls"
-                   value="${responseMap['post_graduation_4yr'].value}" maxlength="3"/>
-            <label class="checkbox">% Graduates going to a 4 year college</label>
-
-
-            <input id="js_form_post_graduation_military" type="text"
-                   name="post_graduation_military" class=" text input_1 mls"
-                   value="${responseMap['post_graduation_military'].value}" maxlength="3"/>
-            <label class="checkbox">% Graduates going into military service</label>
-
-            <input id="js_form_post_graduation_vocational" type="text"
-                   name="post_graduation_vocational" class=" text input_1 mls"
-                   value="${responseMap['post_graduation_vocational'].value}" maxlength="3"/>
-            <label class="checkbox">% Graduates going into vocational programs</label>
-
-            <input id="js_form_post_graduation_workforce" type="text"
-                   name="post_graduation_workforce" class=" text input_1 mls"
-                   value="${responseMap['post_graduation_workforce'].value}" maxlength="3"/>
-            <label class="checkbox">% Graduates going directly into the workforce</label>
+                <div class="lal clearfix">
+                    <input id="js_form_post_graduation_4yr" type="text"
+                           name="post_graduation_4yr" class=" text input_1 mhs"
+                           value="${responseMap['post_graduation_4yr'].value}" maxlength="3"/>
+                    <label class="checkbox">% Graduates going to a 4 year college</label>
+                </div>
+                <div class="lal clearfix">
+                    <input id="js_form_post_graduation_military" type="text"
+                           name="post_graduation_military" class=" text input_1 mhs"
+                           value="${responseMap['post_graduation_military'].value}" maxlength="3"/>
+                    <label class="checkbox">% Graduates going into military service</label>
+                </div>
+                <div class="lal clearfix">
+                    <input id="js_form_post_graduation_vocational" type="text"
+                           name="post_graduation_vocational" class=" text input_1 mhs"
+                           value="${responseMap['post_graduation_vocational'].value}" maxlength="3"/>
+                    <label class="checkbox">% Graduates going into vocational programs</label>
+                </div>
+                <div class="lal clearfix">
+                    <input id="js_form_post_graduation_workforce" type="text"
+                           name="post_graduation_workforce" class=" text input_1 mhs"
+                           value="${responseMap['post_graduation_workforce'].value}" maxlength="3"/>
+                    <label class="checkbox">% Graduates going directly into the workforce</label>
+                </div>
             </div>
         </div>
     </div>
@@ -518,27 +523,32 @@
         <div class="alpha grid_7">
             <p class="labelGroup">What vocational or skills-based training programs does your school offer students, if any?</p>
         </div>
-        <div class="grid_5">
-            <school:espCheckboxWithLabel key="skills_training" value="none" label="None"/>
-            <school:espCheckboxWithLabel key="skills_training" value="mechanics" label="Auto mechanics"/>
-            <school:espCheckboxWithLabel key="skills_training" value="management" label="Business management"/>
-            <school:espCheckboxWithLabel key="skills_training" value="programming" label="Computer programming"/>
-            <school:espCheckboxWithLabel key="skills_training" value="construction" label="Construction / Building"/>
-            <school:espCheckboxWithLabel key="skills_training" value="culinary" label="Culinary"/>
-            <school:espCheckboxWithLabel key="skills_training" value="electrical" label="Electrical"/>
-            <school:espCheckboxWithLabel key="skills_training" value="hvac" label="HVAC certification"/>
-            <school:espCheckboxWithLabel key="skills_training" value="design" label="Industrial / Graphic Design"/>
-            <school:espCheckboxWithLabel key="skills_training" value="it_support" label="IT Support"/>
-            <school:espCheckboxWithLabel key="skills_training" value="plumbing" label="Plumbing"/>
-            <school:espCheckboxWithLabel key="skills_training" value="prelaw" label="Pre-law"/>
-            <school:espCheckboxWithLabel key="skills_training" value="welding" label="Welding certification"/>
-            <school:espCheckboxWithLabel key="skills_training" value="engineering" label="Engineering"/>
-            <school:espCheckboxWithLabel key="skills_training" value="other" label="Other:"
-                                         styleClass="js_otherField_js_form_skills_training_other" nobr="true"/>
-            <input id="js_form_skills_training_other" class="js_otherField" type="text"
-                   name="skills_training_other"
-                   value="${responseMap['skills_training_other'].value}"
-                   placeholder="[Please indicate]" maxlength="30"/>
+        <div class="grid_16 omega">
+            <div class="grid_7 aplha">
+                <school:espCheckboxWithLabel key="skills_training" value="none" label="None"/>
+                <school:espCheckboxWithLabel key="skills_training" value="mechanics" label="Auto mechanics"/>
+                <school:espCheckboxWithLabel key="skills_training" value="management" label="Business management"/>
+                <school:espCheckboxWithLabel key="skills_training" value="programming" label="Computer programming"/>
+                <school:espCheckboxWithLabel key="skills_training" value="construction"
+                                             label="Construction / Building"/>
+                <school:espCheckboxWithLabel key="skills_training" value="culinary" label="Culinary"/>
+                <school:espCheckboxWithLabel key="skills_training" value="electrical" label="Electrical"/>
+                <school:espCheckboxWithLabel key="skills_training" value="hvac" label="HVAC certification"/>
+            </div>
+            <div class="grid_8 omega">
+                <school:espCheckboxWithLabel key="skills_training" value="design" label="Industrial / Graphic Design"/>
+                <school:espCheckboxWithLabel key="skills_training" value="it_support" label="IT Support"/>
+                <school:espCheckboxWithLabel key="skills_training" value="plumbing" label="Plumbing"/>
+                <school:espCheckboxWithLabel key="skills_training" value="prelaw" label="Pre-law"/>
+                <school:espCheckboxWithLabel key="skills_training" value="welding" label="Welding certification"/>
+                <school:espCheckboxWithLabel key="skills_training" value="engineering" label="Engineering"/>
+                <school:espCheckboxWithLabel key="skills_training" value="other" label="Other:"
+                                             styleClass="js_otherField_js_form_skills_training_other" nobr="true"/>
+                <input id="js_form_skills_training_other" class="js_otherField text input_4 mls" type="text"
+                       name="skills_training_other"
+                       value="${responseMap['skills_training_other'].value}"
+                       placeholder="[Please indicate]" maxlength="30"/>
+            </div>
         </div>
     </div>
 </c:if>
@@ -549,22 +559,29 @@
         <div class="alpha grid_7">
             <p class="labelGroup">What colleges do most students attend after graduation?</p>
         </div>
-        <div class="grid_5">
+        <div class="grid_16 omega">
+            <ol>
+                <li>
+                    <input id="js_form_college_destination_1" type="text"
+                           name="college_destination_1" class="text input_6 mts"
+                           value="${responseMap['college_destination_1'].value}"
+                           placeholder="[Name of college/university]" maxlength="30"/>
+                </li>
+                <li>
 
-            <input id="js_form_college_destination_1" type="text"
-                   name="college_destination_1"
-                   value="${responseMap['college_destination_1'].value}"
-                   placeholder="[Name of college/university]" maxlength="30"/>
+                    <input id="js_form_college_destination_2" type="text"
+                           name="college_destination_2" class="text input_6 mts"
+                           value="${responseMap['college_destination_2'].value}"
+                           placeholder="[Name of college/university]" maxlength="30"/>
+                </li>
+                <li>
 
-            <input id="js_form_college_destination_2" type="text"
-                   name="college_destination_2"
-                   value="${responseMap['college_destination_2'].value}"
-                   placeholder="[Name of college/university]" maxlength="30"/>
-
-            <input id="js_form_college_destination_3" type="text"
-                   name="college_destination_3"
-                   value="${responseMap['college_destination_3'].value}"
-                   placeholder="[Name of college/university]" maxlength="30"/>
+                    <input id="js_form_college_destination_3" type="text"
+                           name="college_destination_3" class="text input_6 mts"
+                           value="${responseMap['college_destination_3'].value}"
+                           placeholder="[Name of college/university]" maxlength="30"/>
+                </li>
+            </ol>
         </div>
     </div>
 </c:if>
