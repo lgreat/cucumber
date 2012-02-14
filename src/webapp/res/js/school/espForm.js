@@ -233,6 +233,7 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
 
 GS.validation.validateRequiredIfChecked = function(fieldSelector, fieldCheckedSelector, errorSelector) {
     jQuery(errorSelector).hide();
+    jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
     var checkedFields = jQuery(fieldCheckedSelector);
     if (checkedFields.filter(':checked').size() == 0) {
         return true;
