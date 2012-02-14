@@ -167,14 +167,6 @@
                     </tr>
                 </c:if>
 
-                <c:set var="bestKnownFor"><gsweb:lts list="${responses.best_known_for}"/></c:set>
-                <c:if test="${not empty bestKnownFor}">
-                    <tr>
-                        <td class="small_bold">Our school is best known for</td>
-                        <td>${bestKnownFor}</td>
-                    </tr>
-                </c:if>
-
                 <c:set var="instModel"><gsweb:lts list="${responses.instructional_model}" /></c:set>
                 <c:if test="${not empty instModel}">
                     <tr>
