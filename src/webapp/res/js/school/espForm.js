@@ -210,11 +210,13 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
             if (numChecked == 0) {
                 isValid = false;
             }
-        } else if (fieldType == 'text') {
+        } else if (fieldType === 'text') {
             // require each one to have text
             formFields.each(function() {
-                var fieldVal = jQuery.trim(jQuery(this).val());
-                if (fieldVal == "") {
+                var field = jQuery(this);
+                var fieldVal = jQuery.trim(field.val());
+                var ghostText = (field.attr('placeholder') === '' || field.attr('placeholder') === undefined ) ? '' : field.attr('placeholder');
+                if (fieldVal === "" || fieldVal === ghostText) {
                     isValid = false;
                     return false;
                 }
@@ -487,6 +489,30 @@ new (function() {
             ('#form_transportation_shuttle_other', '.js_otherField_form_transportation_shuttle_other', '#form_transportation_shuttle_error');
         // END PAGE 1
 
+        // PAGE 4
+        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked
+            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
+        var isValidSpecialEdPrograms = GS.validation.validateRequiredIfChecked
+            ('[name=special_ed_programs]', '[name=special_ed_programs_exists]', '#js_form_special_ed_programs_error');
+        var isValidSchedule = GS.validation.validateRequiredIfChecked
+            ('[name=schedule]', '[name=schedule_exists]', '#js_form_schedule_error');
+        var isValidExtraLearningResources = GS.validation.validateRequiredIfChecked
+            ('#js_form_extra_learning_resources_other', '.js_otherField_js_form_extra_learning_resources_other', '#js_form_extra_learning_resources_error');
+        var isValidStaffLanguages = GS.validation.validateRequiredIfChecked
+            ('#js_form_staff_languages_other', '.js_otherField_js_form_staff_languages_other', '#js_form_staff_languages_error');
+        var isValidCollegePrep = GS.validation.validateRequiredIfChecked
+            ('#js_form_college_prep_other', '.js_otherField_js_form_college_prep_other', '#js_form_college_prep_error');
+//        var isValidPostGraduationYear = GS.validation.validateRequiredIfChecked
+//            ('[name=post_graduation_year]', '.js_otherField_js_form_college_prep_other', '#js_form_college_prep_error');
+        var isValidPostGraduation2Yr = GS.validation.validateInteger('#js_form_post_graduation_2yr','#js_form_post_graduation_2yr_error');
+        var isValidPostGraduation4Yr = GS.validation.validateInteger('#js_form_post_graduation_4yr','#js_form_post_graduation_4yr_error');
+        var isValidPostGraduationMilitary = GS.validation.validateInteger('#js_form_post_graduation_military','#js_form_post_graduation_military_error');
+        var isValidPostGraduationVocational = GS.validation.validateInteger('#js_form_post_graduation_vocational','#js_form_post_graduation_vocational_error');
+        var isValidPostGraduationWorkforce = GS.validation.validateInteger('#js_form_post_graduation_workforce','#js_form_post_graduation_workforce_error');
+        var isValidSkillsTraining = GS.validation.validateRequiredIfChecked
+            ('#js_form_skills_training_other', '.js_otherField_js_form_skills_training_other', '#js_form_skills_training_error');
+        // END PAGE 4
+
         var isValidAdministratorEmail =
                 GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error', false);
 
@@ -494,7 +520,10 @@ new (function() {
 
         return isValidStudentEnrollment && isValidGradeLevels && isValidTransportationOther &&
             isValidTransportationShuttleOther && isValidTransportationOther && isValidPhysicalAddressStreet &&
-            isValidAdministratorEmail;
+            isValidAdministratorEmail && isValidForeignLanguageOther && isValidSpecialEdPrograms && isValidSchedule &&
+            isValidExtraLearningResources && isValidStaffLanguages && isValidCollegePrep &&
+            isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
+            isValidPostGraduationVocational && isValidPostGraduationWorkforce && isValidSkillsTraining;
     };
 
     if (GS.history5Enabled) {
