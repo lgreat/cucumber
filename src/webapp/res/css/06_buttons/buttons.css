@@ -19,6 +19,7 @@ General comments:
 =3 standard button - larger version
 =4 special button for Find A School
 =5 special button for Article Slideshows GS-12262
+=6 special button for OSP Dashboard GS-12411
 
 */
 
@@ -807,3 +808,120 @@ Extends button-1 by changing:
 .button-5-inactive::-moz-focus-inner {
     border: none;
 }
+
+/* =6 special button for OSP Dashboard GS-12411
+-------------------------------------------------------------------------------------------*/
+/* Get started buttons */
+
+.slStylesV1-0 .button-6:link,
+.button-6:link,
+.slStylesV1-0 .button-6:visited,
+.button-6:visited,
+.slStylesV1-0 .button-6,
+.button-6 {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 1px 12px;
+    height: 18px;
+    color: #0066bb;
+    text-decoration: none;
+    font: normal 11px/16px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    outline:0; /* Background Gradients */
+    white-space: nowrap;
+
+    background-color: #dddddd;
+    background: -moz-linear-gradient(top, #ffffff, #dddddd); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #dddddd)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#dddddd')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', endColorStr = '#dddddd'); /* IE6,IE7 */
+
+    /* Border Radius */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    border: 1px solid #cccccc;
+    border-top-color: #cccccc; /* highlight */
+
+}
+
+.slStylesV1-0 .button-6:hover,
+.button-6:hover {
+    text-decoration: none; /* Background Gradients */
+    background: #f1f1f1; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #ffffff, #f1f1f1); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #f1f1f1)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#ffffff', EndColorStr='#f1f1f1')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', endColorStr = '#f1f1f1'); /* IE6,IE7 */
+
+    border: 1px solid #cccccc;
+    border-top-color: #cccccc;
+}
+
+.slStylesV1-0 .button-6:active,
+.button-6:active {
+
+    /* Background Gradients */
+    background: #ffffff; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #dddddd, #ffffff); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #ffffff)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#dddddd', EndColorStr='#ffffff')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#dddddd', endColorStr = '#ffffff'); /* IE6,IE7 */
+
+    border: 1px solid #cccccc;
+    border-top-color: #cccccc;
+}
+
+.slStylesV1-0 .button-6-inactive,
+.button-6-inactive {
+    width: auto;
+    overflow: visible; /* for button width bug in IE */
+    padding: 0 4px 0 3px;
+    height: 18px;
+    color: white;
+    text-decoration: none;
+    font: normal 11px/15px Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    cursor: default;
+    outline:0; /* Background Gradients */
+    background: #787878; /* for non-css3 browsers */
+
+    background: -moz-linear-gradient(top, #dddddd, #787878); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #dddddd), color-stop(1, #787878)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#dddddd', EndColorStr='#787878')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#dddddd', endColorStr = '#787878'); /* IE6,IE7 */
+
+    /* Border Radius */
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    border: 1px solid #555555;
+    border-top-color: #555555; /* Text Shadow */
+
+}
+
+/* IE7 bug: vertical centering */
+*+html .slStylesV1-0 .button-button.button-6,
+*+html .slStylesV1-0 .button-button.button-6-inactive,
+*+html button.button-6,
+*+html button.button-6-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.slStylesV1-0 .button-6::-moz-focus-inner,
+.slStylesV1-0 .button-6-inactive::-moz-focus-inner,
+.button-6::-moz-focus-inner,
+.button-6-inactive::-moz-focus-inner {
+    border: none;
+}
+

@@ -112,13 +112,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_8">
+                                    <div class="mediaExt1-3 grid_9">
                                         <span class="iconx48 i-48-sb-icon img"><!-- do not collapse --></span>
 
                                         <p class="bk">School basics</p>
                                     </div>
-                                    <div class="grid_2">
-                                        <link:schoolEspForm school="${school}" page="1">Get started</link:schoolEspForm>
+                                    <div class="grid_2 mtm pts">
+                                        <link:schoolEspForm school="${school}" page="1" styleClass="button-6">Get started</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -127,13 +127,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_8">
+                                    <div class="mediaExt1-3 grid_9">
                                         <span class="iconx48 i-48-im-icon img"><!-- do not collapse --></span>
 
                                         <p class="bk">Instructional model</p>
                                     </div>
-                                    <div class="grid_2">
-                                        <link:schoolEspForm school="${school}" page="2">Get started</link:schoolEspForm>
+                                    <div class="grid_2 mtm pts">
+                                        <link:schoolEspForm school="${school}" page="2" styleClass="button-6">Get started</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -142,13 +142,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_8">
+                                    <div class="mediaExt1-3 grid_9">
                                         <span class="iconx48 i-48-ae-icon img"><!-- do not collapse --></span>
 
                                         <p class="bk">Applying &amp;amp; enrolling</p>
                                     </div>
-                                    <div class="grid_2">
-                                        <link:schoolEspForm school="${school}" page="3">Get started</link:schoolEspForm>
+                                    <div class="grid_2 mtm pts">
+                                        <link:schoolEspForm school="${school}" page="3" styleClass="button-6">Get started</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -157,13 +157,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_8">
+                                    <div class="mediaExt1-3 grid_9">
                                         <span class="iconx48 i-48-pr-icon img"><!-- do not collapse --></span>
 
                                         <p class="bk">Programs &amp;amp; resources</p>
                                     </div>
-                                    <div class="grid_2">
-                                        <link:schoolEspForm school="${school}" page="4">Get started</link:schoolEspForm>
+                                    <div class="grid_2 mtm pts">
+                                        <link:schoolEspForm school="${school}" page="4" styleClass="button-6">Get started</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -175,13 +175,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_8">
+                                    <div class="mediaExt1-3 grid_9">
                                         <span class="iconx48 i-48-ee-icon img"><!-- do not collapse --></span>
 
                                         <p class="bk">Enrichment &amp;amp; extracurriculars</p>
                                     </div>
-                                    <div class="grid_2">
-                                        <link:schoolEspForm school="${school}" page="5">Get started</link:schoolEspForm>
+                                    <div class="grid_2 mtm pts">
+                                        <link:schoolEspForm school="${school}" page="5" styleClass="button-6">Get started</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -190,13 +190,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_8">
+                                    <div class="mediaExt1-3 grid_9">
                                         <span class="iconx48 i-48-sc-icon img"><!-- do not collapse --></span>
 
                                         <p class="bk">School culture</p>
                                     </div>
-                                    <div class="grid_2">
-                                        <link:schoolEspForm school="${school}" page="6">Get started</link:schoolEspForm>
+                                    <div class="grid_2 mtm pts">
+                                        <link:schoolEspForm school="${school}" page="6" styleClass="button-6">Get started</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -205,13 +205,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_8">
+                                    <div class="mediaExt1-3 grid_9">
                                         <span class="iconx48 i-48-ci-icon img"><!-- do not collapse --></span>
 
                                         <p class="bk">Contact info</p>
                                     </div>
-                                    <div class="grid_2">
-                                        <link:schoolEspForm school="${school}" page="7">Get started</link:schoolEspForm>
+                                    <div class="grid_2 mtm pts">
+                                        <link:schoolEspForm school="${school}" page="7" styleClass="button-6">Get started</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -222,14 +222,14 @@
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
-                                        <div class="mediaExt1-3 grid_8">
+                                        <div class="mediaExt1-3 grid_9">
                                             <span class="iconx48 i-48-si-icon img"><!-- do not collapse --></span>
 
                                             <p class="bk">Student info</p>
                                         </div>
-                                        <div class="grid_2">
+                                        <div class="grid_2 mtm pts">
                                             <link:schoolEspForm school="${school}"
-                                                                page="8">Get started</link:schoolEspForm>
+                                                                page="8" styleClass="button-6">Get started</link:schoolEspForm>
                                         </div>
                                     </div>
                                 </div>

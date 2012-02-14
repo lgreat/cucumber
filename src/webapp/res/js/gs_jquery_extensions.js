@@ -87,6 +87,18 @@ jQuery(document).ready(function() {
     jQuery('.button-3').disableSelection();
     // disable selection of button-3-inactive class
     jQuery('.button-3-inactive').disableSelection();
+    // disable selection of button-3 class
+    jQuery('.button-4').disableSelection();
+    // disable selection of button-3-inactive class
+    jQuery('.button-4-inactive').disableSelection();
+    // disable selection of button-3 class
+    jQuery('.button-5').disableSelection();
+    // disable selection of button-3-inactive class
+    jQuery('.button-5-inactive').disableSelection();
+    // disable selection of button-3 class
+    jQuery('.button-6').disableSelection();
+    // disable selection of button-3-inactive class
+    jQuery('.button-6-inactive').disableSelection();
     // disable selection of text in primary navigation
     jQuery('#primary').disableSelection();
     // disable selection of text in secondary navigation
