@@ -57,6 +57,36 @@ GS.form.controlVisibilityOfElement = function(selectorOfElementToControl, master
     $(masterFieldSelector).change(); // trigger right away to set default state
 };
 
+/*
+ * function to control the visibility of form fields.
+ * @param selectorOfElementToControl - field to show hide
+ * @param masterFieldSelector - controlling field that shows or hides.
+ * @param values - values of the controlling field that should show the element*/
+GS.form.controlVisibilityOfElementWithRadio = function(selectorOfElementToControl, masterFieldSelector, values) {
+
+    $(masterFieldSelector).on('change', function() {
+        var objectsToCheck = jQuery(masterFieldSelector);
+        var acceptableValues = values.split(",");
+        var match = false;
+
+        objectsToCheck.each(function() {
+            var thisObject = jQuery(this);
+            if (jQuery.inArray(thisObject.val(), acceptableValues) >= 0 && thisObject.prop('checked')) {
+                match = true;
+                return false;
+            }
+        });
+
+        if (match) {
+            jQuery(selectorOfElementToControl).show();
+        } else {
+            jQuery(selectorOfElementToControl).hide();
+        }
+    });
+    $(masterFieldSelector).change(); // trigger right away to set default state
+};
+
+
 // TODO: move to util/detect.js
 GS.util = GS.util || {};
 GS.util.isAttributeSupported = function(tagName, attrName) {
@@ -525,12 +555,12 @@ new (function() {
         GS.form.controlVisibilityOfElement('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes', {matchAny:true});
         GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care_before', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);
-        GS.form.controlVisibilityOfElement('#js_special_ed_programs','[name=special_ed_programs_exists]', 'yes',{matchAny:true});
-        GS.form.controlVisibilityOfElement('#js_schedule','[name=schedule_exists]', 'yes',{matchAny:true});
-        GS.form.controlVisibilityOfElement('#js_partnerships','[name=partnerships]', 'yes',{matchAny:true});
         GS.form.controlVisibilityOfElement('#js_form_immersion_language_group','[name=immersion]', 'yes');
-        GS.form.controlVisibilityOfElement('#js_ell_languages','[name=ell_level]', 'moderate');
-        GS.form.controlVisibilityOfElement('#js_ell_languages','[name=ell_level]', 'intensive');
+
+        GS.form.controlVisibilityOfElementWithRadio('#js_ell_languages','[name=ell_level]', 'moderate,intensive');
+        GS.form.controlVisibilityOfElementWithRadio('#js_partnerships','[name=partnerships]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#js_schedule','[name=schedule_exists]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#js_special_ed_programs','[name=special_ed_programs_exists]', 'yes');
 
         GS.form.findAndApplyGhostTextSwitching('#espFormPage-' + GS.espForm.currentPage);
 
