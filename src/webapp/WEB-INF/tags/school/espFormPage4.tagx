@@ -10,20 +10,25 @@
                          type="java.lang.Integer"/>
 <school:espFormTemplate page="4" maxPage="${maxPage}" headerText="Programs and resources">
 
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">Select one of these options to best describe the special education programming at your school:</p>
+<c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">Select one of these options to best describe the special education programming at your school:</p>
+        </div>
+        <div class="grid_16 omega">
+            <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
+                <school:espRadioWithLabel key="spec_ed_level" value="none" label="none"/>
+            </c:if>
+            <school:espRadioWithLabel key="spec_ed_level" value="basic"
+                                      label="Basic - we offer or partner to provide services based on the needs of individual students"/>
+            <school:espRadioWithLabel key="spec_ed_level" value="moderate"
+                                      label="Moderate -we consistently offer a full program for particular special education needs"/>
+            <school:espRadioWithLabel key="spec_ed_level" value="intensive"
+                                      label="Intensive - we offer a full program for many needs and/or we offer at least one very comprehensive program for very challenging needs such as autism or complete visual impairment"/>
+        </div>
     </div>
-    <div class="grid_16 omega">
-        <school:espRadioWithLabel key="spec_ed_level" value="none" label="none"/>
-        <school:espRadioWithLabel key="spec_ed_level" value="basic"
-                                  label="Basic - we offer or partner to provide services based on the needs of individual students"/>
-        <school:espRadioWithLabel key="spec_ed_level" value="limited"
-                                  label="Moderate -we consistently offer a full program for particular special education needs"/>
-        <school:espRadioWithLabel key="spec_ed_level" value="intensive"
-                                  label="Intensive - we offer a full program for many needs and/or we offer at least one very comprehensive program for very challenging needs such as autism or complete visual impairment"/>
-    </div>
-</div>
+</c:if>
+
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -58,13 +63,12 @@
                                                  label="Visual impairments"/>
                     <school:espCheckboxWithLabel key="special_ed_programs" value="developmental_delay"
                                                  label="Significant developmental delay"/>
-                    <school:espCheckboxWithLabel key="special_ed_programs" value="behavioral"
-                                                 label="Behavioral and/or emotional disabilities"/>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -89,56 +93,48 @@
     </div>
 </div>
 
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">Select one of these options to best describe the ESL/ELL programming at your school:</p>
-    </div>
-    <div class="grid_5">
-        <school:espRadioWithLabel key="ell_level" value="none" label="None - we offer no services"/>
-        <school:espRadioWithLabel key="ell_level" value="basic"
-                                  label="Basic - we offer or partner to provide services based on the needs of individual students"/>
-        <school:espRadioWithLabel key="ell_level" value="moderate"
-                                  label="Moderate - we consistently offer a full program for particular ESL/ELL needs"/>
-        <school:espRadioWithLabel key="ell_level" value="intensive"
-                                  label="Intensive - we offer a full program for many languages and/or we offer at least one very comprehensive program school-wide for at least 25% of our population"/>
 
-        <select name="ell_languages">
-            <gsml:selectOption value="">Select Languages</gsml:selectOption>
-            <gsml:selectOption value="arabic"
-                               selected="${responseMap['ell_languages'].valueMap['arabic']}">Arabic languages</gsml:selectOption>
-            <gsml:selectOption value="amharic"
-                               selected="${responseMap['ell_languages'].valueMap['amharic']}">Amharic</gsml:selectOption>
-            <gsml:selectOption value="cantonese"
-                               selected="${responseMap['ell_languages'].valueMap['cantonese']}">Chinese (Cantonese)</gsml:selectOption>
-            <gsml:selectOption value="mandarin"
-                               selected="${responseMap['ell_languages'].valueMap['mandarin']}">Chinese (Mandarin)</gsml:selectOption>
-            <gsml:selectOption value="dutch"
-                               selected="${responseMap['ell_languages'].valueMap['dutch']}">Dutch</gsml:selectOption>
-            <gsml:selectOption value="french"
-                               selected="${responseMap['ell_languages'].valueMap['french']}">French</gsml:selectOption>
-            <gsml:selectOption value="german"
-                               selected="${responseMap['ell_languages'].valueMap['german']}">German</gsml:selectOption>
-            <gsml:selectOption value="hmong"
-                               selected="${responseMap['ell_languages'].valueMap['hmong']}">Hmong</gsml:selectOption>
-            <gsml:selectOption value="italian"
-                               selected="${responseMap['ell_languages'].valueMap['italian']}">Italian</gsml:selectOption>
-            <gsml:selectOption value="japanese"
-                               selected="${responseMap['ell_languages'].valueMap['japanese']}">Japanese</gsml:selectOption>
-            <gsml:selectOption value="korean"
-                               selected="${responseMap['ell_languages'].valueMap['korean']}">Korean</gsml:selectOption>
-            <gsml:selectOption value="russian"
-                               selected="${responseMap['ell_languages'].valueMap['russian']}">Russian</gsml:selectOption>
-            <gsml:selectOption value="spanish"
-                               selected="${responseMap['ell_languages'].valueMap['spanish']}">Spanish</gsml:selectOption>
-            <gsml:selectOption value="tagalog"
-                               selected="${responseMap['ell_languages'].valueMap['tagalog']}">Tagalog</gsml:selectOption>
-            <gsml:selectOption value="urdu"
-                               selected="${responseMap['ell_languages'].valueMap['urdu']}">Urdu</gsml:selectOption>
-            <gsml:selectOption value="vietnamese"
-                               selected="${responseMap['ell_languages'].valueMap['vietnamese']}">Vietnamese</gsml:selectOption>
-        </select>
+<c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">Select one of these options to best describe the ESL/ELL programming at your school:</p>
+        </div>
+        <div class="grid_5">
+            <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
+                <school:espRadioWithLabel key="ell_level" value="none" label="None - we offer no services"/>
+            </c:if>
+            <school:espRadioWithLabel key="ell_level" value="basic"
+                                      label="Basic - we offer or partner to provide services based on the needs of individual students"/>
+            <school:espRadioWithLabel key="ell_level" value="moderate"
+                                      label="Moderate - we consistently offer a full program for particular ESL/ELL needs"/>
+            <school:espRadioWithLabel key="ell_level" value="intensive"
+                                      label="Intensive - we offer a full program for many languages and/or we offer at least one very comprehensive program school-wide for at least 25% of our population"/>
+
+            <div id="js_ell_languages">
+                <school:espCheckboxWithLabel key="ell_languages" value="arabic" label="Arabic languages"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="amharic" label="Amharic"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="cantonese" label="Chinese (Cantonese)"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="mandarin" label="Chinese (Mandarin)"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="dutch" label="Dutch"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="french" label="French"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="german" label="German"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="hmong" label="Hmong"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="french" label="French"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="italian" label="Italian"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="japanese" label="Japanese"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="korean" label="Korean"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="russian" label="Russian"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="spanish" label="Spanish"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="tagalog" label="Tagalog"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="urdu" label="Urdu"/>
+                <school:espCheckboxWithLabel key="ell_languages" value="vietnamese" label="Vietnamese"/>
+
+            </div>
+
+        </div>
     </div>
-</div>
+</c:if>
+
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -158,103 +154,115 @@
     </div>
 </div>
 
-<!--Only show for private schools-->
+
 <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">Is your school boarding or day?</p>
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">Is your school boarding or day?</p>
+        </div>
+        <div class="grid_5">
+            <school:espRadioWithLabel key="boarding" value="day" label="Day school"/>
+            <school:espRadioWithLabel key="boarding" value="day/boarding" label="Some boarding, some day"/>
+            <school:espRadioWithLabel key="boarding" value="boarding" label="Boarding school"/>
+        </div>
     </div>
-    <div class="grid_5">
-        <school:espRadioWithLabel key="boarding" value="day" label="Day school"/>
-        <school:espRadioWithLabel key="boarding" value="day/boarding" label="Some boarding, some day"/>
-        <school:espRadioWithLabel key="boarding" value="boarding" label="Boarding school"/>
-    </div>
-</div>
 </c:if>
 
-<legend>School Resources</legend>
-<hr class="legend"><!--Do not collapse--></hr>
 
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">What staff resources are available to students?</p>
-    </div>
-    <div class="grid_8">
-        <school:espCheckboxWithLabel key="staff_resources" value="none" label="None listed here"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="assistant_principal" label="Assistant principal(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="art_teacher" label="Art teacher(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="college_counselor" label="College counselor(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="computer_specialist" label="Computer specialist(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="cooking_teacher"
-                                     label="Cooking/Nutrition teacher(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="dance_teacher" label="Dance teacher(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="ell_esl_coord" label="ELL/ESL Coordinator"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="garden_teacher" label="Gardening teacher(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="gifted_specialist" label="Gifted specialist(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="instructional_aid" label="Instructional aide(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="librarian" label="Librarian/media specialist(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="math_specialist" label="Math specialist(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="music_teacher" label="Music teacher(s)"/>
-    </div>
-    <div class="grid_8 omega">
+<c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
+    <legend>School Resources</legend>
+    <hr class="legend"><!--Do not collapse--></hr>
 
-        <school:espCheckboxWithLabel key="staff_resources" value="pe_instructor" label="PE instructor(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="nurse" label="Nurse(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="poetry_teacher"
-                                     label="Poetry/Creative writing teacher(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="priest"
-                                     label="Priest, pastor, or other religious personnel"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="reading_specialist" label="Reading specialist(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="robotics_teacher"
-                                     label="Robotics/Technology specialist(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="security" label="Security personnel"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="school_psychologist" label="School psychologist"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="school_counslor"
-                                     label="School social worker/counselors(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="special_ed_coordinator"
-                                     label="Special education coordinator"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="speech_therapist"
-                                     label="Speech and language therapist(s)"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="teacher_aid" label="Teacher aid/assistant teacher"/>
-        <school:espCheckboxWithLabel key="staff_resources" value="tutor" label="Tutor(s)"/>
-    </div>
-</div>
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What staff resources are available to students?</p>
+        </div>
+        <div class="grid_8">
+            <school:espCheckboxWithLabel key="staff_resources" value="none" label="None listed here"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="assistant_principal"
+                                         label="Assistant principal(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="art_teacher" label="Art teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="college_counselor" label="College counselor(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="computer_specialist"
+                                         label="Computer specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="cooking_teacher"
+                                         label="Cooking/Nutrition teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="dance_teacher" label="Dance teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="ell_esl_coord" label="ELL/ESL Coordinator"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="garden_teacher" label="Gardening teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="gifted_specialist" label="Gifted specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="instructional_aid"
+                                         label="Instructional aide(s)/coach(es)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="librarian" label="Librarian/media specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="math_specialist" label="Math specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="music_teacher" label="Music teacher(s)"/>
+        </div>
+        <div class="grid_8 omega">
 
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">What languages other than English does the school staff speak?</p>
+            <school:espCheckboxWithLabel key="staff_resources" value="pe_instructor" label="PE instructor(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="nurse" label="Nurse(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="poetry_teacher"
+                                         label="Poetry/Creative writing teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="priest"
+                                         label="Priest, pastor, or other religious personnel"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="reading_specialist"
+                                         label="Reading specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="robotics_teacher"
+                                         label="Robotics/Technology specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="security" label="Security personnel"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="school_psychologist" label="School psychologist"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="school_counslor"
+                                         label="School social worker/counselors(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="special_ed_coordinator"
+                                         label="Special education coordinator"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="speech_therapist"
+                                         label="Speech and language therapist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="teacher_aid"
+                                         label="Teacher aid/assistant teacher"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="tutor" label="Tutor(s)"/>
+        </div>
     </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="staff_languages" value="none" label="None"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="arabic" label="Arabic languages"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="amharic" label="Amharic"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="cantonese"
-                                     label="Chinese (Cantonese)"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="mandarin"
-                                     label="Chinese (Mandarin)"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="dutch" label="Dutch"/>
+</c:if>
+
+
+<c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What languages other than English does the school staff speak?</p>
+        </div>
+        <div class="grid_5">
+            <school:espCheckboxWithLabel key="staff_languages" value="none" label="None"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="arabic" label="Arabic languages"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="amharic" label="Amharic"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="cantonese"
+                                         label="Chinese (Cantonese)"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="mandarin"
+                                         label="Chinese (Mandarin)"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="dutch" label="Dutch"/>
+        </div>
+        <div class="grid_5">
+            <school:espCheckboxWithLabel key="staff_languages" value="french" label="French"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="german" label="German"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="hmong" label="Hmong"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="italian" label="Italian"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="japanese" label="Japanese"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="korean" label="Korean"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
+        </div>
+        <div class="grid_6 omega">
+            <school:espCheckboxWithLabel key="staff_languages" value="spanish" label="Spanish"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="tagalog" label="Tagalog"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="urdu" label="Urdu"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="vietnamese" label="Vietnamese"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
+                                         styleClass="js_otherField_js_form_staff_languages_other" nobr="true"/>
+            <input id="js_form_staff_languages_other" class="js_otherField" type="text" name="staff_languages_other"
+                   value="${responseMap['staff_languages_other'].value}"
+                   placeholder="[Please indicate]" maxlength="30"/>
+        </div>
     </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="staff_languages" value="french" label="French"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="german" label="German"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="hmong" label="Hmong"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="italian" label="Italian"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="japanese" label="Japanese"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="korean" label="Korean"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
-    </div>
-    <div class="grid_6 omega">
-        <school:espCheckboxWithLabel key="staff_languages" value="spanish" label="Spanish"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="tagalog" label="Tagalog"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="urdu" label="Urdu"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="vietnamese" label="Vietnamese"/>
-        <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
-                                                 styleClass="js_otherField_js_form_staff_languages_other" nobr="true"/>
-        <input id="js_form_staff_languages_other" class="js_otherField" type="text" name="staff_languages_other"
-               value="${responseMap['staff_languages_other'].value}"
-               placeholder="[Please indicate]"/>
-    </div>
-</div>
+</c:if>
+
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -287,9 +295,10 @@
                                                  styleClass="js_otherField_js_form_foreign_language_other" nobr="true"/>
         <input id="js_form_foreign_language_other" class="js_otherField" type="text" name="foreign_language_other"
                value="${responseMap['foreign_language_other'].value}"
-               placeholder="[Please indicate]"/>
+               placeholder="[Please indicate]" maxlength="40"/>
     </div>
 </div>
+
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
@@ -304,54 +313,55 @@
             <input id="js_form_partnerships_name_1" type="text"
                    name="partnerships_name_1"
                    value="${responseMap['partnerships_name_1'].value}"
-                   placeholder="1.[partner name]"/>
+                   placeholder="1.[partner name]" maxlength="100"/>
             <input id="js_form_partnerships_url_1" type="text"
                    name="partnerships_url_1"
                    value="${responseMap['partnerships_url_1'].value}"
-                   placeholder="1.[partner website]"/>
+                   placeholder="1.[partner website]" maxlength="100"/>
             <br/>
             <br/>
             <input id="js_form_partnerships_name_2" type="text"
                    name="partnerships_name_2"
                    value="${responseMap['partnerships_name_2'].value}"
-                   placeholder="2.[partner name]"/>
+                   placeholder="2.[partner name]" maxlength="100"/>
             <input id="js_form_partnerships_url_2" type="text"
                    name="partnerships_url_2"
                    value="${responseMap['partnerships_url_2'].value}"
-                   placeholder="2.[partner website]"/>
+                   placeholder="2.[partner website]" maxlength="100"/>
             <br/>
             <br/>
             <input id="js_form_partnerships_name_3" type="text"
                    name="partnerships_name_3"
                    value="${responseMap['partnerships_name_3'].value}"
-                   placeholder="3.[partner name]"/>
+                   placeholder="3.[partner name]" maxlength="100"/>
             <input id="js_form_partnerships_url_3" type="text"
                    name="partnerships_url_3"
                    value="${responseMap['partnerships_url_3'].value}"
-                   placeholder="3.[partner website]"/>
+                   placeholder="3.[partner website]" maxlength="100"/>
             <br/>
             <br/>
             <input id="js_form_partnerships_name_4" type="text"
                    name="partnerships_name_4"
                    value="${responseMap['partnerships_name_4'].value}"
-                   placeholder="4.[partner name]"/>
+                   placeholder="4.[partner name]" maxlength="100"/>
             <input id="js_form_partnerships_url_4" type="text"
                    name="partnerships_url_4"
                    value="${responseMap['partnerships_url_4'].value}"
-                   placeholder="4.[partner website]"/>
+                   placeholder="4.[partner website]" maxlength="100"/>
             <br/>
             <br/>
             <input id="js_form_partnerships_name_5" type="text"
                    name="partnerships_name_5"
                    value="${responseMap['partnerships_name_5'].value}"
-                   placeholder="5.[partner name]"/>
+                   placeholder="5.[partner name]" maxlength="100"/>
             <input id="js_form_partnerships_url_5" type="text"
                    name="partnerships_url_5"
                    value="${responseMap['partnerships_url_5'].value}"
-                   placeholder="5.[partner website]"/>
+                   placeholder="5.[partner website]" maxlength="100"/>
         </div>
     </div>
 </div>
+
 
 <legend>Facilities</legend>
 <hr class="legend"><!--Do not collapse--></hr>
@@ -394,6 +404,7 @@
     </div>
 </div>
 
+
 <legend>College and career</legend>
 <hr class="legend"><!--Do not collapse--></hr>
 
@@ -423,7 +434,7 @@
             <input id="js_form_college_prep_other" class="js_otherField" type="text"
                    name="college_prep_other"
                    value="${responseMap['college_prep_other'].value}"
-                   placeholder="[Please indicate]"/>
+                   placeholder="[Please indicate]" maxlength="30"/>
         </div>
     </div>
 </c:if>
@@ -436,22 +447,21 @@
             <p class="labelGroup">What percent of students at your school attend the following immediately after graduation? Please indicate the school year for the data you provide.</p>
         </div>
         <div class="grid_5">
-            <school:espCheckboxWithLabel key="post_graduation_exists" value="no_data" label="Data is unavailable"/>
 
             <select name="post_graduation_year">
                 <gsml:selectOption value="">Select Year</gsml:selectOption>
                 <gsml:selectOption value="2007-2008"
-                                   selected="${responseMap['post_graduation_year'].valueMap['2007-2008']}">2007-2008</gsml:selectOption>
+                                   selected="${responseMap['post_graduation_year'].valueMap['2008']}">2007-2008</gsml:selectOption>
                 <gsml:selectOption value="2008-2009"
-                                   selected="${responseMap['post_graduation_year'].valueMap['2008-2009']}">2008-2009</gsml:selectOption>
+                                   selected="${responseMap['post_graduation_year'].valueMap['2009']}">2008-2009</gsml:selectOption>
                 <gsml:selectOption value="2009-2010"
-                                   selected="${responseMap['post_graduation_year'].valueMap['2009-2010']}">2009-2010</gsml:selectOption>
+                                   selected="${responseMap['post_graduation_year'].valueMap['2010']}">2009-2010</gsml:selectOption>
                 <gsml:selectOption value="2010-2011"
-                                   selected="${responseMap['post_graduation_year'].valueMap['2010-2011']}">2010-2011</gsml:selectOption>
+                                   selected="${responseMap['post_graduation_year'].valueMap['2011']}">2010-2011</gsml:selectOption>
                 <gsml:selectOption value="2011-2012"
-                                   selected="${responseMap['post_graduation_year'].valueMap['2011-2012']}">2011-2012</gsml:selectOption>
+                                   selected="${responseMap['post_graduation_year'].valueMap['2012']}">2011-2012</gsml:selectOption>
                 <gsml:selectOption value="2012-2013"
-                                   selected="${responseMap['post_graduation_year'].valueMap['2012-2013']}">2012-2013</gsml:selectOption>
+                                   selected="${responseMap['post_graduation_year'].valueMap['2013']}">2012-2013</gsml:selectOption>
             </select>
 
             <input id="js_form_post_graduation_2yr" type="text"
@@ -487,59 +497,59 @@
 
 <!--Only show for schools with level 'h'-->
 <c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">What vocational or skills-based training programs does your school offer students, if any?</p>
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What vocational or skills-based training programs does your school offer students, if any?</p>
+        </div>
+        <div class="grid_5">
+            <school:espCheckboxWithLabel key="skills_training" value="none" label="None"/>
+            <school:espCheckboxWithLabel key="skills_training" value="mechanics" label="Auto mechanics"/>
+            <school:espCheckboxWithLabel key="skills_training" value="management" label="Business management"/>
+            <school:espCheckboxWithLabel key="skills_training" value="programming" label="Computer programming"/>
+            <school:espCheckboxWithLabel key="skills_training" value="construction" label="Construction / Building"/>
+            <school:espCheckboxWithLabel key="skills_training" value="culinary" label="Culinary"/>
+            <school:espCheckboxWithLabel key="skills_training" value="electrical" label="Electrical"/>
+            <school:espCheckboxWithLabel key="skills_training" value="hvac" label="HVAC certification"/>
+            <school:espCheckboxWithLabel key="skills_training" value="design" label="Industrial / Graphic Design"/>
+            <school:espCheckboxWithLabel key="skills_training" value="it_support" label="IT Support"/>
+            <school:espCheckboxWithLabel key="skills_training" value="plumbing" label="Plumbing"/>
+            <school:espCheckboxWithLabel key="skills_training" value="prelaw" label="Pre-law"/>
+            <school:espCheckboxWithLabel key="skills_training" value="welding" label="Welding certification"/>
+            <school:espCheckboxWithLabel key="skills_training" value="engineering" label="Engineering"/>
+            <school:espCheckboxWithLabel key="skills_training" value="other" label="Other:"
+                                         styleClass="js_otherField_js_form_skills_training_other" nobr="true"/>
+            <input id="js_form_skills_training_other" class="js_otherField" type="text"
+                   name="skills_training_other"
+                   value="${responseMap['skills_training_other'].value}"
+                   placeholder="[Please indicate]" maxlength="30"/>
+        </div>
     </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="skills_training" value="none" label="None"/>
-        <school:espCheckboxWithLabel key="skills_training" value="mechanics" label="Auto mechanics"/>
-        <school:espCheckboxWithLabel key="skills_training" value="management" label="Business management"/>
-        <school:espCheckboxWithLabel key="skills_training" value="programming" label="Computer programming"/>
-        <school:espCheckboxWithLabel key="skills_training" value="construction" label="Construction / Building"/>
-        <school:espCheckboxWithLabel key="skills_training" value="culinary" label="Culinary"/>
-        <school:espCheckboxWithLabel key="skills_training" value="electrical" label="Electrical"/>
-        <school:espCheckboxWithLabel key="skills_training" value="hvac" label="HVAC certification"/>
-        <school:espCheckboxWithLabel key="skills_training" value="design" label="Industrial / Graphic Design"/>
-        <school:espCheckboxWithLabel key="skills_training" value="it_support" label="IT Support"/>
-        <school:espCheckboxWithLabel key="skills_training" value="plumbing" label="Plumbing"/>
-        <school:espCheckboxWithLabel key="skills_training" value="prelaw" label="Pre-law"/>
-        <school:espCheckboxWithLabel key="skills_training" value="welding" label="Welding certification"/>
-        <school:espCheckboxWithLabel key="skills_training" value="engineering" label="Engineering"/>
-        <school:espCheckboxWithLabel key="skills_training" value="other" label="Other:" styleClass="js_otherField_js_form_skills_training_other" nobr="true"/>
-        <input id="js_form_skills_training_other" class="js_otherField" type="text"
-               name="skills_training_other"
-               value="${responseMap['skills_training_other'].value}"
-               placeholder="[Please indicate]"/>
-    </div>
-</div>
 </c:if>
 
 <!--Only show for schools with level 'h'-->
 <c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
-<div class="lal clearfix">
-    <div class="alpha grid_7">
-        <p class="labelGroup">What colleges do most students attend after graduation?</p>
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What colleges do most students attend after graduation?</p>
+        </div>
+        <div class="grid_5">
+
+            <input id="js_form_college_destination_1" type="text"
+                   name="college_destination_1"
+                   value="${responseMap['college_destination_1'].value}"
+                   placeholder="[Name of college/university]" maxlength="30"/>
+
+            <input id="js_form_college_destination_2" type="text"
+                   name="college_destination_2"
+                   value="${responseMap['college_destination_2'].value}"
+                   placeholder="[Name of college/university]" maxlength="30"/>
+
+            <input id="js_form_college_destination_3" type="text"
+                   name="college_destination_3"
+                   value="${responseMap['college_destination_3'].value}"
+                   placeholder="[Name of college/university]" maxlength="30"/>
+        </div>
     </div>
-    <div class="grid_5">
-        <school:espCheckboxWithLabel key="college_destination_exists" value="no_data" label="Data is unavailable"/>
-
-        <input id="js_form_college_destination_1" type="text"
-               name="college_destination_1"
-               value="${responseMap['college_destination_1'].value}"
-               placeholder="[Name of college/university]"/>
-
-        <input id="js_form_college_destination_2" type="text"
-               name="college_destination_2"
-               value="${responseMap['college_destination_2'].value}"
-               placeholder="[Name of college/university]"/>
-
-        <input id="js_form_college_destination_3" type="text"
-               name="college_destination_3"
-               value="${responseMap['college_destination_3'].value}"
-               placeholder="[Name of college/university]"/>
-    </div>
-</div>
 </c:if>
 
 </school:espFormTemplate>
