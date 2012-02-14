@@ -129,7 +129,7 @@
                     <gsml:input type="text" value="${responseMap['administrator_email'].value}" styleId="form_administrator_email"
                            name="administrator_email" styleClass="text input_6" disabled="${stateLocked}"/>
 
-                    <p class="hint">Example: leader@school.edu statelocked = ${stateLocked}</p>
+                    <p class="hint">Example: leader@school.edu</p>
                 </div>
                 <div style="display: none" class="grid_6 omega error" id="form_administrator_email_error">
                     <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a valid email address.
@@ -137,6 +137,58 @@
                 <div class="grid_6 suffix_12 prefix_5 alpha omega">
                     <school:espCheckboxWithLabel key="administrator_email_none" value="none" label="Unavailable / School would rather not disclose"/>
                 </div>
+            </div>
+
+            <div class="lal clearfix">
+                <div class="alpha grid_5">
+                    <label for="form_contact_method">Best way for parents to contact your school</label>
+
+                </div>
+
+                <div class="grid_18 omega">
+
+                    <div class="alpha grid_18 omega">
+                        <div class="grid_2 alpha">
+                            <school:espCheckboxWithLabel key="contact_method" value="email" label="Email:" nobr="${true}"/>
+                        </div>
+
+                        <div class="grid_6">
+                            <gsml:input type="text" value="${responseMap['contact_method_email'].value}" styleId="form_contact_method_email"
+                                        name="contact_method_email" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter email]"/>
+
+                        </div>
+
+                        <div class="grid_10 omega">
+                            <div style="display: none" class="grid_6 omega error" id="form_contact_method_email_error">
+                                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a valid email address.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alpha grid_18 omega">
+                        <div class="alpha grid_2">
+                            <school:espCheckboxWithLabel key="contact_method" value="phone" label="Phone:" nobr="${true}"/>
+                        </div>
+
+                        <div class="grid_6 suffix_10 omega">
+                            <gsml:input type="text" value="${responseMap['contact_method_phone'].value}" styleId="form_contact_method_phone"
+                                        name="contact_method_phone" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter number]"/>
+
+                        </div>
+                    </div>
+
+                    <div class="alpha grid_18 omega">
+                        <div class="alpha grid_2">
+                            <school:espCheckboxWithLabel key="contact_method" value="other" label="Other:" nobr="${true}" styleClass="js_otherField_form_contact_method_other"/>
+                        </div>
+
+                        <div class="grid_6 suffix_10 omega">
+                            <gsml:input type="text" value="${responseMap['contact_method_other'].value}" styleId="form_contact_method_other"
+                                        name="contact_method_other" styleClass="text js_otherField input_6" disabled="${stateLocked}" placeholder="[Please indicate]"/>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </fieldset>
 
