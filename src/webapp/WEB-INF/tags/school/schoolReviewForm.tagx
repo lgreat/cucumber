@@ -387,25 +387,5 @@
             //document.getElementById('col_right').style.height = null;
             //BoxHeights.equalize('${mainColumnId}','col_right');
         }
-
-        jQuery(function () {
-            jQuery('#espLink').click(function() {
-                var schoolId = '${school.id}';
-                var schoolState = '${school.databaseState}';
-
-                if (s.tl) {
-                    s.tl(this, 'o', 'PrincipalUpdate_Parent_Reviews');
-                }
-
-                pageTracking.pageName = "School Officials Pre Signup Hover";
-                pageTracking.hierarchy = "ESP,School Officials Pre Signup Hover";
-                pageTracking.server = "www.greatschools.org";
-                pageTracking.send();
-
-                GSType.hover.principalConfirmation.show(schoolId, schoolState);
-
-                return false;
-            });
-        });
     </script>
 </jsp:root>

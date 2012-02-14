@@ -317,7 +317,7 @@
         </div>
     </c:if>-->
     <!-- DONE: and this -->
-    <c:if test="${empty principalReview}">
+    <c:if test="${empty principalReview and school.levelCode != 'p'}">
         <div class="mod parentReviewRating">
             <div class="inner">
                 <div class="bd">
@@ -325,7 +325,7 @@
                         <span class="sprite pencil_med img"><!-- do not collapse --></span>
 
                         <div class="text3bold-06b bk">Are you<br/>the principal?<br/>
-                        <a class="text3-06b" href="javascript:void(0);" id="espLink">Complete your school's profile</a>
+                        <link:schoolProfileEspLogin school="${school}" styleClass="text3-06b" styleId="espLink">Complete your school's profile</link:schoolProfileEspLogin>
                         </div>
                     </div>
                 </div>
