@@ -110,35 +110,35 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 }
 
 /* row 0 */
-a:hover .i-48-sb, i-48-sb-dashboard {
+a:hover .i-48-sb, i-48-sb-icon {
     background-position: 0 0;
 }
 
-a:hover .i-48-im {
+a:hover .i-48-im, .i-48-im-icon {
     background-position: -48px 0;
 }
 
-a:hover .i-48-ae {
+a:hover .i-48-ae, .i-48-ae-icon {
     background-position: -96px 0;
 }
 
-a:hover .i-48-pr {
+a:hover .i-48-pr, .i-48-pr-icon {
     background-position: -144px 0;
 }
 
-a:hover .i-48-ee {
+a:hover .i-48-ee, .i-48-ee_icon {
     background-position: -192px 0;
 }
 
-a:hover .i-48-sc {
+a:hover .i-48-sc, .i-48-sc-icon {
     background-position: -240px 0;
 }
 
-a:hover .i-48-ci {
+a:hover .i-48-ci, .i-48-ci-icon {
     background-position: -288px 0;
 }
 
-a:hover .i-48-si {
+a:hover .i-48-si, .i-48-si-icon {
     background-position: -336px 0;
 }
 

@@ -664,6 +664,16 @@ h4.subhead2 a {
 .mediaExt1-2 .img img{display: block;}
 .mediaExt1-2 .imgExt{float: right;margin-left: 15px;}
 
+/* Ext1-3 margin: 0; gutter: 25px; */
+.mediaExt1-3{margin: 0;}
+.mediaExt1-3:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
+.mediaExt1-3 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
+.mediaExt1-3 .bk > :first-child{margin-top:0;}
+.mediaExt1-3 .bk > :last-child{margin-bottom:0;}
+.mediaExt1-3 .img{float: left;margin-right: 25px;}
+.mediaExt1-3 .img img{display: block;}
+.mediaExt1-3 .imgExt{float: right;margin-left: 25px;}
+
 /* Ext2: No left and right margin */
 /* Ext2 margin: 10px 0; gutter: 10px; */
 .mediaExt2{margin: 10px 0;*clear:both;}
@@ -800,6 +810,10 @@ h4.subhead2 a {
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+/* -------------- osp-dashboard -------------- */
+.osp-dashboard {}
+.osp-dashboard .inner { border-top: 1px solid #e5e5e5; background-color: #f9f9f9; padding: 5px 10px 7px; }
+.osp-dashboard .bd p { line-height: 48px; }
 /* --------- pageNav (extends mod) ----------- */
 .pageNav .inner{margin:0 0 1em;padding:0;}
 .pageNav .hd h1{margin:0 0 0.50em;}

@@ -65,13 +65,13 @@
                             <div class="bd">
                                 <div class="line">
                                     <div class="unit size45of100">
-                                        <p>
+                                        <p class="bottom">
                                             ${school.name}<br/>
                                             <span class="small"><br/>
                                             ${school.city}, ${school.databaseState}</span></p>
                                     </div>
                                     <div class="unit size55of100 lastUnit">
-                                        <p class="small">
+                                        <p class="small bottom">
                                             <link:schoolProfileOverview
                                                     school="${school}">View profile</link:schoolProfileOverview><br/>
                                             <link:schoolPrincipalReview
@@ -109,38 +109,131 @@
 
                     <div class="grid_12 alpha">
 
-                        <p class="">
-                            <span class="iconx48 i-48-sb" style=""><!-- do not collapse --></span>
-                            School basics
-                            <link:schoolEspForm school="${school}" page="1">Get started</link:schoolEspForm>
-                        </p>
+                        <div class="mod osp-dashboard">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="mediaExt1-3 grid_8">
+                                        <span class="iconx48 i-48-sb-icon img"><!-- do not collapse --></span>
 
-                        <p class=""><link:schoolEspForm school="${school}"
-                                                        page="2">Instructional model</link:schoolEspForm></p>
+                                        <p class="bk">School basics</p>
+                                    </div>
+                                    <div class="grid_2">
+                                        <link:schoolEspForm school="${school}" page="1">Get started</link:schoolEspForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <p class=""><link:schoolEspForm school="${school}"
-                                                        page="3">Applying &amp;amp; enrolling</link:schoolEspForm></p>
+                        <div class="mod osp-dashboard">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="mediaExt1-3 grid_8">
+                                        <span class="iconx48 i-48-im-icon img"><!-- do not collapse --></span>
 
-                        <p class=""><link:schoolEspForm school="${school}"
-                                                        page="4">Programs &amp;amp; resources</link:schoolEspForm></p>
+                                        <p class="bk">Instructional model</p>
+                                    </div>
+                                    <div class="grid_2">
+                                        <link:schoolEspForm school="${school}" page="2">Get started</link:schoolEspForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mod osp-dashboard">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="mediaExt1-3 grid_8">
+                                        <span class="iconx48 i-48-ae-icon img"><!-- do not collapse --></span>
+
+                                        <p class="bk">Applying &amp;amp; enrolling</p>
+                                    </div>
+                                    <div class="grid_2">
+                                        <link:schoolEspForm school="${school}" page="3">Get started</link:schoolEspForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mod osp-dashboard">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="mediaExt1-3 grid_8">
+                                        <span class="iconx48 i-48-pr-icon img"><!-- do not collapse --></span>
+
+                                        <p class="bk">Programs &amp;amp; resources</p>
+                                    </div>
+                                    <div class="grid_2">
+                                        <link:schoolEspForm school="${school}" page="4">Get started</link:schoolEspForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="grid_12 omega">
 
-                        <p class=""><link:schoolEspForm school="${school}"
-                                                        page="5">Enrichment &amp;amp; extracurriculars</link:schoolEspForm>
-                        </p>
+                        <div class="mod osp-dashboard">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="mediaExt1-3 grid_8">
+                                        <span class="iconx48 i-48-ee-icon img"><!-- do not collapse --></span>
 
-                        <p class=""><link:schoolEspForm school="${school}" page="6">School culture</link:schoolEspForm>
-                        </p>
+                                        <p class="bk">Enrichment &amp;amp; extracurriculars</p>
+                                    </div>
+                                    <div class="grid_2">
+                                        <link:schoolEspForm school="${school}" page="5">Get started</link:schoolEspForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <p class=""><link:schoolEspForm school="${school}" page="7">Contact info</link:schoolEspForm>
-                        </p>
+                        <div class="mod osp-dashboard">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="mediaExt1-3 grid_8">
+                                        <span class="iconx48 i-48-sc-icon img"><!-- do not collapse --></span>
+
+                                        <p class="bk">School culture</p>
+                                    </div>
+                                    <div class="grid_2">
+                                        <link:schoolEspForm school="${school}" page="6">Get started</link:schoolEspForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mod osp-dashboard">
+                            <div class="inner">
+                                <div class="bd">
+                                    <div class="mediaExt1-3 grid_8">
+                                        <span class="iconx48 i-48-ci-icon img"><!-- do not collapse --></span>
+
+                                        <p class="bk">Contact info</p>
+                                    </div>
+                                    <div class="grid_2">
+                                        <link:schoolEspForm school="${school}" page="7">Get started</link:schoolEspForm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <c:if test="${school.type.schoolTypeName == 'private'}">
 
-                            <p class=""><link:schoolEspForm school="${school}"
-                                                            page="8">Student info</link:schoolEspForm></p>
+                            <div class="mod osp-dashboard">
+                                <div class="inner">
+                                    <div class="bd">
+                                        <div class="mediaExt1-3 grid_8">
+                                            <span class="iconx48 i-48-si-icon img"><!-- do not collapse --></span>
+
+                                            <p class="bk">Student info</p>
+                                        </div>
+                                        <div class="grid_2">
+                                            <link:schoolEspForm school="${school}"
+                                                                page="8">Get started</link:schoolEspForm>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </c:if>
                     </div>
