@@ -154,9 +154,11 @@ GS.form.EspForm = function() {
         var dfd = jQuery.Deferred();
 
         fieldError.hide();
+        GS.form.espForm.removeWarningClassFromElem(field);
 
         if (fieldVal === '' || fieldVal === undefined || fieldVal === '-1' || fieldVal === '0' || fieldVal === 'My city is not listed') {
             fieldError.show();
+            GS.form.espForm.addWarningClassToElem(field);
             dfd.reject();
         } else {
             dfd.resolve();
@@ -262,6 +264,8 @@ GS.form.EspForm = function() {
         fieldValid.hide();
 
         if (data && data[fieldName]) {
+            GS.form.espForm.addWarningClassToElem(elem);
+            fieldError.find('.bk').html(data[fieldName]); // set error message
             fieldError.show();
             return false;
         } else {
