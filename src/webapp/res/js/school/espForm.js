@@ -541,18 +541,8 @@ new (function() {
             }
         });
 
-        /*$('#form_grade_levels_pk, #form_grade_levels_kg').on('change', function() {
-            if ($('#form_grade_levels_pk').prop('checked') || $('#form_grade_levels_kg').prop('checked')) {
-                $('#form_k3_offered_group, #form_k4_offered_group').show();
-            } else {
-                $('#form_k3_offered_group, #form_k4_offered_group').hide();
-            }
-        });
-        $('#form_grade_levels_pk').change(); // trigger k3_offered and k3_offered update
-        */
-        GS.form.controlVisibilityOfElement('#form_k3_offered_group, #form_k4_offered_group', '#form_grade_levels_pk, #form_grade_levels_kg', true, {matchAny:true});
-        GS.form.controlVisibilityOfElement('#form_school_type_affiliation_group', '[name=school_type]', 'private', {matchAny:true});
-        GS.form.controlVisibilityOfElement('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes', {matchAny:true});
+        GS.form.controlVisibilityOfElementWithRadio('#form_school_type_affiliation_group', '[name=school_type]', 'private');
+        GS.form.controlVisibilityOfElementWithRadio('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes');
         GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care_before', true);
         GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);
         GS.form.controlVisibilityOfElement('#js_form_immersion_language_group','[name=immersion]', 'yes');
