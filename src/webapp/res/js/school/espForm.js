@@ -395,6 +395,13 @@ new (function() {
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();
         if (GS.history5Enabled) {
+            if (typeof pollingPhotoViewer !== 'undefined') {
+                if (pageNum === 6) {
+                    pollingPhotoViewer.turnPollingOn();
+                } else {
+                    pollingPhotoViewer.turnPollingOff();
+                }
+            }
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             window.History.pushState({page:pageNum}, document.title, '?page=' + pageNum + '&schoolId=' + myParams.schoolId + '&state=' + myParams.state);
         } else {

@@ -48,7 +48,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
             'schoolDatabaseState' :  this.schoolDatabaseState
         },
         filters : [
-            {title : "Image files", extensions : "jpg,gif,png"}
+            {title : "Image files", extensions : "jpg,jpeg,gif,png"}
         ]
     });
 
@@ -296,6 +296,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
     this.IMG_ID_PREFIX = 'js-photo-';
 
     this.pollFrequency = 5000; //ms
+    this.pollingOn = true;
     var pollingPhotoViewerSelf = this;
 
     this.deletePhoto = function(deleteTrigger) {
@@ -329,6 +330,14 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
         }.gs_bind(this));
     }.gs_bind(this);
 
+    this.turnPollingOn = function() {
+        this.pollingOn = true;
+    }.gs_bind(this);
+
+    this.turnPollingOff = function() {
+        this.pollingOn = false;
+    }.gs_bind(this);
+
     this.init = function() {
         this.numberPending = this.container.find('.js-photo-pending').not('#js-photo-placeholder').length;
         this.numberActive = this.container.find('.js-photo-active').length;
@@ -336,33 +345,17 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
         setTimeout(this.poll, this.pollFrequency);
     }.gs_bind(this);
 
-    /*this.container.on('click','.js-makePhotoActive',function() {
-        var pollingPhotoViewerItem = jQuery(this).parent();
-        var schoolMediaId = pollingPhotoViewerItem.prop('id').substring(26, pollingPhotoViewerItem.prop('id').length);
-
-        var data = {
-            schoolMediaId:schoolMediaId,
-            schoolId:pollingPhotoViewerSelf.schoolId,
-            schoolDatabaseState:pollingPhotoViewerSelf.schoolDatabaseState,
-            _method:"PUT"
-        };
-
-        var jqxhr = jQuery.ajax({
-            url:pollingPhotoViewerSelf.url,
-            type:'POST',
-            data:data
-        }).done(function() {
-                    console.log("done with PUT call");
-                });
-    });*/
-
     this.container.on('click', '.js-deletePhoto', function() {
         pollingPhotoViewerSelf.deletePhoto(this);
     });
 
     this.poll = function() {
-
         var self = this;
+
+        if (this.pollingOn !== true) {
+            setTimeout(self.poll, self.pollFrequency);
+            return;
+        }
 
         var jqxhr = jQuery.ajax({
             url:pollingPhotoViewerSelf.url,

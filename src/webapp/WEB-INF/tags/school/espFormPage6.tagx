@@ -118,7 +118,7 @@
                     <p class="labelGroup">Uploaded photos</p>
                 </div>
                 <div class="grid_16 omega">
-                    <mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="10" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}"/>
+                    <mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="10" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}" startPolling="${param.page eq 6}"/>
                 </div>
             </div>
 
