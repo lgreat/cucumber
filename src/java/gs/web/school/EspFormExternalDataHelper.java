@@ -252,6 +252,7 @@ public class EspFormExternalDataHelper {
 //            } else if (StringUtils.equals("independent_study", subtype)) {
 //                school.getSubtype().add("independent_study");
             }
+            saveSchool(school, user, now);
         } else if (StringUtils.equals("school_type_affiliation_other", key)) {
             _log.error("Saving affiliation " + values[0] + " elsewhere for school:" + school.getName());
             String affiliation = (String) values[0];
