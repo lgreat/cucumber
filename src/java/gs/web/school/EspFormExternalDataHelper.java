@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.data.community.User;
+import gs.data.geo.LatLon;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-import gs.data.admin.cobrand.ICobrandDao;
-import gs.data.admin.cobrand.Cobrand;
 import gs.data.json.IJSONDao;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
@@ -35,14 +34,11 @@ import java.io.*;
 @Component("espFormExternalDataHelper")
 public class EspFormExternalDataHelper {
     private static final Log _log = LogFactory.getLog(EspFormExternalDataHelper.class);
-    private static final String G_GEO_SUCCESS = "200";
 
     @Autowired
     private ISchoolDao _schoolDao;
     @Autowired
     private ICensusDataSetDao _dataSetDao;
-    @Autowired
-    private ICobrandDao _cobrandDao;
     @Autowired
     private IJSONDao _jsonDao;
     /**
@@ -280,7 +276,6 @@ public class EspFormExternalDataHelper {
             if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet())) {
                 _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
                 school.getPhysicalAddress().setStreet((address.getStreet()));
-                //Todo
                 setSchoolLatLon(school);
                 saveSchool(school, user, now);
             }
@@ -325,73 +320,71 @@ public class EspFormExternalDataHelper {
      * Calculate the new lat, lon if the school address has been changed by the user.
      */
     void setSchoolLatLon(School school) {
-        Float lat = null;
-        Float lon = null;
-
         if (school != null && school.getPhysicalAddress() != null) {
             Address schoolAddress = school.getPhysicalAddress();
-
             if (StringUtils.isNotBlank(schoolAddress.getStreet()) && StringUtils.isNotBlank(schoolAddress.getCity())
                     && schoolAddress.getState() != null && StringUtils.isNotBlank(schoolAddress.getZip())) {
-
-                String address = schoolAddress.getStreet() + "," + schoolAddress.getCity() + "," + schoolAddress.getState().toString() + "," + schoolAddress.getZip();
+                Float lat = null;
+                Float lon = null;
+                String address = schoolAddress.getStreet() + "," + schoolAddress.getCity() + "," + schoolAddress.getState().getAbbreviation() + " " + schoolAddress.getZip();
                 try {
-                    String geocodeUrl = "http://maps.google.com/maps/geo?q=" + URLEncoder.encode(address, "UTF-8") +
-                            "&output=json&sensor=false" + (getGoogleApiKey() != null ? "&key=" + getGoogleApiKey() : "");
+                    String geocodeUrl = "http://maps.googleapis.com/maps/api/geocode/json?address=" +
+                            URLEncoder.encode(address, "UTF-8") + "&sensor=false";
                     URL url = new URL(geocodeUrl);
                     JSONObject result = _jsonDao.fetch(url, "UTF-8");
-                    JSONObject status = result.getJSONObject("Status");
-                    String code = status.getString("code");
+                    String status = result.getString("status");
+                    if ("OK".equals(status)) {
+                        JSONArray results = result.getJSONArray("results");
 
-                    if (G_GEO_SUCCESS.equals(code)) {
-                        JSONArray placemarks = result.getJSONArray("Placemark");
-
-                        if (placemarks.length() == 1) {
-                            JSONObject firstMatch = placemarks.getJSONObject(0);
-                            JSONObject addressDetails = firstMatch.getJSONObject("AddressDetails");
-                            JSONObject country = addressDetails.getJSONObject("Country");
-                            // get the state
-                            JSONObject adminArea = country.getJSONObject("AdministrativeArea");
-                            String stateAbbrev = adminArea.getString("AdministrativeAreaName");
-                            // Extra check to ensure that the geo coded state is the same as the school state.
-
-                            if (StringUtils.isNotBlank(stateAbbrev) && school.getStateAbbreviation() != null
-                                    && stateAbbrev.equals(school.getStateAbbreviation().getAbbreviation())) {
-                                JSONObject point = firstMatch.getJSONObject("Point");
-                                JSONArray coordinates = point.getJSONArray("coordinates");
-                                if (coordinates.length() == 3) {
-                                    lon = Float.parseFloat(coordinates.getString(0));
-                                    lat = Float.parseFloat(coordinates.getString(1));
+                        if (results.length() == 1) {
+                            JSONObject firstMatch = results.getJSONObject(0);
+                            String stateStr = null;
+                            JSONArray addressComponents = firstMatch.getJSONArray("address_components");
+                            for (int x=0; x < addressComponents.length(); x++) {
+                                JSONObject component = addressComponents.getJSONObject(x);
+                                JSONArray types = component.getJSONArray("types");
+                                for (int y=0; y < types.length(); y++) {
+                                    if (StringUtils.equals("administrative_area_level_1", types.getString(y))) {
+                                        stateStr = component.getString("short_name");
+                                        break;
+                                    }
                                 }
+                                if (stateStr != null) {break;}
                             }
-                        }
-                    }
+                            if (StringUtils.equalsIgnoreCase(school.getPhysicalAddress().getState().getAbbreviation(), stateStr)) {
+                                JSONObject location = firstMatch.getJSONObject("geometry").getJSONObject("location");
 
+                                lon = Float.parseFloat(location.getString("lng"));
+                                lat = Float.parseFloat(location.getString("lat"));
+                                // bounds check
+                                if (LatLon.isSuspectLat(lat) || LatLon.isSuspectLon(lon)) {
+                                    _log.error("Google returned out of bounds lat/lon for address " + address);
+                                    lon = null;
+                                    lat = null;
+                                }
+                            } else {
+                                _log.error("Geocoded address state " + stateStr + 
+                                        " does not match physical address state " + 
+                                        school.getPhysicalAddress().getState() + " for address " + address);
+                            }
+                        } else {
+                            _log.error("Google returns multiple results for address " + address);
+                        }
+                    } else {
+                        _log.error("Google returns unknown status code " + status + " for address " + address);
+                    }
                 } catch (IOException ioE) {
-                    _log.error("IO Exception while geo coding " + ioE);
+                    _log.error("IO Exception while geo coding address " + address + ": " + ioE, ioE);
                 } catch (JSONException jsonE) {
-                    _log.error("JSON Exception while geo coding " + jsonE);
+                    _log.error("JSON Exception while geo coding address " + address + ": " + jsonE, jsonE);
                 } catch (Exception e) {
-                    _log.error("Exception while geo coding " + e);
+                    _log.error("Exception while geo coding address " + address + ": " + e, e);
                 } finally {
                     school.setLat(lat);
                     school.setLon(lon);
                 }
             }
         }
-    }
-
-    protected String getGoogleApiKey() {
-        String googleApiKey;
-        //TODO what should the server name be?
-        //TODO move this into a more common place.
-        Cobrand c = _cobrandDao.getCobrandByHostname("dev.greatschools.org");
-        if (c == null) {
-            return null;
-        } else {
-            googleApiKey = c.getGoogleMapsKey();
-        }
-        return googleApiKey;
     }
 
     /**

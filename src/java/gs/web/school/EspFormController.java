@@ -303,9 +303,6 @@ public class EspFormController implements ReadWriteAnnotationController {
 
             requestParameterMap.put("address", new Object[]{address});
             keysForPage.add("address");
-            _log.error("Yes address: " + address);
-        } else {
-            _log.error("No address");
         }
     }
     
