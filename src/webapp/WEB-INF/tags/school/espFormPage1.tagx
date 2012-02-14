@@ -98,12 +98,12 @@
         </div>
     </div>
 
+    <!--
     <div class="lal clearfix">
         <div class="alpha grid_7">
             <label>What time does school start each day?</label>
         </div>
         <div class="grid_16 omega">
-            <!--Time selector-->
             <p class="hint">Classroom start time only, not before-school programming</p>
         </div>
     </div>
@@ -113,10 +113,10 @@
             <label>What time does school end each day?</label>
         </div>
         <div class="grid_16 omega">
-            <!--Time selector-->
             <p class="hint">Classroom end time only, not after-school programming</p>
         </div>
     </div>
+    -->
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
