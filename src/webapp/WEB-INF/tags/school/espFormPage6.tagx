@@ -78,8 +78,6 @@
                         <p class="labelGroup">What are your school colors?</p>
                     </div>
                     <div class="grid_6 omega">
-                        <school:espRadioWithLabel key="school_colors" value="" label="None"/>
-
                         <gsml:input styleId="form_school_colors" styleClass="mls js_otherField text input_4" type="text"
                                name="school_colors" value="${responseMap['school_colors'].value}"
                                maxlength="40" placeholder="[Enter colors separated by commas]"/>
@@ -91,11 +89,9 @@
             <c:if test="${school.databaseState.abbreviation eq 'DC' or school.databaseState.abbreviation eq 'IN' or school.databaseState.abbreviation eq 'WI'}">
                 <div class="lal clearfix">
                     <div class="alpha grid_7">
-                        <p class="labelGroup">What is your school mascot?</p>
+                        <p class="labelGroup">What is your school mascot (if you have one)?</p>
                     </div>
                     <div class="grid_6 omega">
-                        <school:espRadioWithLabel key="school_mascot" value="" label="None"/>
-
                         <gsml:input styleId="form_school_mascot" styleClass="mls js_otherField text input_4" type="text"
                                name="school_mascot" value="${responseMap['school_mascot'].value}"
                                maxlength="40" placeholder="[Enter mascot name]"/>
