@@ -109,7 +109,10 @@
 
                     <div class="grid_12 alpha">
 
-                        <p class=""><span class="iconx48 i-48-sb"><!-- do not collapse --></span><link:schoolEspForm school="${school}" page="1">School basics</link:schoolEspForm>
+                        <p class="">
+                            <span class="iconx48 i-48-sb" style=""><!-- do not collapse --></span>
+                            School basics
+                            <link:schoolEspForm school="${school}" page="1">Get started</link:schoolEspForm>
                         </p>
 
                         <p class=""><link:schoolEspForm school="${school}"

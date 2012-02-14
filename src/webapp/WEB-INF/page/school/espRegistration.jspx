@@ -368,7 +368,7 @@
             </p>
         </div>
 
-        <div class="nal">
+        <div class="">
             <input class="button-1" type="submit" value="Continue »" id="js_submit"/>
         </div>
 

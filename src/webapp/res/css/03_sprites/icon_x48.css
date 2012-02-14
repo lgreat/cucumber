@@ -110,7 +110,7 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 }
 
 /* row 0 */
-a:hover .i-48-sb {
+a:hover .i-48-sb, i-48-sb-dashboard {
     background-position: 0 0;
 }
 
