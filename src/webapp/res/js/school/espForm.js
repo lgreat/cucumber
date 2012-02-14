@@ -7,8 +7,7 @@ GS.form = GS.form || {};
 // TODO: migrate elsewhere
 // TODO: how to maintain state when event handler executes on multiple elements, to reduce number of iterations necessary
 // to be able to correctly show/hide the "selectorOfElementToControl"
-GS.form.controlVisibilityOfElement = function(selectorOfElementToControl, masterFieldSelector, value, options) {
-    // matchAll only compatible with checkboxes, matchAny should be set if dealing with radio buttons
+GS.form.controlVisibilityOfElementWithCheckbox = function(selectorOfElementToControl, masterFieldSelector, value, options) {
     var matchAny = (options !== undefined && options.matchAny === true);
     var matchAll = (options !== undefined && options.matchAll === true);
 
@@ -32,10 +31,6 @@ GS.form.controlVisibilityOfElement = function(selectorOfElementToControl, master
             var itemMatch;
             if (thisObject.is(':checkbox')) {
                 itemMatch = (value === thisObject.prop('checked'));
-            } else if (thisObject.is(':radio')) {
-                itemMatch = (thisObject.val() === value && thisObject.prop('checked'));
-            } else {
-                itemMatch = (thisObject.val() === value);
             }
 
             // use options to determine whether to OR or AND the checkbox match results together
@@ -550,9 +545,9 @@ new (function() {
 
         GS.form.controlVisibilityOfElementWithRadio('#form_school_type_affiliation_group', '[name=school_type]', 'private');
         GS.form.controlVisibilityOfElementWithRadio('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes');
-        GS.form.controlVisibilityOfElement('#form_before_after_care_before_group','#form_before_after_care_before', true);
-        GS.form.controlVisibilityOfElement('#form_before_after_care_after_group','#form_before_after_care_after', true);
-        GS.form.controlVisibilityOfElement('#js_form_immersion_language_group','[name=immersion]', 'yes');
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_before_after_care_before_group','#form_before_after_care_before', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#form_before_after_care_after_group','#form_before_after_care_after', true);
+        GS.form.controlVisibilityOfElementWithCheckbox('#js_form_immersion_language_group','[name=immersion]', 'yes');
 
         GS.form.controlVisibilityOfElementWithRadio('#js_ell_languages','[name=ell_level]', 'moderate,intensive');
         GS.form.controlVisibilityOfElementWithRadio('#js_partnerships','[name=partnerships]', 'yes');
