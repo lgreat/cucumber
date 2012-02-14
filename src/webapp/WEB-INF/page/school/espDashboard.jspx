@@ -67,8 +67,11 @@
                                     <div class="unit size45of100">
                                         <p class="bottom">
                                             ${school.name}<br/>
-                                            <span class="small"><br/>
-                                            ${school.city}, ${school.databaseState}</span></p>
+                                            <c:if test="${school.physicalAddress.street ne null}">
+                                                <span class="small">${school.physicalAddress.street}</span><br/>
+                                            </c:if>
+                                            <span class="small">${school.city}, ${school.databaseState}</span>
+                                        </p>
                                     </div>
                                     <div class="unit size55of100 lastUnit">
                                         <p class="small bottom">
@@ -89,7 +92,7 @@
                         <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
                     </div>
                     <div class="grid_4 suffix_1 omega">
-                        <input class="button-3 fltrt" type="button" name="getStarted" value="Get started" onclick="javascript:void(0);" />
+                        <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
                     </div>
                 </div>
 
@@ -267,6 +270,8 @@
                 <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
             </div>
         </div>
+
+        <div class="spacer_60"><!-- do not collapse --></div>
 
         <div style="display:none;">
             <mod:tracking pageName="OSP Dashboard" hier1="ESP"/>
