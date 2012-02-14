@@ -74,6 +74,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
     }
 
     private IEspResponseDao _espResponseDao;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
@@ -170,7 +171,9 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         cv = ci.getManual(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
         s = cv == null ? null : cv.getValueText();
         model.put("private_special_ed", s);
-        
+
+        _schoolProfileHeaderHelper.updateModel(httpServletRequest, httpServletResponse, school, model);
+
         return new ModelAndView("/school/enhancedSchoolProfile2", model);
     }
 
@@ -181,5 +184,9 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
 
     public void setEspResponseDao(IEspResponseDao dao) {
         this._espResponseDao = dao;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 }
