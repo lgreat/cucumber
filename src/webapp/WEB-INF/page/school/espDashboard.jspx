@@ -93,14 +93,14 @@
                     </div>
                 </div>
 
-                <c:if test="${not empty otherEspMemberships}">
-                    <div class="grid_24 alpha omega">Other OSP users for this school:
-                        <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
-                            ${otherEsp.user.firstName} ${otherEsp.user.lastName} (${otherEsp.jobTitle})
-                            <br/>
-                        </c:forEach>
-                    </div>
-                </c:if>
+                <!--<c:if test="${not empty otherEspMemberships}">-->
+                    <!--<div class="grid_24 alpha omega">Other OSP users for this school:-->
+                        <!--<c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">-->
+                            <!--${otherEsp.user.firstName} ${otherEsp.user.lastName} (${otherEsp.jobTitle})-->
+                            <!--<br/>-->
+                        <!--</c:forEach>-->
+                    <!--</div>-->
+                <!--</c:if>-->
 
                 <div class="grid_24">
                     <h3 class="bottom">Official School Profile Progress</h3>
@@ -243,11 +243,13 @@
             <br/>
 
             <c:if test="${espSuperuser}">
-                <p>Super user: Please select a school to view the form.</p>
-                <mod:cityStateSchoolSelect url=""
-                                           defaultState="${school.databaseState}"
-                                           defaultCity="${school.city}"
-                                           defaultSchoolId="${school.id}"/>
+                <div class="grid_24">
+                    <p>Super user: Please select a school to view the form.</p>
+                    <mod:cityStateSchoolSelect url=""
+                                               defaultState="${school.databaseState}"
+                                               defaultCity="${school.city}"
+                                               defaultSchoolId="${school.id}"/>
+                </div>
             </c:if>
 
             <!-- Confirmation hover that shows after clicking "Save and finish later" on form -->
