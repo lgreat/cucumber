@@ -196,6 +196,7 @@ GS.validation = GS.validation || {};
 GS.validation.validateRequired = function(fieldSelector, errorSelector) {
     var isValid = true;
     jQuery(errorSelector).hide();
+    jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
     var formFields = jQuery(fieldSelector);
     if (formFields.filter(':visible').size() == 0) {
         return true; // only validate visible fields
@@ -222,6 +223,7 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
 
         if (!isValid) {
             jQuery(errorSelector).show();
+            jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
         }
     }
     return isValid;
@@ -240,6 +242,7 @@ GS.validation.validateRequiredIfChecked = function(fieldSelector, fieldCheckedSe
 // TODO: add option to enforce non-zero?
 GS.validation.validateInteger = function(fieldSelector, errorSelector) {
     var isValid = true;
+    jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
     jQuery(errorSelector).hide();
     var formFields = jQuery(fieldSelector).filter(':visible'); // only validate visible fields
     if (formFields !== undefined && formFields.size() > 0) {
@@ -260,6 +263,7 @@ GS.validation.validateInteger = function(fieldSelector, errorSelector) {
 
         if (!isValid) {
             jQuery(errorSelector).show();
+            jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
         }
     }
     return isValid;
