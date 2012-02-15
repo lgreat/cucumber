@@ -2,10 +2,7 @@ package gs.web.about.feedback;
 
 import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
-import gs.data.school.IPQDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.PQ;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ICaptchaCommand;
@@ -41,8 +38,8 @@ public class ContactUsController extends SimpleFormController {
     private JavaMailSender _mailSender;
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
-    private IPQDao _pqDao;
-    
+    private IEspMembershipDao _espMembershipDao;
+
     private final Log _log = LogFactory.getLog(getClass());
 
     @Override
@@ -252,19 +249,22 @@ public class ContactUsController extends SimpleFormController {
         body.append("Phone: " ).append(fields.getPhone()).append("\n");
         body.append("Question/comment: " ).append(fields.getComment()).append("\n");
 
-        if (school != null && request != null) {
-            List<PQ> pqs = _pqDao.findAllBySchool(school);
-
-            if (pqs != null && pqs.size() > 0) {
-                PQ pq = pqs.get(0);
-                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
-                String href = urlBuilder.asFullUrlXml(request);
-
-                body.append("ESP Name: ").append(pq.getContactName()).append("\n");
-                body.append("ESP Email: ").append(pq.getContactEmail()).append("\n");
-                body.append("ESP Username: ").append(pq.getUserName()).append("\n");
-                body.append("ESP Password: ").append(pq.getPassword()).append("\n");
-                body.append("ESP Start link: ").append(href).append("\n");
+        if (request != null) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
+            String href = urlBuilder.asFullUrlXml(request);
+            body.append("OSP Registration link: ").append(href).append("\n");
+            try {
+                List<EspMembership> members = _espMembershipDao.findEspMembershipsBySchool(school, true);
+                if (members != null && members.size() > 0) {
+                    body.append("Existing OSP users for school:").append("\n");
+                    for (EspMembership member: members) {
+                        body.append(member.getUser().getFirstName()).append(" ").append(member.getUser().getLastName());
+                        body.append(" (").append(member.getUser().getEmail()).append(") - ").append(member.getJobTitle());
+                        body.append("\n");
+                    }
+                }
+            } catch (Exception e) {
+                _log.error("Error generating list of valid esp members: " + e, e);
             }
         }
 
@@ -341,11 +341,11 @@ public class ContactUsController extends SimpleFormController {
         }
     }
 
-    public IPQDao getPQDao() {
-        return _pqDao;
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
     }
 
-    public void setPQDao(IPQDao pqDao) {
-        this._pqDao = pqDao;
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
     }
 }
