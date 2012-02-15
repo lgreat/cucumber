@@ -195,6 +195,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                         for (EspMembership membership : memberships) {
                             if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
                                 userState.setUserAwaitingESPMembership(true);
+                            } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
+                                userState.setUserESPDisabled(true);
                             }
                         }
                     }
@@ -305,8 +307,9 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 esp.setUser(user);
                 esp.setWebUrl(command.getWebPageUrl());
                 getEspMembershipDao().saveEspMembership(esp);
-            }else{
-                // We do not allow multiple submission for now.
+            } else if (espMembership.getStatus().equals(EspMembershipStatus.DISABLED) && !espMembership.getActive()) {
+                espMembership.setStatus(EspMembershipStatus.PROCESSING);
+                getEspMembershipDao().saveEspMembership(espMembership);
             }
         }
     }
@@ -318,7 +321,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         Integer schoolId = command.getSchoolId();
         String email = command.getEmail();
         boolean isUnique = true;
-        boolean isActive = false;
+        boolean isDisabled = false;
 
         if (state != null && schoolId != null & StringUtils.isNotBlank(email)) {
             User user = getUserDao().findUserFromEmailIfExists(email.trim());
@@ -327,20 +330,19 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
                 if (espMembership != null) {
                     isUnique = false;
-                    isActive = espMembership.getActive();
+                    isDisabled = !espMembership.getActive() && espMembership.getStatus().equals(EspMembershipStatus.DISABLED);
                 }
             }
         }
 
         Map data = new HashMap();
         data.put("isUnique", isUnique);
-        data.put("isActive", isActive);
+        data.put("isDisabled", isDisabled);
 
         JSONObject rval = new JSONObject(data);
         response.setContentType("application/json");
         response.getWriter().print(rval.toString());
         response.getWriter().flush();
-
     }
 
     protected void validate(EspRegistrationCommand espMembershipCommand, BindingResult result, User user) {

@@ -162,6 +162,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                             updateMembership = true;
                         } else if (moderatorAction.contains("deactivate")) {
                             membership.setActive(false);
+                            membership.setStatus(EspMembershipStatus.DISABLED);
                             updateMembership = true;
                         }
     

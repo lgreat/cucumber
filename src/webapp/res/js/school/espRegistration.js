@@ -113,6 +113,7 @@ GS.form.EspForm = function() {
     };
 
     //Handles the logic to allow the registrations to go through or display an error.
+    //These conditions are complicated, refer to the flow charts attached to GS-12324 and  GS-12496.
     this.handleEmailErrors = function(data,email,emailField) {
         var isValid = false;
         if (data.isEmailValid !== true) {
@@ -204,7 +205,7 @@ GS.form.EspForm = function() {
             async: true
         }).done(
             function(data) {
-                if (data.isUnique !== true) {
+                if (data.isUnique !== true && data.isDisabled === false) {
                     fieldError.show();
                     dfd.reject();
                 } else {

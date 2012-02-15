@@ -97,6 +97,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
 
     }
 
+    //These conditions are complicated, refer to the flow charts attached to GS-12324 and  GS-12496.
     protected void validateUserState(EspUserStateStruct userState, BindingResult result) {
         if (userState.isNewUser() || (!userState.isUserRequestedESP())) {
             // new users or users who have never requested access
@@ -107,6 +108,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
         } else if (userState.isUserApprovedESPMember() && !userState.isUserEmailValidated()) {
             // users who have been approved but haven't followed through by clicking through the link in email
             result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");
+        } else if (userState.isUserESPDisabled()) {
+            result.rejectValue("email", null, "Our records indicate your school official's account is inactive. Please register again or contact us at gs_support@greatschools.org if you need further assistance.");
         }
     }
 
@@ -128,6 +131,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
                 } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
                     //User is awaiting moderator decision.
                     userState.setUserAwaitingESPMembership(true);
+                } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
+                    userState.setUserESPDisabled(true);
                 }
             }
             
