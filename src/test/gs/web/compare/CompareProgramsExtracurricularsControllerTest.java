@@ -1,12 +1,10 @@
 package gs.web.compare;
 
-import gs.data.school.IPQDao;
-import gs.data.school.LevelCode;
-import gs.data.school.PQ;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.survey.*;
 import gs.web.BaseControllerTestCase;
+import org.apache.commons.lang.WordUtils;
 
 import java.util.*;
 
@@ -19,7 +17,7 @@ import static org.easymock.EasyMock.*;
 public class CompareProgramsExtracurricularsControllerTest extends BaseControllerTestCase {
     private CompareProgramsExtracurricularsController _controller;
     private ISurveyDao _surveyDao;
-    private IPQDao _PQDao;
+    private IEspResponseDao _espResponseDao;
 
     private ComparedSchoolProgramsExtracurricularsStruct _struct;
 
@@ -30,92 +28,103 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         _controller = new CompareProgramsExtracurricularsController();
 
         _surveyDao = createStrictMock(ISurveyDao.class);
-        _PQDao = createStrictMock(IPQDao.class);
+        _espResponseDao = createStrictMock(IEspResponseDao.class);
 
         _controller.setSurveyDao(_surveyDao);
-        _controller.setPQDao(_PQDao);
+        _controller.setEspResponseDao(_espResponseDao);
         _controller.setSuccessView("success");
 
         _struct = new ComparedSchoolProgramsExtracurricularsStruct();
     }
     
     public void replayAllMocks() {
-        replayMocks(_surveyDao, _PQDao);
+        replayMocks(_surveyDao, _espResponseDao);
     }
 
     public void verifyAllMocks() {
-        verifyMocks(_surveyDao, _PQDao);
+        verifyMocks(_surveyDao, _espResponseDao);
     }
 
     public void testBasics() {
         assertSame(_surveyDao, _controller.getSurveyDao());
-        assertSame(_PQDao, _controller.getPQDao());
+        assertSame(_espResponseDao, _controller.getEspResponseDao());
         assertEquals("success", _controller.getSuccessView());
         assertEquals(ComparedSchoolProgramsExtracurricularsStruct.class, _controller.getStruct().getClass());
     }
     
-    public void testParsePQValues() {
+    private EspResponse getEspResponse(String value) {
+        return getEspResponse(null, value);
+    }
+    
+    private EspResponse getEspResponse(String key, String value) {
+        EspResponse response = new EspResponse();
+        response.setKey(key);
+        response.setValue(value);
+        response.setPrettyValue(WordUtils.capitalizeFully(value.replace('_', ' ')));
+        return response;
+    }
+    
+    private List<EspResponse> getEspResponseList(String... values) {
+        List<EspResponse> responses = new ArrayList<EspResponse>();
+        for (String value: values) {
+            responses.add(getEspResponse(value));
+        }
+        return responses;
+    }
+    
+    private List<EspResponse> getEspResponseListWithKey(String key, String... values) {
+        List<EspResponse> responses = new ArrayList<EspResponse>();
+        for (String value: values) {
+            responses.add(getEspResponse(key, value));
+        }
+        return responses;
+    }
+    
+    public void testParseESPValues() {
         replayAllMocks();
-        Map<String, Set<String>> categoryResponses = new HashMap<String, Set<String>>();
-        categoryResponses.put("category1", new TreeSet<String>());
-        Map<String, String> valueMap = new HashMap<String, String>();
-        valueMap.put("a", "Alpha");
-        valueMap.put("b", "Bravo");
-        // no "c" value
-        _controller.parsePQValues(categoryResponses, "category1", "b:a:c", "value, other", valueMap);
-        assertEquals(1, categoryResponses.size());
-        Set<String> responses = categoryResponses.get("category1");
-        assertNotNull(responses);
-        assertEquals(4, responses.size());
-        assertEquals("Alpha", responses.toArray()[0]);
-        assertEquals("Bravo", responses.toArray()[1]);
-        assertEquals("Other", responses.toArray()[2]);
-        assertEquals("Value", responses.toArray()[3]);
+        Set<String> category = new TreeSet<String>();
 
-        valueMap.put("c", "Charlie");
-        _controller.parsePQValues(categoryResponses, "category1", "c", valueMap);
-        assertEquals(1, categoryResponses.size());
-        responses = categoryResponses.get("category1");
-        assertNotNull(responses);
-        assertEquals(5, responses.size());
-        assertEquals("Alpha", responses.toArray()[0]);
-        assertEquals("Bravo", responses.toArray()[1]);
-        assertEquals("Charlie", responses.toArray()[2]);
-        assertEquals("Other", responses.toArray()[3]);
-        assertEquals("Value", responses.toArray()[4]);
+        _controller.parseESPValues(category, getEspResponseList("alpha", "bravo"), getEspResponseList("value, other"));
+        assertEquals(4, category.size());
+        assertEquals("Alpha", category.toArray()[0]);
+        assertEquals("Bravo", category.toArray()[1]);
+        assertEquals("Other", category.toArray()[2]);
+        assertEquals("Value", category.toArray()[3]);
 
-        categoryResponses.put("category2", new TreeSet<String>());
-        _controller.parsePQValues(categoryResponses, "category2", null, "This , category, is, awesome!", valueMap);
-        assertEquals(2, categoryResponses.size());
-        responses = categoryResponses.get("category1");
-        assertNotNull(responses);
-        assertEquals(5, responses.size());
-        responses = categoryResponses.get("category2");
-        assertNotNull(responses);
-        assertEquals(4, responses.size());
-        assertEquals("Awesome!", responses.toArray()[0]);
-        assertEquals("Category", responses.toArray()[1]);
-        assertEquals("Is", responses.toArray()[2]);
-        assertEquals("This", responses.toArray()[3]);
+        _controller.parseESPValues(category, getEspResponseList("charlie"));
+        assertEquals(5, category.size());
+        assertEquals("Alpha", category.toArray()[0]);
+        assertEquals("Bravo", category.toArray()[1]);
+        assertEquals("Charlie", category.toArray()[2]);
+        assertEquals("Other", category.toArray()[3]);
+        assertEquals("Value", category.toArray()[4]);
+
+        Set<String> category2 = new TreeSet<String>();
+        _controller.parseESPValues(category2, null, getEspResponseList("This , category, is, awesome!"));
+        assertEquals(4, category2.size());
+        assertEquals("Awesome!", category2.toArray()[0]);
+        assertEquals("Category", category2.toArray()[1]);
+        assertEquals("Is", category2.toArray()[2]);
+        assertEquals("This", category2.toArray()[3]);
 
         verifyAllMocks();
     }
 
-    public void testProcessPQResults() {
+    public void testProcessESPResults() {
         replayAllMocks();
-        PQ pq = new PQ();
+        Map<String, List<EspResponse>> responseMap = new HashMap<String, List<EspResponse>>();
 
         _struct.setCategoryResponses(new HashMap<String, Set<String>>());
 
-        _controller.processPQResults(_struct, pq);
+        _controller.processESPResults(_struct, responseMap);
         assertNotNull(_struct.getCategoryResponses());
         assertEquals(0, _struct.getCategoryResponses().size());
 
         _struct.getCategoryResponses().put(ROW_LABEL_ARTS, new TreeSet<String>());
-        pq.setArts("b:c:d:q"); // band:chorus:drawing/painting:NULL
-        pq.setArtsOther("origami, chess");
+        responseMap.put("arts_media", getEspResponseList("band", "chorus", "drawing/painting"));
+        responseMap.put("arts_music", getEspResponseList("origami", "chess"));
 
-        _controller.processPQResults(_struct, pq);
+        _controller.processESPResults(_struct, responseMap);
         assertNotNull(_struct.getCategoryResponses());
         assertEquals(1, _struct.getCategoryResponses().size());
         Set<String> responses = _struct.getCategoryResponses().get(ROW_LABEL_ARTS);
@@ -128,16 +137,15 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         assertEquals("Origami", responses.toArray()[4]);
 
         _struct.getCategoryResponses().put(ROW_LABEL_BEFORE_AFTER_SCHOOL, new TreeSet<String>());
-        _controller.processPQResults(_struct, pq);
+        _controller.processESPResults(_struct, responseMap);
         assertNotNull(_struct.getCategoryResponses());
         assertEquals(2, _struct.getCategoryResponses().size());
         responses = _struct.getCategoryResponses().get(ROW_LABEL_BEFORE_AFTER_SCHOOL);
         assertNotNull(responses);
         assertEquals(0, responses.size());
 
-        pq.setBeforecare("checked");
-        pq.setAftercare("checked");
-        _controller.processPQResults(_struct, pq);
+        responseMap.put("before_after_care", getEspResponseList("before", "after"));
+        _controller.processESPResults(_struct, responseMap);
         assertNotNull(_struct.getCategoryResponses());
         assertEquals(2, _struct.getCategoryResponses().size());
         responses = _struct.getCategoryResponses().get(ROW_LABEL_BEFORE_AFTER_SCHOOL);
@@ -171,9 +179,9 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
 
         Map<String, Object> model = new HashMap<String, Object>();
 
-        expect(_PQDao.findBySchool(school1)).andReturn(null);
+        expect(_espResponseDao.getResponses(school1)).andReturn(null);
         expect(_surveyDao.getSurveyResultsForSchool("e", school1)).andReturn(null);
-        expect(_PQDao.findBySchool(school2)).andReturn(null);
+        expect(_espResponseDao.getResponses(school2)).andReturn(null);
         expect(_surveyDao.getSurveyResultsForSchool("e", school2)).andReturn(null);
         expect(_surveyDao.getSurveyResultsForSchool("m", school2)).andReturn(null);
         replayAllMocks();
@@ -183,8 +191,8 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         assertEquals(0, ((List)model.get("categories")).size());
     }
 
-    public void testHandleCompareRequestPQOverride() {
-        // test that PQ overrides parent survey
+    public void testHandleCompareRequestESPOverride() {
+        // test that ESP overrides parent survey
         List<ComparedSchoolBaseStruct> structs =
                 new ArrayList<ComparedSchoolBaseStruct>();
         ComparedSchoolProgramsExtracurricularsStruct struct1 = new ComparedSchoolProgramsExtracurricularsStruct();
@@ -206,11 +214,9 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
 
         Map<String, Object> model = new HashMap<String, Object>();
 
-        PQ pq = new PQ();
-        pq.setArts("b:c:d:q"); // band:chorus:drawing/painting:NULL
-        expect(_PQDao.findBySchool(school1)).andReturn(pq);
+        expect(_espResponseDao.getResponses(school1)).andReturn(getEspResponseListWithKey("arts_media", "band", "chorus", "drawing/painting"));
         // surveyDao is never checked for school1 since there is a valid pq
-        expect(_PQDao.findBySchool(school2)).andReturn(null);
+        expect(_espResponseDao.getResponses(school2)).andReturn(null);
         expect(_surveyDao.getSurveyResultsForSchool("e", school2)).andReturn(null);
         expect(_surveyDao.getSurveyResultsForSchool("m", school2)).andReturn(null);
         replayAllMocks();

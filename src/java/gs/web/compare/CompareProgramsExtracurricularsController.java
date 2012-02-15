@@ -1,9 +1,6 @@
 package gs.web.compare;
 
-import gs.data.school.IPQDao;
-import gs.data.school.LevelCode;
-import gs.data.school.PQ;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.survey.*;
 import gs.data.util.NameValuePair;
 import org.apache.commons.lang.StringUtils;
@@ -24,7 +21,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     public static final String TAB_NAME = "programsExtracurriculars";
     private String _successView;
     private ISurveyDao _surveyDao;
-    private IPQDao _PQDao;
+    private IEspResponseDao _espResponseDao;
 
     public static final String ROW_LABEL_ARTS = "Arts &amp; activities";
     public static final String ROW_LABEL_SPORTS = "Sports";
@@ -58,83 +55,6 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         }
     };
     
-    private static Map<String, String> _pqArtsMap = new HashMap<String, String>() {
-        {
-            put("b", "Band");
-            put("o", "Orchestra");
-            put("r", "Private music lessons");
-            put("t", "Theater/drama");
-            put("c", "Chorus");
-            put("p", "Photography");
-            put("d", "Drawing/painting");
-            put("e", "Ceramics");
-            put("n", "Dance");
-            put("v", "Video/film production");
-            put("l", "Electronics/technology");
-            put("g", "Gardening");
-            put("y", "Yearbook");
-            put("s", "Student newspaper");
-            put("h", "Physical education");
-            put("i", "Creative writing");
-        }
-    };
-
-    private static Map<String, String> _pqLanguagesMap = new HashMap<String, String>() {
-        {
-            put("c", "Cantonese");
-            put("e", "English");
-            put("f", "French");
-            put("g", "German");
-            put("i", "Italian");
-            put("j", "Japanese");
-            put("k", "Korean");
-            put("m", "Mandarin");
-            put("r", "Russian");
-            put("s", "Spanish");
-            put("t", "Tagalog");
-        }
-    };
-
-    private static Map<String, String> _pqSportsMap = new HashMap<String, String>() {
-        {
-            put("a","Basketball");
-            put("c","Cheerleading");
-            put("r","Cross country");
-            put("f","Field hockey");
-            put("g","Golf");
-            put("y","Gymnastics");
-            put("m","Ice hockey");
-            put("l","Lacrosse");
-            put("d","Soccer");
-            put("h","Softball");
-            put("w","Swimming");
-            put("t","Tennis");
-            put("k","Track");
-            put("v","Volleyball");
-            put("p","Water polo");
-            put("s","Baseball");
-            put("o","Football");
-            put("i","Wrestling");
-        }
-    };
-
-    private static Map<String, String> _pqSpecialEdMap = new HashMap<String, String>() {
-        {
-            put("a", "Autism");
-            put("u", "Deaf-blindness");
-            put("f", "Deafness");
-            put("e", "Serious emotional disturbance");
-            put("h", "Hearing impairments");
-            put("l", "Language or speech impairment");
-            put("d", "Specific learning disabilities");
-            put("z", "Limited intellectual functioning");
-            put("o", "Orthopedic impairments");
-            put("v", "Visual impairments");
-            put("b", "Multiple disabilities");
-            put("x", "Other health impairments");
-        }
-    };
-
     @Override
     protected void handleCompareRequest(HttpServletRequest request, HttpServletResponse response,
                                         List<ComparedSchoolBaseStruct> schools,
@@ -165,12 +85,13 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
             struct.setCategoryResponses(categoryResponses);
 
             School school = baseStruct.getSchool();
-            PQ pq = _PQDao.findBySchool(school);
+            List<EspResponse> espResponses = _espResponseDao.getResponses(school);
+            Map<String, List<EspResponse>> keyToResponseListMap = EspResponse.rollup(espResponses);
             // PQ takes precedence over parent surveys
-            if (pq != null) {
+            if (!keyToResponseListMap.isEmpty()) {
 //                _log.warn("  Found PQ");
                 struct.setProgramSource(Principal);
-                processPQResults(struct, pq);
+                processESPResults(struct, keyToResponseListMap);
             } else {
 //                _log.warn("  Did not find PQ, checking for survey results");
                 Set<LevelCode.Level> levels = school.getLevelCode().getIndividualLevelCodes();
@@ -202,44 +123,52 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         model.put("categories", categoriesForDisplay);
     }
 
-    protected void processPQResults(ComparedSchoolProgramsExtracurricularsStruct school, PQ pq) {
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_ARTS, pq.getArts(), pq.getArtsOther(), _pqArtsMap);
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_SPORTS, pq.getBoysSports(), pq.getBoysSportsOther(),
-                      _pqSportsMap);
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_SPORTS, pq.getGirlsSports(), pq.getGirlsSportsOther(),
-                      _pqSportsMap);
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_LANGUAGES, pq.getForeignLanguageClasses(),
-                      pq.getForeignLanguageClassesOther(), _pqLanguagesMap);
-        if (StringUtils.equals("checked", pq.getBeforecare())) {
+    protected void processESPResults(ComparedSchoolProgramsExtracurricularsStruct school, Map<String, List<EspResponse>> keyToResponseListMap) {
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_ARTS), keyToResponseListMap.get("arts_media"));
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_ARTS), keyToResponseListMap.get("arts_music"));
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_ARTS), keyToResponseListMap.get("arts_performing_written"));
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_ARTS), keyToResponseListMap.get("arts_visual"));
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_SPORTS),
+                keyToResponseListMap.get("boys_sports"), keyToResponseListMap.get("boys_sports_other"));
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_SPORTS), 
+                keyToResponseListMap.get("girls_sports"), keyToResponseListMap.get("girls_sports_other"));
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_LANGUAGES),
+                keyToResponseListMap.get("foreign_language"), keyToResponseListMap.get("foreign_language_other"));
+        if (listContains(keyToResponseListMap.get("before_after_care"), "before")) {
             school.getCategoryResponses().get(ROW_LABEL_BEFORE_AFTER_SCHOOL).add("Before-school care");
         }
-        if (StringUtils.equals("checked", pq.getAftercare())) {
+        if (listContains(keyToResponseListMap.get("before_after_care"), "after")) {
             school.getCategoryResponses().get(ROW_LABEL_BEFORE_AFTER_SCHOOL).add("After-school care");
         }
-//        school.getCategoryResponses().get(ROW_LABEL_SPECIAL_PROGRAMS).add("See " + ROW_LABEL_ARTS);
-        parsePQValues(school.getCategoryResponses(), ROW_LABEL_LEARNING_DISABILITIES, pq.getSpecialEdPrograms(),
-                      _pqSpecialEdMap);
+        parseESPValues(school.getCategoryResponses().get(ROW_LABEL_LEARNING_DISABILITIES), keyToResponseListMap.get("special_ed_programs"));
     }
-
-    protected void parsePQValues(Map<String, Set<String>> categoryResponses, String categoryName, String pqValues, Map<String, String> valueMap) {
-        parsePQValues(categoryResponses, categoryName, pqValues, null, valueMap);
-    }
-
-    protected void parsePQValues(Map<String, Set<String>> categoryResponses, String categoryName, String pqValues, String pqOtherValue, Map<String, String> valueMap) {
-        if (StringUtils.isNotBlank(pqValues)) {
-            for (String value: pqValues.split(":")) {
-                if (valueMap.get(value) != null) {
-                    categoryResponses.get(categoryName).add(valueMap.get(value));
-                } else {
-                    _log.warn("Can't find display text for PQ " + categoryName + " \"" + value + "\"");
+    
+    protected boolean listContains(List<EspResponse> responses, String value) {
+        if (responses != null && responses.size() > 0) {
+            for (EspResponse response: responses) {
+                if (StringUtils.equals(value, response.getValue())) {
+                    return true;
                 }
             }
         }
-        if (StringUtils.isNotBlank(pqOtherValue)) {
-            for (String value: pqOtherValue.split(",")) {
-                String cleanedUpValue = StringUtils.capitalize(StringUtils.trim(value));
-                if (StringUtils.isNotBlank(cleanedUpValue)) {
-                    categoryResponses.get(categoryName).add(cleanedUpValue);
+        return false;
+    }
+
+    protected void parseESPValues(Set<String> category, List<EspResponse> espResponses) {
+        parseESPValues(category, espResponses, null);
+    }
+
+    protected void parseESPValues(Set<String> category, List<EspResponse> espResponses, List<EspResponse> espOtherResponses) {
+        if (espResponses != null && espResponses.size() > 0) {
+            for (EspResponse response: espResponses) {
+                category.add(response.getPrettyValue());
+            }
+        }
+        if (espOtherResponses != null && espOtherResponses.size() > 0) {
+            for (EspResponse response: espOtherResponses) {
+                for (String value: response.getValue().split(",")) {
+                    String cleanedUpValue = StringUtils.capitalize(StringUtils.trim(value));
+                    category.add(cleanedUpValue);
                 }
             }
         }
@@ -350,11 +279,11 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         _surveyDao = surveyDao;
     }
 
-    public IPQDao getPQDao() {
-        return _PQDao;
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
     }
 
-    public void setPQDao(IPQDao PQDao) {
-        _PQDao = PQDao;
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
     }
 }
