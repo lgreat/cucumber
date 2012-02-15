@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.281 2012/02/07 21:44:35 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.282 2012/02/15 16:43:11 aroy Exp $
  */
 
 package gs.web.util;
@@ -670,11 +670,7 @@ public class UrlBuilder {
                     "/" +
                     school.getId();
         } else if (SCHOOL_PROFILE_PRINCIPAL_VIEW.equals(page)) {
-            _perlPage = true;
-            _path = "/cgi-bin/" +
-                    school.getDatabaseState().getAbbreviationLowerCase() +
-                    "/pqview/" +
-                    school.getId();
+            handleSchoolProfile(school, false, ExtraResourceIdentifier.ESP_DISPLAY_PAGE);
         } else if (SCHOOL_PROFILE_RATINGS.equals(page)) {
             State state = school.getDatabaseState();
             _perlPage = false;
@@ -710,14 +706,10 @@ public class UrlBuilder {
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
         } else if (SCHOOL_PROFILE_ESP_LOGIN.equals(page)) {
-            _perlPage = true;
-            _path = "/cgi-bin/pq_start.cgi/" +
-                    school.getDatabaseState().getAbbreviationLowerCase() +
-                    "/" + school.getId();
-        } else if (SCHOOL_PROFILE_ESP.equals(page)) {
             _perlPage = false;
-            _path = "/cgi-bin/" + school.getDatabaseState().getAbbreviationLowerCase() +
-                    "/pqview/" + school.getId();
+            _path = "/official-school-profile/signin.page";
+        } else if (SCHOOL_PROFILE_ESP.equals(page)) {
+            handleSchoolProfile(school, false, ExtraResourceIdentifier.ESP_DISPLAY_PAGE);
         } else if (SCHOOL_TAKE_SURVEY.equals(page)) {
             _perlPage = false;
             _path = "/survey/form.page";
