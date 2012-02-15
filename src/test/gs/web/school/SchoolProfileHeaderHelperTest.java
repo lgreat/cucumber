@@ -27,7 +27,7 @@ import static org.easymock.classextension.EasyMock.*;
  */
 public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     private SchoolProfileHeaderHelper _helper;
-    private IPQDao _PQDao;
+    private IEspResponseDao _espResponseDao;
     private ITestDataSetDao _testDataSetDao;
     private ISurveyDao _surveyDao;
     private ILocalBoardDao _localBoardDao;
@@ -47,7 +47,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
 
         _helper = new SchoolProfileHeaderHelper();
 
-        _PQDao = createStrictMock(IPQDao.class);
+        _espResponseDao = createStrictMock(IEspResponseDao.class);
         _testDataSetDao = createStrictMock(ITestDataSetDao.class);
         _surveyDao = createStrictMock(ISurveyDao.class);
         _localBoardDao = createStrictMock(ILocalBoardDao.class);
@@ -58,7 +58,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
         _testManager = createStrictMock(TestManager.class);
         _schoolDao = createStrictMock(ISchoolDao.class);
 
-        _helper.setPQDao(_PQDao);
+        _helper.setEspResponseDao(_espResponseDao);
         _helper.setTestDataSetDao(_testDataSetDao);
         _helper.setSurveyDao(_surveyDao);
         _helper.setLocalBoardDao(_localBoardDao);
@@ -75,15 +75,15 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     }
     
     private void replayAllMocks() {
-        replayMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
+        replayMocks(_espResponseDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_PQDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
+        verifyMocks(_espResponseDao, _testDataSetDao, _surveyDao, _localBoardDao, _geoDao, _censusInfo, _stateSpecificFooterHelper, _ratingsConfigDao, _testManager, _schoolDao);
     }
 
     public void testBasics() {
-        assertSame(_PQDao, _helper.getPQDao());
+        assertSame(_espResponseDao, _helper.getEspResponseDao());
         assertSame(_testDataSetDao, _helper.getTestDataSetDao());
         assertSame(_surveyDao, _helper.getSurveyDao());
         assertSame(_localBoardDao, _helper.getLocalBoardDao());
@@ -92,7 +92,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     }
     
     public void testDeterminePQNone() {
-        expect(_PQDao.findBySchool(_school)).andReturn(null);
+        expect(_espResponseDao.getResponses(_school)).andReturn(null);
         expect(_censusInfo.getLatestValue(_school, CensusDataType.HOURS_IN_SCHOOL_DAY)).andReturn(null);
         
         replayAllMocks();
@@ -105,7 +105,7 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     }
 
     public void testDeterminePQCensus() {
-        expect(_PQDao.findBySchool(_school)).andReturn(null);
+        expect(_espResponseDao.getResponses(_school)).andReturn(null);
         SchoolCensusValue value = new SchoolCensusValue();
         value.setValueFloat(2.5f);
         expect(_censusInfo.getLatestValue(_school, CensusDataType.HOURS_IN_SCHOOL_DAY)).andReturn(value);
@@ -120,10 +120,18 @@ public class SchoolProfileHeaderHelperTest extends BaseTestCase {
     }
 
     public void testDeterminePQ() {
-        PQ pq = new PQ();
-        pq.setStartTime("8:00");
-        pq.setEndTime("3:30");
-        expect(_PQDao.findBySchool(_school)).andReturn(pq);
+        List<EspResponse> responses = new ArrayList<EspResponse>();
+        EspResponse startTime = new EspResponse();
+        startTime.setKey("start_time");
+        startTime.setValue("8:00");
+        startTime.setPrettyValue("8:00");
+        EspResponse endTime = new EspResponse();
+        endTime.setKey("end_time");
+        endTime.setValue("3:30");
+        endTime.setPrettyValue("3:30");
+        responses.add(startTime);
+        responses.add(endTime);
+        expect(_espResponseDao.getResponses(_school)).andReturn(responses);
 
         replayAllMocks();
         _helper.determinePQ(_school, _model);

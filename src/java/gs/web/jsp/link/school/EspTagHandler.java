@@ -8,6 +8,6 @@ import gs.web.util.UrlBuilder;
 public class EspTagHandler extends BaseSchoolTagHandler {
     @Override
     protected UrlBuilder createUrlBuilder() {
-        return new UrlBuilder(getSchool(), UrlBuilder.SCHOOL_PROFILE_ESP);
+        return new UrlBuilder(getSchool(), UrlBuilder.SCHOOL_PROFILE_ESP_DISPLAY);
     }
 }

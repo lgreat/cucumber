@@ -33,7 +33,6 @@ public class SchoolProfileHeaderHelper {
     public static final String BEAN_ID = "schoolProfileHeaderHelper";
     private static final Log _log = LogFactory.getLog(SchoolProfileHeaderHelper.class);
 
-    private IPQDao _PQDao;
     private ITestDataSetDao _testDataSetDao;
     private ISurveyDao _surveyDao;
     private ILocalBoardDao _localBoardDao;
@@ -42,6 +41,7 @@ public class SchoolProfileHeaderHelper {
     private IRatingsConfigDao _ratingsConfigDao;
     private TestManager _testManager;
     private ISchoolDao _schoolDao;
+    private IEspResponseDao _espResponseDao;
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
@@ -234,13 +234,16 @@ public class SchoolProfileHeaderHelper {
     }
 
     protected void determinePQ(School school, Map<String, Object> model) {
-        PQ pq = _PQDao.findBySchool(school);
-        model.put(HAS_PQ, pq != null);
-        if (pq != null) {
-            if (StringUtils.isNotBlank(pq.getStartTime()) && StringUtils.isNotBlank(pq.getEndTime())) {
-                model.put(PQ_START_TIME, pq.getStartTime());
-                model.put(PQ_END_TIME, pq.getEndTime());
-                model.put(PQ_HOURS, pq.getStartTime() + " - " + pq.getEndTime());
+        List<EspResponse> espResponses = _espResponseDao.getResponses(school);
+        model.put(HAS_PQ, espResponses != null && espResponses.size() > 0);
+        if (espResponses != null) {
+            Map<String, List<String>> espKeyToValueMap = EspResponse.toValueMap(espResponses, true);
+            if (espKeyToValueMap.get("start_time") != null && espKeyToValueMap.get("end_time") != null) {
+                String startTime = espKeyToValueMap.get("start_time").get(0);
+                String endTime = espKeyToValueMap.get("end_time").get(0);
+                model.put(PQ_START_TIME, startTime);
+                model.put(PQ_END_TIME, endTime);
+                model.put(PQ_HOURS, startTime + " - " + endTime);
             }
         }
 
@@ -293,14 +296,6 @@ public class SchoolProfileHeaderHelper {
             }
         }
         return city;
-    }
-
-    public IPQDao getPQDao() {
-        return _PQDao;
-    }
-
-    public void setPQDao(IPQDao PQDao) {
-        _PQDao = PQDao;
     }
 
     public ITestDataSetDao getTestDataSetDao() {
@@ -365,5 +360,13 @@ public class SchoolProfileHeaderHelper {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
+    }
+
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
     }
 }
