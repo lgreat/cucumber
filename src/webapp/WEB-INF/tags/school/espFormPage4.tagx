@@ -325,11 +325,11 @@
                     <input id="js_form_partnerships_name_1" type="text"
                            name="partnerships_name_1" class="text input_6 mas"
                            value="${responseMap['partnerships_name_1'].value}"
-                           placeholder="[partner name]" maxlength="100"/>
+                           placeholder="[Organization name]" maxlength="100"/>
                     <input id="js_form_partnerships_url_1" type="text"
                            name="partnerships_url_1" class="text input_6 mas"
                            value="${responseMap['partnerships_url_1'].value}"
-                           placeholder="[partner website]" maxlength="100"/>
+                           placeholder="[Web site]" maxlength="100"/>
                     <div class="grid_5 prefix_6">
                         <p class="hint">Example: http://www.website.org</p>
                     </div>
@@ -338,41 +338,41 @@
                     <input id="js_form_partnerships_name_2" type="text"
                            name="partnerships_name_2" class="text input_6 mas"
                            value="${responseMap['partnerships_name_2'].value}"
-                           placeholder="[partner name]" maxlength="100"/>
+                           placeholder="Organization name]" maxlength="100"/>
                     <input id="js_form_partnerships_url_2" type="text"
                            name="partnerships_url_2" class="text input_6 mas"
                            value="${responseMap['partnerships_url_2'].value}"
-                           placeholder="[partner website]" maxlength="100"/>
+                           placeholder="[Web site]" maxlength="100"/>
                 </li>
                 <li>
                     <input id="js_form_partnerships_name_3" type="text"
                            name="partnerships_name_3" class="text input_6 mas"
                            value="${responseMap['partnerships_name_3'].value}"
-                           placeholder="[partner name]" maxlength="100"/>
+                           placeholder="[Organization name]" maxlength="100"/>
                     <input id="js_form_partnerships_url_3" type="text"
                            name="partnerships_url_3" class="text input_6 mas"
                            value="${responseMap['partnerships_url_3'].value}"
-                           placeholder="[partner website]" maxlength="100"/>
+                           placeholder="[Web site]" maxlength="100"/>
                 </li>
                 <li>
                     <input id="js_form_partnerships_name_4" type="text"
                            name="partnerships_name_4" class="text input_6 mas"
                            value="${responseMap['partnerships_name_4'].value}"
-                           placeholder="[partner name]" maxlength="100"/>
+                           placeholder="[Organization name]" maxlength="100"/>
                     <input id="js_form_partnerships_url_4" type="text"
                            name="partnerships_url_4" class="text input_6 mas"
                            value="${responseMap['partnerships_url_4'].value}"
-                           placeholder="[partner website]" maxlength="100"/>
+                           placeholder="[Web site]" maxlength="100"/>
                 </li>
                 <li>
                     <input id="js_form_partnerships_name_5" type="text"
                            name="partnerships_name_5" class="text input_6 mas"
                            value="${responseMap['partnerships_name_5'].value}"
-                           placeholder="[partner name]" maxlength="100"/>
+                           placeholder="[Organization name]" maxlength="100"/>
                     <input id="js_form_partnerships_url_5" type="text"
                            name="partnerships_url_5" class="text input_6 mas"
                            value="${responseMap['partnerships_url_5'].value}"
-                           placeholder="[partner website]" maxlength="100"/>
+                           placeholder="[Web site]" maxlength="100"/>
                 </li>
             </ol>
         </div>
