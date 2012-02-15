@@ -126,99 +126,115 @@
 
     <gsml:body adPageName="school/esp" pageLayout="nocol">
         <div class="container_24 slStylesV1-0 slFormsV1-0">
+            <div class="spacer_20"><!-- do not collapse --></div>
             <div class="grid_24">
-                <h2>Your School Profile</h2>
+                <h1 class="fltlft">Your School Profile</h1>
+
+                <div class="fltrt mtm">
+                    <span class="small mrm"><a href="javascript:void(0);">Need Help?</a></span>
+                    <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
+                </div>
+            </div>
+            <div class="grid_24">
                 <p>Select a section to complete your School Profile. You may save, continue and edit your profile at any time.</p>
 
-                <div id="espFormNavWrapper">
-                    <dl class="gradient-3 grid_8 alpha">
-                        <dd class="bottom">
-                            <div id="espFormSchoolInfo">
-                                <p>${school.name}</p>
-                                <p>${school.city}, ${school.databaseState}</p>
-                                <p>
-                                    <link:schoolProfileOverview school="${school}">View profile</link:schoolProfileOverview>
-                                    |
-                                    <link:schoolEspDashboard school="${school}">Back to Dashboard</link:schoolEspDashboard>
+                <div class="grid_8 alpha">
+                    <div class="mod form">
+                        <div class="inner">
+                            <div class="bd">
+                                <p class="bottom">
+                                    ${school.name}<br/>
+                                    <c:if test="${school.physicalAddress.street ne null}">
+                                        <span class="small">${school.physicalAddress.street}</span><br/>
+                                    </c:if>
+                                    <span class="small">${school.city}, ${school.databaseState}</span>
+                                </p>
+
+                                <p class="small bottom">
+                                    <link:schoolProfileOverview
+                                            school="${school}">View profile</link:schoolProfileOverview>
+                                    <span> | </span>
+                                    <link:schoolEspDashboard
+                                            school="${school}">Back to Dashboard</link:schoolEspDashboard>
                                 </p>
                             </div>
-                        </dd>
-                    </dl>
-                    <div id="js_espFormNav" class="grid_16 omega">
-                        <ul>
-                            <li class="${(page eq 1)?'selected':''} ${(percentComplete[1] ge 100)?'completed':''}">
-                                <link:schoolEspForm school="${school}" page="1">
-                                    ${tabTitle_1}
-                                </link:schoolEspForm>
-                            </li>
-                            <li class="${(page eq 2)?'selected':''} ${(percentComplete[2] ge 100)?'completed':''}">
-                                <link:schoolEspForm school="${school}" page="2">
-                                    ${tabTitle_2}
-                                </link:schoolEspForm>
-                            </li>
-                            <li class="${(page eq 3)?'selected':''} ${(percentComplete[3] ge 100)?'completed':''}">
-                                <link:schoolEspForm school="${school}" page="3">
-                                    ${tabTitle_3}
-                                </link:schoolEspForm>
-                            </li>
-                            <li class="${(page eq 4)?'selected':''} ${(percentComplete[4] ge 100)?'completed':''}">
-                                <link:schoolEspForm school="${school}" page="4">
-                                    ${tabTitle_4}
-                                </link:schoolEspForm>
-                            </li>
-                            <li class="${(page eq 5)?'selected':''} ${(percentComplete[5] ge 100)?'completed':''}">
-                                <link:schoolEspForm school="${school}" page="5">
-                                    ${tabTitle_5}
-                                </link:schoolEspForm>
-                            </li>
-                            <li class="${(page eq 6)?'selected':''} ${(percentComplete[6] ge 100)?'completed':''}">
-                                <link:schoolEspForm school="${school}" page="6">
-                                    ${tabTitle_6}
-                                </link:schoolEspForm>
-                            </li>
-                            <li class="${(page eq 7)?'selected':''} ${(percentComplete[7] ge 100)?'completed':''}">
-                                <link:schoolEspForm school="${school}" page="7">
-                                    ${tabTitle_7}
-                                </link:schoolEspForm>
-                            </li>
-                            <c:if test="${maxPage eq 8}">
-                                <li class="${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
-                                    <link:schoolEspForm school="${school}" page="8">
-                                        ${tabTitle_8}
-                                    </link:schoolEspForm>
-                                </li>
-                            </c:if>
-                        </ul>
-                    </div>
-                </div>
-                <div id="js_pageContainer" class="grid_24 alpha omega">
-                    <div id="js_pageWrapper-1" class="js_pageWrapper ${(page eq 1)?'':'hidden'}">
-                        <school:espFormPage1 maxPage="${maxPage}"/>
-                    </div>
-                    <div id="js_pageWrapper-2" class="js_pageWrapper ${(page eq 2)?'':'hidden'}">
-                        <school:espFormPage2 maxPage="${maxPage}"/>
-                    </div>
-                    <div id="js_pageWrapper-3" class="js_pageWrapper ${(page eq 3)?'':'hidden'}">
-                        <school:espFormPage3 maxPage="${maxPage}"/>
-                    </div>
-                    <div id="js_pageWrapper-4" class="js_pageWrapper ${(page eq 4)?'':'hidden'}">
-                        <school:espFormPage4 maxPage="${maxPage}"/>
-                    </div>
-                    <div id="js_pageWrapper-5" class="js_pageWrapper ${(page eq 5)?'':'hidden'}">
-                        <school:espFormPage5 maxPage="${maxPage}"/>
-                    </div>
-                    <div id="js_pageWrapper-6" class="js_pageWrapper ${(page eq 6)?'':'hidden'}">
-                        <school:espFormPage6 maxPage="${maxPage}"/>
-                    </div>
-                    <div id="js_pageWrapper-7" class="js_pageWrapper ${(page eq 7)?'':'hidden'}">
-                        <school:espFormPage7 maxPage="${maxPage}"/>
-                    </div>
-                    <c:if test="${school.type.schoolTypeName == 'private'}">
-                        <div id="js_pageWrapper-8" class="js_pageWrapper ${(page eq 8)?'':'hidden'}">
-                            <school:espFormPage8 maxPage="${maxPage}"/>
                         </div>
-                    </c:if>
+                    </div>
                 </div>
+                <div id="js_espFormNav" class="grid_16 omega">
+                    <ul>
+                        <li class="${(page eq 1)?'selected':''} ${(percentComplete[1] ge 100)?'completed':''}">
+                            <link:schoolEspForm school="${school}" page="1">
+                                ${tabTitle_1}
+                            </link:schoolEspForm>
+                        </li>
+                        <li class="${(page eq 2)?'selected':''} ${(percentComplete[2] ge 100)?'completed':''}">
+                            <link:schoolEspForm school="${school}" page="2">
+                                ${tabTitle_2}
+                            </link:schoolEspForm>
+                        </li>
+                        <li class="${(page eq 3)?'selected':''} ${(percentComplete[3] ge 100)?'completed':''}">
+                            <link:schoolEspForm school="${school}" page="3">
+                                ${tabTitle_3}
+                            </link:schoolEspForm>
+                        </li>
+                        <li class="${(page eq 4)?'selected':''} ${(percentComplete[4] ge 100)?'completed':''}">
+                            <link:schoolEspForm school="${school}" page="4">
+                                ${tabTitle_4}
+                            </link:schoolEspForm>
+                        </li>
+                        <li class="${(page eq 5)?'selected':''} ${(percentComplete[5] ge 100)?'completed':''}">
+                            <link:schoolEspForm school="${school}" page="5">
+                                ${tabTitle_5}
+                            </link:schoolEspForm>
+                        </li>
+                        <li class="${(page eq 6)?'selected':''} ${(percentComplete[6] ge 100)?'completed':''}">
+                            <link:schoolEspForm school="${school}" page="6">
+                                ${tabTitle_6}
+                            </link:schoolEspForm>
+                        </li>
+                        <li class="${(page eq 7)?'selected':''} ${(percentComplete[7] ge 100)?'completed':''}">
+                            <link:schoolEspForm school="${school}" page="7">
+                                ${tabTitle_7}
+                            </link:schoolEspForm>
+                        </li>
+                        <c:if test="${maxPage eq 8}">
+                            <li class="${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
+                                <link:schoolEspForm school="${school}" page="8">
+                                    ${tabTitle_8}
+                                </link:schoolEspForm>
+                            </li>
+                        </c:if>
+                    </ul>
+                </div>
+            </div>
+            <div id="js_pageContainer" class="grid_24">
+                <div id="js_pageWrapper-1" class="js_pageWrapper ${(page eq 1)?'':'hidden'}">
+                    <school:espFormPage1 maxPage="${maxPage}"/>
+                </div>
+                <div id="js_pageWrapper-2" class="js_pageWrapper ${(page eq 2)?'':'hidden'}">
+                    <school:espFormPage2 maxPage="${maxPage}"/>
+                </div>
+                <div id="js_pageWrapper-3" class="js_pageWrapper ${(page eq 3)?'':'hidden'}">
+                    <school:espFormPage3 maxPage="${maxPage}"/>
+                </div>
+                <div id="js_pageWrapper-4" class="js_pageWrapper ${(page eq 4)?'':'hidden'}">
+                    <school:espFormPage4 maxPage="${maxPage}"/>
+                </div>
+                <div id="js_pageWrapper-5" class="js_pageWrapper ${(page eq 5)?'':'hidden'}">
+                    <school:espFormPage5 maxPage="${maxPage}"/>
+                </div>
+                <div id="js_pageWrapper-6" class="js_pageWrapper ${(page eq 6)?'':'hidden'}">
+                    <school:espFormPage6 maxPage="${maxPage}"/>
+                </div>
+                <div id="js_pageWrapper-7" class="js_pageWrapper ${(page eq 7)?'':'hidden'}">
+                    <school:espFormPage7 maxPage="${maxPage}"/>
+                </div>
+                <c:if test="${school.type.schoolTypeName == 'private'}">
+                    <div id="js_pageWrapper-8" class="js_pageWrapper ${(page eq 8)?'':'hidden'}">
+                        <school:espFormPage8 maxPage="${maxPage}"/>
+                    </div>
+                </c:if>
             </div>
         </div>
 
