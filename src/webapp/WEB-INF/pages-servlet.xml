@@ -2253,7 +2253,7 @@
           autowire="byType" scope="request" lazy-init="true">
         <property name="controllers">
             <list>
-                <ref bean="/school/enhancedSchoolProfile2.page"/>
+                <ref bean="/school/enhancedSchoolProfile.page"/>
 
                 <!-- TODO-10701 uncomment the following to use OLD search -->
                 <!-- TODO-10701 comment out the following to use NEW search -->
@@ -2654,14 +2654,14 @@
         <property name="publicSchoolContentPath" value="/gscache/other_simple/$STATE/$ID"/>
     </bean>
 
-    <bean name="/school/enhancedSchoolProfile.page"
-          class="gs.web.school.PerlFetchController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/school/enhancedSchoolProfile"/>
-        <property name="perlContentPath" value="/cgi-bin/$STATE/pqview_simple/$ID"/>
-    </bean>
+    <!--<bean name="/school/enhancedSchoolProfile.page"-->
+          <!--class="gs.web.school.PerlFetchController"-->
+          <!--autowire="byName" lazy-init="true">-->
+        <!--<property name="viewName" value="/school/enhancedSchoolProfile"/>-->
+        <!--<property name="perlContentPath" value="/cgi-bin/$STATE/pqview_simple/$ID"/>-->
+    <!--</bean>-->
 
-    <bean name="/school/enhancedSchoolProfile2.page"
+    <bean name="/school/enhancedSchoolProfile.page"
           class="gs.web.school.EnhancedSchoolProfileController"
           autowire="byName" lazy-init="true">
     </bean>
