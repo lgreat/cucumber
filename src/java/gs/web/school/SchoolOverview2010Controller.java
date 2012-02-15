@@ -2,7 +2,6 @@ package gs.web.school;
 
 import gs.data.community.User;
 import gs.data.geo.IGeoDao;
-import gs.data.geo.bestplaces.BpCensus;
 import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
@@ -53,7 +52,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private IGeoDao _geoDao;
     private ISchoolMediaDao _schoolMediaDao;
 
-    private IPQDao _PQDao;
+    private IEspResponseDao _espResponseDao;
 
     protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
@@ -125,20 +124,17 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             /*
              * get PQ data to find quote if it exists
              */
-            PQ pq = _PQDao.findBySchool(school);
-            if (pq != null) {
-                String bestKnownFor = pq.getBestKnownFor();
-                if (bestKnownFor != null) {
+            Set<String> pqKeys = new HashSet<String>(1);
+            pqKeys.add("best_known_for");
+            List<EspResponse> espResponses = _espResponseDao.getResponsesByKeys(school, pqKeys);
+            if (espResponses != null && espResponses.size() > 0) {
+                String bestKnownFor = espResponses.get(0).getValue();
+                if (StringUtils.isNotBlank(bestKnownFor)) {
                     if (!StringUtils.endsWith(bestKnownFor, ".")) {
                         bestKnownFor += ".";
                     }
-
                     model.put("bestKnownFor", bestKnownFor);
-                } else {
-                    model.put("espLink", "profile");
                 }
-            } else {
-                model.put("espLink", "principal");
             }
 
             boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
@@ -335,12 +331,12 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         _reviewDao = reviewDao;
     }
 
-    public IPQDao getPQDao() {
-        return _PQDao;
+    public IEspResponseDao getEspResponseDao() {
+        return _espResponseDao;
     }
 
-    public void setPQDao(IPQDao pqDao) {
-        _PQDao = pqDao;
+    public void setEspResponseDao(IEspResponseDao espResponseDao) {
+        _espResponseDao = espResponseDao;
     }
 
     public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {

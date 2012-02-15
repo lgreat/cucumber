@@ -197,7 +197,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <div class="mediaExt1">
                     <div class="js-trigger imgExt sprite info"><!-- do not collapse --></div>
 
-                    <p class="bk introText">"We're known for our ${bestKnownFor}"</p>
+                    <p class="bk introText">"${bestKnownFor}"</p>
                 </div>
 
                 <div class="js-popup">
