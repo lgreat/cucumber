@@ -160,18 +160,25 @@ public class CmsFeatureController extends AbstractController {
             return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
         }
 
+        if("true".equals(request.getParameter("print"))){
+            return new ModelAndView(new RedirectView301("/print-view" + uri));
+        }
+
         try {
             _cmsFeatureEmbeddedLinkResolver.replaceEmbeddedLinks(feature);
         } catch(Exception e) {
             throw new RuntimeException(e);
         }
 
-        boolean print = "true".equals(request.getParameter("print")) || (uri.indexOf("/print-view/") >= 0);
+        boolean print = uri.indexOf("/print-view/") >= 0;
         String fromPageNum = request.getParameter("fromPage");
         boolean validFromPageNum = (StringUtils.isNotBlank(fromPageNum) && (StringUtils.isNumeric(fromPageNum) || "all".equals(fromPageNum)));
-        if (print && validFromPageNum) {
-            // if going to print view, save current page num so we can return to it
-            model.put("fromPage", fromPageNum);
+        if (print) {
+            model.put("printViewUrl", request.getRequestURL());
+            if(validFromPageNum){
+                // if going to print view, save current page num so we can return to it
+                model.put("fromPage", fromPageNum);
+            }
         }
 
         if (CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(feature.getContentKey().getType()) ||
@@ -188,6 +195,15 @@ public class CmsFeatureController extends AbstractController {
                 slides.add(feature.getCurrentSlide());
             }
             model.put("currentSlides", slides);
+            int currentPage = feature.getCurrentSlideIndex() + 1;
+            prevPageNum = currentPage - 1;
+            nextPageNum = currentPage + 1;
+            if((nextPageNum > feature.getTotalSlides())){
+                nextPageNum = -1;
+            }
+            if(!(prevPageNum >= 1)){
+                prevPageNum = -1;
+            }
         }
 
         // GS-11664 insert BTS list ad  and GS-12091 insert ad into non-bts articles.

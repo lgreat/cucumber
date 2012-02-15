@@ -27,6 +27,25 @@
 
     <article:hoverScriplet/>
     <k12:trafficDriverIncludes/>
+
+    <c:choose>
+        <c:when test="${feature.currentPageNum == 1}">
+            <link rel="canonical" href="${contentUrl}"/>
+        </c:when>
+        <c:when test="${feature.currentPageNum == -1}">
+            <link rel="canonical" href="${singlePageContentUrl}"/>
+        </c:when>
+        <c:otherwise>
+            <link rel="canonical" href="${contentUrl}?page=${feature.currentPageNum}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:if test="${prevPageNum != -1}">
+        <link rel="prev" href="${prevPageContentUrl}"/>
+    </c:if>
+    <c:if test="${nextPageNum != -1}">
+        <link rel="next" href="${nextPageContentUrl}"/>
+    </c:if>
 </head>
 <gsml:body adPageName="askTheExperts" pageLayout="nocol">
 

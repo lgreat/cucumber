@@ -28,6 +28,8 @@
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/printModuleBlocks.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/printModuleSkins.css" />
 
+        <link rel="canonical" href="${printViewUrl}"/>
+
     </head>
 
     <body onload="window.print();">
