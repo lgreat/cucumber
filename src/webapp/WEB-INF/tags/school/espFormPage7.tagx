@@ -12,7 +12,7 @@
                 <div class="alpha grid_5">
                     <label for="form_physical_address_street">School site address</label>
                 </div>
-                <div class="grid_5 suffix_1">
+                <div class="grid_7 suffix_1">
                     <gsml:input styleId="form_physical_address_street" styleClass="text input_8" type="text"
                                 name="physical_address_street"
                                 value="${responseMap['physical_address_street'].value}" disabled="${stateLocked}" maxlength="200"/>
@@ -41,50 +41,62 @@
 
             <div class="lal clearfix">
                 <div class="alpha grid_5">
-                    <label for="form_school_phone_area_code">School phone:</label>
+                    <label for="form_school_phone_area_code">School phone</label>
                 </div>
-                <div class="grid_4 suffix_14 omega wsnw">
-                    <gsml:input styleId="form_school_phone_area_code" styleClass="text digits_3" type="text"
+                <div class="grid_4 wsnw">
+                    <gsml:input styleId="form_school_phone_area_code" styleClass="text digits_3 js-val-ph1" type="text"
                                 name="school_phone_area_code"
                                 maxlength="3" value="${responseMap['school_phone_area_code'].value}"
                                 disabled="${stateLocked}"/>
 
                     <span> - </span>
 
-                    <gsml:input styleId="form_school_phone_office_code" styleClass="text digits_3" type="text"
+                    <gsml:input styleId="form_school_phone_office_code" styleClass="text digits_3 js-val-ph2" type="text"
                                 name="school_phone_office_code"
                                 maxlength="3" value="${responseMap['school_phone_office_code'].value}"
                                 disabled="${stateLocked}"/>
 
                     <span> - </span>
 
-                    <gsml:input styleId="form_school_phone_last_four" styleClass="text digits_4" type="text"
+                    <gsml:input styleId="form_school_phone_last_four" styleClass="text digits_4 js-val-int js-val-ph3" type="text"
                                 name="school_phone_last_four"
                                 maxlength="4" value="${responseMap['school_phone_last_four'].value}"
                                 disabled="${stateLocked}"/>
+                </div>
+                <div style="display: none" class="grid_10 suffix_10 omega error" id="form_school_phone_error">
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                        <div class="bk">&amp;nbsp;Please use numbers only when specifying phone</div>
+                    </div>
                 </div>
             </div>
 
             <div class="clearfix lal">
                 <div class="grid_5 alpha">
-                    <label for="form_school_fax_area_code">School fax:</label>
+                    <label for="form_school_fax_area_code">School fax</label>
                 </div>
-                <div class="grid_4 suffix_14 omega wsnw">
-                    <gsml:input styleId="form_school_fax_area_code" styleClass="text digits_3" type="text"
+                <div class="grid_4 wsnw">
+                    <gsml:input styleId="form_school_fax_area_code" styleClass="text digits_3 js-val-ph1" type="text"
                                 name="school_fax_area_code" maxlength="3"
                                 value="${responseMap['school_fax_area_code'].value}" disabled="${stateLocked}"/>
 
                     <span> - </span>
 
-                    <gsml:input styleId="form_school_fax_office_code" styleClass="text digits_3" type="text"
+                    <gsml:input styleId="form_school_fax_office_code" styleClass="text digits_3 js-val-ph2" type="text"
                                 name="school_fax_office_code" maxlength="3"
                                 value="${responseMap['school_fax_office_code'].value}" disabled="${stateLocked}"/>
 
                     <span> - </span>
 
-                    <gsml:input styleId="form_fax_phone_last_four" styleClass="text digits_4" type="text"
+                    <gsml:input styleId="form_fax_phone_last_four" styleClass="text digits_4 js-val-ph3" type="text"
                                 name="school_fax_last_four" maxlength="4"
                                 value="${responseMap['school_fax_last_four'].value}" disabled="${stateLocked}"/>
+                </div>
+                <div style="display: none" class="grid_10 suffix_10 omega error" id="form_school_fax_error">
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                        <div class="bk">&amp;nbsp;Please use numbers only when specifying fax</div>
+                    </div>
                 </div>
             </div>
 
@@ -122,7 +134,7 @@
             <div class="lal clearfix">
                 <label for="form_administrator_email" class="alpha grid_5">School leader's email</label>
 
-                <div class="grid_5 suffix_1">
+                <div class="grid_7 suffix_1">
                     <gsml:input type="text" value="${responseMap['administrator_email'].value}" styleId="form_administrator_email"
                            name="administrator_email" styleClass="text input_8" disabled="${stateLocked}" maxlength="100"/>
 
@@ -151,7 +163,7 @@
 
                         <div class="grid_6">
                             <gsml:input type="text" value="${responseMap['contact_method_email'].value}" styleId="form_contact_method_email"
-                                        name="contact_method_email" styleClass="text input_8" disabled="${stateLocked}" placeholder="[Enter email]" maxlength="100"/>
+                                        name="contact_method_email" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter email]" maxlength="100"/>
 
                         </div>
 
@@ -159,7 +171,7 @@
                             <div style="display: none" class="grid_6 omega error" id="form_contact_method_email_error">
                                 <div class="mediaExt1-1">
                                     <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                    <div class="bk">&amp;nbsp;Please specify your school's street address.</div>
+                                    <div class="bk">&amp;nbsp;Please enter a valid email address</div>
                                 </div>
                             </div>
                         </div>
@@ -170,10 +182,19 @@
                             <school:espCheckboxWithLabel key="contact_method" value="phone" label="Phone:" nobr="${true}"/>
                         </div>
 
-                        <div class="grid_6 suffix_10 omega">
+                        <div class="grid_6">
                             <gsml:input type="text" value="${responseMap['contact_method_phone'].value}" styleId="form_contact_method_phone"
-                                        name="contact_method_phone" styleClass="text input_8" disabled="${stateLocked}" placeholder="[Enter number]" maxlength="10"/>
+                                        name="contact_method_phone" styleClass="text input_6 js-val-phone" disabled="${stateLocked}" placeholder="[Enter number]" maxlength="10"/>
 
+                        </div>
+
+                        <div class="grid_10 omega">
+                            <div style="display: none" class="grid_6 omega error" id="form_contact_method_email_error">
+                                <div class="mediaExt1-1">
+                                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                    <div class="bk">&amp;nbsp;Please enter a valid phone number</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -184,7 +205,7 @@
 
                         <div class="grid_6 suffix_10 omega">
                             <gsml:input type="text" value="${responseMap['contact_method_other'].value}" styleId="form_contact_method_other"
-                                        name="contact_method_other" styleClass="text js_otherField input_8" disabled="${stateLocked}" placeholder="[Please indicate]" maxlength="40"/>
+                                        name="contact_method_other" styleClass="text js_otherField input_6" disabled="${stateLocked}" placeholder="[Please indicate]" maxlength="40"/>
                         </div>
                     </div>
                 </div>

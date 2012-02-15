@@ -195,6 +195,159 @@ GS.form.handleHiddenElements = function(arrayOfObjects, containerSelector) {
 
 
 GS.validation = GS.validation || {};
+GS.validation.ERROR_SUFFIX = "__error";
+
+GS.validation.styleInputAsErrored = function(selectorOrObject) {
+    if (typeof selectorOrObject === 'string') {
+        selectorOrObject = $(selectorOrObject);
+    }
+    selectorOrObject.addClass('warning');
+    var jQueryObj = GS.validation.findErrorForField(selectorOrObject);
+    GS.validation.showErrors(jQueryObj);
+};
+
+GS.validation.styleInputAsPassed = function(selectorOrObject) {
+    if (typeof selectorOrObject === 'string') {
+        selectorOrObject = $(selectorOrObject);
+    }
+    selectorOrObject.removeClass('warning');
+    var jQueryObj = GS.validation.findErrorForField(selectorOrObject);
+    GS.validation.hideErrors(jQueryObj);
+};
+
+GS.validation.findErrorForField = function(selectorOrObject) {
+    if (typeof selectorOrObject === 'string') {
+        selectorOrObject = $(selectorOrObject);
+    }
+    var field = selectorOrObject;
+    var errorSelector = ".error";
+
+    var errorObj = field.siblings().filter(errorSelector);
+
+    // TODO: okay if length is more than 1? Allow there to be multiple errors per field?
+    
+    if (errorObj.length === 0) {
+        errorObj = field.parent().parent().find(errorSelector);
+    }
+
+    if (errorObj.length === 0) {
+        errorObj = $(field.attr('id') + GS.validation.ERROR_SUFFIX);
+    }
+
+    if (errorObj.length === 1) {
+        return errorObj;
+    }
+};
+
+GS.validation.showErrors = function(jQueryObj) {
+    if (typeof jQueryObj === 'string') {
+        jQueryObj = $(jQueryObj);
+    }
+
+    if (jQueryObj !== undefined && jQueryObj !== null && jQueryObj.length !== undefined && jQueryObj.length > 0) {
+        jQueryObj.each(function() {
+            $(this).show();
+        })
+    }
+};
+
+GS.validation.hideErrors = function(jQueryObj) {
+    if (typeof jQueryObj === 'string') {
+        jQueryObj = $(jQueryObj);
+    }
+
+    if (jQueryObj !== undefined && jQueryObj !== null && jQueryObj.length !== undefined && jQueryObj.length > 0) {
+        jQueryObj.each(function() {
+            $(this).hide();
+        })
+    }
+};
+
+/*GS.validation.setupValidationHandlers = function() {
+    $('.js-val-phone').on('change blur', function() {
+        GS.validation.validateAndStylePhone($(this));
+    });
+
+    $('.js-val-ph1, .js-val-ph2, .js-val-ph3').on('change blur', function() {
+        GS.validation.validateAndStylePhoneParts($(this));
+    });
+};*/
+
+GS.validation.validateAndStylePhone = function(jQueryObject) {
+    if (typeof jQueryObject === 'string') {
+        jQueryObject = $(jQueryObject);
+    }
+
+    var valid = true;
+    var phone = jQueryObject.val();
+
+    if (phone.length > 0) {
+        valid = GS.validation.TEN_DIGIT_PHONE_PATTERN.test(phone);
+    }
+
+    if (!valid) {
+        GS.validation.styleInputAsErrored(jQueryObject);
+    } else {
+        GS.validation.styleInputAsPassed(jQueryObject);
+    }
+
+    return valid;
+};
+
+GS.validation.validateAndStylePhoneParts = function(jQueryObject) {
+    if (typeof jQueryObject === 'string') {
+        jQueryObject = $(jQueryObject);
+    }
+
+    var siblingsAndSelf = jQueryObject.parent().children().filter('input');
+
+    var valid = GS.validation.validatePhoneParts(jQueryObject);
+
+    if (!valid) {
+        siblingsAndSelf.each(function() {
+            GS.validation.styleInputAsErrored($(this));
+        });
+    } else {
+        siblingsAndSelf.each(function() {
+            GS.validation.styleInputAsPassed($(this));
+        });
+    }
+
+    return valid;
+};
+
+GS.validation.validatePhoneParts = function(jQueryObject) {
+    if (typeof jQueryObject === 'string') {
+        jQueryObject = $(jQueryObject);
+    }
+
+    // TODO: make multi-part field validation more generic
+    var siblingsAndSelf = jQueryObject.parent().children().filter('input');
+    var valid = true;
+
+    var phonePart1 = siblingsAndSelf.filter('.js-val-ph1').val();
+    var phonePart2 = siblingsAndSelf.filter('.js-val-ph2').val();
+    var phonePart3 = siblingsAndSelf.filter('.js-val-ph3').val();
+
+    var compositePhone = "";
+    if (phonePart1 !== undefined && phonePart1 !== null) {
+        compositePhone += phonePart1.toString();
+    }
+    if (phonePart2 !== undefined && phonePart2 !== null) {
+        compositePhone += phonePart2.toString();
+    }
+    if (phonePart3 !== undefined && phonePart3 !== null) {
+        compositePhone += phonePart3.toString();
+    }
+
+    // validate integer and length 10, don't validate required
+    if (compositePhone.length > 0) {
+        valid = GS.validation.TEN_DIGIT_PHONE_PATTERN.test(compositePhone);
+    }
+
+    return valid;
+};
+
 GS.validation.validateRequired = function(fieldSelector, errorSelector) {
     var isValid = true;
     jQuery(errorSelector).hide();
@@ -304,6 +457,7 @@ GS.validation.validateInteger = function(fieldSelector, errorSelector) {
     return isValid;
 };
 
+GS.validation.TEN_DIGIT_PHONE_PATTERN = /^\d{10}$/;
 GS.validation.POSITIVE_INTEGER_PATTERN = /^\d+$/;
 // taken from UrlValidator (and modified to proper JS syntax) in apache commons, which references RFC2396
 GS.validation.URL_PATTERN = /^(([^:/?#]+):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/;
@@ -547,17 +701,26 @@ new (function() {
             ('#js_form_skills_training_other', '.js_otherField_js_form_skills_training_other', '#js_form_skills_training_error');
         // END PAGE 4
 
+        // PAGE 7
         var isValidAdministratorEmail =
                 GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error', false);
 
         var isValidPhysicalAddressStreet = GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error');
+
+        var isValidSchoolPhone = GS.validation.validateAndStylePhoneParts('#form_school_phone_area_code');
+        var isValidSchoolFax = GS.validation.validateAndStylePhoneParts('#form_school_fax_area_code');
+        var isValidContactMethodPhone = GS.validation.validateAndStylePhone('#form_contact_method_phone');
+        var isValidContactMethodEmail = GS.validation.validateEmail('#form_contact_method_email', '#form_contact_method_email_error');
+
+        // END PAGE 7
 
         return isValidStudentEnrollment && isValidGradeLevels && isValidTransportationOther &&
             isValidTransportationShuttleOther && isValidTransportationOther && isValidPhysicalAddressStreet &&
             isValidAdministratorEmail && isValidForeignLanguageOther && isValidSpecialEdPrograms && isValidSchedule &&
             isValidExtraLearningResources && isValidStaffLanguages && isValidCollegePrep && isValidPostGraduationYear &&
             isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
-            isValidPostGraduationVocational && isValidPostGraduationWorkforce && isValidSkillsTraining;
+            isValidPostGraduationVocational && isValidPostGraduationWorkforce && isValidSkillsTraining &&
+            isValidSchoolPhone && isValidSchoolFax && isValidContactMethodPhone && isValidContactMethodEmail;
     };
 
     if (GS.history5Enabled) {
@@ -634,7 +797,7 @@ new (function() {
         var isElementarySchool = GS.espForm.school.levels.indexOf('e') >= 0;
         var isMiddleSchool = GS.espForm.school.levels.indexOf('m') >= 0;
         var isHighSchool = GS.espForm.school.levels.indexOf('h') >= 0;
-        var isWiDcIn = (jQuery.inArray(GS.espForm.school.state, ['wi','dc','in']) >= 0);	
+        var isWiDcIn = (jQuery.inArray(GS.espForm.school.state, ['wi','dc','in']) >= 0);
         var appFeeShow = isPrivateSchool && isWiDcIn;
         //GS.util.log('p3 - GS.espForm.school.state:'+GS.espForm.school.state+', isPrivateSchool:'+isPrivateSchool+', isMiddleSchool:'+isMiddleSchool+',isHighSchool:'+isHighSchool+', isWiDcIn:'+isWiDcIn);
         GS.form.controlVisibilityOfElementWithRadio('#sctn_admissions_url, #sctn_parents_contact, #sctn_application_deadline, #sctn_applications_received, #sctn_students_accepted, #sctn_application_fee','[name=application_process]', 'yes');
@@ -653,7 +816,7 @@ new (function() {
         $('#form_application_fee').toggle(appFeeShow).keyup();
         $('[name=form_application_process]').on('change', function(){
         	var isAppProcess = $('#form_application_fee__yes').prop('checked');
-        	$('#form_tuition_low').toggle(isPrivateSchool && isAppProcess);	
+        	$('#form_tuition_low').toggle(isPrivateSchool && isAppProcess);
         	$('#form_tuition_high').toggle(isPrivateSchool && isAppProcess);
         	$('#form_tuition_year').toggle(isPrivateSchool && isAppProcess);
         	$('#form_students_vouchers').toggle(isPrivateSchool && isAppProcess);
