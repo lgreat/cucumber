@@ -1,5 +1,8 @@
 package gs.web.util;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.imageio.ImageIO;
 import java.net.URLConnection;
 import java.net.URL;
@@ -21,6 +24,9 @@ public class ClientHttpRequest {
     URLConnection _connection;
     OutputStream _os = null;
     Map<String, String> _cookies = new HashMap<String, String>();
+    protected static final Log _log = LogFactory.getLog(ClientHttpRequest.class);
+
+    private Integer _maxBytesToPipe = null;
 
     protected void connect() throws IOException {
         if (_os == null) _os = _connection.getOutputStream();
@@ -81,6 +87,11 @@ public class ClientHttpRequest {
      */
     public ClientHttpRequest(URL url) throws IOException {
         this(url.openConnection());
+    }
+    
+    public ClientHttpRequest(URL url, Integer maxBytesToPipe) throws IOException {
+        this(url);
+        _maxBytesToPipe = maxBytesToPipe;
     }
 
     /**
@@ -166,12 +177,19 @@ public class ClientHttpRequest {
         writeln(value);
     }
 
-    private static void pipe(final InputStream in, OutputStream out) throws IOException {
+    private void pipe(final InputStream in, OutputStream out) throws IOException {
         byte[] buf = new byte[500000];
         int nread;
+        long totalBytesRead = 0l;
         synchronized (in) {
             while ((nread = in.read(buf, 0, buf.length)) >= 0) {
+                totalBytesRead += nread;
                 out.write(buf, 0, nread);
+                if (_maxBytesToPipe != null && totalBytesRead > _maxBytesToPipe) {
+                    out.flush();
+                    buf = null;
+                    throw new IOException("Stream too large.");
+                }
             }
         }
         out.flush();

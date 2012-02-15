@@ -77,8 +77,11 @@ GS.PhotoUploader.prototype.createUploader = function() {
                 } else if (data.error.message == "Request too large") {
                     self.setStatus(file, "Error: File too large.");
                     self.errorMessage = "Some files were not uploaded. File size limit is 2MB";
+                } else if (data.error.message == "File type not supported") {
+                    self.setStatus(file, "Error: Images must be JPEG, GIF or PNG");
+                    self.errorMessage = "Some files were not uploaded.";
                 } else {
-                    self.errorMessage = data.error.message;
+                    self.errorMessage = "One or more errors occurred while uploading. Some files might not have been uploaded.";
                 }
             }
 

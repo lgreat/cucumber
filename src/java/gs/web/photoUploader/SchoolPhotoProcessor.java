@@ -20,7 +20,8 @@ public class SchoolPhotoProcessor {
     private BufferedInputStream _stream;
     private FileItemStream _fileItemStream;
     private URL _destinationUrl;
-    
+    public static final int MAX_PHOTO_BYTES = 1024 * 1024 * 2;
+
     private static final String UPLOAD_TYPE_ESP = "school_media";
 
     public SchoolPhotoProcessor(FileItemStream fileItemStream) throws IOException {
@@ -55,21 +56,17 @@ public class SchoolPhotoProcessor {
      * @param schoolMediaId ID of the school media row for this photo
      * @return
      */
-    protected void handleScaledPhoto(User user, int schoolMediaId) {
+    protected void handleScaledPhoto(User user, int schoolMediaId) throws IOException {
         _destinationUrl = getDestinationUrl(); // might throw IllegalStateException if system property not set
 
         if (_destinationUrl == null) {
             throw new IllegalStateException("Cannot handle photo because no URL is set");
         }
 
-        try {
-            _stream.reset();
-            ClientHttpRequest clientHttpRequest = createClientHttpRequestForEsp(user, schoolMediaId);
-            
-            String result = clientHttpRequest.postAsString();
-        } catch (IOException e) {
-            _log.debug("Problem while attempting to send photo to " + _destinationUrl.toString());
-        }
+        _stream.reset();
+        ClientHttpRequest clientHttpRequest = createClientHttpRequestForEsp(user, schoolMediaId);
+
+        String result = clientHttpRequest.postAsString();
     }
 
     /**
@@ -121,7 +118,8 @@ public class SchoolPhotoProcessor {
 
         _stream.reset();
 
-        ClientHttpRequest clientHttpRequest = new ClientHttpRequest(getDestinationUrl());
+        int wiggleRoom = 100000;
+        ClientHttpRequest clientHttpRequest = new ClientHttpRequest(getDestinationUrl(), MAX_PHOTO_BYTES + wiggleRoom);
         clientHttpRequest.setParameter("upload_type", UPLOAD_TYPE_ESP);
         clientHttpRequest.setParameter("school_media_id", schoolMediaId);
         clientHttpRequest.setParameter("numblobs", imageCount);

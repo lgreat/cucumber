@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -43,10 +44,12 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     private static final String RESP_ERROR = "{\"jsonrpc\" : \"2.0\", \"error\" : {\"code\": 101, \"message\": \"Failed to open input stream.\"}, \"id\" : \"id\"}";
     public static final String JSON = "application/json";
     public static final int FULL_SIZE_IMAGE_MAX_DIMENSION = 500;
-    public static final int MAX_CONTENT_LENGTH = 2500000;
+
     
     public static final String NOT_LOGGED_IN_ERROR = "Unauthorized"; // value referenced in JS
     public static final String REQUEST_TOO_LARGE_ERROR = "Request too large"; // value referenced in JS
+    public static final String INVALID_CONTENT_TYPE_ERROR = "File type not supported"; // value referenced in JS
+    public static final String[] VALID_CONTENT_TYPES = {"image/gif", "image/jpeg", "image/png"};
 
     private ISchoolMediaDao _schoolMediaDao;
 
@@ -88,7 +91,11 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
         User user = sessionContext.getUser();
         Integer schoolId;
         State schoolDatabaseState;
+        SchoolMedia schoolMedia = null;
         Map<String,String> formFields = new HashMap<String,String>();
+
+        boolean schoolMediaRecordInserted = false;
+        boolean photoPassedOnSuccessfully = false;
 
         // handle user not logged in
         if (user == null) {
@@ -100,7 +107,8 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
 
         if (isMultipart) {
             // not meant to be accurate. Error when content length (which mostly contains an image) is overly large
-            if (request.getContentLength() > MAX_CONTENT_LENGTH) {
+            int wiggleRoom = 100000; // actual content will be a little larger than the image
+            if (request.getContentLength() > SchoolPhotoProcessor.MAX_PHOTO_BYTES + wiggleRoom) {
                 error(response, "-1", REQUEST_TOO_LARGE_ERROR);
                 return;
             }
@@ -111,8 +119,12 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                 FileItemIterator iter = upload.getItemIterator(request);
                 while (iter.hasNext()) {
                     FileItemStream fileStream = iter.next();
-
                     if (!fileStream.isFormField()) {
+                        if (!ArrayUtils.contains(VALID_CONTENT_TYPES, fileStream.getContentType())) {
+                            error(response, "-1", INVALID_CONTENT_TYPE_ERROR);
+                            return;
+                        }
+
                         // Handle a multi-part MIME encoded file.
                         if (formFields.containsKey("schoolId") && formFields.containsKey("schoolDatabaseState") && fileStream != null) {
                             try {
@@ -124,10 +136,14 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                             }
 
                             SchoolPhotoProcessor processor = createSchoolPhotoProcessor(fileStream);
-                            SchoolMedia schoolMedia = createSchoolMediaObject(user.getId(), schoolId, schoolDatabaseState, fileStream.getName());
+                            schoolMedia = createSchoolMediaObject(user.getId(), schoolId, schoolDatabaseState, fileStream.getName());
+                            schoolMediaRecordInserted = true;
+
                             getSchoolMediaDao().save(schoolMedia);
                             processor.handleScaledPhoto(user, schoolMedia.getId());
+                            photoPassedOnSuccessfully = true;
                             processor.finish();
+
                         }
                     } else {
                         // put multi-part form fields into a map for later use
@@ -143,6 +159,11 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                 _log.debug("Eror while trying to upload file:", e);
                 error(response, "-1", "Unknown error while uploading file.");
                 return;
+            } finally {
+                if (schoolMediaRecordInserted && !photoPassedOnSuccessfully && schoolMedia != null) {
+                    schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.ERROR.value);
+                    ThreadLocalTransactionManager.commitOrRollback();
+                }
             }
 
         } else {
