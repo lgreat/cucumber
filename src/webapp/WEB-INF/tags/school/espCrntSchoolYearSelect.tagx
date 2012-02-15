@@ -19,6 +19,9 @@
     <c:set var="syA" value="${currentYear-1}_${currentYear}"/>
     <c:set var="syB" value="${currentYear}_${currentYear+1}"/>
     <c:set var="syC" value="${currentYear+1}_${currentYear+2}"/>
+    <c:set var="syALbl" value="${currentYear-1}-${currentYear}"/>
+    <c:set var="syBLbl" value="${currentYear}-${currentYear+1}"/>
+    <c:set var="syCLbl" value="${currentYear+1}-${currentYear+2}"/>
 
     <![CDATA[<select ]]>
     <c:out value='id="${prefix}_${key}"' escapeXml="false"/>
@@ -27,9 +30,9 @@
     <c:if test="${disabled}"><c:out value=' disabled="disabled" ' escapeXml="false"/></c:if>
     <![CDATA[>]]>
       <option value="" disabled="disabled">${placeholder}</option>
-      <c:choose><c:when test="${value == syA}"><option selected="selected">${syA}</option></c:when><c:otherwise><option>${syA}</option></c:otherwise></c:choose>
-      <c:choose><c:when test="${value == syB}"><option selected="selected">${syB}</option></c:when><c:otherwise><option>${syB}</option></c:otherwise></c:choose>
-      <c:choose><c:when test="${value == syC}"><option selected="selected">${syC}</option></c:when><c:otherwise><option>${syC}</option></c:otherwise></c:choose>
+      <c:choose><c:when test="${value == syA}"><option selected="selected" value="${syA}">${syALbl}</option></c:when><c:otherwise><option value="${syA}">${syALbl}</option></c:otherwise></c:choose>
+      <c:choose><c:when test="${value == syB}"><option selected="selected" value="${syB}">${syBLbl}</option></c:when><c:otherwise><option value="${syB}">${syBLbl}</option></c:otherwise></c:choose>
+      <c:choose><c:when test="${value == syC}"><option selected="selected" value="${syC}">${syCLbl}</option></c:when><c:otherwise><option value="${syC}">${syCLbl}</option></c:otherwise></c:choose>
       <c:if test="${not empty value and value ne syA and value ne syB and value ne syC}">
       <option selected="selected">${value}</option>
       </c:if>
