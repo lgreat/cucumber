@@ -198,10 +198,10 @@
     </div>
 </c:if>
 
-<c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
-    <legend>School Resources</legend>
-    <hr class="legend"><!--Do not collapse--></hr>
+<legend>School Resources</legend>
+<hr class="legend"><!--Do not collapse--></hr>
 
+<c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
     <div class="lal clearfix">
         <div class="alpha grid_7">
             <p class="labelGroup">What staff resources are available to students?</p>
@@ -436,10 +436,12 @@
     </div>
 </div>
 
-<legend>College and career</legend>
-<hr class="legend"><!--Do not collapse--></hr>
-
 <!--Only show for schools with level 'h'-->
+<c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
+    <legend>College and career</legend>
+    <hr class="legend"><!--Do not collapse--></hr>
+</c:if>
+
 <c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
     <div class="lal clearfix">
         <div class="alpha grid_7">
