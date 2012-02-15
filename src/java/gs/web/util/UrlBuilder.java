@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.282 2012/02/15 16:43:11 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.283 2012/02/15 16:47:34 aroy Exp $
  */
 
 package gs.web.util;
@@ -706,8 +706,7 @@ public class UrlBuilder {
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
         } else if (SCHOOL_PROFILE_ESP_LOGIN.equals(page)) {
-            _perlPage = false;
-            _path = "/official-school-profile/signin.page";
+            init(ESP_SIGN_IN);
         } else if (SCHOOL_PROFILE_ESP.equals(page)) {
             handleSchoolProfile(school, false, ExtraResourceIdentifier.ESP_DISPLAY_PAGE);
         } else if (SCHOOL_TAKE_SURVEY.equals(page)) {

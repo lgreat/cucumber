@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.140 2011/10/08 03:35:24 ssprouse Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.141 2012/02/15 16:47:34 aroy Exp $
  */
 
 package gs.web.util;
@@ -217,7 +217,7 @@ public class UrlBuilderSaTest extends BaseTestCase {
         assertEquals("/modperl/quickprivate/wy/8", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_PRINCIPAL_VIEW);
-        assertEquals("/cgi-bin/wy/pqview/8", builder.asSiteRelativeXml(null));
+        assertEquals("/wyoming/cityname/8-Wowochocho-High-School/official-info/", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
         assertEquals("/modperl/achievement/wy/8", builder.asSiteRelativeXml(null));
@@ -244,7 +244,7 @@ public class UrlBuilderSaTest extends BaseTestCase {
         assertEquals("/school/mapSchool.page?id=8&amp;state=NY", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
-        assertEquals("/cgi-bin/pq_start.cgi/ny/8", builder.asSiteRelativeXml(null));
+        assertEquals("/official-school-profile/signin.page", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_TAKE_SURVEY);
         assertEquals("/survey/form.page?id=8&amp;state=NY", builder.asSiteRelativeXml(null));
@@ -253,7 +253,7 @@ public class UrlBuilderSaTest extends BaseTestCase {
         assertEquals("/survey/start.page?id=8&amp;state=NY", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP);
-        assertEquals("/cgi-bin/ny/pqview/8", builder.asSiteRelativeXml(null));
+        assertEquals("/new-york/cityname/8-Wowochocho-High-School/official-info/", builder.asSiteRelativeXml(null));
     }
 
     public void testSurveyResultsBuilder() throws Exception {
