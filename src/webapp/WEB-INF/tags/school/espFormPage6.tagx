@@ -48,7 +48,7 @@
                     <p class="labelGroup">How do parents get involved at your school?</p>
                 </div>
                 <div class="grid_5">
-                    <school:espCheckboxWithLabel key="parent_involvement" value="" label="Other"/>
+                    <school:espCheckboxWithLabel key="parent_involvement" value="other_contact" label="Other"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="parent_nights_req" label="Attend parent nights"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="chaperone_req" label="Chaperone school trips"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="coach_req" label="Coach sports teams or extracurricular activities"/>

@@ -323,6 +323,7 @@ GS.validation.validateEmailFormat = function(email) {
 GS.validation.validateEmail = function(fieldSelector, errorSelector, required) {
     var pattern = /^(.+)@(.+)$/;
     var isValid = true;
+    jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
     jQuery(errorSelector).hide();
     var formFields = jQuery(fieldSelector).filter(':visible');
     if (formFields !== undefined && formFields.size() > 0) {
@@ -342,6 +343,7 @@ GS.validation.validateEmail = function(fieldSelector, errorSelector, required) {
 
         if (!isValid) {
             jQuery(errorSelector).show();
+            jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
         }
     }
     return isValid;

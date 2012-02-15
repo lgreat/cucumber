@@ -19,7 +19,10 @@
 
                 </div>
                 <div style="display: none" class="grid_6 omega error" id="form_physical_address_street_error">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a street address.
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                        <div class="bk">&amp;nbsp;Please enter a school address.</div>
+                    </div>
                 </div>
             </div>
 
@@ -132,7 +135,10 @@
                     <p class="hint">Example: leader@school.edu</p>
                 </div>
                 <div style="display: none" class="grid_6 omega error" id="form_administrator_email_error">
-                    <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a valid email address.
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                        <div class="bk">&amp;nbsp;Please enter a valid email address.</div>
+                    </div>
                 </div>
                 <div class="grid_6 suffix_12 prefix_5 alpha omega">
                     <school:espCheckboxWithLabel key="administrator_email_none" value="none" label="Unavailable / School would rather not disclose"/>
@@ -160,7 +166,10 @@
 
                         <div class="grid_10 omega">
                             <div style="display: none" class="grid_6 omega error" id="form_contact_method_email_error">
-                                <span class="sprite i-alert vam"><!-- do not collapse --></span>&amp;nbsp;Please enter a valid email address.
+                                <div class="mediaExt1-1">
+                                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                    <div class="bk">&amp;nbsp;Please enter a valid email address.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
