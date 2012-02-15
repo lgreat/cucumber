@@ -341,7 +341,6 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         getRequest().setParameter("print", "true");
 
         expect(_cmsFeatureDao.get(23L)).andReturn(feature);
-        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
 
         replayAll();
         CmsUtil.enableCms();
@@ -349,16 +348,15 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         CmsUtil.disableCms();
         verifyAll();
 
-        currentPage = mAndV.getModel().get("currentPage");
-        assertNotNull("Expect current article page to be injected into model", currentPage);
-        assertEquals("First pageSecond page", currentPage);
+        assertNotNull("ModelAndView should not be null", mAndV);
+        assertTrue("ModelAndView should be a 301 redirect", mAndV.getView() instanceof RedirectView301);
+        assertEquals("Redirect view should be canonical url", "/print-view/blah/blah/23-blah.gs", ((RedirectView301) mAndV.getView()).getUrl());
 
         // Now test fetching all pages a different way
         resetAll();
         getRequest().setParameter("page", "-1");
 
         expect(_cmsFeatureDao.get(23L)).andReturn(feature);
-        expect(_legacyArticleDao.getArticleComments(feature.getContentKey())).andReturn(null);
 
         replayAll();
         CmsUtil.enableCms();
@@ -366,9 +364,9 @@ public class CmsFeatureControllerTest extends BaseControllerTestCase {
         CmsUtil.disableCms();
         verifyAll();
 
-        currentPage = mAndV.getModel().get("currentPage");
-        assertNotNull("Expect current article page to be injected into model", currentPage);
-        assertEquals("First pageSecond page", currentPage);
+        assertNotNull("ModelAndView should not be null", mAndV);
+        assertTrue("ModelAndView should be a 301 redirect", mAndV.getView() instanceof RedirectView301);
+        assertEquals("Redirect view should be canonical url", "/print-view/blah/blah/23-blah.gs", ((RedirectView301) mAndV.getView()).getUrl());
 
     }
 
