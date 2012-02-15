@@ -312,13 +312,20 @@
     </function>
 
     <tag>
-        <name>lts</name>
-        <tag-class>gs.web.jsp.ListToStringTagHandler</tag-class>
+        <name>erts</name>
+        <tag-class>gs.web.jsp.EspResponseListToStringTagHandler</tag-class>
+        <description>Rolls up a list of EspResponse objects into a single string using either the raw esp response value or the pretty esp response value</description>
         <body-content>empty</body-content>
         <attribute>
             <name>list</name>
-            <description>The list object to be converted to a single string.</description>
+            <description>List of EspResponse objects to be rolled up into a single string.</description>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pretty</name>
+            <description>Use the pretty esp response value rather than the raw esp response value?  Defaults to true.</description>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
@@ -335,7 +342,7 @@
         </attribute>
         <attribute>
             <name>emptyListToken</name>
-            <description>Token output when the given list is empty.  When not specified, nothing is output for this case.</description>
+                <description>Token output when the given list is empty.  When not specified, nothing is output for this case.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -26,47 +26,65 @@ import org.springframework.web.servlet.ModelAndView;
  * @author jkirton
  */
 public class EnhancedSchoolProfileController extends AbstractSchoolController implements IDirectoryStructureUrlController {
+    
+    /**
+     * Appends the given string value list with either the raw value or pretty
+     * value of the given EspResponse objects.
+     * @param responses
+     * @param values list receiving the
+     * @param pretty pretty or raw esp response value?
+     */
+    protected static void extractEspResponseValues(List<EspResponse> responses, List<String> values, boolean pretty) {
+        for(EspResponse r : responses) {
+            if(r != null) values.add(pretty ? r.getPrettyValue() : r.getValue());
+        }
+    }
 
     /**
-     * Merges the lists under one or more given key names into a single token.
+     * Merges the lists under one or more given key names into a single list.
      * @param mapResponses
-     * @param delim delimeter
+     * @param pretty use the esp response pretty value or the raw value?
      * @param keys
-     * @return String or null
+     * @return the extracted esp response values
      */
-    protected static String mergeValuesForKeys(Map<String, List<String>> mapResponses, String delim, String... keys) {
-        ArrayList<Object> glist = new ArrayList<Object>();
+    protected static List<String> mergeValuesForKeys(Map<String, List<EspResponse>> mapResponses, boolean pretty, String... keys) {
+        ArrayList<String> vlist = new ArrayList<String>();
         for(String key : keys) {
-            List<?> list = mapResponses.get(key);
-            if(list != null) glist.addAll(list);
+            List<EspResponse> responses = mapResponses.get(key);
+            if(responses != null) extractEspResponseValues(responses, vlist, pretty);
         }
-        String s = glist.size() == 0 ? null : StringUtils.joinPretty(glist.iterator(), delim);
-        return s;
+        return vlist;
     }
 
     /**
      * Merges the lists under one or more given key "pairs" into a single token.
      * FORMAT: {keyPairs.key1}, {keyPairs.val1}; {keyPairs.key2}, {keyPairs.val2}; ...
-     * @param mapResponses
+     * @param responses
      * @param subDelim
      * @param delim
+     * @param pretty use the pretty esp response value or the raw value?
      * @param keyPairs
      * @return String or null
      */
-    protected static String mergeValuesForDualKeys(Map<String, List<String>> mapResponses, String subDelim, String delim, String[][] keyPairs) {
+    protected static String mergeValuesForDualKeys(Map<String, List<EspResponse>> responses, String subDelim, String delim, boolean pretty, String[][] keyPairs) {
         ArrayList<String> slist = new ArrayList<String>();
         StringBuilder sb = new StringBuilder();
         for(String[] entry : keyPairs) {
             sb.setLength(0);
-            List<?> listLft = mapResponses.get(entry[0]);
-            List<?> listRgt = mapResponses.get(entry[1]);
-            String lft = listLft == null ? null : StringUtils.joinPretty(listLft.iterator(), " ");
-            String rgt = listRgt == null ? null : StringUtils.joinPretty(listRgt.iterator(), " ");
-            if(lft != null && rgt != null && lft.length() > 0 && rgt.length() > 0) {
-                sb.append(lft);
-                sb.append(subDelim);
-                sb.append(rgt);
-                slist.add(sb.toString());
+            List<EspResponse> listLft = responses.get(entry[0]);
+            List<EspResponse> listRgt = responses.get(entry[1]);
+            List<String> lftValueList = new ArrayList<String>(), rgtValueList = new ArrayList<String>();
+            if(listLft != null && listRgt != null) {
+                extractEspResponseValues(listLft, lftValueList, pretty);
+                extractEspResponseValues(listRgt, rgtValueList, pretty);
+                String lft = StringUtils.joinPretty(lftValueList.iterator(), " ");
+                String rgt = StringUtils.joinPretty(rgtValueList.iterator(), " ");
+                if(lft != null && rgt != null && lft.length() > 0 && rgt.length() > 0) {
+                    sb.append(lft);
+                    sb.append(subDelim);
+                    sb.append(rgt);
+                    slist.add(sb.toString());
+                }
             }
         }
         String s = slist.size() == 0 ? null : StringUtils.joinPretty(slist.iterator(), delim);
@@ -84,27 +102,62 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
 
         // esp raw responses
         List<EspResponse> listResponses = _espResponseDao.getResponses(school);
-        Map<String, List<String>> responses = EspResponse.toValueMap(listResponses, true);
+        Map<String, List<EspResponse>> responses = EspResponse.rollup(listResponses);
         model.put("responses", responses);
 
+        List<String> values;
+
         // merge feeder school fields
-        String feederSchools = mergeValuesForKeys(responses, "; ", "feeder_school_1", "feeder_school_2", "feeder_school_3");
-        model.put("feederSchools", feederSchools);
+        values = mergeValuesForKeys(responses, false, "feeder_school_1", "feeder_school_2", "feeder_school_3");
+        model.put("feederSchools", StringUtils.joinPretty(values.iterator(), "; "));
 
         // merge destination school fields
-        String destinationSchools = mergeValuesForKeys(responses, "; ", "destination_school_1", "destination_school_2", "destination_school_3");
-        model.put("destinationSchools", destinationSchools);
+        values = mergeValuesForKeys(responses, false, "destination_school_1", "destination_school_2", "destination_school_3");
+        model.put("destinationSchools", StringUtils.joinPretty(values.iterator(), "; "));
         
         // merge college destinations
-        String collegeDestinations = mergeValuesForKeys(responses, "; ", "college_destination_1", "college_destination_2", "college_destination_3");
-        model.put("collegeDestinations", collegeDestinations);
+        values = mergeValuesForKeys(responses, true, "college_destination_1", "college_destination_2", "college_destination_3");
+        model.put("collegeDestinations", StringUtils.joinPretty(values.iterator(), "; "));
 
+        values = new ArrayList<String>();
+        
         // merge student clubs
-        String studentClubs = mergeValuesForKeys(responses, "; ", "student_clubs", "student_clubs_other_1", "student_clubs_other_2", "student_clubs_other_3");
-        model.put("studentClubs", studentClubs);
+        values.addAll(mergeValuesForKeys(responses, true, "student_clubs"));
+        values.addAll(mergeValuesForKeys(responses, false, "student_clubs_other_1", "student_clubs_other_2", "student_clubs_other_3"));
+        model.put("studentClubs", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge foreign language keys
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "foreign_language"));
+        values.addAll(mergeValuesForKeys(responses, false, "foreign_language_other"));
+        model.put("foreign_language", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge staff foreign language keys
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "staff_languages"));
+        values.addAll(mergeValuesForKeys(responses, false, "staff_languages_other"));
+        model.put("staff_languages", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge boys sports keys
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "boys_sports"));
+        values.addAll(mergeValuesForKeys(responses, false, "boys_sports_other"));
+        model.put("boys_sports", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge girls sports keys
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "girls_sports"));
+        values.addAll(mergeValuesForKeys(responses, false, "girls_sports_other"));
+        model.put("girls_sports", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge college prep keys
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "college_prep"));
+        values.addAll(mergeValuesForKeys(responses, false, "college_prep_other"));
+        model.put("college_prep", StringUtils.joinPretty(values.iterator(), "; "));
 
         // merge academic awards
-        String academicAwards = mergeValuesForDualKeys(responses, ", ", "; ", new String[][] {
+        String academicAwards = mergeValuesForDualKeys(responses, ", ", "; ", true, new String[][] {
                 { "academic_award_1", "academic_award_1_year" },
                 { "academic_award_2", "academic_award_2_year" },
                 { "academic_award_3", "academic_award_3_year" },
@@ -112,33 +165,13 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         model.put("academicAwards", academicAwards);
         
         // merge community service awards
-        String serviceAwards = mergeValuesForDualKeys(responses, ", ", "; ", new String[][] {
+        String serviceAwards = mergeValuesForDualKeys(responses, ", ", "; ", true, new String[][] {
                 { "service_award_1", "service_award_1_year" },
                 { "service_award_2", "service_award_2_year" },
                 { "service_award_3", "service_award_3_year" },
         });
         model.put("serviceAwards", serviceAwards);
         
-        // merge foreign language keys
-        String foreignLanguage = mergeValuesForKeys(responses, "; ", "foreign_language", "foreign_language_other");
-        model.put("foreign_language", foreignLanguage);
-
-        // merge staff foreign language keys
-        String staffLanguages = mergeValuesForKeys(responses, "; ", "staff_languages", "staff_languages_other");
-        model.put("staff_languages", staffLanguages);
-
-        // merge boys sports keys
-        String boysSports = mergeValuesForKeys(responses, "; ", "boys_sports", "boys_sports_other");
-        model.put("boys_sports", boysSports);
-
-        // merge girls sports keys
-        String girlsSports = mergeValuesForKeys(responses, "; ", "girls_sports", "girls_sports_other");
-        model.put("girls_sports", girlsSports);
-
-        // merge college prep keys
-        String collegePrep = mergeValuesForKeys(responses, "; ", "college_prep", "college_prep_other");
-        model.put("college_prep", collegePrep);
-
         // obtain "external" datapoints
         ICensusInfo ci = school.getCensusInfo();
         SchoolCensusValue cv;
