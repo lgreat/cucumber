@@ -124,8 +124,6 @@
                     <p class="labelGroup">Provide a link to YouTube or other hosted videos of your school or videos created by staff/students at your school.</p>
                 </div>
                 <div class="grid_6 omega">
-                    <school:espCheckboxWithLabel key="school_video" value="none" label="No videos to share at this time"/>
-
                     <gsml:input styleId="form_school_video" styleClass="mls js_otherField text input_8" type="text"
                            name="school_video" value="${responseMap['school_video'].value}"
                            placeholder="[Paste video URL or web address here]"/>
