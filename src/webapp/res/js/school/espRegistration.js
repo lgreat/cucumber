@@ -80,13 +80,12 @@ GS.form.EspForm = function() {
     //Checks the various states of the user and displays messages accordingly.
     this.validateUserState = function() {
         var emailField = jQuery('#js_email');
-        var email = emailField.val().trim();
+        var email = jQuery.trim(emailField.val());
         jQuery('.js_emailErr').hide();
         GS.form.espForm.removeWarningClassFromElem(emailField);
         var dfd = jQuery.Deferred();
 
         if (email !== "" && email !== undefined) {
-            email = email.trim();
             jQuery.ajax({
                 type: 'GET',
                 url: '/official-school-profile/checkUserState.page',
@@ -116,6 +115,7 @@ GS.form.EspForm = function() {
     //Handles the logic to allow the registrations to go through or display an error.
     this.handleEmailErrors = function(data,email,emailField) {
         var isValid = false;
+        alert(1);
         if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email address.", emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
@@ -124,8 +124,10 @@ GS.form.EspForm = function() {
             var onclickStr = "GSType.hover.emailNotValidated.show()";
             GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
         } else if (data.isUserAwaitingESPMembership === true) {
+            alert(2);
             // users who have requested access but are still being processed
             jQuery('#js_userAwaitingMembershipError').show();
+            alert(3);
             GS.form.espForm.addWarningClassToElem(emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             // users who have been approved and validated their emails.We check the cookie, since a signed in user should be able to submit one request.
