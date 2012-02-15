@@ -671,7 +671,25 @@ new (function() {
         //GS.util.log('p3 validation - END');
         // END page 3 specific
 
-        // page 7 specific //
+
+        // page 6
+        $('#form_anything_else').on('keyup keydown blur', function() {
+            var maxLength = 500;
+            var textarea = $(this);
+            if (textarea.val().length > maxLength) {
+                textarea.val(textarea.val().substring(0,maxLength));
+                alert('Only 500 characters are allowed.');
+            }
+            var currentLength = textarea.val().length;
+            var characterCountElement = textarea.parent().find('.js-charactersLeft');
+            if (currentLength === maxLength-1) {
+                characterCountElement.html("1 character left.");
+            } else {
+                characterCountElement.html(parseInt(maxLength - currentLength).toString() + " characters left.");
+            }
+        });
+
+        // page 7
         $('#form_facebook_url_none_none').on('change', function() {
             var noFacebookUrl = $(this).prop('checked');
             $('#form_facebook_url').prop('disabled', noFacebookUrl);
@@ -681,8 +699,5 @@ new (function() {
             var noSchoolUrl = $(this).prop('checked');
             $('#form_school_url').prop('disabled', noSchoolUrl);
         });
-        // end page 7 specific //
-
-
     });
 })();
