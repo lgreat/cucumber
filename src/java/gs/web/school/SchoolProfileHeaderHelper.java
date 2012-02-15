@@ -237,10 +237,10 @@ public class SchoolProfileHeaderHelper {
         List<EspResponse> espResponses = _espResponseDao.getResponses(school);
         model.put(HAS_PQ, espResponses != null && espResponses.size() > 0);
         if (espResponses != null) {
-            Map<String, List<String>> espKeyToValueMap = EspResponse.toValueMap(espResponses, true);
-            if (espKeyToValueMap.get("start_time") != null && espKeyToValueMap.get("end_time") != null) {
-                String startTime = espKeyToValueMap.get("start_time").get(0);
-                String endTime = espKeyToValueMap.get("end_time").get(0);
+            Map<String, List<EspResponse>> espKeyToResponseMap = EspResponse.rollup(espResponses);
+            if (espKeyToResponseMap.get("start_time") != null && espKeyToResponseMap.get("end_time") != null) {
+                String startTime = espKeyToResponseMap.get("start_time").get(0).getValue();
+                String endTime = espKeyToResponseMap.get("end_time").get(0).getValue();
                 model.put(PQ_START_TIME, startTime);
                 model.put(PQ_END_TIME, endTime);
                 model.put(PQ_HOURS, startTime + " - " + endTime);
