@@ -504,10 +504,15 @@
                                    selected="${responseMap['post_graduation_year'].valueMap['2013']}">2012-2013</gsml:selectOption>
             </select>
 
+            <div id="js_form_post_graduation_year_error" class="error fltrt" style="display: none">
+                <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                Please specify a year.
+            </div>
+
             <div class="lal clearfix">
                 <div class="grid_8 alpha">
                     <input id="js_form_post_graduation_2yr" type="text"
-                           name="post_graduation_2yr" class=" text input_1 mhs"
+                           name="post_graduation_2yr" class="js_form_post_graduation_year text input_1 mhs"
                            value="${responseMap['post_graduation_2yr'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going to a 2 year college</label>
                 </div>
@@ -522,7 +527,7 @@
             <div class="lal clearfix">
                 <div class="grid_8 alpha">
                     <input id="js_form_post_graduation_4yr" type="text"
-                           name="post_graduation_4yr" class=" text input_1 mhs"
+                           name="post_graduation_4yr" class="js_form_post_graduation_year text input_1 mhs"
                            value="${responseMap['post_graduation_4yr'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going to a 4 year college</label>
                 </div>
@@ -537,7 +542,7 @@
             <div class="lal clearfix">
                 <div class="grid_8 alpha">
                     <input id="js_form_post_graduation_military" type="text"
-                           name="post_graduation_military" class=" text input_1 mhs"
+                           name="post_graduation_military" class="js_form_post_graduation_year text input_1 mhs"
                            value="${responseMap['post_graduation_military'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going into military service</label>
                 </div>
@@ -552,7 +557,7 @@
             <div class="lal clearfix">
                 <div class="grid_8 alpha">
                     <input id="js_form_post_graduation_vocational" type="text"
-                           name="post_graduation_vocational" class=" text input_1 mhs"
+                           name="post_graduation_vocational" class="js_form_post_graduation_year text input_1 mhs"
                            value="${responseMap['post_graduation_vocational'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going into vocational programs</label>
                 </div>
@@ -567,7 +572,7 @@
             <div class="lal clearfix">
                 <div class="grid_8 alpha">
                     <input id="js_form_post_graduation_workforce" type="text"
-                           name="post_graduation_workforce" class=" text input_1 mhs"
+                           name="post_graduation_workforce" class="js_form_post_graduation_year text input_1 mhs"
                            value="${responseMap['post_graduation_workforce'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going directly into the workforce</label>
                 </div>

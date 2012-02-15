@@ -56,18 +56,20 @@ GS.form.controlVisibilityOfElementWithCheckbox = function(selectorOfElementToCon
  * function to control the visibility of form fields.
  * @param selectorOfElementToControl - field to show hide
  * @param masterFieldSelector - controlling field that shows or hides.
- * @param values - values of the controlling field that should show the element*/
+ * @param values - value or comma separated values of the controlling field that should show the element*/
 GS.form.controlVisibilityOfElementWithRadio = function(selectorOfElementToControl, masterFieldSelector, values) {
 
     $(masterFieldSelector).on('change', function() {
         var objectsToCheck = jQuery(masterFieldSelector);
-        var acceptableValues = values.split(",");
+        var acceptableValues = new Array();
+        acceptableValues = values.split(",");
         var match = false;
 
         objectsToCheck.each(function() {
             var thisObject = jQuery(this);
             if (jQuery.inArray(thisObject.val(), acceptableValues) >= 0 && thisObject.prop('checked')) {
                 match = true;
+                //Return false is used to break the each loop.
                 return false;
             }
         });
@@ -221,8 +223,11 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
                     return false;
                 }
             });
+        } else if (formFields.is('select')) {
+            if (formFields.val() === '') {
+                isValid = false;
+            }
         }
-
         if (!isValid) {
             jQuery(errorSelector).show();
             jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
@@ -231,6 +236,10 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
     return isValid;
 };
 
+
+/**
+ * Used for radio buttons.If there is at least one radio button checked then validate required.
+ */
 GS.validation.validateRequiredIfChecked = function(fieldSelector, fieldCheckedSelector, errorSelector) {
     jQuery(errorSelector).hide();
     jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
@@ -239,6 +248,29 @@ GS.validation.validateRequiredIfChecked = function(fieldSelector, fieldCheckedSe
         return true;
     }
     return GS.validation.validateRequired(fieldSelector, errorSelector);
+};
+
+/**
+ * Used for input boxes.If there is text in the input box then validate required.
+ */
+GS.validation.validateRequiredIfNotEmpty = function(fieldSelector, fieldInputSelector, errorSelector) {
+    jQuery(errorSelector).hide();
+    var inputFields = jQuery(fieldInputSelector);
+    var checkRequired = false;
+    inputFields.each(function() {
+        var field = jQuery(this);
+        var fieldVal = field === undefined ? '' : jQuery.trim(field.val());
+        var ghostText = (field.attr('placeholder') === '' || field.attr('placeholder') === undefined ) ? '' : field.attr('placeholder');
+        if (fieldVal !== "" && fieldVal !== ghostText) {
+            checkRequired = true;
+            //Return false is used to break out of the each loop.
+            return false;
+        }
+    });
+    if (checkRequired) {
+        return GS.validation.validateRequired(fieldSelector, errorSelector);
+    }
+    return true;
 };
 
 // Enforces non-negative
@@ -503,8 +535,7 @@ new (function() {
             ('#js_form_staff_languages_other', '.js_otherField_js_form_staff_languages_other', '#js_form_staff_languages_error');
         var isValidCollegePrep = GS.validation.validateRequiredIfChecked
             ('#js_form_college_prep_other', '.js_otherField_js_form_college_prep_other', '#js_form_college_prep_error');
-//        var isValidPostGraduationYear = GS.validation.validateRequiredIfChecked
-//            ('[name=post_graduation_year]', '.js_otherField_js_form_college_prep_other', '#js_form_college_prep_error');
+        var isValidPostGraduationYear = GS.validation.validateRequiredIfNotEmpty('[name=post_graduation_year]','.js_form_post_graduation_year','#js_form_post_graduation_year_error');
         var isValidPostGraduation2Yr = GS.validation.validateInteger('#js_form_post_graduation_2yr','#js_form_post_graduation_2yr_error');
         var isValidPostGraduation4Yr = GS.validation.validateInteger('#js_form_post_graduation_4yr','#js_form_post_graduation_4yr_error');
         var isValidPostGraduationMilitary = GS.validation.validateInteger('#js_form_post_graduation_military','#js_form_post_graduation_military_error');
@@ -522,7 +553,7 @@ new (function() {
         return isValidStudentEnrollment && isValidGradeLevels && isValidTransportationOther &&
             isValidTransportationShuttleOther && isValidTransportationOther && isValidPhysicalAddressStreet &&
             isValidAdministratorEmail && isValidForeignLanguageOther && isValidSpecialEdPrograms && isValidSchedule &&
-            isValidExtraLearningResources && isValidStaffLanguages && isValidCollegePrep &&
+            isValidExtraLearningResources && isValidStaffLanguages && isValidCollegePrep && isValidPostGraduationYear &&
             isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
             isValidPostGraduationVocational && isValidPostGraduationWorkforce && isValidSkillsTraining;
     };
