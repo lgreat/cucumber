@@ -61,7 +61,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         tagHandler = new PrincipalViewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/wy/pqview/8", builder.asSiteRelative(null));
+        assertEquals("/wyoming/cityname/8-Wowochocho-High-School/official-info/", builder.asSiteRelative(null));
 
         tagHandler = new TestScoreTagHandler();
         tagHandler.setSchool(school);
@@ -94,7 +94,7 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         tagHandler = new EspTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/ny/pqview/8", builder.asSiteRelative(null));
+        assertEquals("/new-york/cityname/8-Wowochocho-High-School/official-info/", builder.asSiteRelative(null));
     }
 
     public void testCompareSchoolLinkTagHandler() {
