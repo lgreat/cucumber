@@ -105,7 +105,12 @@
             GS.espForm = GS.espForm || {};
             GS.espForm.currentPage = ${page};
             GS.espForm.maxPage = ${maxPage};
-            GS.espForm.school = {state:'${school.databaseState.abbreviationLowerCase}', id:'${school.id}'};
+            GS.espForm.school = {
+            		state:'${school.databaseState.abbreviationLowerCase}', 
+            		id:'${school.id}', 
+            		type:'${school.type.schoolTypeName}', 
+            		levels:'${school.levelCode.commaSeparatedString}'
+           	};
             GS.espForm.percentComplete = {};
             //<c:forEach items="${percentComplete}" var="perc" varStatus="status">
                 GS.espForm.percentComplete[${perc.key}]=${perc.value};
