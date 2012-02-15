@@ -15,7 +15,7 @@
                 <div class="grid_5 suffix_1">
                     <gsml:input styleId="form_physical_address_street" styleClass="text input_6" type="text"
                                 name="physical_address_street"
-                                value="${responseMap['physical_address_street'].value}" disabled="${stateLocked}"/>
+                                value="${responseMap['physical_address_street'].value}" disabled="${stateLocked}" maxlength="200"/>
 
                 </div>
                 <div style="display: none" class="grid_6 omega error" id="form_physical_address_street_error">
@@ -90,7 +90,7 @@
 
                 <div class="grid_6 suffix_12 omega">
                     <gsml:input type="text" value="${responseMap['school_url'].value}" styleId="form_school_url"
-                           name="school_url" styleClass="text input_6" disabled="${stateLocked}"/>
+                           name="school_url" styleClass="text input_6" disabled="${stateLocked}" maxlength="100"/>
 
                     <p class="hint">Example: http://www.yourschool.edu</p>
                     <div class="grid_6 suffix_12 alpha omega">
@@ -118,7 +118,7 @@
 
                 <div class="grid_6 suffix_12 omega">
                     <gsml:input type="text" value="${responseMap['administrator_name'].value}" styleId="form_administrator_name"
-                           name="administrator_name" styleClass="text input_6" disabled="${stateLocked}"/>
+                           name="administrator_name" styleClass="text input_6" disabled="${stateLocked}" maxlength="40"/>
                 </div>
             </div>
 
@@ -127,7 +127,7 @@
 
                 <div class="grid_5 suffix_1">
                     <gsml:input type="text" value="${responseMap['administrator_email'].value}" styleId="form_administrator_email"
-                           name="administrator_email" styleClass="text input_6" disabled="${stateLocked}"/>
+                           name="administrator_email" styleClass="text input_6" disabled="${stateLocked}" maxlength="100"/>
 
                     <p class="hint">Example: leader@school.edu</p>
                 </div>
@@ -154,7 +154,7 @@
 
                         <div class="grid_6">
                             <gsml:input type="text" value="${responseMap['contact_method_email'].value}" styleId="form_contact_method_email"
-                                        name="contact_method_email" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter email]"/>
+                                        name="contact_method_email" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter email]" maxlength="100"/>
 
                         </div>
 
@@ -172,7 +172,7 @@
 
                         <div class="grid_6 suffix_10 omega">
                             <gsml:input type="text" value="${responseMap['contact_method_phone'].value}" styleId="form_contact_method_phone"
-                                        name="contact_method_phone" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter number]"/>
+                                        name="contact_method_phone" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter number]" maxlength="31"/>
 
                         </div>
                     </div>
@@ -184,7 +184,7 @@
 
                         <div class="grid_6 suffix_10 omega">
                             <gsml:input type="text" value="${responseMap['contact_method_other'].value}" styleId="form_contact_method_other"
-                                        name="contact_method_other" styleClass="text js_otherField input_6" disabled="${stateLocked}" placeholder="[Please indicate]"/>
+                                        name="contact_method_other" styleClass="text js_otherField input_6" disabled="${stateLocked}" placeholder="[Please indicate]" maxlength="40"/>
                         </div>
                     </div>
                 </div>
