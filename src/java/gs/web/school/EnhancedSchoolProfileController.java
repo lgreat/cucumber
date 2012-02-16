@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.EspResponse;
 import gs.data.school.IEspResponseDao;
 import gs.data.school.School;
+import gs.data.school.SchoolSubtype;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;
@@ -198,10 +199,11 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
 
         model.put("grade_levels", school.getGradeLevels().getRangeString().replace(",", "; ").replace("  ", " "));
 
-        cv = ci.getManual(school, CensusDataType.STUDENTS_ETHNICITY);
-        s = cv == null ? null : cv.getValueText();
-        model.put("students_ethnicity", s);
-        
+        // commenting out private data points as they are not correct and not in scope for 19.6
+//        cv = ci.getManual(school, CensusDataType.STUDENTS_ETHNICITY);
+//        s = cv == null ? null : cv.getValueText();
+//        model.put("students_ethnicity", s);
+
         cv = ci.getManual(school, CensusDataType.HEAD_OFFICIAL_NAME);
         s = cv == null ? null : cv.getValueText();
         model.put("administrator_name", s);
@@ -210,13 +212,24 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         s = cv == null ? null : cv.getValueText();
         model.put("administrator_email", s);
 
-        cv = ci.getManual(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH);
-        s = cv == null ? null : cv.getValueText();
-        model.put("private_free_reduced_lunch", s);
+//        cv = ci.getManual(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH);
+//        s = cv == null ? null : cv.getValueText();
+//        model.put("private_free_reduced_lunch", s);
+//
+//        cv = ci.getManual(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
+//        s = cv == null ? null : cv.getValueText();
+//        model.put("private_special_ed", s);
 
-        cv = ci.getManual(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
-        s = cv == null ? null : cv.getValueText();
-        model.put("private_special_ed", s);
+        // subtypes
+        String coed = null;
+        if (school.getSubtype().contains("coed")) {
+            coed = "Coed";
+        } else if (school.getSubtype().contains("all_male")) {
+            coed = "All boys";
+        } else if (school.getSubtype().contains("all_female")) {
+            coed = "All girls";
+        }
+        model.put("coed", coed);
 
         _schoolProfileHeaderHelper.updateModel(httpServletRequest, httpServletResponse, school, model);
 

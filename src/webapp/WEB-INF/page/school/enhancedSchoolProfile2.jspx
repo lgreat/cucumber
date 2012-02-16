@@ -92,18 +92,6 @@
                 </tr>
 
                 <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
-                <c:set var="coed" value=""/>
-                <c:choose>
-                  <c:when test="${school.coed}">
-                    <c:set var="coed" value="Coed"/>
-                  </c:when>
-                  <c:when test="${school.allMale}">
-                    <c:set var="coed" value="All Male"/>
-                  </c:when>
-                  <c:when test="${school.allFemale}">
-                    <c:set var="coed" value="All Female"/>
-                  </c:when>
-                </c:choose>
                 <tr>
                     <td class="small_bold">School type</td>
                     <td>
