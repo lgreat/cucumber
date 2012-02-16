@@ -2,8 +2,6 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:form="http://www.springframework.org/tags/form"
 >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="5" maxPage="${maxPage}" headerText="Enrichment &amp;amp; extracurriculars">
@@ -30,10 +28,10 @@
               <p class="labelGroup">Arts - Music</p>
             </div>
             <div class="grid_6">
-              <school:espCheckboxWithLabel key="arts_media" value="none" label="None"/>
+              <school:espCheckboxWithLabel key="arts_music" value="none" label="None"/>
               <school:espCheckboxWithLabel key="arts_music" value="band" label="Band"/>
               <school:espCheckboxWithLabel key="arts_music" value="bells" label="Bell / Handbell choir"/>
-              <school:espCheckboxWithLabel key="arts_media" value="chamber_music" label="Chamber music"/>
+              <school:espCheckboxWithLabel key="arts_music" value="chamber_music" label="Chamber music"/>
               <school:espCheckboxWithLabel key="arts_music" value="chorus" label="Choir / Chorus"/>
               <school:espCheckboxWithLabel key="arts_music" value="music_lessons" label="Instrumental music lessons"/>
             </div>
