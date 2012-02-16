@@ -77,102 +77,102 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 /* row 144 */
 
-.i-48-sb-checked {
+.completed .i-48-sb {
     background-position: 0 -144px;
 }
 
-.i-48-im-checked {
+.completed .i-48-im {
     background-position: -48px -144px;
 }
 
-.i-48-ae-checked {
+.completed .i-48-ae {
     background-position: -96px -144px;
 }
 
-.i-48-pr-checked {
+.completed .i-48-pr {
     background-position: -144px -144px;
 }
 
-.i-48-ee-checked {
+.completed .i-48-ee {
     background-position: -192px -144px;
 }
 
-.i-48-sc-checked {
+.completed .i-48-sc {
     background-position: -240px -144px;
 }
 
-.i-48-ci-checked {
+.completed .i-48-ci {
     background-position: -288px -144px;
 }
 
-.i-48-si-checked {
+.completed .i-48-si {
     background-position: -336px -144px;
 }
 
 /* row 0 */
-a:hover .i-48-sb, i-48-sb-icon {
+.selected .i-48-sb {
     background-position: 0 0;
 }
 
-a:hover .i-48-im, .i-48-im-icon {
+.selected .i-48-im {
     background-position: -48px 0;
 }
 
-a:hover .i-48-ae, .i-48-ae-icon {
+.selected .i-48-ae {
     background-position: -96px 0;
 }
 
-a:hover .i-48-pr, .i-48-pr-icon {
+.selected .i-48-pr {
     background-position: -144px 0;
 }
 
-a:hover .i-48-ee, .i-48-ee_icon {
+.selected .i-48-ee {
     background-position: -192px 0;
 }
 
-a:hover .i-48-sc, .i-48-sc-icon {
+.selected .i-48-sc {
     background-position: -240px 0;
 }
 
-a:hover .i-48-ci, .i-48-ci-icon {
+.selected .i-48-ci {
     background-position: -288px 0;
 }
 
-a:hover .i-48-si, .i-48-si-icon {
+.selected .i-48-si {
     background-position: -336px 0;
 }
 
 /* row 48 */
 
-a:hover .i-48-sb-checked {
+.completed.selected .i-48-sb {
     background-position: 0 -48px;
 }
 
-a:hover .i-48-im-checked {
+.completed.selected .i-48-im {
     background-position: -48px -48px;
 }
 
-a:hover .i-48-ae-checked {
+.completed.selected .i-48-ae {
     background-position: -96px -48px;
 }
 
-a:hover .i-48-pr-checked {
+.completed.selected .i-48-pr {
     background-position: -144px -48px;
 }
 
-a:hover .i-48-ee-checked {
+.completed.selected .i-48-ee {
     background-position: -192px -48px;
 }
 
-a:hover .i-48-sc-checked {
+.completed.selected .i-48-sc {
     background-position: -240px -48px;
 }
 
-a:hover .i-48-ci-checked {
+.completed.selected .i-48-ci {
     background-position: -288px -48px;
 }
 
-a:hover .i-48-si-checked {
+.completed.selected .i-48-si {
     background-position: -336px -48px;
 }
 

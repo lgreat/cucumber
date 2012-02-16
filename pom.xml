@@ -308,6 +308,7 @@
                         <param>04_sprites/ui.css</param>
                         <param>05_navigation/primary.css</param>
                         <param>05_navigation/secondary.css</param>
+                        <param>05_navigation/osp.css</param>
                         <param>06_buttons/buttons.css</param>
                         <param>07_spacing/spacing.css</param>
                         <param>08_css3/rounded_corners.css</param>

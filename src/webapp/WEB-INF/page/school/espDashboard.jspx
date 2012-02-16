@@ -115,8 +115,8 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9">
-                                        <span class="iconx48 i-48-sb-icon img"><!-- do not collapse --></span>
+                                    <div class="mediaExt1-3 grid_9 selected">
+                                        <span class="iconx48 i-48-sb img"><!-- do not collapse --></span>
 
                                         <p class="bk">School basics</p>
                                     </div>
@@ -130,8 +130,8 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9">
-                                        <span class="iconx48 i-48-im-icon img"><!-- do not collapse --></span>
+                                    <div class="mediaExt1-3 grid_9 selected">
+                                        <span class="iconx48 i-48-im img"><!-- do not collapse --></span>
 
                                         <p class="bk">Instructional model</p>
                                     </div>
@@ -145,8 +145,8 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9">
-                                        <span class="iconx48 i-48-ae-icon img"><!-- do not collapse --></span>
+                                    <div class="mediaExt1-3 grid_9 selected">
+                                        <span class="iconx48 i-48-ae img"><!-- do not collapse --></span>
 
                                         <p class="bk">Applying &amp;amp; enrolling</p>
                                     </div>
@@ -160,8 +160,8 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9">
-                                        <span class="iconx48 i-48-pr-icon img"><!-- do not collapse --></span>
+                                    <div class="mediaExt1-3 grid_9 selected">
+                                        <span class="iconx48 i-48-pr img"><!-- do not collapse --></span>
 
                                         <p class="bk">Programs &amp;amp; resources</p>
                                     </div>
@@ -178,8 +178,8 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9">
-                                        <span class="iconx48 i-48-ee-icon img"><!-- do not collapse --></span>
+                                    <div class="mediaExt1-3 grid_9 selected">
+                                        <span class="iconx48 i-48-ee img"><!-- do not collapse --></span>
 
                                         <p class="bk">Enrichment &amp;amp; extracurriculars</p>
                                     </div>
@@ -193,8 +193,8 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9">
-                                        <span class="iconx48 i-48-sc-icon img"><!-- do not collapse --></span>
+                                    <div class="mediaExt1-3 grid_9 selected">
+                                        <span class="iconx48 i-48-sc img"><!-- do not collapse --></span>
 
                                         <p class="bk">School culture</p>
                                     </div>
@@ -208,8 +208,8 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9">
-                                        <span class="iconx48 i-48-ci-icon img"><!-- do not collapse --></span>
+                                    <div class="mediaExt1-3 grid_9 selected">
+                                        <span class="iconx48 i-48-ci img"><!-- do not collapse --></span>
 
                                         <p class="bk">Contact info</p>
                                     </div>
@@ -225,8 +225,8 @@
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
-                                        <div class="mediaExt1-3 grid_9">
-                                            <span class="iconx48 i-48-si-icon img"><!-- do not collapse --></span>
+                                        <div class="mediaExt1-3 grid_9 selected">
+                                            <span class="iconx48 i-48-si img"><!-- do not collapse --></span>
 
                                             <p class="bk">Student info</p>
                                         </div>

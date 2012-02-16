@@ -34,6 +34,7 @@
             <gsml:url var="uispritecss" value="/res/css/04_sprites/ui.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="primarynavigation" value="/res/css/05_navigation/primary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="secondarynavigation" value="/res/css/05_navigation/secondary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="ospnavigation" value="/res/css/05_navigation/osp.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="buttons" value="/res/css/06_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="spacing" value="/res/css/07_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="roundedcorners" value="/res/css/08_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -57,6 +58,7 @@
             <![CDATA[<link rel="stylesheet" href="${uispritecss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${primarynavigation}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${secondarynavigation}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${ospnavigation}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${forms}" type="text/css" />]]>

@@ -35,24 +35,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>GreatSchools Official School Profile, ${tabTitle} - ${school.name}, ${school.physicalAddress.city}, ${school.databaseState}</title>
         <style type="text/css">
-            #js_espFormNav ul {
-                position: relative;
-            }
-            #js_espFormNav li {
-                width: 76px;
-                padding: 0 3px;
-                display: block;
-                float: left;
-                border: 1px solid #ccc;
-            }
-            #js_espFormNav li.selected {
-                font-weight: bold;
-            }
-            #js_espFormNav li.completed {
-                border: 1px solid #00ff00;
-            }
-        </style>
-        <style type="text/css">
 
             #photoUploaderButtons {
                 background-color:#EBEBEB;
@@ -165,43 +147,51 @@
                     <ul>
                         <li class="${(page eq 1)?'selected':''} ${(percentComplete[1] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="1">
-                                ${tabTitle_1}
+                                <span class="espNavIcon iconx48 i-48-sb"><!-- do not collapse --></span>
+                                <span class="espNavLabel">School basics</span>
                             </link:schoolEspForm>
                         </li>
                         <li class="${(page eq 2)?'selected':''} ${(percentComplete[2] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="2">
-                                ${tabTitle_2}
+                                <span class="espNavIcon iconx48 i-48-im"><!-- do not collapse --></span>
+                                <span class="espNavLabel">Instructional model</span>
                             </link:schoolEspForm>
                         </li>
                         <li class="${(page eq 3)?'selected':''} ${(percentComplete[3] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="3">
-                                ${tabTitle_3}
+                                <span class="espNavIcon iconx48 i-48-ae"><!-- do not collapse --></span>
+                                <span class="espNavLabel">Applying<br/>&amp;amp; enrolling</span>
                             </link:schoolEspForm>
                         </li>
                         <li class="${(page eq 4)?'selected':''} ${(percentComplete[4] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="4">
-                                ${tabTitle_4}
+                                <span class="espNavIcon iconx48 i-48-pr"><!-- do not collapse --></span>
+                                <span class="espNavLabel">Programs<br/>&amp;amp; resources</span>
                             </link:schoolEspForm>
                         </li>
                         <li class="${(page eq 5)?'selected':''} ${(percentComplete[5] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="5">
-                                ${tabTitle_5}
+                                <span class="espNavIcon iconx48 i-48-ee"><!-- do not collapse --></span>
+                                <span class="espNavLabel">Enrichment<br/>&amp;amp; extras</span>
                             </link:schoolEspForm>
                         </li>
                         <li class="${(page eq 6)?'selected':''} ${(percentComplete[6] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="6">
-                                ${tabTitle_6}
+                                <span class="espNavIcon iconx48 i-48-sc"><!-- do not collapse --></span>
+                                <span class="espNavLabel">School culture</span>
                             </link:schoolEspForm>
                         </li>
                         <li class="${(page eq 7)?'selected':''} ${(percentComplete[7] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="7">
-                                ${tabTitle_7}
+                                <span class="espNavIcon iconx48 i-48-ci"><!-- do not collapse --></span>
+                                <span class="espNavLabel">Contact info</span>
                             </link:schoolEspForm>
                         </li>
                         <c:if test="${maxPage eq 8}">
-                            <li class="${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
+                            <li class="last ${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="8">
-                                    ${tabTitle_8}
+                                    <span class="espNavIcon iconx48 i-48-si"><!-- do not collapse --></span>
+                                    <span class="espNavLabel">Student info</span>
                                 </link:schoolEspForm>
                             </li>
                         </c:if>

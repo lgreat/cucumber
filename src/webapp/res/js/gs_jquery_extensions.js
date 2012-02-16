@@ -103,6 +103,8 @@ jQuery(document).ready(function() {
     jQuery('#primary').disableSelection();
     // disable selection of text in secondary navigation
     jQuery('#secondary').disableSelection();
+    // disable selection of text on Office School Profile mahjong tiles
+    jQuery('#js_espFormNav').disableSelection();
     // disable selection of text on topic center tabs
     jQuery('.tabNavigation').disableSelection();
     // disable selection of forward button on infinite carousel
