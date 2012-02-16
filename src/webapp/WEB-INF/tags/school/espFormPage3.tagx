@@ -136,7 +136,7 @@
               <school:espCheckboxWithLabel key="financial_aid_type" value="outside" label="Outside scholarships"/>
               <school:espCheckboxWithLabel key="financial_aid_type" value="voucher" label="Voucher program participants"/>
               <school:espCheckboxWithLabel key="financial_aid_type" value="tax_credits" label="Tax credits"/>
-              <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other: " nobr="true"/>
+              <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other: " nobr="true" styleClass="js_otherField_form_financial_aid_type_other"/>
               <input id="form_financial_aid_type_other" name="financial_aid_type_other" class="mls js_otherField text input_6" value="${responseMap['financial_aid_type_other'].value}" placeholder="[Please indiciate]" size="6" maxlength="100"/>
             </div>
           </div>
