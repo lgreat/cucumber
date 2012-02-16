@@ -197,6 +197,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                                 userState.setUserAwaitingESPMembership(true);
                             } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
                                 userState.setUserESPDisabled(true);
+                            } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
+                                userState.setUserESPRejected(true);
                             }
                         }
                     }
@@ -322,6 +324,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         String email = command.getEmail();
         boolean isUnique = true;
         boolean isDisabled = false;
+        boolean isRejected = false;
 
         if (state != null && schoolId != null & StringUtils.isNotBlank(email)) {
             User user = getUserDao().findUserFromEmailIfExists(email.trim());
@@ -331,6 +334,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                 if (espMembership != null) {
                     isUnique = false;
                     isDisabled = !espMembership.getActive() && espMembership.getStatus().equals(EspMembershipStatus.DISABLED);
+                    isRejected = !espMembership.getActive() && espMembership.getStatus().equals(EspMembershipStatus.REJECTED);
                 }
             }
         }
@@ -338,6 +342,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         Map data = new HashMap();
         data.put("isUnique", isUnique);
         data.put("isDisabled", isDisabled);
+        data.put("isRejected", isRejected);
 
         JSONObject rval = new JSONObject(data);
         response.setContentType("application/json");

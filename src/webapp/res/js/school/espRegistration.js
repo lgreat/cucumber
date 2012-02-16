@@ -118,6 +118,8 @@ GS.form.EspForm = function() {
         var isValid = false;
         if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email address.", emailField);
+        } else if (data.isUserESPRejected === true) {
+            GS.form.espForm.showEmailError("Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.", emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
             // users who have been approved but haven't followed through by clicking through the link in email
             GSType.hover.emailNotValidated.setEmail(email);
@@ -205,7 +207,7 @@ GS.form.EspForm = function() {
             async: true
         }).done(
             function(data) {
-                if (data.isUnique !== true && data.isDisabled === false) {
+                if (data.isUnique !== true && data.isDisabled === false && data.isRejected === false) {
                     fieldError.show();
                     dfd.reject();
                 } else {

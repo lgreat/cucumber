@@ -110,6 +110,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
             result.rejectValue("email", null, "Please verify your email.<a href='#' class='js_espEmailNotVerifiedHover'>Verify email</a>");
         } else if (userState.isUserESPDisabled()) {
             result.rejectValue("email", null, "Our records indicate your school official's account is inactive. Please register again or contact us at gs_support@greatschools.org if you need further assistance.");
+        } else if (userState.isUserESPRejected()) {
+            result.rejectValue("email", null, "Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.");
         }
     }
 
@@ -133,6 +135,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
                     userState.setUserAwaitingESPMembership(true);
                 } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
                     userState.setUserESPDisabled(true);
+                } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
+                    userState.setUserESPRejected(true);
                 }
             }
             

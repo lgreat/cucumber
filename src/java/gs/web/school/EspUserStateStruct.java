@@ -14,6 +14,7 @@ public class EspUserStateStruct {
     private boolean isUserAwaitingESPMembership = false;
     private boolean isUserApprovedESPMember = false;
     private boolean isUserESPDisabled = false;
+    private boolean isUserESPRejected = false;
     private boolean isUserCookieSet = false;
     private boolean isCookieMatched = true;
 
@@ -73,6 +74,14 @@ public class EspUserStateStruct {
         isUserESPDisabled = userESPDisabled;
     }
 
+    public boolean isUserESPRejected() {
+        return isUserESPRejected;
+    }
+
+    public void setUserESPRejected(boolean userESPRejected) {
+        isUserESPRejected = userESPRejected;
+    }
+
     public boolean isUserCookieSet() {
         return isUserCookieSet;
     }
@@ -97,6 +106,7 @@ public class EspUserStateStruct {
         data.put("isUserAwaitingESPMembership", isUserAwaitingESPMembership());
         data.put("isUserEmailValidated", isUserEmailValidated());
         data.put("isUserESPDisabled", isUserESPDisabled());
+        data.put("isUserESPRejected", isUserESPRejected());
         data.put("isUserCookieSet", isUserCookieSet());
         data.put("isCookieMatched", isCookieMatched());
         return data;
