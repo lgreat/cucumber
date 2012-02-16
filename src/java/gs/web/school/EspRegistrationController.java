@@ -325,6 +325,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         boolean isUnique = true;
         boolean isDisabled = false;
         boolean isRejected = false;
+        boolean isProcessing = false;
 
         if (state != null && schoolId != null & StringUtils.isNotBlank(email)) {
             User user = getUserDao().findUserFromEmailIfExists(email.trim());
@@ -333,6 +334,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
                 if (espMembership != null) {
                     isUnique = false;
+                    isProcessing = !espMembership.getActive() && espMembership.getStatus().equals(EspMembershipStatus.PROCESSING);
                     isDisabled = !espMembership.getActive() && espMembership.getStatus().equals(EspMembershipStatus.DISABLED);
                     isRejected = !espMembership.getActive() && espMembership.getStatus().equals(EspMembershipStatus.REJECTED);
                 }
@@ -341,6 +343,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
         Map data = new HashMap();
         data.put("isUnique", isUnique);
+        data.put("isProcessing", isProcessing);
         data.put("isDisabled", isDisabled);
         data.put("isRejected", isRejected);
 

@@ -207,7 +207,7 @@ GS.form.EspForm = function() {
             async: true
         }).done(
             function(data) {
-                if (data.isUnique !== true && data.isDisabled === false && data.isRejected === false) {
+                if (data.isUnique !== true && data.isDisabled === false && data.isRejected === false && data.isProcessing === false) {
                     fieldError.show();
                     dfd.reject();
                 } else {
