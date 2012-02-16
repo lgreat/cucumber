@@ -43,34 +43,14 @@
                 </thead>
                 <tbody>
 
-                <c:if test="${not empty student_enrollment}">
-                    <tr>
-                        <td class="small_bold">Number of students enrolled</td>
-                        <td>${student_enrollment}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="Number of students enrolled" value="${student_enrollment}" hideIfEmpty="true"/>
 
-                <c:if test="${not empty responses.average_class_size}">
-                    <tr>
-                        <td class="small_bold">Average class size</td>
-                        <td><gsweb:erts list="${responses.average_class_size}"/></td>
-                    </tr>
-                </c:if>
+                <!-- Average class size is being collected by form any more -->
+                <!--<school:espTableRow label="Average class size" list="${responses.average_class_size}" hideIfEmpty="true"/>-->
 
-                <c:if test="${not empty grade_levels}">
-                    <tr>
-                        <td class="small_bold">Grade levels offered</td>
-                        <td>${grade_levels}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="Grade levels offered" value="${grade_levels}" hideIfEmpty="true"/>
 
-                <c:set var="agePkStart"><gsweb:erts list="${responses.age_pk_start}" /></c:set>
-                <c:if test="${not empty agePkStart}">
-                    <tr>
-                        <td class="small_bold">Age at which early childhood or Pre-K program begins</td>
-                        <td>${agePkStart}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="Age at which early childhood or Pre-K program begins" list="${responses.age_pk_start}" hideIfEmpty="true"/>
 
                 <tr>
                     <td class="small_bold">School start time</td>
