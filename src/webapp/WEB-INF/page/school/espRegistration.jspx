@@ -151,13 +151,6 @@
             </div>
 
             <div class="grid_5 omega">
-                <div class="js_password success" style="display: none;">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
-
-                        <div class="bk">Password is available</div>
-                    </div>
-                </div>
 
                 <div class="js_password invalid error"
                      style="display: none;">
@@ -295,13 +288,6 @@
                 </div>
 
                 <div class="grid_5 omega">
-                    <div class="js_firstName success" style="display: none;">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
-
-                            <div class="bk">Updated first name</div>
-                        </div>
-                    </div>
 
                     <div class="js_firstName invalid error" style="display: none;">
                         <div class="mediaExt1-1">
@@ -324,13 +310,6 @@
                 </div>
 
                 <div class="grid_5 omega">
-                    <div class="js_lastName success" style="display: none;">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
-
-                            <div class="bk">Updated last name</div>
-                        </div>
-                    </div>
 
                     <div class="js_lastName invalid error" style="display: none;">
                         <div class="mediaExt1-1">
