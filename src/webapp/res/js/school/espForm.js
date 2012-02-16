@@ -193,6 +193,22 @@ GS.form.handleHiddenElements = function(arrayOfObjects, containerSelector) {
     return arrayOfObjects;
 };
 
+GS.form.removeElementsWithClass = function(arrayOfElements, containerSelector, className) {
+    if (containerSelector === undefined) {
+        containerSelector = '';
+    }
+    var forExclusion = jQuery(containerSelector).find("." + className);
+
+    for (var i = 0; i < forExclusion.length; i++) {
+        for (var j = 0; j < arrayOfElements.length; j++) {
+            if (arrayOfElements[j].name === forExclusion[i].name) {
+                arrayOfElements[j].value = "";
+            }
+        }
+    }
+    return arrayOfElements;
+};
+
 
 GS.validation = GS.validation || {};
 GS.validation.ERROR_SUFFIX = "__error";
@@ -530,6 +546,8 @@ new (function() {
             data = GS.form.handleInputsWithGhostTextAsValue(data, '#espFormPage-' + GS.espForm.currentPage);
             // remove values for hidden elements so they get cleared on the back end
             data = GS.form.handleHiddenElements(data, '#espFormPage-' + GS.espForm.currentPage);
+            // remove elements that are marked for exclusion
+            data = GS.form.removeElementsWithClass(data, '#espFormPage-' + GS.espForm.currentPage, 'js_exclude');
             data.push({name:"_visibleKeys", value:getVisibleFormInputNames(form)});
             jQuery.ajax({type: 'POST', url: document.location, data: data}
             ).fail(function() {
@@ -672,33 +690,29 @@ new (function() {
         var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
             && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_number_error');
         var isValidGradeLevels = validateGradeLevels();
-        var isValidTransportationOther = GS.validation.validateRequiredIfChecked
-            ('#form_transportation_other', '.js_otherField_form_transportation_other', '#form_transportation_error');
-        var isValidTransportationShuttleOther = GS.validation.validateRequiredIfChecked
-            ('#form_transportation_shuttle_other', '.js_otherField_form_transportation_shuttle_other', '#form_transportation_shuttle_error');
         // END PAGE 1
 
         // PAGE 4
-        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked
-            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
+//        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked
+//            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
         var isValidSpecialEdPrograms = GS.validation.validateRequiredIfChecked
             ('[name=special_ed_programs]', '[name=special_ed_programs_exists]', '#js_form_special_ed_programs_error');
         var isValidSchedule = GS.validation.validateRequiredIfChecked
             ('[name=schedule]', '[name=schedule_exists]', '#js_form_schedule_error');
-        var isValidExtraLearningResources = GS.validation.validateRequiredIfChecked
-            ('#js_form_extra_learning_resources_other', '.js_otherField_js_form_extra_learning_resources_other', '#js_form_extra_learning_resources_error');
-        var isValidStaffLanguages = GS.validation.validateRequiredIfChecked
-            ('#js_form_staff_languages_other', '.js_otherField_js_form_staff_languages_other', '#js_form_staff_languages_error');
-        var isValidCollegePrep = GS.validation.validateRequiredIfChecked
-            ('#js_form_college_prep_other', '.js_otherField_js_form_college_prep_other', '#js_form_college_prep_error');
+//        var isValidExtraLearningResources = GS.validation.validateRequiredIfChecked
+//            ('#js_form_extra_learning_resources_other', '.js_otherField_js_form_extra_learning_resources_other', '#js_form_extra_learning_resources_error');
+//        var isValidStaffLanguages = GS.validation.validateRequiredIfChecked
+//            ('#js_form_staff_languages_other', '.js_otherField_js_form_staff_languages_other', '#js_form_staff_languages_error');
+//        var isValidCollegePrep = GS.validation.validateRequiredIfChecked
+//            ('#js_form_college_prep_other', '.js_otherField_js_form_college_prep_other', '#js_form_college_prep_error');
         var isValidPostGraduationYear = GS.validation.validateRequiredIfNotEmpty('[name=post_graduation_year]','.js_form_post_graduation_year','#js_form_post_graduation_year_error');
         var isValidPostGraduation2Yr = GS.validation.validateInteger('#js_form_post_graduation_2yr','#js_form_post_graduation_2yr_error');
         var isValidPostGraduation4Yr = GS.validation.validateInteger('#js_form_post_graduation_4yr','#js_form_post_graduation_4yr_error');
         var isValidPostGraduationMilitary = GS.validation.validateInteger('#js_form_post_graduation_military','#js_form_post_graduation_military_error');
         var isValidPostGraduationVocational = GS.validation.validateInteger('#js_form_post_graduation_vocational','#js_form_post_graduation_vocational_error');
         var isValidPostGraduationWorkforce = GS.validation.validateInteger('#js_form_post_graduation_workforce','#js_form_post_graduation_workforce_error');
-        var isValidSkillsTraining = GS.validation.validateRequiredIfChecked
-            ('#js_form_skills_training_other', '.js_otherField_js_form_skills_training_other', '#js_form_skills_training_error');
+//        var isValidSkillsTraining = GS.validation.validateRequiredIfChecked
+//            ('#js_form_skills_training_other', '.js_otherField_js_form_skills_training_other', '#js_form_skills_training_error');
         // END PAGE 4
 
         // PAGE 7
@@ -714,12 +728,10 @@ new (function() {
 
         // END PAGE 7
 
-        return isValidStudentEnrollment && isValidGradeLevels && isValidTransportationOther &&
-            isValidTransportationShuttleOther && isValidTransportationOther && isValidPhysicalAddressStreet &&
-            isValidAdministratorEmail && isValidForeignLanguageOther && isValidSpecialEdPrograms && isValidSchedule &&
-            isValidExtraLearningResources && isValidStaffLanguages && isValidCollegePrep && isValidPostGraduationYear &&
+        return isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet &&
+            isValidAdministratorEmail && isValidSpecialEdPrograms && isValidSchedule && isValidPostGraduationYear &&
             isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
-            isValidPostGraduationVocational && isValidPostGraduationWorkforce && isValidSkillsTraining &&
+            isValidPostGraduationVocational && isValidPostGraduationWorkforce &&
             isValidSchoolPhone && isValidSchoolFax && isValidContactMethodPhone && isValidContactMethodEmail;
     };
 
@@ -766,12 +778,21 @@ new (function() {
         // to become checked when the text field is modified to contain text.
         formWrapper.on('change', '.js_otherField', function() {
             var field = $(this);
-            if (field.val().length > 0) {
-                var otherClassSelector = '.js_otherField_' + this.id;
-                var otherField = formWrapper.find(otherClassSelector);
+            if (field.val().length > 0 && field.val() != field.attr('placeholder')) {
+                var otherField = formWrapper.find('.js_otherField_' + this.id);
                 otherField.prop('checked', true);
             }
         });
+        // any field linked to an 'other' text field that has no value or value == 'other' will be detached from
+        // the back end
+        jQuery(formWrapper).find('.js_otherField').each(function() {
+            var otherField = formWrapper.find('.js_otherField_' + this.id);
+            if (otherField.size() == 1 && (otherField.val().length == 0 || otherField.val() == 'other')) {
+                otherField.addClass('js_exclude');
+                $(this).addClass('js_setDefaultMarker'); // since it is detached from back end, we need to set state via JS
+            }
+        });
+        jQuery(formWrapper).find('.js_otherField').filter('.js_setDefaultMarker').change(); // trigger right away to set default state
 
         GS.form.controlVisibilityOfElementWithRadio('#form_school_type_affiliation_group', '[name=school_type]', 'private');
         GS.form.controlVisibilityOfElementWithRadio('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes');
