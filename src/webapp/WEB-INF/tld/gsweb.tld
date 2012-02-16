@@ -311,6 +311,12 @@
         <function-signature>java.lang.String getRequestHostAndPath(javax.servlet.http.HttpServletRequest)</function-signature>
     </function>
 
+    <function>
+        <name>formatUrl</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>java.lang.String formatUrl(java.lang.String)</function-signature>
+    </function>
+
     <tag>
         <name>erts</name>
         <tag-class>gs.web.jsp.EspResponseListToStringTagHandler</tag-class>

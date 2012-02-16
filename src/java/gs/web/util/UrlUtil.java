@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.119 2011/12/09 03:17:35 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.120 2012/02/16 21:44:52 aroy Exp $
  */
 
 package gs.web.util;
@@ -804,5 +804,12 @@ public final class UrlUtil {
 
     public static String urlEncode(String input) throws Exception {
         return URLEncoder.encode(input, "UTF-8");
+    }
+    
+    public static String formatUrl(String url) {
+        if (!StringUtils.startsWith(url, "http://")) {
+            return "http://" + url;
+        }
+        return url;
     }
 }

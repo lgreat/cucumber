@@ -16,14 +16,6 @@
 
     <!-- TODO(rcox) Delete these internal styles after all profile data are in tables. -->
     <style type="text/css">
-        .espDisplay {
-
-        }
-
-        h4 {
-
-        }
-
         .lbl {
             color: #a9a9a9;
         }
@@ -32,7 +24,6 @@
             color: black;
         }
     </style>
-
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
     <c:set var="adSlotPrefix" value="School_Profile_Page_Academic_Performance"/>
@@ -282,11 +273,11 @@
             <c:set var="isP4" value="${fn:length(pn4)>0 and fn:length(pu4)>0}"/>
             <c:set var="isP5" value="${fn:length(pn5)>0 and fn:length(pu5)>0}"/>
             <p class="lbl">Partnerships with local resources and organizations: 
-            <c:if test="${isP1}"><a href="${pu1}">${pn1}</a></c:if><c:if test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
-            <c:if test="${isP2}"><a href="${pu2}">${pn2}</a></c:if><c:if test="${isP3 or isP4 or isP5}">; </c:if>
-            <c:if test="${isP3}"><a href="${pu3}">${pn3}</a></c:if><c:if test="${isP4 or isP5}">; </c:if>
-            <c:if test="${isP4}"><a href="${pu4}">${pn4}</a></c:if><c:if test="${isP5}">; </c:if>
-            <c:if test="${isP5}"><a href="${pu3}">${pn3}</a></c:if></p>
+            <c:if test="${isP1}"><a href="${gsweb:formatUrl(pu1)}">${pn1}</a></c:if><c:if test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
+            <c:if test="${isP2}"><a href="${gsweb:formatUrl(pu2)}">${pn2}</a></c:if><c:if test="${isP3 or isP4 or isP5}">; </c:if>
+            <c:if test="${isP3}"><a href="${gsweb:formatUrl(pu3)}">${pn3}</a></c:if><c:if test="${isP4 or isP5}">; </c:if>
+            <c:if test="${isP4}"><a href="${gsweb:formatUrl(pu4)}">${pn4}</a></c:if><c:if test="${isP5}">; </c:if>
+            <c:if test="${isP5}"><a href="${gsweb:formatUrl(pu3)}">${pn3}</a></c:if></p>
 
             <c:set var="facilities"><gsweb:erts list="${responses.facilities}" /></c:set>
             <c:if test="${not empty facilities and fn:toLowerCase(facilities) ne 'none'}"><p class="lbl">School facilities: <span class="val">${facilities}</span></p></c:if>
@@ -303,8 +294,8 @@
 
             <c:set var="pgy"><gsweb:erts list="${responses.post_graduation_year}" /></c:set>
             <c:if test="${not empty pgy}">
-                <c:set var="pgA"><gsweb:erts list="${responses.post_graduation_2-yr}" /></c:set>
-                <c:set var="pgB"><gsweb:erts list="${responses.post_graduation_4-yr}" /></c:set>
+                <c:set var="pgA"><gsweb:erts list="${responses.post_graduation_2yr}" /></c:set>
+                <c:set var="pgB"><gsweb:erts list="${responses.post_graduation_4yr}" /></c:set>
                 <c:set var="pgC"><gsweb:erts list="${responses.post_graduation_military}" /></c:set>
                 <c:set var="pgD"><gsweb:erts list="${responses.post_graduation_vocational}" /></c:set>
                 <c:set var="pgE"><gsweb:erts list="${responses.post_graduation_workforce}" /></c:set>
