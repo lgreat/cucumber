@@ -167,20 +167,11 @@
 
                 <span id="form_before_after_care_before_group">
                     <label for="form_before_after_care_start" class="checkbox">| Start time</label>
-                    <!--<input id="form_before_after_care_start" type="text" name="before_after_care_start"
-                    value="${responseMap['before_after_care_start'].value}"/>-->
-                    <select id="form_before_after_care_start">
+                    <select id="form_before_after_care_start" name="before_after_care_start">
                         <gsml:forEachMinute var="hourAndMinute" begin="5:30" end="8:30" step="15">
-                            <!--<gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}" selected="${responseMap['before_after_care_start'].value}"/>-->
-                            <c:choose>
-                                <c:when test="${not empty responseMap['before_after_care'].valueMap['before']}}">
-                                    <option value="${forEachMinuteHourAndMinutes}"
-                                            selected="true">${forEachMinuteHourAndMinutes}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="${forEachMinuteHourAndMinutes}">${forEachMinuteHourAndMinutes}</option>
-                                </c:otherwise>
-                            </c:choose>
+                            <gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}"
+                                               selected="${responseMap['before_after_care_start'].value == requestScope.forEachMinuteHourAndMinutes}"
+                                    >${requestScope.forEachMinuteHourAndMinutes}</gsml:selectOption>
                         </gsml:forEachMinute>
                     </select>
                 </span>
@@ -192,20 +183,11 @@
 
                 <span id="form_before_after_care_after_group">
                     <label for="form_before_after_care_end" class="checkbox">| End time</label>
-                    <!--<input id="form_before_after_care_end" type="text" name="before_after_care_end"
-                    value="${responseMap['before_after_care_end'].value}"/>-->
-                    <select id="form_before_after_care_end">
+                    <select id="form_before_after_care_end" name="before_after_care_end">
                         <gsml:forEachMinute var="hourAndMinute" begin="2:30" end="6:30" step="30">
-                            <!--<gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}" selected="${responseMap['before_after_care_end'].value}"/>-->
-                            <c:choose>
-                                <c:when test="${not empty responseMap['before_after_care_end'].value}}">
-                                    <option value="${forEachMinuteHourAndMinutes}"
-                                            selected="true">${forEachMinuteHourAndMinutes}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="${forEachMinuteHourAndMinutes}">${forEachMinuteHourAndMinutes}</option>
-                                </c:otherwise>
-                            </c:choose>
+                            <gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}"
+                                               selected="${responseMap['before_after_care_end'].value == requestScope.forEachMinuteHourAndMinutes}"
+                                    >${requestScope.forEachMinuteHourAndMinutes}</gsml:selectOption>
                         </gsml:forEachMinute>
                     </select>
                 </span>
