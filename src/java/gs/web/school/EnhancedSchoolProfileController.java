@@ -3,7 +3,6 @@ package gs.web.school;
 import gs.data.school.EspResponse;
 import gs.data.school.IEspResponseDao;
 import gs.data.school.School;
-import gs.data.school.SchoolSubtype;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.SchoolCensusValue;

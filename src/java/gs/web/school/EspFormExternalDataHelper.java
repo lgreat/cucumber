@@ -174,9 +174,6 @@ public class EspFormExternalDataHelper {
         } else if (StringUtils.equals("school_type", key) && school.getType() != null) {
             return new String[]{school.getType().getSchoolTypeName()};
         } else if (StringUtils.equals("school_type_affiliation", key) && school.getSubtype() != null) {
-//            if (school.getSubtype().contains("independent_study")) {
-//                return new String[] {"independent_study"};
-//            }
             if (school.getSubtype().contains("religious")) {
                 return new String[] {"religious"};
             }
@@ -241,12 +238,9 @@ public class EspFormExternalDataHelper {
         } else if (StringUtils.equals("school_type_affiliation", key)) {
             _log.error("Saving school sub type " + values[0] + " elsewhere for school:" + school.getName());
             school.getSubtype().remove("religious");
-//            school.getSubtype().remove("independent_study");
             String subtype = (String) values[0];
             if (StringUtils.equals("religious", subtype)) {
                 school.getSubtype().add("religious");
-//            } else if (StringUtils.equals("independent_study", subtype)) {
-//                school.getSubtype().add("independent_study");
             }
             saveSchool(school, user, now);
         } else if (StringUtils.equals("school_type_affiliation_other", key)) {

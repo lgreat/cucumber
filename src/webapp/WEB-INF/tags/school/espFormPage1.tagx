@@ -130,10 +130,8 @@
             <div class="grid_14 prefix_1 alpha omega">
 
                 <div id="form_school_type_affiliation_group">
-                    <school:espRadioWithLabel key="school_type_affiliation" value="independent" label="Independent"
-                                              disabled="${stateLocked}"/>
-                    <school:espRadioWithLabel key="school_type_affiliation" value="religious" nobr="true"
-                                              label="Religious / Parochial" disabled="${stateLocked}"/>
+                    <school:espCheckboxWithLabel key="school_type_affiliation" value="religious" nobr="true"
+                                                 label="Religious / Parochial" disabled="${stateLocked}"/>
                     <label for="form_school_type_affiliation_other" class="mlm">Affiliation:</label>
                     <gsml:input styleId="form_school_type_affiliation_other" type="text"
                                 styleClass="mls text input_4"
