@@ -108,11 +108,11 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         List<String> values;
 
         // merge feeder school fields
-        values = mergeValuesForKeys(responses, false, "feeder_school_1", "feeder_school_2", "feeder_school_3");
+        values = mergeValuesForKeys(responses, true, "feeder_school_1", "feeder_school_2", "feeder_school_3");
         model.put("feederSchools", StringUtils.joinPretty(values.iterator(), "; "));
 
         // merge destination school fields
-        values = mergeValuesForKeys(responses, false, "destination_school_1", "destination_school_2", "destination_school_3");
+        values = mergeValuesForKeys(responses, true, "destination_school_1", "destination_school_2", "destination_school_3");
         model.put("destinationSchools", StringUtils.joinPretty(values.iterator(), "; "));
         
         // merge college destinations
@@ -121,7 +121,20 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
 
         values = new ArrayList<String>();
         
+        // merge instructional_model
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "instructional_model"));
+        values.addAll(mergeValuesForKeys(responses, false, "instructional_model_other"));
+        model.put("instructional_model", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge transportation
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "transportation"));
+        values.addAll(mergeValuesForKeys(responses, false, "transportation_other"));
+        model.put("transportation", StringUtils.joinPretty(values.iterator(), "; "));
+
         // merge student clubs
+        values.clear();
         values.addAll(mergeValuesForKeys(responses, true, "student_clubs"));
         values.addAll(mergeValuesForKeys(responses, false, "student_clubs_other_1", "student_clubs_other_2", "student_clubs_other_3"));
         model.put("studentClubs", StringUtils.joinPretty(values.iterator(), "; "));
@@ -183,7 +196,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         }
         model.put("student_enrollment", s);
 
-        model.put("grade_levels", school.getGradeLevels().getCommaSeparatedString().replace(",", "; ").replace("  ", " "));
+        model.put("grade_levels", school.getGradeLevels().getRangeString().replace(",", "; ").replace("  ", " "));
 
         cv = ci.getManual(school, CensusDataType.STUDENTS_ETHNICITY);
         s = cv == null ? null : cv.getValueText();

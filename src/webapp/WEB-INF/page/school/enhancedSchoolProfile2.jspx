@@ -92,13 +92,22 @@
                 </tr>
 
                 <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
-                <c:set var="schoolSubtypes" value="${school.subtype.commaSeparatedString}"/>
+                <c:set var="coed" value=""/>
+                <c:choose>
+                  <c:when test="${school.coed}">
+                    <c:set var="coed" value="Coed"/>
+                  </c:when>
+                  <c:when test="${school.allMale}">
+                    <c:set var="coed" value="All Male"/>
+                  </c:when>
+                  <c:when test="${school.allFemale}">
+                    <c:set var="coed" value="All Female"/>
+                  </c:when>
+                </c:choose>
                 <tr>
                     <td class="small_bold">School type</td>
                     <td>
-                        ${school.type.schoolTypeName}.
-                        <c:if test="${not empty school.affiliation}"> ${school.affiliation}.</c:if>
-                        <c:if test="${not empty schoolSubtypes}"> ${schoolSubtypes}.</c:if>
+                        ${gsweb:capitalize(school.type.schoolTypeName)}.<c:if test="${not empty coed}">&#160;&#160;${coed}.</c:if><c:if test="${not empty school.affiliation}">&#160;&#160;${gsweb:capitalize(school.affiliation)}.</c:if>
                     </td>
                 </tr>
 
@@ -137,7 +146,7 @@
                     <tr>
                         <td class="small_bold">Before school or after school care / program onsite</td>
                         <td>
-                            ${bacare}
+                            <c:if test="${fn:containsIgnoreCase(bacare, 'before')}">Before school care</c:if><c:if test="${fn:containsIgnoreCase(bacare, 'before') and fn:containsIgnoreCase(bacare, 'after')}">;&#160;</c:if><c:if test="${fn:containsIgnoreCase(bacare, 'after')}">After school care</c:if>
                             <c:set var="scStart"><gsweb:erts list="${responses.before_after_care_start}" /></c:set>
                             <c:set var="scEnd"><gsweb:erts list="${responses.before_after_care_end}" /></c:set>
                             <c:if test="${not empty scStart or not empty scEnd}">
@@ -150,7 +159,6 @@
                     </tr>
                 </c:if>
 
-                <c:set var="transportation"><gsweb:erts list="${responses.transportation}" /></c:set>
                 <c:if test="${not empty transportation}">
                     <tr>
                         <td class="small_bold">Transportation provided for students by the school / district</td>
@@ -160,18 +168,17 @@
 
                 <c:set var="transportationShuttle"><gsweb:erts list="${responses.transportation_shuttle}" /></c:set>
                 <c:set var="transportationShuttleOther"><gsweb:erts list="${responses.transportation_shuttle_other}" /></c:set>
-                <c:if test="${not empty transportation or not empty transportationShuttle}">
+                <c:if test="${(not empty transportationShuttle and fn:toLowerCase(transportationShuttle) ne 'no') or not empty transportationShuttleOther}">
                     <tr>
                         <td class="small_bold">School-run shuttle from nearby metro and bus stops</td>
                         <td>${transportationShuttle} ${transportationShuttleOther}</td>
                     </tr>
                 </c:if>
 
-                <c:set var="instModel"><gsweb:erts list="${responses.instructional_model}" /></c:set>
-                <c:if test="${not empty instModel}">
+                <c:if test="${not empty instructional_model}">
                     <tr>
                         <td class="small_bold">Instructional and/or curriculum models used</td>
-                        <td>${instModel}</td>
+                        <td>${instructional_model}</td>
                     </tr>
                 </c:if>
 
@@ -218,11 +225,12 @@
             <c:set var="stdsAcptd"><gsweb:erts list="${responses.students_accepted}" /></c:set>
             <p class="lbl">Number of students accepted for the ${stdsAcptdYr} year: <span class="val">${stdsAcptd}</span></p>
 
-            <c:set var="appFeeAmt"><gsweb:erts list="${responses.application_fee_amount}" /></c:set>
             <c:set var="appFee"><gsweb:erts list="${responses.application_fee}" /></c:set>
-            <c:set var="isAppFee" value="${fn:toLowerCase(appFee) eq 'no'}" />
-            <c:set var="appFeeDesc" value="${isAppFee ? 'Fee waivers available' : 'No fee waivers available'}" />
-            <c:if test="${not empty appFeeAmt}"><p class="lbl">Application Fee: <span class="val">${appFeeAmt} ${appFeeDesc}</span></p></c:if>
+            <c:set var="appFeeAmt"><gsweb:erts list="${responses.application_fee_amount}" /></c:set>
+            <c:set var="feeWaivers"><gsweb:erts list="${responses.fee_waivers}" /></c:set>
+            <c:set var="isFeeWaivers" value="${fn:toLowerCase(feeWaivers) eq 'no' }"/>
+            <c:set var="feeWaiversDesc" value="${isFeeWaivers ? 'Fee waivers available' : 'No fee waivers available'}" />
+            <p class="lbl">Application Fee: <span class="val">${appFee}.&#160;&#160;<c:if test="${not empty appFeeAmt}">$${appFeeAmt}.&#160;&#160;</c:if>${feeWaiversDesc}.</span></p>
 
             <c:set var="tuitionYr"><gsweb:erts list="${responses.tuition_year}" /></c:set>
             <c:set var="tuitionAmt"><gsweb:erts list="${responses.tuition_high}"/> - <gsweb:erts list="${responses.tuition_low}"/></c:set>
@@ -264,8 +272,11 @@
 
             <c:if test="${not empty staff_languages}"><p class="lbl">Languages spoken by school staff: <span class="val">${staff_languages}</span></p></c:if>
 
-            <c:set var="elr"><gsweb:erts list="${responses.extra_learning_resources}" /></c:set>
-            <c:if test="${not empty elr}"><p class="lbl">Extra learning resources offered: <span class="val">${elr}</span></p></c:if>
+            <c:set var="els"><gsweb:erts list="${responses.extra_learning_resources}"/></c:set>
+            <c:set var="els_other"><gsweb:erts list="${responses.extra_learning_resources_other}"/></c:set>
+            <c:if test="${not empty extra_learning_resources and fn:toLowerCase(extra_learning_resources) ne 'none'}">
+              <p class="lbl">Extra learning resources offered: <span class="val">${els} ${els_other}</span></p>
+            </c:if>
 
             <c:set var="pn1"><gsweb:erts list="${responses.partnerships_name_1}" /></c:set>
             <c:set var="pu1"><gsweb:erts list="${responses.partnerships_url_1}" /></c:set>
@@ -295,7 +306,10 @@
             <c:if test="${not empty college_prep}"><p class="lbl">College preparation / awareness resources offered: <span class="val">${college_prep}</span></p></c:if>
 
             <c:set var="skillsTraining"><gsweb:erts list="${responses.skills_training}" /></c:set>
-            <c:if test="${not empty skillsTraining and fn:toLowerCase(skillsTraining) ne 'none'}"><p class="lbl">Vocational or skills-based training offered: <span class="val">${skillsTraining}</span></p></c:if>
+            <c:set var="skillsTrainingOther"><gsweb:erts list="${responses.skills_training_other}" /></c:set>
+            <c:if test="${not empty skillsTraining and fn:toLowerCase(skillsTraining) ne 'none'}">
+            <p class="lbl">Vocational or skills-based training offered: <span class="val">${skillsTraining} ${skillsTrainingOther}</span></p>
+            </c:if>
 
             <c:if test="${not empty collegeDestinations}"><p class="lbl">Colleges most students attend after graduation: <span class="val">${collegeDestinations}</span></p></c:if>
 
@@ -350,7 +364,10 @@
             <c:if test="${fn:toLowerCase(bullying) eq 'yes'}"><p class="lbl">Bullying and/or cyber bullying policy in place</p></c:if>
 
             <c:set var="parentInvolvement"><gsweb:erts list="${responses.parent_involvement}" /></c:set>
-            <c:if test="${not empty parentInvolvement}"><p class="lbl">Opportunities for parent involvement: <span class="val">${parentInvolvement}</span></p></c:if>
+            <c:set var="parentInvolvementOther"><gsweb:erts list="${responses.parent_involvement_other}" /></c:set>
+            <c:if test="${not empty parentInvolvement and fn:toLowerCase(parentInvolvement) ne 'none'}">
+            <p class="lbl">Opportunities for parent involvement: <span class="val">${parentInvolvement} ${parentInvolvementOther}</span></p>
+            </c:if>
 
             <c:set var="schoolColors"><gsweb:erts list="${responses.school_colors}" /></c:set>
             <c:if test="${not empty schoolColors}"><p class="lbl">School colors: <span class="val">${schoolColors}</span></p></c:if>
