@@ -15,27 +15,16 @@
 
                 <div class="grid_11">
                     <input id="form_best_known_for" class="text input_11" type="text" name="best_known_for"
-                           value="${responseMap['best_known_for'].value}" maxlength="45"/>
+                           value="${responseMap['best_known_for'].value}" maxlength="60"/>
 
                     <p class="hint">Please use complete sentences, for example, "Our school is best known for our championship football team."</p>
                 </div>
                 <div class="grid_5 omega"><!-- do not collapse --></div>
             </div>
 
-            <!-- TODO: goes to page 4 -->
-            <!--<label>What colleges do most students attend after graduation?</label>
-            <br/>
-            <label for="form_college_destination_1">1: </label><input id="form_college_destination_1" type="text" name="college_destination_1" value="${responseMap['college_destination_1'].value}"/>
-            <br/>
-            <label for="form_college_destination_2">2: </label><input id="form_college_destination_2" type="text" name="college_destination_2" value="${responseMap['college_destination_2'].value}"/>
-            <br/>
-            <label for="form_college_destination_3">3: </label><input id="form_college_destination_3" type="text" name="college_destination_3" value="${responseMap['college_destination_3'].value}"/>
-            <br/>
-            <br/>-->
-
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <p class="labelGroup">What instructional and/or curriculum modes does your school use, if any?</p>
+                    <p class="labelGroup">What instructional and/or curriculum models does your school use, if any?</p>
                 </div>
                 <div class="grid_5">
                     <school:espCheckboxWithLabel key="instructional_model" value="none" label="None"/>
@@ -132,30 +121,26 @@
                 </div>
                 <div class="grid_5">
                     <school:espRadioWithLabel key="immersion" value="no" label="No"/>
-                    <school:espRadioWithLabel key="immersion" value="yes" label="Yes" nobr="true"
-                                              styleClass="js_otherField_form_immersion_language"/>
+                    <school:espRadioWithLabel key="immersion" value="yes" label="Yes" nobr="true"/>
                 </div>
                 <div id="js_form_immersion_language_group" class="clearfix grid_11 omega">
                     <div class="alpha grid_5">
-                        <school:espCheckboxWithLabel key="immersion_language" value="cantonese"
-                                                     label="Chinese (Cantonese)"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="mandarin"
-                                                     label="Chinese (Mandarin)"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="arabic" label="Arabic languages"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="amharic" label="Amharic"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="cantonese" label="Chinese (Cantonese)"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="mandarin" label="Chinese (Mandarin)"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="dutch" label="Dutch"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="french" label="French"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="german" label="German"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="italian" label="Italian"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="hmong" label="Hmong"/>
+                        <school:espCheckboxWithLabel key="immersion_language" value="italian" label="Italian" nobr="true"/>
+                    </div>
+                    <div class="grid_6 omega">
                         <school:espCheckboxWithLabel key="immersion_language" value="japanese" label="Japanese"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="korean" label="Korean"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="russian" label="Russian"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="spanish" label="Spanish"
-                                                     nobr="true"/>
-                    </div>
-                    <div class="grid_6 omega">
+                        <school:espCheckboxWithLabel key="immersion_language" value="spanish" label="Spanish"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="tagalog" label="Tagalog"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="arabic" label="Arabic languages"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="amharic" label="Amharic"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="dutch" label="Dutch"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="hmong" label="Hmong"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="urdu" label="Urdu"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="vietnamese" label="Vietnamese"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="other" label="Other:"

@@ -798,7 +798,7 @@ new (function() {
         GS.form.controlVisibilityOfElementWithRadio('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes');
         GS.form.controlVisibilityOfElementWithCheckbox('#form_before_after_care_before_group','#form_before_after_care_before', true);
         GS.form.controlVisibilityOfElementWithCheckbox('#form_before_after_care_after_group','#form_before_after_care_after', true);
-        GS.form.controlVisibilityOfElementWithCheckbox('#js_form_immersion_language_group','[name=immersion]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#js_form_immersion_language_group','[name=immersion]', 'yes');
 
         GS.form.controlVisibilityOfElementWithRadio('#js_ell_languages','[name=ell_level]', 'moderate,intensive');
         GS.form.controlVisibilityOfElementWithRadio('#js_partnerships','[name=partnerships]', 'yes');
