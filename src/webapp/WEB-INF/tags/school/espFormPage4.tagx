@@ -338,7 +338,7 @@
                     <input id="js_form_partnerships_name_2" type="text"
                            name="partnerships_name_2" class="text input_6 mas"
                            value="${responseMap['partnerships_name_2'].value}"
-                           placeholder="Organization name]" maxlength="100"/>
+                           placeholder="[Organization name]" maxlength="100"/>
                     <input id="js_form_partnerships_url_2" type="text"
                            name="partnerships_url_2" class="text input_6 mas"
                            value="${responseMap['partnerships_url_2'].value}"
@@ -472,7 +472,7 @@
             <div class="lal clearfix">
                 <div class="grid_8 alpha">
                     <select name="post_graduation_year">
-                        <gsml:selectOption value="">Select Year</gsml:selectOption>
+                        <gsml:selectOption value="">[Select Year]</gsml:selectOption>
                         <gsml:selectOption value="2008"
                                            selected="${responseMap['post_graduation_year'].valueMap['2008']}">2007-2008</gsml:selectOption>
                         <gsml:selectOption value="2009"
