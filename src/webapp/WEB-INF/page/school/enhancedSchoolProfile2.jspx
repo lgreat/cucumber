@@ -366,14 +366,15 @@
             <c:set var="facebookUrl"><gsweb:erts list="${responses.facebook_url}" /></c:set>
             <c:if test="${not empty facebookUrl}"><p class="lbl">School Facebook page: <a href="${facebookUrl}" class="val">${facebookUrl}</a></p></c:if>
 
-            <c:if test="${school.type.schoolTypeName != 'public'}">
+        <!-- TODO (jkirton) fix student ethnicity breakdown datapoints -->
+        <!-- Hiding this entire block as it is not yet correct and not in scope for 19.6
+            <c:if test="${school.type.schoolTypeName == 'private'}">
             <h4>Student Information</h4>
 
             <c:set var="studentsEthnicity"><gsweb:erts list="${students_ethnicity}" /></c:set>
             <p class="lbl">Student ethnicity breakdown:</p>
             <c:choose>
                 <c:when test="${not empty studentsEthnicity and fn:toLowerCase(studentsEthnicity) ne 'data unavailable'}">
-                    <!-- TODO (jkirton) fix student ethnicity breakdown datapoints -->
                     <c:set var="peA"><gsweb:erts list="${responses.private_ethnicity_americanindian}" /></c:set>
                     <c:set var="peB"><gsweb:erts list="${responses.private_ethnicity_asian}" /></c:set>
                     <c:set var="peC"><gsweb:erts list="${responses.private_ethnicity_black}" /></c:set>
@@ -423,6 +424,7 @@
             <c:set var="satRs"><gsweb:erts list="${responses.private_sat_results}" /></c:set>
             <c:if test="${not empty satYr and not empty satRs}"><p class="lbl">School's average comprehensive SAT results for the ${satYr} year: <span class="val">${satRs}</span></p></c:if>
             </c:if>
+            -->
 
         </div><!-- .slStylesV1-0 -->
 
