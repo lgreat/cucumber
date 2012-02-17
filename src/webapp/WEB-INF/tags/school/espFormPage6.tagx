@@ -37,7 +37,7 @@
                 <div class="alpha grid_7">
                     <p class="labelGroup">Does your school have a bullying and/or cyber bulling policy in place?</p>
                 </div>
-                <div class="grid_6 omega">
+                <div class="grid_16 omega">
                     <school:espRadioWithLabel key="bullying_policy" value="no" label="No"/>
                     <school:espRadioWithLabel key="bullying_policy" value="yes" label="Yes"/>
                 </div>
@@ -47,7 +47,7 @@
                 <div class="alpha grid_7">
                     <p class="labelGroup">How do parents get involved at your school?</p>
                 </div>
-                <div class="grid_9 omega">
+                <div class="grid_8">
                     <school:espCheckboxWithLabel key="parent_involvement" value="none" label="None"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="parent_nights_req" label="Attend parent nights"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="chaperone_req" label="Chaperone school trips"/>
@@ -56,6 +56,8 @@
                     <school:espCheckboxWithLabel key="parent_involvement" value="playground_req" label="Monitor the playground"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="cultural_req" label="Organize cultural events"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="fundraising_req" label="Organize fundraising events (school auction, bake sales, etc.)"/>
+                </div>
+                <div class="grid_8 omega">
                     <school:espCheckboxWithLabel key="parent_involvement" value="presentation_req" label="Present special topics during curricular units"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="governance_req" label="Serve on school improvement team or governance council"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="tutor_req" label="Tutor"/>
@@ -67,13 +69,19 @@
                            maxlength="40" placeholder="[Please indicate]"/>
                 </div>
             </div>
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Schools Spirit</legend>
+            <hr class="legend"><!--Do not collapse--></hr>
 
             <c:if test="${school.databaseState.abbreviation eq 'DC' or school.databaseState.abbreviation eq 'IN' or school.databaseState.abbreviation eq 'WI'}">
                 <div class="lal clearfix">
                     <div class="alpha grid_7">
                         <p class="labelGroup">What are your school colors?</p>
                     </div>
-                    <div class="grid_6 omega">
+                    <div class="grid_16 omega">
                         <gsml:input styleId="form_school_colors" styleClass="mls js_otherField text input_8" type="text"
                                name="school_colors" value="${responseMap['school_colors'].value}"
                                maxlength="40" placeholder="[Enter colors separated by commas]"/>
@@ -87,7 +95,7 @@
                     <div class="alpha grid_7">
                         <p class="labelGroup">What is your school mascot (if you have one)?</p>
                     </div>
-                    <div class="grid_6 omega">
+                    <div class="grid_16 omega">
                         <gsml:input styleId="form_school_mascot" styleClass="mls js_otherField text input_8" type="text"
                                name="school_mascot" value="${responseMap['school_mascot'].value}"
                                maxlength="40" placeholder="[Enter mascot name]"/>
@@ -119,7 +127,7 @@
                 <div class="alpha grid_7">
                     <p class="labelGroup">Provide a link to YouTube or other hosted videos of your school or videos created by staff/students at your school.</p>
                 </div>
-                <div class="grid_6 omega">
+                <div class="grid_16 omega">
                     <gsml:input styleId="form_school_video" styleClass="mls js_otherField text input_8" type="text"
                            name="school_video" value="${responseMap['school_video'].value}"
                            placeholder="[Paste video URL or web address here]"/>
@@ -132,7 +140,7 @@
                     <div class="alpha grid_7">
                         <p class="labelGroup">Is there anything else you would like parents and students to know about your school?</p>
                     </div>
-                    <div class="grid_6 omega">
+                    <div class="grid_16 omega">
                         <textarea id="form_anything_else" class="mls js_otherField text input_8" type="text"
                                name="anything_else" maxlength="500" cols="80" rows="4">${responseMap['anything_else'].value}</textarea>
                         <p class="hint js-charactersLeft"><!-- no collapse --></p>
