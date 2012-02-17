@@ -52,15 +52,9 @@
 
                 <school:espTableRow label="Age at which early childhood or Pre-K program begins" list="${responses.age_pk_start}" hideIfEmpty="true"/>
 
-                <tr>
-                    <td class="small_bold">School start time</td>
-                    <td><gsweb:erts list="${responses.start_time}" pretty="false"/></td>
-                </tr>
+                <school:espTableRow label="School start time" list="${responses.start_time}" hideIfEmpty="false" pretty="false"/>
 
-                <tr>
-                    <td class="small_bold">School end time</td>
-                    <td><gsweb:erts list="${responses.end_time}" pretty="false"/></td>
-                </tr>
+                <school:espTableRow label="School end time" list="${responses.end_time}" hideIfEmpty="false" pretty="false"/>
 
                 <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
                 <tr>

@@ -4,14 +4,17 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
         >
-
     <jsp:directive.attribute name="label" required="true" type="java.lang.String" description="Row label"/>
-    <jsp:directive.attribute name="hideIfEmpty" required="true" type="java.lang.Boolean" description="Hide row if missing" />
+    <jsp:directive.attribute name="hideIfEmpty" required="true" type="java.lang.Boolean" description="True to hide row if missing" />
     <jsp:directive.attribute name="value" required="false" description="Single value"/>
     <jsp:directive.attribute name="list" required="false" description="List value to comma-separate" />
+    <jsp:directive.attribute name="dlm" required="false" description="Delimiter for list" />
+    <jsp:directive.attribute name="pretty" required="false" type="java.lang.Boolean" description="False to use non-pretty value" />
+
+    <c:if test="${empty pretty}"><c:set var="pretty" value="${true}"/></c:if>
 
     <c:set var="myValue"><c:choose>
-        <c:when test="${not empty list}"><gsweb:erts list="${list}"/></c:when>
+        <c:when test="${not empty list}"><gsweb:erts list="${list}" dlm="${dlm}" pretty="${pretty}"/></c:when>
         <c:otherwise>${value}</c:otherwise></c:choose>
     </c:set>
 
