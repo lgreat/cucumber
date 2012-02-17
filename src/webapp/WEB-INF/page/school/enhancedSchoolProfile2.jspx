@@ -54,8 +54,9 @@
 
             <school:espTableRow label="Grade levels offered" value="${grade_levels}" hideIfEmpty="true"/>
 
+            <c:set var="pkStart"><gsweb:erts list="${responses.age_pk_start}"/></c:set>
             <school:espTableRow label="Age at which early childhood or Pre-K program begins"
-                                list="${responses.age_pk_start}" hideIfEmpty="true"/>
+                                value="${pkStart}" hideIfEmpty="true"/>
 
             <school:espTableRow label="School start time" value="${responses.start_time}" hideIfEmpty="false"
                                 pretty="false"/>
