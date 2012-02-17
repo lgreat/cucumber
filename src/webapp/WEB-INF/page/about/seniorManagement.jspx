@@ -44,6 +44,8 @@
             request.setAttribute("nicolet_school", _schoolDao.getSchoolById(State.WI, 531));
             request.setAttribute("taft_school", _schoolDao.getSchoolById(State.TX, 5179));
             request.setAttribute("york_school", _schoolDao.getSchoolById(State.CA, 15090));
+            request.setAttribute("alameda_school", _schoolDao.getSchoolById(State.CA, 1));
+            request.setAttribute("pinole_valley_school", _schoolDao.getSchoolById(State.CA, 605));
         } catch (Exception e) {
             // ignore
         }
@@ -146,8 +148,18 @@
                 San Francisco's top design consultancies including frog design, Cooper, and Punchcut. She is active in
                 the design community, speaking and giving workshops on product design and development that truly make a
                 difference in peoples' lives. Gretchen graduated with honors from Harvard University with a degree in
-                History and Literature. She's an alumni of Alameda High School, where she distinguished herself as a
-                nerd who wrote poetry and was involved in theater and cheerleading.
+                History and Literature. She's an alumni of
+                <c:choose>
+                    <c:when test="${alameda_school ne null}">
+                        <link:schoolProfileOverview
+                                school="${alameda_school}">Alameda High School</link:schoolProfileOverview>
+                    </c:when>
+                    <c:otherwise>
+                        Alameda High School
+                    </c:otherwise>
+                </c:choose>
+                , where she distinguished herself as a nerd who wrote poetry and was involved in theater and
+                cheerleading.
             </div>
         </td>
     </tr>
@@ -199,7 +211,7 @@
                 KQED's Forum and To the Best of Our Knowledge. Her bestselling book "Creating a Life Worth Living" was
                 published in 1997 by Harper Collins. It was at the
                 <c:choose>
-                    <c:when test="${lowell_school ne null}">
+                    <c:when test="${york_school ne null}">
                         <link:schoolProfileOverview
                                 school="${york_school}">York School</link:schoolProfileOverview>
                     </c:when>
@@ -253,8 +265,17 @@
                 teen media website. Vidya has led software development at both consumer and enterprise Internet
                 start-ups. She holds a degree in electrical engineering from Stanford University, a Masters in Public
                 Policy from UCLA, and an MBA from UCLA Anderson School of Management. Vidya is engaged in the performing
-                arts as a classical Indian dancer. She's an alumni of Pinole Valley High School, where she was on the
-                debate team and held the distinction of National Forensics League Point Leader.
+                arts as a classical Indian dancer. She's an alumni of
+                <c:choose>
+                    <c:when test="${pinole_valley_school ne null}">
+                        <link:schoolProfileOverview
+                                school="${pinole_valley_school}">Pinole Valley High School</link:schoolProfileOverview>
+                    </c:when>
+                    <c:otherwise>
+                        Pinole Valley High School
+                    </c:otherwise>
+                </c:choose>
+                , where she was on the debate team and held the distinction of National Forensics League Point Leader.
             </div>
         </td>
     </tr>
