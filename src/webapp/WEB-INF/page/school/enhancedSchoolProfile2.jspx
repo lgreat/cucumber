@@ -399,30 +399,39 @@
             </tr>
             </thead>
             <tbody>
-            </tbody>
-        </table>
 
-            <c:set var="artsMedia"><gsweb:erts list="${responses.arts_media}" /></c:set>
-            <c:if test="${not empty artsMedia and fn:toLowerCase(artsMedia) ne 'none'}"><p class="lbl">Arts - Media: <span class="val">${artsMedia}</span></p></c:if>
+            <c:set var="artsMedia"><gsweb:erts list="${responses.arts_media}"/></c:set>
+            <c:if test="${not empty artsMedia and fn:toLowerCase(artsMedia) ne 'none'}">
+                <school:espTableRow label="Arts - Media:" value="${artsMedia}" hideIfEmpty="false"/>
+            </c:if>
 
             <c:set var="artsMusic"><gsweb:erts list="${responses.arts_music}" /></c:set>
-            <c:if test="${not empty artsMusic and fn:toLowerCase(artsMusic) ne 'none'}"><p class="lbl">Arts - Music: <span class="val">${artsMusic}</span></p></c:if>
+            <c:if test="${not empty artsMusic and fn:toLowerCase(artsMusic) ne 'none'}">
+                <school:espTableRow label="Arts - Music:" value="${artsMusic}" hideIfEmpty="false"/>
+            </c:if>
 
             <c:set var="artsPerfWrtn"><gsweb:erts list="${responses.arts_performing_written}" /></c:set>
-            <c:if test="${not empty artsPerfWrtn and fn:toLowerCase(artsPerfWrtn) ne 'none'}"><p class="lbl">Arts - Performing and Written: <span class="val">${artsPerfWrtn}</span></p></c:if>
+            <c:if test="${not empty artsPerfWrtn and fn:toLowerCase(artsPerfWrtn) ne 'none'}">
+                <school:espTableRow label="Arts - Performing and Written:" value="${artsPerfWrtn}" hideIfEmpty="false"/>
+            </c:if>
 
             <c:set var="artsVisual"><gsweb:erts list="${responses.arts_visual}" /></c:set>
-            <c:if test="${not empty artsVisual and fn:toLowerCase(artsVisual) ne 'none'}"><p class="lbl">Arts - Visual: <span class="val">${artsVisual}</span></p></c:if>
+            <c:if test="${not empty artsVisual and fn:toLowerCase(artsVisual) ne 'none'}">
+                <school:espTableRow label="Arts - Visual:" value="${artsVisual}" hideIfEmpty="false"/>
+            </c:if>
 
-            <c:if test="${not empty boys_sports}"><p class="lbl">Boys Sports: <span class="val">${boys_sports}</span></p></c:if>
+            <school:espTableRow label="Boys Sports:" value="${boys_sports}" hideIfEmpty="true"/>
 
-            <c:if test="${not empty girls_sports}"><p class="lbl">Girls Sports: <span class="val">${girls_sports}</span></p></c:if>
+            <school:espTableRow label="Girls Sports:" value="${girls_sports}" hideIfEmpty="true"/>
 
-            <c:if test="${not empty student_clubs}"><p class="lbl">Student Clubs: <span class="val">${student_clubs}</span></p></c:if>
+            <school:espTableRow label="Student Clubs:" value="${student_clubs}" hideIfEmpty="true"/>
 
-            <c:if test="${not empty academicAwards}"><p class="lbl">Academic awards received in the past 3 years: <span class="val">${academicAwards}</span></p></c:if>
+            <school:espTableRow label="Academic awards received in the past 3 years:" value="${academicAwards}" hideIfEmpty="true"/>
 
-            <c:if test="${not empty serviceAwards}"><p class="lbl">Community service awards received in the past 3 years: <span class="val">${serviceAwards}</span></p></c:if>
+            <school:espTableRow label="Community service awards received in the past 3 years:" value="${serviceAwards}" hideIfEmpty="true"/>
+
+            </tbody>
+        </table>
 
         <!-- SECTION 5: School Culture -->
         <table>
