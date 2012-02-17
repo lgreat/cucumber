@@ -238,14 +238,17 @@ GS.validation.findErrorForField = function(selectorOrObject) {
     var field = selectorOrObject;
     var errorSelector = ".error";
 
+    // first look for the error element among siblings
     var errorObj = field.siblings().filter(errorSelector);
 
     // TODO: okay if length is more than 1? Allow there to be multiple errors per field?
     
+    // if we haven't found the error element, look at aunts and uncles
     if (errorObj.length === 0) {
         errorObj = field.parent().parent().find(errorSelector);
     }
 
+    // next, try to find the error by naming convention.
     if (errorObj.length === 0) {
         errorObj = $(field.attr('id') + GS.validation.ERROR_SUFFIX);
     }
@@ -260,6 +263,10 @@ GS.validation.showErrors = function(jQueryObj) {
         jQueryObj = $(jQueryObj);
     }
 
+    if (!jQueryObj instanceof jQuery) {
+        return;
+    }
+
     if (jQueryObj !== undefined && jQueryObj !== null && jQueryObj.length !== undefined && jQueryObj.length > 0) {
         jQueryObj.each(function() {
             $(this).show();
@@ -270,6 +277,10 @@ GS.validation.showErrors = function(jQueryObj) {
 GS.validation.hideErrors = function(jQueryObj) {
     if (typeof jQueryObj === 'string') {
         jQueryObj = $(jQueryObj);
+    }
+
+    if (!jQueryObj instanceof jQuery) {
+        return;
     }
 
     if (jQueryObj !== undefined && jQueryObj !== null && jQueryObj.length !== undefined && jQueryObj.length > 0) {
@@ -295,9 +306,14 @@ GS.validation.validateAndStylePhone = function(jQueryObject) {
     }
 
     var valid = true;
+
+    if (!jQueryObject instanceof jQuery) {
+        return true;
+    }
+
     var phone = jQueryObject.val();
 
-    if (phone.length > 0) {
+    if (phone !== undefined && phone.length > 0) {
         valid = GS.validation.TEN_DIGIT_PHONE_PATTERN.test(phone);
     }
 
@@ -313,6 +329,10 @@ GS.validation.validateAndStylePhone = function(jQueryObject) {
 GS.validation.validateAndStylePhoneParts = function(jQueryObject) {
     if (typeof jQueryObject === 'string') {
         jQueryObject = $(jQueryObject);
+    }
+
+    if (!jQueryObject instanceof jQuery) {
+        return true;
     }
 
     var siblingsAndSelf = jQueryObject.parent().children().filter('input');
@@ -335,6 +355,10 @@ GS.validation.validateAndStylePhoneParts = function(jQueryObject) {
 GS.validation.validatePhoneParts = function(jQueryObject) {
     if (typeof jQueryObject === 'string') {
         jQueryObject = $(jQueryObject);
+    }
+
+    if (!jQueryObject instanceof jQuery) {
+        return true;
     }
 
     // TODO: make multi-part field validation more generic
