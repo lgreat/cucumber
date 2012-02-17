@@ -158,12 +158,12 @@
 
                     <div class="alpha grid_18 omega">
                         <div class="grid_2 alpha">
-                            <school:espCheckboxWithLabel key="contact_method" value="email" label="Email:" nobr="${true}"/>
+                            <school:espCheckboxWithLabel key="contact_method" value="email" label="Email:" styleClass="js_otherField_form_contact_method_email" nobr="${true}"/>
                         </div>
 
                         <div class="grid_6">
                             <gsml:input type="text" value="${responseMap['contact_method_email'].value}" styleId="form_contact_method_email"
-                                        name="contact_method_email" styleClass="text input_6" disabled="${stateLocked}" placeholder="[Enter email]" maxlength="100"/>
+                                        name="contact_method_email" styleClass="text input_6 js_otherField" disabled="${stateLocked}" placeholder="[Enter email]" maxlength="100"/>
 
                         </div>
 
@@ -179,12 +179,12 @@
 
                     <div class="alpha grid_18 omega">
                         <div class="alpha grid_2">
-                            <school:espCheckboxWithLabel key="contact_method" value="phone" label="Phone:" nobr="${true}"/>
+                            <school:espCheckboxWithLabel key="contact_method" value="phone" label="Phone:" styleClass="js_otherField_form_contact_method_phone" nobr="${true}"/>
                         </div>
 
                         <div class="grid_6">
                             <gsml:input type="text" value="${responseMap['contact_method_phone'].value}" styleId="form_contact_method_phone"
-                                        name="contact_method_phone" styleClass="text input_6 js-val-phone" disabled="${stateLocked}" placeholder="[Enter number]" maxlength="10"/>
+                                        name="contact_method_phone" styleClass="text input_6 js-val-phone js_otherField" disabled="${stateLocked}" placeholder="[Enter number]" maxlength="10"/>
 
                         </div>
 

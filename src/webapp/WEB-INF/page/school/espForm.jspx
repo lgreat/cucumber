@@ -35,10 +35,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>GreatSchools Official School Profile, ${tabTitle} - ${school.name}, ${school.physicalAddress.city}, ${school.databaseState}</title>
         <style type="text/css">
-
-            #photoUploaderButtons {
-                background-color:#EBEBEB;
-                padding:6px;
+            .placeholder {
+                color: #aaa;
             }
 
             #photoUploaderSpinner {
@@ -48,7 +46,7 @@
                 top: -25px;
             }
 
-            #jsUploadComplete, #jsUploadError {
+            /*#jsUploadComplete, #jsUploadError {
                 display: none;
                 position: relative;
                 padding: 8px;
@@ -60,7 +58,7 @@
                 background: #fafafa;
                 font-weight: bold;
                 float:left;
-            }
+            }*/
 
             #jsUploadError {
                 color: red;

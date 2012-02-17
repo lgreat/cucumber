@@ -105,13 +105,19 @@ GS.util.isAttributeSupported = function(tagName, attrName) {
 };
 
 // patch jQuery's val method so that it will return empty string as value if value is equal to placeholder
-GS.originalJQueryVal = $.fn.val;
+$.fn.valIncludingPlaceholder = $.fn.val;
 $.fn.val = function (value) {
+    var field = $(this);
     if (typeof value == 'undefined') {
-        return $(this).attr("value") === $(this).attr("placeholder") ? "" : $(this).attr("value");
+        var realVal = field.valIncludingPlaceholder();
+        return realVal === field.attr("placeholder") ? "" : realVal;
     }
 
-    return GS.originalJQueryVal.call(this, value);
+    return field.valIncludingPlaceholder(value);
+};
+$.fn.valEqualsPlaceholder = function() {
+    var field = $(this);
+    return field.valIncludingPlaceholder() === field.attr("placeholder");
 };
 
 GS.form.GHOST_TEXTABLE_INPUT_SELECTOR = "input[placeholder]";
@@ -128,28 +134,24 @@ GS.form.findAndApplyGhostTextSwitching = function(containerSelector) {
         var jQueryObject = $(this);
         var ghostText = jQueryObject.attr('placeholder');
         if (eventData.type === 'focus') {
-            if (jQueryObject.val() === ghostText) {
+            if (jQueryObject.valEqualsPlaceholder()) {
                 jQueryObject.val('');
+                jQueryObject.removeClass('placeholder');
             }
         } else if (eventData.type === 'blur') {
             if (jQueryObject.val().length === 0) {
                 jQueryObject.val(ghostText);
+                jQueryObject.addClass('placeholder');
             }
         }
     });
     // set up initial state of items on page
-    ghostTextableInputs.each(function() {
-        var jQueryObject = $(this);
-        var ghostText = jQueryObject.attr('placeholder');
-        if (jQueryObject.val().length === 0) {
-            jQueryObject.val(ghostText);
-        }
-    });
+    ghostTextableInputs.blur();
 };
 GS.form.clearGhostTextOnInputs = function(containerSelector) {
     $(containerSelector + ' ' + GS.form.GHOST_TEXTABLE_INPUT_SELECTOR).each(function() {
        var jQueryObject = $(this);
-        if (jQueryObject.val() === jQueryObject.attr('placeholder')) {
+        if (jQueryObject.valEqualsPlaceholder()) {
             jQueryObject.val('');
         }
     });
@@ -159,7 +161,7 @@ GS.form.findInputsWithGhostTextAsValue = function(containerSelector) {
     var inputsWithGhostText = [];
     $(containerSelector + ' ' + GS.form.GHOST_TEXTABLE_INPUT_SELECTOR).each(function() {
         var jQueryObject = $(this);
-        if (jQueryObject.val() === jQueryObject.attr('placeholder')) {
+        if (jQueryObject.valEqualsPlaceholder()) {
             inputsWithGhostText.push(jQueryObject.attr('name'));
         }
     });
@@ -419,8 +421,7 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
             formFields.each(function() {
                 var field = jQuery(this);
                 var fieldVal = jQuery.trim(field.val());
-                var ghostText = (field.attr('placeholder') === '' || field.attr('placeholder') === undefined ) ? '' : field.attr('placeholder');
-                if (fieldVal === "" || fieldVal === ghostText) {
+                if (fieldVal === "" || field.valEqualsPlaceholder()) {
                     isValid = false;
                     return false;
                 }
@@ -462,8 +463,7 @@ GS.validation.validateRequiredIfNotEmpty = function(fieldSelector, fieldInputSel
     inputFields.each(function() {
         var field = jQuery(this);
         var fieldVal = field === undefined ? '' : jQuery.trim(field.val());
-        var ghostText = (field.attr('placeholder') === '' || field.attr('placeholder') === undefined ) ? '' : field.attr('placeholder');
-        if (fieldVal !== "" && fieldVal !== ghostText) {
+        if (fieldVal !== "" && !field.valEqualsPlaceholder()) {
             checkRequired = true;
             //Return false is used to break out of the each loop.
             return false;
@@ -756,8 +756,11 @@ new (function() {
 
         var isValidSchoolPhone = GS.validation.validateAndStylePhoneParts('#form_school_phone_area_code');
         var isValidSchoolFax = GS.validation.validateAndStylePhoneParts('#form_school_fax_area_code');
-        var isValidContactMethodPhone = GS.validation.validateAndStylePhone('#form_contact_method_phone');
-        var isValidContactMethodEmail = GS.validation.validateEmail('#form_contact_method_email', '#form_contact_method_email_error');
+        var isValidContactMethodPhone = GS.validation.validateRequiredIfChecked('#form_contact_method_phone', '#form_contact_method__phone', '#form_contact_method_phone_error')
+            && GS.validation.validateAndStylePhone('#form_contact_method_phone');
+        var isValidContactMethodEmail = GS.validation.validateRequiredIfChecked('#form_contact_method_email', '#form_contact_method__email', '#form_contact_method_email_error')
+            && GS.validation.validateEmail('#form_contact_method_email', '#form_contact_method_email_error');
+        var isValidContactMethodOther = GS.validation.validateRequiredIfChecked('#form_contact_method_other', '#form_contact_method__other', '#form_contact_method_email_other');
 
         // END PAGE 7
 
@@ -811,7 +814,7 @@ new (function() {
         // to become checked when the text field is modified to contain text.
         formWrapper.on('change', '.js_otherField', function() {
             var field = $(this);
-            if (field.val().length > 0 && field.val() != field.attr('placeholder')) {
+            if (field.val().length > 0 && !field.valEqualsPlaceholder()) {
                 var otherField = formWrapper.find('.js_otherField_' + this.id);
                 otherField.prop('checked', true);
             }
