@@ -47,25 +47,21 @@
                 <div class="alpha grid_7">
                     <p class="labelGroup">How do parents get involved at your school?</p>
                 </div>
-                <div class="grid_5">
-                    <school:espCheckboxWithLabel key="parent_involvement" value="other_contact" label="Other"/>
+                <div class="grid_9 omega">
+                    <school:espCheckboxWithLabel key="parent_involvement" value="none" label="None"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="parent_nights_req" label="Attend parent nights"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="chaperone_req" label="Chaperone school trips"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="coach_req" label="Coach sports teams or extracurricular activities"/>
-                </div>
-                <div class="grid_5">
                     <school:espCheckboxWithLabel key="parent_involvement" value="pto_pta_req" label="Join PTO/PTA"/>
+                    <school:espCheckboxWithLabel key="parent_involvement" value="playground_req" label="Monitor the playground"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="cultural_req" label="Organize cultural events"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="fundraising_req" label="Organize fundraising events (school auction, bake sales, etc.)"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="presentation_req" label="Present special topics during curricular units"/>
-                </div>
-                <div class="grid_6 omega">
                     <school:espCheckboxWithLabel key="parent_involvement" value="governance_req" label="Serve on school improvement team or governance council"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="tutor_req" label="Tutor"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="classroom_req" label="Volunteer in the classroom"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="after_school_req" label="Volunteer time after school"/>
-                    <school:espCheckboxWithLabel key="parent_involvement" value="other" label="Other"
-                                                 styleClass="js_otherField_form_parent_involvement_other" nobr="true"/>
+                    <school:espCheckboxWithLabel key="parent_involvement" value="other_contact" label="Other" styleClass="js_otherField_form_parent_involvement_other" nobr="true"/>
                     <gsml:input styleId="form_parent_involvement_other" styleClass="mls js_otherField text input_4" type="text"
                            name="parent_involvement_other" value="${responseMap['parent_involvement_other'].value}"
                            maxlength="40" placeholder="[Please indicate]"/>

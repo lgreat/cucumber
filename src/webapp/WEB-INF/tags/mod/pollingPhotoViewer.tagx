@@ -16,8 +16,7 @@
         <c:set var="startPolling" value="${true}"/>
     </c:if>
 
-    <c:if test="${fn:length(existingPhotos) gt 0}">
-        <c:set var="numberOfExistingPhotos" value="${fn:length(existingPhotos)}"/>
+    <c:set var="numberOfExistingPhotos" value="${fn:length(existingPhotos)}"/>
 
         <div id="pollingPhotoViewer">
             <div style="display:none;" id="js-photo-template" class="polling-photo-viewer-item">
@@ -28,6 +27,11 @@
                       alt="placeholder"/>
                 <span class="js-deletePhoto deletePhoto">X</span>
             </div>
+            <c:if test="${numberOfExistingPhotos eq 0}">
+                <div id="js-noPhotosYet">
+                    <p>No existing photos</p>
+                </div>
+            </c:if>
             <c:forEach items="${existingPhotos}" var="existingPhoto">
                 <div id="js-pollingPhotoViewerItem-${existingPhoto.id}" class="polling-photo-viewer-item">
                     <c:choose>
@@ -58,7 +62,6 @@
             <br class="clearfloat" />
             <br/><br/>
         </div>
-    </c:if>
 
     <mod:photoDeleteConfirmHover/>
 

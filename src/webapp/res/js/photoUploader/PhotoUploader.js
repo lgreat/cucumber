@@ -114,7 +114,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.styleUploading = function() {
-        this.container.fadeTo('slow', 0.7);
         this.uploadButton.prop('disabled',true);
         this.uploadButton.removeClass('button-1');
         this.uploadButton.addClass('button-1-inactive');
@@ -134,6 +133,9 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.styleDone = function() {
         //this.container.fadeTo('slow', 1);
         this.spinner.hide();
+        this.queueButton.addClass('button-1');
+        this.queueButton.removeClass('button-1-inactive');
+        this.queueButton.prop('disabled',false);
     }.gs_bind(this);
 
     this.startUpload = function() {
@@ -157,6 +159,13 @@ GS.PhotoUploader.prototype.createUploader = function() {
             this.uploadCompleteOverlay.show();
         }
         jQuery('.deleteFileUpload').off('click');
+
+        // add a namespaced event to remove all photos in uploader list the next time they click the queue button.
+        this.queueButton.on('click.removeAllOnceIfDoneUploading', function() {
+            this.removeAllItems();
+            this.queueButton.off('click.removeAllOnceIfDoneUploading');
+        }.gs_bind(this));
+
         this.styleDone();
     }.gs_bind(this);
 
@@ -251,6 +260,15 @@ GS.PhotoUploader.prototype.createUploader = function() {
         var tableBody = this.container.find('table tbody');
         tableBody.find('tr:eq('+ parseInt(position) +')').after(htmlblock);
         tableBody.find('tr:eq('+ parseInt(position) + ')').remove();
+    }.gs_bind(this);
+
+    this.removeAllItems = function() {
+        var numberOfItems = this.uploader.files.length;
+        while (this.uploader.files.length > 0) {
+            var file = this.uploader.files[this.uploader.files.length-1];
+            this.removeItem(file.id);
+            this.uploader.removeFile(file);
+        }
     }.gs_bind(this);
 
     this.removeItem = function(id) {
@@ -391,6 +409,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
                                 self.numberPending-=1;
                             }
                         } else if (domPhoto.length == 0) {
+                            jQuery('#js-noPhotosYet:visible').hide();
                             var newPhotoContainer = jQuery('#js-photo-template').clone();
                             newPhotoContainer.prop('id','js-pollingPhotoViewerItem-' + photos[i].id);
                             newPhotoContainer.find('#' + self.IMG_ID_PREFIX + 'placeholder').prop('id',imgId);
@@ -401,6 +420,7 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
                         }
                     } else if (photos[i].statusAsString === self.STATUS_PENDING) {
                         if (jQuery(self.container).has('#' + imgId).length === 0) {
+                            jQuery('#js-noPhotosYet:visible').hide();
                             var newPhotoContainer = jQuery('#js-photo-template').clone();
                             newPhotoContainer.prop('id','js-pollingPhotoViewerItem-' + photos[i].id);
                             newPhotoContainer.find('#' + self.IMG_ID_PREFIX + 'placeholder').prop('id',imgId);
