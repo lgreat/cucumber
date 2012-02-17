@@ -52,9 +52,9 @@
 
                 <school:espTableRow label="Age at which early childhood or Pre-K program begins" list="${responses.age_pk_start}" hideIfEmpty="true"/>
 
-                <school:espTableRow label="School start time" list="${responses.start_time}" hideIfEmpty="false" pretty="false"/>
+                <school:espTableRow label="School start time" value="${responses.start_time}" hideIfEmpty="false" pretty="false"/>
 
-                <school:espTableRow label="School end time" list="${responses.end_time}" hideIfEmpty="false" pretty="false"/>
+                <school:espTableRow label="School end time" value="${responses.end_time}" hideIfEmpty="false" pretty="false"/>
 
                 <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
                 <tr>
@@ -64,19 +64,9 @@
                     </td>
                 </tr>
 
-                <c:if test="${not empty administrator_name}">
-                    <tr>
-                        <td class="small_bold">School Leader's name</td>
-                        <td>${administrator_name}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="School Leader's name" value="${administrator_name}" hideIfEmpty="true"/>
 
-                <c:if test="${not empty administrator_email}">
-                    <tr>
-                        <td class="small_bold">School Leader's email</td>
-                        <td>${administrator_email}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="School Leader's email" value="${administrator_email}" hideIfEmpty="true"/>
 
                 <c:set var="cmEmail"><gsweb:erts list="${responses.contact_method_email}" /></c:set>
                 <c:set var="cmPhone"><gsweb:erts list="${responses.contact_method_phone}" /></c:set>
@@ -112,12 +102,7 @@
                     </tr>
                 </c:if>
 
-                <c:if test="${not empty transportation}">
-                    <tr>
-                        <td class="small_bold">Transportation provided for students by the school / district</td>
-                        <td>${transportation}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="Transportation provided for students by the school / district" value="${transportation}" hideIfEmpty="true"/>
 
                 <c:set var="transportationShuttle"><gsweb:erts list="${responses.transportation_shuttle}" /></c:set>
                 <c:set var="transportationShuttleOther"><gsweb:erts list="${responses.transportation_shuttle_other}" /></c:set>
@@ -128,20 +113,10 @@
                     </tr>
                 </c:if>
 
-                <c:if test="${not empty instructional_model}">
-                    <tr>
-                        <td class="small_bold">Instructional and/or curriculum models used</td>
-                        <td>${instructional_model}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="Instructional and/or curriculum models used" value="${instructional_model}" hideIfEmpty="true"/>
 
                 <c:set var="acadFocus"><gsweb:erts list="${responses.academic_focus}" /></c:set>
-                <c:if test="${not empty acadFocus}">
-                    <tr>
-                        <td class="small_bold">Special academic themes or areas of focus</td>
-                        <td>${acadFocus}</td>
-                    </tr>
-                </c:if>
+                <school:espTableRow label="Special academic themes or areas of focus" value="${acadFocus}" hideIfEmpty="true"/>
 
                 <c:set var="immersion"><gsweb:erts list="${responses.immersion}" /></c:set>
                 <c:set var="immersionLanguages"><gsweb:erts list="${responses.immersion_languages}" dlm="; "/></c:set>
