@@ -760,7 +760,7 @@ new (function() {
             && GS.validation.validateAndStylePhone('#form_contact_method_phone');
         var isValidContactMethodEmail = GS.validation.validateRequiredIfChecked('#form_contact_method_email', '#form_contact_method__email', '#form_contact_method_email_error')
             && GS.validation.validateEmail('#form_contact_method_email', '#form_contact_method_email_error');
-        var isValidContactMethodOther = GS.validation.validateRequiredIfChecked('#form_contact_method_other', '#form_contact_method__other', '#form_contact_method_email_other');
+        var isValidContactMethodOther = GS.validation.validateRequiredIfChecked('#form_contact_method_other', '#form_contact_method__other', '#form_contact_method_other_error');
 
         // END PAGE 7
 
@@ -768,7 +768,7 @@ new (function() {
             isValidAdministratorEmail && isValidSpecialEdPrograms && isValidSchedule && isValidPostGraduationYear &&
             isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
             isValidPostGraduationVocational && isValidPostGraduationWorkforce &&
-            isValidSchoolPhone && isValidSchoolFax && isValidContactMethodPhone && isValidContactMethodEmail;
+            isValidSchoolPhone && isValidSchoolFax && isValidContactMethodPhone && isValidContactMethodEmail && isValidContactMethodOther;
     };
 
     if (GS.history5Enabled) {
@@ -903,9 +903,9 @@ new (function() {
             var currentLength = textarea.val().length;
             var characterCountElement = textarea.parent().find('.js-charactersLeft');
             if (currentLength === maxLength-1) {
-                characterCountElement.html("1 character left.");
+                characterCountElement.html("1 character remaining.");
             } else {
-                characterCountElement.html(parseInt(maxLength - currentLength).toString() + " characters left.");
+                characterCountElement.html(parseInt(maxLength - currentLength).toString() + " characters remaining.");
             }
         });
 
