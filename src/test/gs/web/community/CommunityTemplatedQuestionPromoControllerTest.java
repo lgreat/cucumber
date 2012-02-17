@@ -150,8 +150,8 @@ public class CommunityTemplatedQuestionPromoControllerTest extends CommunityQues
 
         ITableRow row = createMock(ITableRow.class);
         expect(row.getColumnNames()).andReturn(new HashSet<Object>(columnSet));
-        expect(row.get("text")).andReturn(textWithoutTarget);
-        expect(row.get("link")).andReturn(linkWithoutTarget);
+        expect(row.get("text")).andReturn(textWithoutTarget).anyTimes();
+        expect(row.get("link")).andReturn(textWithoutTarget).anyTimes();
         expect(row.get("linktext")).andReturn(linkTextWithoutTarget);
         replay(row);
         assertTrue("Since linktext is templated, the row is templated", _controller.isTemplated(row));
