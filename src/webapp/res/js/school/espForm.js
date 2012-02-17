@@ -514,7 +514,7 @@ GS.validation.validateUrl = function(url) {
     return GS.validation.URL_PATTERN.test(url);
 };
 
-GS.validation.EMAIL_PATTERN = /^(.+)@(.+)$/;
+GS.validation.EMAIL_PATTERN = /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$/;
 // GS.validation.EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/;
 GS.validation.LEGAL_ASCII_PATTERN = /^[\000-\\177]+$/;
 
