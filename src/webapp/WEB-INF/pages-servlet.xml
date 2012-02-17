@@ -281,6 +281,8 @@
           autowire="byName" lazy-init="true"/>
     <bean id="submitPrivateSchoolCommandValidator" class="gs.web.util.validator.SubmitPrivateSchoolCommandValidator"
           autowire="byName" lazy-init="true"/>
+    <bean id="addEditSchoolOrDistrictCommandValidator" class="gs.web.util.validator.AddEditSchoolOrDistrictCommandValidator"
+          autowire="byName" lazy-init="true"/>
     <bean id="emailVerificationLinkValidator" class="gs.web.community.registration.EmailVerificationLinkValidator"
           autowire="byName" lazy-init="true"/>
     <bean id="schoolSearchCommandValidator" class="gs.web.search.SchoolSearchCommandValidator"
@@ -2240,6 +2242,19 @@
         <property name="fromEmail" value="gs_support@greatschools.org"/>
         <property name="type" value="private school"/>
     </bean>
+
+    <bean name="/about/feedback/addEditSchoolOrDistrict.page"
+          class="gs.web.about.feedback.AddEditSchoolOrDistrictController"
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="addEditSchoolOrDistrictCommand"/>
+        <property name="commandClass" value="gs.web.about.feedback.AddEditSchoolOrDistrictCommand"/>
+        <property name="formView" value="/about/feedback/addEditSchoolOrDistrict"/>
+        <property name="successView" value="/about/feedback/addEditSchoolOrDistrictConfirm"/>
+        <!-- <property name="fromEmail" value="gs_support@greatschools.org"/>
+        <property name="type" value="private school"/>   -->
+    </bean>
+
 
     <!-- directory structure url beans - start -->
     <!-- see also directoryStructureUrlHandlerMapping -->

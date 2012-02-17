@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:form="http://www.springframework.org/tags/form"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:hideFooterAd/>
+<pageHelper:externalJavascript file="http://api.recaptcha.net/js/recaptcha_ajax.js"/>
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="Description" content="Add or edit your school or district on the GreatSchools web site"/>
+    <title>Add or edit your school or district on the GreatSchools web site</title>
+    <script type="text/javascript">
+        <![CDATA[
+        //<!--
+        var $j = jQuery;
+        $("#addEditSchoolOrDistrictCommand_state").change(function() {
+            alert("state change!");
+            $j.ajax({
+                url: '/community/registrationAjax.page',
+                dataType: 'text',
+                data: ({
+                    'state' : $("#addEditSchoolOrDistrictCommand_state").val(),
+                    'type' : 'cityOptions'
+                }),
+                success: function(data) {
+                    $("#addEditSchoolOrDistrictCommand_cityName").html(data);
+                }
+            });
+        });
+
+        $("#addEditSchoolOrDistrictCommand_cityName").change(function() {
+            $j.ajax({
+                url: '/test/schoolsInCity.page',
+                dataType: 'text',
+                data: ({
+                    state : $("#addEditSchoolOrDistrictCommand_state").val(),
+                    city : $("#addEditSchoolOrDistrictCommand_cityName").val(),
+                    printOptionsOnly: 'true',
+                    includePrivateSchools: 'true',
+                    chooseSchoolLabel: '- Choose School -'
+                }),
+                success: function(data) {
+                    $("#addEditSchoolOrDistrictCommand_schoolId").html(data);
+                }
+            });
+        });
+
+        $("#addEditSchoolOrDistrictCommand_schoolId").change(function() {
+            $("#schoolName").val("hello")
+        });
+
+        function doSomething() {
+
+        }
+
+        function temp(){
+
+            do_radio_school_district();
+            $('input:radio[name=radio_school_district]').click(function () {
+                do_radio_school_district();
+            });
+
+            do_checkbox_grades();
+            $('input:checkbox[name=checkbox_grades]').click(function () {
+                do_checkbox_grades();
+            });
+
+            do_radio_school_type();
+            $('input:radio[name=radio_school_type]').click(function () {
+                do_radio_school_type();
+            });
+
+        }
+        //});
+
+        function do_school_type(){
+        }
+        function do_add_edit(state){
+            if($('input:radio[name=addEdit]:checked').val() == 'edit'){
+                $("#div_grades").hide();
+                $("#div_school_type").hide();
+                $("#div_choose_state").show();
+                $("#addEditSchoolOrDistrictCommand_state").val(state);
+
+
+                //alert("hello");
+                $("#addEditSchoolOrDistrictCommand_state").change(function() {
+                    //alert("state change!");
+                    $j.ajax({
+                        url: '/community/registrationAjax.page',
+                        dataType: 'text',
+                        data: ({
+                            'state' : $("#addEditSchoolOrDistrictCommand_state").val(),
+                            'type' : 'cityOptions'
+                        }),
+                        success: function(data) {
+                            $("#addEditSchoolOrDistrictCommand_cityName").html(data);
+                        }
+                    });
+                });
+
+                $("#addEditSchoolOrDistrictCommand_cityName").change(function() {
+                    $j.ajax({
+                        url: '/test/schoolsInCity.page',
+                        dataType: 'text',
+                        data: ({
+                            state : $("#addEditSchoolOrDistrictCommand_state").val(),
+                            city : $("#addEditSchoolOrDistrictCommand_cityName").val(),
+                            printOptionsOnly: 'true',
+                            includePrivateSchools: 'true',
+                            chooseSchoolLabel: '- Choose School -'
+                        }),
+                        success: function(data) {
+                            $("#addEditSchoolOrDistrictCommand_schoolId").html(data);
+                        }
+                    });
+                });
+
+                $("#addEditSchoolOrDistrictCommand_schoolId").change(function() {
+                    $j.ajax({
+                        url: '/about/feedback/addEditSchoolOrDistrictAjax.page',
+                        dataType: 'text',
+                        data: ({
+                            'state' : $("#addEditSchoolOrDistrictCommand_state").val(),
+                            'schoolId' : $("#addEditSchoolOrDistrictCommand_schoolId").val()
+                        }),
+                        success: function(data) {
+                            //$("#addEditSchoolOrDistrictCommand_cityName").html(data);
+                            $("#schoolName").val(data);
+                        }
+                    });
+                    //$("#schoolName").val($("#addEditSchoolOrDistrictCommand_schoolId").val());
+                });
+
+
+            }
+            if($('input:radio[name=addEdit]:checked').val() == 'add'){
+                //alert("doing add edit " + state);
+                $("#div_choose_state").hide();
+                $("#div_grades").show();
+                $("#div_school_type").show();
+            }
+
+            /*
+            jQuery(function() {
+                var $j = jQuery;
+                var feedbackTypes = '${feedbackCommand.feedbackType}'.split('_');
+                var feedbackType = feedbackTypes[0];
+                var subFeedbackType = "";
+                if (feedbackTypes.length > 1) {
+                    subFeedbackType = feedbackTypes[1];
+                }
+
+                var mainSelect = $j('#mainFeedbackTopicSelect');
+                mainSelect.change(function() {
+                    var selectedValue = mainSelect.val();
+                    if (selectedValue == '') {
+                        return;
+                    }
+                    if (selectedValue == 'incorrectSchoolDistrictInfo') {
+                        window.location.href = "/about/feedback/addEditSchoolOrDistrict.page";
+                        //window.location.href = "${addEditURL}";
+                        return;
+                    }
+                    $j('div.jqFeedback').hide();
+                    $j('#' + selectedValue + 'Feedback').show();
+                    if (selectedValue == 'schoolRatingsReviews' || selectedValue == 'esp' || selectedValue == 'join') {
+                        var captchaDiv = selectedValue + '_captcha';
+                        Recaptcha.create(
+                                "6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL",
+                                captchaDiv,
+                                {
+                                    theme: "white"
+                                });
+                    }
+                });
+
+                if (feedbackType != 'defaultOption') {
+                    $("#mainFeedbackTopicSelect option[value='" + feedbackType + "']").prop('selected', true);
+                    mainSelect.change()
+                }
+
+                var incorrectSchoolSubSelect = $j("#incorrectSchoolDistrictSubTopicSelect");
+                incorrectSchoolSubSelect.change(function() {
+                    var selectedValue = incorrectSchoolSubSelect.val();
+                    if (selectedValue == '') {
+                        return;
+                    }
+                    $j('div.jqIncorrectSchoolDistrictSubFeedback').hide();
+                    $j('#' + selectedValue + 'SubFeedback').show();
+                    if (selectedValue == 'incorrectSchool' || selectedValue == 'incorrectDistrict') {
+                        var captchaDiv = selectedValue + '_captcha';
+                        Recaptcha.create(
+                                "6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL",
+                                captchaDiv,
+                                {
+                                    theme: "white"
+                                });
+                    }
+
+                });
+                if (feedbackType == 'incorrectSchoolDistrictInfo' && (subFeedbackType == 'incorrectSchool' || subFeedbackType == 'incorrectDistrict')) {
+                    $j("#incorrectSchoolDistrictSubTopicSelect option[value='" + subFeedbackType + "']").prop('selected', true);
+                    incorrectSchoolSubSelect.change()
+                }
+
+                var setupStateCityAjax = function (selector) {
+                    var stateSelect = $j('#' + selector + '\\.state');
+                    var citySelect = $j('#' + selector + '\\.cityName');
+                    var schoolSelect = $j('#' + selector + '\\.schoolId');
+
+                    stateSelect.change(function() {
+                        alert("hello");
+                        $j.ajax({
+                            url: '/community/registrationAjax.page',
+                            dataType: 'text',
+                            data: ({
+                                'state' : stateSelect.val(),
+                                'type' : 'cityOptions'
+                            }),
+                            success: function(data) {
+                                citySelect.html(data);
+                            }
+                        });
+                    });
+
+                    citySelect.change(function() {
+                        alert("hello");
+                        $j.ajax({
+                            url: '/test/schoolsInCity.page',
+                            dataType: 'text',
+                            data: ({
+                                state : stateSelect.val(),
+                                city : citySelect.val(),
+                                printOptionsOnly: 'true',
+                                includePrivateSchools: 'true',
+                                chooseSchoolLabel: '- Choose School -'
+                            }),
+                            success: function(data) {
+                                schoolSelect.html(data);
+                            }
+                        });
+                    });
+                };
+
+                setupStateCityAjax("addEditSchoolOrDistrictCommand");
+                setupStateCityAjax("schoolRatingsReviewsFields");
+                setupStateCityAjax("espFields");
+
+                // Do this last
+                mainSelect.prop("disabled", false);
+
+                var mainReset = $j('#mainFeedbackTopicSelect');
+                mainReset.change(function(){
+                    var selectedValue = mainReset.val();
+                    $('strong.errorMessage1').remove();
+                    $('#confirmText').hide();
+                    if(selectedValue == 'defaultOption') {
+                        $('#defaultOptionFeedback').show();
+                    }
+                });
+                var subReset = $j("#incorrectSchoolDistrictSubTopicSelect");
+                subReset.change(function(){
+                    $('strong.errorMessage1').remove();
+                    $('#confirmText').hide();
+
+                });
+
+            });
+            */
+
+        }
+
+        function do_radio_school_district(){
+            if($('input:radio[name=schoolOrDistrict]:checked').val() == 'school'){
+                $("#div_radio_add_edit").show();
+            }
+
+        }
+
+        function do_checkbox_grades(){
+            if($("#checkbox_grades_preschool").is(':checked')){
+                $("#div_content_checkbox_grades_preschool").slideDown("slow");
+            }else{
+                $("#div_content_checkbox_grades_preschool").slideUp("slow");
+            }
+            if($("#checkbox_grades_kindergarten").is(':checked')){
+                $("#div_content_checkbox_grades_kindergarten").slideDown("slow");
+            }else{
+                $("#div_content_checkbox_grades_kindergarten").slideUp("slow");
+            }
+            if($("#checkbox_grades_non_preschool").is(':checked')){
+                $("#div_content_checkbox_grades_non_preschool").slideDown("slow");
+            }else{
+                $("#div_content_checkbox_grades_non_preschool").slideUp("slow");
+            }
+        }
+
+        function do_radio_school_type(){
+            if($("#radio_school_type_public").is(':checked')){
+                $("#div_content_radio_school_type_public").slideDown("slow");
+            }else{
+                $("#div_content_radio_school_type_public").slideUp("slow");
+            }
+            if($("#radio_school_type_charter").is(':checked')){
+                $("#div_content_radio_school_type_charter").slideDown("slow");
+            }else{
+                $("#div_content_radio_school_type_charter").slideUp("slow");
+            }
+            if($("#radio_school_type_private").is(':checked')){
+                $("#div_content_radio_school_type_private").slideDown("slow");
+            }else{
+                $("#div_content_radio_school_type_private").slideUp("slow");
+            }
+        }
+
+
+
+
+
+        $(document).ready(function(){
+                         /*
+            jQuery(function() {
+                var $j = jQuery;
+
+                var stateSelect = $j('#' + "addEditSchoolOrDistrictCommand" + '\\.state');
+
+                $j.ajax({
+                    url: '/community/registrationAjax.page',
+                    dataType: 'text',
+                    data: ({
+                        'state' : stateSelect.val(),
+                        'type' : 'cityOptions'
+                    }),
+                    success: function(data) {
+                        citySelect.html(data);
+                    }
+                });
+            });
+             */
+
+            do_radio_school_district();
+            do_add_edit($("#addEditSchoolOrDistrictCommand_state").val());
+
+            do_school_type();
+
+
+            Recaptcha.create(
+                    "6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL",
+                    "addEdit_captcha",
+                    {
+                        theme: "white"
+                    });
+
+
+        });
+
+
+
+
+
+        //-->
+        ]]>
+    </script>
+
+    <pageHelper:externalCss file="/res/css/about/feedback/addEditSchoolOrDistrict.css"/>
+</head>
+
+<gsml:body adPageName="addEditSchoolOrDistrict" pageLayout="nocol">
+
+<div class="content">
+
+<div class="pageTitle">
+    <h2>Add or edit your school or district on the GreatSchools web site</h2>
+</div>
+
+<form:form action="/about/feedback/addEditSchoolOrDistrict.page" method="post"    commandName="addEditSchoolOrDistrictCommand"
+
+            id="addEdit"
+             onsubmit="addEdit_challenge.value = Recaptcha.get_challenge(); addEdit_response.value = Recaptcha.get_response();">
+
+
+
+
+<div class="field">
+    <div class="fieldLabel">Your name <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.submitterName">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="submitterName" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Your email address <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.submitterEmail">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="submitterEmail" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Re-enter your email for verification <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.submitterEmailConfirm">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="submitterEmailConfirm" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field">
+    <div class="fieldLabel">Your connection to the school <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.submitterConnectionToSchool">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="submitterConnectionToSchool" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="personalInfoMessage">
+    Your personal information is confidential and will only be used in case we need to contact you
+    to follow up on the school you submit.<br/>
+    Please see our
+    <link:privacyPolicy target="_blank">Privacy Policy</link:privacyPolicy> for more information.
+</div>
+
+<div class="field" id="div_radio_school_district">
+    <div class="fieldLabel">Is this a school or district? <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.schoolOrDistrict">
+            <c:forEach var="myTc" items="${requestScope.schoolOrDistrict}">
+                <gsml:radio name="${status.expression}" value="${myTc}"
+                            onclick="do_radio_school_district()"
+                            checked="${myTc == status.value}"/> ${myTc}
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="schoolOrDistrict" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field" id="div_radio_add_edit">
+    <div class="fieldLabel">What would you like to do? <span class="required">*</span></div>
+    <div class="fieldInput">
+        <!--<spring:bind path="addEditSchoolOrDistrictCommand.addEdit">
+            <input type="radio" onclick="do_add_edit('${state}')" name="radio_add_edit" value="add"  checked="${myTc == status.value}"/>Add a new school
+            <input type="radio" onclick="do_add_edit('${state}')" name="radio_add_edit" value="edit"/>Edit an existing school
+        </spring:bind>-->
+        <spring:bind path="addEditSchoolOrDistrictCommand.addEdit">
+            <c:forEach var="myTc" items="${requestScope.addEdit}">
+                <gsml:radio name="${status.expression}" value="${myTc}" onclick="do_add_edit('${state}')"
+                            checked="${myTc == status.value}"/> ${myTc}
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="addEdit" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div id="div_grades">
+    <div class="field">
+        <div class="fieldLabel">Grades <span class="required">*</span></div>
+        <div class="fieldInput">
+            <spring:bind path="addEditSchoolOrDistrictCommand.grades">
+                <c:forEach var="myTc" items="${requestScope.gradesList}">
+                    <c:set var ="checked" value ="false"/>
+                    <c:forEach items="${status.value}" var="s">
+                        <c:if test="${s == myTc}"><c:set var ="checked" value ="true"/></c:if>
+                    </c:forEach>
+                    <gsml:checkbox name="${status.expression}" value="${myTc}"
+                                   checked="${checked}"/> ${myTc}
+                </c:forEach>
+
+            </spring:bind>
+        </div>
+        <div class="fieldNote">
+            <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="grades" useImage="true" styleClass="warning"/>
+        </div>
+    </div>
+</div>
+
+<div class="field" id="div_school_type">
+    <div class="fieldLabel">What type of school is it? <span class="required">*</span></div>
+    <div class="fieldInput">
+        <!--<spring:bind path="addEditSchoolOrDistrictCommand.addEdit">
+            <input type="radio" onclick="do_add_edit('${state}')" name="radio_add_edit" value="add"  checked="${myTc == status.value}"/>Add a new school
+            <input type="radio" onclick="do_add_edit('${state}')" name="radio_add_edit" value="edit"/>Edit an existing school
+        </spring:bind>-->
+        <spring:bind path="addEditSchoolOrDistrictCommand.schoolType">
+            <c:forEach var="myTc" items="${requestScope.schoolType}">
+                <gsml:radio name="${status.expression}" value="${myTc}" onclick="do_school_type()"
+                            checked="${myTc == status.value}"/> ${myTc}
+            </c:forEach>
+
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="schoolType" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+
+<div class="field" id="div_choose_state">
+
+
+<fieldset class="fieldset1 bg-ebebeb">
+    <legend class="legend1">
+        <span class="legend1-position">School Details</span>
+    </legend>
+<ol class="formlist1">
+    <!-- <input type="hidden" name="feedbackType" value="join"/>    -->
+    <form:hidden path="challenge" id="addEdit_challenge"/>
+    <form:hidden path="response" id="addEdit_response"/>
+    <li class="fl1-item">
+        <form:label cssClass="label1 text2bold" path="state" for="addEditSchoolOrDistrictCommand.state">
+            State ${state}<em class="sprite i-required requiredIndicator1"><!-- do not collapse --> </em>
+        </form:label>
+
+        <select id="addEditSchoolOrDistrictCommand_state"><option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option><option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option><option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option><option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option><option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option><option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option><option value="VA">VA</option><option value="WA">WA</option><option value="DC">DC</option><option value="WV">WV</option><option value="WI">WI</option><option value="WY">WY</option></select>
+
+
+        <form:errors path="state">
+            <c:forEach items="${messages}" var="message"> 
+                <strong class="errorMessage1 formErrorText">
+                    <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                </strong>
+            </c:forEach>
+        </form:errors>
+    </li>
+
+
+
+    <li class="fl1-item">
+        <form:label cssClass="label1 text2bold" path="cityName" for="addEditSchoolOrDistrictCommand.cityName">
+            City <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+        </form:label>
+        <form:select path="cityName" id="addEditSchoolOrDistrictCommand_cityName">
+            <form:option value="" label="- Choose city -"/>
+            <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="cityName">
+            <c:forEach items="${messages}" var="message"> 
+                <strong class="errorMessage1 formErrorText">
+                    <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                </strong>
+            </c:forEach>
+        </form:errors>
+    </li>
+
+    <li class="fl1-item">
+        <form:label cssClass="label1 text2bold" path="schoolId" for="addEditSchoolOrDistrictCommand.schoolId">
+            School <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+        </form:label>
+        <form:select path="schoolId" id="addEditSchoolOrDistrictCommand_schoolId">
+            <form:option value="" label="- Choose School -"/>
+            <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
+        </form:select>
+        <form:errors path="schoolId">
+            <c:forEach items="${messages}" var="message"> 
+                <strong class="errorMessage1 formErrorText">
+                    <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+                </strong>
+            </c:forEach>
+        </form:errors>
+    </li>
+
+
+
+</ol>
+</fieldset>
+
+
+</div>
+
+<div id="basic_fields">
+<div class="field">
+    <div class="fieldLabel">Name <span class="required">*</span></div>
+    <div class="fieldInput">
+        <spring:bind path="addEditSchoolOrDistrictCommand.schoolName">
+            <input type="text" name="${status.expression}" value="${status.value}" class="textInput" id="schoolName"/>
+        </spring:bind>
+    </div>
+    <div class="fieldNote">
+        <gsml:errorMessage command="addEditSchoolOrDistrictCommand" field="schoolName" useImage="true" styleClass="warning"/>
+    </div>
+</div>
+</div>
+
+
+<li class="fl1-item">
+    <div class="captcha" id="addEdit_captcha">
+        <!-- no collapse -->
+    </div>
+    <form:errors path="response">
+        <c:forEach items="${messages}" var="message"> 
+            <strong class="captcha errorMessage1 formErrorText"><span
+                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
+            </strong>
+        </c:forEach>
+    </form:errors>
+</li>
+
+<div id="submitButton">
+    <input type="image" name="_submit" value="Submit" alt="Submit" src="/res/img/button/btn_submit.gif"/>
+</div>
+
+
+
+</form:form>
+
+<p>
+    We thoroughly validate information submitted through this form.
+    If we cannot verify the accuracy of the information, the changes will not be made.
+    There is no charge to submit changes.
+</p>
+
+
+
+<div class="separator">
+    <hr/>
+</div>
+
+
+</div>
+<mod:tracking pageName="${pageName}"
+              hier1="Home,ContactUs,${pageName}"/>
+
+</gsml:body>
+</html>
+</jsp:root>

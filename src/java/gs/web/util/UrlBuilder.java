@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.283 2012/02/15 16:47:34 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.284 2012/02/17 21:50:40 eddie Exp $
  */
 
 package gs.web.util;
@@ -297,6 +297,8 @@ public class UrlBuilder {
      */
     public static final VPage SUBMIT_PRESCHOOL = new VPage("vpage:submitPreschool");
     public static final VPage SUBMIT_PRIVATE_SCHOOL = new VPage("vpage:submitPrivateSchool");
+
+    public static final VPage ADD_EDIT_SCHOOL_OR_DISTRICT = new VPage("vpage:addEditSchoolOrDistrict");
 
     /**
      * browse pages
@@ -982,6 +984,9 @@ public class UrlBuilder {
         } else if (ESP_DASHBOARD.equals(page)) {
             _perlPage = false;
             _path = "/official-school-profile/dashboard/";
+        } else if(ADD_EDIT_SCHOOL_OR_DISTRICT.equals(page)){
+            _perlPage = false;
+            _path = "/about/feedback/addEditSchoolOrDistrict.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }

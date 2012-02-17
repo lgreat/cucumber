@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:hideFooterAd/>
+    <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <meta name="Description" content="Add or edit your school or district on the GreatSchools web site"/>
+        <title>Thank you for updating us on your school or district</title>
+        <script type="text/javascript">
+            <![CDATA[
+            //<!--
+            function doSomething() {
+
+            }
+
+
+            //-->
+            ]]>
+        </script>
+
+        <pageHelper:externalCss file="/res/css/about/feedback/addEditSchoolOrDistrict.css"/>
+    </head>
+
+    <gsml:body adPageName="addEditSchoolOrDistrictConfirm" pageLayout="nocol">
+
+        <div class="content">
+
+            <div class="pageTitle">
+                <h2>Thank you for updating us on your school or district, ${name}!</h2>
+                school or district: ${schoolOrDistrict}
+                name: ${name}
+            </div>
+
+
+
+
+
+            <div class="separator">
+                <hr/>
+            </div>
+
+
+        </div>
+        <mod:tracking pageName="${pageName}"
+                      hier1="Home,ContactUs,${pageName}"/>
+
+    </gsml:body>
+    </html>
+</jsp:root>

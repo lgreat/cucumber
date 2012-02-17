@@ -124,6 +124,7 @@ public class ContactUsController extends SimpleFormController {
 
         map.put(SHOW_CONFIRMATION_MODEL, StringUtils.equals(request.getParameter(CONFIRMATION_PARAM), "true"));
 
+        map.put("addEditURL",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
         return map;
     }
 

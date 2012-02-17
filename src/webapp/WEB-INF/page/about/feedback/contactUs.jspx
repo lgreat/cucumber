@@ -43,6 +43,13 @@
                 if (selectedValue == '') {
                     return;
                 }
+
+                //NEW REDIRECT
+                if (selectedValue == 'incorrectSchoolDistrictInfo') {
+                    //window.location.href = "${addEditURL}";
+                    //return;
+                }
+
                 $j('div.jqFeedback').hide();
                 $j('#' + selectedValue + 'Feedback').show();
                 if (selectedValue == 'schoolRatingsReviews' || selectedValue == 'esp' || selectedValue == 'join') {
