@@ -36,6 +36,14 @@
 
         <div class="slStylesV1-0">
 
+        <div class="spacer_15"><!-- do not collapse --></div>
+
+        <h3>The School's View</h3>
+
+        <p class="medium">This school has provided details to help you learn more about its unique programs and features.</p>
+
+        <p class="smaller"><a href="javascript:void(0);">Learn more about Official School Info</a> &amp;raquo; | Pricipal or other school officials can <a href="javascript:void(0);">edit this info</a>. <a href="javascript:void(0);">School Official FAQ</a>.</p>
+
         <!-- SECTION 1: School Basics -->
         <table>
             <col width="210"/>
@@ -381,7 +389,18 @@
             </tbody>
         </table>
 
-            <h4>Enrichment, Extracurriculars, and Specials</h4>
+        <!-- SECTION 4: Enrichment, Extracurriculars, and Specials -->
+        <table>
+            <col width="210"/>
+            <col width="auto"/>
+            <thead>
+            <tr>
+                <th colspan="2">Enrichment, Extracurriculars, and Specials</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
             <c:set var="artsMedia"><gsweb:erts list="${responses.arts_media}" /></c:set>
             <c:if test="${not empty artsMedia and fn:toLowerCase(artsMedia) ne 'none'}"><p class="lbl">Arts - Media: <span class="val">${artsMedia}</span></p></c:if>
@@ -405,33 +424,67 @@
 
             <c:if test="${not empty serviceAwards}"><p class="lbl">Community service awards received in the past 3 years: <span class="val">${serviceAwards}</span></p></c:if>
 
-            <h4>School Culture</h4>
+        <!-- SECTION 5: School Culture -->
+        <table>
+            <col width="210"/>
+            <col width="auto"/>
+            <thead>
+            <tr>
+                <th colspan="2">School Culture</th>
+            </tr>
+            </thead>
+            <tbody>
 
             <c:set var="dressCode"><gsweb:erts list="${responses.dress_code}" /></c:set>
-            <c:if test="${not empty dressCode}"><p class="lbl">School Attire: <span class="val">${dressCode}</span></p></c:if>
+            <school:espTableRow label="School Attire:" value="${dressCode}" hideIfEmpty="true"/>
 
             <c:set var="bullying"><gsweb:erts list="${responses.bullying_policy}" /></c:set>
-            <c:if test="${fn:toLowerCase(bullying) eq 'yes'}"><p class="lbl">Bullying and/or cyber bullying policy in place</p></c:if>
+            <c:if test="${fn:toLowerCase(bullying) eq 'yes'}">
+                <school:espTableRow label="Bullying and/or cyber bullying policy in place" value="" hideIfEmpty="false"/>
+            </c:if>
 
             <c:set var="parentInvolvement"><gsweb:erts list="${responses.parent_involvement}" /></c:set>
             <c:set var="parentInvolvementOther"><gsweb:erts list="${responses.parent_involvement_other}" /></c:set>
             <c:if test="${not empty parentInvolvement and fn:toLowerCase(parentInvolvement) ne 'none'}">
-            <p class="lbl">Opportunities for parent involvement: <span class="val">${parentInvolvement} ${parentInvolvementOther}</span></p>
+                <tr>
+                    <td class="small_bold">Opportunities for parent involvement:</td>
+                    <td>${parentInvolvement} ${parentInvolvementOther}</td>
+                </tr>
             </c:if>
 
             <c:set var="schoolColors"><gsweb:erts list="${responses.school_colors}" /></c:set>
-            <c:if test="${not empty schoolColors}"><p class="lbl">School colors: <span class="val">${schoolColors}</span></p></c:if>
+            <school:espTableRow label="School colors:" value="${schoolColors}" hideIfEmpty="true"/>
 
             <c:set var="schoolMascot"><gsweb:erts list="${responses.school_mascot}" /></c:set>
-            <c:if test="${not empty schoolMascot}"><p class="lbl">School mascot: <span class="val">${schoolMascot}</span></p></c:if>
+            <school:espTableRow label="School mascot:" value="${schoolMascot}" hideIfEmpty="true"/>
 
             <c:set var="facebookUrl"><gsweb:erts list="${responses.facebook_url}" /></c:set>
-            <c:if test="${not empty facebookUrl}"><p class="lbl">School Facebook page: <a href="${facebookUrl}" class="val">${facebookUrl}</a></p></c:if>
+            <c:if test="${not empty facebookUrl}">
+                <tr>
+                    <td class="small_bold">School Facebook page:</td>
+                    <td><a href="${facebookUrl}" class="val">${facebookUrl}</a></td>
+                </tr>
+            </c:if>
+
+            </tbody>
+        </table>
 
         <!-- TODO (jkirton) fix student ethnicity breakdown datapoints -->
         <!-- Hiding this entire block as it is not yet correct and not in scope for 19.6
             <c:if test="${school.type.schoolTypeName == 'private'}">
-            <h4>Student Information</h4>
+
+        &lt;!&ndash; SECTION 6: Student Information &ndash;&gt;
+        <table>
+            <col width="210"/>
+            <col width="auto"/>
+            <thead>
+            <tr>
+                <th colspan="2">Student Information</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
             <c:set var="studentsEthnicity"><gsweb:erts list="${students_ethnicity}" /></c:set>
             <p class="lbl">Student ethnicity breakdown:</p>
