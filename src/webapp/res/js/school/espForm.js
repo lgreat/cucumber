@@ -104,6 +104,15 @@ GS.util.isAttributeSupported = function(tagName, attrName) {
     return val;
 };
 
+// patch jQuery's val method so that it will return empty string as value if value is equal to placeholder
+GS.originalJQueryVal = $.fn.val;
+$.fn.val = function (value) {
+    if (typeof value == 'undefined') {
+        return $(this).attr("value") === $(this).attr("placeholder") ? "" : $(this).attr("value");
+    }
+
+    return GS.originalJQueryVal.call(this, value);
+};
 
 GS.form.GHOST_TEXTABLE_INPUT_SELECTOR = "input[placeholder]";
 // to use, set the "placeholder" attribute on your html input form elements to desired ghost text and run this on load
