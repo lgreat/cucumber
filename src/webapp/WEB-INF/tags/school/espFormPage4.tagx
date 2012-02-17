@@ -158,6 +158,32 @@
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
+            <p class="labelGroup">What extra learning resources are offered for students?</p>
+        </div>
+        <div class="grid_8">
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="none" label="None"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="remediation" label="Remediation"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="acceleration" label="Acceleration"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="mentoring" label="Mentoring"/>
+        </div>
+        <div class="grid_8 omega">
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="counseling" label="Counseling"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="career_counseling"
+                                         label="Career/college counseling"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="differentiated"
+                                         label="Differentiated learning programs"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="other" label="Other:"
+                                         styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true"/>
+            <input id="js_form_extra_learning_resources_other" class="js_otherField text input_4 mls" type="text"
+                   name="extra_learning_resources_other"
+                   value="${responseMap['extra_learning_resources_other'].value}"
+                   placeholder="[Please indicate]" maxlength="30"/>
+        </div>
+    </div>
+
+
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
             <p class="labelGroup">Is there anything special about your school's schedule?</p>
 
             <div id="js_form_schedule_error" class="error" style="display: none">
@@ -294,30 +320,6 @@
         </div>
     </c:if>
 
-    <div class="lal clearfix">
-        <div class="alpha grid_7">
-            <p class="labelGroup">What extra learning resources are offered for students?</p>
-        </div>
-        <div class="grid_8">
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="none" label="None"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="remediation" label="Remediation"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="acceleration" label="Acceleration"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="mentoring" label="Mentoring"/>
-        </div>
-        <div class="grid_8 omega">
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="counseling" label="Counseling"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="career_counseling"
-                                         label="Career/college counseling"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="differentiated"
-                                         label="Differentiated learning programs"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="other" label="Other:"
-                                         styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true"/>
-            <input id="js_form_extra_learning_resources_other" class="js_otherField text input_4 mls" type="text"
-                   name="extra_learning_resources_other"
-                   value="${responseMap['extra_learning_resources_other'].value}"
-                   placeholder="[Please indicate]" maxlength="30"/>
-        </div>
-    </div>
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
@@ -406,18 +408,18 @@
             <school:espCheckboxWithLabel key="facilities" value="farm" label="Access to farm or natural area"/>
             <school:espCheckboxWithLabel key="facilities" value="sports_fields" label="Access to sports fields"/>
             <school:espCheckboxWithLabel key="facilities" value="art" label="Art room"/>
+            <school:espCheckboxWithLabel key="facilities" value="audiovisual" label="Audiovisual aids"/>
             <school:espCheckboxWithLabel key="facilities" value="auditorium" label="Auditorium"/>
             <school:espCheckboxWithLabel key="facilities" value="cafeteria" label="Cafeteria"/>
-            <school:espCheckboxWithLabel key="facilities" value="audiovisual" label="Audiovisual aids"/>
-            <school:espCheckboxWithLabel key="facilities" value="internet" label="Internet access"/>
             <school:espCheckboxWithLabel key="facilities" value="chapel" label="Chapel/spiritual reflection center"/>
+            <school:espCheckboxWithLabel key="facilities" value="computer" label="Computer lab"/>
         </div>
         <div class="grid_6">
-            <school:espCheckboxWithLabel key="facilities" value="computer" label="Computer lab"/>
             <school:espCheckboxWithLabel key="facilities" value="college_center" label="College/career center"/>
             <school:espCheckboxWithLabel key="facilities" value="garden" label="Garden/Greenhouse"/>
             <school:espCheckboxWithLabel key="facilities" value="gym" label="Gym"/>
             <school:espCheckboxWithLabel key="facilities" value="industrial" label="Industrial shop"/>
+            <school:espCheckboxWithLabel key="facilities" value="internet" label="Internet access"/>
             <school:espCheckboxWithLabel key="facilities" value="kitchen" label="Kitchen"/>
             <school:espCheckboxWithLabel key="facilities" value="learning_lab" label="Learning lab"/>
             <school:espCheckboxWithLabel key="facilities" value="library" label="Library"/>
