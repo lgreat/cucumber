@@ -148,11 +148,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                         if ("approve".equals(moderatorAction)) {
                             membership.setStatus(EspMembershipStatus.APPROVED);
                             membership.setActive(true);
-                            Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
-                            if (!user.hasRole(Role.ESP_MEMBER)) {
-                                user.addRole(role);
-                            }
-                            getUserDao().updateUser(user);
+                            addEspRole(user);
                             sendESPVerificationEmail(request, user);
                             updateMembership = true;
                         } else if ("reject".equals(moderatorAction)) {
@@ -176,6 +172,9 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                         if(updateMembership) {
                             membership.setUpdated(new Date());
                             getEspMembershipDao().updateEspMembership(membership);
+//                            ThreadLocalTransactionManager.commitOrRollback();
+                            //The ESP_MEMBER role needs to be removed if there are no more active memberships for the user.
+                            removeEspRole(user);
                         }
                     }
                 }
@@ -263,7 +262,45 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         //modelMap.put("approvedMemberships", approvedMemberships);
         //modelMap.put("rejectedMemberships", rejectedMemberships);
     }
-    
+
+    /**
+     * Method to remove the ESP_MEMBER role when there are no active memberships present.
+     *
+     * @param user to remove the role
+     */
+    protected void removeEspRole(User user) {
+        if (user != null) {
+            boolean removeRole = true;
+            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), true);
+            if (espMemberships != null && espMemberships.size() != 0) {
+                for (EspMembership espMembership : espMemberships) {
+                    if (espMembership.getStatus().equals(EspMembershipStatus.APPROVED)) {
+                        removeRole = false;
+                    }
+                }
+            }
+            if (removeRole) {
+                Role role = getRoleDao().findRoleByKey(Role.ESP_MEMBER);
+                user.removeRole(role);
+                getUserDao().updateUser(user);
+            }
+        }
+    }
+
+
+    /**
+     * Method to add the ESP_MEMBER role if user does not already have one.
+     *
+     * @param user to add the role
+     */
+    protected void addEspRole(User user) {
+        if (user != null && !user.hasRole(Role.ESP_MEMBER)) {
+            Role role = getRoleDao().findRoleByKey(Role.ESP_MEMBER);
+            user.addRole(role);
+            getUserDao().updateUser(user);
+        }
+    }
+
     protected void sendESPVerificationEmail(HttpServletRequest request, User user) {
         try {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
