@@ -21,7 +21,7 @@
                 <div style="display: none" class="grid_6 omega error" id="form_physical_address_street_error">
                     <div class="mediaExt1-1">
                         <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                        <div class="bk">&amp;nbsp;Please enter a school address.</div>
+                        <div class="bk">&amp;nbsp;Please specify your school's street address</div>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
 
                 <div class="grid_10 suffix_8 omega">
                     <gsml:input type="text" value="${responseMap['facebook_url'].value}" styleId="form_facebook_url"
-                           name="facebook_url" styleClass="text input_8"/>
+                           name="facebook_url" styleClass="text input_8" maxlength="100"/>
 
                     <p class="hint">Example: http://www.facebook.com/pages/lowell-high-school/112106402</p>
                 </div>
