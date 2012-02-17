@@ -20,7 +20,7 @@
                 <th>Filename</th>
                 <th>Status</th>
                 <th>Size</th>
-                <th>Remove</th>
+                <th>&amp;nbsp;</th>
             </tr>
             </thead>
             <tfoot>

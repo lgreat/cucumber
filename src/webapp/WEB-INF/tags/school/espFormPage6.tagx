@@ -103,12 +103,13 @@
                 </div>
             </c:if>
 
+            <c:set var="maxNumberOfPhotos" value="4" />
             <div class="lal clearfix">
                 <div class="grid_7 alpha">
-                    <p class="labelGroup">Upload photos of your school or events at your school that will appear on the GreatSchools profile. Limit is 10 photos.</p>
+                    <p class="labelGroup">Upload photos of your school or events at your school that will appear on the GreatSchools profile. Limit is ${maxNumberOfPhotos} photos.</p>
                 </div>
                 <div class="grid_16 omega">
-                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="10" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" />
+                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" />
                 </div>
             </div>
 
