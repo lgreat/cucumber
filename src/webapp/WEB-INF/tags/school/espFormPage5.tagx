@@ -121,7 +121,7 @@
               <school:espCheckboxWithLabel key="boys_sports" value="water_polo" label="Water Polo"/>
               <school:espCheckboxWithLabel key="boys_sports" value="wrestling" label="Wrestling"/>
               <school:espCheckboxWithLabel key="boys_sports" value="ultimate" label="Ultimate Frisbee"/>
-              <school:espCheckboxWithLabel key="boys_sports_other_cb" value="1" styleClass="js_otherField_js_boys_sports_other" nobr="true" label="Other: "/>
+              <school:espCheckboxWithLabel key="boys_sports_other_cb" value="" styleClass="js_otherField_js_boys_sports_other" nobr="true" label="Other: "/>
               <input id="js_boys_sports_other" class="mls js_otherField text input_4" type="text" name="boys_sports_other" value="${responseMap['boys_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             </div>
             <div class="grid_9 omega">
@@ -160,7 +160,7 @@
               <school:espCheckboxWithLabel key="girls_sports" value="volleyball" label="Volleyball"/>
               <school:espCheckboxWithLabel key="girls_sports" value="water_polo" label="Water Polo"/>
               <school:espCheckboxWithLabel key="girls_sports" value="wrestling" label="Wrestling"/>
-              <school:espCheckboxWithLabel key="girls_sports_other_cb" value="1" styleClass="js_otherField_js_girls_sports_other" nobr="true" label="Other: "/>
+              <school:espCheckboxWithLabel key="girls_sports_other_cb" value="" styleClass="js_otherField_js_girls_sports_other" nobr="true" label="Other: "/>
               <input id="js_girls_sports_other" class="mls js_otherField text input_4" type="text" name="girls_sports_other" value="${responseMap['girls_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             </div>
           </div>
@@ -234,11 +234,11 @@
               <school:espCheckboxWithLabel key="student_clubs" value="woodshop" label="Woodshop"/>
               <school:espCheckboxWithLabel key="student_clubs" value="yearbook" label="Yearbook"/>
               <school:espCheckboxWithLabel key="student_clubs" value="yoga" label="Yoga club"/>
-              <school:espCheckboxWithLabel key="student_clubs_other" value="other_1" label="Other:" styleClass="js_otherField_form_student_clubs_other_1" nobr="true"/>
+              <school:espCheckboxWithLabel key="student_clubs_other" value="" label="Other:" styleClass="js_otherField_form_student_clubs_other_1" nobr="true"/>
               <input id="form_student_clubs_other_1" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other_1" value="${responseMap['student_clubs_other_1'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
-              <school:espCheckboxWithLabel key="student_clubs_other" value="other_2" label="Other:" styleClass="js_otherField_form_student_clubs_other_2" nobr="true"/>
+              <school:espCheckboxWithLabel key="student_clubs_other" value="" label="Other:" styleClass="js_otherField_form_student_clubs_other_2" nobr="true"/>
               <input id="form_student_clubs_other_2" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other_2" value="${responseMap['student_clubs_other_2'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
-              <school:espCheckboxWithLabel key="student_clubs_other" value="other_3" label="Other:" styleClass="js_otherField_form_student_clubs_other_3" nobr="true"/>
+              <school:espCheckboxWithLabel key="student_clubs_other" value="" label="Other:" styleClass="js_otherField_form_student_clubs_other_3" nobr="true"/>
               <input id="form_student_clubs_other_3" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other_3" value="${responseMap['student_clubs_other_3'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
             </div>
           </div>
