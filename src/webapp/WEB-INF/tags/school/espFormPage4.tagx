@@ -46,6 +46,7 @@
                    value="${responseMap['foreign_language_other'].value}"
                    placeholder="[Please indicate]" maxlength="40"/>
         </div>
+        <school:espFieldError text="Please specify a response" styleId="js_form_foreign_language_other_error" styleClass="grid_6 omega"/>
     </div>
 
     <c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
@@ -179,6 +180,7 @@
                    value="${responseMap['extra_learning_resources_other'].value}"
                    placeholder="[Please indicate]" maxlength="30"/>
         </div>
+        <school:espFieldError text="Please specify a response" styleId="js_form_extra_learning_resources_other_error" styleClass="grid_6 omega"/>
     </div>
 
 
@@ -317,6 +319,7 @@
                        value="${responseMap['staff_languages_other'].value}"
                        placeholder="[Please indicate]" maxlength="30"/>
             </div>
+            <school:espFieldError text="Please specify a response" styleId="js_form_staff_languages_other_error" styleClass="grid_6 omega"/>
         </div>
     </c:if>
 
@@ -478,6 +481,7 @@
                        value="${responseMap['college_prep_other'].value}"
                        placeholder="[Please indicate]" maxlength="30"/>
             </div>
+            <school:espFieldError text="Please specify a response" styleId="js_form_college_prep_other_error" styleClass="grid_6 omega"/>
         </div>
     </div>
 </c:if>
@@ -628,6 +632,7 @@
                    value="${responseMap['skills_training_other'].value}"
                    placeholder="[Please indicate]" maxlength="30"/>
         </div>
+        <school:espFieldError text="Please specify a response" styleId="js_form_skills_training_other_error" styleClass="grid_6 omega"/>
     </div>
 </c:if>
 

@@ -806,6 +806,15 @@ new (function() {
         var isValidPostGraduationWorkforce = GS.validation.validateInteger('#js_form_post_graduation_workforce','#js_form_post_graduation_workforce_error');
 //        var isValidSkillsTraining = GS.validation.validateRequiredIfChecked
 //            ('#js_form_skills_training_other', '.js_otherField_js_form_skills_training_other', '#js_form_skills_training_error');
+
+        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked('#js_form_foreign_language_other', '#form_foreign_language__other', '#js_form_foreign_language_other_error');
+        var isValidExtraLearningResourcesOther = GS.validation.validateRequiredIfChecked('#js_form_extra_learning_resources_other', '#form_extra_learning_resources__other', '#js_form_extra_learning_resources_other_error');
+        var isValidStaffLanguagesOther = GS.validation.validateRequiredIfChecked('#js_form_staff_languages_other', '#form_staff_languages__other', '#js_form_staff_languages_other_error');
+        var isValidCollegePrepOther = GS.validation.validateRequiredIfChecked('#js_form_college_prep_other','#form_college_prep__other', '#js_form_college_prep_other_error');
+        var isValidSkillsTrainingOther = GS.validation.validateRequiredIfChecked('#js_form_skills_training_other', '#form_skills_training__other', '#js_form_skills_training_other_error');
+
+
+
         // END PAGE 4
 
         // PAGE 7
@@ -827,6 +836,7 @@ new (function() {
         return isValidStudentEnrollment && isValidGradeLevels && isValidApplicationsReceived &&
                 isValidApplicationsReceivedYear && isValidStudentsAccepted && isValidStudentsAcceptedYear &&
                 isValidApplicationFeeAmount && isValidTuition && isValidFinancialAidTypeOther &&
+                isValidForeignLanguageOther && isValidExtraLearningResourcesOther && isValidStaffLanguagesOther && isValidCollegePrepOther && isValidSkillsTrainingOther &&
             isValidPhysicalAddressStreet &&
             isValidAdministratorEmail && isValidSpecialEdPrograms && isValidSchedule && isValidPostGraduationYear &&
             isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
