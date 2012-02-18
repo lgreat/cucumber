@@ -460,10 +460,11 @@ public class EspFormController implements ReadWriteAnnotationController {
      * How many pages are on the form for a given school
      */
     protected int getMaxPageForSchool(School school) {
-        if (SchoolType.PRIVATE == school.getType()) {
+        return 7;
+        /*if (SchoolType.PRIVATE == school.getType()) {
             return 8;
         }
-        return 7;
+        return 7;*/
     }
 
     /**
