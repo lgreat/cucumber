@@ -43,6 +43,13 @@
                 </div>
             </div>
 
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Parent involvement</legend>
+            <hr class="legend"><!--Do not collapse--></hr>
+
             <div class="lal clearfix">
                 <div class="alpha grid_7">
                     <p class="labelGroup">How do parents get involved at your school?</p>
@@ -73,7 +80,7 @@
 
         <fieldset>
 
-            <legend>Schools Spirit</legend>
+            <legend>School Spirit</legend>
             <hr class="legend"><!--Do not collapse--></hr>
 
             <c:if test="${school.databaseState.abbreviation eq 'DC' or school.databaseState.abbreviation eq 'IN' or school.databaseState.abbreviation eq 'WI'}">
