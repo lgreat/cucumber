@@ -837,8 +837,8 @@ new (function() {
         validations.push(GS.validation.validateRequiredIfChecked('#form_contact_method_other', '#form_contact_method__other', '#form_contact_method_other_error'));
         // END PAGE 7
 
-        for (var fieldValidation in validations) {
-            if (fieldValidation === false) {
+        for (var arrayIndex in validations) {
+            if (validations[arrayIndex] === false) {
                 return false;
             }
         }
@@ -870,6 +870,14 @@ new (function() {
         });
         formWrapper.on('click', '.js_prevPageButton', function() {
             saveAndPreviousPage();
+            return false;
+        });
+        $('#js_espFormNav').on('click', 'a.js_saveForm', function() {
+            var targetUrl = this.href;
+            saveForm()
+                .done(function() {
+                    document.location = targetUrl;
+                });
             return false;
         });
 //        $('#js_espFormNav').on('click', 'li', function() {
