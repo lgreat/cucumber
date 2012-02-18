@@ -70,7 +70,7 @@
                     <school:espCheckboxWithLabel key="parent_involvement" value="tutor_req" label="Tutor"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="classroom_req" label="Volunteer in the classroom"/>
                     <school:espCheckboxWithLabel key="parent_involvement" value="after_school_req" label="Volunteer time after school"/>
-                    <school:espCheckboxWithLabel key="parent_involvement" value="other_contact" label="Other" styleClass="js_otherField_form_parent_involvement_other" nobr="true"/>
+                    <school:espCheckboxWithLabel key="parent_involvement" value="" label="Other" styleClass="js_otherField_form_parent_involvement_other" nobr="true"/>
                     <gsml:input styleId="form_parent_involvement_other" styleClass="mls js_otherField text input_4" type="text"
                            name="parent_involvement_other" value="${responseMap['parent_involvement_other'].value}"
                            maxlength="40" placeholder="[Please indicate]"/>
