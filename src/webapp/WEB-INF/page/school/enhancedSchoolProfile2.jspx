@@ -6,6 +6,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           version="2.0" xmlns:gsweb="gstaglib">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -17,17 +18,6 @@
     <title>${school.name} Official Information - ${school.city}, ${school.databaseState.abbreviation}</title>
     <meta name="description" content="View official information for ${school.name} including information about school culture, programs, and extracurriculars ${school.city}, ${school.databaseState.longName} - ${school.databaseState.abbreviation}"/>
     <c:set var="pageName" value="Principal Questionnaire"/>
-
-    <!-- TODO(rcox) Delete these internal styles after all profile data are in tables. -->
-    <style type="text/css">
-        .lbl {
-            color: #a9a9a9;
-        }
-
-        .val {
-            color: black;
-        }
-    </style>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
     <c:set var="adSlotPrefix" value="School_Profile_Page_Academic_Performance"/>
@@ -42,7 +32,9 @@
 
         <p class="medium">This school has provided details to help you learn more about its unique programs and features.</p>
 
-        <p class="smaller"><a href="javascript:void(0);">Learn more about Official School Info</a> &amp;raquo; | Pricipal or other school officials can <a href="javascript:void(0);">edit this info</a>. <a href="javascript:void(0);">School Official FAQ</a>.</p>
+        <p class="smaller"><a href="javascript:void(0);">Learn more about Official School Info</a> &amp;raquo;
+            | Principal or other school officials can <link:schoolEspRegister>edit this info</link:schoolEspRegister>.
+            <a href="javascript:void(0);">School Official FAQ</a>.</p>
 
         <!-- SECTION 1: School Basics -->
         <table>
@@ -62,17 +54,16 @@
 
             <school:espTableRow label="Grade levels offered" value="${grade_levels}" hideIfEmpty="true"/>
 
-            <c:set var="pkStart"><gsweb:erts list="${responses.age_pk_start}"/></c:set>
             <school:espTableRow label="Age at which early childhood or Pre-K program begins"
-                                value="${pkStart}" hideIfEmpty="true"/>
+                                list="${responses.age_pk_start}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="School start time" value="${responses.start_time}" hideIfEmpty="false"
+            <school:espTableRow label="School start time" list="${responses.start_time}" hideIfEmpty="false"
                                 pretty="false"/>
 
-            <school:espTableRow label="School end time" value="${responses.end_time}" hideIfEmpty="false"
+            <school:espTableRow label="School end time" list="${responses.end_time}" hideIfEmpty="false"
                                 pretty="false"/>
 
-            <!-- TODO(jkirton) Show *all* subtypes or just code type subtype? -->
+            <!-- TODO(jkirton) Show *all* subtypes or just coed type subtype? -->
             <tr>
                 <td class="small_bold">School type</td>
                 <td>
@@ -147,8 +138,7 @@
 
             <school:espTableRow label="Instructional and/or curriculum models used" value="${instructional_model}" hideIfEmpty="true"/>
 
-            <c:set var="acadFocus"><gsweb:erts list="${responses.academic_focus}"/></c:set>
-            <school:espTableRow label="Special academic themes or areas of focus" value="${acadFocus}"
+            <school:espTableRow label="Special academic themes or areas of focus" list="${responses.academic_focus}"
                                 hideIfEmpty="true"/>
 
             <c:set var="immersion"><gsweb:erts list="${responses.immersion}"/></c:set>
@@ -173,8 +163,7 @@
             </thead>
             <tbody>
 
-            <c:set var="isAppProcess"><gsweb:erts list="${responses.application_process}"/></c:set>
-            <school:espTableRow label="Does this school have an application or enrollment process?" value="${isAppProcess}" hideIfEmpty="true"/>
+            <school:espTableRow label="Does this school have an application or enrollment process?" list="${responses.application_process}" hideIfEmpty="true"/>
 
             <c:set var="admissionsUrl"><gsweb:erts list="${responses.adminissions_url}"/></c:set>
             <c:set var="appUpload"><gsweb:erts list="${responses.application_upload}"/></c:set>
@@ -199,12 +188,10 @@
             </c:if>
 
             <c:set var="appsRcdYr"><gsweb:erts list="${responses.applications_received_year}" /></c:set>
-            <c:set var="appsRcd"><gsweb:erts list="${responses.applications_received}" /></c:set>
-            <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year:" value="${appsRcd}" hideIfEmpty="false"/>
+            <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year:" list="${responses.applications_received}" hideIfEmpty="false"/>
 
             <c:set var="stdsAcptdYr"><gsweb:erts list="${responses.students_accepted_year}" /></c:set>
-            <c:set var="stdsAcptd"><gsweb:erts list="${responses.students_accepted}" /></c:set>
-            <school:espTableRow label="Number of students accepted for the ${stdsAcptdYr} year:" value="${stdsAcptd}" hideIfEmpty="false"/>
+            <school:espTableRow label="Number of students accepted for the ${stdsAcptdYr} year:" list="${responses.students_accepted}" hideIfEmpty="false"/>
 
             <c:set var="appFee"><gsweb:erts list="${responses.application_fee}"/></c:set>
             <c:set var="appFeeAmt"><gsweb:erts list="${responses.application_fee_amount}"/></c:set>
@@ -233,8 +220,7 @@
                 </td>
             </tr>
 
-            <c:set var="vouchers"><gsweb:erts list="${responses.students_vouchers}" /></c:set>
-            <school:espTableRow label="Vouchers accepted:" value="${vouchers}" hideIfEmpty="true"/>
+            <school:espTableRow label="Vouchers accepted:" list="${responses.students_vouchers}" hideIfEmpty="true"/>
 
             <school:espTableRow label="Students typically attend these schools prior to attending this school:" value="${feederSchools}" hideIfEmpty="true"/>
 
@@ -265,21 +251,16 @@
                 </tr>
             </c:if>
 
-            <c:set var="seLvl"><gsweb:erts list="${responses.spec_ed_level}"/></c:set>
-            <school:espTableRow label="Special education programming offered:" value="${seLvl}" hideIfEmpty="true"/>
+            <school:espTableRow label="Special education programming offered:" list="${responses.spec_ed_level}" hideIfEmpty="true"/>
 
-            <c:set var="seProgs"><gsweb:erts list="${responses.special_ed_programs}"/></c:set>
             <school:espTableRow label="Specialized programs for specific types of special education students:"
-                                value="${seProgs}" hideIfEmpty="true"/>
+                                list="${responses.special_ed_programs}" hideIfEmpty="true"/>
 
-            <c:set var="schedule"><gsweb:erts list="${responses.schedule}"/></c:set>
-            <school:espTableRow label="Special schedule:" value="${schedule}" hideIfEmpty="true"/>
+            <school:espTableRow label="Special schedule:" list="${responses.schedule}" hideIfEmpty="true"/>
 
-            <c:set var="boarding"><gsweb:erts list="${responses.boarding}"/></c:set>
-            <school:espTableRow label="Boarding options:" value="${boarding}" hideIfEmpty="true"/>
+            <school:espTableRow label="Boarding options:" list="${responses.boarding}" hideIfEmpty="true"/>
 
-            <c:set var="staffResources"><gsweb:erts list="${responses.boarding}"/></c:set>
-            <school:espTableRow label="Special staff resources available to students:" value="${staffResources}"
+            <school:espTableRow label="Special staff resources available to students:" list="${responses.boarding}"
                                 hideIfEmpty="true"/>
 
             <school:espTableRow label="Languages spoken by school staff:" value="${staff_languages}"
@@ -312,15 +293,15 @@
             <tr>
                 <td class="small_bold">Partnerships with local resources and organizations:</td>
                 <td>
-                    <c:if test="${isP1}"><a href="${gsweb:formatUrl(pu1)}">${pn1}</a></c:if><c:if
+                    <c:if test="${isP1}"><a href="${gsweb:formatUrl(pu1)}" target="_blank">${pn1}</a></c:if><c:if
                         test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
-                    <c:if test="${isP2}"><a href="${gsweb:formatUrl(pu2)}">${pn2}</a></c:if><c:if
+                    <c:if test="${isP2}"><a href="${gsweb:formatUrl(pu2)}" target="_blank">${pn2}</a></c:if><c:if
                         test="${isP3 or isP4 or isP5}">; </c:if>
-                    <c:if test="${isP3}"><a href="${gsweb:formatUrl(pu3)}">${pn3}</a></c:if><c:if
+                    <c:if test="${isP3}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if><c:if
                         test="${isP4 or isP5}">; </c:if>
-                    <c:if test="${isP4}"><a href="${gsweb:formatUrl(pu4)}">${pn4}</a></c:if><c:if
+                    <c:if test="${isP4}"><a href="${gsweb:formatUrl(pu4)}" target="_blank">${pn4}</a></c:if><c:if
                         test="${isP5}">; </c:if>
-                    <c:if test="${isP5}"><a href="${gsweb:formatUrl(pu3)}">${pn3}</a></c:if>
+                    <c:if test="${isP5}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if>
                 </td>
             </tr>
 
@@ -444,8 +425,7 @@
             </thead>
             <tbody>
 
-            <c:set var="dressCode"><gsweb:erts list="${responses.dress_code}" /></c:set>
-            <school:espTableRow label="School Attire:" value="${dressCode}" hideIfEmpty="true"/>
+            <school:espTableRow label="School Attire:" list="${responses.dress_code}" hideIfEmpty="true"/>
 
             <c:set var="bullying"><gsweb:erts list="${responses.bullying_policy}" /></c:set>
             <c:if test="${fn:toLowerCase(bullying) eq 'yes'}">
@@ -461,17 +441,15 @@
                 </tr>
             </c:if>
 
-            <c:set var="schoolColors"><gsweb:erts list="${responses.school_colors}" /></c:set>
-            <school:espTableRow label="School colors:" value="${schoolColors}" hideIfEmpty="true"/>
+            <school:espTableRow label="School colors:" list="${responses.school_colors}" hideIfEmpty="true"/>
 
-            <c:set var="schoolMascot"><gsweb:erts list="${responses.school_mascot}" /></c:set>
-            <school:espTableRow label="School mascot:" value="${schoolMascot}" hideIfEmpty="true"/>
+            <school:espTableRow label="School mascot:" list="${responses.school_mascot}" hideIfEmpty="true"/>
 
-            <c:set var="facebookUrl"><gsweb:erts list="${responses.facebook_url}" /></c:set>
+            <c:set var="facebookUrl"><gsweb:erts list="${responses.facebook_url}" pretty="false"/></c:set>
             <c:if test="${not empty facebookUrl}">
                 <tr>
                     <td class="small_bold">School Facebook page:</td>
-                    <td><a href="${facebookUrl}" class="val">${facebookUrl}</a></td>
+                    <td><a href="${gsweb:formatUrl(facebookUrl)}" target="_blank">${facebookUrl}</a></td>
                 </tr>
             </c:if>
 

@@ -6,9 +6,9 @@
         >
     <jsp:directive.attribute name="label" required="true" type="java.lang.String" description="Row label"/>
     <jsp:directive.attribute name="hideIfEmpty" required="true" type="java.lang.Boolean" description="True to hide row if missing" />
-    <jsp:directive.attribute name="value" required="false" description="Single value"/>
-    <jsp:directive.attribute name="list" required="false" description="List value to comma-separate" />
-    <jsp:directive.attribute name="dlm" required="false" description="Delimiter for list" />
+    <jsp:directive.attribute name="value" required="false" type="java.lang.String" description="Single value"/>
+    <jsp:directive.attribute name="list" required="false" type="java.util.List" description="List value to comma-separate" />
+    <jsp:directive.attribute name="dlm" required="false" type="java.lang.String" description="Delimiter for list" />
     <jsp:directive.attribute name="pretty" required="false" type="java.lang.Boolean" description="False to use non-pretty value" />
 
     <c:if test="${empty pretty}"><c:set var="pretty" value="${true}"/></c:if>
@@ -18,7 +18,7 @@
         <c:otherwise>${value}</c:otherwise></c:choose>
     </c:set>
 
-    <c:if test="${not empty value or hideIfEmpty ne true}">
+    <c:if test="${not empty myValue or hideIfEmpty ne true}">
         <tr>
             <td class="small_bold">${label}</td>
             <td>${myValue}</td>
