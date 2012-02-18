@@ -185,14 +185,15 @@
                                 <span class="espNavLabel">Contact info</span>
                             </link:schoolEspForm>
                         </li>
-                        <c:if test="${maxPage eq 8}">
+                        <!-- TODO Hiding this c:if block. Not part of 19.6.-->
+                        <!--<c:if test="${maxPage eq 8}">
                             <li class="last ${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="8">
-                                    <span class="espNavIcon iconx48 i-48-si"><!-- do not collapse --></span>
+                                    <span class="espNavIcon iconx48 i-48-si">&lt;!&ndash; do not collapse &ndash;&gt;</span>
                                     <span class="espNavLabel">Student info</span>
                                 </link:schoolEspForm>
                             </li>
-                        </c:if>
+                        </c:if>-->
                     </ul>
                 </div>
             </div>

@@ -220,13 +220,14 @@
                             </div>
                         </div>
 
-                        <c:if test="${school.type.schoolTypeName == 'private'}">
+                        <!-- TODO Hiding this c:if block. Not part of 19.6.-->
+<!--                        <c:if test="${school.type.schoolTypeName == 'private'}">
 
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
                                         <div class="mediaExt1-3 grid_9 selected">
-                                            <span class="iconx48 i-48-si img"><!-- do not collapse --></span>
+                                            <span class="iconx48 i-48-si img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
 
                                             <p class="bk">Student info</p>
                                         </div>
@@ -238,7 +239,7 @@
                                 </div>
                             </div>
 
-                        </c:if>
+                        </c:if>-->
                     </div>
                 </div>
             </c:if>
