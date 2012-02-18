@@ -796,8 +796,8 @@ new (function() {
 //            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
         validations.push(GS.validation.validateRequiredIfChecked
             ('[name=special_ed_programs]', '[name=special_ed_programs_exists]', '#js_form_special_ed_programs_error'));
-        validations.push(GS.validation.validateRequiredIfChecked
-            ('[name=schedule]', '[name=schedule_exists]', '#js_form_schedule_error'));
+//        validations.push(GS.validation.validateRequiredIfChecked
+//            ('[name=schedule]', '[name=schedule_exists]', '#js_form_schedule_error'));
 //        var isValidExtraLearningResources = GS.validation.validateRequiredIfChecked
 //            ('#js_form_extra_learning_resources_other', '.js_otherField_js_form_extra_learning_resources_other', '#js_form_extra_learning_resources_error');
 //        var isValidStaffLanguages = GS.validation.validateRequiredIfChecked
