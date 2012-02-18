@@ -212,7 +212,7 @@ GS.form.removeElementsWithClass = function(arrayOfElements, containerSelector, c
 
     for (var i = 0; i < forExclusion.length; i++) {
         for (var j = 0; j < arrayOfElements.length; j++) {
-            if (arrayOfElements[j].name === forExclusion[i].name) {
+            if (arrayOfElements[j].name === forExclusion[i].name && arrayOfElements[j].value == forExclusion[i].value) {
                 arrayOfElements[j].value = "";
             }
         }
