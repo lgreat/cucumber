@@ -231,7 +231,7 @@
                     <span class="sprite i-alert vam"><!--Do not collapse--></span>
                     Please specify the metro and bus lines
                 </div>
-                <p class="hint">Indicate which metro and bus lines the shuttle serves, separated by commas.</p>
+                <p class="hint">Indicate which metro and bus lines the shuttle serves, separated by commas. For example, Fort Totten, Deanwood, Minnesota Ave</p>
             </div>
         </div>
     </c:if>
