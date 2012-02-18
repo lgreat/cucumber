@@ -580,6 +580,28 @@ GS.validation.validateAllOrNone = function(fieldSelectors, errorSelector) {
     return valid;
 };
 
+// TODO: figure out what to do with this type of validation method
+GS.validation.validateSelectIfTextboxValueEntered = function(selectBoxSelector, textBoxSelector, errorSelector, textBoxValid) {
+    var selectBox = $(selectBoxSelector).filter(':visible');
+    var textBox = $(textBoxSelector).filter(':visible');
+    var error = $(errorSelector);
+    var valid = true;
+    var nothingSelectedValue = "";
+    error.hide();
+    selectBox.removeClass('warning');
+
+    valid = !(textBoxValid && textBox.val() !== undefined && textBox.val().length > 0
+        && selectBox.val() === nothingSelectedValue);
+
+    if (!valid) {
+        error.show();
+        selectBox.addClass('warning');
+    }
+
+    return valid;
+};
+
+
 GS.util = GS.util || {};
 GS.util.getUrlVars = function(url) {
     var myUrl = url || window.location.href;
@@ -744,104 +766,83 @@ new (function() {
         return true;
     };
 
+
     var doValidations = function() {
+        var validations = new Array();
         // PAGE 1
         jQuery('#form_student_enrollment_error').hide();
         jQuery('#form_student_enrollment_number_error').hide();
-        var isValidStudentEnrollment = GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
-            && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_number_error');
-        var isValidGradeLevels = validateGradeLevels();
+        validations.push(GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
+            && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_number_error'));
+        validations.push(validateGradeLevels());
         // END PAGE 1
 
 
         // PAGE 3
         var isValidApplicationsReceived = GS.validation.validateInteger('#form_applications_received', '#form_applications_received_error');
-        // TODO: figure out what to do with this type of validation method
-        GS.validation.validateSelectIfTextboxValueEntered = function(selectBoxSelector, textBoxSelector, errorSelector, textBoxValid) {
-            var selectBox = $(selectBoxSelector).filter(':visible');
-            var textBox = $(textBoxSelector).filter(':visible');
-            var error = $(errorSelector);
-            var valid = true;
-            var nothingSelectedValue = "";
-            error.hide();
-            selectBox.removeClass('warning');
-
-            valid = !(textBoxValid && textBox.val() !== undefined && textBox.val().length > 0
-                    && selectBox.val() === nothingSelectedValue);
-
-            if (!valid) {
-                error.show();
-                selectBox.addClass('warning');
-            }
-
-            return valid;
-        };
-        var isValidApplicationsReceivedYear = GS.validation.validateSelectIfTextboxValueEntered('#form_applications_received_year', '#form_applications_received', '#form_applications_received_year_error', isValidApplicationsReceived);
+        validations.push(isValidApplicationsReceived);
+        validations.push(GS.validation.validateSelectIfTextboxValueEntered('#form_applications_received_year', '#form_applications_received', '#form_applications_received_year_error', isValidApplicationsReceived));
         var isValidStudentsAccepted = GS.validation.validateInteger('#form_students_accepted', '#form_students_accepted_error');
-        var isValidStudentsAcceptedYear = GS.validation.validateSelectIfTextboxValueEntered('#form_students_accepted_year', '#form_students_accepted', '#form_students_accepted_year_error', isValidStudentsAccepted);
-        var isValidApplicationFeeAmount = GS.validation.validateRequiredIfChecked('#form_application_fee_amount', '#form_application_fee__yes', '#form_application_fee_amount_error');
-        var isValidTuition = GS.validation.validateAllOrNone('#form_tuition_low, #form_tuition_high, #form_tuition_year', '#form_tuition_error');
-        var isValidFinancialAidTypeOther = GS.validation.validateRequiredIfChecked('#form_financial_aid_type_other', '#form_financial_aid_type__other', '#form_financial_aid_type_other_error');
+        validations.push(isValidStudentsAccepted);
+        validations.push(GS.validation.validateSelectIfTextboxValueEntered('#form_students_accepted_year', '#form_students_accepted', '#form_students_accepted_year_error', isValidStudentsAccepted));
+        validations.push(GS.validation.validateRequiredIfChecked('#form_application_fee_amount', '#form_application_fee__yes', '#form_application_fee_amount_error'));
+        validations.push(GS.validation.validateAllOrNone('#form_tuition_low, #form_tuition_high, #form_tuition_year', '#form_tuition_error'));
+        validations.push(GS.validation.validateRequiredIfChecked('#form_financial_aid_type_other', '#form_financial_aid_type__other', '#form_financial_aid_type_other_error'));
 
         // END PAGE 3
 
         // PAGE 4
 //        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked
 //            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
-        var isValidSpecialEdPrograms = GS.validation.validateRequiredIfChecked
-            ('[name=special_ed_programs]', '[name=special_ed_programs_exists]', '#js_form_special_ed_programs_error');
-        var isValidSchedule = GS.validation.validateRequiredIfChecked
-            ('[name=schedule]', '[name=schedule_exists]', '#js_form_schedule_error');
+        validations.push(GS.validation.validateRequiredIfChecked
+            ('[name=special_ed_programs]', '[name=special_ed_programs_exists]', '#js_form_special_ed_programs_error'));
+        validations.push(GS.validation.validateRequiredIfChecked
+            ('[name=schedule]', '[name=schedule_exists]', '#js_form_schedule_error'));
 //        var isValidExtraLearningResources = GS.validation.validateRequiredIfChecked
 //            ('#js_form_extra_learning_resources_other', '.js_otherField_js_form_extra_learning_resources_other', '#js_form_extra_learning_resources_error');
 //        var isValidStaffLanguages = GS.validation.validateRequiredIfChecked
 //            ('#js_form_staff_languages_other', '.js_otherField_js_form_staff_languages_other', '#js_form_staff_languages_error');
 //        var isValidCollegePrep = GS.validation.validateRequiredIfChecked
 //            ('#js_form_college_prep_other', '.js_otherField_js_form_college_prep_other', '#js_form_college_prep_error');
-        var isValidPostGraduationYear = GS.validation.validateRequiredIfNotEmpty('[name=post_graduation_year]','.js_form_post_graduation_year','#js_form_post_graduation_year_error');
-        var isValidPostGraduation2Yr = GS.validation.validateInteger('#js_form_post_graduation_2yr','#js_form_post_graduation_2yr_error');
-        var isValidPostGraduation4Yr = GS.validation.validateInteger('#js_form_post_graduation_4yr','#js_form_post_graduation_4yr_error');
-        var isValidPostGraduationMilitary = GS.validation.validateInteger('#js_form_post_graduation_military','#js_form_post_graduation_military_error');
-        var isValidPostGraduationVocational = GS.validation.validateInteger('#js_form_post_graduation_vocational','#js_form_post_graduation_vocational_error');
-        var isValidPostGraduationWorkforce = GS.validation.validateInteger('#js_form_post_graduation_workforce','#js_form_post_graduation_workforce_error');
+        validations.push(GS.validation.validateRequiredIfNotEmpty('[name=post_graduation_year]','.js_form_post_graduation_year','#js_form_post_graduation_year_error'));
+        validations.push(GS.validation.validateInteger('#js_form_post_graduation_2yr','#js_form_post_graduation_2yr_error'));
+        validations.push(GS.validation.validateInteger('#js_form_post_graduation_4yr','#js_form_post_graduation_4yr_error'));
+        validations.push(GS.validation.validateInteger('#js_form_post_graduation_military','#js_form_post_graduation_military_error'));
+        validations.push(GS.validation.validateInteger('#js_form_post_graduation_vocational','#js_form_post_graduation_vocational_error'));
+        validations.push(GS.validation.validateInteger('#js_form_post_graduation_workforce','#js_form_post_graduation_workforce_error'));
 //        var isValidSkillsTraining = GS.validation.validateRequiredIfChecked
 //            ('#js_form_skills_training_other', '.js_otherField_js_form_skills_training_other', '#js_form_skills_training_error');
 
-        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked('#js_form_foreign_language_other', '#form_foreign_language__other', '#js_form_foreign_language_other_error');
-        var isValidExtraLearningResourcesOther = GS.validation.validateRequiredIfChecked('#js_form_extra_learning_resources_other', '#form_extra_learning_resources__other', '#js_form_extra_learning_resources_other_error');
-        var isValidStaffLanguagesOther = GS.validation.validateRequiredIfChecked('#js_form_staff_languages_other', '#form_staff_languages__other', '#js_form_staff_languages_other_error');
-        var isValidCollegePrepOther = GS.validation.validateRequiredIfChecked('#js_form_college_prep_other','#form_college_prep__other', '#js_form_college_prep_other_error');
-        var isValidSkillsTrainingOther = GS.validation.validateRequiredIfChecked('#js_form_skills_training_other', '#form_skills_training__other', '#js_form_skills_training_other_error');
+//        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked('#js_form_foreign_language_other', '#form_foreign_language__other', '#js_form_foreign_language_other_error');
+//        var isValidExtraLearningResourcesOther = GS.validation.validateRequiredIfChecked('#js_form_extra_learning_resources_other', '#form_extra_learning_resources__other', '#js_form_extra_learning_resources_other_error');
+//        var isValidStaffLanguagesOther = GS.validation.validateRequiredIfChecked('#js_form_staff_languages_other', '#form_staff_languages__other', '#js_form_staff_languages_other_error');
+//        var isValidCollegePrepOther = GS.validation.validateRequiredIfChecked('#js_form_college_prep_other','#form_college_prep__other', '#js_form_college_prep_other_error');
+//        var isValidSkillsTrainingOther = GS.validation.validateRequiredIfChecked('#js_form_skills_training_other', '#form_skills_training__other', '#js_form_skills_training_other_error');
 
 
 
         // END PAGE 4
 
         // PAGE 7
-        var isValidAdministratorEmail =
-                GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error', false);
+        validations.push(GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error', false));
 
-        var isValidPhysicalAddressStreet = GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error');
+        validations.push(GS.validation.validateRequired('#form_physical_address_street', '#form_physical_address_street_error'));
 
-        var isValidSchoolPhone = GS.validation.validateAndStylePhoneParts('#form_school_phone_area_code');
-        var isValidSchoolFax = GS.validation.validateAndStylePhoneParts('#form_school_fax_area_code');
-        var isValidContactMethodPhone = GS.validation.validateRequiredIfChecked('#form_contact_method_phone', '#form_contact_method__phone', '#form_contact_method_phone_error')
-            && GS.validation.validateAndStylePhone('#form_contact_method_phone');
-        var isValidContactMethodEmail = GS.validation.validateRequiredIfChecked('#form_contact_method_email', '#form_contact_method__email', '#form_contact_method_email_error')
-            && GS.validation.validateEmail('#form_contact_method_email', '#form_contact_method_email_error');
-        var isValidContactMethodOther = GS.validation.validateRequiredIfChecked('#form_contact_method_other', '#form_contact_method__other', '#form_contact_method_other_error');
-
+        validations.push(GS.validation.validateAndStylePhoneParts('#form_school_phone_area_code'));
+        validations.push(GS.validation.validateAndStylePhoneParts('#form_school_fax_area_code'));
+        validations.push(GS.validation.validateRequiredIfChecked('#form_contact_method_phone', '#form_contact_method__phone', '#form_contact_method_phone_error')
+            && GS.validation.validateAndStylePhone('#form_contact_method_phone'));
+        validations.push(GS.validation.validateRequiredIfChecked('#form_contact_method_email', '#form_contact_method__email', '#form_contact_method_email_error')
+            && GS.validation.validateEmail('#form_contact_method_email', '#form_contact_method_email_error'));
+        validations.push(GS.validation.validateRequiredIfChecked('#form_contact_method_other', '#form_contact_method__other', '#form_contact_method_other_error'));
         // END PAGE 7
 
-        return isValidStudentEnrollment && isValidGradeLevels && isValidApplicationsReceived &&
-                isValidApplicationsReceivedYear && isValidStudentsAccepted && isValidStudentsAcceptedYear &&
-                isValidApplicationFeeAmount && isValidTuition && isValidFinancialAidTypeOther &&
-                isValidForeignLanguageOther && isValidExtraLearningResourcesOther && isValidStaffLanguagesOther && isValidCollegePrepOther && isValidSkillsTrainingOther &&
-            isValidPhysicalAddressStreet &&
-            isValidAdministratorEmail && isValidSpecialEdPrograms && isValidSchedule && isValidPostGraduationYear &&
-            isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
-            isValidPostGraduationVocational && isValidPostGraduationWorkforce &&
-            isValidSchoolPhone && isValidSchoolFax && isValidContactMethodPhone && isValidContactMethodEmail && isValidContactMethodOther;
+        for (var fieldValidation in validations) {
+            if (fieldValidation === false) {
+                return false;
+            }
+        }
+        return true;
     };
 
     if (GS.history5Enabled) {
