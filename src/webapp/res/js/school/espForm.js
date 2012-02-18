@@ -896,7 +896,8 @@ new (function() {
         // the back end
         jQuery(formWrapper).find('.js_otherField').each(function() {
             var otherField = formWrapper.find('.js_otherField_' + this.id);
-            if (otherField.size() == 1 && (otherField.val().length == 0 || otherField.val() == 'other')) {
+            if (otherField.size() == 1 && (otherField.val().length == 0 || otherField.val() == 'other')
+                && !otherField.hasClass('js_include')) {
                 otherField.addClass('js_exclude');
                 $(this).addClass('js_setDefaultMarker'); // since it is detached from back end, we need to set state via JS
             }

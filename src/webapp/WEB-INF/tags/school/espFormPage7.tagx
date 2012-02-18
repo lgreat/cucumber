@@ -189,7 +189,7 @@
 
                     <div class="alpha grid_18 omega">
                         <div class="alpha grid_2">
-                            <school:espCheckboxWithLabel key="contact_method" value="other" label="Other:" nobr="${true}" styleClass="js_otherField_form_contact_method_other"/>
+                            <school:espCheckboxWithLabel key="contact_method" value="other" label="Other:" nobr="${true}" styleClass="js_otherField_form_contact_method_other js_include"/>
                         </div>
 
                         <div class="grid_6">
