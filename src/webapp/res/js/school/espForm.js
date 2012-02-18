@@ -552,6 +552,34 @@ GS.validation.validateEmail = function(fieldSelector, errorSelector, required) {
     return isValid;
 };
 
+GS.validation.validateAllOrNone = function(fieldSelectors, errorSelector) {
+    var fields = $(fieldSelectors).filter(':visible');
+    var error = $(errorSelector);
+    var valid = true;
+
+    error.hide();
+    fields.removeClass('warning');
+
+    var all = true;
+    var none = true;
+
+    fields.each(function() {
+        var field = $(this);
+        var hasValue = field.val() !== undefined && field.val().length > 0;
+        all = all && hasValue;
+        none = none && !hasValue;
+    });
+
+    valid = (all || none);
+
+    if (!valid) {
+        error.show();
+        fields.addClass('warning');
+    }
+
+    return valid;
+};
+
 GS.util = GS.util || {};
 GS.util.getUrlVars = function(url) {
     var myUrl = url || window.location.href;
@@ -725,6 +753,38 @@ new (function() {
         var isValidGradeLevels = validateGradeLevels();
         // END PAGE 1
 
+
+        // PAGE 3
+        var isValidApplicationsReceived = GS.validation.validateInteger('#form_applications_received', '#form_applications_received_error');
+        // TODO: figure out what to do with this type of validation method
+        GS.validation.validateSelectIfTextboxValueEntered = function(selectBoxSelector, textBoxSelector, errorSelector, textBoxValid) {
+            var selectBox = $(selectBoxSelector).filter(':visible');
+            var textBox = $(textBoxSelector).filter(':visible');
+            var error = $(errorSelector);
+            var valid = true;
+            var nothingSelectedValue = "";
+            error.hide();
+            selectBox.removeClass('warning');
+
+            valid = !(textBoxValid && textBox.val() !== undefined && textBox.val().length > 0
+                    && selectBox.val() === nothingSelectedValue);
+
+            if (!valid) {
+                error.show();
+                selectBox.addClass('warning');
+            }
+
+            return valid;
+        };
+        var isValidApplicationsReceivedYear = GS.validation.validateSelectIfTextboxValueEntered('#form_applications_received_year', '#form_applications_received', '#form_applications_received_year_error', isValidApplicationsReceived);
+        var isValidStudentsAccepted = GS.validation.validateInteger('#form_students_accepted', '#form_students_accepted_error');
+        var isValidStudentsAcceptedYear = GS.validation.validateSelectIfTextboxValueEntered('#form_students_accepted_year', '#form_students_accepted', '#form_students_accepted_year_error', isValidStudentsAccepted);
+        var isValidApplicationFeeAmount = GS.validation.validateRequiredIfChecked('#form_application_fee_amount', '#form_application_fee__yes', '#form_application_fee_amount_error');
+        var isValidTuition = GS.validation.validateAllOrNone('#form_tuition_low, #form_tuition_high, #form_tuition_year', '#form_tuition_error');
+        var isValidFinancialAidTypeOther = GS.validation.validateRequiredIfChecked('#form_financial_aid_type_other', '#form_financial_aid_type__other', '#form_financial_aid_type_other_error');
+
+        // END PAGE 3
+
         // PAGE 4
 //        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked
 //            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
@@ -764,7 +824,10 @@ new (function() {
 
         // END PAGE 7
 
-        return isValidStudentEnrollment && isValidGradeLevels && isValidPhysicalAddressStreet &&
+        return isValidStudentEnrollment && isValidGradeLevels && isValidApplicationsReceived &&
+                isValidApplicationsReceivedYear && isValidStudentsAccepted && isValidStudentsAcceptedYear &&
+                isValidApplicationFeeAmount && isValidTuition && isValidFinancialAidTypeOther &&
+            isValidPhysicalAddressStreet &&
             isValidAdministratorEmail && isValidSpecialEdPrograms && isValidSchedule && isValidPostGraduationYear &&
             isValidPostGraduation2Yr && isValidPostGraduation4Yr && isValidPostGraduationMilitary &&
             isValidPostGraduationVocational && isValidPostGraduationWorkforce &&
@@ -844,7 +907,7 @@ new (function() {
         GS.form.findAndApplyGhostTextSwitching('#espFormPage-' + GS.espForm.currentPage);
 
         // validate all visible fields when any input textbox value is changed
-        formWrapper.on('change', 'input', function() {
+        formWrapper.on('change', 'input, select', function() {
             doValidations();
         });
         
@@ -882,8 +945,8 @@ new (function() {
         $('#form_application_fee__yes').change();
         $('[name=financial_aid]').on('change', function(){
         	var show = $('#form_financial_aid__yes').prop('checked');
-        	$('#form_financial_aid_type').toggle(show);
-        	$('#form_financial_aid_type_other').toggle(show);
+        	$('[name=financial_aid_type]:first').parent().toggle(show);
+            $('[name=financial_aid_type]:last').parent().toggle(show);
         });
         $('#form_financial_aid__yes').change();
         $('[name*="feeder_school_"]').toggle(isMiddleSchool || isHighSchool);
@@ -903,9 +966,9 @@ new (function() {
             var currentLength = textarea.val().length;
             var characterCountElement = textarea.parent().find('.js-charactersLeft');
             if (currentLength === maxLength-1) {
-                characterCountElement.html("1 character remaining.");
+                characterCountElement.html("1 character remaining");
             } else {
-                characterCountElement.html(parseInt(maxLength - currentLength).toString() + " characters remaining.");
+                characterCountElement.html(parseInt(maxLength - currentLength).toString() + " characters remaining");
             }
         });
 
