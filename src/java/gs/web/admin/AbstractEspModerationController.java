@@ -146,20 +146,33 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                         boolean updateMembership = false;
 
                         if ("approve".equals(moderatorAction)) {
-                            membership.setStatus(EspMembershipStatus.APPROVED);
-                            membership.setActive(true);
-                            addEspRole(user);
-                            sendESPVerificationEmail(request, user);
-                            updateMembership = true;
+                            if (membership.getStatus() == EspMembershipStatus.PROCESSING
+                                    || membership.getStatus() == EspMembershipStatus.REJECTED) {
+                                membership.setStatus(EspMembershipStatus.APPROVED);
+                                membership.setActive(true);
+                                addEspRole(user);
+                                sendESPVerificationEmail(request, user);
+                                updateMembership = true;
+                            } else if (!membership.getActive()) {
+                                membership.setStatus(EspMembershipStatus.APPROVED);
+                                membership.setActive(true);
+                                addEspRole(user);
+                                sendESPVerificationEmail(request, user);
+                                updateMembership = true;
+                            }
                         } else if ("reject".equals(moderatorAction)) {
-                            membership.setStatus(EspMembershipStatus.REJECTED);
-                            membership.setActive(false);
-                            sendRejectionEmail(user);
-                            updateMembership = true;
-                        } else if (moderatorAction.contains("deactivate")) {
-                            membership.setActive(false);
-                            membership.setStatus(EspMembershipStatus.DISABLED);
-                            updateMembership = true;
+                            if (membership.getStatus() == EspMembershipStatus.PROCESSING) {
+                                membership.setStatus(EspMembershipStatus.REJECTED);
+                                membership.setActive(false);
+                                sendRejectionEmail(user);
+                                updateMembership = true;
+                            }
+                        } else if ("deactivate".equals(moderatorAction)) {
+                            if (membership.getActive()) {
+                                membership.setActive(false);
+                                membership.setStatus(EspMembershipStatus.DISABLED);
+                                updateMembership = true;
+                            }
                         }
     
                         //In case a note was added while approving or rejecting.

@@ -45,9 +45,18 @@
             <div class="grid_24 slStylesV1-0 espModerationTable">
                 
                 <div>
-                  <b>${isPendingView ? 'Pending View Requests' : 'Main View Requests'}</b>
-                  &#160;&#160;&#160;
-                  <a href="/admin/espModerationForm.page?pending=${isPendingView? '0' : '1'}"><c:out value="${isPendingView? 'View Main Requests' : 'View Pending Requests' }"/></a>
+                    <c:choose>
+                        <c:when test="${isPendingView}">
+                            <a href="/admin/espModerationForm.page?pending=0">View Main Requests</a>
+                            &#160;&#160;&#160;
+                            <b>Pending View Requests</b>
+                        </c:when>
+                        <c:otherwise>
+                            <b>Main View Requests</b>
+                            &#160;&#160;&#160;
+                            <a href="/admin/espModerationForm.page?pending=1">View Pending Requests</a>
+                        </c:otherwise>
+                    </c:choose>
                   &#160;&#160;&#160;
                   <a href="/admin/espModerationSearch.page">Search Moderation Requests</a>
                 </div>
@@ -58,6 +67,12 @@
 									<span class="durra">Disabled user re-requesting access</span>
 								</div>
                 <form:form commandName="espModerationCommand">
+                    <c:if test="${not empty mrows}">
+                        <input type="submit" name="moderatorAction" value="approve"/>
+                        <input type="submit" name="moderatorAction" value="reject"/>
+                        <input type="submit" name="moderatorAction" value="deactivate"/>
+                        <input type="submit" name="moderatorAction" value="update"/>
+                    </c:if>
                     <c:if test="${isPendingView}"><input type="hidden" name="pending" value="1"/></c:if>
                     <table width="950">
                         <col width="32px"/>

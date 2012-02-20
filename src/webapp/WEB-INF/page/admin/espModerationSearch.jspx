@@ -92,6 +92,12 @@
         <input type="hidden" name="userId" value="${espModerationSearchCommand.userId}"/>
         <input type="hidden" name="email" value="${espModerationSearchCommand.email}"/>
 
+          <c:if test="${not empty mrows}">
+              <input type="submit" name="moderatorAction" value="approve" />
+              <input type="submit" name="moderatorAction" value="reject" />
+              <input type="submit" name="moderatorAction" value="deactivate" />
+              <input type="submit" name="moderatorAction" value="update" />
+          </c:if>
         <table width="950">
           <col width="32px" />
           <col width="70px" />
@@ -164,9 +170,9 @@
             </tr>
           </table>
         </c:forEach>
-        <br />
         <input type="submit" name="moderatorAction" value="approve" />
-        <input type="submit" name="moderatorAction" value="reject/deactivate" />
+        <input type="submit" name="moderatorAction" value="reject" />
+        <input type="submit" name="moderatorAction" value="deactivate" />
         <input type="submit" name="moderatorAction" value="update" />
         </c:when>
         <c:otherwise><h4>No matching search results.</h4></c:otherwise>
