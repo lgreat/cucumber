@@ -516,4 +516,51 @@ public class EspFormController implements ReadWriteAnnotationController {
     protected Map<String, Object[]> cloneAndConvert(Map<String,String[]> requestParameterMap) {
         return new HashMap<String, Object[]>(requestParameterMap);
     }
+    
+    public static Map<Integer, Set<String>> KEYS_BY_PAGE = new HashMap<Integer, Set<String>>() {{
+        put(1, new HashSet<String>() {{
+            add("age_pk_start");
+            add("average_class_size");
+            add("before_after_care");
+            add("before_after_care_end");
+            add("before_after_care_start");
+            add("coed");
+            add("early_childhood_programs");
+            add("end_time");
+            add("grade_levels");
+            add("school_type");
+            add("school_type_affiliation");
+            add("start_time");
+            add("transportation");
+            add("transportation_other");
+            add("transportation_shuttle");
+            add("transportation_shuttle_other");
+        }});
+        put(2, new HashSet<String>() {{
+            add("academic_focus");
+            add("best_known_for");
+            add("immersion");
+            add("immersion_language");
+            add("instructional_model");
+            add("instructional_model_other");
+        }});
+        put(3, new HashSet<String>() {{
+
+        }});
+        put(4, new HashSet<String>() {{
+
+        }});
+        put(5, new HashSet<String>() {{
+
+        }});
+        put(6, new HashSet<String>() {{
+
+        }});
+        put(7, new HashSet<String>() {{
+
+        }});
+        put(8, new HashSet<String>() {{
+
+        }});
+    }};
 }

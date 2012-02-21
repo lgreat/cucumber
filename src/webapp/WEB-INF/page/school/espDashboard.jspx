@@ -88,12 +88,14 @@
                 </div>
                 <div class="grid_10">
                     <div class="spacer_25"><!-- do not collapse --></div>
-                    <div class="alpha grid_5">
-                        <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
-                    </div>
-                    <div class="grid_4 suffix_1 omega">
-                        <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
-                    </div>
+                    <c:if test="${!anyPageStarted}">
+                        <div class="alpha grid_5">
+                            <p class="small">Ready to get started? Click on the 'Get Started' button to begin.</p>
+                        </div>
+                        <div class="grid_4 suffix_1 omega">
+                            <link:schoolEspForm school="${school}" page="1" styleClass="button-3 fltrt">Get started</link:schoolEspForm>
+                        </div>
+                    </c:if>
                 </div>
 
                 <!--<c:if test="${not empty otherEspMemberships}">-->
@@ -115,7 +117,7 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected">
+                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[1]?'completed':''}">
                                         <span class="iconx48 i-48-sb img"><!-- do not collapse --></span>
 
                                         <p class="bk">School basics</p>
@@ -130,7 +132,7 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected">
+                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[2]?'completed':''}">
                                         <span class="iconx48 i-48-im img"><!-- do not collapse --></span>
 
                                         <p class="bk">Instructional model</p>
@@ -145,7 +147,7 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected">
+                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[3]?'completed':''}">
                                         <span class="iconx48 i-48-ae img"><!-- do not collapse --></span>
 
                                         <p class="bk">Applying &amp;amp; enrolling</p>
@@ -160,7 +162,7 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected">
+                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[4]?'completed':''}">
                                         <span class="iconx48 i-48-pr img"><!-- do not collapse --></span>
 
                                         <p class="bk">Programs &amp;amp; resources</p>
@@ -178,7 +180,7 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected">
+                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[5]?'completed':''}">
                                         <span class="iconx48 i-48-ee img"><!-- do not collapse --></span>
 
                                         <p class="bk">Enrichment &amp;amp; extracurriculars</p>
@@ -193,7 +195,7 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected">
+                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[6]?'completed':''}">
                                         <span class="iconx48 i-48-sc img"><!-- do not collapse --></span>
 
                                         <p class="bk">School culture</p>
@@ -208,7 +210,7 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected">
+                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[7]?'completed':''}">
                                         <span class="iconx48 i-48-ci img"><!-- do not collapse --></span>
 
                                         <p class="bk">Contact info</p>
@@ -226,7 +228,7 @@
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
-                                        <div class="mediaExt1-3 grid_9 selected">
+                                        <div class="mediaExt1-3 grid_9 selected ${pageStarted[8]?'completed':''}">
                                             <span class="iconx48 i-48-si img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
 
                                             <p class="bk">Student info</p>

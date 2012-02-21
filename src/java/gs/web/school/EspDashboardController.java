@@ -1,10 +1,7 @@
 package gs.web.school;
 
 import gs.data.community.User;
-import gs.data.school.EspMembership;
-import gs.data.school.IEspMembershipDao;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
+import gs.data.school.*;
 import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.util.UrlBuilder;
@@ -20,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * The request mapping does not have a trailing slash.This handles the url with and without a trailing slash.
@@ -37,6 +32,8 @@ public class EspDashboardController {
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
+    @Autowired
+    private IEspResponseDao _espResponseDao;
     @Autowired
     private ISchoolDao _schoolDao;
 
@@ -90,6 +87,17 @@ public class EspDashboardController {
             if (otherEspMemberships != null && !otherEspMemberships.isEmpty()) {
                 modelMap.put("otherEspMemberships", otherEspMemberships);
             }
+            
+            // get percent completion info
+            Map<Long, Boolean> pageStartedMap = new HashMap<Long, Boolean>(8);
+            boolean anyPageStarted = false;
+            for (long x=1; x < 9; x++) {
+                boolean pageStarted = _espResponseDao.getKeyCount(school, EspFormController.KEYS_BY_PAGE.get((int)x), true) > 0;
+                pageStartedMap.put(x, pageStarted);
+                anyPageStarted |= pageStarted;
+            }
+            modelMap.put("pageStarted", pageStartedMap);
+            modelMap.put("anyPageStarted", anyPageStarted);
         }
 
         return VIEW;
