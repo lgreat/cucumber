@@ -149,8 +149,11 @@ public class TableMoverController extends SimpleFormController {
         tableSets.put("gs_schooldb.configuration,TestDataSet,TestDataSchoolValue", "School ratings");
         tableSets.put("city_rating", "City ratings");
         tableSets.put("district_rating", "District ratings");
-        tableSets.put("TestDataSet,TestDataSchoolValue,TestDataStateValue,TestDataDistrictValue", "Test scores");
-        tableSets.put("gs_schooldb.TestDataSetFile,gs_schooldb.DataFile,gs_schooldb.DataLoad", "Test Display tables (only use with dev to staging)");
+        tableSets.put("TestDataSet,TestDataSchoolValue,TestDataStateValue,TestDataDistrictValue", "Test scores");                    //TestProficiencyBandGroup
+        tableSets.put("gs_schooldb.TestDataSetFile,gs_schooldb.DataFile,gs_schooldb.DataLoad" +
+                ",gs_schooldb.TestDataType,gs_schooldb.TestDataBreakdown,gs_schooldb.TestDataSubject" +
+                ",gs_schooldb.TestProficiencyBandGroup,gs_schooldb.TestProficiencyBand",
+                "Test Display tables (only use with dev to staging)");
         tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer", "Public Directory (w/ census)");
         tableSets.put("school,district,pq,pq_volunteer", "Public Directory (no census)");
         tableSets.put("school,census_data_set,census_data_school_value,pq,pq_volunteer", "Private Directory: Schools only (w/ census)");

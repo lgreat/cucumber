@@ -75,6 +75,7 @@ public class TableMoverService {
                     add("DataFile");
                     add("DataLoad");
                     add("DataSource");
+                    add("TestDataBreakdown");
                     add("TestDataSetFile");
                     add("TestDataSubject");
                     add("TestDataType");
