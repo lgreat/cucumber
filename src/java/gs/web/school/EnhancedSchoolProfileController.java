@@ -103,7 +103,8 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         School school = (School) httpServletRequest.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
 
         // GS-12514 Catch bookmarks from old pqview and send them to new URL
-        if (org.apache.commons.lang.StringUtils.contains(httpServletRequest.getRequestURI(), "cgi-bin/pqview")) {
+        if (org.apache.commons.lang.StringUtils.contains(httpServletRequest.getRequestURI(), "cgi-bin")
+                && org.apache.commons.lang.StringUtils.contains(httpServletRequest.getRequestURI(), "pqview")) {
             UrlBuilder canonicalUrl = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_DISPLAY);
             return new ModelAndView(new RedirectView301(canonicalUrl.asFullUrl(httpServletRequest)));
         }
