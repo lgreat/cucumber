@@ -34,145 +34,145 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 .iconx48 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x48/120210-48x48.png);
+    background-image: url(/res/img/sprites/icon/x48/120221-48x48.png);
     width: 48px;
     height: 48px;
 }
 
 /* **************** VIEWPORT ***************** */
 
-/* row 96 */
+/* row 0 */
 
 .i-48-sb {
-    background-position: 0 -96px;
+    background-position: 0 0;
 }
 
 .i-48-im {
-    background-position: -48px -96px;
+    background-position: -48px 0;
 }
 
 .i-48-ae {
-    background-position: -96px -96px;
+    background-position: -96px 0;
 }
 
 .i-48-pr {
-    background-position: -144px -96px;
+    background-position: -144px 0;
 }
 
 .i-48-ee {
-    background-position: -192px -96px;
+    background-position: -192px 0;
 }
 
 .i-48-sc {
-    background-position: -240px -96px;
+    background-position: -240px 0;
 }
 
 .i-48-ci {
-    background-position: -288px -96px;
+    background-position: -288px 0;
 }
 
 .i-48-si {
+    background-position: -336px 0;
+}
+
+/* row 48 */
+.selected .i-48-sb {
+    background-position: 0 -48px;
+}
+
+.selected .i-48-im {
+    background-position: -48px -48px;
+}
+
+.selected .i-48-ae {
+    background-position: -96px -48px;
+}
+
+.selected .i-48-pr {
+    background-position: -144px -48px;
+}
+
+.selected .i-48-ee {
+    background-position: -192px -48px;
+}
+
+.selected .i-48-sc {
+    background-position: -240px -48px;
+}
+
+.selected .i-48-ci {
+    background-position: -288px -48px;
+}
+
+.selected .i-48-si {
+    background-position: -336px -48px;
+}
+
+/* row 96 */
+
+.completed .i-48-sb {
+    background-position: 0 -96px;
+}
+
+.completed .i-48-im {
+    background-position: -48px -96px;
+}
+
+.completed .i-48-ae {
+    background-position: -96px -96px;
+}
+
+.completed .i-48-pr {
+    background-position: -144px -96px;
+}
+
+.completed .i-48-ee {
+    background-position: -192px -96px;
+}
+
+.completed .i-48-sc {
+    background-position: -240px -96px;
+}
+
+.completed .i-48-ci {
+    background-position: -288px -96px;
+}
+
+.completed .i-48-si {
     background-position: -336px -96px;
 }
 
 /* row 144 */
 
-.completed .i-48-sb {
+.completed.selected .i-48-sb {
     background-position: 0 -144px;
 }
 
-.completed .i-48-im {
+.completed.selected .i-48-im {
     background-position: -48px -144px;
 }
 
-.completed .i-48-ae {
+.completed.selected .i-48-ae {
     background-position: -96px -144px;
 }
 
-.completed .i-48-pr {
+.completed.selected .i-48-pr {
     background-position: -144px -144px;
 }
 
-.completed .i-48-ee {
+.completed.selected .i-48-ee {
     background-position: -192px -144px;
 }
 
-.completed .i-48-sc {
+.completed.selected .i-48-sc {
     background-position: -240px -144px;
 }
 
-.completed .i-48-ci {
+.completed.selected .i-48-ci {
     background-position: -288px -144px;
 }
 
-.completed .i-48-si {
-    background-position: -336px -144px;
-}
-
-/* row 0 */
-.selected .i-48-sb {
-    background-position: 0 0;
-}
-
-.selected .i-48-im {
-    background-position: -48px 0;
-}
-
-.selected .i-48-ae {
-    background-position: -96px 0;
-}
-
-.selected .i-48-pr {
-    background-position: -144px 0;
-}
-
-.selected .i-48-ee {
-    background-position: -192px 0;
-}
-
-.selected .i-48-sc {
-    background-position: -240px 0;
-}
-
-.selected .i-48-ci {
-    background-position: -288px 0;
-}
-
-.selected .i-48-si {
-    background-position: -336px 0;
-}
-
-/* row 48 */
-
-.completed.selected .i-48-sb {
-    background-position: 0 -48px;
-}
-
-.completed.selected .i-48-im {
-    background-position: -48px -48px;
-}
-
-.completed.selected .i-48-ae {
-    background-position: -96px -48px;
-}
-
-.completed.selected .i-48-pr {
-    background-position: -144px -48px;
-}
-
-.completed.selected .i-48-ee {
-    background-position: -192px -48px;
-}
-
-.completed.selected .i-48-sc {
-    background-position: -240px -48px;
-}
-
-.completed.selected .i-48-ci {
-    background-position: -288px -48px;
-}
-
 .completed.selected .i-48-si {
-    background-position: -336px -48px;
+    background-position: -336px -144px;
 }
 
