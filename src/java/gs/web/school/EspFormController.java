@@ -545,22 +545,127 @@ public class EspFormController implements ReadWriteAnnotationController {
             add("instructional_model_other");
         }});
         put(3, new HashSet<String>() {{
-
+            add("admissions_url");
+            add("application_deadline");
+            add("application_fee");
+            add("application_fee_amount");
+            add("application_process");
+            add("applications_received");
+            add("applications_received_year");
+            add("destination_school_1");
+            add("destination_school_2");
+            add("destination_school_3");
+            add("fee_waivers");
+            add("feeder_school_1");
+            add("feeder_school_2");
+            add("feeder_school_3");
+            add("financial_aid");
+            add("financial_aid_type");
+            add("financial_aid_type_other");
+            add("students_accepted");
+            add("students_accepted_year");
+            add("students_vouchers");
+            add("tuition_high");
+            add("tuition_low");
+            add("tuition_year");
         }});
         put(4, new HashSet<String>() {{
-
+            add("boarding");
+            add("college_destination_1");
+            add("college_destination_2");
+            add("college_destination_3");
+            add("college_prep");
+            add("college_prep_other");
+            add("ell_languages");
+            add("ell_level");
+            add("extra_learning_resources");
+            add("extra_learning_resources_other");
+            add("facilities");
+            add("foreign_language");
+            add("foreign_language_other");
+            add("partnerships");
+            add("partnerships_name_1");
+            add("partnerships_name_2");
+            add("partnerships_name_3");
+            add("partnerships_name_4");
+            add("partnerships_name_5");
+            add("partnerships_url_1");
+            add("partnerships_url_2");
+            add("partnerships_url_3");
+            add("partnerships_url_4");
+            add("partnerships_url_5");
+            add("post_graduation_2yr");
+            add("post_graduation_4yr");
+            add("post_graduation_military");
+            add("post_graduation_vocational");
+            add("post_graduation_workforce");
+            add("post_graduation_year");
+            add("schedule");
+            add("schedule_exists");
+            add("skills_training");
+            add("skills_training_other");
+            add("spec_ed_level");
+            add("special_ed_programs");
+            add("special_ed_programs_exists");
+            add("staff_languages");
+            add("staff_languages_other");
+            add("staff_resources");
         }});
         put(5, new HashSet<String>() {{
-
+            add("academic_award_1");
+            add("academic_award_1_year");
+            add("academic_award_2");
+            add("academic_award_2_year");
+            add("academic_award_3");
+            add("academic_award_3_year");
+            add("academic_award_exists");
+            add("arts_media");
+            add("arts_music");
+            add("arts_performing_written");
+            add("arts_visual");
+            add("boys_sports");
+            add("boys_sports_other");
+            add("girls_sports");
+            add("girls_sports_other");
+            add("service_award_1");
+            add("service_award_2");
+            add("service_award_3");
+            add("service_award_exists");
+            add("student_clubs");
+            add("student_clubs_dance");
+            add("student_clubs_language");
+            add("student_clubs_other_1");
+            add("student_clubs_other_2");
+            add("student_clubs_other_3");
         }});
         put(6, new HashSet<String>() {{
-
+            add("anything_else");
+            add("bullying_policy");
+            add("dress_code");
+            add("parent_involvement");
+            add("parent_involvement_other");
+            add("photo_upload");
+            add("school_colors");
+            add("school_mascot");
+            add("school_video");
         }});
         put(7, new HashSet<String>() {{
-
+            add("administrator_email");
+            add("administrator_name");
+            add("contact_method");
+            add("contact_method_email");
+            add("contact_method_other");
+            add("contact_method_phone");
+            add("facebook_url");
+            add("physical_address_city");
+            add("physical_address_street");
+            add("physical_address_zip");
+            add("school_fax");
+            add("school_phone");
+            add("school_url");
         }});
         put(8, new HashSet<String>() {{
-
+            // TODO
         }});
     }};
 }
