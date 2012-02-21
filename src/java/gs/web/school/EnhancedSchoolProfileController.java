@@ -19,6 +19,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gs.web.util.RedirectView301;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -99,6 +101,12 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         Map<String, Object> model = new HashMap<String, Object>();
 
         School school = (School) httpServletRequest.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
+
+        // GS-12514 Catch bookmarks from old pqview and send them to new URL
+        if (org.apache.commons.lang.StringUtils.contains(httpServletRequest.getRequestURI(), "cgi-bin/pqview")) {
+            UrlBuilder canonicalUrl = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_DISPLAY);
+            return new ModelAndView(new RedirectView301(canonicalUrl.asFullUrl(httpServletRequest)));
+        }
 
         // esp raw responses
         List<EspResponse> listResponses = _espResponseDao.getResponses(school);
