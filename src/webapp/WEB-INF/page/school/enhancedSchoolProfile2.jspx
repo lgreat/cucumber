@@ -104,9 +104,6 @@
                 <tr>
                     <td class="small_bold">Before school or after school care / program onsite</td>
                     <td>
-                        <c:if test="${fn:containsIgnoreCase(bacare, 'before')}">Before school care</c:if>
-                        <c:if test="${fn:containsIgnoreCase(bacare, 'before') and fn:containsIgnoreCase(bacare, 'after')}">;&#160;</c:if>
-                        <c:if test="${fn:containsIgnoreCase(bacare, 'after')}">After school care</c:if>
                         <c:set var="scStart"><gsweb:erts list="${responses.before_after_care_start}"/></c:set>
                         <c:set var="scEnd"><gsweb:erts list="${responses.before_after_care_end}"/></c:set>
                         <c:if test="${not empty scStart or not empty scEnd}">
