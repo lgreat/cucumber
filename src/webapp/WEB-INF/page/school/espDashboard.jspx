@@ -113,17 +113,19 @@
                     <p class="small">Select a section to get started. You may save, continue and edit your Online School Profile at any time.</p>
 
                     <div class="grid_12 alpha">
+                        <c:set var="tabGetStartedLabel">Get started</c:set>
+                        <c:set var="tabEditLabel">Edit</c:set>
 
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[1]?'completed':''}">
+                                    <div class="mediaExt1-3 grid_9 selected">
                                         <span class="iconx48 i-48-sb img"><!-- do not collapse --></span>
 
                                         <p class="bk">School basics</p>
                                     </div>
                                     <div class="grid_2 mtm pts">
-                                        <link:schoolEspForm school="${school}" page="1" styleClass="button-6">Get started</link:schoolEspForm>
+                                        <link:schoolEspForm school="${school}" page="1" styleClass="button-6">${pageStarted[1]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -132,13 +134,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[2]?'completed':''}">
+                                    <div class="mediaExt1-3 grid_9 selected">
                                         <span class="iconx48 i-48-im img"><!-- do not collapse --></span>
 
                                         <p class="bk">Instructional model</p>
                                     </div>
                                     <div class="grid_2 mtm pts">
-                                        <link:schoolEspForm school="${school}" page="2" styleClass="button-6">Get started</link:schoolEspForm>
+                                        <link:schoolEspForm school="${school}" page="2" styleClass="button-6">${pageStarted[2]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -147,13 +149,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[3]?'completed':''}">
+                                    <div class="mediaExt1-3 grid_9 selected">
                                         <span class="iconx48 i-48-ae img"><!-- do not collapse --></span>
 
                                         <p class="bk">Applying &amp;amp; enrolling</p>
                                     </div>
                                     <div class="grid_2 mtm pts">
-                                        <link:schoolEspForm school="${school}" page="3" styleClass="button-6">Get started</link:schoolEspForm>
+                                        <link:schoolEspForm school="${school}" page="3" styleClass="button-6">${pageStarted[3]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -162,13 +164,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[4]?'completed':''}">
+                                    <div class="mediaExt1-3 grid_9 selected">
                                         <span class="iconx48 i-48-pr img"><!-- do not collapse --></span>
 
                                         <p class="bk">Programs &amp;amp; resources</p>
                                     </div>
                                     <div class="grid_2 mtm pts">
-                                        <link:schoolEspForm school="${school}" page="4" styleClass="button-6">Get started</link:schoolEspForm>
+                                        <link:schoolEspForm school="${school}" page="4" styleClass="button-6">${pageStarted[4]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -180,13 +182,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[5]?'completed':''}">
+                                    <div class="mediaExt1-3 grid_9 selected">
                                         <span class="iconx48 i-48-ee img"><!-- do not collapse --></span>
 
                                         <p class="bk">Enrichment &amp;amp; extracurriculars</p>
                                     </div>
                                     <div class="grid_2 mtm pts">
-                                        <link:schoolEspForm school="${school}" page="5" styleClass="button-6">Get started</link:schoolEspForm>
+                                        <link:schoolEspForm school="${school}" page="5" styleClass="button-6">${pageStarted[5]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -195,13 +197,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[6]?'completed':''}">
+                                    <div class="mediaExt1-3 grid_9 selected">
                                         <span class="iconx48 i-48-sc img"><!-- do not collapse --></span>
 
                                         <p class="bk">School culture</p>
                                     </div>
                                     <div class="grid_2 mtm pts">
-                                        <link:schoolEspForm school="${school}" page="6" styleClass="button-6">Get started</link:schoolEspForm>
+                                        <link:schoolEspForm school="${school}" page="6" styleClass="button-6">${pageStarted[6]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -210,13 +212,13 @@
                         <div class="mod osp-dashboard">
                             <div class="inner">
                                 <div class="bd">
-                                    <div class="mediaExt1-3 grid_9 selected ${pageStarted[7]?'completed':''}">
+                                    <div class="mediaExt1-3 grid_9 selected">
                                         <span class="iconx48 i-48-ci img"><!-- do not collapse --></span>
 
                                         <p class="bk">Contact info</p>
                                     </div>
                                     <div class="grid_2 mtm pts">
-                                        <link:schoolEspForm school="${school}" page="7" styleClass="button-6">Get started</link:schoolEspForm>
+                                        <link:schoolEspForm school="${school}" page="7" styleClass="button-6">${pageStarted[7]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                     </div>
                                 </div>
                             </div>
@@ -228,14 +230,14 @@
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
-                                        <div class="mediaExt1-3 grid_9 selected ${pageStarted[8]?'completed':''}">
+                                        <div class="mediaExt1-3 grid_9 selected">
                                             <span class="iconx48 i-48-si img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
 
                                             <p class="bk">Student info</p>
                                         </div>
                                         <div class="grid_2 mtm pts">
                                             <link:schoolEspForm school="${school}"
-                                                                page="8" styleClass="button-6">Get started</link:schoolEspForm>
+                                                                page="8" styleClass="button-6">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                         </div>
                                     </div>
                                 </div>
