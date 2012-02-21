@@ -112,8 +112,6 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     @Autowired
     protected IEspResponseDao _espResponseDao;
 
-    protected EspRejectionEmail _espRejectionEmail;
-
     protected ExactTargetAPI _exactTargetAPI;
     
     protected abstract String getViewName();
@@ -342,7 +340,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
     private void sendRejectionEmail(User user) {
         try {
-            _espRejectionEmail.sendRejectionEmail(user);
+            getExactTargetAPI().sendTriggeredEmail("ESP-rejection", user);
         } catch (Exception e) {
             _log.error("Error sending rejection email message: " + e, e);
         }
@@ -387,14 +385,6 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     
     public void setEspResponseDao(IEspResponseDao espResponseDao) {
         this._espResponseDao = espResponseDao;
-    }
-
-    public EspRejectionEmail getEspRejectionEmail() {
-        return _espRejectionEmail;
-    }
-
-    public void setEspRejectionEmail(EspRejectionEmail espRejectionEmail) {
-        _espRejectionEmail = espRejectionEmail;
     }
 
     public ExactTargetAPI getExactTargetAPI() {
