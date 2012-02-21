@@ -147,7 +147,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.updateProgress = function(up, file) {
         var status = "Uploading... " + file.percent + "%";
         if (file.percent === 100) {
-            status = "Done";
+            status = "Upload complete";
         }
         this.setStatus(file, status);
     }.gs_bind(this);
@@ -255,7 +255,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.addItemAtPosition = function(file, position) {
-        htmlblock = '<tr id="' + file.id + '" class="fileNumber'+ position +'"><td>' + file.name + '</td><td class="uploadStatus">Queued</td><td>' + file.size + '</td><td><span class="deleteFileUpload">X</span></td></tr>';
+        htmlblock = '<tr id="' + file.id + '" class="fileNumber'+ position +'"><td>' + file.name + '</td><td class="uploadStatus">Queued for upload</td><td>' + file.size + '</td><td><span class="deleteFileUpload">X</span></td></tr>';
 
         var tableBody = this.container.find('table tbody');
         tableBody.find('tr:eq('+ parseInt(position) +')').after(htmlblock);
@@ -299,7 +299,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
     // mark a file upload row as done
     this.itemComplete = function(position) {
-        this.setStatusByPosition(position, "Done");
+        this.setStatusByPosition(position, "Upload complete");
     }.gs_bind(this);
 
 };
