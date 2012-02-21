@@ -78,4 +78,12 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
     background-position: -128px 0;
 }
 
+.i-16-close {
+    background-position: -144px 0;
+}
+
 /* row 16 */
+
+a:hover .i-16-close {
+    background-position: -144px -16px;
+}
