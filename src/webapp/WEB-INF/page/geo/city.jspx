@@ -261,6 +261,17 @@
             <c:if test="${not empty districts.results}">
                 <td style="vertical-align: top; padding-left: .5em" class="districts">
                     <gsml:list model="${districts}"/>
+                    <c:if test="${cityObject.name eq 'Indianapolis' and stateAbbrev eq 'IN'}">
+                        <h3 class="result_title">Resources</h3>
+                        <ul>
+                            <li><a href="/catalog/pdf/GreatSchools+Indianapolis+English+School+Chooser+2012-2013_WEB.pdf"
+                                   target="_blank">Indianapolis School Chooser 2012-13</a> <span class="text2-777"> (PDF)</span></li>
+                            <li><a href="/catalog/pdf/GreatSchools+Indianapolis+Spanish+School+Chooser+2012-2013_WEB.pdf"
+                                   target="_blank">Listado de Escuelas de Indianapolis 2012-13</a> <span class="text2-777"> (PDF)</span></li>
+                            <li><a href="/catalog/pdf/Test+Methodology+for+Web+-+FINAL.pdf"
+                                   target="_blank">Statistical methodology for the Indianapolis School Chooser (2012-2013)</a> <span class="text2-777"> (PDF)</span></li>
+                        </ul>
+                    </c:if>
                 </td>
             </c:if>
         </tr></table>
