@@ -110,7 +110,7 @@ education.</p>
 				<li><a href="#pvtdata">School Data – Private Schools</a></li>
                 <li><a href="#preschools">School Data - Preschools</a></li>
 				<li><a href="#faq-datacity">City and District Data</a></li>
-				<li><a href="#faq-enhancedprofiles">Enhanced School Profiles</a></li>
+				<li><a href="#faq-officialprofiles">Official School Profiles</a></li>
 				<li><a href="#faq-ratings">GreatSchools Ratings</a></li>
 				<li><a href="#faq-surveyinfo">Parent Survey Information</a></li>
 				<li><a href="#faq-comparingschools">Comparing Schools</a></li>
@@ -144,9 +144,7 @@ and some continuation and alternative schools are included as well. </p>
 					</ul>
 					<p>In
 addition, all schools have the option of "upgrading"--at no cost--to an
-Enhanced School Profile, which allows school principals to add
-information about curriculum, programs, activities, school vision and
-leadership. Get more information in our <a href="#faq-enhancedprofiles">FAQ about ESPs</a>.</p>
+Official School Profile, which allows school principals and administrators to add information about curriculum, programs, activities, and photos.</p>
 				</li>
 
 				<li>
@@ -173,7 +171,7 @@ acquire may be somewhat different from state to state.</p>
 goal is to update all data at least once a year in every state, using
 the most recent available information from either the state Department
 of Education or the National Center for Education Statistics (NCES).</p>
-					<p>Information on Enhanced School Profiles (ESPs) is updated as often as school principals choose to edit their information.</p>
+					<p>Information on Official School Profiles (OSPs) is updated as often as school principals choose to edit their information.</p>
 				</li>
 
 				<li>
@@ -190,9 +188,9 @@ rely on state Departments of Education and the National Center for
 Education Statistics (NCES) for our school contact information. Please
 notify the appropriate state Department of Education to correct the
 school's information.</li>
-						<li>Let the school's principal know that he can sign up for an
-                            <gsml:a href="/cgi-bin/static/ed_extra.inc/${state}">Enhanced School Profile</gsml:a>,
-                            which will allow him to directly edit the school's information, as well
+						<li>Let the school's principal know that he/she can sign up for an
+                            <link:schoolEspRegister>Official School Profile</link:schoolEspRegister>,
+                            which will allow him/her to directly edit the school's information, as well
                             as contribute additional information about the school.</li>
                         <li><gsml:a href="/cgi-bin/feedback_faq/${state}?fbtype=profile">Contact us</gsml:a>
 about the incorrect data and we will fix it. However, please note that
@@ -269,8 +267,8 @@ Statistics (NCES) and some state Departments of Education.</p>
 					<p class="question">Can the school principal send GreatSchools new information that isn't otherwise available?</p>
 					<p>Once
 a private school is listed on our site, the school's principal may
-provide additional information, free of charge, through our Enhanced
-School Profile feature. Get more information in our <a href="#faq-enhancedprofiles">FAQ about ESPs</a>.</p>
+provide additional information, free of charge, through our <link:schoolEspDashboard>Official</link:schoolEspDashboard>
+School Profile feature. <link:schoolEspRegister>School leaders can request access to edit the profile.</link:schoolEspRegister></p>
 				</li>
 
 				<li>
@@ -343,13 +341,13 @@ Violent Crime index, climate statistics and median home price</li>
 				</li>
 			</ol>
 
-			<h3 id="faq-enhancedprofiles">Enhanced School Profiles</h3>
+			<h3 id="faq-officialprofiles">Official School Profiles</h3>
 
 			<ol class="questions">
 				<li>
-					<p class="question">What is an Enhanced School Profile and is it free?</p>
+					<p class="question">What is an Official School Profile and is it free?</p>
 					<p>An
-Enhanced School Profile is absolutely free. It allows the principal or
+Official School Profile is absolutely free. It allows the principal or
 other school official to add the following information about the school
 directly to their GreatSchools.org profile:</p>
 					<ul>
@@ -359,14 +357,14 @@ directly to their GreatSchools.org profile:</p>
 						<li>In-depth information on staff, safety, student support, community involvement and much more</li>
 					</ul>
 					<p>As
-an added bonus, the Enhanced School Profile also lets the principal or
+an added bonus, the Official School Profile also lets the principal or
 other school official edit the school's contact information directly,
 in the event that the school's address or phone number has changed
 since we last updated it.</p>
 				</li>
 
 				<li>
-					<p class="question">Why do I need an Enhanced School Profile for my school?</p>
+					<p class="question">Why do I need an Official School Profile for my school?</p>
 					<p>GreatSchools.org
 is the most visited K-12 education Web site in the country, attracting
 thousands of people every day. Parents, community leaders, potential
@@ -380,15 +378,15 @@ already have a school Web site.</p>
 				</li>
 
 				<li>
-					<p class="question">How do you create an Enhanced School Profile?</p>
-					<p>Creating an Enhanced School Profile is simple! Principals and school officials,
-                        <gsml:a href="/cgi-bin/pq_start.cgi/${state}">get started on your Enhanced School Profile</gsml:a>
+					<p class="question">How do I create an Official School Profile?</p>
+					<p>Creating an Official School Profile is simple! Principals and school officials,
+                        <link:schoolEspRegister>get started on your Official School Profile</link:schoolEspRegister>
                         using our secure, online questionnaire. Or
-                        <gsml:a href="/cgi-bin/static/ed_extra.inc/${state}">read more about Enhanced School Profiles</gsml:a>.</p>
+                        <gsml:a href="/cgi-bin/static/ed_extra.inc/${state}">read more about Official School Profiles</gsml:a>.</p>
 				</li>
 			</ol>
 
-			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="mailto:esphelp@greatschools.org">Contact us about Enhanced School Profiles</a>.</p>
+			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="mailto:esphelp@greatschools.org">Contact us about Official School Profiles</a>.</p>
 
 			<h3 id="faq-ratings">GreatSchools Ratings</h3>
 
