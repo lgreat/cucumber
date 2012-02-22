@@ -322,38 +322,48 @@
 
             <c:set var="pgy"><gsweb:erts list="${responses.post_graduation_year}"/></c:set>
             <c:if test="${not empty pgy}">
-                <c:set var="pgA"><gsweb:erts list="${responses.post_graduation_2yr}"/></c:set>
-                <c:set var="pgB"><gsweb:erts list="${responses.post_graduation_4yr}"/></c:set>
-                <c:set var="pgC"><gsweb:erts list="${responses.post_graduation_military}"/></c:set>
-                <c:set var="pgD"><gsweb:erts list="${responses.post_graduation_vocational}"/></c:set>
-                <c:set var="pgE"><gsweb:erts list="${responses.post_graduation_workforce}"/></c:set>
+                <c:set var="pgA"><gsweb:erts list="${responses.post_graduation_2yr}"/>%</c:set>
+                <c:set var="pgB"><gsweb:erts list="${responses.post_graduation_4yr}"/>%</c:set>
+                <c:set var="pgC"><gsweb:erts list="${responses.post_graduation_military}"/>%</c:set>
+                <c:set var="pgD"><gsweb:erts list="${responses.post_graduation_vocational}"/>%</c:set>
+                <c:set var="pgE"><gsweb:erts list="${responses.post_graduation_workforce}"/>%</c:set>
                 <tr>
                     <td class="small_bold">
                         Post-graduation statistics:<br/>
-                        For school year: ${pgy}
+                        For school year: ${pgy-1}-${pgy}
                     </td>
                     <td>
                         <table class="todo">
-                            <tr>
-                                <td>${pgA}</td>
-                                <td>Graduates going to a 2-year college</td>
-                            </tr>
-                            <tr>
-                                <td>${pgB}</td>
-                                <td>Graduates going to a 4-year college</td>
-                            </tr>
-                            <tr>
-                                <td>${pgC}</td>
-                                <td>Graduates going into military service</td>
-                            </tr>
-                            <tr>
-                                <td>${pgD}</td>
-                                <td>Graduates going into vocational programs</td>
-                            </tr>
-                            <tr>
-                                <td>${pgE}</td>
-                                <td>Graduates going directly into the workforce</td>
-                            </tr>
+                            <c:if test="${fn:length(pgA) gt 1}">
+                                <tr>
+                                    <td>${pgA}</td>
+                                    <td>Graduates going to a 2-year college</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${fn:length(pgB) gt 1}">
+                                <tr>
+                                    <td>${pgB}</td>
+                                    <td>Graduates going to a 4-year college</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${fn:length(pgC) gt 1}">
+                                <tr>
+                                    <td>${pgC}</td>
+                                    <td>Graduates going into military service</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${fn:length(pgD) gt 1}">
+                                <tr>
+                                    <td>${pgD}</td>
+                                    <td>Graduates going into vocational programs</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${fn:length(pgE) gt 1}">
+                                <tr>
+                                    <td>${pgE}</td>
+                                    <td>Graduates going directly into the workforce</td>
+                                </tr>
+                            </c:if>
                         </table>
                     </td>
                 </tr>
