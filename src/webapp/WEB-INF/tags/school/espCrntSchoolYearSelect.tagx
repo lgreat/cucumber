@@ -16,9 +16,9 @@
     <jsp:useBean id='currentDate' class='java.util.Date'/>
     <fmt:formatDate var='currentYear' value='${currentDate}' pattern='yyyy'/>
     <c:set var="value" value="${responseMap[key].value}"/>
-    <c:set var="syA" value="${currentYear-1}_${currentYear}"/>
-    <c:set var="syB" value="${currentYear}_${currentYear+1}"/>
-    <c:set var="syC" value="${currentYear+1}_${currentYear+2}"/>
+    <c:set var="syA" value="${currentYear-1}-${currentYear}"/>
+    <c:set var="syB" value="${currentYear}-${currentYear+1}"/>
+    <c:set var="syC" value="${currentYear+1}-${currentYear+2}"/>
     <c:set var="syALbl" value="${currentYear-1}-${currentYear}"/>
     <c:set var="syBLbl" value="${currentYear}-${currentYear+1}"/>
     <c:set var="syCLbl" value="${currentYear+1}-${currentYear+2}"/>
