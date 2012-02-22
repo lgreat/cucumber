@@ -6,205 +6,265 @@
           xmlns:gsweb="gstaglib"
         >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
-    <school:espFormTemplate page="3" maxPage="${maxPage}" headerText="Applying &amp;amp; enrolling">
+<school:espFormTemplate page="3" maxPage="${maxPage}" headerText="Applying &amp;amp; enrolling">
 
-      <fieldset>
-      
-        <div class="lal clearfix">
-          <div class="alpha grid_8">
-            <label>Is there an application or enrollment process for your school?</label>
-          </div>
-          <div class="grid_5 omaga">
-            <school:espRadioWithLabel key="application_process" value="no" label="No"/>
-            <school:espRadioWithLabel key="application_process" value="yes" label="Yes"/>
-          </div>
+<fieldset>
+
+<div class="lal clearfix">
+    <div class="alpha grid_7">
+        <label>Is there an application or enrollment process for your school?</label>
+    </div>
+    <div class="grid_16 omega">
+        <school:espRadioWithLabel key="application_process" value="no" label="No"/>
+        <school:espRadioWithLabel key="application_process" value="yes" label="Yes"/>
+    </div>
+</div>
+
+<p class="small">Please choose one or more options below to provide application information to parents</p>
+
+<div id="sctn_admissions_url" class="lal clearfix">
+    <div class="alpha grid_7">
+        <label for="form_admissions_url">Send parents directly to your admissions page</label>
+    </div>
+    <div class="grid_16 omega">
+        <input id="form_admissions_url" name="admissions_url" class="mls js_otherField text input_6"
+               value="${responseMap['admissions_url'].value}" placeholder="[Enter URL for page on your website]"
+               size="30" maxlength="100"/>
+
+        <p class="hint">Example: http://www.yourschool.edu/apply</p>
+    </div>
+</div>
+
+<!--<div id="sctn_application_package" class="lal clearfix">
+  <div class="alpha grid_8">
+    <label for="form_application_upload">Upload application package</label>
+  </div>
+  <div class="grid_9 omega">
+    <input type="file" id="form_application_upload" name="application_upload" class="mls js_otherField text input_6" value="${responseMap['application_upload'].value}" placeholder="[Click browse to upload a PDF file]" size="30" maxlength="30"/>
+  </div>
+</div>-->
+
+<!--<div id="sctn_parents_contact" class="lal clearfix">
+  <div class="alpha grid_8">
+    <label for="form_parents_contact">Contact school</label>
+  </div>
+  <div class="grid_9 omega">
+    <school:espCheckboxWithLabel key="parents_contact" value="1" label="Parents should call the school for application information"/>
+  </div>
+</div>-->
+
+<div id="sctn_application_deadline" class="lal clearfix">
+    <div class="alpha grid_7">
+        <p class="labelGroup">When is the application deadline?</p>
+    </div>
+    <div class="grid_16 omega">
+        <school:espRadioWithLabel key="application_deadline" value="yearround"
+                                  label="Year-round / Rolling admissions, if space is available"/>
+        <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true"/>
+        <input id="form_application_deadline" name="application_deadline" class="mls js_otherField text input_4"
+               value="${responseMap['application_deadline'].value}" placeholder="[Select date]"
+               maxlength="10"/><br/>
+        <school:espRadioWithLabel key="application_deadline" value="parents_contact"
+                                  label="Parents should contact the school for more information or if there are multiple deadlines"/>
+    </div>
+</div>
+
+<div id="sctn_applications_received" class="lal clearfix">
+    <div class="alpha grid_7">
+        <label for="form_applications_received">How many applications did you receive this year?</label>
+        <school:espFieldError text="Please enter a number" styleId="form_applications_received_error"
+                              styleClass="grid_6 omega"/>
+        <school:espFieldError text="Please specify the year" styleId="form_applications_received_year_error"
+                              styleClass="grid_6 omega"/>
+    </div>
+    <div class="grid_4">
+        <input id="form_applications_received" name="applications_received" type="text"
+               class="mls js_otherField text input_4"
+               value="${responseMap['applications_received'].value}" placeholder="[Enter number]"
+               maxlength="5"/>
+
+        <p class="hint">Example: 1135</p>
+    </div>
+    <div class="grid_12 omega">
+        <school:espCrntSchoolYearSelect key="applications_received_year" placeholder="[Select year]"/>
+    </div>
+</div>
+
+<div id="sctn_students_accepted" class="lal clearfix">
+    <div class="alpha grid_7">
+        <label for="form_students_accepted">How many students did you accept this year?</label>
+        <school:espFieldError text="Please enter a number" styleId="form_students_accepted_error"
+                              styleClass="grid_6 omega"/>
+        <school:espFieldError text="Please specify the year" styleId="form_students_accepted_year_error"
+                              styleClass="grid_6 omega"/>
+    </div>
+    <div class="grid_4">
+        <input id="form_students_accepted" name="students_accepted" type="text"
+               class="mls js_otherField text input_4" value="${responseMap['students_accepted'].value}"
+               placeholder="[Enter number]" maxlength="4"/>
+
+        <p class="hint">Example: 60</p>
+    </div>
+    <div class="grid_12 omega">
+        <school:espCrntSchoolYearSelect key="students_accepted_year" placeholder="[Select year]"/>
+    </div>
+</div>
+
+<c:if test="${school.type.name eq 'private' and (school.databaseState.abbreviation eq 'DC' or school.databaseState.abbreviation eq 'IN' or school.databaseState.abbreviation eq 'WI')}">
+    <div id="sctn_application_fee" class="lal clearfix">
+        <div class="alpha grid_7">
+            <label for="form_application_fee">Is there an application fee?</label>
+            <school:espFieldError text="Please specify the fee amount" styleId="form_application_fee_amount_error"
+                                  styleClass="grid_6 omega"/>
+            <school:espFieldError text="Please enter a number" styleId="form_application_fee_amount_numeric_error"
+                                  styleClass="grid_6 omega"/>
         </div>
-        
-        <p>Please choose one or more options below to provide application information to parents</p>
-        
-        <div id="sctn_admissions_url" class="lal clearfix">
-          <div class="alpha grid_8">
-            <label for="form_admissions_url">Send parents directly to your admissions page</label>
-          </div>
-          <div class="grid_9 omega">
-            <input id="form_admissions_url" name="admissions_url" class="mls js_otherField text input_6" value="${responseMap['admissions_url'].value}" placeholder="[Enter URL for page on your website]" size="30" maxlength="100"/>
-            <p class="hint">Example: http://www.yourschool.edu/apply</p>
-          </div>
+        <div class="grid_16 omega">
+            <school:espRadioWithLabel key="application_fee" value="no" label="No"/>
         </div>
-        
-        <!--<div id="sctn_application_package" class="lal clearfix">
-          <div class="alpha grid_8">
-            <label for="form_application_upload">Upload application package</label>
-          </div>
-          <div class="grid_9 omega">
-            <input type="file" id="form_application_upload" name="application_upload" class="mls js_otherField text input_6" value="${responseMap['application_upload'].value}" placeholder="[Click browse to upload a PDF file]" size="30" maxlength="30"/>
-          </div>
-        </div>-->
-        
-        <!--<div id="sctn_parents_contact" class="lal clearfix">
-          <div class="alpha grid_8">
-            <label for="form_parents_contact">Contact school</label>
-          </div>
-          <div class="grid_9 omega">
-            <school:espCheckboxWithLabel key="parents_contact" value="1" label="Parents should call the school for application information"/>
-          </div>
-        </div>-->
-        
-        <hr />
-        
-        <div id="sctn_application_deadline" class="lal clearfix">
-          <div class="alpha grid_8">
-            <p class="labelGroup">When is the application deadline?</p>
-          </div>
-          <div class="grid_10 omega">
-            <school:espRadioWithLabel key="application_deadline" value="yearround" label="Year-round / Rolling admissions, if space is available"/>
-            <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true"/>
-            <input id="form_application_deadline" name="application_deadline" class="mls js_otherField text input_4" value="${responseMap['application_deadline'].value}" placeholder="[Select date]"  maxlength="10"/><br />
-            <school:espRadioWithLabel key="application_deadline" value="parents_contact" label="Parents should contact the school for more information or if there are multiple deadlines"/>
-          </div>
+        <div class="grid_2">
+            <school:espRadioWithLabel key="application_fee" value="yes" label="Yes" nobr="true"
+                                      styleClass="fltlft"/>
         </div>
+        <div id="js_application_fee_group" class="grid_14 omega">
+            <div class="grid_5 alpha">
+                <span class="small">$</span>
+                <input id="form_application_fee_amount" type="text" name="application_fee_amount"
+                       class="mls js_otherField text input_4"
+                       value="${responseMap['application_fee_amount'].value}" placeholder="[Enter number]"
+                       maxlength="3"/>
 
-        <div id="sctn_applications_received" class="lal clearfix">
-          <div class="alpha grid_8">
-            <label for="form_applications_received">How many applications did you receive this year?</label>
-          </div>
-          <div class="grid_7">
-              <div class="grid_4 alpha">
-                  <input id="form_applications_received" name="applications_received" type="text" class="mls js_otherField text input_4" value="${responseMap['applications_received'].value}" placeholder="[Enter number]" maxlength="5"/>
-                  <p class="hint">Example: 1135</p>
-              </div>
-              <div class="grid_3 omega">
-                  <school:espCrntSchoolYearSelect key="applications_received_year" placeholder="[Select year]"/>
-              </div>
-          </div>
-            <school:espFieldError text="Please enter a number" styleId="form_applications_received_error" styleClass="grid_6 omega"/>
-            <school:espFieldError text="Please specify the year" styleId="form_applications_received_year_error" styleClass="grid_6 omega"/>
+                <p class="hint">Enter amount of application fee</p>
+            </div>
+
+            <div class="grid_4">
+                <p class="small">Are fee waivers available?</p>
+            </div>
+            <div class="grid_5 omega">
+                <school:espRadioWithLabel key="fee_waivers" value="no" label="No"/>
+                <school:espRadioWithLabel key="fee_waivers" value="yes" label="Yes" nobr="true"/>
+            </div>
         </div>
-        
-        <div id="sctn_students_accepted" class="lal clearfix">
-          <div class="alpha grid_8">
-            <label for="form_students_accepted">How many students did you accept this year?</label>
-          </div>
-          <div class="grid_7">
-            <div class="grid_4 alpha">
-              <input id="form_students_accepted" name="students_accepted" type="text" class="mls js_otherField text input_4" value="${responseMap['students_accepted'].value}" placeholder="[Enter number]" maxlength="4"/>
-              <p class="hint">Example: 60</p>
-            </div>
-            <div class="grid_3 omega">
-              <school:espCrntSchoolYearSelect key="students_accepted_year" placeholder="[Select year]"/>
-            </div>
-          </div>
-            <school:espFieldError text="Please enter a number" styleId="form_students_accepted_error" styleClass="grid_6 omega"/>
-            <school:espFieldError text="Please specify the year" styleId="form_students_accepted_year_error" styleClass="grid_6 omega"/>
+    </div>
+</c:if>
+
+
+<c:if test="${school.type.name eq 'private'}">
+
+    <div id="sctn_tuition_range" class="lal clearfix">
+        <div class="alpha grid_7">
+            <label for="form_tuition_log">What is your school's tuition range?</label>
+            <school:espFieldError text="Please enter full tuition range and year" styleId="form_tuition_error"
+                                  styleClass="grid_6 omega"/>
         </div>
+        <div class="grid_16 omega">
+            <school:espTuitionSelect key="tuition_low" placeholder="[Select lowest amount]"
+                                     nobr="true"/>
+            <span class="small">&#160;to&#160;</span>
+            <school:espTuitionSelect key="tuition_high" placeholder="[Select highest amount]"
+                                     nobr="true"/>
+            <school:espCrntSchoolYearSelect key="tuition_year" placeholder="[Select year]"/>
+        </div>
+    </div>
 
-        <c:if test="${school.type.name eq 'private' and (school.databaseState.abbreviation eq 'DC' or school.databaseState.abbreviation eq 'IN' or school.databaseState.abbreviation eq 'WI')}">
-            <div id="sctn_application_fee" class="lal clearfix">
-              <div class="alpha grid_8">
-                <label for="form_application_fee">Is there an application fee?</label>
-              </div>
-              <div class="grid_9">
-                <school:espRadioWithLabel key="application_fee" value="no" label="No"/>
-                <school:espRadioWithLabel key="application_fee" value="yes" label="Yes"/>
+    <div id="sctn_students_vouchers" class="lal clearfix">
+        <div class="alpha grid_7">
+            <label for="form_students_vouchers">Do you accept students on vouchers?</label>
+        </div>
+        <div class="grid_16 omega">
+            <school:espRadioWithLabel key="students_vouchers" value="no" label="No"/>
+            <school:espRadioWithLabel key="students_vouchers" value="yes" label="Yes"/>
+        </div>
+    </div>
 
-                <div id="js_application_fee_group">
-                    $<input id="form_application_fee_amount" type="text" name="application_fee_amount" class="mls js_otherField text input_4" value="${responseMap['application_fee_amount'].value}" placeholder="[Enter number]" maxlength="3"/>
-                    <span class="hint">Enter amount of application fee</span>
-                    <div class="grid_7">
-                      <div class="grid_3 alpha"><p>Are fee waivers available?</p></div>
-                      <div class="grid_3 omega">
-                        <school:espRadioWithLabel key="fee_waivers" value="no" label="No"/>
-                            <school:espRadioWithLabel key="fee_waivers" value="yes" label="Yes" nobr="true"/>
-                      </div>
-                    </div>
-                </div>
-              </div>
-              <school:espFieldError text="Please specify the fee amount" styleId="form_application_fee_amount_error" styleClass="grid_6 omega"/>
-              <school:espFieldError text="Please enter a number" styleId="form_application_fee_amount_numeric_error" styleClass="grid_6 omega"/>
-            </div>
-        </c:if>
+    <div id="sctn_financial_aid" class="lal clearfix">
+        <div class="alpha grid_7">
+            <label for="form_financial_aid">Does your school offer or accept financial aid?</label>
+        </div>
+        <div class="grid_5">
+            <school:espRadioWithLabel key="financial_aid" value="no" label="No"/>
+            <school:espRadioWithLabel key="financial_aid" value="yes" label="Yes"/>
+        </div>
+        <div class="grid_11 omega">
+            <school:espCheckboxWithLabel key="financial_aid_type" value="school_based" label="School-based aid"/>
+            <school:espCheckboxWithLabel key="financial_aid_type" value="outside" label="Outside scholarships"/>
+            <school:espCheckboxWithLabel key="financial_aid_type" value="voucher"
+                                         label="Voucher program participants"/>
+            <school:espCheckboxWithLabel key="financial_aid_type" value="tax_credits" label="Tax credits"/>
 
+            <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other forms of aid:"
+                                         nobr="true" styleClass="js_otherField_form_financial_aid_type_other"/>
+            <input id="form_financial_aid_type_other" type="text" name="financial_aid_type_other"
+                   class="mls js_otherField text input_4" value="${responseMap['financial_aid_type_other'].value}"
+                   placeholder="[Please indicate]" maxlength="100"/>
+        </div>
+        <!--<school:espFieldError text="Please specify the other types of aid"-->
+        <!--styleId="form_financial_aid_type_other_error" styleClass="grid_6 omega"/>-->
+    </div>
 
-        <c:if test="${school.type.name eq 'private'}">
+</c:if>
 
-            <div id="sctn_tuition_range" class="lal clearfix">
-              <div class="alpha grid_8">
-                <label for="form_tuition_log">What is your school's tuition range?</label>
-              </div>
-              <div class="grid_13">
-                <school:espTuitionSelect key="tuition_low" placeholder="[Select lowest amount]" nobr="true"/>&#160;to&#160;<school:espTuitionSelect key="tuition_high" placeholder="[Select highest amount]" nobr="true"/>
-                <school:espCrntSchoolYearSelect key="tuition_year" placeholder="[Select year]"/>
-              </div>
-              <school:espFieldError text="Please enter full tuition range and year" styleId="form_tuition_error" styleClass="grid_6 omega"/>
-            </div>
-
-            <div id="sctn_students_vouchers" class="lal clearfix">
-              <div class="alpha grid_8">
-                <label for="form_students_vouchers">Do you accept students on vouchers?</label>
-              </div>
-              <div class="grid_13 omega">
-                <school:espRadioWithLabel key="students_vouchers" value="no" label="No"/>
-                <school:espRadioWithLabel key="students_vouchers" value="yes" label="Yes"/>
-              </div>
-            </div>
-
-            <div id="sctn_financial_aid" class="lal clearfix">
-              <div class="alpha grid_8">
-                <label for="form_financial_aid">Does your school offer or accept financial aid?</label>
-              </div>
-              <div class="grid_15 omega">
-                <school:espRadioWithLabel key="financial_aid" value="no" label="No"/>
-                <school:espRadioWithLabel key="financial_aid" value="yes" label="Yes"/>
-                <div class="grid_14 prefix_1 alpha omega">
-                  <school:espCheckboxWithLabel key="financial_aid_type" value="school_based" label="School-based aid"/>
-                  <school:espCheckboxWithLabel key="financial_aid_type" value="outside" label="Outside scholarships"/>
-                  <school:espCheckboxWithLabel key="financial_aid_type" value="voucher" label="Voucher program participants"/>
-                  <school:espCheckboxWithLabel key="financial_aid_type" value="tax_credits" label="Tax credits"/>
-                </div>
-                  <div class="grid_7 prefix_1 alpha">
-                      <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other forms of aid:" nobr="true" styleClass="js_otherField_form_financial_aid_type_other"/>
-                      <input id="form_financial_aid_type_other" type="text" name="financial_aid_type_other" class="mls js_otherField text input_4" value="${responseMap['financial_aid_type_other'].value}" placeholder="[Please indicate]" maxlength="100"/>
-                  </div>
-                  <school:espFieldError text="Please specify the other types of aid" styleId="form_financial_aid_type_other_error" styleClass="grid_6 omega"/>
-              </div>
-            </div>
-
-        </c:if>
-
-          <c:if test="${gsweb:separatedListContains(school.levelCode, 'm', ',') or gsweb:separatedListContains(school.levelCode, 'h', ',') }">
-            <div id="sctn_feeder_school" class="lal clearfix">
-              <div class="alpha grid_8">
-                <label for="form_feeder_school_1">What school(s) do students typically attend before yours?</label>
-              </div>
-              <div class="grid_13 omega">
-              <ol>
-                <li><input id="form_feeder_school_1" type="text" name="feeder_school_1" class="mls js_otherField text input_6" value="${responseMap['feeder_school_1'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
-                <li><input id="form_feeder_school_2" type="text" name="feeder_school_2" class="mls js_otherField text input_6" value="${responseMap['feeder_school_2'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
-                <li><input id="form_feeder_school_3" type="text" name="feeder_school_3" class="mls js_otherField text input_6" value="${responseMap['feeder_school_3'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+<c:if test="${gsweb:separatedListContains(school.levelCode, 'm', ',') or gsweb:separatedListContains(school.levelCode, 'h', ',') }">
+    <div id="sctn_feeder_school" class="lal clearfix">
+        <div class="alpha grid_7">
+            <label for="form_feeder_school_1">What school(s) do students typically attend before yours?</label>
+        </div>
+        <div class="grid_16 omega">
+            <ol>
+                <li class="mvs">
+                    <input id="form_feeder_school_1" type="text" name="feeder_school_1"
+                           class="mls js_otherField text input_6"
+                           value="${responseMap['feeder_school_1'].value}"
+                           placeholder="[Type in school name]" size="6" maxlength="100"/>
+                </li>
+                <li class="mvs">
+                    <input id="form_feeder_school_2" type="text" name="feeder_school_2"
+                           class="mls js_otherField text input_6"
+                           value="${responseMap['feeder_school_2'].value}"
+                           placeholder="[Type in school name]" size="6" maxlength="100"/>
+                </li>
+                <li class="mvs">
+                    <input id="form_feeder_school_3" type="text" name="feeder_school_3"
+                           class="mls js_otherField text input_6"
+                           value="${responseMap['feeder_school_3'].value}"
+                           placeholder="[Type in school name]" size="6" maxlength="100"/>
+                </li>
                 <school:espCheckboxWithLabel key="feeder_school" value="1" label="Do not know / Not applicable"/>
-              </ol>
-              </div>
-            </div>
-        </c:if>
+            </ol>
+        </div>
+    </div>
+</c:if>
 
 
-        <c:if test="${gsweb:separatedListContains(school.levelCode, 'e', ',') or gsweb:separatedListContains(school.levelCode, 'm', ',') }">
-            <div id="sctn_destination_school" class="lal clearfix">
-              <div class="alpha grid_8">
-                <label for="form_destination_school_1">What school(s) do many of your students typically attend after they graduate your school?</label>
-              </div>
-              <div class="grid_13 omega">
-              <ol>
-                <li><input id="form_destination_school_1" type="text" name="destination_school_1" class="mls js_otherField text input_6" value="${responseMap['destination_school_1'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
-                <li><input id="form_destination_school_2" type="text" name="destination_school_2" class="mls js_otherField text input_6" value="${responseMap['destination_school_2'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
-                <li><input id="form_destination_school_3" type="text" name="destination_school_3" class="mls js_otherField text input_6" value="${responseMap['destination_school_3'].value}" placeholder="[Type in school name]" size="6" maxlength="100"/></li>
+<c:if test="${gsweb:separatedListContains(school.levelCode, 'e', ',') or gsweb:separatedListContains(school.levelCode, 'm', ',') }">
+    <div id="sctn_destination_school" class="lal clearfix">
+        <div class="alpha grid_7">
+            <label for="form_destination_school_1">What school(s) do many of your students typically attend after they graduate your school?</label>
+        </div>
+        <div class="grid_16 omega">
+            <ol>
+                <li class="mvs">
+                    <input id="form_destination_school_1" type="text" name="destination_school_1"
+                           class="mls js_otherField text input_6" value="${responseMap['destination_school_1'].value}"
+                           placeholder="[Type in school name]" size="6" maxlength="100"/>
+                </li>
+                <li class="mvs">
+                    <input id="form_destination_school_2" type="text" name="destination_school_2"
+                           class="mls js_otherField text input_6" value="${responseMap['destination_school_2'].value}"
+                           placeholder="[Type in school name]" size="6" maxlength="100"/>
+                </li>
+                <li class="mvs">
+                    <input id="form_destination_school_3" type="text" name="destination_school_3"
+                           class="mls js_otherField text input_6" value="${responseMap['destination_school_3'].value}"
+                           placeholder="[Type in school name]" size="6" maxlength="100"/>
+                </li>
                 <school:espCheckboxWithLabel key="destination_school" value="1" label="Do not know / Not applicable"/>
-              </ol>
-              </div>
-            </div>
-        </c:if>
+            </ol>
+        </div>
+    </div>
+</c:if>
 
-      </fieldset>
+</fieldset>
 
-    </school:espFormTemplate>
+</school:espFormTemplate>
 </jsp:root>
