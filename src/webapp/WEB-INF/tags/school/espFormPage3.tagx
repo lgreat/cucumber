@@ -35,6 +35,15 @@
     </div>
 </div>
 
+<div id="js_sctn_admissions_contact_school" class="lal clearfix">
+    <div class="alpha grid_7">
+        <label>Contact school</label>
+    </div>
+    <div class="grid_16 omega">
+        <school:espCheckboxWithLabel key="parents_contact" value="yes" label="Parents should call the school for application information"/>
+    </div>
+</div>
+
 <!--<div id="sctn_application_package" class="lal clearfix">
   <div class="alpha grid_8">
     <label for="form_application_upload">Upload application package</label>

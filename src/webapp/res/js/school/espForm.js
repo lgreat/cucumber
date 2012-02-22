@@ -938,7 +938,7 @@ new (function() {
         var isWiDcIn = (jQuery.inArray(GS.espForm.school.state, ['wi','dc','in']) >= 0);
         var appFeeShow = isPrivateSchool && isWiDcIn;
         //GS.util.log('p3 - GS.espForm.school.state:'+GS.espForm.school.state+', isPrivateSchool:'+isPrivateSchool+', isMiddleSchool:'+isMiddleSchool+',isHighSchool:'+isHighSchool+', isWiDcIn:'+isWiDcIn);
-        GS.form.controlVisibilityOfElementWithRadio('#sctn_admissions_url, #sctn_parents_contact, #sctn_application_deadline, #sctn_applications_received, #sctn_students_accepted, #sctn_application_fee','[name=application_process]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#js_sctn_admissions_header, #js_sctn_admissions_contact_school, #sctn_admissions_url, #sctn_parents_contact, #sctn_application_deadline, #sctn_applications_received, #sctn_students_accepted, #sctn_application_fee','[name=application_process]', 'yes');
         $('#form_applications_received').on('keyup', function(){
         	$('#form_applications_received_year').toggle($(this).val().length > 0)
         });
