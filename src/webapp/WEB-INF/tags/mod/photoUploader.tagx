@@ -9,6 +9,7 @@
     <jsp:directive.attribute name="maxNumberOfPhotos" required="true" type="java.lang.Integer" />
     <jsp:directive.attribute name="schoolId" required="true" type="java.lang.Integer" />
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
+    <jsp:directive.attribute name="existingPhotos" required="false" type="java.util.List" description="List of SchoolMedia that are either active or pending" />
 
     <div id="photo-upload-container">
         <table>
@@ -57,10 +58,12 @@
 
     </div>
 
+    <c:set var="numberOfExistingPhotos" value="${fn:length(existingPhotos)}"/>
+
     <script type="text/javascript">
         jQuery(function() {
-            var photoUploader = new GS.PhotoUploader("${url}", ${maxNumberOfPhotos}, ${schoolId}, "${schoolDatabaseState}");
-            photoUploader.init();
+            GS.photoUploader = new GS.PhotoUploader("${url}", ${maxNumberOfPhotos}, ${schoolId}, "${schoolDatabaseState}");
+            GS.photoUploader.init(${numberOfExistingPhotos});
         });
     </script>
 

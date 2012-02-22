@@ -117,7 +117,7 @@
                     <school:espFieldError text="Error occurred" styleId="jsUploadError" styleClass="grid_6 omega"/>
                 </div>
                 <div class="grid_16 omega">
-                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" />
+                    <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}" />
                 </div>
             </div>
 

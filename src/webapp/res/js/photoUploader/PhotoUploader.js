@@ -54,7 +54,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
     this.uploader.init();
 
-    this.init = function() {
+    this.init = function(numberOfExistingPhotos) {
         var self = this;
         this.uploader.bind('FilesAdded', this.filesQueued);
 
@@ -96,6 +96,10 @@ GS.PhotoUploader.prototype.createUploader = function() {
             }
         });
 
+        if (numberOfExistingPhotos >= this.maxQueuedItems) {
+            this.styleQueueFull();
+        }
+
         this.uploadButton.click(function() {
             self.startUpload.apply(self, arguments);
         });
@@ -133,9 +137,16 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.styleDone = function() {
         //this.container.fadeTo('slow', 1);
         this.spinner.hide();
-        this.queueButton.addClass('button-1');
-        this.queueButton.removeClass('button-1-inactive');
-        this.queueButton.prop('disabled',false);
+
+        //if(!(this.totalItemsInList >= this.getMaxQueuedItems())) {
+            this.queueButton.addClass('button-1');
+            this.queueButton.removeClass('button-1-inactive');
+            this.queueButton.prop('disabled',false);
+        //}
+    }.gs_bind(this);
+
+    this.isQueueFull = function() {
+        return (this.uploader.total.queued >= this.getMaxQueuedItems());
     }.gs_bind(this);
 
     this.startUpload = function() {
@@ -207,7 +218,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
         var htmlblock = '';
         var tbody = jQuery ('#photo-upload-container table tbody');
 
-        if (this.totalItemsInList === this.maxQueuedItems) {
+        if (this.totalItemsInList >= this.getMaxQueuedItems) {
             return;
         }
 
@@ -238,13 +249,13 @@ GS.PhotoUploader.prototype.createUploader = function() {
                 }
 
                 // stop when max is reached
-                if (self.totalItemsInList === self.maxQueuedItems) {
+                if (self.totalItemsInList === self.getMaxQueuedItems()) {
                     return false; // exit the $.each
                 }
             }
         });
 
-        if (self.totalItemsInList == this.maxQueuedItems) {
+        if (this.isQueueFull()) {
             self.styleQueueFull();
         }
     }.gs_bind(this);
@@ -263,7 +274,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.removeAllItems = function() {
-        var numberOfItems = this.uploader.files.length;
         while (this.uploader.files.length > 0) {
             var file = this.uploader.files[this.uploader.files.length-1];
             this.removeItem(file.id);
@@ -273,8 +283,13 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
     this.removeItem = function(id) {
         this.totalItemsInList--;
+        this.container.find('#' + id).remove();
+        this.container.find('table tbody tr:last').after(this.EMPTY_QUEUE_ROW_HTML);
+        this.onItemRemoved();
+    }.gs_bind(this);
 
-        if (this.totalItemsInList < this.maxQueuedItems) {
+    this.onItemRemoved = function() {
+        if (!this.isQueueFull()) {
             this.queueButton.addClass('button-1');
             this.queueButton.removeClass('button-1-inactive');
             this.queueButton.prop('disabled',false);
@@ -284,9 +299,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
         if (this.totalItemsInList === 0) {
             this.disableUploading();
         }
-
-        this.container.find('#' + id).remove();
-        this.container.find('table tbody tr:last').after(this.EMPTY_QUEUE_ROW_HTML);
     }.gs_bind(this);
 
     this.setStatus = function(file, status) {
@@ -300,6 +312,10 @@ GS.PhotoUploader.prototype.createUploader = function() {
     // mark a file upload row as done
     this.itemComplete = function(position) {
         this.setStatusByPosition(position, "Upload complete");
+    }.gs_bind(this);
+
+    this.getMaxQueuedItems = function() {
+        return this.maxQueuedItems - pollingPhotoViewer.numberPhotos;
     }.gs_bind(this);
 
 };
@@ -351,8 +367,14 @@ GS.PollingPhotoViewer = function(id, url, schoolId, schoolDatabaseState) {
                 } else if ($(pollingPhotoViewerItem).find('.js-photo-active').length > 0) {
                     this.numberActive--;
                 }
+                this.numberPhotos--;
+
+                // iteracts with PhotoUploader JS  TODO: give pollingPhotoViewer it's own reference to photoUploader
+                // to pollingPhotoViewer;
+                GS.photoUploader.onItemRemoved();
+
                 GSType.hover.photoDeleteConfirmation.hide();
-            });
+            }.gs_bind(this));
         }.gs_bind(this));
     }.gs_bind(this);
 
