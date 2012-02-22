@@ -48,11 +48,11 @@ Misc classes
 .slStylesV1-0 h6 { font-weight: normal; color: #2b2b2b; }
 .slStylesV1-0 h1 {color: #d61; }
 
-.slStylesV1-0 h1 { font: normal 30px/33px Georgia, "Times New Roman", Times, serif; margin-bottom: 20px; }
-.slStylesV1-0 h2 { font: normal 24px/33px Arial, Helvetica, sans-serif; margin-bottom: 33px; }
-.slStylesV1-0 h3 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-.slStylesV1-0 h4 { font: normal 16px/22px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-.slStylesV1-0 h5 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h1 { font: normal 26px/30px Georgia, "Times New Roman", Times, serif; margin-bottom: 20px; }
+.slStylesV1-0 h2 { font: normal 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h3 { font: normal 18px/27px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 h5 { font: bold   14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 
 .slStylesV1-0 h1 img,
@@ -71,13 +71,13 @@ Misc classes
 -------------------------------------------------------------- */
 
 .slStylesV1-0 p,
-.slStylesV1-0 .default { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-.slStylesV1-0 .medium { font: normal 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.slStylesV1-0 .small { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.slStylesV1-0 .smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
-.slStylesV1-0 .smallest { font: normal 10px/14px Arial, Helvetica, sans-serif; margin-bottom: 14px; }
-.slStylesV1-0 .small_bold { font: bold 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.slStylesV1-0 .medium_bold { font: bold 13px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+.slStylesV1-0 .default     { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .small       { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+.slStylesV1-0 .small_bold  { font: bold   12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+.slStylesV1-0 .smaller     { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.slStylesV1-0 .smallest    { font: normal 10px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 
 /*
 	These can be used to pull an image at the start of a paragraph, so
@@ -119,8 +119,8 @@ Misc classes
 .slStylesV1-0 ul,
 .slStylesV1-0 ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.5em; }
 
-.slStylesV1-0 ul li       { list-style-type: disc; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
-.slStylesV1-0 ol li       { list-style-type: decimal; font: normal 12px/20px Arial, Helvetica, sans-serif; color: #777; }
+.slStylesV1-0 ul li       { list-style-type: disc; }
+.slStylesV1-0 ol li       { list-style-type: decimal; }
 
 .slStylesV1-0 dl          { margin: 0 0 1.5em 0; }
 .slStylesV1-0 dl dt       { font-weight: bold; }
