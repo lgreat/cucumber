@@ -218,6 +218,9 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
                 { "service_award_3", "service_award_3_year" },
         });
         model.put("serviceAwards", serviceAwards);
+
+
+
         
         // obtain "external" datapoints
         ICensusInfo ci = school.getCensusInfo();
@@ -231,6 +234,8 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         model.put("student_enrollment", s);
 
         model.put("grade_levels", school.getGradeLevels().getRangeString().replace(",", "; ").replace("  ", " "));
+
+        model.put("school_phone", school.getPhone());
 
         // commenting out private data points as they are not correct and not in scope for 19.6
 //        cv = ci.getManual(school, CensusDataType.STUDENTS_ETHNICITY);
