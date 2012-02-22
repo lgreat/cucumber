@@ -27,23 +27,6 @@
     </c:if>
     <head>
         <title>${pageTitle}</title>
-        <script type="text/javascript">
-            // <![CDATA[
-            jQuery(function() {
-                var sitePreferences = subCookie.getObject("site_pref");
-                var showHover = "";
-
-                if (sitePreferences != undefined && sitePreferences.showHover != undefined) {
-                    showHover = sitePreferences.showHover;
-                }
-
-                if (showHover == "confirmEspSave") {
-                    alert("Show esp save!");
-                    subCookie.deleteObjectProperty("site_pref", "showHover");
-                }
-            });
-            // ]]>
-        </script>
     </head>
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
@@ -53,7 +36,7 @@
                 <h1 class="fltlft">Your Official School Profile</h1>
 
                 <div class="fltrt mtm">
-                    <span class="small mrm"><a href="javascript:void(0);">Need Help?</a></span>
+                    <span class="small mrm"><link:contactUs feedbackType="esp">Need Help?</link:contactUs></span>
                     <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
                 </div>
             </div>
@@ -224,7 +207,7 @@
                             </div>
                         </div>
 
-                        <!-- TODO Hiding this c:if block. Not part of 19.6.-->
+                        <!-- Hiding this c:if block. Not part of 19.6.-->
 <!--                        <c:if test="${school.type.schoolTypeName == 'private'}">
 
                             <div class="mod osp-dashboard">
