@@ -109,10 +109,10 @@
                         <c:if test="${not empty scStart or not empty scEnd}">
                             <ul>
                                 <c:if test="${not empty scStart}">
-                                    <li>Before school care / program starts: ${scStart}</li>
+                                    <li>Before school care / program starts ${scStart}</li>
                                 </c:if>
                                 <c:if test="${not empty scEnd}">
-                                    <li>After school care / program ends: ${scEnd}</li>
+                                    <li>After school care / program ends ${scEnd}</li>
                                 </c:if>
                             </ul>
                         </c:if>
@@ -219,9 +219,9 @@
 
             <school:espTableRow label="Vouchers accepted:" list="${responses.students_vouchers}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Students typically attend these schools prior to attending this school:" value="${feederSchools}" hideIfEmpty="true"/>
+            <school:espTableRow label="Students typically attend these schools prior to attending this school" value="${feederSchools}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Students typically attend these schools after graduating from this school:" value="${destinationSchools}" hideIfEmpty="true"/>
+            <school:espTableRow label="Students typically attend these schools after graduating from this school" value="${destinationSchools}" hideIfEmpty="true"/>
 
             </tbody>
         </table>
@@ -237,8 +237,7 @@
             </thead>
             <tbody>
 
-            <school:espTableRow label="Foreign languages taught:" value="${foreign_language}" hideIfEmpty="true"/>
-
+            <school:espTableRow label="Foreign languages taught" value="${foreign_language}" hideIfEmpty="true"/>
             <c:set var="ellLvl"><gsweb:erts list="${responses.ell_level}"/></c:set>
             <c:set var="ellLangs"><gsweb:erts list="${responses.ell_languages}"/></c:set>
             <c:if test="${not empty ellLvl}">
@@ -248,10 +247,10 @@
                 </tr>
             </c:if>
 
-            <school:espTableRow label="Special education programming offered:" list="${responses.spec_ed_level}" hideIfEmpty="true"/>
+            <school:espTableRow label="Special education programming offered" list="${responses.spec_ed_level}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Specialized programs for specific types of special education students:"
-                                list="${responses.special_ed_programs}" hideIfEmpty="true"/>
+            <school:espTableRow label="Specialized programs for specific types of special education students"
+                                list="${responses.special_ed_programs}" hideIfEmpty="true" dlm="; "/>
 
             <school:espTableRow label="Special schedule:" list="${responses.schedule}" hideIfEmpty="true"/>
 
@@ -260,15 +259,13 @@
             <school:espTableRow label="Special staff resources available to students:" list="${responses.boarding}"
                                 hideIfEmpty="true"/>
 
-            <school:espTableRow label="Languages spoken by school staff:" value="${staff_languages}"
+            <school:espTableRow label="Languages spoken by school staff" value="${staff_languages}"
                                 hideIfEmpty="true"/>
 
-            <c:set var="els"><gsweb:erts list="${responses.extra_learning_resources}"/></c:set>
-            <c:set var="els_other"><gsweb:erts list="${responses.extra_learning_resources_other}"/></c:set>
             <c:if test="${not empty extra_learning_resources and fn:toLowerCase(extra_learning_resources) ne 'none'}">
                 <tr>
-                    <td class="small_bold">Extra learning resources offered:</td>
-                    <td>${els} ${els_other}</td>
+                    <td class="small_bold">Extra learning resources offered</td>
+                    <td>${extra_learning_resources}</td>
                 </tr>
             </c:if>
 
@@ -302,27 +299,25 @@
                 </td>
             </tr>
 
-            <c:set var="facilities"><gsweb:erts list="${responses.facilities}"/></c:set>
+            <c:set var="facilities"><gsweb:erts list="${responses.facilities}" dlm="; "/></c:set>
             <c:if test="${not empty facilities and fn:toLowerCase(facilities) ne 'none'}">
                 <tr>
-                    <td class="small_bold">School facilities:</td>
+                    <td class="small_bold">School facilities</td>
                     <td>${facilities}</td>
                 </tr>
             </c:if>
 
-            <school:espTableRow label="College preparation / awareness resources offered:" value="${college_prep}"
+            <school:espTableRow label="College preparation / awareness resources offered" value="${college_prep}"
                                 hideIfEmpty="true"/>
 
-            <c:set var="skillsTraining"><gsweb:erts list="${responses.skills_training}"/></c:set>
-            <c:set var="skillsTrainingOther"><gsweb:erts list="${responses.skills_training_other}"/></c:set>
-            <c:if test="${not empty skillsTraining and fn:toLowerCase(skillsTraining) ne 'none'}">
+            <c:if test="${not empty skills_training and fn:toLowerCase(skills_training) ne 'none'}">
                 <tr>
-                    <td class="small_bold">Vocational or skills-based training offered:</td>
-                    <td>${skillsTraining} ${skillsTrainingOther}</td>
+                    <td class="small_bold">Vocational or skills-based training offered</td>
+                    <td>${skills_training}</td>
                 </tr>
             </c:if>
 
-            <school:espTableRow label="Colleges most students attend after graduation:" value="${collegeDestinations}"
+            <school:espTableRow label="Colleges most students attend after graduation" value="${collegeDestinations}"
                                 hideIfEmpty="true"/>
 
             <c:set var="pgy"><gsweb:erts list="${responses.post_graduation_year}"/></c:set>
@@ -378,35 +373,35 @@
             </thead>
             <tbody>
 
-            <c:set var="artsMedia"><gsweb:erts list="${responses.arts_media}"/></c:set>
+            <c:set var="artsMedia"><gsweb:erts list="${responses.arts_media}" dlm="; "/></c:set>
             <c:if test="${not empty artsMedia and fn:toLowerCase(artsMedia) ne 'none'}">
-                <school:espTableRow label="Arts - Media:" value="${artsMedia}" hideIfEmpty="false"/>
+                <school:espTableRow label="Arts - Media" value="${artsMedia}" hideIfEmpty="false"/>
             </c:if>
 
-            <c:set var="artsMusic"><gsweb:erts list="${responses.arts_music}" /></c:set>
+            <c:set var="artsMusic"><gsweb:erts list="${responses.arts_music}" dlm="; "/></c:set>
             <c:if test="${not empty artsMusic and fn:toLowerCase(artsMusic) ne 'none'}">
-                <school:espTableRow label="Arts - Music:" value="${artsMusic}" hideIfEmpty="false"/>
+                <school:espTableRow label="Arts - Music" value="${artsMusic}" hideIfEmpty="false"/>
             </c:if>
 
-            <c:set var="artsPerfWrtn"><gsweb:erts list="${responses.arts_performing_written}" /></c:set>
+            <c:set var="artsPerfWrtn"><gsweb:erts list="${responses.arts_performing_written}" dlm="; "/></c:set>
             <c:if test="${not empty artsPerfWrtn and fn:toLowerCase(artsPerfWrtn) ne 'none'}">
-                <school:espTableRow label="Arts - Performing and Written:" value="${artsPerfWrtn}" hideIfEmpty="false"/>
+                <school:espTableRow label="Arts - Performing and Written" value="${artsPerfWrtn}" hideIfEmpty="false"/>
             </c:if>
 
-            <c:set var="artsVisual"><gsweb:erts list="${responses.arts_visual}" /></c:set>
+            <c:set var="artsVisual"><gsweb:erts list="${responses.arts_visual}" dlm="; "/></c:set>
             <c:if test="${not empty artsVisual and fn:toLowerCase(artsVisual) ne 'none'}">
-                <school:espTableRow label="Arts - Visual:" value="${artsVisual}" hideIfEmpty="false"/>
+                <school:espTableRow label="Arts - Visual" value="${artsVisual}" hideIfEmpty="false"/>
             </c:if>
 
-            <school:espTableRow label="Boys Sports:" value="${boys_sports}" hideIfEmpty="true"/>
+            <school:espTableRow label="Boys Sports" value="${boys_sports}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Girls Sports:" value="${girls_sports}" hideIfEmpty="true"/>
+            <school:espTableRow label="Girls Sports" value="${girls_sports}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Student Clubs:" value="${student_clubs}" hideIfEmpty="true"/>
+            <school:espTableRow label="Student Clubs" value="${student_clubs}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Academic awards received in the past 3 years:" value="${academicAwards}" hideIfEmpty="true"/>
+            <school:espTableRow label="Academic awards received in the past 3 years" value="${academicAwards}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Community service awards received in the past 3 years:" value="${serviceAwards}" hideIfEmpty="true"/>
+            <school:espTableRow label="Community service awards received in the past 3 years" value="${serviceAwards}" hideIfEmpty="true"/>
 
             </tbody>
         </table>
@@ -422,7 +417,7 @@
             </thead>
             <tbody>
 
-            <school:espTableRow label="School Attire:" list="${responses.dress_code}" hideIfEmpty="true"/>
+            <school:espTableRow label="School Attire" list="${responses.dress_code}" hideIfEmpty="true"/>
 
             <c:set var="bullying"><gsweb:erts list="${responses.bullying_policy}" /></c:set>
             <c:if test="${fn:toLowerCase(bullying) eq 'yes'}">
@@ -433,19 +428,19 @@
             <c:set var="parentInvolvementOther"><gsweb:erts list="${responses.parent_involvement_other}" /></c:set>
             <c:if test="${not empty parentInvolvement and fn:toLowerCase(parentInvolvement) ne 'none'}">
                 <tr>
-                    <td class="small_bold">Opportunities for parent involvement:</td>
+                    <td class="small_bold">Opportunities for parent involvement</td>
                     <td>${parentInvolvement} ${parentInvolvementOther}</td>
                 </tr>
             </c:if>
 
-            <school:espTableRow label="School colors:" list="${responses.school_colors}" hideIfEmpty="true"/>
+            <school:espTableRow label="School colors" list="${responses.school_colors}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="School mascot:" list="${responses.school_mascot}" hideIfEmpty="true"/>
+            <school:espTableRow label="School mascot" list="${responses.school_mascot}" hideIfEmpty="true"/>
 
             <c:set var="facebookUrl"><gsweb:erts list="${responses.facebook_url}" pretty="false"/></c:set>
             <c:if test="${not empty facebookUrl}">
                 <tr>
-                    <td class="small_bold">School Facebook page:</td>
+                    <td class="small_bold">School Facebook page</td>
                     <td><a href="${gsweb:formatUrl(facebookUrl)}" target="_blank">${facebookUrl}</a></td>
                 </tr>
             </c:if>
