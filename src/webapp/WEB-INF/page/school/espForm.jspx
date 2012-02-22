@@ -197,6 +197,17 @@
                         </c:if>
                     <!--</c:when>-->
                 <!--</c:choose>-->
+                <div class="pll prl">
+                    <p>
+                        Please note that we obtain your school data from state Departments of Education and the National Center for
+                        Education Statistics (NCES). In general, data such as test scores and demographics cannot be manually edited.
+                    </p>
+
+                    <p>
+                        If you have questions about other data associated with your school that cannot be edited in this form, please
+                        <link:contactUs feedbackType="esp">contact the GreatSchools Data Team</link:contactUs>.
+                    </p>
+                </div>
             </div>
         </div>
 
