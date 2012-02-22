@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<p class="small">Please choose one or more options below to provide application information to parents</p>
+<p id="js_sctn_admissions_header" class="small">Please choose one or more options below to provide application information to parents</p>
 
 <div id="sctn_admissions_url" class="lal clearfix">
     <div class="alpha grid_7">
