@@ -119,17 +119,14 @@ public class TopSchoolsController extends AbstractController {
      * from a parent and 4 or 5 stars (preferring 5 stars).
      */
     protected Object[] getReviewText(School school) {
-        String reviewText = _schoolDao.getPrincipalSchoolVision(school, true);
-        boolean reviewSubmitterParent = false;
-        if (reviewText == null || reviewText.length() < 3) {
-            reviewSubmitterParent = true;
-            List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
-            Collections.sort(reviews, Review.DATE_POSTED_COMPARATOR);
-            for (CategoryRating rating : Arrays.asList(CategoryRating.RATING_4, CategoryRating.RATING_5))
-                for (Review review : reviews)
-                    if (rating.equals(review.getQuality()) && Poster.PARENT.equals(review.getPoster()))
-                        reviewText = review.getComments();
-        }
+        String reviewText = null;
+        boolean reviewSubmitterParent = true;
+        List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school);
+        Collections.sort(reviews, Review.DATE_POSTED_COMPARATOR);
+        for (CategoryRating rating : Arrays.asList(CategoryRating.RATING_4, CategoryRating.RATING_5))
+            for (Review review : reviews)
+                if (rating.equals(review.getQuality()) && Poster.PARENT.equals(review.getPoster()))
+                    reviewText = review.getComments();
         return new Object[]{reviewText, reviewSubmitterParent};
     }
 

@@ -126,7 +126,6 @@ public class SchoolOverviewController extends AbstractSchoolController implement
             }
             model.put("preschoolOnly", school.getLevelCode().equals(LevelCode.PRESCHOOL));
             model.put("latestReviewsModel", createLatestReviewsModel(school));
-            model.put("hasPrincipalView", getSchoolDao().hasPrincipalView(school));
             model.put("hasAPExams", hasAPExams(school));
             model.put("hasTestData", Boolean.TRUE);
             model.put("hasElementaryLevelCode", school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL));

@@ -1,36 +1,28 @@
 package gs.web.school;
 
-import com.google.gdata.data.extensions.Rating;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.school.EspMembership;
+import gs.data.school.IEspMembershipDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
-import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
-import gs.data.security.Permission;
+import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.school.review.ReviewCommand;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class PrincipalReviewController extends SimpleFormController implements ReadWriteController {
@@ -39,6 +31,7 @@ public class PrincipalReviewController extends SimpleFormController implements R
 
     private IReviewDao _reviewDao;
     private ISchoolDao _schoolDao;
+    private IEspMembershipDao _espMembershipDao;
     private String _viewName;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
@@ -168,44 +161,22 @@ public class PrincipalReviewController extends SimpleFormController implements R
     }
 
     public boolean validCookieExists(HttpServletRequest request, School school) {
-
-        Map<String, String> credentials = _schoolDao.getPrincipalCredentials(school);
-
-        if (credentials == null) {
-            return false; //early exit
-        }
-
-        String username = credentials.get("username");
-        String password = credentials.get("password");
-
-        MessageDigest md5 = null;
-        
         try {
-            md5 = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            //can't recover
-            return false;
-        }
-        
-        md5.update(username.getBytes());
-        md5.update(password.getBytes());
-        md5.update("lounge".getBytes());
-
-        String digest = new String(Hex.encodeHex(md5.digest()));
-        Cookie[] cookies = request.getCookies();
-        String pqLogin = null;
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("PQLOGIN".equals(cookie.getName())) {
-                    pqLogin = cookie.getValue();
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            if (sessionContext != null) {
+                User user = sessionContext.getUser();
+                if (user != null && user.hasRole(Role.ESP_MEMBER)) {
+                    EspMembership espMem = _espMembershipDao.findEspMembershipByStateSchoolIdUserId
+                            (school.getDatabaseState(), school.getId(), user.getId(), true);
+                    if (espMem != null) {
+                        return true;
+                    }
                 }
             }
+        } catch (Exception e) {
+            _log.error("Error determining ESP membership for " + school, e);
         }
-
-        boolean valid = digest.equals(pqLogin);
-
-        return valid;
+        return false;
     }
 
     public String getViewName() {
@@ -230,6 +201,14 @@ public class PrincipalReviewController extends SimpleFormController implements R
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public IEspMembershipDao getEspMembershipDao() {
+        return _espMembershipDao;
+    }
+
+    public void setEspMembershipDao(IEspMembershipDao espMembershipDao) {
+        _espMembershipDao = espMembershipDao;
     }
 
     public IUserDao getUserDao() {
