@@ -108,19 +108,19 @@
                 <school:espRadioWithLabel key="application_fee" value="yes" label="Yes"/>
 
                 <div id="js_application_fee_group">
-                $<input id="form_application_fee_amount" type="text" name="application_fee_amount" class="mls js_otherField text input_4" value="${responseMap['application_fee_amount'].value}" placeholder="[Enter number]" maxlength="3"/>
-                <span class="hint">Enter amount of application fee</span>
-                <div class="grid_7">
-                  <div class="grid_3 alpha"><p>Are fee waivers available?</p></div>
-                  <div class="grid_3 omega">
-                    <school:espRadioWithLabel key="fee_waivers" value="no" label="No"/>
-                        <school:espRadioWithLabel key="fee_waivers" value="yes" label="Yes" nobr="true"/>
-                  </div>
+                    $<input id="form_application_fee_amount" type="text" name="application_fee_amount" class="mls js_otherField text input_4" value="${responseMap['application_fee_amount'].value}" placeholder="[Enter number]" maxlength="3"/>
+                    <span class="hint">Enter amount of application fee</span>
+                    <div class="grid_7">
+                      <div class="grid_3 alpha"><p>Are fee waivers available?</p></div>
+                      <div class="grid_3 omega">
+                        <school:espRadioWithLabel key="fee_waivers" value="no" label="No"/>
+                            <school:espRadioWithLabel key="fee_waivers" value="yes" label="Yes" nobr="true"/>
+                      </div>
+                    </div>
                 </div>
               </div>
-
-              </div>
               <school:espFieldError text="Please specify the fee amount" styleId="form_application_fee_amount_error" styleClass="grid_6 omega"/>
+              <school:espFieldError text="Please enter a number" styleId="form_application_fee_amount_numeric_error" styleClass="grid_6 omega"/>
             </div>
         </c:if>
 

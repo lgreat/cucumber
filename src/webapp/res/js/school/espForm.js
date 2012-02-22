@@ -785,10 +785,8 @@ new (function() {
         var isValidStudentsAccepted = GS.validation.validateInteger('#form_students_accepted', '#form_students_accepted_error');
         validations.push(isValidStudentsAccepted);
         validations.push(GS.validation.validateSelectIfTextboxValueEntered('#form_students_accepted_year', '#form_students_accepted', '#form_students_accepted_year_error', isValidStudentsAccepted));
-        validations.push(GS.validation.validateRequiredIfChecked('#form_application_fee_amount', '#form_application_fee__yes', '#form_application_fee_amount_error'));
         validations.push(GS.validation.validateAllOrNone('#form_tuition_low, #form_tuition_high, #form_tuition_year', '#form_tuition_error'));
-        validations.push(GS.validation.validateRequiredIfChecked('#form_financial_aid_type_other', '#form_financial_aid_type__other', '#form_financial_aid_type_other_error'));
-        validations.push(GS.validation.validateInteger('#form_application_fee_amount', '#form_application_fee_amount_error'));
+        validations.push(GS.validation.validateInteger('#form_application_fee_amount', '#form_application_fee_amount_numeric_error'));
         // END PAGE 3
 
         // PAGE 4
