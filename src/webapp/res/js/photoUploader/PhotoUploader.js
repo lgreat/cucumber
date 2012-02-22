@@ -100,6 +100,12 @@ GS.PhotoUploader.prototype.createUploader = function() {
             this.styleQueueFull();
         }
 
+        this.queueButton.on('click', function() {
+           if (this.isQueueFull()) {
+               this.styleQueueFull();
+           }
+        }.gs_bind(this));
+
         this.uploadButton.click(function() {
             self.startUpload.apply(self, arguments);
         });
@@ -134,15 +140,10 @@ GS.PhotoUploader.prototype.createUploader = function() {
         this.queueButton.prop('disabled',true);
     }.gs_bind(this);
 
-    this.styleDone = function() {
-        //this.container.fadeTo('slow', 1);
-        this.spinner.hide();
-
-        //if(!(this.totalItemsInList >= this.getMaxQueuedItems())) {
-            this.queueButton.addClass('button-1');
-            this.queueButton.removeClass('button-1-inactive');
-            this.queueButton.prop('disabled',false);
-        //}
+    this.styleQueueNotFull = function() {
+        this.queueButton.addClass('button-1');
+        this.queueButton.removeClass('button-1-inactive');
+        this.queueButton.prop('disabled',false);
     }.gs_bind(this);
 
     this.isQueueFull = function() {
@@ -177,7 +178,9 @@ GS.PhotoUploader.prototype.createUploader = function() {
             this.queueButton.off('click.removeAllOnceIfDoneUploading');
         }.gs_bind(this));
 
-        this.styleDone();
+        this.spinner.hide();
+
+        this.styleQueueNotFull();
     }.gs_bind(this);
 
     this.handleError = function(up, err) {
@@ -218,7 +221,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
         var htmlblock = '';
         var tbody = jQuery ('#photo-upload-container table tbody');
 
-        if (this.totalItemsInList >= this.getMaxQueuedItems) {
+        if (this.totalItemsInList > this.getMaxQueuedItems()) {
             return;
         }
 
@@ -255,7 +258,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
             }
         });
 
-        if (this.isQueueFull()) {
+        if (self.totalItemsInList >= self.getMaxQueuedItems()) {
             self.styleQueueFull();
         }
     }.gs_bind(this);
@@ -290,9 +293,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
     this.onItemRemoved = function() {
         if (!this.isQueueFull()) {
-            this.queueButton.addClass('button-1');
-            this.queueButton.removeClass('button-1-inactive');
-            this.queueButton.prop('disabled',false);
+            this.styleQueueNotFull();
         }
 
         // no items in list, cannot upload
