@@ -44,8 +44,8 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 .lal label, .ral label { display:inline-block; padding:2px 0; }
 .slFormsV1-0 .ral label { text-align:right; }
 
-.slFormsV1-0 label.checkbox, label.radio { font: normal 12px/18px Arial, Helvetica, sans-serif; color: #555555; display: inline; }
-.slFormsV1-0 label.checkbox-smaller, label.radio-smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; }
+.slFormsV1-0 label.checkbox, .slFormsV1-0 label.radio { font: normal 12px/18px Arial, Helvetica, sans-serif; color: #555555; display: inline; }
+.slFormsV1-0 label.checkbox-smaller, .slFormsV1-0 label.radio-smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; }
 
 /* Form element standard style */
 .slFormsV1-0 input[type=checkbox],
