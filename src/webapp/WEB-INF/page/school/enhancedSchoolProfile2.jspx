@@ -424,12 +424,10 @@
                 <school:espTableRow label="Bullying and/or cyber bullying policy in place" value="" hideIfEmpty="false"/>
             </c:if>
 
-            <c:set var="parentInvolvement"><gsweb:erts list="${responses.parent_involvement}" /></c:set>
-            <c:set var="parentInvolvementOther"><gsweb:erts list="${responses.parent_involvement_other}" /></c:set>
-            <c:if test="${not empty parentInvolvement and fn:toLowerCase(parentInvolvement) ne 'none'}">
+            <c:if test="${not empty parent_involvement and fn:toLowerCase(parent_involvement) ne 'none'}">
                 <tr>
                     <td class="small_bold">Opportunities for parent involvement</td>
-                    <td>${parentInvolvement} ${parentInvolvementOther}</td>
+                    <td>${parent_involvement}</td>
                 </tr>
             </c:if>
 
@@ -444,6 +442,8 @@
                     <td><a href="${gsweb:formatUrl(facebookUrl)}" target="_blank">${facebookUrl}</a></td>
                 </tr>
             </c:if>
+
+            <school:espTableRow label="More about the school’s culture" list="${responses.anything_else}" hideIfEmpty="true"/>
 
             </tbody>
         </table>

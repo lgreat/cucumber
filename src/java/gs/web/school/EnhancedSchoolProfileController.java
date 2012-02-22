@@ -165,7 +165,13 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         values.clear();
         values.addAll(mergeValuesForKeys(responses, true, "student_clubs"));
         values.addAll(mergeValuesForKeys(responses, false, "student_clubs_other_1", "student_clubs_other_2", "student_clubs_other_3"));
-        model.put("studentClubs", StringUtils.joinPretty(values.iterator(), "; "));
+        model.put("student_clubs", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge transportation
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "parent_involvement"));
+        values.addAll(mergeValuesForKeys(responses, false, "parent_involvement_other"));
+        model.put("parent_involvement", StringUtils.joinPretty(values.iterator(), "; "));
 
         // merge foreign language keys
         values.clear();
