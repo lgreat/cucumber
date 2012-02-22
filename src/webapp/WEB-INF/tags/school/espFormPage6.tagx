@@ -114,6 +114,7 @@
             <div class="lal clearfix">
                 <div class="grid_7 alpha">
                     <p class="labelGroup">Upload photos of your school or events at your school that will appear on the GreatSchools profile. Limit is ${maxNumberOfPhotos} photos.</p>
+                    <school:espFieldError text="Error occurred" styleId="jsUploadError" styleClass="grid_6 omega"/>
                 </div>
                 <div class="grid_16 omega">
                     <mod:photoUploader url="/photoUploader/photoUploaderTest.page" maxNumberOfPhotos="${maxNumberOfPhotos}" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" />
@@ -124,6 +125,7 @@
             <div class="lal clearfix">
                 <div class="grid_7 alpha">
                     <p class="labelGroup">Uploaded photos</p>
+                    <p>Photos in pending status are being porcessed and will be avaliable momentarily</p>
                 </div>
                 <div class="grid_16 omega">
                     <mod:pollingPhotoViewer url="/photoUploader/photoUploaderTest.json" maxNumberOfPhotos="10" schoolId="${school.id}" schoolDatabaseState="${school.databaseState.abbreviationLowerCase}" existingPhotos="${schoolMedias}" startPolling="${param.page eq 6}"/>
