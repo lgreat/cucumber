@@ -207,7 +207,7 @@
             <school:espCheckboxWithLabel key="transportation" value="shared_bus" label="School shares bus/van with other schools"/>
             <school:espCheckboxWithLabel key="transportation" value="special_ed_only" label="Transportation provided for special education students only"/>
             <school:espCheckboxWithLabel key="transportation" value="other" label="Other" styleClass="js_otherField_form_transportation_other" nobr="true"/>
-            <input id="form_transportation_other" class='js_otherField mls text input_4' type="text" name="transportation_other"
+            <input id="form_transportation_other" class='js_otherField mls text-smaller input_4' type="text" name="transportation_other"
                    value="${responseMap['transportation_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             <div id="form_transportation_error"  class="error fltrt" style="display: none">
                 <span class="sprite i-alert vam"><!--Do not collapse--></span>

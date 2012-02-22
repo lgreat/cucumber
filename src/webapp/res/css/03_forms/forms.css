@@ -41,7 +41,7 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 label, .slFormsV1-0 .labelGroup {font: bold 12px/18px Arial, Helvetica, sans-serif;}
 .slFormsV1-0 .labelGroup{ margin-bottom:0; }
 .slFormsV1-0 .tal label { display:block; }
-.slFormsV1-0 .lal label, .ral label { display:inline-block; padding:6px 0; }
+.slFormsV1-0 .lal label, .ral label { display:inline-block; padding:2px 0; }
 .slFormsV1-0 .ral label { text-align:right; }
 
 .slFormsV1-0 label.checkbox, label.radio { font: normal 12px/18px Arial, Helvetica, sans-serif; color: #555555; display: inline; }
@@ -83,6 +83,7 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 .ral select { margin: 5px; }
 
 .slFormsV1-0 input.text {padding:5px 5px;}
+.slFormsV1-0 input.text-smaller {padding:2px;}
 .slFormsV1-0 textarea {padding:5px;resize:none;overflow:auto;}
 .slFormsV1-0 textarea.height-1{height:69px;}
 .slFormsV1-0 textarea.height-2{height:123px;}
