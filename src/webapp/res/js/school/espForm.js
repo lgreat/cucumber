@@ -514,7 +514,7 @@ GS.validation.validateUrl = function(url) {
     return GS.validation.URL_PATTERN.test(url);
 };
 
-GS.validation.EMAIL_PATTERN = /^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$/;
+GS.validation.EMAIL_PATTERN = /^[_a-zA-Z0-9+-]+(\.[_a-zA-Z0-9+-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$/;
 // GS.validation.EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/;
 GS.validation.LEGAL_ASCII_PATTERN = /^[\000-\\177]+$/;
 
@@ -788,7 +788,7 @@ new (function() {
         validations.push(GS.validation.validateRequiredIfChecked('#form_application_fee_amount', '#form_application_fee__yes', '#form_application_fee_amount_error'));
         validations.push(GS.validation.validateAllOrNone('#form_tuition_low, #form_tuition_high, #form_tuition_year', '#form_tuition_error'));
         validations.push(GS.validation.validateRequiredIfChecked('#form_financial_aid_type_other', '#form_financial_aid_type__other', '#form_financial_aid_type_other_error'));
-
+        validations.push(GS.validation.validateInteger('#form_application_fee_amount', '#form_application_fee_amount_error'));
         // END PAGE 3
 
         // PAGE 4
@@ -951,7 +951,7 @@ new (function() {
         $('#form_students_accepted').keyup();
         $('#form_application_fee').on('keyup', function(){
         	$('#form_application_fee_amount').toggle(appFeeShow && ($(this).val().length > 0));
-            $('[name=fee_waivers]').toggle(appFeeShow);
+            $('#js-fee-waivers').toggle(appFeeShow);
         });
         $('#form_application_fee').toggle(appFeeShow).keyup();
         $('[name=form_application_process]').on('change', function(){
@@ -971,6 +971,9 @@ new (function() {
         $('#form_financial_aid__yes').change();
         $('[name*="feeder_school_"]').toggle(isMiddleSchool || isHighSchool);
         $('[name*="destination_school_"]').toggle(isElementarySchool || isHighSchool);
+
+
+        GS.form.controlVisibilityOfElementWithRadio('#js_application_fee_group', '[name=application_fee]', 'yes');
         //GS.util.log('p3 validation - END');
         // END page 3 specific
 
