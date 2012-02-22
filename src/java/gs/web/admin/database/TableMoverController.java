@@ -154,15 +154,15 @@ public class TableMoverController extends SimpleFormController {
                 ",gs_schooldb.TestDataType,gs_schooldb.TestDataBreakdown,gs_schooldb.TestDataSubject" +
                 ",gs_schooldb.TestProficiencyBandGroup,gs_schooldb.TestProficiencyBand",
                 "Test Display tables (only use with dev to staging)");
-        tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,pq,pq_volunteer", "Public Directory (w/ census)");
-        tableSets.put("school,district,pq,pq_volunteer", "Public Directory (no census)");
-        tableSets.put("school,census_data_set,census_data_school_value,pq,pq_volunteer", "Private Directory: Schools only (w/ census)");
-        tableSets.put("school,pq,pq_volunteer", "Private Directory: Schools only (no census)");
+        tableSets.put("school,district,census_data_set,census_data_school_value,census_data_district_value,esp_response", "Public Directory (w/ census)");
+        tableSets.put("school,district,esp_response", "Public Directory (no census)");
+        tableSets.put("school,census_data_set,census_data_school_value,esp_response", "Private Directory: Schools only (w/ census)");
+        tableSets.put("school,esp_response", "Private Directory: Schools only (no census)");
         tableSets.put("gs_schooldb.census_data_set_file,gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby", "Directory Copy Up (w/ census)");
         tableSets.put("gs_schooldb.DataFile,gs_schooldb.DataLoad,us_geo.city,nearby", "Directory Copy Up (no census)");
-        tableSets.put("school,pq,pq_volunteer", "Schools and ESP");
+        tableSets.put("school,esp_response", "Schools and ESP");
         tableSets.put("nearby", "Nearby");
-        tableSets.put("pq,pq_volunteer", "ESP");
+        tableSets.put("esp_response", "ESP");
         tableSets.put("school,nearby", "School and Nearby");
         tableSets.put("school", "Schools only (no census)");
         tableSets.put("district", "Districts only (no census)");
