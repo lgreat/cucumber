@@ -199,8 +199,8 @@
             <tr>
                 <td class="small_bold">Application Fee?</td>
                 <td>
-                    <c:if test="${not empty appFee}">${appFee}&#160;</c:if>
-                    <c:if test="${not empty appFeeAmt}">$${appFeeAmt}&#160;</c:if>
+                    <c:if test="${not empty appFee and fn:toLowerCase(appFee) ne 'yes'}">${appFee}&amp;#059;&amp;#160;</c:if>
+                    <c:if test="${not empty appFeeAmt}">$${appFeeAmt}&amp;#059;&amp;#160;</c:if>
                     <c:if test="${not empty feeWaiversDesc}">${feeWaiversDesc}</c:if>
                 </td>
             </tr>
