@@ -11,10 +11,11 @@
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
 
     <div id="photo-upload-container">
-
-
-
         <table>
+            <col width="207"/>
+            <col width="207"/>
+            <col width="157"/>
+            <col width="57"/>
             <thead>
             <tr>
                 <th>Filename</th>
@@ -24,40 +25,37 @@
             </tr>
             </thead>
             <tfoot>
-                <tr>
-                    <td colspan="4">
+            <tr>
+                <td colspan="4">
                         <span id="photoUploaderButtons" colspan="4">
-                            <button class="button-1" id="jsPhotoQueueButton" type="button" style="-moz-user-select: none;">Select files</button>
+                            <button class="button-1" id="jsPhotoQueueButton" type="button"
+                                    style="-moz-user-select: none;">Select files
+                            </button>
                             &amp;nbsp;
-                            <button class="button-1-inactive" id="jsPhotoUploadButton" type="button" style="-moz-user-select: none;" disabled="true">Upload files</button>
+                            <button class="button-1-inactive" id="jsPhotoUploadButton" type="button"
+                                    style="-moz-user-select: none;" disabled="true">Upload files
+                            </button>
                         </span>
-                    </td>
-                </tr>
+                </td>
+            </tr>
             </tfoot>
             <tbody><!-- no collapse -->
-                <c:forEach begin="1" end="${maxNumberOfPhotos}">
-                    <tr>
-                        <td>&amp;nbsp;</td>
-                        <td>&amp;nbsp;</td>
-                        <td>&amp;nbsp;</td>
-                        <td>&amp;nbsp;</td>
-                    </tr>
-                </c:forEach>
+            <c:forEach begin="1" end="${maxNumberOfPhotos}">
+                <tr>
+                    <td>&amp;nbsp;</td>
+                    <td>&amp;nbsp;</td>
+                    <td>&amp;nbsp;</td>
+                    <td>&amp;nbsp;</td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
-
 
         <div id="photoUploaderSpinner" class="spinner js-photoUploaderSpinner" style="">
             <gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse -->
         </div>
 
-        <span id="jsUploadError" style="display: none;" class="error">
-            Error occurred.
-        </span>
     </div>
-
-
-
 
     <script type="text/javascript">
         jQuery(function() {

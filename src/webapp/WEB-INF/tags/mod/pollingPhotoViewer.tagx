@@ -18,50 +18,51 @@
 
     <c:set var="numberOfExistingPhotos" value="${fn:length(existingPhotos)}"/>
 
-        <div id="pollingPhotoViewer">
-            <div style="display:none;" id="js-photo-template" class="polling-photo-viewer-item">
-                <img id="js-photo-placeholder"
-                      class="js-photo-pending"
-                      src="/res/img/pending-photo.png"
-                      width="75" height="75"
-                      alt="placeholder"/>
-                <span class="js-deletePhoto deletePhoto">X</span>
-            </div>
-            <c:if test="${numberOfExistingPhotos eq 0}">
-                <div id="js-noPhotosYet">
-                    <p>No existing photos</p>
-                </div>
-            </c:if>
-            <c:forEach items="${existingPhotos}" var="existingPhoto">
-                <div id="js-pollingPhotoViewerItem-${existingPhoto.id}" class="polling-photo-viewer-item">
-                    <c:choose>
-                        <c:when test="${existingPhoto.status eq 1}">
-                            <img id="js-photo-${existingPhoto.id}"
-                                 class="js-photo-${existingPhoto.statusAsString}"
-                                 src="${basePhotoPath}${existingPhoto.smallSizeFile}"
-                                 width="75" height="75"
-                                 alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <img id="js-photo-${existingPhoto.id}"
-                                 class="js-photo-${existingPhoto.statusAsString}"
-                                 src="/res/img/pending-photo.png"
-                                 width="75" height="75"
-                                 alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <span class="js-deletePhoto deletePhoto">X</span>
-                </div>
-            </c:forEach>
-
-            <!--<c:forEach begin="1" end="${maxNumberOfPhotos - numberOfExistingPhotos}">
-                <div>
-                    <img src="/res/img/pixel.gif" width="75" height="75"/>
-                </div>
-            </c:forEach>-->
-            <br class="clearfloat" />
-            <br/><br/>
+    <div id="pollingPhotoViewer">
+        <div style="display:none;" id="js-photo-template" class="polling-photo-viewer-item fltlft mrl">
+            <img id="js-photo-placeholder"
+                 class="js-photo-pending"
+                 src="/res/img/osp/pending-photo.png"
+                 width="70" height="70"
+                 alt="placeholder"/>
+            <span class="js-deletePhoto deletePhoto iconx16 i-16-close mhs"><!-- do not collapse --></span>
         </div>
+        <c:if test="${numberOfExistingPhotos eq 0}">
+            <div id="js-noPhotosYet">
+                <p>No existing photos</p>
+            </div>
+        </c:if>
+        <c:forEach items="${existingPhotos}" var="existingPhoto">
+            <div id="js-pollingPhotoViewerItem-${existingPhoto.id}" class="polling-photo-viewer-item fltlft mrl">
+                <c:choose>
+                    <c:when test="${existingPhoto.status eq 1}">
+                        <img id="js-photo-${existingPhoto.id}"
+                             class="js-photo-${existingPhoto.statusAsString} "
+                             src="${basePhotoPath}${existingPhoto.smallSizeFile}"
+                             width="70" height="70"
+                             alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <img id="js-photo-${existingPhoto.id}"
+                             class="js-photo-${existingPhoto.statusAsString} "
+                             src="/res/img/osp/pending-photo.png"
+                             width="70" height="70"
+                             alt="${existingPhoto.statusAsString} ${existingPhoto.originalFileName}"/>
+                    </c:otherwise>
+                </c:choose>
+
+                <span class="js-deletePhoto deletePhoto iconx16 i-16-close mhs"><!-- do not collapse --></span>
+            </div>
+        </c:forEach>
+
+        <!--<c:forEach begin="1" end="${maxNumberOfPhotos - numberOfExistingPhotos}">
+            <div>
+                <img src="/res/img/pixel.gif" width="75" height="75"/>
+            </div>
+        </c:forEach>-->
+        <br class="clearfloat"/>
+        <br/><br/>
+    </div>
 
     <mod:photoDeleteConfirmHover/>
 

@@ -34,52 +34,7 @@
         </c:choose>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>GreatSchools Official School Profile, ${tabTitle} - ${school.name}, ${school.physicalAddress.city}, ${school.databaseState}</title>
-        <style type="text/css">
-            .placeholder {
-                color: #aaa;
-            }
 
-            #photoUploaderSpinner {
-                display:none;
-                position:relative;
-                left: 235px;
-                top: -25px;
-            }
-
-            /*#jsUploadComplete, #jsUploadError {
-                display: none;
-                position: relative;
-                padding: 8px;
-                border: 1px solid #808080;
-                color:green;
-                width: 115px;
-                left: 180px;
-                top: 70px;
-                background: #fafafa;
-                font-weight: bold;
-                float:left;
-            }*/
-
-            #jsUploadError {
-                color: red;
-            }
-
-            .polling-photo-viewer-item {
-                width:100px;
-                height:75px;
-                min-width:100px;
-                min-height: 75px;
-                display:block;
-                float:left;
-                margin-bottom: 25px;
-            }
-
-            .polling-photo-viewer-item img, #photoConfirmationImagePlaceholder img {
-                border:1px solid grey;
-                min-height: 75px;
-                display:block;
-            }
-        </style>
         <script type="text/javascript">
             var GS = GS || {};
             GS.espForm = GS.espForm || {};
